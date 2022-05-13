@@ -59,6 +59,7 @@
     
     self.currentTransaction.skadnInfo = self.bid.skadn;
     self.currentTransaction.impURL = self.bid.events.imp;
+    self.currentTransaction.winURL = self.bid.events.win;
     
     self.currentTransaction.delegate = self;
     

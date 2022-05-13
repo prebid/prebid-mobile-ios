@@ -107,16 +107,20 @@ import UIKit
         }) else {
             return nil
         }
-
-        if let winURL = rawBid.ext.prebid?.events?.win {
-            PBMServerConnection.shared.fireAndForget(winURL)
-        }
         
         let ad = NativeAd()
         
         if let impURL = rawBid.ext.prebid?.events?.imp {
             let internalImpressionEventTracker = PrebidServerEventTracker(url: impURL, expectedEventType: .impression)
             ad.eventManager.registerTracker(internalImpressionEventTracker)
+        }
+        
+        if let winURL = rawBid.ext.prebid?.events?.win {
+            let winEventTracker = PrebidServerEventTracker(url: winURL, expectedEventType: .prebidWin)
+            ad.eventManager.registerTracker(winEventTracker)
+            
+            // Track win event immediately
+            ad.eventManager.trackEvent(.prebidWin)
         }
         
         guard let nativeAdMarkup = NativeAdMarkup(jsonString: rawBid.adm) else {

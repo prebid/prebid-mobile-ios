@@ -91,6 +91,16 @@
             PrebidServerEventTracker *impEventTracker = [[PrebidServerEventTracker alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
             [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) impEventTracker];
         }
+        
+        NSString *winURL = self.transaction.winURL;
+        
+        if (winURL) {
+            PrebidServerEventTracker *winEventTracker = [[PrebidServerEventTracker alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
+            [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) winEventTracker];
+        }
+        
+        // Track win event immediately
+        [self.eventManager trackEvent:PBMTrackingEventPrebidWin];
     }
 
     return self;

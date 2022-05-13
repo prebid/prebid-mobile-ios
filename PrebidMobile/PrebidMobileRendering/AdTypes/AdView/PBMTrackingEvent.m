@@ -47,6 +47,7 @@
         case PBMTrackingEventError              : return @"creativeModelTrackingKey_Error";
         case PBMTrackingEventAcceptInvitation   : return @"acceptInvitation";
         case PBMTrackingEventLoaded             : return @"loaded";
+        case PBMTrackingEventPrebidWin          : return @"prebid_Win";
     }
 }
 

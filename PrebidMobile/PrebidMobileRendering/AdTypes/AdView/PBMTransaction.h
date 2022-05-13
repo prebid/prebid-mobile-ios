@@ -42,7 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PBMOpenMeasurementWrapper *measurementWrapper;
 
 @property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadnInfo;
-@property (nonatomic, strong, nullable) NSString *impURL;
+@property (nonatomic, strong, nullable) NSString *impURL; // bidResponse.ext.prebid.events.imp
+@property (nonatomic, strong, nullable) NSString *winURL; // idResponse.ext.prebid.events.win
 
 @property (atomic, weak, nullable) id<PBMTransactionDelegate> delegate;
 
