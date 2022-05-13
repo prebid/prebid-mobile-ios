@@ -16,7 +16,7 @@
 import UIKit
 
 @objcMembers
-public class InternalEventTracker: NSObject, PBMEventTrackerProtocol {
+public class PrebidServerEventTracker: NSObject, PBMEventTrackerProtocol {
     
     var url: String
     var expectedEventType: PBMTrackingEvent

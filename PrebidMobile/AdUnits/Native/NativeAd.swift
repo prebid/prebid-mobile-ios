@@ -115,7 +115,7 @@ import UIKit
         let ad = NativeAd()
         
         if let impURL = rawBid.ext.prebid?.events?.imp {
-            let internalImpressionEventTracker = InternalEventTracker(url: impURL, expectedEventType: .impression)
+            let internalImpressionEventTracker = PrebidServerEventTracker(url: impURL, expectedEventType: .impression)
             ad.eventManager.registerTracker(internalImpressionEventTracker)
         }
         

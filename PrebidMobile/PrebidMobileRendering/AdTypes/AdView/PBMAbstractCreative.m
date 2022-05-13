@@ -88,7 +88,7 @@
         NSString *impURL = self.transaction.impURL;
         
         if (impURL) {
-            InternalEventTracker *impEventTracker = [[InternalEventTracker alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
+            PrebidServerEventTracker *impEventTracker = [[PrebidServerEventTracker alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
             [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) impEventTracker];
         }
     }
