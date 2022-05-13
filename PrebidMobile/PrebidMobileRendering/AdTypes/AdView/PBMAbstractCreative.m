@@ -425,7 +425,9 @@
 }
 
 - (void)onAdDisplayed {
-    [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
+    if (self.transaction.measurementSession.eventTracker) {
+        [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
+    }
 
     [self.creativeViewDelegate creativeDidDisplay:self];
     [self onWillTrackImpression];
