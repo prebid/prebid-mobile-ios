@@ -13,8 +13,7 @@
  limitations under the License.
  */
 
-import Foundation
-import StoreKit
+import UIKit
 
 @objcMembers
 public class InternalEventTracker: NSObject, PBMEventTrackerProtocol {
