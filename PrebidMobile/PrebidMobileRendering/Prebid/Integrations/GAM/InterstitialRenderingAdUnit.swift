@@ -46,14 +46,14 @@ public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
             eventHandler: InterstitialEventHandlerStandalone())
     }
 
-    @objc public init(configID: String, minSizePercentage:CGSize, eventHandler: AnyObject) {
+    @objc public init(configID: String, minSizePercentage: CGSize, eventHandler: AnyObject) {
         super.init(
             configID: configID,
             minSizePerc: NSValue(cgSize: minSizePercentage),
             eventHandler: eventHandler)
     }
     
-    @objc required init(configID:String, minSizePerc: NSValue?, eventHandler:AnyObject?) {
+    @objc required init(configID: String, minSizePerc: NSValue?, eventHandler: AnyObject?) {
         super.init(
             configID: configID,
             minSizePerc: minSizePerc,

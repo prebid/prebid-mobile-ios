@@ -105,6 +105,7 @@ public class BaseInterstitialAdUnit :
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
+        adUnitConfig.adConfiguration.adFormats = [.display, .video]
         blocksLockToken = NSObject()
 
         self.eventHandler = eventHandler
