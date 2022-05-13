@@ -85,18 +85,24 @@
             }
         }
         
+        PrebidServerEventTracker *internalEventTracker = [[PrebidServerEventTracker alloc] initWithServerEvents:@[]];
+        
         NSString *impURL = self.transaction.impURL;
         
         if (impURL) {
-            PrebidServerEventTracker *impEventTracker = [[PrebidServerEventTracker alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
-            [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) impEventTracker];
+            ServerEvent *impEvent = [[ServerEvent alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
+            [internalEventTracker addServerEvents:@[impEvent]];
         }
         
         NSString *winURL = self.transaction.winURL;
         
         if (winURL) {
-            PrebidServerEventTracker *winEventTracker = [[PrebidServerEventTracker alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
-            [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) winEventTracker];
+            ServerEvent *winEvent = [[ServerEvent alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
+            [internalEventTracker addServerEvents:@[winEvent]];
+        }
+        
+        if (internalEventTracker.serverEvents.count > 0) {
+            [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) internalEventTracker];
         }
         
         // Track win event immediately

@@ -110,18 +110,22 @@ import UIKit
         
         let ad = NativeAd()
         
+        let internalEventTracker = PrebidServerEventTracker()
+        
         if let impURL = rawBid.ext.prebid?.events?.imp {
-            let internalImpressionEventTracker = PrebidServerEventTracker(url: impURL, expectedEventType: .impression)
-            ad.eventManager.registerTracker(internalImpressionEventTracker)
+            let impEvent = ServerEvent(url: impURL, expectedEventType: .impression)
+            internalEventTracker.addServerEvents([impEvent])
         }
         
         if let winURL = rawBid.ext.prebid?.events?.win {
-            let winEventTracker = PrebidServerEventTracker(url: winURL, expectedEventType: .prebidWin)
-            ad.eventManager.registerTracker(winEventTracker)
-            
-            // Track win event immediately
-            ad.eventManager.trackEvent(.prebidWin)
+            let winEvent = ServerEvent(url: winURL, expectedEventType: .prebidWin)
+            internalEventTracker.addServerEvents([winEvent])
         }
+        
+        ad.eventManager.registerTracker(internalEventTracker)
+        
+        // Track win event immediately
+        ad.eventManager.trackEvent(.prebidWin)
         
         guard let nativeAdMarkup = NativeAdMarkup(jsonString: rawBid.adm) else {
             Log.warn("Can't retrieve native ad markup from bid response.")
