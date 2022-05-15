@@ -24,7 +24,6 @@
 #import "PBMVastRequester.h"
 #import "PBMVastWrapperAd.h"
 #import "PBMURLComponents.h"
-#import "PBMServerResponse.h"
 #import "NSException+PBMExtensions.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMMacros.h"
@@ -192,7 +191,7 @@ typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
         self.requestsPending += 1;
     });
     
-    [self.serverConnection get:vastURL timeout:PBMTimeInterval.CONNECTION_TIMEOUT_DEFAULT callback:^(PBMServerResponse * _Nonnull serverResponse) {
+    [self.serverConnection get:vastURL timeout:PBMTimeInterval.CONNECTION_TIMEOUT_DEFAULT callback:^(ServerResponse * _Nonnull serverResponse) {
         if (serverResponse.error) {
             completion(serverResponse.error);
             return;

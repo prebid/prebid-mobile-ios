@@ -81,21 +81,21 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
     }
     
     // HEAD is the same as GET but the server doesn't return a body.
-    public func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping (PBMServerResponse) -> Void) {
+    public func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping (ServerResponse) -> Void) {
         getFor(resourceURL, timeout: timeout, headersOnly: true, callback: callback)
     }
     
-    public func get(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping (PBMServerResponse) -> Void) {
+    public func get(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping (ServerResponse) -> Void) {
         getFor(resourceURL, timeout: timeout, headersOnly: false, callback: callback)
     }
     
     public func post(_ resourceURL: String?, data: Data?, timeout: TimeInterval,
-                     callback: @escaping (PBMServerResponse) -> Void) {
+                     callback: @escaping (ServerResponse) -> Void) {
         post(resourceURL, contentType: ServerConnection.contentTypeVal, data: data, timeout: timeout, callback: callback)
     }
     
     public func post(_ resourceURL: String?, contentType: String?,data: Data?, timeout: TimeInterval,
-                     callback: @escaping (PBMServerResponse) -> Void) {
+                     callback: @escaping (ServerResponse) -> Void) {
         guard var request = createRequest(resourceURL) else {
             return
         }
@@ -113,7 +113,7 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
         task.resume()
     }
     
-    public func download(_ resourceURL: String?, callback: @escaping (PBMServerResponse) -> Void) {
+    public func download(_ resourceURL: String?, callback: @escaping (ServerResponse) -> Void) {
         guard var request = createRequest(resourceURL) else {
             return
         }
@@ -154,7 +154,7 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
                                   responseData: Data?, error: Error?,
                                   fullServerCallback: ServerResponseCallback) {
         
-        let serverResponse = PBMServerResponse()
+        let serverResponse = ServerResponse()
         
         serverResponse.requestURL = request.url?.path
         serverResponse.requestHeaders = request.allHTTPHeaderFields

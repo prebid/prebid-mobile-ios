@@ -14,7 +14,6 @@
  */
 
 #import "PBMJSLibraryManager.h"
-#import "PBMServerResponse.h"
 #import "PBMFunctions+Private.h"
 #import "PBMError.h"
 #import "PBMMacros.h"
@@ -152,7 +151,7 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     
     NSString *urlString = [remoteLibrary.downloadURL absoluteString];
     @weakify(self);
-    [connection download:urlString callback:^(PBMServerResponse *response) {
+    [connection download:urlString callback:^(ServerResponse *response) {
         @strongify(self);
         PBMLogInfo(@"Server Side Configuration: The %@ was updated to the version %@", fileName, remoteLibrary.version);
         //updating contents string

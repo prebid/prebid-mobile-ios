@@ -15,7 +15,7 @@
 
 import Foundation
 
-public typealias ServerResponseCallback = (PBMServerResponse) -> Void
+public typealias ServerResponseCallback = (ServerResponse) -> Void
 
 @objc public protocol ServerConnectionProtocol {
     

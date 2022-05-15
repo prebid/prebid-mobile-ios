@@ -18,7 +18,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMServerResponse.h"
 #import "PBMJSLibraryManager.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -275,7 +274,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     @weakify(self);
-    [connection download:self.jsLibURL callback:^(PBMServerResponse * _Nonnull response) {
+    [connection download:self.jsLibURL callback:^(ServerResponse * _Nonnull response) {
         @strongify(self);
         // Delayed call to not process all error cases.
         dispatch_async(dispatch_get_main_queue(), ^{

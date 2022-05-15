@@ -38,5 +38,3 @@
 
 #import "PBMEventTrackerProtocol.h"
 #import "PBMInterstitialDisplayProperties.h"
-
-#import "PBMServerResponse.h"

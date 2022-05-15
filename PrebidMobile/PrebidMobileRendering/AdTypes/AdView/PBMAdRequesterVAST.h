@@ -20,7 +20,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class PBMServerResponse;
+@class ServerResponse;
 @protocol ServerConnectionProtocol;
 
 @interface PBMAdRequesterVAST : NSObject

@@ -15,7 +15,6 @@
 
 #import "PBMBidResponseTransformer.h"
 #import "PBMError.h"
-#import "PBMServerResponse.h"
 #import "PBMORTBAbstract+Protected.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -23,7 +22,7 @@
 
 @implementation PBMBidResponseTransformer
 
-+ (BidResponse *)transformResponse:(PBMServerResponse *)response error:(NSError **)error {
++ (BidResponse *)transformResponse:(ServerResponse *)response error:(NSError **)error {
     NSString * const responseBody = [[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding];
     if ([responseBody containsString:@"Invalid request"]) {
         if (error) {

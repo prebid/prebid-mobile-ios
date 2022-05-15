@@ -16,7 +16,6 @@
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMVastCreativeCompanionAdsCompanion.h"
 #import "PBMCreativeModel.h"
-#import "PBMServerResponse.h"
 #import "PBMTrackingEvent.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMVastInlineAd.h"

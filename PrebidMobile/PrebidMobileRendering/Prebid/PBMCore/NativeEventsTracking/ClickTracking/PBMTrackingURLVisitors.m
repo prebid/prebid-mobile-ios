@@ -25,7 +25,7 @@
         for(NSString *trackingUrlString in trackingUrlStrings) {
             // TODO: Use 'fireAndForget' ?
             // TODO: Use non-zero timeout ?
-            [connection get:trackingUrlString timeout:0 callback:^(PBMServerResponse *response){}];
+            [connection get:trackingUrlString timeout:0 callback:^(ServerResponse *response){}];
         }
     };
 }

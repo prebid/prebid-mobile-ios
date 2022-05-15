@@ -17,7 +17,6 @@
 #import "PBMVideoCreative.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMError.h"
-#import "PBMServerResponse.h"
 #import "PBMMacros.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -58,7 +57,7 @@
         return;
     }
 
-    [self.serverConnection head:url.absoluteString timeout:PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT callback:^(PBMServerResponse * _Nonnull serverResponse) {
+    [self.serverConnection head:url.absoluteString timeout:PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT callback:^(ServerResponse * _Nonnull serverResponse) {
   
         NSString *strContentLength = serverResponse ? serverResponse.responseHeaders[@"Content-Length"] : nil;
         
@@ -89,7 +88,7 @@
         return;
     }
     
-    [self.serverConnection download:url.absoluteString callback:^(PBMServerResponse * _Nonnull response) {
+    [self.serverConnection download:url.absoluteString callback:^(ServerResponse * _Nonnull response) {
         if (!response) {
             completionClosure(nil, [PBMError errorWithDescription:[NSString stringWithFormat:@"The response is empty for loading data from %@ ", url]]);
             return;

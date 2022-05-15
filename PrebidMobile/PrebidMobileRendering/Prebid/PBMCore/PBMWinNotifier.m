@@ -18,7 +18,6 @@
 
 #import "PBMORTBMacrosHelper.h"
 #import "PBMFunctions+Private.h"
-#import "PBMServerResponse.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
@@ -40,10 +39,10 @@
             if (adMarkup != nil) {
                 // markup already known -- report to chained callbacks and send notification in parallel
                 onResult(adMarkup);
-                [connection download:notificationUrl callback:^(PBMServerResponse * response) { /* nop */ }];
+                [connection download:notificationUrl callback:^(ServerResponse * response) { /* nop */ }];
             } else {
                 // markup not yet known -- get a single response
-                [connection download:notificationUrl callback:^(PBMServerResponse * _Nonnull response) {
+                [connection download:notificationUrl callback:^(ServerResponse * _Nonnull response) {
                     NSString *adMarkupFromResponse = nil;
                     if (response.error == nil && response.rawData != nil) {
                         NSString * const rawResponseString = [[NSString alloc] initWithData:response.rawData

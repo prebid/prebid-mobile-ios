@@ -19,7 +19,6 @@
 #import "PBMORTBPrebid.h"
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMParameterBuilderService.h"
-#import "PBMServerResponse.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
@@ -89,7 +88,7 @@
     [self.connection post:requestServerURL
                      data:[requestString dataUsingEncoding:NSUTF8StringEncoding]
                   timeout:postTimeout
-                 callback:^(PBMServerResponse * _Nonnull serverResponse) {
+                 callback:^(ServerResponse * _Nonnull serverResponse) {
         @strongify(self);
         if (!self) {
             return;

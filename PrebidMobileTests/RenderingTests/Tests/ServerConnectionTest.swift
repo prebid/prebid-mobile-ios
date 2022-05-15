@@ -126,7 +126,7 @@ class ServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Test
-        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:ServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
 
@@ -196,7 +196,7 @@ class ServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Test
-        connection.head("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        connection.head("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:ServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
             let expectedResponseHeaders = [
@@ -258,7 +258,7 @@ class ServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         let postData = strPostData.data(using: .utf8)!
-        connection.post("http://foo.com/bo?param_key=abc123", data:postData, timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        connection.post("http://foo.com/bo?param_key=abc123", data:postData, timeout:3.0, callback:{ (serverResponse:ServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
             let expectedResponseHeaderDict:[String:String] = [
@@ -335,7 +335,7 @@ class ServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Test
-        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:ServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
 
@@ -384,7 +384,7 @@ class ServerConnectionTestJSON : XCTestCase {
 
         //Run the test
         self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
-        conn.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response:PBMServerResponse) in
+        conn.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response:ServerResponse) in
             self.callbackCalledExpectation.fulfill()
             XCTAssertEqual(response.statusCode, 200)
 
@@ -473,7 +473,7 @@ class ServerConnectionTestJSONSlow : XCTestCase {
         
         //Run the test
         self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
-        conn.post("http://foo.com", data:Data(), timeout:30.0, callback:{ (response:PBMServerResponse) in
+        conn.post("http://foo.com", data:Data(), timeout:30.0, callback:{ (response:ServerResponse) in
             self.callbackCalledExpectation.fulfill()
             XCTAssertEqual(response.statusCode, 200)
             
@@ -578,7 +578,7 @@ class ServerConnectionTest_Redirect: XCTestCase {
         MockServer.shared.resetRules([firstRule, secondRule])
         
         // Test ServerConnection
-        connection.get(firstURL, timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        connection.get(firstURL, timeout:3.0, callback:{ (serverResponse: ServerResponse) in
             
             //The result should be that the 302 is handled internally and we get back a 200.
             PBMAssertEq(serverResponse.statusCode, 200)

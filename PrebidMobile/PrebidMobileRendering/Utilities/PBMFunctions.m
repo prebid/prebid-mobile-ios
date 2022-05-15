@@ -19,7 +19,6 @@
 
 #import "PBMConstants.h"
 #import "PBMError.h"
-#import "PBMServerResponse.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
