@@ -10,7 +10,6 @@
 #import "PBMInterstitialEventHandler.h"
 
 #import "PBMError.h"
-#import "PBMServerConnection.h"
 #import "PBMModalManagerDelegate.h"
 #import "PBMAdLoadManagerDelegate.h"
 #import "PBMCreativeViewDelegate.h"
@@ -39,3 +38,5 @@
 
 #import "PBMEventTrackerProtocol.h"
 #import "PBMInterstitialDisplayProperties.h"
+
+#import "PBMServerResponse.h"

@@ -17,7 +17,6 @@
 
 @import PrebidMobile;
 
-#import "PBMServerConnection.h"
 #import "MockServer.h"
 #import "MockServerRule.h"
 
@@ -93,7 +92,7 @@
     }
     
     NSString *connectionID = request.allHTTPHeaderFields[self.connectionIDHeaderKey];
-    if (request.allHTTPHeaderFields[PBMServerConnection.isPBMRequestKey] && !connectionID) {
+    if (request.allHTTPHeaderFields[ServerConnection.isPBMRequestKey] && !connectionID) {
         NSLog(@"All requests in mocked tests must be provided with internal connection ID in the header.");
         return nil;
     }

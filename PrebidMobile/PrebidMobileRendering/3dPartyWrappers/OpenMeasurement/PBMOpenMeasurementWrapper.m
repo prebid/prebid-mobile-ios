@@ -18,7 +18,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMServerConnectionProtocol.h"
 #import "PBMServerResponse.h"
 #import "PBMJSLibraryManager.h"
 
@@ -265,7 +264,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                             versionString:[PBMFunctions omidVersion]];
 }
 
-- (void)downloadJSLibWithConnection:(id<PBMServerConnectionProtocol>)connection completion:(nullable PBMVoidBlock)completion {
+- (void)downloadJSLibWithConnection:(id<ServerConnectionProtocol>)connection completion:(nullable PBMVoidBlock)completion {
     if (!connection) {
         PBMLogError(@"Connection is nil");
         if (completion) {

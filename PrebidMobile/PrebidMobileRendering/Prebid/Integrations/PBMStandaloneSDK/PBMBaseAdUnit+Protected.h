@@ -17,7 +17,6 @@
 
 #import "PBMBidRequesterFactoryBlock.h"
 #import "PBMWinNotifierBlock.h"
-#import "PBMServerConnectionProtocol.h"
 
 @class BidResponse;
 

@@ -17,7 +17,7 @@
 
 @class Prebid;
 @class Targeting;
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, class, readonly) PBMBidRequesterFactoryBlock requesterFactoryWithSingletons;
 
-+ (PBMBidRequesterFactoryBlock)requesterFactoryWithConnection:(id<PBMServerConnectionProtocol>)connection
++ (PBMBidRequesterFactoryBlock)requesterFactoryWithConnection:(id<ServerConnectionProtocol>)connection
                                              sdkConfiguration:(Prebid *)sdkConfiguration
                                                     targeting:(Targeting *)targeting;
 

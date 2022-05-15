@@ -17,7 +17,6 @@
 #import "PBMCreativeFactoryJob.h"
 #import "PBMMacros.h"
 #import "PBMError.h"
-#import "PBMServerConnectionProtocol.h"
 #import "PBMTransaction.h"
 #import "PBMAbstractCreative.h"
 
@@ -26,7 +25,7 @@
 
 @interface PBMCreativeFactory ()
 
-@property (strong, nonatomic) id<PBMServerConnectionProtocol> serverConnection;
+@property (strong, nonatomic) id<ServerConnectionProtocol> serverConnection;
 @property (strong, nonatomic) PBMTransaction *transaction;
 @property (strong, nonatomic) NSArray<PBMCreativeFactoryJob *> *jobs;
 @property (copy, nonatomic) PBMCreativeFactoryFinishedCallback finishedCallback;
@@ -37,7 +36,7 @@
     dispatch_queue_t _dispatchQueue;
 }
 
-- (nonnull instancetype)initWithServerConnection:(id<PBMServerConnectionProtocol>)serverConnection
+- (nonnull instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)serverConnection
                                      transaction:(PBMTransaction *)transaction
                                      finishedCallback:( PBMCreativeFactoryFinishedCallback)finishedCallback {
     self = [super init];

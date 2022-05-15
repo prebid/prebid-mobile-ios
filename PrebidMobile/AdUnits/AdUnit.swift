@@ -120,7 +120,7 @@ import ObjectiveC.runtime
         self.closureAd = completion
         adServerObject = adObject
 
-        bidRequester = PBMBidRequester(connection: PBMServerConnection.shared,
+        bidRequester = PBMBidRequester(connection: ServerConnection.shared,
                                        sdkConfiguration: Prebid.shared,
                                        targeting: Targeting.shared,
                                        adUnitConfiguration: adUnitConfig)

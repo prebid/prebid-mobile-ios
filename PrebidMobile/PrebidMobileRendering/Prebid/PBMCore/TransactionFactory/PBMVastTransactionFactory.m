@@ -14,15 +14,12 @@
  */
 
 #import "PBMVastTransactionFactory.h"
-
 #import "PBMAdLoadManagerVAST.h"
-
 #import "PBMMacros.h"
-
 
 @interface PBMVastTransactionFactory() <PBMAdLoadManagerDelegate>
 
-@property (nonatomic, strong, readonly, nonnull) id<PBMServerConnectionProtocol> connection;
+@property (nonatomic, strong, readonly, nonnull) id<ServerConnectionProtocol> connection;
 @property (nonatomic, strong, readonly, nonnull) AdConfiguration *adConfiguration;
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 
@@ -36,20 +33,19 @@
 @end
 
 
-
 @implementation PBMVastTransactionFactory
 
 // MARK: - Public API
 
 - (instancetype)initWithBid:(Bid *)bid
-                 connection:(id<PBMServerConnectionProtocol>)connection
+                 connection:(id<ServerConnectionProtocol>)connection
             adConfiguration:(AdConfiguration *)adConfiguration
                    callback:(PBMTransactionFactoryCallback)callback
 {
     if (!(self = [super init])) {
         return nil;
     }
-    
+
     _bid = bid;
     _adConfiguration = adConfiguration;
     _connection = connection;

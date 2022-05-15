@@ -19,7 +19,7 @@ import XCTest
 
 class PBMTransactionTests: XCTestCase {
     
-    let connection = PBMServerConnection()
+    let connection = ServerConnection()
     let adConfiguration = AdConfiguration()
     
     func testTransactionWithoutCreative() {
@@ -68,7 +68,7 @@ class PBMTransactionTests: XCTestCase {
     
     func testUpdateAdConfiguration() {
         
-        let pbmServerConnection = PBMServerConnection()
+        let serverConnection = ServerConnection()
         
         //Set up
         let adConfiguration = AdConfiguration()
@@ -77,7 +77,7 @@ class PBMTransactionTests: XCTestCase {
         adConfiguration.autoRefreshMax = nil
         
         let transaction = UtilitiesForTesting.createTransactionWithHTMLCreativeWithParams(
-            connection: pbmServerConnection,
+            connection: serverConnection,
             configuration: adConfiguration)
         
         XCTAssertEqual(transaction.adConfiguration.size, CGSize(width: 0, height: 0))

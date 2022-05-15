@@ -26,7 +26,7 @@ class CreativeModelTest: XCTestCase {
     
     func testTrackEvent() {
         
-        self.fireAndForgetExpectation = self.expectation(description: "Expected PBMServerConnection to talk to the server")
+        self.fireAndForgetExpectation = self.expectation(description: "Expected ServerConnection to talk to the server")
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
         
         //Set Up Mock Server

@@ -158,7 +158,7 @@ public class Prebid: NSObject {
     }
     
     public static func initializeSDK() {
-        let _ = PBMServerConnection.shared
+        let _ = ServerConnection.shared
         let _ = PBMLocationManager.shared
         let _ = PBMUserConsentDataManager.shared
         PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())

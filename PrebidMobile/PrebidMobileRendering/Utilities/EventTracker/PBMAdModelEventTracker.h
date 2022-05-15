@@ -17,7 +17,7 @@
 #import "PBMEventTrackerProtocol.h"
 
 @class PBMCreativeModel;
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 /**
  Implements PBMEventTrackerProtocol according to ad model received from the server.
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                     serverConnection:(id<PBMServerConnectionProtocol>)serverConnection NS_DESIGNATED_INITIALIZER;
+                     serverConnection:(id<ServerConnectionProtocol>)serverConnection NS_DESIGNATED_INITIALIZER;
 
 @end
 NS_ASSUME_NONNULL_END

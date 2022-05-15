@@ -21,7 +21,6 @@
 #import "PBMError.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMServerConnectionProtocol.h"
 #import "PBMTransactionDelegate.h"
 
 #import "PBMMacros.h"
@@ -31,7 +30,7 @@
 
 @interface PBMTransaction()
 
-@property (nonatomic, strong) id<PBMServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
 @property (nonatomic, strong) AdConfiguration *adConfiguration;
 @property (nonatomic, strong) PBMCreativeFactory *creativeFactory;
 
@@ -39,7 +38,7 @@
 
 @implementation PBMTransaction
 
-- (instancetype)initWithServerConnection:(id<PBMServerConnectionProtocol>)connection
+- (instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)connection
                          adConfiguration:(AdConfiguration*)adConfiguration
                                   models:(NSArray<PBMCreativeModel *> *)creativeModels {
     self = [super init];

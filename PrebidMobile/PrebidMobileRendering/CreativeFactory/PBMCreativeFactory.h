@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "PBMDownloadDataHelper.h"
 
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 @class PBMTransaction;
 @class PBMAbstractCreative;
 
@@ -26,7 +26,7 @@ typedef void(^PBMCreativeFactoryDownloadDataCompletionClosure)(NSURL* _Nonnull, 
 @interface PBMCreativeFactory : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithServerConnection:(nonnull id<PBMServerConnectionProtocol>)serverConnection
+- (nonnull instancetype)initWithServerConnection:(nonnull id<ServerConnectionProtocol>)serverConnection
                                      transaction:(nonnull PBMTransaction *)transaction
                                 finishedCallback:(nonnull PBMCreativeFactoryFinishedCallback)finishedCallback
 NS_DESIGNATED_INITIALIZER;

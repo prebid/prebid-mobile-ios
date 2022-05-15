@@ -24,7 +24,7 @@
 @class AdConfiguration;
 @class AdFormat;
 @protocol PBMModalManagerDelegate;
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMAdViewManager : NSObject <PBMCreativeViewDelegate>
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, getter=isMuted) BOOL muted;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
+- (instancetype)initWithConnection:(id<ServerConnectionProtocol>)connection
               modalManagerDelegate:(nullable id<PBMModalManagerDelegate>)modalManagerDelegate NS_DESIGNATED_INITIALIZER;
 
 - (nullable NSString*)revenueForNextCreative;

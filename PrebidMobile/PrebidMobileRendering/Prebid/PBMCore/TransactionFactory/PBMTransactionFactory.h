@@ -19,7 +19,7 @@
 @class Bid;
 @class AdConfiguration;
 
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithBid:(Bid *)bid
             adConfiguration:(AdUnitConfig *)adConfiguration
-                 connection:(id<PBMServerConnectionProtocol>)connection
+                 connection:(id<ServerConnectionProtocol>)connection
                    callback:(PBMTransactionFactoryCallback)callback;
 
 - (BOOL)loadWithAdMarkup:(NSString *)adMarkup;

@@ -16,7 +16,6 @@
 #import "PBMBidRequesterFactory.h"
 
 #import "PBMBidRequester.h"
-#import "PBMServerConnection.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
@@ -24,12 +23,12 @@
 @implementation PBMBidRequesterFactory
 
 + (PBMBidRequesterFactoryBlock)requesterFactoryWithSingletons {
-    return [self requesterFactoryWithConnection:[PBMServerConnection shared]
+    return [self requesterFactoryWithConnection:[ServerConnection shared]
                                sdkConfiguration:[Prebid shared]
                                       targeting:[Targeting shared]];
 }
 
-+ (PBMBidRequesterFactoryBlock)requesterFactoryWithConnection:(id<PBMServerConnectionProtocol>)connection
++ (PBMBidRequesterFactoryBlock)requesterFactoryWithConnection:(id<ServerConnectionProtocol>)connection
                                              sdkConfiguration:(Prebid *)sdkConfiguration
                                                     targeting:(Targeting *)targeting
 {

@@ -16,8 +16,11 @@
 #import <Foundation/Foundation.h>
 #import "PBMDeepLinkPlusHelper+Testing.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 static id<PBMUIApplicationProtocol> _application;
-static id<PBMServerConnectionProtocol> _connection;
+static id<ServerConnectionProtocol> _connection;
 
 @implementation PBMDeepLinkPlusHelper (Testing)
 
@@ -29,11 +32,11 @@ static id<PBMServerConnectionProtocol> _connection;
     _application = application;
 }
 
-+ (id<PBMServerConnectionProtocol>)connection {
++ (id<ServerConnectionProtocol>)connection {
     return _connection;
 }
 
-+ (void)setConnection:(id<PBMServerConnectionProtocol>)connection {
++ (void)setConnection:(id<ServerConnectionProtocol>)connection {
     _connection = connection;
 }
 

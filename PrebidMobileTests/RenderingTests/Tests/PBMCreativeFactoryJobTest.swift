@@ -22,7 +22,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
     func testVastCreativeFail() {
         let expectationFailure = self.expectation(description: "Expected creative factory job failure callback")
         
-        let connection = PBMServerConnection()
+        let connection = ServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let model = PBMCreativeModel(adConfiguration: AdConfiguration())
         
@@ -44,7 +44,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
     func testTimerExpiring() {
         let expectationFailure = self.expectation(description: "Expected creative factory job timer expire")
         
-        let connection = PBMServerConnection()
+        let connection = ServerConnection()
         let transaction = UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true)
         let model = transaction.creativeModels[0]
         
@@ -65,7 +65,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
     func testStartWithWrongState() {
         let expectationFailure = self.expectation(description: "Expected creative factory job failure callback")
         
-        let connection = PBMServerConnection()
+        let connection = ServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let model = PBMCreativeModel(adConfiguration: AdConfiguration())
         
@@ -87,7 +87,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
     func testCreativeDownloadDelegateSuccess() {
         let expectationSuccess = self.expectation(description: "Expected creative factory job success callback")
         
-        let connection = PBMServerConnection()
+        let connection = ServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let model = PBMCreativeModel(adConfiguration: AdConfiguration())
         
@@ -111,7 +111,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
     func testCreativeDownloadDelegateFailure() {
         let expectationFailure = self.expectation(description: "Expected creative factory job failure callback")
         
-        let connection = PBMServerConnection()
+        let connection = ServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let model = PBMCreativeModel(adConfiguration: AdConfiguration())
         

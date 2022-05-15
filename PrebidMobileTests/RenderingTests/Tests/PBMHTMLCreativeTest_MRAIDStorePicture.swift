@@ -47,8 +47,8 @@ class PBMHTMLCreativeTest_MRAIDStorePicture: PBMHTMLCreativeTest_Base {
             completion(false, expectedErrorMessage)
         }
         
-        let serverConnection = PBMServerConnection(userAgentService: MockUserAgentService())
-        serverConnection.protocolClasses.add(MockServerURLProtocol.self)
+        let serverConnection = ServerConnection(userAgentService: MockUserAgentService())
+        serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         let mockMRAIDController = PBMMRAIDController(creative:self.htmlCreative,
                                                      viewControllerForPresenting:self.mockViewController,
@@ -76,8 +76,8 @@ class PBMHTMLCreativeTest_MRAIDStorePicture: PBMHTMLCreativeTest_Base {
             completion(true, "an error message")
         }
         
-        let serverConnection = PBMServerConnection(userAgentService: MockUserAgentService())
-        serverConnection.protocolClasses.add(MockServerURLProtocol.self)
+        let serverConnection = ServerConnection(userAgentService: MockUserAgentService())
+        serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         let mockMRAIDController = PBMMRAIDController(creative:self.htmlCreative,
                                                      viewControllerForPresenting:self.mockViewController,

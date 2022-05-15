@@ -15,9 +15,12 @@
 
 #import "PBMTrackingURLVisitors.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @implementation PBMTrackingURLVisitors
 
-+ (PBMTrackingURLVisitorBlock)connectionAsTrackingURLVisitor:(id<PBMServerConnectionProtocol>)connection {
++ (PBMTrackingURLVisitorBlock)connectionAsTrackingURLVisitor:(id<ServerConnectionProtocol>)connection {
     return ^(NSArray<NSString *> *trackingUrlStrings) {
         for(NSString *trackingUrlString in trackingUrlStrings) {
             // TODO: Use 'fireAndForget' ?

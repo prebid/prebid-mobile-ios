@@ -41,7 +41,7 @@ class PBMVastLoaderMultiWrapperTest: XCTestCase {
         
         self.vastRequestFailureExpectation = self.expectation(description: "Expected VAST Load to be failure")
         
-        conn.protocolClasses.add(MockServerURLProtocol.self)
+        conn.protocolClasses.append(MockServerURLProtocol.self)
         
         //Make an AdConfiguration
         let adConfiguration = AdConfiguration()

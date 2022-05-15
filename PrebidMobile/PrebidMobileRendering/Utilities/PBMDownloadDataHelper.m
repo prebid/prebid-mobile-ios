@@ -18,7 +18,6 @@
 #import "PBMDownloadDataHelper.h"
 #import "PBMError.h"
 #import "PBMServerResponse.h"
-#import "PBMServerConnectionProtocol.h"
 #import "PBMMacros.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -28,7 +27,7 @@
 
 @interface PBMDownloadDataHelper()
 
-@property (nonatomic, weak) id<PBMServerConnectionProtocol> pbmServerConnection;
+@property (nonatomic, weak) id<ServerConnectionProtocol> serverConnection;
 
 @end
 
@@ -38,12 +37,12 @@
 
 #pragma mark - Initialization
 
-- (nonnull instancetype)initWithPBMServerConnection:(nonnull id<PBMServerConnectionProtocol>)pbmServerConnection {
+- (nonnull instancetype)initWithServerConnection:(nonnull id<ServerConnectionProtocol>)serverConnection {
     self = [super init];
     if (self) {
-        PBMAssert(pbmServerConnection);
+        PBMAssert(serverConnection);
         
-        self.pbmServerConnection = pbmServerConnection;
+        self.serverConnection = serverConnection;
     }
     
     return self;
@@ -59,7 +58,7 @@
         return;
     }
 
-    [self.pbmServerConnection head:url.absoluteString timeout:PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT callback:^(PBMServerResponse * _Nonnull serverResponse) {
+    [self.serverConnection head:url.absoluteString timeout:PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT callback:^(PBMServerResponse * _Nonnull serverResponse) {
   
         NSString *strContentLength = serverResponse ? serverResponse.responseHeaders[@"Content-Length"] : nil;
         
@@ -90,7 +89,7 @@
         return;
     }
     
-    [self.pbmServerConnection download:url.absoluteString callback:^(PBMServerResponse * _Nonnull response) {
+    [self.serverConnection download:url.absoluteString callback:^(PBMServerResponse * _Nonnull response) {
         if (!response) {
             completionClosure(nil, [PBMError errorWithDescription:[NSString stringWithFormat:@"The response is empty for loading data from %@ ", url]]);
             return;

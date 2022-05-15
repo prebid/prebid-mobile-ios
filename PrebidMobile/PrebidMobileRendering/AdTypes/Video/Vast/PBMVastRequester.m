@@ -16,16 +16,18 @@
 #import "PBMVastRequester.h"
 
 #import "PBMConstants.h"
-#import "PBMServerConnectionProtocol.h"
 #import "PBMServerResponse.h"
 #import "PBMURLComponents.h"
 #import "PBMError.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 static NSString *vastContentType = @"application/x-www-form-urlencoded";
 
 @implementation PBMVastRequester
 
-+ (void)loadVastURL:(NSString *)url connection:(id<PBMServerConnectionProtocol>)connection completion:(PBMAdRequestCallback)completion {
++ (void)loadVastURL:(NSString *)url connection:(id<ServerConnectionProtocol>)connection completion:(PBMAdRequestCallback)completion {
     
     PBMURLComponents *urlComponents = [[PBMURLComponents alloc] initWithUrl:url paramsDict:@{}];
     if (!urlComponents) {

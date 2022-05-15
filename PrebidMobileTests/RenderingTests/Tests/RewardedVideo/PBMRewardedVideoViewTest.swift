@@ -167,7 +167,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadVideoData")
         
         let url = URL(string: model.videoFileURL!)
-        let downloader = PBMDownloadDataHelper(pbmServerConnection:connection)
+        let downloader = PBMDownloadDataHelper(serverConnection:connection)
         downloader.downloadData(for: url, maxSize: PBMVideoCreative.maxSizeForPreRenderContent, completionClosure: { (data:Data?, error:Error?) in
             
             DispatchQueue.main.async {

@@ -14,6 +14,8 @@
  */
 
 #import "PBMServerResponse.h"
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @implementation PBMServerResponse
 

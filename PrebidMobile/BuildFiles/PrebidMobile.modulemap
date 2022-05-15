@@ -59,7 +59,8 @@ framework module PrebidMobile {
     header "PBMAdDetails.h"
     header "PBMTransaction.h"
     header "PBMInterstitialLayout.h"
-    header "PBMServerConnectionProtocol.h"
+    header "PBMServerResponse.h"
+    header "PBMUserAgentService.h"
     
     header "PBMScheduledTimerFactory.h"
     header "NSTimer+PBMScheduledTimerFactory.h"
@@ -71,7 +72,6 @@ framework module PrebidMobile {
     header "PBMTransactionFactoryCallback.h"
     
     header "PBMError.h"
-    header "PBMServerConnection.h"
     header "PBMModalManagerDelegate.h"
     header "PBMAdLoadManagerDelegate.h"
     header "PBMCreativeViewDelegate.h"

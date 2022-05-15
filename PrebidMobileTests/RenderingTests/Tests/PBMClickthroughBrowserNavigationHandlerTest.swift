@@ -25,7 +25,7 @@ class PBMClickthroughBrowserNavigationHandlerTest: XCTestCase {
         mockWebView = nil
         navigationHandler = nil
         PBMDeepLinkPlusHelper.application = nil
-        PBMDeepLinkPlusHelper.connection = PBMServerConnection.shared
+        PBMDeepLinkPlusHelper.connection = ServerConnection.shared
     }
     
     private enum SomeError: Error {

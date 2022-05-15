@@ -82,7 +82,6 @@
 #import "PBMParameterBuilderService.h"
 #import "PBMPathBuilder.h"
 #import "PBMReachability.h"
-#import "PBMServerConnection.h"
 #import "PBMServerResponse.h"
 #import "PBMSupportedProtocolsParameterBuilder.h"
 #import "PBMTrackingEvent.h"

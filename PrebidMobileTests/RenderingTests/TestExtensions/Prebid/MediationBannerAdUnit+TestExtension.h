@@ -13,11 +13,11 @@
   limitations under the License.
   */
 
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 @interface MediationBannerAdUnit ()
 - (void)fetchDemandWithObject:(NSObject *)adObject
-                   connection:(id<PBMServerConnectionProtocol>)connection
+                   connection:(id<ServerConnectionProtocol>)connection
              sdkConfiguration:(Prebid *)sdkConfiguration
                     targeting:(Targeting *)targeting
                    completion:(void (^)(ResultCode))completion;

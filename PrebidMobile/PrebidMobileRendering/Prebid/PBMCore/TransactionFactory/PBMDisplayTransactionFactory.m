@@ -28,7 +28,7 @@
 
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
-@property (nonatomic, strong, readonly, nonnull) id<PBMServerConnectionProtocol> connection;
+@property (nonatomic, strong, readonly, nonnull) id<ServerConnectionProtocol> connection;
 
 // NOTE: need to call the completion callback only in the main thread
 // use onFinishedWithTransaction
@@ -47,7 +47,7 @@
 
 - (instancetype)initWithBid:(Bid *)bid
             adConfiguration:(AdUnitConfig *)adConfiguration
-                 connection:(id<PBMServerConnectionProtocol>)connection
+                 connection:(id<ServerConnectionProtocol>)connection
                    callback:(PBMTransactionFactoryCallback)callback
 {
     if (!(self = [super init])) {

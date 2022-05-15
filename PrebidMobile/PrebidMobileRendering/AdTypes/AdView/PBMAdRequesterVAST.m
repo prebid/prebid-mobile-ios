@@ -41,7 +41,7 @@
 
 #pragma mark - PBMAdRequester
 
-- (instancetype) initWithServerConnection: (id<PBMServerConnectionProtocol>) serverConnection
+- (instancetype) initWithServerConnection: (id<ServerConnectionProtocol>) serverConnection
                              adConfiguration: (AdConfiguration*) adConfiguration  {
     self = [super init];
     if (self) {

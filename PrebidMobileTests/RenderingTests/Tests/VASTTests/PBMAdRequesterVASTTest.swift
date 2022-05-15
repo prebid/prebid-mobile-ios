@@ -74,7 +74,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         self.failedExpectation = self.expectation(description: "Expected VAST Load to be failed")
         vastServerResponse = nil
         
-        let conn = PBMServerConnection()
+        let conn = ServerConnection()
         let adConfiguration = AdConfiguration()
         
         let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)

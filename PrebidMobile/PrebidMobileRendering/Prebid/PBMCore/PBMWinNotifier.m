@@ -18,7 +18,6 @@
 
 #import "PBMORTBMacrosHelper.h"
 #import "PBMFunctions+Private.h"
-#import "PBMServerConnectionProtocol.h"
 #import "PBMServerResponse.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -26,7 +25,7 @@
 
 @implementation PBMWinNotifier
 
-+ (void)notifyThroughConnection:(id<PBMServerConnectionProtocol>)connection
++ (void)notifyThroughConnection:(id<ServerConnectionProtocol>)connection
                      winningBid:(Bid *)bid
                        callback:(PBMAdMarkupStringHandler)adMarkupConsumer
 {
@@ -71,14 +70,14 @@
     chainedNotifications(bid.adm); // launch chained events
 }
 
-+ (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<PBMServerConnectionProtocol>)connection {
++ (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<ServerConnectionProtocol>)connection {
     return ^(Bid *bid, PBMAdMarkupStringHandler adMarkupConsumer) {
         [PBMWinNotifier notifyThroughConnection:connection winningBid:bid callback:adMarkupConsumer];
     };
 }
 
 + (PBMWinNotifierFactoryBlock)factoryBlock {
-    return ^PBMWinNotifierBlock (id<PBMServerConnectionProtocol> connection) {
+    return ^PBMWinNotifierBlock (id<ServerConnectionProtocol> connection) {
         return [PBMWinNotifier winNotifierBlockWithConnection:connection];
     };
 }
