@@ -132,7 +132,7 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
     // MARK: Private methods
     
     private func getFor(_ resourceURL: String?, timeout: TimeInterval, headersOnly: Bool,
-                     callback: @escaping ServerResponseCallback) {
+                        callback: @escaping ServerResponseCallback) {
         guard var request = createRequest(resourceURL) else {
             return
         }
