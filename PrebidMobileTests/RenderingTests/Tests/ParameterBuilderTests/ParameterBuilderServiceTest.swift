@@ -59,7 +59,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         }
         let mockLocationManagerSuccessful = MockLocationManagerSuccessful.shared
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
-        let mockReachability = MockReachability.forInternetConnection()!
+        let mockReachability = MockReachability.shared
         
         let mockUserDefaults = MockUserDefaults()
         let pbmUserConsentManager = PBMUserConsentDataManager(userDefaults: mockUserDefaults)

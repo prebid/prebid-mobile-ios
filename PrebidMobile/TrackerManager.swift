@@ -37,15 +37,8 @@ class TrackerManager: NSObject {
      */
     private override init() {
         super.init()
-        self.reachability = Reachability()
-        self.internetIsReachable = self.reachability.connection != .none
-        NotificationCenter.default.addObserver(self, selector:#selector(self.reachabilityChanged), name: NSNotification.Name.reachabilityChanged, object: nil)
-        do {
-            try self.reachability.startNotifier()
-        }
-        catch(let error) {
-            Log.debug("Error occured while starting reachability notifications : \(error.localizedDescription)")
-        }
+        self.reachability = Reachability.shared
+        self.internetIsReachable = self.reachability.isNetworkReachable
     }
     
     deinit {
@@ -60,6 +53,8 @@ class TrackerManager: NSObject {
             }
             return
         }
+        
+        internetIsReachable = reachability.isNetworkReachable
         
         if !internetIsReachable {
             Log.debug("Internet IS UNREACHABLE - queing trackers for firing later: \(arrayWithURLs)")
@@ -117,6 +112,8 @@ class TrackerManager: NSObject {
     private func retryTrackerFiresWithBlock(completion: OnComplete){
         
         var trackerArrayCopy: [TrackerInfo]?
+        internetIsReachable = reachability.isNetworkReachable
+        
         if internetIsReachable {
             Log.debug("Internet back online - Firing trackers \(trackerArray)")
             trackerArrayCopy = trackerArray
@@ -158,17 +155,4 @@ class TrackerManager: NSObject {
             })
         }
     }
-    
-    @objc func reachabilityChanged(note: Notification) {
-        let reachability = note.object as! Reachability
-        switch reachability.connection {
-        case .cellular, .wifi:
-            internetIsReachable = true
-            break
-        case .none:
-            internetIsReachable = false
-            break
-      }
-    }
-    
 }

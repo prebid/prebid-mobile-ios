@@ -28,7 +28,7 @@
 @interface PBMNetworkParameterBuilder ()
 
 @property (nonatomic, strong) CTTelephonyNetworkInfo *ctTelephonyNetworkInfo;
-@property (nonatomic, strong) PBMReachability *reachability;
+@property (nonatomic, strong) Reachability *reachability;
 
 @end
 
@@ -37,7 +37,7 @@
 @implementation PBMNetworkParameterBuilder
 
 #pragma mark - Initialization
-- (instancetype)initWithCtTelephonyNetworkInfo:(CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo reachability:(PBMReachability *)reachability {
+- (instancetype)initWithCtTelephonyNetworkInfo:(CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo reachability:(Reachability *)reachability {
     self = [super init];
     if (self) {
         PBMAssert(ctTelephonyNetworkInfo && reachability);
@@ -55,9 +55,9 @@
         PBMLogError(@"Invalid properties");
         return;
     }
-    
+     
     // reachability type
-    PBMNetworkType networkStatus = [self.reachability currentReachabilityStatus];
+    NetworkType networkStatus = [self.reachability currentReachabilityStatus];
     bidRequest.device.connectiontype = [NSNumber numberWithInteger:networkStatus];
     
     CTCarrier *carrier = self.ctTelephonyNetworkInfo.subscriberCellularProvider;

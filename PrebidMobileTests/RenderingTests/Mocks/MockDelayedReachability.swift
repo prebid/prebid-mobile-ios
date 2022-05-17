@@ -17,15 +17,15 @@ import Foundation
 
 @testable import PrebidMobile
 
-class MockDelayedReachability: PBMReachability {
+class MockDelayedReachability: Reachability {
     
     var isReachable = false
     
-    override func isNetworkReachable() -> Bool {
+    override var isNetworkReachable: Bool {
         return isReachable
     }
     
-    override func onNetworkRestored(_ reachableBlock: PBMNetworkReachableBlock!) {
+    override func onNetworkRestored(_ reachableBlock: @escaping NetworkReachableBlock) {
         isReachable = true
         reachableBlock(self)
     }
