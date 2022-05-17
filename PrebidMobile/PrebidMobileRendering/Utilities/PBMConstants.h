@@ -168,4 +168,12 @@ NS_SWIFT_NAME(GeoLocationConstants)
 
 @end
 
+@interface PBMServerEndpoints : NSObject
+
+@property (class, readonly) NSString *status
+    NS_SWIFT_NAME(status);
+
+@end
+
+
 NS_ASSUME_NONNULL_END

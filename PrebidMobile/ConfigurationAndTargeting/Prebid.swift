@@ -157,18 +157,39 @@ public class Prebid: NSObject {
         customHeaders.removeAll()
     }
     
-    public static func initializeSDK() {
+    public static func initializeSDK(_ completion: ((Result<Void, Error>) -> Void)? = nil) {
         let _ = ServerConnection.shared
         let _ = PBMLocationManager.shared
         let _ = PBMUserConsentDataManager.shared
         PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
         
-        Log.info("prebid-mobile-sdk \(PBMFunctions.sdkVersion()) Initialized")
+        checkServerStatus { completion?($0) }
     }
     
     // MARK: - Private Methods
     
     override init() { 
         timeoutMillis = defaultTimeoutMillis
+    }
+    
+    static func checkServerStatus(_ completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            guard let serverURLHost = URL(string: try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost))?.host else {
+                completion(.failure(PBMError.error(description: "Provided host URL is not valid")))
+                return
+            }
+
+            let serverStatusURLString = PathBuilder.buildURL(for: serverURLHost, path: PBMServerEndpoints.status)
+            
+            ServerConnection.shared.get(serverStatusURLString, timeout: 0) { serverResponse in
+                if serverResponse.statusCode == 200 {
+                    completion(.success(()))
+                } else {
+                    completion(.failure(serverResponse.error ?? PBMError.error(description: "Error occured during Prebid Server status check")))
+                }
+            }
+        } catch {
+            completion(.failure(PBMError.error(description: "Provided host URL is not valid")))
+        }
     }
 }

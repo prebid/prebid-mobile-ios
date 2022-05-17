@@ -37,11 +37,34 @@ class PrebidTest: XCTestCase {
     func testInitializeSDK() {
         logToFile = .init()
         
+        // init callback should be optional
         Prebid.initializeSDK()
         
-        let log = Log.getLogFileAsString() ?? ""
+        Prebid.initializeSDK { result in
+            // Host URL was not provided
+            switch result {
+            case .success():
+                XCTFail("Host URL was not provided. Initialization must fail.")
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, "Provided host URL is not valid")
+            }
+        }
         
-        XCTAssert(log.contains("prebid-mobile-sdk \(PBMFunctions.sdkVersion()) Initialized"))
+        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+        
+        let expectation = expectation(description: "Expected successful initialization")
+        
+        Prebid.initializeSDK { result in
+            // Host URL was not provided
+            switch result {
+            case .success():
+                expectation.fulfill()
+            case .failure(let error):
+                XCTFail("Failed with error: \(error.localizedDescription)")
+            }
+        }
+        
+        waitForExpectations(timeout: 3, handler: nil)
     }
     
     func testLogLevel() {
