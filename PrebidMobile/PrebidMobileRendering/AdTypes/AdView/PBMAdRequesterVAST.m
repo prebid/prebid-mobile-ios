@@ -19,7 +19,6 @@
 #import "PBMError.h"
 #import "PBMMacros.h"
 #import "PBMPathBuilder.h"
-#import "PBMServerResponse.h"
 #import "PBMURLComponents.h"
 #import "PBMVastAdsBuilder.h"
 #import "PBMVastRequester.h"
@@ -41,7 +40,7 @@
 
 #pragma mark - PBMAdRequester
 
-- (instancetype) initWithServerConnection: (id<PBMServerConnectionProtocol>) serverConnection
+- (instancetype) initWithServerConnection: (id<ServerConnectionProtocol>) serverConnection
                              adConfiguration: (AdConfiguration*) adConfiguration  {
     self = [super init];
     if (self) {
@@ -56,7 +55,7 @@
 
 - (void)loadVASTURL:(NSString *)url {
     @weakify(self);
-    [PBMVastRequester loadVastURL:url connection:self.serverConnection completion:^(PBMServerResponse * _Nullable serverResponse, NSError * _Nullable error) {
+    [PBMVastRequester loadVastURL:url connection:self.serverConnection completion:^(ServerResponse * _Nullable serverResponse, NSError * _Nullable error) {
         @strongify(self);
         
         if (error) {

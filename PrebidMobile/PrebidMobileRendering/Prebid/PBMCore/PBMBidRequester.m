@@ -19,8 +19,6 @@
 #import "PBMORTBPrebid.h"
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMParameterBuilderService.h"
-#import "PBMServerConnectionProtocol.h"
-#import "PBMServerResponse.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
@@ -29,7 +27,7 @@
 
 @interface PBMBidRequester ()
 
-@property (nonatomic, strong, nonnull, readonly) id<PBMServerConnectionProtocol> connection;
+@property (nonatomic, strong, nonnull, readonly) id<ServerConnectionProtocol> connection;
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) Targeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
@@ -40,7 +38,7 @@
 
 @implementation PBMBidRequester
 
-- (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
+- (instancetype)initWithConnection:(id<ServerConnectionProtocol>)connection
                   sdkConfiguration:(Prebid *)sdkConfiguration
                          targeting:(Targeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration {
@@ -90,7 +88,7 @@
     [self.connection post:requestServerURL
                      data:[requestString dataUsingEncoding:NSUTF8StringEncoding]
                   timeout:postTimeout
-                 callback:^(PBMServerResponse * _Nonnull serverResponse) {
+                 callback:^(ServerResponse * _Nonnull serverResponse) {
         @strongify(self);
         if (!self) {
             return;

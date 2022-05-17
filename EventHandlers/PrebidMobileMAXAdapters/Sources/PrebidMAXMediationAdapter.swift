@@ -42,8 +42,8 @@ public class PrebidMAXMediationAdapter: ALMediationAdapter {
     public weak var nativeDelegate: MANativeAdAdapterDelegate?
     
     public override func initialize(with parameters: MAAdapterInitializationParameters, completionHandler: @escaping (MAAdapterInitializationStatus, String?) -> Void) {
-        Prebid.initializeSDK()
         super.initialize(with: parameters, completionHandler: completionHandler)
+        Targeting.shared.subjectToCOPPA = ALPrivacySettings.isAgeRestrictedUser()
     }
     
     public override var sdkVersion: String {

@@ -16,16 +16,16 @@
 import Foundation
 import XCTest
 
-class MockServerConnection: NSObject, PBMServerConnectionProtocol {
+class MockServerConnection: NSObject, ServerConnectionProtocol {
     typealias FireAndForgetHandler = (String)->()
-    typealias GetHandler = (String, TimeInterval, @escaping PBMServerResponseCallback) -> ()
-    typealias PostHandler = (String, String, Data, TimeInterval, @escaping PBMServerResponseCallback) -> ()
-    typealias PostHandler_NoContentType = (String, Data, TimeInterval, @escaping PBMServerResponseCallback) -> ()
-    typealias DownloadHandler = (String, @escaping PBMServerResponseCallback) -> ()
+    typealias GetHandler = (String, TimeInterval, @escaping ServerResponseCallback) -> ()
+    typealias PostHandler = (String, String, Data, TimeInterval, @escaping ServerResponseCallback) -> ()
+    typealias PostHandler_NoContentType = (String, Data, TimeInterval, @escaping ServerResponseCallback) -> ()
+    typealias DownloadHandler = (String, @escaping ServerResponseCallback) -> ()
     
     let defaultContentType = "application/json" // Note: Must be equivalent to PBMContentTypeVal
     
-    let userAgentService: PBMUserAgentService? = nil
+    let userAgentService = PBMUserAgentService.shared
     
     private(set) var onFireAndForget: [FireAndForgetHandler]
     private(set) var onHead: [GetHandler]
@@ -72,7 +72,11 @@ class MockServerConnection: NSObject, PBMServerConnectionProtocol {
                   onDownload: onDownload)
     }
     
-    func fireAndForget(_ resourceURL: String) {
+    func fireAndForget(_ resourceURL: String?) {
+        guard let resourceURL = resourceURL else {
+            return
+        }
+        
         guard onFireAndForget.count > 0 else {
             XCTFail("No handler for \(#function) request {\n\t\(resourceURL)\n}")
             return
@@ -81,7 +85,11 @@ class MockServerConnection: NSObject, PBMServerConnectionProtocol {
         handler(resourceURL)
     }
     
-    func head(_ resourceURL: String, timeout: TimeInterval, callback: @escaping PBMServerResponseCallback) {
+    func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping ServerResponseCallback) {
+        guard let resourceURL = resourceURL else {
+            return
+        }
+        
         guard onHead.count > 0 else {
             XCTFail("No handler for \(#function) request {\n\t\(resourceURL)\n\t\(timeout)\n}")
             return
@@ -90,7 +98,11 @@ class MockServerConnection: NSObject, PBMServerConnectionProtocol {
         handler(resourceURL, timeout, callback)
     }
     
-    func get(_ resourceURL: String, timeout: TimeInterval, callback: @escaping PBMServerResponseCallback) {
+    func get(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping ServerResponseCallback) {
+        guard let resourceURL = resourceURL else {
+            return
+        }
+        
         guard onGet.count > 0 else {
             XCTFail("No handler for \(#function) request {\n\t\(resourceURL)\n\t\(timeout)\n}")
             return
@@ -99,7 +111,11 @@ class MockServerConnection: NSObject, PBMServerConnectionProtocol {
         handler(resourceURL, timeout, callback)
     }
     
-    func post(_ resourceURL: String, contentType: String, data: Data, timeout: TimeInterval, callback: @escaping PBMServerResponseCallback) {
+    func post(_ resourceURL: String?, contentType: String?, data: Data?, timeout: TimeInterval, callback: @escaping ServerResponseCallback) {
+        guard let resourceURL = resourceURL, let contentType = contentType, let data = data else {
+            return
+        }
+        
         guard onPost.count > 0 else {
             XCTFail("No handler for \(#function) request {\n\t\(resourceURL)\n\t\(data)\n\t\(timeout)\n}")
             return
@@ -107,11 +123,16 @@ class MockServerConnection: NSObject, PBMServerConnectionProtocol {
         let handler = onPost.remove(at: 0)
         handler(resourceURL, contentType, data, timeout, callback)
     }
-    func post(_ resourceURL: String, data: Data, timeout: TimeInterval, callback: @escaping PBMServerResponseCallback) {
+    
+    func post(_ resourceURL: String?, data: Data?, timeout: TimeInterval, callback: @escaping ServerResponseCallback) {
         post(resourceURL, contentType: defaultContentType, data: data, timeout: timeout, callback: callback)
     }
     
-    func download(_ resourceURL: String, callback: @escaping PBMServerResponseCallback) {
+    func download(_ resourceURL: String?, callback: @escaping ServerResponseCallback) {
+        guard let resourceURL = resourceURL else {
+            return
+        }
+        
         guard onDownload.count > 0 else {
             XCTFail("No handler for \(#function) request {\n\t\(resourceURL)\n}")
             return

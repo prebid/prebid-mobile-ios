@@ -16,12 +16,12 @@
 #import <Foundation/Foundation.h>
 
 @class BidResponse;
-@class PBMServerResponse;
+@class ServerResponse;
 
 @interface PBMBidResponseTransformer : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 
-+ (BidResponse * _Nullable)transformResponse:(PBMServerResponse * _Nonnull)response error:(NSError * _Nullable __autoreleasing * _Nullable)error;
++ (BidResponse * _Nullable)transformResponse:(ServerResponse * _Nonnull)response error:(NSError * _Nullable __autoreleasing * _Nullable)error;
 
 @end

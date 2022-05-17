@@ -31,7 +31,7 @@
 
 @property (nonatomic, strong) PBMCreativeModel *creativeModel;
 @property (nonatomic, copy) PBMCreativeFactoryJobFinishedCallback finishedCallback;
-@property (nonatomic, strong) id<PBMServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
 @property (nonatomic, strong) PBMTransaction *transaction;
 
 @end
@@ -42,7 +42,7 @@
 
 - (nonnull instancetype)initFromCreativeModel:(nonnull PBMCreativeModel *)creativeModel
                                   transaction:(PBMTransaction *)transaction
-                             serverConnection:(nonnull id<PBMServerConnectionProtocol>)serverConnection
+                             serverConnection:(nonnull id<ServerConnectionProtocol>)serverConnection
                               finishedCallback:(PBMCreativeFactoryJobFinishedCallback)finishedCallback {
     self = [super init];
     if (self) {
@@ -180,7 +180,7 @@
         return;
     }
     
-    PBMDownloadDataHelper *downloader = [[PBMDownloadDataHelper alloc] initWithPBMServerConnection:self.serverConnection];
+    PBMDownloadDataHelper *downloader = [[PBMDownloadDataHelper alloc] initWithServerConnection:self.serverConnection];
     [downloader downloadDataForURL:url maxSize:PBMVideoCreative.maxSizeForPreRenderContent completionClosure:^(NSData * _Nullable preloadedData, NSError * _Nullable error) {
         if (error) {
             [self failWithError:error];
@@ -209,13 +209,13 @@
 }
 
 - (PBMDownloadDataHelper *)initializeDownloadDataHelper {
-    return [[PBMDownloadDataHelper alloc] initWithPBMServerConnection:self.serverConnection];
+    return [[PBMDownloadDataHelper alloc] initWithServerConnection:self.serverConnection];
 }
 
 - (PBMCreativeFactoryDownloadDataCompletionClosure)createLoader {
-    id<PBMServerConnectionProtocol> const connection = self.serverConnection;
+    id<ServerConnectionProtocol> const connection = self.serverConnection;
     PBMCreativeFactoryDownloadDataCompletionClosure result = ^(NSURL* _Nonnull  url, PBMDownloadDataCompletionClosure _Nonnull completionBlock) {
-        PBMDownloadDataHelper *downloader = [[PBMDownloadDataHelper alloc] initWithPBMServerConnection:connection];
+        PBMDownloadDataHelper *downloader = [[PBMDownloadDataHelper alloc] initWithServerConnection:connection];
         [downloader downloadDataForURL:url completionClosure:^(NSData * _Nullable data, NSError * _Nullable error) {
             completionBlock ? completionBlock(data, error) : nil;
         }];

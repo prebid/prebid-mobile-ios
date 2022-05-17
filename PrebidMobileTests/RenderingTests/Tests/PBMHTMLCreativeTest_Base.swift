@@ -37,8 +37,8 @@ class PBMHTMLCreativeTest_Base: XCTestCase, PBMCreativeViewDelegate {
         mockViewController = MockViewController()
         
         //Set up MockServer
-        let serverConnection = PBMServerConnection(userAgentService: MockUserAgentService())
-        serverConnection.protocolClasses.add(MockServerURLProtocol.self)
+        let serverConnection = ServerConnection(userAgentService: MockUserAgentService())
+        serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         //Set up creative model
         mockCreativeModel = MockPBMCreativeModel(adConfiguration: AdConfiguration())
@@ -152,9 +152,9 @@ class PBMHTMLCreativeTest_Base: XCTestCase, PBMCreativeViewDelegate {
         }
     }
     
-    func createLoader(connection: PBMServerConnectionProtocol) -> PBMCreativeFactoryDownloadDataCompletionClosure {
+    func createLoader(connection: ServerConnectionProtocol) -> PBMCreativeFactoryDownloadDataCompletionClosure {
         let result: PBMCreativeFactoryDownloadDataCompletionClosure =  {url, completionBlock in
-            let downloader = PBMDownloadDataHelper(pbmServerConnection:connection)
+            let downloader = PBMDownloadDataHelper(serverConnection:connection)
             downloader.downloadData(for: url, completionClosure: { (data:Data?, error:Error?) in
                 completionBlock(data,error)
             })

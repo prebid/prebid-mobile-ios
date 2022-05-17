@@ -27,7 +27,7 @@ public class PrebidServerEventTracker: NSObject, PBMEventTrackerProtocol {
     public func trackEvent(_ event: PBMTrackingEvent) {
         for serverEvent in serverEvents {
             if serverEvent.expectedEventType == event {
-                PBMServerConnection.shared.fireAndForget(serverEvent.url)
+                ServerConnection.shared.fireAndForget(serverEvent.url)
             }
         }
     }

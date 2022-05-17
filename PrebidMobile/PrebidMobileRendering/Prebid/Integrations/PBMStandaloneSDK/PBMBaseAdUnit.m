@@ -24,7 +24,6 @@
 #import "PBMError.h"
 #import "PBMMacros.h"
 #import "PBMWinNotifier.h"
-#import "PBMServerConnection.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>

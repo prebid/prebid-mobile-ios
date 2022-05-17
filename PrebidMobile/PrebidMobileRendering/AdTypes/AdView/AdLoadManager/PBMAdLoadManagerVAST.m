@@ -20,7 +20,6 @@
 #import "PBMMacros.h"
 #import "PBMMacros.h"
 #import "PBMAdDetails.h"
-#import "PBMServerResponse.h"
 #import "PBMTransaction.h"
 
 #import "PrebidMobileSwiftHeaders.h"

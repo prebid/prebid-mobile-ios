@@ -73,15 +73,15 @@ typealias JsonDictionary = [String:Any]
         return plistDict
     }
     
-    class func createConnectionForMockedTest() -> PBMServerConnection {
-        let connection = PBMServerConnection()
-        connection.protocolClasses.add(MockServerURLProtocol.self)
+    class func createConnectionForMockedTest() -> ServerConnection {
+        let connection = ServerConnection()
+        connection.protocolClasses.append(MockServerURLProtocol.self)
         
         return connection
     }
     
     class func createEmptyTransaction() -> PBMTransaction {
-        let connection = PBMServerConnection()
+        let connection = ServerConnection()
         let adConfiguration = AdConfiguration()
         
         let transaction = PBMTransaction(serverConnection:connection,
@@ -124,7 +124,7 @@ typealias JsonDictionary = [String:Any]
     }
     
     class func createTransactionWithHTMLCreative(withView:Bool = false, isInterstitial: Bool = false) -> PBMTransaction {
-        let connection = PBMServerConnection()
+        let connection = ServerConnection()
         let adConfiguration = AdConfiguration()
         adConfiguration.winningBidAdFormat = .display
         adConfiguration.isInterstitialAd = isInterstitial
@@ -144,7 +144,7 @@ typealias JsonDictionary = [String:Any]
     }
     
     class func createTransactionWithHTMLCreativeWithParams(
-        connection: PBMServerConnectionProtocol,
+        connection: ServerConnectionProtocol,
         configuration: AdConfiguration) -> PBMTransaction {
             let model = PBMCreativeModel(adConfiguration:configuration)
             

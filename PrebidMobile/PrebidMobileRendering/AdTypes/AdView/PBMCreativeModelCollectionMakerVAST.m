@@ -16,7 +16,6 @@
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMVastCreativeCompanionAdsCompanion.h"
 #import "PBMCreativeModel.h"
-#import "PBMServerResponse.h"
 #import "PBMTrackingEvent.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMVastInlineAd.h"
@@ -34,12 +33,12 @@
 
 @implementation PBMCreativeModelCollectionMakerVAST
 
-- (instancetype)initWithServerConnection:(id<PBMServerConnectionProtocol>)pbmServerConnection
+- (instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)serverConnection
                             adConfiguration:(AdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         self.adConfiguration = adConfiguration;
-        self.serverConnection = pbmServerConnection;
+        self.serverConnection = serverConnection;
     }
     
     return self;

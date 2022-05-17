@@ -46,8 +46,8 @@ class PBMHTMLCreativeTest_MRAIDCalendarEvent: PBMHTMLCreativeTest_Base {
         self.mraidErrorExpectation(shouldFulfill: true, message: expectedErrorMessage, action: .createCalendarEvent)
         self.createCalendarEventExpectation(shouldFulfill: true, shouldSucceed: false, errorMessage: expectedErrorMessage)
         
-        let serverConnection = PBMServerConnection(userAgentService: MockUserAgentService())
-        serverConnection.protocolClasses.add(MockServerURLProtocol.self)
+        let serverConnection = ServerConnection(userAgentService: MockUserAgentService())
+        serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         let mockMRAIDController = PBMMRAIDController(creative:self.htmlCreative,
                                                      viewControllerForPresenting:self.mockViewController,
@@ -68,8 +68,8 @@ class PBMHTMLCreativeTest_MRAIDCalendarEvent: PBMHTMLCreativeTest_Base {
         self.mraidErrorExpectation(shouldFulfill: false)
         self.createCalendarEventExpectation(shouldFulfill: true, shouldSucceed: true)
         
-        let serverConnection = PBMServerConnection(userAgentService: MockUserAgentService())
-        serverConnection.protocolClasses.add(MockServerURLProtocol.self)
+        let serverConnection = ServerConnection(userAgentService: MockUserAgentService())
+        serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         let mockMRAIDController = PBMMRAIDController(creative:self.htmlCreative,
                                                      viewControllerForPresenting:self.mockViewController,

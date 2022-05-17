@@ -19,13 +19,13 @@
 @class AdUnitConfig;
 @class Prebid;
 @class Targeting;
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMBidRequester : NSObject <PBMBidRequesterProtocol>
 
-- (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
+- (instancetype)initWithConnection:(id<ServerConnectionProtocol>)connection
                   sdkConfiguration:(Prebid *)sdkConfiguration
                          targeting:(Targeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration;

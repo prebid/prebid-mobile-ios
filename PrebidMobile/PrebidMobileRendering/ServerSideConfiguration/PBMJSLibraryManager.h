@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "PBMJSLibrary.h"
 
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 typedef NS_ENUM(NSInteger, PBMJSLibraryType) {
     PBMJSLibraryTypeMRAID,
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedManager;
 - (nullable NSString *)getMRAIDLibrary;
 - (nullable NSString *)getOMSDKLibrary;
-- (void)updateJSLibrariesIfNeededWithConnection:(id<PBMServerConnectionProtocol>)connection;
+- (void)updateJSLibrariesIfNeededWithConnection:(id<ServerConnectionProtocol>)connection;
 
 @end
 

@@ -13,18 +13,18 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface PBMServerResponse : NSObject
+public typealias AdRequestCallback = (ServerResponse?, Error?) -> Void
 
-@property (nullable) NSDictionary <NSString *, id> *jsonDict;
-@property (nullable) NSData *rawData;
-@property (nullable) NSDictionary <NSString *, NSString *> *requestHeaders;
-@property (nullable) NSDictionary <NSString *, NSString *> *responseHeaders;
-@property (nullable) NSString *requestURL;
-@property (nullable) NSError *error;
-@property NSInteger statusCode;
-
-@end
-
-typedef void(^PBMAdRequestCallback)(PBMServerResponse * _Nullable serverResponse, NSError * _Nullable);
+@objcMembers
+public class ServerResponse: NSObject {
+    
+    public var jsonDict: [String: Any]?
+    public var rawData: Data?
+    public var requestHeaders: [String: String]?
+    public var responseHeaders: [String: String]?
+    public var requestURL: String?
+    public var error: Error?
+    public var statusCode = 0
+}

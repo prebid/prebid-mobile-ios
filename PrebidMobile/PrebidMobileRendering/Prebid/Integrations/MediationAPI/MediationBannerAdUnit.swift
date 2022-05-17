@@ -147,7 +147,7 @@ public class MediationBannerAdUnit : NSObject {
                 return
             }
             
-            self.fetchDemand(connection: PBMServerConnection.shared,
+            self.fetchDemand(connection: ServerConnection.shared,
                              sdkConfiguration: Prebid.shared,
                              targeting: Targeting.shared,
                              completion: completion)
@@ -156,7 +156,7 @@ public class MediationBannerAdUnit : NSObject {
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
-        fetchDemand(connection: PBMServerConnection.shared,
+        fetchDemand(connection: ServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
                     targeting: Targeting.shared,
                     completion: completion)
@@ -176,7 +176,7 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: Private functions
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(connection: PBMServerConnectionProtocol,
+    func fetchDemand(connection: ServerConnectionProtocol,
                      sdkConfiguration: Prebid,
                      targeting: Targeting,
                      completion: ((ResultCode)->Void)?) {

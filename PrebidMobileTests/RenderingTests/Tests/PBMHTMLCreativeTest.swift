@@ -269,8 +269,8 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
         
         PBMJSLibraryManager.shared().clearData()
         
-        let pbmServerConnection = PBMServerConnection()
-        pbmServerConnection.protocolClasses.add(MockServerURLProtocol.self)
+        let serverConnection = ServerConnection()
+        serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         //Test
         let pbmCreativeModel = PBMCreativeModel(adConfiguration: AdConfiguration())

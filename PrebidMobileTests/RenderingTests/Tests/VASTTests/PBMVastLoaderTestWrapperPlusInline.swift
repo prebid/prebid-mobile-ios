@@ -37,7 +37,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
     
     func testRequest() {
         
-        self.didFetchInline = self.expectation(description: "Expected PBMServerConnection to hit foo.com/inline")
+        self.didFetchInline = self.expectation(description: "Expected ServerConnection to hit foo.com/inline")
         self.vastRequestSuccessfulExpectation = self.expectation(description: "vastRequestSuccessfulExpectation #1")
         
         let conn = UtilitiesForTesting.createConnectionForMockedTest()
@@ -60,7 +60,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         }
         
         //////////////////////////////////////////////////////////////////////////////////
-        //Make an PBMServerConnection and redirect its network requests to the Mock Server
+        //Make an ServerConnection and redirect its network requests to the Mock Server
         //////////////////////////////////////////////////////////////////////////////////
         
         

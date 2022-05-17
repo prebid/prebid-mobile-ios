@@ -44,7 +44,7 @@ class DownloadSizeHelperTest: XCTestCase {
             let expectationNoRestriction = self.expectation(description: "expectationNoRestriction")
             let expectationWithRestriction = self.expectation(description: "expectationWithRestriction")
             
-            let downloadSizeHelper = PBMDownloadDataHelper(pbmServerConnection:connection)
+            let downloadSizeHelper = PBMDownloadDataHelper(serverConnection:connection)
             let url = URL(string:"http://get_video")!
             
             // Without size restriction

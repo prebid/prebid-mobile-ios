@@ -30,7 +30,7 @@
 @class AdConfiguration;
 @class PBMORTBBidExtSkadn;
 
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMTransaction : NSObject
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, weak, nullable) id<PBMTransactionDelegate> delegate;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithServerConnection:(id<PBMServerConnectionProtocol>)connection
+- (instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)connection
                          adConfiguration:(AdConfiguration *)adConfiguration
                                   models:(NSArray<PBMCreativeModel *> *)creativeModels NS_DESIGNATED_INITIALIZER;
 

@@ -23,7 +23,6 @@
 #import "PBMInterstitialLayoutConfigurator.h"
 #import "PBMModalManager.h"
 #import "PBMNSThreadProtocol.h"
-#import "PBMServerConnectionProtocol.h"
 #import "PBMTransaction.h"
 #import "PBMVideoCreative.h"
 #import "UIView+PBMExtensions.h"
@@ -35,7 +34,7 @@
 
 @interface PBMAdViewManager ()
 
-@property (nonatomic, strong) id<PBMServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
 @property (weak, nullable) PBMAbstractCreative *currentCreative;
 @property (nonatomic, strong, nullable) PBMTransaction *externalTransaction;
 @property (nonatomic, nullable, readonly) PBMTransaction *currentTransaction; // computed
@@ -45,7 +44,7 @@
 
 @implementation PBMAdViewManager
 
-- (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
+- (instancetype)initWithConnection:(id<ServerConnectionProtocol>)connection
               modalManagerDelegate:(nullable id<PBMModalManagerDelegate>)modalManagerDelegate
 {
     if (!(self = [super init])) {

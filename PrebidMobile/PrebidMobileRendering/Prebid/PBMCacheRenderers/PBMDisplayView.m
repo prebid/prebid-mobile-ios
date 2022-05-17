@@ -24,8 +24,6 @@
 #import "PBMAdViewManagerDelegate.h"
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMModalManagerDelegate.h"
-#import "PBMServerConnection.h"
-#import "PBMServerConnectionProtocol.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
@@ -73,7 +71,7 @@
     @weakify(self);
     self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
                                                          adConfiguration:self.adConfiguration
-                                                              connection:self.connection ?: PBMServerConnection.shared
+                                                              connection:self.connection ?: ServerConnection.shared
                                                                 callback:^(PBMTransaction * _Nullable transaction,
                                                                            NSError * _Nullable error) {
         @strongify(self);
@@ -83,7 +81,7 @@
             [self displayTransaction:transaction];
         }
     }];
-    [PBMWinNotifier notifyThroughConnection:PBMServerConnection.shared
+    [PBMWinNotifier notifyThroughConnection:ServerConnection.shared
                                  winningBid:self.bid
                                    callback:^(NSString *adMarkup) {
         @strongify(self);
@@ -185,7 +183,7 @@
 }
 
 - (void)displayTransaction:(PBMTransaction *)transaction {
-    id<PBMServerConnectionProtocol> const connection = self.connection ?: PBMServerConnection.shared;
+    id<ServerConnectionProtocol> const connection = self.connection ?: ServerConnection.shared;
     self.adViewManager = [[PBMAdViewManager alloc] initWithConnection:connection modalManagerDelegate:self];
     self.adViewManager.adViewManagerDelegate = self;
     self.adViewManager.adConfiguration = self.adConfiguration.adConfiguration;

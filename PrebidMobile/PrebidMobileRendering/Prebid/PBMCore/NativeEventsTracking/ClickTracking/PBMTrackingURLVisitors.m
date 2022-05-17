@@ -15,14 +15,17 @@
 
 #import "PBMTrackingURLVisitors.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @implementation PBMTrackingURLVisitors
 
-+ (PBMTrackingURLVisitorBlock)connectionAsTrackingURLVisitor:(id<PBMServerConnectionProtocol>)connection {
++ (PBMTrackingURLVisitorBlock)connectionAsTrackingURLVisitor:(id<ServerConnectionProtocol>)connection {
     return ^(NSArray<NSString *> *trackingUrlStrings) {
         for(NSString *trackingUrlString in trackingUrlStrings) {
             // TODO: Use 'fireAndForget' ?
             // TODO: Use non-zero timeout ?
-            [connection get:trackingUrlString timeout:0 callback:^(PBMServerResponse *response){}];
+            [connection get:trackingUrlString timeout:0 callback:^(ServerResponse *response){}];
         }
     };
 }

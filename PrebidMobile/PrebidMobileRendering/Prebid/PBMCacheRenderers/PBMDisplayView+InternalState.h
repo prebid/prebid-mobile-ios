@@ -19,13 +19,13 @@
 #import "PBMDisplayView.h"
 
 @class AdUnitConfig;
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMDisplayView ()
 
-@property (nonatomic, strong, readonly, nullable) id<PBMServerConnectionProtocol> connection;
+@property (nonatomic, strong, readonly, nullable) id<ServerConnectionProtocol> connection;
 
 - (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid adConfiguration:(AdUnitConfig *)adConfiguration;
 

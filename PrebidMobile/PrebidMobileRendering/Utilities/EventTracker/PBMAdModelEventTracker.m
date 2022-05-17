@@ -15,7 +15,6 @@
 
 #import "PBMAdModelEventTracker.h"
 #import "PBMCreativeModel.h"
-#import "PBMServerConnectionProtocol.h"
 #import "PBMMacros.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -24,7 +23,7 @@
 @interface PBMAdModelEventTracker()
 
 @property (nonatomic, weak) PBMCreativeModel *creativeModel;
-@property (nonatomic, strong) id<PBMServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
 
 @end
 
@@ -33,7 +32,7 @@
 #pragma mark - Initialization
 
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                     serverConnection:(id<PBMServerConnectionProtocol>)serverConnection {
+                     serverConnection:(id<ServerConnectionProtocol>)serverConnection {
     self = [super init];
     if (self) {
         self.creativeModel = creativeModel;

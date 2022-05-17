@@ -68,7 +68,7 @@ class EventManagerTest: XCTestCase {
         let exp = expectation(description:"expectation")
         exp.expectedFulfillmentCount = 4
         
-        let eventTracker = MockPBMAdModelEventTracker(creativeModel: MockPBMCreativeModel(adConfiguration: AdConfiguration()), serverConnection: PBMServerConnection())
+        let eventTracker = MockPBMAdModelEventTracker(creativeModel: MockPBMCreativeModel(adConfiguration: AdConfiguration()), serverConnection: ServerConnection())
         
         let testTrackEvent: PBMTrackingEvent = .impression
         eventTracker.mock_trackEvent = { event in
@@ -116,7 +116,7 @@ class EventManagerTest: XCTestCase {
         trackersCount += 1
         exp.expectedFulfillmentCount = Int(count)
         
-        let eventTracker = MockPBMAdModelEventTracker(creativeModel: MockPBMCreativeModel(adConfiguration: AdConfiguration()), serverConnection: PBMServerConnection())
+        let eventTracker = MockPBMAdModelEventTracker(creativeModel: MockPBMCreativeModel(adConfiguration: AdConfiguration()), serverConnection: ServerConnection())
         eventTracker.mock_trackEvent = { _ in
             exp.fulfill()
         }

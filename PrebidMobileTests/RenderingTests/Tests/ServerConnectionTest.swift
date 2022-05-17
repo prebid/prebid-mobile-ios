@@ -17,7 +17,7 @@ import Foundation
 import XCTest
 @testable import PrebidMobile
 
-class PBMServerConnectionTest : XCTestCase {
+class ServerConnectionTest : XCTestCase {
     
     let strPostData = "TEST"
     let strResponse = "{\"foo\":\"bar\"}"
@@ -39,12 +39,12 @@ class PBMServerConnectionTest : XCTestCase {
     }
     
     func testSharedCreation() {
-        let serverConnectionShared = PBMServerConnection.shared
+        let serverConnectionShared = ServerConnection.shared
         XCTAssertNotNil(serverConnectionShared)
         
-        XCTAssert(serverConnectionShared === PBMServerConnection.shared)
+        XCTAssert(serverConnectionShared === ServerConnection.shared)
 
-        let serverConnectionInstance = PBMServerConnection()
+        let serverConnectionInstance = ServerConnection()
         XCTAssert(serverConnectionShared !== serverConnectionInstance)
     }
     
@@ -62,9 +62,9 @@ class PBMServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.httpBody, nil)
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             XCTAssertEqual(urlRequest.allHTTPHeaderFields!, [
-                PBMServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                PBMServerConnection.isPBMRequestKey     : "True",
-                PBMServerConnection.internalIDKey       : connection.internalID.uuidString
+                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                ServerConnection.isPBMRequestKey     : "True",
+                ServerConnection.internalIDKey       : connection.internalID.uuidString
                 ])
             
             self.didTalkToServerExpectation.fulfill()
@@ -113,10 +113,10 @@ class PBMServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             
             let expectedRequestHeaders = [
-                PBMServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                PBMServerConnection.contentTypeKey      : PBMServerConnection.contentTypeVal,
-                PBMServerConnection.isPBMRequestKey     : "True",
-                PBMServerConnection.internalIDKey       : connection.internalID.uuidString
+                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
+                ServerConnection.isPBMRequestKey     : "True",
+                ServerConnection.internalIDKey       : connection.internalID.uuidString
             ]
             
             let actualRequestHeaders = urlRequest.allHTTPHeaderFields!
@@ -126,7 +126,7 @@ class PBMServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Test
-        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:ServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
 
@@ -160,7 +160,7 @@ class PBMServerConnectionTest : XCTestCase {
 
         let serverConnection = getMockedServerConnection()
         serverConnection.get(self.invalidURL, timeout: 0.5, callback: { (serverResponse) in
-            XCTFail("PBMServerConnection should not allow an HTTP request with invalid URL")
+            XCTFail("ServerConnection should not allow an HTTP request with invalid URL")
             self.didTalkToServerExpectation.fulfill()
         })
 
@@ -183,10 +183,10 @@ class PBMServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.httpBody, nil)
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             let expectedRequestHeaders = [
-                PBMServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                PBMServerConnection.contentTypeKey      : PBMServerConnection.contentTypeVal,
-                PBMServerConnection.isPBMRequestKey     : "True",
-                PBMServerConnection.internalIDKey       : connection.internalID.uuidString
+                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
+                ServerConnection.isPBMRequestKey     : "True",
+                ServerConnection.internalIDKey       : connection.internalID.uuidString
             ]
             
             let actualRequestHeaders = urlRequest.allHTTPHeaderFields!
@@ -196,7 +196,7 @@ class PBMServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Test
-        connection.head("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        connection.head("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:ServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
             let expectedResponseHeaders = [
@@ -221,7 +221,7 @@ class PBMServerConnectionTest : XCTestCase {
 
         let serverConnection = getMockedServerConnection()
         serverConnection.head(self.invalidURL, timeout: 0.5, callback: { (serverResponse) in
-            XCTFail("PBMServerConnection should not allow an HTTP request with invalid URL")
+            XCTFail("ServerConnection should not allow an HTTP request with invalid URL")
             self.didTalkToServerExpectation.fulfill()
         })
 
@@ -246,11 +246,11 @@ class PBMServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             
             let expectedRequestHeaders = [
-                PBMServerConnection.userAgentHeaderKey  :MockUserAgentService.mockUserAgent,
-                PBMServerConnection.contentTypeKey      :PBMServerConnection.contentTypeVal,
-                PBMServerConnection.isPBMRequestKey     : "True",
-                PBMServerConnection.internalIDKey       :connection.internalID.uuidString,
-                "Content-Length"                        :"\(self.strPostData.count)",
+                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
+                ServerConnection.isPBMRequestKey     :  "True",
+                ServerConnection.internalIDKey       : connection.internalID.uuidString,
+                "Content-Length"                     : "\(self.strPostData.count)",
             ]
             let actualRequestHeaders = urlRequest.allHTTPHeaderFields!
             XCTAssertEqual(expectedRequestHeaders, actualRequestHeaders, "expected \(actualRequestHeaders), got \(actualRequestHeaders)")
@@ -258,7 +258,7 @@ class PBMServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         let postData = strPostData.data(using: .utf8)!
-        connection.post("http://foo.com/bo?param_key=abc123", data:postData, timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        connection.post("http://foo.com/bo?param_key=abc123", data:postData, timeout:3.0, callback:{ (serverResponse:ServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
             let expectedResponseHeaderDict:[String:String] = [
@@ -291,7 +291,7 @@ class PBMServerConnectionTest : XCTestCase {
 
         let serverConnection = getMockedServerConnection()
         serverConnection.post(self.invalidURL, data: strPostData.data(using: .utf8)!,timeout: 0.5, callback: { (serverResponse) in
-            XCTFail("PBMServerConnection should not allow an HTTP request with invalid URL")
+            XCTFail("ServerConnection should not allow an HTTP request with invalid URL")
             self.didTalkToServerExpectation.fulfill()
         })
 
@@ -320,10 +320,10 @@ class PBMServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             
             var expectedRequestHeaders = [
-                PBMServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                PBMServerConnection.contentTypeKey      : PBMServerConnection.contentTypeVal,
-                PBMServerConnection.isPBMRequestKey     : "True",
-                PBMServerConnection.internalIDKey       : connection.internalID.uuidString
+                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
+                ServerConnection.isPBMRequestKey     : "True",
+                ServerConnection.internalIDKey       : connection.internalID.uuidString
             ]
             
             expectedRequestHeaders.merge(dict: Prebid.shared.customHeaders)
@@ -335,7 +335,7 @@ class PBMServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Test
-        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:ServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
 
@@ -367,7 +367,7 @@ class PBMServerConnectionTest : XCTestCase {
 }
 
 //Make a request for some arbitrary JSON and make sure it gets parsed.
-class PBMServerConnectionTestJSON : XCTestCase {
+class ServerConnectionTestJSON : XCTestCase {
     
     var callbackCalledExpectation:XCTestExpectation!
     
@@ -383,8 +383,8 @@ class PBMServerConnectionTestJSON : XCTestCase {
         MockServer.shared.resetRules([rule])
 
         //Run the test
-        self.callbackCalledExpectation = self.expectation(description: "Expected PBMServerConnection to fire callback")
-        conn.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response:PBMServerResponse) in
+        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
+        conn.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response:ServerResponse) in
             self.callbackCalledExpectation.fulfill()
             XCTAssertEqual(response.statusCode, 200)
 
@@ -429,7 +429,7 @@ class PBMServerConnectionTestJSON : XCTestCase {
     }
 
     func testInvalidJSON() {
-        self.callbackCalledExpectation = self.expectation(description: "Expected PBMServerConnection to fire callback")
+        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
 
         let connection = getMockedServerConnection()
 
@@ -457,7 +457,7 @@ class PBMServerConnectionTestJSON : XCTestCase {
 
 
 //Make a request for some arbitrary JSON and make sure it gets parsed.
-class PBMServerConnectionTestJSONSlow : XCTestCase {
+class ServerConnectionTestJSONSlow : XCTestCase {
     
     var callbackCalledExpectation:XCTestExpectation!
     
@@ -472,8 +472,8 @@ class PBMServerConnectionTestJSONSlow : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Run the test
-        self.callbackCalledExpectation = self.expectation(description: "Expected PBMServerConnection to fire callback")
-        conn.post("http://foo.com", data:Data(), timeout:30.0, callback:{ (response:PBMServerResponse) in
+        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
+        conn.post("http://foo.com", data:Data(), timeout:30.0, callback:{ (response:ServerResponse) in
             self.callbackCalledExpectation.fulfill()
             XCTAssertEqual(response.statusCode, 200)
             
@@ -519,8 +519,8 @@ class PBMServerConnectionTestJSONSlow : XCTestCase {
     
 }
 
-class PBMServerConnectionTest_Redirect: XCTestCase {
-    // Test how PBMServerConnection responds to a 302 - resource moved temporarily
+class ServerConnectionTest_Redirect: XCTestCase {
+    // Test how ServerConnection responds to a 302 - resource moved temporarily
     // Ref: http://www.ietf.org/rfc/rfc2616.txt
     
     override func tearDown() {
@@ -545,7 +545,7 @@ class PBMServerConnectionTest_Redirect: XCTestCase {
         firstRule.redirectRequest = URLRequest(url: URL(string:secondURL)!)
         firstRule.redirectRequest?.allHTTPHeaderFields = [
             "foo":"bar",
-            PBMServerConnection.internalIDKey : connection.internalID.uuidString
+            ServerConnection.internalIDKey : connection.internalID.uuidString
         ]
         
         firstRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
@@ -554,10 +554,10 @@ class PBMServerConnectionTest_Redirect: XCTestCase {
             PBMAssertEq(urlRequest.httpBody, nil)
             
             let expectedRequestHeaders = [
-                PBMServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                PBMServerConnection.contentTypeKey      : PBMServerConnection.contentTypeVal,
-                PBMServerConnection.isPBMRequestKey     : "True",
-                PBMServerConnection.internalIDKey       : connection.internalID.uuidString
+                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
+                ServerConnection.isPBMRequestKey     : "True",
+                ServerConnection.internalIDKey       : connection.internalID.uuidString
             ]
             PBMAssertEq(expectedRequestHeaders, urlRequest.allHTTPHeaderFields)
             expectationFirstRuleHandled.fulfill()
@@ -570,15 +570,15 @@ class PBMServerConnectionTest_Redirect: XCTestCase {
             PBMAssertEq(urlRequest.httpBody, nil)
             PBMAssertEq(urlRequest.allHTTPHeaderFields, [
                 "foo":"bar",
-                PBMServerConnection.internalIDKey : connection.internalID.uuidString
+                ServerConnection.internalIDKey : connection.internalID.uuidString
                 ])
             
             expectationSecondRuleHandled.fulfill()
         }
         MockServer.shared.resetRules([firstRule, secondRule])
         
-        // Test PBMServerConnection
-        connection.get(firstURL, timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+        // Test ServerConnection
+        connection.get(firstURL, timeout:3.0, callback:{ (serverResponse: ServerResponse) in
             
             //The result should be that the 302 is handled internally and we get back a 200.
             PBMAssertEq(serverResponse.statusCode, 200)
@@ -625,13 +625,13 @@ func unfulfilledExpectation(_ testCase: XCTestCase, description: String) -> XCTe
 }
 
 /**
- *  Creates an `PBMServerConnection` using a `MockUserAgentService` and `MockServerURLProtocol`.
+ *  Creates an `ServerConnection` using a `MockUserAgentService` and `MockServerURLProtocol`.
  *
- *  - returns: `PBMServerConnection`
+ *  - returns: `ServerConnection`
  */
-func getMockedServerConnection() -> PBMServerConnection {
-    let serverConnection = PBMServerConnection(userAgentService: MockUserAgentService())
-    serverConnection.protocolClasses.add(MockServerURLProtocol.self)
+func getMockedServerConnection() -> ServerConnection {
+    let serverConnection = ServerConnection(userAgentService: MockUserAgentService())
+    serverConnection.protocolClasses.append(MockServerURLProtocol.self)
 
     return serverConnection
 }

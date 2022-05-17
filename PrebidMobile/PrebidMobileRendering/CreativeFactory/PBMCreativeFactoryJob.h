@@ -21,7 +21,7 @@
 @class PBMTransaction;
 @class PBMCreativeFactoryJob;
 
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 typedef enum PBMCreativeFactoryJobState : NSUInteger {
     PBMCreativeFactoryJobStateInitialized,
@@ -40,7 +40,7 @@ typedef void(^PBMCreativeFactoryJobFinishedCallback)(PBMCreativeFactoryJob * _No
 - (nonnull instancetype)init NS_UNAVAILABLE;
 - (nonnull instancetype)initFromCreativeModel:(nonnull PBMCreativeModel *)creativeModel
                                   transaction:(nonnull PBMTransaction *)transaction
-                                  serverConnection:(nonnull id<PBMServerConnectionProtocol>)serverConnection
+                                  serverConnection:(nonnull id<ServerConnectionProtocol>)serverConnection
                               finishedCallback:(nonnull PBMCreativeFactoryJobFinishedCallback)finishedCallback
                               NS_DESIGNATED_INITIALIZER;
 

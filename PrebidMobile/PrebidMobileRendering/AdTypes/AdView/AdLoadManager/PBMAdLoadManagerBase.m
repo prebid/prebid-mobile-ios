@@ -18,7 +18,6 @@
 #import "PBMAdRequesterVAST.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMMacros.h"
-#import "PBMServerResponse.h"
 #import "PBMTransaction.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -37,7 +36,7 @@
 @implementation PBMAdLoadManagerBase
 
 - (instancetype)initWithBid:(Bid *)bid
-                 connection:(id<PBMServerConnectionProtocol>)connection
+                 connection:(id<ServerConnectionProtocol>)connection
             adConfiguration:(AdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
@@ -56,11 +55,11 @@
     self.currentTransaction = [[PBMTransaction alloc] initWithServerConnection:self.connection
                                                                adConfiguration:self.adConfiguration
                                                                         models:creativeModels];
-    
+
     self.currentTransaction.skadnInfo = self.bid.skadn;
     self.currentTransaction.impURL = self.bid.events.imp;
     self.currentTransaction.winURL = self.bid.events.win;
-    
+
     self.currentTransaction.delegate = self;
     
     [self.currentTransaction startCreativeFactory];

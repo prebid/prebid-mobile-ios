@@ -18,8 +18,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMServerConnectionProtocol.h"
-#import "PBMServerResponse.h"
 #import "PBMJSLibraryManager.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -265,7 +263,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                             versionString:[PBMFunctions omidVersion]];
 }
 
-- (void)downloadJSLibWithConnection:(id<PBMServerConnectionProtocol>)connection completion:(nullable PBMVoidBlock)completion {
+- (void)downloadJSLibWithConnection:(id<ServerConnectionProtocol>)connection completion:(nullable PBMVoidBlock)completion {
     if (!connection) {
         PBMLogError(@"Connection is nil");
         if (completion) {
@@ -276,7 +274,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     @weakify(self);
-    [connection download:self.jsLibURL callback:^(PBMServerResponse * _Nonnull response) {
+    [connection download:self.jsLibURL callback:^(ServerResponse * _Nonnull response) {
         @strongify(self);
         // Delayed call to not process all error cases.
         dispatch_async(dispatch_get_main_queue(), ^{

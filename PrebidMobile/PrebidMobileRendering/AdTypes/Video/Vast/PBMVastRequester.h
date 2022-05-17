@@ -15,17 +15,17 @@
 
 #import <Foundation/Foundation.h>
 
-@class PBMServerResponse;
+@class ServerResponse;
 
-@protocol PBMServerConnectionProtocol;
+@protocol ServerConnectionProtocol;
 
 // TODO: need a single typedef for the all app
-typedef void(^PBMAdRequestCallback)(PBMServerResponse * _Nullable serverResponse, NSError * _Nullable);
+typedef void(^AdRequestCallback)(ServerResponse * _Nullable serverResponse, NSError * _Nullable);
 
 @interface PBMVastRequester : NSObject
 
 + (void)loadVastURL:(nonnull NSString *)url
-         connection:(nonnull id<PBMServerConnectionProtocol>)connection
-         completion:(nonnull PBMAdRequestCallback)completion;
+         connection:(nonnull id<ServerConnectionProtocol>)connection
+         completion:(nonnull AdRequestCallback)completion;
 
 @end

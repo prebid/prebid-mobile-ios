@@ -14,8 +14,6 @@
  */
 
 #import "PBMJSLibraryManager.h"
-#import "PBMServerConnectionProtocol.h"
-#import "PBMServerResponse.h"
 #import "PBMFunctions+Private.h"
 #import "PBMError.h"
 #import "PBMMacros.h"
@@ -141,7 +139,7 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     return nil;
 }
 
-- (void)updateJSLibraryIfNeededWithConnection:(id<PBMServerConnectionProtocol>)connection remoteLibrary:(PBMJSLibrary *)remoteLibrary bundleVersion:(NSString *)bundleVersion fileName:(NSString *)fileName {
+- (void)updateJSLibraryIfNeededWithConnection:(id<ServerConnectionProtocol>)connection remoteLibrary:(PBMJSLibrary *)remoteLibrary bundleVersion:(NSString *)bundleVersion fileName:(NSString *)fileName {
     if (!remoteLibrary) {
         return;
     }
@@ -153,7 +151,7 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     
     NSString *urlString = [remoteLibrary.downloadURL absoluteString];
     @weakify(self);
-    [connection download:urlString callback:^(PBMServerResponse *response) {
+    [connection download:urlString callback:^(ServerResponse *response) {
         @strongify(self);
         PBMLogInfo(@"Server Side Configuration: The %@ was updated to the version %@", fileName, remoteLibrary.version);
         //updating contents string
@@ -188,7 +186,7 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     return [self getJSLibraryWithName:PBMOMSDKFileName bundleName:PBMOMSDKBundleName bundleVersion:PBMOMSDKBundleVersion];
 }
 
-- (void)updateJSLibrariesIfNeededWithConnection:(id<PBMServerConnectionProtocol>)connection {
+- (void)updateJSLibrariesIfNeededWithConnection:(id<ServerConnectionProtocol>)connection {
     [self updateJSLibraryIfNeededWithConnection:connection remoteLibrary:self.remoteMRAIDLibrary bundleVersion:PBMMRAIDBundleVersion fileName:PBMMRAIDFileName];
     [self updateJSLibraryIfNeededWithConnection:connection remoteLibrary:self.remoteOMSDKLibrary bundleVersion:PBMOMSDKBundleVersion fileName:PBMOMSDKFileName];
 }

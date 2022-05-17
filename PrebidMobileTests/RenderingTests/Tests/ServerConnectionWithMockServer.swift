@@ -14,8 +14,9 @@
   */
 
 import XCTest
+@testable import PrebidMobile
 
-class PBMServerConnectionWithMockServer: XCTestCase {
+class ServerConnectionWithMockServer: XCTestCase {
     
     let strResponse = "{\"foo\":\"bar\"}"
     let testNeedle1 = "foo.com"

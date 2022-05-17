@@ -20,16 +20,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class PBMServerResponse;
-@protocol PBMServerConnectionProtocol;
+@class ServerResponse;
+@protocol ServerConnectionProtocol;
 
 @interface PBMAdRequesterVAST : NSObject
 
 @property (nonatomic, strong) AdConfiguration *adConfiguration;
-@property (nonatomic, strong) id<PBMServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
 @property (nonatomic, weak, nullable) PBMAdLoadManagerVAST *adLoadManager;
 
-- (instancetype)initWithServerConnection:(id<PBMServerConnectionProtocol>)serverConnection
+- (instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)serverConnection
                          adConfiguration:(AdConfiguration *)adConfiguration;
 // - (void)load;
 - (void)buildVastAdsArray:(NSData *)rawVASTData;
