@@ -40,16 +40,6 @@ class PrebidTest: XCTestCase {
         // init callback should be optional
         Prebid.initializeSDK()
         
-        Prebid.initializeSDK { result in
-            // Host URL was not provided
-            switch result {
-            case .success():
-                XCTFail("Host URL was not provided. Initialization must fail.")
-            case .failure(let error):
-                XCTAssertEqual(error.localizedDescription, "Provided host URL is not valid")
-            }
-        }
-        
         try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
         
         let expectation = expectation(description: "Expected successful initialization")
