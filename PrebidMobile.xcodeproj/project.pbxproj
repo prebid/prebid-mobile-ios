@@ -2082,6 +2082,7 @@
 		5BC376E9271F1CFE00444D5E /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				5BC3787E271F1CFF00444D5E /* omsdk.js */,
 				5BC376EA271F1CFE00444D5E /* companion.html */,
 				5BC376EB271F1CFE00444D5E /* mraid.js */,
 				5BC376EC271F1CFE00444D5E /* ClickthroughBrowserView.xib */,
@@ -2581,20 +2582,11 @@
 				5BC3787A271F1CFF00444D5E /* PBMOpenMeasurementWrapper.h */,
 				5BC3787B271F1CFF00444D5E /* PBMOpenMeasurementEventTracker.h */,
 				5BC3787C271F1CFF00444D5E /* PBMOpenMeasurementWrapper.m */,
-				5BC3787D271F1CFF00444D5E /* lib */,
 				5BC3787F271F1CFF00444D5E /* PBMOpenMeasurementFriendlyObstructionTypeBridge.h */,
 				5BC37880271F1CFF00444D5E /* PBMOpenMeasurementSession.h */,
 				5BC37881271F1CFF00444D5E /* PBMOpenMeasurementEventTracker.m */,
 			);
 			path = OpenMeasurement;
-			sourceTree = "<group>";
-		};
-		5BC3787D271F1CFF00444D5E /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				5BC3787E271F1CFF00444D5E /* omsdk.js */,
-			);
-			path = lib;
 			sourceTree = "<group>";
 		};
 		5BC37882271F1CFF00444D5E /* Networking */ = {
