@@ -13,13 +13,20 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface PBMPathBuilder : NSObject
+fileprivate let PathBuilderSecureProtocol = "https"
 
-+ (NSString *)buildBaseURLForDomain:(NSString *)domain;
-+ (NSString *)buildURLPathForDomain:(NSString *)domain path:(NSString *)path;
-+ (NSString *)buildACJURLPathForDomain:(NSString *)domain;
-+ (NSString *)buildVASTURLPathForDomain:(NSString *)domain;
-
-@end
+@objcMembers
+public class PathBuilder: NSObject {
+    
+    public static func buildURL(for host: String, path: String = "", queryItems: [URLQueryItem]? = nil) -> String? {
+        var components = URLComponents()
+        components.scheme = PathBuilderSecureProtocol
+        components.host = host
+        components.path = path
+        components.queryItems = queryItems
+        
+        return components.url?.absoluteString
+    }
+}
