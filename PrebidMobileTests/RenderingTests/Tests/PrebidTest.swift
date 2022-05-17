@@ -45,7 +45,6 @@ class PrebidTest: XCTestCase {
         let expectation = expectation(description: "Expected successful initialization")
         
         Prebid.initializeSDK { result in
-            // Host URL was not provided
             switch result {
             case .success():
                 expectation.fulfill()
