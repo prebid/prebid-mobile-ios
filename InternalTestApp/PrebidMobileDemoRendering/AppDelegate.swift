@@ -45,12 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
         
         //Set up SDK.
-        Prebid.initializeSDK { result in
-            switch result {
-            case .success():
-                break
-            case .failure(let error):
+        Prebid.initializeSDK { error in
+            if let error = error {
                 print("An error occurred during Prebid initialization: \(error.localizedDescription)")
+            } else {
+                // Prebid successfully initialized
             }
         }
                 
