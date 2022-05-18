@@ -44,12 +44,14 @@ class PrebidTest: XCTestCase {
         
         let expectation = expectation(description: "Expected successful initialization")
         
-        Prebid.initializeSDK { result in
-            switch result {
-            case .success():
+        Prebid.initializeSDK { status, error in
+            switch status {
+            case .successed:
                 expectation.fulfill()
-            case .failure(let error):
-                XCTFail("Failed with error: \(error.localizedDescription)")
+            case .failed:
+                if let error = error {
+                    XCTFail("Failed with error: \(error.localizedDescription)")
+                }
             }
         }
         
