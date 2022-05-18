@@ -130,7 +130,6 @@ framework module PrebidMobile {
     
     // Interstitial
     header "PBMInterstitialDisplayProperties.h"
-    header "PBMCachedResponseInfo.h"
     header "PBMWeakTimerTargetBox.h"
     
     // Bid
