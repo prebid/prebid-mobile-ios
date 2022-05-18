@@ -21,7 +21,6 @@
 #import "PBMAdViewManagerDelegate.h"
 #import "PBMJsonCodable.h"
 
-#import "PBMBaseAdUnit.h"
 #import "PBMBidRequesterFactoryBlock.h"
 #import "PBMWinNotifierBlock.h"
 

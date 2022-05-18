@@ -4,8 +4,11 @@
 
 #import "PBMPrimaryAdRequesterProtocol.h"
 
-#import "PBMBaseAdUnit.h"
-#import "PBMBaseAdUnit+Protected.h"
+#import "PBMBidRequester.h"
+#import "PBMBidRequesterFactory.h"
+#import "PBMConstants.h"
+#import "PBMMacros.h"
+#import "PBMWinNotifier.h"
 
 #import "PBMInterstitialEventHandler.h"
 

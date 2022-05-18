@@ -33,9 +33,6 @@ framework module PrebidMobile {
     
     header "PBMPrimaryAdRequesterProtocol.h"
     
-    header "PBMBaseAdUnit.h"
-    header "PBMBaseAdUnit+Protected.h"
-    
     header "PBMInterstitialEventHandler.h"
     
     // ===
