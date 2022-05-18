@@ -101,7 +101,6 @@
 		5BC378BA271F1CFF00444D5E /* NSDictionary+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37659271F1CFD00444D5E /* NSDictionary+PBMExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC378BB271F1CFF00444D5E /* NSNumber+PBMORTBNative.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3765A271F1CFD00444D5E /* NSNumber+PBMORTBNative.m */; };
 		5BC378BC271F1CFF00444D5E /* PBMTouchDownRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3765B271F1CFD00444D5E /* PBMTouchDownRecognizer.h */; };
-		5BC378BD271F1CFF00444D5E /* NSDictionary+PBMORTBNativeExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3765C271F1CFD00444D5E /* NSDictionary+PBMORTBNativeExt.m */; };
 		5BC378BE271F1CFF00444D5E /* NSMutableDictionary+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3765D271F1CFD00444D5E /* NSMutableDictionary+PBMExtensions.m */; };
 		5BC378BF271F1CFF00444D5E /* UIWindow+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3765E271F1CFD00444D5E /* UIWindow+PBMExtensions.h */; };
 		5BC378C0271F1CFF00444D5E /* NSDictionary+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3765F271F1CFD00444D5E /* NSDictionary+PBMExtensions.m */; };
@@ -110,7 +109,6 @@
 		5BC378C3271F1CFF00444D5E /* NSString+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37662271F1CFD00444D5E /* NSString+PBMExtensions.m */; };
 		5BC378C4271F1CFF00444D5E /* NSNumber+PBMORTBNative.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37663271F1CFD00444D5E /* NSNumber+PBMORTBNative.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC378C5271F1CFF00444D5E /* NSMutableDictionary+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37664271F1CFD00444D5E /* NSMutableDictionary+PBMExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC378C6271F1CFF00444D5E /* NSDictionary+PBMORTBNativeExt.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37665271F1CFD00444D5E /* NSDictionary+PBMORTBNativeExt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC378C7271F1CFF00444D5E /* PBMScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37667271F1CFD00444D5E /* PBMScheduledTimerFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC378C8271F1CFF00444D5E /* NSTimer+PBMScheduledTimerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37668271F1CFD00444D5E /* NSTimer+PBMScheduledTimerFactory.m */; };
 		5BC378C9271F1CFF00444D5E /* NSTimer+PBMTimerInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37669271F1CFD00444D5E /* NSTimer+PBMTimerInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -935,7 +933,6 @@
 		5BC37659271F1CFD00444D5E /* NSDictionary+PBMExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+PBMExtensions.h"; sourceTree = "<group>"; };
 		5BC3765A271F1CFD00444D5E /* NSNumber+PBMORTBNative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+PBMORTBNative.m"; sourceTree = "<group>"; };
 		5BC3765B271F1CFD00444D5E /* PBMTouchDownRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMTouchDownRecognizer.h; sourceTree = "<group>"; };
-		5BC3765C271F1CFD00444D5E /* NSDictionary+PBMORTBNativeExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+PBMORTBNativeExt.m"; sourceTree = "<group>"; };
 		5BC3765D271F1CFD00444D5E /* NSMutableDictionary+PBMExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+PBMExtensions.m"; sourceTree = "<group>"; };
 		5BC3765E271F1CFD00444D5E /* UIWindow+PBMExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+PBMExtensions.h"; sourceTree = "<group>"; };
 		5BC3765F271F1CFD00444D5E /* NSDictionary+PBMExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+PBMExtensions.m"; sourceTree = "<group>"; };
@@ -944,7 +941,6 @@
 		5BC37662271F1CFD00444D5E /* NSString+PBMExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PBMExtensions.m"; sourceTree = "<group>"; };
 		5BC37663271F1CFD00444D5E /* NSNumber+PBMORTBNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+PBMORTBNative.h"; sourceTree = "<group>"; };
 		5BC37664271F1CFD00444D5E /* NSMutableDictionary+PBMExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+PBMExtensions.h"; sourceTree = "<group>"; };
-		5BC37665271F1CFD00444D5E /* NSDictionary+PBMORTBNativeExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+PBMORTBNativeExt.h"; sourceTree = "<group>"; };
 		5BC37667271F1CFD00444D5E /* PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMScheduledTimerFactory.h; sourceTree = "<group>"; };
 		5BC37668271F1CFD00444D5E /* NSTimer+PBMScheduledTimerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+PBMScheduledTimerFactory.m"; sourceTree = "<group>"; };
 		5BC37669271F1CFD00444D5E /* NSTimer+PBMTimerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+PBMTimerInterface.h"; sourceTree = "<group>"; };
@@ -1879,25 +1875,23 @@
 		5BC3764E271F1CFD00444D5E /* ExtensionsAndWrappers */ = {
 			isa = PBXGroup;
 			children = (
-				5BC3764F271F1CFD00444D5E /* NSString+PBMExtensions.h */,
-				5BC37650271F1CFD00444D5E /* UIView+PBMExtensions.h */,
-				5BC37651271F1CFD00444D5E /* NSException+PBMExtensions.m */,
 				5BC37652271F1CFD00444D5E /* Exposure */,
 				5BC37659271F1CFD00444D5E /* NSDictionary+PBMExtensions.h */,
-				5BC3765A271F1CFD00444D5E /* NSNumber+PBMORTBNative.m */,
-				5BC3765B271F1CFD00444D5E /* PBMTouchDownRecognizer.h */,
-				5BC3765C271F1CFD00444D5E /* NSDictionary+PBMORTBNativeExt.m */,
-				5BC3765D271F1CFD00444D5E /* NSMutableDictionary+PBMExtensions.m */,
-				5BC3765E271F1CFD00444D5E /* UIWindow+PBMExtensions.h */,
 				5BC3765F271F1CFD00444D5E /* NSDictionary+PBMExtensions.m */,
 				5BC37660271F1CFD00444D5E /* NSException+PBMExtensions.h */,
-				5BC37661271F1CFD00444D5E /* UIView+PBMExtensions.m */,
-				5BC37662271F1CFD00444D5E /* NSString+PBMExtensions.m */,
-				5BC37663271F1CFD00444D5E /* NSNumber+PBMORTBNative.h */,
+				5BC37651271F1CFD00444D5E /* NSException+PBMExtensions.m */,
 				5BC37664271F1CFD00444D5E /* NSMutableDictionary+PBMExtensions.h */,
-				5BC37665271F1CFD00444D5E /* NSDictionary+PBMORTBNativeExt.h */,
+				5BC3765D271F1CFD00444D5E /* NSMutableDictionary+PBMExtensions.m */,
+				5BC37663271F1CFD00444D5E /* NSNumber+PBMORTBNative.h */,
+				5BC3765A271F1CFD00444D5E /* NSNumber+PBMORTBNative.m */,
+				5BC3764F271F1CFD00444D5E /* NSString+PBMExtensions.h */,
+				5BC37662271F1CFD00444D5E /* NSString+PBMExtensions.m */,
 				5BC37666271F1CFD00444D5E /* NSTimer */,
+				5BC3765B271F1CFD00444D5E /* PBMTouchDownRecognizer.h */,
 				5BC3766E271F1CFD00444D5E /* PBMTouchDownRecognizer.m */,
+				5BC37650271F1CFD00444D5E /* UIView+PBMExtensions.h */,
+				5BC37661271F1CFD00444D5E /* UIView+PBMExtensions.m */,
+				5BC3765E271F1CFD00444D5E /* UIWindow+PBMExtensions.h */,
 				5BC3766F271F1CFD00444D5E /* UIWindow+PBMExtensions.m */,
 			);
 			path = ExtensionsAndWrappers;
@@ -3456,7 +3450,6 @@
 				5BC379B1271F1D0000444D5E /* PBMExposureChangeDelegate.h in Headers */,
 				5BC37962271F1D0000444D5E /* PBMVastAbstractAd.h in Headers */,
 				5BC37AD5271F1D0100444D5E /* PBMParameterBuilderService.h in Headers */,
-				5BC378C6271F1CFF00444D5E /* NSDictionary+PBMORTBNativeExt.h in Headers */,
 				5BC37968271F1D0000444D5E /* PBMVastInlineAd.h in Headers */,
 				5BC3799C271F1D0000444D5E /* PBMModalViewController+Private.h in Headers */,
 				5BC378DC271F1CFF00444D5E /* PBMORTBPublisher.h in Headers */,
@@ -4135,7 +4128,6 @@
 				5BC37A20271F1D0000444D5E /* PBMORTBMacrosHelper.m in Sources */,
 				92989653275FE98C00D3C174 /* PBMORTBContentData.m in Sources */,
 				5BC378BB271F1CFF00444D5E /* NSNumber+PBMORTBNative.m in Sources */,
-				5BC378BD271F1CFF00444D5E /* NSDictionary+PBMORTBNativeExt.m in Sources */,
 				5BC37919271F1CFF00444D5E /* PBMUserConsentDataManager.m in Sources */,
 				5BC37961271F1D0000444D5E /* PBMVastAdsBuilder.m in Sources */,
 				5BC37A91271F1D0000444D5E /* InterstitialEventLoadingDelegate.swift in Sources */,

@@ -70,15 +70,6 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support flexibility beyond the standard defined in this specification
     public var ext: [String : Any]?
     
-    public func setExt(_ ext: [String : Any]?) throws {
-        guard let ext = ext else {
-            self.ext = nil
-            return
-        }
-        
-        self.ext = try NSDictionary(dictionary: ext).unserializedCopy()
-    }
-    
     public override init() {
         super.init()
     }
