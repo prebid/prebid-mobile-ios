@@ -24,7 +24,6 @@
     if(!(self = [super init])) {
         return nil;
     }
-    _api = @[];
     _format = @[];
     return self;
 }
