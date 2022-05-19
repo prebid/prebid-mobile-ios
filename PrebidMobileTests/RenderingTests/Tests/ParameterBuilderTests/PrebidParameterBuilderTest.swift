@@ -366,7 +366,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         bidRequest.imp.forEach {
             // API signals should be nil for original API
-            XCTAssertNil($0.banner?.api)
+            XCTAssertEqual($0.banner?.api, nil)
         }
         
         let apiSignalsAsNumbers = PrebidConstants.supportedRenderingBannerAPISignals.map { NSNumber(value: $0.value) }

@@ -73,7 +73,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
             return
         }
         
-        PBMAssertEq(banner.api, [])
+        PBMAssertEq(banner.api, nil)
         
         //Check Regs
         XCTAssertNil(bidRequest.regs.coppa)
@@ -388,7 +388,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         }
         
         // default values for banner object
-        XCTAssertEqual(banner.api, [])
+        XCTAssertEqual(banner.api, nil)
         XCTAssertEqual(banner.format, [])
         
         // default values for video object
@@ -397,7 +397,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.playbackend, 2)
         XCTAssertEqual(video.delivery, [3])
         XCTAssertEqual(video.pos, 7)
-        XCTAssertEqual(video.api, [])
+        XCTAssertEqual(video.api, nil)
         XCTAssertEqual(video.linearity, 1)
     }
 }

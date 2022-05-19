@@ -48,7 +48,7 @@ class PBMORTBAbstractTest : XCTestCase {
         codeAndDecode(abstract:PBMORTBImp(), expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
         
         //Metric not implemented
-        codeAndDecode(abstract:PBMORTBBanner(), expectedString: "{\"api\":[]}")
+        codeAndDecode(abstract:PBMORTBBanner(), expectedString: "{}")
         codeAndDecode(abstract:PBMORTBVideo(), expectedString: "{\"delivery\":[3],\"linearity\":1,\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"playbackend\":2,\"pos\":7,\"protocols\":[2,5]}")
         
         //Audio not implemented
@@ -240,7 +240,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBImp.secure = 1
         pbmORTBImp.extContextData = ["lookup_words": ["dragon", "flame"]]
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"banner\":{\"api\":[]},\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"context\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]}},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\",\"video\":{\"delivery\":[3],\"linearity\":1,\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"playbackend\":2,\"pos\":7,\"protocols\":[2,5]}}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"banner\":{},\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"context\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]}},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\",\"video\":{\"delivery\":[3],\"linearity\":1,\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"playbackend\":2,\"pos\":7,\"protocols\":[2,5]}}")
     }
     
     func testPBMORTBImpExtSkadnToJsonString() {
