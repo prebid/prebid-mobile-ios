@@ -108,9 +108,8 @@ NS_ASSUME_NONNULL_BEGIN
 //4) ORMMA
 //5) MRAID-2
 //6) MRAID-3
-//Note: SDK supports MRAID 1 and MRAID 2
-//Also note that since this is not settable by pub, we can use [Int] instead of NSNumber
-@property (nonatomic, copy) NSArray<NSNumber *> *api;
+//Note: SDK supports MRAID 1, MRAID 2 MRAID 3, OMID 1
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *api;
 
 //Unique identifier for this banner object. Recommended when Banner objects are used with a Video object to represent an array of companion ads. Values usually start at 1 and increase with each object; should be unique within an impression
 //Note: id is not supported.

@@ -111,6 +111,8 @@ public class BannerView: UIView,
                       eventHandler: BannerEventHandler) {
         
         adUnitConfig = AdUnitConfig(configId: configID, size: adSize)
+        adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
+
         self.eventHandler = eventHandler
         super.init(frame: frame)
         accessibilityLabel = PBMAccesibility.bannerView

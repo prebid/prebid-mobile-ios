@@ -15,6 +15,9 @@
 
 #import "PBMConstants.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Keys
 
 NSString * const PBM_DOMAIN_KEY                          = @"domain";

@@ -550,4 +550,71 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertNotNil(cache["bids"])
         XCTAssertNotNil(cache["vastxml"])
     }
+    
+    func testDefaultAPISignalsInAllAdUnits() {
+        // Original API
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        
+        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        bidRequest.imp.forEach {
+            // API signals should be nil for original API
+            XCTAssertNil($0.banner?.api)
+        }
+        
+        let apiSignalsAsNumbers = PrebidConstants.supportedRenderingBannerAPISignals.map { NSNumber(value: $0.value) }
+        
+        // Rendering API
+        let renderingBannerAdUnit = BannerView(frame: .init(origin: .zero, size: CGSize(width: 320, height: 50)), configID: "test", adSize: CGSize(width: 320, height: 50))
+        bidRequest = buildBidRequest(with: renderingBannerAdUnit.adUnitConfig)
+        
+        bidRequest.imp.forEach { imp in
+            // Supported banner api signals for rendering API is MRAID_1, MRAID_2, MRAID_3, OMID_1
+            XCTAssertEqual(imp.banner?.api, apiSignalsAsNumbers)
+        }
+        
+        let redenderingInterstitialAdUnit = BaseInterstitialAdUnit(configID: "configID")
+        bidRequest = buildBidRequest(with: redenderingInterstitialAdUnit.adUnitConfig)
+        
+        bidRequest.imp.forEach {
+            // Supported banner api signals for rendering API is MRAID_1, MRAID_2, MRAID_3, OMID_1
+            XCTAssertEqual($0.banner?.api, apiSignalsAsNumbers)
+        }
+        
+        // Mediation API
+        let mediationBannerAdUnit = MediationBannerAdUnit(configID: "configId", size: CGSize(width: 320, height: 50), mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
+        bidRequest = buildBidRequest(with: mediationBannerAdUnit.adUnitConfig)
+        
+        bidRequest.imp.forEach {
+            // Supported banner api signals for rendering API is MRAID_1, MRAID_2, MRAID_3, OMID_1
+            XCTAssertEqual($0.banner?.api, apiSignalsAsNumbers)
+        }
+        
+        let mediationInterstitialAdUnit = MediationBaseInterstitialAdUnit(configId: "configId", mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
+        bidRequest = buildBidRequest(with: mediationInterstitialAdUnit.adUnitConfig)
+        
+        bidRequest.imp.forEach {
+            // Supported banner api signals for rendering API is MRAID_1, MRAID_2, MRAID_3, OMID_1
+            XCTAssertEqual($0.banner?.api, apiSignalsAsNumbers)
+        }
+    }
+    
+    // MARK: - Helpers
+    
+    func buildBidRequest(with adUnitConfig: AdUnitConfig) -> PBMORTBBidRequest {
+        let bidRequest = PBMORTBBidRequest()
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        return bidRequest
+    }
 }

@@ -34,14 +34,18 @@
 }
 
 - (void)setApi:(NSArray<NSNumber *> *)api {
-    _api = api ? [NSArray arrayWithArray:api] : @[];
+    _api = api ? [NSArray arrayWithArray:api] : nil;
 }
 
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
     
     ret[@"pos"] = self.pos;
-    ret[@"api"] = self.api;
+    
+    if (self.api.count > 0) {
+        ret[@"api"] = self.api;
+    }
+    
     if (self.format.count > 0) {
         NSMutableArray<PBMJsonDictionary *> * const formatsArr = [[NSMutableArray alloc] initWithCapacity:self.format.count];
         for(PBMORTBFormat *nextFormat in self.format) {

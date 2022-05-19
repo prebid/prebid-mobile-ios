@@ -63,6 +63,8 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adConfiguration.adFormats = [.display, .video]
+        adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
+        
         super.init()
         videoParameters.placement = .Interstitial
     }

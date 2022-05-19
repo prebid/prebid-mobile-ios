@@ -25,7 +25,6 @@
 #import "PBMNetworkParameterBuilder.h"
 #import "PBMORTBParameterBuilder.h"
 #import "PBMParameterBuilderProtocol.h"
-#import "PBMSupportedProtocolsParameterBuilder.h"
 #import "PBMSKAdNetworksParameterBuilder.h"
 #import "PBMUserConsentDataManager.h"
 #import "PBMUserConsentParameterBuilder.h"
@@ -81,7 +80,6 @@
         [[PBMAppInfoParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
         [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager userConsentManager:pbmUserConsentManager],
         [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo reachability:reachability],
-        [[PBMSupportedProtocolsParameterBuilder alloc] initWithSDKConfiguration:sdkConfiguration],
         [[PBMUserConsentParameterBuilder alloc] initWithUserConsentManager:pbmUserConsentManager],
         [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
     ]];
