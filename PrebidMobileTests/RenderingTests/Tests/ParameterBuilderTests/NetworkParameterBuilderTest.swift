@@ -24,7 +24,7 @@ class NetworkParameterBuilderTest : XCTestCase {
     
     func testParameterBuilder() {
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
-        let mockReachability = MockReachability.forInternetConnection()!
+        let mockReachability = MockReachability.shared
         let networkParameterBuilder = NetworkParameterBuilder(ctTelephonyNetworkInfo:mockCTTelephonyNetworkInfo, reachability: mockReachability)
         let bidRequest = PBMORTBBidRequest()
         

@@ -33,9 +33,6 @@ framework module PrebidMobile {
     
     header "PBMPrimaryAdRequesterProtocol.h"
     
-    header "PBMBaseAdUnit.h"
-    header "PBMBaseAdUnit+Protected.h"
-    
     header "PBMInterstitialEventHandler.h"
     
     // ===
@@ -45,7 +42,6 @@ framework module PrebidMobile {
     header "PBMFunctions+Private.h"
     header "PBMFunctions+Testing.h"
     header "PBMUIApplicationProtocol.h"
-    header "NSDictionary+PBMORTBNativeExt.h"
 
     header "PBMViewControllerProvider.h"
     header "PBMVoidBlock.h"
@@ -90,7 +86,6 @@ framework module PrebidMobile {
     header "PBMFunctions.h"
     header "PBMFunctions+Private.h"
     header "PBMUIApplicationProtocol.h"
-    header "NSDictionary+PBMORTBNativeExt.h"
     
     header "PBMAutoRefreshManager.h"
     header "PBMAdLoadFlowController.h"
@@ -133,7 +128,6 @@ framework module PrebidMobile {
     
     // Interstitial
     header "PBMInterstitialDisplayProperties.h"
-    header "PBMCachedResponseInfo.h"
     header "PBMWeakTimerTargetBox.h"
     
     // Bid

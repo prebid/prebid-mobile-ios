@@ -16,6 +16,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @protocol PBMBundleProtocol;
 @protocol PBMParameterBuilder;
 
@@ -25,7 +28,6 @@
 @class PBMLocationManager;
 @class Prebid;
 @class PBMUserConsentDataManager;
-@class PBMReachability;
 
 @interface PBMParameterBuilderService : NSObject
 
@@ -41,7 +43,7 @@
                                                                   pbmLocationManager:(nonnull PBMLocationManager *)pbmLocationManager
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager
                                                               ctTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo
-                                                                        reachability:(nonnull PBMReachability *)reachability
+                                                                        reachability:(nonnull Reachability *)reachability
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                pbmUserConsentManager:(nonnull PBMUserConsentDataManager *)pbmUserConsentManager

@@ -264,9 +264,9 @@ class PBMLocationManagerTest: XCTestCase {
 
 // MARK: - Mocks
 
-class MockReachability: PBMReachability {
+class MockReachability: Reachability {
     
-    override func currentReachabilityStatus() -> PBMNetworkType {
+    override var currentReachabilityStatus: NetworkType {
         return .wifi
     }
 }
