@@ -37,11 +37,25 @@ class PrebidTest: XCTestCase {
     func testInitializeSDK() {
         logToFile = .init()
         
+        // init callback should be optional
         Prebid.initializeSDK()
         
-        let log = Log.getLogFileAsString() ?? ""
+        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
         
-        XCTAssert(log.contains("prebid-mobile-sdk \(PBMFunctions.sdkVersion()) Initialized"))
+        let expectation = expectation(description: "Expected successful initialization")
+        
+        Prebid.initializeSDK { status, error in
+            switch status {
+            case .successed:
+                expectation.fulfill()
+            case .failed:
+                if let error = error {
+                    XCTFail("Failed with error: \(error.localizedDescription)")
+                }
+            }
+        }
+        
+        waitForExpectations(timeout: 3, handler: nil)
     }
     
     func testLogLevel() {

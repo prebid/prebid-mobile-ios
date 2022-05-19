@@ -13,13 +13,9 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface PBMPathBuilder : NSObject
-
-+ (NSString *)buildBaseURLForDomain:(NSString *)domain;
-+ (NSString *)buildURLPathForDomain:(NSString *)domain path:(NSString *)path;
-+ (NSString *)buildACJURLPathForDomain:(NSString *)domain;
-+ (NSString *)buildVASTURLPathForDomain:(NSString *)domain;
-
-@end
+@objc public enum PrebidInitializationStatus: Int {
+    case successed
+    case failed
+}

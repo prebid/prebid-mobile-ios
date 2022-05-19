@@ -307,3 +307,13 @@ PBMParameterKeys const PBMParameterKeysOPEN_RTB = @"openrtb";
 }
 
 @end
+
+#pragma mark - PBMServerEndpoints
+
+@implementation PBMServerEndpoints
+
++(NSString *)status {
+    return @"/status/";
+}
+
+@end

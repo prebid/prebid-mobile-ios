@@ -41,12 +41,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         processArgumentsParser.addOption("IABConsent_Settings", paramsCount: 1, fireOnce: true) { [consentHelper] params in
             consentHelper.parseAndApply(consentSettingsString: params[0])
         }
-
+        
+        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+        
         //Set up SDK.
-        Prebid.initializeSDK()
-                
-        
-        
+        Prebid.initializeSDK { status, error in
+            switch status {
+            case .successed:
+                print("Prebid successfully initialized")
+            case .failed:
+                if let error = error {
+                    print("An error occurred during Prebid initialization: \(error.localizedDescription)")
+                }
+            default:
+                break
+            }
+        }
         processArgumentsParser.addOption("AD_POSITION", paramsCount: 1, fireOnce: true) { params in
             if let adPositionInt = Int(params[0]), let adPosition = AdPosition(rawValue: adPositionInt) {
                 AppConfiguration.shared.adPosition = adPosition
