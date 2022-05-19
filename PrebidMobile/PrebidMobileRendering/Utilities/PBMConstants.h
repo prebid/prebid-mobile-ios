@@ -15,8 +15,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class PBApi;
-
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NSDictionary<NSString *, id> PBMJsonDictionary;
