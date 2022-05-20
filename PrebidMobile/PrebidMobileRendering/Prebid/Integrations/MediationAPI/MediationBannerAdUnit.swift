@@ -128,6 +128,8 @@ public class MediationBannerAdUnit : NSObject {
     
     public init(configID: String, size: CGSize, mediationDelegate: PrebidMediationDelegate) {
         adUnitConfig = AdUnitConfig(configId: configID, size: size)
+        adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
+        
         self.mediationDelegate = mediationDelegate
         super.init()
         

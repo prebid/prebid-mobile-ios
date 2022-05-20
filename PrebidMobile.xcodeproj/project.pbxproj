@@ -507,7 +507,6 @@
 		5BC37ACA271F1D0100444D5E /* PBMNetworkParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37891271F1CFF00444D5E /* PBMNetworkParameterBuilder.m */; };
 		5BC37ACB271F1D0100444D5E /* PBMUserConsentParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37892271F1CFF00444D5E /* PBMUserConsentParameterBuilder.m */; };
 		5BC37ACC271F1D0100444D5E /* PBMORTBParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37893271F1CFF00444D5E /* PBMORTBParameterBuilder.h */; };
-		5BC37ACD271F1D0100444D5E /* PBMSupportedProtocolsParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37894271F1CFF00444D5E /* PBMSupportedProtocolsParameterBuilder.m */; };
 		5BC37ACE271F1D0100444D5E /* PBMGeoLocationParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37895271F1CFF00444D5E /* PBMGeoLocationParameterBuilder.m */; };
 		5BC37ACF271F1D0100444D5E /* PBMSKAdNetworksParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37896271F1CFF00444D5E /* PBMSKAdNetworksParameterBuilder.h */; };
 		5BC37AD0271F1D0100444D5E /* PBMDeviceInfoParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37897271F1CFF00444D5E /* PBMDeviceInfoParameterBuilder.m */; };
@@ -519,7 +518,6 @@
 		5BC37AD6271F1D0100444D5E /* PBMORTBParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3789D271F1CFF00444D5E /* PBMORTBParameterBuilder.m */; };
 		5BC37AD7271F1D0100444D5E /* PBMUserConsentParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3789E271F1CFF00444D5E /* PBMUserConsentParameterBuilder.h */; };
 		5BC37AD8271F1D0100444D5E /* PBMGeoLocationParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3789F271F1CFF00444D5E /* PBMGeoLocationParameterBuilder.h */; };
-		5BC37AD9271F1D0100444D5E /* PBMSupportedProtocolsParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC378A0271F1CFF00444D5E /* PBMSupportedProtocolsParameterBuilder.h */; };
 		5BC37ADC271F1D0100444D5E /* PBMTrackingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC378A4271F1CFF00444D5E /* PBMTrackingRecord.m */; };
 		5BC37ADD271F1D0100444D5E /* PBMTrackingRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC378A5271F1CFF00444D5E /* PBMTrackingRecord.h */; };
 		5BC37ADF271F1D0100444D5E /* WKNavigationAction+PBMWKNavigationActionCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC378A7271F1CFF00444D5E /* WKNavigationAction+PBMWKNavigationActionCompatible.h */; };
@@ -654,7 +652,6 @@
 		925D5D9B2737C2A800A8A2B5 /* GeoLocationParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D9A2737C2A800A8A2B5 /* GeoLocationParameterBuilderTest.swift */; };
 		925D5D9D2737C2FA00A8A2B5 /* DeviceInfoParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D9C2737C2FA00A8A2B5 /* DeviceInfoParameterBuilderTest.swift */; };
 		925D5D9F2737C33800A8A2B5 /* NetworkParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D9E2737C33800A8A2B5 /* NetworkParameterBuilderTest.swift */; };
-		925D5DA12737C38B00A8A2B5 /* SupportedProtocolsParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA02737C38B00A8A2B5 /* SupportedProtocolsParameterBuilderTest.swift */; };
 		925D5DA32737C3C900A8A2B5 /* PBMAppInfoParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA22737C3C900A8A2B5 /* PBMAppInfoParameterBuilderTest.swift */; };
 		925D5DA52737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA42737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift */; };
 		925D5DA72737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA62737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift */; };
@@ -1342,7 +1339,6 @@
 		5BC37891271F1CFF00444D5E /* PBMNetworkParameterBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMNetworkParameterBuilder.m; sourceTree = "<group>"; };
 		5BC37892271F1CFF00444D5E /* PBMUserConsentParameterBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMUserConsentParameterBuilder.m; sourceTree = "<group>"; };
 		5BC37893271F1CFF00444D5E /* PBMORTBParameterBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMORTBParameterBuilder.h; sourceTree = "<group>"; };
-		5BC37894271F1CFF00444D5E /* PBMSupportedProtocolsParameterBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMSupportedProtocolsParameterBuilder.m; sourceTree = "<group>"; };
 		5BC37895271F1CFF00444D5E /* PBMGeoLocationParameterBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMGeoLocationParameterBuilder.m; sourceTree = "<group>"; };
 		5BC37896271F1CFF00444D5E /* PBMSKAdNetworksParameterBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMSKAdNetworksParameterBuilder.h; sourceTree = "<group>"; };
 		5BC37897271F1CFF00444D5E /* PBMDeviceInfoParameterBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeviceInfoParameterBuilder.m; sourceTree = "<group>"; };
@@ -1354,7 +1350,6 @@
 		5BC3789D271F1CFF00444D5E /* PBMORTBParameterBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBParameterBuilder.m; sourceTree = "<group>"; };
 		5BC3789E271F1CFF00444D5E /* PBMUserConsentParameterBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMUserConsentParameterBuilder.h; sourceTree = "<group>"; };
 		5BC3789F271F1CFF00444D5E /* PBMGeoLocationParameterBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMGeoLocationParameterBuilder.h; sourceTree = "<group>"; };
-		5BC378A0271F1CFF00444D5E /* PBMSupportedProtocolsParameterBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMSupportedProtocolsParameterBuilder.h; sourceTree = "<group>"; };
 		5BC378A4271F1CFF00444D5E /* PBMTrackingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMTrackingRecord.m; sourceTree = "<group>"; };
 		5BC378A5271F1CFF00444D5E /* PBMTrackingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMTrackingRecord.h; sourceTree = "<group>"; };
 		5BC378A7271F1CFF00444D5E /* WKNavigationAction+PBMWKNavigationActionCompatible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKNavigationAction+PBMWKNavigationActionCompatible.h"; sourceTree = "<group>"; };
@@ -1509,7 +1504,6 @@
 		925D5D9A2737C2A800A8A2B5 /* GeoLocationParameterBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocationParameterBuilderTest.swift; sourceTree = "<group>"; };
 		925D5D9C2737C2FA00A8A2B5 /* DeviceInfoParameterBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoParameterBuilderTest.swift; sourceTree = "<group>"; };
 		925D5D9E2737C33800A8A2B5 /* NetworkParameterBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkParameterBuilderTest.swift; sourceTree = "<group>"; };
-		925D5DA02737C38B00A8A2B5 /* SupportedProtocolsParameterBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedProtocolsParameterBuilderTest.swift; sourceTree = "<group>"; };
 		925D5DA22737C3C900A8A2B5 /* PBMAppInfoParameterBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAppInfoParameterBuilderTest.swift; sourceTree = "<group>"; };
 		925D5DA42737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMUserConsentParameterBuilderTest.swift; sourceTree = "<group>"; };
 		925D5DA62737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidParameterBuilderTest.swift; sourceTree = "<group>"; };
@@ -2579,27 +2573,25 @@
 			isa = PBXGroup;
 			children = (
 				5BC3788B271F1CFF00444D5E /* PBMAppInfoParameterBuilder.h */,
-				5BC3788C271F1CFF00444D5E /* PBMDeviceInfoParameterBuilder.h */,
-				5BC3788D271F1CFF00444D5E /* PBMSKAdNetworksParameterBuilder.m */,
-				5BC3788E271F1CFF00444D5E /* PBMParameterBuilderService.m */,
+				5BC37898271F1CFF00444D5E /* PBMAppInfoParameterBuilder.m */,
+				5BC3789A271F1CFF00444D5E /* PBMBasicParameterBuilder.h */,
 				5BC3788F271F1CFF00444D5E /* PBMBasicParameterBuilder.m */,
 				5BC37890271F1CFF00444D5E /* PBMBundleProtocol.h */,
-				5BC37891271F1CFF00444D5E /* PBMNetworkParameterBuilder.m */,
-				5BC37892271F1CFF00444D5E /* PBMUserConsentParameterBuilder.m */,
-				5BC37893271F1CFF00444D5E /* PBMORTBParameterBuilder.h */,
-				5BC37894271F1CFF00444D5E /* PBMSupportedProtocolsParameterBuilder.m */,
-				5BC37895271F1CFF00444D5E /* PBMGeoLocationParameterBuilder.m */,
-				5BC37896271F1CFF00444D5E /* PBMSKAdNetworksParameterBuilder.h */,
+				5BC3788C271F1CFF00444D5E /* PBMDeviceInfoParameterBuilder.h */,
 				5BC37897271F1CFF00444D5E /* PBMDeviceInfoParameterBuilder.m */,
-				5BC37898271F1CFF00444D5E /* PBMAppInfoParameterBuilder.m */,
+				5BC3789F271F1CFF00444D5E /* PBMGeoLocationParameterBuilder.h */,
+				5BC37895271F1CFF00444D5E /* PBMGeoLocationParameterBuilder.m */,
 				5BC37899271F1CFF00444D5E /* PBMNetworkParameterBuilder.h */,
-				5BC3789A271F1CFF00444D5E /* PBMBasicParameterBuilder.h */,
+				5BC37891271F1CFF00444D5E /* PBMNetworkParameterBuilder.m */,
+				5BC37893271F1CFF00444D5E /* PBMORTBParameterBuilder.h */,
+				5BC3789D271F1CFF00444D5E /* PBMORTBParameterBuilder.m */,
 				5BC3789B271F1CFF00444D5E /* PBMParameterBuilderProtocol.h */,
 				5BC3789C271F1CFF00444D5E /* PBMParameterBuilderService.h */,
-				5BC3789D271F1CFF00444D5E /* PBMORTBParameterBuilder.m */,
+				5BC3788E271F1CFF00444D5E /* PBMParameterBuilderService.m */,
+				5BC37896271F1CFF00444D5E /* PBMSKAdNetworksParameterBuilder.h */,
+				5BC3788D271F1CFF00444D5E /* PBMSKAdNetworksParameterBuilder.m */,
 				5BC3789E271F1CFF00444D5E /* PBMUserConsentParameterBuilder.h */,
-				5BC3789F271F1CFF00444D5E /* PBMGeoLocationParameterBuilder.h */,
-				5BC378A0271F1CFF00444D5E /* PBMSupportedProtocolsParameterBuilder.h */,
+				5BC37892271F1CFF00444D5E /* PBMUserConsentParameterBuilder.m */,
 			);
 			path = Parameters;
 			sourceTree = "<group>";
@@ -2887,7 +2879,6 @@
 				925D5D9A2737C2A800A8A2B5 /* GeoLocationParameterBuilderTest.swift */,
 				925D5D9C2737C2FA00A8A2B5 /* DeviceInfoParameterBuilderTest.swift */,
 				925D5D9E2737C33800A8A2B5 /* NetworkParameterBuilderTest.swift */,
-				925D5DA02737C38B00A8A2B5 /* SupportedProtocolsParameterBuilderTest.swift */,
 				925D5DA22737C3C900A8A2B5 /* PBMAppInfoParameterBuilderTest.swift */,
 				925D5DA42737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift */,
 				925D5DA62737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift */,
@@ -3313,7 +3304,6 @@
 				5BC37985271F1D0000444D5E /* PBMMRAIDController.h in Headers */,
 				5BC3790F271F1CFF00444D5E /* PBMDeviceAccessManager.h in Headers */,
 				5BC379CA271F1D0000444D5E /* PBMTransaction.h in Headers */,
-				5BC37AD9271F1D0100444D5E /* PBMSupportedProtocolsParameterBuilder.h in Headers */,
 				5BC379F5271F1D0000444D5E /* PBMTrackingURLVisitors.h in Headers */,
 				5BC378E3271F1CFF00444D5E /* PBMORTBImp.h in Headers */,
 				5BC37A18271F1D0000444D5E /* PBMViewControllerProvider.h in Headers */,
@@ -3749,7 +3739,6 @@
 				920E8D6D28084BF200E6313B /* VideoControlsConfigTests.swift in Sources */,
 				FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */,
 				925D5DB32737C56000A8A2B5 /* MockBidRequester.swift in Sources */,
-				925D5DA12737C38B00A8A2B5 /* SupportedProtocolsParameterBuilderTest.swift in Sources */,
 				60C038242204AF5D0082B32C /* Constants.swift in Sources */,
 				606FAC2621FFB20A008EAE5E /* TargetingTests.swift in Sources */,
 				925D5E102737DFDE00A8A2B5 /* WinningBidResponseFabricator.swift in Sources */,
@@ -4152,7 +4141,6 @@
 				5BC378F1271F1CFF00444D5E /* PBMORTBDeviceExtPrebid.m in Sources */,
 				5BC37AA6271F1D0000444D5E /* MediationBidInfoWrapper.swift in Sources */,
 				5BC37A94271F1D0000444D5E /* BannerEventHandler.swift in Sources */,
-				5BC37ACD271F1D0100444D5E /* PBMSupportedProtocolsParameterBuilder.m in Sources */,
 				5BC37934271F1D0000444D5E /* PBMVideoVerificationParameters.m in Sources */,
 				FAEE4D29262DC2B200AD9966 /* AdViewUtils.swift in Sources */,
 				FAEE4D25262DC2B200AD9966 /* TrackerInfo.swift in Sources */,

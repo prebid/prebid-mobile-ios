@@ -106,6 +106,7 @@ public class BaseInterstitialAdUnit :
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adConfiguration.adFormats = [.display, .video]
+        adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
         blocksLockToken = NSObject()
 
         self.eventHandler = eventHandler
