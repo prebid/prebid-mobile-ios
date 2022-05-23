@@ -1025,6 +1025,38 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            TestCase(title: "Video Interstitial Vertical With End Card (In-App)",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-vertical"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-vertical-with-end-card"
+                interstitialController.adFormats = [.video]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial Landscape With End Card (In-App)",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-vertical"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-landscape-with-end-card"
+                interstitialController.adFormats = [.video]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             TestCase(title: "Video Interstitial 320x480 DeepLink+ (In-App)",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
