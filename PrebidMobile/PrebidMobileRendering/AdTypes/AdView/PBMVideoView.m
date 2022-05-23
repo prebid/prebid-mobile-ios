@@ -192,7 +192,9 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)updateControls {
-    [self updateLearnMoreButton];
+    if (!self.creative.creativeModel.adConfiguration.isOptIn) {
+        [self updateLearnMoreButton];
+    }
     
     [self resetMuteControls];
     [self updateMuteControls];
