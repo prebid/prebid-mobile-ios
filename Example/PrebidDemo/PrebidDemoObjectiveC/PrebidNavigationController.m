@@ -47,9 +47,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [IntegrationKindUtilites isRenderingIntegrationKind:section] ?
-    [IntegrationKindUtilites IntegrationAdFormatRendering].count :
-    [IntegrationKindUtilites IntegrationAdFormatOriginal].count;
+    NSInteger count = 0;
+    if ([IntegrationKindUtilites isRenderingInApp:section]) {
+        count = [IntegrationKindUtilites IntegrationAdFormatRenderingInApp].count;
+    } else {
+        count = [IntegrationKindUtilites isRenderingIntegrationKind:section] ?
+                [IntegrationKindUtilites IntegrationAdFormatRendering].count :
+                [IntegrationKindUtilites IntegrationAdFormatOriginal].count;
+    }
+    return count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -81,7 +87,7 @@
         viewController.adUnit = (IntegrationAdFormat) [IntegrationKindUtilites.IntegrationAdFormatOriginal[indexPath.row] intValue];
         [self.navigationController pushViewController:viewController animated:YES];
     } else if (indexPath.section == IntegrationKind_InApp) {
-        IntegrationAdFormat integrationAdFormat = [IntegrationKindUtilites.IntegrationAdFormatRendering[indexPath.row] intValue];
+        IntegrationAdFormat integrationAdFormat = [IntegrationKindUtilites.IntegrationAdFormatRenderingInApp[indexPath.row] intValue];
         if (integrationAdFormat == IntegrationAdFormat_Banner) {
             RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
             viewController.integrationKind = IntegrationKind_InApp;
@@ -101,6 +107,18 @@
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
             viewController.integrationKind = IntegrationKind_InApp;
             viewController.integrationAdFormat = IntegrationAdFormat_InterstitialVideo;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_InterstitialVideoVertical) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_InApp;
+            viewController.integrationAdFormat = IntegrationAdFormat_InterstitialVideo;
+            viewController.videoOrienation = VideoOrientationVertical;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_InterstitialVideoLandscape) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_InApp;
+            viewController.integrationAdFormat = IntegrationAdFormat_InterstitialVideo;
+            viewController.videoOrienation = VideoOrientationLandscape;
             [self.navigationController pushViewController:viewController animated:YES];
         } else if (integrationAdFormat == IntegrationAdFormat_Rewarded) {
             RenderingRewardedViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingRewardedVC"];

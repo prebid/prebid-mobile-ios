@@ -52,6 +52,8 @@
         default:
             break;
     }
+    
+    self.videoOrienation = VideoOrientationBoth;
 }
 
 #pragma mar - Load Ad
@@ -65,7 +67,17 @@
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
         Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kInterstitialDisplayStoredResponse;
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kInterstitialVideoStoredResponse;
+        switch(self.videoOrienation) {
+            case VideoOrientationVertical:
+                Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kInterstitialVideoVerticalStoredResponse;
+                break;
+            case VideoOrientationLandscape:
+                Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kInterstitialVideoLandscapeStoredResponse;
+                break;
+            case VideoOrientationBoth:
+                Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kInterstitialVideoStoredResponse;
+                break;
+        }
     }
 }
 
@@ -73,7 +85,20 @@
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
         self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialDisplayStoredImpression];
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialVideoStoredImpression];
+        switch (self.videoOrienation) {
+                
+            case VideoOrientationVertical:
+                self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialVideoVerticalStoredImpression];
+                break;
+            case VideoOrientationLandscape:
+                self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialVideoVerticalStoredImpression];
+                break;
+            case VideoOrientationBoth:
+                self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialVideoStoredImpression];
+                break;
+        }
+        
+        
         self.interstitialAdUnit.adFormats = [[NSSet alloc] initWithArray:@[AdFormat.video]];
     }
     
