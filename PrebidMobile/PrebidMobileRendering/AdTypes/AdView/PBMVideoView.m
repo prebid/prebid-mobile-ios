@@ -192,9 +192,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)updateControls {
-    if (!self.creative.creativeModel.adConfiguration.isOptIn) {
-        [self updateLearnMoreButton];
-    }
+    [self updateLearnMoreButton];
     
     [self resetMuteControls];
     [self updateMuteControls];
@@ -212,6 +210,12 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
     
     if (!self.creative.creativeModel.adConfiguration.presentAsInterstitial) {
+        self.showLearnMore = NO;
+        return;
+    }
+    
+    // For rewarded ad learn more should be hidden
+    if (self.creative.creativeModel.adConfiguration.isOptIn) {
         self.showLearnMore = NO;
         return;
     }
