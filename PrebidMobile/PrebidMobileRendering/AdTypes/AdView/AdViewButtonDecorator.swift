@@ -73,7 +73,7 @@ public class AdViewButtonDecorator: NSObject {
     }
     
     public func getButtonConstraintConstant() -> CGFloat {
-        let screenWidth = UIDevice.current.orientation.isPortrait ? UIScreen.main.bounds.width : UIScreen.main.bounds.height
+        let screenWidth = UIApplication.shared.statusBarOrientation.isPortrait ? UIScreen.main.bounds.width : UIScreen.main.bounds.height
         var btnConstraintConstant = (screenWidth * buttonArea) / 2
         
         if btnConstraintConstant > 30 || btnConstraintConstant < 5 {
@@ -84,7 +84,7 @@ public class AdViewButtonDecorator: NSObject {
     }
     
     public func getButtonSize() -> CGSize {
-        let screenWidth = UIDevice.current.orientation.isPortrait ? UIScreen.main.bounds.width : UIScreen.main.bounds.height
+        let screenWidth = UIApplication.shared.statusBarOrientation.isPortrait ? UIScreen.main.bounds.width : UIScreen.main.bounds.height
         let btnSizeValue = screenWidth * buttonArea
         return CGSize(width: btnSizeValue, height: btnSizeValue)
     }
