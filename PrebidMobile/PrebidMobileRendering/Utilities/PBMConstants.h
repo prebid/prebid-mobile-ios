@@ -165,6 +165,7 @@ NS_SWIFT_NAME(GeoLocationConstants)
 @property (class, readonly) NSArray <NSString *> *urlSchemesNotSupportedOnClickthroughBrowser NS_SWIFT_NAME(urlSchemesNotSupportedOnClickthroughBrowser);
 @property (class, readonly) NSNumber *BUTTON_AREA_DEFAULT                           NS_SWIFT_NAME(BUTTON_AREA_DEFAULT);
 @property (class, readonly) NSNumber *SKIP_DELAY_DEFAULT                            NS_SWIFT_NAME(SKIP_DELAY_DEFAULT);
+@property (class, readonly) NSNumber *buttonConstraintConstant                      NS_SWIFT_NAME(buttonConstraintConstant);
 
 @end
 

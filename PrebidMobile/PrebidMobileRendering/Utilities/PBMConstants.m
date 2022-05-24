@@ -306,6 +306,10 @@ PBMParameterKeys const PBMParameterKeysOPEN_RTB = @"openrtb";
     return [[NSNumber alloc] initWithDouble:10];
 }
 
++(NSNumber *)buttonConstraintConstant {
+    return [[NSNumber alloc] initWithDouble:15];
+}
+
 @end
 
 #pragma mark - PBMServerEndpoints

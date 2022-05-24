@@ -77,7 +77,7 @@ public class AdViewButtonDecorator: NSObject {
         var btnConstraintConstant = (screenWidth * buttonArea) / 2
         
         if btnConstraintConstant > 30 || btnConstraintConstant < 5 {
-            btnConstraintConstant = 15
+            btnConstraintConstant = PBMConstants.buttonConstraintConstant.doubleValue
         }
         
         return isMRAID ? 0 : btnConstraintConstant
