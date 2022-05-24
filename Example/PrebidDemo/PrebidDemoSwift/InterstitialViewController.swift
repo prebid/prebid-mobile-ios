@@ -27,11 +27,14 @@ import PrebidMobileMAXAdapters
 // Stored Impressions
 fileprivate let storedImpDisplayInterstitial            = "imp-prebid-display-interstitial-320-480"
 fileprivate let storedImpVideoInterstitial              = "imp-prebid-video-interstitial-320-480"
+fileprivate let storedImpVideoInterstitialVertical      = "imp-prebid-video-interstitial-vertical"
 
 // Stored Responses
 fileprivate let storedResponseDisplayInterstitial       = "response-prebid-display-interstitial-320-480"
 fileprivate let storedResponseOriginalVideoInterstitial = "response-prebid-video-interstitial-320-480-original-api"
 fileprivate let storedResponseRenderingVideoInterstitial = "response-prebid-video-interstitial-320-480"
+fileprivate let storedResponseRenderingVideoInterstitialVertical = "response-prebid-video-interstitial-vertical-with-end-card"
+fileprivate let storedResponseRenderingVideoInterstitialLandscape = "response-prebid-video-interstitial-landscape-with-end-card"
 
 // GAM
 fileprivate let gamAdUnitDisplayInterstitialOriginal    = "/21808260008/prebid-demo-app-original-api-display-interstitial"
@@ -45,6 +48,12 @@ fileprivate let adMobAdUnitDisplayInterstitial          = "ca-app-pub-5922967660
 
 // MAX
 fileprivate let maxAdUnitDisplayInterstitial            = "8b3b31b990417275"
+
+enum VideoOrientation {
+    case vertical
+    case landscape
+    case both
+}
 
 class InterstitialViewController:
     UIViewController,
@@ -60,6 +69,7 @@ class InterstitialViewController:
 
     var adFormat: AdFormat = .html
     var integrationKind: IntegrationKind = .undefined
+    var orientation: VideoOrientation = .both
 
     // MARK: - Ad Units
     
@@ -124,7 +134,14 @@ class InterstitialViewController:
         case .html:
             loadInAppInterstitial()
         case .vast:
-            loadInAppVideoInterstitial()
+            switch orientation {
+            case .vertical:
+                loadInAppVideoInterstitialVertical()
+            case .landscape:
+                loadInAppVideoInterstitialHorizontal()
+            case .both:
+                loadInAppVideoInterstitial()
+            }
         }
     }
     
@@ -301,6 +318,26 @@ class InterstitialViewController:
         setupPrebidServer(storedResponse: storedResponseRenderingVideoInterstitial)
         
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitial)
+        renderingInterstitial.adFormats = [.video]
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
+    }
+    
+    func loadInAppVideoInterstitialVertical() {
+        setupPrebidServer(storedResponse: storedResponseRenderingVideoInterstitialVertical)
+        
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitialVertical)
+        renderingInterstitial.adFormats = [.video]
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
+    }
+    
+    func loadInAppVideoInterstitialHorizontal() {
+        setupPrebidServer(storedResponse: storedResponseRenderingVideoInterstitialLandscape)
+        
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitialVertical)
         renderingInterstitial.adFormats = [.video]
         renderingInterstitial.delegate = self
         
