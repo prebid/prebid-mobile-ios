@@ -70,6 +70,7 @@
 		533135C6282A869800AA1E4D /* BidTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533135C5282A869800AA1E4D /* BidTest.swift */; };
 		53322AA3282D45EE0049229D /* PrebidServerEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53322AA2282D45EE0049229D /* PrebidServerEventTracker.swift */; };
 		53322AA8282E29910049229D /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53322AA7282E29910049229D /* EventManager.swift */; };
+		5339554F283E23BA00DA1DCD /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 5339554E283E23BA00DA1DCD /* omsdk.js */; };
 		5365697E283E00CB0052DB88 /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */; };
 		536A427F282D11DA0069E9B2 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* ServerConnection.swift */; };
 		536A4283282D12E80069E9B2 /* ServerConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A4282282D12E80069E9B2 /* ServerConnectionProtocol.swift */; };
@@ -492,7 +493,6 @@
 		5BC37AB7271F1D0000444D5E /* PBMOpenMeasurementWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3787A271F1CFF00444D5E /* PBMOpenMeasurementWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37AB8271F1D0000444D5E /* PBMOpenMeasurementEventTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3787B271F1CFF00444D5E /* PBMOpenMeasurementEventTracker.h */; };
 		5BC37AB9271F1D0000444D5E /* PBMOpenMeasurementWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3787C271F1CFF00444D5E /* PBMOpenMeasurementWrapper.m */; };
-		5BC37ABA271F1D0000444D5E /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 5BC3787E271F1CFF00444D5E /* omsdk.js */; };
 		5BC37ABB271F1D0000444D5E /* PBMOpenMeasurementFriendlyObstructionTypeBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3787F271F1CFF00444D5E /* PBMOpenMeasurementFriendlyObstructionTypeBridge.h */; };
 		5BC37ABC271F1D0000444D5E /* PBMOpenMeasurementSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37880271F1CFF00444D5E /* PBMOpenMeasurementSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37ABD271F1D0000444D5E /* PBMOpenMeasurementEventTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37881271F1CFF00444D5E /* PBMOpenMeasurementEventTracker.m */; };
@@ -897,6 +897,7 @@
 		533135C5282A869800AA1E4D /* BidTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidTest.swift; sourceTree = "<group>"; };
 		53322AA2282D45EE0049229D /* PrebidServerEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerEventTracker.swift; sourceTree = "<group>"; };
 		53322AA7282E29910049229D /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		5339554E283E23BA00DA1DCD /* omsdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
 		536A427E282D11DA0069E9B2 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
 		536A4282282D12E80069E9B2 /* ServerConnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectionProtocol.swift; sourceTree = "<group>"; };
 		537B6517283372FD008AE9D1 /* PathBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBuilder.swift; sourceTree = "<group>"; };
@@ -1321,7 +1322,6 @@
 		5BC3787A271F1CFF00444D5E /* PBMOpenMeasurementWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMOpenMeasurementWrapper.h; sourceTree = "<group>"; };
 		5BC3787B271F1CFF00444D5E /* PBMOpenMeasurementEventTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMOpenMeasurementEventTracker.h; sourceTree = "<group>"; };
 		5BC3787C271F1CFF00444D5E /* PBMOpenMeasurementWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMOpenMeasurementWrapper.m; sourceTree = "<group>"; };
-		5BC3787E271F1CFF00444D5E /* omsdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
 		5BC3787F271F1CFF00444D5E /* PBMOpenMeasurementFriendlyObstructionTypeBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMOpenMeasurementFriendlyObstructionTypeBridge.h; sourceTree = "<group>"; };
 		5BC37880271F1CFF00444D5E /* PBMOpenMeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMOpenMeasurementSession.h; sourceTree = "<group>"; };
 		5BC37881271F1CFF00444D5E /* PBMOpenMeasurementEventTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMOpenMeasurementEventTracker.m; sourceTree = "<group>"; };
@@ -2051,7 +2051,7 @@
 		5BC376E9271F1CFE00444D5E /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				5BC3787E271F1CFF00444D5E /* omsdk.js */,
+				5339554E283E23BA00DA1DCD /* omsdk.js */,
 				5BC376EA271F1CFE00444D5E /* companion.html */,
 				5BC376EB271F1CFE00444D5E /* mraid.js */,
 				5BC376EC271F1CFE00444D5E /* ClickthroughBrowserView.xib */,
@@ -3616,9 +3616,9 @@
 			files = (
 				5BC37947271F1D0000444D5E /* mraid.js in Resources */,
 				5BC37949271F1D0000444D5E /* images.xcassets in Resources */,
-				5BC37ABA271F1D0000444D5E /* omsdk.js in Resources */,
 				5BC37946271F1D0000444D5E /* companion.html in Resources */,
 				5BC37948271F1D0000444D5E /* ClickthroughBrowserView.xib in Resources */,
+				5339554F283E23BA00DA1DCD /* omsdk.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
