@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
     core.resources    = 'PrebidMobile/PrebidMobileRendering/Assets/**/*.{json,png,js,html,xib}'
-    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.framework'
+    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
   end
 
 end
