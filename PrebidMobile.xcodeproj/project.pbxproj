@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -70,14 +70,14 @@
 		533135C6282A869800AA1E4D /* BidTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533135C5282A869800AA1E4D /* BidTest.swift */; };
 		53322AA3282D45EE0049229D /* PrebidServerEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53322AA2282D45EE0049229D /* PrebidServerEventTracker.swift */; };
 		53322AA8282E29910049229D /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53322AA7282E29910049229D /* EventManager.swift */; };
-		536A427F282D11DA0069E9B2 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* ServerConnection.swift */; };
-		536A4283282D12E80069E9B2 /* ServerConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A4282282D12E80069E9B2 /* ServerConnectionProtocol.swift */; };
-		537B651E2833A3DA008AE9D1 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B651D2833A3DA008AE9D1 /* Reachability.swift */; };
-		537B65402833C091008AE9D1 /* NetworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B653F2833C091008AE9D1 /* NetworkType.swift */; };
+		5365697E283E00CB0052DB88 /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */; };
 		536A427F282D11DA0069E9B2 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* ServerConnection.swift */; };
 		536A4283282D12E80069E9B2 /* ServerConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A4282282D12E80069E9B2 /* ServerConnectionProtocol.swift */; };
 		537B6518283372FD008AE9D1 /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B6517283372FD008AE9D1 /* PathBuilder.swift */; };
+		537B651E2833A3DA008AE9D1 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B651D2833A3DA008AE9D1 /* Reachability.swift */; };
+		537B65402833C091008AE9D1 /* NetworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B653F2833C091008AE9D1 /* NetworkType.swift */; };
 		537B6581283524BB008AE9D1 /* PrebidInitializationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B6580283524BB008AE9D1 /* PrebidInitializationStatus.swift */; };
+		537B66A0283DFD00008AE9D1 /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */; };
 		5388F32627F46A7F00319FE4 /* AdViewButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */; };
 		539B0D93282A66B800513501 /* PBMORTBExtPrebidEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 539B0D92282A66B800513501 /* PBMORTBExtPrebidEvents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		539B0D95282A675E00513501 /* PBMORTBExtPrebidEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 539B0D94282A675E00513501 /* PBMORTBExtPrebidEvents.m */; };
@@ -711,8 +711,6 @@
 		925D5E782737F60100A8A2B5 /* VastEventTrackingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E772737F60100A8A2B5 /* VastEventTrackingTest.swift */; };
 		925D5E7A2737F62500A8A2B5 /* VideoFileTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E792737F62500A8A2B5 /* VideoFileTypeTest.swift */; };
 		925D5E7C2737F66000A8A2B5 /* PBMVASTFailToLoadTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E7B2737F66000A8A2B5 /* PBMVASTFailToLoadTest.swift */; };
-		925D5EB6273914AA00A8A2B5 /* OMSDK_Prebidorg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC37B01271FF8C400444D5E /* OMSDK_Prebidorg.framework */; };
-		925D5EB92739158E00A8A2B5 /* OMSDK_Prebidorg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC37B01271FF8C400444D5E /* OMSDK_Prebidorg.framework */; };
 		92664565272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h in Headers */ = {isa = PBXBuildFile; fileRef = 92664564272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92664567272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */; };
 		92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92664568272AB9120064F7BD /* SkadnEventTracker.swift */; };
@@ -901,12 +899,11 @@
 		53322AA7282E29910049229D /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		536A427E282D11DA0069E9B2 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
 		536A4282282D12E80069E9B2 /* ServerConnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectionProtocol.swift; sourceTree = "<group>"; };
+		537B6517283372FD008AE9D1 /* PathBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBuilder.swift; sourceTree = "<group>"; };
 		537B651D2833A3DA008AE9D1 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		537B653F2833C091008AE9D1 /* NetworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkType.swift; sourceTree = "<group>"; };
-		536A427E282D11DA0069E9B2 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
-		536A4282282D12E80069E9B2 /* ServerConnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectionProtocol.swift; sourceTree = "<group>"; };
-		537B6517283372FD008AE9D1 /* PathBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBuilder.swift; sourceTree = "<group>"; };
 		537B6580283524BB008AE9D1 /* PrebidInitializationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidInitializationStatus.swift; sourceTree = "<group>"; };
+		537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
 		5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewButtonDecorator.swift; sourceTree = "<group>"; };
 		539B0D92282A66B800513501 /* PBMORTBExtPrebidEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBExtPrebidEvents.h; sourceTree = "<group>"; };
 		539B0D94282A675E00513501 /* PBMORTBExtPrebidEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBExtPrebidEvents.m; sourceTree = "<group>"; };
@@ -1357,7 +1354,6 @@
 		5BC378A9271F1CFF00444D5E /* PBMInterstitialLayoutConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMInterstitialLayoutConfigurator.h; sourceTree = "<group>"; };
 		5BC378AA271F1CFF00444D5E /* PBMInterstitialLayoutConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMInterstitialLayoutConfigurator.m; sourceTree = "<group>"; };
 		5BC37AE3271F1D4500444D5E /* PrebidMobileSwiftHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobileSwiftHeaders.h; sourceTree = "<group>"; };
-		5BC37B01271FF8C400444D5E /* OMSDK_Prebidorg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OMSDK_Prebidorg.framework; path = Frameworks/OMSDK_Prebidorg.framework; sourceTree = "<group>"; };
 		5BD67815271DF9E5004D334E /* PrebidMobile.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = PrebidMobile.modulemap; sourceTree = "<group>"; };
 		600CF06F2208963500C95176 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
 		6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Swizzle.swift"; sourceTree = "<group>"; };
@@ -1674,7 +1670,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				925D5EB92739158E00A8A2B5 /* OMSDK_Prebidorg.framework in Frameworks */,
+				5365697E283E00CB0052DB88 /* OMSDK_Prebidorg.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1682,7 +1678,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				925D5EB6273914AA00A8A2B5 /* OMSDK_Prebidorg.framework in Frameworks */,
+				537B66A0283DFD00008AE9D1 /* OMSDK_Prebidorg.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2655,7 +2651,7 @@
 		6062B19A218243FA00CE1BA3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5BC37B01271FF8C400444D5E /* OMSDK_Prebidorg.framework */,
+				537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */,
 				6062B19B218243FA00CE1BA3 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
