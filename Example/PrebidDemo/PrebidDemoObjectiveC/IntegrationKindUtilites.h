@@ -23,8 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)IntegrationAdFormatOriginal;
 + (NSArray *)IntegrationAdFormatRendering;
++ (NSArray *)IntegrationAdFormatRenderingInApp;
 
 + (BOOL)isRenderingIntegrationKind:(IntegrationKind) integrationKind;
++ (BOOL)isRenderingInApp:(IntegrationKind) integrationKind;
 
 @end
 

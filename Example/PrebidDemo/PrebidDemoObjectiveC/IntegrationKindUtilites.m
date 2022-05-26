@@ -38,6 +38,8 @@
         [NSNumber numberWithInteger:IntegrationAdFormat_BannerVideo],
         [NSNumber numberWithInteger:IntegrationAdFormat_Interstitial],
         [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideo],
+        [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideoVertical],
+        [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideoLandscape],
         [NSNumber numberWithInteger:IntegrationAdFormat_Rewarded],
         [NSNumber numberWithInteger:IntegrationAdFormat_NativeInApp]
     ];
@@ -49,15 +51,21 @@
         [NSNumber numberWithInteger:IntegrationAdFormat_BannerVideo]        : @"Banner Video",
         [NSNumber numberWithInteger:IntegrationAdFormat_Interstitial]       : @"Interstitial",
         [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideo]  : @"Interstitial Video",
+        [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideoVertical]: @"Video Interstitial Vertical",
+        [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideoLandscape]: @"Video Interstitial Landscape",
         [NSNumber numberWithInteger:IntegrationAdFormat_Rewarded]           : @"Rewarded",
         [NSNumber numberWithInteger:IntegrationAdFormat_NativeInApp]        : @"Native In-App"
     };
 }
 
 + (NSArray *)IntegrationAdFormatFor:(IntegrationKind) integrationKind {
-    return [IntegrationKindUtilites isRenderingIntegrationKind:integrationKind] ?
+    if ([IntegrationKindUtilites isRenderingInApp:integrationKind]) {
+        return [IntegrationKindUtilites IntegrationAdFormatRenderingInApp];
+    } else {
+        return [IntegrationKindUtilites isRenderingIntegrationKind:integrationKind] ?
         [IntegrationKindUtilites IntegrationAdFormatRendering] :
         [IntegrationKindUtilites IntegrationAdFormatOriginal];
+    }
 }
 
 + (NSArray *)IntegrationAdFormatOriginal {
@@ -77,12 +85,28 @@
     ];
 }
 
++ (NSArray *)IntegrationAdFormatRenderingInApp {
+    return @[
+        [NSNumber numberWithInteger:IntegrationAdFormat_Banner],
+        [NSNumber numberWithInteger:IntegrationAdFormat_BannerVideo],
+        [NSNumber numberWithInteger:IntegrationAdFormat_Interstitial],
+        [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideo],
+        [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideoVertical],
+        [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideoLandscape],
+        [NSNumber numberWithInteger:IntegrationAdFormat_Rewarded],
+    ];
+}
+
 + (BOOL)isRenderingIntegrationKind:(IntegrationKind) integrationKind {
     return
         integrationKind == IntegrationKind_InApp ||
         integrationKind == IntegrationKind_RenderingGAM ||
         integrationKind == IntegrationKind_RenderingAdMob ||
         integrationKind == IntegrationKind_RenderingMAX;
+}
+
++ (BOOL)isRenderingInApp:(IntegrationKind) integrationKind {
+    return integrationKind == IntegrationKind_InApp;
 }
 
 @end

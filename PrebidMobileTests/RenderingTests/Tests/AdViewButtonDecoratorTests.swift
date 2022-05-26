@@ -46,7 +46,7 @@ class AdViewButtonDecoratorTests: XCTestCase {
         let constant = 0.25
         XCTAssertNil(buttonDecorator.button.currentImage)
         buttonDecorator.buttonArea = constant
-        let sizeValue: CGFloat = UIScreen.main.bounds.width * constant
+        let sizeValue: CGFloat = UIApplication.shared.statusBarOrientation.isPortrait ? UIScreen.main.bounds.width : UIScreen.main.bounds.height * constant
         let buttonSize = CGSize(width: sizeValue, height: sizeValue)
         let resultButtonSize = buttonDecorator.getButtonSize()
         
@@ -63,8 +63,10 @@ class AdViewButtonDecoratorTests: XCTestCase {
         XCTAssertNil(buttonDecorator.button.currentImage)
         buttonDecorator.buttonArea = constant
         
-        let expectedConstraintConstant = (UIScreen.main.bounds.width * constant) / 2
-        XCTAssertTrue(expectedConstraintConstant == buttonDecorator.getButtonConstraintConstant())
+        let screenWidth = UIApplication.shared.statusBarOrientation.isPortrait ? UIScreen.main.bounds.width : UIScreen.main.bounds.height
+        let expectedConstraintConstant = (screenWidth * constant) / 2
+        let buttonConstraint = buttonDecorator.getButtonConstraintConstant()
+        XCTAssertTrue(expectedConstraintConstant == buttonConstraint || buttonConstraint == PBMConstants.buttonConstraintConstant.doubleValue)
     }
     
     func testAddButtonToView() {
