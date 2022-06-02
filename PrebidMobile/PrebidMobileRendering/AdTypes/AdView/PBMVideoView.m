@@ -214,6 +214,12 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
     
+    // For rewarded ad learn more should be hidden
+    if (self.creative.creativeModel.adConfiguration.isOptIn) {
+        self.showLearnMore = NO;
+        return;
+    }
+    
     PBMCreativeModel *creativeModel = self.creative.creativeModel;
     
     BOOL hasCompanionAd = creativeModel.hasCompanionAd || creativeModel.isCompanionAd;

@@ -24,6 +24,8 @@ typedef NS_ENUM(NSUInteger, IntegrationAdFormat) {
     
     IntegrationAdFormat_Interstitial,
     IntegrationAdFormat_InterstitialVideo,
+    IntegrationAdFormat_InterstitialVideoVertical,
+    IntegrationAdFormat_InterstitialVideoLandscape,
     
     IntegrationAdFormat_NativeInApp,
     

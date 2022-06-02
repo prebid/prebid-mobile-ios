@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jeh-3U-EHA">
-                                <rect key="frame" x="20" y="160" width="335" height="359"/>
+                                <rect key="frame" x="20" y="160" width="335" height="453"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ze7-Xk-t60">
                                         <rect key="frame" x="118" y="0.0" width="99" height="30"/>
@@ -64,29 +64,43 @@
                                             <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7r-Gi-8Q5">
+                                        <rect key="frame" x="84" y="188" width="167" height="30"/>
+                                        <state key="normal" title="Video Interstitial Vertical"/>
+                                        <connections>
+                                            <segue destination="i5n-eA-fbo" kind="show" id="CwJ-fb-iJU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="URP-yW-CGr">
+                                        <rect key="frame" x="72.5" y="235" width="190" height="30"/>
+                                        <state key="normal" title="Video Interstitial Landscape"/>
+                                        <connections>
+                                            <segue destination="i5n-eA-fbo" kind="show" id="OZT-TT-btG"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gT-aH-qqc">
-                                        <rect key="frame" x="119" y="188" width="97" height="30"/>
+                                        <rect key="frame" x="119" y="282" width="97" height="30"/>
                                         <state key="normal" title="Banner Native"/>
                                         <connections>
                                             <segue destination="g7Y-o0-qeY" kind="show" id="Mld-S3-Yyw"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ga-uv-oWc">
-                                        <rect key="frame" x="121.5" y="235" width="92" height="30"/>
+                                        <rect key="frame" x="121.5" y="329" width="92" height="30"/>
                                         <state key="normal" title="In App Native"/>
                                         <connections>
                                             <segue destination="GT4-HE-4pt" kind="show" id="Iim-i9-iFW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
-                                        <rect key="frame" x="112.5" y="282" width="110" height="30"/>
+                                        <rect key="frame" x="112.5" y="376" width="110" height="30"/>
                                         <state key="normal" title="Rewarded video"/>
                                         <connections>
                                             <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xoo-vz-hax">
-                                        <rect key="frame" x="117" y="329" width="101" height="30"/>
+                                        <rect key="frame" x="117" y="423" width="101" height="30"/>
                                         <state key="normal" title="Instream video"/>
                                         <connections>
                                             <segue destination="fzy-BX-rP8" kind="show" id="6P0-Fz-hsw"/>
@@ -128,6 +142,8 @@
                         <outlet property="inAppNative" destination="8ga-uv-oWc" id="FdH-cu-eJ1"/>
                         <outlet property="instreamVideo" destination="Xoo-vz-hax" id="P6W-qL-JZK"/>
                         <outlet property="interstitialVideo" destination="H9f-Yj-Von" id="6Af-yT-nRW"/>
+                        <outlet property="landscapeVideo" destination="URP-yW-CGr" id="vLT-FU-QF6"/>
+                        <outlet property="verticalVideo" destination="Z7r-Gi-8Q5" id="aQi-5n-hdr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -371,8 +387,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kib-uu-Sx9"/>
-        <segue reference="kvU-2J-PSM"/>
+        <segue reference="6vM-Cs-bCE"/>
+        <segue reference="oHg-3D-EQi"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

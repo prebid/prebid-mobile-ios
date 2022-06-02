@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "IntegrationKind.h"
+#import "VideoOrientation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) IntegrationKind integrationKind;
 @property (nonatomic) IntegrationAdFormat integrationAdFormat;
+@property (nonatomic) VideoOrientation videoOrienation;
 
 @end
 

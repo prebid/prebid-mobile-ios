@@ -76,6 +76,18 @@
     return @"imp-prebid-video-interstitial-320-480";
 }
 
++(NSString *)kInterstitialVideoVerticalStoredImpression {
+    return @"imp-prebid-video-interstitial-vertical";
+}
+
++(NSString *)kInterstitialVideoVerticalStoredResponse {
+    return @"response-prebid-video-interstitial-vertical-with-end-card";
+}
+
++(NSString *)kInterstitialVideoLandscapeStoredResponse {
+    return @"response-prebid-video-interstitial-landscape-with-end-card";
+}
+
 // GAM Interstitial Ad Unit Ids
 +(NSString *)kGAMInterstitialDisplayAdUnitId {
     return @"/21808260008/prebid-demo-app-original-api-display-interstitial";

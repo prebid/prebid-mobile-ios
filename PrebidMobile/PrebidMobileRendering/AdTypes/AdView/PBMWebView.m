@@ -143,6 +143,8 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     //Create the WKWebView
     configuration.userContentController = wkUserContentController;
     WKWebView * const internalWebView = [[WKWebView alloc] initWithFrame:frame configuration:configuration];
+    [internalWebView setOpaque:NO];
+    
     _internalWebView = internalWebView;
     
     [internalWebView.scrollView setScrollEnabled:NO];

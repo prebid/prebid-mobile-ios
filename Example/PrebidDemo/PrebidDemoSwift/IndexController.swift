@@ -40,6 +40,9 @@ class IndexController: UIViewController {
     @IBOutlet weak var inAppNative: UIButton!
     @IBOutlet weak var instreamVideo: UIButton!
     
+    @IBOutlet weak var verticalVideo: UIButton!
+    @IBOutlet weak var landscapeVideo: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -93,8 +96,14 @@ class IndexController: UIViewController {
         case let vc as InterstitialViewController:
             vc.integrationKind = integrationKind
             
-            if buttonText == "Interstitial Video" {
+            if buttonText.contains("Video") {
                 vc.adFormat = .vast
+            }
+            
+            if buttonText.contains("Vertical") {
+                vc.orientation = .vertical
+            } else if buttonText.contains("Landscape") {
+                vc.orientation = .landscape
             }
             
         case let vc as NativeViewController:
@@ -124,5 +133,7 @@ class IndexController: UIViewController {
                 
         bannerNative.isHidden   = isRendering
         instreamVideo.isHidden  = isRendering
+        verticalVideo.isHidden  = integrationKind != .inApp
+        landscapeVideo.isHidden = integrationKind != .inApp
     }
 }

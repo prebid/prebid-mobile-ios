@@ -40,6 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, readonly) NSString *kInterstitialVideoStoredResponse;
 @property (class, readonly) NSString *kInterstitialVideoStoredImpression;
 
+@property (class, readonly) NSString *kInterstitialVideoVerticalStoredImpression;
+@property (class, readonly) NSString *kInterstitialVideoVerticalStoredResponse;
+@property (class, readonly) NSString *kInterstitialVideoLandscapeStoredResponse;
+
 // GAM Interstitial Ad Unit Ids
 @property (class, readonly) NSString *kGAMInterstitialDisplayAdUnitId;
 @property (class, readonly) NSString *kGAMInterstitialVideoAdUnitId;
