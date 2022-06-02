@@ -50,12 +50,10 @@ Pod::Spec.new do |s|
                    'CoreTelephony',
                    'CoreMedia',
                    'QuartzCore',
-				   'OMSDK_Prebidorg'
+		   'OMSDK_Prebidorg'
                  ]
   s.weak_frameworks  = [ 'AdSupport', 'StoreKit', 'WebKit' ]
 
-  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
-  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
   s.module_map   = 'PrebidMobile/BuildFiles/PrebidMobile.modulemap'
 
   # Support previous intagration
