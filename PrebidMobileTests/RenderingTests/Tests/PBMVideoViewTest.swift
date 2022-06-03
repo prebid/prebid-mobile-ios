@@ -286,7 +286,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         }
         
         XCTAssertEqual(videoView.skipButtonDecorator.buttonArea, 0.1)
-        XCTAssertEqual(videoView.skipButtonDecorator.buttonPosition, .topRight)
+        XCTAssertEqual(videoView.skipButtonDecorator.buttonPosition, .topLeft)
         XCTAssertEqual(videoView.skipButtonDecorator.button.image(for: .normal), UIImage(named: "PBM_skipButton", in: PBMFunctions.bundleForSDK(), compatibleWith: nil))
         XCTAssertEqual(videoView.skipButtonDecorator.button.isHidden, true)
     }

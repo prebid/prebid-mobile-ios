@@ -44,7 +44,7 @@ class VideoControlsConfigTests: XCTestCase {
     
     func testDefaultSkipButtonPosition() {
         let adConfiguration = VideoControlsConfiguration()
-        XCTAssertEqual(adConfiguration.skipButtonPosition, .topRight)
+        XCTAssertEqual(adConfiguration.skipButtonPosition, .topLeft)
     }
     
     func testDefaultSkipButtonDelay() {
