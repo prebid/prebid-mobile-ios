@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
     LICENSE
     }
 
-  s.author            	   = { "Prebid.org, Inc." => "info@prebid.org" }
+  s.author                 = { "Prebid.org, Inc." => "info@prebid.org" }
   s.platform     	   = :ios, "10.0"
   s.swift_version 	   = '5.0'
   s.source      	   = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
@@ -49,12 +49,11 @@ Pod::Spec.new do |s|
                    'CoreLocation',
                    'CoreTelephony',
                    'CoreMedia',
-                   'QuartzCore'
+                   'QuartzCore',
+		   'OMSDK_Prebidorg'
                  ]
   s.weak_frameworks  = [ 'AdSupport', 'StoreKit', 'WebKit' ]
 
-  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
-  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
   s.module_map   = 'PrebidMobile/BuildFiles/PrebidMobile.modulemap'
 
   # Support previous intagration
@@ -64,7 +63,7 @@ Pod::Spec.new do |s|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
     core.resources    = 'PrebidMobile/PrebidMobileRendering/Assets/**/*.{json,png,js,html,xib}'
-    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.framework'
+    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
   end
 
 end
