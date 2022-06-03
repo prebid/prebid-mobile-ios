@@ -172,7 +172,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
                 PBMMediationAdUnitBidKey: winningBid
             ]
             
-            if adUnitConfig.adConfiguration.winningBidAdFormat == .video {
+            if bidResponse.winningBid?.adFormat == .video {
                 // Append video specific configurations
                 let videoSetupDictionary: [String: Any] = [
                     PBMMediationVideoAdConfiguration: self.adUnitConfig.adConfiguration.videoControlsConfig,

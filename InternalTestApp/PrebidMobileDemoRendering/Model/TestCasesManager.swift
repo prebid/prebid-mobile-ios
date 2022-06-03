@@ -945,7 +945,55 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial With Ad Configuration 320x480 (In-App)",
+            TestCase(title: "Video Interstitial With Ad Configuration API 320x480 (In-App)",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-ad-configuration"
+                interstitialController.adFormats = [.video]
+                         
+                // Custom video configuration
+                interstitialController.maxDuration = 30
+                interstitialController.closeButtonArea = 0.15
+                interstitialController.closeButtonPosition = .topLeft
+                interstitialController.skipDelay = 5
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card API 320x480 (In-App)",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
+                interstitialController.adFormats = [.video]
+                         
+                // Custom video configuration
+                interstitialController.maxDuration = 30
+                interstitialController.closeButtonArea = 0.15
+                interstitialController.closeButtonPosition = .topLeft
+                interstitialController.skipButtonArea = 0.15
+                interstitialController.skipButtonPosition = .topRight
+                interstitialController.skipDelay = 5
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration Server 320x480 (In-App)",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -961,7 +1009,7 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial With Ad Configuration With End Card 320x480 (In-App)",
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card Server 320x480 (In-App)",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1246,7 +1294,57 @@ struct TestCaseManager {
                 setupCustomParams(for: gamInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial With Ad Configuration 320x480 (GAM) [OK, AppEvent]",
+            TestCase(title: "Video Interstitial 320x480 With Ad Configuration API (GAM) [OK, AppEvent]",
+                     tags: [.video, .gam, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
+                gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
+                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
+                gamInterstitialController.adFormats = [.video]
+                gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_interstitial_video"
+                      
+                // Custom video configuration
+                gamInterstitialController.maxDuration = 30
+                gamInterstitialController.closeButtonArea = 0.15
+                gamInterstitialController.closeButtonPosition = .topLeft
+                gamInterstitialController.skipDelay = 5
+                         
+                adapterVC.setup(adapter: gamInterstitialController)
+                        
+                setupCustomParams(for: gamInterstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card API 320x480 (GAM) [OK, AppEvent]",
+                     tags: [.video, .gam, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
+                gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
+                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
+                gamInterstitialController.adFormats = [.video]
+                gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_interstitial_video"
+                         
+                // Custom video configuration
+                gamInterstitialController.maxDuration = 30
+                gamInterstitialController.closeButtonArea = 0.15
+                gamInterstitialController.closeButtonPosition = .topLeft
+                gamInterstitialController.skipButtonArea = 0.15
+                gamInterstitialController.skipButtonPosition = .topRight
+                gamInterstitialController.skipDelay = 5
+                         
+                adapterVC.setup(adapter: gamInterstitialController)
+                        
+                setupCustomParams(for: gamInterstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration Server 320x480 (GAM) [OK, AppEvent]",
                      tags: [.video, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1263,7 +1361,7 @@ struct TestCaseManager {
                 setupCustomParams(for: gamInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial With Ad Configuration With End Card 320x480 (GAM) [OK, AppEvent]",
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card Server 320x480 (GAM) [OK, AppEvent]",
                      tags: [.video, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1644,7 +1742,7 @@ struct TestCaseManager {
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded With Ad Configuration 320x480 (In-App)",
+            TestCase(title: "Video Rewarded With Ad Configuration Server 320x480 (In-App)",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1681,7 +1779,7 @@ struct TestCaseManager {
                 setupCustomParams(for: gamRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 With Ad Configuration (GAM) [OK, Metadata]",
+            TestCase(title: "Video Rewarded 320x480 With Ad Configuration Server (GAM) [OK, Metadata]",
                      tags: [.video, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2218,7 +2316,57 @@ struct TestCaseManager {
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial With Ad Configuration 320x480 (AdMob) [OK, OXB Adapter]",
+            TestCase(title: "Video Interstitial With Ad Configuration 320x480 API (AdMob) [OK, OXB Adapter]",
+                     tags: [.video, .admob, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
+                admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
+                admobInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
+                admobInterstitialController.adFormats = [.video]
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
+                         
+                // Custom video configuration
+                admobInterstitialController.maxDuration = 30
+                admobInterstitialController.closeButtonArea = 0.15
+                admobInterstitialController.closeButtonPosition = .topLeft
+                admobInterstitialController.skipDelay = 5
+                         
+                adapterVC.setup(adapter: admobInterstitialController)
+                        
+                setupCustomParams(for: admobInterstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card 320x480 API (AdMob) [OK, OXB Adapter]",
+                     tags: [.video, .admob, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
+                admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
+                admobInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
+                admobInterstitialController.adFormats = [.video]
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
+                         
+                // Custom video configuration
+                admobInterstitialController.maxDuration = 30
+                admobInterstitialController.closeButtonArea = 0.15
+                admobInterstitialController.closeButtonPosition = .topLeft
+                admobInterstitialController.skipButtonArea = 0.15
+                admobInterstitialController.skipButtonPosition = .topRight
+                admobInterstitialController.skipDelay = 5
+                         
+                adapterVC.setup(adapter: admobInterstitialController)
+                        
+                setupCustomParams(for: admobInterstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration 320x480 Server (AdMob) [OK, OXB Adapter]",
                      tags: [.video, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2235,7 +2383,7 @@ struct TestCaseManager {
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial With Ad Configuration With End Card 320x480 (AdMob) [OK, OXB Adapter]",
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card 320x480 Server (AdMob) [OK, OXB Adapter]",
                      tags: [.video, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2329,7 +2477,7 @@ struct TestCaseManager {
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded With Ad Configuration 320x480 (AdMob) [OK, OXB Adapter]",
+            TestCase(title: "Video Rewarded With Ad Configuration 320x480 Server (AdMob) [OK, OXB Adapter]",
                      tags: [.video, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2943,7 +3091,57 @@ struct TestCaseManager {
                 setupCustomParams(for: maxInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial With Ad Configuration  320x480 (MAX) [OK, OXB Adapter]",
+            TestCase(title: "Video Interstitial With Ad Configuration 320x480 API (MAX) [OK, OXB Adapter]",
+                     tags: [.video, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
+                maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
+                maxInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
+                maxInterstitialController.adFormats = [.video]
+                maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
+                        
+                // Custom video configuration
+                maxInterstitialController.maxDuration = 30
+                maxInterstitialController.closeButtonArea = 0.15
+                maxInterstitialController.closeButtonPosition = .topLeft
+                maxInterstitialController.skipDelay = 5
+                         
+                adapterVC.setup(adapter: maxInterstitialController)
+                        
+                setupCustomParams(for: maxInterstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card 320x480 API (MAX) [OK, OXB Adapter]",
+                     tags: [.video, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
+                maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
+                maxInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
+                maxInterstitialController.adFormats = [.video]
+                maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
+                      
+                // Custom video configuration
+                maxInterstitialController.maxDuration = 30
+                maxInterstitialController.closeButtonArea = 0.15
+                maxInterstitialController.closeButtonPosition = .topLeft
+                maxInterstitialController.skipButtonArea = 0.15
+                maxInterstitialController.skipButtonPosition = .topRight
+                maxInterstitialController.skipDelay = 5
+                         
+                adapterVC.setup(adapter: maxInterstitialController)
+                        
+                setupCustomParams(for: maxInterstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration 320x480 Server (MAX) [OK, OXB Adapter]",
                      tags: [.video, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2960,7 +3158,7 @@ struct TestCaseManager {
                 setupCustomParams(for: maxInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial With Ad Configuration  320x480 (MAX) [OK, OXB Adapter]",
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card 320x480 Server (MAX) [OK, OXB Adapter]",
                      tags: [.video, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -3055,7 +3253,7 @@ struct TestCaseManager {
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 With Ad Configuration (MAX) [OK, OXB Adapter]",
+            TestCase(title: "Video Rewarded 320x480 With Ad Configuration Server (MAX) [OK, OXB Adapter]",
                      tags: [.video, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in

@@ -39,6 +39,14 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
     
     private let configIdLabel = UILabel()
     
+    // Custom video configuarion
+    var maxDuration: Int?
+    var closeButtonArea: Double?
+    var closeButtonPosition: Position?
+    var skipButtonArea: Double?
+    var skipButtonPosition: Position?
+    var skipDelay: Double?
+    
     // MARK: - AdaptedController
     required init(rootController: AdapterViewController) {
         self.adapterViewController = rootController
@@ -46,9 +54,11 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
         
         setupAdapterController()
     }
+    
     deinit {
         Prebid.shared.storedAuctionResponse = nil
     }
+    
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -62,14 +72,35 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
         
         Prebid.shared.storedAuctionResponse=storedAuctionResponse
         interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
-                                                    minSizePercentage: CGSize(width: 30, height: 30),
-                                                    eventHandler: eventHandler)
+                                                             minSizePercentage: CGSize(width: 30, height: 30),
+                                                             eventHandler: eventHandler)
         interstitialController?.delegate = self
-        interstitialController?.videoParameters.maxDuration = SingleContainerInt(integerLiteral: 30)
-        interstitialController?.closeButtonArea = 0.1
-        interstitialController?.closeButtonPosition = .topRight
-        interstitialController?.skipButtonArea = 0.1
-        interstitialController?.skipDelay = 5
+        
+        // Custom video configuarion
+        if let maxDuration = maxDuration {
+            interstitialController?.videoParameters.maxDuration = SingleContainerInt(integerLiteral: maxDuration)
+        }
+        
+        if let closeButtonArea = closeButtonArea {
+            interstitialController?.closeButtonArea = closeButtonArea
+        }
+        
+        if let closeButtonPosition = closeButtonPosition {
+            interstitialController?.closeButtonPosition = closeButtonPosition
+        }
+        
+        if let skipButtonArea = skipButtonArea {
+            interstitialController?.skipButtonArea = skipButtonArea
+        }
+        
+        if let skipButtonPosition = skipButtonPosition {
+            interstitialController?.skipButtonPosition = skipButtonPosition
+        }
+        
+        if let skipDelay = skipDelay {
+            interstitialController?.skipDelay = skipDelay
+        }
+        
         if let adFormats = adFormats {
             interstitialController?.adFormats = adFormats
         }
