@@ -150,5 +150,5 @@ public class VideoControlsConfiguration: NSObject {
     private var _closeButtonPosition = Position.topRight
     
     private var _skipButtonArea = PBMConstants.BUTTON_AREA_DEFAULT.doubleValue
-    private var _skipButtonPosition = Position.topRight
+    private var _skipButtonPosition = Position.topLeft
 }
