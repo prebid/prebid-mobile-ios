@@ -14,7 +14,6 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <EventKit/EventKit.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/ATTrackingManager.h>
 

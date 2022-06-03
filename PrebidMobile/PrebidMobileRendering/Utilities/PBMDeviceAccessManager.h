@@ -16,7 +16,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "PBMConstants.h"
-#import <EventKitUI/EventKitUI.h>
 
 #pragma mark - PBMDeviceAccessManagerKeys
 
