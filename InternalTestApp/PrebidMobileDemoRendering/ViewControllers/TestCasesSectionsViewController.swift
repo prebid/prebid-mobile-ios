@@ -22,8 +22,9 @@ class TestCasesSectionsViewController: UIViewController {
     @IBOutlet var sectionsControl: UISegmentedControl!
     @IBOutlet var integrationsControl: UISegmentedControl!
     @IBOutlet var configurableButton: UIButton!
-    @IBOutlet var mockServerSwitch: UISwitch!
     @IBOutlet var gdprSwitch: UISwitch!
+    @IBOutlet var cacheSwitch: UISwitch!
+
     
     private var sections: [TestCaseTag] = []
     private var integrations: [TestCaseTag] = []
@@ -44,7 +45,7 @@ class TestCasesSectionsViewController: UIViewController {
         setupSegmentedControl(integrationsControl, with: integrations)
         
         setupGDPRSwitch()
-        
+        setupCacheSwitch()
         DispatchQueue.main.async {
             self.tagChangedCallback?(self.collectTags())
         }
@@ -77,7 +78,11 @@ class TestCasesSectionsViewController: UIViewController {
         gdprSwitch.setOn(currentValue, animated: false)
         gdprSwitch.accessibilityIdentifier = "GDPRSwitch"
     }
-    
+    private func setupCacheSwitch() {
+        let currentValue = AppConfiguration.shared.isCachingEnabled
+        cacheSwitch.setOn(currentValue, animated: false)
+        cacheSwitch.accessibilityIdentifier = "Enable Cache Switch"
+    }
     private func setupSegmentedControl(_ segmentedControl: UISegmentedControl, with tags: [TestCaseTag]) {
         segmentedControl.removeAllSegments()
         
@@ -133,5 +138,9 @@ class TestCasesSectionsViewController: UIViewController {
     @IBAction func onGdprSwitchAction(sender: UISwitch) {
         print("GDPR: \(sender.isOn)")
         AppConfiguration.shared.isGDPREnabled = sender.isOn
+    }
+    @IBAction func onCacheSwitchAction(sender: UISwitch) {
+        print("Cache: \(sender.isOn)")
+        AppConfiguration.shared.isCachingEnabled = sender.isOn
     }
 }

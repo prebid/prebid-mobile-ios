@@ -29,7 +29,10 @@ final class AppConfiguration: NSObject {
         get { IABConsentHelper.isGDPREnabled }
         set { IABConsentHelper.isGDPREnabled = newValue }
     }
-    
+    var isCachingEnabled: Bool {
+        get { Prebid.shared.useCacheForReportingWithRenderingAPI }
+        set { Prebid.shared.useCacheForReportingWithRenderingAPI = newValue }
+    }
     var adPosition: AdPosition?
     var videoPlacementType: Signals.Placement?
     var adUnitContext: [(key: String, value: String)]?

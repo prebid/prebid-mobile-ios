@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6M7-3O-9SJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6M7-3O-9SJ">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -119,27 +119,20 @@
                                     <segment title="Second"/>
                                 </segments>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="U5N-K1-CMO" userLabel="Integration Control">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="U5N-K1-CMO" userLabel="Integration Control">
                                 <rect key="frame" x="16" y="44" width="343" height="32"/>
                                 <segments>
                                     <segment title="First"/>
                                     <segment title="Second"/>
                                 </segments>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AT3-rL-Eal">
-                                <rect key="frame" x="329" y="81" width="30" height="29"/>
-                                <state key="normal" title="⚙"/>
-                                <connections>
-                                    <action selector="onConfigureTapped:" destination="LVH-wa-RTM" eventType="touchUpInside" id="eek-70-NuM"/>
-                                </connections>
-                            </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yy8-PI-le3" userLabel="GDPR Switch">
                                 <rect key="frame" x="20" y="80" width="51" height="31"/>
                                 <connections>
                                     <action selector="onGdprSwitchActionWithSender:" destination="LVH-wa-RTM" eventType="valueChanged" id="7pl-5t-CLN"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable GDPR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qim-PS-zyR" userLabel="GDPR">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Enable GDPR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qim-PS-zyR" userLabel="GDPR">
                                 <rect key="frame" x="77" y="85" width="80" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FvB-lz-wzY"/>
@@ -148,6 +141,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1rl-dI-lmn" userLabel="Enable Caching Switch">
+                                <rect key="frame" x="167" y="80" width="51" height="31"/>
+                                <connections>
+                                    <action selector="onCacheSwitchActionWithSender:" destination="LVH-wa-RTM" eventType="valueChanged" id="d20-Wk-5Ix"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Enable Caching" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kn0-8a-KAE" userLabel="Enable Caching">
+                                <rect key="frame" x="224" y="85" width="94" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="F1e-JL-dJb"/>
+                                </constraints>
+                                <edgeInsets key="layoutMargins" top="11" left="11" bottom="11" right="10"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AT3-rL-Eal">
+                                <rect key="frame" x="329" y="82" width="30" height="29"/>
+                                <state key="normal" title="⚙"/>
+                                <connections>
+                                    <action selector="onConfigureTapped:" destination="LVH-wa-RTM" eventType="touchUpInside" id="eek-70-NuM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EZ1-pF-hnb"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -155,21 +171,27 @@
                             <constraint firstAttribute="trailingMargin" secondItem="AT3-rL-Eal" secondAttribute="trailing" id="3BJ-xr-nFe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cUH-0V-2aH" secondAttribute="trailing" id="8Mw-Rx-1Jr"/>
                             <constraint firstItem="Qim-PS-zyR" firstAttribute="top" secondItem="U5N-K1-CMO" secondAttribute="bottom" constant="10" id="AOW-l2-2uW"/>
-                            <constraint firstItem="Qim-PS-zyR" firstAttribute="centerY" secondItem="AT3-rL-Eal" secondAttribute="centerY" id="AlK-RY-RTQ"/>
+                            <constraint firstItem="Qim-PS-zyR" firstAttribute="centerY" secondItem="AT3-rL-Eal" secondAttribute="centerY" constant="-1" id="AlK-RY-RTQ"/>
                             <constraint firstItem="cUH-0V-2aH" firstAttribute="top" secondItem="EZ1-pF-hnb" secondAttribute="top" constant="8" id="Aud-28-4bO"/>
                             <constraint firstItem="yy8-PI-le3" firstAttribute="leading" secondItem="EZ1-pF-hnb" secondAttribute="leading" constant="20" id="FnA-yO-wIO"/>
+                            <constraint firstItem="1rl-dI-lmn" firstAttribute="leading" secondItem="Qim-PS-zyR" secondAttribute="trailing" constant="10" id="GcB-xw-8ou"/>
                             <constraint firstItem="U5N-K1-CMO" firstAttribute="trailing" secondItem="cUH-0V-2aH" secondAttribute="trailing" id="J0a-dB-APe"/>
+                            <constraint firstItem="kn0-8a-KAE" firstAttribute="leading" secondItem="1rl-dI-lmn" secondAttribute="trailing" constant="8" id="Vk0-is-zzh"/>
                             <constraint firstItem="Qim-PS-zyR" firstAttribute="baseline" secondItem="AT3-rL-Eal" secondAttribute="firstBaseline" id="ZmH-jw-MBg"/>
                             <constraint firstItem="yy8-PI-le3" firstAttribute="centerY" secondItem="Qim-PS-zyR" secondAttribute="centerY" id="a40-rU-WyG"/>
                             <constraint firstItem="Qim-PS-zyR" firstAttribute="leading" secondItem="yy8-PI-le3" secondAttribute="trailing" constant="8" id="aKE-lK-9Cb"/>
                             <constraint firstItem="U5N-K1-CMO" firstAttribute="top" secondItem="cUH-0V-2aH" secondAttribute="bottom" constant="5" id="d1D-Qk-YmV"/>
-                            <constraint firstItem="Qim-PS-zyR" firstAttribute="centerY" secondItem="AT3-rL-Eal" secondAttribute="centerY" id="n5P-gf-DVj"/>
+                            <constraint firstItem="1rl-dI-lmn" firstAttribute="centerY" secondItem="yy8-PI-le3" secondAttribute="centerY" id="hI6-1l-49M"/>
+                            <constraint firstItem="Qim-PS-zyR" firstAttribute="centerY" secondItem="AT3-rL-Eal" secondAttribute="centerY" constant="-1" id="n5P-gf-DVj"/>
+                            <constraint firstItem="kn0-8a-KAE" firstAttribute="top" secondItem="U5N-K1-CMO" secondAttribute="bottom" constant="10" id="oXG-G6-gJd"/>
                             <constraint firstItem="cUH-0V-2aH" firstAttribute="leading" secondItem="oKy-H5-p5v" secondAttribute="leadingMargin" id="qYR-gx-bVO"/>
-                            <constraint firstItem="AT3-rL-Eal" firstAttribute="top" secondItem="U5N-K1-CMO" secondAttribute="bottom" constant="6" id="vty-9q-avN"/>
+                            <constraint firstItem="AT3-rL-Eal" firstAttribute="top" secondItem="U5N-K1-CMO" secondAttribute="bottom" constant="7" id="vty-9q-avN"/>
+                            <constraint firstItem="AT3-rL-Eal" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kn0-8a-KAE" secondAttribute="trailing" constant="8" symbolic="YES" id="zBm-jr-jZH"/>
                             <constraint firstItem="U5N-K1-CMO" firstAttribute="leading" secondItem="cUH-0V-2aH" secondAttribute="leading" id="zHQ-wA-3If"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cacheSwitch" destination="1rl-dI-lmn" id="zlG-SC-ITq"/>
                         <outlet property="configurableButton" destination="AT3-rL-Eal" id="3di-ag-zMc"/>
                         <outlet property="gdprSwitch" destination="yy8-PI-le3" id="fKP-21-49d"/>
                         <outlet property="integrationsControl" destination="U5N-K1-CMO" id="Eo9-jl-l9b"/>
@@ -178,7 +200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zb7-9K-JGC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="578" y="180"/>
+            <point key="canvasLocation" x="576.79999999999995" y="179.91004497751126"/>
         </scene>
         <!--Adapter View Controller-->
         <scene sceneID="7mm-6j-IrL">
