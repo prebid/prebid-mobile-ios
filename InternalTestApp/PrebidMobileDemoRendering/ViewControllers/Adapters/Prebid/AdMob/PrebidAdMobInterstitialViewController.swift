@@ -46,6 +46,14 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
     
     var request = GADRequest()
     
+    // Custom video configuarion
+    var maxDuration: Int?
+    var closeButtonArea: Double?
+    var closeButtonPosition: Position?
+    var skipButtonArea: Double?
+    var skipButtonPosition: Position?
+    var skipDelay: Double?
+    
     required init(rootController: AdapterViewController) {
         self.adapterViewController = rootController
         super.init()
@@ -70,6 +78,31 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
                                              minSizePercentage: CGSize(width: 30, height: 30),
                                              mediationDelegate: mediationDelegate!)
+        
+        // Custom video configuarion
+        if let maxDuration = maxDuration {
+            adUnit?.videoParameters.maxDuration = SingleContainerInt(integerLiteral: maxDuration)
+        }
+        
+        if let closeButtonArea = closeButtonArea {
+            adUnit?.closeButtonArea = closeButtonArea
+        }
+        
+        if let closeButtonPosition = closeButtonPosition {
+            adUnit?.closeButtonPosition = closeButtonPosition
+        }
+        
+        if let skipButtonArea = skipButtonArea {
+            adUnit?.skipButtonArea = skipButtonArea
+        }
+        
+        if let skipButtonPosition = skipButtonPosition {
+            adUnit?.skipButtonPosition = skipButtonPosition
+        }
+        
+        if let skipDelay = skipDelay {
+            adUnit?.skipDelay = skipDelay
+        }
         
         if let adFormats = adFormats {
             adUnit?.adFormats = adFormats
