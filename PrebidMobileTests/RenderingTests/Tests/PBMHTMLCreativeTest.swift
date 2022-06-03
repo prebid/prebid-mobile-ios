@@ -204,7 +204,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
     func testEventClick() {
         
         let expectation = self.expectation(description: "PBMTrackingEventClick Expectation")
-        expectation.expectedFulfillmentCount = 4
+        expectation.expectedFulfillmentCount = 2
         
         self.mockEventTracker.mock_trackEvent = { (event) in
             if (event == PBMTrackingEvent.click) {
@@ -214,12 +214,6 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
         
         let mockViewController = MockViewController()
         self.htmlCreative.display(withRootViewController: mockViewController)
-        
-        // Calendar event
-        self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("createCalendarevent/event"))
-        
-        // Store picture
-        self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("storepicture/picture"))
         
         // Play video
         self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("playVideo/amazingVideo"))

@@ -82,7 +82,6 @@ class PBMHTMLCreativeTest_Base: XCTestCase, PBMCreativeViewDelegate {
         mockModalManager = nil
         mockWebView = nil
         mockViewController = nil
-        MockPBMDeviceAccessManager.reset()
         super.tearDown()
     }
     

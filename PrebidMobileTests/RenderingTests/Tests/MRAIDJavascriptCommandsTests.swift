@@ -114,9 +114,9 @@ class MRAIDJavascriptCommandsTests: XCTestCase {
     func test_updateSupportedFeatures() {
         let expectedFeatures: [String: Any] = [
             "sms": true,
-            "storePicture": true,
+            "storePicture": false,
             "inlineVideo": true,
-            "calendar": true,
+            "calendar": false,
             "tel": true,
             "location": true,
             "vpaid": false,

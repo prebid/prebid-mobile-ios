@@ -153,9 +153,11 @@
     } else if ([command isEqualToString:PBMMRAIDActionClose]) {
         [self handleMRAIDCommandClose];
     } else if ([command isEqualToString:PBMMRAIDActionStorePicture]) {
-        [self handleMRAIDCommandStorePicture:pbmMRAIDCommand];
+        NSString *message = [NSString stringWithFormat:@"MRAID COMMAND: %@ is not supported", pbmMRAIDCommand.command];
+        @throw [NSException pbmException:message];
     } else if ([command isEqualToString:PBMMRAIDActionCreateCalendarEvent]) {
-        [self handleMRAIDCommandCreateCalendarEvent:pbmMRAIDCommand];
+        NSString *message = [NSString stringWithFormat:@"MRAID COMMAND: %@ is not supported", pbmMRAIDCommand.command];
+        @throw [NSException pbmException:message];
     } else if ([command isEqualToString:PBMMRAIDActionPlayVideo]) {
         [self handleMRAIDCommandPlayVideo:pbmMRAIDCommand];
     } else if ([command isEqualToString:PBMMRAIDActionOnOrientationPropertiesChanged]) {
@@ -500,55 +502,6 @@
         default:
             break;
     }
-}
-
-- (void)handleMRAIDCommandStorePicture:(PBMMRAIDCommand *)command {
-    PBMWebView *webView = self.prebidWebView;
-    
-    NSURL *url = [NSURL URLWithString:[command.arguments firstObject]];
-    if (!url) {
-        [webView MRAID_error:@"Ad wanted to store a picture with an invalid URL" action:PBMMRAIDActionStorePicture];
-        return;
-    }
-    
-    @weakify(self);
-    [self.creative.modalManager hideModalAnimated:NO completionHandler:^{
-        @strongify(self);
-        PBMDeviceAccessManager *deviceManager = [[self.deviceAccessManagerClass alloc] initWithRootViewController:[self viewControllerForSystemFeaturePresentation]];
-        [deviceManager savePhotoWithUrlToAsset:url completion:^(BOOL succeeded, NSString * _Nonnull message) {
-            if (!succeeded) {
-                [webView MRAID_error:message action:PBMMRAIDActionStorePicture];
-            }
-            
-            [self.creative.modalManager backModalAnimated:NO fromRootViewController:self.viewControllerForPresentingModals completionHandler:nil];
-        }];
-        
-        [self.creative.eventManager trackEvent:PBMTrackingEventClick];
-    }];
-}
-
-- (void)handleMRAIDCommandCreateCalendarEvent:(PBMMRAIDCommand *)command {
-    PBMWebView *webView = self.prebidWebView;
-    
-    NSString *theEventString = [command.arguments firstObject];
-    if (!theEventString) {
-        [webView MRAID_error:@"No event string provided" action:PBMMRAIDActionCreateCalendarEvent];
-        return;
-    }
-    
-    @weakify(self);
-    [self.creative.modalManager hideModalAnimated:NO completionHandler:^{
-        @strongify(self);
-        [[[self.deviceAccessManagerClass alloc] initWithRootViewController:[self viewControllerForSystemFeaturePresentation]] createCalendarEventFromString:theEventString completion:^(BOOL succeeded, NSString * _Nonnull message) {
-            if (!succeeded) {
-                [webView MRAID_error:message action:PBMMRAIDActionCreateCalendarEvent];
-            }
-            
-            [self.creative.modalManager backModalAnimated:NO fromRootViewController:self.viewControllerForPresentingModals completionHandler:nil];
-        }];
-        
-        [self.creative.eventManager trackEvent:PBMTrackingEventClick];
-    }];
 }
 
 - (void)handleMRAIDCommandPlayVideo:(PBMMRAIDCommand *)command {
