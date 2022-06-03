@@ -79,27 +79,9 @@ class PrebidMRAIDResizeUITest: RepeatedUITestCase {
             case .sms, .clickToCall:
                 print ("Do not support on Simulator")
             case .storePicture:
-                tapMRAIDCommand(command: $0)
-                // Tap in UIAlertAction dialog to "No"
-                let noButton = app.alerts["Save Image?"].buttons["No"]
-                waitForHittable(element: noButton, waitSeconds: 7)
-                noButton.tap()
+                print("Not supported")
             case .calendarEvent:
-                tapMRAIDCommand(command: $0)
-                
-                // Fix for Calendar alert permission
-                Thread.sleep(forTimeInterval: 3)
-                let systemAlerts = XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts
-                if systemAlerts.count > 0 {
-                    let calendarAlert = systemAlerts.element(boundBy: 0)
-                    calendarAlert.buttons["OK"].tap()
-                }
-                
-                // Check EKEventEditViewController for exists
-                let eventController = app.navigationBars["New Event"]
-                waitForExists(element: eventController, waitSeconds: 7)
-                // Cancel and close EKEventEditViewController
-                eventController.buttons["Cancel"].tap()
+                print("Not supported")
             case .playVideo:
                 // Play video...
                 tapMRAIDCommand(command: $0)
