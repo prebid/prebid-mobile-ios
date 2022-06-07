@@ -39,8 +39,6 @@ class PBMMRAIDControllerTest : PBMMRAIDControllerTest_Base {
             "mraid:expand/": PBMMRAIDAction.expand,
             "mraid:resize/": PBMMRAIDAction.resize,
             "mraid:close/": PBMMRAIDAction.close,
-            "mraid:storepicture/": PBMMRAIDAction.storePicture,
-            "mraid:createCalendarevent/": PBMMRAIDAction.createCalendarEvent,
             "mraid:playVideo/": PBMMRAIDAction.playVideo,
         ]
         

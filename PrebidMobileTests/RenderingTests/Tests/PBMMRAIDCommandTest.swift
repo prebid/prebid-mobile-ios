@@ -77,14 +77,6 @@ class PBMMRAIDCommandTest : XCTestCase {
             XCTAssertEqual(pbmMRAIDCommand.command, .close)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:storePicture")
-            XCTAssertEqual(pbmMRAIDCommand.command, .storePicture)
-            XCTAssert(pbmMRAIDCommand.arguments == [])
-            
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:createCalendarEvent")
-            XCTAssertEqual(pbmMRAIDCommand.command, .createCalendarEvent)
-            XCTAssert(pbmMRAIDCommand.arguments == [])
-            
             pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:playVideo")
             XCTAssertEqual(pbmMRAIDCommand.command, .playVideo)
             XCTAssert(pbmMRAIDCommand.arguments == [])

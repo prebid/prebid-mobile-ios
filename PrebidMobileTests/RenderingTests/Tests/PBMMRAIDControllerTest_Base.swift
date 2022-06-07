@@ -83,7 +83,6 @@ class PBMMRAIDControllerTest_Base: XCTestCase, PBMCreativeViewDelegate {
         self.mockModalManager = nil
         self.mockWebView = nil
         self.serverConnection = nil
-        MockPBMDeviceAccessManager.reset()
         
         super.tearDown()
     }

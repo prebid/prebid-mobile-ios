@@ -156,8 +156,8 @@ static NSString * const PBMMRAIDCommandFormatSize = @"%@:%@";
     NSDictionary<PBMMRAIDFeature, NSNumber*> *supports = @{
         PBMMRAIDFeatureSMS          : @(YES),
         PBMMRAIDFeaturePhone        : @(YES),
-        PBMMRAIDFeatureCalendar     : @(YES),
-        PBMMRAIDFeatureSavePicture  : @(YES),
+        PBMMRAIDFeatureCalendar     : @(NO),
+        PBMMRAIDFeatureSavePicture  : @(NO),
         PBMMRAIDFeatureInlineVideo  : @(YES),
         PBMMRAIDFeatureLocation     : @(YES),
         PBMMRAIDFeatureVPAID        : @(NO),

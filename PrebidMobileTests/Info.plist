@@ -37,12 +37,6 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Need Calendar Access for MRAID</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Need Photo Access for MRAID</string>
-	<key>NSDummyUsageDescription</key>
-	<string>Need Calendar Access for MRAID</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 </dict>

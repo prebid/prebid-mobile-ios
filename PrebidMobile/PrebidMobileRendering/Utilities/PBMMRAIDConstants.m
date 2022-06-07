@@ -203,8 +203,6 @@ PBMMRAIDFeature const PBMMRAIDFeatureVPAID         = @"vpaid";
                       PBMMRAIDActionExpand,
                       PBMMRAIDActionResize,
                       PBMMRAIDActionClose,
-                      PBMMRAIDActionStorePicture,
-                      PBMMRAIDActionCreateCalendarEvent,
                       PBMMRAIDActionPlayVideo,
                       PBMMRAIDActionLog,
                       PBMMRAIDActionOnOrientationPropertiesChanged,

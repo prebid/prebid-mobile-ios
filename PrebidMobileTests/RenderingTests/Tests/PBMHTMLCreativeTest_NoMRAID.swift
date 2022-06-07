@@ -47,7 +47,7 @@ class PBMHTMLCreativeTest_NoMRAID : PBMHTMLCreativeTest_Base {
                                                      webView:mockWebView,
                                                      creativeViewDelegate:self,
                                                      downloadBlock:createLoader(connection: serverConnection),
-                                                     deviceAccessManagerClass: MockPBMDeviceAccessManager.self,
+                                                     deviceAccessManagerClass: PBMDeviceAccessManager.self,
                                                      sdkConfiguration: sdkConfiguration)
         pbmHTMLCreative.mraidController = mockMRAIDController
         pbmHTMLCreative.view = mockWebView
