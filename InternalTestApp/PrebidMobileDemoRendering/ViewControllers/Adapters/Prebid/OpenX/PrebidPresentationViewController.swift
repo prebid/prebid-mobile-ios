@@ -21,7 +21,7 @@ class PrebidPresentationViewController: UIViewController {
     var prebidConfigId: String!
     var storedAuctionResponse = ""
 
-    var adFormats: [AdFormat]?
+    var adFormats: Set<AdFormat>?
     var navigationVC: UINavigationController?
     var isLoaded = false
     
