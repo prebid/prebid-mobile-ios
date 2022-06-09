@@ -51,6 +51,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
         }
     }
     
+    // FIXME: this test doesn't work properly because of PBS on AWS setup
     func testOpenInNewTab() {
         repeatTesting(times: 7) {
             navigateToExamplesSection()
@@ -94,7 +95,6 @@ class PrebidBannerUITest: RepeatedUITestCase {
             
             let reloadButton = app.buttons["[Reload]"]
             var isAdLoaded = false
-            var isAdNotLoaded = false
             
             for _ in 0...4 {
                 waitForEnabled(element: reloadButton, failElement: nil, waitSeconds: waitingTimeout)
@@ -104,25 +104,19 @@ class PrebidBannerUITest: RepeatedUITestCase {
                     isAdLoaded = true
                 }
                 
-                //a response with without a bid
-                if app.buttons["adViewDidFailToLoadAd called"].isEnabled {
-                    isAdNotLoaded = true
-                }
                 
                 //we have got both cases
-                if isAdLoaded && isAdNotLoaded {
+                if isAdLoaded {
                     break
                 }
 
                 reloadButton.tap()
             }
             
-            //Move back to call MockServer's /api/cancel_random_no_bids
             let backButton = app.buttons["Back"]
             backButton.tap()
             
             XCTAssertTrue(isAdLoaded)
-            XCTAssertTrue(isAdNotLoaded)
         }
     }
     
