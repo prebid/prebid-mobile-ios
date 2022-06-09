@@ -13,7 +13,9 @@
   limitations under the License.
   */
 
-@import OMSDK_Prebidorg;
+#import <OMIDAdSession.h>
+#import <OMIDAdEvents.h>
+#import <OMIDMediaEvents.h>
 
 @interface PBMOpenMeasurementEventTracker ()
 

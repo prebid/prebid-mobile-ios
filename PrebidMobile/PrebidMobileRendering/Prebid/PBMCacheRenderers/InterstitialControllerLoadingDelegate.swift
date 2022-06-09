@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public protocol InterstitialControllerLoadingDelegate where Self: NSObject {
+@objc public protocol InterstitialControllerLoadingDelegate: NSObjectProtocol {
 
     func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController)
     func interstitialController(_ interstitialController: InterstitialController,

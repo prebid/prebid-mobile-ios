@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34C9CD5F2850CE6300FB5451 /* OMSDKVersionProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C9CD5D2850CE6300FB5451 /* OMSDKVersionProvider.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		34C9CD602850CE6300FB5451 /* OMSDKVersionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C9CD5E2850CE6300FB5451 /* OMSDKVersionProvider.m */; };
+		34F51A562850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F51A552850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework */; };
 		38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B262576421400E026A2 /* CacheManagerTests.swift */; };
 		38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B322576624C00E026A2 /* TrackerManagerTests.swift */; };
 		47D9A008EA5B9DF894E98CA2 /* ACJRefreshTest_0.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AF9402144C399D6D4A1C /* ACJRefreshTest_0.json */; };
@@ -58,15 +61,12 @@
 		47D9AFFB2F592206309C5FF0 /* ACJInterstitial.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9ADF3B4DA145410B2AFF6 /* ACJInterstitial.json */; };
 		53019E6127E9E40700D509C1 /* LogTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53019E6027E9E40700D509C1 /* LogTest.swift */; };
 		530382F2283197E100B2B111 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530382F1283197E100B2B111 /* ServerResponse.swift */; };
-		53061A3A2848B97000AF07C3 /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */; };
-		53061A3B2848B97000AF07C3 /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		531CF21927E8FC1B005E5ABE /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CF21827E8FC1B005E5ABE /* LogLevel.swift */; };
 		53269D55282E6D0F0098550D /* ServerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53269D54282E6D0F0098550D /* ServerEvent.swift */; };
 		533135C6282A869800AA1E4D /* BidTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533135C5282A869800AA1E4D /* BidTest.swift */; };
 		53322AA3282D45EE0049229D /* PrebidServerEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53322AA2282D45EE0049229D /* PrebidServerEventTracker.swift */; };
 		53322AA8282E29910049229D /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53322AA7282E29910049229D /* EventManager.swift */; };
 		5339554F283E23BA00DA1DCD /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 5339554E283E23BA00DA1DCD /* omsdk.js */; };
-		5365697E283E00CB0052DB88 /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */; };
 		536A427F282D11DA0069E9B2 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* ServerConnection.swift */; };
 		536A4283282D12E80069E9B2 /* ServerConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A4282282D12E80069E9B2 /* ServerConnectionProtocol.swift */; };
 		537B6518283372FD008AE9D1 /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B6517283372FD008AE9D1 /* PathBuilder.swift */; };
@@ -828,7 +828,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				53061A3B2848B97000AF07C3 /* OMSDK_Prebidorg.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -836,6 +835,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		34C9CD5D2850CE6300FB5451 /* OMSDKVersionProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OMSDKVersionProvider.h; sourceTree = "<group>"; };
+		34C9CD5E2850CE6300FB5451 /* OMSDKVersionProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OMSDKVersionProvider.m; sourceTree = "<group>"; };
+		34F51A552850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "OMSDK-Static_Prebidorg.xcframework"; path = "Frameworks/OMSDK-Static_Prebidorg.xcframework"; sourceTree = "<group>"; };
 		38F03B262576421400E026A2 /* CacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTests.swift; sourceTree = "<group>"; };
 		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
 		47D9A0396ABC8830B365D7DD /* MockLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
@@ -903,7 +905,6 @@
 		537B651D2833A3DA008AE9D1 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		537B653F2833C091008AE9D1 /* NetworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkType.swift; sourceTree = "<group>"; };
 		537B6580283524BB008AE9D1 /* PrebidInitializationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidInitializationStatus.swift; sourceTree = "<group>"; };
-		537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
 		5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewButtonDecorator.swift; sourceTree = "<group>"; };
 		539B0D92282A66B800513501 /* PBMORTBExtPrebidEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBExtPrebidEvents.h; sourceTree = "<group>"; };
 		539B0D94282A675E00513501 /* PBMORTBExtPrebidEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBExtPrebidEvents.m; sourceTree = "<group>"; };
@@ -1667,7 +1668,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5365697E283E00CB0052DB88 /* OMSDK_Prebidorg.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1675,7 +1675,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53061A3A2848B97000AF07C3 /* OMSDK_Prebidorg.xcframework in Frameworks */,
+				34F51A562850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1818,6 +1818,8 @@
 			children = (
 				FAEE4CE1262DC2B200AD9966 /* CollectionExtension.swift */,
 				929865382806CCC3007A2F34 /* UIView+Extensions.swift */,
+				34C9CD5D2850CE6300FB5451 /* OMSDKVersionProvider.h */,
+				34C9CD5E2850CE6300FB5451 /* OMSDKVersionProvider.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2633,7 +2635,7 @@
 		6062B19A218243FA00CE1BA3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				537B669A283DFCCB008AE9D1 /* OMSDK_Prebidorg.xcframework */,
+				34F51A552850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework */,
 				6062B19B218243FA00CE1BA3 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
@@ -3313,6 +3315,7 @@
 				5BC37922271F1CFF00444D5E /* PBMUserConsentResolver.h in Headers */,
 				5BC37AD2271F1D0100444D5E /* PBMNetworkParameterBuilder.h in Headers */,
 				5BC37ADF271F1D0100444D5E /* WKNavigationAction+PBMWKNavigationActionCompatible.h in Headers */,
+				34C9CD5F2850CE6300FB5451 /* OMSDKVersionProvider.h in Headers */,
 				5BC37A7F271F1D0000444D5E /* PBMBidRequester.h in Headers */,
 				5BC37999271F1D0000444D5E /* PBMMRAIDJavascriptCommands.h in Headers */,
 				5BC379AE271F1D0000444D5E /* PBMAdRequestResponseVAST.h in Headers */,
@@ -3982,6 +3985,7 @@
 				5BC378FF271F1CFF00444D5E /* PBMORTBImpExtPrebid.m in Sources */,
 				5BC37A8F271F1D0000444D5E /* BaseInterstitialAdUnit.swift in Sources */,
 				5BC37A14271F1D0000444D5E /* PBMError_Extension.swift in Sources */,
+				34C9CD602850CE6300FB5451 /* OMSDKVersionProvider.m in Sources */,
 				5BC378B3271F1CFF00444D5E /* NSException+PBMExtensions.m in Sources */,
 				5BC379DF271F1D0000444D5E /* DisplayViewLoadingDelegate.swift in Sources */,
 				5BC379C4271F1D0000444D5E /* PBMClickthroughBrowserNavigationHandler.m in Sources */,

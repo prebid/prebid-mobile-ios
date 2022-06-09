@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objc public protocol BannerViewDelegate where Self: NSObject {
+@objc public protocol BannerViewDelegate: NSObjectProtocol {
 
     /** @name Methods */
     /*!

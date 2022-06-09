@@ -49,8 +49,7 @@ Pod::Spec.new do |s|
                    'CoreLocation',
                    'CoreTelephony',
                    'CoreMedia',
-                   'QuartzCore',
-		   'OMSDK_Prebidorg'
+                   'QuartzCore'
                  ]
   s.weak_frameworks  = [ 'AdSupport', 'StoreKit', 'WebKit' ]
 
@@ -63,7 +62,7 @@ Pod::Spec.new do |s|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
     core.resources    = 'PrebidMobile/PrebidMobileRendering/Assets/**/*.{json,png,js,html,xib}'
-    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
+    core.vendored_frameworks = 'Frameworks/OMSDK-Static_Prebidorg.xcframework'
   end
 
 end

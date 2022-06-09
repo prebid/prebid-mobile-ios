@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public protocol DisplayViewLoadingDelegate where Self : NSObject {
+@objc public protocol DisplayViewLoadingDelegate: NSObjectProtocol {
 
     func displayViewDidLoadAd(_ displayView: PBMDisplayView)
     

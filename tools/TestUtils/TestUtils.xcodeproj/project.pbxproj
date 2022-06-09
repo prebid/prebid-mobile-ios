@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		537B669D283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537B669C283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework */; };
-		537B669E283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 537B669C283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53AB8AB22851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */; };
+		53AB8AB32851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92C0CEA027BD411E00C480EB /* emptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C0CE9F27BD411E00C480EB /* emptyResponse.json */; };
 		FA9E5E122649420C0049B214 /* TestUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = FA9E5E102649420C0049B214 /* TestUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAC8535B2649462E009DC0F3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC853592649462E009DC0F3 /* NSURLRequest+HTTPBodyTesting.m */; };
@@ -46,13 +46,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		537B669F283DFCCD008AE9D1 /* Embed Frameworks */ = {
+		53AB8AB42851D9F000837C70 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				537B669E283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework in Embed Frameworks */,
+				53AB8AB32851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		537B669C283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = ../../Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
+		53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "OMSDK-Static_Prebidorg.xcframework"; path = "../../Frameworks/OMSDK-Static_Prebidorg.xcframework"; sourceTree = "<group>"; };
 		92C0CE9F27BD411E00C480EB /* emptyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = emptyResponse.json; sourceTree = "<group>"; };
 		FA9E5E0D2649420C0049B214 /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA9E5E102649420C0049B214 /* TestUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestUtils.h; sourceTree = "<group>"; };
@@ -104,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				537B669D283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework in Frameworks */,
+				53AB8AB22851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +115,7 @@
 		537B669B283DFCCD008AE9D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */,
 				537B669C283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework */,
 			);
 			name = Frameworks;
@@ -230,7 +232,7 @@
 				FA9E5E092649420C0049B214 /* Sources */,
 				FA9E5E0A2649420C0049B214 /* Frameworks */,
 				FA9E5E0B2649420C0049B214 /* Resources */,
-				537B669F283DFCCD008AE9D1 /* Embed Frameworks */,
+				53AB8AB42851D9F000837C70 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

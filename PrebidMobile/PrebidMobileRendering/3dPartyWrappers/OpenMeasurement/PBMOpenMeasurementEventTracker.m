@@ -20,7 +20,9 @@
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
 
-@import OMSDK_Prebidorg;
+#import <OMIDAdSession.h>
+#import <OMIDAdEvents.h>
+#import <OMIDMediaEvents.h>
 
 @interface PBMOpenMeasurementEventTracker()
 
