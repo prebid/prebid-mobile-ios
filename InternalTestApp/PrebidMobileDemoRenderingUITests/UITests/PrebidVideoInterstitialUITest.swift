@@ -38,7 +38,7 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
             
             // Wait for Close
             let interstitialCloseBtn = app.buttons["PBMCloseButton"]
-            waitForHittable(element: interstitialCloseBtn, waitSeconds: 5)
+            waitForHittable(element: interstitialCloseBtn, waitSeconds: 15)
             interstitialCloseBtn.tap()
             
             verifyPostEvents(expectClick: false)
@@ -61,7 +61,7 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
             clickthroughBrowserCloseBtn.tap()
             
             let videoCloseBtn = app.buttons["PBMCloseButton"]
-            waitForHittable(element: videoCloseBtn, waitSeconds: 5)
+            waitForHittable(element: videoCloseBtn, waitSeconds: 15)
             videoCloseBtn.tap()
             
             verifyPostEvents(expectClick: true)
@@ -73,7 +73,7 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
             openVideo(title: videoInterstitialTitle)
             
             let videoCloseBtn = app.buttons["PBMCloseButton"]
-            waitForHittable(element: videoCloseBtn, waitSeconds: 10)
+            waitForHittable(element: videoCloseBtn, waitSeconds: 15)
             
             // The close button should disappear
             // It means the video has closed automatically

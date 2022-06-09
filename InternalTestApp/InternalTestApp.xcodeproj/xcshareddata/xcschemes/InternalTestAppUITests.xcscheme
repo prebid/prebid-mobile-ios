@@ -43,6 +43,9 @@
                   Identifier = "PrebidBannerUITest/testInAppBannerNativeStyle_NoCreative()">
                </Test>
                <Test
+                  Identifier = "PrebidBannerUITest/testOpenInNewTab()">
+               </Test>
+               <Test
                   Identifier = "PrebidExamplesUITest/testGAMBannerNativeStyle_Fluid_OK()">
                </Test>
                <Test
