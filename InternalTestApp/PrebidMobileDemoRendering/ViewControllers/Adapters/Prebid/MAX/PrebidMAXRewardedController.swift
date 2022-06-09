@@ -25,8 +25,6 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
     
     var maxAdUnitId = ""
     
-    var adFormats: Set<AdFormat>?
-    
     private var adUnit: MediationRewardedAdUnit?
     private var mediationDelegate: MAXMediationRewardedUtils?
     

@@ -794,7 +794,6 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.display, .video]
 
                 interstitialController.prebidConfigId = "imp-prebid-interstitial-multiformat"
                 interstitialController.storedAuctionResponse = "response-prebid-interstitial-multiformat"
@@ -811,7 +810,6 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.display, .video]
 
                 let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
@@ -924,7 +922,6 @@ struct TestCaseManager {
                 let randomId = [0, 1].randomElement() ?? 0
                 let interstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 let gamAdUnitIds = ["/21808260008/prebid_html_interstitial", "/21808260008/prebid_oxb_interstitial_video"]
-                interstitialController.adFormats = [.display, .video]
                         
                 let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
@@ -2457,7 +2454,6 @@ struct TestCaseManager {
                 let randomId = [0, 1].randomElement() ?? 0
                 let interstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 let admobAdUnitIds = ["ca-app-pub-5922967660082475/3383099861", "ca-app-pub-5922967660082475/4527792002"]
-                interstitialController.adFormats = [.display, .video]
                 let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
                          
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
@@ -3235,7 +3231,6 @@ struct TestCaseManager {
                          
                 let randomId = [0, 1].randomElement() ?? 0
                 let interstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.display, .video]
                 let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
                          
                 let prebidStoredImps = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480", ]
