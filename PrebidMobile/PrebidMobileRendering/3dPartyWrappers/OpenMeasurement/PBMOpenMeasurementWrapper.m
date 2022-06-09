@@ -23,7 +23,10 @@
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
 
-@import OMSDK_Prebidorg;
+#import <OMIDAdSession.h>
+#import <OMIDScriptInjector.h>
+#import <OMIDPartner.h>
+#import <OMIDSDK.h>
 
 #pragma mark - Constants
 

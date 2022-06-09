@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public protocol AdLoadFlowControllerDelegate where Self: NSObject {
+@objc public protocol AdLoadFlowControllerDelegate: NSObjectProtocol {
 
     var adUnitConfig:AdUnitConfig { get }
 

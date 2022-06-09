@@ -20,7 +20,7 @@ import Foundation
  *
  * All messages will be invoked on the main thread.
  */
-@objc public protocol RewardedAdUnitDelegate where Self: NSObject {
+@objc public protocol RewardedAdUnitDelegate: NSObjectProtocol {
 
     /// Called when an ad is loaded and ready for display
     @objc optional func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit)

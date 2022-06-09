@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objc public protocol BannerAdLoaderDelegate where Self: NSObject {
+@objc public protocol BannerAdLoaderDelegate: NSObjectProtocol {
     
     var eventHandler: BannerEventHandler? { get }
 

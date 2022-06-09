@@ -17,7 +17,7 @@ import Foundation
 import UIKit
 
 
-@objc public protocol DisplayViewInteractionDelegate where Self: NSObject {
+@objc public protocol DisplayViewInteractionDelegate: NSObjectProtocol {
 
     func trackImpression(forDisplayView:PBMDisplayView)
     

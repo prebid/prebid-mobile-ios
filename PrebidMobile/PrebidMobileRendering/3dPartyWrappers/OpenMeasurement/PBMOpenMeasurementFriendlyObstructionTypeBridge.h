@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "PBMOpenMeasurementFriendlyObstructionPurpose.h"
 
-@import OMSDK_Prebidorg;
+#import <OMIDFriendlyObstructionType.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

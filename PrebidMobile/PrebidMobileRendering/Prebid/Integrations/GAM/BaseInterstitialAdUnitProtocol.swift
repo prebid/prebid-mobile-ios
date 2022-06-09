@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objc public protocol BaseInterstitialAdUnitProtocol where Self : NSObject {
+@objc public protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
 
     @objc func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController)
 

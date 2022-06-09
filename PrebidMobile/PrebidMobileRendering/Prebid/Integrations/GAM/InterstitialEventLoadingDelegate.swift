@@ -18,7 +18,7 @@ import Foundation
 /*!
  The interstitial custom event delegate. It is used to inform ad server events back to the OpenWrap SDK
  */
-@objc public protocol InterstitialEventLoadingDelegate where Self: NSObject {
+@objc public protocol InterstitialEventLoadingDelegate: NSObjectProtocol {
 
     /*!
      @abstract Call this when the ad server SDK signals about partner bid win
