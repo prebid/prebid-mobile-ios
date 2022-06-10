@@ -35,6 +35,9 @@ Pod::Spec.new do |s|
 			    :HEADER_SEARCH_PATHS => '$(inherited)',
 			    :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
 			  }
+			  
+  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
+  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
 
   s.source_files = 'EventHandlers/PrebidMobileMAXAdapters/**/*.{h,m,swift}'
   s.static_framework = true
