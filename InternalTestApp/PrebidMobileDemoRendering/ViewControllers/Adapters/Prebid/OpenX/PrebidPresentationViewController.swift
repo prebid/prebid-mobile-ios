@@ -21,7 +21,7 @@ class PrebidPresentationViewController: UIViewController {
     var prebidConfigId: String!
     var storedAuctionResponse = ""
 
-    
+    var adFormats: Set<AdFormat>?
     var navigationVC: UINavigationController?
     var isLoaded = false
     
@@ -42,6 +42,7 @@ class PrebidPresentationViewController: UIViewController {
             let interstitialController = PrebidInterstitialController(rootController: adapterVC!)
             interstitialController.prebidConfigId = prebidConfigId
             interstitialController.storedAuctionResponse = storedAuctionResponse
+            interstitialController.adFormats = adFormats
             adapterVC?.setup(adapter: interstitialController)
             
             navigationVC = UINavigationController(rootViewController: adapterVC!)
