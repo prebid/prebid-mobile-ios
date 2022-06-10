@@ -34,3 +34,13 @@ Run the test script to run unit tests and integration tests.
 ```
 ./scripts/testPrebidMobile.sh
 ```
+
+
+## Carthage
+
+Only `2.0.1` version is available to build PrebidMobile with Carthage. For that, please, put the following content to your `Cartfile`:
+
+```
+github "prebid/prebid-mobile-ios" == 2.0.1-carthage
+```
+Note that `PrebidMobileGAMEventHandlers`, `PrebidMobileAdMobAdapters`, `PrebidMobileMAXAdapters` are not available to build with Carthage.
