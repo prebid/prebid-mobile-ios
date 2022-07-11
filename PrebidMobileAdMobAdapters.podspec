@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobileAdMobAdapters"
-  s.version      = "2.0.1"
+  s.version      = "2.0.2"
   s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
 
   s.description  = "AdMob Adatpers manages rendering of Prebid ads in the case of integration with AdMob as a Primary Ad Server."
@@ -43,7 +43,7 @@ Pod::Spec.new do |s|
 
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '2.0.1'
+  s.dependency 'PrebidMobile', '2.0.2'
   s.dependency 'Google-Mobile-Ads-SDK', '8.5.0'
 
 end
