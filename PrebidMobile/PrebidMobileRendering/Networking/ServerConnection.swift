@@ -196,7 +196,7 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
             
             // Attempt to parse if response is JSON
             if let contentType = responseHeaders[ServerConnection.contentTypeKey],
-               contentType == ServerConnection.contentTypeVal {
+               contentType.contains(ServerConnection.contentTypeVal) {
                 do {
                     let json = try PBMFunctions.dictionaryFromData(responseData)
                     serverResponse.jsonDict = json
