@@ -518,7 +518,7 @@ class ServerConnectionTestJSON : XCTestCase {
             urlNeedle: "foo.com",
             mimeType: MockServerMimeType.XML.rawValue,
             connectionID: connection.internalID,
-            fileName: "ACJEmptyHTML.json"
+            data: "".data(using: .utf8)!
         )
         
         MockServer.shared.resetRules([rule])
