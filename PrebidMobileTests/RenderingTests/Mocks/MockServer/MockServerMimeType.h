@@ -17,6 +17,7 @@
 
 typedef NSString *const MockServerMimeType NS_TYPED_ENUM;
 FOUNDATION_EXPORT MockServerMimeType _Nonnull MockServerMimeTypeJSON;
+FOUNDATION_EXPORT MockServerMimeType _Nonnull MockServerMimeTypeJSONCharset;
 FOUNDATION_EXPORT MockServerMimeType _Nonnull MockServerMimeTypeJS;
 FOUNDATION_EXPORT MockServerMimeType _Nonnull MockServerMimeTypeHTML;
 FOUNDATION_EXPORT MockServerMimeType _Nonnull MockServerMimeTypeXML;

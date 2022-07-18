@@ -451,7 +451,90 @@ class ServerConnectionTestJSON : XCTestCase {
 
         self.waitForExpectations(timeout: 1, handler: nil)
     }
+    
+    func testValidResponseContentTypeJSON() {
+        let connection = UtilitiesForTesting.createConnectionForMockedTest()
+        
+        MockServer.shared.reset()
+        
+        let rule = MockServerRule(
+            urlNeedle: "foo.com",
+            mimeType:  MockServerMimeType.JSON.rawValue,
+            connectionID: connection.internalID,
+            fileName: "ACJEmptyHTML.json"
+        )
+        
+        rule.statusCode = 200
+        MockServer.shared.resetRules([rule])
 
+        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
+        
+        connection.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response: ServerResponse) in
+            self.callbackCalledExpectation.fulfill()
+            
+            XCTAssertTrue(response.responseHeaders!.values.contains(MockServerMimeType.JSON.rawValue))
+            
+            XCTAssertNotNil(response.jsonDict)
+        })
+        
+        self.waitForExpectations(timeout: 4.0, handler: nil)
+    }
+    
+    func testValidResponseContentTypeJSONWithCharsetInfo() {
+        let connection = UtilitiesForTesting.createConnectionForMockedTest()
+        
+        MockServer.shared.reset()
+        
+        let rule = MockServerRule(
+            urlNeedle: "foo.com",
+            mimeType: MockServerMimeType.jsonCharset.rawValue,
+            connectionID: connection.internalID,
+            fileName: "ACJEmptyHTML.json"
+        )
+        
+        rule.statusCode = 200
+        
+        MockServer.shared.resetRules([rule])
+
+        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
+        
+        connection.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response: ServerResponse) in
+            self.callbackCalledExpectation.fulfill()
+            
+            XCTAssertTrue(response.responseHeaders!.values.contains(MockServerMimeType.jsonCharset.rawValue))
+        
+            XCTAssertNotNil(response.jsonDict)
+        })
+        
+        self.waitForExpectations(timeout: 4.0, handler: nil)
+    }
+    
+    func testInvalidResponseContentType() {
+        let connection = UtilitiesForTesting.createConnectionForMockedTest()
+        
+        MockServer.shared.reset()
+        
+        let rule = MockServerRule(
+            urlNeedle: "foo.com",
+            mimeType: MockServerMimeType.XML.rawValue,
+            connectionID: connection.internalID,
+            fileName: "ACJEmptyHTML.json"
+        )
+        
+        MockServer.shared.resetRules([rule])
+
+        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
+        
+        connection.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response: ServerResponse) in
+            self.callbackCalledExpectation.fulfill()
+            
+            XCTAssertTrue(response.responseHeaders!.values.contains(MockServerMimeType.XML.rawValue))
+            
+            XCTAssertNil(response.jsonDict)
+        })
+        
+        self.waitForExpectations(timeout: 4.0, handler: nil)
+    }
 }
 
 
