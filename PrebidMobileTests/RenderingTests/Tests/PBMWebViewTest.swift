@@ -564,15 +564,28 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
     }
     
     func testExpandGlobalQueue() {
-        let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        
+        class MockWebView: PBMWebView {
+            
+            var thread: PBMThread?
+            
+            override func expand(_ url: URL) {
+                expand(url, currentThread: thread ?? Thread.current)
+            }
+        }
+        
+        let webView = MockWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         XCTAssertEqual(webView.mraidState, .notEnabled)
         
         let expectationCheckThread = self.expectation(description: "Check thread expectation")
         expectationCheckThread.expectedFulfillmentCount = 2
+        
         let mockedThread = PBMThread { isCalledFromMainThread in
             expectationCheckThread.fulfill()
         }
         
+        webView.thread = mockedThread
+         
         DispatchQueue.global().async {
             webView.expand(self.openxURL, currentThread: mockedThread)
         }
