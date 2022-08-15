@@ -83,7 +83,7 @@
 - (void)setUserAgentInThread:(id<PBMNSThreadProtocol>)thread {
     if (!thread.isMainThread) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self setUserAgentInThread:thread];
+            [self setUserAgent];
         });
         return;
     }

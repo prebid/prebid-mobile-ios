@@ -92,13 +92,28 @@ class PBMUserAgentServiceTest: XCTestCase {
     }
     
     func testSetUserAgentInBackgroundThread() {
-        let service = PBMUserAgentService.shared
+        let expectationCheckThread = self.expectation(description: "Check thread expectation")         
+        expectationCheckThread.expectedFulfillmentCount = 3
         
-        let expectationCheckThread = self.expectation(description: "Check thread expectation")
-        expectationCheckThread.expectedFulfillmentCount = 2
         let thread = PBMThread { isCalledFromMainThread in
             expectationCheckThread.fulfill()
         }
+        
+        class MockUserAgentService: PBMUserAgentService {
+            
+            var thread: PBMThread
+            
+            init(thread: PBMThread) {
+                self.thread = thread
+                super.init()
+            }
+            
+            override func setUserAgent() {
+                super.setUserAgentInThread(thread)
+            }
+        }
+        
+        let service = MockUserAgentService(thread: thread)
         
         DispatchQueue.global().async {
             service.setUserAgentInThread(thread)

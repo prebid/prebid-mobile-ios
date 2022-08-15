@@ -241,7 +241,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
         @weakify(self);
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
-            [self expand:url currentThread:currentThread];
+            [self expand:url];
         });
         
         return;

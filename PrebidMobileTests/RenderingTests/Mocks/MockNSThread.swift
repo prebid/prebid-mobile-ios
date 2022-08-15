@@ -32,7 +32,7 @@ final class MockNSThread : PBMNSThreadProtocol {
     }
 }
 
-// Use this class when need to test switching the execution from the global threat to the main thread.
+// Use this class when need to test switching the execution from the global thread to the main thread.
 final class PBMThread : PBMNSThreadProtocol {
     
     var checkThreadCallback:((Bool) -> Void)
