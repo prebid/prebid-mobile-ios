@@ -16,6 +16,7 @@
 #import "MockServerMimeType.h"
 
 MockServerMimeType MockServerMimeTypeJSON = @"application/json";
+MockServerMimeType MockServerMimeTypeJSONCharset = @"application/json; charset=utf-8";
 MockServerMimeType MockServerMimeTypeJS = @"application/javascript";
 MockServerMimeType MockServerMimeTypeHTML = @"text/html";
 MockServerMimeType MockServerMimeTypeXML = @"text/xml";
