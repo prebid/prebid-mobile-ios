@@ -152,7 +152,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     self.eventManager = eventManager;
     self.accessibilityIdentifier = @"PBMVideoView";
     
-    if (!self.creative.creativeModel.adConfiguration.isInterstitialAd) {
+    if (!self.creative.creativeModel.adConfiguration.isInterstitialAd ||
+        (self.creative.creativeModel.adConfiguration.isOptIn && !self.creative.creativeModel.hasCompanionAd)) {
         [self setupTapRecognizer];
     }
     
