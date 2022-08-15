@@ -798,26 +798,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		537F460928213AE300DFB735 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = FA9E5E0C2649420C0049B214;
-			remoteInfo = TestUtils;
-		};
 		FA7998982637161100B746EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 60D792E9217E229A0080F428 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = FAAA00BC2322733E009DC7D6;
 			remoteInfo = PrebidMobile;
-		};
-		FA85F9B8264946FC00B8BE72 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FA9E5E0D2649420C0049B214;
-			remoteInfo = TestUtils;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1616,7 +1602,6 @@
 		979177962201AF5F00E624CE /* DispatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatcherTests.swift; sourceTree = "<group>"; };
 		FA4A88432497A99D00FDCBB6 /* Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzling.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
-		FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestUtils.xcodeproj; path = ../tools/TestUtils/TestUtils.xcodeproj; sourceTree = "<group>"; };
 		FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtilsTests.swift; sourceTree = "<group>"; };
 		FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TargetingObjCTests.m; sourceTree = "<group>"; };
 		FAA2990724322962002ACBF2 /* PrebidObjcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidObjcTests.m; sourceTree = "<group>"; };
@@ -2648,7 +2633,6 @@
 				FAEE4D8C262DC8CD00AD9966 /* PrebidMobileTests */,
 				60D792F3217E229A0080F428 /* Products */,
 				6062B19A218243FA00CE1BA3 /* Frameworks */,
-				EE09B07119B6562CC4356195 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3066,13 +3050,6 @@
 			path = FetchingLogictests;
 			sourceTree = "<group>";
 		};
-		EE09B07119B6562CC4356195 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		FA5AD5E02271F99D00C8F274 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -3081,14 +3058,6 @@
 				FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */,
 			);
 			path = UnitTests;
-			sourceTree = "<group>";
-		};
-		FA85F9B5264946FC00B8BE72 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FA85F9B9264946FC00B8BE72 /* TestUtils.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		FA9D7F2522E8A80E006FCBEF /* addendum */ = {
@@ -3183,7 +3152,6 @@
 			isa = PBXGroup;
 			children = (
 				60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */,
-				FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */,
 				9720387A235876F000F8025A /* NativeUnitTests */,
 				FA5AD5E02271F99D00C8F274 /* UnitTests */,
 				FA9D7F2522E8A80E006FCBEF /* addendum */,
@@ -3468,7 +3436,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				537F460A28213AE300DFB735 /* PBXTargetDependency */,
 				FA7998992637161100B746EF /* PBXTargetDependency */,
 			);
 			name = PrebidMobileTests;
@@ -3525,12 +3492,6 @@
 			mainGroup = 60D792E8217E229A0080F428;
 			productRefGroup = 60D792F3217E229A0080F428 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = FA85F9B5264946FC00B8BE72 /* Products */;
-					ProjectRef = FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				FAAA00BC2322733E009DC7D6 /* PrebidMobile */,
@@ -3538,16 +3499,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		FA85F9B9264946FC00B8BE72 /* TestUtils.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = TestUtils.framework;
-			remoteRef = FA85F9B8264946FC00B8BE72 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		60D792F9217E229B0080F428 /* Resources */ = {
@@ -4150,11 +4101,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		537F460A28213AE300DFB735 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TestUtils;
-			targetProxy = 537F460928213AE300DFB735 /* PBXContainerItemProxy */;
-		};
 		FA7998992637161100B746EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FAAA00BC2322733E009DC7D6 /* PrebidMobile */;

@@ -6,84 +6,6 @@
 	objectVersion = 48;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		600073C621DE65CA00F4738B /* CustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 600073C521DE65CA00F4738B /* CustomTextView.m */; };
-		6013E447221C605500FEE2B1 /* DemandRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E446221C605500FEE2B1 /* DemandRequestBuilder.m */; };
-		602CF6E221AEEEC10097F6C9 /* FooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602CF6E121AEEEC10097F6C9 /* FooterCell.m */; };
-		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
-		605C15A321E3E23B00BB9636 /* KeyValueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605C15A221E3E23B00BB9636 /* KeyValueController.m */; };
-		607999C121B727E700EE3007 /* ToolReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 607999C021B727E700EE3007 /* ToolReachability.m */; };
-		609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172E620F3E58D001B94A8 /* SettingsTableViewController.m */; };
-		609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172E920F50C32001B94A8 /* SegmentCell.m */; };
-		609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172EC20F50F42001B94A8 /* LabelAccessoryCell.m */; };
-		609172F020F5314E001B94A8 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172EF20F5314E001B94A8 /* HeaderCell.m */; };
-		609172F320F53C74001B94A8 /* IdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F220F53C74001B94A8 /* IdCell.m */; };
-		609172F620F686A8001B94A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F520F686A8001B94A8 /* HelpViewController.m */; };
-		60924F1E21484A650019DD12 /* DemandViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1421484A650019DD12 /* DemandViewCell.m */; };
-		60924F1F21484A650019DD12 /* DemandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1521484A650019DD12 /* DemandHeaderCell.m */; };
-		60924F2021484A650019DD12 /* DemandValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1621484A650019DD12 /* DemandValidator.m */; };
-		60924F2121484A650019DD12 /* RRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1721484A650019DD12 /* RRViewController.m */; };
-		60924F2221484A650019DD12 /* DemandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1921484A650019DD12 /* DemandViewController.m */; };
-		60924F2321484A650019DD12 /* DemandViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60924F1C21484A650019DD12 /* DemandViewCell.xib */; };
-		60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */; };
-		60A2CC342123554200EA6ACF /* SectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC322123554200EA6ACF /* SectionCell.m */; };
-		60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC332123554200EA6ACF /* SectionCell.xib */; };
-		60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC37212358F800EA6ACF /* TestHeaderCell.m */; };
-		60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */; };
-		60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25C2097820D006FCF7C /* Assets.xcassets */; };
-		60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */; };
-		60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2652097820D006FCF7C /* Main.storyboard */; };
-		60CFB2C12097820D006FCF7C /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2822097820D006FCF7C /* QRToggleTorchButton.m */; };
-		60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2842097820D006FCF7C /* QRCameraSwitchButton.m */; };
-		60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2862097820D006FCF7C /* QRCodeReaderViewController.m */; };
-		60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2872097820D006FCF7C /* QRCodeReaderView.m */; };
-		60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB28B2097820D006FCF7C /* QRCodeReader.m */; };
-		60CFB2C62097820D006FCF7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB28C2097820D006FCF7C /* main.m */; };
-		60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2972097820D006FCF7C /* LineItemKeywordsManager.m */; };
-		60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB29C2097820D006FCF7C /* AppDelegate.m */; };
-		60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2AC2097820D006FCF7C /* PBVSharedConstants.m */; };
-		60CFB2DC2097A44C006FCF7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2D72097A44B006FCF7C /* CoreGraphics.framework */; };
-		60CFB2DD2097A44C006FCF7C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2D82097A44B006FCF7C /* AdSupport.framework */; };
-		60CFB2DE2097A44C006FCF7C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2D92097A44B006FCF7C /* CoreLocation.framework */; };
-		60CFB2DF2097A44C006FCF7C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2DA2097A44B006FCF7C /* CoreMedia.framework */; };
-		60CFB2E02097A44C006FCF7C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2DB2097A44B006FCF7C /* AVFoundation.framework */; };
-		60CFB2EA2097A4C4006FCF7C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E12097A4C4006FCF7C /* WebKit.framework */; };
-		60CFB2EB2097A4C4006FCF7C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E22097A4C4006FCF7C /* StoreKit.framework */; };
-		60CFB2EC2097A4C4006FCF7C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E32097A4C4006FCF7C /* SafariServices.framework */; };
-		60CFB2ED2097A4C4006FCF7C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E42097A4C4006FCF7C /* CoreTelephony.framework */; };
-		60CFB2EE2097A4C4006FCF7C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E52097A4C4006FCF7C /* MediaPlayer.framework */; };
-		60CFB2EF2097A4C4006FCF7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E62097A4C4006FCF7C /* Foundation.framework */; };
-		60CFB2F02097A4C4006FCF7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E72097A4C4006FCF7C /* QuartzCore.framework */; };
-		60CFB2F12097A4C4006FCF7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E82097A4C4006FCF7C /* UIKit.framework */; };
-		60CFB2F22097A4C4006FCF7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */; };
-		60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D124632126DBAD00EC6EE2 /* KVViewController.m */; };
-		60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D124672126E1F300EC6EE2 /* CPMSectionCell.m */; };
-		60D1246A2126E1F300EC6EE2 /* CPMSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */; };
-		60F9F62924EC5F940027648F /* AdFormatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F9F62824EC5F940027648F /* AdFormatController.m */; };
-		7A557DBFCFAE372590F751D6 /* Pods_Dr_Prebid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3E59CE17F9B673A68B9666D /* Pods_Dr_Prebid.framework */; };
-		D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C104E20F6EB32004CBC18 /* AdSizeController.m */; };
-		F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16721309548001977C2 /* AdServerResponseViewController.m */; };
-		F533B16E21349D09001977C2 /* ColorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16D21349D09001977C2 /* ColorTool.m */; };
-		F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */; };
-		F54C7F422146F3AE00025B23 /* test-real-time-demand.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F402146F3AD00025B23 /* test-real-time-demand.html */; };
-		F54C7F432146F3AE00025B23 /* test-ad-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F412146F3AD00025B23 /* test-ad-server.html */; };
-		F54C7F45214700C600025B23 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F44214700C600025B23 /* SDKValidationURLProtocol.m */; };
-		F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */; };
-		F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F5221484AD500025B23 /* test-full-sdk.html */; };
-		F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F592149804300025B23 /* IntroViewController.m */; };
-		F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */; };
-		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
-		F5944B3C21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = F5944B3B21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m */; };
-		F59C6B632126123F00A5B8AE /* PBVPrebidSDKValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F59C6B532126123E00A5B8AE /* PBVPrebidSDKValidator.m */; };
-		F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CF71AA20FD180100972EA6 /* IDInputViewController.m */; };
-		F5D1856521011571001DF99A /* info-ad-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856121011570001DF99A /* info-ad-server.html */; };
-		F5D1856621011571001DF99A /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856221011570001DF99A /* about.html */; };
-		F5D1856721011571001DF99A /* info-prebid-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856321011570001DF99A /* info-prebid-server.html */; };
-		F5D1856821011571001DF99A /* info-general.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856421011571001DF99A /* info-general.html */; };
-		FAC9E2042327EFB000113B04 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E526231FD3BD00CAA05B /* PrebidMobile.framework */; };
-		FAC9E2052327EFB000113B04 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E526231FD3BD00CAA05B /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		FA12E525231FD3BD00CAA05B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -99,28 +21,7 @@
 			remoteGlobalIDString = 60D792FB217E229B0080F428;
 			remoteInfo = PrebidMobileTests;
 		};
-		FAC9E2062327EFB000113B04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA12E520231FD3BD00CAA05B /* PrebidMobile.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = FAAA00BC2322733E009DC7D6;
-			remoteInfo = PrebidMobile;
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		FAC9E2082327EFB000113B04 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				FAC9E2052327EFB000113B04 /* PrebidMobile.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidValidator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,7 +68,6 @@
 		60A2CC36212358F800EA6ACF /* TestHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHeaderCell.h; sourceTree = "<group>"; };
 		60A2CC37212358F800EA6ACF /* TestHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHeaderCell.m; sourceTree = "<group>"; };
 		60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestHeaderCell.xib; sourceTree = "<group>"; };
-		60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dr.Prebid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CFB2592097820D006FCF7C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		60CFB25B2097820D006FCF7C /* PBVSharedConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVSharedConstants.h; sourceTree = "<group>"; };
 		60CFB25C2097820D006FCF7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -246,33 +146,6 @@
 		F6CF0D6B7635B4C963599C3F /* Pods-Dr.Prebid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.release.xcconfig"; sourceTree = "<group>"; };
 		FA12E520231FD3BD00CAA05B /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../PrebidMobile.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		60C6787C2073D7B0003A7A1D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FAC9E2042327EFB000113B04 /* PrebidMobile.framework in Frameworks */,
-				60CFB2EA2097A4C4006FCF7C /* WebKit.framework in Frameworks */,
-				60CFB2EB2097A4C4006FCF7C /* StoreKit.framework in Frameworks */,
-				60CFB2EC2097A4C4006FCF7C /* SafariServices.framework in Frameworks */,
-				60CFB2ED2097A4C4006FCF7C /* CoreTelephony.framework in Frameworks */,
-				60CFB2EE2097A4C4006FCF7C /* MediaPlayer.framework in Frameworks */,
-				60CFB2EF2097A4C4006FCF7C /* Foundation.framework in Frameworks */,
-				60CFB2F02097A4C4006FCF7C /* QuartzCore.framework in Frameworks */,
-				60CFB2F12097A4C4006FCF7C /* UIKit.framework in Frameworks */,
-				60CFB2F22097A4C4006FCF7C /* SystemConfiguration.framework in Frameworks */,
-				60CFB2DC2097A44C006FCF7C /* CoreGraphics.framework in Frameworks */,
-				60CFB2DD2097A44C006FCF7C /* AdSupport.framework in Frameworks */,
-				60CFB2DE2097A44C006FCF7C /* CoreLocation.framework in Frameworks */,
-				60CFB2DF2097A44C006FCF7C /* CoreMedia.framework in Frameworks */,
-				60CFB2E02097A44C006FCF7C /* AVFoundation.framework in Frameworks */,
-				605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */,
-				7A557DBFCFAE372590F751D6 /* Pods_Dr_Prebid.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		1ABF9B5A2E02436FF8CEA1EF /* Pods */ = {
@@ -364,7 +237,6 @@
 		60C678802073D7B0003A7A1D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -518,43 +390,12 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXNativeTarget section */
-		60C6787E2073D7B0003A7A1D /* Dr.Prebid */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 60C678952073D7B0003A7A1D /* Build configuration list for PBXNativeTarget "Dr.Prebid" */;
-			buildPhases = (
-				4D94EE7A551EA3E167563B25 /* [CP] Check Pods Manifest.lock */,
-				60C6787B2073D7B0003A7A1D /* Sources */,
-				60C6787C2073D7B0003A7A1D /* Frameworks */,
-				60C6787D2073D7B0003A7A1D /* Resources */,
-				63FA11DD5B01A66CFDB5C640 /* [CP] Embed Pods Frameworks */,
-				FAC9E2082327EFB000113B04 /* Embed Frameworks */,
-				50AFDD08D84B97B021996459 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FAC9E2072327EFB000113B04 /* PBXTargetDependency */,
-			);
-			name = Dr.Prebid;
-			productName = PrebidTestApp;
-			productReference = 60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */;
-			productType = "com.apple.product-type.application";
-		};
-/* End PBXNativeTarget section */
-
 /* Begin PBXProject section */
 		60C678772073D7B0003A7A1D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Prebid;
-				TargetAttributes = {
-					60C6787E2073D7B0003A7A1D = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-					};
-				};
 			};
 			buildConfigurationList = 60C6787A2073D7B0003A7A1D /* Build configuration list for PBXProject "Dr.Prebid" */;
 			compatibilityVersion = "Xcode 8.0";
@@ -575,7 +416,6 @@
 			);
 			projectRoot = "";
 			targets = (
-				60C6787E2073D7B0003A7A1D /* Dr.Prebid */,
 			);
 		};
 /* End PBXProject section */
@@ -596,154 +436,6 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
-
-/* Begin PBXResourcesBuildPhase section */
-		60C6787D2073D7B0003A7A1D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */,
-				F54C7F422146F3AE00025B23 /* test-real-time-demand.html in Resources */,
-				F5D1856621011571001DF99A /* about.html in Resources */,
-				60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */,
-				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
-				60924F2321484A650019DD12 /* DemandViewCell.xib in Resources */,
-				F5D1856821011571001DF99A /* info-general.html in Resources */,
-				60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */,
-				60D1246A2126E1F300EC6EE2 /* CPMSectionCell.xib in Resources */,
-				F54C7F432146F3AE00025B23 /* test-ad-server.html in Resources */,
-				60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */,
-				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
-				F5D1856521011571001DF99A /* info-ad-server.html in Resources */,
-				60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		4D94EE7A551EA3E167563B25 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Dr.Prebid-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		50AFDD08D84B97B021996459 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid-resources.sh",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.3.2/AppLovinSDKResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		63FA11DD5B01A66CFDB5C640 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		60C6787B2073D7B0003A7A1D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				60CFB2C12097820D006FCF7C /* QRToggleTorchButton.m in Sources */,
-				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
-				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
-				600073C621DE65CA00F4738B /* CustomTextView.m in Sources */,
-				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
-				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
-				60924F2221484A650019DD12 /* DemandViewController.m in Sources */,
-				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
-				F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */,
-				609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */,
-				60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */,
-				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,
-				F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */,
-				60F9F62924EC5F940027648F /* AdFormatController.m in Sources */,
-				602CF6E221AEEEC10097F6C9 /* FooterCell.m in Sources */,
-				F54C7F45214700C600025B23 /* SDKValidationURLProtocol.m in Sources */,
-				60924F2021484A650019DD12 /* DemandValidator.m in Sources */,
-				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
-				F533B16E21349D09001977C2 /* ColorTool.m in Sources */,
-				F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */,
-				6013E447221C605500FEE2B1 /* DemandRequestBuilder.m in Sources */,
-				60924F2121484A650019DD12 /* RRViewController.m in Sources */,
-				F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */,
-				60924F1E21484A650019DD12 /* DemandViewCell.m in Sources */,
-				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
-				F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */,
-				D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */,
-				60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */,
-				60924F1F21484A650019DD12 /* DemandHeaderCell.m in Sources */,
-				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
-				607999C121B727E700EE3007 /* ToolReachability.m in Sources */,
-				60A2CC342123554200EA6ACF /* SectionCell.m in Sources */,
-				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
-				60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */,
-				609172F620F686A8001B94A8 /* HelpViewController.m in Sources */,
-				60CFB2C62097820D006FCF7C /* main.m in Sources */,
-				F5944B3C21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m in Sources */,
-				609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */,
-				605C15A321E3E23B00BB9636 /* KeyValueController.m in Sources */,
-				60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */,
-				60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */,
-				609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */,
-				F59C6B632126123F00A5B8AE /* PBVPrebidSDKValidator.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		FAC9E2072327EFB000113B04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = PrebidMobile;
-			targetProxy = FAC9E2062327EFB000113B04 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */ = {
@@ -873,56 +565,6 @@
 			};
 			name = Release;
 		};
-		60C678962073D7B0003A7A1D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4AB57692E142F2F12F162457 /* Pods-Dr.Prebid.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Dr.Prebid/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.DrPrebid;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		60C678972073D7B0003A7A1D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6CF0D6B7635B4C963599C3F /* Pods-Dr.Prebid.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Dr.Prebid/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.DrPrebid;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -931,15 +573,6 @@
 			buildConfigurations = (
 				60C678932073D7B0003A7A1D /* Debug */,
 				60C678942073D7B0003A7A1D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		60C678952073D7B0003A7A1D /* Build configuration list for PBXNativeTarget "Dr.Prebid" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				60C678962073D7B0003A7A1D /* Debug */,
-				60C678972073D7B0003A7A1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
