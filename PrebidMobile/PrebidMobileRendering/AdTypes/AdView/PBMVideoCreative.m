@@ -178,11 +178,7 @@
     
     if (self.creativeModel.adConfiguration.presentAsInterstitial) {
         // no companion ads so pass this event to the PBMModalManager
-        // and close video automatically
-        [self.modalManager creativeDisplayCompleted:self];        
-        if (self.dismissInterstitialModalState) {
-            self.dismissInterstitialModalState();
-        }
+        [self.modalManager creativeDisplayCompleted:self];
     } else {
         [self.creativeViewDelegate creativeDidComplete:self];
     }
