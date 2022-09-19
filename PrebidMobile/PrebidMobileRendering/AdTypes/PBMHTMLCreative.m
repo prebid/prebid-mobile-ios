@@ -290,13 +290,6 @@
         [self.creativeViewDelegate creativeClickthroughDidClose:self];
         self.clickthroughVisible = NO;
         
-        //Pop to root after clickthroughs
-        if (self.creativeModel.adConfiguration.presentAsInterstitial) {
-            if (self.dismissInterstitialModalState) {
-                self.dismissInterstitialModalState();
-            }
-        }
-        
         return;
     }
     
