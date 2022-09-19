@@ -21,7 +21,11 @@
 #import "PBMJSLibraryManager.h"
 
 #import "PrebidMobileSwiftHeaders.h"
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
 #import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 #import <OMIDAdSession.h>
 #import <OMIDScriptInjector.h>

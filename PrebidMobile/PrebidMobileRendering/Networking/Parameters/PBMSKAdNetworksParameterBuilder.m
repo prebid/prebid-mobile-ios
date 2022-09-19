@@ -19,7 +19,11 @@
 #import "PBMSKAdNetworksParameterBuilder.h"
 
 #import "PrebidMobileSwiftHeaders.h"
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
 #import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 #pragma mark - Internal Extension
 @interface PBMSKAdNetworksParameterBuilder()
