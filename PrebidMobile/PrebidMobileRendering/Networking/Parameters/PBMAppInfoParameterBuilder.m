@@ -69,7 +69,7 @@
     }
     
     NSString *bundleIdentifier = self.bundle.bundleIdentifier;
-    if (bundleIdentifier) {
+    if (bidRequest.app.bundle==nil && bundleIdentifier) {
         bidRequest.app.bundle = bundleIdentifier;
     }
 
