@@ -15,7 +15,6 @@
 
 #import <Foundation/Foundation.h>
 #import "PBMParameterBuilderProtocol.h"
-#import "PBMORTBAppExt.h"
 
 @class AdUnitConfig;
 @class Prebid;

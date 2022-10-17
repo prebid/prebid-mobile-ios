@@ -25,6 +25,7 @@
 #import "PBMWinNotifierBlock.h"
 
 #import "PBMORTBAppContent.h"
+#import "PBMORTBAppExt.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
