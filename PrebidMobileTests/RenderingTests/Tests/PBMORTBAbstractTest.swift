@@ -424,17 +424,17 @@ class PBMORTBAbstractTest : XCTestCase {
     
     func testAppExtPrebidToJsonString() {
         let pbmORTBApp = PBMORTBApp()
-        let appExtPrebid = pbmORTBApp.extPrebid
+        let appExtPrebid = pbmORTBApp.ext.prebid
         
         codeAndDecode(abstract: appExtPrebid, expectedString: "{}")
         
         appExtPrebid.source = "openx"
         appExtPrebid.version = sdkVersion
-        appExtPrebid.data = ["app_categories": ["news", "movies"]]
+        pbmORTBApp.ext.data = ["app_categories": ["news", "movies"]]
         
-        codeAndDecode(abstract: appExtPrebid, expectedString: "{\"data\":{\"app_categories\":[\"news\",\"movies\"]},\"source\":\"openx\",\"version\":\"\(sdkVersion)\"}")
+        codeAndDecode(abstract: appExtPrebid, expectedString: "{\"source\":\"openx\",\"version\":\"\(sdkVersion)\"}")
         
-        codeAndDecode(abstract: pbmORTBApp, expectedString: "{\"ext\":{\"prebid\":{\"data\":{\"app_categories\":[\"news\",\"movies\"]},\"source\":\"openx\",\"version\":\"\(sdkVersion)\"}}}")
+        codeAndDecode(abstract: pbmORTBApp, expectedString: "{\"ext\":{\"data\":{\"app_categories\":[\"news\",\"movies\"]},\"prebid\":{\"source\":\"openx\",\"version\":\"\(sdkVersion)\"}}}")
     }
     
     func testDeviceWithIfaToJsonString() {

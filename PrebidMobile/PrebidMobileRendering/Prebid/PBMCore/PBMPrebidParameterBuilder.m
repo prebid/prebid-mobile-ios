@@ -132,8 +132,9 @@
         bidRequest.user.data = userData;
     }
     
-    PBMORTBAppExtPrebid * const appExtPrebid = bidRequest.app.extPrebid;
-    appExtPrebid.data = self.targeting.contextDataDictionary;
+    PBMORTBAppExt * const appExt = bidRequest.app.ext;
+    PBMORTBAppExtPrebid * const appExtPrebid = appExt.prebid;
+    appExt.data = self.targeting.contextDataDictionary;
     
     for (PBMORTBImp *nextImp in bidRequest.imp) {
         nextImp.impID = [NSUUID UUID].UUIDString;
