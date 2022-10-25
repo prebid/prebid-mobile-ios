@@ -60,19 +60,21 @@ class UtilitiesViewController: FormViewController {
         }
     }
     
-    @available(iOS 14, *)
+    
     lazy var attRequestButton = ButtonRow() {
         $0.title = "Request Tracking Authorization"
     }
     .onCellSelection { [weak self] cell, row in
-        ATTrackingManager.requestTrackingAuthorization { [weak self] status in
-            var dialogMessage = UIAlertController(title: "AT Tracking",
-                                                  message: "Authorization status: \(status.rawValue)",
-                                                  preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-            dialogMessage.addAction(ok)
-            DispatchQueue.main.async { [weak self] in
-                self?.present(dialogMessage, animated: true, completion: nil)
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { [weak self] status in
+                var dialogMessage = UIAlertController(title: "AT Tracking",
+                                                      message: "Authorization status: \(status.rawValue)",
+                                                      preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+                dialogMessage.addAction(ok)
+                DispatchQueue.main.async { [weak self] in
+                    self?.present(dialogMessage, animated: true, completion: nil)
+                }
             }
         }
     }
