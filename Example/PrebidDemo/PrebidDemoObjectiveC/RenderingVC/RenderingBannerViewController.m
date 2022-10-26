@@ -141,7 +141,7 @@
 - (void)loadAdMobRenderingBanner {
     self.gadRequest = [GADRequest new];
     if(self.integrationAdFormat == IntegrationAdFormat_Banner) {
-        self.gadBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+        self.gadBannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeBanner];
         self.admobMediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest
                                                                                  bannerView:self.gadBannerView];
         self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:ObjCDemoConstants.kBannerDisplayStoredImpression

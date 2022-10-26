@@ -42,6 +42,9 @@
     
     Prebid.shared.externalUserIdArray = externalUserIdArray;
     
+    GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[ GADSimulatorID ];
+    [[GADMobileAds sharedInstance] startWithCompletionHandler:^(GADInitializationStatus * _Nonnull status) {}];
+    
     [GAMUtils.shared initializeGAM];
 
     [AdMobUtils initializeGAD];

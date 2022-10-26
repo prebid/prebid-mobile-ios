@@ -222,7 +222,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:ObjCDemoConstants.kGAMNativeAdUnitId
                                                rootViewController:self
-                                                          adTypes:@[kGADAdLoaderAdTypeCustomNative]
+                                                          adTypes:@[GADAdLoaderAdTypeCustomNative]
                                                           options:@[]];
             self.adLoader.delegate = self;
             [self.adLoader loadRequest:dfpRequest];
@@ -315,7 +315,7 @@
 }
 
 - (NSArray<NSValue *> *)validBannerSizesForAdLoader:(GADAdLoader *)adLoader {
-    return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
+    return @[NSValueFromGADAdSize(GADAdSizeBanner)];
 }
 
 #pragma mark : GADCustomNativeAdLoaderDelegate
