@@ -42,10 +42,7 @@ public class PrebidAdMobBannerAdapter:
         #warning("Add test that checks `parameter` key existence")
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
             let error = AdMobAdaptersError.noServerParameter
-            delegate?.didFailToPresentWithError(error)
-            
             delegate = completionHandler(nil, error)
-            
             return
         }
         
@@ -53,31 +50,31 @@ public class PrebidAdMobBannerAdapter:
               let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
               !eventExtrasDictionary.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
-            delegate?.didFailToPresentWithError(error)
+            delegate = completionHandler(nil, error)
             return
         }
         
         guard let targetingInfo = eventExtrasDictionary[PBMMediationTargetingInfoKey] as? [String: String] else {
             let error = AdMobAdaptersError.noTargetingInfoInEventExtras
-            delegate?.didFailToPresentWithError(error)
+            delegate = completionHandler(nil, error)
             return
         }
         
         guard MediationUtils.isServerParameterInTargetingInfoDict(serverParameter, targetingInfo) else {
             let error = AdMobAdaptersError.wrongServerParameter
-            delegate?.didFailToPresentWithError(error)
+            delegate = completionHandler(nil, error)
             return
         }
         
         guard let bid = eventExtrasDictionary[PBMMediationAdUnitBidKey] as? Bid else {
             let error = AdMobAdaptersError.noBidInEventExtras
-            delegate?.didFailToPresentWithError(error)
+            delegate = completionHandler(nil, error)
             return
         }
         
         guard let configId = eventExtrasDictionary[PBMMediationConfigIdKey] as? String else {
             let error = AdMobAdaptersError.noConfigIDInEventExtras
-            delegate?.didFailToPresentWithError(error)
+            delegate = completionHandler(nil, error)
             return
         }
         
@@ -99,8 +96,6 @@ public class PrebidAdMobBannerAdapter:
     }
     
     public func displayView(_ displayView: PBMDisplayView, didFailWithError error: Error) {
-        delegate?.didFailToPresentWithError(error)
-        
         if let handler = completionHandler {
             delegate = handler(nil, error)
         }

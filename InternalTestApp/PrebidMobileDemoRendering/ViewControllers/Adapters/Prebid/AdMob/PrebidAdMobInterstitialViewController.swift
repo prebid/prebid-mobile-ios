@@ -131,10 +131,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         
         adUnit?.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self.mediationDelegate?.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self.request.register(extras)
             GADInterstitialAd.load(withAdUnitID: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
