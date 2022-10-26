@@ -65,7 +65,7 @@ class NativeViewController: UIViewController, GADBannerViewDelegate {
     }
     
     func loadDFPNative() {
-        dfpNativeAdUnit = GAMBannerView(adSize: kGADAdSizeFluid)
+        dfpNativeAdUnit = GAMBannerView(adSize: GADAdSizeFluid)
         dfpNativeAdUnit.adUnitID = "/21808260008/unified_native_ad_unit"
         dfpNativeAdUnit.rootViewController = self
         dfpNativeAdUnit.delegate = self

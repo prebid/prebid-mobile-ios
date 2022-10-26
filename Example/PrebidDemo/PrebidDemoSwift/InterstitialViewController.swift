@@ -366,10 +366,6 @@ class InterstitialViewController:
         Log.error(error.localizedDescription)
     }
     
-    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        Log.info("adDidPresentFullScreenContent called")
-    }
-    
     func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
         Log.info("adWillDismissFullScreenContent called")
     }

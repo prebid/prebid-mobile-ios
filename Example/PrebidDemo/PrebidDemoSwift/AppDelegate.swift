@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         Prebid.shared.externalUserIdArray = externalUserIdArray
 
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ (kGADSimulatorID as! String), "da5a5e025d9ee432afc53f9fc1273f4e"]
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ GADSimulatorID, "fa7ff8af558fb08a04c94453647e54a1"]
         GADMobileAds.sharedInstance().start()
 
         AdMobUtils.initializeGAD()

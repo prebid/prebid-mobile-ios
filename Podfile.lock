@@ -5,7 +5,7 @@ PODS:
   - Google-Mobile-Ads-SDK (9.12.0):
     - GoogleAppMeasurement (< 11.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
-  - GoogleAds-IMA-iOS-SDK (3.14.3)
+  - GoogleAds-IMA-iOS-SDK (3.16.3)
   - GoogleAppMeasurement (10.0.0):
     - GoogleAppMeasurement/AdIdSupport (= 10.0.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
@@ -58,7 +58,7 @@ DEPENDENCIES:
   - AppLovinSDK
   - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `xcode12`)
   - Google-Mobile-Ads-SDK
-  - GoogleAds-IMA-iOS-SDK
+  - GoogleAds-IMA-iOS-SDK (~> 3.16.3)
   - RxSwift
   - SVProgressHUD
 
@@ -91,7 +91,7 @@ SPEC CHECKSUMS:
   AppLovinSDK: 6b10288343b15b31f7037ecd7aa630d6ea117585
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   Google-Mobile-Ads-SDK: b4e9efb765ef1693ae9dd94c527b6c1d91ee5052
-  GoogleAds-IMA-iOS-SDK: 2a9b7b14bda4993306f05287f952dce41b5be4ad
+  GoogleAds-IMA-iOS-SDK: 1aba71fa5b58dc463cc5b752f06e970ec7c739c1
   GoogleAppMeasurement: 7e48a3249792ac35d6f18f107f63f199a7e9d0ce
   GoogleUserMessagingPlatform: 5f8b30daf181805317b6b985bb51c1ff3beca054
   GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
@@ -100,6 +100,6 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 5812afa461fa52589abde35888a38186816c1c6f
+PODFILE CHECKSUM: bcfcc2b010c620baaadf04fa61873c7386671c71
 
 COCOAPODS: 1.11.3

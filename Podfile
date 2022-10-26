@@ -55,8 +55,7 @@ end
 def prebid_demo_pods
   use_frameworks!
   
-  pod 'GoogleAds-IMA-iOS-SDK'
-
+  pod 'GoogleAds-IMA-iOS-SDK', '~> 3.16.3'
   gma_pods
   applovin_pods
 end

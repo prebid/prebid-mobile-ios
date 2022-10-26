@@ -227,10 +227,6 @@ class RewardedVideoController:
         print("adDidRecordImpression")
     }
     
-    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        print("adDidPresentFullScreenContent")
-    }
-    
     func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
         print("adWillDismissFullScreenContent")
     }

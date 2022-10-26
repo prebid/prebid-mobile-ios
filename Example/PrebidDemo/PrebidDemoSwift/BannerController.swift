@@ -329,7 +329,7 @@ class BannerController:
         let size = CGSize(width: 320, height: 50)
         
         let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitDisplayBannerRendering,
-                                                 validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+                                                 validGADAdSizes: [GADAdSizeBanner].map(NSValueFromGADAdSize))
 
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                                       configID: storedImpDisplayBanner,
@@ -351,7 +351,7 @@ class BannerController:
 
         setupPrebidServer(storedResponse: storedResponseRenderingVideoBanner)
 
-        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [GADAdSizeBanner].map(NSValueFromGADAdSize))
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                                       configID: storedImpVideoBanner,
                                       adSize: CGSize(width: 300, height: 250),

@@ -96,7 +96,10 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         appInstreamView.layer.addSublayer(playerLayer!)
         
         // Set up our content playhead and contentComplete callback.
-        contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: contentPlayer)
+        if let contentPlayer = contentPlayer {
+            contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: contentPlayer)
+        }
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(InstreamVideoViewController.contentDidFinishPlaying(_:)),
