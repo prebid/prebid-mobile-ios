@@ -680,7 +680,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_android_300x250_banner"
-                gamBannerController.validAdSizes = [GADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
