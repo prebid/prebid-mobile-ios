@@ -1,17 +1,17 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 import UIKit
 import GoogleMobileAds
@@ -25,16 +25,16 @@ enum GADAdSizeType {
 }
 
 class PrebidAdMobBannerViewController:
-        NSObject,
-        AdaptedController,
-        PrebidConfigurableBannerController,
-        GADBannerViewDelegate {
+    NSObject,
+    AdaptedController,
+    PrebidConfigurableBannerController,
+    GADBannerViewDelegate {
     
     var refreshInterval: TimeInterval = 0
     
     var prebidConfigId = ""
     var storedAuctionResponse = ""
-
+    
     var adMobAdUnitId = ""
     var adUnitSize = CGSize()
     var additionalAdSizes = [CGSize]()
@@ -64,7 +64,7 @@ class PrebidAdMobBannerViewController:
     private var adUnit: MediationBannerAdUnit?
     
     private var mediationDelegate: AdMobMediationBannerUtils?
-        
+    
     // MARK: - AdaptedController
     
     required init(rootController:AdapterViewController) {
@@ -103,13 +103,14 @@ class PrebidAdMobBannerViewController:
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }
+        
         if additionalAdSizes.count > 0 {
             adUnit?.additionalSizes = additionalAdSizes
         }
+        
         if let adFormat = adFormat {
             adUnit?.adFormat = adFormat
         }
-        
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
@@ -126,7 +127,7 @@ class PrebidAdMobBannerViewController:
         }
         
         if let appData = AppConfiguration.shared.appContentData {
-            for dataPair in appData {                
+            for dataPair in appData {
                 let appData = PBMORTBContentData()
                 appData.ext = [dataPair.key: dataPair.value]
                 adUnit?.addAppContentData([appData])
@@ -140,6 +141,7 @@ class PrebidAdMobBannerViewController:
             else {
                 return
             }
+            
             adBannerView.translatesAutoresizingMaskIntoConstraints = false
             let widthConstraint  = NSLayoutConstraint(item: adBannerView,
                                                       attribute: .width,
@@ -158,11 +160,6 @@ class PrebidAdMobBannerViewController:
             container.addConstraints([widthConstraint, heightConstraint])
             container.layoutSubviews()
             
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self.mediationDelegate?.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self.request.register(extras)
-            
             let sizeWithMaxWidth = self.additionalAdSizes.max {
                 $0.width < $1.width
             }
@@ -173,7 +170,7 @@ class PrebidAdMobBannerViewController:
             case .adaptiveAnchored:
                 adBannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(sizeWithMaxWidth?.width ?? self.adUnitSize.width)
             }
-
+            
             adBannerView.load(self.request)
         }
         
@@ -195,7 +192,7 @@ class PrebidAdMobBannerViewController:
         resetEvents()
         reloadButton.isEnabled = true
         self.adViewDidFailButton.isEnabled = true
-
+        
         adUnit?.adObjectDidFailToLoadAd(adObject: adBannerView!, with: error)
     }
     
@@ -233,7 +230,7 @@ class PrebidAdMobBannerViewController:
         rootController?.setupAction(willPresentScreenButton, "willPresentScreen called")
         rootController?.setupAction(willDismissScreenButton, "willDismissScreen called")
         rootController?.setupAction(didDismissScreenButton, "didDismissScreen called")
-    
+        
         rootController?.setupAction(reloadButton, "[Reload]")
         
         rootController?.setupAction(stopRefreshButton, "[Stop Refresh]")
@@ -256,10 +253,6 @@ class PrebidAdMobBannerViewController:
         resetEvents()
         
         adUnit?.fetchDemand { [weak self] result in
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self?.mediationDelegate?.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self?.request.register(extras)
             self?.adBannerView?.load(self?.request)
         }
     }

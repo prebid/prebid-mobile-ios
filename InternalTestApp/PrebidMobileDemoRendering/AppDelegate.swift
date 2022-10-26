@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 break
             }
         }
+        
         processArgumentsParser.addOption("AD_POSITION", paramsCount: 1, fireOnce: true) { params in
             if let adPositionInt = Int(params[0]), let adPosition = AdPosition(rawValue: adPositionInt) {
                 AppConfiguration.shared.adPosition = adPosition
@@ -78,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         processArgumentsParser.addOption("BIDDER_ACCESS_CONTROL_LIST", acceptedParamsRange: (min: 1, max: nil)) { params in
             params.forEach(Targeting.shared.addBidderToAccessControlList(_:))
         }
+        
         processArgumentsParser.addOption("ADD_ADUNIT_CONTEXT", paramsCount: 2) { params in
             let appConfig = AppConfiguration.shared
             appConfig.adUnitContext = (appConfig.adUnitContext ?? []) + [(key: params[0], value: params[1])]
@@ -104,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
        
         // AdMob
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [GADSimulatorID]
         GADMobileAds.sharedInstance().start { (status) in
             //Registered so that DownloadHelper gets covered by this
             GlobalVars.reactiveGAMInitFlag.markSdkInitialized()

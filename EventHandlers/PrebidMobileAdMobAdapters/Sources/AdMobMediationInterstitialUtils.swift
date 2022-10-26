@@ -38,9 +38,10 @@ public class AdMobMediationInterstitialUtils: NSObject, PrebidMediationDelegate 
     }
     
     public func cleanUpAdObject() {
-        guard let gadKeywords = gadRequest.keywords as? [String] else {
+        guard let gadKeywords = gadRequest.keywords else {
             return
         }
+        
         gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
         eventExtras = nil
     }

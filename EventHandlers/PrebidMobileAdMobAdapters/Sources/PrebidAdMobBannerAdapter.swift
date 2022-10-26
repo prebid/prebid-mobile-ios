@@ -19,56 +19,68 @@ import GoogleMobileAds
 
 @objc(PrebidAdMobBannerAdapter)
 public class PrebidAdMobBannerAdapter:
-    NSObject,
-    GADCustomEventBanner,
+    PrebidAdMobMediationBaseAdapter,
+    GADMediationBannerAd,
     DisplayViewLoadingDelegate,
     DisplayViewInteractionDelegate {
     
-    public weak var delegate: GADCustomEventBannerDelegate?
-    
-    public var displayView: PBMDisplayView?
-    
-    required public override init() {
-        super.init()
+    public var view: UIView {
+        return displayView ?? UIView()
     }
     
-    public func requestAd(_ adSize: GADAdSize, parameter serverParameter: String?, label serverLabel: String?, request: GADCustomEventRequest) {
-        guard let keywords = request.userKeywords as? [String] else {
-            let error = AdMobAdaptersError.emptyUserKeywords
-            delegate?.customEventBanner(self, didFailAd: error)
-            return
-        }
-        
-        guard let serverParameter = serverParameter else {
-            let error = AdMobAdaptersError.noServerParameter
-            delegate?.customEventBanner(self, didFailAd: error)
-            return
-        }
-        
-        guard MediationUtils.isServerParameterInTargetingInfo(serverParameter, keywords) else {
-            let error = AdMobAdaptersError.wrongServerParameter
-            delegate?.customEventBanner(self, didFailAd: error)
-            return
-        }
-        
-        guard let eventExtras = request.additionalParameters, !eventExtras.isEmpty else {
-            let error = AdMobAdaptersError.emptyCustomEventExtras
-            delegate?.customEventBanner(self, didFailAd: error)
-            return
-        }
-        
-        guard let bid = eventExtras[PBMMediationAdUnitBidKey] as? Bid else {
-            let error = AdMobAdaptersError.noBidInEventExtras
-            delegate?.customEventBanner(self, didFailAd: error)
-            return
-        }
-        
-        guard let configId = eventExtras[PBMMediationConfigIdKey] as? String else {
-            let error = AdMobAdaptersError.noConfigIDInEventExtras
-            delegate?.customEventBanner(self, didFailAd: error)
-            return
-        }
+    var displayView: PBMDisplayView?
     
+    weak var delegate: GADMediationBannerAdEventDelegate?
+    var adConfiguration: GADMediationBannerAdConfiguration?
+    var completionHandler: GADMediationBannerLoadCompletionHandler?
+    
+    public func loadBanner(for adConfiguration: GADMediationBannerAdConfiguration,
+                           completionHandler: @escaping GADMediationBannerLoadCompletionHandler) {
+        self.adConfiguration = adConfiguration
+        self.completionHandler = completionHandler
+        
+        #warning("Add test that checks `parameter` key existence")
+        guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
+            let error = AdMobAdaptersError.noServerParameter
+            delegate?.didFailToPresentWithError(error)
+            
+            delegate = completionHandler(nil, error)
+            
+            return
+        }
+        
+        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+              let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
+              !eventExtrasDictionary.isEmpty else {
+            let error = AdMobAdaptersError.emptyCustomEventExtras
+            delegate?.didFailToPresentWithError(error)
+            return
+        }
+        
+        guard let targetingInfo = eventExtrasDictionary[PBMMediationTargetingInfoKey] as? [String: String] else {
+            let error = AdMobAdaptersError.noTargetingInfoInEventExtras
+            delegate?.didFailToPresentWithError(error)
+            return
+        }
+        
+        guard MediationUtils.isServerParameterInTargetingInfoDict(serverParameter, targetingInfo) else {
+            let error = AdMobAdaptersError.wrongServerParameter
+            delegate?.didFailToPresentWithError(error)
+            return
+        }
+        
+        guard let bid = eventExtrasDictionary[PBMMediationAdUnitBidKey] as? Bid else {
+            let error = AdMobAdaptersError.noBidInEventExtras
+            delegate?.didFailToPresentWithError(error)
+            return
+        }
+        
+        guard let configId = eventExtrasDictionary[PBMMediationConfigIdKey] as? String else {
+            let error = AdMobAdaptersError.noConfigIDInEventExtras
+            delegate?.didFailToPresentWithError(error)
+            return
+        }
+        
         let frame = CGRect(origin: .zero, size: bid.size)
         
         displayView = PBMDisplayView(frame: frame, bid: bid, configId: configId)
@@ -81,36 +93,39 @@ public class PrebidAdMobBannerAdapter:
     // MARK: - DisplayViewLoadingDelegate
     
     public func displayViewDidLoadAd(_ displayView: PBMDisplayView) {
-        delegate?.customEventBanner(self, didReceiveAd: displayView)
+        if let handler = completionHandler {
+            delegate = handler(self, nil)
+        }
     }
     
-    
     public func displayView(_ displayView: PBMDisplayView, didFailWithError error: Error) {
-        delegate?.customEventBanner(self, didFailAd: error)
+        delegate?.didFailToPresentWithError(error)
+        
+        if let handler = completionHandler {
+            delegate = handler(nil, error)
+        }
     }
     
     // MARK: - PBMDisplayViewInteractionDelegate
     
     public func trackImpression(forDisplayView: PBMDisplayView) {
-        //Impressions will be tracked automatically
-        //unless enableAutomaticImpressionAndClickTracking = NO
+        delegate?.reportImpression()
     }
     
     public func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController? {
-        return delegate?.viewControllerForPresentingModalView
+        return adConfiguration?.topViewController ?? UIApplication.shared.windows.first?.rootViewController
     }
     
     public func didLeaveApp(from displayView: PBMDisplayView) {
-        delegate?.customEventBannerWillLeaveApplication(self)
+        delegate?.reportClick()
     }
     
     public func willPresentModal(from displayView: PBMDisplayView) {
-        delegate?.customEventBannerWillPresentModal(self)
-        delegate?.customEventBannerWasClicked(self)
+        delegate?.willPresentFullScreenView()
     }
     
     public func didDismissModal(from displayView: PBMDisplayView) {
-        delegate?.customEventBannerWillDismissModal(self)
-        delegate?.customEventBannerDidDismissModal(self)
+        delegate?.willDismissFullScreenView()
+        delegate?.didDismissFullScreenView()
     }
 }

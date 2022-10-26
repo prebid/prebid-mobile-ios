@@ -17,6 +17,7 @@ import Foundation
 
 enum AdMobAdaptersError {
     case emptyCustomEventExtras
+    case noTargetingInfoInEventExtras
     case noBidInEventExtras
     case noConfigIDInEventExtras
     case noServerParameter
@@ -31,6 +32,7 @@ extension AdMobAdaptersError: LocalizedError {
         switch self {
             
         case .emptyCustomEventExtras        : return "The custom event extras is empty"
+        case .noTargetingInfoInEventExtras  : return "The targeting info dictionary is absent in the extras"
         case .noBidInEventExtras            : return "The Bid object is absent in the extras"
         case .noConfigIDInEventExtras       : return "The Config ID is absent in the extras"
         case .noServerParameter             : return "Server parameter is absent in request"

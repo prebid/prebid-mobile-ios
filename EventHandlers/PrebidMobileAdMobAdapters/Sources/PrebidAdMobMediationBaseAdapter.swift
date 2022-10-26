@@ -36,7 +36,7 @@ public class PrebidAdMobMediationBaseAdapter: NSObject, GADMediationAdapter {
     }
     
     public static func networkExtrasClass() -> GADAdNetworkExtras.Type? {
-        return PrebidAdMobEventExtras.self
+        return GADCustomEventExtras.self
     }
     
     required public override init() {

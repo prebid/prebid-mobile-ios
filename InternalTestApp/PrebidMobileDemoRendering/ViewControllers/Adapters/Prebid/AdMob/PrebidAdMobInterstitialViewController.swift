@@ -34,7 +34,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
     private let adDidReceiveButton = EventReportContainer()
     private let adDidFailToReceiveButton = EventReportContainer()
     private let adDidFailToPresentFullScreenContentWithErrorButton = EventReportContainer()
-    private let adDidPresentFullScreenContentButton = EventReportContainer()
     private let adWillDismissFullScreenContentButton = EventReportContainer()
     private let adDidDismissFullScreenContentButton = EventReportContainer()
     private let adDidRecordImpressionButton = EventReportContainer()
@@ -159,10 +158,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         adDidFailToPresentFullScreenContentWithErrorButton.isEnabled = true
     }
     
-    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        adDidPresentFullScreenContentButton.isEnabled = true
-    }
-    
     func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
         adWillDismissFullScreenContentButton.isEnabled = true
     }
@@ -196,7 +191,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         adapterViewController?.setupAction(adDidReceiveButton, "adDidReceiveButton called")
         adapterViewController?.setupAction(adDidFailToReceiveButton, "adDidFailToReceiveButton called")
         adapterViewController?.setupAction(adDidFailToPresentFullScreenContentWithErrorButton, "adDidFailToPresentFullScreenContentWithError called")
-        adapterViewController?.setupAction(adDidPresentFullScreenContentButton, "adDidPresentFullScreenContent called")
         adapterViewController?.setupAction(adWillDismissFullScreenContentButton, "adWillDismissFullScreenContent called")
         adapterViewController?.setupAction(adDidDismissFullScreenContentButton, "adDidDismissFullScreenContent called")
         adapterViewController?.setupAction(adDidRecordImpressionButton, "adDidRecordImpression called")
@@ -206,7 +200,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         adDidReceiveButton.isEnabled = false
         adDidFailToReceiveButton.isEnabled = false
         adDidFailToPresentFullScreenContentWithErrorButton.isEnabled = false
-        adDidPresentFullScreenContentButton.isEnabled = false
         adWillDismissFullScreenContentButton.isEnabled = false
         adDidDismissFullScreenContentButton.isEnabled = false
         adDidRecordImpressionButton.isEnabled = false
