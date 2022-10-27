@@ -56,8 +56,6 @@
 		92C1346927FC6B4900F96387 /* PrebidMobileMAXAdapters.h in Headers */ = {isa = PBXBuildFile; fileRef = 92C1345D27FC6B4900F96387 /* PrebidMobileMAXAdapters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92C474ED2795B57F00C26E27 /* AdMobMediationRewardedUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C474EC2795B57E00C26E27 /* AdMobMediationRewardedUtils.swift */; };
 		92C474F52795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C474F42795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift */; };
-		92C474F92795ECDF00C26E27 /* PrebidAdMobEventExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C474F82795ECDF00C26E27 /* PrebidAdMobEventExtras.swift */; };
-		92C7A867279A81EA000D31CB /* PrebidMediatedUnifiedNativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7A866279A81EA000D31CB /* PrebidMediatedUnifiedNativeAd.swift */; };
 		92C7A869279AAEF2000D31CB /* AdMobMediationNativeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7A868279AAEF1000D31CB /* AdMobMediationNativeUtils.swift */; };
 		92DDA43C278EE8ED0035F03E /* PrebidAdMobRewardedVideoAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedVideoAdapter.swift */; };
 		92E924FB2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */; };
@@ -164,8 +162,6 @@
 		92C1346227FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileMAXAdaptersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C474EC2795B57E00C26E27 /* AdMobMediationRewardedUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationRewardedUtils.swift; sourceTree = "<group>"; };
 		92C474F42795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobMediationBaseAdapter.swift; sourceTree = "<group>"; };
-		92C474F82795ECDF00C26E27 /* PrebidAdMobEventExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobEventExtras.swift; sourceTree = "<group>"; };
-		92C7A866279A81EA000D31CB /* PrebidMediatedUnifiedNativeAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMediatedUnifiedNativeAd.swift; sourceTree = "<group>"; };
 		92C7A868279AAEF1000D31CB /* AdMobMediationNativeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationNativeUtils.swift; sourceTree = "<group>"; };
 		92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedVideoAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobRewardedVideoAdapter.swift; sourceTree = "<group>"; };
 		92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobBannerAdapter.swift; sourceTree = "<group>"; };
@@ -410,13 +406,11 @@
 				92C474EC2795B57E00C26E27 /* AdMobMediationRewardedUtils.swift */,
 				92A2380C27731B48000157AA /* AdMobUtils.swift */,
 				92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */,
-				92C474F82795ECDF00C26E27 /* PrebidAdMobEventExtras.swift */,
 				926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */,
 				92C474F42795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift */,
 				92EB6DE42799FB4700470DEC /* PrebidAdMobNativeAdapter.swift */,
 				92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedVideoAdapter.swift */,
 				9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */,
-				92C7A866279A81EA000D31CB /* PrebidMediatedUnifiedNativeAd.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -993,9 +987,7 @@
 			files = (
 				92DDA43C278EE8ED0035F03E /* PrebidAdMobRewardedVideoAdapter.swift in Sources */,
 				9267B400276FCF9300F1ADF1 /* AdMobConstants.swift in Sources */,
-				92C474F92795ECDF00C26E27 /* PrebidAdMobEventExtras.swift in Sources */,
 				92C474F52795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift in Sources */,
-				92C7A867279A81EA000D31CB /* PrebidMediatedUnifiedNativeAd.swift in Sources */,
 				92E924FD276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift in Sources */,
 				9285B46627AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift in Sources */,
 				92C7A869279AAEF2000D31CB /* AdMobMediationNativeUtils.swift in Sources */,

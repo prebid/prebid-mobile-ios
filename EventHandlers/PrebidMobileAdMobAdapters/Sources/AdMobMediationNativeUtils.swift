@@ -22,8 +22,6 @@ public class AdMobMediationNativeUtils: NSObject, PrebidMediationDelegate {
     
     public let gadRequest: GADRequest
     
-    private var eventExtras: [AnyHashable: Any]?
-    
     public init(gadRequest: GADRequest) {
         self.gadRequest = gadRequest
         super.init()
@@ -40,31 +38,16 @@ public class AdMobMediationNativeUtils: NSObject, PrebidMediationDelegate {
     }
     
     public func cleanUpAdObject() {
-        guard let gadKeywords = gadRequest.keywords else {
-            return
+        if let gadKeywords = gadRequest.keywords {
+            gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
         }
-        gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
-        eventExtras = nil
+        
+        let extras = GADCustomEventExtras()
+        extras.setExtras(nil, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+        gadRequest.register(extras)
     }
     
     public func getAdView() -> UIView? {
         return nil
-    }
-    
-    #warning("Remove this.")
-    public func getEventExtras() -> [AnyHashable: Any]? {
-        return eventExtras
-    }
-    
-    #warning("Remove this.")
-    public static func findNative(_ extras: [AnyHashable: Any],
-                                  completion: @escaping (Result<PrebidMediatedUnifiedNativeAd, Error>) -> Void) {
-        switch MediationNativeUtils.findNative(in: extras) {
-        case .success(let nativeAd):
-            let admobUnifiedAd = PrebidMediatedUnifiedNativeAd(nativeAd: nativeAd)
-            completion(.success(admobUnifiedAd))
-        case .failure(let error):
-            completion(.failure(error))
-        }
     }
 }

@@ -24,7 +24,8 @@ public class MediationUtils: NSObject {
         return isServerParameterInTargetingInfoDict(serverParameter, targetingInfoDictionary)
     }
     
-    public static func isServerParameterInTargetingInfoDict(_ serverParameter: String, _ targetingInfoDictionary: [String: String]) -> Bool {
+    public static func isServerParameterInTargetingInfoDict(_ serverParameter: String,
+                                                            _ targetingInfoDictionary: [String: String]) -> Bool {
         guard let serverParametersDictionary = stringToDictionary(dataString: serverParameter) else {
             Log.warn("Wrong server parameter format.")
             return false
@@ -33,7 +34,8 @@ public class MediationUtils: NSObject {
         return isServerParameterDictInTargetingInfoDict(serverParametersDictionary, targetingInfoDictionary)
     }
     
-    public static func isServerParameterDictInTargetingInfoDict(_ serverParametersDictionary: [String: String], _ targetingInfoDictionary: [String: String]) -> Bool {
+    public static func isServerParameterDictInTargetingInfoDict(_ serverParametersDictionary: [String: String],
+                                                                _ targetingInfoDictionary: [String: String]) -> Bool {
         
         guard !serverParametersDictionary.isEmpty else {
             Log.warn("Server parameters dictionary is empty")
