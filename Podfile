@@ -62,6 +62,7 @@ end
 
 target 'PrebidDemoSwift' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
+  platform :ios, '12.0'
   
   prebid_demo_pods
   
@@ -72,12 +73,14 @@ end
 
 target 'PrebidDemoObjectiveC' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
+  platform :ios, '12.0'
   
   prebid_demo_pods
 end
 
 target 'Dr.Prebid' do
   project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
+  platform :ios, '12.0'
   
   prebid_demo_pods
 end
