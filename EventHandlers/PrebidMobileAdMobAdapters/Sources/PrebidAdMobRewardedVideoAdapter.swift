@@ -31,46 +31,51 @@ public class PrebidAdMobRewardedVideoAdapter:
     var adAvailable = false
     
     weak var delegate: GADMediationRewardedAdEventDelegate?
+    var completionHandler: GADMediationRewardedLoadCompletionHandler?
     
     // MARK: - GADMediationAdapter
-    public func loadRewardedAd(for adConfiguration: GADMediationRewardedAdConfiguration, completionHandler: @escaping GADMediationRewardedLoadCompletionHandler) {
-        guard let prebidExtras = adConfiguration.extras as? PrebidAdMobEventExtras else {
-            let error = AdMobAdaptersError.emptyCustomEventExtras
-            delegate?.didFailToPresentWithError(error)
-            return
-        }
-        
-        guard let bid = prebidExtras.additionalParameters[PBMMediationAdUnitBidKey] as? Bid else {
-            let error = AdMobAdaptersError.noBidInEventExtras
-            delegate = completionHandler(nil, error)
-            return
-        }
-        
-        guard let keywords = bid.targetingInfo else {
-            let error = AdMobAdaptersError.emptyUserKeywords
-            delegate = completionHandler(nil, error)
-            return
-        }
+    
+    public func loadRewardedAd(for adConfiguration: GADMediationRewardedAdConfiguration,
+                               completionHandler: @escaping GADMediationRewardedLoadCompletionHandler) {
+        self.completionHandler = completionHandler
         
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
             let error = AdMobAdaptersError.noServerParameter
-            delegate?.didFailToPresentWithError(error)
+            delegate = completionHandler(nil, error)
             return
         }
         
-        guard MediationUtils.isServerParameterInTargetingInfoDict(serverParameter, keywords) else {
+        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+              let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
+              !eventExtrasDictionary.isEmpty else {
+            let error = AdMobAdaptersError.emptyCustomEventExtras
+            delegate = completionHandler(nil, error)
+            return
+        }
+        
+        guard let targetingInfo = eventExtrasDictionary[PBMMediationTargetingInfoKey] as? [String: String] else {
+            let error = AdMobAdaptersError.noTargetingInfoInEventExtras
+            delegate = completionHandler(nil, error)
+            return
+        }
+        
+        guard MediationUtils.isServerParameterInTargetingInfoDict(serverParameter, targetingInfo) else {
             let error = AdMobAdaptersError.wrongServerParameter
             delegate = completionHandler(nil, error)
             return
         }
         
-        guard let configId = prebidExtras.additionalParameters[PBMMediationConfigIdKey] as? String else {
-            let error = AdMobAdaptersError.noConfigIDInEventExtras
+        guard let bid = eventExtrasDictionary[PBMMediationAdUnitBidKey] as? Bid else {
+            let error = AdMobAdaptersError.noBidInEventExtras
             delegate = completionHandler(nil, error)
             return
         }
         
-        delegate = completionHandler(self, nil)
+        guard let configId = eventExtrasDictionary[PBMMediationConfigIdKey] as? String else {
+            let error = AdMobAdaptersError.noConfigIDInEventExtras
+            delegate = completionHandler(nil, error)
+            return
+        }
         
         interstitialController = InterstitialController(bid: bid, configId: configId)
         interstitialController?.loadingDelegate = self
@@ -78,11 +83,11 @@ public class PrebidAdMobRewardedVideoAdapter:
         interstitialController?.adFormats = [.video]
         interstitialController?.isOptIn = true
         
-        if let videoAdConfig = prebidExtras.additionalParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
+        if let videoAdConfig = eventExtrasDictionary[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
             interstitialController?.videoControlsConfig = videoAdConfig
         }
         
-        if let videoParameters = prebidExtras.additionalParameters[PBMMediationVideoParameters] as? VideoParameters {
+        if let videoParameters = eventExtrasDictionary[PBMMediationVideoParameters] as? VideoParameters {
             interstitialController?.videoParameters = videoParameters
         }
         
@@ -90,6 +95,7 @@ public class PrebidAdMobRewardedVideoAdapter:
     }
     
     // MARK: - GADMediationRewardedAd
+    
     public func present(from viewController: UIViewController) {
         if adAvailable {
             rootViewController = viewController
@@ -97,23 +103,31 @@ public class PrebidAdMobRewardedVideoAdapter:
         } else {
             let error = AdMobAdaptersError.noAd
             delegate?.didFailToPresentWithError(error)
+            
+            if let handler = completionHandler {
+                delegate = handler(nil, error)
+            }
         }
     }
     
     // MARK: - InterstitialControllerLoadingDelegate
+    
     public func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController) {
         adAvailable = true
+        
+        if let handler = completionHandler {
+            delegate = handler(self, nil)
+        }
     }
     
     public func interstitialController(_ interstitialController: InterstitialController, didFailWithError error: Error) {
         adAvailable = false
-        delegate?.didFailToPresentWithError(error)
     }
     
     // MARK: - InterstitialControllerInteractionDelegate
+    
     public func trackImpression(forInterstitialController: InterstitialController) {
-        //Impressions will be tracked automatically
-        //unless enableAutomaticImpressionAndClickTracking = NO
+        delegate?.reportImpression()
     }
     
     public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
@@ -125,11 +139,7 @@ public class PrebidAdMobRewardedVideoAdapter:
         delegate?.willDismissFullScreenView()
         delegate?.didDismissFullScreenView()
     }
-    
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {
         
-    }
-    
     public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {
         delegate?.willPresentFullScreenView()
         delegate?.didStartVideo()
@@ -138,13 +148,14 @@ public class PrebidAdMobRewardedVideoAdapter:
     
     public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {
         adAvailable = false
-        self.rootViewController = nil
+        rootViewController = nil
         
-        let reward = GADAdReward()
-        delegate?.didRewardUser(with: reward)
+        delegate?.didRewardUser()
     }
     
     public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
-        return rootViewController
+        rootViewController
     }
+    
+    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {}
 }

@@ -30,16 +30,16 @@ public class AdMobMediationRewardedUtils: NSObject, PrebidMediationDelegate {
     }
     
     public func setUpAdObject(with values: [String: Any]) -> Bool {  
-        eventExtras = values.isEmpty ? nil : values
+        let extras = GADCustomEventExtras()
+        extras.setExtras(values, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+        gadRequest.register(extras)
         gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords,
                                                        targetingInfo: values[PBMMediationTargetingInfoKey] as? [String: String])
-        gadRequest.register(PrebidAdMobEventExtras(additionalParameters: eventExtras ?? [:]))
-        
         return true
     }
     
     public func cleanUpAdObject() {
-        guard let gadKeywords = gadRequest.keywords as? [String] else {
+        guard let gadKeywords = gadRequest.keywords else {
             return
         }
         gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
@@ -51,6 +51,7 @@ public class AdMobMediationRewardedUtils: NSObject, PrebidMediationDelegate {
         return nil
     }
     
+    #warning("Remove this.")
     public func getEventExtras() -> [AnyHashable: Any]? {
         return eventExtras
     }

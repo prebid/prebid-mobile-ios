@@ -161,6 +161,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     @IBAction func showButtonClicked() {
         guard let adapterViewController = adapterViewController else { return }
         if rewardedAd != nil {
+            adapterViewController.showButton.isEnabled = false
             rewardedAd?.present(fromRootViewController: adapterViewController, userDidEarnRewardHandler: {
                 print("User rewarded")
             })

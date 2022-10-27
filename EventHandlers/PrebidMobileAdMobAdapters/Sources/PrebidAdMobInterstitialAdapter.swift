@@ -118,7 +118,7 @@ public class PrebidAdMobInterstitialAdapter:
     }
     
     public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
-        return rootViewController
+        rootViewController
     }
     
     public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
@@ -130,11 +130,11 @@ public class PrebidAdMobInterstitialAdapter:
         delegate?.didDismissFullScreenView()
     }
     
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {}
-    
     public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {
         delegate?.willPresentFullScreenView()
     }
     
     public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {}
+    
+    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {}
 }
