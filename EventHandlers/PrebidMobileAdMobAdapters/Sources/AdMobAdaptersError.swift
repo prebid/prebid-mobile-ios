@@ -25,6 +25,7 @@ enum AdMobAdaptersError {
     case emptyUserKeywords
     case noAd
     case adNotValid
+    case adExpired
 }
 
 extension AdMobAdaptersError: LocalizedError {
@@ -40,6 +41,7 @@ extension AdMobAdaptersError: LocalizedError {
         case .emptyUserKeywords             : return "User keywords are empty"
         case .noAd                          : return "No ad available"
         case .adNotValid                    : return "Ad is not valid"
+        case .adExpired                     : return "Ad expired"
         }
     }
 }

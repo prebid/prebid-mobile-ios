@@ -410,13 +410,13 @@
 				92C474EC2795B57E00C26E27 /* AdMobMediationRewardedUtils.swift */,
 				92A2380C27731B48000157AA /* AdMobUtils.swift */,
 				92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */,
+				92C474F82795ECDF00C26E27 /* PrebidAdMobEventExtras.swift */,
 				926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */,
 				92C474F42795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift */,
 				92EB6DE42799FB4700470DEC /* PrebidAdMobNativeAdapter.swift */,
 				92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedVideoAdapter.swift */,
-				92C7A866279A81EA000D31CB /* PrebidMediatedUnifiedNativeAd.swift */,
-				92C474F82795ECDF00C26E27 /* PrebidAdMobEventExtras.swift */,
 				9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */,
+				92C7A866279A81EA000D31CB /* PrebidMediatedUnifiedNativeAd.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

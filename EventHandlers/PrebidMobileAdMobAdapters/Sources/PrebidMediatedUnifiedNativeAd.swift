@@ -17,6 +17,7 @@ import Foundation
 import PrebidMobile
 import GoogleMobileAds
 
+#warning("DELETE")
 public class PrebidMediatedUnifiedNativeAd: NSObject {
     
     var nativeAd: NativeAd?
@@ -42,6 +43,7 @@ public class PrebidMediatedUnifiedNativeAd: NSObject {
 }
 
 extension PrebidMediatedUnifiedNativeAd: GADMediatedUnifiedNativeAd {
+    
     public var headline: String? {
         nativeAd?.title
     }
@@ -86,15 +88,9 @@ extension PrebidMediatedUnifiedNativeAd: GADMediatedUnifiedNativeAd {
         nativeAd?.registerView(view: view, clickableViews: Array(clickableAssetViews.values))
     }
     
-    public func didRecordClickOnAsset(withName assetName: GADNativeAssetIdentifier, view: UIView, viewController: UIViewController) {
-        
-    }
+    public func didRecordClickOnAsset(withName assetName: GADNativeAssetIdentifier, view: UIView, viewController: UIViewController) {}
     
-    public func didRecordImpression() {
-        
-    }
+    public func didRecordImpression() {}
     
-    public func didUntrackView(_ view: UIView?) {
-    
-    }
+    public func didUntrackView(_ view: UIView?) {}
 }

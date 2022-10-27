@@ -19,49 +19,93 @@ import PrebidMobile
 
 @objc(PrebidAdMobNativeAdapter)
 public class PrebidAdMobNativeAdapter:
-    NSObject,
-    GADCustomEventNativeAd {
+    PrebidAdMobMediationBaseAdapter,
+    GADMediationNativeAd,
+    NativeAdEventDelegate {
     
-    public weak var delegate: GADCustomEventNativeAdDelegate?
-    
-    required public override init() {
-        super.init()
+    public var headline: String? {
+        prebidNativeAd?.title
     }
     
-    public func request(withParameter serverParameter: String, request: GADCustomEventRequest, adTypes: [Any], options: [Any], rootViewController: UIViewController) {
-        guard !serverParameter.isEmpty else {
+    public var images: [GADNativeAdImage]?
+    
+    public var body: String? {
+        prebidNativeAd?.text
+    }
+    
+    public var icon: GADNativeAdImage?
+    
+    public var callToAction: String? {
+        prebidNativeAd?.callToAction
+    }
+    
+    public var starRating: NSDecimalNumber? {
+        NSDecimalNumber(string: prebidNativeAd?.dataObjects(of: .rating).first?.value)
+    }
+    
+    public var store: String?
+    
+    public var price: String? {
+        prebidNativeAd?.dataObjects(of: .salePrice).first?.value
+    }
+    
+    public var advertiser: String? {
+        prebidNativeAd?.sponsoredBy
+    }
+    
+    public var extraAssets: [String: Any]?
+    
+    var prebidNativeAd: NativeAd?
+    
+    public weak var delegate: GADMediationNativeAdEventDelegate?
+    var completionHandler: GADMediationNativeLoadCompletionHandler?
+    
+    public func loadNativeAd(for adConfiguration: GADMediationNativeAdConfiguration, completionHandler: @escaping GADMediationNativeLoadCompletionHandler) {
+        self.completionHandler = completionHandler
+        
+        guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
             let error = AdMobAdaptersError.noServerParameter
-            delegate?.customEventNativeAd(self, didFailToLoadWithError: error)
+            delegate = completionHandler(nil, error)
             return
         }
         
-        guard let keywords = request.userKeywords as? [String] else {
-            let error = AdMobAdaptersError.emptyUserKeywords
-            delegate?.customEventNativeAd(self, didFailToLoadWithError: error)
-            return
-        }
-        
-        guard MediationUtils.isServerParameterInTargetingInfo(serverParameter, keywords) else {
-            let error = AdMobAdaptersError.wrongServerParameter
-            delegate?.customEventNativeAd(self, didFailToLoadWithError: error)
-            return
-        }
-        
-        guard let eventExtras = request.additionalParameters, !eventExtras.isEmpty else {
+        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+              let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
+              !eventExtrasDictionary.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
-            delegate?.customEventNativeAd(self, didFailToLoadWithError: error)
+            delegate = completionHandler(nil, error)
             return
         }
         
-        AdMobMediationNativeUtils.findNative(eventExtras) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let ad):
-                self.delegate?.customEventNativeAd(self, didReceive: ad)
-            case .failure(let error):
-                self.delegate?.customEventNativeAd(self, didFailToLoadWithError: error)
-            }
+        guard let targetingInfo = eventExtrasDictionary[PBMMediationTargetingInfoKey] as? [String: String] else {
+            let error = AdMobAdaptersError.noTargetingInfoInEventExtras
+            delegate = completionHandler(nil, error)
+            return
         }
+        
+        guard MediationUtils.isServerParameterInTargetingInfoDict(serverParameter, targetingInfo) else {
+            let error = AdMobAdaptersError.wrongServerParameter
+            delegate = completionHandler(nil, error)
+            return
+        }
+        
+        switch MediationNativeUtils.findNative(in: eventExtrasDictionary) {
+        case .success(let nativeAd):
+            prebidNativeAd = nativeAd
+            prebidNativeAd?.delegate = self
+            downloadImages { [weak self] in
+                // Images are downloaded; native ad is ready to be displayed
+                guard let self = self else { return }
+                self.delegate = completionHandler(self, nil)
+            }
+        
+        case .failure(let error):
+            delegate?.didFailToPresentWithError(error)
+        }
+    }
+    
+    public func didRender(in view: UIView, clickableAssetViews: [GADNativeAssetIdentifier : UIView], nonclickableAssetViews: [GADNativeAssetIdentifier : UIView], viewController: UIViewController) {
+        prebidNativeAd?.registerView(view: view, clickableViews: Array(clickableAssetViews.values))
     }
     
     public func handlesUserClicks() -> Bool {
@@ -70,5 +114,39 @@ public class PrebidAdMobNativeAdapter:
     
     public func handlesUserImpressions() -> Bool {
         return false
+    }
+    
+    // MARK: - NativeAdEventDelegate
+    
+    public func adDidExpire(ad: NativeAd) {
+        let error = AdMobAdaptersError.adExpired
+        if let handler = completionHandler {
+           delegate = handler(nil, error)
+        }
+    }
+    
+    public func adWasClicked(ad: NativeAd) {
+        delegate?.reportClick()
+    }
+    
+    public func adDidLogImpression(ad: NativeAd) {
+        delegate?.reportImpression()
+    }
+    
+    func downloadImages(completion: @escaping () -> Void) {
+        guard let imageUrl = prebidNativeAd?.imageUrl, let iconUrl = prebidNativeAd?.iconUrl else { return }
+        
+        ImageHelper.downloadImageAsync(imageUrl) { [weak self] result in
+            if case .success(let image) = result {
+                self?.images = [GADNativeAdImage(image: image)]
+            }
+            
+            ImageHelper.downloadImageAsync(iconUrl) { [weak self] result in
+                if case .success(let image) = result {
+                    self?.icon = GADNativeAdImage(image: image)
+                    completion()
+                }
+            }
+        }
     }
 }
