@@ -1615,7 +1615,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp.pi;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
 				PRODUCT_NAME = InternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1648,7 +1648,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp.pi;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
 				PRODUCT_NAME = InternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
