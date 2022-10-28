@@ -53,6 +53,11 @@ public class GAMUtils: NSObject {
         Log.error(error.localizedDescription)
     }
     
+    // Added for tests
+    static func latestTestedGMAVersion() -> GADVersionNumber {
+        return GADVersionNumber(majorVersion: 9, minorVersion: 12, patchVersion: 0)
+    }
+    
     // MARK: Private Methods
     
     private func getPrebidTargeting(from request: GAMRequestWrapper) -> [String: String] {

@@ -32,13 +32,13 @@ class GAMBannerViewWrapperTest: XCTestCase {
     func testProperties() {        
         let propTests: [BasePropTest<GAMBannerViewWrapper>] = [
             PropTest(keyPath: \.adUnitID, value: "144"),
-            PropTest(keyPath: \.validAdSizes, value: [NSValueFromGADAdSize(kGADAdSizeBanner)]),
+            PropTest(keyPath: \.validAdSizes, value: [NSValueFromGADAdSize(GADAdSizeBanner)]),
             PropTest(keyPath: \.rootViewController, value: UIViewController()),
             RefPropTest(keyPath: \.delegate, value: DummyDelegate()),
             RefPropTest(keyPath: \.appEventDelegate, value: DummyEventDelegate()),
             RefPropTest(keyPath: \.adSizeDelegate, value: DummySizeDelegate()),
             PropTest(keyPath: \.enableManualImpressions, value: true),
-            PropTest(keyPath: \.adSize, value: kGADAdSizeBanner),
+            PropTest(keyPath: \.adSize, value: GADAdSizeBanner),
         ]
         
         guard let banner = GAMBannerViewWrapper() else {

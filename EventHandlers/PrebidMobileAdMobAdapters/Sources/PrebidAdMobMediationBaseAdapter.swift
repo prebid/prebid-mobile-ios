@@ -38,6 +38,11 @@ public class PrebidAdMobMediationBaseAdapter: NSObject, GADMediationAdapter {
     public static func networkExtrasClass() -> GADAdNetworkExtras.Type? {
         return GADCustomEventExtras.self
     }
+        
+    // Added for tests
+    static func latestTestedGMAVersion() -> GADVersionNumber {
+        return GADVersionNumber(majorVersion: 9, minorVersion: 12, patchVersion: 0)
+    }
     
     required public override init() {
         super.init()
