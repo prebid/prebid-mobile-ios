@@ -20,15 +20,10 @@ def event_handlers_project
   use_frameworks!
 end
 
-def google_ads_ima_sdk 
-    platform :ios, '12.0'
-    pod 'GoogleAds-IMA-iOS-SDK', '~> 3.16.3'
-end
-
 def prebid_demo_pods
   use_frameworks!
   
-  google_ads_ima_sdk
+  pod 'GoogleAds-IMA-iOS-SDK'
   gma_pods
   applovin_pods
 end
