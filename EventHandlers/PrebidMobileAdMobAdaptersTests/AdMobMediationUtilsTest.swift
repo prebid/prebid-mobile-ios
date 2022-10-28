@@ -38,8 +38,7 @@ class AdMobMediationUtilsTest: XCTestCase {
         
         testInitialKeywords.forEach { keyword in
             if !mediationDelegate.gadRequest.keywords!.contains(where: { value in
-                let stringValue = value as? String
-                return stringValue == keyword
+                return value == keyword
             }) {
                 XCTFail()
             }
@@ -62,8 +61,7 @@ class AdMobMediationUtilsTest: XCTestCase {
         
         testInitialKeywords.forEach { keyword in
             if !mediationDelegate.gadRequest.keywords!.contains(where: { value in
-                let stringValue = value as? String
-                return stringValue == keyword
+                return value == keyword
             }) {
                 XCTFail()
             }
@@ -87,8 +85,7 @@ class AdMobMediationUtilsTest: XCTestCase {
         
         testInitialKeywords.forEach { keyword in
             if !mediationDelegate.gadRequest.keywords!.contains(where: { value in
-                let stringValue = value as? String
-                return stringValue == keyword
+                return value == keyword
             }) {
                 XCTFail()
             }
@@ -112,8 +109,7 @@ class AdMobMediationUtilsTest: XCTestCase {
         
         testInitialKeywords.forEach { keyword in
             if !mediationDelegate.gadRequest.keywords!.contains(where: { value in
-                let stringValue = value as? String
-                return stringValue == keyword
+                return value == keyword
             }) {
                 XCTFail()
             }
