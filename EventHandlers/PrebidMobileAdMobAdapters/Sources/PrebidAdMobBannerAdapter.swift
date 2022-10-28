@@ -39,7 +39,6 @@ public class PrebidAdMobBannerAdapter:
         self.adConfiguration = adConfiguration
         self.completionHandler = completionHandler
         
-        #warning("Add test that checks `parameter` key existence")
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
             let error = AdMobAdaptersError.noServerParameter
             delegate = completionHandler(nil, error)

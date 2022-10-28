@@ -314,7 +314,6 @@
 				34B64D5D24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */,
 				3405F946250A555800268A77 /* PrebidMobileGAMEventHandlersTests */,
 				92C1345C27FC6B4900F96387 /* PrebidMobileMAXAdapters */,
-				533101B72811478A00D95B5C /* PrebidMobileMAXAdaptersTests */,
 				34B64D4D24F7D95800FDD9F4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -367,13 +366,6 @@
 				5BF8E790263C400F00341EE4 /* GADCustomNativeAdWrapper.swift */,
 			);
 			path = Boxes;
-			sourceTree = "<group>";
-		};
-		533101B72811478A00D95B5C /* PrebidMobileMAXAdaptersTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PrebidMobileMAXAdaptersTests;
 			sourceTree = "<group>";
 		};
 		927ADB28280583AF006EB8D5 /* Sources */ = {
