@@ -378,10 +378,6 @@ class BannerController:
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: size, mediationDelegate: mediationDelegate)
         
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self?.mediationDelegate.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self?.gadRequest.register(extras)
             self?.gadBanner.load(self?.gadRequest)
         }
     }
@@ -396,10 +392,6 @@ class BannerController:
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: size, mediationDelegate: mediationDelegate)
 
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self?.mediationDelegate.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self?.gadRequest.register(extras)
             self?.gadBanner.load(self?.gadRequest)
         }
     }

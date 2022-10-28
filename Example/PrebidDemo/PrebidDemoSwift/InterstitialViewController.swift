@@ -224,11 +224,6 @@ class InterstitialViewController:
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: self.gadRequest)
         admobAdUnit = MediationInterstitialAdUnit(configId: storedImpDisplayInterstitial, mediationDelegate: mediationDelegate!)
         admobAdUnit?.fetchDemand(completion: { [weak self]result in
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self?.mediationDelegate!.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self?.gadRequest.register(extras)
-            
             GADInterstitialAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: self?.gadRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
@@ -247,12 +242,7 @@ class InterstitialViewController:
 
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: self.gadRequest)
         admobAdUnit = MediationInterstitialAdUnit(configId: storedImpVideoInterstitial, mediationDelegate: mediationDelegate!)
-        admobAdUnit?.fetchDemand(completion: { [weak self]result in
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self?.mediationDelegate!.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self?.gadRequest.register(extras)
-            
+        admobAdUnit?.fetchDemand(completion: { [weak self]result in            
             GADInterstitialAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: self?.gadRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
