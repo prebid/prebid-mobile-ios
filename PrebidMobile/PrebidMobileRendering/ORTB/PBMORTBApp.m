@@ -17,7 +17,7 @@
 #import "PBMORTBAbstract+Protected.h"
 
 #import "PBMORTBPublisher.h"
-#import "PBMORTBAppExtPrebid.h"
+#import "PBMORTBAppExt.h"
 #import "PBMORTBAppContent.h"
 
 @implementation PBMORTBApp
@@ -30,7 +30,7 @@
     _sectioncat = @[];
     _pagecat = @[];
     _publisher = [[PBMORTBPublisher alloc] init];
-    _extPrebid = [[PBMORTBAppExtPrebid alloc] init];
+    _ext = [[PBMORTBAppExt alloc] init];
     _content = [[PBMORTBAppContent alloc] init];
     
     return self;
@@ -62,11 +62,7 @@
     ret[@"keywords"] = self.keywords;
     ret[@"publisher"] = [[self.publisher toJsonDictionary] nullIfEmpty];
     ret[@"content"] = [[self.content toJsonDictionary] nullIfEmpty];
-    
-    PBMJsonDictionary * const extPrebidDic = [self.extPrebid toJsonDictionary];
-    if (extPrebidDic.count) {
-        ret[@"ext"] = @{@"prebid": extPrebidDic};
-    }
+    ret[@"ext"] = [[self.ext toJsonDictionary] nullIfEmpty];
     
     [ret pbmRemoveEmptyVals];
     
@@ -90,7 +86,7 @@
     _paid = jsonDictionary[@"paid"];
     _publisher = [[PBMORTBPublisher alloc] initWithJsonDictionary:jsonDictionary[@"publisher"]];
     _keywords = jsonDictionary[@"keywords"];
-    _extPrebid = [[PBMORTBAppExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"]];
+    _ext = [[PBMORTBAppExt alloc] initWithJsonDictionary:jsonDictionary[@"ext"]];
     _content = [[PBMORTBAppContent alloc] initWithJsonDictionary:jsonDictionary[@"content"]];
     
     return self;

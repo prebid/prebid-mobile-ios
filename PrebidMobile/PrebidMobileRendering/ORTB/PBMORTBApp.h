@@ -16,7 +16,7 @@
 #import "PBMORTBAbstract.h"
 
 @class PBMORTBPublisher;
-@class PBMORTBAppExtPrebid;
+@class PBMORTBAppExt;
 @class PBMORTBAppContent;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext is not supported.
-@property (nonatomic, strong) PBMORTBAppExtPrebid *extPrebid;
+@property (nonatomic, strong) PBMORTBAppExt *ext;
 
 - (instancetype )init;
 

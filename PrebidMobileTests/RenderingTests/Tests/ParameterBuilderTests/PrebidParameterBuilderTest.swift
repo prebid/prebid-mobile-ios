@@ -179,7 +179,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(2, objects.count)
         XCTAssertEqual(objects.first, userDataObject1)
         
-        let extData = bidRequest.app.extPrebid.data!
+        let extData = bidRequest.app.ext.data!
         XCTAssertTrue(extData.keys.count == 1)
         let extValues = extData["last_search_keywords"]!.sorted()
         XCTAssertEqual(extValues, ["pet", "wolf"])

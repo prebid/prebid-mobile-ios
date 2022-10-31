@@ -22,7 +22,6 @@
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
     ret[@"source"] = self.source;
     ret[@"version"] = self.version;
-    ret[@"data"] = self.data;
     return ret;
 }
 
@@ -32,7 +31,6 @@
     }
     _source = jsonDictionary[@"source"];
     _version = jsonDictionary[@"version"];
-    _data = jsonDictionary[@"data"];
     return self;
 }
 
