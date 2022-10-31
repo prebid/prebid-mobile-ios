@@ -52,8 +52,12 @@ public class Utils: NSObject {
     }
     
     func checkGMAVersion(_ gadMobileAdsObject: AnyObject) {
-        guard let sdkVersion = gadMobileAdsObject.value(forKey: "sdkVersion") as? String else {
+        guard gadMobileAdsObject.responds(to: NSSelectorFromString("sdkVersion")) else {
             Log.error("There is no sdkVersion property in GADMobileAds object.")
+            return
+        }
+        
+        guard let sdkVersion = gadMobileAdsObject.value(forKey: "sdkVersion") as? String else {
             return
         }
         

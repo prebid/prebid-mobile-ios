@@ -161,6 +161,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
     var prebidNativeAdNotValidExpectation: XCTestExpectation?
     var timeoutForImpbusRequest: TimeInterval = 0.0
 
+    private var logToFile: LogToFileLock?
 
     override func setUp() {
         dfpAdObject = DFPNRequest()
@@ -170,10 +171,33 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        logToFile = nil
         prebidNativeAdLoadedExpectation = nil
         prebidNativeAdNotFoundExpectation = nil
         prebidNativeAdNotValidExpectation = nil
+    }
+    
+    func testCheckGMAVersion_higherVersion() {
+        let warningMessage = """
+        The current version of Prebid SDK is not validated with the latest version of GMA SDK. Please update the Prebid SDK or post a ticket on the github.
+        """
+        logToFile = .init()
+        
+        let mockGADMobileAds = MockGADMobileAds(sdkVersion: "afma-sdk-i-v100.1.0")
+        Utils.shared.checkGMAVersion(mockGADMobileAds as NSObject)
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.contains(warningMessage))
+    }
+    
+    func checkGMAVersion_ok() {
+        logToFile = .init()
+        
+        let mockGADMobileAds = MockGADMobileAds(sdkVersion: "afma-sdk-i-v9.12.0")
+        Utils.shared.checkGMAVersion(mockGADMobileAds as NSObject)
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.isEmpty)
     }
     
     func testConvertDictToMoPubKeywords() {
