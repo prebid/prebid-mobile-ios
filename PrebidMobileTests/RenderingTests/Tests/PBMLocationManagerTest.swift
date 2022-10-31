@@ -25,8 +25,8 @@ class PBMLocationManagerTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        self.mockGeoCoder.mockPlacemarks = [self.mockPlacemark]
+        guard let mockPlacemark = mockPlacemark else { return }
+        self.mockGeoCoder.mockPlacemarks = [mockPlacemark]
     }
     
     override func tearDown() {
@@ -278,8 +278,8 @@ class MockCLPlacemark: CLPlacemark {
     var mock_locality: String?
     var mock_postalCode: String?
 
-    convenience init(country: String, state: String, city: String, zipCode: String) {
-        self.init()
+    convenience init?(country: String, state: String, city: String, zipCode: String) {
+        self.init(coder: NSCoder())
         self.mock_isoCountryCode = country
         self.mock_administrativeArea = state
         self.mock_locality = city
