@@ -23,6 +23,10 @@ public class Utils: NSObject {
      */
     @objc
     public static let shared = Utils()
+    
+    var latestTestedGMAVersion: (Int, Int, Int) {
+        (9, 12, 0)
+    }
 
     /**
      * The initializer that needs to be created only once
@@ -40,12 +44,38 @@ public class Utils: NSObject {
     private let GAD_CUSTOM_NATIVE_AD = "GADCustomNativeAd"
     private let INNNER_HTML_SCRIPT = "document.body.innerHTML"
 
-    
     @available(*, deprecated, message: "MoPub is not available anymore. Use Prebid MAX adapters instead.")
     @objc
     public func convertDictToMoPubKeywords(dict: Dictionary<String, String>) -> String {
         return dict.toString(entrySeparator: ",", keyValueSeparator: ":")
         
+    }
+    
+    func checkGMAVersion(_ gadMobileAdsObject: AnyObject) {
+        guard let sdkVersion = gadMobileAdsObject.value(forKey: "sdkVersion") as? String else {
+            Log.error("There is no sdkVersion property in GADMobileAds object.")
+            return
+        }
+        
+        guard let vIndex = sdkVersion.lastIndex(of: "v") else {
+            Log.error("Error occured during GMA SDK version parsing.")
+            return
+        }
+        
+        let versionStartIndex = sdkVersion.index(after: vIndex)
+        let sdkVersionIntegers = sdkVersion[versionStartIndex..<sdkVersion.endIndex]
+            .split(separator: ".")
+            .compactMap { Int($0) }
+        
+        if sdkVersionIntegers.count == 3 {
+            if latestTestedGMAVersion.0 < sdkVersionIntegers[0] ||
+                latestTestedGMAVersion.1 < sdkVersionIntegers[1] ||
+                latestTestedGMAVersion.2 < sdkVersionIntegers[2] {
+                Log.warn("The current version of Prebid SDK is not validated with the latest version of GMA SDK. Please update the Prebid SDK or post a ticket on the github.")
+            }
+        } else {
+            Log.error("Error occured during GMA SDK version parsing.")
+        }
     }
 
     func removeHBKeywords (adObject: AnyObject) {

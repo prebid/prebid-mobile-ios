@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        
+        Prebid.initializeSDK(GADMobileAds.sharedInstance())
 
         // User Id from External Third Party Sources
         var externalUserIdArray = [ExternalUserId]()
