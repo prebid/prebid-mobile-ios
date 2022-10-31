@@ -205,11 +205,6 @@ class NativeInAppViewController: UIViewController {
         admobMediationNativeAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
             
-            let prebidExtras = self.mediationDelegate.getEventExtras()
-            let extras = GADCustomEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self.gadRequest.register(extras)
-            
             self.adLoader = GADAdLoader(adUnitID: admobRenderingNativeAdUnitId,
                                         rootViewController: self,
                                         adTypes: [ .native ],

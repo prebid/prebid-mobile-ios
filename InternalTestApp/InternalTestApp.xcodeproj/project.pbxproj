@@ -541,11 +541,11 @@
 		5B3C2A9C2100BC4900BD733C /* PrebidMobileDemoRendering */ = {
 			isa = PBXGroup;
 			children = (
-				D551B96D21491A6F00FFF51D /* Singletons and Managers */,
-				5B3EEDE32101FB6C00BAA0C4 /* Model */,
 				5B3C2AAE2100BC4900BD733C /* AppDelegate.swift */,
 				34215B0E25C4598E00C74A09 /* ProcessArgumentsParser.swift */,
+				5B3EEDE32101FB6C00BAA0C4 /* Model */,
 				5B1BDB782100D59000B46B43 /* Resources */,
+				D551B96D21491A6F00FFF51D /* Singletons and Managers */,
 				5B3EEDCD2101D2A100BAA0C4 /* Utilities */,
 				5B3EEDB12101D1AF00BAA0C4 /* ViewControllers */,
 			);
@@ -1042,7 +1042,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-resources.sh",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.3.2/AppLovinSDKResources.bundle",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.5.3/AppLovinSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1156,7 +1156,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-resources.sh",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.3.2/AppLovinSDKResources.bundle",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.5.3/AppLovinSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (

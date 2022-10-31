@@ -82,10 +82,7 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         
         nativeAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self.mediationDelegate?.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self.gadRequest.register(extras)
+            
             self.adLoader = GADAdLoader(adUnitID: self.adMobAdUnitId!,
                                         rootViewController: self.rootController,
                                         adTypes: [ .native ],

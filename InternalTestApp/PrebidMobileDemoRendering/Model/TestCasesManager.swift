@@ -516,7 +516,7 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeBanner]
                         
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
@@ -538,7 +538,7 @@ struct TestCaseManager {
                          
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeBanner]
                         
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
@@ -559,7 +559,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_static"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -577,7 +577,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-no-bids"
                 gamBannerController.storedAuctionResponse = "response-prebid-no-bids"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_static"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -594,7 +594,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_random"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -611,7 +611,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -628,7 +628,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-banner-300-250"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-300-250"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -645,7 +645,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-banner-728-90"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-728-90"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_728x90_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeLeaderboard]
+                gamBannerController.validAdSizes = [GADAdSizeLeaderboard]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -662,7 +662,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-banner-multisize"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-multisize"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_multisize_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner, kGADAdSizeLeaderboard]
+                gamBannerController.validAdSizes = [GADAdSizeBanner, GADAdSizeLeaderboard]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -680,7 +680,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_android_300x250_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -1563,7 +1563,7 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 gamBannerController.prebidConfigId = "imp-prebid-video-outstream"
                 gamBannerController.storedAuctionResponse = "response-prebid-video-outstream"
@@ -1582,7 +1582,7 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 gamBannerController.prebidConfigId = "imp-prebid-video-outstream-with-end-card"
                 gamBannerController.storedAuctionResponse = "response-prebid-video-outstream-with-end-card"
@@ -1603,7 +1603,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-video-outstream"
                 gamBannerController.storedAuctionResponse = "response-prebid-video-outstream-with-end-card"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
-                gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -1621,7 +1621,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-no-bids"
                 gamBannerController.storedAuctionResponse = "response-prebid-no-bids"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outsream_video"
-                gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 
                 adapterVC.setup(adapter: gamBannerController)
@@ -1656,7 +1656,7 @@ struct TestCaseManager {
                         var prebidConfigId = "imp-prebid-video-outstream"
                         var storedAuctionResponse = "response-prebid-video-outstream"
                         let gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
-                        let validAdSize = kGADAdSizeMediumRectangle
+                        let validAdSize = GADAdSizeMediumRectangle
                         let adSize = validAdSize.size
                         let adEventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: [NSValueFromGADAdSize(validAdSize)])
                         let adBannerView = BannerView(configID: prebidConfigId,eventHandler: adEventHandler)
@@ -2080,7 +2080,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-mraid-expand-1-part"
                 gamBannerController.storedAuctionResponse = "response-prebid-mraid-expand-1-part"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -2098,7 +2098,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "imp-prebid-mraid-resize"
                 gamBannerController.storedAuctionResponse = "response-prebid-mraid-resize"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)

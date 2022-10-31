@@ -142,11 +142,6 @@
     }
     
     [self.admobInterstitialAdUnit fetchDemandWithCompletion:^(ResultCode result) {
-        GADCustomEventExtras *extras = [GADCustomEventExtras new];
-        NSDictionary *prebidExtras = [mediationDelegate getEventExtras];
-        NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
-        [extras setExtras:prebidExtras forLabel: prebidExtrasLabel];
-        [request registerAdNetworkExtras:extras];
         [GADInterstitialAd loadWithAdUnitID:ObjCDemoConstants.kAdMobInterstitialAdUnitId
                                     request:request
                           completionHandler:^(GADInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {

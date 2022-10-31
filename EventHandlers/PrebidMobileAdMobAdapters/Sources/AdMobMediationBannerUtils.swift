@@ -24,8 +24,6 @@ public class AdMobMediationBannerUtils: NSObject, PrebidMediationDelegate {
     
     public let bannerView: GADBannerView
     
-    private var eventExtras: [AnyHashable: Any]?
-    
     public init(gadRequest: GADRequest, bannerView: GADBannerView) {
         self.gadRequest = gadRequest
         self.bannerView = bannerView
@@ -33,7 +31,9 @@ public class AdMobMediationBannerUtils: NSObject, PrebidMediationDelegate {
     }
     
     public func setUpAdObject(with values: [String: Any]) -> Bool {
-        eventExtras = values.isEmpty ? nil : values
+        let extras = GADCustomEventExtras()
+        extras.setExtras(values, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+        gadRequest.register(extras)
         gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords,
                                                        targetingInfo: values[PBMMediationTargetingInfoKey] as? [String: String])
         
@@ -41,18 +41,16 @@ public class AdMobMediationBannerUtils: NSObject, PrebidMediationDelegate {
     }
     
     public func cleanUpAdObject() {
-        guard let gadKeywords = gadRequest.keywords as? [String] else {
-            return
+        if let gadKeywords = gadRequest.keywords {
+            gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
         }
-        gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
-        eventExtras = nil
+        
+        let extras = GADCustomEventExtras()
+        extras.setExtras(nil, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+        gadRequest.register(extras)
     }
     
     public func getAdView() -> UIView? {
         return bannerView
-    }
-    
-    public func getEventExtras() -> [AnyHashable: Any]? {
-        return eventExtras
     }
 }

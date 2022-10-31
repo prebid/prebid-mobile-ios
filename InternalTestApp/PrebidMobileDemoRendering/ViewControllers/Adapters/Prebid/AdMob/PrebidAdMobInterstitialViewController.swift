@@ -34,7 +34,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
     private let adDidReceiveButton = EventReportContainer()
     private let adDidFailToReceiveButton = EventReportContainer()
     private let adDidFailToPresentFullScreenContentWithErrorButton = EventReportContainer()
-    private let adDidPresentFullScreenContentButton = EventReportContainer()
     private let adWillDismissFullScreenContentButton = EventReportContainer()
     private let adDidDismissFullScreenContentButton = EventReportContainer()
     private let adDidRecordImpressionButton = EventReportContainer()
@@ -132,10 +131,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         
         adUnit?.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self.mediationDelegate?.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self.request.register(extras)
             GADInterstitialAd.load(withAdUnitID: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
@@ -157,10 +152,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         Log.error(error.localizedDescription)
         resetEvents()
         adDidFailToPresentFullScreenContentWithErrorButton.isEnabled = true
-    }
-    
-    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        adDidPresentFullScreenContentButton.isEnabled = true
     }
     
     func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
@@ -196,7 +187,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         adapterViewController?.setupAction(adDidReceiveButton, "adDidReceiveButton called")
         adapterViewController?.setupAction(adDidFailToReceiveButton, "adDidFailToReceiveButton called")
         adapterViewController?.setupAction(adDidFailToPresentFullScreenContentWithErrorButton, "adDidFailToPresentFullScreenContentWithError called")
-        adapterViewController?.setupAction(adDidPresentFullScreenContentButton, "adDidPresentFullScreenContent called")
         adapterViewController?.setupAction(adWillDismissFullScreenContentButton, "adWillDismissFullScreenContent called")
         adapterViewController?.setupAction(adDidDismissFullScreenContentButton, "adDidDismissFullScreenContent called")
         adapterViewController?.setupAction(adDidRecordImpressionButton, "adDidRecordImpression called")
@@ -206,7 +196,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         adDidReceiveButton.isEnabled = false
         adDidFailToReceiveButton.isEnabled = false
         adDidFailToPresentFullScreenContentWithErrorButton.isEnabled = false
-        adDidPresentFullScreenContentButton.isEnabled = false
         adWillDismissFullScreenContentButton.isEnabled = false
         adDidDismissFullScreenContentButton.isEnabled = false
         adDidRecordImpressionButton.isEnabled = false

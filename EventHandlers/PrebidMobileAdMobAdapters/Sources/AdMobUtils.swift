@@ -30,7 +30,7 @@ public class AdMobUtils: NSObject {
             .filter { !$0.hasPrefix(HBKeywordPrefix) }
     }
     
-    static func buildKeywords(existingKeywords: [Any]?, targetingInfo: [String: String]?) -> [Any]? {
+    static func buildKeywords(existingKeywords: [String]?, targetingInfo: [String: String]?) -> [String]? {
         guard let targetingInfo = targetingInfo else {
             return nil
         }

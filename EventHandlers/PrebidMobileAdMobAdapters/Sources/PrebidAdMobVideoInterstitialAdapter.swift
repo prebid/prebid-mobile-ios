@@ -19,58 +19,59 @@ import PrebidMobile
 
 @objc(PrebidAdMobVideoInterstitialAdapter)
 public class PrebidAdMobVideoInterstitialAdapter:
-    NSObject,
-    GADCustomEventInterstitial,
+    PrebidAdMobMediationBaseAdapter,
+    GADMediationInterstitialAd,
     InterstitialControllerLoadingDelegate,
     InterstitialControllerInteractionDelegate {
- 
+    
     // MARK: - Private Properties
     
     var interstitialController: InterstitialController?
     weak var rootViewController: UIViewController?
     var adAvailable = false
     
-    public weak var delegate: GADCustomEventInterstitialDelegate?
+    public weak var delegate: GADMediationInterstitialAdEventDelegate?
+    var completionHandler: GADMediationInterstitialLoadCompletionHandler?
     
-    required public override init() {
-        super.init()
-    }
-    
-    // MARK: - GADCustomEventInterstitial
-    public func requestAd(withParameter serverParameter: String?, label serverLabel: String?, request: GADCustomEventRequest) {
-        guard let keywords = request.userKeywords as? [String] else {
-            let error = AdMobAdaptersError.emptyUserKeywords
-            delegate?.customEventInterstitial(self, didFailAd: error)
-            return
-        }
+    public func loadInterstitial(for adConfiguration: GADMediationInterstitialAdConfiguration,
+                                 completionHandler: @escaping GADMediationInterstitialLoadCompletionHandler) {
+        self.completionHandler = completionHandler
         
-        guard let serverParameter = serverParameter else {
+        guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
             let error = AdMobAdaptersError.noServerParameter
-            delegate?.customEventInterstitial(self, didFailAd: error)
+            delegate = completionHandler(nil, error)
             return
         }
         
-        guard MediationUtils.isServerParameterInTargetingInfo(serverParameter, keywords) else {
-            let error = AdMobAdaptersError.wrongServerParameter
-            delegate?.customEventInterstitial(self, didFailAd: error)
-            return
-        }
-        
-        guard let eventExtras = request.additionalParameters, !eventExtras.isEmpty else {
+        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+              let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
+              !eventExtrasDictionary.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
-            delegate?.customEventInterstitial(self, didFailAd: error)
+            delegate = completionHandler(nil, error)
             return
         }
         
-        guard let bid = eventExtras[PBMMediationAdUnitBidKey] as? Bid else {
+        guard let targetingInfo = eventExtrasDictionary[PBMMediationTargetingInfoKey] as? [String: String] else {
+            let error = AdMobAdaptersError.noTargetingInfoInEventExtras
+            delegate = completionHandler(nil, error)
+            return
+        }
+        
+        guard MediationUtils.isServerParameterInTargetingInfoDict(serverParameter, targetingInfo) else {
+            let error = AdMobAdaptersError.wrongServerParameter
+            delegate = completionHandler(nil, error)
+            return
+        }
+        
+        guard let bid = eventExtrasDictionary[PBMMediationAdUnitBidKey] as? Bid else {
             let error = AdMobAdaptersError.noBidInEventExtras
-            delegate?.customEventInterstitial(self, didFailAd: error)
+            delegate = completionHandler(nil, error)
             return
         }
         
-        guard let configId = eventExtras[PBMMediationConfigIdKey] as? String else {
+        guard let configId = eventExtrasDictionary[PBMMediationConfigIdKey] as? String else {
             let error = AdMobAdaptersError.noConfigIDInEventExtras
-            delegate?.customEventInterstitial(self, didFailAd: error)
+            delegate = completionHandler(nil, error)
             return
         }
         
@@ -79,26 +80,24 @@ public class PrebidAdMobVideoInterstitialAdapter:
         interstitialController?.interactionDelegate = self
         interstitialController?.adFormats = [.video]
         
-        if let videoAdConfig = eventExtras[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
+        if let videoAdConfig = eventExtrasDictionary[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
             interstitialController?.videoControlsConfig = videoAdConfig
         }
         
-        if let videoParameters = eventExtras[PBMMediationVideoParameters] as? VideoParameters {
+        if let videoParameters = eventExtrasDictionary[PBMMediationVideoParameters] as? VideoParameters {
             interstitialController?.videoParameters = videoParameters
         }
         
         interstitialController?.loadAd()
     }
     
-    public func present(fromRootViewController rootViewController: UIViewController) {
-        self.rootViewController = rootViewController
-        
+    public func present(from viewController: UIViewController) {
         if adAvailable {
-            self.rootViewController = rootViewController
+            rootViewController = viewController
             interstitialController?.show()
         } else {
             let error = AdMobAdaptersError.noAd
-            delegate?.customEventInterstitial(self, didFailAd: error)
+            delegate?.didFailToPresentWithError(error)
         }
     }
     
@@ -106,43 +105,44 @@ public class PrebidAdMobVideoInterstitialAdapter:
     
     public func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController) {
         adAvailable = true
-        delegate?.customEventInterstitialDidReceiveAd(self)
+        
+        if let handler = completionHandler {
+            delegate = handler(self, nil)
+        }
     }
     
     public func interstitialController(_ interstitialController: InterstitialController, didFailWithError error: Error) {
         adAvailable = false
-        delegate?.customEventInterstitial(self, didFailAd: error)
+        
+        if let handler = completionHandler {
+            delegate = handler(nil, error)
+        }
     }
     
     // MARK: - InterstitialControllerInteractionDelegate
     
     public func trackImpression(forInterstitialController: InterstitialController) {
-        //Impressions will be tracked automatically
-        //unless enableAutomaticImpressionAndClickTracking = NO
+        delegate?.reportImpression()
     }
     
     public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
-        return rootViewController
+        rootViewController
     }
     
     public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
-        delegate?.customEventInterstitialWasClicked(self)
+        delegate?.reportClick()
     }
     
     public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
-        delegate?.customEventInterstitialWillDismiss(self)
-        delegate?.customEventInterstitialDidDismiss(self)
-    }
-    
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {
-        delegate?.customEventInterstitialWillLeaveApplication(self)
+        delegate?.willDismissFullScreenView()
+        delegate?.didDismissFullScreenView()
     }
     
     public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {
-        delegate?.customEventInterstitialWillPresent(self)
+        delegate?.willPresentFullScreenView()
     }
     
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {
-        
-    }
+    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {}
+    
+    public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {}
 }

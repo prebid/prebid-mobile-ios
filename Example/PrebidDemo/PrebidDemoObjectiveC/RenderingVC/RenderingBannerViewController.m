@@ -141,7 +141,7 @@
 - (void)loadAdMobRenderingBanner {
     self.gadRequest = [GADRequest new];
     if(self.integrationAdFormat == IntegrationAdFormat_Banner) {
-        self.gadBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+        self.gadBannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeBanner];
         self.admobMediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest
                                                                                  bannerView:self.gadBannerView];
         self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:ObjCDemoConstants.kBannerDisplayStoredImpression
@@ -170,11 +170,6 @@
     }
     
     [self.admobBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
-        GADCustomEventExtras *extras = [GADCustomEventExtras new];
-        NSDictionary *prebidExtras = [self.admobMediationDelegate getEventExtras];
-        NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
-        [extras setExtras:prebidExtras forLabel: prebidExtrasLabel];
-        [self.gadRequest registerAdNetworkExtras:extras];
         [self.adView addSubview:self.gadBannerView];
         [self.gadBannerView loadRequest:self.gadRequest];
     }];

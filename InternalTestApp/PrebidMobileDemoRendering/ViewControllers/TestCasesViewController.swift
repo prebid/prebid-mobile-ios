@@ -96,6 +96,8 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         searchBar.endEditing(true)
         
         //Create and configure the ViewController

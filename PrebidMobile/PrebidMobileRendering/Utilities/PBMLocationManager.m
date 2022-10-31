@@ -161,10 +161,6 @@
         return;
     }
     
-    if (![[self.locationManager class] locationServicesEnabled]) {
-        return;
-    }
-    
     if (![self isAuthorizedStatus:[[self.locationManager class] authorizationStatus]]) {
         return;
     }

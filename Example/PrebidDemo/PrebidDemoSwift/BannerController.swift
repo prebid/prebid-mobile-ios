@@ -329,7 +329,7 @@ class BannerController:
         let size = CGSize(width: 320, height: 50)
         
         let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitDisplayBannerRendering,
-                                                 validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+                                                 validGADAdSizes: [GADAdSizeBanner].map(NSValueFromGADAdSize))
 
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                                       configID: storedImpDisplayBanner,
@@ -351,7 +351,7 @@ class BannerController:
 
         setupPrebidServer(storedResponse: storedResponseRenderingVideoBanner)
 
-        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [GADAdSizeBanner].map(NSValueFromGADAdSize))
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                                       configID: storedImpVideoBanner,
                                       adSize: CGSize(width: 300, height: 250),
@@ -378,10 +378,6 @@ class BannerController:
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: size, mediationDelegate: mediationDelegate)
         
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self?.mediationDelegate.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self?.gadRequest.register(extras)
             self?.gadBanner.load(self?.gadRequest)
         }
     }
@@ -396,10 +392,6 @@ class BannerController:
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: size, mediationDelegate: mediationDelegate)
 
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self?.mediationDelegate.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self?.gadRequest.register(extras)
             self?.gadBanner.load(self?.gadRequest)
         }
     }

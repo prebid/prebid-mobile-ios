@@ -3138,19 +3138,19 @@
 		FAEE4CE7262DC2B200AD9966 /* AdUnits */ = {
 			isa = PBXGroup;
 			children = (
-				FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */,
 				FAEE4CE9262DC2B200AD9966 /* AdUnit.swift */,
-				FAEE4CEA262DC2B200AD9966 /* BannerBaseAdUnit.swift */,
-				FAEE4CEB262DC2B200AD9966 /* Native */,
-				FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */,
-				FAEE4CF3262DC2B200AD9966 /* VideoAdUnit.swift */,
 				FAEE4CF4262DC2B200AD9966 /* BannerAdUnit.swift */,
-				FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */,
-				FAEE4CF6262DC2B200AD9966 /* Utils.swift */,
-				FAEE4CF7262DC2B200AD9966 /* Signals.swift */,
-				FAEE4CF8262DC2B200AD9966 /* VideoBaseAdUnit.swift */,
+				FAEE4CEA262DC2B200AD9966 /* BannerBaseAdUnit.swift */,
 				53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */,
+				FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */,
+				FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */,
+				FAEE4CF7262DC2B200AD9966 /* Signals.swift */,
+				FAEE4CF6262DC2B200AD9966 /* Utils.swift */,
+				FAEE4CF3262DC2B200AD9966 /* VideoAdUnit.swift */,
+				FAEE4CF8262DC2B200AD9966 /* VideoBaseAdUnit.swift */,
+				FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */,
 				53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */,
+				FAEE4CEB262DC2B200AD9966 /* Native */,
 			);
 			path = AdUnits;
 			sourceTree = "<group>";

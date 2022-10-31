@@ -22,15 +22,15 @@ public class AdMobMediationNativeUtils: NSObject, PrebidMediationDelegate {
     
     public let gadRequest: GADRequest
     
-    private var eventExtras: [AnyHashable: Any]?
-    
     public init(gadRequest: GADRequest) {
         self.gadRequest = gadRequest
         super.init()
     }
     
     public func setUpAdObject(with values: [String: Any]) -> Bool {
-        eventExtras = values.isEmpty ? nil : values
+        let extras = GADCustomEventExtras()
+        extras.setExtras(values, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+        gadRequest.register(extras)
         gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords,
                                                        targetingInfo: values[PBMMediationTargetingInfoKey] as? [String: String])
         
@@ -38,30 +38,16 @@ public class AdMobMediationNativeUtils: NSObject, PrebidMediationDelegate {
     }
     
     public func cleanUpAdObject() {
-        guard let gadKeywords = gadRequest.keywords as? [String] else {
-            return
+        if let gadKeywords = gadRequest.keywords {
+            gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
         }
-        gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
-        eventExtras = nil
+        
+        let extras = GADCustomEventExtras()
+        extras.setExtras(nil, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+        gadRequest.register(extras)
     }
     
     public func getAdView() -> UIView? {
         return nil
-    }
-    
-    public func getEventExtras() -> [AnyHashable: Any]? {
-        return eventExtras
-    }
-    
-    public static func findNative(_ extras: [AnyHashable : Any],
-                                  completion: @escaping (Result<PrebidMediatedUnifiedNativeAd, Error>) -> Void) {
-    
-        switch MediationNativeUtils.findNative(in: extras) {  
-        case .success(let nativeAd):
-            let admobUnifiedAd = PrebidMediatedUnifiedNativeAd(nativeAd: nativeAd)
-            completion(.success(admobUnifiedAd))
-        case .failure(let error):
-            completion(.failure(error))
-        }
     }
 }
