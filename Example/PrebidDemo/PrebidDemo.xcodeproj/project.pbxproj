@@ -16,6 +16,8 @@
 		383E9CA525712879006FA6F4 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* NativeAdView.swift */; };
 		383E9CA62571287C006FA6F4 /* NativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* NativeAdView.xib */; };
 		38450A6225514EA6000DCF6D /* NativeInAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */; };
+		533E0FBE29111B36000CC24F /* PrebidGMASDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FBD29111B36000CC24F /* PrebidGMASDKTests.swift */; };
+		533E0FC529111D7E000CC24F /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FC429111D7E000CC24F /* LoggerHelper.swift */; };
 		53AA0C9528143F9F00D8A742 /* NativeAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C9428143F9F00D8A742 /* NativeAsset+Extensions.swift */; };
 		53AA0C982814415D00D8A742 /* NativeEventTrackers+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */; };
 		53AA0C9A281441CA00D8A742 /* NativeAdRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C99281441CA00D8A742 /* NativeAdRenderer.swift */; };
@@ -151,6 +153,8 @@
 		398C46797E3B11F6932E9BDA /* Pods-PrebidDemoPod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod/Pods-PrebidDemoPod.debug.xcconfig"; sourceTree = "<group>"; };
 		3C3DD5560D8F19EE9F2158E7 /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		5197A13C51AEAF0782B64F40 /* Pods-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
+		533E0FBD29111B36000CC24F /* PrebidGMASDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGMASDKTests.swift; sourceTree = "<group>"; };
+		533E0FC429111D7E000CC24F /* LoggerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerHelper.swift; sourceTree = "<group>"; };
 		537B666C283CC0EA008AE9D1 /* VideoOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoOrientation.h; sourceTree = "<group>"; };
 		53AA0C9428143F9F00D8A742 /* NativeAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeAsset+Extensions.swift"; sourceTree = "<group>"; };
 		53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeEventTrackers+Extensions.swift"; sourceTree = "<group>"; };
@@ -320,6 +324,24 @@
 			path = ../../Pods;
 			sourceTree = "<group>";
 		};
+		533E0FC029111B46000CC24F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9205E49027B561A9003DCCCC /* TestExtensions.swift */,
+				9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		533E0FC129111B64000CC24F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9205E49527B563B4003DCCCC /* StubbingHandler.swift */,
+				533E0FC429111D7E000CC24F /* LoggerHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		5BD98F07273EB4190030ACC3 /* RenderingVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,14 +434,14 @@
 		FA12E4E7231EB52D00CAA05B /* PrebidDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				FA12E4E0231EB4BB00CAA05B /* Constants.swift */,
-				FA12E4EA231EB52D00CAA05B /* Info.plist */,
-				383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */,
 				383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */,
+				FA12E4EA231EB52D00CAA05B /* Info.plist */,
+				FA12E4E0231EB4BB00CAA05B /* Constants.swift */,
+				383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */,
 				FA12E4E8231EB52D00CAA05B /* PrebidDemoTests.swift */,
-				9205E49527B563B4003DCCCC /* StubbingHandler.swift */,
-				9205E49027B561A9003DCCCC /* TestExtensions.swift */,
-				9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */,
+				533E0FBD29111B36000CC24F /* PrebidGMASDKTests.swift */,
+				533E0FC129111B64000CC24F /* Helpers */,
+				533E0FC029111B46000CC24F /* Extensions */,
 			);
 			path = PrebidDemoTests;
 			sourceTree = "<group>";
@@ -778,11 +800,13 @@
 			files = (
 				383E9CA525712879006FA6F4 /* NativeAdView.swift in Sources */,
 				FA12E4E9231EB52D00CAA05B /* PrebidDemoTests.swift in Sources */,
+				533E0FBE29111B36000CC24F /* PrebidGMASDKTests.swift in Sources */,
 				FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */,
 				9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */,
 				9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */,
 				9205E49627B563B4003DCCCC /* StubbingHandler.swift in Sources */,
 				383E9CA32571281F006FA6F4 /* NativeInAppNativeTest.swift in Sources */,
+				533E0FC529111D7E000CC24F /* LoggerHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

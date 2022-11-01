@@ -18,6 +18,7 @@ import TestUtils
 @testable import PrebidMobile
 @testable import PrebidDemoSwift
 
+// Disabled
 class NativeInAppNativeTest: XCTestCase {
     
     var request: URLRequest!

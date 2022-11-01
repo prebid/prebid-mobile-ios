@@ -21,6 +21,14 @@
                BlueprintName = "PrebidDemoTests"
                ReferencedContainer = "container:PrebidDemo.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "NativeInAppNativeTest">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
