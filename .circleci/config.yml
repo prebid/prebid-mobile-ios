@@ -18,6 +18,15 @@ jobs:
       - run:
           name: Run Unit Tests for Frameworks
           command: scripts/testPrebidMobile.sh -l
+          
+  run-swift-demo-app-tests:
+    macos:
+      xcode: 13.2.0
+    steps:
+      - checkout
+      - run:
+          name: Run Integration Tests
+          command: scripts/testPrebidDemo.sh -l
 
 
 workflows:
@@ -25,3 +34,4 @@ workflows:
     jobs: 
       - build
       - unit-test
+      - run-swift-demo-app-tests
