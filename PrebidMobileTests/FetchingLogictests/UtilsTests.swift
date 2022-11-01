@@ -190,7 +190,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         XCTAssertTrue(log.contains(warningMessage))
     }
     
-    func checkGMAVersion_ok() {
+    func testCheckGMAVersion_ok() {
         logToFile = .init()
         
         let mockGADMobileAds = MockGADMobileAds(sdkVersion: "afma-sdk-i-v9.12.0")
