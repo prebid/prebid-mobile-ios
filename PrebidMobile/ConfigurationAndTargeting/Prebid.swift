@@ -155,6 +155,10 @@ public class Prebid: NSObject {
         customHeaders.removeAll()
     }
     
+    /// Call this SDK initializer if you're using PrebidMobile with GMA SDK
+    /// - Parameters:
+    ///   - gadMobileAdsObject: GADMobileAds.sharedInstance() object
+    ///   - completion: returns initialization status and optional error
     public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: ((PrebidInitializationStatus, Error?) -> Void)? = nil) {
         let _ = ServerConnection.shared
         let _ = PBMLocationManager.shared
@@ -166,6 +170,13 @@ public class Prebid: NSObject {
         if let gadMobileAdsObject = gadMobileAdsObject {
             Utils.shared.checkGMAVersion(gadMobileAdsObject)
         }
+    }
+    
+    /// Call this SDK initializer if you're using PrebidMobile without GMA SDK
+    /// - Parameters:
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(_ completion: ((PrebidInitializationStatus, Error?) -> Void)? = nil) {
+        initializeSDK(nil, completion)
     }
     
     // MARK: - Private Methods
