@@ -19,18 +19,9 @@ import XCTest
 class PBMLocationManagerTest: XCTestCase {
 
     let location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: 34.149335, longitude: -118.1328249), altitude: 10, horizontalAccuracy: 10, verticalAccuracy: 10, timestamp: Date())
-    let mockPlacemark = MockCLPlacemark(country: "USA", state: "CA", city: "Pasadena", zipCode: "91601")
-    let mockGeoCoder = MockGeoCoder()
     let expectationTimeout: TimeInterval = 1
 
-    override func setUp() {
-        super.setUp()
-        guard let mockPlacemark = mockPlacemark else { return }
-        self.mockGeoCoder.mockPlacemarks = [mockPlacemark]
-    }
-    
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         MockCLLocationManagerRendering.reset()
         super.tearDown()
     }
@@ -270,39 +261,6 @@ class MockReachability: Reachability {
         return .wifi
     }
 }
-
-class MockCLPlacemark: CLPlacemark {
-
-    var mock_isoCountryCode: String?
-    var mock_administrativeArea: String?
-    var mock_locality: String?
-    var mock_postalCode: String?
-
-    convenience init?(country: String, state: String, city: String, zipCode: String) {
-        self.init(coder: NSCoder())
-        self.mock_isoCountryCode = country
-        self.mock_administrativeArea = state
-        self.mock_locality = city
-        self.mock_postalCode = zipCode
-    }
-
-    override var isoCountryCode: String? { return self.mock_isoCountryCode }
-    override var administrativeArea: String? { return self.mock_administrativeArea }
-    override var locality: String? { return self.mock_locality }
-    override var postalCode: String? { return self.mock_postalCode }
-
-}
-
-class MockGeoCoder: CLGeocoder {
-
-    var mockPlacemarks: [CLPlacemark]?
-
-    override func reverseGeocodeLocation(_ location: CLLocation, completionHandler: @escaping CLGeocodeCompletionHandler) {
-        completionHandler(self.mockPlacemarks, nil)
-    }
-
-}
-
 
 class MockCLLocationManagerRendering: NSObject, PBMLocationManagerProtocol {
     
