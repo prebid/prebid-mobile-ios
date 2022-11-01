@@ -17,6 +17,7 @@
 #define PBMORTB_h
 
 #import "PBMORTBApp.h"
+#import "PBMORTBAppExt.h"
 #import "PBMORTBAppExtPrebid.h"
 #import "PBMORTBBanner.h"
 #import "PBMORTBBidRequest.h"

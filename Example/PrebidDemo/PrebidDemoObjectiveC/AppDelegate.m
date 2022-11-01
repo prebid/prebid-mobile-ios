@@ -42,6 +42,10 @@
     
     Prebid.shared.externalUserIdArray = externalUserIdArray;
     
+    [Prebid initializeSDK:^(enum PrebidInitializationStatus status, NSError * _Nullable error) {}];
+    
+    [Prebid initializeSDK:[GADMobileAds sharedInstance] :nil];
+    
     GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[ GADSimulatorID ];
     [[GADMobileAds sharedInstance] startWithCompletionHandler:^(GADInitializationStatus * _Nonnull status) {}];
     

@@ -20,6 +20,7 @@ import TestUtils
 @testable import PrebidMobile
 @testable import PrebidDemoSwift
 
+// Disabled
 class PrebidDemoTests: XCTestCase {
     
     var viewController: IndexController?
@@ -37,7 +38,7 @@ class PrebidDemoTests: XCTestCase {
         viewController = storyboard.instantiateViewController(withIdentifier: "index") as? IndexController
         let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
         appDelegate.window?.rootViewController = viewController
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String, "cc7ca766f86b43ab6cdc92bed424069b"]
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [GADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
     }
 
     override func tearDown() {
@@ -73,7 +74,7 @@ class PrebidDemoTests: XCTestCase {
     }
     
     func loadDFPNative(){
-        dfpNativeAdUnit = GAMBannerView(adSize: kGADAdSizeFluid)
+        dfpNativeAdUnit = GAMBannerView(adSize: GADAdSizeFluid)
         dfpNativeAdUnit.adUnitID = Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS
         dfpNativeAdUnit.rootViewController = viewController
         dfpNativeAdUnit.delegate = self
@@ -89,7 +90,7 @@ class PrebidDemoTests: XCTestCase {
         
         timeoutForRequest = 30.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.delegate = self
@@ -129,7 +130,7 @@ class PrebidDemoTests: XCTestCase {
         
         timeoutForRequest = 30.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
         dfpBanner.rootViewController = viewController
         dfpBanner.delegate = self
@@ -226,7 +227,7 @@ class PrebidDemoTests: XCTestCase {
         
         let gamBannerView = GAMBannerView()
         gamBannerView.validAdSizes = [
-            NSValueFromGADAdSize(kGADAdSizeMediumRectangle),
+            NSValueFromGADAdSize(GADAdSizeMediumRectangle),
             NSValueFromGADAdSize(GADAdSizeFromCGSize(CGSize(width: 728, height: 90))),
         ]
         
@@ -300,7 +301,7 @@ class PrebidDemoTests: XCTestCase {
     func testDFPBannerWithoutAutoRefresh() {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
@@ -317,7 +318,7 @@ class PrebidDemoTests: XCTestCase {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 20000)
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
@@ -334,7 +335,7 @@ class PrebidDemoTests: XCTestCase {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 30000)
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
@@ -490,7 +491,7 @@ class PrebidDemoTests: XCTestCase {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 30000)
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
@@ -511,7 +512,7 @@ class PrebidDemoTests: XCTestCase {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 120000)
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
@@ -534,7 +535,7 @@ class PrebidDemoTests: XCTestCase {
         Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_APPNEXUS
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -555,7 +556,7 @@ class PrebidDemoTests: XCTestCase {
         Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_RUBICON
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -573,7 +574,7 @@ class PrebidDemoTests: XCTestCase {
         Prebid.shared.prebidServerAccountId = Constants.PBS_EMPTY_ACCOUNT_ID
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -590,7 +591,7 @@ class PrebidDemoTests: XCTestCase {
         
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_INVALID_CONFIG_ID_APPNEXUS, size: CGSize(width: 300, height: 250))
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -610,7 +611,7 @@ class PrebidDemoTests: XCTestCase {
         
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_INVALID_CONFIG_ID_RUBICON, size: CGSize(width: 300, height: 250))
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -678,7 +679,7 @@ class PrebidDemoTests: XCTestCase {
         
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_EMPTY_CONFIG_ID, size: CGSize(width: 300, height: 250))
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -721,7 +722,7 @@ class PrebidDemoTests: XCTestCase {
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
 
         timeoutForRequest = 20.0
-        let adUnit = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))
+        _ = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))
     }
 
     func testDFPCustomKeywords() {
@@ -731,7 +732,7 @@ class PrebidDemoTests: XCTestCase {
         timeoutForRequest = 60.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 30000)
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
@@ -766,7 +767,7 @@ class PrebidDemoTests: XCTestCase {
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         let arraySizes = [CGSize(width: 320, height: 50), CGSize(width: 300, height: 250), CGSize(width: 300, height: 600), CGSize(width: 320, height: 100), CGSize(width: 320, height: 480), CGSize(width: 0, height: 0)]
         bannerUnit.addAdditionalSize(sizes: arraySizes)
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
@@ -787,7 +788,7 @@ class PrebidDemoTests: XCTestCase {
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 320, height: 50))
         let arraySizes = [CGSize(width: 0, height: 0)]
         bannerUnit.addAdditionalSize(sizes: arraySizes)
-        let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
+        let dfpBanner = GAMBannerView(adSize: GADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red

@@ -1,17 +1,17 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 import Foundation
 
@@ -19,7 +19,7 @@ fileprivate let defaultTimeoutMillis = 2000
 
 @objcMembers
 public class Prebid: NSObject {
-  
+    
     // MARK: - Public Properties (SDK)
     
     public static let bidderNameAppNexus = "appnexus"
@@ -30,19 +30,19 @@ public class Prebid: NSObject {
     public var prebidServerAccountId = ""
     
     public var pbsDebug = false
-
+    
     public var customHeaders: [String: String] = [:]
     
     public var storedBidResponses: [String: String] = [:]
     
     /**
-    * This property is set by the developer when he is willing to assign the assetID for Native ad.
-    **/
+     * This property is set by the developer when he is willing to assign the assetID for Native ad.
+     **/
     public var shouldAssignNativeAssetID : Bool = false
     
     /**
-    * This property is set by the developer when he is willing to share the location for better ad targeting
-    **/
+     * This property is set by the developer when he is willing to share the location for better ad targeting
+     **/
     public var shareGeoLocation = false
     
     /**
@@ -82,14 +82,13 @@ public class Prebid: NSObject {
             timeoutMillisDynamic = NSNumber(value: timeoutMillis)
         }
     }
+    
     public var timeoutMillisDynamic: NSNumber?
     
     public var storedAuctionResponse: String?
-
-
+    
     // MARK: - Public Properties (SDK)
-    
-    
+
     //Indicates whether the PBS should cache the bid for the rendering API.
     //If the value is true the SDK will make the cache request in order to report
     //the impression event respectively to the legacy analytic setup.
@@ -97,20 +96,20 @@ public class Prebid: NSObject {
     
     //Controls how long each creative has to load before it is considered a failure.
     public var creativeFactoryTimeout: TimeInterval = 6.0
-
+    
     //If preRenderContent flag is set, controls how long the creative has to completely pre-render before it is considered a failure.
     //Useful for video interstitials.
     public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
-
+    
     //Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
     public var useExternalClickthroughBrowser = false
-
+    
     //If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
     public var debugLogFileEnabled: Bool {
         get { Log.logToFile }
         set { Log.logToFile = newValue }
     }
-
+    
     //If true, the SDK will periodically try to listen for location updates in order to request location-based ads.
     public var locationUpdatesEnabled: Bool {
         get { PBMLocationManager.shared.locationUpdatesEnabled }
@@ -136,7 +135,7 @@ public class Prebid: NSObject {
     
     public func getStoredBidResponses() -> [[String: String]]? {
         var storedBidResponses: [[String: String]] = []
-
+        
         for(bidder, responseId) in Prebid.shared.storedBidResponses {
             var storedBidResponse: [String: String] = [:]
             storedBidResponse["bidder"] = bidder
@@ -151,23 +150,42 @@ public class Prebid: NSObject {
     public func addCustomHeader(name: String, value: String) {
         customHeaders[name] = value
     }
-
+    
     public func clearCustomHeaders() {
         customHeaders.removeAll()
     }
     
-    public static func initializeSDK(_ completion: ((PrebidInitializationStatus, Error?) -> Void)? = nil) {
+    /// Initializes PrebidMobile SDK.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
+    /// - Parameters:
+    ///   - gadMobileAdsObject: GADMobileAds object
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: ((PrebidInitializationStatus, Error?) -> Void)? = nil) {
         let _ = ServerConnection.shared
         let _ = PBMLocationManager.shared
         let _ = PBMUserConsentDataManager.shared
         PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
         
         checkServerStatus { completion?($0, $1) }
+        
+        if let gadMobileAdsObject = gadMobileAdsObject {
+            Utils.shared.checkGMAVersion(gadMobileAdsObject)
+        }
+    }
+    
+    /// Initializes PrebidMobile SDK.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile without GMA SDK.
+    /// - Parameters:
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(_ completion: ((PrebidInitializationStatus, Error?) -> Void)? = nil) {
+        initializeSDK(nil, completion)
     }
     
     // MARK: - Private Methods
     
-    override init() { 
+    override init() {
         timeoutMillis = defaultTimeoutMillis
     }
     
