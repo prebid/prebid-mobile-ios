@@ -32,6 +32,9 @@ jobs:
 workflows:
   pr-check:
     jobs: 
-      - build
-      - unit-test
-      - run-swift-demo-app-tests
+      - build:
+         name: Build PrebidMobile Frameworks
+      - unit-test:
+         name: Run Unit Tests for PrebidMobile Frameworks
+      - run-swift-demo-app-tests:
+         name: Run Smoke UI Tests - Swift Demo App
