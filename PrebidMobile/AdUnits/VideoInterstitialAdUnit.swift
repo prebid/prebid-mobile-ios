@@ -19,6 +19,7 @@ public class VideoInterstitialAdUnit: VideoBaseAdUnit {
 
     public init(configId: String) {
         super.init(configId: configId, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        super.adUnitConfig.adConfiguration.isInterstitialAd = true
+        super.adUnitConfig.adPosition = .fullScreen
     }
-
 }

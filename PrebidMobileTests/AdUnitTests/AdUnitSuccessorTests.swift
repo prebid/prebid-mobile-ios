@@ -92,6 +92,8 @@ class AdUnitSuccessorTests: XCTestCase {
         
         //then
         checkDefault(adUnit: adUnit)
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
+        XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
     }
     
     //MARK: - RewardedVideoAdUnit
