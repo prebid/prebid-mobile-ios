@@ -20,15 +20,8 @@ class AdUnitSuccessorTests: XCTestCase {
 
     let configId = Constants.configID1
     
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     //MARK: - BannerAdUnit
+    
     func testBannerAdUnitCreation() {
         //when
         let adUnit = BannerAdUnit(configId: configId, size: CGSize(width: Constants.width2, height: Constants.height2))
@@ -74,11 +67,13 @@ class AdUnitSuccessorTests: XCTestCase {
         
         //then
         checkDefault(adUnit: adUnit)
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
+        XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
     }
     
     func testInterstitialAdUnitConvenienceCreation() {
         let adUnit = InterstitialAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
-        XCTAssertTrue(adUnit.minSizePerc?.width == 50 && adUnit.minSizePerc?.height == 70)
+        XCTAssertTrue(adUnit.adUnitConfig.minSizePerc?.cgSizeValue.width == 50 && adUnit.adUnitConfig.minSizePerc?.cgSizeValue.height == 70)
     }
     
     //MARK: - VideoAdUnit
@@ -97,6 +92,8 @@ class AdUnitSuccessorTests: XCTestCase {
         
         //then
         checkDefault(adUnit: adUnit)
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
+        XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
     }
     
     //MARK: - RewardedVideoAdUnit
@@ -106,6 +103,8 @@ class AdUnitSuccessorTests: XCTestCase {
         
         //then
         checkDefault(adUnit: adUnit)
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
+        XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
     }
     
     //MARK: - VideoBaseAdUnit

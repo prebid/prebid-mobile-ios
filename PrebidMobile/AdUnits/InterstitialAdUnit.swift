@@ -16,17 +16,15 @@
 import UIKit
 
 public class InterstitialAdUnit: BannerBaseAdUnit {
-
-    var minSizePerc: CGSize?
     
     public init(configId: String) {
         super.init(configId: configId, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        super.adUnitConfig.adConfiguration.isInterstitialAd = true
+        super.adUnitConfig.adPosition = .fullScreen
     }
     
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
         self.init(configId: configId)
-        
-        minSizePerc = CGSize(width: minWidthPerc, height: minHeightPerc)
+        super.adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
     }
-
 }
