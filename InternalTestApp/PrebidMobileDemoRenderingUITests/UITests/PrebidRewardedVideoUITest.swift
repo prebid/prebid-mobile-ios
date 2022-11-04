@@ -17,7 +17,7 @@ import XCTest
 
 class PrebidRewardedVideoUITest: RepeatedUITestCase {
     
-    private let waitingTimeout = 5.0
+    private let waitingTimeout = 15.0
     private let videoDuration = TimeInterval(17)
     
     let videoRewardedTitle = "Video Rewarded 320x480 without End Card (In-App)"
@@ -33,7 +33,7 @@ class PrebidRewardedVideoUITest: RepeatedUITestCase {
             
             // Tap on End card
             let endCardLink = app.links.firstMatch
-            waitForExists(element: endCardLink, waitSeconds: 2)
+            waitForExists(element: endCardLink, waitSeconds: 5)
             endCardLink.tap()
             
             //The video should still be visible. Close it.

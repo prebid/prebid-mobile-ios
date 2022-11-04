@@ -185,7 +185,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
             XCTAssert(loadButton.isEnabled)
             loadButton.tap()
             
-            Thread.sleep(forTimeInterval: 2)
+            Thread.sleep(forTimeInterval: 5)
 
             let labelTotal = self.app.staticTexts["adViewDidReceiveAd called times total"].firstMatch
             XCTAssertEqual(labelTotal.label, "1")

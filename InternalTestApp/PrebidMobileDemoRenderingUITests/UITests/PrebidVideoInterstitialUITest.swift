@@ -17,7 +17,7 @@ import XCTest
 
 class PrebidVideoInterstitialUITest: RepeatedUITestCase {
 
-    private let waitingTimeout = 5.0
+    private let waitingTimeout = 15.0
     private let videoDuration = TimeInterval(17)
 
     let videoInterstitialTitle = "Video Interstitial 320x480 (In-App)"
