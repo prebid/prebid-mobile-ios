@@ -786,7 +786,7 @@ struct TestCaseManager {
             
             // MARK: ---- Multiformat Interstitial (In-App)
             
-            TestCase(title: "MultiBid Response",
+            TestCase(title: "MultiBid Video Interstitial 320x480 (In-App)",
                      tags: [.interstitial, .video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in

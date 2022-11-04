@@ -25,39 +25,39 @@ class PBMGAMBannerEventHandlerTests: XCTestCase {
     func testAdSizesConversion() {
      
         // Static sizes
-        runSizeCheck(kGADAdSizeBanner           , CGSize(width: 320, height: 50))
-        runSizeCheck(kGADAdSizeLargeBanner      , CGSize(width: 320, height: 100))
-        runSizeCheck(kGADAdSizeMediumRectangle  , CGSize(width: 300, height: 250))
-        runSizeCheck(kGADAdSizeFullBanner       , CGSize(width: 468, height: 60))
-        runSizeCheck(kGADAdSizeLeaderboard      , CGSize(width: 728, height: 90))
-        runSizeCheck(kGADAdSizeSkyscraper       , CGSize(width: 120, height: 600))
+        runSizeCheck(GADAdSizeBanner           , CGSize(width: 320, height: 50))
+        runSizeCheck(GADAdSizeLargeBanner      , CGSize(width: 320, height: 100))
+        runSizeCheck(GADAdSizeMediumRectangle  , CGSize(width: 300, height: 250))
+        runSizeCheck(GADAdSizeFullBanner       , CGSize(width: 468, height: 60))
+        runSizeCheck(GADAdSizeLeaderboard      , CGSize(width: 728, height: 90))
+        runSizeCheck(GADAdSizeSkyscraper       , CGSize(width: 120, height: 600))
 
         // Dynamic sizes: need to test with iPhone 11
 
         /// An ad size that spans the full width of the application in portrait orientation. The height is
         /// typically 50 points on an iPhone/iPod UI, and 90 points tall on an iPad UI.
-        runSizeCheck(kGADAdSizeSmartBannerPortrait, CGSize(width: 414, height: 50))
+        runSizeCheck(GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth(414), CGSize(width: 414, height: 65))
 
 
         /// An ad size that spans the full width of the application in landscape orientation. The height is
         /// typically 32 points on an iPhone/iPod UI, and 90 points tall on an iPad UI.
-        runSizeCheck(kGADAdSizeSmartBannerLandscape, CGSize(width: 896, height: 32))
+        runSizeCheck(GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(896), CGSize(width: 896, height: 59))
 
 
         /// An ad size that spans the full width of its container, with a height dynamically determined by
         /// the ad.
-        runSizeCheck(kGADAdSizeFluid, CGSize(width: 414, height: 1))
+        runSizeCheck(GADAdSizeFluid, CGSize(width: 393, height: 1))
 
 
         // Invalid ad size marker.
-        runSizeCheck(kGADAdSizeInvalid, CGSize(width: 0, height: 0))
+        runSizeCheck(GADAdSizeInvalid, CGSize(width: 0, height: 0))
     }
     
     func testAdSizesArray() {
         
-        let GADSizes = [    NSValueFromGADAdSize(kGADAdSizeBanner),
-                            NSValueFromGADAdSize(kGADAdSizeMediumRectangle),
-                            NSValueFromGADAdSize(kGADAdSizeInvalid)]
+        let GADSizes = [    NSValueFromGADAdSize(GADAdSizeBanner),
+                            NSValueFromGADAdSize(GADAdSizeMediumRectangle),
+                            NSValueFromGADAdSize(GADAdSizeInvalid)]
         
         let eventHandler = GAMBannerEventHandler(adUnitID: "some_id", validGADAdSizes: GADSizes);
         
