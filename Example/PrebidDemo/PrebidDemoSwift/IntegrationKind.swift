@@ -29,7 +29,7 @@ enum IntegrationKind: CustomStringConvertible, CaseIterable {
         case .originalGAM:
             return "GAM (Original API)"
         case .renderingInApp:
-            return "No Ad Server (Rendering API)"
+            return "In-App (Rendering API)"
         case .renderingGAM:
             return "GAM (Rendering API)"
         case .renderingAdMob:

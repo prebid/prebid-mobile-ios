@@ -15,13 +15,18 @@
 
 import UIKit
 
-// Test case title template: [Original/Rendering] API: [AdServer] [AdFormat] [Size]
+// Test case title template: [AdServer] [AdFormat] [Size] (Original API)
+//
+// [AdServer]: In-App, GAM, AdMob, MAX
+// [AdFormat]: Display Banner, Video Banner, Display Interstitial, Video Interstitial, Rewarded, Native, In-stream Video
+// [Size]: creative size
+// (Original API) - only for test cases built using original api
 
 struct TestCaseManager {
     
     static var allCases: [TestCase] = [
         TestCase(
-            title: "Original API: GAM Display Banner 320x50",
+            title: "GAM Display Banner 320x50 (Original API)",
             integrationKind: IntegrationKind.originalGAM,
             adFormat: .bannerDisplay,
             viewController: OriginalBannerDisplayViewController(bannerSize: CGSize(width: 320, height: 50))

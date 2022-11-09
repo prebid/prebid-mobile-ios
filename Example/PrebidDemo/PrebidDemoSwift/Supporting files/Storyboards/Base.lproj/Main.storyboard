@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gvr-iT-DPw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qeB-Nf-W9s">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -13,7 +13,7 @@
         <!--Prebid Demo Swift-->
         <scene sceneID="2FO-N6-6YE">
             <objects>
-                <viewController id="Nur-09-GNf" customClass="SettingsViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nur-09-GNf" customClass="SettingsViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XsP-rO-TNN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,7 +93,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="F0a-1d-n0O">
-                                <rect key="frame" x="0.0" y="233" width="414" height="580"/>
+                                <rect key="frame" x="0.0" y="233" width="414" height="629"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="exampleCell" id="Q8i-PK-GVR">
@@ -123,7 +123,13 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Examples" image="list.dash" catalog="system" id="A0U-Dh-sWB"/>
-                    <navigationItem key="navigationItem" title="Prebid Demo Swift" id="e0B-pI-8v8"/>
+                    <navigationItem key="navigationItem" title="Prebid Demo Swift" id="e0B-pI-8v8">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="wrench.and.screwdriver.fill" catalog="system" id="D7M-Nm-kwa">
+                            <connections>
+                                <action selector="settingsButtonTapped:" destination="DDQ-T9-QCw" id="SYH-t0-PAc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="adFormatPicker" destination="SFv-kv-uSy" id="Yyu-ld-WUg"/>
                         <outlet property="integrationKindPicker" destination="15T-HT-5Le" id="fFR-AB-BxU"/>
@@ -152,46 +158,11 @@
             </objects>
             <point key="canvasLocation" x="1254" y="-587"/>
         </scene>
-        <!--Prebid Demo Swift-->
-        <scene sceneID="aoZ-UE-pGa">
-            <objects>
-                <tabBarController id="gvr-iT-DPw" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Prebid Demo Swift" id="oYl-wO-huT"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lq9-fw-bgJ">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="qeB-Nf-W9s" kind="relationship" relationship="viewControllers" id="1hd-AG-EtD"/>
-                        <segue destination="y6a-X0-vhx" kind="relationship" relationship="viewControllers" id="aN3-7K-iSD"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7EQ-7E-DbC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="133" y="-139"/>
-        </scene>
-        <!--Item-->
-        <scene sceneID="5lw-G7-HEB">
-            <objects>
-                <navigationController id="y6a-X0-vhx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="xQL-S9-APh"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Roj-4H-4T9">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Nur-09-GNf" kind="relationship" relationship="rootViewController" id="Bpf-wj-Q1U"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lm7-sm-GgS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1254" y="185"/>
-        </scene>
     </scenes>
     <resources>
         <image name="gear" catalog="system" width="128" height="122"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="wrench.and.screwdriver.fill" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

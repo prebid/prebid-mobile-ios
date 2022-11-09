@@ -37,7 +37,14 @@ class ExamplesViewController: UIViewController {
         }
         
         integrationKindPicker.setupPullDown(with: actions)
-    }   
+    }
+    
+    @IBAction func settingsButtonTapped(_ sender: Any) {
+        if let settingsViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController {
+            settingsViewController.title = "Settings"
+            navigationController?.pushViewController(settingsViewController, animated: true)
+        }
+    }
 }
 
 extension ExamplesViewController: UITableViewDelegate, UITableViewDataSource {
