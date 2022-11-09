@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1410"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "530D4AA2291A4BC600A2C796"
+               BlueprintIdentifier = "FA12E4B3231EB04100CAA05B"
                BuildableName = "PrebidDemoSwift.app"
                BlueprintName = "PrebidDemoSwift"
                ReferencedContainer = "container:PrebidDemo.xcodeproj">
@@ -27,7 +27,66 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "FA12E4B3231EB04100CAA05B"
+            BuildableName = "PrebidDemoSwift.app"
+            BlueprintName = "PrebidDemoSwift"
+            ReferencedContainer = "container:PrebidDemo.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FA12E4E5231EB52D00CAA05B"
+               BuildableName = "PrebidDemoTests.xctest"
+               BlueprintName = "PrebidDemoTests"
+               ReferencedContainer = "container:PrebidDemo.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "PrebidDemoTests/testAppNexusDFPBannerSanityAppCheckTest()">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests/testAppNexusMoPubBannerSanityAppCheckTest()">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests/testDFPNativeSanityAppCheckTest()">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests/testMoPubInterstitialSanityAppCheckTest()">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests/testMopubNativeSanityAppCheckTest()">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests/testRubiconMoPubBannerSanityAppCheckTest()">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3CB17E7291BC5C50053922E"
+               BuildableName = "AdsTest.xctest"
+               BlueprintName = "AdsTest"
+               ReferencedContainer = "container:PrebidDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3CB17F6291BC6FE0053922E"
+               BuildableName = "PrebidDemoSwiftUITests.xctest"
+               BlueprintName = "PrebidDemoSwiftUITests"
+               ReferencedContainer = "container:PrebidDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -44,7 +103,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "530D4AA2291A4BC600A2C796"
+            BlueprintIdentifier = "FA12E4B3231EB04100CAA05B"
             BuildableName = "PrebidDemoSwift.app"
             BlueprintName = "PrebidDemoSwift"
             ReferencedContainer = "container:PrebidDemo.xcodeproj">
@@ -61,7 +120,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "530D4AA2291A4BC600A2C796"
+            BlueprintIdentifier = "FA12E4B3231EB04100CAA05B"
             BuildableName = "PrebidDemoSwift.app"
             BlueprintName = "PrebidDemoSwift"
             ReferencedContainer = "container:PrebidDemo.xcodeproj">

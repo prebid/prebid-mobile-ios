@@ -38,6 +38,26 @@
                ReferencedContainer = "container:PrebidDemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3CB17E7291BC5C50053922E"
+               BuildableName = "AdsTest.xctest"
+               BlueprintName = "AdsTest"
+               ReferencedContainer = "container:PrebidDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3CB17F6291BC6FE0053922E"
+               BuildableName = "PrebidDemoSwiftUITests.xctest"
+               BlueprintName = "PrebidDemoSwiftUITests"
+               ReferencedContainer = "container:PrebidDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
