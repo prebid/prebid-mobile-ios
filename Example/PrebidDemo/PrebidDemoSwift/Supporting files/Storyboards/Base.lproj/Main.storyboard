@@ -1,30 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gvr-iT-DPw">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Prebid Demo Swift-->
+        <scene sceneID="2FO-N6-6YE">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                <viewController id="Nur-09-GNf" customClass="SettingsViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XsP-rO-TNN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="2BB-w1-pGB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="vxo-er-I7s"/>
+                    <navigationItem key="navigationItem" title="Prebid Demo Swift" id="aD2-qS-ZUk"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Ci-zz-OeW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140" y="4"/>
+            <point key="canvasLocation" x="2126" y="186"/>
+        </scene>
+        <!--Prebid Demo Swift-->
+        <scene sceneID="Xat-yg-8jS">
+            <objects>
+                <viewController id="DDQ-T9-QCw" customClass="ExamplesViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ohl-iy-4UF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="G6e-3v-PnV">
+                                <rect key="frame" x="0.0" y="97" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="DDQ-T9-QCw" id="9M5-Jb-6lV"/>
+                                </connections>
+                            </searchBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="V14-eT-xCr" userLabel="Pickers Main Stack View">
+                                <rect key="frame" x="15" y="158" width="389" height="65"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tt8-bz-pBU" userLabel="Labels">
+                                        <rect key="frame" x="0.0" y="0.0" width="204" height="65"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Integration Kind" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DH-0s-qSr">
+                                                <rect key="frame" x="0.0" y="0.0" width="120.5" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ad Format" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmq-QS-EyA">
+                                                <rect key="frame" x="0.0" y="35" width="79.5" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TNV-bm-Ssj" userLabel="Pickers">
+                                        <rect key="frame" x="204" y="0.0" width="185" height="65"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15T-HT-5Le">
+                                                <rect key="frame" x="0.0" y="0.0" width="185" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="0Di-bN-AIy"/>
+                                                </constraints>
+                                                <menu key="menu" id="Wln-ko-SFq">
+                                                    <children>
+                                                        <command title="Item 1" id="uyW-EE-4f8"/>
+                                                        <command title="Item 2" id="BgS-Y3-KGp"/>
+                                                    </children>
+                                                </menu>
+                                                <state key="normal" title="Integration Kind"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFv-kv-uSy">
+                                                <rect key="frame" x="0.0" y="35" width="185" height="30"/>
+                                                <menu key="menu" id="Mmq-2T-SqJ">
+                                                    <children>
+                                                        <command title="Item 1" id="emJ-jG-aPq"/>
+                                                        <command title="Item 2" id="Iix-K4-ZGQ"/>
+                                                    </children>
+                                                </menu>
+                                                <state key="normal" title="AdFormat"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="F0a-1d-n0O">
+                                <rect key="frame" x="0.0" y="233" width="414" height="580"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="exampleCell" id="Q8i-PK-GVR">
+                                        <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q8i-PK-GVR" id="vpe-Hz-Ydn">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2ZY-p6-tc4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2ZY-p6-tc4" firstAttribute="trailing" secondItem="V14-eT-xCr" secondAttribute="trailing" constant="10" id="DdS-HW-hwx"/>
+                            <constraint firstItem="V14-eT-xCr" firstAttribute="top" secondItem="G6e-3v-PnV" secondAttribute="bottom" constant="5" id="QVo-Vx-QXK"/>
+                            <constraint firstItem="F0a-1d-n0O" firstAttribute="leading" secondItem="2ZY-p6-tc4" secondAttribute="leading" id="Tzc-EN-hJQ"/>
+                            <constraint firstItem="V14-eT-xCr" firstAttribute="leading" secondItem="2ZY-p6-tc4" secondAttribute="leading" constant="15" id="bVk-B5-Jqx"/>
+                            <constraint firstItem="G6e-3v-PnV" firstAttribute="trailing" secondItem="2ZY-p6-tc4" secondAttribute="trailing" id="dCB-jO-xAn"/>
+                            <constraint firstItem="F0a-1d-n0O" firstAttribute="top" secondItem="V14-eT-xCr" secondAttribute="bottom" constant="10" id="oJ5-J1-mgb"/>
+                            <constraint firstAttribute="trailing" secondItem="F0a-1d-n0O" secondAttribute="trailing" id="omV-hq-5fR"/>
+                            <constraint firstItem="2ZY-p6-tc4" firstAttribute="bottom" secondItem="F0a-1d-n0O" secondAttribute="bottom" id="pJH-U2-fXw"/>
+                            <constraint firstItem="G6e-3v-PnV" firstAttribute="leading" secondItem="2ZY-p6-tc4" secondAttribute="leading" id="xgV-YL-RA5"/>
+                            <constraint firstItem="G6e-3v-PnV" firstAttribute="top" secondItem="2ZY-p6-tc4" secondAttribute="top" constant="5" id="z82-Ac-A5D"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Examples" image="list.dash" catalog="system" id="A0U-Dh-sWB"/>
+                    <navigationItem key="navigationItem" title="Prebid Demo Swift" id="e0B-pI-8v8"/>
+                    <connections>
+                        <outlet property="adFormatPicker" destination="SFv-kv-uSy" id="Yyu-ld-WUg"/>
+                        <outlet property="integrationKindPicker" destination="15T-HT-5Le" id="fFR-AB-BxU"/>
+                        <outlet property="searchBar" destination="G6e-3v-PnV" id="5Ff-3M-Z2O"/>
+                        <outlet property="tableView" destination="F0a-1d-n0O" id="anM-xz-44s"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wJs-Ob-xnP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2143.4782608695655" y="-587.27678571428567"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="onN-Br-rQN">
+            <objects>
+                <navigationController id="qeB-Nf-W9s" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="XfP-5O-Fd2"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xcu-5M-0ky">
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="DDQ-T9-QCw" kind="relationship" relationship="rootViewController" id="5UO-1L-pqJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nFi-9C-8Ba" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1254" y="-587"/>
+        </scene>
+        <!--Prebid Demo Swift-->
+        <scene sceneID="aoZ-UE-pGa">
+            <objects>
+                <tabBarController id="gvr-iT-DPw" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Prebid Demo Swift" id="oYl-wO-huT"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lq9-fw-bgJ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="qeB-Nf-W9s" kind="relationship" relationship="viewControllers" id="1hd-AG-EtD"/>
+                        <segue destination="y6a-X0-vhx" kind="relationship" relationship="viewControllers" id="aN3-7K-iSD"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7EQ-7E-DbC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="133" y="-139"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="5lw-G7-HEB">
+            <objects>
+                <navigationController id="y6a-X0-vhx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="xQL-S9-APh"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Roj-4H-4T9">
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Nur-09-GNf" kind="relationship" relationship="rootViewController" id="Bpf-wj-Q1U"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lm7-sm-GgS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1254" y="185"/>
         </scene>
     </scenes>
     <resources>
+        <image name="gear" catalog="system" width="128" height="122"/>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

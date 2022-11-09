@@ -17,6 +17,7 @@
 		383E9CA62571287C006FA6F4 /* NativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* NativeAdView.xib */; };
 		38450A6225514EA6000DCF6D /* NativeInAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */; };
 		3B91139C2351AB73A1FCAA3D /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD5DAB24E3A731BAE7B7F4F /* Pods_PrebidDemoSwift.framework */; };
+		51D4827200F867C0E3B4ABEB /* Pods_PrebidDemoSwift_Old.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86AAF44F2B674DD8DCF0BA9 /* Pods_PrebidDemoSwift_Old.framework */; };
 		530D4A98291A4A1700A2C796 /* InstreamVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4A97291A4A1700A2C796 /* InstreamVideoViewController.swift */; };
 		530D4A9A291A4B1700A2C796 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 530D4A99291A4B1700A2C796 /* PrebidMobile.framework */; };
 		530D4A9B291A4B1700A2C796 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 530D4A99291A4B1700A2C796 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -24,7 +25,6 @@
 		530D4A9E291A4B7400A2C796 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 530D4A9C291A4B7400A2C796 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		530D4AA6291A4BC600A2C796 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4AA5291A4BC600A2C796 /* AppDelegate.swift */; };
 		530D4AA8291A4BC600A2C796 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4AA7291A4BC600A2C796 /* SceneDelegate.swift */; };
-		530D4AAA291A4BC600A2C796 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4AA9291A4BC600A2C796 /* ViewController.swift */; };
 		530D4AAD291A4BC600A2C796 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530D4AAB291A4BC600A2C796 /* Main.storyboard */; };
 		530D4AAF291A4BC700A2C796 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 530D4AAE291A4BC700A2C796 /* Assets.xcassets */; };
 		530D4AB2291A4BC700A2C796 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530D4AB0291A4BC700A2C796 /* LaunchScreen.storyboard */; };
@@ -35,6 +35,24 @@
 		53AA0C9A281441CA00D8A742 /* NativeAdRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C99281441CA00D8A742 /* NativeAdRenderer.swift */; };
 		53AA0CA22815DC1700D8A742 /* MAXNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53AA0CA02815DC1700D8A742 /* MAXNativeAdView.xib */; };
 		53AA0CAB2816A6CC00D8A742 /* ObjCDemoConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0CAA2816A6CC00D8A742 /* ObjCDemoConstants.m */; };
+		53B03D7E291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D7B291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework */; };
+		53B03D7F291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D7B291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53B03D80291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D7C291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework */; };
+		53B03D81291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D7C291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53B03D82291A5C83000117E1 /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D7D291A5C83000117E1 /* PrebidMobileMAXAdapters.framework */; };
+		53B03D83291A5C83000117E1 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D7D291A5C83000117E1 /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53B03D86291A5C8B000117E1 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D85291A5C8B000117E1 /* PrebidMobile.framework */; };
+		53B03D87291A5C8B000117E1 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D85291A5C8B000117E1 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53B03D8C291A6562000117E1 /* ExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D8B291A6562000117E1 /* ExamplesViewController.swift */; };
+		53B03D8E291A66E7000117E1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D8D291A66E7000117E1 /* SettingsViewController.swift */; };
+		53B03D90291A7FD3000117E1 /* IntegrationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D8F291A7FD3000117E1 /* IntegrationKind.swift */; };
+		53B03D92291A87F4000117E1 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D91291A87F4000117E1 /* UIButton+Extensions.swift */; };
+		53B03D95291A8911000117E1 /* AdFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D94291A8911000117E1 /* AdFormat.swift */; };
+		53B03D97291A8CA4000117E1 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D96291A8CA4000117E1 /* TestCase.swift */; };
+		53B03D99291A8EE7000117E1 /* TestCaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D98291A8EE7000117E1 /* TestCaseManager.swift */; };
+		53B03DA1291BC8C4000117E1 /* BannerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */; };
+		53B03DA2291BC8C4000117E1 /* BannerBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */; };
+		53B03DA5291BCCE1000117E1 /* OriginalBannerDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA4291BCCE1000117E1 /* OriginalBannerDisplayViewController.swift */; };
 		5BD798952742483700CE9385 /* RenderingInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */; };
 		5BD7989827425B4900CE9385 /* IntegrationKindUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */; };
 		5BD7989B2742A9C500CE9385 /* RenderingRewardedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798992742A9C400CE9385 /* RenderingRewardedViewController.m */; };
@@ -86,6 +104,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		53B03D84291A5C84000117E1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				53B03D87291A5C8B000117E1 /* PrebidMobile.framework in Embed Frameworks */,
+				53B03D83291A5C83000117E1 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
+				53B03D81291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
+				53B03D7F291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BF6905F27737AEC00AABA45 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -117,6 +149,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B32F72A9BBDBE997EFFDDA4 /* Pods-PrebidDemoSwift_Old.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift_Old.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old.debug.xcconfig"; sourceTree = "<group>"; };
+		27A91CDC4C1E50EB4FC1CD46 /* Pods-PrebidDemoSwift_Old.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift_Old.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old.release.xcconfig"; sourceTree = "<group>"; };
 		38018905255AC5560089CA84 /* NativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
 		38018906255AC5560089CA84 /* NativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NativeAdView.xib; sourceTree = "<group>"; };
 		383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeInAppNativeTest.swift; sourceTree = "<group>"; };
@@ -129,7 +163,6 @@
 		530D4AA3291A4BC600A2C796 /* PrebidDemoSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		530D4AA5291A4BC600A2C796 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		530D4AA7291A4BC600A2C796 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		530D4AA9291A4BC600A2C796 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		530D4AAC291A4BC600A2C796 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		530D4AAE291A4BC700A2C796 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		530D4AB1291A4BC700A2C796 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -143,6 +176,20 @@
 		53AA0CA02815DC1700D8A742 /* MAXNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MAXNativeAdView.xib; sourceTree = "<group>"; };
 		53AA0CA92816A6B000D8A742 /* ObjCDemoConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCDemoConstants.h; sourceTree = "<group>"; };
 		53AA0CAA2816A6CC00D8A742 /* ObjCDemoConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCDemoConstants.m; sourceTree = "<group>"; };
+		53B03D7B291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53B03D7C291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53B03D7D291A5C83000117E1 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53B03D85291A5C8B000117E1 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53B03D8B291A6562000117E1 /* ExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesViewController.swift; sourceTree = "<group>"; };
+		53B03D8D291A66E7000117E1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		53B03D8F291A7FD3000117E1 /* IntegrationKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationKind.swift; sourceTree = "<group>"; };
+		53B03D91291A87F4000117E1 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
+		53B03D94291A8911000117E1 /* AdFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdFormat.swift; sourceTree = "<group>"; };
+		53B03D96291A8CA4000117E1 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
+		53B03D98291A8EE7000117E1 /* TestCaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseManager.swift; sourceTree = "<group>"; };
+		53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerBaseViewController.swift; sourceTree = "<group>"; };
+		53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerBaseViewController.xib; sourceTree = "<group>"; };
+		53B03DA4291BCCE1000117E1 /* OriginalBannerDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalBannerDisplayViewController.swift; sourceTree = "<group>"; };
 		5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD798922742483700CE9385 /* RenderingInterstitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderingInterstitialViewController.h; sourceTree = "<group>"; };
 		5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderingInterstitialViewController.m; sourceTree = "<group>"; };
@@ -168,6 +215,7 @@
 		929638F127AC27AA00D30F3D /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F438C52768982700FDC950 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F438C82768B23100FDC950 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A86AAF44F2B674DD8DCF0BA9 /* Pods_PrebidDemoSwift_Old.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoSwift_Old.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A4A80EA5AE7DC6151531C0 /* Pods-PrebidDemoObjectiveC_Old.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoObjectiveC_Old.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoObjectiveC_Old/Pods-PrebidDemoObjectiveC_Old.debug.xcconfig"; sourceTree = "<group>"; };
 		BA2C237381964CC29C2EC365 /* Pods-PrebidDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		BAB7A18D47560FF75084F46E /* Pods_PrebidDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,7 +255,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53B03D7E291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
 				3B91139C2351AB73A1FCAA3D /* Pods_PrebidDemoSwift.framework in Frameworks */,
+				53B03D80291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
+				53B03D86291A5C8B000117E1 /* PrebidMobile.framework in Frameworks */,
+				53B03D82291A5C83000117E1 /* PrebidMobileMAXAdapters.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +271,7 @@
 				92F438C62768982700FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
 				924F663227FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework in Frameworks */,
 				530D4A9D291A4B7400A2C796 /* PrebidMobile.framework in Frameworks */,
+				51D4827200F867C0E3B4ABEB /* Pods_PrebidDemoSwift_Old.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +332,8 @@
 				640E75E2C6EB2A7268230D2A /* Pods-PrebidDemoObjectiveC_Old.release.xcconfig */,
 				D1294ABFE85D62872D074F2C /* Pods-PrebidDemoSwift.debug.xcconfig */,
 				47B8513C50FA0D7F53C6498E /* Pods-PrebidDemoSwift.release.xcconfig */,
+				0B32F72A9BBDBE997EFFDDA4 /* Pods-PrebidDemoSwift_Old.debug.xcconfig */,
+				27A91CDC4C1E50EB4FC1CD46 /* Pods-PrebidDemoSwift_Old.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../../Pods;
@@ -287,10 +342,16 @@
 		530D4AA4291A4BC600A2C796 /* PrebidDemoSwift */ = {
 			isa = PBXGroup;
 			children = (
-				530D4AB7291A4CAB00A2C796 /* Supporting files */,
+				53B03D94291A8911000117E1 /* AdFormat.swift */,
 				530D4AA5291A4BC600A2C796 /* AppDelegate.swift */,
+				53B03D8F291A7FD3000117E1 /* IntegrationKind.swift */,
 				530D4AA7291A4BC600A2C796 /* SceneDelegate.swift */,
-				530D4AA9291A4BC600A2C796 /* ViewController.swift */,
+				53B03D89291A5D56000117E1 /* Examples */,
+				53B03D93291A87F9000117E1 /* Extensions */,
+				53B03D8A291A5D5D000117E1 /* Settings */,
+				530D4AB7291A4CAB00A2C796 /* Supporting files */,
+				53B03D96291A8CA4000117E1 /* TestCase.swift */,
+				53B03D98291A8EE7000117E1 /* TestCaseManager.swift */,
 			);
 			path = PrebidDemoSwift;
 			sourceTree = "<group>";
@@ -332,6 +393,65 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		53B03D89291A5D56000117E1 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				53B03D8B291A6562000117E1 /* ExamplesViewController.swift */,
+				53B03D9C291A9BE7000117E1 /* BaseViewControllers */,
+				53B03D9A291A9B8B000117E1 /* OriginalAPI */,
+				53B03D9B291A9B97000117E1 /* RenderingAPI */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+		53B03D8A291A5D5D000117E1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				53B03D8D291A66E7000117E1 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		53B03D93291A87F9000117E1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				53B03D91291A87F4000117E1 /* UIButton+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		53B03D9A291A9B8B000117E1 /* OriginalAPI */ = {
+			isa = PBXGroup;
+			children = (
+				53B03DA4291BCCE1000117E1 /* OriginalBannerDisplayViewController.swift */,
+			);
+			path = OriginalAPI;
+			sourceTree = "<group>";
+		};
+		53B03D9B291A9B97000117E1 /* RenderingAPI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RenderingAPI;
+			sourceTree = "<group>";
+		};
+		53B03D9C291A9BE7000117E1 /* BaseViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				53B03DA3291BC962000117E1 /* BannerBaseViewController */,
+			);
+			path = BaseViewControllers;
+			sourceTree = "<group>";
+		};
+		53B03DA3291BC962000117E1 /* BannerBaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */,
+				53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */,
+			);
+			path = BannerBaseViewController;
+			sourceTree = "<group>";
+		};
 		5BD98F07273EB4190030ACC3 /* RenderingVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +468,10 @@
 		99D7F73A394177471348CDD1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				53B03D85291A5C8B000117E1 /* PrebidMobile.framework */,
+				53B03D7B291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework */,
+				53B03D7C291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework */,
+				53B03D7D291A5C83000117E1 /* PrebidMobileMAXAdapters.framework */,
 				530D4A9C291A4B7400A2C796 /* PrebidMobile.framework */,
 				530D4A99291A4B1700A2C796 /* PrebidMobile.framework */,
 				924F663527FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework */,
@@ -361,6 +485,7 @@
 				BAB7A18D47560FF75084F46E /* Pods_PrebidDemoTests.framework */,
 				E2EBDC8956E40A3297274B54 /* Pods_PrebidDemoObjectiveC_Old.framework */,
 				FCD5DAB24E3A731BAE7B7F4F /* Pods_PrebidDemoSwift.framework */,
+				A86AAF44F2B674DD8DCF0BA9 /* Pods_PrebidDemoSwift_Old.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -460,6 +585,7 @@
 				530D4AA1291A4BC600A2C796 /* Resources */,
 				85D918189F571450C404FC2B /* [CP] Embed Pods Frameworks */,
 				569123347071706F6FA652F1 /* [CP] Copy Pods Resources */,
+				53B03D84291A5C84000117E1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -474,10 +600,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA12E4C3231EB04200CAA05B /* Build configuration list for PBXNativeTarget "PrebidDemoSwift_Old" */;
 			buildPhases = (
+				FFB67ABEA8EDEAE3D802AF88 /* [CP] Check Pods Manifest.lock */,
 				FA12E4B0231EB04100CAA05B /* Sources */,
 				FA12E4B1231EB04100CAA05B /* Frameworks */,
 				FA12E4B2231EB04100CAA05B /* Resources */,
 				5BF6905F27737AEC00AABA45 /* Embed Frameworks */,
+				58193955774AEC87637975EC /* [CP] Embed Pods Frameworks */,
+				033C6EAE8E347307C6A7E1B4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -581,6 +710,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				530D4AB2291A4BC700A2C796 /* LaunchScreen.storyboard in Resources */,
+				53B03DA2291BC8C4000117E1 /* BannerBaseViewController.xib in Resources */,
 				530D4AAF291A4BC700A2C796 /* Assets.xcassets in Resources */,
 				530D4AAD291A4BC600A2C796 /* Main.storyboard in Resources */,
 			);
@@ -620,6 +750,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		033C6EAE8E347307C6A7E1B4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		076873D9EACE97B78C8D12F0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -674,6 +821,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		58193955774AEC87637975EC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		85D918189F571450C404FC2B /* [CP] Embed Pods Frameworks */ = {
@@ -754,6 +918,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoObjectiveC_Old/Pods-PrebidDemoObjectiveC_Old-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FFB67ABEA8EDEAE3D802AF88 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PrebidDemoSwift_Old-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -761,9 +947,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				530D4AAA291A4BC600A2C796 /* ViewController.swift in Sources */,
+				53B03D92291A87F4000117E1 /* UIButton+Extensions.swift in Sources */,
+				53B03DA1291BC8C4000117E1 /* BannerBaseViewController.swift in Sources */,
+				53B03D90291A7FD3000117E1 /* IntegrationKind.swift in Sources */,
+				53B03D8C291A6562000117E1 /* ExamplesViewController.swift in Sources */,
 				530D4AA6291A4BC600A2C796 /* AppDelegate.swift in Sources */,
+				53B03DA5291BCCE1000117E1 /* OriginalBannerDisplayViewController.swift in Sources */,
+				53B03D97291A8CA4000117E1 /* TestCase.swift in Sources */,
+				53B03D8E291A66E7000117E1 /* SettingsViewController.swift in Sources */,
 				530D4AA8291A4BC600A2C796 /* SceneDelegate.swift in Sources */,
+				53B03D95291A8911000117E1 /* AdFormat.swift in Sources */,
+				53B03D99291A8EE7000117E1 /* TestCaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,7 +1092,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -929,7 +1123,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1061,6 +1255,7 @@
 		};
 		FA12E4C4231EB04200CAA05B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B32F72A9BBDBE997EFFDDA4 /* Pods-PrebidDemoSwift_Old.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1080,6 +1275,7 @@
 		};
 		FA12E4C5231EB04200CAA05B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27A91CDC4C1E50EB4FC1CD46 /* Pods-PrebidDemoSwift_Old.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

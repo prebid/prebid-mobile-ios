@@ -15,21 +15,21 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class BannerBaseViewController: UIViewController {
     
-    var window: UIWindow?
+    @IBOutlet weak var bannerView: UIView!
     
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+    var bannerSize = CGSize(width: 320, height: 50)
+    
+    convenience init(bannerSize: CGSize) {
+        self.init(nibName: "BannerBaseViewController", bundle: nil)
+        self.bannerSize = bannerSize
     }
     
-    func sceneDidDisconnect(_ scene: UIScene) {}
-    
-    func sceneDidBecomeActive(_ scene: UIScene) {}
-    
-    func sceneWillResignActive(_ scene: UIScene) {}
-    
-    func sceneWillEnterForeground(_ scene: UIScene) {}
-    
-    func sceneDidEnterBackground(_ scene: UIScene) {}
+    override func viewDidLoad() {
+        super.viewDidLoad()
+         
+        bannerView.constraints.first { $0.firstAttribute == .width }?.constant = bannerSize.width
+        bannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerSize.height
+    }
 }

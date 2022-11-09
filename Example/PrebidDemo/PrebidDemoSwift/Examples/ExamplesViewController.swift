@@ -1,0 +1,65 @@
+/*   Copyright 2019-2022 Prebid.org, Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+import UIKit
+
+fileprivate let cellID = "exampleCell"
+
+class ExamplesViewController: UIViewController {
+    
+    @IBOutlet weak var integrationKindPicker: UIButton!
+    @IBOutlet weak var adFormatPicker: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    
+    let testCases = TestCaseManager.allCases
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        let actions = IntegrationKind.allCases.map { integration in
+            UIAction(title: integration.description, handler: {_ in })
+        }
+        
+        integrationKindPicker.setupPullDown(with: actions)
+    }   
+}
+
+extension ExamplesViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        TestCaseManager.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        cell.textLabel?.text = testCases[indexPath.row].title
+        cell.textLabel?.numberOfLines = 0
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let testCase = testCases[indexPath.row]
+        testCase.viewController.view.backgroundColor = .white
+        testCase.viewController.title = testCase.title
+        
+        navigationController?.pushViewController(testCase.viewController, animated: true)
+    }
+}

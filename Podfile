@@ -1,4 +1,4 @@
-platform :ios, '10.0'
+platform :ios, '12.0'
 
 workspace 'PrebidMobile'
 
@@ -67,6 +67,12 @@ target 'PrebidMobileMAXAdaptersTests' do
   applovin_pods
 end
 
+target 'PrebidDemoSwift_Old' do
+  project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
+  
+  prebid_demo_pods
+end
+
 target 'PrebidDemoSwift' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
   
@@ -77,7 +83,7 @@ target 'PrebidDemoSwift' do
   end
 end
 
-target 'PrebidDemoObjectiveC' do
+target 'PrebidDemoObjectiveC_Old' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
   
   prebid_demo_pods
