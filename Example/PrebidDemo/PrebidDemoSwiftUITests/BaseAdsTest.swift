@@ -7,27 +7,27 @@
 //
 
 import XCTest
+extension String: Error {}
 
 class BaseAdsTest: XCTestCase {
+    
     let app = XCUIApplication()
+    
     override func setUpWithError() throws {
-        continueAfterFailure = false
-        app.launch()
-    }
-
-    public func testTransition() {
-        goToAd(adServer: "GAM", adName: "Simple Banner")
+        continueAfterFailure = true
     }
     
     override func tearDownWithError() throws {
-    
+        
     }
-    public func testAd(adServer: String, adName: String) {
+    func testAd(adServer: String, adName: String) {
         goToAd(adServer: adServer, adName: adName)
+        checkAd(adServer: adServer, adName: adName)
     }
-    func checkAd(){}
+    func checkAd(adServer: String, adName: String) {}
 
     private func goToAd(adServer: String, adName: String) {
+        app.launch()
         app.segmentedControls.buttons[adServer].tap()
         app.buttons[adName].tap()
     }
