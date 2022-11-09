@@ -24,7 +24,7 @@ class ExamplesViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    let testCases = TestCaseManager.allCases
+    let testCases = IntegrationCaseManager.allCases
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ class ExamplesViewController: UIViewController {
 extension ExamplesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        TestCaseManager.allCases.count
+        IntegrationCaseManager.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

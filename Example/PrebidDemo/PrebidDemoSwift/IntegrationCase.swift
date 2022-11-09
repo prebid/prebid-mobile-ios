@@ -15,7 +15,7 @@
 
 import UIKit
 
-struct TestCase {
+struct IntegrationCase {
     let title: String
     let integrationKind: IntegrationKind
     let adFormat: AdFormat

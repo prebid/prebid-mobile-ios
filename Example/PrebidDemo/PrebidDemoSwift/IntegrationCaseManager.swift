@@ -22,10 +22,10 @@ import UIKit
 // [Size]: creative size
 // (Original API) - only for test cases built using original api
 
-struct TestCaseManager {
+struct IntegrationCaseManager {
     
-    static var allCases: [TestCase] = [
-        TestCase(
+    static var allCases: [IntegrationCase] = [
+        IntegrationCase(
             title: "GAM Display Banner 320x50 (Original API)",
             integrationKind: IntegrationKind.originalGAM,
             adFormat: .bannerDisplay,

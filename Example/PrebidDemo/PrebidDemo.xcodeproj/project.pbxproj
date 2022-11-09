@@ -48,8 +48,8 @@
 		53B03D90291A7FD3000117E1 /* IntegrationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D8F291A7FD3000117E1 /* IntegrationKind.swift */; };
 		53B03D92291A87F4000117E1 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D91291A87F4000117E1 /* UIButton+Extensions.swift */; };
 		53B03D95291A8911000117E1 /* AdFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D94291A8911000117E1 /* AdFormat.swift */; };
-		53B03D97291A8CA4000117E1 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D96291A8CA4000117E1 /* TestCase.swift */; };
-		53B03D99291A8EE7000117E1 /* TestCaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D98291A8EE7000117E1 /* TestCaseManager.swift */; };
+		53B03D97291A8CA4000117E1 /* IntegrationCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D96291A8CA4000117E1 /* IntegrationCase.swift */; };
+		53B03D99291A8EE7000117E1 /* IntegrationCaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D98291A8EE7000117E1 /* IntegrationCaseManager.swift */; };
 		53B03DA1291BC8C4000117E1 /* BannerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */; };
 		53B03DA2291BC8C4000117E1 /* BannerBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */; };
 		53B03DA5291BCCE1000117E1 /* OriginalBannerDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA4291BCCE1000117E1 /* OriginalBannerDisplayViewController.swift */; };
@@ -186,8 +186,8 @@
 		53B03D8F291A7FD3000117E1 /* IntegrationKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationKind.swift; sourceTree = "<group>"; };
 		53B03D91291A87F4000117E1 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		53B03D94291A8911000117E1 /* AdFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdFormat.swift; sourceTree = "<group>"; };
-		53B03D96291A8CA4000117E1 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
-		53B03D98291A8EE7000117E1 /* TestCaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseManager.swift; sourceTree = "<group>"; };
+		53B03D96291A8CA4000117E1 /* IntegrationCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationCase.swift; sourceTree = "<group>"; };
+		53B03D98291A8EE7000117E1 /* IntegrationCaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationCaseManager.swift; sourceTree = "<group>"; };
 		53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerBaseViewController.swift; sourceTree = "<group>"; };
 		53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerBaseViewController.xib; sourceTree = "<group>"; };
 		53B03DA4291BCCE1000117E1 /* OriginalBannerDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalBannerDisplayViewController.swift; sourceTree = "<group>"; };
@@ -352,8 +352,8 @@
 				53B03D93291A87F9000117E1 /* Extensions */,
 				53B03D8A291A5D5D000117E1 /* Settings */,
 				530D4AB7291A4CAB00A2C796 /* Supporting files */,
-				53B03D96291A8CA4000117E1 /* TestCase.swift */,
-				53B03D98291A8EE7000117E1 /* TestCaseManager.swift */,
+				53B03D96291A8CA4000117E1 /* IntegrationCase.swift */,
+				53B03D98291A8EE7000117E1 /* IntegrationCaseManager.swift */,
 				53B03DA6291BF2C2000117E1 /* PrebidDemoLogger.swift */,
 			);
 			path = PrebidDemoSwift;
@@ -956,12 +956,12 @@
 				53B03D8C291A6562000117E1 /* ExamplesViewController.swift in Sources */,
 				530D4AA6291A4BC600A2C796 /* AppDelegate.swift in Sources */,
 				53B03DA5291BCCE1000117E1 /* OriginalBannerDisplayViewController.swift in Sources */,
-				53B03D97291A8CA4000117E1 /* TestCase.swift in Sources */,
+				53B03D97291A8CA4000117E1 /* IntegrationCase.swift in Sources */,
 				53B03D8E291A66E7000117E1 /* SettingsViewController.swift in Sources */,
 				53B03DA7291BF2C2000117E1 /* PrebidDemoLogger.swift in Sources */,
 				530D4AA8291A4BC600A2C796 /* SceneDelegate.swift in Sources */,
 				53B03D95291A8911000117E1 /* AdFormat.swift in Sources */,
-				53B03D99291A8EE7000117E1 /* TestCaseManager.swift in Sources */,
+				53B03D99291A8EE7000117E1 /* IntegrationCaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
