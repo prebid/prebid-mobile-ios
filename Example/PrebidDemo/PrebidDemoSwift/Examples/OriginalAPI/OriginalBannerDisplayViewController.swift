@@ -33,6 +33,7 @@ class OriginalBannerDisplayViewController: BannerBaseViewController, GADBannerVi
     
     override func loadView() {
         super.loadView()
+        
         Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner
         setupBannerAdUnit()
         setupGAMBanner(bannerSize: size, adUnitId: gamAdUnitDisplayBannerOriginal)
@@ -54,7 +55,6 @@ class OriginalBannerDisplayViewController: BannerBaseViewController, GADBannerVi
     
     func setupGAMBanner(bannerSize: CGSize, adUnitId: String) {
         let customAdSize = GADAdSizeFromCGSize(bannerSize)
-        
         gamBanner = GAMBannerView(adSize: customAdSize)
         gamBanner.adUnitID = adUnitId
     }
@@ -62,17 +62,17 @@ class OriginalBannerDisplayViewController: BannerBaseViewController, GADBannerVi
     // MARK: Load Ad
     
     func loadGAMBanner() {
-        gamBanner.backgroundColor = .red
         gamBanner.rootViewController = self
         gamBanner.delegate = self
         
         bannerView?.addSubview(gamBanner)
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] (resultCode: ResultCode) in
-            // TODO: Add unified logger
-            print("Prebid demand fetch for AdManager \(resultCode.name())")
+            PrebidDemoLogger.shared.info("Prebid demand fetch for AdManager \(resultCode.name())")
             self?.gamBanner.load(self?.gamRequest)
         }
     }
+    
+    // MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { (size) in
@@ -82,11 +82,11 @@ class OriginalBannerDisplayViewController: BannerBaseViewController, GADBannerVi
             
             bannerView.resize(GADAdSizeFromCGSize(size))
         }, failure: { (error) in
-            print("error: \(error)")
+            PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
         })
     }
     
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
-        
+        PrebidDemoLogger.shared.error("GAM did fail to receive ad with error: \(error)")
     }
 }
