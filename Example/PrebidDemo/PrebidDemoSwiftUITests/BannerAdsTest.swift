@@ -8,6 +8,8 @@
 
 import XCTest
 
+@testable import PrebidMobile
+@testable import PrebidDemoSwift
 class BannerAdsTest: BaseAdsTest {
     
     public func testBannerAdsShouldBeDisplayed() {
@@ -18,7 +20,7 @@ class BannerAdsTest: BaseAdsTest {
     }
     
     override func checkAd(adServer: String, adName: String) {
-        XCTAssert(app.webViews.element.waitForExistence(timeout: 10),"Ad Failed \(adServer) - \(adName)")
+        XCTAssert(app.webViews.element.waitForExistence(timeout: 10), assertFailedMessage(adServer: adServer,adName: adName,reason: "Banner Web View is not displayed"))
     }
 
 
