@@ -14,7 +14,7 @@ let interstitial = "Simple Interstitials"
 let bannerVideo = "Banner Video"
 let interstitialVideo = "Interstitial Video"
 let native = "In App Native"
-let rewarded = "Rewarded Video"
+let rewarded = "Rewarded video"
 
 // Ad servers
 let gam = "GAM"
