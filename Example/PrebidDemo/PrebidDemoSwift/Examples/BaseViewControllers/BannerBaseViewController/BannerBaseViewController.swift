@@ -24,6 +24,10 @@ class BannerBaseViewController: UIViewController, SizeProvider {
     // This property is a copy of size from IntegrationCaseManager integration case
     var adSize = CGSize(width: 320, height: 50)
     
+    convenience init() {
+        self.init(nibName: "BannerBaseViewController", bundle: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          
