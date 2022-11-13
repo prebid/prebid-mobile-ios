@@ -16,8 +16,12 @@
 import UIKit
 
 struct IntegrationCase {
-    let title: String
     let integrationKind: IntegrationKind
     let adFormat: AdFormat
-    let viewController: UIViewController
+    let size: CGSize
+    let configurationClosure: () -> UIViewController
+    
+    var title: String {
+        "\(integrationKind) \(adFormat) \(size.width)x\(size.height)"
+    }
 }

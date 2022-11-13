@@ -21,11 +21,10 @@ fileprivate let storedResponseDisplayBanner = "response-prebid-banner-320-50"
 fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
 fileprivate let gamAdUnitDisplayBannerOriginal = "/21808260008/prebid_demo_app_original_api_banner"
 
-class OriginalBannerDisplayViewController: BannerBaseViewController, GADBannerViewDelegate {
+class GAMOriginalAPIBannerDisplayViewController: BannerBaseViewController, GADBannerViewDelegate {
     
     // Prebid
     private var adUnit: BannerAdUnit!
-    private let size = CGSize(width: 320, height: 50)
     
     // GAM
     private let gamRequest = GAMRequest()
@@ -35,37 +34,23 @@ class OriginalBannerDisplayViewController: BannerBaseViewController, GADBannerVi
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner
-        setupBannerAdUnit()
-        setupGAMBanner(bannerSize: size, adUnitId: gamAdUnitDisplayBannerOriginal)
-        loadGAMBanner()
-    }
-    
-    // MARK: Setup Prebid AdUnit
-    
-    func setupBannerAdUnit() {
-        adUnit = BannerAdUnit(configId: storedImpDisplayBanner, size: size)
         
+        // Setup Prebid ad unit
+        adUnit = BannerAdUnit(configId: storedImpDisplayBanner, size: adSize)
         let parameters = BannerParameters()
         parameters.api = [Signals.Api.MRAID_2]
         adUnit.parameters = parameters
         adUnit.setAutoRefreshMillis(time: 30000)
-    }
-    
-    // MARK: Setup AdServer - GAM
-    
-    func setupGAMBanner(bannerSize: CGSize, adUnitId: String) {
-        let customAdSize = GADAdSizeFromCGSize(bannerSize)
+        
+        // Setup integration kind - GAM
+        let customAdSize = GADAdSizeFromCGSize(adSize)
         gamBanner = GAMBannerView(adSize: customAdSize)
-        gamBanner.adUnitID = adUnitId
-    }
-    
-    // MARK: Load Ad
-    
-    func loadGAMBanner() {
+        gamBanner.adUnitID = gamAdUnitDisplayBannerOriginal
         gamBanner.rootViewController = self
         gamBanner.delegate = self
-        
         bannerView?.addSubview(gamBanner)
+        
+        // Load Ad
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] (resultCode: ResultCode) in
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdManager \(resultCode.name())")
             self?.gamBanner.load(self?.gamRequest)
@@ -76,10 +61,7 @@ class OriginalBannerDisplayViewController: BannerBaseViewController, GADBannerVi
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { (size) in
-            guard let bannerView = bannerView as? GAMBannerView else {
-                return
-            }
-            
+            guard let bannerView = bannerView as? GAMBannerView else { return }
             bannerView.resize(GADAdSizeFromCGSize(size))
         }, failure: { (error) in
             PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")

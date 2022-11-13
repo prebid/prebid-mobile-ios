@@ -64,9 +64,13 @@ extension ExamplesViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let testCase = testCases[indexPath.row]
-        testCase.viewController.view.backgroundColor = .white
-        testCase.viewController.title = testCase.title
         
-        navigationController?.pushViewController(testCase.viewController, animated: true)
+        guard let viewController = testCase.configurationClosure() as? SizeProvider else { return }
+        
+        viewController.view.backgroundColor = .white
+        viewController.title = testCase.title
+        viewController.adSize = testCase.size
+        
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

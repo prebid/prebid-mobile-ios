@@ -15,16 +15,6 @@
 
 import UIKit
 
-struct IntegrationCaseManager {
-    
-    static var allCases: [IntegrationCase] = [
-        IntegrationCase(
-            integrationKind: .originalGAM,
-            adFormat: .bannerDisplay,
-            size: CGSize(width: 320, height: 50),
-            configurationClosure: {
-                return GAMOriginalAPIBannerDisplayViewController()
-            }
-        ),
-    ]
+protocol SizeProvider: UIViewController {
+    var adSize: CGSize { get set }
 }

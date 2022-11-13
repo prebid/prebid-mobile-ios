@@ -15,21 +15,19 @@
 
 import UIKit
 
-class BannerBaseViewController: UIViewController {
+/// Base controller, which provides banner controls, i.e. banner view
+class BannerBaseViewController: UIViewController, SizeProvider {
     
     @IBOutlet weak var bannerView: UIView!
     
-    var bannerSize = CGSize(width: 320, height: 50)
-    
-    convenience init(bannerSize: CGSize) {
-        self.init(nibName: "BannerBaseViewController", bundle: nil)
-        self.bannerSize = bannerSize
-    }
+    // Integration case ad size, for banner default size 320x50
+    // This property is a copy of size from IntegrationCaseManager integration case
+    var adSize = CGSize(width: 320, height: 50)
     
     override func viewDidLoad() {
         super.viewDidLoad()
          
-        bannerView.constraints.first { $0.firstAttribute == .width }?.constant = bannerSize.width
-        bannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerSize.height
+        bannerView.constraints.first { $0.firstAttribute == .width }?.constant = adSize.width
+        bannerView.constraints.first { $0.firstAttribute == .height }?.constant = adSize.height
     }
 }
