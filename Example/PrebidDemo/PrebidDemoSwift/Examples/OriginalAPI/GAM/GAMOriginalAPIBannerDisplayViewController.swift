@@ -51,7 +51,7 @@ class GAMOriginalAPIBannerDisplayViewController: BannerBaseViewController, GADBa
         bannerView?.addSubview(gamBanner)
         
         // Load Ad
-        adUnit.fetchDemand(adObject: gamRequest) { [weak self] (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             self?.gamBanner.load(self?.gamRequest)
         }
@@ -60,7 +60,7 @@ class GAMOriginalAPIBannerDisplayViewController: BannerBaseViewController, GADBa
     // MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-        AdViewUtils.findPrebidCreativeSize(bannerView, success: { (size) in
+        AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
             guard let bannerView = bannerView as? GAMBannerView else { return }
             bannerView.resize(GADAdSizeFromCGSize(size))
         }, failure: { (error) in
