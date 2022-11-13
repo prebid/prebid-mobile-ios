@@ -43,10 +43,10 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
         adUnit.parameters = parameters
         
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
-            guard let self = self else { return }
+            PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
             GADRewardedAd.load(withAdUnitID: gamAdUnitVideoRewardedOriginal,
-                               request: self.gamRequest) { [weak self] ad, error in
+                               request: self?.gamRequest) { [weak self] ad, error in
                 
                 guard let self = self else { return }
                 

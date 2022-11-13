@@ -1,0 +1,93 @@
+/*   Copyright 2019-2022 Prebid.org, Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+import UIKit
+import PrebidMobile
+import GoogleMobileAds
+
+fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
+fileprivate let nativeStoredResponse = "response-prebid-banner-native-styles"
+
+class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
+    
+    // Prebid
+    private var nativeUnit: NativeRequest!
+    
+    private var defaultNativeRequestAssets: [NativeAsset] {
+        let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
+        image.type = ImageAsset.Main
+        
+        let icon = NativeAssetImage(minimumWidth: 20, minimumHeight: 20, required: true)
+        icon.type = ImageAsset.Icon
+        
+        let title = NativeAssetTitle(length: 90, required: true)
+        let body = NativeAssetData(type: DataAsset.description, required: true)
+        let cta = NativeAssetData(type: DataAsset.ctatext, required: true)
+        let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
+        
+        return [title, icon, image, sponsored, body, cta]
+    }
+    
+    private var defaultEventTrackers: [NativeEventTracker] {
+        [NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])]
+    }
+    
+    // GAM
+    private var gamBannerView: GAMBannerView!
+    private let gamRequest = GAMRequest()
+    
+    override func loadView() {
+        super.loadView()
+        
+        Prebid.shared.storedAuctionResponse = nativeStoredResponse
+        
+        // Setup Prebid AdUnit
+        nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: defaultNativeRequestAssets)
+        
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        
+        nativeUnit.eventtrackers = defaultEventTrackers
+        
+        gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
+        gamBannerView.adUnitID = "/21808260008/unified_native_ad_unit"
+        gamBannerView.rootViewController = self
+        gamBannerView.delegate = self
+        gamBannerView.backgroundColor = .green
+        bannerView.addSubview(gamBannerView)
+        
+        nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
+            PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
+            self?.gamBannerView.load(self?.gamRequest)
+        }
+    }
+    
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+        AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
+            guard let bannerView = bannerView as? GAMBannerView else {
+                return
+            }
+            
+            bannerView.resize(GADAdSizeFromCGSize(size))
+        }, failure: { error in
+            PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
+        })
+    }
+    
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+        PrebidDemoLogger.shared.error("GAM did fail to receive ad with error: \(error)")
+    }
+}

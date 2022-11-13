@@ -44,5 +44,14 @@ struct IntegrationCaseManager {
                 GAMOriginalAPIVideoRewardedViewController()
             }
         ),
+        
+        IntegrationCase(
+            integrationKind: .originalGAM,
+            adFormat: .native,
+            description: "Banner",
+            configurationClosure: {
+                GAMOriginalAPINativeBannerViewController()
+            }
+        ),
     ]
 }
