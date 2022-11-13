@@ -62,5 +62,14 @@ struct IntegrationCaseManager {
                 GAMOriginalAPINativeViewController()
             }
         ),
+        
+        IntegrationCase(
+            integrationKind: .originalGAM,
+            adFormat: .instreamVideo,
+            description: "",
+            configurationClosure: {
+                GAMOriginalAPIVideoInstreamViewController()
+            }
+        ),
     ]
 }
