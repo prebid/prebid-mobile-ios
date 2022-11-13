@@ -25,7 +25,7 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
     // Prebid
     private var nativeUnit: NativeRequest!
     
-    private var defaultNativeRequestAssets: [NativeAsset] {
+    private var nativeRequestAssets: [NativeAsset] {
         let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
         image.type = ImageAsset.Main
         
@@ -40,7 +40,7 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
         return [title, icon, image, sponsored, body, cta]
     }
     
-    private var defaultEventTrackers: [NativeEventTracker] {
+    private var eventTrackers: [NativeEventTracker] {
         [NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])]
     }
     
@@ -54,13 +54,13 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
         Prebid.shared.storedAuctionResponse = nativeStoredResponse
         
         // Setup Prebid AdUnit
-        nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: defaultNativeRequestAssets)
+        nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: nativeRequestAssets)
         
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
         
-        nativeUnit.eventtrackers = defaultEventTrackers
+        nativeUnit.eventtrackers = eventTrackers
         
         gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
         gamBannerView.adUnitID = "/21808260008/unified_native_ad_unit"

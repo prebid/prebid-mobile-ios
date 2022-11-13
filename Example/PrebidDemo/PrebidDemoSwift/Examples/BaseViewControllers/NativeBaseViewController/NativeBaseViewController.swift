@@ -19,9 +19,14 @@ fileprivate let nativeBaseViewControllerNibName = "NativeBaseViewController"
 
 class NativeBaseViewController: UIViewController {
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var callToActionButton: UIButton!
     @IBOutlet weak var sponsoredLabel: UILabel!
+    
+    convenience init() {
+        self.init(nibName: nativeBaseViewControllerNibName, bundle: nil)
+    }
 }

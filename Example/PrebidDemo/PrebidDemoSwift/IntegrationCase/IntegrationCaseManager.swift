@@ -53,5 +53,14 @@ struct IntegrationCaseManager {
                 GAMOriginalAPINativeBannerViewController()
             }
         ),
+        
+        IntegrationCase(
+            integrationKind: .originalGAM,
+            adFormat: .native,
+            description: "",
+            configurationClosure: {
+                GAMOriginalAPINativeViewController()
+            }
+        ),
     ]
 }
