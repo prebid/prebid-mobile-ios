@@ -18,7 +18,6 @@
 		38450A6225514EA6000DCF6D /* NativeInAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */; };
 		3B91139C2351AB73A1FCAA3D /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD5DAB24E3A731BAE7B7F4F /* Pods_PrebidDemoSwift.framework */; };
 		51D4827200F867C0E3B4ABEB /* Pods_PrebidDemoSwift_Old.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86AAF44F2B674DD8DCF0BA9 /* Pods_PrebidDemoSwift_Old.framework */; };
-		53072B532920FB5F00228462 /* SizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B522920FB5F00228462 /* SizeProvider.swift */; };
 		53072B562921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */; };
 		53072B592921023E00228462 /* InterstitialBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B572921023E00228462 /* InterstitialBaseViewController.swift */; };
 		53072B5A2921023E00228462 /* InterstitialBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53072B582921023E00228462 /* InterstitialBaseViewController.xib */; };
@@ -162,7 +161,6 @@
 		383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidDemoTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeInAppViewController.swift; sourceTree = "<group>"; };
 		47B8513C50FA0D7F53C6498E /* Pods-PrebidDemoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.release.xcconfig"; sourceTree = "<group>"; };
-		53072B522920FB5F00228462 /* SizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeProvider.swift; sourceTree = "<group>"; };
 		53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIDisplayInterstitialViewController.swift; sourceTree = "<group>"; };
 		53072B572921023E00228462 /* InterstitialBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialBaseViewController.swift; sourceTree = "<group>"; };
 		53072B582921023E00228462 /* InterstitialBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterstitialBaseViewController.xib; sourceTree = "<group>"; };
@@ -394,14 +392,6 @@
 			path = MAX;
 			sourceTree = "<group>";
 		};
-		53072B542920FBD500228462 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				53072B522920FB5F00228462 /* SizeProvider.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		53072B5B2921024300228462 /* InterstitialBaseViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,17 +401,25 @@
 			path = InterstitialBaseViewController;
 			sourceTree = "<group>";
 		};
-		530D4AA4291A4BC600A2C796 /* PrebidDemoSwift */ = {
+		53072B5C29210C2D00228462 /* IntegrationCase */ = {
 			isa = PBXGroup;
 			children = (
 				53B03D94291A8911000117E1 /* AdFormat.swift */,
-				530D4AA5291A4BC600A2C796 /* AppDelegate.swift */,
 				53B03D96291A8CA4000117E1 /* IntegrationCase.swift */,
 				53B03D98291A8EE7000117E1 /* IntegrationCaseManager.swift */,
 				53B03D8F291A7FD3000117E1 /* IntegrationKind.swift */,
+			);
+			path = IntegrationCase;
+			sourceTree = "<group>";
+		};
+		530D4AA4291A4BC600A2C796 /* PrebidDemoSwift */ = {
+			isa = PBXGroup;
+			children = (
+				530D4AA5291A4BC600A2C796 /* AppDelegate.swift */,
 				530D4AA7291A4BC600A2C796 /* SceneDelegate.swift */,
 				53B03D89291A5D56000117E1 /* Examples */,
 				53B03D93291A87F9000117E1 /* Extensions */,
+				53072B5C29210C2D00228462 /* IntegrationCase */,
 				53B03D8A291A5D5D000117E1 /* Settings */,
 				530D4AB7291A4CAB00A2C796 /* Supporting files */,
 				53072B4C2920DBF800228462 /* Utils */,
@@ -515,7 +513,6 @@
 		53B03D9C291A9BE7000117E1 /* BaseViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				53072B542920FBD500228462 /* Protocols */,
 				53B03DA3291BC962000117E1 /* BannerBaseViewController */,
 				53072B5B2921024300228462 /* InterstitialBaseViewController */,
 			);
@@ -1034,7 +1031,6 @@
 				53B03D8C291A6562000117E1 /* ExamplesViewController.swift in Sources */,
 				530D4AA6291A4BC600A2C796 /* AppDelegate.swift in Sources */,
 				53B03DA5291BCCE1000117E1 /* GAMOriginalAPIBannerDisplayViewController.swift in Sources */,
-				53072B532920FB5F00228462 /* SizeProvider.swift in Sources */,
 				53B03D97291A8CA4000117E1 /* IntegrationCase.swift in Sources */,
 				53B03D8E291A66E7000117E1 /* SettingsViewController.swift in Sources */,
 				53B03DA7291BF2C2000117E1 /* PrebidDemoLogger.swift in Sources */,

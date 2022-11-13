@@ -15,8 +15,10 @@
 
 import UIKit
 
+fileprivate let bannerBaseViewControllerNibName = "BannerBaseViewController"
+
 /// Base controller, which provides banner controls, i.e. banner view
-class BannerBaseViewController: UIViewController, SizeProvider {
+class BannerBaseViewController: UIViewController {
     
     @IBOutlet weak var bannerView: UIView!
     
@@ -24,8 +26,13 @@ class BannerBaseViewController: UIViewController, SizeProvider {
     // This property is later setuped with an IntegrationCase size
     var adSize = CGSize(width: 320, height: 50)
     
+    convenience init(adSize: CGSize) {
+        self.init(nibName: bannerBaseViewControllerNibName, bundle: nil)
+        self.adSize = adSize
+    }
+    
     convenience init() {
-        self.init(nibName: "BannerBaseViewController", bundle: nil)
+        self.init(nibName: bannerBaseViewControllerNibName, bundle: nil)
     }
     
     override func viewDidLoad() {

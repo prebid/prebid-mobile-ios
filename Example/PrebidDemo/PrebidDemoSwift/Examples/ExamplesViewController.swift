@@ -68,11 +68,9 @@ extension ExamplesViewController: UITableViewDelegate, UITableViewDataSource {
         
         let testCase = testCases[indexPath.row]
         
-        guard let viewController = testCase.configurationClosure() as? SizeProvider else { return }
-        
+        let viewController = testCase.configurationClosure()
         viewController.view.backgroundColor = .white
         viewController.title = testCase.title
-        viewController.adSize = testCase.size
         
         navigationController?.pushViewController(viewController, animated: true)
     }

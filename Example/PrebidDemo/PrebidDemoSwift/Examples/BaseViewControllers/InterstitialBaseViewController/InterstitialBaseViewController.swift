@@ -15,17 +15,20 @@
 
 import UIKit
 
-class InterstitialBaseViewController: UIViewController, SizeProvider {
+fileprivate let interstitialBaseViewControllerNibName = "InterstitialBaseViewController"
+
+class InterstitialBaseViewController: UIViewController {
     
     // Integration case ad size, for interstitial default size 320x480
     // This property is later setuped with an IntegrationCase size
-    var adSize: CGSize = CGSize(width: 320, height: 480)
+    var adSize = CGSize(width: 320, height: 480)
     
-    convenience init() {
-        self.init(nibName: "InterstitialBaseViewController", bundle: nil)
+    convenience init(adSize: CGSize) {
+        self.init(nibName: interstitialBaseViewControllerNibName, bundle: nil)
+        self.adSize = adSize
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    convenience init() {
+        self.init(nibName: interstitialBaseViewControllerNibName, bundle: nil)
     }
 }

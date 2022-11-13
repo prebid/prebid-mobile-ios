@@ -15,9 +15,13 @@
 
 import UIKit
 
-// Indicates that view controller need to provide ad size for correct ad display and integration case title generation.
-// It is obligatory to conform your view controller to this protocol if you want to create custom UIViewController
-// and add integration case to IntegrationCaseManager.
-protocol SizeProvider: UIViewController {
-    var adSize: CGSize { get set }
+struct IntegrationCase {
+    let integrationKind: IntegrationKind
+    let adFormat: AdFormat
+    let description: String
+    let configurationClosure: () -> UIViewController
+    
+    var title: String {
+        "\(integrationKind) \(adFormat) \(description)"
+    }
 }
