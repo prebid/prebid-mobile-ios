@@ -21,7 +21,7 @@ class BannerBaseViewController: UIViewController, SizeProvider {
     @IBOutlet weak var bannerView: UIView!
     
     // Integration case ad size, for banner default size 320x50
-    // This property is a copy of size from IntegrationCaseManager integration case
+    // This property is later setuped with an IntegrationCase size
     var adSize = CGSize(width: 320, height: 50)
     
     convenience init() {

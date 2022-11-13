@@ -19,6 +19,9 @@
 		3B91139C2351AB73A1FCAA3D /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD5DAB24E3A731BAE7B7F4F /* Pods_PrebidDemoSwift.framework */; };
 		51D4827200F867C0E3B4ABEB /* Pods_PrebidDemoSwift_Old.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86AAF44F2B674DD8DCF0BA9 /* Pods_PrebidDemoSwift_Old.framework */; };
 		53072B532920FB5F00228462 /* SizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B522920FB5F00228462 /* SizeProvider.swift */; };
+		53072B562921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */; };
+		53072B592921023E00228462 /* InterstitialBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B572921023E00228462 /* InterstitialBaseViewController.swift */; };
+		53072B5A2921023E00228462 /* InterstitialBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53072B582921023E00228462 /* InterstitialBaseViewController.xib */; };
 		530D4A98291A4A1700A2C796 /* InstreamVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4A97291A4A1700A2C796 /* InstreamVideoViewController.swift */; };
 		530D4A9A291A4B1700A2C796 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 530D4A99291A4B1700A2C796 /* PrebidMobile.framework */; };
 		530D4A9B291A4B1700A2C796 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 530D4A99291A4B1700A2C796 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -160,6 +163,9 @@
 		38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeInAppViewController.swift; sourceTree = "<group>"; };
 		47B8513C50FA0D7F53C6498E /* Pods-PrebidDemoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.release.xcconfig"; sourceTree = "<group>"; };
 		53072B522920FB5F00228462 /* SizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeProvider.swift; sourceTree = "<group>"; };
+		53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIDisplayInterstitialViewController.swift; sourceTree = "<group>"; };
+		53072B572921023E00228462 /* InterstitialBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialBaseViewController.swift; sourceTree = "<group>"; };
+		53072B582921023E00228462 /* InterstitialBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterstitialBaseViewController.xib; sourceTree = "<group>"; };
 		530D4A97291A4A1700A2C796 /* InstreamVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstreamVideoViewController.swift; sourceTree = "<group>"; };
 		530D4A99291A4B1700A2C796 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		530D4A9C291A4B7400A2C796 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -369,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				53B03DA4291BCCE1000117E1 /* GAMOriginalAPIBannerDisplayViewController.swift */,
+				53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */,
 			);
 			path = GAM;
 			sourceTree = "<group>";
@@ -393,6 +400,15 @@
 				53072B522920FB5F00228462 /* SizeProvider.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		53072B5B2921024300228462 /* InterstitialBaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				53072B572921023E00228462 /* InterstitialBaseViewController.swift */,
+				53072B582921023E00228462 /* InterstitialBaseViewController.xib */,
+			);
+			path = InterstitialBaseViewController;
 			sourceTree = "<group>";
 		};
 		530D4AA4291A4BC600A2C796 /* PrebidDemoSwift */ = {
@@ -501,6 +517,7 @@
 			children = (
 				53072B542920FBD500228462 /* Protocols */,
 				53B03DA3291BC962000117E1 /* BannerBaseViewController */,
+				53072B5B2921024300228462 /* InterstitialBaseViewController */,
 			);
 			path = BaseViewControllers;
 			sourceTree = "<group>";
@@ -775,6 +792,7 @@
 				53B03DA2291BC8C4000117E1 /* BannerBaseViewController.xib in Resources */,
 				530D4AAF291A4BC700A2C796 /* Assets.xcassets in Resources */,
 				530D4AAD291A4BC600A2C796 /* Main.storyboard in Resources */,
+				53072B5A2921023E00228462 /* InterstitialBaseViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1011,6 +1029,7 @@
 			files = (
 				53B03D92291A87F4000117E1 /* UIButton+Extensions.swift in Sources */,
 				53B03DA1291BC8C4000117E1 /* BannerBaseViewController.swift in Sources */,
+				53072B562921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift in Sources */,
 				53B03D90291A7FD3000117E1 /* IntegrationKind.swift in Sources */,
 				53B03D8C291A6562000117E1 /* ExamplesViewController.swift in Sources */,
 				530D4AA6291A4BC600A2C796 /* AppDelegate.swift in Sources */,
@@ -1019,6 +1038,7 @@
 				53B03D97291A8CA4000117E1 /* IntegrationCase.swift in Sources */,
 				53B03D8E291A66E7000117E1 /* SettingsViewController.swift in Sources */,
 				53B03DA7291BF2C2000117E1 /* PrebidDemoLogger.swift in Sources */,
+				53072B592921023E00228462 /* InterstitialBaseViewController.swift in Sources */,
 				530D4AA8291A4BC600A2C796 /* SceneDelegate.swift in Sources */,
 				53B03D95291A8911000117E1 /* AdFormat.swift in Sources */,
 				53B03D99291A8EE7000117E1 /* IntegrationCaseManager.swift in Sources */,

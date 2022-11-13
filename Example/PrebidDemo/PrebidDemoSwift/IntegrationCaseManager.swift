@@ -26,5 +26,14 @@ struct IntegrationCaseManager {
                 return GAMOriginalAPIBannerDisplayViewController()
             }
         ),
+        
+        IntegrationCase(
+            integrationKind: .originalGAM,
+            adFormat: .interstitialDisplay,
+            size: CGSize(width: 320, height: 480),
+            configurationClosure: {
+                return GAMOriginalAPIDisplayInterstitialViewController()
+            }
+        ),
     ]
 }

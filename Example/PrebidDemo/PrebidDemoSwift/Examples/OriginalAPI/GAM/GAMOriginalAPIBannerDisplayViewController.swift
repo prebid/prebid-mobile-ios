@@ -52,7 +52,7 @@ class GAMOriginalAPIBannerDisplayViewController: BannerBaseViewController, GADBa
         
         // Load Ad
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] (resultCode: ResultCode) in
-            PrebidDemoLogger.shared.info("Prebid demand fetch for AdManager \(resultCode.name())")
+            PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             self?.gamBanner.load(self?.gamRequest)
         }
     }
