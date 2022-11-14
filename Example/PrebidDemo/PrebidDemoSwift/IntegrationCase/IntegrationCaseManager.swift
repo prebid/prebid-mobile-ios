@@ -53,6 +53,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM (Original API) Video Interstitial 320x480",
+            integrationKind: .gamOriginal,
+            adFormat: .videoInterstitial,
+            configurationClosure: {
+                GAMOriginalAPIVideoInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "GAM (Original API) Video Rewarded 320x480",
             integrationKind: .gamOriginal,
             adFormat: .videoRewarded,
