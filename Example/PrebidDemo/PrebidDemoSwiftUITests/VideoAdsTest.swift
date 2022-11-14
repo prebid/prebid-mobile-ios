@@ -32,7 +32,38 @@ class VideoAdsTest: BaseAdsTest {
     }
     
     override func checkAd(adServer: String, adName: String) {
+        switch (adName) {
+        case bannerVideo:
+            if adServer == gam {
+                checkGamBannerVideo()
+            } else {
+                checkVideo(adServer: adServer, adName: adName)
+            }
+        case interstitialVideo:
+            if adServer == gam {
+                checkGamInterstitialVideo()
+            } else {
+                checkVideoInterstital(adServer: adServer, adName: adName)
+            }
+        default:
+            checkVideo(adServer: adServer, adName: adName)
+        }
+    }
+    private func checkVideo(adServer: String, adName: String) {
         XCTAssert(app.otherElements["PBMVideoView"].waitForExistence(timeout: 20),assertFailedMessage(adServer: adServer, adName: adName, reason: "Video is not displayed"))
+    }
+    private func checkVideoInterstital(adServer: String, adName: String) {
+        XCTAssert(app.otherElements["PBMVideoView"].waitForExistence(timeout: 20),assertFailedMessage(adServer: adServer, adName: adName, reason: "Video is not displayed"))
+        XCTAssert(app.buttons["Learn More"].waitForExistence(timeout: 10),assertFailedMessage(adServer: adServer, adName: adName, reason: "Learn more button is not displayed"))
+        XCTAssert(app.buttons["PBMCloseButton"].waitForExistence(timeout: 15),assertFailedMessage(adServer: adServer, adName: adName, reason: "Video close button is not displayed"))
+    }
+    private func checkGamBannerVideo() {
+        XCTAssert(app.buttons["Play video"].waitForExistence(timeout: 20),assertFailedMessage(adServer: gam, adName: bannerVideo, reason: "Play video button is not displayed"))
+    }
+    
+    private func checkGamInterstitialVideo() {
+        XCTAssert(app.webViews.element.waitForExistence(timeout: 20),assertFailedMessage(adServer: gam, adName: interstitialVideo, reason: "Video is not displayed"))
+        XCTAssert(app.buttons.element.waitForExistence(timeout: 10),assertFailedMessage(adServer: gam, adName: interstitialVideo, reason: "Close Button is not displayed"))
     }
     
 

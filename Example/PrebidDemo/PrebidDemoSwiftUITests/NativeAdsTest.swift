@@ -17,7 +17,8 @@ class NativeAdsTest: BaseAdsTest {
     }
     
     override func checkAd(adServer: String, adName: String) {
-        XCTAssert(app.staticTexts["OpenX (Title)"].waitForExistence(timeout: 10),assertFailedMessage(adServer: adServer, adName: adName, reason: "Open X title is not displayed"))
+        let element = adServer == adMobR ? app.buttons["OpenX (Title)"] : app.staticTexts["OpenX (Title)"]
+        XCTAssert(element.waitForExistence(timeout: 10),assertFailedMessage(adServer: adServer, adName: adName, reason: "Open X title is not displayed"))
         
     }
 }

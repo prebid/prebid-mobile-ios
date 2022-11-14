@@ -18,6 +18,7 @@ class InterstitialAdsTest: BaseAdsTest {
     
     override func checkAd(adServer: String, adName: String) {
         XCTAssert(app.webViews.element.waitForExistence(timeout: 10),assertFailedMessage(adServer: adServer, adName: adName,reason: "Interstitial Web View is not displayed"))
-        XCTAssert(app.buttons["PBMCloseButton"].waitForExistence(timeout: 10), assertFailedMessage(adServer: adServer, adName: adName,reason: "Close button is not displayed"))
+        let closeButton = adServer == gam ? "Close Advertisement" : "PBMCloseButton"
+        XCTAssert(app.buttons[closeButton].waitForExistence(timeout: 10), assertFailedMessage(adServer: adServer, adName: adName,reason: "Close button is not displayed"))
     }
 }

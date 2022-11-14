@@ -7,23 +7,23 @@
 //
 
 import XCTest
-
+@testable import PrebidDemoSwift
 
 class BaseAdsTest: XCTestCase {
     
     let app = XCUIApplication()
-//    var viewController: IndexController?
     override func setUpWithError() throws {
         continueAfterFailure = true
-//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//        viewController = storyboard.instantiateViewController(withIdentifier: "index") as? IndexController
-//        let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
-//        appDelegate.window?.rootViewController = viewController
+//        app.launch()
+//        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle)
+//        let controller = storyboard.instantiateViewController(withIdentifier: "banner")
+//        UIApplication.shared.keyWindow?.rootViewController = controller
     }
     
     override func tearDownWithError() throws {
         
     }
+    
     func testAd(adServer: String, adName: String) {
         goToAd(adServer: adServer, adName: adName)
         checkAd(adServer: adServer, adName: adName)
