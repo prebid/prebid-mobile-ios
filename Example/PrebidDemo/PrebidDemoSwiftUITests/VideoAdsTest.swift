@@ -7,7 +7,9 @@
 //
 
 import XCTest
-
+enum NoAdError: Error {
+    case runtimeError(String)
+}
 class VideoAdsTest: BaseAdsTest {
     
     public func testVideoBannerAdsShouldBeDisplayed() {
@@ -45,6 +47,12 @@ class VideoAdsTest: BaseAdsTest {
             } else {
                 checkVideoInterstital(adServer: adServer, adName: adName)
             }
+        case rewarded:
+            if adServer == gam {
+                checkGamRewardedVideo()
+            } else {
+                checkRewardedVideo(adServer: adServer, adName: adName)
+            }
         default:
             checkVideo(adServer: adServer, adName: adName)
         }
@@ -53,17 +61,27 @@ class VideoAdsTest: BaseAdsTest {
         XCTAssert(app.otherElements["PBMVideoView"].waitForExistence(timeout: 20),assertFailedMessage(adServer: adServer, adName: adName, reason: "Video is not displayed"))
     }
     private func checkVideoInterstital(adServer: String, adName: String) {
-        XCTAssert(app.otherElements["PBMVideoView"].waitForExistence(timeout: 20),assertFailedMessage(adServer: adServer, adName: adName, reason: "Video is not displayed"))
+        checkVideo(adServer: adServer, adName: adName)
         XCTAssert(app.buttons["Learn More"].waitForExistence(timeout: 10),assertFailedMessage(adServer: adServer, adName: adName, reason: "Learn more button is not displayed"))
         XCTAssert(app.buttons["PBMCloseButton"].waitForExistence(timeout: 15),assertFailedMessage(adServer: adServer, adName: adName, reason: "Video close button is not displayed"))
     }
+    private func checkRewardedVideo(adServer: String, adName: String) {
+        checkVideo(adServer: adServer, adName: adName)
+        XCTAssert(app.webViews["PBMInternalWebViewAccessibilityIdentifier"].waitForExistence(timeout: 20),assertFailedMessage(adServer: adServer, adName: adName, reason: "End card is not displayed"))
+        XCTAssert(app.buttons["PBMCloseButton"].waitForExistence(timeout: 15),assertFailedMessage(adServer: adServer, adName: adName, reason: "Video close button is not displayed"))
+    }
+    
     private func checkGamBannerVideo() {
-        XCTAssert(app.buttons["Play video"].waitForExistence(timeout: 20),assertFailedMessage(adServer: gam, adName: bannerVideo, reason: "Play video button is not displayed"))
+        XCTAssert(app.buttons["Play video"].waitForExistence(timeout: 30),assertFailedMessage(adServer: gam, adName: bannerVideo, reason: "Play video button is not displayed"))
     }
     
     private func checkGamInterstitialVideo() {
-        XCTAssert(app.webViews.element.waitForExistence(timeout: 20),assertFailedMessage(adServer: gam, adName: interstitialVideo, reason: "Video is not displayed"))
-        XCTAssert(app.buttons.element.waitForExistence(timeout: 10),assertFailedMessage(adServer: gam, adName: interstitialVideo, reason: "Close Button is not displayed"))
+        XCTAssert(app.webViews.element.waitForExistence(timeout: 30),assertFailedMessage(adServer: gam, adName: interstitialVideo, reason: "Video is not displayed"))
+        XCTAssert(app.buttons["Close Advertisement"].waitForExistence(timeout: 15),assertFailedMessage(adServer: gam, adName: interstitialVideo, reason: "Close Button is not displayed"))
+    }
+    private func checkGamRewardedVideo() {
+        checkGamInterstitialVideo()
+        XCTAssert(app.images.element.waitForExistence(timeout: 20),assertFailedMessage(adServer: gam, adName: interstitialVideo, reason: "End card is not displayed"))
     }
     
 
