@@ -35,24 +35,27 @@ class GAMOriginalAPIBannerDisplayViewController: BannerBaseViewController, GADBa
         
         Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner
         
-        // Setup Prebid ad unit
+        // Create a BannerAdUnit associated with a Prebid Server configuration ID and a banner size.
         adUnit = BannerAdUnit(configId: storedImpDisplayBanner, size: adSize)
+        // Create and setup banner parameters
         let parameters = BannerParameters()
+        // Define any appropriate API Frameworks
         parameters.api = [Signals.Api.MRAID_2]
         adUnit.parameters = parameters
+        // Set autorefresh interval
         adUnit.setAutoRefreshMillis(time: 30000)
         
         // Setup integration kind - GAM
-        let customAdSize = GADAdSizeFromCGSize(adSize)
-        gamBanner = GAMBannerView(adSize: customAdSize)
+        gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gamBanner.adUnitID = gamAdUnitDisplayBannerOriginal
         gamBanner.rootViewController = self
         gamBanner.delegate = self
         bannerView?.addSubview(gamBanner)
         
-        // Load Ad
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit.
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
+            // Load ad
             self?.gamBanner.load(self?.gamRequest)
         }
     }
