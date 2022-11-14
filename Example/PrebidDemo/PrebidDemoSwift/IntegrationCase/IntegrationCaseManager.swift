@@ -132,5 +132,23 @@ struct IntegrationCaseManager {
                 InAppVideoInterstitialViewController()
             }
         ),
+        
+        IntegrationCase(
+            title: "In-App Video Interstitial Vertical 320x480",
+            integrationKind: .inApp,
+            adFormat: .videoInterstitial,
+            configurationClosure: {
+                InAppVideoInterstitialVerticalViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "In-App Video Interstitial Landscape 320x480",
+            integrationKind: .inApp,
+            adFormat: .videoInterstitial,
+            configurationClosure: {
+                InAppVideoInterstitialLandscapeViewController()
+            }
+        ),
     ]
 }
