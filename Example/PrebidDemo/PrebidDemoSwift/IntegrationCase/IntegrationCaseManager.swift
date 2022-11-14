@@ -249,5 +249,14 @@ struct IntegrationCaseManager {
                 AdMobDisplayInterstitialViewController()
             }
         ),
+        
+        IntegrationCase(
+            title: "AdMob Video Interstitial 320x480",
+            integrationKind: .adMob,
+            adFormat: .videoInterstitial,
+            configurationClosure: {
+                AdMobVideoInterstitialViewController()
+            }
+        ),
     ]
 }
