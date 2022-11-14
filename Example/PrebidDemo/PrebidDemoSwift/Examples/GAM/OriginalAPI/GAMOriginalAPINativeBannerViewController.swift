@@ -69,7 +69,6 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
         gamBannerView.adUnitID = "/21808260008/unified_native_ad_unit"
         gamBannerView.rootViewController = self
         gamBannerView.delegate = self
-        gamBannerView.backgroundColor = .green
         bannerView.addSubview(gamBannerView)
         
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in

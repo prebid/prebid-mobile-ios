@@ -35,6 +35,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM (Original API) Video Banner 300x250",
+            integrationKind: .gamOriginal,
+            adFormat: .videoBanner,
+            configurationClosure: {
+                GAMOriginalAPIVideoBannerViewController(adSize: CGSize(width: 300, height: 250))
+            }
+        ),
+        
+        IntegrationCase(
             title: "GAM (Original API) Display Interstitial 320x480",
             integrationKind: .gamOriginal,
             adFormat: .displayInterstitial,
