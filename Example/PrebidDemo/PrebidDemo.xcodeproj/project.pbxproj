@@ -31,6 +31,7 @@
 		53072B6D29217E8600228462 /* InstreamBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53072B6B29217E8600228462 /* InstreamBaseViewController.xib */; };
 		53072B732922621600228462 /* GAMOriginalAPIVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B722922621600228462 /* GAMOriginalAPIVideoBannerViewController.swift */; };
 		53072B752922655400228462 /* GAMOriginalAPIVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B742922655400228462 /* GAMOriginalAPIVideoInterstitialViewController.swift */; };
+		53072B7729226CFE00228462 /* InAppBannerDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B7629226CFE00228462 /* InAppBannerDisplayViewController.swift */; };
 		530D4A98291A4A1700A2C796 /* InstreamVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4A97291A4A1700A2C796 /* InstreamVideoViewController.swift */; };
 		530D4A9A291A4B1700A2C796 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 530D4A99291A4B1700A2C796 /* PrebidMobile.framework */; };
 		530D4A9B291A4B1700A2C796 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 530D4A99291A4B1700A2C796 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -184,6 +185,7 @@
 		53072B6B29217E8600228462 /* InstreamBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstreamBaseViewController.xib; sourceTree = "<group>"; };
 		53072B722922621600228462 /* GAMOriginalAPIVideoBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIVideoBannerViewController.swift; sourceTree = "<group>"; };
 		53072B742922655400228462 /* GAMOriginalAPIVideoInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIVideoInterstitialViewController.swift; sourceTree = "<group>"; };
+		53072B7629226CFE00228462 /* InAppBannerDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppBannerDisplayViewController.swift; sourceTree = "<group>"; };
 		530D4A97291A4A1700A2C796 /* InstreamVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstreamVideoViewController.swift; sourceTree = "<group>"; };
 		530D4A99291A4B1700A2C796 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		530D4A9C291A4B7400A2C796 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -378,6 +380,7 @@
 		53072B4E2920DF1000228462 /* In-App */ = {
 			isa = PBXGroup;
 			children = (
+				53072B7629226CFE00228462 /* InAppBannerDisplayViewController.swift */,
 			);
 			path = "In-App";
 			sourceTree = "<group>";
@@ -1085,6 +1088,7 @@
 				53072B6529215D4200228462 /* GAMOriginalAPINativeBannerViewController.swift in Sources */,
 				530D4AA8291A4BC600A2C796 /* SceneDelegate.swift in Sources */,
 				53B03D95291A8911000117E1 /* AdFormat.swift in Sources */,
+				53072B7729226CFE00228462 /* InAppBannerDisplayViewController.swift in Sources */,
 				53B03D99291A8EE7000117E1 /* IntegrationCaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

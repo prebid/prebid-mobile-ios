@@ -96,5 +96,14 @@ struct IntegrationCaseManager {
                 GAMOriginalAPIVideoInstreamViewController()
             }
         ),
+        
+        IntegrationCase(
+            title: "In-App Display Banner",
+            integrationKind: .inApp,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                InAppBannerDisplayViewController()
+            }
+        ),
     ]
 }
