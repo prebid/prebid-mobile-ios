@@ -16,24 +16,24 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedResponseDisplayInterstitial = "response-prebid-display-interstitial-320-480"
-fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
+fileprivate let storedImpVideoInterstitial = "imp-prebid-video-interstitial-320-480"
+fileprivate let storedResponseRenderingVideoInterstitial = "response-prebid-video-interstitial-320-480"
 
-class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUnitDelegate {
-    
+class InAppVideoInterstitialViewController: InterstitialBaseViewController, InterstitialAdUnitDelegate {
+
     // Prebid
     private var renderingInterstitial: InterstitialRenderingAdUnit!
-
+    
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitial
+        Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoInterstitial
         createAd()
     }
-    
+
     func createAd() {
-        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial)
-        renderingInterstitial.adFormats = [.display]
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitial)
+        renderingInterstitial.adFormats = [.video]
         renderingInterstitial.delegate = self
         
         renderingInterstitial.loadAd()
