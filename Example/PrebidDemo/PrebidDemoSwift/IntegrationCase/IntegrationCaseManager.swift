@@ -134,6 +134,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM Video Rewarded 320x480",
+            integrationKind: .gam,
+            adFormat: .videoRewarded,
+            configurationClosure: {
+                GAMVideoRewardedViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "In-App Display Banner 320x50",
             integrationKind: .inApp,
             adFormat: .displayBanner,
