@@ -22,7 +22,7 @@ fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
 fileprivate let nativeStoredResponse = "response-prebid-banner-native-styles"
 fileprivate let gamRenderingNativeAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
 
-class GAMNativeViewController: NativeBaseViewController {
+class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoaderDelegate {
     
     // Prebid
     private var nativeUnit: NativeRequest!
@@ -46,7 +46,10 @@ class GAMNativeViewController: NativeBaseViewController {
     private var eventTrackers: [NativeEventTracker] {
         [NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])]
     }
-
+    
+    // GAM
+    private var adLoader: GADAdLoader?
+    
     override func loadView() {
         super.loadView()
         
@@ -61,48 +64,87 @@ class GAMNativeViewController: NativeBaseViewController {
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
         
-        nativeUnit.fetchDemand { [weak self] result, kvResultDict in
-            guard let self = self else {
-                return
-            }
+        nativeUnit.fetchDemand { result, kvResultDict in
+            let gamRequest = GAMRequest()
+            GAMUtils.shared.prepareRequest(gamRequest, bidTargeting: kvResultDict ?? [:])
             
-            guard let kvResultDict = kvResultDict, let cacheId = kvResultDict[PrebidLocalCacheIdKey] else {
-                return
-            }
+            self.adLoader = GADAdLoader(adUnitID: gamRenderingNativeAdUnitId, rootViewController: self,
+                                        adTypes: [.customNative], options: [])
             
-            guard let nativeAd = NativeAd.create(cacheId: cacheId) else {
-                return
-            }
-            
+            self.adLoader?.delegate = self
+            self.adLoader?.load(gamRequest)
+        }
+    }
+    
+    // MARK: - GADCustomNativeAdLoaderDelegate
+    
+    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
+        return ["11934135"]
+    }
+    
+    func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
+        let result = GAMUtils.shared.findCustomNativeAd(for: customNativeAd)
+        
+        switch result {
+        case .success(let nativeAd):
             self.nativeAd = nativeAd
-            
-            self.titleLabel.text = nativeAd.title
-            self.bodyLabel.text = nativeAd.text
+            titleLabel.text = nativeAd.title
+            bodyLabel.text = nativeAd.text
+            callToActionButton.setTitle(nativeAd.callToAction, for: .normal)
+            sponsoredLabel.text = nativeAd.sponsoredBy
             
             if let iconString = nativeAd.iconUrl {
-                ImageHelper.downloadImageAsync(iconString) { result in
+                ImageHelper.downloadImageAsync(iconString) { [weak self] result in
                     if case let .success(icon) = result {
                         DispatchQueue.main.async {
-                            self.iconView.image = icon
+                            self?.iconView.image = icon
                         }
                     }
                 }
             }
             
             if let imageString = nativeAd.imageUrl {
-                ImageHelper.downloadImageAsync(imageString) { result in
+                ImageHelper.downloadImageAsync(imageString) { [weak self] result in
                     if case let .success(image) = result {
                         DispatchQueue.main.async {
-                            self.mainImageView.image = image
+                            self?.mainImageView.image = image
                         }
                     }
                 }
             }
-            
-            self.callToActionButton.setTitle(nativeAd.callToAction, for: .normal)
-            self.sponsoredLabel.text = nativeAd.sponsoredBy
-            
-            self.nativeAd?.registerView(view: self.view, clickableViews: [self.callToActionButton])
+    
+            self.nativeAd?.registerView(view: view, clickableViews: [callToActionButton])
+        case .failure(let error):
+            if error == GAMEventHandlerError.nonPrebidAd {
+                titleLabel.text = customNativeAd.string(forKey: "title")
+                bodyLabel.text = customNativeAd.string(forKey: "text")
+                callToActionButton.setTitle(customNativeAd.string(forKey: "cta"), for: .normal)
+                sponsoredLabel.text = customNativeAd.string(forKey: "sponsoredBy")
+                
+                if let imageString = customNativeAd.string(forKey: "imgUrl") {
+                    ImageHelper.downloadImageAsync(imageString) { [weak self] result in
+                        if case let .success(image) = result {
+                            DispatchQueue.main.async {
+                                self?.mainImageView.image = image
+                            }
+                        }
+                    }
+                }
+                
+                if let iconString = customNativeAd.string(forKey: "iconUrl") {
+                    ImageHelper.downloadImageAsync(iconString) { [weak self] result in
+                        if case let .success(icon) = result {
+                            DispatchQueue.main.async {
+                                self?.iconView.image = icon
+                            }
+                        }
+                    }
+                }
+            }
         }
+    }
+    
+    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+        PrebidDemoLogger.shared.error("GAD ad loader did fail to receive ad with error: \(error.localizedDescription)")
     }
 }

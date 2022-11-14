@@ -267,5 +267,14 @@ struct IntegrationCaseManager {
                 AdMobVideoRewardedViewController()
             }
         ),
+        
+        IntegrationCase(
+            title: "AdMob Native",
+            integrationKind: .adMob,
+            adFormat: .native,
+            configurationClosure: {
+                AdMobNativeViewController()
+            }
+        ),
     ]
 }
