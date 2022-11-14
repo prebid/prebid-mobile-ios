@@ -98,6 +98,24 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM Display Banner 320x50",
+            integrationKind: .gam,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                GAMDisplayBannerViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "GAM Video Banner 300x250",
+            integrationKind: .gam,
+            adFormat: .videoBanner,
+            configurationClosure: {
+                GAMVideoBannerViewController(adSize: CGSize(width: 300, height: 250))
+            }
+        ),
+        
+        IntegrationCase(
             title: "In-App Display Banner 320x50",
             integrationKind: .inApp,
             adFormat: .displayBanner,
@@ -166,15 +184,6 @@ struct IntegrationCaseManager {
             adFormat: .native,
             configurationClosure: {
                 InAppNativeViewController()
-            }
-        ),
-        
-        IntegrationCase(
-            title: "GAM Display Banner 320x50",
-            integrationKind: .gam,
-            adFormat: .displayBanner,
-            configurationClosure: {
-                GAMDisplayBannerViewController()
             }
         ),
     ]
