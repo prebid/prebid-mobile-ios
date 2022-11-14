@@ -17,7 +17,7 @@ import UIKit
 
 /**
     Integration case title template - [IntegrationKind] [AdFormat] [Size]
-    [IntegrationKind] - GAM (Original API), GAM (Rendering API), In-App, AdMob, MAX
+    [IntegrationKind] - GAM (Original API), GAM, In-App, AdMob, MAX
     [AdFormat] - "Display Banner", "Video Banner", "Native Banner", "Display Interstitial", "Video Interstitial", "Video Rewarded", "Video In-stream", "Native"
     [Size] - size of ad, f.e. 320x50
  */

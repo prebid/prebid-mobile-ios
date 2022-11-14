@@ -18,7 +18,7 @@ import Foundation
 enum IntegrationKind: CustomStringConvertible, CaseIterable {
     
     case gamOriginal
-    case gamRendering
+    case gam
     case inApp
     case adMob
     case max
@@ -27,8 +27,8 @@ enum IntegrationKind: CustomStringConvertible, CaseIterable {
         switch self {
         case .gamOriginal:
             return "GAM (Original API)"
-        case .gamRendering:
-            return "GAM (Rendering API)"
+        case .gam:
+            return "GAM"
         case .inApp:
             return "In-App"
         case .adMob:
