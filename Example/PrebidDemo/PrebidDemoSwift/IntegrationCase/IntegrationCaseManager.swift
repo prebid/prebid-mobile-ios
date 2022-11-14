@@ -222,5 +222,14 @@ struct IntegrationCaseManager {
                 InAppNativeViewController()
             }
         ),
+        
+        IntegrationCase(
+            title: "AdMob Display Banner 320x50",
+            integrationKind: .adMob,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                AdMobDisplayBannerViewController()
+            }
+        ),
     ]
 }

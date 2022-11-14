@@ -57,6 +57,7 @@
 		5344E6A72922808500A1F582 /* GAMVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6A62922808500A1F582 /* GAMVideoInterstitialViewController.swift */; };
 		5344E6A92922815000A1F582 /* GAMVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6A82922815000A1F582 /* GAMVideoRewardedViewController.swift */; };
 		5344E6AB2922826100A1F582 /* GAMNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AA2922826100A1F582 /* GAMNativeViewController.swift */; };
+		5344E6AD2922864000A1F582 /* AdMobDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AC2922864000A1F582 /* AdMobDisplayBannerViewController.swift */; };
 		53AA0C9528143F9F00D8A742 /* NativeAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C9428143F9F00D8A742 /* NativeAsset+Extensions.swift */; };
 		53AA0C982814415D00D8A742 /* NativeEventTrackers+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */; };
 		53AA0C9A281441CA00D8A742 /* NativeAdRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C99281441CA00D8A742 /* NativeAdRenderer.swift */; };
@@ -224,6 +225,7 @@
 		5344E6A62922808500A1F582 /* GAMVideoInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMVideoInterstitialViewController.swift; sourceTree = "<group>"; };
 		5344E6A82922815000A1F582 /* GAMVideoRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMVideoRewardedViewController.swift; sourceTree = "<group>"; };
 		5344E6AA2922826100A1F582 /* GAMNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMNativeViewController.swift; sourceTree = "<group>"; };
+		5344E6AC2922864000A1F582 /* AdMobDisplayBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobDisplayBannerViewController.swift; sourceTree = "<group>"; };
 		537B666C283CC0EA008AE9D1 /* VideoOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoOrientation.h; sourceTree = "<group>"; };
 		53AA0C9428143F9F00D8A742 /* NativeAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeAsset+Extensions.swift"; sourceTree = "<group>"; };
 		53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeEventTrackers+Extensions.swift"; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 		53072B502920DF3B00228462 /* AdMob */ = {
 			isa = PBXGroup;
 			children = (
+				5344E6AC2922864000A1F582 /* AdMobDisplayBannerViewController.swift */,
 			);
 			path = AdMob;
 			sourceTree = "<group>";
@@ -1110,6 +1113,7 @@
 				53072B752922655400228462 /* GAMOriginalAPIVideoInterstitialViewController.swift in Sources */,
 				53B03D92291A87F4000117E1 /* UIButton+Extensions.swift in Sources */,
 				53B03DA1291BC8C4000117E1 /* BannerBaseViewController.swift in Sources */,
+				5344E6AD2922864000A1F582 /* AdMobDisplayBannerViewController.swift in Sources */,
 				5344E6A72922808500A1F582 /* GAMVideoInterstitialViewController.swift in Sources */,
 				53072B562921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift in Sources */,
 				53B03D90291A7FD3000117E1 /* IntegrationKind.swift in Sources */,
