@@ -159,5 +159,14 @@ struct IntegrationCaseManager {
                 InAppVideoRewardedViewController()
             }
         ),
+        
+        IntegrationCase(
+            title: "In-App Native",
+            integrationKind: .inApp,
+            adFormat: .native,
+            configurationClosure: {
+                InAppNativeViewController()
+            }
+        ),
     ]
 }
