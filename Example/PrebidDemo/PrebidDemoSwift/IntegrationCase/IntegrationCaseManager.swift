@@ -258,5 +258,14 @@ struct IntegrationCaseManager {
                 AdMobVideoInterstitialViewController()
             }
         ),
+        
+        IntegrationCase(
+            title: "AdMob Video Rewarded 320x480",
+            integrationKind: .adMob,
+            adFormat: .videoRewarded,
+            configurationClosure: {
+                AdMobVideoRewardedViewController()
+            }
+        ),
     ]
 }
