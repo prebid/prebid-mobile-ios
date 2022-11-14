@@ -150,5 +150,14 @@ struct IntegrationCaseManager {
                 InAppVideoInterstitialLandscapeViewController()
             }
         ),
+        
+        IntegrationCase(
+            title: "In-App Video Rewarded 320x480",
+            integrationKind: .inApp,
+            adFormat: .videoRewarded,
+            configurationClosure: {
+                InAppVideoRewardedViewController()
+            }
+        ),
     ]
 }

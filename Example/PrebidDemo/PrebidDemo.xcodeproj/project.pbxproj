@@ -37,6 +37,7 @@
 		53072B7D2922733800228462 /* InAppVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B7C2922733800228462 /* InAppVideoInterstitialViewController.swift */; };
 		53072B7F2922748200228462 /* InAppVideoInterstitialVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B7E2922748200228462 /* InAppVideoInterstitialVerticalViewController.swift */; };
 		53072B812922753D00228462 /* InAppVideoInterstitialLandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B802922753D00228462 /* InAppVideoInterstitialLandscapeViewController.swift */; };
+		53072B83292275EF00228462 /* InAppVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B82292275EF00228462 /* InAppVideoRewardedViewController.swift */; };
 		530D4A98291A4A1700A2C796 /* InstreamVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4A97291A4A1700A2C796 /* InstreamVideoViewController.swift */; };
 		530D4A9A291A4B1700A2C796 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 530D4A99291A4B1700A2C796 /* PrebidMobile.framework */; };
 		530D4A9B291A4B1700A2C796 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 530D4A99291A4B1700A2C796 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -196,6 +197,7 @@
 		53072B7C2922733800228462 /* InAppVideoInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppVideoInterstitialViewController.swift; sourceTree = "<group>"; };
 		53072B7E2922748200228462 /* InAppVideoInterstitialVerticalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppVideoInterstitialVerticalViewController.swift; sourceTree = "<group>"; };
 		53072B802922753D00228462 /* InAppVideoInterstitialLandscapeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppVideoInterstitialLandscapeViewController.swift; sourceTree = "<group>"; };
+		53072B82292275EF00228462 /* InAppVideoRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppVideoRewardedViewController.swift; sourceTree = "<group>"; };
 		530D4A97291A4A1700A2C796 /* InstreamVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstreamVideoViewController.swift; sourceTree = "<group>"; };
 		530D4A99291A4B1700A2C796 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		530D4A9C291A4B7400A2C796 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -396,6 +398,7 @@
 				53072B7C2922733800228462 /* InAppVideoInterstitialViewController.swift */,
 				53072B7E2922748200228462 /* InAppVideoInterstitialVerticalViewController.swift */,
 				53072B802922753D00228462 /* InAppVideoInterstitialLandscapeViewController.swift */,
+				53072B82292275EF00228462 /* InAppVideoRewardedViewController.swift */,
 			);
 			path = "In-App";
 			sourceTree = "<group>";
@@ -1082,6 +1085,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53072B83292275EF00228462 /* InAppVideoRewardedViewController.swift in Sources */,
 				53072B752922655400228462 /* GAMOriginalAPIVideoInterstitialViewController.swift in Sources */,
 				53B03D92291A87F4000117E1 /* UIButton+Extensions.swift in Sources */,
 				53B03DA1291BC8C4000117E1 /* BannerBaseViewController.swift in Sources */,
