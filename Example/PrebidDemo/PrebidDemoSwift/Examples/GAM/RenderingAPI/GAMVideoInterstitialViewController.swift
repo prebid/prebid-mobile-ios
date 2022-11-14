@@ -18,11 +18,11 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
-fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
-fileprivate let storedResponseDisplayInterstitial = "response-prebid-display-interstitial-320-480"
-fileprivate let gamAdUnitDisplayInterstitialRendering = "/21808260008/prebid_oxb_html_interstitial"
+fileprivate let storedImpVideoInterstitial = "imp-prebid-video-interstitial-320-480"
+fileprivate let storedResponseOriginalVideoInterstitial = "response-prebid-video-interstitial-320-480-original-api"
+fileprivate let gamAdUnitVideoInterstitialRendering = "/21808260008/prebid_oxb_interstitial_video"
 
-class GAMDisplayInterstitialViewController: InterstitialBaseViewController, InterstitialAdUnitDelegate {
+class GAMVideoInterstitialViewController: InterstitialBaseViewController, InterstitialAdUnitDelegate {
     
     // Prebid
     private var renderingInterstitial: InterstitialRenderingAdUnit!
@@ -30,15 +30,14 @@ class GAMDisplayInterstitialViewController: InterstitialBaseViewController, Inte
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitial
+        Prebid.shared.storedAuctionResponse = storedResponseOriginalVideoInterstitial
         createAd()
     }
     
     func createAd() {
-        let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitDisplayInterstitialRendering)
-        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial, eventHandler: eventHandler)
+        let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitVideoInterstitialRendering)
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitial, eventHandler: eventHandler)
         renderingInterstitial.delegate = self
-        renderingInterstitial.adFormats = [.video]
         renderingInterstitial.loadAd()
     }
     
@@ -51,4 +50,5 @@ class GAMDisplayInterstitialViewController: InterstitialBaseViewController, Inte
     func interstitial(_ interstitial: InterstitialRenderingAdUnit, didFailToReceiveAdWithError error: Error?) {
         PrebidDemoLogger.shared.error("Interstitial Rendering ad unit did fail to receive ad with error: \(error)")
     }
+
 }

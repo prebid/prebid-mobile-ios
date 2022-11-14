@@ -125,6 +125,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM Video Interstitial 320x480",
+            integrationKind: .gam,
+            adFormat: .videoInterstitial,
+            configurationClosure: {
+                GAMVideoInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "In-App Display Banner 320x50",
             integrationKind: .inApp,
             adFormat: .displayBanner,
