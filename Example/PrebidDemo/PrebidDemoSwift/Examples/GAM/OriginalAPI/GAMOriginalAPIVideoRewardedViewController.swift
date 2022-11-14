@@ -35,6 +35,10 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
         Prebid.shared.storedAuctionResponse = storedResponseVideoRewarded
         
         // Setup Prebid ad unit
+        createAd()
+    }
+    
+    func createAd() {
         adUnit = RewardedVideoAdUnit(configId: storedImpVideoRewarded)
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]

@@ -86,7 +86,10 @@ class GAMOriginalAPIVideoInstreamViewController:
         
         // Setup and load in-stream video
         Prebid.shared.storedAuctionResponse = storedResponseVideo
-        
+        createAd()
+    }
+    
+    func createAd() {
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         parameters.protocols = [Signals.Protocols.VAST_2_0]

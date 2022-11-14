@@ -34,8 +34,11 @@ class GAMOriginalAPIBannerDisplayViewController: BannerBaseViewController, GADBa
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner
-        
-        // Create a BannerAdUnit associated with a Prebid Server configuration ID and a banner size.
+        createAd()
+    }
+    
+    func createAd() {
+        // Create a BannerAdUnit associated with a Prebid Server configuration ID and a banner size
         adUnit = BannerAdUnit(configId: storedImpDisplayBanner, size: adSize)
         // Create and setup banner parameters
         let parameters = BannerParameters()

@@ -58,7 +58,10 @@ class GAMOriginalAPINativeViewController:
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = storedPrebidResponse
-        
+        createAd()
+    }
+    
+    func createAd() {
         nativeUnit = NativeRequest(configId: storedPrebidImpression, assets: nativeRequestAssets)
         
         nativeUnit.context = ContextType.Social

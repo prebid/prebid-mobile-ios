@@ -34,7 +34,10 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitial
-        
+        createAd()
+    }
+    
+    func createAd() {
         // Setup Prebid ad unit
         adUnit = InterstitialAdUnit(configId: storedImpDisplayInterstitial)
         

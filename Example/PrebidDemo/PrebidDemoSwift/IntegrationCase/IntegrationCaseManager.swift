@@ -16,61 +16,64 @@
 import UIKit
 
 /**
-    Integration case title template - [IntegrationKind] [AdFormat] [Description]
+    Integration case title template - [IntegrationKind] [AdFormat] [Size]
+    [IntegrationKind] - GAM (Original API), GAM (Rendering API), In-App, AdMob, MAX
+    [AdFormat] - "Display Banner", "Video Banner", "Native Banner", "Display Interstitial", "Video Interstitial", "Video Rewarded", "Video In-stream", "Native"
+    [Size] - size of ad, f.e. 320x50
  */
 
 struct IntegrationCaseManager {
     
     static var allCases: [IntegrationCase] = [
         IntegrationCase(
+            title: "GAM (Original API) Display Banner 320x50",
             integrationKind: .gamOriginal,
             adFormat: .displayBanner,
-            description: "320x50",
             configurationClosure: {
                 GAMOriginalAPIBannerDisplayViewController()
             }
         ),
         
         IntegrationCase(
+            title: "GAM (Original API) Display Interstitial 320x480",
             integrationKind: .gamOriginal,
             adFormat: .displayInterstitial,
-            description: "320x480",
             configurationClosure: {
                 GAMOriginalAPIDisplayInterstitialViewController()
             }
         ),
         
         IntegrationCase(
+            title: "GAM (Original API) Video Rewarded 320x480",
             integrationKind: .gamOriginal,
             adFormat: .videoRewarded,
-            description: "320x480",
             configurationClosure: {
                 GAMOriginalAPIVideoRewardedViewController()
             }
         ),
         
         IntegrationCase(
+            title: "GAM (Original API) Native Banner",
             integrationKind: .gamOriginal,
             adFormat: .nativeBanner,
-            description: "",
             configurationClosure: {
                 GAMOriginalAPINativeBannerViewController()
             }
         ),
         
         IntegrationCase(
+            title: "GAM (Original API) Native",
             integrationKind: .gamOriginal,
             adFormat: .native,
-            description: "",
             configurationClosure: {
                 GAMOriginalAPINativeViewController()
             }
         ),
         
         IntegrationCase(
+            title: "GAM (Original API) Video In-stream 320x480",
             integrationKind: .gamOriginal,
             adFormat: .videoInstream,
-            description: "",
             configurationClosure: {
                 GAMOriginalAPIVideoInstreamViewController()
             }

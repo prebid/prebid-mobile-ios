@@ -371,13 +371,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		53072B4D2920DEFF00228462 /* GAM */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = GAM;
-			sourceTree = "<group>";
-		};
 		53072B4E2920DF1000228462 /* In-App */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,12 +381,8 @@
 		53072B4F2920DF3400228462 /* GAM */ = {
 			isa = PBXGroup;
 			children = (
-				53B03DA4291BCCE1000117E1 /* GAMOriginalAPIBannerDisplayViewController.swift */,
-				53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */,
-				53072B6429215D4200228462 /* GAMOriginalAPINativeBannerViewController.swift */,
-				53072B662921726C00228462 /* GAMOriginalAPINativeViewController.swift */,
-				53072B6829217D1800228462 /* GAMOriginalAPIVideoInstreamViewController.swift */,
-				53072B5D2921522000228462 /* GAMOriginalAPIVideoRewardedViewController.swift */,
+				53072B6F2922510300228462 /* OriginalAPI */,
+				53072B712922512D00228462 /* RenderingAPI */,
 			);
 			path = GAM;
 			sourceTree = "<group>";
@@ -450,11 +439,32 @@
 			path = InstreamBaseViewController;
 			sourceTree = "<group>";
 		};
+		53072B6F2922510300228462 /* OriginalAPI */ = {
+			isa = PBXGroup;
+			children = (
+				53B03DA4291BCCE1000117E1 /* GAMOriginalAPIBannerDisplayViewController.swift */,
+				53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */,
+				53072B6429215D4200228462 /* GAMOriginalAPINativeBannerViewController.swift */,
+				53072B662921726C00228462 /* GAMOriginalAPINativeViewController.swift */,
+				53072B6829217D1800228462 /* GAMOriginalAPIVideoInstreamViewController.swift */,
+				53072B5D2921522000228462 /* GAMOriginalAPIVideoRewardedViewController.swift */,
+			);
+			path = OriginalAPI;
+			sourceTree = "<group>";
+		};
+		53072B712922512D00228462 /* RenderingAPI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RenderingAPI;
+			sourceTree = "<group>";
+		};
 		530D4AA4291A4BC600A2C796 /* PrebidDemoSwift */ = {
 			isa = PBXGroup;
 			children = (
 				530D4AA5291A4BC600A2C796 /* AppDelegate.swift */,
 				530D4AA7291A4BC600A2C796 /* SceneDelegate.swift */,
+				53B03D9C291A9BE7000117E1 /* BaseViewControllers */,
 				53B03D89291A5D56000117E1 /* Examples */,
 				53B03D93291A87F9000117E1 /* Extensions */,
 				53072B5C29210C2D00228462 /* IntegrationCase */,
@@ -506,9 +516,10 @@
 			isa = PBXGroup;
 			children = (
 				53B03D8B291A6562000117E1 /* ExamplesViewController.swift */,
-				53B03D9C291A9BE7000117E1 /* BaseViewControllers */,
-				53B03D9A291A9B8B000117E1 /* OriginalAPI */,
-				53B03D9B291A9B97000117E1 /* RenderingAPI */,
+				53072B502920DF3B00228462 /* AdMob */,
+				53072B4F2920DF3400228462 /* GAM */,
+				53072B4E2920DF1000228462 /* In-App */,
+				53072B512920DF4100228462 /* MAX */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -527,25 +538,6 @@
 				53B03D91291A87F4000117E1 /* UIButton+Extensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		53B03D9A291A9B8B000117E1 /* OriginalAPI */ = {
-			isa = PBXGroup;
-			children = (
-				53072B4F2920DF3400228462 /* GAM */,
-			);
-			path = OriginalAPI;
-			sourceTree = "<group>";
-		};
-		53B03D9B291A9B97000117E1 /* RenderingAPI */ = {
-			isa = PBXGroup;
-			children = (
-				53072B502920DF3B00228462 /* AdMob */,
-				53072B4D2920DEFF00228462 /* GAM */,
-				53072B4E2920DF1000228462 /* In-App */,
-				53072B512920DF4100228462 /* MAX */,
-			);
-			path = RenderingAPI;
 			sourceTree = "<group>";
 		};
 		53B03D9C291A9BE7000117E1 /* BaseViewControllers */ = {

@@ -52,7 +52,10 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = nativeStoredResponse
-        
+        createAd()
+    }
+    
+    func createAd() {
         // Setup Prebid AdUnit
         nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: nativeRequestAssets)
         
