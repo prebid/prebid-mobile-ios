@@ -114,5 +114,14 @@ struct IntegrationCaseManager {
                 InAppVideoBannerViewController(adSize: CGSize(width: 300, height: 250))
             }
         ),
+        
+        IntegrationCase(
+            title: "In-App Display Interstitial 320x480",
+            integrationKind: .inApp,
+            adFormat: .displayInterstitial,
+            configurationClosure: {
+                InAppDisplayInterstitialViewController()
+            }
+        ),
     ]
 }
