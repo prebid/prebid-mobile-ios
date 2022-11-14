@@ -240,5 +240,14 @@ struct IntegrationCaseManager {
                 AdMobVideoBannerViewController(adSize: CGSize(width: 300, height: 250))
             }
         ),
+        
+        IntegrationCase(
+            title: "AdMob Display Interstitial 320x480",
+            integrationKind: .adMob,
+            adFormat: .displayInterstitial,
+            configurationClosure: {
+                AdMobDisplayInterstitialViewController()
+            }
+        ),
     ]
 }

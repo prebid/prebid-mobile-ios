@@ -59,6 +59,7 @@
 		5344E6AB2922826100A1F582 /* GAMNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AA2922826100A1F582 /* GAMNativeViewController.swift */; };
 		5344E6AD2922864000A1F582 /* AdMobDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AC2922864000A1F582 /* AdMobDisplayBannerViewController.swift */; };
 		5344E6AF2922885200A1F582 /* AdMobVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AE2922885200A1F582 /* AdMobVideoBannerViewController.swift */; };
+		5344E6B12922896F00A1F582 /* AdMobDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6B02922896F00A1F582 /* AdMobDisplayInterstitialViewController.swift */; };
 		53AA0C9528143F9F00D8A742 /* NativeAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C9428143F9F00D8A742 /* NativeAsset+Extensions.swift */; };
 		53AA0C982814415D00D8A742 /* NativeEventTrackers+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */; };
 		53AA0C9A281441CA00D8A742 /* NativeAdRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C99281441CA00D8A742 /* NativeAdRenderer.swift */; };
@@ -228,6 +229,7 @@
 		5344E6AA2922826100A1F582 /* GAMNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMNativeViewController.swift; sourceTree = "<group>"; };
 		5344E6AC2922864000A1F582 /* AdMobDisplayBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobDisplayBannerViewController.swift; sourceTree = "<group>"; };
 		5344E6AE2922885200A1F582 /* AdMobVideoBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobVideoBannerViewController.swift; sourceTree = "<group>"; };
+		5344E6B02922896F00A1F582 /* AdMobDisplayInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobDisplayInterstitialViewController.swift; sourceTree = "<group>"; };
 		537B666C283CC0EA008AE9D1 /* VideoOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoOrientation.h; sourceTree = "<group>"; };
 		53AA0C9428143F9F00D8A742 /* NativeAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeAsset+Extensions.swift"; sourceTree = "<group>"; };
 		53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeEventTrackers+Extensions.swift"; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 			children = (
 				5344E6AC2922864000A1F582 /* AdMobDisplayBannerViewController.swift */,
 				5344E6AE2922885200A1F582 /* AdMobVideoBannerViewController.swift */,
+				5344E6B02922896F00A1F582 /* AdMobDisplayInterstitialViewController.swift */,
 			);
 			path = AdMob;
 			sourceTree = "<group>";
@@ -1134,6 +1137,7 @@
 				53072B7929226EF400228462 /* InAppVideoBannerViewController.swift in Sources */,
 				5344E69F2922796000A1F582 /* InAppNativeViewController.swift in Sources */,
 				53B03D97291A8CA4000117E1 /* IntegrationCase.swift in Sources */,
+				5344E6B12922896F00A1F582 /* AdMobDisplayInterstitialViewController.swift in Sources */,
 				53072B7F2922748200228462 /* InAppVideoInterstitialVerticalViewController.swift in Sources */,
 				53B03D8E291A66E7000117E1 /* SettingsViewController.swift in Sources */,
 				53072B612921585900228462 /* NativeBaseViewController.swift in Sources */,
