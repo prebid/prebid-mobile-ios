@@ -116,6 +116,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM Display Interstitial 320x480",
+            integrationKind: .gam,
+            adFormat: .displayInterstitial,
+            configurationClosure: {
+                GAMDisplayInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "In-App Display Banner 320x50",
             integrationKind: .inApp,
             adFormat: .displayBanner,
