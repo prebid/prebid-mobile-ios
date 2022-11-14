@@ -21,7 +21,7 @@ fileprivate let storedResponseDisplayBanner = "response-prebid-banner-320-50"
 fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
 fileprivate let gamAdUnitDisplayBannerOriginal = "/21808260008/prebid_demo_app_original_api_banner"
 
-class GAMOriginalAPIBannerDisplayViewController: BannerBaseViewController, GADBannerViewDelegate {
+class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
     
     // Prebid
     private var adUnit: BannerAdUnit!

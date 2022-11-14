@@ -30,7 +30,7 @@ struct IntegrationCaseManager {
             integrationKind: .gamOriginal,
             adFormat: .displayBanner,
             configurationClosure: {
-                GAMOriginalAPIBannerDisplayViewController()
+                GAMOriginalAPIDisplayBannerViewController()
             }
         ),
         
@@ -166,6 +166,15 @@ struct IntegrationCaseManager {
             adFormat: .native,
             configurationClosure: {
                 InAppNativeViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "GAM Display Banner 320x50",
+            integrationKind: .gam,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                GAMDisplayBannerViewController()
             }
         ),
     ]
