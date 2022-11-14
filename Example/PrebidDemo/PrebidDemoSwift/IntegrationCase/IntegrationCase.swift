@@ -16,6 +16,7 @@
 import UIKit
 
 struct IntegrationCase {
+    
     let integrationKind: IntegrationKind
     let adFormat: AdFormat
     let description: String

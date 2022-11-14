@@ -15,12 +15,16 @@
 
 import UIKit
 
+/**
+    Integration case title template - [IntegrationKind] [AdFormat] [Description]
+ */
+
 struct IntegrationCaseManager {
     
     static var allCases: [IntegrationCase] = [
         IntegrationCase(
-            integrationKind: .originalGAM,
-            adFormat: .bannerDisplay,
+            integrationKind: .gamOriginal,
+            adFormat: .displayBanner,
             description: "320x50",
             configurationClosure: {
                 GAMOriginalAPIBannerDisplayViewController()
@@ -28,8 +32,8 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            integrationKind: .originalGAM,
-            adFormat: .interstitialDisplay,
+            integrationKind: .gamOriginal,
+            adFormat: .displayInterstitial,
             description: "320x480",
             configurationClosure: {
                 GAMOriginalAPIDisplayInterstitialViewController()
@@ -37,8 +41,8 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            integrationKind: .originalGAM,
-            adFormat: .rewardedVideo,
+            integrationKind: .gamOriginal,
+            adFormat: .videoRewarded,
             description: "320x480",
             configurationClosure: {
                 GAMOriginalAPIVideoRewardedViewController()
@@ -46,16 +50,16 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            integrationKind: .originalGAM,
-            adFormat: .native,
-            description: "Banner",
+            integrationKind: .gamOriginal,
+            adFormat: .nativeBanner,
+            description: "",
             configurationClosure: {
                 GAMOriginalAPINativeBannerViewController()
             }
         ),
         
         IntegrationCase(
-            integrationKind: .originalGAM,
+            integrationKind: .gamOriginal,
             adFormat: .native,
             description: "",
             configurationClosure: {
@@ -64,8 +68,8 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            integrationKind: .originalGAM,
-            adFormat: .instreamVideo,
+            integrationKind: .gamOriginal,
+            adFormat: .videoInstream,
             description: "",
             configurationClosure: {
                 GAMOriginalAPIVideoInstreamViewController()

@@ -17,27 +17,30 @@ import Foundation
 
 enum AdFormat: CustomStringConvertible, CaseIterable {
     
-    case bannerDisplay
-    case bannerVideo
-    case interstitialDisplay
-    case interstitialVideo
-    case rewardedVideo
-    case instreamVideo
+    case displayBanner
+    case videoBanner
+    case nativeBanner
+    case displayInterstitial
+    case videoInterstitial
+    case videoRewarded
+    case videoInstream
     case native
     
     var description: String {
         switch self {
-        case .bannerDisplay:
+        case .displayBanner:
             return "Display Banner"
-        case .bannerVideo:
+        case .videoBanner:
             return "Video Banner"
-        case .interstitialDisplay:
+        case .nativeBanner:
+            return "Native Banner"
+        case .displayInterstitial:
             return "Display Interstitial"
-        case .interstitialVideo:
+        case .videoInterstitial:
             return "Video Interstitial"
-        case .rewardedVideo:
+        case .videoRewarded:
             return "Video Rewarded"
-        case .instreamVideo:
+        case .videoInstream:
             return "Video In-stream"
         case .native:
             return "Native"

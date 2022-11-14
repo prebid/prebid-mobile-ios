@@ -17,17 +17,17 @@ import Foundation
 
 enum IntegrationKind: CustomStringConvertible, CaseIterable {
     
-    case originalGAM
-    case renderingGAM
+    case gamOriginal
+    case gamRendering
     case inApp
     case adMob
     case max
     
     var description: String {
         switch self {
-        case .originalGAM:
+        case .gamOriginal:
             return "GAM (Original API)"
-        case .renderingGAM:
+        case .gamRendering:
             return "GAM (Rendering API)"
         case .inApp:
             return "In-App"
