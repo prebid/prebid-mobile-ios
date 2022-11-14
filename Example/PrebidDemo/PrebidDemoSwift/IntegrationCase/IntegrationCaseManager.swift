@@ -98,60 +98,6 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            title: "GAM Display Banner 320x50",
-            integrationKind: .gam,
-            adFormat: .displayBanner,
-            configurationClosure: {
-                GAMDisplayBannerViewController()
-            }
-        ),
-        
-        IntegrationCase(
-            title: "GAM Video Banner 300x250",
-            integrationKind: .gam,
-            adFormat: .videoBanner,
-            configurationClosure: {
-                GAMVideoBannerViewController(adSize: CGSize(width: 300, height: 250))
-            }
-        ),
-        
-        IntegrationCase(
-            title: "GAM Display Interstitial 320x480",
-            integrationKind: .gam,
-            adFormat: .displayInterstitial,
-            configurationClosure: {
-                GAMDisplayInterstitialViewController()
-            }
-        ),
-        
-        IntegrationCase(
-            title: "GAM Video Interstitial 320x480",
-            integrationKind: .gam,
-            adFormat: .videoInterstitial,
-            configurationClosure: {
-                GAMVideoInterstitialViewController()
-            }
-        ),
-        
-        IntegrationCase(
-            title: "GAM Video Rewarded 320x480",
-            integrationKind: .gam,
-            adFormat: .videoRewarded,
-            configurationClosure: {
-                GAMVideoRewardedViewController()
-            }
-        ),
-        
-        IntegrationCase(
-            title: "GAM Native",
-            integrationKind: .gam,
-            adFormat: .native,
-            configurationClosure: {
-                GAMNativeViewController()
-            }
-        ),
-        
-        IntegrationCase(
             title: "In-App Display Banner 320x50",
             integrationKind: .inApp,
             adFormat: .displayBanner,
@@ -224,11 +170,74 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM Display Banner 320x50",
+            integrationKind: .gam,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                GAMDisplayBannerViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "GAM Video Banner 300x250",
+            integrationKind: .gam,
+            adFormat: .videoBanner,
+            configurationClosure: {
+                GAMVideoBannerViewController(adSize: CGSize(width: 300, height: 250))
+            }
+        ),
+        
+        IntegrationCase(
+            title: "GAM Display Interstitial 320x480",
+            integrationKind: .gam,
+            adFormat: .displayInterstitial,
+            configurationClosure: {
+                GAMDisplayInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "GAM Video Interstitial 320x480",
+            integrationKind: .gam,
+            adFormat: .videoInterstitial,
+            configurationClosure: {
+                GAMVideoInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "GAM Video Rewarded 320x480",
+            integrationKind: .gam,
+            adFormat: .videoRewarded,
+            configurationClosure: {
+                GAMVideoRewardedViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "GAM Native",
+            integrationKind: .gam,
+            adFormat: .native,
+            configurationClosure: {
+                GAMNativeViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "AdMob Display Banner 320x50",
             integrationKind: .adMob,
             adFormat: .displayBanner,
             configurationClosure: {
                 AdMobDisplayBannerViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "AdMob Video Banner 300x250",
+            integrationKind: .adMob,
+            adFormat: .videoBanner,
+            configurationClosure: {
+                AdMobVideoBannerViewController(adSize: CGSize(width: 300, height: 250))
             }
         ),
     ]
