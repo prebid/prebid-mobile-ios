@@ -19,7 +19,7 @@ import PrebidMobile
 fileprivate let storedResponseDisplayBanner = "response-prebid-banner-320-50"
 fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
 
-class InAppBannerDisplayViewController: BannerBaseViewController, BannerViewDelegate {
+class InAppDisplayBannerViewController: BannerBaseViewController, BannerViewDelegate {
       
     // Prebid
     private var prebidBannerView: BannerView!
@@ -34,7 +34,7 @@ class InAppBannerDisplayViewController: BannerBaseViewController, BannerViewDele
     func createAd() {
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize), configID: storedImpDisplayBanner, adSize: adSize)
         prebidBannerView.delegate = self
-        prebidBannerView.adFormat = .video
+        prebidBannerView.adFormat = .display
         prebidBannerView.videoParameters.placement = .InBanner
         bannerView.addSubview(prebidBannerView)
         prebidBannerView.loadAd()

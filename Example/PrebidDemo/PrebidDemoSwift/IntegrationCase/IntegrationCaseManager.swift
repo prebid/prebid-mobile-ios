@@ -98,11 +98,20 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            title: "In-App Display Banner",
+            title: "In-App Display Banner 320x50",
             integrationKind: .inApp,
             adFormat: .displayBanner,
             configurationClosure: {
-                InAppBannerDisplayViewController()
+                InAppDisplayBannerViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "In-App Video Banner 300x250",
+            integrationKind: .inApp,
+            adFormat: .videoBanner,
+            configurationClosure: {
+                InAppVideoBannerViewController(adSize: CGSize(width: 300, height: 250))
             }
         ),
     ]
