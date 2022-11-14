@@ -17,7 +17,7 @@ import UIKit
 
 struct IntegrationCase {
     
-    var title: String 
+    let title: String 
     let integrationKind: IntegrationKind
     let adFormat: AdFormat
     let configurationClosure: () -> UIViewController
