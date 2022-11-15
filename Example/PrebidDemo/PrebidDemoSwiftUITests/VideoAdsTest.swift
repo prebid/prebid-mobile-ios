@@ -89,7 +89,7 @@ class VideoAdsTest: BaseAdsTest {
     }
     private func checkRewardedVideo(adServer: String, adName: String) {
         checkVideo(adServer: adServer, adName: adName)
-        XCTAssert(app.webViews["PBMInternalWebViewAccessibilityIdentifier"].waitForExistence(timeout: 30),assertFailedMessage(adServer: adServer, adName: adName, reason: "End card is not displayed"))
+//        XCTAssert(app.webViews["PBMInternalWebViewAccessibilityIdentifier"].waitForExistence(timeout: 30),assertFailedMessage(adServer: adServer, adName: adName, reason: "End card is not displayed"))
         XCTAssert(app.buttons["PBMCloseButton"].waitForExistence(timeout: 20),assertFailedMessage(adServer: adServer, adName: adName, reason: "Video close button is not displayed"))
     }
     
@@ -103,7 +103,7 @@ class VideoAdsTest: BaseAdsTest {
     }
     private func checkGamRewardedVideo() {
         checkGamInterstitialVideo(videoName: rewarded)
-        XCTAssert(app.images.element.waitForExistence(timeout: 20),assertFailedMessage(adServer: gam, adName: rewarded, reason: "End card is not displayed"))
+//        XCTAssert(app.images.element.waitForExistence(timeout: 20),assertFailedMessage(adServer: gam, adName: rewarded, reason: "End card is not displayed"))
     }
     
 
