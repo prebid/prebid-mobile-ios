@@ -32,10 +32,11 @@ class InAppVideoInterstitialLandscapeViewController: UIViewController {
     }
 
     func createAd() {
+        // Setup Prebid ad unit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitialLandscape)
         renderingInterstitial.adFormats = [.video]
         renderingInterstitial.delegate = self
-        
+        // Load ad
         renderingInterstitial.loadAd()
     }
     

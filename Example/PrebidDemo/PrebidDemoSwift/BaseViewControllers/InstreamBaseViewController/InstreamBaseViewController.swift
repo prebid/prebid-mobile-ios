@@ -17,6 +17,7 @@ import UIKit
 
 fileprivate let instreamBaseViewControllerNibName = "InstreamBaseViewController"
 
+/// Base controller for video in-stream integration cases, provides instream view and play button
 class InstreamBaseViewController: UIViewController {
 
     @IBOutlet weak var instreamView: UIView!
@@ -41,7 +42,5 @@ class InstreamBaseViewController: UIViewController {
         instreamView.constraints.first { $0.firstAttribute == .height }?.constant = adSize.height
     }
     
-    @IBAction func onPlayButtonPressed(_ sender: AnyObject) {
-        
-    }
+    @IBAction func onPlayButtonPressed(_ sender: AnyObject) {}
 }

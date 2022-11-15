@@ -17,6 +17,7 @@ import UIKit
 
 fileprivate let interstitialBaseViewControllerNibName = "InterstitialBaseViewController"
 
+/// Base controller for interstitial integration cases
 class InterstitialBaseViewController: UIViewController {
     
     // Integration case ad size, for interstitial default size 320x480

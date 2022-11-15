@@ -58,31 +58,27 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
     func createAd() {
         // Setup Prebid AdUnit
         nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: nativeRequestAssets)
-        
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
-        
         nativeUnit.eventtrackers = eventTrackers
-        
+        // Setup integration kind - GAM
         gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
         gamBannerView.adUnitID = "/21808260008/unified_native_ad_unit"
         gamBannerView.rootViewController = self
         gamBannerView.delegate = self
         bannerView.addSubview(gamBannerView)
-        
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
+            // Load ad
             self?.gamBannerView.load(self?.gamRequest)
         }
     }
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
-            guard let bannerView = bannerView as? GAMBannerView else {
-                return
-            }
-            
+            guard let bannerView = bannerView as? GAMBannerView else { return }
             bannerView.resize(GADAdSizeFromCGSize(size))
         }, failure: { error in
             PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")

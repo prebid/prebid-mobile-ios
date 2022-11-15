@@ -59,17 +59,19 @@ class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
     }
     
     func createAd() {
+        // Setup integration kind - AppLovin MAX
         maxNativeAdLoader = MANativeAdLoader(adUnitIdentifier: maxRenderingNativeAdUnitId)
         maxNativeAdLoader.nativeAdDelegate = self
+        // Setup Prebid mediation ad unit
         maxMediationDelegate = MAXMediationNativeUtils(nativeAdLoader: maxNativeAdLoader)
         maxMediationNativeAdUnit = MediationNativeAdUnit(configId: nativeStoredImpression, mediationDelegate: maxMediationDelegate)
-        
         maxMediationNativeAdUnit.addNativeAssets(nativeRequestAssets)
         maxMediationNativeAdUnit.setContextType(.Social)
         maxMediationNativeAdUnit.setPlacementType(.FeedContent)
         maxMediationNativeAdUnit.setContextSubType(.Social)
         maxMediationNativeAdUnit.addEventTracker(eventTrackers)
         
+        // Create MAX native ad view
         let nativeAdViewNib = UINib(nibName: "MAXNativeAdView", bundle: Bundle.main)
         let maNativeAdView = nativeAdViewNib.instantiate(withOwner: nil, options: nil).first! as! MANativeAdView?
         
@@ -83,8 +85,9 @@ class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
         })
         
         maNativeAdView!.bindViews(with: adViewBinder)
-        
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         maxMediationNativeAdUnit.fetchDemand { [weak self] result in
+            // Load ad
             self?.maxNativeAdLoader.loadAd(into: maNativeAdView!)
         }
     }

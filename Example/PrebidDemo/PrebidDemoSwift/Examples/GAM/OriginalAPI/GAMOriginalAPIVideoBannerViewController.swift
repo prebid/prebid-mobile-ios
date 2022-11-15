@@ -38,16 +38,17 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
     }
     
     func createAd() {
+        // Create a VideoAdUnit associated with a Prebid Server configuration ID and a banner size
         adUnit = VideoAdUnit(configId: storedImpVideoBanner, size: adSize)
-        
+        // Create and setup video parameters
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         parameters.placement = Signals.Placement.InBanner
-        
         adUnit.parameters = parameters
         
+        // Setup integration kind - GAM
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gamBanner.adUnitID = gamAdUnitVideoBannerOriginal
         gamBanner.rootViewController = self
@@ -55,8 +56,11 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
         
         bannerView.addSubview(gamBanner)
         bannerView.backgroundColor = .clear
+        
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
+            // Load ad
             self?.gamBanner.load(self?.gamRequest)
         }
     }

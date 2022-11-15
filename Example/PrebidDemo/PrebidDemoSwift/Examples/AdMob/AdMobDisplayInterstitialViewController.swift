@@ -40,11 +40,12 @@ class AdMobDisplayInterstitialViewController: InterstitialBaseViewController, GA
     }
 
     func createAd() {
+        // Setup Prebid interstitial mediation ad unit
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: gadRequest)
         admobAdUnit = MediationInterstitialAdUnit(configId: storedImpDisplayInterstitial, mediationDelegate: mediationDelegate!)
         admobAdUnit?.fetchDemand(completion: { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
-            
+            // Load ad
             GADInterstitialAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: self?.gadRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 

@@ -62,21 +62,18 @@ class GAMOriginalAPINativeViewController:
     }
     
     func createAd() {
+        // Setup Prebid ad unit
         nativeUnit = NativeRequest(configId: storedPrebidImpression, assets: nativeRequestAssets)
-        
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
-        
         nativeUnit.eventtrackers = eventTrackers
-        
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             guard let self = self else { return }
             
-            self.adLoader = GADAdLoader(adUnitID: gamRenderingNativeAdUnitId,
-                                        rootViewController: self,
-                                        adTypes: [GADAdLoaderAdType.customNative],
-                                        options: [])
+            self.adLoader = GADAdLoader(adUnitID: gamRenderingNativeAdUnitId,rootViewController: self,
+                                        adTypes: [GADAdLoaderAdType.customNative], options: [])
             self.adLoader.delegate = self
             self.adLoader.load(self.gamRequest)
         }
@@ -133,10 +130,10 @@ class GAMOriginalAPINativeViewController:
     }
     
     func nativeAdNotFound() {
-        
+        PrebidDemoLogger.shared.error("Native ad not found")
     }
     
     func nativeAdNotValid() {
-        
+        PrebidDemoLogger.shared.error("Native ad not valid")
     }
 }

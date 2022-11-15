@@ -17,6 +17,8 @@ import UIKit
 
 fileprivate let nativeBaseViewControllerNibName = "NativeBaseViewController"
 
+/// Base controller for native integration cases, provides title, body and sponsoredBy label, main and icon image views, callToAction button
+/// For more details look at NativeBaseViewController xib
 class NativeBaseViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!

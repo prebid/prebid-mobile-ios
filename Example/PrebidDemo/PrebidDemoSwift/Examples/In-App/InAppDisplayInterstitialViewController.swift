@@ -32,10 +32,11 @@ class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUn
     }
     
     func createAd() {
+        // Setup Prebid ad unit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial)
         renderingInterstitial.adFormats = [.display]
         renderingInterstitial.delegate = self
-        
+        // Load ad
         renderingInterstitial.loadAd()
     }
     

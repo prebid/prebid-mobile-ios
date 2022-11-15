@@ -39,13 +39,14 @@ class MAXDisplayInterstitialViewController: InterstitialBaseViewController, MAAd
     }
     
     func createAd() {
+        // Setup integration kind - AppLovin MAX
         maxInterstitial = MAInterstitialAd(adUnitIdentifier: maxAdUnitDisplayInterstitial)
+        // Setup Prebid mediation ad unit
         maxMediationDelegate = MAXMediationInterstitialUtils(interstitialAd: maxInterstitial)
         maxAdUnit = MediationInterstitialAdUnit(configId: storedImpDisplayInterstitial, mediationDelegate: maxMediationDelegate)
-        
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         maxAdUnit.fetchDemand(completion: { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")
-            
             guard let self = self else { return }
             self.maxInterstitial.delegate = self
             self.maxInterstitial.load()

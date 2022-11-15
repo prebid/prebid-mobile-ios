@@ -41,12 +41,11 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
         // Setup Prebid ad unit
         adUnit = InterstitialAdUnit(configId: storedImpDisplayInterstitial)
         
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            
             // Load GAM interstitial ad
-            GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitDisplayInterstitialOriginal,
-                                   request: self?.gamRequest) { ad, error in
+            GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitDisplayInterstitialOriginal, request: self?.gamRequest) { ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     PrebidDemoLogger.shared.error("Failed to load interstitial ad with error: \(error.localizedDescription)")

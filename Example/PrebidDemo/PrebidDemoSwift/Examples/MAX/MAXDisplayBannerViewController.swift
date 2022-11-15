@@ -39,15 +39,19 @@ class MAXDisplayBannerViewController: BannerBaseViewController, MAAdViewAdDelega
     }
 
     func createAd() {
+        // Setup integration kind - AppLovin MAX
         maxAdBannerView = MAAdView(adUnitIdentifier: maxAdUnitBannerRendering)
         maxAdBannerView.frame = CGRect(origin: .zero, size: adSize)
         maxAdBannerView.delegate = self
         maxAdBannerView.isHidden = false
         bannerView.addSubview(maxAdBannerView)
+        // Setup Prebid mediation ad unit
         maxMediationDelegate = MAXMediationBannerUtils(adView: maxAdBannerView)
         maxAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: adSize, mediationDelegate: maxMediationDelegate)
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         maxAdUnit.fetchDemand { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")
+            // Load ad
             self?.maxAdBannerView.loadAd()
         }
     }

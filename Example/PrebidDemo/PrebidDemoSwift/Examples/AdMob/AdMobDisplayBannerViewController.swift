@@ -40,15 +40,19 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
     }
     
     func createAd() {
+        // Setup GADBannerView
         gadBanner = GADBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gadBanner.adUnitID = adMobAdUnitDisplayBannerRendering
         gadBanner.delegate = self
         gadBanner.rootViewController = self
         bannerView.addSubview(gadBanner)
+        // Setup Prebud banner mediation ad unit
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: adSize, mediationDelegate: mediationDelegate)
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
+            // Load ad
             self?.gadBanner.load(self?.gadRequest)
         }
     }

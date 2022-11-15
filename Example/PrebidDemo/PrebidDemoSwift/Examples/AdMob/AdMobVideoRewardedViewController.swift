@@ -40,13 +40,13 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
     }
     
     func createAd() {
+        // Setup Prebid rewarded mediation ad unit
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
         admobRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
         admobRewardedAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
-            
+            // Load ad
             GADRewardedAd.load(withAdUnitID: adMobAdUnitRewardedId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
                 

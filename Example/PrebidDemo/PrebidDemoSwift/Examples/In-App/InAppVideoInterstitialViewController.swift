@@ -32,10 +32,11 @@ class InAppVideoInterstitialViewController: InterstitialBaseViewController, Inte
     }
 
     func createAd() {
+        // Setup Prebid ad unit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitial)
         renderingInterstitial.adFormats = [.video]
         renderingInterstitial.delegate = self
-        
+        // Load ad
         renderingInterstitial.loadAd()
     }
     

@@ -42,7 +42,6 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
         adUnit = BannerAdUnit(configId: storedImpDisplayBanner, size: adSize)
         // Create and setup banner parameters
         let parameters = BannerParameters()
-        // Define any appropriate API Frameworks
         parameters.api = [Signals.Api.MRAID_2]
         adUnit.parameters = parameters
         // Set autorefresh interval

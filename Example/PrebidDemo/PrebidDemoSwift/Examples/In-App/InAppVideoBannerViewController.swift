@@ -32,11 +32,13 @@ class InAppVideoBannerViewController: BannerBaseViewController, BannerViewDelega
     }
     
     func createAd() {
+        // Setup Prebid ad unit
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize), configID: storedImpVideoBanner, adSize: adSize)
         prebidBannerView.delegate = self
         prebidBannerView.adFormat = .video
         prebidBannerView.videoParameters.placement = .InBanner
         bannerView.addSubview(prebidBannerView)
+        // Load ad
         prebidBannerView.loadAd()
     }
     

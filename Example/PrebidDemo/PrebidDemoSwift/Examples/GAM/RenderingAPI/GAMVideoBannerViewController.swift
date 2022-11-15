@@ -39,6 +39,7 @@ class GAMVideoBannerViewController: BannerBaseViewController, BannerViewDelegate
     }
     
     func createAd() {
+        // Setup Prebid event handler
         let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [GADAdSizeBanner].map(NSValueFromGADAdSize))
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize), configID: storedImpVideoBanner, adSize: adSize, eventHandler: eventHandler)
         prebidBannerView.adFormat = .video
@@ -46,6 +47,7 @@ class GAMVideoBannerViewController: BannerBaseViewController, BannerViewDelegate
         prebidBannerView.delegate = self
         bannerView.backgroundColor = .clear
         bannerView.addSubview(prebidBannerView)
+        // Load ad
         prebidBannerView.loadAd()
     }
     

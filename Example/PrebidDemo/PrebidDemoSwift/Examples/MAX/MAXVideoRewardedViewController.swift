@@ -39,10 +39,12 @@ class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewarded
     }
     
     func createAd() {
+        // Setup integration kind - AppLovin MAX
         maxRewarded = MARewardedAd.shared(withAdUnitIdentifier: maxAdUnitRewardedId)
+        // Setup Prebid mediation ad unit
         mediationDelegate = MAXMediationRewardedUtils(rewardedAd: maxRewarded)
         maxRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
-        
+        // Setup Prebid mediation ad unit
         maxRewardedAdUnit.fetchDemand { [weak self] result in
             self?.maxRewarded.delegate = self
             self?.maxRewarded.load()

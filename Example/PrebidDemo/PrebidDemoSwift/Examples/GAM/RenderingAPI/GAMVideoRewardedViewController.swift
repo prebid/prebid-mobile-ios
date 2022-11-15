@@ -35,9 +35,11 @@ class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAd
     }
     
     func createAd() {
+        // Setup Prebid event handler
         let eventHandler = GAMRewardedAdEventHandler(adUnitID: gamAdUnitVideoRewardedRendering)
         rewardedAdUnit = RewardedAdUnit(configID: storedImpVideoRewarded, eventHandler: eventHandler)
         rewardedAdUnit.delegate = self
+        // Load ad
         rewardedAdUnit.loadAd()
     }
     

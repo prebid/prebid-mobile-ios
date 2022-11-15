@@ -38,18 +38,18 @@ class GAMOriginalAPIVideoInterstitialViewController: InterstitialBaseViewControl
     }
     
     func createAd() {
+        // Setup Prebid ad unit
         adUnit = VideoInterstitialAdUnit(configId: storedImpVideoInterstitial)
-        
+        // Create and setup video parameters
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        
         adUnit.parameters = parameters
-        
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            
+            // Load GAM interstitial ad
             GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitVideoInterstitialOriginal, request: self?.gamRequest) { ad, error in
                 guard let self = self else { return }
                 if let error = error {

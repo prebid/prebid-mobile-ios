@@ -314,6 +314,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "MAX Rewarded 320x480",
+            integrationKind: .max,
+            adFormat: .videoInterstitial,
+            configurationClosure: {
+                MAXVideoRewardedViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "MAX Native",
             integrationKind: .max,
             adFormat: .native,

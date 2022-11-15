@@ -35,10 +35,12 @@ class GAMDisplayInterstitialViewController: InterstitialBaseViewController, Inte
     }
     
     func createAd() {
+        // Setup Prebid event handler
         let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitDisplayInterstitialRendering)
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial, eventHandler: eventHandler)
         renderingInterstitial.delegate = self
         renderingInterstitial.adFormats = [.video]
+        // Load ad
         renderingInterstitial.loadAd()
     }
     
