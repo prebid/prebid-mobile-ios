@@ -37,6 +37,7 @@ class InAppVideoBannerViewController: BannerBaseViewController, BannerViewDelega
         prebidBannerView.delegate = self
         prebidBannerView.adFormat = .video
         prebidBannerView.videoParameters.placement = .InBanner
+        bannerView.backgroundColor = .clear
         bannerView.addSubview(prebidBannerView)
         // Load ad
         prebidBannerView.loadAd()

@@ -39,7 +39,7 @@ class GAMDisplayInterstitialViewController: InterstitialBaseViewController, Inte
         let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitDisplayInterstitialRendering)
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial, eventHandler: eventHandler)
         renderingInterstitial.delegate = self
-        renderingInterstitial.adFormats = [.video]
+        renderingInterstitial.adFormats = [.display]
         // Load ad
         renderingInterstitial.loadAd()
     }

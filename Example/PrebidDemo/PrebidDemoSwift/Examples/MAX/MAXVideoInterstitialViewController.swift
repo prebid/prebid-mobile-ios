@@ -55,7 +55,11 @@ class MAXVideoInterstitialViewController: InterstitialBaseViewController, MAAdDe
     
     // MARK: - MAAdDelegate
     
-    func didLoad(_ ad: MAAd) {}
+    func didLoad(_ ad: MAAd) {
+        if let maxInterstitial = maxInterstitial, maxInterstitial.isReady {
+            maxInterstitial.show()
+        }
+    }
     
     func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
         PrebidDemoLogger.shared.error("\(error.message)")

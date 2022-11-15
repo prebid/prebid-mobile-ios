@@ -49,13 +49,19 @@ class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
     
     // MAX
     private var maxNativeAdLoader: MANativeAdLoader!
-    private var maxLoadedNativeAd: MAAd!
+    private weak var maxLoadedNativeAd: MAAd!
 
     override func loadView() {
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = nativeStoredResponse
         createAd()
+    }
+    
+    deinit {
+        if let maxLoadedNativeAd = maxLoadedNativeAd {
+            maxNativeAdLoader?.destroy(maxLoadedNativeAd)
+        }
     }
     
     func createAd() {
@@ -102,8 +108,6 @@ class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
         maxLoadedNativeAd = ad
         
         bannerView.backgroundColor = .clear
-        
-        maxLoadedNativeAd = ad
         nativeAdView?.translatesAutoresizingMaskIntoConstraints = false
         bannerView.addSubview(nativeAdView!)
         

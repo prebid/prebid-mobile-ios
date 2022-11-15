@@ -26,7 +26,7 @@ class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoader
     
     // Prebid
     private var nativeUnit: NativeRequest!
-    private var nativeAd: NativeAd?
+    private weak var nativeAd: NativeAd?
     
     private var nativeRequestAssets: [NativeAsset] {
         let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
