@@ -67,12 +67,6 @@ target 'PrebidMobileMAXAdaptersTests' do
   applovin_pods
 end
 
-target 'PrebidDemoSwift_Old' do
-  project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
-  
-  prebid_demo_pods
-end
-
 target 'PrebidDemoSwift' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
   
