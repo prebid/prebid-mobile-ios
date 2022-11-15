@@ -61,6 +61,9 @@ class InAppNativeViewController: NativeBaseViewController {
         nativeUnit.eventtrackers = eventTrackers
         
         nativeUnit.fetchDemand { [weak self] result, kvResultDict in
+            
+            PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")
+            
             guard let self = self else {
                 return
             }

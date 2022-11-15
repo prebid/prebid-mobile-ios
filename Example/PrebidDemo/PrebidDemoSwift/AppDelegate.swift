@@ -39,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AdMobUtils.initializeGAD()
         GAMUtils.shared.initializeGAM()
         
+        ALSdk.shared()?.mediationProvider = ALMediationProviderMAX
+        ALSdk.shared()?.userIdentifier = "USER_ID"
+        ALSdk.shared()?.initializeSdk()
+        
         return true
     }
     

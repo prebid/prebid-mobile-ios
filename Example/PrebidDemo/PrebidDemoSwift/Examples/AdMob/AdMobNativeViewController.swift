@@ -74,6 +74,8 @@ class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDele
         admobMediationNativeAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
             
+            PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
+            
             self.adLoader = GADAdLoader(adUnitID: admobRenderingNativeAdUnitId, rootViewController: self,
                                         adTypes: [ .native ], options: nil)
             self.adLoader?.delegate = self

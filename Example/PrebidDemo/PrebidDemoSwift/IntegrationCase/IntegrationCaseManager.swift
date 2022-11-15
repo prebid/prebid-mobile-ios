@@ -276,5 +276,50 @@ struct IntegrationCaseManager {
                 AdMobNativeViewController()
             }
         ),
+        
+        IntegrationCase(
+            title: "MAX Display Banner 320x50",
+            integrationKind: .max,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                MAXDisplayBannerViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "MAX Video Banner 300x250",
+            integrationKind: .max,
+            adFormat: .videoBanner,
+            configurationClosure: {
+                MAXVideoBannerViewController(adSize: CGSize(width: 300, height: 250))
+            }
+        ),
+        
+        IntegrationCase(
+            title: "MAX Display Interstitial 320x480",
+            integrationKind: .max,
+            adFormat: .displayInterstitial,
+            configurationClosure: {
+                MAXDisplayInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "MAX Video Interstitial 320x480",
+            integrationKind: .max,
+            adFormat: .videoInterstitial,
+            configurationClosure: {
+                MAXVideoInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "MAX Native",
+            integrationKind: .max,
+            adFormat: .native,
+            configurationClosure: {
+                MAXNativeViewController()
+            }
+        ),
     ]
 }

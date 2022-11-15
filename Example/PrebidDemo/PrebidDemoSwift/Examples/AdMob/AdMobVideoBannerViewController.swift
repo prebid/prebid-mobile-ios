@@ -49,6 +49,7 @@ class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDel
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: adSize, mediationDelegate: mediationDelegate)
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
+            PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
             self?.gadBanner.load(self?.gadRequest)
         }
     }

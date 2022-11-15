@@ -48,6 +48,7 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: adSize, mediationDelegate: mediationDelegate)
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
+            PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
             self?.gadBanner.load(self?.gadRequest)
         }
     }
@@ -65,5 +66,6 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
 
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         PrebidDemoLogger.shared.error("AdMob did fail to receive ad with error: \(error)")
+        prebidAdMobMediaitonAdUnit?.adObjectDidFailToLoadAd(adObject: gadBanner, with: error)
     }
 }
