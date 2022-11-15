@@ -12,24 +12,46 @@ enum NoAdError: Error {
 }
 class VideoAdsTest: BaseAdsTest {
     
-    public func testVideoBannerAdsShouldBeDisplayed() {
+    // Video banner
+    public func testInAppVideoBannerAd() {
         testAd(adServer: inApp, adName: bannerVideo)
+    }
+    public func testGamOriginalVideoBannerAd() {
         testAd(adServer: gam, adName: bannerVideo)
+    }
+    public func testGamRenderingVideoBannerAd() {
         testAd(adServer: gamR, adName: bannerVideo)
+    }
+    public func testAdMobVideoBannerAd() {
         testAd(adServer: adMobR, adName: bannerVideo)
     }
+    
 
-    public func testVideoInterstitialAdsShouldBeDisplayed() {
+    // Video interstitial
+    public func testInAppVideoInterstitialAd() {
         testAd(adServer: inApp, adName: interstitialVideo)
+    }
+    public func testGamOriginalVideoInterstitialAd() {
         testAd(adServer: gam, adName: interstitialVideo)
+    }
+    public func testGamRenderingVideoInterstitialAd() {
         testAd(adServer: gamR, adName: interstitialVideo)
+    }
+    public func testAdMobVideoInterstitialAd() {
         testAd(adServer: adMobR, adName: interstitialVideo)
     }
 
-    public func testVideoRewardedAdsShouldBeDisplayed() {
+    // Video rewarded
+    public func testInAppVideoRewardedAd() {
         testAd(adServer: inApp, adName: rewarded)
+    }
+    public func testGamOriginalVideoRewardedAd() {
         testAd(adServer: gam, adName: rewarded)
+    }
+    public func testGamRenderingVideoRewardedAd() {
         testAd(adServer: gamR, adName: rewarded)
+    }
+    public func testAdMobVideoRewardedAd() {
         testAd(adServer: adMobR, adName: rewarded)
     }
     

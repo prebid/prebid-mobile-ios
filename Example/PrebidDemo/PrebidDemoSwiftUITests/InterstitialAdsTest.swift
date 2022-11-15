@@ -9,10 +9,17 @@
 import XCTest
 
 class InterstitialAdsTest: BaseAdsTest {
-    public func testInterstitialAdsShouldBeDisplayed() {
+
+    public func testInAppInterstitialAd() {
         testAd(adServer: inApp, adName: interstitial)
+    }
+    public func testGamOriginalInterstitialAd() {
         testAd(adServer: gam, adName: interstitial)
+    }
+    public func testGamRenderingInterstitialAd() {
         testAd(adServer: gamR, adName: interstitial)
+    }
+    public func testAdMobInterstitialAd() {
         testAd(adServer: adMobR, adName: interstitial)
     }
     

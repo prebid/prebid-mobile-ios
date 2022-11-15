@@ -12,10 +12,16 @@ import XCTest
 @testable import PrebidDemoSwift
 class BannerAdsTest: BaseAdsTest {
     
-    public func testBannerAdsShouldBeDisplayed() {
+    public func testInAppBannerAd() {
         testAd(adServer: inApp, adName: banner)
+    }
+    public func testGamOriginalBannerAd() {
         testAd(adServer: gam, adName: banner)
+    }
+    public func testGamRenderingBannerAd() {
         testAd(adServer: gamR, adName: banner)
+    }
+    public func testAdMobBannerAd() {
         testAd(adServer: adMobR, adName: banner)
     }
     

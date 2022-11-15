@@ -13,7 +13,7 @@ class BaseAdsTest: XCTestCase {
     
     let app = XCUIApplication()
     override func setUpWithError() throws {
-        continueAfterFailure = true
+        continueAfterFailure = false
 //        app.launch()
 //        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle)
 //        let controller = storyboard.instantiateViewController(withIdentifier: "banner")
