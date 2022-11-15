@@ -17,15 +17,28 @@
                     <view key="view" contentMode="scaleToFill" id="XsP-rO-TNN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Demonstration of Prebid SDK customization in Demo App will be introduced soon." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hib-Bc-Sgq">
+                                <rect key="frame" x="20" y="58" width="374" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="2BB-w1-pGB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hib-Bc-Sgq" firstAttribute="leading" secondItem="2BB-w1-pGB" secondAttribute="leading" constant="20" id="0mV-BC-u8k"/>
+                            <constraint firstItem="hib-Bc-Sgq" firstAttribute="top" secondItem="2BB-w1-pGB" secondAttribute="top" constant="10" id="Dh2-Cl-6Mv"/>
+                            <constraint firstItem="2BB-w1-pGB" firstAttribute="trailing" secondItem="hib-Bc-Sgq" secondAttribute="trailing" constant="20" id="oE3-vZ-SDf"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="vxo-er-I7s"/>
                     <navigationItem key="navigationItem" title="Prebid Demo Swift" id="aD2-qS-ZUk"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Ci-zz-OeW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2126" y="186"/>
+            <point key="canvasLocation" x="2124.6376811594205" y="185.49107142857142"/>
         </scene>
         <!--Prebid Demo Swift-->
         <scene sceneID="Xat-yg-8jS">
