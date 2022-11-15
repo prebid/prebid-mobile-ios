@@ -471,11 +471,11 @@
 			children = (
 				5344E6BA29229FA000A1F582 /* MAXDisplayBannerViewController.swift */,
 				5344E6BE2922A79000A1F582 /* MAXDisplayInterstitialViewController.swift */,
+				530923E929237E1F005C8B3C /* MAXNativeAdView.xib */,
 				5344E6C42922AC2C00A1F582 /* MAXNativeViewController.swift */,
 				5344E6BC2922A67D00A1F582 /* MAXVideoBannerViewController.swift */,
 				5344E6C02922A97200A1F582 /* MAXVideoInterstitialViewController.swift */,
 				5344E6C22922AAE500A1F582 /* MAXVideoRewardedViewController.swift */,
-				530923E929237E1F005C8B3C /* MAXNativeAdView.xib */,
 			);
 			path = MAX;
 			sourceTree = "<group>";
