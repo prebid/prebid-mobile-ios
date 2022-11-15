@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		179FE355B85982950774326F /* Pods_PrebidDemoObjectiveC_Old.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2EBDC8956E40A3297274B54 /* Pods_PrebidDemoObjectiveC_Old.framework */; };
-		383E9CA32571281F006FA6F4 /* NativeInAppNativeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */; };
 		3B91139C2351AB73A1FCAA3D /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD5DAB24E3A731BAE7B7F4F /* Pods_PrebidDemoSwift.framework */; };
 		53072B562921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */; };
 		53072B592921023E00228462 /* InterstitialBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B572921023E00228462 /* InterstitialBaseViewController.swift */; };
@@ -59,6 +58,8 @@
 		5344E6C12922A97200A1F582 /* MAXVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C02922A97200A1F582 /* MAXVideoInterstitialViewController.swift */; };
 		5344E6C32922AAE500A1F582 /* MAXVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C22922AAE500A1F582 /* MAXVideoRewardedViewController.swift */; };
 		5344E6C52922AC2C00A1F582 /* MAXNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C42922AC2C00A1F582 /* MAXNativeViewController.swift */; };
+		5354C0C72923E99800DB25EA /* TestUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5354C0C62923E99800DB25EA /* TestUtils.framework */; };
+		5354C0C82923E99800DB25EA /* TestUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5354C0C62923E99800DB25EA /* TestUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53AA0CAB2816A6CC00D8A742 /* ObjCDemoConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0CAA2816A6CC00D8A742 /* ObjCDemoConstants.m */; };
 		53B03D7E291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D7B291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework */; };
 		53B03D7F291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53B03D7B291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -93,7 +94,6 @@
 		929638F527AC27B900D30F3D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 929638F127AC27AA00D30F3D /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92F438C72768983500FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438C52768982700FDC950 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92F438C92768B23100FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438C82768B23100FDC950 /* PrebidMobileAdMobAdapters.framework */; };
-		FA12E4E9231EB52D00CAA05B /* PrebidDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4E8231EB52D00CAA05B /* PrebidDemoTests.swift */; };
 		FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4E0231EB4BB00CAA05B /* Constants.swift */; };
 		FA12E4FA231EB99D00CAA05B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4F9231EB99D00CAA05B /* AppDelegate.m */; };
 		FA12E4FD231EB99D00CAA05B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4FC231EB99D00CAA05B /* ViewController.m */; };
@@ -113,6 +113,7 @@
 			files = (
 				53B03D87291A5C8B000117E1 /* PrebidMobile.framework in Embed Frameworks */,
 				53B03D83291A5C83000117E1 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
+				5354C0C82923E99800DB25EA /* TestUtils.framework in Embed Frameworks */,
 				53B03D81291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				53B03D7F291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 			);
@@ -138,7 +139,6 @@
 /* Begin PBXFileReference section */
 		0B32F72A9BBDBE997EFFDDA4 /* Pods-PrebidDemoSwift_Old.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift_Old.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old.debug.xcconfig"; sourceTree = "<group>"; };
 		27A91CDC4C1E50EB4FC1CD46 /* Pods-PrebidDemoSwift_Old.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift_Old.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old.release.xcconfig"; sourceTree = "<group>"; };
-		383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeInAppNativeTest.swift; sourceTree = "<group>"; };
 		383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidDemoTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		47B8513C50FA0D7F53C6498E /* Pods-PrebidDemoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.release.xcconfig"; sourceTree = "<group>"; };
 		53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIDisplayInterstitialViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +192,7 @@
 		5344E6C02922A97200A1F582 /* MAXVideoInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXVideoInterstitialViewController.swift; sourceTree = "<group>"; };
 		5344E6C22922AAE500A1F582 /* MAXVideoRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXVideoRewardedViewController.swift; sourceTree = "<group>"; };
 		5344E6C42922AC2C00A1F582 /* MAXNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXNativeViewController.swift; sourceTree = "<group>"; };
+		5354C0C62923E99800DB25EA /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		537B666C283CC0EA008AE9D1 /* VideoOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoOrientation.h; sourceTree = "<group>"; };
 		53AA0CA92816A6B000D8A742 /* ObjCDemoConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCDemoConstants.h; sourceTree = "<group>"; };
 		53AA0CAA2816A6CC00D8A742 /* ObjCDemoConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCDemoConstants.m; sourceTree = "<group>"; };
@@ -241,7 +242,6 @@
 		E2EBDC8956E40A3297274B54 /* Pods_PrebidDemoObjectiveC_Old.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoObjectiveC_Old.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA12E4E0231EB4BB00CAA05B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FA12E4E6231EB52D00CAA05B /* PrebidDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA12E4E8231EB52D00CAA05B /* PrebidDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidDemoTests.swift; sourceTree = "<group>"; };
 		FA12E4EA231EB52D00CAA05B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA12E4F6231EB99D00CAA05B /* PrebidDemoObjectiveC_Old.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoObjectiveC_Old.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA12E4F8231EB99D00CAA05B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -263,6 +263,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5354C0C72923E99800DB25EA /* TestUtils.framework in Frameworks */,
 				53B03D7E291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
 				3B91139C2351AB73A1FCAA3D /* Pods_PrebidDemoSwift.framework in Frameworks */,
 				53B03D80291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
@@ -554,6 +555,7 @@
 		99D7F73A394177471348CDD1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5354C0C62923E99800DB25EA /* TestUtils.framework */,
 				53B03D85291A5C8B000117E1 /* PrebidMobile.framework */,
 				53B03D7B291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework */,
 				53B03D7C291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework */,
@@ -603,8 +605,6 @@
 				383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */,
 				FA12E4EA231EB52D00CAA05B /* Info.plist */,
 				FA12E4E0231EB4BB00CAA05B /* Constants.swift */,
-				383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */,
-				FA12E4E8231EB52D00CAA05B /* PrebidDemoTests.swift */,
 				533E0FBD29111B36000CC24F /* PrebidGMASDKTests.swift */,
 				533E0FC129111B64000CC24F /* Helpers */,
 				533E0FC029111B46000CC24F /* Extensions */,
@@ -975,13 +975,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA12E4E9231EB52D00CAA05B /* PrebidDemoTests.swift in Sources */,
 				533E0FBE29111B36000CC24F /* PrebidGMASDKTests.swift in Sources */,
 				FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */,
 				9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */,
 				9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */,
 				9205E49627B563B4003DCCCC /* StubbingHandler.swift in Sources */,
-				383E9CA32571281F006FA6F4 /* NativeInAppNativeTest.swift in Sources */,
 				533E0FC529111D7E000CC24F /* LoggerHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1227,6 +1225,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PrebidDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1248,6 +1247,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PrebidDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
