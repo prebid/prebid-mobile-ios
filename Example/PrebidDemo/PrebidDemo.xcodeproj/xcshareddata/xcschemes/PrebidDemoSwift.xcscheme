@@ -20,6 +20,34 @@
                ReferencedContainer = "container:PrebidDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FA12E4E5231EB52D00CAA05B"
+               BuildableName = "PrebidDemoTests.xctest"
+               BlueprintName = "PrebidDemoTests"
+               ReferencedContainer = "container:PrebidDemo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3CB17F6291BC6FE0053922E"
+               BuildableName = "PrebidDemoSwiftUITests.xctest"
+               BlueprintName = "PrebidDemoSwiftUITests"
+               ReferencedContainer = "container:PrebidDemo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -37,56 +65,6 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FA12E4E5231EB52D00CAA05B"
-               BuildableName = "PrebidDemoTests.xctest"
-               BlueprintName = "PrebidDemoTests"
-               ReferencedContainer = "container:PrebidDemo.xcodeproj">
-            </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "PrebidDemoTests/testAppNexusDFPBannerSanityAppCheckTest()">
-               </Test>
-               <Test
-                  Identifier = "PrebidDemoTests/testAppNexusMoPubBannerSanityAppCheckTest()">
-               </Test>
-               <Test
-                  Identifier = "PrebidDemoTests/testDFPNativeSanityAppCheckTest()">
-               </Test>
-               <Test
-                  Identifier = "PrebidDemoTests/testMoPubInterstitialSanityAppCheckTest()">
-               </Test>
-               <Test
-                  Identifier = "PrebidDemoTests/testMopubNativeSanityAppCheckTest()">
-               </Test>
-               <Test
-                  Identifier = "PrebidDemoTests/testRubiconMoPubBannerSanityAppCheckTest()">
-               </Test>
-            </SkippedTests>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3CB17E7291BC5C50053922E"
-               BuildableName = "AdsTest.xctest"
-               BlueprintName = "AdsTest"
-               ReferencedContainer = "container:PrebidDemo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3CB17F6291BC6FE0053922E"
-               BuildableName = "PrebidDemoSwiftUITests.xctest"
-               BlueprintName = "PrebidDemoSwiftUITests"
-               ReferencedContainer = "container:PrebidDemo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
