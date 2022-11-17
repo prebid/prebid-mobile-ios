@@ -49,6 +49,7 @@ class MAXVideoBannerViewController: BannerBaseViewController, MAAdViewAdDelegate
         // Setup Prebid mediation ad unit
         maxMediationDelegate = MAXMediationBannerUtils(adView: maxAdBannerView)
         maxAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: adSize, mediationDelegate: maxMediationDelegate)
+        maxAdUnit.adFormat = .video
         // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         maxAdUnit.fetchDemand { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")

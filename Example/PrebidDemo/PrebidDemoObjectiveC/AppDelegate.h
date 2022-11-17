@@ -1,4 +1,4 @@
-/*   Copyright 2018-2019 Prebid.org, Inc.
+/*   Copyright 2019-2022 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,6 +14,14 @@
  */
 
 #import <UIKit/UIKit.h>
+
+@import PrebidMobile;
+@import GoogleMobileAds;
+@import AppLovinSDK;
+
+@import PrebidMobileGAMEventHandlers;
+@import PrebidMobileAdMobAdapters;
+@import PrebidMobileMAXAdapters;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

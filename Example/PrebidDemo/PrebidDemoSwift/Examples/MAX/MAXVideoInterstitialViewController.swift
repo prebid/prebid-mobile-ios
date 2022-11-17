@@ -44,6 +44,7 @@ class MAXVideoInterstitialViewController: InterstitialBaseViewController, MAAdDe
         // Setup Prebid mediation ad unit
         maxMediationDelegate = MAXMediationInterstitialUtils(interstitialAd: maxInterstitial)
         maxAdUnit = MediationInterstitialAdUnit(configId: storedImpVideoInterstitial, mediationDelegate: maxMediationDelegate)
+        maxAdUnit.adFormats = [.video]
         // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         maxAdUnit.fetchDemand(completion: { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")
