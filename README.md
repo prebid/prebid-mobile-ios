@@ -43,4 +43,9 @@ Run the test script to run unit tests and integration tests.
 ```
 github "prebid/prebid-mobile-ios" == 2.0.4-carthage
 ```
+Run this command in orider to build PrebidMobile with Carthage:
+
+```
+carthage update --use-xcframeworks --platform ios
+```
 Note that `PrebidMobileGAMEventHandlers`, `PrebidMobileAdMobAdapters`, `PrebidMobileMAXAdapters` are not available to build with Carthage.
