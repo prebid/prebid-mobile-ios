@@ -1,4 +1,4 @@
-platform :ios, '10.0'
+platform :ios, '12.0'
 
 workspace 'PrebidMobile'
 
@@ -77,7 +77,7 @@ target 'PrebidDemoSwift' do
   end
 end
 
-target 'PrebidDemoObjectiveC' do
+target 'PrebidDemoObjectiveC_Old' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
   
   prebid_demo_pods

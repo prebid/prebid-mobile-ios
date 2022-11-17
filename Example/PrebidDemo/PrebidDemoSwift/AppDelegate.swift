@@ -1,11 +1,11 @@
-/*   Copyright 2018-2019 Prebid.org, Inc.
-
+/*   Copyright 2019-2022 Prebid.org, Inc.
+ 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,88 +14,50 @@
  */
 
 import UIKit
-import PrebidMobile
-import CoreLocation
+
 import GoogleMobileAds
 import AppLovinSDK
+
+import PrebidMobile
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
 import PrebidMobileMAXAdapters
-#if canImport(AppTrackingTransparency)
-import AppTrackingTransparency
-#endif
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    var coreLocation: CLLocationManager?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-
-        //Declare in AppDelegate to the user agent could be passed in first call
-        Prebid.shared.shareGeoLocation = true
-        //Prebid.shared.timeoutMillis = 1000;
         
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        
+        // Initialize Prebid SDK
         Prebid.initializeSDK(GADMobileAds.sharedInstance())
-
-        // User Id from External Third Party Sources
-        var externalUserIdArray = [ExternalUserId]()
-        externalUserIdArray.append(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        externalUserIdArray.append(ExternalUserId(source: "netid.de", identifier: "999888777"))
-        externalUserIdArray.append(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
-        externalUserIdArray.append(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
-        externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
-        Prebid.shared.externalUserIdArray = externalUserIdArray
-
+        
+        // Set account id and custom Prebid server URL
+        Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+        // Set sourceapp
+        Targeting.shared.sourceapp = "PrebidDemoSwift"
+        
+        // Initialize GoogleMobileAds SDK
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ GADSimulatorID, "fa7ff8af558fb08a04c94453647e54a1"]
         GADMobileAds.sharedInstance().start()
 
         AdMobUtils.initializeGAD()
         GAMUtils.shared.initializeGAM()
         
-        ALSdk.shared()?.mediationProvider = "max"
+        // Initialize AppLovin MAX SDK
+        ALSdk.shared()?.mediationProvider = ALMediationProviderMAX
         ALSdk.shared()?.userIdentifier = "USER_ID"
-        ALSdk.shared()?.initializeSdk { (configuration: ALSdkConfiguration) in
-            Log.info(String(describing: ALSdk.shared()?.isInitialized))
-        }
-
-        coreLocation = CLLocationManager()
-        coreLocation?.requestWhenInUseAuthorization()
-
-        //requestIDFA()
-        #if canImport(AppTrackingTransparency)
-        if #available(iOS 14, *) {
-            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-            })
-        }
-        #endif
-
+        ALSdk.shared()?.initializeSdk()
+        
         return true
     }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    
+    // MARK: UISceneSession Lifecycle
+    
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
+    
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
 }
+
