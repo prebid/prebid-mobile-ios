@@ -871,7 +871,6 @@
 				53BA02B3292531D000BE6015 /* AppDelegate.m */,
 				53BA02C4292531D100BE6015 /* main.m */,
 				53BA02B6292531D000BE6015 /* SceneDelegate.m */,
-				53BA02C3292531D100BE6015 /* Info.plist */,
 				539928D729254EFD0078053C /* BaseViewControllers */,
 				539928CD29253C430078053C /* Examples */,
 				539928BC292534A70078053C /* IntegrationCase */,
@@ -885,6 +884,7 @@
 		53BA02C92925330100BE6015 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				53BA02C3292531D100BE6015 /* Info.plist */,
 				53BA02CA2925336000BE6015 /* Storyboards */,
 				53BA02BE292531D100BE6015 /* Assets.xcassets */,
 			);
@@ -1501,7 +1501,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L9295BF929;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PrebidDemoObjectiveC/Info.plist;
+				INFOPLIST_FILE = "PrebidDemoObjectiveC/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1532,7 +1532,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L9295BF929;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PrebidDemoObjectiveC/Info.plist;
+				INFOPLIST_FILE = "PrebidDemoObjectiveC/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
