@@ -15,6 +15,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ExamplesViewController.h"
+#import "SettingsViewController.h"
 #import "AdFormat.h"
 #import "AdFormatDescriptor.h"
 #import "IntegrationKind.h"
@@ -53,9 +54,10 @@ NSString * const cellID = @"exampleCell";
 }
 
 - (IBAction)onSettingsPressed:(id)sender {
+    SettingsViewController * settingsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+    settingsViewController.title = @"Settings";
+    [self.navigationController pushViewController:settingsViewController animated:YES];
 }
-
-
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
 

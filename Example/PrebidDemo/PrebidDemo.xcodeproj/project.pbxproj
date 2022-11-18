@@ -139,6 +139,7 @@
 		53F35F4C2926D130001C1183 /* MAXVideoRewardedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F4B2926D130001C1183 /* MAXVideoRewardedViewController.m */; };
 		53F35F4F2926D5C0001C1183 /* MAXNativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F4E2926D5C0001C1183 /* MAXNativeViewController.m */; };
 		53F35F512926D702001C1183 /* MAXNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F35F502926D702001C1183 /* MAXNativeAdView.xib */; };
+		53F35F57292792D6001C1183 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F56292792D6001C1183 /* SettingsViewController.m */; };
 		88DC684BF111915A42A41E69 /* Pods_PrebidDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAB7A18D47560FF75084F46E /* Pods_PrebidDemoTests.framework */; };
 		9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49027B561A9003DCCCC /* TestExtensions.swift */; };
 		9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */; };
@@ -358,6 +359,8 @@
 		53F35F4D2926D5C0001C1183 /* MAXNativeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAXNativeViewController.h; sourceTree = "<group>"; };
 		53F35F4E2926D5C0001C1183 /* MAXNativeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAXNativeViewController.m; sourceTree = "<group>"; };
 		53F35F502926D702001C1183 /* MAXNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MAXNativeAdView.xib; sourceTree = "<group>"; };
+		53F35F55292792D6001C1183 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		53F35F56292792D6001C1183 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA527E4B4E05598C6D7B462 /* Pods-PrebidDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -872,8 +875,9 @@
 				539928D729254EFD0078053C /* BaseViewControllers */,
 				539928CD29253C430078053C /* Examples */,
 				539928BC292534A70078053C /* IntegrationCase */,
+				53F35F54292792B9001C1183 /* Settings */,
 				53BA02C92925330100BE6015 /* Supporting files */,
-				53F35F192926908B001C1183 /* PrebidDemoMacros.h */,
+				53F35F58292793FA001C1183 /* Utils */,
 			);
 			path = PrebidDemoObjectiveC;
 			sourceTree = "<group>";
@@ -894,6 +898,23 @@
 				53BA02C0292531D100BE6015 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		53F35F54292792B9001C1183 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				53F35F55292792D6001C1183 /* SettingsViewController.h */,
+				53F35F56292792D6001C1183 /* SettingsViewController.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		53F35F58292793FA001C1183 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				53F35F192926908B001C1183 /* PrebidDemoMacros.h */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		99D7F73A394177471348CDD1 /* Frameworks */ = {
@@ -1321,6 +1342,7 @@
 				53F35F282926A3E1001C1183 /* InAppDisplayBannerViewController.m in Sources */,
 				53F35F3A2926BDB7001C1183 /* InAppVideoRewardedViewController.m in Sources */,
 				539928DB29254F2A0078053C /* BannerBaseViewController.m in Sources */,
+				53F35F57292792D6001C1183 /* SettingsViewController.m in Sources */,
 				539928E22925505B0078053C /* InterstitialBaseViewController.m in Sources */,
 				53F35F432926C84E001C1183 /* MAXVideoBannerViewController.m in Sources */,
 				5399290A292665D80078053C /* GAMOriginalAPINativeViewController.m in Sources */,
