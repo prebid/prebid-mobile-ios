@@ -44,6 +44,7 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
     [super viewDidLoad];
     
     self.instreamView.backgroundColor = [UIColor clearColor];
+    self.playButton.layer.zPosition = DBL_MAX;
     
     NSURL * contentURL = [NSURL URLWithString:videoContentURL];
     
@@ -74,7 +75,6 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
 
 - (void)contentDidFinishPlaying: (NSNotification*)notification {
     // Make sure we don't call contentComplete as a result of an ad completing.
-    
     if ([notification.object isKindOfClass:[AVPlayerItem class]] && notification.object == self.contentPlayer.currentItem) {
         [self.adsLoader contentComplete];
     }
@@ -105,11 +105,63 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
     [self.adUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable prebidKeys) {
         @strongify(self);
         if (resultCode == ResultCodePrebidDemandFetchSuccess) {
-            // FIXME: problem with objc API
-//            NSString * adServerTag = [IMAUtils.shared gene]
+            @try
+            {
+                NSString * adServerTag = [IMAUtils.shared generateInstreamUriForGAMWithAdUnitID:gamAdUnitVideo adSlotSizes:@[IMAAdSlotSize.Size320x480] customKeywords:prebidKeys error:nil];
+                
+                IMAAdDisplayContainer * adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.instreamView viewController:self];
+                
+                // Create an ad request with our ad tag, display container, and optional user context.
+                IMAAdsRequest * request = [[IMAAdsRequest alloc] initWithAdTagUrl:adServerTag adDisplayContainer:adDisplayContainer contentPlayhead:nil userContext:nil];
+                [self.adsLoader requestAdsWithRequest:request];
+            }
+            @catch(id anException) {
+                [self.contentPlayer play];
+            }
+        } else {
+            [self.contentPlayer play];
         }
     }];
+}
+
+// MARK: - IMAAdsLoaderDelegate
+
+- (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
+    // Grab the instance of the IMAAdsManager and set ourselves as the delegate.
+    self.adsManager = adsLoadedData.adsManager;
+    self.adsManager.delegate = self;
     
+    // Initialize the ads manager.
+    [self.adsManager initializeWithAdsRenderingSettings:nil];
+}
+
+- (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
+    PBMLogError(@"%@", adErrorData.adError.message);
+    [self.contentPlayer play];
+}
+
+// MARK: - IMAAdsManagerDelegate
+
+- (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdEvent:(IMAAdEvent *)event {
+    if (event.type == kIMAAdEvent_LOADED) {
+        // When the SDK notifies us that ads have been loaded, play them.
+        [self.adsManager start];
+    }
+}
+
+- (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdError:(IMAAdError *)error {
+    PBMLogError(@"%@", error.message);
+    [self.contentPlayer play];
+}
+
+- (void)adsManagerDidRequestContentPause:(IMAAdsManager *)adsManager {
+    // The SDK is going to play ads, so pause the content.
+    [self.contentPlayer pause];
+}
+
+- (void)adsManagerDidRequestContentResume:(IMAAdsManager *)adsManager {
+    // The SDK is done playing ads (at least for now), so resume the content.
+    [self.contentPlayer play];
 }
 
 @end

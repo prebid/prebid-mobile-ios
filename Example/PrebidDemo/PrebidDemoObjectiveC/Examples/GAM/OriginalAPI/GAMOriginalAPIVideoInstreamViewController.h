@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GAMOriginalAPIVideoInstreamViewController : InstreamBaseViewController
+@interface GAMOriginalAPIVideoInstreamViewController : InstreamBaseViewController <IMAAdsLoaderDelegate, IMAAdsManagerDelegate>
 
 @end
 

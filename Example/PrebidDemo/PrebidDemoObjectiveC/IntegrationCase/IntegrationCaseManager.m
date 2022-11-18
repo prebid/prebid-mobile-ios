@@ -21,6 +21,7 @@
 #import "GAMOriginalAPIDisplayInterstitialViewController.h"
 #import "GAMOriginalAPIVideoInterstitialViewController.h"
 #import "GAMOriginalAPIVideoRewardedViewController.h"
+#import "GAMOriginalAPIVideoInstreamViewController.h"
 #import "GAMOriginalAPINativeBannerViewController.h"
 #import "GAMOriginalAPINativeViewController.h"
 
@@ -128,6 +129,16 @@
             adFormat:AdFormatNative
             configurationClosure:^UIViewController *{
                 return [[GAMOriginalAPINativeViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
+            initWithTitle:@"GAM (Original API) Video In-stream 320x480"
+            integrationKind:IntegrationKindGAMOriginal
+            adFormat:AdFormatVideoInstream
+            configurationClosure:^UIViewController *{
+                return [[GAMOriginalAPIVideoInstreamViewController alloc] init];
             }
         ],
         
