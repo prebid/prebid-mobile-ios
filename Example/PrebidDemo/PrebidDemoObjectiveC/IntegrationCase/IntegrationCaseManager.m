@@ -39,6 +39,7 @@
 #import "GAMDisplayInterstitialViewController.h"
 #import "GAMVideoInterstitialViewController.h"
 #import "GAMVideoRewardedViewController.h"
+#import "GAMNativeViewController.h"
 
 #import "AdMobDisplayBannerViewController.h"
 #import "AdMobVideoBannerViewController.h"
@@ -269,6 +270,16 @@
             adFormat:AdFormatVideoRewarded
             configurationClosure:^UIViewController *{
                 return [[GAMVideoRewardedViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
+            initWithTitle:@"GAM Native"
+            integrationKind:IntegrationKindGAM
+            adFormat:AdFormatNative
+            configurationClosure:^UIViewController *{
+                return [[GAMNativeViewController alloc] init];
             }
         ],
         

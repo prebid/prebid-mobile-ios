@@ -105,7 +105,6 @@ NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_nativ
     [self.callToActionButton setTitle:ad.callToAction forState:UIControlStateNormal];
     self.sponsoredLabel.text = ad.sponsoredBy;
     
-    
     [[NSURLSession.sharedSession dataTaskWithURL:[NSURL URLWithString:self.nativeAd.iconUrl] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.iconView.image = [[UIImage alloc] initWithData:data];

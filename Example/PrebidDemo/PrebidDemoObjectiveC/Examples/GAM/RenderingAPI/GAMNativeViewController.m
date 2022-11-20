@@ -85,9 +85,59 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
     return @[@"11934135"];
 }
 
-// FIXME: problem with objc API
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveCustomNativeAd:(GADCustomNativeAd *)customNativeAd {
-//    [GAMUtils.shared find]
+    [GAMUtils.shared findCustomNativeAdObjcFor:customNativeAd completion:^(NativeAd * _Nullable nativeAd, NSError * _Nullable error) {
+        if (error != nil && [error.domain isEqual: GAMUtils.errorDomain] && error.code == GAMEventHandlerErrorNonPrebidAd) {
+            self.titleLable.text = [customNativeAd stringForKey:@"title"];
+            self.bodyLabel.text = [customNativeAd stringForKey:@"text"];
+            self.sponsoredLabel.text = [customNativeAd stringForKey:@"sponsoredBy"];
+            [self.callToActionButton setTitle:[customNativeAd stringForKey:@"cta"] forState:UIControlStateNormal];
+            
+            NSString * imgURL = [customNativeAd stringForKey:@"imgUrl"];
+            NSString * iconURL = [customNativeAd stringForKey:@"iconUrl"];
+            
+            if (imgURL != nil) {
+                [[NSURLSession.sharedSession dataTaskWithURL:[NSURL URLWithString:imgURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.mainImageView.image = [[UIImage alloc] initWithData:data];
+                    });
+                }] resume];
+            }
+            
+            if (iconURL != nil) {
+                [[NSURLSession.sharedSession dataTaskWithURL:[NSURL URLWithString:self.nativeAd.iconUrl] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.iconView.image = [[UIImage alloc] initWithData:data];
+                    });
+                }] resume];
+            }
+        } else if (nativeAd != nil) {
+            self.nativeAd = nativeAd;
+            
+            self.titleLable.text = nativeAd.title;
+            self.bodyLabel.text = nativeAd.text;
+            [self.callToActionButton setTitle:nativeAd.callToAction forState:UIControlStateNormal];
+            self.sponsoredLabel.text = nativeAd.sponsoredBy;
+            
+            [[NSURLSession.sharedSession dataTaskWithURL:[NSURL URLWithString:self.nativeAd.iconUrl] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.iconView.image = [[UIImage alloc] initWithData:data];
+                });
+            }] resume];
+            
+            [[NSURLSession.sharedSession dataTaskWithURL:[NSURL URLWithString:self.nativeAd.imageUrl] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.mainImageView.image = [[UIImage alloc] initWithData:data];
+                });
+            }] resume];
+            
+            [self.nativeAd registerViewWithView:self.view clickableViews:@[self.callToActionButton]];
+        }
+    }];
+}
+
+- (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(NSError *)error {
+    PBMLogError(@"%@", error.localizedDescription);
 }
 
 @end
