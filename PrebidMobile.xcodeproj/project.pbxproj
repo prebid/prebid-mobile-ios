@@ -84,6 +84,8 @@
 		53E45A0327FCD09C0095C0B2 /* BannerParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */; };
 		53EF49E927D61CAC00648F0E /* AgeUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EF49E827D61CAC00648F0E /* AgeUtilsTest.swift */; };
 		53F096CA27E917D40058C94C /* Log+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 53F096C927E917D40058C94C /* Log+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53F35F6D292B9F2F001C1183 /* UserConsentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */; };
+		53F35F6F292BAE9B001C1183 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */; };
 		5BC378AC271F1CFF00444D5E /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37649271F1CFD00444D5E /* Gender.swift */; };
 		5BC378AD271F1CFF00444D5E /* Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3764A271F1CFD00444D5E /* Targeting.swift */; };
 		5BC378B1271F1CFF00444D5E /* NSString+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3764F271F1CFD00444D5E /* NSString+PBMExtensions.h */; };
@@ -918,6 +920,8 @@
 		53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerParameters.swift; sourceTree = "<group>"; };
 		53EF49E827D61CAC00648F0E /* AgeUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeUtilsTest.swift; sourceTree = "<group>"; };
 		53F096C927E917D40058C94C /* Log+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Log+Extensions.h"; sourceTree = "<group>"; };
+		53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConsentDataManager.swift; sourceTree = "<group>"; };
+		53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		5BC37649271F1CFD00444D5E /* Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		5BC3764A271F1CFD00444D5E /* Targeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Targeting.swift; sourceTree = "<group>"; };
 		5BC3764F271F1CFD00444D5E /* NSString+PBMExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PBMExtensions.h"; sourceTree = "<group>"; };
@@ -1826,6 +1830,7 @@
 				929865382806CCC3007A2F34 /* UIView+Extensions.swift */,
 				34C9CD5D2850CE6300FB5451 /* OMSDKVersionProvider.h */,
 				34C9CD5E2850CE6300FB5451 /* OMSDKVersionProvider.m */,
+				53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1848,6 +1853,7 @@
 				5BC377CF271F1CFF00444D5E /* Prebid.swift */,
 				53D934FE282CE62E0092E243 /* AgeUtils.swift */,
 				537B6580283524BB008AE9D1 /* PrebidInitializationStatus.swift */,
+				53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */,
 			);
 			path = ConfigurationAndTargeting;
 			sourceTree = "<group>";
@@ -4036,6 +4042,7 @@
 				5BC3794E271F1D0000444D5E /* AdPosition.swift in Sources */,
 				928E5A6E27F0F706000ADA1A /* ContextType.swift in Sources */,
 				5BC37AA7271F1D0000444D5E /* MediationBannerAdUnit.swift in Sources */,
+				53F35F6F292BAE9B001C1183 /* UserDefaults+Extensions.swift in Sources */,
 				5BC37A8A271F1D0000444D5E /* BannerViewDelegate.swift in Sources */,
 				5BC378DE271F1CFF00444D5E /* PBMORTBDeviceExtPrebidInterstitial.m in Sources */,
 				5BC37A5F271F1D0000444D5E /* PBMORTBBidExtSkadn.m in Sources */,
@@ -4066,6 +4073,7 @@
 				5BC37AB9271F1D0000444D5E /* PBMOpenMeasurementWrapper.m in Sources */,
 				5BC37A55271F1D0000444D5E /* PBMBidResponseTransformer.m in Sources */,
 				5BC37955271F1D0000444D5E /* PBMJSLibraryManager.m in Sources */,
+				53F35F6D292B9F2F001C1183 /* UserConsentDataManager.swift in Sources */,
 				5BC379DD271F1D0000444D5E /* InterstitialControllerInteractionDelegate.swift in Sources */,
 				5BC378C3271F1CFF00444D5E /* NSString+PBMExtensions.m in Sources */,
 				5BC37903271F1CFF00444D5E /* PBMORTBVideo.m in Sources */,
