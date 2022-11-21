@@ -175,7 +175,6 @@
 		5BC37908271F1CFF00444D5E /* PBMFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AA271F1CFE00444D5E /* PBMFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37909271F1CFF00444D5E /* PBMDeepLinkPlusHelper+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AB271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.h */; };
 		5BC3790B271F1CFF00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AD271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h */; };
-		5BC3790D271F1CFF00444D5E /* PBMUserConsentResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376AF271F1CFE00444D5E /* PBMUserConsentResolver.m */; };
 		5BC3790F271F1CFF00444D5E /* PBMDeviceAccessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B1271F1CFE00444D5E /* PBMDeviceAccessManager.h */; };
 		5BC37910271F1CFF00444D5E /* PBMWindowLocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */; };
 		5BC37911271F1CFF00444D5E /* PBMDeepLinkPlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B3271F1CFE00444D5E /* PBMDeepLinkPlus.m */; };
@@ -185,13 +184,11 @@
 		5BC37915271F1CFF00444D5E /* PBMCircularProgressBarLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B7271F1CFE00444D5E /* PBMCircularProgressBarLayer.h */; };
 		5BC37917271F1CFF00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B9271F1CFE00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37918271F1CFF00444D5E /* PBMUserAgentService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376BA271F1CFE00444D5E /* PBMUserAgentService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC37919271F1CFF00444D5E /* PBMUserConsentDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BB271F1CFE00444D5E /* PBMUserConsentDataManager.m */; };
 		5BC3791B271F1CFF00444D5E /* PBMFunctions+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BD271F1CFE00444D5E /* PBMFunctions+Testing.m */; };
 		5BC3791C271F1CFF00444D5E /* PBMMRAIDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */; };
 		5BC3791F271F1CFF00444D5E /* PBMDeviceAccessManagerKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376C1271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.h */; };
 		5BC37920271F1CFF00444D5E /* PBMDeepLinkPlusHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376C2271F1CFE00444D5E /* PBMDeepLinkPlusHelper.m */; };
 		5BC37921271F1CFF00444D5E /* PBMUIApplicationProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376C3271F1CFE00444D5E /* PBMUIApplicationProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC37922271F1CFF00444D5E /* PBMUserConsentResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376C4271F1CFE00444D5E /* PBMUserConsentResolver.h */; };
 		5BC37923271F1CFF00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376C5271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.m */; };
 		5BC37925271F1CFF00444D5E /* PBMNSThreadProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376C7271F1CFE00444D5E /* PBMNSThreadProtocol.h */; };
 		5BC37926271F1CFF00444D5E /* PBMDeepLinkPlusHelper+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376C8271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.m */; };
@@ -213,7 +210,6 @@
 		5BC37939271F1D0000444D5E /* PBMFunctions+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3793A271F1D0000444D5E /* PBMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */; };
 		5BC3793B271F1D0000444D5E /* PBMVoidBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC3793C271F1D0000444D5E /* PBMUserConsentDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DF271F1CFE00444D5E /* PBMUserConsentDataManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3793D271F1D0000444D5E /* PBMUserAgentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E0271F1CFE00444D5E /* PBMUserAgentService.m */; };
 		5BC3793F271F1D0000444D5E /* PBMCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E2271F1CFE00444D5E /* PBMCircularProgressBarLayer.m */; };
 		5BC37940271F1D0000444D5E /* PBMCircularProgressBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E3271F1CFE00444D5E /* PBMCircularProgressBarView.h */; };
@@ -1011,7 +1007,6 @@
 		5BC376AA271F1CFE00444D5E /* PBMFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMFunctions.h; sourceTree = "<group>"; };
 		5BC376AB271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMDeepLinkPlusHelper+Testing.h"; sourceTree = "<group>"; };
 		5BC376AD271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMWKScriptMessageHandlerLeakAvoider.h; sourceTree = "<group>"; };
-		5BC376AF271F1CFE00444D5E /* PBMUserConsentResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMUserConsentResolver.m; sourceTree = "<group>"; };
 		5BC376B1271F1CFE00444D5E /* PBMDeviceAccessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDeviceAccessManager.h; sourceTree = "<group>"; };
 		5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMWindowLocker.m; sourceTree = "<group>"; };
 		5BC376B3271F1CFE00444D5E /* PBMDeepLinkPlus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeepLinkPlus.m; sourceTree = "<group>"; };
@@ -1021,14 +1016,12 @@
 		5BC376B7271F1CFE00444D5E /* PBMCircularProgressBarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCircularProgressBarLayer.h; sourceTree = "<group>"; };
 		5BC376B9271F1CFE00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"; sourceTree = "<group>"; };
 		5BC376BA271F1CFE00444D5E /* PBMUserAgentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMUserAgentService.h; sourceTree = "<group>"; };
-		5BC376BB271F1CFE00444D5E /* PBMUserConsentDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMUserConsentDataManager.m; sourceTree = "<group>"; };
 		5BC376BC271F1CFE00444D5E /* PBMLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMLocationManager.h; sourceTree = "<group>"; };
 		5BC376BD271F1CFE00444D5E /* PBMFunctions+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBMFunctions+Testing.m"; sourceTree = "<group>"; };
 		5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMMRAIDConstants.m; sourceTree = "<group>"; };
 		5BC376C1271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDeviceAccessManagerKeys.h; sourceTree = "<group>"; };
 		5BC376C2271F1CFE00444D5E /* PBMDeepLinkPlusHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeepLinkPlusHelper.m; sourceTree = "<group>"; };
 		5BC376C3271F1CFE00444D5E /* PBMUIApplicationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMUIApplicationProtocol.h; sourceTree = "<group>"; };
-		5BC376C4271F1CFE00444D5E /* PBMUserConsentResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMUserConsentResolver.h; sourceTree = "<group>"; };
 		5BC376C5271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMWKScriptMessageHandlerLeakAvoider.m; sourceTree = "<group>"; };
 		5BC376C7271F1CFE00444D5E /* PBMNSThreadProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMNSThreadProtocol.h; sourceTree = "<group>"; };
 		5BC376C8271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBMDeepLinkPlusHelper+Testing.m"; sourceTree = "<group>"; };
@@ -1050,7 +1043,6 @@
 		5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMFunctions+Testing.h"; sourceTree = "<group>"; };
 		5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMLocationManager.m; sourceTree = "<group>"; };
 		5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMVoidBlock.h; sourceTree = "<group>"; };
-		5BC376DF271F1CFE00444D5E /* PBMUserConsentDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMUserConsentDataManager.h; sourceTree = "<group>"; };
 		5BC376E0271F1CFE00444D5E /* PBMUserAgentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMUserAgentService.m; sourceTree = "<group>"; };
 		5BC376E2271F1CFE00444D5E /* PBMCircularProgressBarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMCircularProgressBarLayer.m; sourceTree = "<group>"; };
 		5BC376E3271F1CFE00444D5E /* PBMCircularProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCircularProgressBarView.h; sourceTree = "<group>"; };
@@ -2017,10 +2009,6 @@
 				5BC376C3271F1CFE00444D5E /* PBMUIApplicationProtocol.h */,
 				5BC376BA271F1CFE00444D5E /* PBMUserAgentService.h */,
 				5BC376E0271F1CFE00444D5E /* PBMUserAgentService.m */,
-				5BC376DF271F1CFE00444D5E /* PBMUserConsentDataManager.h */,
-				5BC376BB271F1CFE00444D5E /* PBMUserConsentDataManager.m */,
-				5BC376C4271F1CFE00444D5E /* PBMUserConsentResolver.h */,
-				5BC376AF271F1CFE00444D5E /* PBMUserConsentResolver.m */,
 				5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */,
 				5BC376CE271F1CFE00444D5E /* PBMWindowLocker.h */,
 				5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */,
@@ -3327,7 +3315,6 @@
 				5BC37ACF271F1D0100444D5E /* PBMSKAdNetworksParameterBuilder.h in Headers */,
 				5BC379B4271F1D0000444D5E /* PBMCreativeResolutionDelegate.h in Headers */,
 				5BC37988271F1D0000444D5E /* PBMCreativeModelCollectionMakerVAST.h in Headers */,
-				5BC37922271F1CFF00444D5E /* PBMUserConsentResolver.h in Headers */,
 				5BC37AD2271F1D0100444D5E /* PBMNetworkParameterBuilder.h in Headers */,
 				5BC37ADF271F1D0100444D5E /* WKNavigationAction+PBMWKNavigationActionCompatible.h in Headers */,
 				34C9CD5F2850CE6300FB5451 /* OMSDKVersionProvider.h in Headers */,
@@ -3357,7 +3344,6 @@
 				5BC3797C271F1D0000444D5E /* PBMVastIcon.h in Headers */,
 				5BC378B2271F1CFF00444D5E /* UIView+PBMExtensions.h in Headers */,
 				5BC378EE271F1CFF00444D5E /* PBMORTBUser.h in Headers */,
-				5BC3793C271F1D0000444D5E /* PBMUserConsentDataManager.h in Headers */,
 				5BC3795C271F1D0000444D5E /* PBMVastWrapperAd.h in Headers */,
 				5BC37AE1271F1D0100444D5E /* PBMInterstitialLayoutConfigurator.h in Headers */,
 				5BC378CB271F1CFF00444D5E /* PBMTimerInterface.h in Headers */,
@@ -3975,7 +3961,6 @@
 				5BC37997271F1D0000444D5E /* PBMAbstractCreative.m in Sources */,
 				92EE5A0D27F9D292003D7691 /* Position.swift in Sources */,
 				92C3A83627F989E200DC05E9 /* AutoRefreshCountConfig.swift in Sources */,
-				5BC3790D271F1CFF00444D5E /* PBMUserConsentResolver.m in Sources */,
 				5BC37A72271F1D0000444D5E /* BidResponse.swift in Sources */,
 				5BC379C8271F1D0000444D5E /* PBMAutoRefreshManager.m in Sources */,
 				5BC37950271F1D0000444D5E /* PBMCreativeFactory.m in Sources */,
@@ -4109,7 +4094,6 @@
 				5BC37A20271F1D0000444D5E /* PBMORTBMacrosHelper.m in Sources */,
 				92989653275FE98C00D3C174 /* PBMORTBContentData.m in Sources */,
 				5BC378BB271F1CFF00444D5E /* NSNumber+PBMORTBNative.m in Sources */,
-				5BC37919271F1CFF00444D5E /* PBMUserConsentDataManager.m in Sources */,
 				5BC37961271F1D0000444D5E /* PBMVastAdsBuilder.m in Sources */,
 				5BC37A91271F1D0000444D5E /* InterstitialEventLoadingDelegate.swift in Sources */,
 				530382F2283197E100B2B111 /* ServerResponse.swift in Sources */,

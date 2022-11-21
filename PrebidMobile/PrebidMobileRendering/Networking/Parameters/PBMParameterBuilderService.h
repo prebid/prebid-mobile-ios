@@ -27,7 +27,6 @@
 @class PBMDeviceAccessManager;
 @class PBMLocationManager;
 @class Prebid;
-@class PBMUserConsentDataManager;
 
 @interface PBMParameterBuilderService : NSObject
 
@@ -46,7 +45,7 @@
                                                                         reachability:(nonnull Reachability *)reachability
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
-                                                               pbmUserConsentManager:(nonnull PBMUserConsentDataManager *)pbmUserConsentManager
+                                                               pbmUserConsentManager:(nonnull UserConsentDataManager *)pbmUserConsentManager
                                                                            targeting:(nonnull Targeting *)targeting
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders;
 @end

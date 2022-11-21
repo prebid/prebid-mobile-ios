@@ -166,7 +166,7 @@ public class Targeting: NSObject {
     }
     
     public func getSubjectToGDPR() -> NSNumber? {
-        return UserConsentDataManager.shared.subjectToGDPR as NSNumber?
+        return UserConsentDataManager.shared.subjectToGDPR_NSNumber
     }
     
     // MARK: - GDPR Consent

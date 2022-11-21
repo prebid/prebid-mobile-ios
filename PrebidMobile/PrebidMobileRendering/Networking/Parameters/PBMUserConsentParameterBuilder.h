@@ -16,7 +16,8 @@
 #import <Foundation/Foundation.h>
 #import "PBMParameterBuilderProtocol.h"
 
-@class PBMUserConsentDataManager;
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 /**
  @c PBMUserConsentParameterBuilder is responsible for enriching its provided
@@ -25,13 +26,13 @@
 @interface PBMUserConsentParameterBuilder : NSObject <PBMParameterBuilder>
 
 /**
- Convenience initializer that uses the @c PBMUserConsentDataManager shared.
+ Convenience initializer that uses the @c UserConsentDataManager shared.
  */
 - (nonnull instancetype)init;
 
 /**
  Initializer exposed primarily for dependency injection.
  */
-- (nonnull instancetype)initWithUserConsentManager:(nullable PBMUserConsentDataManager *)userConsentManager NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithUserConsentManager:(nullable UserConsentDataManager *)userConsentManager NS_DESIGNATED_INITIALIZER;
 
 @end

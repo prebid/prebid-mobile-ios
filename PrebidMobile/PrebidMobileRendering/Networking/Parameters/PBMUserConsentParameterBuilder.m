@@ -14,42 +14,41 @@
  */
 
 #import "PBMUserConsentParameterBuilder.h"
-#import "PBMUserConsentDataManager.h"
-#import "PBMUserConsentResolver.h"
 #import "PBMORTB.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @interface PBMUserConsentParameterBuilder ()
 
-@property (nonatomic, strong) PBMUserConsentDataManager *userConsentManager;
+@property (nonatomic, strong) UserConsentDataManager *userConsentManager;
 
 @end
 
 @implementation PBMUserConsentParameterBuilder
 
 - (instancetype)init {
-    return [self initWithUserConsentManager:PBMUserConsentDataManager.shared];
+    return [self initWithUserConsentManager:UserConsentDataManager.shared];
 }
 
-- (instancetype)initWithUserConsentManager:(PBMUserConsentDataManager *)userConsentManager {
+- (instancetype)initWithUserConsentManager:(UserConsentDataManager *)userConsentManager {
     self = [super init];
     if (!self) {
         return nil;
     }
 
-    self.userConsentManager = (userConsentManager) ? userConsentManager : PBMUserConsentDataManager.shared;
+    self.userConsentManager = (userConsentManager) ? userConsentManager : UserConsentDataManager.shared;
 
     return self;
 }
 
 - (void)buildBidRequest:(nonnull PBMORTBBidRequest *)bidRequest {
-    PBMUserConsentResolver *consentResolver = [[PBMUserConsentResolver alloc] initWithConsentDataManager:self.userConsentManager];
-    
     // GDPR
-    bidRequest.regs.ext[@"gdpr"] = consentResolver.isSubjectToGDPR;
-    bidRequest.user.ext[@"consent"] = consentResolver.gdprConsentString;
+    bidRequest.regs.ext[@"gdpr"] = UserConsentDataManager.shared.subjectToGDPR_NSNumber;
+    bidRequest.user.ext[@"consent"] = UserConsentDataManager.shared.gdprConsentString;
     
     // CCPA
-    bidRequest.regs.ext[@"us_privacy"] = self.userConsentManager.usPrivacyString;
+    bidRequest.regs.ext[@"us_privacy"] = UserConsentDataManager.shared.usPrivacyString;
 }
 
 @end

@@ -15,10 +15,20 @@
 
 import Foundation
 
+/**
+ @c UserConsentDataManager is responsible retrieving user consent according to the
+ IAB Transparency & Consent Framework
+
+ The design of the framework is that a publisher integrated Consent Management
+ Platform (CMP) is responsible for storing user consent applicability and data
+ in @c UserDefaults. All advertising SDKs are to query this data regularly for
+ updates and pass that data downstream and act accordingly.
+ */
+
 @objcMembers
-class UserConsentDataManager: NSObject {
+public class UserConsentDataManager: NSObject {
     
-    static let shared = UserConsentDataManager()
+    public static let shared = UserConsentDataManager()
     
     // COPPA
     let PB_COPPAKey = "kPBCoppaSubjectToConsent"
@@ -42,13 +52,13 @@ class UserConsentDataManager: NSObject {
      established by the USA FTC, where 0 = no, 1 = yes
      */
     
-    var subjectToCOPPA: Bool? {
+    public var subjectToCOPPA: Bool? {
         set { UserDefaults.standard.set(newValue, forKey: PB_COPPAKey) }
         get { UserDefaults.standard.object(forKey: PB_COPPAKey) != nil ? UserDefaults.standard.bool(forKey: PB_COPPAKey) : nil }
     }
     
     // СCPA
-    func iabCCPA() -> String? {
+    public var usPrivacyString: String? {
         UserDefaults.standard.getObjectFromUserDefaults(forKey: IABUSPrivacy_StringKey)
     }
     
@@ -60,9 +70,13 @@ class UserConsentDataManager: NSObject {
     
     var _subjectToGDPR: Bool?
     
-    var subjectToGDPR: Bool? {
+    public var subjectToGDPR: Bool? {
         set { _subjectToGDPR = newValue }
         get { _subjectToGDPR ?? (UserDefaults.standard.getObjectFromUserDefaults(forKey: IABTCF_SubjectToGDPR) as NSNumber?).boolValue }
+    }
+    
+    public var subjectToGDPR_NSNumber: NSNumber? {
+        subjectToGDPR as NSNumber?
     }
     
     // MARK: - GDPR Consent
@@ -73,7 +87,7 @@ class UserConsentDataManager: NSObject {
     
     var _gdprConsentString: String?
 
-    var gdprConsentString: String? {
+    public var gdprConsentString: String? {
         set { _gdprConsentString = newValue }
         get { _gdprConsentString ?? UserDefaults.standard.getObjectFromUserDefaults(forKey: IABTCF_ConsentString) }
     }
@@ -82,7 +96,7 @@ class UserConsentDataManager: NSObject {
     
     var _purposeConsents: String?
 
-    var purposeConsents: String? {
+    public var purposeConsents: String? {
         set { _purposeConsents = newValue }
         get { _purposeConsents ?? UserDefaults.standard.getObjectFromUserDefaults(forKey: IABTCF_PurposeConsents) }
     }
@@ -90,11 +104,11 @@ class UserConsentDataManager: NSObject {
     /*
      Purpose 1 - Store and/or access information on a device
      */
-    func getDeviceAccessConsent() -> Bool? {
+    public func getDeviceAccessConsent() -> Bool? {
         return getPurposeConsent(index: 0)
     }
 
-    func getPurposeConsent(index: Int) -> Bool? {
+    public func getPurposeConsent(index: Int) -> Bool? {
         var purposeConsent: Bool? = nil
         
         if let savedPurposeConsents = purposeConsents, index >= 0, index < savedPurposeConsents.count {
@@ -120,7 +134,7 @@ class UserConsentDataManager: NSObject {
      gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
      gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
      */
-    func isAllowedAccessDeviceData() -> Bool {
+    public func isAllowedAccessDeviceData() -> Bool {
         let deviceAccessConsent = getDeviceAccessConsent()
         
         // deviceAccess undefined and gdprApplies undefined
