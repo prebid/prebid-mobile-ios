@@ -23,18 +23,13 @@ public class UserConsentDataManager: NSObject {
     // COPPA
     let PB_COPPAKey = "kPBCoppaSubjectToConsent"
     
-    // GDPR - publisher set local
-    let PBConsent_SubjectToGDPRKey = "kPBGdprSubjectToConsent"
-    let PBConsent_ConsentStringKey = "kPBGDPRConsentString"
-    let PBConsent_PurposeConsentsStringKey = "kPBGDPRPurposeConsents"
-    
     // TCF 2.0
     let IABTCF_ConsentString = "IABTCF_TCString"
     let IABTCF_SubjectToGDPR = "IABTCF_gdprApplies"
     let IABTCF_PurposeConsents = "IABTCF_PurposeConsents"
 
     // CCPA
-    static let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
+    let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
     
     private override init() {
         super.init()
@@ -46,9 +41,15 @@ public class UserConsentDataManager: NSObject {
      Integer flag indicating if this request is subject to the COPPA regulations
      established by the USA FTC, where 0 = no, 1 = yes
      */
+    
     public var subjectToCOPPA: Bool? {
         set { UserDefaults.standard.set(newValue, forKey: PB_COPPAKey) }
         get { UserDefaults.standard.object(forKey: PB_COPPAKey) != nil ? UserDefaults.standard.bool(forKey: PB_COPPAKey) : nil }
+    }
+    
+    // СCPA
+    func iabCCPA() -> String? {
+        UserDefaults.standard.getObjectFromUserDefaults(forKey: IABUSPrivacy_StringKey)
     }
     
     // MARK: - GDPR
@@ -56,20 +57,12 @@ public class UserConsentDataManager: NSObject {
     /**
      * The boolean value set by the user to collect user data
      */
+    
+    var _subjectToGDPR: Bool?
+    
     public var subjectToGDPR: Bool? {
-        set { UserDefaults.standard.set(newValue, forKey: PBConsent_SubjectToGDPRKey) }
-
-        get {
-            var gdprSubject: Bool?
-           
-            if let pbGdpr: Bool? = UserDefaults.standard.getObjectFromUserDefaults(forKey: PBConsent_SubjectToGDPRKey) {
-                gdprSubject = pbGdpr
-            } else if let iabGdpr = iabGDPRSubject() {
-                gdprSubject = iabGdpr
-            }
-            
-            return gdprSubject
-        }
+        set { _subjectToGDPR = newValue }
+        get { _subjectToGDPR ?? (UserDefaults.standard.getObjectFromUserDefaults(forKey: IABTCF_SubjectToGDPR) as NSNumber?).boolValue }
     }
     
     public func setSubjectToGDPR(_ newValue: NSNumber?) {
@@ -85,39 +78,21 @@ public class UserConsentDataManager: NSObject {
     /**
      * The consent string for sending the GDPR consent
      */
+    
+    var _gdprConsentString: String?
 
     public var gdprConsentString: String? {
-        set { UserDefaults.standard.set(newValue, forKey: PBConsent_ConsentStringKey) }
-
-        get {
-            var savedConsent: String?
-            
-            if let pbString: String? = UserDefaults.standard.getObjectFromUserDefaults(forKey: PBConsent_ConsentStringKey) {
-                savedConsent = pbString
-            } else if let iabString: String? = UserDefaults.standard.getObjectFromUserDefaults(forKey: IABTCF_ConsentString) {
-                savedConsent = iabString
-            }
-            
-            return savedConsent
-        }
+        set { _gdprConsentString = newValue }
+        get { _gdprConsentString ?? UserDefaults.standard.getObjectFromUserDefaults(forKey: IABTCF_ConsentString) }
     }
     
     // MARK: - TCFv2
+    
+    var _purposeConsents: String?
 
     public var purposeConsents: String? {
-        set { UserDefaults.standard.set(newValue, forKey: PBConsent_PurposeConsentsStringKey) }
-
-        get {
-            var savedPurposeConsents: String?
-            
-            if let pbString: String? = UserDefaults.standard.getObjectFromUserDefaults(forKey: PBConsent_PurposeConsentsStringKey) {
-               savedPurposeConsents = pbString
-            } else if let iabString: String? = UserDefaults.standard.getObjectFromUserDefaults(forKey: IABTCF_PurposeConsents) {
-                savedPurposeConsents = iabString
-            }
-
-            return savedPurposeConsents
-        }
+        set { _purposeConsents = newValue }
+        get { _purposeConsents ?? UserDefaults.standard.getObjectFromUserDefaults(forKey: IABTCF_PurposeConsents) }
     }
 
     /*
@@ -160,26 +135,18 @@ public class UserConsentDataManager: NSObject {
     public func isAllowedAccessDeviceData() -> Bool {
         let deviceAccessConsent = getDeviceAccessConsent()
         
-        if ((deviceAccessConsent == nil && (subjectToGDPR == nil || subjectToGDPR == false)) || deviceAccessConsent == true) {
+        // deviceAccess undefined and gdprApplies undefined
+        if deviceAccessConsent == nil && subjectToGDPR == nil {
             return true
         }
         
-        return false
-    }
-    
-    // MARK: - Private
-    
-    private func iabGDPRSubject() -> Bool? {
-        var gdprSubject: Bool? = nil
-
-        if let gdprSubjectTcf2: NSNumber? = UserDefaults.standard.getObjectFromUserDefaults(forKey: IABTCF_SubjectToGDPR) {
-            if gdprSubjectTcf2 == 1 {
-                gdprSubject = true
-            } else if gdprSubjectTcf2 == 0 {
-                gdprSubject = false
-            }
+        // deviceAccess undefined and gdprApplies false
+        if deviceAccessConsent == nil && subjectToGDPR == false {
+            return true
         }
-
-        return gdprSubject
+        
+        // gdprApplies = true
+        // deviceAccess is set (true/false) or still is nil (i.e. false)
+        return deviceAccessConsent ?? false
     }
 }

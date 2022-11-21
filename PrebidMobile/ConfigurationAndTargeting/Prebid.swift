@@ -164,7 +164,7 @@ public class Prebid: NSObject {
     public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: ((PrebidInitializationStatus, Error?) -> Void)? = nil) {
         let _ = ServerConnection.shared
         let _ = PBMLocationManager.shared
-        let _ = PBMUserConsentDataManager.shared
+        let _ = UserConsentDataManager.shared
         PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
         
         checkServerStatus { completion?($0, $1) }
