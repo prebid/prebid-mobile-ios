@@ -305,18 +305,19 @@ typealias JsonDictionary = [String:Any]
         targeting.gdprConsentString = nil
         targeting.purposeConsents = nil
         
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_SubjectToGDPR)
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_PurposeConsents)
-        
         targeting.clearContextData()
         targeting.clearUserData()
         targeting.clearYearOfBirth()
         targeting.clearAccessControlList()
         targeting.clearContextKeywords()
         targeting.clearUserKeywords()
+        
+        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.PB_COPPAKey)
+        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_ConsentString)
+        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
+        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
+        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABUSPrivacy_StringKey)
+        
         checkInitialValues(targeting)
     }
     
@@ -345,6 +346,12 @@ typealias JsonDictionary = [String:Any]
         XCTAssertTrue(targeting.userDataDictionary.isEmpty)
         XCTAssertTrue(targeting.accessControlList.isEmpty)
         XCTAssert(targeting.yearOfBirth == 0)
+        
+        XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.PB_COPPAKey))
+        XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_ConsentString))
+        XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR))
+        XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents))
+        XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABUSPrivacy_StringKey))
     }
     
     // Prepends "mraid:" and converts to a URL.

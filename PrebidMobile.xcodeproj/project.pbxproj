@@ -534,7 +534,6 @@
 		920E8D6D28084BF200E6313B /* VideoControlsConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920E8D6C28084BF200E6313B /* VideoControlsConfigTests.swift */; };
 		922AFC61273491F000732C53 /* PBMLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376BC271F1CFE00444D5E /* PBMLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		922AFC8827352B0100732C53 /* MockUserAgentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFC8727352B0100732C53 /* MockUserAgentService.swift */; };
-		922AFC8B27352BB100732C53 /* MockUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFC8A27352BB100732C53 /* MockUserDefaults.swift */; };
 		922AFC8D27352BE900732C53 /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFC8C27352BE900732C53 /* MockViewController.swift */; };
 		922AFC8F27352C0100732C53 /* MockServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFC8E27352C0100732C53 /* MockServerConnection.swift */; };
 		922AFC9127352C9B00732C53 /* MockPBMWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFC9027352C9B00732C53 /* MockPBMWebView.swift */; };
@@ -1371,7 +1370,6 @@
 		920E8D6C28084BF200E6313B /* VideoControlsConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoControlsConfigTests.swift; sourceTree = "<group>"; };
 		922AFC8727352B0100732C53 /* MockUserAgentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserAgentService.swift; sourceTree = "<group>"; };
 		922AFC8927352B4C00732C53 /* PBMUserAgentService+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMUserAgentService+pbmTestExtension.h"; sourceTree = "<group>"; };
-		922AFC8A27352BB100732C53 /* MockUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
 		922AFC8C27352BE900732C53 /* MockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockViewController.swift; sourceTree = "<group>"; };
 		922AFC8E27352C0100732C53 /* MockServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServerConnection.swift; sourceTree = "<group>"; };
 		922AFC9027352C9B00732C53 /* MockPBMWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMWebView.swift; sourceTree = "<group>"; };
@@ -1710,7 +1708,6 @@
 				922AFC8E27352C0100732C53 /* MockServerConnection.swift */,
 				47D9A99F33ED7FF4B2C6E2C0 /* MockUIApplication.swift */,
 				922AFC8727352B0100732C53 /* MockUserAgentService.swift */,
-				922AFC8A27352BB100732C53 /* MockUserDefaults.swift */,
 				922AFC8C27352BE900732C53 /* MockViewController.swift */,
 			);
 			path = Mocks;
@@ -3828,7 +3825,6 @@
 				922AFD1827371A5200732C53 /* PBMAutoRefreshManagerTest.swift in Sources */,
 				922AFCD127353C3C00732C53 /* MockServerRuleSlow.m in Sources */,
 				925D5D6E2737B6B500A8A2B5 /* PBMTouchDownRecognizerTests.swift in Sources */,
-				922AFC8B27352BB100732C53 /* MockUserDefaults.swift in Sources */,
 				925D5E442737F0C800A8A2B5 /* EnumSequenceTest.swift in Sources */,
 				925D5E602737F3F200A8A2B5 /* PBMAdRequesterVASTTest.swift in Sources */,
 				47D9A23380B17E26208C3744 /* MockPBMHTMLCreative.swift in Sources */,

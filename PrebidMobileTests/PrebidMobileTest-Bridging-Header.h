@@ -86,7 +86,6 @@
 #import "PBMUIApplicationProtocol.h"
 #import "PBMURLComponents.h"
 #import "PBMUserAgentService.h"
-#import "PBMUserConsentDataManager.h"
 #import "PBMUserConsentParameterBuilder.h"
 #import "PBMDeviceAccessManagerKeys.h"
 #import "PBMAdRequesterVAST.h"

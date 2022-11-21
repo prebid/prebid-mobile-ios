@@ -182,8 +182,7 @@ class TargetingTests: XCTestCase {
     func testSubjectToGDPR_Undefined() {
         //given
         Targeting.shared.subjectToGDPR = nil
-        UserDefaults.standard.set(nil, forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
-        UserDefaults.standard.set(nil, forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        UserDefaults.standard.set(nil, forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
 
         //when
         let gdprSubject = Targeting.shared.subjectToGDPR
@@ -192,20 +191,9 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(nil, gdprSubject)
     }
 
-    func testSubjectToGDPR_TCFv1() {
-        //given
-        UserDefaults.standard.set("1", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
-        
-        //when
-        let gdprSubject = Targeting.shared.subjectToGDPR
-
-        //then
-        XCTAssertEqual(true, gdprSubject)
-    }
-
     func testSubjectToGDPR_TCFv2() {
         //given
-        UserDefaults.standard.set(1, forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        UserDefaults.standard.set(1, forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
         
         //when
         let iabGdprSubject = Targeting.shared.subjectToGDPR
@@ -230,8 +218,7 @@ class TargetingTests: XCTestCase {
     func testGdprConsentStringUndefined() {
         //given
         Targeting.shared.gdprConsentString = nil
-        UserDefaults.standard.set(nil, forKey: StorageUtils.IABConsent_ConsentStringKey)
-        UserDefaults.standard.set(nil, forKey: StorageUtils.IABTCF_ConsentString)
+        UserDefaults.standard.set(nil, forKey: UserConsentDataManager.shared.IABTCF_ConsentString)
 
         //when
         let gdprConsent = Targeting.shared.gdprConsentString
@@ -240,22 +227,10 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(nil, gdprConsent)
     }
 
-    func testGdprConsentStringTCFv1() {
-        //given
-        let gdprConsentString = "testconsent TCFv1"
-        UserDefaults.standard.set(gdprConsentString, forKey: StorageUtils.IABConsent_ConsentStringKey)
-        
-        //when
-        let result = Targeting.shared.gdprConsentString
-
-        //then
-        XCTAssertEqual(gdprConsentString, result)
-    }
-
     func testGdprConsentStringTCFv2() {
         //given
         let gdprConsentString = "testconsent TCFv2"
-        UserDefaults.standard.set(gdprConsentString, forKey: StorageUtils.IABTCF_ConsentString)
+        UserDefaults.standard.set(gdprConsentString, forKey: UserConsentDataManager.shared.IABTCF_ConsentString)
 
         //when
         let result = Targeting.shared.gdprConsentString
@@ -396,7 +371,7 @@ class TargetingTests: XCTestCase {
     func testPurposeConsentsUndefined() throws {
         //given
         Targeting.shared.purposeConsents = nil
-        UserDefaults.standard.set(nil, forKey: StorageUtils.IABTCF_PurposeConsents)
+        UserDefaults.standard.set(nil, forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
 
         //when
         let purposeConsents = Targeting.shared.purposeConsents
@@ -408,7 +383,7 @@ class TargetingTests: XCTestCase {
     func testPurposeConsentsTCFv2() throws {
         //given
         let purposeConsents = "test PurposeConsents TCFv2"
-        UserDefaults.standard.set(purposeConsents, forKey: StorageUtils.IABTCF_PurposeConsents)
+        UserDefaults.standard.set(purposeConsents, forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
 
         //when
         let result = Targeting.shared.purposeConsents

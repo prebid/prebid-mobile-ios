@@ -34,12 +34,10 @@ class PBMUserConsentParameterBuilderTest: XCTestCase {
     }
     
     func testBuilderNotSubjectToGDPR() {
-        let mockUserDefaults = MockUserDefaults()
-        mockUserDefaults.mock_subjectToGDPR = false
-        mockUserDefaults.mock_consentString = "consentstring"
+        UserConsentDataManager.shared.subjectToGDPR = false
+        UserConsentDataManager.shared.gdprConsentString = "consentstring"
         
-        let mockUserConsentManager = PBMUserConsentDataManager(userDefaults: mockUserDefaults)
-        let builder = PBMUserConsentParameterBuilder(userConsentManager: mockUserConsentManager)
+        let builder = PBMUserConsentParameterBuilder(userConsentManager: UserConsentDataManager.shared)
         
         let bidRequest = PBMORTBBidRequest()
         builder.build(bidRequest)
@@ -49,12 +47,10 @@ class PBMUserConsentParameterBuilderTest: XCTestCase {
     }
     
     func testBuilderSubjectToGDPR() {
-        let mockUserDefaults = MockUserDefaults()
-        mockUserDefaults.mock_subjectToGDPR = true
-        mockUserDefaults.mock_consentString = "differentconsentstring"
+        UserConsentDataManager.shared.subjectToGDPR = true
+        UserConsentDataManager.shared.gdprConsentString = "differentconsentstring"
         
-        let mockUserConsentManager = PBMUserConsentDataManager(userDefaults: mockUserDefaults)
-        let builder = PBMUserConsentParameterBuilder(userConsentManager: mockUserConsentManager)
+        let builder = PBMUserConsentParameterBuilder(userConsentManager: UserConsentDataManager.shared)
         
         let bidRequest = PBMORTBBidRequest()
         builder.build(bidRequest)
