@@ -60,6 +60,8 @@ NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-origi
     self.gamBanner.adUnitID = gamAdUnitVideoBannerOriginal;
     self.gamBanner.rootViewController = self;
     self.gamBanner.delegate = self;
+    
+    self.bannerView.backgroundColor = [UIColor clearColor];
     [self.bannerView addSubview:self.gamBanner];
     
     // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit.

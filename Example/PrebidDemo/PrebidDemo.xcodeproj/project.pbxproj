@@ -867,10 +867,10 @@
 			isa = PBXGroup;
 			children = (
 				53BA02B2292531D000BE6015 /* AppDelegate.h */,
-				53BA02B5292531D000BE6015 /* SceneDelegate.h */,
 				53BA02B3292531D000BE6015 /* AppDelegate.m */,
-				53BA02C4292531D100BE6015 /* main.m */,
+				53BA02B5292531D000BE6015 /* SceneDelegate.h */,
 				53BA02B6292531D000BE6015 /* SceneDelegate.m */,
+				53BA02C4292531D100BE6015 /* main.m */,
 				539928D729254EFD0078053C /* BaseViewControllers */,
 				539928CD29253C430078053C /* Examples */,
 				539928BC292534A70078053C /* IntegrationCase */,
