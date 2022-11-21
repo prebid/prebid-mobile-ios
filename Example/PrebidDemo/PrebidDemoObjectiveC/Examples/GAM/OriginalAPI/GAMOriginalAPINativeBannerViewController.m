@@ -88,6 +88,10 @@ NSString * const gamAdUnit = @"/21808260008/unified_native_ad_unit";
     } failure:^(NSError * _Nonnull error) {
         PBMLogError(@"%@", error.localizedDescription)
     }];
+    
+    [self.gamBannerView.constraints filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSLayoutConstraint*  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return evaluatedObject.firstAttribute == NSLayoutAttributeWidth;
+    }]].firstObject.constant = UIScreen.mainScreen.bounds.size.width * 0.1;
 }
 
 - (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error {
