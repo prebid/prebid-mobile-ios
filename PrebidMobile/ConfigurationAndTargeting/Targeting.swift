@@ -194,7 +194,7 @@ public class Targeting: NSObject {
     }
     
     public func getDeviceAccessConsentObjc() -> NSNumber? {
-        UserConsentDataManager.shared.getDeviceAccessConsentObjc()
+        UserConsentDataManager.shared.getDeviceAccessConsent() as NSNumber?
     }
 
     public func getPurposeConsent(index: Int) -> Bool? {
