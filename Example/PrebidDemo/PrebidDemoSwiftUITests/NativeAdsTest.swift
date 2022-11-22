@@ -10,18 +10,18 @@ import XCTest
 
 class NativeAdsTest: BaseAdsTest {
     
-    public func testInAppNativeAd() {
-        testAd(adServer: inApp, adName: native)
-    }
-    public func testGamOriginalNativeAd() {
-        testAd(adServer: gam, adName: native)
-    }
-    public func testGamRenderingNativeAd() {
-        testAd(adServer: gamR, adName: native)
-    }
-    public func testAdMobNativeAd() {
-        testAd(adServer: adMobR, adName: native)
-    }
+//    public func testInAppNativeAd() {
+//        testAd(adServer: inApp, adName: native)
+//    }
+//    public func testGamOriginalNativeAd() {
+//        testAd(adServer: gam, adName: native)
+//    }
+//    public func testGamRenderingNativeAd() {
+//        testAd(adServer: gamR, adName: native)
+//    }
+//    public func testAdMobNativeAd() {
+//        testAd(adServer: adMobR, adName: native)
+//    }
     
     override func checkAd(adServer: String, adName: String) {
         let element = adServer == adMobR ? app.buttons["OpenX (Title)"] : app.staticTexts["OpenX (Title)"]
