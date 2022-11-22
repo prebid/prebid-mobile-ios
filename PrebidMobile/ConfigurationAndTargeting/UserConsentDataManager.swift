@@ -142,7 +142,7 @@ public class UserConsentDataManager: NSObject {
     //fetch advertising identifier based TCF 2.0 Purpose1 value
     //truth table
     /*
-     deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
+                        deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
      gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
      gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
      gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
