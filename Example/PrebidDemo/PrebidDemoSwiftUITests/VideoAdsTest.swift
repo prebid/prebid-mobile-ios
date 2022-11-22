@@ -13,33 +13,33 @@ enum NoAdError: Error {
 class VideoAdsTest: BaseAdsTest {
     
     // Video banner
-    public func testInAppVideoBannerAd() {
-        testAd(adServer: inApp, adName: bannerVideo)
-    }
-    public func testGamOriginalVideoBannerAd() {
-        testAd(adServer: gam, adName: bannerVideo)
-    }
-    public func testGamRenderingVideoBannerAd() {
-        testAd(adServer: gamR, adName: bannerVideo)
-    }
-    public func testAdMobVideoBannerAd() {
-        testAd(adServer: adMobR, adName: bannerVideo)
-    }
+//    public func testInAppVideoBannerAd() {
+//        testAd(adServer: inApp, adName: bannerVideo)
+//    }
+//    public func testGamOriginalVideoBannerAd() {
+//        testAd(adServer: gam, adName: bannerVideo)
+//    }
+//    public func testGamRenderingVideoBannerAd() {
+//        testAd(adServer: gamR, adName: bannerVideo)
+//    }
+//    public func testAdMobVideoBannerAd() {
+//        testAd(adServer: adMobR, adName: bannerVideo)
+//    }
     
 
     // Video interstitial
-    public func testInAppVideoInterstitialAd() {
-        testAd(adServer: inApp, adName: interstitialVideo)
-    }
-    public func testGamOriginalVideoInterstitialAd() {
-        testAd(adServer: gam, adName: interstitialVideo)
-    }
-    public func testGamRenderingVideoInterstitialAd() {
-        testAd(adServer: gamR, adName: interstitialVideo)
-    }
-    public func testAdMobVideoInterstitialAd() {
-        testAd(adServer: adMobR, adName: interstitialVideo)
-    }
+//    public func testInAppVideoInterstitialAd() {
+//        testAd(adServer: inApp, adName: interstitialVideo)
+//    }
+//    public func testGamOriginalVideoInterstitialAd() {
+//        testAd(adServer: gam, adName: interstitialVideo)
+//    }
+//    public func testGamRenderingVideoInterstitialAd() {
+//        testAd(adServer: gamR, adName: interstitialVideo)
+//    }
+//    public func testAdMobVideoInterstitialAd() {
+//        testAd(adServer: adMobR, adName: interstitialVideo)
+//    }
 
     // Video rewarded
     public func testInAppVideoRewardedAd() {
