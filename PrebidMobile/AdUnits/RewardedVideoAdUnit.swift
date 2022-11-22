@@ -18,8 +18,9 @@ import UIKit
 public class RewardedVideoAdUnit: VideoBaseAdUnit {
 
     public init(configId: String) {
-        super.init(configId: configId, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        super.init(configId: configId, size: nil)
         super.adUnitConfig.adConfiguration.isInterstitialAd = true
         super.adUnitConfig.adPosition = .fullScreen
+        super.adUnitConfig.adFormats = [.video]
     }
 }
