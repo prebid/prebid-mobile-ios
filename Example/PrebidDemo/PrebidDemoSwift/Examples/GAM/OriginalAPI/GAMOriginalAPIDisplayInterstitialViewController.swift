@@ -27,7 +27,6 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
     private var adUnit: InterstitialAdUnit!
     
     // GAM
-    private let gamRequest = GAMRequest()
     private var gamInterstitial: GAMInterstitialAd!
     
     override func loadView() {
@@ -38,18 +37,23 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
     }
     
     func createAd() {
-        // Setup Prebid ad unit
-        adUnit = InterstitialAdUnit(configId: storedImpDisplayInterstitial)
+        // 1. Create an Interstitial Ad Unit
+        adUnit = InterstitialAdUnit(configId: storedImpDisplayInterstitial, minWidthPerc: 60, minHeightPerc: 70)
         
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        // 2. Make a bid request to Prebid Server
+        let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            // Load GAM interstitial ad
-            GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitDisplayInterstitialOriginal, request: self?.gamRequest) { ad, error in
+            
+            // 3. Load a GAM interstitial ad
+            GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitDisplayInterstitialOriginal, request: gamRequest) { ad, error in
                 guard let self = self else { return }
+                
                 if let error = error {
                     PrebidDemoLogger.shared.error("Failed to load interstitial ad with error: \(error.localizedDescription)")
                 } else if let ad = ad {
+                    
+                    // 4. Present an the interstitial ad
                     ad.fullScreenContentDelegate = self
                     ad.present(fromRootViewController: self)
                 }

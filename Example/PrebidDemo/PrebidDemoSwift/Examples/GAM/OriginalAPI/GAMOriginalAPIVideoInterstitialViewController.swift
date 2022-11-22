@@ -27,7 +27,6 @@ class GAMOriginalAPIVideoInterstitialViewController: InterstitialBaseViewControl
     private var adUnit: VideoInterstitialAdUnit!
     
     // GAM
-    private let gamRequest = GAMRequest()
     private var gamInterstitial: GAMInterstitialAd!
     
     override func loadView() {
@@ -38,28 +37,34 @@ class GAMOriginalAPIVideoInterstitialViewController: InterstitialBaseViewControl
     }
     
     func createAd() {
-        // Setup Prebid ad unit
-        adUnit = VideoInterstitialAdUnit(configId: storedImpVideoInterstitial)
-        // Create and setup video parameters
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
-        parameters.protocols = [Signals.Protocols.VAST_2_0]
-        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        adUnit.parameters = parameters
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
-        adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
-            PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            // Load GAM interstitial ad
-            GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitVideoInterstitialOriginal, request: self?.gamRequest) { ad, error in
-                guard let self = self else { return }
-                if let error = error {
-                    PrebidDemoLogger.shared.error("Failed to load interstitial ad with error: \(error.localizedDescription)")
-                } else if let ad = ad {
-                    ad.present(fromRootViewController: self)
-                    ad.fullScreenContentDelegate = self
-                }
-            }
+// 1. Create an Interstitial Ad Unit
+adUnit = VideoInterstitialAdUnit(configId: storedImpVideoInterstitial)
+
+// 2. Configure video parameters
+let parameters = VideoParameters()
+parameters.mimes = ["video/mp4"]
+parameters.protocols = [Signals.Protocols.VAST_2_0]
+parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+adUnit.parameters = parameters
+
+// 3. Make a bid request to Prebid Server
+let gamRequest = GAMRequest()
+adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
+    PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
+   
+    // 4. Load a GAM interstitial ad
+    GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitVideoInterstitialOriginal, request: gamRequest) { ad, error in
+        guard let self = self else { return }
+        if let error = error {
+            PrebidDemoLogger.shared.error("Failed to load interstitial ad with error: \(error.localizedDescription)")
+        } else if let ad = ad {
+            
+            // 5. Present the interstitial ad
+            ad.present(fromRootViewController: self)
+            ad.fullScreenContentDelegate = self
         }
+    }
+}
     }
     
     // MARK: - GADFullScreenContentDelegate

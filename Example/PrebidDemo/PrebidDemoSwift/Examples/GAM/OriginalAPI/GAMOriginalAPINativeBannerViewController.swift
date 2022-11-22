@@ -18,6 +18,7 @@ import PrebidMobile
 import GoogleMobileAds
 
 fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
+fileprivate let storedImpNativeStyleBanner = "imp-prebid-banner-native-styles"
 fileprivate let nativeStoredResponse = "response-prebid-banner-native-styles"
 
 class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
@@ -25,20 +26,20 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
     // Prebid
     private var nativeUnit: NativeRequest!
     
-    private var nativeRequestAssets: [NativeAsset] {
-        let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
-        image.type = ImageAsset.Main
-        
-        let icon = NativeAssetImage(minimumWidth: 20, minimumHeight: 20, required: true)
-        icon.type = ImageAsset.Icon
-        
-        let title = NativeAssetTitle(length: 90, required: true)
-        let body = NativeAssetData(type: DataAsset.description, required: true)
-        let cta = NativeAssetData(type: DataAsset.ctatext, required: true)
-        let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
-        
-        return [title, icon, image, sponsored, body, cta]
-    }
+private var nativeRequestAssets: [NativeAsset] {
+    let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
+    image.type = ImageAsset.Main
+    
+    let icon = NativeAssetImage(minimumWidth: 20, minimumHeight: 20, required: true)
+    icon.type = ImageAsset.Icon
+    
+    let title = NativeAssetTitle(length: 90, required: true)
+    let body = NativeAssetData(type: DataAsset.description, required: true)
+    let cta = NativeAssetData(type: DataAsset.ctatext, required: true)
+    let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
+    
+    return [title, icon, image, sponsored, body, cta]
+}
     
     private var eventTrackers: [NativeEventTracker] {
         [NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])]
@@ -56,22 +57,25 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
     }
     
     func createAd() {
-        // Setup Prebid AdUnit
+        // 1. Create NativeRequest
         nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: nativeRequestAssets)
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
-        // Setup integration kind - GAM
+
+        // 2. Create GAMBannerView
         gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
-        gamBannerView.adUnitID = "/21808260008/unified_native_ad_unit"
+        gamBannerView.adUnitID = storedImpNativeStyleBanner
         gamBannerView.rootViewController = self
         gamBannerView.delegate = self
         bannerView.addSubview(gamBannerView)
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+
+        // 3. Make a bid request
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            // Load ad
+            
+            // 4. Load and GAM ad
             self?.gamBannerView.load(self?.gamRequest)
         }
     }

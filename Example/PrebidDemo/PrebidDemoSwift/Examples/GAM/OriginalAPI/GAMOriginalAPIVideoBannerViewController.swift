@@ -27,7 +27,6 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
     private var adUnit: VideoAdUnit!
     
     // GAM
-    private let gamRequest = GAMRequest()
     private var gamBanner: GAMBannerView!
 
     override func loadView() {
@@ -37,33 +36,37 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
         createAd()
     }
     
-    func createAd() {
-        // Create a VideoAdUnit associated with a Prebid Server configuration ID and a banner size
-        adUnit = VideoAdUnit(configId: storedImpVideoBanner, size: adSize)
-        // Create and setup video parameters
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
-        parameters.protocols = [Signals.Protocols.VAST_2_0]
-        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        parameters.placement = Signals.Placement.InBanner
-        adUnit.parameters = parameters
+func createAd() {
+    // 1. Create a BannerAdUnit
+    adUnit = VideoAdUnit(configId: storedImpVideoBanner, size: adSize)
+    
+    // 2. Configure video parameters
+    let parameters = VideoParameters()
+    parameters.mimes = ["video/mp4"]
+    parameters.protocols = [Signals.Protocols.VAST_2_0]
+    parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+    parameters.placement = Signals.Placement.InBanner
+    adUnit.parameters = parameters
+    
+    // 3. Create a GAMBannerView
+    gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
+    gamBanner.adUnitID = gamAdUnitVideoBannerOriginal
+    gamBanner.rootViewController = self
+    gamBanner.delegate = self
+    
+    // Add GMA SDK banner view to the app UI
+    bannerView.addSubview(gamBanner)
+    bannerView.backgroundColor = .clear
+    
+    // 4. Make a bid request to Prebid Server
+    let gamRequest = GAMRequest()
+    adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
+        PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
         
-        // Setup integration kind - GAM
-        gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
-        gamBanner.adUnitID = gamAdUnitVideoBannerOriginal
-        gamBanner.rootViewController = self
-        gamBanner.delegate = self
-        
-        bannerView.addSubview(gamBanner)
-        bannerView.backgroundColor = .clear
-        
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
-        adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
-            PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            // Load ad
-            self?.gamBanner.load(self?.gamRequest)
-        }
+        // 5. Load GAM Ad
+        self?.gamBanner.load(gamRequest)
     }
+}
 
     // MARK: - GADBannerViewDelegate
     
