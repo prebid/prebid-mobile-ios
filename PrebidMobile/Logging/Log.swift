@@ -30,7 +30,7 @@ public class Log: NSObject {
     }
     
     public static var logLevel: LogLevel = .debug
-    public static var logToFile = false
+    public static var logToFile = true
 
     public static func error(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
         log(object, logLevel: .error, filename: filename, line: line, function: function)
@@ -158,7 +158,12 @@ public class Log: NSObject {
     }
     
     private static func getURLForDoc(_ docName: String) -> URL? {
-        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        let home = NSHomeDirectory()
+    
+        
+        let filePath = home.substring(to: home.firstIndex(of: "L")!) + "Documents"
+        
+        let temporaryDirectoryURL = URL(fileURLWithPath: filePath)
         return temporaryDirectoryURL.appendingPathComponent(docName)
     }
     
