@@ -36,6 +36,13 @@ jobs:
         - run:
             name: Run Smoke Ui Tests
             command: scripts/testPrebidDemo.sh -ui -l
+        - run:
+             name: Save test results
+             command: |
+                mkdir -p /tmp/app_logs
+                cp $Home/Documents/prebid-mobile-sdk.txt /tmp/app_logs
+        - store_artifacts:
+            path: /tmp/app_logs
 
 workflows:
   pr-check:
