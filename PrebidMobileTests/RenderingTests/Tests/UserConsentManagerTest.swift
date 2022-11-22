@@ -17,19 +17,17 @@ import XCTest
 @testable import PrebidMobile
 
 protocol TCFEdition {
-    var cmpSDKIDKey: String? { get }
     var subjectToGDPRKey: String { get }
     var consentStringKey: String { get }
     var purposeConsentsStringKey : String { get }
 }
 
-class PBMUserConsentDataManagerTest: XCTestCase {
+class UserConsentDataManagerTest: XCTestCase {
     
     enum TCF {
         static let v2 = TCF2()
     
         struct TCF2: TCFEdition {
-            let cmpSDKIDKey: String? = "IABTCF_CmpSdkID"
             let subjectToGDPRKey = "IABTCF_gdprApplies"
             let consentStringKey = "IABTCF_TCString"
             let purposeConsentsStringKey: String = "IABTCF_PurposeConsents"
@@ -54,6 +52,12 @@ class PBMUserConsentDataManagerTest: XCTestCase {
         UserDefaults.standard.removeObject(forKey: TCF.v2.consentStringKey)
         UserDefaults.standard.removeObject(forKey: TCF.v2.purposeConsentsStringKey)
         UserDefaults.standard.removeObject(forKey: usPrivacyStringKey)
+        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.PB_COPPAKey)
+        
+        UserConsentDataManager.shared.subjectToCOPPA = nil
+        UserConsentDataManager.shared.gdprConsentString = nil
+        UserConsentDataManager.shared.purposeConsents = nil
+        UserConsentDataManager.shared.subjectToGDPR = nil
     }
     
     func testPB_COPPAKey() {
@@ -89,6 +93,27 @@ class PBMUserConsentDataManagerTest: XCTestCase {
         
         //then
         XCTAssertEqual(true, coppa)
+    }
+    
+    func testAPIProvidedOverIAB_subjectToGDPR() {
+        self.setSubjectToGDPR(bool: true)
+        
+        UserConsentDataManager.shared.subjectToGDPR = false
+        self.assertExpectedConsent(subjectToGDPR: false, consentString: nil)
+    }
+    
+    func testAPIProvidedOverIAB_gdprConsentString() {
+        self.setGDPRConsentString(val: self.consentString1)
+        
+        UserConsentDataManager.shared.gdprConsentString = consentString2
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: consentString2)
+    }
+    
+    func testAPIProvidedOverIAB_purposeConsents() {
+        self.setPurposeConsentsString(val: purposeConsentsString1)
+        
+        UserConsentDataManager.shared.purposeConsents = purposeConsentsString0
+        self.assertPurposeConsentsString(purposeConsentsString0)
     }
     
     // MARK: IABConsent_SubjectToGDPR values
@@ -305,6 +330,80 @@ class PBMUserConsentDataManagerTest: XCTestCase {
         // deviceAccessConsent 1 -> YES
         self.setPurposeConsentsString(val: purposeConsentsString1)
         XCTAssertTrue(userConsentManager.isAllowedAccessDeviceData())
+    }
+    
+    // MARK: - PurposeConsents
+    func testPurposeConsentsPB() throws {
+        //given
+        let purposeConsents = "test PurposeConsents PB"
+        UserConsentDataManager.shared.purposeConsents = purposeConsents
+
+        //when
+        let result = UserConsentDataManager.shared.purposeConsents
+
+        //then
+        XCTAssertEqual(purposeConsents, result)
+    }
+
+    func testPurposeConsentsUndefined() throws {
+        //given
+        UserConsentDataManager.shared.purposeConsents = nil
+        UserDefaults.standard.set(nil, forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
+
+        //when
+        let purposeConsents = UserConsentDataManager.shared.purposeConsents
+
+        //then
+        XCTAssertEqual(nil, purposeConsents)
+    }
+
+    func testPurposeConsentsTCFv2() throws {
+        //given
+        let purposeConsents = "test PurposeConsents TCFv2"
+        UserDefaults.standard.set(purposeConsents, forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
+
+        //when
+        let result = UserConsentDataManager.shared.purposeConsents
+
+        //then
+        XCTAssertEqual(purposeConsents, result)
+    }
+
+    func testGetDeviceAccessConsent() throws {
+        //given
+        UserConsentDataManager.shared.purposeConsents = "100000000000000000000000"
+
+        //when
+        let deviceAccessConsent = UserConsentDataManager.shared.getDeviceAccessConsent()
+
+        //then
+        XCTAssertEqual(true, deviceAccessConsent)
+    }
+
+    func testGetPurposeConsent() throws {
+        //given
+        UserConsentDataManager.shared.purposeConsents = "101000000000000000000000"
+
+        //when
+        let purpose1 = UserConsentDataManager.shared.getPurposeConsent(index: 0)
+        let purpose2 = UserConsentDataManager.shared.getPurposeConsent(index: 1)
+        let purpose3 = UserConsentDataManager.shared.getPurposeConsent(index: 2)
+
+        //then
+        XCTAssertTrue(purpose1!)
+        XCTAssertFalse(purpose2!)
+        XCTAssertTrue(purpose3!)
+    }
+    
+    func testGetPurposeConsentEmpty() throws {
+        //given
+        UserConsentDataManager.shared.purposeConsents = ""
+
+        //when
+        let purpose1 = UserConsentDataManager.shared.getPurposeConsent(index: 0)
+
+        //then
+        XCTAssertNil(purpose1)
     }
     
     // MARK: Helpers

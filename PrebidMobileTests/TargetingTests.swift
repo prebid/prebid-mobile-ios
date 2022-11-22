@@ -354,8 +354,8 @@ class TargetingTests: XCTestCase {
 
     }
 
-    
     //MARK: - PurposeConsents
+    
     func testPurposeConsentsPB() throws {
         //given
         let purposeConsents = "test PurposeConsents PB"
