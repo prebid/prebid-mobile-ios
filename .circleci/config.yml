@@ -36,9 +36,6 @@ jobs:
         - run:
             name: Run Smoke Ui Tests
             command: scripts/testPrebidDemo.sh -ui -l
-        - run:
-             name: Save test results
-             command: scripts/uploadLogsFile.sh
         - store_artifacts:
             path: /tmp/app_logs
 
