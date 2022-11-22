@@ -158,12 +158,7 @@ public class Log: NSObject {
     }
     
     private static func getURLForDoc(_ docName: String) -> URL? {
-        let home = NSHomeDirectory()
-    
-        
-        let filePath = home.substring(to: home.firstIndex(of: "L")!) + "Documents"
-        
-        let temporaryDirectoryURL = URL(fileURLWithPath: filePath)
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
         return temporaryDirectoryURL.appendingPathComponent(docName)
     }
     
