@@ -38,9 +38,7 @@ jobs:
             command: scripts/testPrebidDemo.sh -ui -l
         - run:
              name: Save test results
-             command: |
-                mkdir -p /tmp/app_logs
-                cp $HOME/Documents/prebid-mobile-sdk.txt /tmp/app_logs
+             command: scripts/uploadLogsFile.sh
         - store_artifacts:
             path: /tmp/app_logs
 
