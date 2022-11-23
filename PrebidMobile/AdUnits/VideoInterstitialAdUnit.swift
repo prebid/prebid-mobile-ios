@@ -23,4 +23,9 @@ public class VideoInterstitialAdUnit: VideoBaseAdUnit {
         super.adUnitConfig.adPosition = .fullScreen
         super.adUnitConfig.adFormats = [.video]
     }
+    
+    public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
+        self.init(configId: configId)
+        super.adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
+    }
 }
