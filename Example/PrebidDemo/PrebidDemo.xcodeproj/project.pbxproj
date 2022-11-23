@@ -105,6 +105,21 @@
 		53B03DA2291BC8C4000117E1 /* BannerBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */; };
 		53B03DA5291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA4291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift */; };
 		53B03DA7291BF2C2000117E1 /* PrebidDemoLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA6291BF2C2000117E1 /* PrebidDemoLogger.swift */; };
+		53F36040292EACEB001C1183 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3603F292EACEB001C1183 /* PrebidMobile.framework */; };
+		53F36041292EACEB001C1183 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3603F292EACEB001C1183 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53F36046292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */; };
+		53F36047292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53F36048292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36044292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework */; };
+		53F36049292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36044292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53F3604A292EACF1001C1183 /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36045292EACF0001C1183 /* PrebidMobileMAXAdapters.framework */; };
+		53F3604B292EACF1001C1183 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36045292EACF0001C1183 /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53F3604D292EACF9001C1183 /* TestUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3604C292EACF9001C1183 /* TestUtils.framework */; };
+		53F3604E292EACF9001C1183 /* TestUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3604C292EACF9001C1183 /* TestUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53F36050292EAD0D001C1183 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3604F292EAD0D001C1183 /* PrebidMobile.framework */; };
+		53F36052292EAD13001C1183 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36051292EAD13001C1183 /* PrebidMobileAdMobAdapters.framework */; };
+		53F36054292EAD13001C1183 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36053292EAD13001C1183 /* PrebidMobileGAMEventHandlers.framework */; };
+		53F36056292EAD13001C1183 /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36055292EAD13001C1183 /* PrebidMobileMAXAdapters.framework */; };
+		53F36058292EAD1C001C1183 /* TestUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36057292EAD1C001C1183 /* TestUtils.framework */; };
 		53BA02B4292531D000BE6015 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA02B3292531D000BE6015 /* AppDelegate.m */; };
 		53BA02B7292531D000BE6015 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA02B6292531D000BE6015 /* SceneDelegate.m */; };
 		53BA02BA292531D000BE6015 /* ExamplesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA02B9292531D000BE6015 /* ExamplesViewController.m */; };
@@ -154,10 +169,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				53992913292668520078053C /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 				5399290D2926682F0078053C /* PrebidMobile.framework in Embed Frameworks */,
 				53992915292668520078053C /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				53992917292668520078053C /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
+				53F36047292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
+				53F3604E292EACF9001C1183 /* TestUtils.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +377,16 @@
 		53F35F502926D702001C1183 /* MAXNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MAXNativeAdView.xib; sourceTree = "<group>"; };
 		53F35F55292792D6001C1183 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		53F35F56292792D6001C1183 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		53F3603F292EACEB001C1183 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F36044292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F36045292EACF0001C1183 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F3604C292EACF9001C1183 /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F3604F292EAD0D001C1183 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F36051292EAD13001C1183 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F36053292EAD13001C1183 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F36055292EAD13001C1183 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F36057292EAD1C001C1183 /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA527E4B4E05598C6D7B462 /* Pods-PrebidDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -393,12 +419,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5354C0C72923E99800DB25EA /* TestUtils.framework in Frameworks */,
-				53B03D7E291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
+				53F3604D292EACF9001C1183 /* TestUtils.framework in Frameworks */,
+				53F36048292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
+				53F36040292EACEB001C1183 /* PrebidMobile.framework in Frameworks */,
 				3B91139C2351AB73A1FCAA3D /* Pods_PrebidDemoSwift.framework in Frameworks */,
-				53B03D80291A5C83000117E1 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
-				53B03D86291A5C8B000117E1 /* PrebidMobile.framework in Frameworks */,
-				53B03D82291A5C83000117E1 /* PrebidMobileMAXAdapters.framework in Frameworks */,
+				53F36046292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
+				53F3604A292EACF1001C1183 /* PrebidMobileMAXAdapters.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +437,8 @@
 				2235279D5C42ED56993F7486 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */,
 				53992912292668520078053C /* PrebidMobileAdMobAdapters.framework in Frameworks */,
 				53992916292668520078053C /* PrebidMobileMAXAdapters.framework in Frameworks */,
+				88DC684BF111915A42A41E69 /* Pods_PrebidDemoTests.framework in Frameworks */,
+				53F36058292EAD1C001C1183 /* TestUtils.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,10 +948,13 @@
 		99D7F73A394177471348CDD1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5399290F292668520078053C /* PrebidMobileAdMobAdapters.framework */,
-				53992910292668520078053C /* PrebidMobileGAMEventHandlers.framework */,
-				53992911292668520078053C /* PrebidMobileMAXAdapters.framework */,
-				5399290B2926682F0078053C /* PrebidMobile.framework */,
+				53F36057292EAD1C001C1183 /* TestUtils.framework */,
+				53F3604F292EAD0D001C1183 /* PrebidMobile.framework */,
+				53F3604C292EACF9001C1183 /* TestUtils.framework */,
+				53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */,
+				53F36044292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework */,
+				53F36045292EACF0001C1183 /* PrebidMobileMAXAdapters.framework */,
+				53F3603F292EACEB001C1183 /* PrebidMobile.framework */,
 				5354C0C62923E99800DB25EA /* TestUtils.framework */,
 				53B03D85291A5C8B000117E1 /* PrebidMobile.framework */,
 				53B03D7B291A5C83000117E1 /* PrebidMobileAdMobAdapters.framework */,
@@ -995,7 +1026,7 @@
 				530D4AA1291A4BC600A2C796 /* Resources */,
 				85D918189F571450C404FC2B /* [CP] Embed Pods Frameworks */,
 				569123347071706F6FA652F1 /* [CP] Copy Pods Resources */,
-				53B03D84291A5C84000117E1 /* Embed Frameworks */,
+				53F36042292EACEB001C1183 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
