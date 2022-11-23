@@ -162,6 +162,16 @@
 		FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4E0231EB4BB00CAA05B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		53F36061292EB1C2001C1183 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA12E453231E9C5900CAA05B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 530D4AA2291A4BC600A2C796;
+			remoteInfo = PrebidDemoSwift;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		5399290E292668300078053C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -1070,6 +1080,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				53F36062292EB1C2001C1183 /* PBXTargetDependency */,
 			);
 			name = PrebidDemoTests;
 			productName = PrebidDemoSwiftTests;
@@ -1094,7 +1105,7 @@
 					};
 					FA12E4E5231EB52D00CAA05B = {
 						CreatedOnToolsVersion = 10.2.1;
-						TestTargetID = FA12E4B3231EB04100CAA05B;
+						TestTargetID = 530D4AA2291A4BC600A2C796;
 					};
 				};
 			};
@@ -1420,6 +1431,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		53F36062292EB1C2001C1183 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 530D4AA2291A4BC600A2C796 /* PrebidDemoSwift */;
+			targetProxy = 53F36061292EB1C2001C1183 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		530D4AAB291A4BC600A2C796 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1716,7 +1735,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrebidDemoTests/PrebidDemoTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidDemoSwift.app/PrebidDemoSwift";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidDemoSwift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PrebidDemoSwift";
 			};
 			name = Debug;
 		};
@@ -1738,7 +1757,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrebidDemoTests/PrebidDemoTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidDemoSwift.app/PrebidDemoSwift";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidDemoSwift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PrebidDemoSwift";
 			};
 			name = Release;
 		};
