@@ -17,7 +17,7 @@ pod install --repo-update
 pod update
 
 echo -e "\n${GREEN}Running integration tests${NC} \n"
-xcodebuild test -workspace PrebidMobile.xcworkspace -scheme "PrebidDemoTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+xcodebuild test -workspace PrebidMobile.xcworkspace -scheme "PrebidDemoTests" -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ Integration Tests Passed"
