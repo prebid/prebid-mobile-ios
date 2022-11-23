@@ -55,7 +55,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (= 4.9.1)
-  - AppLovinSDK (= 11.5.4)
+  - AppLovinSDK
   - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `xcode12`)
   - Google-Mobile-Ads-SDK
   - GoogleAds-IMA-iOS-SDK
@@ -100,6 +100,6 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 63718e6ca0af125ae179dbb875e25d9dbe538b70
+PODFILE CHECKSUM: 7e7a7fa35d6dbe929c9818409beacdb94654684f
 
 COCOAPODS: 1.11.3

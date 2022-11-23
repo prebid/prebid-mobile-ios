@@ -12,7 +12,7 @@ def gma_pods
 end
 
 def applovin_pods
-    pod 'AppLovinSDK', '11.5.4'
+    pod 'AppLovinSDK'
 end
 
 def event_handlers_project
