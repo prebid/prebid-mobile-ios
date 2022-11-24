@@ -30,7 +30,7 @@ jobs:
           
   run-swift-demo-app-smoke-ui-tests:
       macos:
-        xcode: 13.2.0
+        xcode: 14.1.0
       steps:
         - checkout
         - run:
