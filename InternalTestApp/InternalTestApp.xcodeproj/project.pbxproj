@@ -198,7 +198,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		009D2244759DF445A2768BAE /* Pods-InternalTestAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestAppTests.release.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		0FE373DDC155C680DA555A42 /* Pods-InternalTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp.release.xcconfig"; path = "Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp.release.xcconfig"; sourceTree = "<group>"; };
+		196672FF431C599F7F0BB7FB /* Pods-OpenXMockServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.release.xcconfig"; path = "Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.release.xcconfig"; sourceTree = "<group>"; };
+		25BDF9AD318E1B723F32B7B9 /* Pods-InternalTestAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestAppTests.debug.xcconfig"; path = "Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F097F6238E0EB831B507463 /* Pods_OpenXMockServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXMockServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		341CC3132562C9D000186F29 /* FormViewController+RowBuildHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormViewController+RowBuildHelpers.swift"; sourceTree = "<group>"; };
 		34215B0E25C4598E00C74A09 /* ProcessArgumentsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessArgumentsParser.swift; sourceTree = "<group>"; };
@@ -224,9 +226,6 @@
 		34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMRewardedController.swift; sourceTree = "<group>"; };
 		35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternalTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		44946A466398075CBE626334 /* Pods-PrebidMobileDemoRendering.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemoRendering.debug.xcconfig"; path = "../PREBID_IOS/Pods/Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering.debug.xcconfig"; sourceTree = "<group>"; };
-		4C7A852B654320BAA3CF129A /* Pods-InternalTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp.release.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp.release.xcconfig"; sourceTree = "<group>"; };
-		56A0AE8843DFB9BBB0CF1492 /* Pods-PrebidMobileDemoRendering.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemoRendering.release.xcconfig"; path = "../PREBID_IOS/Pods/Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering.release.xcconfig"; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
 		5B1BDB792100D59000B46B43 /* PrebidMobileDemoRendering-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRendering-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B1BDB7B2100D59000B46B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -274,8 +273,7 @@
 		5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD84734252F23E70092AF74 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6400E1CF82B20C2CD2343158 /* Pods-OpenXMockServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.debug.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.debug.xcconfig"; sourceTree = "<group>"; };
-		7A70CB4CE2A2D31CA1B2C357 /* Pods-InternalTestAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestAppTests.debug.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5C79CC19ED6C6CCC5305DDC5 /* Pods-OpenXMockServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.debug.xcconfig"; path = "Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.debug.xcconfig"; sourceTree = "<group>"; };
 		92221CE02804AF5B005DF671 /* PrebidMAXInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXInterstitialController.swift; sourceTree = "<group>"; };
 		92221CE42804BBB6005DF671 /* PrebidMAXRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXRewardedController.swift; sourceTree = "<group>"; };
 		924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -332,7 +330,6 @@
 		ACE6E80C264D121A009324AC /* NativeAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeAsset+Extensions.swift"; sourceTree = "<group>"; };
 		ACF3557F25CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdFeedController.swift; sourceTree = "<group>"; };
 		ACF7155625B08A80008A0186 /* TestCaseManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseManagerTest.swift; sourceTree = "<group>"; };
-		BEA57206B9513930E41DB0CD /* Pods-OpenXMockServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.release.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.release.xcconfig"; sourceTree = "<group>"; };
 		D086806B2398088A00E70E60 /* OpenXMockServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenXMockServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D086806D2398088A00E70E60 /* OpenXMockServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenXMockServer.h; sourceTree = "<group>"; };
 		D086806E2398088A00E70E60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -348,7 +345,8 @@
 		D08680A223980B7300E70E60 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		D551B96E21491AAA00FFF51D /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		D551B9702149207500FFF51D /* TabNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationController.swift; sourceTree = "<group>"; };
-		EEBA94FAB2164756D7D6788C /* Pods-InternalTestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp.debug.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp.debug.xcconfig"; sourceTree = "<group>"; };
+		D83A8B92B4A68C3EFF8216D4 /* Pods-InternalTestAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestAppTests.release.xcconfig"; path = "Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		DC95EEB35CF1B59ACEB54B69 /* Pods-InternalTestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp.debug.xcconfig"; path = "Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -413,6 +411,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		199CDBFE826E2C8AB9EB7172 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DC95EEB35CF1B59ACEB54B69 /* Pods-InternalTestApp.debug.xcconfig */,
+				0FE373DDC155C680DA555A42 /* Pods-InternalTestApp.release.xcconfig */,
+				25BDF9AD318E1B723F32B7B9 /* Pods-InternalTestAppTests.debug.xcconfig */,
+				D83A8B92B4A68C3EFF8216D4 /* Pods-InternalTestAppTests.release.xcconfig */,
+				5C79CC19ED6C6CCC5305DDC5 /* Pods-OpenXMockServer.debug.xcconfig */,
+				196672FF431C599F7F0BB7FB /* Pods-OpenXMockServer.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Pods;
+			sourceTree = "<group>";
+		};
 		341CC3122562C9AB00186F29 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -694,22 +706,6 @@
 			path = AdMob;
 			sourceTree = "<group>";
 		};
-		93A737416BD489D04E98DD70 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6400E1CF82B20C2CD2343158 /* Pods-OpenXMockServer.debug.xcconfig */,
-				BEA57206B9513930E41DB0CD /* Pods-OpenXMockServer.release.xcconfig */,
-				44946A466398075CBE626334 /* Pods-PrebidMobileDemoRendering.debug.xcconfig */,
-				56A0AE8843DFB9BBB0CF1492 /* Pods-PrebidMobileDemoRendering.release.xcconfig */,
-				EEBA94FAB2164756D7D6788C /* Pods-InternalTestApp.debug.xcconfig */,
-				4C7A852B654320BAA3CF129A /* Pods-InternalTestApp.release.xcconfig */,
-				7A70CB4CE2A2D31CA1B2C357 /* Pods-InternalTestAppTests.debug.xcconfig */,
-				009D2244759DF445A2768BAE /* Pods-InternalTestAppTests.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../../Pods;
-			sourceTree = "<group>";
-		};
 		93FED9BA1A376EFE009A6E9F = {
 			isa = PBXGroup;
 			children = (
@@ -720,7 +716,7 @@
 				D08680792398088A00E70E60 /* OpenXMockServerTests */,
 				93FED9C41A376EFE009A6E9F /* Products */,
 				5B2ECE432072637900A4FB48 /* Frameworks */,
-				93A737416BD489D04E98DD70 /* Pods */,
+				199CDBFE826E2C8AB9EB7172 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1419,7 +1415,7 @@
 		};
 		5B6EB0162122CAA400C5B072 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A70CB4CE2A2D31CA1B2C357 /* Pods-InternalTestAppTests.debug.xcconfig */;
+			baseConfigurationReference = 25BDF9AD318E1B723F32B7B9 /* Pods-InternalTestAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1452,7 +1448,7 @@
 		};
 		5B6EB0172122CAA400C5B072 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 009D2244759DF445A2768BAE /* Pods-InternalTestAppTests.release.xcconfig */;
+			baseConfigurationReference = D83A8B92B4A68C3EFF8216D4 /* Pods-InternalTestAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1593,7 +1589,7 @@
 		};
 		93FED9E31A376EFE009A6E9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEBA94FAB2164756D7D6788C /* Pods-InternalTestApp.debug.xcconfig */;
+			baseConfigurationReference = DC95EEB35CF1B59ACEB54B69 /* Pods-InternalTestApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
@@ -1626,7 +1622,7 @@
 		};
 		93FED9E41A376EFE009A6E9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C7A852B654320BAA3CF129A /* Pods-InternalTestApp.release.xcconfig */;
+			baseConfigurationReference = 0FE373DDC155C680DA555A42 /* Pods-InternalTestApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
@@ -1659,7 +1655,7 @@
 		};
 		D08680822398088A00E70E60 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6400E1CF82B20C2CD2343158 /* Pods-OpenXMockServer.debug.xcconfig */;
+			baseConfigurationReference = 5C79CC19ED6C6CCC5305DDC5 /* Pods-OpenXMockServer.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1702,7 +1698,7 @@
 		};
 		D08680832398088A00E70E60 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEA57206B9513930E41DB0CD /* Pods-OpenXMockServer.release.xcconfig */;
+			baseConfigurationReference = 196672FF431C599F7F0BB7FB /* Pods-OpenXMockServer.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;

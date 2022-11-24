@@ -29,7 +29,7 @@ def prebid_demo_pods
 end
 
 def internalTestApp_pods
-  pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'xcode12'
+  pod 'Eureka'
   pod 'SVProgressHUD'
   
   applovin_pods
