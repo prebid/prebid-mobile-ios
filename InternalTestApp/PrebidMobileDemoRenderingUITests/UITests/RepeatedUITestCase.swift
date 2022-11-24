@@ -49,7 +49,7 @@ class RepeatedUITestCase: BaseUITestCase, Failable {
                     failIterationRunning()
                 }
             } else {
-                recordFailure(withDescription: message, inFile: file, atLine: Int(line), expected: true)
+                record(XCTIssue(type: .assertionFailure, compactDescription: message))
             }
         }
         
@@ -99,7 +99,7 @@ class RepeatedUITestCase: BaseUITestCase, Failable {
         continueAfterFailure = true
         for failureArray in iterationFailures {
             for failure in failureArray {
-                recordFailure(withDescription: failure.0, inFile: failure.1, atLine: Int(failure.2), expected: true)
+                record(XCTIssue(type: .assertionFailure, compactDescription: failure.0))
             }
         }
         continueAfterFailure = false

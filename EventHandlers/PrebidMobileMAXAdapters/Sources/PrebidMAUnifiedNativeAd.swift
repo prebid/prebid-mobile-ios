@@ -37,16 +37,18 @@ public class PrebidMAUnifiedNativeAd: MANativeAd {
                 }
             }
             
-            if let imageUrl = nativeAd.imageUrl {
-                if case .success(let image) = ImageHelper.downloadImageSync(imageUrl) {
-                    builder.mediaView = UIImageView(image: image)
+            if let imageUrlString = nativeAd.imageUrl {
+                if let imageUrl = URL(string: imageUrlString) {
+                    builder.mainImage = MANativeAdImage(url: imageUrl)
                 }
             }
         }
     }
     
-    public override func prepareView(forInteraction nativeAdView: MANativeAdView) {
-        nativeAd.registerView(view: nativeAdView, clickableViews: nativeAdView.allSubViewsOf(type: UIView.self))
-        super.prepareView(forInteraction: nativeAdView)
+    public override func prepare(forInteractionClickableViews clickableViews: [UIView], withContainer container: UIView) -> Bool {
+        super.prepare(forInteractionClickableViews: clickableViews, withContainer: container)
+        nativeAd.registerView(view: container, clickableViews: clickableViews)
+        
+        return true
     }
 }

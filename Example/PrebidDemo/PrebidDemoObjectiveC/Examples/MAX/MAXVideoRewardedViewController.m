@@ -86,14 +86,6 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
 - (void)didClickAd:(MAAd *)ad {
 }
 
-- (void)didStartRewardedVideoForAd:(MAAd *)ad {
-    // This delegate is not supported.
-}
-
-- (void)didCompleteRewardedVideoForAd:(MAAd *)ad {
-    // This delegate is not supported.
-}
-
 - (void)didRewardUserForAd:(MAAd *)ad withReward:(MAReward *)reward {
 }
 

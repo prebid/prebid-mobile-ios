@@ -1,17 +1,17 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 import UIKit
 import GoogleMobileAds
@@ -123,25 +123,18 @@ extension NativeAdViewBox {
         brandLabel.text = nativeAd.sponsoredBy
         titleLabel.text = nativeAd.title
         if let iconUrl = nativeAd.iconUrl {
-            iconImage.image = imageFromUrlString(iconUrl)
+            iconImage.imageFromServerURL(iconUrl, placeHolder: nil)
         }
         
         if let imageUrl = nativeAd.imageUrl {
-            mainImage.image = imageFromUrlString(imageUrl)
+            mainImage.imageFromServerURL(imageUrl, placeHolder: nil)
         }
-
+        
         textLabel.numberOfLines = 0
-     }
+    }
     
     func registerViews(_ nativeAd: NativeAd) {
         nativeAd.registerView(view: contentView, clickableViews: [ctaButton, iconImage, brandLabel])
-    }
-    
-    private func imageFromUrlString(_ urlString: String) -> UIImage? {
-        guard let url = URL(string: urlString), let data = try? Data(contentsOf: url) else {
-            return nil
-        }
-        return UIImage(data: data)
     }
 }
 
@@ -151,13 +144,15 @@ extension NativeAdViewBox {
         ctaButton.setTitle(customTemplateAd.string(forKey: "cta"), for: .normal)
         brandLabel.text = customTemplateAd.string(forKey: "sponsoredBy")
         titleLabel.text = customTemplateAd.string(forKey: "title")
+        
         if let imageUrl = customTemplateAd.string(forKey: "imgUrl") {
-            mainImage.image = imageFromUrlString(imageUrl)
+            mainImage.imageFromServerURL(imageUrl, placeHolder: nil)
         }
+        
         if let iconUrl = customTemplateAd.string(forKey: "iconUrl") {
-            iconImage.image = imageFromUrlString(iconUrl)
+            iconImage.imageFromServerURL(iconUrl, placeHolder: nil)
         }
         
         textLabel.numberOfLines = 0
-     }
+    }
 }
