@@ -78,6 +78,7 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
         // 4. Make a bid request to Prebid Server
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
+            
             // 5. Load the native ad
             self?.gamBannerView.load(self?.gamRequest)
         }

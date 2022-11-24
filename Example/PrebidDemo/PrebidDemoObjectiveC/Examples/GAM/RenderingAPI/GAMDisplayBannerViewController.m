@@ -40,13 +40,17 @@ NSString * const gamAdUnitDisplayBannerRendering = @"/21808260008/prebid_oxb_320
 }
 
 - (void)createAd {
-    // Setup Prebid event handler
+    // 1. Create a GAMBannerEventHandler
     GAMBannerEventHandler * eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:gamAdUnitDisplayBannerRendering validGADAdSizes:@[NSValueFromGADAdSize(GADAdSizeBanner)]];
+    
+    // 2. Create a BannerView
     self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpDisplayBannerGAMRendering adSize:self.adSize eventHandler:eventHandler];
     self.prebidBannerView.delegate = self;
+    
+    // Add Prebid banner view to the app UI
     [self.bannerView addSubview:self.prebidBannerView];
     
-    // Load ad
+    // 3. Load the banner ad
     [self.prebidBannerView loadAd];
 }
 

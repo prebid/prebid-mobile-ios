@@ -36,16 +36,19 @@ NSString * const storedImpVideoBannerInApp = @"imp-prebid-video-outstream";
 }
 
 - (void)createAd {
-    // Setup Prebid ad unit
+    // 1. Create a BannerView
     self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpVideoBannerInApp adSize:self.adSize];
+    
+    // 2. Configure the BannerView
     self.prebidBannerView.delegate = self;
     self.prebidBannerView.adFormat = AdFormat.video;
     self.prebidBannerView.videoParameters.placement = PBPlacement.InBanner;
     
+    // Add Prebid banner view to the app UI
     self.bannerView.backgroundColor = [UIColor clearColor];
     [self.bannerView addSubview:self.prebidBannerView];
     
-    // Load ad
+    // 3. Load the banner ad
     [self.prebidBannerView loadAd];
 }
 

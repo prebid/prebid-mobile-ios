@@ -43,6 +43,7 @@ NSString * const gamAdUnit = @"/21808260008/unified_native_ad_unit";
 }
 
 - (void)createAd {
+    // 1. Create a NativeRequest
     NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
     image.type = ImageAsset.Main;
     
@@ -61,23 +62,28 @@ NSString * const gamAdUnit = @"/21808260008/unified_native_ad_unit";
     self.nativeUnit = [[NativeRequest alloc] initWithConfigId:nativeStoredBannerImpression
                                                        assets:@[title, icon, image, sponsored, body, cta]
                                                 eventTrackers:@[eventTracker]];
+    
+    // 2. Configure the NativeRequest
     self.nativeUnit.context = ContextType.Social;
     self.nativeUnit.placementType = PlacementType.FeedContent;
     self.nativeUnit.contextSubType = ContextSubType.Social;
     
-    // Setup integration kind - GAM
+    // 3. Create a GAMBannerView
     self.gamBannerView = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFluid];
     self.gamRequest = [GAMRequest new];
     self.gamBannerView.adUnitID = gamAdUnit;
     self.gamBannerView.rootViewController = self;
     self.gamBannerView.delegate = self;
+    
+    // Add GMA SDK banner view to the app UI
     [self.bannerView addSubview:self.gamBannerView];
     
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    // 4. Make a bid request to Prebid Server
     @weakify(self);
     [self.nativeUnit fetchDemandWithAdObject:self.gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
-        // Load ad
+        
+        // 5. Load the native ad
         [self.gamBannerView loadRequest:self.gamRequest];
     }];
 }

@@ -36,11 +36,14 @@ NSString * const storedResponseRenderingVideoInterstitialLandscapeInApp = @"resp
 }
 
 - (void)createAd {
-    // Setup Prebid ad unit
+    // 1. Create a InterstitialRenderingAdUnit
     self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpVideoInterstitialLandscapeInApp];
+    
+    // 2. Configure the InterstitialRenderingAdUnit
     self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.video, nil];
     self.renderingInterstitial.delegate = self;
-    // Load ad
+    
+    // 3. Load the interstitial ad
     [self.renderingInterstitial loadAd];
 }
 

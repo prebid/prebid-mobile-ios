@@ -49,8 +49,7 @@ class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewarded
         maxRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
         
         // 4. Make a bid request to Prebid Server
-        maxRewardedAdUnit.fetchDemand { [weak self] result in
-            
+        maxRewardedAdUnit.fetchDemand { [weak self] result in 
             // 5. Load the rewarded ad
             self?.maxRewarded.delegate = self
             self?.maxRewarded.load()

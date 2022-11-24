@@ -28,7 +28,6 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
 @property (nonatomic) MediationNativeAdUnit * admobMediationNativeAdUnit;
 
 // AdMob
-@property (nonatomic) GADRequest * gadRequest;
 @property (nonatomic) GADAdLoader * adLoader;
 
 @end
@@ -43,13 +42,16 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
 }
 
 - (void)createAd {
-    // Setup integration kind - AdMob
-    self.gadRequest = [GADRequest new];
+    // 1. Create a GADRequest
+    GADRequest * gadRequest = [GADRequest new];
     
-    // Setup Prebid ad unit
-    self.mediationDelegate = [[AdMobMediationNativeUtils alloc] initWithGadRequest:self.gadRequest];
+    // 2. Create an AdMobMediationNativeUtils
+    self.mediationDelegate = [[AdMobMediationNativeUtils alloc] initWithGadRequest:gadRequest];
+    
+    // 3. Create a MediationNativeAdUnit
     self.admobMediationNativeAdUnit = [[MediationNativeAdUnit alloc] initWithConfigId:nativeStoredImpressionAdMob mediationDelegate:self.mediationDelegate];
     
+    // 4. Configure MediationNativeAdUnit
     NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
     image.type = ImageAsset.Main;
     
@@ -71,15 +73,18 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
     [self.admobMediationNativeAdUnit setPlacementType:PlacementType.FeedContent];
     [self.admobMediationNativeAdUnit setContextSubType:ContextSubType.Social];
     
+    // 5. Make a bid request to Prebid Server
     @weakify(self);
     [self.admobMediationNativeAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
         
+        // 6. Load the native ad
         self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:admobRenderingNativeAdUnitId
                                            rootViewController:self
-                                                      adTypes:@[GADAdLoaderAdTypeNative] options:@[]];
+                                                      adTypes:@[GADAdLoaderAdTypeNative]
+                                                      options:@[]];
         self.adLoader.delegate = self;
-        [self.adLoader loadRequest:self.gadRequest];
+        [self.adLoader loadRequest:gadRequest];
     }];
 }
 

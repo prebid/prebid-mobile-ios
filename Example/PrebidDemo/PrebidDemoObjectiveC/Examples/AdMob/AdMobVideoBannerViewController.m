@@ -27,7 +27,6 @@ NSString * const adMobAdUnitVideoBannerRendering = @"ca-app-pub-5922967660082475
 @property (nonatomic) AdMobMediationBannerUtils * mediationDelegate;
 
 // AdMob
-@property (nonatomic) GADRequest * gadRequest;
 @property (nonatomic) GADBannerView * gadBanner;
 
 @end
@@ -42,27 +41,31 @@ NSString * const adMobAdUnitVideoBannerRendering = @"ca-app-pub-5922967660082475
 }
 
 - (void)createAd {
-    // Setup GADBannerView
+    // 1. Create a GADRequest
+    GADRequest * gadRequest = [GADRequest new];
+    
+    // 2. Create a GADBannerView
     self.gadBanner = [[GADBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(self.adSize)];
     self.gadBanner.adUnitID = adMobAdUnitVideoBannerRendering;
     self.gadBanner.delegate = self;
     self.gadBanner.rootViewController = self;
     
-    self.gadRequest = [GADRequest new];
-    
+    // Add GMA SDK banner view to the app UI
     self.bannerView.backgroundColor = [UIColor clearColor];
     [self.bannerView addSubview:self.gadBanner];
     
-    // Setup Prebid banner mediation ad unit
-    self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBanner];
+    // 3. Create an AdMobMediationBannerUtils
+    self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:gadRequest bannerView:self.gadBanner];
+    
+    // 4. Create a MediationBannerAdUnit
     self.prebidAdMobMediaitonAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:storedImpVideoBannerAdMob size:self.adSize mediationDelegate:self.mediationDelegate];
     
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    // 5. Make a bid request to Prebid Server
     @weakify(self);
     [self.prebidAdMobMediaitonAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
-        // Load ad
-        [self.gadBanner loadRequest:self.gadRequest];
+        // 6. Load the banner ad
+        [self.gadBanner loadRequest:gadRequest];
     }];
 }
 

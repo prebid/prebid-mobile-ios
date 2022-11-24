@@ -30,14 +30,14 @@ class MAXVideoBannerViewController: BannerBaseViewController, MAAdViewAdDelegate
     
     // MAX
     private var maxAdBannerView: MAAdView!
-
+    
     override func loadView() {
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoBanner
         createAd()
     }
-
+    
     func createAd() {
         // 1. Create a MAAdView
         maxAdBannerView = MAAdView(adUnitIdentifier: maxAdUnitMRECRendering)
@@ -65,32 +65,32 @@ class MAXVideoBannerViewController: BannerBaseViewController, MAAdViewAdDelegate
             self?.maxAdBannerView.loadAd()
         }
     }
-
+    
     // MARK: - MAAdViewAdDelegate
-
+    
     func didLoad(_ ad: MAAd) {}
-
+    
     func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
         PrebidDemoLogger.shared.error("\(error.message)")
-
+        
         let nsError = NSError(domain: "MAX", code: error.code.rawValue, userInfo: [NSLocalizedDescriptionKey: error.message])
         maxAdUnit?.adObjectDidFailToLoadAd(adObject: maxAdBannerView!, with: nsError)
     }
-
+    
     func didFail(toDisplay ad: MAAd, withError error: MAError) {
         PrebidDemoLogger.shared.error("\(error.message)")
-
+        
         let nsError = NSError(domain: "MAX", code: error.code.rawValue, userInfo: [NSLocalizedDescriptionKey: error.message])
         maxAdUnit?.adObjectDidFailToLoadAd(adObject: maxAdBannerView!, with: nsError)
     }
-
+    
     func didDisplay(_ ad: MAAd) {}
-
+    
     func didHide(_ ad: MAAd) {}
-
+    
     func didExpand(_ ad: MAAd) {}
-
+    
     func didCollapse(_ ad: MAAd) {}
-
+    
     func didClick(_ ad: MAAd) {}
 }

@@ -29,7 +29,6 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
 @property (nonatomic) BannerAdUnit *adUnit;
 
 // GAM
-@property (nonatomic) GAMRequest *gamRequest;
 @property (nonatomic) GAMBannerView *gamBanner;
 
 @end
@@ -44,30 +43,31 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
 }
 
 - (void)createAd {
-    // Create a BannerAdUnit associated with a Prebid Server configuration ID and a banner size
+    // 1. Create a BannerAdUnit
     self.adUnit = [[BannerAdUnit alloc] initWithConfigId:storedImpDisplayBanner size:self.adSize];
-    // Create and setup banner parameters
+    
+    // 2. Configure banner parameters
     BannerParameters * parameters = [[BannerParameters alloc] init];
     parameters.api = @[PBApi.MRAID_2];
     self.adUnit.parameters = parameters;
-    // Set autorefresh interval
     
-    [self.adUnit setAutoRefreshMillisWithTime:30000];
-    
-    // Setup integration kind - GAM
-    self.gamRequest = [GAMRequest new];
+    // 3. Create a GAMBannerView
+    GAMRequest * gamRequest = [GAMRequest new];
     self.gamBanner = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(self.adSize)];
     self.gamBanner.adUnitID = gamAdUnitDisplayBannerOriginal;
     self.gamBanner.rootViewController = self;
     self.gamBanner.delegate = self;
+    
+    // Add GMA SDK banner view to the app UI
     [self.bannerView addSubview:self.gamBanner];
     
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit.
+    // 4. Make a bid request to Prebid Server
     @weakify(self);
-    [self.adUnit fetchDemandWithAdObject:self.gamRequest completion:^(enum ResultCode resultCode) {
+    [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
-        // Load ad
-        [self.gamBanner loadRequest:self.gamRequest];
+        
+        // 5. Load GAM Ad
+        [self.gamBanner loadRequest:gamRequest];
     }];
 }
 

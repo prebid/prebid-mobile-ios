@@ -48,14 +48,17 @@ NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
 }
 
 - (void)createAd {
-    // Setup integration kind - AppLovin MAX
+    // 1. Create a MANativeAdLoader
     self.maxNativeAdLoader = [[MANativeAdLoader alloc] initWithAdUnitIdentifier:maxRenderingNativeAdUnitId];
     self.maxNativeAdLoader.nativeAdDelegate = self;
     
-    // Setup Prebid ad unit
+    // 2. Create the MAXMediationNativeUtils
     self.mediationDelegate = [[MAXMediationNativeUtils alloc] initWithNativeAdLoader:self.maxNativeAdLoader];
+    
+    // 3. Create the MediationNativeAdUnit
     self.maxMediationNativeAdUnit = [[MediationNativeAdUnit alloc] initWithConfigId:nativeStoredImpressionMAX mediationDelegate:self.mediationDelegate];
     
+    // 4. Configure the MediationNativeAdUnit
     NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
     image.type = ImageAsset.Main;
     
@@ -76,10 +79,11 @@ NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
     [self.maxMediationNativeAdUnit setPlacementType:PlacementType.FeedContent];
     [self.maxMediationNativeAdUnit setContextSubType:ContextSubType.Social];
     
-    // Create MAX native ad view
+    // 5. Create a MAXNativeAdView
     UINib * nativeAdViewNib = [UINib nibWithNibName:@"MAXNativeAdView" bundle:NSBundle.mainBundle];
     MANativeAdView * maNativeAdView = [nativeAdViewNib instantiateWithOwner:nil options:nil].firstObject;
     
+    // 6. Create a MANativeAdViewBinder
     MANativeAdViewBinder * adViewBinder = [[MANativeAdViewBinder alloc] initWithBuilderBlock:^(MANativeAdViewBinderBuilder * _Nonnull builder) {
         builder.iconImageViewTag = 1;
         builder.titleLabelTag = 2;
@@ -89,12 +93,15 @@ NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
         builder.mediaContentViewTag = 123;
     }];
     
+    // 7. Bind views
     [maNativeAdView bindViewsWithAdViewBinder:adViewBinder];
     
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    // 7. Make a bid request to Prebid Server
     @weakify(self);
     [self.maxMediationNativeAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
+        
+        // 8. Load the native ad
         [self.maxNativeAdLoader loadAdIntoAdView:maNativeAdView];
     }];
 }

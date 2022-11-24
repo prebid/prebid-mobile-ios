@@ -53,7 +53,7 @@ class MAXDisplayInterstitialViewController: InterstitialBaseViewController, MAAd
             PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")
             guard let self = self else { return }
             
-            // Load the interstitial ad
+            // 5. Load the interstitial ad
             self.maxInterstitial.delegate = self
             self.maxInterstitial.load()
         })

@@ -37,7 +37,7 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
     }
     
     func createAd() {
-        // 1. Create a BannerAdUnit
+        // 1. Create a VideoAdUnit
         adUnit = VideoAdUnit(configId: storedImpVideoBanner, size: adSize)
         
         // 2. Configure video parameters

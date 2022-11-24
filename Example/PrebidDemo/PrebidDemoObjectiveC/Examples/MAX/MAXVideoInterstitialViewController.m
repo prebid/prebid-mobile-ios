@@ -41,18 +41,22 @@ NSString * const maxAdUnitVideoInterstitial = @"48e8d410f74dfc7b";
 }
 
 - (void)createAd {
-    // Setup integration kind - AppLovin MAX
+    // 1. Create a MAInterstitialAd
     self.maxInterstitial = [[MAInterstitialAd alloc] initWithAdUnitIdentifier:maxAdUnitVideoInterstitial];
     
-    // Setup Prebid mediation ad unit
+    // 2. Create a MAXMediationInterstitialUtils
     self.maxMediationDelegate = [[MAXMediationInterstitialUtils alloc] initWithInterstitialAd:self.maxInterstitial];
+    
+    // 3. Create a MediationInterstitialAdUnit
     self.maxAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitialMAX mediationDelegate:self.maxMediationDelegate];
     self.maxAdUnit.adFormats = [[NSSet alloc] initWithObjects:AdFormat.video, nil];
     
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    // 4. Make a bid request to Prebid Server
     @weakify(self);
     [self.maxAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
+        
+        // 5. Load the interstitial ad
         self.maxInterstitial.delegate = self;
         [self.maxInterstitial loadAd];
     }];

@@ -36,12 +36,17 @@ NSString * const gamAdUnitVideoInterstitialRendering = @"/21808260008/prebid_oxb
 }
 
 - (void)createAd {
-    // Setup Prebid event handler
+    // 1. Create a GAMInterstitialEventHandler
     GAMInterstitialEventHandler * eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:gamAdUnitVideoInterstitialRendering];
+    
+    // 2. Create a InterstitialRenderingAdUnit
     self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpGAMVideoInterstitial minSizePercentage:CGSizeMake(30, 30) eventHandler:eventHandler];
+    
+    // 3. Configure the InterstitialRenderingAdUnit
     self.renderingInterstitial.delegate = self;
     self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.video, nil];
-    // Load ad
+    
+    // 4. Load the interstitial ad
     [self.renderingInterstitial loadAd];
 }
 

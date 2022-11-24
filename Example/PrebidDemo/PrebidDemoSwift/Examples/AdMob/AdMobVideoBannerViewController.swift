@@ -30,7 +30,6 @@ class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDel
     
     // AdMob
     private var gadBanner: GADBannerView!
-    private let gadRequest = GADRequest()
     
     override func loadView() {
         super.loadView()
@@ -40,7 +39,10 @@ class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDel
     }
     
     func createAd() {
-        // 1. Create a GADBannerView
+        // 1. Create a GADRequest
+        let gadRequest = GADRequest()
+        
+        // 2. Create a GADBannerView
         gadBanner = GADBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gadBanner.adUnitID = adMobAdUnitDisplayBannerRendering
         gadBanner.delegate = self
@@ -50,17 +52,17 @@ class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDel
         bannerView.addSubview(gadBanner)
         bannerView.backgroundColor = .clear
         
-        // 2. Create an AdMobMediationBannerUtils
+        // 3. Create an AdMobMediationBannerUtils
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
         
-        // 3. Create a MediationBannerAdUnit
+        // 4. Create a MediationBannerAdUnit
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: adSize, mediationDelegate: mediationDelegate)
         
-        // 4. Make a bid request to Prebid Server
+        // 5. Make a bid request to Prebid Server
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
-            // 5. Load the banner ad
-            self?.gadBanner.load(self?.gadRequest)
+            // 6. Load the banner ad
+            self?.gadBanner.load(gadRequest)
         }
     }
     

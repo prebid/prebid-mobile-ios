@@ -27,7 +27,6 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
 @property (nonatomic) AdMobMediationInterstitialUtils * mediationDelegate;
 
 // AdMob
-@property (nonatomic) GADRequest * gadRequest;
 @property (nonatomic) GADInterstitialAd * interstitial;
 
 @end
@@ -42,22 +41,28 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
 }
 
 - (void)createAd {
-    // Setup integration kind - AdMob
-    self.gadRequest = [GADRequest new];
+    // 1. Create a GADRequest
+    GADRequest * gadRequest = [GADRequest new];
     
-    // Setup Prebid interstitial mediation ad unit
-    self.mediationDelegate = [[AdMobMediationInterstitialUtils alloc] initWithGadRequest:self.gadRequest];
+    // 2. Create an AdMobMediationInterstitialUtils
+    self.mediationDelegate = [[AdMobMediationInterstitialUtils alloc] initWithGadRequest:gadRequest];
+    
+    // 3. Create a MediationInterstitialAdUnit
     self.admobAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitialAdMob mediationDelegate:self.mediationDelegate];
     
+    // 4. Make a bid request to Prebid Server
     [self.admobAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @weakify(self);
-        [GADInterstitialAd loadWithAdUnitID:adMobAdUnitVideoInterstitialRendering request:self.gadRequest completionHandler:^(GADInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+        
+        // 5. Load the interstitial ad
+        [GADInterstitialAd loadWithAdUnitID:adMobAdUnitVideoInterstitialRendering request:gadRequest completionHandler:^(GADInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
             @strongify(self);
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);
                 return;
             }
             
+            // 6. Present the interstitial ad
             if (interstitialAd != nil) {
                 self.interstitial = interstitialAd;
                 self.interstitial.fullScreenContentDelegate = self;

@@ -47,6 +47,7 @@ class MAXVideoInterstitialViewController: InterstitialBaseViewController, MAAdDe
         
         // 3. Create a MediationInterstitialAdUnit
         maxAdUnit = MediationInterstitialAdUnit(configId: storedImpVideoInterstitial, mediationDelegate: maxMediationDelegate)
+        maxAdUnit.adFormats = [.video]
         
         // 4. Make a bid request to Prebid Server
         maxAdUnit.fetchDemand(completion: { [weak self] result in

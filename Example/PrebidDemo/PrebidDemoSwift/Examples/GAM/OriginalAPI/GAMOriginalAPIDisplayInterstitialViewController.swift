@@ -52,7 +52,6 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
                 if let error = error {
                     PrebidDemoLogger.shared.error("Failed to load interstitial ad with error: \(error.localizedDescription)")
                 } else if let ad = ad {
-                    
                     // 4. Present the interstitial ad
                     ad.fullScreenContentDelegate = self
                     ad.present(fromRootViewController: self)

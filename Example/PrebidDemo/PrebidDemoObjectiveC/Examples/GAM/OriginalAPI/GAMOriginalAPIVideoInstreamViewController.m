@@ -91,27 +91,32 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
 }
 
 - (void)createAd {
+    // 1. Create VideoAdUnit
+    self.adUnit = [[VideoAdUnit alloc] initWithConfigId:storedImpVideo size:self.adSize];
+    
+    // 2. Configure Video Parameters
     VideoParameters * parameters = [[VideoParameters alloc] init];
     parameters.mimes = @[@"video/mp4"];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
-    self.adUnit = [[VideoAdUnit alloc] initWithConfigId:storedImpVideo size:self.adSize];
     self.adUnit.parameters = parameters;
     
+    // 3. Prepare IMAAdsLoader
     self.adsLoader = [[IMAAdsLoader alloc] init];
     self.adsLoader.delegate = self;
     
+    // 4. Make a bid request
     @weakify(self);
     [self.adUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable prebidKeys) {
         @strongify(self);
         if (resultCode == ResultCodePrebidDemandFetchSuccess) {
             @try
             {
+                // 5. Generate GAM Instream URI
                 NSString * adServerTag = [IMAUtils.shared generateInstreamUriForGAMWithAdUnitID:gamAdUnitVideo adSlotSizes:@[IMAAdSlotSize.Size320x480] customKeywords:prebidKeys error:nil];
                 
+                // 6. Load IMA ad request
                 IMAAdDisplayContainer * adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.instreamView viewController:self];
-                
-                // Create an ad request with our ad tag, display container, and optional user context.
                 IMAAdsRequest * request = [[IMAAdsRequest alloc] initWithAdTagUrl:adServerTag adDisplayContainer:adDisplayContainer contentPlayhead:nil userContext:nil];
                 [self.adsLoader requestAdsWithRequest:request];
             }

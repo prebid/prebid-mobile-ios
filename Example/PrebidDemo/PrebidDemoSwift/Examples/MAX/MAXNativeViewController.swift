@@ -96,6 +96,7 @@ class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
             builder.mediaContentViewTag = 123
         })
         
+        // 7. Bind views
         maNativeAdView!.bindViews(with: adViewBinder)
         
         // 7. Make a bid request to Prebid Server

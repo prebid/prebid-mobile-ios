@@ -27,9 +27,6 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
 // Prebid
 @property (nonatomic) RewardedVideoAdUnit * adUnit;
 
-// GAM
-@property (nonatomic) GAMRequest * gamRequest;
-
 @end
 
 @implementation GAMOriginalAPIVideoRewardedViewController
@@ -42,25 +39,28 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
 }
 
 - (void)createAd {
-    // Setup Prebid ad unit
+    // 1. Create an RewardedVideoAdUnit
     self.adUnit = [[RewardedVideoAdUnit alloc] initWithConfigId:storedImpVideoRewarded];
-    // Create and setup video parameters
+    
+    // 2. Configure video parameters
     VideoParameters * parameters = [[VideoParameters alloc] init];
     parameters.mimes = @[@"video/mp4"];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
     self.adUnit.parameters = parameters;
-    // Setup integration kind - GAM
-    self.gamRequest = [GAMRequest new];
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    
+    // 3. Make a bid request to Prebid Server
+    GAMRequest * gamRequest = [GAMRequest new];
     @weakify(self);
-    [self.adUnit fetchDemandWithAdObject:self.gamRequest completion:^(enum ResultCode resultCode) {
+    [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
-        // Load GAM rewarded ad
-        [GADRewardedAd loadWithAdUnitID:gamAdUnitVideoRewardedOriginal request:self.gamRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
+        
+        // 4. Load a GAM Rewarded Ad
+        [GADRewardedAd loadWithAdUnitID:gamAdUnitVideoRewardedOriginal request:gamRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);
             } else if (rewardedAd != nil) {
+                // 5. Present the interstitial ad
                 rewardedAd.fullScreenContentDelegate = self;
                 [rewardedAd presentFromRootViewController:self userDidEarnRewardHandler:^{
                     

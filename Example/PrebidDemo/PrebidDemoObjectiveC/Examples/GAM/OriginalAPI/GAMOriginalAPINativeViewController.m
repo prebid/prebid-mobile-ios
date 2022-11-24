@@ -27,7 +27,6 @@ NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_nativ
 @property (nonatomic) NativeAd * nativeAd;
 
 // GAM
-@property (nonatomic) GAMRequest * gamRequest;
 @property (nonatomic) GADAdLoader * adLoader;
 
 @end
@@ -42,7 +41,7 @@ NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_nativ
 }
 
 - (void)createAd {
-    // Setup Prebid ad unit
+    // 1. Setup a NativeRequest
     NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
     image.type = ImageAsset.Main;
     
@@ -60,22 +59,24 @@ NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_nativ
     self.nativeUnit = [[NativeRequest alloc] initWithConfigId:nativeStoredImpression
                                                        assets:@[title, icon, image, sponsored, body, cta]
                                                 eventTrackers:@[eventTracker]];
+    
+    // 2. Configure the NativeRequest
     self.nativeUnit.context = ContextType.Social;
     self.nativeUnit.placementType = PlacementType.FeedContent;
     self.nativeUnit.contextSubType = ContextSubType.Social;
     
-    // Setup integration kind - GAM
-    self.gamRequest = [GAMRequest new];
-    
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    // 3. Make a bid request
+    GAMRequest * gamRequest = [GAMRequest new];
     @weakify(self);
-    [self.nativeUnit fetchDemandWithAdObject:self.gamRequest completion:^(enum ResultCode resultCode) {
+    [self.nativeUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
+        
+        //4. Configure and make a GAM ad request
         self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:gamNativeAdUnitId
                                            rootViewController:self
                                                       adTypes:@[GADAdLoaderAdTypeCustomNative] options:@[]];
         self.adLoader.delegate = self;
-        [self.adLoader loadRequest:self.gamRequest];
+        [self.adLoader loadRequest:gamRequest];
     }];
 }
 

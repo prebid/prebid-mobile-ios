@@ -41,24 +41,30 @@ NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
 }
 
 - (void)createAd {
-    // Setup integration kind - AppLovin MAX
+    // 1. Create a MAAdView
     self.maxAdBannerView = [[MAAdView alloc] initWithAdUnitIdentifier:maxAdUnitBannerVideoRendering];
+    
+    // 2. Configure the MAAdView
     self.maxAdBannerView.frame = CGRectMake(0, 0, self.adSize.width, self.adSize.height);
     self.maxAdBannerView.delegate = self;
     [self.maxAdBannerView setHidden:NO];
     
+    // Add AppLovin SDK banner view to the app UI
     self.bannerView.backgroundColor = [UIColor clearColor];
     [self.bannerView addSubview:self.maxAdBannerView];
     
-    // Setup Prebid mediation ad unit
+    // 3. Create a MAXMediationBannerUtils
     self.maxMediationDelegate = [[MAXMediationBannerUtils alloc] initWithAdView:self.maxAdBannerView];
+    
+    // 4. Create a MediationBannerAdUnit
     self.maxAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:storedImpVideoBannerMAX size:self.adSize mediationDelegate:self.maxMediationDelegate];
     
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    // 5. Make a bid request to Prebid Server
     @weakify(self);
     [self.maxAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
-        // Load ad
+        
+        // 6. Load the banner ad
         [self.maxAdBannerView loadAd];
     }];
 }

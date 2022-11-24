@@ -57,9 +57,8 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
                 if let error = error {
                     PrebidDemoLogger.shared.error("Failed to load rewarded ad with error: \(error.localizedDescription)")
                 } else if let ad = ad {
-                    ad.fullScreenContentDelegate = self
-                    
                     // 5. Present the interstitial ad
+                    ad.fullScreenContentDelegate = self
                     ad.present(fromRootViewController: self, userDidEarnRewardHandler: {
                         _ = ad.adReward
                     })

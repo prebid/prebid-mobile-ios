@@ -27,7 +27,6 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
 @property (nonatomic) AdMobMediationRewardedUtils * mediationDelegate;
 
 // AdMob
-@property (nonatomic) GADRequest * gadRequest;
 @property (nonatomic) GADRewardedAd * gadRewardedAd;
 
 @end
@@ -42,26 +41,30 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
 }
 
 - (void)createAd {
+    // 1. Create a GADRequest
+    GADRequest * gadRequest = [GADRequest new];
     
-    self.gadRequest = [GADRequest new];
+    // 2. Create an AdMobMediationRewardedUtils
+    self.mediationDelegate = [[AdMobMediationRewardedUtils alloc] initWithGadRequest:gadRequest];
     
-    // Setup Prebid rewarded mediation ad unit
-    self.mediationDelegate = [[AdMobMediationRewardedUtils alloc] initWithGadRequest:self.gadRequest];
+    // 3. Create a MediationRewardedAdUnit
     self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedAdMob mediationDelegate:self.mediationDelegate];
     
+    // 4. Make a bid request to Prebid Server
     @weakify(self);
     [self.admobRewardedAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
         
+        // 5. Load the rewarded ad
         @weakify(self);
-        // Load ad
-        [GADRewardedAd loadWithAdUnitID:adMobAdUnitRewardedId request:self.gadRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
+        [GADRewardedAd loadWithAdUnitID:adMobAdUnitRewardedId request:gadRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
             @strongify(self);
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);
                 return;
             }
             
+            // 6. Present the rewarded ad
             if (rewardedAd != nil) {
                 self.gadRewardedAd = rewardedAd;
                 self.gadRewardedAd.fullScreenContentDelegate = self;
