@@ -51,7 +51,7 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
-            // 4. Load a GAM Rewarded Ad
+            // 4. Load the GAM rewarded ad
             GADRewardedAd.load(withAdUnitID: gamAdUnitVideoRewardedOriginal, request: self?.gamRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {

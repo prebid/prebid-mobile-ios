@@ -32,7 +32,7 @@ class InAppVideoInterstitialVerticalViewController: UIViewController {
     }
 
     func createAd() {
-        // 1. Create a InterstitialRenderingAdUnit
+        // 1. Create an InterstitialRenderingAdUnit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitialVertical)
         
         // 2. Configure the InterstitialRenderingAdUnit

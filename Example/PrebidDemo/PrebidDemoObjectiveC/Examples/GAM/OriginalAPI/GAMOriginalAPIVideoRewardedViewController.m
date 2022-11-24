@@ -39,7 +39,7 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
 }
 
 - (void)createAd {
-    // 1. Create an RewardedVideoAdUnit
+    // 1. Create a RewardedVideoAdUnit
     self.adUnit = [[RewardedVideoAdUnit alloc] initWithConfigId:storedImpVideoRewarded];
     
     // 2. Configure video parameters
@@ -55,7 +55,7 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
     [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
         
-        // 4. Load a GAM Rewarded Ad
+        // 4. Load the GAM rewarded ad
         [GADRewardedAd loadWithAdUnitID:gamAdUnitVideoRewardedOriginal request:gamRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);

@@ -36,7 +36,7 @@ NSString * const storedResponseRenderingVideoInterstitialVerticalInApp = @"respo
 }
 
 - (void)createAd {
-    // 1. Create a InterstitialRenderingAdUnit
+    // 1. Create an InterstitialRenderingAdUnit
     self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpVideoInterstitialVerticalInApp];
     
     // 2. Configure the InterstitialRenderingAdUnit
