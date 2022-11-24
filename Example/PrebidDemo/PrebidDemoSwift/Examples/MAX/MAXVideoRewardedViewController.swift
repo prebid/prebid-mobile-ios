@@ -73,13 +73,5 @@ class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewarded
     
     func didClick(_ ad: MAAd) {}
     
-    func didStartRewardedVideo(for ad: MAAd) {
-        // This delegate is not supported.
-    }
-    
-    func didCompleteRewardedVideo(for ad: MAAd) {
-        // This delegate is not supported.
-    }
-    
     func didRewardUser(for ad: MAAd, with reward: MAReward) {}
 }
