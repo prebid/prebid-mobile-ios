@@ -26,7 +26,7 @@ class GAMOriginalAPIVideoInstreamViewController:
     InstreamBaseViewController,
     IMAAdsLoaderDelegate,
     IMAAdsManagerDelegate {
-
+    
     // Prebid
     private var adUnit: VideoAdUnit!
     
@@ -90,25 +90,31 @@ class GAMOriginalAPIVideoInstreamViewController:
     }
     
     func createAd() {
+        // 1. Create VideoAdUnit
+        adUnit = VideoAdUnit(configId: storedImpVideo, size: CGSize(width: 1,height: 1))
+        
+        // 2. Configure Video Parameters
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn]
-        
-        adUnit = VideoAdUnit(configId: storedImpVideo, size: CGSize(width: 1,height: 1))
         adUnit.parameters = parameters
         
+        // 3. Prepare IMAAdsLoader
         adsLoader = IMAAdsLoader(settings: nil)
         adsLoader.delegate = self
         
+        // 4. Make a bid request
         adUnit.fetchDemand { [weak self] (resultCode, prebidKeys: [String: String]?) in
             guard let self = self else { return }
             if resultCode == .prebidDemandFetchSuccess {
                 do {
-                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: gamAdUnitVideo, adSlotSizes: [.Size320x480], customKeywords: prebidKeys!)
-                    let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.instreamView, viewController: self)
                     
-                    // Create an ad request with our ad tag, display container, and optional user context.
+                    // 5. Generate GAM Instream URI
+                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: gamAdUnitVideo, adSlotSizes: [.Size320x480], customKeywords: prebidKeys!)
+                    
+                    // 6. Load IMA ad request
+                    let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.instreamView, viewController: self)
                     let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
                     self.adsLoader.requestAds(with: request)
                 } catch {

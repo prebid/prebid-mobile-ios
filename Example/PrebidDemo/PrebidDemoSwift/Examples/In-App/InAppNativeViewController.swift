@@ -52,13 +52,16 @@ class InAppNativeViewController: NativeBaseViewController {
     }
     
     func createAd() {
-        // Setup Prebid ad unit
+        // 1. Create a NativeRequest
         nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: nativeRequestAssets)
+        
+        // 2. Configure the NativeRequest
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        
+        // 3. Make a bid request to Prebid Server
         nativeUnit.fetchDemand { [weak self] result, kvResultDict in
             PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")
             
@@ -66,16 +69,19 @@ class InAppNativeViewController: NativeBaseViewController {
                 return
             }
             
+            // 4. Find cached native ad
             guard let kvResultDict = kvResultDict, let cacheId = kvResultDict[PrebidLocalCacheIdKey] else {
                 return
             }
             
+            // 5. Create a NativeAd
             guard let nativeAd = NativeAd.create(cacheId: cacheId) else {
                 return
             }
             
             self.nativeAd = nativeAd
             
+            // 6. Render the native ad
             self.titleLabel.text = nativeAd.title
             self.bodyLabel.text = nativeAd.text
             

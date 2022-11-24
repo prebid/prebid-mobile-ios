@@ -27,9 +27,6 @@ NSString * const gamAdUnitDisplayInterstitialOriginal = @"/21808260008/prebid-de
 // Prebid
 @property (nonatomic) InterstitialAdUnit * adUnit;
 
-// GAM
-@property (nonatomic) GAMRequest * gamRequest;
-
 @end
 
 @implementation GAMOriginalAPIDisplayInterstitialViewController
@@ -43,21 +40,22 @@ NSString * const gamAdUnitDisplayInterstitialOriginal = @"/21808260008/prebid-de
 }
 
 -(void)createAd {
-    // Setup Prebid ad unit
+    // 1. Create an InterstitialAdUnit
     self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:storedImpDisplayInterstitial];
     
-    // Setup integration kind - GAM
-    self.gamRequest = [GAMRequest new];
-    
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    // 2. Make a bid request to Prebid Server
+    GAMRequest * gamRequest = [GAMRequest new];
     @weakify(self);
-    [self.adUnit fetchDemandWithAdObject:self.gamRequest completion:^(enum ResultCode resultCode) {
+    [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
-        [GAMInterstitialAd loadWithAdManagerAdUnitID:gamAdUnitDisplayInterstitialOriginal request:self.gamRequest completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+        
+        // 3. Load a GAM interstitial ad
+        [GAMInterstitialAd loadWithAdManagerAdUnitID:gamAdUnitDisplayInterstitialOriginal request:gamRequest completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
            
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);
             } else if (interstitialAd != nil) {
+                // 4. Present the interstitial ad
                 interstitialAd.fullScreenContentDelegate = self;
                 [interstitialAd presentFromRootViewController:self];
             }

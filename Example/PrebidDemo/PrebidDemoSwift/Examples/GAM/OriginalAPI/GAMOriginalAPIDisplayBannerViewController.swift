@@ -27,7 +27,6 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
     private var adUnit: BannerAdUnit!
     
     // GAM
-    private let gamRequest = GAMRequest()
     private var gamBanner: GAMBannerView!
     
     override func loadView() {
@@ -38,27 +37,31 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
     }
     
     func createAd() {
-        // Create a BannerAdUnit associated with a Prebid Server configuration ID and a banner size
+        // 1. Create a BannerAdUnit
         adUnit = BannerAdUnit(configId: storedImpDisplayBanner, size: adSize)
-        // Create and setup banner parameters
+        adUnit.setAutoRefreshMillis(time: 30000)
+        
+        // 2. Configure banner parameters
         let parameters = BannerParameters()
         parameters.api = [Signals.Api.MRAID_2]
         adUnit.parameters = parameters
-        // Set autorefresh interval
-        adUnit.setAutoRefreshMillis(time: 30000)
         
-        // Setup integration kind - GAM
+        // 3. Create a GAMBannerView
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gamBanner.adUnitID = gamAdUnitDisplayBannerOriginal
         gamBanner.rootViewController = self
         gamBanner.delegate = self
+        
+        // Add GMA SDK banner view to the app UI
         bannerView?.addSubview(gamBanner)
         
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit.
+        // 4. Make a bid request to Prebid Server
+        let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            // Load ad
-            self?.gamBanner.load(self?.gamRequest)
+            
+            // 5. Load GAM Ad
+            self?.gamBanner.load(gamRequest)
         }
     }
     

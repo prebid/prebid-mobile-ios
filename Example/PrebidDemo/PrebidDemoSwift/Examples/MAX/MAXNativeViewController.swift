@@ -50,7 +50,7 @@ class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
     // MAX
     private var maxNativeAdLoader: MANativeAdLoader!
     private weak var maxLoadedNativeAd: MAAd!
-
+    
     override func loadView() {
         super.loadView()
         
@@ -65,22 +65,28 @@ class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
     }
     
     func createAd() {
-        // Setup integration kind - AppLovin MAX
+        // 1. Create a MANativeAdLoader
         maxNativeAdLoader = MANativeAdLoader(adUnitIdentifier: maxRenderingNativeAdUnitId)
         maxNativeAdLoader.nativeAdDelegate = self
-        // Setup Prebid mediation ad unit
+        
+        // 2. Create the MAXMediationNativeUtils
         maxMediationDelegate = MAXMediationNativeUtils(nativeAdLoader: maxNativeAdLoader)
+        
+        // 3. Create the MediationNativeAdUnit
         maxMediationNativeAdUnit = MediationNativeAdUnit(configId: nativeStoredImpression, mediationDelegate: maxMediationDelegate)
+        
+        // 4. Configure the MediationNativeAdUnit
         maxMediationNativeAdUnit.addNativeAssets(nativeRequestAssets)
         maxMediationNativeAdUnit.setContextType(.Social)
         maxMediationNativeAdUnit.setPlacementType(.FeedContent)
         maxMediationNativeAdUnit.setContextSubType(.Social)
         maxMediationNativeAdUnit.addEventTracker(eventTrackers)
         
-        // Create MAX native ad view
+        // 5. Create a MAXNativeAdView
         let nativeAdViewNib = UINib(nibName: "MAXNativeAdView", bundle: Bundle.main)
         let maNativeAdView = nativeAdViewNib.instantiate(withOwner: nil, options: nil).first! as! MANativeAdView?
         
+        // 6. Create a MANativeAdViewBinder
         let adViewBinder = MANativeAdViewBinder.init(builderBlock: { (builder) in
             builder.iconImageViewTag = 1
             builder.titleLabelTag = 2
@@ -90,16 +96,18 @@ class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
             builder.mediaContentViewTag = 123
         })
         
+        // 7. Bind views
         maNativeAdView!.bindViews(with: adViewBinder)
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        
+        // 7. Make a bid request to Prebid Server
         maxMediationNativeAdUnit.fetchDemand { [weak self] result in
-            // Load ad
+            // 8. Load the native ad
             self?.maxNativeAdLoader.loadAd(into: maNativeAdView!)
         }
     }
     
     // MARK: - MANativeAdDelegate
-
+    
     func didLoadNativeAd(_ nativeAdView: MANativeAdView?, for ad: MAAd) {
         if let nativeAd = maxLoadedNativeAd {
             maxNativeAdLoader?.destroy(nativeAd)

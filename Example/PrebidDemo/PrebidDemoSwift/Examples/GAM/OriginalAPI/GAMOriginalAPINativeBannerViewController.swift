@@ -18,6 +18,7 @@ import PrebidMobile
 import GoogleMobileAds
 
 fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
+fileprivate let storedImpNativeStyleBanner = "imp-prebid-banner-native-styles"
 fileprivate let nativeStoredResponse = "response-prebid-banner-native-styles"
 
 class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
@@ -56,22 +57,29 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
     }
     
     func createAd() {
-        // Setup Prebid AdUnit
+        // 1. Create a NativeRequest
         nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: nativeRequestAssets)
+        
+        // 2. Configure the NativeRequest
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
-        // Setup integration kind - GAM
+        
+        // 3. Create a GAMBannerView
         gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
         gamBannerView.adUnitID = "/21808260008/unified_native_ad_unit"
         gamBannerView.rootViewController = self
         gamBannerView.delegate = self
+        
+        // Add GMA SDK banner view to the app UI
         bannerView.addSubview(gamBannerView)
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        
+        // 4. Make a bid request to Prebid Server
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            // Load ad
+            
+            // 5. Load the native ad
             self?.gamBannerView.load(self?.gamRequest)
         }
     }

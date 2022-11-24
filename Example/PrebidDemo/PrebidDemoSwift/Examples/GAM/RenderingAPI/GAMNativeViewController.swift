@@ -58,17 +58,22 @@ class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoader
     }
     
     func createAd() {
-        // Setup Prebid ad unit
+        // 1. Create a NativeRequest
         nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: nativeRequestAssets)
+        
+        // 2. Configure the NativeRequest
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        
+        // 3. Make a bid request to Prebid Server
         nativeUnit.fetchDemand { result, kvResultDict in
+            // 4. Prepare GAM request
             let gamRequest = GAMRequest()
             GAMUtils.shared.prepareRequest(gamRequest, bidTargeting: kvResultDict ?? [:])
             
+            // 5. Load the native ad
             self.adLoader = GADAdLoader(adUnitID: gamRenderingNativeAdUnitId, rootViewController: self,
                                         adTypes: [.customNative], options: []) 
             self.adLoader?.delegate = self
@@ -112,7 +117,7 @@ class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoader
                     }
                 }
             }
-    
+            
             self.nativeAd?.registerView(view: view, clickableViews: [callToActionButton])
         case .failure(let error):
             if error == GAMEventHandlerError.nonPrebidAd {

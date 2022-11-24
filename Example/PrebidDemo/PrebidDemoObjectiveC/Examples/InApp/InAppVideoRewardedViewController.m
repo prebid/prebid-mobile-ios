@@ -36,11 +36,11 @@ NSString * const storedResponseVideoRewardedInApp = @"response-prebid-video-rewa
 }
 
 - (void)createAd {
-    // Setup Prebid ad unit
+    // 1. Create a RewardedAdUnit
     self.rewardedAdUnit = [[RewardedAdUnit alloc] initWithConfigID:storedImpVideoRewardedInApp];
     self.rewardedAdUnit.delegate = self;
     
-    // Load ad
+    // 2. Load the rewarded ad
     [self.rewardedAdUnit loadAd];
 }
 

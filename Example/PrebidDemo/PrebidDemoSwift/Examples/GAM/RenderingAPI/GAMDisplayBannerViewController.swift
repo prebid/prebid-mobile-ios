@@ -28,9 +28,8 @@ class GAMDisplayBannerViewController: BannerBaseViewController, BannerViewDelega
     private var prebidBannerView: BannerView!
     
     // GAM
-    private let gamRequest = GAMRequest()
     private var gamBanner: GAMBannerView!
-
+    
     override func loadView() {
         super.loadView()
         
@@ -39,12 +38,17 @@ class GAMDisplayBannerViewController: BannerBaseViewController, BannerViewDelega
     }
     
     func createAd() {
-        // Setup Prebid event handler
+        // 1. Create a GAMBannerEventHandler
         let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitDisplayBannerRendering, validGADAdSizes: [GADAdSizeBanner].map(NSValueFromGADAdSize))
+        
+        // 2. Create a BannerView
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize), configID: storedImpDisplayBanner, adSize: adSize, eventHandler: eventHandler)
         prebidBannerView.delegate = self
+        
+        // Add Prebid banner view to the app UI
         bannerView.addSubview(prebidBannerView)
-        // Load ad
+        
+        // 3. Load the banner ad
         prebidBannerView.loadAd()
     }
     

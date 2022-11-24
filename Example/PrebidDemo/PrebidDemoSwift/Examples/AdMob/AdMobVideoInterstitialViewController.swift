@@ -23,13 +23,12 @@ fileprivate let storedResponseRenderingVideoInterstitial = "response-prebid-vide
 fileprivate let adMobAdUnitDisplayInterstitial = "ca-app-pub-5922967660082475/3383099861"
 
 class AdMobVideoInterstitialViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
-
+    
     // Prebid
     private var admobAdUnit: MediationInterstitialAdUnit?
     private var mediationDelegate: AdMobMediationInterstitialUtils?
     
     // AdMob
-    private var gadRequest = GADRequest()
     private var interstitial: GADInterstitialAd?
     
     override func loadView() {
@@ -40,13 +39,21 @@ class AdMobVideoInterstitialViewController: InterstitialBaseViewController, GADF
     }
     
     func createAd() {
-        // Setup Prebid interstitial mediation ad unit
+        // 1. Create a GADRequest
+        let gadRequest = GADRequest()
+        
+        // 2. Create an AdMobMediationInterstitialUtils
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: gadRequest)
+        
+        // 3. Create a MediationInterstitialAdUnit
         admobAdUnit = MediationInterstitialAdUnit(configId: storedImpVideoInterstitial, mediationDelegate: mediationDelegate!)
+        
+        // 4. Make a bid request to Prebid Server
         admobAdUnit?.fetchDemand(completion: { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
-            // Load ad
-            GADInterstitialAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: self?.gadRequest) { [weak self] ad, error in
+            
+            // 5. Load the interstitial ad
+            GADInterstitialAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: gadRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 
                 if let error = error {
@@ -54,6 +61,7 @@ class AdMobVideoInterstitialViewController: InterstitialBaseViewController, GADF
                     return
                 }
                 
+                // 6. Present the interstitial ad
                 self.interstitial = ad
                 self.interstitial?.fullScreenContentDelegate = self
                 self.interstitial?.present(fromRootViewController: self)

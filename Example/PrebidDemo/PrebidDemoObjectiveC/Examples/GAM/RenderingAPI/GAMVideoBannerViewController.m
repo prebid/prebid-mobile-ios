@@ -39,16 +39,22 @@ NSString * const gamAdUnitVideoRendering = @"/21808260008/prebid_oxb_300x250_ban
 }
 
 - (void)createAd {
-    // Setup Prebid event handler
+    // 1. Create a GAMBannerEventHandler
     GAMBannerEventHandler * eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:gamAdUnitVideoRendering validGADAdSizes:@[NSValueFromGADAdSize(GADAdSizeBanner)]];
+    
+    // 2. Create a BannerView
     self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpVideoGAMRendering adSize:self.adSize eventHandler:eventHandler];
+    
+    // 3. Configure the BannerView
     self.prebidBannerView.adFormat = AdFormat.video;
     self.prebidBannerView.videoParameters.placement = PBPlacement.InBanner;
     self.prebidBannerView.delegate = self;
+    
+    // Add Prebid banner view to the app UI
     self.bannerView.backgroundColor = [UIColor clearColor];
     [self.bannerView addSubview:self.prebidBannerView];
     
-    // Load ad
+    // 4. Load the banner ad
     [self.prebidBannerView loadAd];
 }
 

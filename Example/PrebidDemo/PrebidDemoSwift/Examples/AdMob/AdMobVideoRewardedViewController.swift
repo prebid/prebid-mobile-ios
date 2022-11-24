@@ -29,9 +29,8 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
     private var admobRewardedAdUnit: MediationRewardedAdUnit!
     
     // AdMob
-    private let request = GADRequest()
     private var gadRewardedAd: GADRewardedAd?
-
+    
     override func loadView() {
         super.loadView()
         
@@ -40,14 +39,22 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
     }
     
     func createAd() {
-        // Setup Prebid rewarded mediation ad unit
+        // 1. Create a GADRequest
+        let request = GADRequest()
+        
+        // 2. Create an AdMobMediationRewardedUtils
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
+        
+        // 3. Create a MediationRewardedAdUnit
         admobRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
+        
+        // 4. Make a bid request to Prebid Server
         admobRewardedAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
-            // Load ad
-            GADRewardedAd.load(withAdUnitID: adMobAdUnitRewardedId, request: self.request) { [weak self] ad, error in
+            
+            // 5. Load the rewarded ad
+            GADRewardedAd.load(withAdUnitID: adMobAdUnitRewardedId, request: request) { [weak self] ad, error in
                 guard let self = self else { return }
                 
                 if let error = error {
@@ -55,6 +62,7 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
                     return
                 }
                 
+                // 6. Present the rewarded ad
                 self.gadRewardedAd = ad
                 self.gadRewardedAd?.fullScreenContentDelegate = self
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {

@@ -36,11 +36,14 @@ NSString * const storedResponseDisplayInterstitialInApp = @"response-prebid-disp
 }
 
 - (void)createAd {
-    // Setup Prebid ad unit
+    // 1. Create a InterstitialRenderingAdUnit
     self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpDisplayInterstitialInApp];
+    
+    // 2. Configure the InterstitialRenderingAdUnit
     self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.display, nil];
     self.renderingInterstitial.delegate = self;
-    // Load ad
+    
+    // 3. Load the interstitial ad
     [self.renderingInterstitial loadAd];
 }
 

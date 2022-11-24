@@ -37,7 +37,7 @@ NSString * const nativeStoredResponseInApp = @"response-prebid-banner-native-sty
 }
 
 - (void)createAd {
-    // Setup Prebid ad unit
+    // 1. Create a NativeRequest
     NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
     image.type = ImageAsset.Main;
     
@@ -55,17 +55,21 @@ NSString * const nativeStoredResponseInApp = @"response-prebid-banner-native-sty
     self.nativeUnit = [[NativeRequest alloc] initWithConfigId:nativeStoredImpressionInApp
                                                        assets:@[title, icon, image, sponsored, body, cta]
                                                 eventTrackers:@[eventTracker]];
+    
+    // 2. Configure the NativeRequest
     self.nativeUnit.context = ContextType.Social;
     self.nativeUnit.placementType = PlacementType.FeedContent;
     self.nativeUnit.contextSubType = ContextSubType.Social;
     
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    // 3. Make a bid request to Prebid Server
     @weakify(self);
     [self.nativeUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable kvResultDict) {
         @strongify(self);
         
+        // 4. Find cached native ad
         NSString * cacheId = [kvResultDict valueForKey:@"hb_cache_id_local"];
         
+        // 5. Create a NativeAd
         NativeAd * nativeAd = [NativeAd createWithCacheId:cacheId];
         
         if (nativeAd == nil) {
@@ -74,6 +78,7 @@ NSString * const nativeStoredResponseInApp = @"response-prebid-banner-native-sty
         
         self.nativeAd = nativeAd;
         
+        // 6. Render the native ad
         self.titleLable.text = self.nativeAd.title;
         self.bodyLabel.text = self.nativeAd.text;
         [self.callToActionButton setTitle:self.nativeAd.callToAction forState:UIControlStateNormal];

@@ -41,17 +41,21 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
 }
 
 - (void)createAd {
-    // Setup integration kind - AppLovin MAX
+    // 1. Create a MARewardedAd
     self.maxRewarded = [MARewardedAd sharedWithAdUnitIdentifier:maxAdUnitRewardedId];
     
-    // Setup Prebid mediation ad unit
+    // 2. Create a MAXMediationRewardedUtils
     self.mediationDelegate = [[MAXMediationRewardedUtils alloc] initWithRewardedAd:self.maxRewarded];
+    
+    // 3. Create a MediationRewardedAdUnit
     self.maxRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedMAX mediationDelegate:self.mediationDelegate];
     
-    // Setup Prebid mediation ad unit
+    // 4. Make a bid request to Prebid Server
     @weakify(self);
     [self.maxRewardedAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
+        
+        // 5. Load the rewarded ad
         self.maxRewarded.delegate = self;
         [self.maxRewarded loadAd];
     }];

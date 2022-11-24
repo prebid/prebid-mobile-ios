@@ -36,14 +36,18 @@ NSString * const storedImpDisplayBannerInApp = @"imp-prebid-banner-320-50";
 }
 
 - (void)createAd {
-    // Setup Prebid ad unit
+    // 1. Create a BannerView
     self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpDisplayBannerInApp adSize:self.adSize];
+    
+    // 2. Configure the BannerView
     self.prebidBannerView.delegate = self;
     self.prebidBannerView.adFormat = AdFormat.display;
+    self.prebidBannerView.videoParameters.placement = PBPlacement.InBanner;
     
+    // Add Prebid banner view to the app UI
     [self.bannerView addSubview:self.prebidBannerView];
     
-    // Load ad
+    // 3. Load the banner ad
     [self.prebidBannerView loadAd];
 }
 

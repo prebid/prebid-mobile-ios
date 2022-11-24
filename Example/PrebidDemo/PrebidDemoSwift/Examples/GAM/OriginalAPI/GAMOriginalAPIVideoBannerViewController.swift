@@ -27,9 +27,8 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
     private var adUnit: VideoAdUnit!
     
     // GAM
-    private let gamRequest = GAMRequest()
     private var gamBanner: GAMBannerView!
-
+    
     override func loadView() {
         super.loadView()
         
@@ -38,9 +37,10 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
     }
     
     func createAd() {
-        // Create a VideoAdUnit associated with a Prebid Server configuration ID and a banner size
+        // 1. Create a VideoAdUnit
         adUnit = VideoAdUnit(configId: storedImpVideoBanner, size: adSize)
-        // Create and setup video parameters
+        
+        // 2. Configure video parameters
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         parameters.protocols = [Signals.Protocols.VAST_2_0]
@@ -48,23 +48,26 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
         parameters.placement = Signals.Placement.InBanner
         adUnit.parameters = parameters
         
-        // Setup integration kind - GAM
+        // 3. Create a GAMBannerView
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gamBanner.adUnitID = gamAdUnitVideoBannerOriginal
         gamBanner.rootViewController = self
         gamBanner.delegate = self
         
+        // Add GMA SDK banner view to the app UI
         bannerView.addSubview(gamBanner)
         bannerView.backgroundColor = .clear
         
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        // 4. Make a bid request to Prebid Server
+        let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            // Load ad
-            self?.gamBanner.load(self?.gamRequest)
+            
+            // 5. Load GAM Ad
+            self?.gamBanner.load(gamRequest)
         }
     }
-
+    
     // MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {

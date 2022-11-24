@@ -27,7 +27,6 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
 @property (nonatomic) NativeAd * nativeAd;
 
 // GAM
-@property (nonatomic) GAMRequest * gamRequest;
 @property (nonatomic) GADAdLoader * adLoader;
 
 @end
@@ -42,7 +41,7 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
 }
 
 - (void)createAd {
-    // Setup Prebid ad unit
+    // 1. Create a NativeRequest
     NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
     image.type = ImageAsset.Main;
     
@@ -60,22 +59,26 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
     self.nativeUnit = [[NativeRequest alloc] initWithConfigId:nativeStoredImpressionRendering
                                                        assets:@[title, icon, image, sponsored, body, cta]
                                                 eventTrackers:@[eventTracker]];
+    
+    // 2. Configure the NativeRequest
     self.nativeUnit.context = ContextType.Social;
     self.nativeUnit.placementType = PlacementType.FeedContent;
     self.nativeUnit.contextSubType = ContextSubType.Social;
     
-    // Setup integration kind - GAM
-    self.gamRequest = [GAMRequest new];
-    
-    // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+    // 3. Make a bid request to Prebid Server
     @weakify(self);
-    [self.nativeUnit fetchDemandWithAdObject:self.gamRequest completion:^(enum ResultCode resultCode) {
+    [self.nativeUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable kvResultDict) {
         @strongify(self);
+        // 4. Prepare GAM request
+        GAMRequest * gamRequest = [GAMRequest new];
+        [GAMUtils.shared prepareRequest:gamRequest bidTargeting:kvResultDict ?: @{}];
+        
+        // 5. Load the native ad
         self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:gamRenderingNativeAdUnitId
                                            rootViewController:self
                                                       adTypes:@[GADAdLoaderAdTypeCustomNative] options:@[]];
         self.adLoader.delegate = self;
-        [self.adLoader loadRequest:self.gamRequest];
+        [self.adLoader loadRequest:gamRequest];
     }];
 }
 

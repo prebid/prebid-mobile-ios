@@ -28,14 +28,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        // Initialize Prebid SDK
-        Prebid.initializeSDK(GADMobileAds.sharedInstance())
+        // ===== INIT: Prebid
         
         // Set account id and custom Prebid server URL
         Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
-        // Set sourceapp
+        
+        // Initialize Prebid SDK
+        Prebid.initializeSDK(GADMobileAds.sharedInstance()) { status, error in
+            if let error = error {
+                print("Initialization Error: \(error.localizedDescription)")
+                return
+            }
+        }
+        
+        // ===== CONFIGURE: Prebid
+        
         Targeting.shared.sourceapp = "PrebidDemoSwift"
+        
+        // ===== INIT: Ad Server SDK
         
         // Initialize GoogleMobileAds SDK
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ GADSimulatorID, "fa7ff8af558fb08a04c94453647e54a1"]

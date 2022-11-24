@@ -33,29 +33,31 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = storedResponseVideoRewarded
-        
-        // Setup Prebid ad unit
         createAd()
     }
     
     func createAd() {
-        // Setup Prebid ad unit
+        // 1. Create an RewardedVideoAdUnit
         adUnit = RewardedVideoAdUnit(configId: storedImpVideoRewarded)
-        // Create and setup video parameters
+        
+        // 2. Configure video parameters
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         adUnit.parameters = parameters
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        
+        // 3. Make a bid request to Prebid Server
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            // Load GAM interstitial ad
+            
+            // 4. Load the GAM rewarded ad
             GADRewardedAd.load(withAdUnitID: gamAdUnitVideoRewardedOriginal, request: self?.gamRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     PrebidDemoLogger.shared.error("Failed to load rewarded ad with error: \(error.localizedDescription)")
                 } else if let ad = ad {
+                    // 5. Present the interstitial ad
                     ad.fullScreenContentDelegate = self
                     ad.present(fromRootViewController: self, userDidEarnRewardHandler: {
                         _ = ad.adReward
