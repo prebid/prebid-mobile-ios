@@ -25,7 +25,6 @@ fileprivate let admobRenderingNativeAdUnitId = "ca-app-pub-5922967660082475/8634
 class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDelegate {
 
     // Prebid
-    private var nativeUnit: NativeRequest!
     private var nativeAd: NativeAd?
     private var mediationDelegate: AdMobMediationNativeUtils!
     private var admobMediationNativeAdUnit: MediationNativeAdUnit!

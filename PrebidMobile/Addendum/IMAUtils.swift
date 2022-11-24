@@ -15,32 +15,38 @@
 
 import Foundation
 
-@objc public enum IMAAdSlotSize: Int {
+@objc public class IMAAdSlotSize: SingleContainerInt {
     
-    case Size400x300
+    @objc
+    public static let Size400x300 = IMAAdSlotSize(1)
     
-    case Size640x480
+    @objc
+    public static let Size640x480 = IMAAdSlotSize(2)
     
-    case Size320x480
+    @objc
+    public static let Size320x480 = IMAAdSlotSize(3)
+}
+
+class IMAAdSlotSizeDescriptor {
     
-    func size () -> String {
-        switch self {
+    static func size(for adSlot: IMAAdSlotSize) -> String {
+        switch adSlot {
         case .Size400x300: return "400x300"
         case .Size640x480: return "640x480"
         case .Size320x480: return "320x480"
-
+        default: return ""
         }
     }
 }
 
+@objcMembers
 public final class IMAUtils: NSObject {
     
-    @objc
-    public static let shared = IMAUtils()
+    @objc public static let shared = IMAUtils()
     
     private override init() {}
     
-    public func generateInstreamUriForGAM (adUnitID:String, adSlotSizes:[IMAAdSlotSize], customKeywords: [String:String]?) throws -> String {
+    @objc public func generateInstreamUriForGAM(adUnitID: String, adSlotSizes: [IMAAdSlotSize], customKeywords: [String:String]?) throws -> String {
         let adServerURL = "https://pubads.g.doubleclick.net/gampad/ads?output=xml_vast4&unviewed_position_start=1&gdfp_req=1&env=vp"
         
         if (adSlotSizes.count <= 0) {
@@ -48,7 +54,7 @@ public final class IMAUtils: NSObject {
         }
         var adSlotSize = "sz="
         for adSlot in adSlotSizes {
-            adSlotSize = String(format: "%@%@|", adSlotSize,adSlot.size())
+            adSlotSize = String(format: "%@%@|", adSlotSize, IMAAdSlotSizeDescriptor.size(for: adSlot))
         }
         
         adSlotSize = String(adSlotSize.dropLast())

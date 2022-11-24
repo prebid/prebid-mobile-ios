@@ -46,7 +46,7 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
         gadBanner.delegate = self
         gadBanner.rootViewController = self
         bannerView.addSubview(gadBanner)
-        // Setup Prebud banner mediation ad unit
+        // Setup Prebid banner mediation ad unit
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: adSize, mediationDelegate: mediationDelegate)
         // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
@@ -60,12 +60,7 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
     //MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-        AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
-            guard let bannerView = bannerView as? GAMBannerView else { return }
-            bannerView.resize(GADAdSizeFromCGSize(size))
-        }, failure: { (error) in
-            PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
-        })
+        
     }
 
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {

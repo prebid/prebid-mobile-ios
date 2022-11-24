@@ -1,0 +1,83 @@
+/*   Copyright 2019-2022 Prebid.org, Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+#import "AdMobVideoRewardedViewController.h"
+#import "PrebidDemoMacros.h"
+
+NSString * const storedImpVideoRewardedAdMob = @"imp-prebid-video-rewarded-320-480";
+NSString * const storedResponseVideoRewardedAdMob = @"response-prebid-video-rewarded-320-480";
+NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/7397370641";
+
+@interface AdMobVideoRewardedViewController ()
+
+// Prebid
+@property (nonatomic) MediationRewardedAdUnit * admobRewardedAdUnit;
+@property (nonatomic) AdMobMediationRewardedUtils * mediationDelegate;
+
+// AdMob
+@property (nonatomic) GADRequest * gadRequest;
+@property (nonatomic) GADRewardedAd * gadRewardedAd;
+
+@end
+
+@implementation AdMobVideoRewardedViewController
+
+- (void)loadView {
+    [super loadView];
+    
+    Prebid.shared.storedAuctionResponse = storedResponseVideoRewardedAdMob;
+    [self createAd];
+}
+
+- (void)createAd {
+    
+    self.gadRequest = [GADRequest new];
+    
+    // Setup Prebid rewarded mediation ad unit
+    self.mediationDelegate = [[AdMobMediationRewardedUtils alloc] initWithGadRequest:self.gadRequest];
+    self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedAdMob mediationDelegate:self.mediationDelegate];
+    
+    @weakify(self);
+    [self.admobRewardedAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
+        @strongify(self);
+        
+        @weakify(self);
+        // Load ad
+        [GADRewardedAd loadWithAdUnitID:adMobAdUnitRewardedId request:self.gadRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
+            @strongify(self);
+            if (error != nil) {
+                PBMLogError(@"%@", error.localizedDescription);
+                return;
+            }
+            
+            if (rewardedAd != nil) {
+                self.gadRewardedAd = rewardedAd;
+                self.gadRewardedAd.fullScreenContentDelegate = self;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.gadRewardedAd presentFromRootViewController:self userDidEarnRewardHandler:^{
+                    }];
+                });
+            }
+        }];
+    }];
+}
+
+// MARK: - GADFullScreenContentDelegate
+
+- (void)ad:(id<GADFullScreenPresentingAd>)ad didFailToPresentFullScreenContentWithError:(NSError *)error {
+    PBMLogError(@"%@", error.localizedDescription);
+}
+
+@end

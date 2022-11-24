@@ -53,7 +53,11 @@ class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewarded
     
     // MARK: - MARewardedAdDelegate
     
-    func didLoad(_ ad: MAAd) {}
+    func didLoad(_ ad: MAAd) {
+        if let maxRewarded = maxRewarded, maxRewarded.isReady {
+            maxRewarded.show()
+        }
+    }
     
     func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
         PrebidDemoLogger.shared.error("\(error.message)")

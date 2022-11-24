@@ -16,9 +16,9 @@
 import Foundation
 import PrebidMobile
 
-public enum GAMEventHandlerError : Error {
+@objc public enum GAMEventHandlerError: Int, Error {
     
-    case gamClassesNotFound
+    case gamClassesNotFound = 0
     case noLocalCacheID
     case invalidLocalCacheID
     case invalidNativeAd

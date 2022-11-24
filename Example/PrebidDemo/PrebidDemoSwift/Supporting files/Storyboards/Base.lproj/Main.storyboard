@@ -56,10 +56,10 @@
                                 </connections>
                             </searchBar>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="V14-eT-xCr" userLabel="Pickers Main Stack View">
-                                <rect key="frame" x="15" y="158" width="389" height="65"/>
+                                <rect key="frame" x="15" y="158" width="384" height="65"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tt8-bz-pBU" userLabel="Labels">
-                                        <rect key="frame" x="0.0" y="0.0" width="204" height="65"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="201.5" height="65"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Integration Kind" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DH-0s-qSr">
                                                 <rect key="frame" x="0.0" y="0.0" width="120.5" height="30"/>
@@ -76,10 +76,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TNV-bm-Ssj" userLabel="Pickers">
-                                        <rect key="frame" x="204" y="0.0" width="185" height="65"/>
+                                        <rect key="frame" x="201.5" y="0.0" width="182.5" height="65"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15T-HT-5Le">
-                                                <rect key="frame" x="0.0" y="0.0" width="185" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="182.5" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="0Di-bN-AIy"/>
                                                 </constraints>
@@ -92,7 +92,7 @@
                                                 <state key="normal" title="Integration Kind"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFv-kv-uSy">
-                                                <rect key="frame" x="0.0" y="35" width="185" height="30"/>
+                                                <rect key="frame" x="0.0" y="35" width="182.5" height="30"/>
                                                 <menu key="menu" id="Mmq-2T-SqJ">
                                                     <children>
                                                         <command title="Item 1" id="emJ-jG-aPq"/>
@@ -123,7 +123,7 @@
                         <viewLayoutGuide key="safeArea" id="2ZY-p6-tc4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2ZY-p6-tc4" firstAttribute="trailing" secondItem="V14-eT-xCr" secondAttribute="trailing" constant="10" id="DdS-HW-hwx"/>
+                            <constraint firstItem="2ZY-p6-tc4" firstAttribute="trailing" secondItem="V14-eT-xCr" secondAttribute="trailing" constant="15" id="DdS-HW-hwx"/>
                             <constraint firstItem="V14-eT-xCr" firstAttribute="top" secondItem="G6e-3v-PnV" secondAttribute="bottom" constant="5" id="QVo-Vx-QXK"/>
                             <constraint firstItem="F0a-1d-n0O" firstAttribute="leading" secondItem="2ZY-p6-tc4" secondAttribute="leading" id="Tzc-EN-hJQ"/>
                             <constraint firstItem="V14-eT-xCr" firstAttribute="leading" secondItem="2ZY-p6-tc4" secondAttribute="leading" constant="15" id="bVk-B5-Jqx"/>
