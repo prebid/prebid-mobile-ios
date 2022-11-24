@@ -57,25 +57,22 @@ private var nativeRequestAssets: [NativeAsset] {
     }
     
     func createAd() {
-        // 1. Create NativeRequest
+        // Setup Prebid AdUnit
         nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: nativeRequestAssets)
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
-
-        // 2. Create GAMBannerView
+        // Setup integration kind - GAM
         gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
-        gamBannerView.adUnitID = storedImpNativeStyleBanner
+        gamBannerView.adUnitID = "/21808260008/unified_native_ad_unit"
         gamBannerView.rootViewController = self
         gamBannerView.delegate = self
         bannerView.addSubview(gamBannerView)
-
-        // 3. Make a bid request
+        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-            
-            // 4. Load and GAM ad
+            // Load ad
             self?.gamBannerView.load(self?.gamRequest)
         }
     }
