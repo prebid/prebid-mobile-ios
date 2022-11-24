@@ -77,7 +77,7 @@ target 'PrebidDemoSwift' do
   end
 end
 
-target 'PrebidDemoObjectiveC_Old' do
+target 'PrebidDemoObjectiveC' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
   
   prebid_demo_pods
