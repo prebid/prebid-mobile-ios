@@ -12,11 +12,20 @@ fi
 
 bitcode_script_flag=''
 
-while getopts 'b:' flag; do
-  case "${flag}" in
-    b) bitcode_script_flag="${OPTARG}" ;;
-  esac
-done
+# Starting with Xcode 14, bitcode is no longer required for watchOS and tvOS applications, and the App Store no longer accepts bitcode submissions from Xcode 14.
+# Xcode no longer builds bitcode by default and generates a warning message if a project explicitly enables bitcode
+# https://developer.apple.com/documentation/xcode-release-notes/xcode-14-release-notes
+xcode_version=$(xcodebuild -version | head -1 | awk '{print $2}')
+echo $xcode_version
+if { echo "14"; echo "$xcode_version"; } | sort --version-sort --check; then
+	bitcode_script_flag="n"
+else
+	while getopts 'b:' flag; do
+	case "${flag}" in
+		b) bitcode_script_flag="${OPTARG}" ;;
+	esac
+	done
+fi
 
 # 1
 # Set bash script to exit immediately if any commands fail.
@@ -75,7 +84,7 @@ printf "\nBITCODE_FLAG: $BITCODE_FLAG\n"
 
 echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
-gem install cocoapods --user-install
+gem install cocoapods xcpretty xcpretty-travis-formatter --user-install
 pod install --repo-update
 
 echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
@@ -84,7 +93,7 @@ schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers" "PrebidMobileAdMobAdapter
 
 for(( n=0; n<${#schemes[@]}; n++ ))
 do
-	
+
 	# Build the framework for device and for simulator 
 	echo -e "\n${GREEN} - Archiving ${schemes[$n]} for device${NC}"
 
@@ -123,13 +132,16 @@ do
 	# find all .bcsymbolmap and concatinate -debug-symbols
 	debugSymbolsBcsymbolmap=""
 
-	while read bcsymbolmapsFileName
-	do
-	    # echo "BCSymbolMap: '$bcsymbolmapsFileName'"
-	    debugSymbolsBcsymbolmap="$debugSymbolsBcsymbolmap -debug-symbols \"$bcsymbolmapsFileName\""
-	done < <(find "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}.xcarchive/BCSymbolMaps" -name "*.bcsymbolmap")
-
-	# echo "debugSymbolsBcsymbolmap: '$debugSymbolsBcsymbolmap'"
+	if [ $BITCODE_FLAG == YES ] ;then
+		for bcsymbolmapsFileName in $(find "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}.xcarchive/BCSymbolMaps" -name "*.bcsymbolmap" -type f -exec echo {} \; 2>/dev/null)
+		do
+			if [[ ! -z "$bcsymbolmapsFileName" ]]; then
+				#echo "BCSymbolMap: '$bcsymbolmapsFileName'"
+				debugSymbolsBcsymbolmap="$debugSymbolsBcsymbolmap -debug-symbols \"$bcsymbolmapsFileName\""
+			fi
+		done
+		#echo "debugSymbolsBcsymbolmap: '$debugSymbolsBcsymbolmap'"
+	fi
 
 	# eval
 	eval " 

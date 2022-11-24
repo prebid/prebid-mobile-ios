@@ -1,5 +1,14 @@
-platform :ios, '12.0'
+$xcode_version = %x[xcrun xcodebuild -version | head -1 | awk '{print $2}']
+#'
+# ^ %x '' conflict with syntax highlight
+# Xcode 14: targets iOS 11-
+# Xcode 12,13: targets iOS 9-
+$iosVersion = '12.0'
+if Gem::Version.new($xcode_version) < Gem::Version.new('14')
+  $iosVersion = '10.0'
+end
 
+platform :ios, $iosVersion
 workspace 'PrebidMobile'
 
 project 'PrebidMobile.xcodeproj'
@@ -108,4 +117,17 @@ target 'OpenXMockServer' do
   
   pod 'Alamofire', '4.9.1'
   pod 'RxSwift'
+end
+
+post_install do |installer|
+  puts "Using #$xcode_version and iOSv #$iosVersion"
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = '$(inherited)'
+      if Gem::Version.new($iosVersion) > Gem::Version.new(config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'])
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = $iosVersion
+        puts "Version :#{config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']}"
+      end
+    end
+  end
 end
