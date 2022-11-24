@@ -23,13 +23,11 @@ class DeviceInfoParameterBuilderTest: XCTestCase {
     let initialDict = [String:String]()
     var userDefaults: UserDefaults!
     var deviceInfoParameterBuilder: DeviceInfoParameterBuilder!
-    var userConsentManager: PBMUserConsentDataManager!
     var bidRequest: PBMORTBBidRequest!
 
     override func setUp() {
         self.userDefaults = UserDefaults()
-        self.userConsentManager = PBMUserConsentDataManager(userDefaults: userDefaults)
-        self.deviceInfoParameterBuilder = DeviceInfoParameterBuilder(deviceAccessManager: MockDeviceAccessManager(rootViewController: nil),     userConsentManager: userConsentManager)
+        self.deviceInfoParameterBuilder = DeviceInfoParameterBuilder(deviceAccessManager: MockDeviceAccessManager(rootViewController: nil))
         self.bidRequest = PBMORTBBidRequest()
     }
 

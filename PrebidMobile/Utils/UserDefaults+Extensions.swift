@@ -13,20 +13,10 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@class PBMUserConsentDataManager;
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface PBMUserConsentResolver : NSObject
-
-@property (nonatomic, nullable, readonly, getter=isSubjectToGDPR) NSNumber *subjectToGDPR;
-@property (nonatomic, nullable, readonly) NSString *gdprConsentString;
-@property (nonatomic, assign, readonly) BOOL canAccessDeviceData;
-
-- (instancetype)initWithConsentDataManager:(PBMUserConsentDataManager *)consentDataManager;
-
-@end
-
-NS_ASSUME_NONNULL_END
+extension UserDefaults {
+    func getObjectFromUserDefaults<T>(forKey: String) -> T? {
+        return UserDefaults.standard.object(forKey: forKey) as? T
+    }
+}

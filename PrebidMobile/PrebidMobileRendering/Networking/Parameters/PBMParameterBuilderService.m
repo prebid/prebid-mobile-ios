@@ -26,7 +26,6 @@
 #import "PBMORTBParameterBuilder.h"
 #import "PBMParameterBuilderProtocol.h"
 #import "PBMSKAdNetworksParameterBuilder.h"
-#import "PBMUserConsentDataManager.h"
 #import "PBMUserConsentParameterBuilder.h"
 #import "PBMORTB.h"
 
@@ -50,7 +49,7 @@
                                        reachability:Reachability.shared
                                    sdkConfiguration:Prebid.shared
                                          sdkVersion:[PBMFunctions sdkVersion]
-                              pbmUserConsentManager:PBMUserConsentDataManager.shared
+                              pbmUserConsentManager:UserConsentDataManager.shared
                                           targeting:Targeting.shared
                              extraParameterBuilders:extraParameterBuilders];
 }
@@ -65,7 +64,7 @@
                                                                         reachability:(nonnull Reachability *)reachability
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
-                                                               pbmUserConsentManager:(nonnull PBMUserConsentDataManager *) pbmUserConsentManager
+                                                               pbmUserConsentManager:(nonnull UserConsentDataManager *) pbmUserConsentManager
                                                                            targeting:(nonnull Targeting *)targeting
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders{
   
@@ -78,7 +77,7 @@
                                                         targeting:targeting],
         [[PBMGeoLocationParameterBuilder alloc] initWithLocationManager:pbmLocationManager],
         [[PBMAppInfoParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
-        [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager userConsentManager:pbmUserConsentManager],
+        [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager],
         [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo reachability:reachability],
         [[PBMUserConsentParameterBuilder alloc] initWithUserConsentManager:pbmUserConsentManager],
         [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle targeting:targeting],

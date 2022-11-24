@@ -159,7 +159,6 @@ framework module PrebidMobile {
     header "NSDictionary+PBMExtensions.h"
     header "NSMutableDictionary+PBMExtensions.h"
     header "PBMLocationManager.h"
-    header "PBMUserConsentDataManager.h"
     
     header "PBMInterstitialAdLoader.h"
     header "PBMInterstitialAdLoaderDelegate.h"

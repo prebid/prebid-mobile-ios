@@ -16,120 +16,13 @@ limitations under the License.
 import Foundation
 
 class StorageUtils {
-    //COPPA
-    static let PB_COPPAKey = "kPBCoppaSubjectToConsent"
-    
-    //GDPR - publisher set local
-    static let PBConsent_SubjectToGDPRKey = "kPBGdprSubjectToConsent"
-    
-    static let PBConsent_ConsentStringKey = "kPBGDPRConsentString"
-
-    static let PBConsent_PurposeConsentsStringKey = "kPBGDPRPurposeConsents"
-
-    //TCF 1.1
-    static let IABConsent_SubjectToGDPRKey = "IABConsent_SubjectToGDPR"
-
-    static let IABConsent_ConsentStringKey = "IABConsent_ConsentString"
-    
-    //TCF 2.0 variables
-    static let IABTCF_ConsentString = "IABTCF_TCString"
-
-    static let IABTCF_SubjectToGDPR = "IABTCF_gdprApplies"
-
-    static let IABTCF_PurposeConsents = "IABTCF_PurposeConsents"
-
-    //CCPA
-    static let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
     
     //External UserIds
     static let PB_ExternalUserIdsKey = "kPBExternalUserIds"
     
-    //MARK: - getters and setters
-    
-    //COPPA
-    static func pbCoppa() -> Bool? {
-        return UserDefaults.standard.object(forKey: StorageUtils.PB_COPPAKey) != nil ? UserDefaults.standard.bool(forKey: StorageUtils.PB_COPPAKey) : nil
-    }
-    
-    static func setPbCoppa(value: Bool?) {
-        setUserDefaults(value: value, forKey: StorageUtils.PB_COPPAKey)
-    }
-    
-    //GDPR
-    static func pbGdprSubject() -> Bool? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.PBConsent_SubjectToGDPRKey)
-    }
-    
-    static func setPbGdprSubject(value: Bool?) {
-        setUserDefaults(value: value, forKey: StorageUtils.PBConsent_SubjectToGDPRKey)
-    }
-    
-    static func iabGdprSubject() -> Bool? {
-        var gdprSubject: Bool? = nil
-
-        let gdprSubjectTcf2: NSNumber? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_SubjectToGDPR)
-
-        if let gdprSubjectTcf2 = gdprSubjectTcf2 {
-            if gdprSubjectTcf2 == 1 {
-                gdprSubject = true
-            } else if gdprSubjectTcf2 == 0 {
-                gdprSubject = false
-            }
-        } else {
-            let gdprSubjectTcf1: String? = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
-
-            if let gdprSubjectTcf1 = gdprSubjectTcf1 {
-
-                if gdprSubjectTcf1 == "1" {
-                    gdprSubject = true
-                } else if gdprSubjectTcf1 == "0" {
-                    gdprSubject = false
-                }
-            }
-        }
-
-        return gdprSubject
-    }
-    
-    static func pbGdprConsent() -> String? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.PBConsent_ConsentStringKey)
-    }
-    
-    static func setPbGdprConsent(value: String?) {
-        setUserDefaults(value: value, forKey: StorageUtils.PBConsent_ConsentStringKey)
-    }
-    
-    static func iabGdprConsent() -> String? {
-        var gdprConsentString: String? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_ConsentString)
-
-        if (gdprConsentString ?? "").isEmpty {
-            gdprConsentString = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_ConsentStringKey)
-        }
-
-        return gdprConsentString
-
-    }
-
-    static func setPbPurposeConsents(value: String?) {
-        setUserDefaults(value: value, forKey: StorageUtils.PBConsent_PurposeConsentsStringKey)
-    }
-
-    static func pbPurposeConsents() -> String? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.PBConsent_PurposeConsentsStringKey)
-    }
-
-    static func iabPurposeConsents() -> String? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_PurposeConsents)
-    }
-    
-    //CCPA
-    static func iabCcpa() -> String? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.IABUSPrivacy_StringKey)
-    }
-    
     //External User Ids
     static func getExternalUserIds() -> [ExternalUserId]? {
-        guard let value: Data = getObjectFromUserDefaults(forKey: StorageUtils.PB_ExternalUserIdsKey) else{
+        guard let value: Data = getObjectFromUserDefaults(forKey: StorageUtils.PB_ExternalUserIdsKey) else {
             return nil
         }
         return NSKeyedUnarchiver.unarchiveObject(with: value) as? [ExternalUserId]

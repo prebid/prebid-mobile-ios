@@ -61,8 +61,8 @@ class ParameterBuilderServiceTest : XCTestCase {
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
-        let mockUserDefaults = MockUserDefaults()
-        let pbmUserConsentManager = PBMUserConsentDataManager(userDefaults: mockUserDefaults)
+        UserConsentDataManager.shared.gdprConsentString = "consentstring"
+        UserConsentDataManager.shared.subjectToGDPR = false
         
         let paramsDict = PBMParameterBuilderService.buildParamsDict(
             with: adConfiguration,
@@ -73,7 +73,7 @@ class ParameterBuilderServiceTest : XCTestCase {
             reachability: mockReachability,
             sdkConfiguration: sdkConfiguration,
             sdkVersion: "MOCK_SDK_VERSION",
-            pbmUserConsentManager: pbmUserConsentManager,
+            pbmUserConsentManager: UserConsentDataManager.shared,
             targeting: targeting,
             extraParameterBuilders: nil
         )

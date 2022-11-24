@@ -138,8 +138,8 @@ public class Targeting: NSObject {
      Objective C analog of subjectToCOPPA
      */
     public var coppa: NSNumber? {
-        set { subjectToCOPPA = newValue.boolValue }
-        get { subjectToCOPPA.nsNumberValue }
+        set { UserConsentDataManager.shared.subjectToCOPPA = newValue.boolValue }
+        get { UserConsentDataManager.shared.subjectToCOPPA.nsNumberValue }
     }
     
     /**
@@ -147,8 +147,8 @@ public class Targeting: NSObject {
      established by the USA FTC, where 0 = no, 1 = yes
      */
     public var subjectToCOPPA: Bool? {
-        set { StorageUtils.setPbCoppa(value: newValue) }
-        get { StorageUtils.pbCoppa() }
+        set { UserConsentDataManager.shared.subjectToCOPPA = newValue}
+        get { UserConsentDataManager.shared.subjectToCOPPA }
     }
     
     // MARK: - GDPR
@@ -156,122 +156,53 @@ public class Targeting: NSObject {
      * The boolean value set by the user to collect user data
      */
     public var subjectToGDPR: Bool? {
-        set {
-            StorageUtils.setPbGdprSubject(value: newValue)
-        }
+        set { UserConsentDataManager.shared.subjectToGDPR = newValue }
 
-        get {
-            var gdprSubject: Bool?
-
-            if let pbGdpr = StorageUtils.pbGdprSubject() {
-                gdprSubject = pbGdpr
-            } else if let iabGdpr = StorageUtils.iabGdprSubject() {
-                gdprSubject = iabGdpr
-            }
-            
-            return gdprSubject
-        }
+        get { UserConsentDataManager.shared.subjectToGDPR }
     }
     
     public func setSubjectToGDPR(_ newValue: NSNumber?) {
-        subjectToGDPR = newValue?.boolValue
+        UserConsentDataManager.shared.subjectToGDPR = newValue?.boolValue
     }
     
     public func getSubjectToGDPR() -> NSNumber? {
-        return subjectToGDPR as NSNumber?
+        return UserConsentDataManager.shared.subjectToGDPR_NSNumber
     }
     
     // MARK: - GDPR Consent
+    
     /**
      * The consent string for sending the GDPR consent
      */
-
     public var gdprConsentString: String? {
-        set {
-            StorageUtils.setPbGdprConsent(value: newValue)
-        }
-
-        get {
-            var savedConsent: String?
-            
-            if let iabString = StorageUtils.iabGdprConsent() {
-                savedConsent = iabString
-            } else if let pbString = StorageUtils.pbGdprConsent() {
-                savedConsent = pbString
-            }
-            
-            return savedConsent
-        }
+        set { UserConsentDataManager.shared.gdprConsentString = newValue }
+        get { UserConsentDataManager.shared.gdprConsentString }
     }
     
     // MARK: - TCFv2
 
     public var purposeConsents: String? {
-        set {
-            StorageUtils.setPbPurposeConsents(value: newValue)
-        }
-
-        get {
-            var savedPurposeConsents: String?
-
-            if let iabString = StorageUtils.iabPurposeConsents() {
-                savedPurposeConsents = iabString
-            } else if let pbString = StorageUtils.pbPurposeConsents() {
-                savedPurposeConsents = pbString
-            }
-
-            return savedPurposeConsents
-
-        }
+        set { UserConsentDataManager.shared.purposeConsents = newValue }
+        get { UserConsentDataManager.shared.purposeConsents }
     }
 
     /*
      Purpose 1 - Store and/or access information on a device
      */
     public func getDeviceAccessConsent() -> Bool? {
-        let deviceAccessConsentIndex = 0
-        return getPurposeConsent(index: deviceAccessConsentIndex)
+        UserConsentDataManager.shared.getDeviceAccessConsent()
     }
     
     public func getDeviceAccessConsentObjc() -> NSNumber? {
-        let deviceAccessConsent = getDeviceAccessConsent()
-        return deviceAccessConsent as NSNumber?
+        UserConsentDataManager.shared.getDeviceAccessConsent() as NSNumber?
     }
 
     public func getPurposeConsent(index: Int) -> Bool? {
-
-        var purposeConsent: Bool? = nil
-        if let savedPurposeConsents = purposeConsents, index >= 0, index < savedPurposeConsents.count {
-            let char = savedPurposeConsents[savedPurposeConsents.index(savedPurposeConsents.startIndex, offsetBy: index)]
-
-            if char == "1" {
-                purposeConsent = true
-            } else if char == "0" {
-                purposeConsent = false
-            } else {
-                Log.warn("invalid char:\(char)")
-            }
-        }
-
-        return purposeConsent
+        UserConsentDataManager.shared.getPurposeConsent(index: index)
     }
     
-    //fetch advertising identifier based TCF 2.0 Purpose1 value
-    //truth table
-    /*
-                        deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
-     gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
-     gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
-     gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
-     */
     public func isAllowedAccessDeviceData() -> Bool {
-        let deviceAccessConsent = getDeviceAccessConsent()
-        
-        if ((deviceAccessConsent == nil && (subjectToGDPR == nil || subjectToGDPR == false)) || deviceAccessConsent == true) {
-            return true
-        }
-        
-        return false
+        UserConsentDataManager.shared.isAllowedAccessDeviceData()
     }
     
     // MARK: - External User Ids
@@ -284,11 +215,11 @@ public class Targeting: NSObject {
     public func storeExternalUserId(_ externalUserId: ExternalUserId) {
         if let index = externalUserIds.firstIndex(where: {$0.source == externalUserId.source}) {
             externalUserIds[index] = externalUserId
-        }else{
+        } else {
             externalUserIds.append(externalUserId)
         }
-        StorageUtils.setExternalUserIds(value: externalUserIds)
         
+        StorageUtils.setExternalUserIds(value: externalUserIds)
     }
     /**
      * This method allows to get All External User Ids from User Defaults
@@ -296,6 +227,7 @@ public class Targeting: NSObject {
     public func fetchStoredExternalUserIds()->[ExternalUserId]? {
         return StorageUtils.getExternalUserIds()
     }
+    
     /**
      * This method allows to get External User Id from User Defaults by passing respective 'source' string as param
      */
@@ -305,6 +237,7 @@ public class Targeting: NSObject {
         }
         return externalUserId
     }
+    
     /**
      * This method allows to remove specific External User Id from User Defaults by passing respective 'source' string as param
      */
@@ -314,6 +247,7 @@ public class Targeting: NSObject {
             StorageUtils.setExternalUserIds(value: externalUserIds)
         }
     }
+    
     /**
      * This method allows to remove all the External User Ids from User Defaults
      */
