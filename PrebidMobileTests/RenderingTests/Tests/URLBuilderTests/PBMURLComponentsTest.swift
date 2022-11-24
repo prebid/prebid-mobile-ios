@@ -30,14 +30,4 @@ class PBMURLComponentsTest: XCTestCase {
         let actual = urlComponents.fullURL
         XCTAssert(expected == actual as String, "expected \(expected), got \(actual)")
     }
-    
-    //URLComponents and NSURLComponents treat square brackets as a malformed URL.
-    //Since PBMURLComponents depends on them, it will fail as well.
-    func testNegativeFailOnSquareBrackets() {
-        let traceParamDict = ["key1" : "val1", "key2" : "val2"]
-        let strURL = "https://foo.com?ad_mt=[AD_MT]"
-        
-        let urlComponents = PBMURLComponents.init(url:strURL, paramsDict:traceParamDict)
-        XCTAssert(urlComponents == nil)
-    }
 }

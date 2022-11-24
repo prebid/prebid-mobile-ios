@@ -21,13 +21,13 @@ class PathBuildersTest: XCTestCase {
     func testBaseURKPathBuilderBase() {
         XCTAssertEqual(PathBuilder.buildURL(for: "d1"), "https://d1")
         XCTAssertEqual(PathBuilder.buildURL(for: ""), "https://")
-        XCTAssertEqual(PathBuilder.buildURL(for: "😃"), "https://%F0%9F%98%83")
+        XCTAssertEqual(PathBuilder.buildURL(for: "😃"), "https://xn--h28h")
     }
 
     func testURLPathBuilderWithPath() {
         XCTAssertEqual(PathBuilder.buildURL(for: "d1", path: "/tt/"), "https://d1/tt/")
         XCTAssertEqual(PathBuilder.buildURL(for: "", path: "/ma/"), "https:///ma/")
-        XCTAssertEqual(PathBuilder.buildURL(for: "😃", path: "/v/"), "https://%F0%9F%98%83/v/")
+        XCTAssertEqual(PathBuilder.buildURL(for: "😃", path: "/v/"), "https://xn--h28h/v/")
     }
     
     func testURLPathBuilderWithPathWithQuery() {

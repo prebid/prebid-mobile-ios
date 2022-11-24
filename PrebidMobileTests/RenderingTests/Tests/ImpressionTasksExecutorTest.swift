@@ -79,8 +79,8 @@ class ImpressionTasksExecutorTest: XCTestCase {
             completion()
         }, delayInterval: 0)
         ImpressionTasksExecutor.shared.add(tasks: [task5, task6])
-        waitForExpectations(timeout: 16, handler: nil)
-        //        print("Log \(self.log)")
+        waitForExpectations(timeout: 30, handler: nil)
+        
         XCTAssertTrue(log == "startImpression is called 1\nendImpression is called 1\nstartImpression is called 2\nendImpression is called 2\nstartImpression is called 3\nendImpression is called 3\n")
     }
 }

@@ -53,7 +53,7 @@ echo -e "\n${GREEN}Running PrebidMobile unit tests${NC} \n"
 xcodebuild test \
     -workspace PrebidMobile.xcworkspace \
     -scheme "PrebidMobileTests" \
-    -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty --color --test
+    -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobile Unit Tests Passed"
@@ -66,7 +66,7 @@ echo -e "\n${GREEN}Running PrebidMobileGAMEventHandlers unit tests${NC} \n"
 xcodebuild test \
     -workspace PrebidMobile.xcworkspace  \
     -scheme "PrebidMobileGAMEventHandlersTests" \
-    -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty --color --test
+    -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobileGAMEventHandlers Unit Tests Passed"
@@ -76,7 +76,7 @@ else
 fi
 
 echo -e "\n${GREEN}Running PrebidMobileAdMobAdapters unit tests${NC} \n"
-xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileAdMobAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileAdMobAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobileAdMobAdapters Unit Tests Passed"
@@ -86,7 +86,7 @@ else
 fi
 
 echo -e "\n${GREEN}Running PrebidMobileMAXAdapters unit tests${NC} \n"
-xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileMAXAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileMAXAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobileMAXAdapters Unit Tests Passed"
