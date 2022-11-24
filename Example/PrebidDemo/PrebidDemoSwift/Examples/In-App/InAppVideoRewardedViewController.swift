@@ -32,10 +32,11 @@ class InAppVideoRewardedViewController: InterstitialBaseViewController, Rewarded
     }
     
     func createAd() {
-        // Setup Prebid ad unit
+        // 1. Create a RewardedAdUnit
         rewardedAdUnit = RewardedAdUnit(configID: storedImpVideoRewarded)
         rewardedAdUnit.delegate = self
-        // Load ad
+        
+        // 2. Load the rewarded ad
         rewardedAdUnit.loadAd()
     }
     

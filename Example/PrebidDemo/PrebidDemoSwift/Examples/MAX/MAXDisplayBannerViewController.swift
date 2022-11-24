@@ -30,57 +30,66 @@ class MAXDisplayBannerViewController: BannerBaseViewController, MAAdViewAdDelega
     
     // MAX
     private var maxAdBannerView: MAAdView!
-
+    
     override func loadView() {
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner
         createAd()
     }
-
+    
     func createAd() {
-        // Setup integration kind - AppLovin MAX
+        // 1. Create a MAAdView
         maxAdBannerView = MAAdView(adUnitIdentifier: maxAdUnitBannerRendering)
+        
+        // 2. Configure the MAAdView
         maxAdBannerView.frame = CGRect(origin: .zero, size: adSize)
         maxAdBannerView.delegate = self
         maxAdBannerView.isHidden = false
+        
+        // Add AppLovin SDK banner view to the app UI
         bannerView.addSubview(maxAdBannerView)
-        // Setup Prebid mediation ad unit
+        
+        // 3. Setup a MAXMediationBannerUtils
         maxMediationDelegate = MAXMediationBannerUtils(adView: maxAdBannerView)
+        
+        // 4. Setup a MediationBannerAdUnit
         maxAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: adSize, mediationDelegate: maxMediationDelegate)
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        
+        // 5. Make a bid request to Prebid Server
         maxAdUnit.fetchDemand { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")
-            // Load ad
+            
+            // 6. Load the banner ad
             self?.maxAdBannerView.loadAd()
         }
     }
     
     // MARK: - MAAdViewAdDelegate
-
+    
     func didLoad(_ ad: MAAd) {}
-
+    
     func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
         PrebidDemoLogger.shared.error("\(error.message)")
-
+        
         let nsError = NSError(domain: "MAX", code: error.code.rawValue, userInfo: [NSLocalizedDescriptionKey: error.message])
         maxAdUnit?.adObjectDidFailToLoadAd(adObject: maxAdBannerView!, with: nsError)
     }
-
+    
     func didFail(toDisplay ad: MAAd, withError error: MAError) {
         PrebidDemoLogger.shared.error("\(error.message)")
-
+        
         let nsError = NSError(domain: "MAX", code: error.code.rawValue, userInfo: [NSLocalizedDescriptionKey: error.message])
         maxAdUnit?.adObjectDidFailToLoadAd(adObject: maxAdBannerView!, with: nsError)
     }
-
+    
     func didDisplay(_ ad: MAAd) {}
-
+    
     func didHide(_ ad: MAAd) {}
-
+    
     func didExpand(_ ad: MAAd) {}
-
+    
     func didCollapse(_ ad: MAAd) {}
-
+    
     func didClick(_ ad: MAAd) {}
 }

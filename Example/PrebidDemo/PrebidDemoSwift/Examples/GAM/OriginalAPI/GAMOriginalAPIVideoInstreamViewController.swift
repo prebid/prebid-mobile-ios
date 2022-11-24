@@ -26,7 +26,7 @@ class GAMOriginalAPIVideoInstreamViewController:
     InstreamBaseViewController,
     IMAAdsLoaderDelegate,
     IMAAdsManagerDelegate {
-
+    
     // Prebid
     private var adUnit: VideoAdUnit!
     
@@ -92,7 +92,7 @@ class GAMOriginalAPIVideoInstreamViewController:
     func createAd() {
         // 1. Create VideoAdUnit
         adUnit = VideoAdUnit(configId: storedImpVideo, size: CGSize(width: 1,height: 1))
-       
+        
         // 2. Configure Video Parameters
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
@@ -112,7 +112,7 @@ class GAMOriginalAPIVideoInstreamViewController:
                     
                     // 5. Generate GAM Instream URI
                     let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: gamAdUnitVideo, adSlotSizes: [.Size320x480], customKeywords: prebidKeys!)
-                                        
+                    
                     // 6. Load IMA ad request
                     let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.instreamView, viewController: self)
                     let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
@@ -151,27 +151,27 @@ class GAMOriginalAPIVideoInstreamViewController:
         contentPlayer?.play()
     }
     
-// MARK: - IMAAdsManagerDelegate
-
-func adsManager(_ adsManager: IMAAdsManager, didReceive event: IMAAdEvent) {
-    if event.type == IMAAdEventType.LOADED {
-        // When the SDK notifies us that ads have been loaded, play them.
-        adsManager.start()
+    // MARK: - IMAAdsManagerDelegate
+    
+    func adsManager(_ adsManager: IMAAdsManager, didReceive event: IMAAdEvent) {
+        if event.type == IMAAdEventType.LOADED {
+            // When the SDK notifies us that ads have been loaded, play them.
+            adsManager.start()
+        }
     }
-}
-
-func adsManager(_ adsManager: IMAAdsManager, didReceive error: IMAAdError) {
-    PrebidDemoLogger.shared.error("AdsManager error: \(error.message ?? "nil")")
-    contentPlayer?.play()
-}
-
-func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager) {
-    // The SDK is going to play ads, so pause the content.
-    contentPlayer?.pause()
-}
-
-func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager) {
-    // The SDK is done playing ads (at least for now), so resume the content.
-    contentPlayer?.play()
-}
+    
+    func adsManager(_ adsManager: IMAAdsManager, didReceive error: IMAAdError) {
+        PrebidDemoLogger.shared.error("AdsManager error: \(error.message ?? "nil")")
+        contentPlayer?.play()
+    }
+    
+    func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager) {
+        // The SDK is going to play ads, so pause the content.
+        contentPlayer?.pause()
+    }
+    
+    func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager) {
+        // The SDK is done playing ads (at least for now), so resume the content.
+        contentPlayer?.play()
+    }
 }

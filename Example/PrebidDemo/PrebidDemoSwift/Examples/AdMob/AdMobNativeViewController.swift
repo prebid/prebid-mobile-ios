@@ -23,7 +23,7 @@ fileprivate let nativeStoredResponse = "response-prebid-banner-native-styles"
 fileprivate let admobRenderingNativeAdUnitId = "ca-app-pub-5922967660082475/8634069303"
 
 class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDelegate {
-
+    
     // Prebid
     private var nativeAd: NativeAd?
     private var mediationDelegate: AdMobMediationNativeUtils!
@@ -49,7 +49,6 @@ class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDele
     }
     
     // AdMob
-    private var gadRequest: GADRequest!
     private var adLoader: GADAdLoader?
     
     override func loadView() {
@@ -60,26 +59,33 @@ class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDele
     }
     
     func createAd() {
-        gadRequest = GADRequest()
+        // 1. Create a GADRequest
+        let gadRequest = GADRequest()
+        
+        // 2. Create an AdMobMediationNativeUtils
         mediationDelegate = AdMobMediationNativeUtils(gadRequest: gadRequest)
+        
+        // 3. Create a MediationNativeAdUnit
         admobMediationNativeAdUnit = MediationNativeAdUnit(configId: nativeStoredImpression, mediationDelegate: mediationDelegate)
+        
+        // 4. Configure MediationNativeAdUnit
         admobMediationNativeAdUnit.addNativeAssets(nativeRequestAssets)
         admobMediationNativeAdUnit.setContextType(.Social)
         admobMediationNativeAdUnit.setPlacementType(.FeedContent)
         admobMediationNativeAdUnit.setContextSubType(.Social)
-        
         admobMediationNativeAdUnit.addEventTracker(eventTrackers)
         
+        // 5. Make a bid request to Prebid Server
         admobMediationNativeAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
             
+            // 6. Load the native ad
             self.adLoader = GADAdLoader(adUnitID: admobRenderingNativeAdUnitId, rootViewController: self,
                                         adTypes: [ .native ], options: nil)
             self.adLoader?.delegate = self
             
-            self.adLoader?.load(self.gadRequest)
+            self.adLoader?.load(gadRequest)
         }
     }
     
@@ -96,9 +102,9 @@ class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDele
         }
         
         // FIXME: Fatal error: NSArray element failed to match the Swift Array Element type. Expected GADNativeAdImage but found GADNativeAdImage.
-//        if let image = nativeAd.images?.first {
-//            mainImageView.image = image.image
-//        }
+        //        if let image = nativeAd.images?.first {
+        //            mainImageView.image = image.image
+        //        }
     }
     
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {

@@ -20,7 +20,7 @@ fileprivate let storedImpVideoInterstitialLandscape = "imp-prebid-video-intersti
 fileprivate let storedResponseRenderingVideoInterstitialLandscape = "response-prebid-video-interstitial-landscape-with-end-card"
 
 class InAppVideoInterstitialLandscapeViewController: UIViewController {
-
+    
     // Prebid
     private var renderingInterstitial: InterstitialRenderingAdUnit!
     
@@ -30,18 +30,21 @@ class InAppVideoInterstitialLandscapeViewController: UIViewController {
         Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoInterstitialLandscape
         createAd()
     }
-
+    
     func createAd() {
-        // Setup Prebid ad unit
+        // 1. Create a InterstitialRenderingAdUnit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitialLandscape)
+        
+        // 2. Configure the InterstitialRenderingAdUnit
         renderingInterstitial.adFormats = [.video]
         renderingInterstitial.delegate = self
-        // Load ad
+        
+        // 3. Load the interstitial ad
         renderingInterstitial.loadAd()
     }
     
     // MARK: - InterstitialAdUnitDelegate
-
+    
     func interstitialDidReceiveAd(_ interstitial: InterstitialRenderingAdUnit) {
         interstitial.show(from: self)
     }
@@ -49,5 +52,5 @@ class InAppVideoInterstitialLandscapeViewController: UIViewController {
     func interstitial(_ interstitial: InterstitialRenderingAdUnit, didFailToReceiveAdWithError error: Error?) {
         PrebidDemoLogger.shared.error("Interstitial Rendering ad unit did fail to receive ad with error: \(error)")
     }
-
+    
 }

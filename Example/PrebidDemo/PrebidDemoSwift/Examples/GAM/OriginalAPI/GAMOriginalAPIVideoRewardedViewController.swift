@@ -33,8 +33,6 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
         super.loadView()
         
         Prebid.shared.storedAuctionResponse = storedResponseVideoRewarded
-        
-        // Setup Prebid ad unit
         createAd()
     }
     
@@ -48,11 +46,11 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         adUnit.parameters = parameters
-       
+        
         // 3. Make a bid request to Prebid Server
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
-           
+            
             // 4. Load a GAM Rewarded Ad
             GADRewardedAd.load(withAdUnitID: gamAdUnitVideoRewardedOriginal, request: self?.gamRequest) { [weak self] ad, error in
                 guard let self = self else { return }

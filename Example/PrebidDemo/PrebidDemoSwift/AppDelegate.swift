@@ -42,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        
         // ===== CONFIGURE: Prebid
         
         Targeting.shared.sourceapp = "PrebidDemoSwift"

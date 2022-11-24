@@ -30,7 +30,6 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
     
     // AdMob
     private var gadBanner: GADBannerView!
-    private let gadRequest = GADRequest()
     
     override func loadView() {
         super.loadView()
@@ -40,29 +39,48 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
     }
     
     func createAd() {
-        // Setup GADBannerView
+        // 1. Create a GADRequest
+        let gadRequest = GADRequest()
+        
+        // 2. Create a GADBannerView
         gadBanner = GADBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gadBanner.adUnitID = adMobAdUnitDisplayBannerRendering
         gadBanner.delegate = self
         gadBanner.rootViewController = self
+        
+        // Add GMA SDK banner view to the app UI
         bannerView.addSubview(gadBanner)
-        // Setup Prebid banner mediation ad unit
+        
+        // 3. Create an AdMobMediationBannerUtils
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
-        prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: adSize, mediationDelegate: mediationDelegate)
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        
+        // 4. Create a MediationBannerAdUnit
+        prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(
+            configID: storedImpDisplayBanner,
+            size: adSize,
+            mediationDelegate: mediationDelegate
+        )
+        
+        // 5. Make a bid request to Prebid Server
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
-            // Load ad
-            self?.gadBanner.load(self?.gadRequest)
+            
+            // 6. Load ad
+            self?.gadBanner.load(gadRequest)
         }
     }
     
     //MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-        
+        AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
+            guard let bannerView = bannerView as? GAMBannerView else { return }
+            bannerView.resize(GADAdSizeFromCGSize(size))
+        }, failure: { (error) in
+            PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
+        })
     }
-
+    
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         PrebidDemoLogger.shared.error("AdMob did fail to receive ad with error: \(error)")
         prebidAdMobMediaitonAdUnit?.adObjectDidFailToLoadAd(adObject: gadBanner, with: error)

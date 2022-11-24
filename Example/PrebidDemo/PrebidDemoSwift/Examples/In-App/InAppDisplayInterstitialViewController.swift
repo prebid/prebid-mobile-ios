@@ -23,7 +23,7 @@ class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUn
     
     // Prebid
     private var renderingInterstitial: InterstitialRenderingAdUnit!
-
+    
     override func loadView() {
         super.loadView()
         
@@ -32,16 +32,19 @@ class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUn
     }
     
     func createAd() {
-        // Setup Prebid ad unit
+        // 1. Create a InterstitialRenderingAdUnit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial)
+        
+        // 2. Configure the InterstitialRenderingAdUnit
         renderingInterstitial.adFormats = [.display]
         renderingInterstitial.delegate = self
-        // Load ad
+        
+        // 3. Load the interstitial ad
         renderingInterstitial.loadAd()
     }
     
     // MARK: - InterstitialAdUnitDelegate
-
+    
     func interstitialDidReceiveAd(_ interstitial: InterstitialRenderingAdUnit) {
         interstitial.show(from: self)
     }

@@ -37,7 +37,7 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
     }
     
     func createAd() {
-        // 1. Create an Interstitial Ad Unit
+        // 1. Create an InterstitialAdUnit
         adUnit = InterstitialAdUnit(configId: storedImpDisplayInterstitial, minWidthPerc: 60, minHeightPerc: 70)
         
         // 2. Make a bid request to Prebid Server
@@ -53,7 +53,7 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
                     PrebidDemoLogger.shared.error("Failed to load interstitial ad with error: \(error.localizedDescription)")
                 } else if let ad = ad {
                     
-                    // 4. Present an the interstitial ad
+                    // 4. Present the interstitial ad
                     ad.fullScreenContentDelegate = self
                     ad.present(fromRootViewController: self)
                 }

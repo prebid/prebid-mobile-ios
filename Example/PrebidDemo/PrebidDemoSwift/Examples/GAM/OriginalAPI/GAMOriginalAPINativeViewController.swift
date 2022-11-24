@@ -68,7 +68,7 @@ class GAMOriginalAPINativeViewController:
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
-
+        
         // 2. Make a bid request
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             guard let self = self else { return }
@@ -87,7 +87,7 @@ class GAMOriginalAPINativeViewController:
     func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
         ["11934135"]
     }
-
+    
     func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
         Utils.shared.delegate = self
         Utils.shared.findNative(adObject: customNativeAd)
@@ -99,44 +99,44 @@ class GAMOriginalAPINativeViewController:
         PrebidDemoLogger.shared.error("GAM did fail to receive ad with error: \(error)")
     }
     
-// MARK: - NativeAdDelegate
-
-func nativeAdLoaded(ad: NativeAd) {
-    nativeAd = ad
-    titleLabel.text = ad.title
-    bodyLabel.text = ad.text
+    // MARK: - NativeAdDelegate
     
-    if let iconString = ad.iconUrl {
-        ImageHelper.downloadImageAsync(iconString) { result in
-            if case let .success(icon) = result {
-                DispatchQueue.main.async {
-                    self.iconView.image = icon
+    func nativeAdLoaded(ad: NativeAd) {
+        nativeAd = ad
+        titleLabel.text = ad.title
+        bodyLabel.text = ad.text
+        
+        if let iconString = ad.iconUrl {
+            ImageHelper.downloadImageAsync(iconString) { result in
+                if case let .success(icon) = result {
+                    DispatchQueue.main.async {
+                        self.iconView.image = icon
+                    }
                 }
             }
         }
-    }
-    
-    if let imageString = ad.imageUrl {
-        ImageHelper.downloadImageAsync(imageString) { result in
-            if case let .success(image) = result {
-                DispatchQueue.main.async {
-                    self.mainImageView.image = image
+        
+        if let imageString = ad.imageUrl {
+            ImageHelper.downloadImageAsync(imageString) { result in
+                if case let .success(image) = result {
+                    DispatchQueue.main.async {
+                        self.mainImageView.image = image
+                    }
                 }
             }
         }
+        
+        callToActionButton.setTitle(ad.callToAction, for: .normal)
+        sponsoredLabel.text = ad.sponsoredBy
+        
+        nativeAd.registerView(view: view, clickableViews: [callToActionButton])
     }
     
-    callToActionButton.setTitle(ad.callToAction, for: .normal)
-    sponsoredLabel.text = ad.sponsoredBy
+    func nativeAdNotFound() {
+        PrebidDemoLogger.shared.error("Native ad not found")
+    }
     
-    nativeAd.registerView(view: view, clickableViews: [callToActionButton])
-}
-
-func nativeAdNotFound() {
-    PrebidDemoLogger.shared.error("Native ad not found")
-}
-
-func nativeAdNotValid() {
-    PrebidDemoLogger.shared.error("Native ad not valid")
-}
+    func nativeAdNotValid() {
+        PrebidDemoLogger.shared.error("Native ad not valid")
+    }
 }

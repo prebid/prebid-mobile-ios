@@ -40,28 +40,39 @@ class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDel
     }
     
     func createAd() {
-        // Setup GADBannerView
+        // 1. Create a GADBannerView
         gadBanner = GADBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gadBanner.adUnitID = adMobAdUnitDisplayBannerRendering
         gadBanner.delegate = self
         gadBanner.rootViewController = self
-        bannerView.backgroundColor = .clear
+        
+        // Add GMA SDK banner view to the app UI
         bannerView.addSubview(gadBanner)
-        // Setup Prebid banner mediation ad unit
+        bannerView.backgroundColor = .clear
+        
+        // 2. Create an AdMobMediationBannerUtils
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
+        
+        // 3. Create a MediationBannerAdUnit
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: adSize, mediationDelegate: mediationDelegate)
-        // Trigger a call to Prebid Server to retrieve demand for this Prebid Mobile ad unit
+        
+        // 4. Make a bid request to Prebid Server
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
-            // Load ad
+            // 5. Load the banner ad
             self?.gadBanner.load(self?.gadRequest)
         }
     }
     
-    //MARK: - GADBannerViewDelegate
+    // MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-        
+        AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
+            guard let bannerView = bannerView as? GAMBannerView else { return }
+            bannerView.resize(GADAdSizeFromCGSize(size))
+        }, failure: { (error) in
+            PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
+        })
     }
     
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
