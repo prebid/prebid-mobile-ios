@@ -69,6 +69,15 @@ class AdUnitSuccessorTests: XCTestCase {
         checkDefault(adUnit: adUnit)
         XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
         XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
+        XCTAssertTrue(adUnit.adUnitConfig.adFormats == [.display])
+    }
+    
+    func testInterstitialAdUnitAdSize() {
+        //when
+        let adUnit = InterstitialAdUnit(configId: Constants.configID1)
+        
+        //then
+        XCTAssertTrue(adUnit.adUnitConfig.adSize == CGSize.zero)
     }
     
     func testInterstitialAdUnitConvenienceCreation() {
@@ -94,6 +103,12 @@ class AdUnitSuccessorTests: XCTestCase {
         checkDefault(adUnit: adUnit)
         XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
         XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
+        XCTAssertTrue(adUnit.adUnitConfig.adFormats == [.video])
+    }
+    
+    func testVideoInterstitialAdUnitConvenienceCreation() {
+        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
+        XCTAssertTrue(adUnit.adUnitConfig.minSizePerc?.cgSizeValue.width == 50 && adUnit.adUnitConfig.minSizePerc?.cgSizeValue.height == 70)
     }
     
     //MARK: - RewardedVideoAdUnit
@@ -105,6 +120,12 @@ class AdUnitSuccessorTests: XCTestCase {
         checkDefault(adUnit: adUnit)
         XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
         XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
+        XCTAssertTrue(adUnit.adUnitConfig.adFormats == [.video])
+    }
+    
+    func testVideoRewardedAdUnitConvenienceCreation() {
+        let adUnit = RewardedVideoAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
+        XCTAssertTrue(adUnit.adUnitConfig.minSizePerc?.cgSizeValue.width == 50 && adUnit.adUnitConfig.minSizePerc?.cgSizeValue.height == 70)
     }
     
     //MARK: - VideoBaseAdUnit
@@ -120,7 +141,6 @@ class AdUnitSuccessorTests: XCTestCase {
         for videoBaseAdUnit in videoBaseAdUnitArr {
             checkVideoParametersHelper(videoBaseAdUnit)
         }
-        
     }
     
     //MARK: - private zone
