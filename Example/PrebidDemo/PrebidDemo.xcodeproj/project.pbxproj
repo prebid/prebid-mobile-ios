@@ -44,8 +44,6 @@
 		530E7216292F8DC60025B44D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36044292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		530E7217292F8DC70025B44D /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36045292EACF0001C1183 /* PrebidMobileMAXAdapters.framework */; };
 		530E7218292F8DC70025B44D /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36045292EACF0001C1183 /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		530E7219292F8DC90025B44D /* TestUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3604C292EACF9001C1183 /* TestUtils.framework */; };
-		530E721A292F8DC90025B44D /* TestUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3604C292EACF9001C1183 /* TestUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		533E0FBE29111B36000CC24F /* PrebidGMASDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FBD29111B36000CC24F /* PrebidGMASDKTests.swift */; };
 		533E0FC529111D7E000CC24F /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FC429111D7E000CC24F /* LoggerHelper.swift */; };
 		5344E69F2922796000A1F582 /* InAppNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E69E2922796000A1F582 /* InAppNativeViewController.swift */; };
@@ -141,8 +139,6 @@
 		53F35F512926D702001C1183 /* MAXNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F35F502926D702001C1183 /* MAXNativeAdView.xib */; };
 		53F35F57292792D6001C1183 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F56292792D6001C1183 /* SettingsViewController.m */; };
 		53F36047292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		53F3604E292EACF9001C1183 /* TestUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3604C292EACF9001C1183 /* TestUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		53F36058292EAD1C001C1183 /* TestUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36057292EAD1C001C1183 /* TestUtils.framework */; };
 		9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49027B561A9003DCCCC /* TestExtensions.swift */; };
 		9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */; };
 		9205E49627B563B4003DCCCC /* StubbingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49527B563B4003DCCCC /* StubbingHandler.swift */; };
@@ -168,7 +164,6 @@
 			files = (
 				530E7214292F8DC40025B44D /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 				530E7211292F8DC30025B44D /* PrebidMobile.framework in Embed Frameworks */,
-				530E721A292F8DC90025B44D /* TestUtils.framework in Embed Frameworks */,
 				530E7216292F8DC60025B44D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				530E7218292F8DC70025B44D /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
 			);
@@ -185,7 +180,6 @@
 				53992915292668520078053C /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				53992917292668520078053C /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
 				53F36047292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
-				53F3604E292EACF9001C1183 /* TestUtils.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,7 +407,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				530E7219292F8DC90025B44D /* TestUtils.framework in Frameworks */,
 				530E7210292F8DC30025B44D /* PrebidMobile.framework in Frameworks */,
 				530E7215292F8DC60025B44D /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
 				530E7217292F8DC70025B44D /* PrebidMobileMAXAdapters.framework in Frameworks */,
@@ -431,7 +424,6 @@
 				2235279D5C42ED56993F7486 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */,
 				53992912292668520078053C /* PrebidMobileAdMobAdapters.framework in Frameworks */,
 				53992916292668520078053C /* PrebidMobileMAXAdapters.framework in Frameworks */,
-				53F36058292EAD1C001C1183 /* TestUtils.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
