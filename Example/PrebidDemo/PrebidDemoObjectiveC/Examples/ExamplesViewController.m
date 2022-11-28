@@ -126,7 +126,7 @@ NSString * const cellID = @"exampleCell";
         [self filterTestCases];
     }];
     
-    NSMutableArray<UIAction *> * integrationKindActions = [[NSMutableArray alloc] initWithObjects:allIntegrationKindsAction, nil];
+    NSMutableArray<UIAction *> * integrationKindActions = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < IntegrationKindAll; ++i) {
         [integrationKindActions addObject:[UIAction actionWithTitle:[IntegrationKindDescriptor getDescriptionForIntegrationKind:(IntegrationKind)i] image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
@@ -134,6 +134,8 @@ NSString * const cellID = @"exampleCell";
             [self filterTestCases];
         }]];
     }
+    
+    [integrationKindActions addObject:allIntegrationKindsAction];
     
     self.integrationKindPicker.showsMenuAsPrimaryAction = YES;
     self.integrationKindPicker.changesSelectionAsPrimaryAction = YES;
@@ -164,6 +166,10 @@ NSString * const cellID = @"exampleCell";
     
     UIMenu *adFormatMenu = [UIMenu menuWithChildren:adFormatsActions];
     self.adFormatPicker.menu = adFormatMenu;
+    
+    self.currentIntegrationKind = IntegrationKindGAMOriginal;
+    self.currentAdFormat = AdFormatAll;
+    [self filterTestCases];
 }
 
 @end
