@@ -151,7 +151,14 @@ public class Targeting: NSObject {
         get { UserConsentDataManager.shared.subjectToCOPPA }
     }
     
+    // MARK: - GPP
+    
+    public var gppString: String? {
+        UserConsentDataManager.shared.gppString
+    }
+    
     // MARK: - GDPR
+    
     /**
      * The boolean value set by the user to collect user data
      */

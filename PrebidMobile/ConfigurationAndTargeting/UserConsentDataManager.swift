@@ -41,6 +41,9 @@ public class UserConsentDataManager: NSObject {
     // CCPA
     let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
     
+    // GPP
+    let IABGPP_GppString = "IABGPP_GppString"
+    
     private override init() {
         super.init()
     }
@@ -59,6 +62,11 @@ public class UserConsentDataManager: NSObject {
     // СCPA
     public var usPrivacyString: String? {
         UserDefaults.standard.getObjectFromUserDefaults(forKey: IABUSPrivacy_StringKey)
+    }
+    
+    // GPP
+    public var gppString: String? {
+        return UserDefaults.standard.getObjectFromUserDefaults(forKey: IABGPP_GppString)
     }
     
     // MARK: - GDPR

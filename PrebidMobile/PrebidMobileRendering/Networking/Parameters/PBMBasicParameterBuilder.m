@@ -119,6 +119,7 @@
     
     bidRequest.regs.coppa = self.targeting.coppa;
     bidRequest.regs.ext[@"gdpr"] = [self.targeting getSubjectToGDPR];
+    bidRequest.regs.ext[@"gpp"] = [self.targeting gppString];
     
     [self appendFormatSpecificParametersForRequest:bidRequest];
 }
