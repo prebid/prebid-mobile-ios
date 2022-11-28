@@ -143,9 +143,11 @@
 		9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */; };
 
 		9205E49627B563B4003DCCCC /* StubbingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49527B563B4003DCCCC /* StubbingHandler.swift */; };
+		C324CF5A29350A1F008DAA20 /* BannerVideoAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C324CF5929350A1F008DAA20 /* BannerVideoAdsTest.swift */; };
+		C324CF5C29350A23008DAA20 /* InterstitialVideoAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C324CF5B29350A23008DAA20 /* InterstitialVideoAdsTest.swift */; };
+		C324CF5E29350A25008DAA20 /* RewardedVideoAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C324CF5D29350A25008DAA20 /* RewardedVideoAdsTest.swift */; };
 		C3781483292FEA5A00870845 /* BaseAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378147C292FEA5A00870845 /* BaseAdsTest.swift */; };
-		C3781484292FEA5A00870845 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378147E292FEA5A00870845 /* Constants.swift */; };
-		C3781485292FEA5A00870845 /* VideoAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378147F292FEA5A00870845 /* VideoAdsTest.swift */; };
+		C3781484292FEA5A00870845 /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378147E292FEA5A00870845 /* TestCases.swift */; };
 		C3781486292FEA5A00870845 /* NativeAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3781480292FEA5A00870845 /* NativeAdsTest.swift */; };
 		C3781487292FEA5A00870845 /* InterstitialAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3781481292FEA5A00870845 /* InterstitialAdsTest.swift */; };
 		C3781488292FEA5B00870845 /* BannerAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3781482292FEA5A00870845 /* BannerAdsTest.swift */; };
@@ -408,10 +410,12 @@
 		A9A4A80EA5AE7DC6151531C0 /* Pods-PrebidDemoObjectiveC_Old.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoObjectiveC_Old.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoObjectiveC_Old/Pods-PrebidDemoObjectiveC_Old.debug.xcconfig"; sourceTree = "<group>"; };
 		B7B36D91CB781AAC3B2E9CED /* Pods_PrebidDemoObjectiveC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoObjectiveC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA2C237381964CC29C2EC365 /* Pods-PrebidDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		C324CF5929350A1F008DAA20 /* BannerVideoAdsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerVideoAdsTest.swift; sourceTree = "<group>"; };
+		C324CF5B29350A23008DAA20 /* InterstitialVideoAdsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialVideoAdsTest.swift; sourceTree = "<group>"; };
+		C324CF5D29350A25008DAA20 /* RewardedVideoAdsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoAdsTest.swift; sourceTree = "<group>"; };
 		C3781471292FE9FD00870845 /* PrebidDemoSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidDemoSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C378147C292FEA5A00870845 /* BaseAdsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseAdsTest.swift; path = ../../../../PrebidDemoSwiftUITests/BaseAdsTest.swift; sourceTree = "<group>"; };
-		C378147E292FEA5A00870845 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		C378147F292FEA5A00870845 /* VideoAdsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoAdsTest.swift; path = ../../../../PrebidDemoSwiftUITests/VideoAdsTest.swift; sourceTree = "<group>"; };
+		C378147E292FEA5A00870845 /* TestCases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCases.swift; sourceTree = "<group>"; };
 		C3781480292FEA5A00870845 /* NativeAdsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NativeAdsTest.swift; path = ../../../../PrebidDemoSwiftUITests/NativeAdsTest.swift; sourceTree = "<group>"; };
 		C3781481292FEA5A00870845 /* InterstitialAdsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterstitialAdsTest.swift; path = ../../../../PrebidDemoSwiftUITests/InterstitialAdsTest.swift; sourceTree = "<group>"; };
 		C3781482292FEA5A00870845 /* BannerAdsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerAdsTest.swift; path = ../../../../PrebidDemoSwiftUITests/BannerAdsTest.swift; sourceTree = "<group>"; };
@@ -1001,6 +1005,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C324CF5F29350A36008DAA20 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				C324CF5D29350A25008DAA20 /* RewardedVideoAdsTest.swift */,
+				C324CF5B29350A23008DAA20 /* InterstitialVideoAdsTest.swift */,
+				C324CF5929350A1F008DAA20 /* BannerVideoAdsTest.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		C3781472292FE9FD00870845 /* PrebidDemoSwiftUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1008,8 +1022,8 @@
 				C378147C292FEA5A00870845 /* BaseAdsTest.swift */,
 				C3781481292FEA5A00870845 /* InterstitialAdsTest.swift */,
 				C3781480292FEA5A00870845 /* NativeAdsTest.swift */,
+				C324CF5F29350A36008DAA20 /* Video */,
 				C378147D292FEA5A00870845 /* Utils */,
-				C378147F292FEA5A00870845 /* VideoAdsTest.swift */,
 			);
 			path = PrebidDemoSwiftUITests;
 			sourceTree = "<group>";
@@ -1017,7 +1031,7 @@
 		C378147D292FEA5A00870845 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C378147E292FEA5A00870845 /* Constants.swift */,
+				C378147E292FEA5A00870845 /* TestCases.swift */,
 			);
 			name = Utils;
 			path = ../../../../PrebidDemoSwiftUITests/Utils;
@@ -1489,12 +1503,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3781485292FEA5A00870845 /* VideoAdsTest.swift in Sources */,
+				C324CF5E29350A25008DAA20 /* RewardedVideoAdsTest.swift in Sources */,
+				C324CF5A29350A1F008DAA20 /* BannerVideoAdsTest.swift in Sources */,
 				C3781487292FEA5A00870845 /* InterstitialAdsTest.swift in Sources */,
 				C3781488292FEA5B00870845 /* BannerAdsTest.swift in Sources */,
 				C3781486292FEA5A00870845 /* NativeAdsTest.swift in Sources */,
+				C324CF5C29350A23008DAA20 /* InterstitialVideoAdsTest.swift in Sources */,
 				C3781483292FEA5A00870845 /* BaseAdsTest.swift in Sources */,
-				C3781484292FEA5A00870845 /* Constants.swift in Sources */,
+				C3781484292FEA5A00870845 /* TestCases.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
