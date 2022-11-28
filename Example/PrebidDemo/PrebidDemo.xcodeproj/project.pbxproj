@@ -141,7 +141,6 @@
 		53F36047292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49027B561A9003DCCCC /* TestExtensions.swift */; };
 		9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */; };
-		9205E49627B563B4003DCCCC /* StubbingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49527B563B4003DCCCC /* StubbingHandler.swift */; };
 		FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4E0231EB4BB00CAA05B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -383,7 +382,6 @@
 		725E7FE27DFBC5E532A78D55 /* Pods-PrebidDemoObjectiveC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoObjectiveC.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC.release.xcconfig"; sourceTree = "<group>"; };
 		9205E49027B561A9003DCCCC /* TestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExtensions.swift; sourceTree = "<group>"; };
 		9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extensions.swift"; sourceTree = "<group>"; };
-		9205E49527B563B4003DCCCC /* StubbingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingHandler.swift; sourceTree = "<group>"; };
 		924F663127FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		924F663527FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		929638EB27AC278600D30F3D /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -639,7 +637,6 @@
 		533E0FC129111B64000CC24F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				9205E49527B563B4003DCCCC /* StubbingHandler.swift */,
 				533E0FC429111D7E000CC24F /* LoggerHelper.swift */,
 			);
 			path = Helpers;
@@ -1411,7 +1408,6 @@
 				FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */,
 				9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */,
 				9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */,
-				9205E49627B563B4003DCCCC /* StubbingHandler.swift in Sources */,
 				533E0FC529111D7E000CC24F /* LoggerHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
