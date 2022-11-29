@@ -14,9 +14,9 @@ class InterstitialVideoAds: BaseAdsTest {
     public func testInAppVideoInterstitialAd() {
         testAd(testCase: testCases.inAppVideoInterstitialCase)
     }
-//    public func testGamOriginalVideoInterstitialAd() {
-//        testAd(testCase: testCases.gamOriginalVideoInterstitialCase)
-//    }
+    public func testGamOriginalVideoInterstitialAd() {
+        testAd(testCase: testCases.gamOriginalVideoInterstitialCase)
+    }
     public func testGamRenderingVideoInterstitialAd() {
         testAd(testCase: testCases.gamVideoInterstitialCase)
     }

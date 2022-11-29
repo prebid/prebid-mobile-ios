@@ -14,9 +14,9 @@ class BannerVideoAds: BaseAdsTest {
     public func testInAppVideoBannerAd() {
         testAd(testCase: testCases.inAppVideoBannerCase)
     }
-//    public func testGamOriginalVideoBannerAd() {
-//        testAd(testCase: testCases.gamOriginalVideoBannerCase)
-//    }
+    public func testGamOriginalVideoBannerAd() {
+        testAd(testCase: testCases.gamOriginalVideoBannerCase)
+    }
     public func testGamRenderingVideoBannerAd() {
         testAd(testCase: testCases.gamVideoBannerCase)
     }
