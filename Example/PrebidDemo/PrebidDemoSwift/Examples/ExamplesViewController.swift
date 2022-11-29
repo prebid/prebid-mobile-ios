@@ -56,7 +56,7 @@ class ExamplesViewController: UIViewController {
             }
         }
         
-        integrationKindPicker.setupPullDown(with: integrationKindActions + [allIntegrationKindsAction])
+        integrationKindPicker.setupPullDown(with: [allIntegrationKindsAction] + integrationKindActions)
         
         let allAdFormatsAction = UIAction(title: "All") { [weak self] _ in
             self?.currentAdFormat = nil
@@ -72,8 +72,8 @@ class ExamplesViewController: UIViewController {
         
         adFormatPicker.setupPullDown(with: [allAdFormatsAction] + adFormatActions)
         
-        currentIntegrationKind = IntegrationKind.gamOriginal
-        filterTestCases()
+//        currentIntegrationKind = IntegrationKind.gamOriginal
+//        filterTestCases()
     }
     
     private func filterTestCases() {
