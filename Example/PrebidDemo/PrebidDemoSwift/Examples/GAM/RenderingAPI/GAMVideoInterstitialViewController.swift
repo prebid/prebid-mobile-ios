@@ -19,7 +19,7 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
 fileprivate let storedImpVideoInterstitial = "imp-prebid-video-interstitial-320-480"
-fileprivate let storedResponseOriginalVideoInterstitial = "response-prebid-video-interstitial-320-480-original-api"
+fileprivate let storedResponseOriginalVideoInterstitial = "response-prebid-video-interstitial-320-480"
 fileprivate let gamAdUnitVideoInterstitialRendering = "/21808260008/prebid_oxb_interstitial_video"
 
 class GAMVideoInterstitialViewController: InterstitialBaseViewController, InterstitialAdUnitDelegate {

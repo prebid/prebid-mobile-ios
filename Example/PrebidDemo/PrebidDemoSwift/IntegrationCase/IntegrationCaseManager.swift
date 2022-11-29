@@ -71,15 +71,6 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            title: "GAM (Original API) Native Banner",
-            integrationKind: .gamOriginal,
-            adFormat: .nativeBanner,
-            configurationClosure: {
-                GAMOriginalAPINativeBannerViewController()
-            }
-        ),
-        
-        IntegrationCase(
             title: "GAM (Original API) Native",
             integrationKind: .gamOriginal,
             adFormat: .native,
@@ -88,6 +79,15 @@ struct IntegrationCaseManager {
             }
         ),
         
+        IntegrationCase(
+            title: "GAM (Original API) Native Banner",
+            integrationKind: .gamOriginal,
+            adFormat: .nativeBanner,
+            configurationClosure: {
+                GAMOriginalAPINativeBannerViewController()
+            }
+        ),
+    
         IntegrationCase(
             title: "GAM (Original API) Video In-stream 320x480",
             integrationKind: .gamOriginal,
