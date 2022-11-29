@@ -34,6 +34,7 @@ enum TestCaseTag : String, Comparable {
     
     
     //SDK (Integration)
+    case originalAPI = "Original API"
     case inapp  = "In-App"
     case gam    = "GAM"
     case admob = "AdMob"
@@ -49,7 +50,7 @@ enum TestCaseTag : String, Comparable {
     }
     
     static var integrations: [TestCaseTag] {
-        return [.inapp, .gam, .admob, .max]
+        return [.originalAPI, .inapp, .gam, .admob, .max]
     }
     
     // MARK: - Util methods
