@@ -34,6 +34,10 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         logToFile = nil
         targeting.coppa = nil
         
+        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABGPP_HDR_GppString)
+        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABGPP_GppSID)
+        UserConsentDataManager.shared.subjectToCOPPA = nil
+        
         super.tearDown()
     }
     
@@ -352,6 +356,32 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         //Check Regs
         XCTAssertNil(bidRequest.regs.coppa)
+    }
+    
+    func testParameterBuilderRegs() {
+        // Set Regs
+        let gppString = "gppString"
+        let gppSID = "gppSID"
+        UserDefaults.standard.set(gppString, forKey: UserConsentDataManager.shared.IABGPP_HDR_GppString)
+        UserDefaults.standard.set(gppSID, forKey: UserConsentDataManager.shared.IABGPP_GppSID)
+        UserConsentDataManager.shared.subjectToCOPPA = true
+        
+        // Create Builder
+        let adConfiguration = AdConfiguration()
+        let sdkConfiguration = Prebid.mock
+        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+                                               sdkConfiguration:sdkConfiguration,
+                                               sdkVersion:"MOCK_SDK_VERSION",
+                                               targeting: targeting)
+        
+        // Run Builder
+        let bidRequest = PBMORTBBidRequest()
+        builder.build(bidRequest)
+        
+        // Check Regs
+        XCTAssertTrue(bidRequest.regs.coppa == 1)
+        XCTAssertTrue((bidRequest.regs.ext!["gpp"] as! String) == gppString)
+        XCTAssertTrue((bidRequest.regs.ext!["gpp_sid"] as! String) == gppSID)
     }
     
     // MARK: - Helpers

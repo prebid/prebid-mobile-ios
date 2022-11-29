@@ -42,7 +42,8 @@ public class UserConsentDataManager: NSObject {
     let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
     
     // GPP
-    let IABGPP_GppString = "IABGPP_GppString"
+    let IABGPP_HDR_GppString = "IABGPP_HDR_GppString"
+    let IABGPP_GppSID = "IABGPP_GppSID"
     
     private override init() {
         super.init()
@@ -64,9 +65,14 @@ public class UserConsentDataManager: NSObject {
         UserDefaults.standard.getObjectFromUserDefaults(forKey: IABUSPrivacy_StringKey)
     }
     
-    // GPP
-    public var gppString: String? {
-        return UserDefaults.standard.getObjectFromUserDefaults(forKey: IABGPP_GppString)
+    // MARK: - GPP
+    
+    public var gppHDRString: String? {
+        UserDefaults.standard.getObjectFromUserDefaults(forKey: IABGPP_HDR_GppString)
+    }
+    
+    public var gppSID: String? {
+        UserDefaults.standard.getObjectFromUserDefaults(forKey: IABGPP_GppSID)
     }
     
     // MARK: - GDPR

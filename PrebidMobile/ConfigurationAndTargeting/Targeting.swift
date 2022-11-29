@@ -153,8 +153,12 @@ public class Targeting: NSObject {
     
     // MARK: - GPP
     
-    public var gppString: String? {
-        UserConsentDataManager.shared.gppString
+    public var gppHDRString: String? {
+        UserConsentDataManager.shared.gppHDRString
+    }
+    
+    public var gppSID: String? {
+        UserConsentDataManager.shared.gppSID
     }
     
     // MARK: - GDPR
