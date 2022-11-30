@@ -460,6 +460,27 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: nativeController)
                 setupCustomParams(for: nativeController.prebidConfigId)
             }),
+            
+            // MARK: ---- In-Stream (Original API)
+            
+            TestCase(title: "Instream Video (GAM Original) [OK, PUC]",
+                     tags: [.instream, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let instreamController = PrebidOriginalAPIVideoInstreamViewController(rootController: adapterVC)
+                instreamController.videoContentURL = "https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
+                instreamController.storedResponseVideo = "response-prebid-video-interstitial-320-480"
+                instreamController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
+                instreamController.gamAdUnitVideo = "/21808260008/prebid_oxb_interstitial_video"
+                         
+                adapterVC.setup(adapter: instreamController)
+                setupCustomParams(for: instreamController.prebidConfigId)
+            }),
         
             // MARK: ---- Banner (In-App) ----
             

@@ -33,6 +33,7 @@
 		5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */; };
 		5397BD2C2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */; };
 		5397BD2E2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */; };
+		5397BD322937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD312937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift */; };
 		5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */; };
 		5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7A2100D59000B46B43 /* LaunchScreen.xib */; };
 		5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7C2100D59000B46B43 /* Main.storyboard */; };
@@ -242,6 +243,7 @@
 		5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoRewardedController.swift; sourceTree = "<group>"; };
 		5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPINativeBannerController.swift; sourceTree = "<group>"; };
 		5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPINativeController.swift; sourceTree = "<group>"; };
+		5397BD312937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoInstreamViewController.swift; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
 		5B1BDB792100D59000B46B43 /* PrebidMobileDemoRendering-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRendering-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B1BDB7B2100D59000B46B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */,
 				5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */,
 				5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */,
+				5397BD312937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift */,
 			);
 			path = OriginalAPI;
 			sourceTree = "<group>";
@@ -1139,6 +1142,7 @@
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework/GoogleInteractiveMediaAds",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1149,6 +1153,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1279,6 +1284,7 @@
 				5B209B4A21075E0A00C0F5CE /* BaseConfigurationController.swift in Sources */,
 				92C4E60B27A2F5D900738370 /* NativeAsset+Extensions.swift in Sources */,
 				92102C6127B0F2FE003F12B2 /* PrebidGAMNativeAdController.swift in Sources */,
+				5397BD322937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift in Sources */,
 				92E92502276B299F002B57F3 /* PrebidAdMobBannerViewController.swift in Sources */,
 				5BCCA3D62136D2E800DA3B5A /* ConfigurableViewController.swift in Sources */,
 				5B1CF8302105E91000238340 /* ArrayExtension.swift in Sources */,
