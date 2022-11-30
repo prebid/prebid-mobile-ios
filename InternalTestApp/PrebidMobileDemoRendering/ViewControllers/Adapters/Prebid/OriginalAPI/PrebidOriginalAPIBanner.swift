@@ -30,6 +30,8 @@ class PrebidOriginalAPIBanner:
     
     var refreshInterval: TimeInterval = 0
     var adSize = CGSize.zero
+    var additionalSizes: [CGSize]?
+    var gamSizes = [GADAdSize]()
     
     // Prebid
     private var adUnit: BannerAdUnit!
@@ -71,13 +73,19 @@ class PrebidOriginalAPIBanner:
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
+        
+        if let additionalSizes = additionalSizes {
+            adUnit.addAdditionalSize(sizes: additionalSizes)
+        }
+        
         adUnit.setAutoRefreshMillis(time: refreshInterval)
         
         let parameters = BannerParameters()
         parameters.api = [Signals.Api.MRAID_2]
         adUnit.parameters = parameters
         
-        gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
+        gamBanner = GAMBannerView(adSize: gamSizes.first ?? GADAdSizeFromCGSize(adSize))
+        gamBanner.validAdSizes = gamSizes.map(NSValueFromGADAdSize)
         gamBanner.adUnitID = adUnitID
         gamBanner.rootViewController = rootController
         gamBanner.delegate = self
@@ -143,9 +151,9 @@ class PrebidOriginalAPIBanner:
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         bannerViewDidReceiveAd.isEnabled = true
         reloadButton.isEnabled = true
-        
-        rootController?.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = adSize.width
-        rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = adSize.height
+        print(bannerView.adSize.size)
+        rootController?.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = bannerView.adSize.size.width
+        rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height
         
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
             guard let bannerView = bannerView as? GAMBannerView else { return }
