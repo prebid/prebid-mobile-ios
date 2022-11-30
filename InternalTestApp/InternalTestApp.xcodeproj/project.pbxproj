@@ -30,6 +30,7 @@
 		5397BD2429375FE300ABDA22 /* PrebidOriginalAPIVideoBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2329375FE300ABDA22 /* PrebidOriginalAPIVideoBannerController.swift */; };
 		5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */; };
 		5397BD28293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD27293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift */; };
+		5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */; };
 		5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */; };
 		5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7A2100D59000B46B43 /* LaunchScreen.xib */; };
 		5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7C2100D59000B46B43 /* Main.storyboard */; };
@@ -236,6 +237,7 @@
 		5397BD2329375FE300ABDA22 /* PrebidOriginalAPIVideoBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoBannerController.swift; sourceTree = "<group>"; };
 		5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayInterstitialController.swift; sourceTree = "<group>"; };
 		5397BD27293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoInterstitialController.swift; sourceTree = "<group>"; };
+		5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoRewardedController.swift; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
 		5B1BDB792100D59000B46B43 /* PrebidMobileDemoRendering-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRendering-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B1BDB7B2100D59000B46B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -512,6 +514,7 @@
 				5397BD2329375FE300ABDA22 /* PrebidOriginalAPIVideoBannerController.swift */,
 				5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */,
 				5397BD27293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift */,
+				5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */,
 			);
 			path = OriginalAPI;
 			sourceTree = "<group>";
@@ -1247,6 +1250,7 @@
 				530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */,
 				5BA4CF632739876200197C62 /* FeedAdTableViewCell.swift in Sources */,
 				92102C7327B11DE1003F12B2 /* PrebidNativeAdFeedController.swift in Sources */,
+				5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */,
 				ACBBDF852397E10F006D5FE6 /* CommandArgsViewController.swift in Sources */,
 				34215B0F25C4598E00C74A09 /* ProcessArgumentsParser.swift in Sources */,
 				34BAD458239564740042DB33 /* IABConsentViewController.swift in Sources */,

@@ -395,6 +395,25 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
+            
+            TestCase(title: "Video Rewarded 320x480 (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server, .video],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIVideoRewardedController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
+                interstitialController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-original-api"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
         
             // MARK: ---- Banner (In-App) ----
             
