@@ -156,6 +156,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
     @objc func contentDidFinishPlaying(_ notification: Notification) {
         // Make sure we don't call contentComplete as a result of an ad completing.
         if (notification.object as! AVPlayerItem) == contentPlayer?.currentItem {
+            contentDidFinishPlayingButton.isEnabled = true
             adsLoader.contentComplete()
         }
     }
