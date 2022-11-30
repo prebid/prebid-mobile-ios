@@ -8,8 +8,6 @@
 
 import XCTest
 
-@testable import PrebidMobile
-@testable import PrebidDemoSwift
 class BannerAdsTest: BaseAdsTest {
     
     public func testInAppBannerAd() {

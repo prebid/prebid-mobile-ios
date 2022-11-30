@@ -1,10 +1,3 @@
-//
-//  Constants.swift
-//  PrebidDemoSwiftUITests
-//
-//  Created by mac-admin on 09.11.2022.
-//  Copyright © 2022 Prebid. All rights reserved.
-//
 
 import Foundation
 
