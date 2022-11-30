@@ -438,6 +438,28 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: nativeController)
                 setupCustomParams(for: nativeController.prebidConfigId)
             }),
+            
+            TestCase(title: "Native In-App (GAM Original) [OK, PUC]",
+                     tags: [.native, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let nativeController = PrebidOriginalAPINativeController(rootController: adapterVC)
+                nativeController.setupNativeAdView(NativeAdViewBox())
+                         
+                nativeController.adUnitID = "/21808260008/apollo_custom_template_native_ad_unit"
+                nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
+            }),
         
             // MARK: ---- Banner (In-App) ----
             

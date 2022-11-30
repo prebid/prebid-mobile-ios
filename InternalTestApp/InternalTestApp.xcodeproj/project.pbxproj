@@ -32,6 +32,7 @@
 		5397BD28293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD27293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift */; };
 		5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */; };
 		5397BD2C2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */; };
+		5397BD2E2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */; };
 		5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */; };
 		5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7A2100D59000B46B43 /* LaunchScreen.xib */; };
 		5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7C2100D59000B46B43 /* Main.storyboard */; };
@@ -240,6 +241,7 @@
 		5397BD27293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoInterstitialController.swift; sourceTree = "<group>"; };
 		5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoRewardedController.swift; sourceTree = "<group>"; };
 		5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPINativeBannerController.swift; sourceTree = "<group>"; };
+		5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPINativeController.swift; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
 		5B1BDB792100D59000B46B43 /* PrebidMobileDemoRendering-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRendering-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B1BDB7B2100D59000B46B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 				5397BD27293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift */,
 				5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */,
 				5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */,
+				5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */,
 			);
 			path = OriginalAPI;
 			sourceTree = "<group>";
@@ -1239,6 +1242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34D70F6B24E546DD0048CC78 /* LogInfo.swift in Sources */,
+				5397BD2E2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift in Sources */,
 				5B6EB3CD211336D300317ED9 /* AdapterViewController.swift in Sources */,
 				D551B9712149207500FFF51D /* TabNavigationController.swift in Sources */,
 				34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */,

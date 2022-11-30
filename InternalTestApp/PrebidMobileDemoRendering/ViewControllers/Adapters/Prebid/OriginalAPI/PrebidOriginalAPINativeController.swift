@@ -15,11 +15,13 @@
 
 import UIKit
 import PrebidMobile
+import GoogleMobileAds
 
-class PrebidNativeAdController: NSObject, AdaptedController {
+class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoaderDelegate, GADCustomNativeAdLoaderDelegate {
     
-    public var prebidConfigId = ""
+    var prebidConfigId = ""
     var storedAuctionResponse = ""
+    var adUnitID = ""
 
     public var nativeAssets: [NativeAsset]?
     public var eventTrackers: [NativeEventTracker]?
@@ -28,13 +30,14 @@ class PrebidNativeAdController: NSObject, AdaptedController {
     
     private var nativeAdViewBox: NativeAdViewBoxProtocol?
     
-    private var adUnit: NativeRequest?
-    private var theNativeAd: NativeAd?
+    private var nativeUnit: NativeRequest!
+    private var nativeAd: NativeAd?
     
-    private let fetchDemandSuccessButton = EventReportContainer()
-    private let fetchDemandFailedButton = EventReportContainer()
-    private let getNativeAdSuccessButton = EventReportContainer()
-    private let getNativeAdFailedButton = EventReportContainer()
+    private var adLoader: GADAdLoader!
+    
+    private let nativeAdLoadedButton = EventReportContainer()
+    private let nativeAdNotFoundButton = EventReportContainer()
+    private let nativeAdNotValidButton = EventReportContainer()
     private let adDidExpireButton = EventReportContainer()
     private let adDidLogImpressionButton = EventReportContainer()
     private let adWasClickedButton = EventReportContainer()
@@ -87,83 +90,77 @@ class PrebidNativeAdController: NSObject, AdaptedController {
     }
     
     private func setupActions(rootController: AdapterViewController) {
-        rootController.setupAction(fetchDemandSuccessButton, "fetchDemand success")
-        rootController.setupAction(fetchDemandFailedButton, "fetchDemand failed")
-        rootController.setupAction(getNativeAdSuccessButton, "getNativeAd success")
-        rootController.setupAction(getNativeAdFailedButton, "getNativeAd failed")
+        rootController.setupAction(nativeAdLoadedButton, "nativeAdLoaded called")
+        rootController.setupAction(nativeAdNotFoundButton, "nativeAdNotFound called")
+        rootController.setupAction(nativeAdNotValidButton, "nativeAdNotValid called")
         rootController.setupAction(adDidExpireButton, "adDidExpire called")
         rootController.setupAction(adDidLogImpressionButton, "adDidLogImpression called")
         rootController.setupAction(adWasClickedButton, "adWasClicked called")
     }
     
     func loadAd() {
-        setupNativeAdUnit(configId: prebidConfigId)
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
-
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(key: dataPair.value, value: dataPair.key)
-            }
-        }
+                
+        nativeUnit = NativeRequest(configId: prebidConfigId, assets: nativeAssets)
         
-        if let userData = AppConfiguration.shared.userData {
-            for dataPair in userData {
-                let appData = PBMORTBContentData()
-                appData.ext = [dataPair.key: dataPair.value]
-                adUnit?.addUserData([appData])
-            }
-        }
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        nativeUnit.eventtrackers = eventTrackers
         
-        if let appData = AppConfiguration.shared.appContentData {
-            for dataPair in appData {
-                let appData = PBMORTBContentData()
-                appData.ext = [dataPair.key: dataPair.value]
-                adUnit?.addAppContentData([appData])
-            }
+        let gamRequest = GAMRequest()
+        nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
+            guard let self = self else { return }
+            
+            self.adLoader = GADAdLoader(adUnitID: self.adUnitID, rootViewController: self.rootController,
+                                        adTypes: [GADAdLoaderAdType.customNative], options: [])
+            self.adLoader.delegate = self
+            self.adLoader.load(gamRequest)
         }
-        
-        adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
-            guard let self = self else {
-                return
-            }
-            
-            guard result == .prebidDemandFetchSuccess else {
-                self.fetchDemandFailedButton.isEnabled = true
-                return
-            }
-            
-            self.fetchDemandSuccessButton.isEnabled = true
-            
-            guard let kvResultDict = kvResultDict, let cacheId = kvResultDict[PrebidLocalCacheIdKey] else {
-                self.getNativeAdFailedButton.isEnabled = true
-                return
-            }
-            
-            guard let nativeAd = NativeAd.create(cacheId: cacheId) else {
-                self.getNativeAdFailedButton.isEnabled = true
-                return
-            }
-            
-            self.getNativeAdSuccessButton.isEnabled = true
-            
-            self.nativeAdViewBox?.renderNativeAd(nativeAd)
-            self.nativeAdViewBox?.registerViews(nativeAd)
-            self.theNativeAd = nativeAd // Note: RETAIN! or the tracking will not occur!
-            self.theNativeAd?.delegate = self
-        })
     }
     
-    // MARK: - Helpers
+    // MARK: GADCustomNativeAdLoaderDelegate
     
-    private func setupNativeAdUnit(configId: String) {
-        adUnit = NativeRequest(configId: configId, assets: nativeAssets ?? [], eventTrackers: eventTrackers ?? [])
-        adUnit?.context = ContextType.Social
-        adUnit?.placementType = PlacementType.FeedContent
-        adUnit?.contextSubType = ContextSubType.Social
+    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
+        ["11934135"]
+    }
+    
+    func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
+        Utils.shared.delegate = self
+        Utils.shared.findNative(adObject: customNativeAd)
+    }
+    
+    // MARK: GADAdLoaderDelegate
+    
+    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+        Log.error("GAM did fail to receive ad with error: \(error)")
     }
 }
 
-extension PrebidNativeAdController: NativeAdEventDelegate {
+extension PrebidOriginalAPINativeController: NativeAdDelegate, NativeAdEventDelegate {
+    
+    func nativeAdLoaded(ad: NativeAd) {
+        DispatchQueue.main.async {
+            self.nativeAdLoadedButton.isEnabled = true
+        }
+        self.nativeAd = ad
+        self.nativeAd?.delegate = self
+        self.nativeAdViewBox?.renderNativeAd(ad)
+        self.nativeAdViewBox?.registerViews(ad)
+    }
+    
+    func nativeAdNotFound() {
+        DispatchQueue.main.async {
+            self.nativeAdNotFoundButton.isEnabled = true
+        }
+    }
+    
+    func nativeAdNotValid() {
+        DispatchQueue.main.async {
+            self.nativeAdNotValidButton.isEnabled = true
+        }
+    }
+    
     func adDidExpire(ad: NativeAd) {
         DispatchQueue.main.async {
             self.adDidExpireButton.isEnabled = true
