@@ -14,6 +14,7 @@ class BaseAdsTest: XCTestCase {
     
     override func setUpWithError() throws {
         continueAfterFailure = false
+        app.launchArguments = ["-integrationKindAll"]
     }
     
     override func tearDownWithError() throws {
