@@ -472,11 +472,14 @@ struct TestCaseManager {
                     return
                 }
                          
+                try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.rubiconproject.com/openrtb2/auction")
+                Prebid.shared.prebidServerAccountId = "1001"
+                         
                 let instreamController = PrebidOriginalAPIVideoInstreamViewController(rootController: adapterVC)
                 instreamController.videoContentURL = "https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
-                instreamController.storedResponseVideo = "response-prebid-video-interstitial-320-480"
-                instreamController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                instreamController.gamAdUnitVideo = "/21808260008/prebid_oxb_interstitial_video"
+                instreamController.storedResponseVideo = "sample_video_response"
+                instreamController.prebidConfigId = "1001-1"
+                instreamController.gamAdUnitVideo = "/5300653/test_adunit_vast_pavliuchyk"
                          
                 adapterVC.setup(adapter: instreamController)
                 setupCustomParams(for: instreamController.prebidConfigId)

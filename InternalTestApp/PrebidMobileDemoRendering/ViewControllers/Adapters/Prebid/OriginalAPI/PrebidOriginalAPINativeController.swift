@@ -42,6 +42,8 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
     private let adDidLogImpressionButton = EventReportContainer()
     private let adWasClickedButton = EventReportContainer()
     
+    private let configIdLabel = UILabel()
+    
     required init(rootController: AdapterViewController) {
         super.init()
         self.rootController = rootController
@@ -59,6 +61,8 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
         
         fillBannerArea(rootController: self.rootController!)
         setupActions(rootController: self.rootController!)
+        
+        configIdLabel.isHidden = true
         
         self.nativeAdViewBox?.setUpDummyValues()
     }
@@ -100,6 +104,9 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
     
     func loadAd() {
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        
+        configIdLabel.isHidden = false
+        configIdLabel.text = "Config ID: \(prebidConfigId)"
                 
         nativeUnit = NativeRequest(configId: prebidConfigId, assets: nativeAssets)
         
