@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-class PrebidOriginalAPIVideoBanner:
+class PrebidOriginalAPIDisplayBannerController:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
@@ -34,7 +34,7 @@ class PrebidOriginalAPIVideoBanner:
     var gamSizes = [GADAdSize]()
     
     // Prebid
-    private var adUnit: VideoAdUnit!
+    private var adUnit: BannerAdUnit!
     
     // GAM
     private var gamBanner: GAMBannerView!
@@ -72,7 +72,7 @@ class PrebidOriginalAPIVideoBanner:
     func loadAd() {
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
-        adUnit = VideoAdUnit(configId: prebidConfigId, size: adSize)
+        adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
         
         if let additionalSizes = additionalSizes {
             adUnit.addAdditionalSize(sizes: additionalSizes)
@@ -80,11 +80,8 @@ class PrebidOriginalAPIVideoBanner:
         
         adUnit.setAutoRefreshMillis(time: refreshInterval)
         
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
-        parameters.protocols = [Signals.Protocols.VAST_2_0]
-        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        parameters.placement = Signals.Placement.InBanner
+        let parameters = BannerParameters()
+        parameters.api = [Signals.Api.MRAID_2]
         adUnit.parameters = parameters
         
         gamBanner = GAMBannerView(adSize: gamSizes.first ?? GADAdSizeFromCGSize(adSize))
@@ -94,7 +91,6 @@ class PrebidOriginalAPIVideoBanner:
         gamBanner.delegate = self
         
         rootController?.bannerView?.addSubview(gamBanner)
-        rootController?.bannerView.backgroundColor = .clear
         
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in

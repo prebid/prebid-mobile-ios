@@ -258,7 +258,7 @@ struct TestCaseManager {
                     return
                 }
                 
-                let bannerController = PrebidOriginalAPIDisplayBanner(rootController: adapterVC)
+                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 320, height: 50)
                         
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50";
@@ -280,7 +280,7 @@ struct TestCaseManager {
                     return
                 }
                 
-                let bannerController = PrebidOriginalAPIDisplayBanner(rootController: adapterVC)
+                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 300, height: 250)
                         
                 bannerController.prebidConfigId = "imp-prebid-banner-300-250"
@@ -302,7 +302,7 @@ struct TestCaseManager {
                     return
                 }
                 
-                let bannerController = PrebidOriginalAPIDisplayBanner(rootController: adapterVC)
+                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 728, height: 90)
                 bannerController.gamSizes = [GADAdSizeLeaderboard]
                 bannerController.prebidConfigId = "imp-prebid-banner-728-90"
@@ -324,7 +324,7 @@ struct TestCaseManager {
                     return
                 }
                 
-                let bannerController = PrebidOriginalAPIDisplayBanner(rootController: adapterVC)
+                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 728, height: 90)
                 bannerController.additionalSizes = [CGSize(width: 320, height: 50)]
                 bannerController.gamSizes = [GADAdSizeLeaderboard, GADAdSizeBanner]
@@ -347,7 +347,7 @@ struct TestCaseManager {
                     return
                 }
                 
-                let bannerController = PrebidOriginalAPIVideoBanner(rootController: adapterVC)
+                let bannerController = PrebidOriginalAPIVideoBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 300, height: 250)
                 bannerController.prebidConfigId = "imp-prebid-video-outstream"
                 bannerController.storedAuctionResponse = "response-prebid-video-outstream-original-api"
@@ -356,6 +356,25 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Display Interstitial 320x480 (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIDisplayInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
+                interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-display-interstitial"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
         
             // MARK: ---- Banner (In-App) ----
