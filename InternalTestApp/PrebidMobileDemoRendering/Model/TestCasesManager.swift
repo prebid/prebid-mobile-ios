@@ -258,7 +258,7 @@ struct TestCaseManager {
                     return
                 }
                 
-                let bannerController = PrebidOriginalAPIBanner(rootController: adapterVC)
+                let bannerController = PrebidOriginalAPIDisplayBanner(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 320, height: 50)
                         
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50";
@@ -280,7 +280,7 @@ struct TestCaseManager {
                     return
                 }
                 
-                let bannerController = PrebidOriginalAPIBanner(rootController: adapterVC)
+                let bannerController = PrebidOriginalAPIDisplayBanner(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 300, height: 250)
                         
                 bannerController.prebidConfigId = "imp-prebid-banner-300-250"
@@ -302,7 +302,7 @@ struct TestCaseManager {
                     return
                 }
                 
-                let bannerController = PrebidOriginalAPIBanner(rootController: adapterVC)
+                let bannerController = PrebidOriginalAPIDisplayBanner(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 728, height: 90)
                 bannerController.gamSizes = [GADAdSizeLeaderboard]
                 bannerController.prebidConfigId = "imp-prebid-banner-728-90"
@@ -324,7 +324,7 @@ struct TestCaseManager {
                     return
                 }
                 
-                let bannerController = PrebidOriginalAPIBanner(rootController: adapterVC)
+                let bannerController = PrebidOriginalAPIDisplayBanner(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 728, height: 90)
                 bannerController.additionalSizes = [CGSize(width: 320, height: 50)]
                 bannerController.gamSizes = [GADAdSizeLeaderboard, GADAdSizeBanner]
@@ -332,6 +332,26 @@ struct TestCaseManager {
                 bannerController.storedAuctionResponse = "response-prebid-banner-multisize"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner_multisize"
                 bannerController.refreshInterval = 30_000
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Outstream (GAM Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIVideoBanner(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 300, height: 250)
+                bannerController.prebidConfigId = "imp-prebid-video-outstream"
+                bannerController.storedAuctionResponse = "response-prebid-video-outstream-original-api"
+                bannerController.adUnitID = "/21808260008/prebid-demo-original-api-video-banner"
                          
                 adapterVC.setup(adapter: bannerController)
                         

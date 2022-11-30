@@ -26,7 +26,8 @@
 		34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF324ADD3A80045553E /* PrebidInterstitialController.swift */; };
 		34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */; };
 		530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E722B292FACB20025B44D /* UIImageView+Extensions.swift */; };
-		5397BD142936185400ABDA22 /* PrebidOriginalAPIBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD132936185400ABDA22 /* PrebidOriginalAPIBanner.swift */; };
+		5397BD142936185400ABDA22 /* PrebidOriginalAPIDisplayBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBanner.swift */; };
+		5397BD2429375FE300ABDA22 /* PrebidOriginalAPIVideoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2329375FE300ABDA22 /* PrebidOriginalAPIVideoBanner.swift */; };
 		5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */; };
 		5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7A2100D59000B46B43 /* LaunchScreen.xib */; };
 		5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7C2100D59000B46B43 /* Main.storyboard */; };
@@ -229,7 +230,8 @@
 		35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternalTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		530E722B292FACB20025B44D /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
-		5397BD132936185400ABDA22 /* PrebidOriginalAPIBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIBanner.swift; sourceTree = "<group>"; };
+		5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayBanner.swift; sourceTree = "<group>"; };
+		5397BD2329375FE300ABDA22 /* PrebidOriginalAPIVideoBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoBanner.swift; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
 		5B1BDB792100D59000B46B43 /* PrebidMobileDemoRendering-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRendering-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B1BDB7B2100D59000B46B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -502,7 +504,8 @@
 		5397BD122936180600ABDA22 /* OriginalAPI */ = {
 			isa = PBXGroup;
 			children = (
-				5397BD132936185400ABDA22 /* PrebidOriginalAPIBanner.swift */,
+				5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBanner.swift */,
+				5397BD2329375FE300ABDA22 /* PrebidOriginalAPIVideoBanner.swift */,
 			);
 			path = OriginalAPI;
 			sourceTree = "<group>";
@@ -1264,8 +1267,9 @@
 				ACC36671253068600051D8E8 /* PrebidPresentationViewController.swift in Sources */,
 				5B3EEDE72101FDCE00BAA0C4 /* TestCasesManager.swift in Sources */,
 				5B3C2AC52100BC4900BD733C /* AppDelegate.swift in Sources */,
-				5397BD142936185400ABDA22 /* PrebidOriginalAPIBanner.swift in Sources */,
+				5397BD142936185400ABDA22 /* PrebidOriginalAPIDisplayBanner.swift in Sources */,
 				92102C6427B0FE2F003F12B2 /* FeedGAMAdTableViewCell.swift in Sources */,
+				5397BD2429375FE300ABDA22 /* PrebidOriginalAPIVideoBanner.swift in Sources */,
 				92102C6327B0FDF7003F12B2 /* PrebidGAMNativeAdFeedController.swift in Sources */,
 				92F9A5D027A15BB6007B0B17 /* NativeAdViewBox.swift in Sources */,
 				92DDA440278EF42B0035F03E /* PrebidAdMobRewardedViewController.swift in Sources */,

@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-class PrebidOriginalAPIBanner:
+class PrebidOriginalAPIDisplayBanner:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
@@ -151,7 +151,6 @@ class PrebidOriginalAPIBanner:
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         bannerViewDidReceiveAd.isEnabled = true
         reloadButton.isEnabled = true
-        print(bannerView.adSize.size)
         rootController?.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = bannerView.adSize.size.width
         rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height
         
