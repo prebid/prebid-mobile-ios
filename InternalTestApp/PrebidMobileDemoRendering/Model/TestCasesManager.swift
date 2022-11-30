@@ -358,6 +358,8 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
+            // MARK: ---- Interstitial (Original API)
+            
             TestCase(title: "Display Interstitial 320x480 (GAM Original) [OK, PUC]",
                      tags: [.interstitial, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -413,6 +415,28 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Native (Original API)
+            
+            TestCase(title: "Native Banner (GAM Original) [OK, PUC]",
+                     tags: [.native, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let nativeController = PrebidOriginalAPINativeBannerController(rootController: adapterVC)
+                nativeController.adUnitID = "/21808260008/unified_native_ad_unit"
+                nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
             }),
         
             // MARK: ---- Banner (In-App) ----
