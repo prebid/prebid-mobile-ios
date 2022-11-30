@@ -141,18 +141,15 @@
 		53F36047292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49027B561A9003DCCCC /* TestExtensions.swift */; };
 		9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */; };
-
-		9205E49627B563B4003DCCCC /* StubbingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49527B563B4003DCCCC /* StubbingHandler.swift */; };
 		C324CF5A29350A1F008DAA20 /* BannerVideoAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C324CF5929350A1F008DAA20 /* BannerVideoAdsTest.swift */; };
 		C324CF5C29350A23008DAA20 /* InterstitialVideoAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C324CF5B29350A23008DAA20 /* InterstitialVideoAdsTest.swift */; };
 		C324CF5E29350A25008DAA20 /* RewardedVideoAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C324CF5D29350A25008DAA20 /* RewardedVideoAdsTest.swift */; };
-
 		C38D69C529362B7700E82B31 /* BaseAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38D69BF29362B7700E82B31 /* BaseAdsTest.swift */; };
 		C38D69C629362B7700E82B31 /* NativeAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38D69C029362B7700E82B31 /* NativeAdsTest.swift */; };
 		C38D69C729362B7700E82B31 /* BannerAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38D69C129362B7700E82B31 /* BannerAdsTest.swift */; };
 		C38D69C829362B7700E82B31 /* InterstitialAdsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38D69C229362B7700E82B31 /* InterstitialAdsTest.swift */; };
 		C38D69C929362B7700E82B31 /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38D69C429362B7700E82B31 /* TestCases.swift */; };
-
+		C3ACBEAF2937A6DE00A9BAE2 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ACBEAE2937A6DE00A9BAE2 /* UIApplication+Extensions.swift */; };
 		FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4E0231EB4BB00CAA05B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -420,6 +417,7 @@
 		C38D69C129362B7700E82B31 /* BannerAdsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAdsTest.swift; sourceTree = "<group>"; };
 		C38D69C229362B7700E82B31 /* InterstitialAdsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialAdsTest.swift; sourceTree = "<group>"; };
 		C38D69C429362B7700E82B31 /* TestCases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCases.swift; sourceTree = "<group>"; };
+		C3ACBEAE2937A6DE00A9BAE2 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		D1294ABFE85D62872D074F2C /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		E2EBDC8956E40A3297274B54 /* Pods_PrebidDemoObjectiveC_Old.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoObjectiveC_Old.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA12E4E0231EB4BB00CAA05B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -895,6 +893,7 @@
 			isa = PBXGroup;
 			children = (
 				53B03D91291A87F4000117E1 /* UIButton+Extensions.swift */,
+				C3ACBEAE2937A6DE00A9BAE2 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1394,6 +1393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3ACBEAF2937A6DE00A9BAE2 /* UIApplication+Extensions.swift in Sources */,
 				53072B83292275EF00228462 /* InAppVideoRewardedViewController.swift in Sources */,
 				53072B752922655400228462 /* GAMOriginalAPIVideoInterstitialViewController.swift in Sources */,
 				53B03D92291A87F4000117E1 /* UIButton+Extensions.swift in Sources */,

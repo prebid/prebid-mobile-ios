@@ -22,7 +22,7 @@ class BaseAdsTest: XCTestCase {
     
     override func setUpWithError() throws {
         continueAfterFailure = false
-        app.launchArguments = ["-integrationKindAll"]
+        app.launchArguments = ["-integrationKindAll", "-uiTesting"]
     }
     
     func testAd(testCase: String) {
