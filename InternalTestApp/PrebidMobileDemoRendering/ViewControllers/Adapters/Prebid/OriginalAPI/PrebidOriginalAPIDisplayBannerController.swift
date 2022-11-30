@@ -50,6 +50,8 @@ class PrebidOriginalAPIDisplayBannerController:
     private let reloadButton = ThreadCheckingButton()
     private let stopRefreshButton = ThreadCheckingButton()
     
+    private let configIdLabel = UILabel()
+    
     required init(rootController: AdapterViewController) {
         super.init()
         
@@ -70,6 +72,8 @@ class PrebidOriginalAPIDisplayBannerController:
     }
     
     func loadAd() {
+        configIdLabel.isHidden = false
+        configIdLabel.text = "Config ID: \(prebidConfigId)"
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
@@ -101,7 +105,10 @@ class PrebidOriginalAPIDisplayBannerController:
     
     private func setupAdapterController() {
         rootController?.showButton.isHidden = true
+        configIdLabel.isHidden = true
         setupActions()
+        
+        rootController?.actionsView.addArrangedSubview(configIdLabel)
     }
     
     private func setupActions() {

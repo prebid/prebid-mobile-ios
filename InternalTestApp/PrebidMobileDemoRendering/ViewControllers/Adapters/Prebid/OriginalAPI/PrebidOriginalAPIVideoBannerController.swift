@@ -50,6 +50,8 @@ class PrebidOriginalAPIVideoBannerController:
     private let reloadButton = ThreadCheckingButton()
     private let stopRefreshButton = ThreadCheckingButton()
     
+    private let configIdLabel = UILabel()
+    
     required init(rootController: AdapterViewController) {
         super.init()
         
@@ -70,6 +72,8 @@ class PrebidOriginalAPIVideoBannerController:
     }
     
     func loadAd() {
+        configIdLabel.isHidden = false
+        configIdLabel.text = "Config ID: \(prebidConfigId)"
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         adUnit = VideoAdUnit(configId: prebidConfigId, size: adSize)
@@ -105,7 +109,10 @@ class PrebidOriginalAPIVideoBannerController:
     
     private func setupAdapterController() {
         rootController?.showButton.isHidden = true
+        configIdLabel.isHidden = true
         setupActions()
+        
+        rootController?.actionsView.addArrangedSubview(configIdLabel)
     }
     
     private func setupActions() {
