@@ -51,9 +51,11 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         
         setupAdapterController()
     }
+    
     deinit {
         Prebid.shared.storedAuctionResponse = nil
     }
+    
     func configurationController() -> BaseConfigurationController? {
         return PrebidBannerConfigurationController(controller: self)
     }

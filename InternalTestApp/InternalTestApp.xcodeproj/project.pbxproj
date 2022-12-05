@@ -26,6 +26,14 @@
 		34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF324ADD3A80045553E /* PrebidInterstitialController.swift */; };
 		34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */; };
 		530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E722B292FACB20025B44D /* UIImageView+Extensions.swift */; };
+		5397BD142936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */; };
+		5397BD2429375FE300ABDA22 /* PrebidOriginalAPIVideoBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2329375FE300ABDA22 /* PrebidOriginalAPIVideoBannerController.swift */; };
+		5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */; };
+		5397BD28293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD27293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift */; };
+		5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */; };
+		5397BD2C2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */; };
+		5397BD2E2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */; };
+		5397BD322937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD312937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift */; };
 		5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */; };
 		5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7A2100D59000B46B43 /* LaunchScreen.xib */; };
 		5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7C2100D59000B46B43 /* Main.storyboard */; };
@@ -228,6 +236,14 @@
 		35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternalTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		530E722B292FACB20025B44D /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayBannerController.swift; sourceTree = "<group>"; };
+		5397BD2329375FE300ABDA22 /* PrebidOriginalAPIVideoBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoBannerController.swift; sourceTree = "<group>"; };
+		5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayInterstitialController.swift; sourceTree = "<group>"; };
+		5397BD27293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoInterstitialController.swift; sourceTree = "<group>"; };
+		5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoRewardedController.swift; sourceTree = "<group>"; };
+		5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPINativeBannerController.swift; sourceTree = "<group>"; };
+		5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPINativeController.swift; sourceTree = "<group>"; };
+		5397BD312937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoInstreamViewController.swift; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
 		5B1BDB792100D59000B46B43 /* PrebidMobileDemoRendering-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRendering-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B1BDB7B2100D59000B46B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -447,6 +463,7 @@
 				3493021A2473F2FB004A6086 /* GAM */,
 				9289873D28003BFE0062BFAA /* MAX */,
 				3493022024740BD8004A6086 /* OpenX */,
+				5397BD122936180600ABDA22 /* OriginalAPI */,
 			);
 			path = Prebid;
 			sourceTree = "<group>";
@@ -494,6 +511,21 @@
 				5B3C2AE52100C22900BD733C /* PrebidMobileDemoRenderingUITests-Bridging-Header.h */,
 			);
 			path = PrebidMobileDemoRenderingUITests;
+			sourceTree = "<group>";
+		};
+		5397BD122936180600ABDA22 /* OriginalAPI */ = {
+			isa = PBXGroup;
+			children = (
+				5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */,
+				5397BD2329375FE300ABDA22 /* PrebidOriginalAPIVideoBannerController.swift */,
+				5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */,
+				5397BD27293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift */,
+				5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */,
+				5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */,
+				5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */,
+				5397BD312937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift */,
+			);
+			path = OriginalAPI;
 			sourceTree = "<group>";
 		};
 		5B1BDB782100D59000B46B43 /* Resources */ = {
@@ -1110,6 +1142,7 @@
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework/GoogleInteractiveMediaAds",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1120,6 +1153,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1213,6 +1247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34D70F6B24E546DD0048CC78 /* LogInfo.swift in Sources */,
+				5397BD2E2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift in Sources */,
 				5B6EB3CD211336D300317ED9 /* AdapterViewController.swift in Sources */,
 				D551B9712149207500FFF51D /* TabNavigationController.swift in Sources */,
 				34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */,
@@ -1227,6 +1262,7 @@
 				530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */,
 				5BA4CF632739876200197C62 /* FeedAdTableViewCell.swift in Sources */,
 				92102C7327B11DE1003F12B2 /* PrebidNativeAdFeedController.swift in Sources */,
+				5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */,
 				ACBBDF852397E10F006D5FE6 /* CommandArgsViewController.swift in Sources */,
 				34215B0F25C4598E00C74A09 /* ProcessArgumentsParser.swift in Sources */,
 				34BAD458239564740042DB33 /* IABConsentViewController.swift in Sources */,
@@ -1236,6 +1272,7 @@
 				5B3EEDE52101FB8800BAA0C4 /* TestCase.swift in Sources */,
 				92C475122796FF8400C26E27 /* PrebidAdMobNativeViewController.swift in Sources */,
 				34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */,
+				5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */,
 				34930E122420E899007A0DBA /* GlobalVars.swift in Sources */,
 				34C25817255D69E1000A4A73 /* EventReportContainer.swift in Sources */,
 				5B3EEDD12101D2A100BAA0C4 /* UtilitiesForTesting.swift in Sources */,
@@ -1247,13 +1284,16 @@
 				5B209B4A21075E0A00C0F5CE /* BaseConfigurationController.swift in Sources */,
 				92C4E60B27A2F5D900738370 /* NativeAsset+Extensions.swift in Sources */,
 				92102C6127B0F2FE003F12B2 /* PrebidGAMNativeAdController.swift in Sources */,
+				5397BD322937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift in Sources */,
 				92E92502276B299F002B57F3 /* PrebidAdMobBannerViewController.swift in Sources */,
 				5BCCA3D62136D2E800DA3B5A /* ConfigurableViewController.swift in Sources */,
 				5B1CF8302105E91000238340 /* ArrayExtension.swift in Sources */,
 				ACC36671253068600051D8E8 /* PrebidPresentationViewController.swift in Sources */,
 				5B3EEDE72101FDCE00BAA0C4 /* TestCasesManager.swift in Sources */,
 				5B3C2AC52100BC4900BD733C /* AppDelegate.swift in Sources */,
+				5397BD142936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift in Sources */,
 				92102C6427B0FE2F003F12B2 /* FeedGAMAdTableViewCell.swift in Sources */,
+				5397BD2429375FE300ABDA22 /* PrebidOriginalAPIVideoBannerController.swift in Sources */,
 				92102C6327B0FDF7003F12B2 /* PrebidGAMNativeAdFeedController.swift in Sources */,
 				92F9A5D027A15BB6007B0B17 /* NativeAdViewBox.swift in Sources */,
 				92DDA440278EF42B0035F03E /* PrebidAdMobRewardedViewController.swift in Sources */,
@@ -1270,8 +1310,10 @@
 				3493021C2473F408004A6086 /* PrebidGAMBannerController.swift in Sources */,
 				D551B96F21491AAA00FFF51D /* AppConfiguration.swift in Sources */,
 				346C6F5725DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift in Sources */,
+				5397BD2C2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift in Sources */,
 				5B3EEDE22101EDA200BAA0C4 /* TestCasesSectionsViewController.swift in Sources */,
 				ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */,
+				5397BD28293766F700ABDA22 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */,
 				92C4E60D27A2F6D700738370 /* NativeEventTracker+Extensions.swift in Sources */,
 				34BA9600249CC118006AE372 /* PrebidRewardedController.swift in Sources */,
 			);

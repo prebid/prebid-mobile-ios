@@ -246,6 +246,244 @@ struct TestCaseManager {
     
     private static let prebidExamples: [TestCase] = {
         return [
+            
+            // MARK: ---- Banner (Original API)
+            
+            TestCase(title: "Banner 320x50 (GAM Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 320, height: 50)
+                        
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50";
+                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
+                bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner"
+                bannerController.refreshInterval = 30_000
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 300x250 (GAM Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 300, height: 250)
+                        
+                bannerController.prebidConfigId = "imp-prebid-banner-300-250"
+                bannerController.storedAuctionResponse = "response-prebid-banner-300-250"
+                bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner_300x250_order"
+                bannerController.refreshInterval = 30_000
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 728x90 (GAM Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 728, height: 90)
+                bannerController.gamSizes = [GADAdSizeLeaderboard]
+                bannerController.prebidConfigId = "imp-prebid-banner-728-90"
+                bannerController.storedAuctionResponse = "response-prebid-banner-728-90"
+                bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner_728x90"
+                bannerController.refreshInterval = 30_000
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner Multisize (GAM Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 728, height: 90)
+                bannerController.additionalSizes = [CGSize(width: 320, height: 50)]
+                bannerController.gamSizes = [GADAdSizeLeaderboard, GADAdSizeBanner]
+                bannerController.prebidConfigId = "imp-prebid-banner-multisize"
+                bannerController.storedAuctionResponse = "response-prebid-banner-multisize"
+                bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner_multisize"
+                bannerController.refreshInterval = 30_000
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Outstream (GAM Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIVideoBannerController(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 300, height: 250)
+                bannerController.prebidConfigId = "imp-prebid-video-outstream"
+                bannerController.storedAuctionResponse = "response-prebid-video-outstream-original-api"
+                bannerController.adUnitID = "/21808260008/prebid-demo-original-api-video-banner"
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Interstitial (Original API)
+            
+            TestCase(title: "Display Interstitial 320x480 (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIDisplayInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
+                interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-display-interstitial"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial 320x480 (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server, .video],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIVideoInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-original-api"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded 320x480 (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server, .video],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIVideoRewardedController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
+                interstitialController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-original-api"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Native (Original API)
+            
+            TestCase(title: "Native Banner (GAM Original) [OK, PUC]",
+                     tags: [.native, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let nativeController = PrebidOriginalAPINativeBannerController(rootController: adapterVC)
+                nativeController.adUnitID = "/21808260008/unified_native_ad_unit"
+                nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Native In-App (GAM Original) [OK, PUC]",
+                     tags: [.native, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let nativeController = PrebidOriginalAPINativeController(rootController: adapterVC)
+                nativeController.setupNativeAdView(NativeAdViewBox())
+                         
+                nativeController.adUnitID = "/21808260008/apollo_custom_template_native_ad_unit"
+                nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
+            }),
+            
+            // MARK: ---- In-Stream (Original API)
+            
+            TestCase(title: "Instream Video (GAM Original) [OK, PUC]",
+                     tags: [.instream, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.rubiconproject.com/openrtb2/auction")
+                Prebid.shared.prebidServerAccountId = "1001"
+                         
+                let instreamController = PrebidOriginalAPIVideoInstreamViewController(rootController: adapterVC)
+                instreamController.videoContentURL = "https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
+                instreamController.storedResponseVideo = "sample_video_response"
+                instreamController.prebidConfigId = "1001-1"
+                instreamController.gamAdUnitVideo = "/5300653/test_adunit_vast_pavliuchyk"
+                         
+                adapterVC.setup(adapter: instreamController)
+                setupCustomParams(for: instreamController.prebidConfigId)
+            }),
         
             // MARK: ---- Banner (In-App) ----
             

@@ -20,10 +20,14 @@ def event_handlers_project
   use_frameworks!
 end
 
+def ima_pod
+  pod 'GoogleAds-IMA-iOS-SDK'
+end
+
 def prebid_demo_pods
   use_frameworks!
   
-  pod 'GoogleAds-IMA-iOS-SDK'
+  ima_pod
   gma_pods
   applovin_pods
 end
@@ -93,6 +97,7 @@ target 'InternalTestApp' do
   use_frameworks!
   project 'InternalTestApp/InternalTestApp.xcodeproj'
   internalTestApp_pods
+  ima_pod
 end
 
 target 'InternalTestAppTests' do
