@@ -45,7 +45,6 @@ class UserConsentDataManagerTest: XCTestCase {
         UserDefaults.standard.removeObject(forKey: TCF.v2.subjectToGDPRKey)
         UserDefaults.standard.removeObject(forKey: TCF.v2.consentStringKey)
         UserDefaults.standard.removeObject(forKey: TCF.v2.purposeConsentsStringKey)
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.PB_COPPAKey)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABGPP_HDR_GppString)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABGPP_GppSID)
         
@@ -53,10 +52,6 @@ class UserConsentDataManagerTest: XCTestCase {
         UserConsentDataManager.shared.gdprConsentString = nil
         UserConsentDataManager.shared.purposeConsents = nil
         UserConsentDataManager.shared.subjectToGDPR = nil
-    }
-    
-    func testPB_COPPAKey() {
-        XCTAssertEqual("kPBCoppaSubjectToConsent", UserConsentDataManager.shared.PB_COPPAKey)
     }
     
     func testIABTCF_ConsentString() {
@@ -88,7 +83,7 @@ class UserConsentDataManagerTest: XCTestCase {
         }
         
         //when
-        let coppa = UserDefaults.standard.bool(forKey: UserConsentDataManager.shared.PB_COPPAKey)
+        let coppa = UserConsentDataManager.shared.subjectToCOPPA
         
         //then
         XCTAssertEqual(true, coppa)

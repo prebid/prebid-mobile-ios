@@ -312,7 +312,6 @@ typealias JsonDictionary = [String:Any]
         targeting.clearContextKeywords()
         targeting.clearUserKeywords()
         
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.PB_COPPAKey)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_ConsentString)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
@@ -347,7 +346,6 @@ typealias JsonDictionary = [String:Any]
         XCTAssertTrue(targeting.accessControlList.isEmpty)
         XCTAssert(targeting.yearOfBirth == 0)
         
-        XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.PB_COPPAKey))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_ConsentString))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents))

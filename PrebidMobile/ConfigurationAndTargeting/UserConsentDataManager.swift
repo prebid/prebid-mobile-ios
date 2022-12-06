@@ -29,10 +29,7 @@ import Foundation
 class UserConsentDataManager: NSObject {
     
     static let shared = UserConsentDataManager()
-    
-    // COPPA
-    let PB_COPPAKey = "kPBCoppaSubjectToConsent"
-    
+        
     // TCF 2.0
     let IABTCF_ConsentString = "IABTCF_TCString"
     let IABTCF_SubjectToGDPR = "IABTCF_gdprApplies"
@@ -52,10 +49,7 @@ class UserConsentDataManager: NSObject {
      Integer flag indicating if this request is subject to the COPPA regulations
      established by the USA FTC, where 0 = no, 1 = yes
      */
-    var subjectToCOPPA: Bool? {
-        set { UserDefaults.standard.set(newValue, forKey: PB_COPPAKey) }
-        get { UserDefaults.standard.object(forKey: PB_COPPAKey) != nil ? UserDefaults.standard.bool(forKey: PB_COPPAKey) : nil }
-    }
+    var subjectToCOPPA: Bool?
     
     // MARK: - GPP
     
