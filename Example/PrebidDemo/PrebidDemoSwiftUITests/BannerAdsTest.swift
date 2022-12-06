@@ -35,6 +35,9 @@ class BannerAdsTest: BaseAdsTest {
     
     override func checkAd(testCase: String) {
         XCTAssert(app.webViews.element.waitForExistence(timeout: 10), assertFailedMessage(testCase: testCase,reason: "Banner Web View is not displayed"))
+        if testCase == testCases.gamOriginalDisplayBannerCase {
+            XCTAssert(app.staticTexts["Test mode"].waitForExistence(timeout: 10))
+        }
     }
     
     
