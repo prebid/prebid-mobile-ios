@@ -88,6 +88,11 @@ class PrebidOriginalAPIVideoBannerController:
         parameters.mimes = ["video/mp4"]
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+        parameters.api = [1,2]
+        parameters.maxBitrate = 1500
+        parameters.minBitrate = 300
+        parameters.maxDuration = 30
+        parameters.minDuration = 5
         parameters.placement = Signals.Placement.InBanner
         adUnit.parameters = parameters
         
