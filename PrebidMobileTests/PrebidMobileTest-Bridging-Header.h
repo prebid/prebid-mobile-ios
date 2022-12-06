@@ -181,4 +181,4 @@
 #import "MediationBannerAdUnit+TestExtension.h"
 #import "PBMLocationManagerProtocol.h"
 
-#import "CCPAManager.h"
+#import "InternalUserConsentDataManager.h"

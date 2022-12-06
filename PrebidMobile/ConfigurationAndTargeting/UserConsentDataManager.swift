@@ -51,16 +51,6 @@ class UserConsentDataManager: NSObject {
      */
     var subjectToCOPPA: Bool?
     
-    // MARK: - GPP
-    
-    var gppHDRString: String? {
-        UserDefaults.standard.getObjectFromUserDefaults(forKey: IABGPP_HDR_GppString)
-    }
-    
-    var gppSID: String? {
-        UserDefaults.standard.getObjectFromUserDefaults(forKey: IABGPP_GppSID)
-    }
-    
     // MARK: - GDPR
     
     /**

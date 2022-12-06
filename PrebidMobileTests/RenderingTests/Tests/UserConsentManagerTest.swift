@@ -66,14 +66,6 @@ class UserConsentDataManagerTest: XCTestCase {
         XCTAssertEqual("IABTCF_PurposeConsents", UserConsentDataManager.shared.IABTCF_PurposeConsents)
     }
     
-    func testIABGPP_GppStringKey() {
-        XCTAssertEqual("IABGPP_HDR_GppString", UserConsentDataManager.shared.IABGPP_HDR_GppString)
-    }
-    
-    func testIABGPP_GppSIDKey() {
-        XCTAssertEqual("IABGPP_GppSID", UserConsentDataManager.shared.IABGPP_GppSID)
-    }
-    
     func testPB_COPPA() {
         //given
         UserConsentDataManager.shared.subjectToCOPPA = true
@@ -87,28 +79,6 @@ class UserConsentDataManagerTest: XCTestCase {
         
         //then
         XCTAssertEqual(true, coppa)
-    }
-    
-    func testIABGPP_Unset() {
-        assertIABGPPString(nil)
-    }
-    
-    func testIABGPP_withString() {
-        let gpp = "test_gpp_string"
-        
-        setIABGPPString(val: gpp)
-        assertIABGPPString(gpp)
-    }
-    
-    func testIABGPPSID_Unset() {
-        assertIABGPPString(nil)
-    }
-    
-    func testIABGPPSID_withString() {
-        let gppSID = "test_gpp_sid"
-        
-        setIABGPPSIDString(val: gppSID)
-        assertIABGPPSID(gppSID)
     }
     
     func testAPIProvidedOverIAB_subjectToGDPR() {
@@ -415,15 +385,7 @@ class UserConsentDataManagerTest: XCTestCase {
     func setPurposeConsentsString(val: String?) {
         UserDefaults.standard.set(val, forKey: TCF.v2.purposeConsentsStringKey)
     }
-    
-    func setIABGPPString(val: String?) {
-        UserDefaults.standard.set(val, forKey: UserConsentDataManager.shared.IABGPP_HDR_GppString)
-    }
-    
-    func setIABGPPSIDString(val: String?) {
-        UserDefaults.standard.set(val, forKey: UserConsentDataManager.shared.IABGPP_GppSID)
-    }
-    
+        
     func assertExpectedConsent(subjectToGDPR: Bool?, consentString: String?, file: StaticString = #file, line: UInt = #line) {
         let userConsentManager = UserConsentDataManager.shared
         
@@ -435,14 +397,5 @@ class UserConsentDataManagerTest: XCTestCase {
         let userConsentManager = UserConsentDataManager.shared
         XCTAssertEqual(userConsentManager.purposeConsents, purposeConsentsString)
     }
-    
-    func assertIABGPPString(_ gppString: String?) {
-        let userConsentManager = UserConsentDataManager.shared
-        XCTAssertEqual(userConsentManager.gppHDRString, gppString)
-    }
-    
-    func assertIABGPPSID(_ gppSID: String?) {
-        let userConsentManager = UserConsentDataManager.shared
-        XCTAssertEqual(userConsentManager.gppSID, gppSID)
-    }
+
 }

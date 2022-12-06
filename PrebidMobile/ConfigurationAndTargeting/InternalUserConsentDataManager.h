@@ -18,10 +18,17 @@
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
 
-@interface CCPAManager : NSObject
+@interface InternalUserConsentDataManager : NSObject
 
 @property (nonatomic, nonnull, class, readonly) NSString * IABUSPrivacy_StringKey NS_SWIFT_NAME(IABUSPrivacy_StringKey);
 
+@property (nonatomic, nonnull, class, readonly) NSString * IABGPP_HDR_GppString NS_SWIFT_NAME(IABGPP_HDR_GppString);
+
+@property (nonatomic, nonnull, class, readonly) NSString * IABGPP_GppSID NS_SWIFT_NAME(IABGPP_GppSID);
+
 @property (nonatomic, nullable, class, readonly) NSString * usPrivacyString;
+
+@property (nonatomic, nullable, class, readonly) NSString * gppHDRString;
+@property (nonatomic, nullable, class, readonly) NSString * gppSID;
 
 @end

@@ -14,16 +14,32 @@
   */
 
 #import <Foundation/Foundation.h>
-#import "CCPAManager.h"
+#import "InternalUserConsentDataManager.h"
 
-@implementation CCPAManager
+@implementation InternalUserConsentDataManager
 
 + (NSString *)IABUSPrivacy_StringKey {
     return @"IABUSPrivacy_String";
 }
 
++ (NSString *)IABGPP_HDR_GppString {
+    return @"IABGPP_HDR_GppString";
+}
+
++ (NSString *)IABGPP_GppSID {
+    return @"IABGPP_GppSID";
+}
+
 + (NSString *)usPrivacyString {
-    return [NSUserDefaults.standardUserDefaults stringForKey:CCPAManager.IABUSPrivacy_StringKey];
+    return [NSUserDefaults.standardUserDefaults stringForKey:InternalUserConsentDataManager.IABUSPrivacy_StringKey];
+}
+
++ (NSString *)gppHDRString {
+    return [NSUserDefaults.standardUserDefaults stringForKey:InternalUserConsentDataManager.IABGPP_HDR_GppString];
+}
+
++ (NSString *)gppSID {
+    return [NSUserDefaults.standardUserDefaults stringForKey:InternalUserConsentDataManager.IABGPP_GppSID];
 }
 
 @end
