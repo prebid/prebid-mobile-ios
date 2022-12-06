@@ -65,8 +65,10 @@ class PrebidOriginalAPIDisplayInterstitialController:
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
-        adUnit = InterstitialAdUnit(configId: prebidConfigId, minWidthPerc: 60, minHeightPerc: 70)
-         
+        adUnit = InterstitialAdUnit(configId: prebidConfigId, minWidthPerc: 50, minHeightPerc: 70)
+        let parameters = BannerParameters()
+        parameters.api = [Signals.Api.MRAID_2]
+        adUnit.parameters = parameters;
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             Log.info("Prebid demand fetch for GAM \(resultCode.name())")

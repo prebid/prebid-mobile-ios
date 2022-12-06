@@ -109,8 +109,13 @@ class PrebidOriginalAPIVideoInstreamViewController:
         
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
-        parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn]
+        parameters.protocols = [Signals.Protocols.VAST_2_0,Signals.Protocols.VAST_3_0,Signals.Protocols.VAST_4_0]
+        parameters.api = [1,2]            // or alternative enum values [Api.VPAID_1, Api.VPAID_2]
+        parameters.maxBitrate = 1500
+        parameters.minBitrate = 300
+        parameters.maxDuration = 30
+        parameters.minDuration = 5
         adUnit.parameters = parameters
         
         adsLoader = IMAAdsLoader(settings: nil)
