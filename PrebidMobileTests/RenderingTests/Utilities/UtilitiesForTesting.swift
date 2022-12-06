@@ -316,7 +316,7 @@ typealias JsonDictionary = [String:Any]
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_ConsentString)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABUSPrivacy_StringKey)
+        UserDefaults.standard.removeObject(forKey: CCPAManager.IABUSPrivacy_StringKey)
         
         checkInitialValues(targeting)
     }
@@ -351,7 +351,7 @@ typealias JsonDictionary = [String:Any]
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_ConsentString))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents))
-        XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABUSPrivacy_StringKey))
+        XCTAssertNil(UserDefaults.standard.object(forKey: CCPAManager.IABUSPrivacy_StringKey))
     }
     
     // Prepends "mraid:" and converts to a URL.

@@ -15,6 +15,7 @@
 
 #import "PBMUserConsentParameterBuilder.h"
 #import "PBMORTB.h"
+#import "CCPAManager.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
@@ -30,7 +31,7 @@
     bidRequest.user.ext[@"consent"] = Targeting.shared.gdprConsentString;
     
     // CCPA
-    bidRequest.regs.ext[@"us_privacy"] = Targeting.shared.usPrivacyString;
+    bidRequest.regs.ext[@"us_privacy"] = CCPAManager.usPrivacyString;
 }
 
 @end

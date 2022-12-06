@@ -38,9 +38,6 @@ class UserConsentDataManager: NSObject {
     let IABTCF_SubjectToGDPR = "IABTCF_gdprApplies"
     let IABTCF_PurposeConsents = "IABTCF_PurposeConsents"
     
-    // CCPA
-    let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
-    
     // GPP
     let IABGPP_HDR_GppString = "IABGPP_HDR_GppString"
     let IABGPP_GppSID = "IABGPP_GppSID"
@@ -58,11 +55,6 @@ class UserConsentDataManager: NSObject {
     var subjectToCOPPA: Bool? {
         set { UserDefaults.standard.set(newValue, forKey: PB_COPPAKey) }
         get { UserDefaults.standard.object(forKey: PB_COPPAKey) != nil ? UserDefaults.standard.bool(forKey: PB_COPPAKey) : nil }
-    }
-    
-    // СCPA
-    var usPrivacyString: String? {
-        UserDefaults.standard.getObjectFromUserDefaults(forKey: IABUSPrivacy_StringKey)
     }
     
     // MARK: - GPP
