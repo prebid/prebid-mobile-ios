@@ -151,6 +151,12 @@ public class Targeting: NSObject {
         get { UserConsentDataManager.shared.subjectToCOPPA }
     }
     
+    // MARK: - СCPA
+    
+    public var usPrivacyString: String? {
+        UserConsentDataManager.shared.usPrivacyString
+    }
+    
     // MARK: - GPP
     
     public var gppHDRString: String? {

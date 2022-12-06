@@ -21,18 +21,7 @@
 
 /**
  @c PBMUserConsentParameterBuilder is responsible for enriching its provided
- @c PBMORTBBidRequest object with consent values to an ad request.
  */
 @interface PBMUserConsentParameterBuilder : NSObject <PBMParameterBuilder>
-
-/**
- Convenience initializer that uses the @c UserConsentDataManager shared.
- */
-- (nonnull instancetype)init;
-
-/**
- Initializer exposed primarily for dependency injection.
- */
-- (nonnull instancetype)initWithUserConsentManager:(nullable UserConsentDataManager *)userConsentManager NS_DESIGNATED_INITIALIZER;
 
 @end

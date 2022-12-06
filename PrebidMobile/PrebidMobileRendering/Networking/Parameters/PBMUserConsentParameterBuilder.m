@@ -20,35 +20,17 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 
 @interface PBMUserConsentParameterBuilder ()
-
-@property (nonatomic, strong) UserConsentDataManager *userConsentManager;
-
 @end
 
 @implementation PBMUserConsentParameterBuilder
 
-- (instancetype)init {
-    return [self initWithUserConsentManager:UserConsentDataManager.shared];
-}
-
-- (instancetype)initWithUserConsentManager:(UserConsentDataManager *)userConsentManager {
-    self = [super init];
-    if (!self) {
-        return nil;
-    }
-
-    self.userConsentManager = (userConsentManager) ? userConsentManager : UserConsentDataManager.shared;
-
-    return self;
-}
-
 - (void)buildBidRequest:(nonnull PBMORTBBidRequest *)bidRequest {
     // GDPR
-    bidRequest.regs.ext[@"gdpr"] = UserConsentDataManager.shared.subjectToGDPR_NSNumber;
-    bidRequest.user.ext[@"consent"] = UserConsentDataManager.shared.gdprConsentString;
+    bidRequest.regs.ext[@"gdpr"] = [Targeting.shared getSubjectToGDPR];
+    bidRequest.user.ext[@"consent"] = Targeting.shared.gdprConsentString;
     
     // CCPA
-    bidRequest.regs.ext[@"us_privacy"] = UserConsentDataManager.shared.usPrivacyString;
+    bidRequest.regs.ext[@"us_privacy"] = Targeting.shared.usPrivacyString;
 }
 
 @end

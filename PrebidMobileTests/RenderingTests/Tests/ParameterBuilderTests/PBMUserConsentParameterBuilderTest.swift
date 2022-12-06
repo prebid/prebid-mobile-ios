@@ -18,16 +18,6 @@ import XCTest
 
 class PBMUserConsentParameterBuilderTest: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testInit() {
         let builder = PBMUserConsentParameterBuilder()
         XCTAssertNotNil(builder)
@@ -37,7 +27,7 @@ class PBMUserConsentParameterBuilderTest: XCTestCase {
         UserConsentDataManager.shared.subjectToGDPR = false
         UserConsentDataManager.shared.gdprConsentString = "consentstring"
         
-        let builder = PBMUserConsentParameterBuilder(userConsentManager: UserConsentDataManager.shared)
+        let builder = PBMUserConsentParameterBuilder()
         
         let bidRequest = PBMORTBBidRequest()
         builder.build(bidRequest)
@@ -50,7 +40,7 @@ class PBMUserConsentParameterBuilderTest: XCTestCase {
         UserConsentDataManager.shared.subjectToGDPR = true
         UserConsentDataManager.shared.gdprConsentString = "differentconsentstring"
         
-        let builder = PBMUserConsentParameterBuilder(userConsentManager: UserConsentDataManager.shared)
+        let builder = PBMUserConsentParameterBuilder()
         
         let bidRequest = PBMORTBBidRequest()
         builder.build(bidRequest)

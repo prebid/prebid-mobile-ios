@@ -73,7 +73,6 @@ class ParameterBuilderServiceTest : XCTestCase {
             reachability: mockReachability,
             sdkConfiguration: sdkConfiguration,
             sdkVersion: "MOCK_SDK_VERSION",
-            pbmUserConsentManager: UserConsentDataManager.shared,
             targeting: targeting,
             extraParameterBuilders: nil
         )
