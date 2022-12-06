@@ -45,8 +45,8 @@ class UserConsentDataManagerTest: XCTestCase {
         UserDefaults.standard.removeObject(forKey: TCF.v2.subjectToGDPRKey)
         UserDefaults.standard.removeObject(forKey: TCF.v2.consentStringKey)
         UserDefaults.standard.removeObject(forKey: TCF.v2.purposeConsentsStringKey)
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABGPP_HDR_GppString)
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABGPP_GppSID)
+        UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
+        UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_GppSID)
         
         UserConsentDataManager.shared.subjectToCOPPA = nil
         UserConsentDataManager.shared.gdprConsentString = nil

@@ -34,8 +34,8 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         logToFile = nil
         targeting.coppa = nil
         
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABGPP_HDR_GppString)
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABGPP_GppSID)
+        UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
+        UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_GppSID)
         UserConsentDataManager.shared.subjectToCOPPA = nil
         
         super.tearDown()
@@ -362,8 +362,8 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         // Set Regs
         let gppString = "gppString"
         let gppSID = "gppSID"
-        UserDefaults.standard.set(gppString, forKey: UserConsentDataManager.shared.IABGPP_HDR_GppString)
-        UserDefaults.standard.set(gppSID, forKey: UserConsentDataManager.shared.IABGPP_GppSID)
+        UserDefaults.standard.set(gppString, forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
+        UserDefaults.standard.set(gppSID, forKey: InternalUserConsentDataManager.IABGPP_GppSID)
         UserConsentDataManager.shared.subjectToCOPPA = true
         
         // Create Builder

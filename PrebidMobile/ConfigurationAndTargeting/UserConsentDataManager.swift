@@ -35,10 +35,6 @@ class UserConsentDataManager: NSObject {
     let IABTCF_SubjectToGDPR = "IABTCF_gdprApplies"
     let IABTCF_PurposeConsents = "IABTCF_PurposeConsents"
     
-    // GPP
-    let IABGPP_HDR_GppString = "IABGPP_HDR_GppString"
-    let IABGPP_GppSID = "IABGPP_GppSID"
-    
     private override init() {
         super.init()
     }
