@@ -26,7 +26,7 @@ class UserConsentDataManagerTest: XCTestCase {
     
     enum TCF {
         static let v2 = TCF2()
-    
+        
         struct TCF2: TCFEdition {
             let subjectToGDPRKey = "IABTCF_gdprApplies"
             let consentStringKey = "IABTCF_TCString"
@@ -40,19 +40,13 @@ class UserConsentDataManagerTest: XCTestCase {
     let purposeConsentsString0 = "00000000"
     let purposeConsentsString1 = "11111111"
     
-    let usPrivacyStringKey = "IABUSPrivacy_String"
-    
-    let usPrivacyStringNotASubject = "1---"
-    let usPrivacyStringNoOptOut = "1YNN"
-    
-    
     override func tearDown() {
         super.tearDown()
         UserDefaults.standard.removeObject(forKey: TCF.v2.subjectToGDPRKey)
         UserDefaults.standard.removeObject(forKey: TCF.v2.consentStringKey)
         UserDefaults.standard.removeObject(forKey: TCF.v2.purposeConsentsStringKey)
-        UserDefaults.standard.removeObject(forKey: usPrivacyStringKey)
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.PB_COPPAKey)
+        UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
+        UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_GppSID)
         
         UserConsentDataManager.shared.subjectToCOPPA = nil
         UserConsentDataManager.shared.gdprConsentString = nil
@@ -60,24 +54,16 @@ class UserConsentDataManagerTest: XCTestCase {
         UserConsentDataManager.shared.subjectToGDPR = nil
     }
     
-    func testPB_COPPAKey() {
-        XCTAssertEqual("kPBCoppaSubjectToConsent", UserConsentDataManager.shared.PB_COPPAKey)
-    }
-
     func testIABTCF_ConsentString() {
         XCTAssertEqual("IABTCF_TCString", UserConsentDataManager.shared.IABTCF_ConsentString)
     }
-
+    
     func testIABTCF_SubjectToGDPR() {
         XCTAssertEqual("IABTCF_gdprApplies", UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
     }
-
+    
     func testIABTCF_PurposeConsents() {
         XCTAssertEqual("IABTCF_PurposeConsents", UserConsentDataManager.shared.IABTCF_PurposeConsents)
-    }
-
-    func testIABUSPrivacy_StringKey() {
-        XCTAssertEqual("IABUSPrivacy_String", UserConsentDataManager.shared.IABUSPrivacy_StringKey)
     }
     
     func testPB_COPPA() {
@@ -89,7 +75,7 @@ class UserConsentDataManagerTest: XCTestCase {
         }
         
         //when
-        let coppa = UserDefaults.standard.bool(forKey: UserConsentDataManager.shared.PB_COPPAKey)
+        let coppa = UserConsentDataManager.shared.subjectToCOPPA
         
         //then
         XCTAssertEqual(true, coppa)
@@ -179,24 +165,6 @@ class UserConsentDataManagerTest: XCTestCase {
         self.assertExpectedConsent(subjectToGDPR: true, consentString: self.consentString1)
     }
     
-    // MARK: IABConsent_ConsentString values
-    func testUSPrivacy_Unset() {
-        setAndLoadPrivacyString(usPrivacyString: nil)
-    }
-    
-    func testUSPrivacy_NotASubject() {
-        setAndLoadPrivacyString(usPrivacyString: usPrivacyStringNotASubject)
-    }
-    
-    func testUSPrivacy_NoOptOut() {
-        setAndLoadPrivacyString(usPrivacyString: usPrivacyStringNoOptOut)
-    }
-    
-    func setAndLoadPrivacyString(usPrivacyString: String?, file: StaticString = #file, line: UInt = #line) {
-        self.setUSPrivacyString(val: usPrivacyString)
-        assertUSPrivacyString(usPrivacyString)
-    }
-    
     // MARK: TCFv2
     func testTCFv2_Empty() {
         assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
@@ -260,19 +228,6 @@ class UserConsentDataManagerTest: XCTestCase {
         self.waitForExpectations(timeout: 1, handler: nil)
         
         self.assertPurposeConsentsString(purposeConsentsString0)
-    }
-    
-    func testIABConsent_usPrivacyString_Changed() {
-        self.setUSPrivacyString(val: usPrivacyStringNotASubject)
-        self.assertUSPrivacyString(usPrivacyStringNotASubject)
-        
-        self.setUSPrivacyString(val: usPrivacyStringNoOptOut)
-        
-        let exp = self.expectation(description: "notificationwaiter")
-        exp.isInverted = true
-        self.waitForExpectations(timeout: 1, handler: nil)
-        
-        self.assertUSPrivacyString(usPrivacyStringNoOptOut)
     }
     
     //fetch advertising identifier based TCF 2.0 Purpose1 value
@@ -427,14 +382,10 @@ class UserConsentDataManagerTest: XCTestCase {
         UserDefaults.standard.set(val, forKey: tcf.purposeConsentsStringKey)
     }
     
-    func setUSPrivacyString(val: String?) {
-        UserDefaults.standard.set(val, forKey: usPrivacyStringKey)
-    }
-    
     func setPurposeConsentsString(val: String?) {
         UserDefaults.standard.set(val, forKey: TCF.v2.purposeConsentsStringKey)
     }
-    
+        
     func assertExpectedConsent(subjectToGDPR: Bool?, consentString: String?, file: StaticString = #file, line: UInt = #line) {
         let userConsentManager = UserConsentDataManager.shared
         
@@ -442,13 +393,9 @@ class UserConsentDataManagerTest: XCTestCase {
         XCTAssertEqual(userConsentManager.gdprConsentString, consentString, file: file, line: line)
     }
     
-    func assertUSPrivacyString(_ usPrivacyString: String?, file: StaticString = #file, line: UInt = #line) {
-        let userConsentManager = UserConsentDataManager.shared
-        XCTAssertEqual(userConsentManager.usPrivacyString, usPrivacyString)
-    }
-    
     func assertPurposeConsentsString(_ purposeConsentsString: String?) {
         let userConsentManager = UserConsentDataManager.shared
         XCTAssertEqual(userConsentManager.purposeConsents, purposeConsentsString)
     }
+
 }

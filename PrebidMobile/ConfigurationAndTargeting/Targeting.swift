@@ -152,6 +152,7 @@ public class Targeting: NSObject {
     }
     
     // MARK: - GDPR
+    
     /**
      * The boolean value set by the user to collect user data
      */

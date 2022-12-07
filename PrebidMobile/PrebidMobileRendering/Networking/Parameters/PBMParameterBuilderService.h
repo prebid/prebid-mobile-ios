@@ -45,7 +45,6 @@
                                                                         reachability:(nonnull Reachability *)reachability
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
-                                                               pbmUserConsentManager:(nonnull UserConsentDataManager *)pbmUserConsentManager
                                                                            targeting:(nonnull Targeting *)targeting
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders;
 @end

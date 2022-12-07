@@ -180,3 +180,5 @@
 #import "MediationInterstitialAdUnit+TestExtension.h"
 #import "MediationBannerAdUnit+TestExtension.h"
 #import "PBMLocationManagerProtocol.h"
+
+#import "InternalUserConsentDataManager.h"

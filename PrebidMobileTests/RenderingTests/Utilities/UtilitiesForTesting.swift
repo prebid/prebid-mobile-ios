@@ -312,11 +312,12 @@ typealias JsonDictionary = [String:Any]
         targeting.clearContextKeywords()
         targeting.clearUserKeywords()
         
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.PB_COPPAKey)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_ConsentString)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
-        UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABUSPrivacy_StringKey)
+        UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABUSPrivacy_StringKey)
+        UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_GppSID)
+        UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
         
         checkInitialValues(targeting)
     }
@@ -347,11 +348,10 @@ typealias JsonDictionary = [String:Any]
         XCTAssertTrue(targeting.accessControlList.isEmpty)
         XCTAssert(targeting.yearOfBirth == 0)
         
-        XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.PB_COPPAKey))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_ConsentString))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents))
-        XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABUSPrivacy_StringKey))
+        XCTAssertNil(UserDefaults.standard.object(forKey: InternalUserConsentDataManager.IABUSPrivacy_StringKey))
     }
     
     // Prepends "mraid:" and converts to a URL.

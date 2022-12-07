@@ -49,7 +49,6 @@
                                        reachability:Reachability.shared
                                    sdkConfiguration:Prebid.shared
                                          sdkVersion:[PBMFunctions sdkVersion]
-                              pbmUserConsentManager:UserConsentDataManager.shared
                                           targeting:Targeting.shared
                              extraParameterBuilders:extraParameterBuilders];
 }
@@ -64,7 +63,6 @@
                                                                         reachability:(nonnull Reachability *)reachability
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
-                                                               pbmUserConsentManager:(nonnull UserConsentDataManager *) pbmUserConsentManager
                                                                            targeting:(nonnull Targeting *)targeting
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders{
   
@@ -79,7 +77,7 @@
         [[PBMAppInfoParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
         [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager],
         [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo reachability:reachability],
-        [[PBMUserConsentParameterBuilder alloc] initWithUserConsentManager:pbmUserConsentManager],
+        [[PBMUserConsentParameterBuilder alloc] init],
         [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
     ]];
     

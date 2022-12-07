@@ -17,6 +17,8 @@
 #import "PBMMacros.h"
 #import "PBMORTB.h"
 
+#import "InternalUserConsentDataManager.h"
+
 #import "PBMBasicParameterBuilder.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -119,6 +121,8 @@
     
     bidRequest.regs.coppa = self.targeting.coppa;
     bidRequest.regs.ext[@"gdpr"] = [self.targeting getSubjectToGDPR];
+    bidRequest.regs.ext[@"gpp"] = InternalUserConsentDataManager.gppHDRString;
+    bidRequest.regs.ext[@"gpp_sid"] = InternalUserConsentDataManager.gppSID;
     
     [self appendFormatSpecificParametersForRequest:bidRequest];
 }
