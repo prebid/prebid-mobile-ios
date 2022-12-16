@@ -225,8 +225,5 @@ public class Prebid: NSObject {
         }
         
         Utils.shared.checkGMAVersion(sdkVersion)
-        
-        PrebidInternal.shared().displaymanager = "google-mobile-ads"
-        PrebidInternal.shared().displaymanagerver = sdkVersion
     }
 }

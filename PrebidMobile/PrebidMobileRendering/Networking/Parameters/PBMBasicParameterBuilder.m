@@ -111,8 +111,8 @@
     }
     
     for (PBMORTBImp *rtbImp in bidRequest.imp) {
-        rtbImp.displaymanager = PrebidInternal.shared.isOriginalAPI ? PrebidInternal.shared.displaymanager : @"prebid-mobile";
-        rtbImp.displaymanagerver = PrebidInternal.shared.isOriginalAPI ? PrebidInternal.shared.displaymanagerver : self.sdkVersion;
+        rtbImp.displaymanager = PrebidInternal.shared.isOriginalAPI ? nil : @"prebid-mobile";
+        rtbImp.displaymanagerver = PrebidInternal.shared.isOriginalAPI ? nil : self.sdkVersion;
         
         rtbImp.instl = @(self.adConfiguration.presentAsInterstitial ? 1 : 0);
         

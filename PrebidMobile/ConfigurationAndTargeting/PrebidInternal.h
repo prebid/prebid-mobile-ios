@@ -21,9 +21,6 @@
 
 @property (nonatomic, assign) BOOL isOriginalAPI;
 
-@property (nonatomic, nullable) NSString * displaymanager;
-@property (nonatomic, nullable) NSString * displaymanagerver;
-
 -(instancetype _Nonnull )init;
 
 + (instancetype _Nonnull)shared;
