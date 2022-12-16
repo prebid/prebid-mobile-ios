@@ -69,6 +69,8 @@ import ObjectiveC.runtime
         
         // PBS should cache the bid for original api.
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
+        PrebidInternal.shared().isOriginalAPI = true
+        Prebid.shared.useExternalClickthroughBrowser = true
     }
 
     //TODO: dynamic is used by tests

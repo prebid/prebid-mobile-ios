@@ -31,12 +31,12 @@
     }
     //_impID = nil;
     _pmp = [PBMORTBPmp new];
-    _displaymanager = @"prebid-mobile";
     _instl = @0;
     _clickbrowser = @0;
     _secure = @0;
     _extPrebid = [[PBMORTBImpExtPrebid alloc] init];
     _extSkadn = [PBMORTBImpExtSkadn new];
+    _extContextData = [NSMutableDictionary<NSString *, id> new];
     
     return self;
 }
@@ -45,9 +45,9 @@
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
     
     ret[@"id"] = self.impID;
-    ret[@"banner"] = [self.banner toJsonDictionary];
-    ret[@"video"] = [self.video toJsonDictionary];
-    ret[@"native"] = [self.native toJsonDictionary];
+    ret[@"banner"] = [[self.banner toJsonDictionary] nullIfEmpty];
+    ret[@"video"] = [[self.video toJsonDictionary] nullIfEmpty];
+    ret[@"native"] = [[self.native toJsonDictionary] nullIfEmpty];
     ret[@"pmp"] = [[self.pmp toJsonDictionary] nullIfEmpty];
     ret[@"displaymanager"] = self.displaymanager;
     ret[@"displaymanagerver"] = self.displaymanagerver;
@@ -56,7 +56,7 @@
     ret[@"clickbrowser"] = self.clickbrowser;
     ret[@"secure"] = self.secure;
     
-    ret[@"ext"] = [self extDictionary];
+    ret[@"ext"] = [[self extDictionary] nullIfEmpty];
     
     ret = [ret pbmCopyWithoutEmptyVals];
     
@@ -116,7 +116,7 @@
         ret[@"skadn"] = extSkadnObj;
     }
     
-    if (self.extContextData) {
+    if (self.extContextData && self.extContextData.count > 0) {
         ret[@"context"] = @{
             @"data": self.extContextData,
         };

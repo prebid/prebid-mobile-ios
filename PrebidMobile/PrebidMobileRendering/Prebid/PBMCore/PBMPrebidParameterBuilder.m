@@ -82,16 +82,21 @@
     bidRequest.device.ua        = [self.userAgentService getFullUserAgent];
     
     bidRequest.app.content = [self.adConfiguration getAppContent];
-    bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
+    
+    if (self.targeting.userDataDictionary.count > 0) {
+        bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
+    }
     
     if (self.targeting.gdprConsentString && self.targeting.gdprConsentString.length > 0) {
         bidRequest.user.ext[@"consent"] = self.targeting.gdprConsentString;
     }
 
     PBMORTBSourceExtOMID *extSource = [PBMORTBSourceExtOMID new];
+    
     if (Targeting.shared.omidPartnerName) {
         extSource.omidpn = Targeting.shared.omidPartnerName;
     }
+    
     if (Targeting.shared.omidPartnerVersion) {
         extSource.omidpv = Targeting.shared.omidPartnerVersion;
     }
@@ -135,15 +140,23 @@
     
     PBMORTBAppExt * const appExt = bidRequest.app.ext;
     PBMORTBAppExtPrebid * const appExtPrebid = appExt.prebid;
-    appExt.data = self.targeting.contextDataDictionary;
+    
+    if (self.targeting.contextDataDictionary.count > 0) {
+        appExt.data = self.targeting.contextDataDictionary;
+    }
     
     for (PBMORTBImp *nextImp in bidRequest.imp) {
         nextImp.impID = [NSUUID UUID].UUIDString;
         nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
-        nextImp.extContextData = self.adConfiguration.contextDataDictionary.mutableCopy;
+        
+        if (self.adConfiguration.contextDataDictionary.count > 0) {
+            nextImp.extContextData = self.adConfiguration.contextDataDictionary.mutableCopy;
+        }
+        
         nextImp.extContextData[@"adslot"] = [self.adConfiguration getPbAdSlot];
+       
         for (AdFormat* adFormat in adFormats) {
             if (adFormat == AdFormat.display) {
                 PBMORTBBanner * const nextBanner = nextImp.banner;

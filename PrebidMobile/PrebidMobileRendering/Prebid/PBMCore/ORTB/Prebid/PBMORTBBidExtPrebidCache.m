@@ -42,7 +42,7 @@
     ret[@"key"] = self.key;
     ret[@"url"] = self.url;
     
-    ret[@"bids"] = [self.bids toJsonDictionary];
+    ret[@"bids"] = [[self.bids toJsonDictionary] nullIfEmpty];
     
     [ret pbmRemoveEmptyVals];
     

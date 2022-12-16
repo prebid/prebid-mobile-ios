@@ -18,6 +18,7 @@
 #import "PBMORTB.h"
 
 #import "InternalUserConsentDataManager.h"
+#import "PrebidInternal.h"
 
 #import "PBMBasicParameterBuilder.h"
 
@@ -110,7 +111,9 @@
     }
     
     for (PBMORTBImp *rtbImp in bidRequest.imp) {
-        rtbImp.displaymanagerver = self.sdkVersion;
+        rtbImp.displaymanager = PrebidInternal.shared.isOriginalAPI ? PrebidInternal.shared.displaymanager : @"prebid-mobile";
+        rtbImp.displaymanagerver = PrebidInternal.shared.isOriginalAPI ? PrebidInternal.shared.displaymanagerver : self.sdkVersion;
+        
         rtbImp.instl = @(self.adConfiguration.presentAsInterstitial ? 1 : 0);
         
         //set secure=1 for https or secure=0 for http

@@ -27,6 +27,8 @@ class AdUnitTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
 
         Targeting.shared.clearUserKeywords()
+        Prebid.shared.useExternalClickthroughBrowser = false
+        PrebidInternal.shared().isOriginalAPI = false
     }
 
     func testFetchDemand() {

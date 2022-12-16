@@ -41,3 +41,5 @@
 
 #import "PBMEventTrackerProtocol.h"
 #import "PBMInterstitialDisplayProperties.h"
+
+#import "PrebidInternal.h"

@@ -18,6 +18,8 @@
 
 #import "PBMSKAdNetworksParameterBuilder.h"
 
+#import "PrebidInternal.h"
+
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
 
@@ -78,9 +80,11 @@
         PBMLogError(@"Info.plist contains SKAdNetwork but sourceapp is nil!");
     }
     
-    for (PBMORTBImp *imp in bidRequest.imp) {
-        imp.extSkadn.sourceapp = [sourceapp copy];
-        imp.extSkadn.skadnetids = skadnetids;
+    if (!PrebidInternal.shared.isOriginalAPI) {
+        for (PBMORTBImp *imp in bidRequest.imp) {
+            imp.extSkadn.sourceapp = [sourceapp copy];
+            imp.extSkadn.skadnetids = skadnetids;
+        }
     }
 }
 

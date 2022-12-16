@@ -102,6 +102,7 @@ public class Prebid: NSObject {
     public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
     
     //Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
+    //For original API should be true
     public var useExternalClickthroughBrowser = false
     
     //If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
@@ -165,13 +166,12 @@ public class Prebid: NSObject {
         let _ = ServerConnection.shared
         let _ = PBMLocationManager.shared
         let _ = UserConsentDataManager.shared
+        
         PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
         
         checkServerStatus { completion?($0, $1) }
         
-        if let gadMobileAdsObject = gadMobileAdsObject {
-            Utils.shared.checkGMAVersion(gadMobileAdsObject)
-        }
+        handleGADMobileAdsObject(gadMobileAdsObject)
     }
     
     /// Initializes PrebidMobile SDK.
@@ -208,5 +208,25 @@ public class Prebid: NSObject {
         } catch {
             completion(.failed, PBMError.error(description: "Provided host URL is not valid"))
         }
+    }
+    
+    static func handleGADMobileAdsObject(_ gadMobileAdsObject: AnyObject?) {
+        guard let gadMobileAdsObject = gadMobileAdsObject else {
+             return
+        }
+        
+        guard gadMobileAdsObject.responds(to: NSSelectorFromString("sdkVersion")) else {
+            Log.error("There is no sdkVersion property in GADMobileAds object.")
+            return
+        }
+        
+        guard let sdkVersion = gadMobileAdsObject.value(forKey: "sdkVersion") as? String else {
+            return
+        }
+        
+        Utils.shared.checkGMAVersion(sdkVersion)
+        
+        PrebidInternal.shared().displaymanager = "google-mobile-ads"
+        PrebidInternal.shared().displaymanagerver = sdkVersion
     }
 }

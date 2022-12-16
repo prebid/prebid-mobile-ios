@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 //responsible for rendering ad (typically video or mobile). Used
 //by some ad servers to customize ad code by partner.
 //Recommended for video and/or apps.
-@property (nonatomic, copy) NSString *displaymanager;
+@property (nonatomic, copy, nullable) NSString *displaymanager;
 
 //Version of ad mediation partner, SDK technology, or player
 //responsible for rendering ad (typically video or mobile). Used

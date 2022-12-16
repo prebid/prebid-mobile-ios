@@ -33,6 +33,9 @@ AdUnit *adUnit;
     [Targeting.shared clearUserKeywords];
     [adUnit clearAppContent];
     [adUnit clearUserData];
+    
+    Prebid.shared.useExternalClickthroughBrowser = false;
+    PrebidInternal.shared.isOriginalAPI = false;
 }
 
 - (void)testFetchDemand {

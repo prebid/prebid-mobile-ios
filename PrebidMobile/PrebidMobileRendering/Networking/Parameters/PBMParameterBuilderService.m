@@ -95,7 +95,11 @@
 + (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
     
-    bidRequest.user.yob = [targeting getYearOfBirth];
+    NSNumber * yob = [targeting getYearOfBirth];
+    
+    if (![yob isEqual: @0]) {
+        bidRequest.user.yob = yob;
+    }
     
     bidRequest.user.gender      = targeting.userGenderDescription;
     bidRequest.user.buyeruid    = targeting.buyerUID;

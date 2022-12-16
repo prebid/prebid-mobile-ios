@@ -36,8 +36,11 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_GppSID)
-        UserConsentDataManager.shared.subjectToCOPPA = nil
         
+        Prebid.shared.useExternalClickthroughBrowser = false
+        PrebidInternal.shared().isOriginalAPI = false
+        
+        UserConsentDataManager.shared.subjectToCOPPA = nil
         super.tearDown()
     }
     
@@ -428,6 +431,5 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.delivery, [3])
         XCTAssertEqual(video.pos, 7)
         XCTAssertEqual(video.api, nil)
-        XCTAssertEqual(video.linearity, 1)
     }
 }

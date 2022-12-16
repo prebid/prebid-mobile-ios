@@ -182,3 +182,4 @@
 #import "PBMLocationManagerProtocol.h"
 
 #import "InternalUserConsentDataManager.h"
+#import "PrebidInternal.h"

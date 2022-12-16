@@ -223,6 +223,9 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testSourceOMID() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        
+        Targeting.shared.omidPartnerName = "Prebid"
+        Targeting.shared.omidPartnerVersion = PBMFunctions.omidVersion()
 
         var bidRequest = buildBidRequest(with: adUnitConfig)
 

@@ -37,6 +37,9 @@ extension Prebid {
         Prebid.forcedIsViewable = false
         Prebid.shared.clearCustomHeaders()
         Prebid.shared.clearStoredBidResponses()
+        
+        Prebid.shared.useExternalClickthroughBrowser = false
+        PrebidInternal.shared().isOriginalAPI = false
     }
     
     static var forcedIsViewable: Bool {

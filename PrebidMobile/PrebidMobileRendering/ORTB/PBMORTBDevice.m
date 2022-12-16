@@ -37,7 +37,7 @@
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
     
     ret[@"ua"] = self.ua;
-    ret[@"geo"] = [self.geo toJsonDictionary];
+    ret[@"geo"] = [[self.geo toJsonDictionary] nullIfEmpty];
     ret[@"lmt"] = self.lmt;
     ret[@"devicetype"] = self.devicetype;
     ret[@"make"] = self.make;
