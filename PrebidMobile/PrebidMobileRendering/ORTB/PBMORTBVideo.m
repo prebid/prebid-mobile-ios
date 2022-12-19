@@ -15,7 +15,6 @@
 
 #import "PBMORTBVideo.h"
 #import "PBMORTBAbstract+Protected.h"
-#import "PrebidInternal.h"
 
 //This object represents an in-stream video impression. Many of the fields are non-essential for minimally viable transactions, but are included to offer fine control when needed. Video in OpenRTB generally assumes compliance with the VAST standard. As such, the notion of companion ads is supported by optionally including an array of Banner objects that define these companion ads.
 @implementation PBMORTBVideo
@@ -26,12 +25,6 @@
     }
     _mimes = PBMConstants.supportedVideoMimeTypes;
     _delivery = @[@(3)];
-    
-    if (!PrebidInternal.shared.isOriginalAPI) {
-        _playbackend = @(2);
-        _pos = @(7);
-        _protocols = @[@(2),@(5)];
-    }
     
     return self;
 }

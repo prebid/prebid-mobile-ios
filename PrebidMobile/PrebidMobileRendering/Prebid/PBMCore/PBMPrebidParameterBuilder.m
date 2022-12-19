@@ -176,6 +176,12 @@
             } else if (adFormat == AdFormat.video) {
                 PBMORTBVideo * const nextVideo = nextImp.video;
                 
+                if (!self.adConfiguration.adConfiguration.isOriginalAPI) {
+                    nextVideo.playbackend = @(2);
+                    nextVideo.pos = @(7);
+                    nextVideo.protocols = @[@(2),@(5)];
+                }
+                
                 if (formats.count) {
                     PBMORTBFormat * const primarySize = (PBMORTBFormat *)formats[0];
                     nextVideo.w = primarySize.w;

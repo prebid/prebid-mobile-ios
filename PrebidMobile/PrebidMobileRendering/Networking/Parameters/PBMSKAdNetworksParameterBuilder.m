@@ -18,8 +18,6 @@
 
 #import "PBMSKAdNetworksParameterBuilder.h"
 
-#import "PrebidInternal.h"
-
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
 
@@ -32,6 +30,8 @@
 
 @property (nonatomic, strong, readonly) id<PBMBundleProtocol> bundle;
 @property (nonatomic, strong, readonly) Targeting *targeting;
+@property (nonatomic, strong, readwrite) AdConfiguration *adConfiguration;
+
 @end
 
 #pragma mark - Implementation
@@ -51,7 +51,9 @@
 
 #pragma mark - Initialization
 
-- (nonnull instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle targeting:(Targeting *)targeting {
+- (nonnull instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle
+                             targeting:(Targeting *)targeting
+                       adConfiguration:(AdConfiguration *)adConfiguration {
     if (!(self = [super init])) {
         return nil;
     }
@@ -80,7 +82,7 @@
         PBMLogError(@"Info.plist contains SKAdNetwork but sourceapp is nil!");
     }
     
-    if (!PrebidInternal.shared.isOriginalAPI) {
+    if (!self.adConfiguration.isOriginalAPI) {
         for (PBMORTBImp *imp in bidRequest.imp) {
             imp.extSkadn.sourceapp = [sourceapp copy];
             imp.extSkadn.skadnetids = skadnetids;

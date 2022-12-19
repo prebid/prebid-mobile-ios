@@ -164,5 +164,4 @@ framework module PrebidMobile {
     header "PBMInterstitialAdLoaderDelegate.h"
     
     header "OMSDKVersionProvider.h"
-    header "PrebidInternal.h"
 }

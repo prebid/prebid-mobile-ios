@@ -18,7 +18,6 @@
 #import "PBMORTB.h"
 
 #import "InternalUserConsentDataManager.h"
-#import "PrebidInternal.h"
 
 #import "PBMBasicParameterBuilder.h"
 
@@ -111,8 +110,8 @@
     }
     
     for (PBMORTBImp *rtbImp in bidRequest.imp) {
-        rtbImp.displaymanager = PrebidInternal.shared.isOriginalAPI ? nil : @"prebid-mobile";
-        rtbImp.displaymanagerver = PrebidInternal.shared.isOriginalAPI ? nil : self.sdkVersion;
+        rtbImp.displaymanager = self.adConfiguration.isOriginalAPI ? nil : @"prebid-mobile";
+        rtbImp.displaymanagerver = self.adConfiguration.isOriginalAPI ? nil : self.sdkVersion;
         
         rtbImp.instl = @(self.adConfiguration.presentAsInterstitial ? 1 : 0);
         

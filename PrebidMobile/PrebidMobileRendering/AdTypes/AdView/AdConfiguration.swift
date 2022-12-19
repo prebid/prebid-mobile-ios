@@ -23,6 +23,8 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     // MARK: - Request
     
+    public var isOriginalAPI = false
+    
     public var adFormats: Set<AdFormat> = [.display]
     
     /**

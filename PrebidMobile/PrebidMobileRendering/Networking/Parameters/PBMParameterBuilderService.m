@@ -78,7 +78,7 @@
         [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager],
         [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo reachability:reachability],
         [[PBMUserConsentParameterBuilder alloc] init],
-        [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
+        [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle targeting:targeting adConfiguration:adConfiguration],
     ]];
     
     if (extraParameterBuilders) {

@@ -69,8 +69,6 @@
 		5339554F283E23BA00DA1DCD /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 5339554E283E23BA00DA1DCD /* omsdk.js */; };
 		533E0FB7290FFEB9000CC24F /* PBMORTBAppExt.h in Headers */ = {isa = PBXBuildFile; fileRef = 799109FC28F99C7D004837B4 /* PBMORTBAppExt.h */; };
 		533E0FB929100076000CC24F /* MockGADMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FB829100076000CC24F /* MockGADMobileAds.swift */; };
-		535E7921294B388200FC51C3 /* PrebidInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 535E7920294B388200FC51C3 /* PrebidInternal.m */; };
-		535E7922294B3CF900FC51C3 /* PrebidInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 535E791F294B387800FC51C3 /* PrebidInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		536A427F282D11DA0069E9B2 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* ServerConnection.swift */; };
 		536A4283282D12E80069E9B2 /* ServerConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A4282282D12E80069E9B2 /* ServerConnectionProtocol.swift */; };
 		537B6518283372FD008AE9D1 /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B6517283372FD008AE9D1 /* PathBuilder.swift */; };
@@ -905,8 +903,6 @@
 		53322AA7282E29910049229D /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		5339554E283E23BA00DA1DCD /* omsdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
 		533E0FB829100076000CC24F /* MockGADMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGADMobileAds.swift; sourceTree = "<group>"; };
-		535E791F294B387800FC51C3 /* PrebidInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidInternal.h; sourceTree = "<group>"; };
-		535E7920294B388200FC51C3 /* PrebidInternal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidInternal.m; sourceTree = "<group>"; };
 		536A427E282D11DA0069E9B2 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
 		536A4282282D12E80069E9B2 /* ServerConnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectionProtocol.swift; sourceTree = "<group>"; };
 		537B6517283372FD008AE9D1 /* PathBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBuilder.swift; sourceTree = "<group>"; };
@@ -1855,8 +1851,6 @@
 				53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */,
 				53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */,
 				53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */,
-				535E791F294B387800FC51C3 /* PrebidInternal.h */,
-				535E7920294B388200FC51C3 /* PrebidInternal.m */,
 			);
 			path = ConfigurationAndTargeting;
 			sourceTree = "<group>";
@@ -3415,7 +3409,6 @@
 				5BC379BF271F1D0000444D5E /* PBMTransactionDelegate.h in Headers */,
 				5BC37958271F1D0000444D5E /* PBMJSLibraryManager.h in Headers */,
 				5BC378F3271F1CFF00444D5E /* PBMORTBDeviceExtAtts.h in Headers */,
-				535E7922294B3CF900FC51C3 /* PrebidInternal.h in Headers */,
 				5BC379B7271F1D0000444D5E /* PBMInterstitialLayout.h in Headers */,
 				5BC378B4271F1CFF00444D5E /* UIView+PBMViewExposure.h in Headers */,
 				5BC37933271F1D0000444D5E /* PBMAdModelEventTracker.h in Headers */,
@@ -3968,7 +3961,6 @@
 				5BC3796D271F1D0000444D5E /* PBMVastCreativeNonLinearAds.m in Sources */,
 				5BC379C9271F1D0000444D5E /* PBMAdRequestResponseVAST.m in Sources */,
 				5BC378F9271F1CFF00444D5E /* PBMORTBPublisher.m in Sources */,
-				535E7921294B388200FC51C3 /* PrebidInternal.m in Sources */,
 				5BC379D6271F1D0000444D5E /* PBMWebView.m in Sources */,
 				92AFE57F274FCD9900B0430C /* PBMORTBAppContent.m in Sources */,
 				92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */,
