@@ -271,33 +271,6 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 With Custom Parameters (GAM Original) [OK, PUC]",
-                     tags: [.banner, .originalAPI, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                         
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                
-                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
-                bannerController.adSize = CGSize(width: 320, height: 50)
-                        
-                bannerController.prebidConfigId = "imp-prebid-banner-320-50";
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
-                bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner"
-                bannerController.refreshInterval = 30_000
-                         
-                // Custom parameters
-                let parameters = BannerParameters()
-                parameters.api = [Signals.Api.MRAID_2]
-                bannerController.bannerParameters = parameters
-                         
-                adapterVC.setup(adapter: bannerController)
-                        
-                setupCustomParams(for: bannerController.prebidConfigId)
-            }),
-            
             TestCase(title: "Banner 300x250 (GAM Original) [OK, PUC]",
                      tags: [.banner, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -385,39 +358,6 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Outstream With Custom Parameters (GAM Original) [OK, PUC]",
-                     tags: [.banner, .originalAPI, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                         
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                
-                let bannerController = PrebidOriginalAPIVideoBannerController(rootController: adapterVC)
-                bannerController.adSize = CGSize(width: 300, height: 250)
-                bannerController.prebidConfigId = "imp-prebid-video-outstream"
-                bannerController.storedAuctionResponse = "response-prebid-video-outstream-original-api"
-                bannerController.adUnitID = "/21808260008/prebid-demo-original-api-video-banner"
-                      
-                // Custom parameters
-                let parameters = VideoParameters()
-                parameters.mimes = ["video/mp4"]
-                parameters.protocols = [Signals.Protocols.VAST_2_0]
-                parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-                parameters.api = [1,2]
-                parameters.maxBitrate = 1500
-                parameters.minBitrate = 300
-                parameters.maxDuration = 30
-                parameters.minDuration = 5
-                parameters.placement = Signals.Placement.InBanner
-                bannerController.videoParameters = parameters
-                         
-                adapterVC.setup(adapter: bannerController)
-                        
-                setupCustomParams(for: bannerController.prebidConfigId)
-            }),
-            
             // MARK: ---- Interstitial (Original API)
             
             TestCase(title: "Display Interstitial 320x480 (GAM Original) [OK, PUC]",
@@ -433,30 +373,6 @@ struct TestCaseManager {
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                 interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-display-interstitial"
-                         
-                adapterVC.setup(adapter: interstitialController)
-                        
-                setupCustomParams(for: interstitialController.prebidConfigId)
-            }),
-            
-            TestCase(title: "Display Interstitial With Custom Parameters 320x480 (GAM Original) [OK, PUC]",
-                     tags: [.interstitial, .originalAPI, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                         
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let interstitialController = PrebidOriginalAPIDisplayInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
-                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-display-interstitial"
-                  
-                // Custom parameters
-                let parameters = BannerParameters()
-                parameters.api = [Signals.Api.MRAID_2]
-                interstitialController.bannerParameters = parameters
                          
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -482,38 +398,6 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial With Custom Parameters 320x480 (GAM Original) [OK, PUC]",
-                     tags: [.interstitial, .originalAPI, .server, .video],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                         
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let interstitialController = PrebidOriginalAPIVideoInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-original-api"
-                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
-                 
-                // Custom parameters
-                let parameters = VideoParameters()
-                parameters.mimes = ["video/mp4"]
-                parameters.protocols = [Signals.Protocols.VAST_2_0,Signals.Protocols.VAST_3_0,Signals.Protocols.VAST_4_0]
-                parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-                parameters.api = [1,2] // or alternative enum values [Api.VPAID_1, Api.VPAID_2]
-                parameters.maxBitrate = 1500
-                parameters.minBitrate = 300
-                parameters.maxDuration = 30
-                parameters.minDuration = 5
-                parameters.placement = 5
-                interstitialController.videoParameters = parameters
-                         
-                adapterVC.setup(adapter: interstitialController)
-                        
-                setupCustomParams(for: interstitialController.prebidConfigId)
-            }),
-            
             TestCase(title: "Video Rewarded 320x480 (GAM Original) [OK, PUC]",
                      tags: [.interstitial, .originalAPI, .server, .video],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -531,39 +415,7 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
-            }),
-            
-            TestCase(title: "Video Rewarded 320x480 With Custom Parameters (GAM Original) [OK, PUC]",
-                     tags: [.interstitial, .originalAPI, .server, .video],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                         
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let interstitialController = PrebidOriginalAPIVideoRewardedController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                interstitialController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-original-api"
-                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
-                    
-                // Custom parameters
-                let parameters = VideoParameters()
-                parameters.mimes = ["video/mp4"]
-                parameters.protocols = [Signals.Protocols.VAST_2_0,Signals.Protocols.VAST_3_0,Signals.Protocols.VAST_4_0]
-                parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-                parameters.api = [1,2]            // or alternative enum values [Api.VPAID_1, Api.VPAID_2]
-                parameters.maxBitrate = 1500
-                parameters.minBitrate = 300
-                parameters.maxDuration = 30
-                parameters.minDuration = 5
-                parameters.placement = 5
-                interstitialController.videoParameters = parameters
-                         
-                adapterVC.setup(adapter: interstitialController)
-                        
-                setupCustomParams(for: interstitialController.prebidConfigId)
-            }),
+            }), 
             
             // MARK: ---- Native (Original API)
             
