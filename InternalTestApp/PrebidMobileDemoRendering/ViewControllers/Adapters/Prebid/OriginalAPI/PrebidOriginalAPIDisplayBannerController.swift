@@ -30,10 +30,7 @@ class PrebidOriginalAPIDisplayBannerController:
     
     var refreshInterval: TimeInterval = 0
     var adSize = CGSize.zero
-    var additionalSizes: [CGSize]?
     var gamSizes = [GADAdSize]()
-    
-    var bannerParameters: BannerParameters?
     
     // Prebid
     private var adUnit: BannerAdUnit!
@@ -79,16 +76,7 @@ class PrebidOriginalAPIDisplayBannerController:
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
-        
-        if let additionalSizes = additionalSizes {
-            adUnit.addAdditionalSize(sizes: additionalSizes)
-        }
-        
         adUnit.setAutoRefreshMillis(time: refreshInterval)
-        
-        if let bannerParameters = bannerParameters {
-            adUnit.parameters = bannerParameters
-        }
         
         gamBanner = GAMBannerView(adSize: gamSizes.first ?? GADAdSizeFromCGSize(adSize))
         gamBanner.validAdSizes = gamSizes.map(NSValueFromGADAdSize)
