@@ -55,9 +55,13 @@ class ExamplesViewController: UIViewController {
                 self?.filterTestCases()
             }
         }
-        
-        integrationKindPicker.setupPullDown(with: integrationKindActions + [allIntegrationKindsAction])
-        
+        if CommandLine.arguments.contains("-integrationKindAll") {
+            integrationKindPicker.setupPullDown(with: [allIntegrationKindsAction] + integrationKindActions)
+        } else {
+            integrationKindPicker.setupPullDown(with: integrationKindActions + [allIntegrationKindsAction])
+            currentIntegrationKind = IntegrationKind.gamOriginal
+            filterTestCases()
+        }
         let allAdFormatsAction = UIAction(title: "All") { [weak self] _ in
             self?.currentAdFormat = nil
             self?.filterTestCases()
@@ -72,8 +76,6 @@ class ExamplesViewController: UIViewController {
         
         adFormatPicker.setupPullDown(with: [allAdFormatsAction] + adFormatActions)
         
-        currentIntegrationKind = IntegrationKind.gamOriginal
-        filterTestCases()
     }
     
     private func filterTestCases() {

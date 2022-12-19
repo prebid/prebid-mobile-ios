@@ -19,7 +19,7 @@ jobs:
           name: Run Unit Tests for Frameworks
           command: scripts/testPrebidMobile.sh -l
           
-  run-swift-demo-app-tests:
+  run-swift-demo-integration-tests:
     macos:
       xcode: 14.1.0
     steps:
@@ -27,6 +27,15 @@ jobs:
       - run:
           name: Run Integration Tests
           command: scripts/testPrebidDemo.sh -l
+          
+  run-swift-demo-ui-tests:
+    macos:
+      xcode: 14.1.0
+    steps:
+      - checkout
+      - run:
+          name: Run Smoke UI Tests
+          command: scripts/testPrebidDemo.sh -ui -l
 
 
 workflows:
@@ -36,5 +45,7 @@ workflows:
          name: Build PrebidMobile Frameworks
       - unit-test:
          name: Run Unit Tests for PrebidMobile Frameworks
-      - run-swift-demo-app-tests:
+      - run-swift-demo-integration-tests:
+         name: Run Intgration Tests - Swift Demo App
+      - run-swift-demo-ui-tests:
          name: Run Smoke UI Tests - Swift Demo App

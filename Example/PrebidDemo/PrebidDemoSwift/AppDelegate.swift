@@ -29,7 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // ===== INIT: Prebid
-        
+        if CommandLine.arguments.contains("-uiTesting") {
+            UIApplication.shared.getKeyWindow()?.layer.speed = 2
+            UIView.setAnimationsEnabled(false)
+        }
         // Set account id and custom Prebid server URL
         Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")

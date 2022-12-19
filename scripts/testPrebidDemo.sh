@@ -15,13 +15,20 @@ gem install cocoapods --user-install
 pod deintegrate
 pod install --repo-update
 pod update
-
-echo -e "\n${GREEN}Running integration tests${NC} \n"
-xcodebuild test -workspace PrebidMobile.xcworkspace -scheme "PrebidDemoTests" -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+if [ "$1" == "-ui" ]; then
+    echo -e "\n${GREEN}Running UI tests${NC} \n"
+    SCHEME="PrebidDemoSwiftUITests"
+    TEST="UI"
+else
+    echo -e "\n${GREEN}Running integration tests${NC} \n"
+    SCHEME="PrebidDemoTests"
+    TEST="Integration"
+fi
+xcodebuild test -workspace PrebidMobile.xcworkspace -scheme $SCHEME -test-iterations 2 -retry-tests-on-failure  -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
-    echo "✅ Integration Tests Passed"
+    echo "✅ ${TEST} Tests Passed"
 else
-    echo "🔴 Integration Tests Failed"
+    echo "🔴 ${TEST} Tests Failed"
     exit 1
 fi
