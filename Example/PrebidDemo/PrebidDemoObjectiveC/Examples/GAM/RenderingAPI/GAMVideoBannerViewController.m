@@ -40,7 +40,7 @@ NSString * const gamAdUnitVideoRendering = @"/21808260008/prebid_oxb_300x250_ban
 
 - (void)createAd {
     // 1. Create a GAMBannerEventHandler
-    GAMBannerEventHandler * eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:gamAdUnitVideoRendering validGADAdSizes:@[NSValueFromGADAdSize(GADAdSizeBanner)]];
+    GAMBannerEventHandler * eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:gamAdUnitVideoRendering validGADAdSizes:@[NSValueFromGADAdSize(GADAdSizeMediumRectangle)]];
     
     // 2. Create a BannerView
     self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpVideoGAMRendering adSize:self.adSize eventHandler:eventHandler];
