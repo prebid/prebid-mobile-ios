@@ -30,8 +30,6 @@ class PrebidOriginalAPIVideoInterstitialController:
     
     var refreshInterval: TimeInterval = 0
     
-    var videoParameters: VideoParameters?
-    
     // Prebid
     private var adUnit: VideoInterstitialAdUnit!
     
@@ -68,10 +66,6 @@ class PrebidOriginalAPIVideoInterstitialController:
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         adUnit = VideoInterstitialAdUnit(configId: prebidConfigId)
-        
-        if let videoParameters = videoParameters {
-            adUnit.parameters = videoParameters
-        }
          
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in

@@ -30,8 +30,6 @@ class PrebidOriginalAPIDisplayInterstitialController:
     
     var refreshInterval: TimeInterval = 0
     
-    var bannerParameters: BannerParameters?
-    
     // Prebid
     private var adUnit: InterstitialAdUnit!
     
@@ -69,10 +67,6 @@ class PrebidOriginalAPIDisplayInterstitialController:
         
         adUnit = InterstitialAdUnit(configId: prebidConfigId, minWidthPerc: 50, minHeightPerc: 70)
        
-        if let bannerParameters = bannerParameters {
-            adUnit.parameters = bannerParameters
-        }
-        
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             Log.info("Prebid demand fetch for GAM \(resultCode.name())")
