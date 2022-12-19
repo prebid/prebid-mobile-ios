@@ -49,7 +49,7 @@ class PBMORTBAbstractTest : XCTestCase {
         
         //Metric not implemented
         codeAndDecode(abstract:PBMORTBBanner(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBVideo(), expectedString: "{\"delivery\":[3],\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"playbackend\":2,\"pos\":7,\"protocols\":[2,5]}")
+        codeAndDecode(abstract:PBMORTBVideo(), expectedString: "{}")
         
         //Audio not implemented
         //Native not implemented
@@ -240,7 +240,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBImp.secure = 1
         pbmORTBImp.extContextData = ["lookup_words": ["dragon", "flame"]]
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"context\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]}},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\",\"video\":{\"delivery\":[3],\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"playbackend\":2,\"pos\":7,\"protocols\":[2,5]}}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"context\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]}},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\"}")
     }
     
     
@@ -320,6 +320,11 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBVideo.linearity = 1
         pbmORTBVideo.minbitrate = 20
         pbmORTBVideo.maxbitrate = 40
+        pbmORTBVideo.mimes = PBMConstants.supportedVideoMimeTypes
+        pbmORTBVideo.protocols = [2, 5]
+        pbmORTBVideo.pos = 7
+        pbmORTBVideo.delivery = [3]
+        pbmORTBVideo.playbackend = 2
         
         codeAndDecode(abstract: pbmORTBVideo, expectedString: "{\"delivery\":[3],\"h\":200,\"linearity\":1,\"maxbitrate\":40,\"maxduration\":100,\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"minbitrate\":20,\"minduration\":10,\"playbackend\":2,\"pos\":7,\"protocols\":[2,5],\"startdelay\":5,\"w\":100}")
     }

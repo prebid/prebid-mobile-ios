@@ -180,6 +180,8 @@
                     nextVideo.playbackend = @(2);
                     nextVideo.pos = @(7);
                     nextVideo.protocols = @[@(2),@(5)];
+                    nextVideo.mimes = PBMConstants.supportedVideoMimeTypes;
+                    nextVideo.delivery = @[@(3)];
                 }
                 
                 if (formats.count) {
