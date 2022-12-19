@@ -30,6 +30,8 @@ class PrebidOriginalAPIVideoRewardedController:
     
     var refreshInterval: TimeInterval = 0
     
+    var videoParameters: VideoParameters?
+    
     // Prebid
     private var adUnit: RewardedVideoAdUnit!
     
@@ -67,17 +69,9 @@ class PrebidOriginalAPIVideoRewardedController:
         
         adUnit = RewardedVideoAdUnit(configId: prebidConfigId)
         
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
-        parameters.protocols = [Signals.Protocols.VAST_2_0,Signals.Protocols.VAST_3_0,Signals.Protocols.VAST_4_0]
-        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        parameters.api = [1,2]            // or alternative enum values [Api.VPAID_1, Api.VPAID_2]
-        parameters.maxBitrate = 1500
-        parameters.minBitrate = 300
-        parameters.maxDuration = 30
-        parameters.minDuration = 5
-        parameters.placement = 5
-        adUnit.parameters = parameters
+        if let videoParameters = videoParameters {
+            adUnit.parameters = videoParameters
+        }
          
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in

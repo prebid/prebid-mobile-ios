@@ -33,6 +33,8 @@ class PrebidOriginalAPIDisplayBannerController:
     var additionalSizes: [CGSize]?
     var gamSizes = [GADAdSize]()
     
+    var bannerParameters: BannerParameters?
+    
     // Prebid
     private var adUnit: BannerAdUnit!
     
@@ -84,9 +86,9 @@ class PrebidOriginalAPIDisplayBannerController:
         
         adUnit.setAutoRefreshMillis(time: refreshInterval)
         
-        let parameters = BannerParameters()
-        parameters.api = [Signals.Api.MRAID_2]
-        adUnit.parameters = parameters
+        if let bannerParameters = bannerParameters {
+            adUnit.parameters = bannerParameters
+        }
         
         gamBanner = GAMBannerView(adSize: gamSizes.first ?? GADAdSizeFromCGSize(adSize))
         gamBanner.validAdSizes = gamSizes.map(NSValueFromGADAdSize)
