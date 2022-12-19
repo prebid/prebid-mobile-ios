@@ -27,7 +27,6 @@ NSString * const configId = @"1001-1";
 
 - (void)tearDown {
     Prebid.shared.useExternalClickthroughBrowser = false;
-    PrebidInternal.shared.isOriginalAPI = false;
 }
 
 //MARK: - BannerAdUnit

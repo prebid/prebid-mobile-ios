@@ -38,7 +38,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_GppSID)
         
         Prebid.shared.useExternalClickthroughBrowser = false
-        PrebidInternal.shared().isOriginalAPI = false
         
         UserConsentDataManager.shared.subjectToCOPPA = nil
         super.tearDown()

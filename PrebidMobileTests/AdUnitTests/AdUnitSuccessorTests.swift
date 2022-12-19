@@ -24,7 +24,6 @@ class AdUnitSuccessorTests: XCTestCase {
         super.tearDown()
         
         Prebid.shared.useExternalClickthroughBrowser = false
-        PrebidInternal.shared().isOriginalAPI = false
     }
     
     //MARK: - BannerAdUnit

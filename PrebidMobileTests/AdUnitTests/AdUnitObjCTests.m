@@ -35,7 +35,6 @@ AdUnit *adUnit;
     [adUnit clearUserData];
     
     Prebid.shared.useExternalClickthroughBrowser = false;
-    PrebidInternal.shared.isOriginalAPI = false;
 }
 
 - (void)testFetchDemand {

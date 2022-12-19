@@ -28,7 +28,6 @@ class AdUnitTests: XCTestCase {
 
         Targeting.shared.clearUserKeywords()
         Prebid.shared.useExternalClickthroughBrowser = false
-        PrebidInternal.shared().isOriginalAPI = false
     }
 
     func testFetchDemand() {
