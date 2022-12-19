@@ -39,8 +39,7 @@ class GAMVideoBannerViewController: BannerBaseViewController, BannerViewDelegate
     
     func createAd() {
         // 1. Create a GAMBannerEventHandler
-        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [GADAdSizeBanner].map(NSValueFromGADAdSize))
-        
+        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [GADAdSizeMediumRectangle].map(NSValueFromGADAdSize))
         // 2. Create a BannerView
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize), configID: storedImpVideoBanner, adSize: adSize, eventHandler: eventHandler)
         
