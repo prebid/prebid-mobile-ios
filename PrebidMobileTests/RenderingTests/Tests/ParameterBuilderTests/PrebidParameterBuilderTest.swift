@@ -223,10 +223,8 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testSourceOMID() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        
         Targeting.shared.omidPartnerName = "Prebid"
         Targeting.shared.omidPartnerVersion = PBMFunctions.omidVersion()
-
         var bidRequest = buildBidRequest(with: adUnitConfig)
 
         XCTAssertEqual(bidRequest.source.extOMID.omidpn, "Prebid")
@@ -412,19 +410,19 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testDefaultVideoParameters_OriginalAPI() {
         let adUnit = VideoAdUnit(configId: "configId", size: CGSize(width: 300, height: 250))
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
+
         //Check that this is counted as an interstitial
         PBMAssertEq(bidRequest.imp.count, 1)
         guard let imp = bidRequest.imp.first else {
             XCTFail("No Imp object!")
             return
         }
-        
+
         guard let video = imp.video else {
             XCTFail("No video object!")
             return
         }
-        
+
         XCTAssertEqual(video.mimes, nil)
         XCTAssertEqual(video.protocols, nil)
         XCTAssertEqual(video.playbackend, nil)
@@ -432,31 +430,31 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.pos, nil)
         XCTAssertEqual(video.api, nil)
     }
-    
+
     func testDefaultVideoParameters_RenderingAPI() {
         let adUnit = BannerView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 250)), configID: "configId", adSize: CGSize(width: 300, height: 250))
         adUnit.adFormat = .video
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
+
         //Check that this is counted as an interstitial
         PBMAssertEq(bidRequest.imp.count, 1)
         guard let imp = bidRequest.imp.first else {
             XCTFail("No Imp object!")
             return
         }
-        
+
         guard let video = imp.video else {
             XCTFail("No video object!")
             return
         }
-        
+
         PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
         PBMAssertEq(video.protocols, [2,5])
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
         PBMAssertEq(video.playbackend, 2)
     }
-    
+
     func testParameterBuilderInterstitialVAST() {
         let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
         adUnit.adFormats = [.video]
@@ -465,61 +463,115 @@ class PrebidParameterBuilderTest: XCTestCase {
         parameters.placement = .Interstitial
         parameters.linearity = 1
         adConfiguration.videoParameters = parameters
-        
+
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
+
         //Check that this is counted as an interstitial
         PBMAssertEq(bidRequest.imp.count, 1)
         guard let imp = bidRequest.imp.first else {
             XCTFail("No Imp object!")
             return
         }
-        
+
         PBMAssertEq(imp.instl, 1)
-        
+
         guard let video = imp.video else {
             XCTFail("No video object!")
             return
         }
-        
+
         PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
         PBMAssertEq(video.protocols, [2,5])
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
     }
-    
+
     func testParameterBuilderOutstream() {
         let adUnit = BannerView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 250)), configID: "configID", adSize: CGSize(width: 300, height: 250))
-        
+
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
         adConfiguration.adFormats = [.video]
         adConfiguration.size = CGSize(width: 300, height: 250)
-        
-        
+
+
         // Run the Builder
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
+
         PBMAssertEq(bidRequest.imp.count, 1)
         guard let imp = bidRequest.imp.first else {
             XCTFail("No Imp object!")
             return
         }
         PBMAssertEq(imp.instl, 0)
-        
+
         guard let video = imp.video else {
             XCTFail("No video object!")
             return
         }
-        
+
         PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
         PBMAssertEq(video.protocols, [2,5])
         XCTAssertNil(video.placement)
-        
+
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
     }
-    
-    
+
+
+    func testBannerParameters() {
+        // Original API
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        adUnit.adUnitConfig.adFormats = [.display]
+
+        let bannerParameters = BannerParameters()
+        bannerParameters.api = [.MRAID_1, .MRAID_2, .MRAID_3, .OMID_1, .ORMMA, .VPAID_1, .VPAID_2, .ORMMA]
+
+        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
+
+        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        bidRequest.imp.forEach {
+            XCTAssertEqual($0.banner?.api, [3, 5, 6, 7, 4, 1, 2, 4])
+        }
+    }
+
+    func testVideoParameters() {
+        // Original API
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 300, height: 250))
+        adUnit.adUnitConfig.adFormats = [.video]
+
+        let videoParamters = VideoParameters()
+        videoParamters.api = [.MRAID_1, .MRAID_2, .MRAID_3, .OMID_1, .ORMMA, .VPAID_1, .VPAID_2, .ORMMA]
+        videoParamters.maxBitrate = 1500
+        videoParamters.minBitrate = 30
+        videoParamters.maxDuration = 60
+        videoParamters.minDuration = 30
+        videoParamters.mimes = ["video/mp4"]
+        videoParamters.playbackMethod = [.AutoPlaySoundOn]
+        videoParamters.protocols = [.VAST_1_0, .VAST_2_0, .VAST_3_0]
+        videoParamters.startDelay = .GenericMidRoll
+        videoParamters.placement = .InBanner
+        videoParamters.linearity = 1
+
+        adUnit.adUnitConfig.adConfiguration.videoParameters = videoParamters
+
+        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        bidRequest.imp.forEach {
+            XCTAssertEqual($0.video?.api, [3, 5, 6, 7, 4, 1, 2, 4])
+            XCTAssertEqual($0.video?.maxbitrate, 1500)
+            XCTAssertEqual($0.video?.minbitrate, 30)
+            XCTAssertEqual($0.video?.maxduration, 60)
+            XCTAssertEqual($0.video?.minduration, 30)
+            XCTAssertEqual($0.video?.mimes, ["video/mp4"])
+            XCTAssertEqual($0.video?.playbackmethod, [1])
+            XCTAssertEqual($0.video?.protocols, [1, 2, 3])
+            XCTAssertEqual($0.video?.startdelay, -1)
+            XCTAssertEqual($0.video?.placement, 2)
+            XCTAssertEqual($0.video?.linearity, 1)
+        }
+    }
+
     // MARK: - Helpers
     
     func buildBidRequest(with adUnitConfig: AdUnitConfig) -> PBMORTBBidRequest {
