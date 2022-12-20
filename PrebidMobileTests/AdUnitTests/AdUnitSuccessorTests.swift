@@ -20,6 +20,12 @@ class AdUnitSuccessorTests: XCTestCase {
 
     let configId = Constants.configID1
     
+    override func tearDown() {
+        super.tearDown()
+        
+        Prebid.shared.useExternalClickthroughBrowser = false
+    }
+    
     //MARK: - BannerAdUnit
     
     func testBannerAdUnitCreation() {

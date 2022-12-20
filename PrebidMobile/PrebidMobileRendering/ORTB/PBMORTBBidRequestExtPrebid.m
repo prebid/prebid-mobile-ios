@@ -36,12 +36,11 @@
     PBMMutableJsonDictionary * const targeting = [PBMMutableJsonDictionary new];
     ret[@"targeting"] = targeting;
     
-    if (self.dataBidders != nil) {
+    if (self.dataBidders != nil && self.dataBidders.count > 0) {
         ret[@"data"] = @{
             @"bidders": self.dataBidders,
         };
     };
-
     
     if (self.storedAuctionResponse) {
         ret[@"storedauctionresponse"] = @{@"id":self.storedAuctionResponse};

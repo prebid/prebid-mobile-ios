@@ -56,9 +56,9 @@
     ret[@"id"] = self.requestID;
     ret[@"imp"] = impressions;
     
-    ret[@"app"] = [self.app toJsonDictionary];
-    ret[@"device"] = [self.device toJsonDictionary];
-    ret[@"user"] = [self.user toJsonDictionary];
+    ret[@"app"] = [[self.app toJsonDictionary] nullIfEmpty];
+    ret[@"device"] = [[self.device toJsonDictionary] nullIfEmpty];
+    ret[@"user"] = [[self.user toJsonDictionary] nullIfEmpty];
     ret[@"test"] = self.test;
     ret[@"tmax"] = self.tmax;
     ret[@"regs"] = [[self.regs toJsonDictionary] nullIfEmpty];

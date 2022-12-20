@@ -36,13 +36,14 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_GppSID)
-        UserConsentDataManager.shared.subjectToCOPPA = nil
         
+        Prebid.shared.useExternalClickthroughBrowser = false
+        
+        UserConsentDataManager.shared.subjectToCOPPA = nil
         super.tearDown()
     }
     
     func testParameterBuilderBannerAUID() {
-        
         //Create Builder
         let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = false
@@ -66,8 +67,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         }
         
         PBMAssertEq(imp.instl, 0)
-        PBMAssertEq(imp.displaymanager, "prebid-mobile")
-        PBMAssertEq(imp.displaymanagerver, "MOCK_SDK_VERSION")
         PBMAssertEq(imp.secure, 1)
         PBMAssertEq(imp.clickbrowser, 0)
         
@@ -104,17 +103,11 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         PBMAssertEq(imp.clickbrowser, 1)
     }
     
-    func testParameterBuilderInterstitialVAST() {
-        let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
-        adUnit.adFormats = [.video]
-        let adConfiguration = adUnit.adUnitConfig.adConfiguration
-        let parameters = VideoParameters()
-        parameters.placement = .Interstitial
-        parameters.linearity = 1
-        adConfiguration.videoParameters = parameters
-        
-        //Run the Builder
+    func testDisplayManager_OriginalAPI() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isOriginalAPI = true
         let sdkConfiguration = Prebid.mock
+        
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
@@ -123,24 +116,35 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         let bidRequest = PBMORTBBidRequest()
         builder.build(bidRequest)
         
-        //Check that this is counted as an interstitial
-        PBMAssertEq(bidRequest.imp.count, 1)
         guard let imp = bidRequest.imp.first else {
-            XCTFail("No Imp object!")
+            XCTFail("No imp object")
             return
         }
         
-        PBMAssertEq(imp.instl, 1)
+        PBMAssertEq(imp.displaymanager, nil)
+        PBMAssertEq(imp.displaymanagerver, nil)
+    }
+    
+    func testDisplayManager_RenderingAPI() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isOriginalAPI = false
+        let sdkConfiguration = Prebid.mock
         
-        guard let video = imp.video else {
-            XCTFail("No video object!")
+        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+                                               sdkConfiguration:sdkConfiguration,
+                                               sdkVersion:"MOCK_SDK_VERSION",
+                                               targeting: targeting)
+        
+        let bidRequest = PBMORTBBidRequest()
+        builder.build(bidRequest)
+        
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No imp object")
             return
         }
         
-        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
-        PBMAssertEq(video.protocols, [2,5])
-        PBMAssertEq(video.delivery!, [3])
-        PBMAssertEq(video.pos, 7)
+        PBMAssertEq(imp.displaymanager, "prebid-mobile")
+        PBMAssertEq(imp.displaymanagerver, "MOCK_SDK_VERSION")
     }
     
     func testParameterBuilderDefaultInterstitialConfig() {
@@ -162,40 +166,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         let mediationAdUnit = MediationBaseInterstitialAdUnit.init(configId: "configId", mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
         
         checkDefaultParametersForAdUnit(adConfiguration: mediationAdUnit.adUnitConfig.adConfiguration)
-    }
-    
-    func testParameterBuilderOutstream() {
-        let adConfiguration = AdConfiguration()
-        adConfiguration.adFormats = [.video]
-        adConfiguration.size = CGSize(width: 300, height: 250)
-        
-        //Run the Builder
-        let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
-                                               sdkConfiguration:sdkConfiguration,
-                                               sdkVersion:"MOCK_SDK_VERSION",
-                                               targeting: targeting)
-        let bidRequest = PBMORTBBidRequest()
-        builder.build(bidRequest)
-        
-        PBMAssertEq(bidRequest.imp.count, 1)
-        guard let imp = bidRequest.imp.first else {
-            XCTFail("No Imp object!")
-            return
-        }
-        PBMAssertEq(imp.instl, 0)
-        
-        guard let video = imp.video else {
-            XCTFail("No video object!")
-            return
-        }
-        
-        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
-        PBMAssertEq(video.protocols, [2,5])
-        XCTAssertNil(video.placement)
-        
-        PBMAssertEq(video.delivery!, [3])
-        PBMAssertEq(video.pos, 7)
     }
     
     func testParameterBuilderCOPPANotSet() {
@@ -422,12 +392,11 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         XCTAssertEqual(banner.format, [])
         
         // default values for video object
-        XCTAssertEqual(video.mimes, PBMConstants.supportedVideoMimeTypes)
-        XCTAssertEqual(video.protocols, [2, 5])
-        XCTAssertEqual(video.playbackend, 2)
-        XCTAssertEqual(video.delivery, [3])
-        XCTAssertEqual(video.pos, 7)
+        XCTAssertEqual(video.mimes, nil)
+        XCTAssertEqual(video.protocols, nil)
+        XCTAssertEqual(video.playbackend, nil)
+        XCTAssertEqual(video.delivery, nil)
+        XCTAssertEqual(video.pos, nil)
         XCTAssertEqual(video.api, nil)
-        XCTAssertEqual(video.linearity, 1)
     }
 }

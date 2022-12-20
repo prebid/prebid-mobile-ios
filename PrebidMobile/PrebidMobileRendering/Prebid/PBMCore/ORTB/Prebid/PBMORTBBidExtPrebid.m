@@ -62,7 +62,7 @@
 - (PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary * const ret = [[PBMMutableJsonDictionary alloc] init];
     
-    ret[@"cache"] = [self.cache toJsonDictionary];
+    ret[@"cache"] = [[self.cache toJsonDictionary] nullIfEmpty];
     ret[@"targeting"] = self.targeting;
     ret[@"type"] = self.type;
     

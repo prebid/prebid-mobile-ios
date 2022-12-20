@@ -23,22 +23,16 @@
     if (!(self = [super init])) {
         return nil;
     }
-    _mimes = PBMConstants.supportedVideoMimeTypes;
-    _protocols = @[@(2),@(5)];
-    _playbackend = @(2);
-    _delivery = @[@(3)];
-    _pos = @(7);
-    _linearity = @(1);
     
     return self;
 }
 
 - (void)setMimes:(NSArray<NSString *> *)mimes {
-    _mimes = mimes ? [NSArray arrayWithArray:mimes] : @[];
+    _mimes = mimes ? [NSArray arrayWithArray:mimes] : nil;
 }
 
 - (void)setProtocols:(NSArray<NSNumber *> *)protocols {
-    _protocols = protocols ? [NSArray arrayWithArray:protocols] : @[];
+    _protocols = protocols ? [NSArray arrayWithArray:protocols] : nil;
 }
 
 - (void)setDelivery:(NSArray<NSNumber *> *)delivery {

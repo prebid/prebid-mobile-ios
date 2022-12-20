@@ -78,7 +78,7 @@
         [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager],
         [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo reachability:reachability],
         [[PBMUserConsentParameterBuilder alloc] init],
-        [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
+        [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle targeting:targeting adConfiguration:adConfiguration],
     ]];
     
     if (extraParameterBuilders) {
@@ -95,7 +95,11 @@
 + (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
     
-    bidRequest.user.yob = [targeting getYearOfBirth];
+    NSNumber * yob = [targeting getYearOfBirth];
+    
+    if (![yob isEqual: @0]) {
+        bidRequest.user.yob = yob;
+    }
     
     bidRequest.user.gender      = targeting.userGenderDescription;
     bidRequest.user.buyeruid    = targeting.buyerUID;

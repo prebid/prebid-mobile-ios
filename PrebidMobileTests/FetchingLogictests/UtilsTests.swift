@@ -183,8 +183,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         """
         logToFile = .init()
         
-        let mockGADMobileAds = MockGADMobileAds(sdkVersion: "afma-sdk-i-v100.1.0")
-        Utils.shared.checkGMAVersion(mockGADMobileAds as NSObject)
+        Utils.shared.checkGMAVersion("afma-sdk-i-v100.1.0")
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains(warningMessage))
@@ -193,8 +192,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
     func testCheckGMAVersion_ok() {
         logToFile = .init()
         
-        let mockGADMobileAds = MockGADMobileAds(sdkVersion: "afma-sdk-i-v9.12.0")
-        Utils.shared.checkGMAVersion(mockGADMobileAds as NSObject)
+        Utils.shared.checkGMAVersion("afma-sdk-i-v9.12.0")
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.isEmpty)

@@ -41,15 +41,15 @@ class PBMORTBAbstractTest : XCTestCase {
     //Check default values of all objects decending from PBMORTBAbstract
     func testDefaultToJsonString() {
         
-        codeAndDecode(abstract:PBMORTBBidRequest(), expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"user\":{}}")
+        codeAndDecode(abstract:PBMORTBBidRequest(), expectedString: "{\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
         
         //Source not implemented
         codeAndDecode(abstract:PBMORTBRegs(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBImp(), expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract:PBMORTBImp(), expectedString: "{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
         
         //Metric not implemented
         codeAndDecode(abstract:PBMORTBBanner(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBVideo(), expectedString: "{\"delivery\":[3],\"linearity\":1,\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"playbackend\":2,\"pos\":7,\"protocols\":[2,5]}")
+        codeAndDecode(abstract:PBMORTBVideo(), expectedString: "{}")
         
         //Audio not implemented
         //Native not implemented
@@ -62,7 +62,7 @@ class PBMORTBAbstractTest : XCTestCase {
         //Publisher not implemented
         //Content not implemented
         //Producer not implemented
-        codeAndDecode(abstract:PBMORTBDevice(), expectedString: "{\"geo\":{}}")
+        codeAndDecode(abstract:PBMORTBDevice(), expectedString: "{}")
         codeAndDecode(abstract:PBMORTBGeo(), expectedString: "{}")
         codeAndDecode(abstract:PBMORTBUser(), expectedString: "{}")
         //Data not implemented
@@ -165,15 +165,15 @@ class PBMORTBAbstractTest : XCTestCase {
         let uuid = UUID().uuidString
         pbmORTBBidRequest.requestID = uuid
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"user\":{}}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
         
         pbmORTBBidRequest.tmax = 2000
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"tmax\":2000,\"user\":{}}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":2000}")
         
         pbmORTBBidRequest.test = 2
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"test\":2,\"tmax\":2000,\"user\":{}}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"test\":2,\"tmax\":2000}")
     }
     
     func testBidRequestExtPrebidToJsonString() {
@@ -187,7 +187,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBBidRequest = PBMORTBBidRequest()
         pbmORTBBidRequest.extPrebid = extPrebid
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"ext\":{\"prebid\":{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"user\":{}}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"ext\":{\"prebid\":{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
     }
     
     func testSourceToJsonString() {
@@ -200,7 +200,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBSource.tid = tid
         pbmORTBSource.pchain = pchain
         
-        codeAndDecode(abstract: pbmORTBSource, expectedString: "{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"},\"fd\":0,\"pchain\":\"\(pchain)\",\"tid\":\"\(tid)\"}")
+        codeAndDecode(abstract: pbmORTBSource, expectedString: "{\"fd\":0,\"pchain\":\"\(pchain)\",\"tid\":\"\(tid)\"}")
     }
     
     func testRegsToJsonString() {
@@ -240,8 +240,9 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBImp.secure = 1
         pbmORTBImp.extContextData = ["lookup_words": ["dragon", "flame"]]
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"banner\":{},\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"context\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]}},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\",\"video\":{\"delivery\":[3],\"linearity\":1,\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"playbackend\":2,\"pos\":7,\"protocols\":[2,5]}}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"context\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]}},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\"}")
     }
+    
     
     func testPBMORTBImpExtSkadnToJsonString() {
         let skadn = PBMORTBImpExtSkadn()
@@ -278,7 +279,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBImp = PBMORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
     }
     
     func testImpExtPrebidToJsonStringRewarded() {
@@ -291,7 +292,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBImp = PBMORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
     }
     
     func testBannerToJsonString() {
@@ -319,6 +320,11 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBVideo.linearity = 1
         pbmORTBVideo.minbitrate = 20
         pbmORTBVideo.maxbitrate = 40
+        pbmORTBVideo.mimes = PBMConstants.supportedVideoMimeTypes
+        pbmORTBVideo.protocols = [2, 5]
+        pbmORTBVideo.pos = 7
+        pbmORTBVideo.delivery = [3]
+        pbmORTBVideo.playbackend = 2
         
         codeAndDecode(abstract: pbmORTBVideo, expectedString: "{\"delivery\":[3],\"h\":200,\"linearity\":1,\"maxbitrate\":40,\"maxduration\":100,\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"minbitrate\":20,\"minduration\":10,\"playbackend\":2,\"pos\":7,\"protocols\":[2,5],\"startdelay\":5,\"w\":100}")
     }
@@ -441,14 +447,14 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBPDevice = initORTBDevice(ifa: "ifa")
         pbmORTBPDevice.ua = userAgent
         let userAgentEscaped = userAgent.replacingOccurrences(of: "/", with: "\\/")
-        codeAndDecode(abstract: pbmORTBPDevice, expectedString: "{\"carrier\":\"AT&T\",\"connectiontype\":6,\"devicetype\":1,\"didmd5\":\"didmd5\",\"didsha1\":\"didsha1\",\"geo\":{},\"geofetch\":1,\"h\":100,\"ifa\":\"ifa\",\"js\":1,\"language\":\"en\",\"lmt\":1,\"make\":\"Apple\",\"mccmnc\":\"310-680\",\"model\":\"iPhone\",\"os\":\"iOS\",\"osv\":\"11.1\",\"ppi\":100,\"pxratio\":1.5,\"ua\":\"\(userAgentEscaped)\",\"w\":200}")
+        codeAndDecode(abstract: pbmORTBPDevice, expectedString: "{\"carrier\":\"AT&T\",\"connectiontype\":6,\"devicetype\":1,\"didmd5\":\"didmd5\",\"didsha1\":\"didsha1\",\"geofetch\":1,\"h\":100,\"ifa\":\"ifa\",\"js\":1,\"language\":\"en\",\"lmt\":1,\"make\":\"Apple\",\"mccmnc\":\"310-680\",\"model\":\"iPhone\",\"os\":\"iOS\",\"osv\":\"11.1\",\"ppi\":100,\"pxratio\":1.5,\"ua\":\"\(userAgentEscaped)\",\"w\":200}")
     }
     
     func testDeviceWithoutIfaToJsonString() {
         let pbmORTBPDevice = initORTBDevice(ifa: nil)
         pbmORTBPDevice.ua = userAgent
         let userAgentEscaped = userAgent.replacingOccurrences(of: "/", with: "\\/")
-        codeAndDecode(abstract: pbmORTBPDevice, expectedString: "{\"carrier\":\"AT&T\",\"connectiontype\":6,\"devicetype\":1,\"didmd5\":\"didmd5\",\"didsha1\":\"didsha1\",\"dpidmd5\":\"dpidmd5\",\"dpidsha1\":\"dpidsha1\",\"geo\":{},\"geofetch\":1,\"h\":100,\"js\":1,\"language\":\"en\",\"lmt\":1,\"macmd5\":\"macmd5\",\"macsha1\":\"macsha1\",\"make\":\"Apple\",\"mccmnc\":\"310-680\",\"model\":\"iPhone\",\"os\":\"iOS\",\"osv\":\"11.1\",\"ppi\":100,\"pxratio\":1.5,\"ua\":\"\(userAgentEscaped)\",\"w\":200}")
+        codeAndDecode(abstract: pbmORTBPDevice, expectedString: "{\"carrier\":\"AT&T\",\"connectiontype\":6,\"devicetype\":1,\"didmd5\":\"didmd5\",\"didsha1\":\"didsha1\",\"dpidmd5\":\"dpidmd5\",\"dpidsha1\":\"dpidsha1\",\"geofetch\":1,\"h\":100,\"js\":1,\"language\":\"en\",\"lmt\":1,\"macmd5\":\"macmd5\",\"macsha1\":\"macsha1\",\"make\":\"Apple\",\"mccmnc\":\"310-680\",\"model\":\"iPhone\",\"os\":\"iOS\",\"osv\":\"11.1\",\"ppi\":100,\"pxratio\":1.5,\"ua\":\"\(userAgentEscaped)\",\"w\":200}")
     }
     
     func testDeviceWithExtAttsToJsonString() {
@@ -458,7 +464,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBPDevice.extAtts.ifv = "ifv"
         
         let userAgentEscaped = userAgent.replacingOccurrences(of: "/", with: "\\/")
-        codeAndDecode(abstract: pbmORTBPDevice, expectedString: "{\"carrier\":\"AT&T\",\"connectiontype\":6,\"devicetype\":1,\"didmd5\":\"didmd5\",\"didsha1\":\"didsha1\",\"dpidmd5\":\"dpidmd5\",\"dpidsha1\":\"dpidsha1\",\"ext\":{\"atts\":3,\"ifv\":\"ifv\"},\"geo\":{},\"geofetch\":1,\"h\":100,\"js\":1,\"language\":\"en\",\"lmt\":1,\"macmd5\":\"macmd5\",\"macsha1\":\"macsha1\",\"make\":\"Apple\",\"mccmnc\":\"310-680\",\"model\":\"iPhone\",\"os\":\"iOS\",\"osv\":\"11.1\",\"ppi\":100,\"pxratio\":1.5,\"ua\":\"\(userAgentEscaped)\",\"w\":200}")
+        codeAndDecode(abstract: pbmORTBPDevice, expectedString: "{\"carrier\":\"AT&T\",\"connectiontype\":6,\"devicetype\":1,\"didmd5\":\"didmd5\",\"didsha1\":\"didsha1\",\"dpidmd5\":\"dpidmd5\",\"dpidsha1\":\"dpidsha1\",\"ext\":{\"atts\":3,\"ifv\":\"ifv\"},\"geofetch\":1,\"h\":100,\"js\":1,\"language\":\"en\",\"lmt\":1,\"macmd5\":\"macmd5\",\"macsha1\":\"macsha1\",\"make\":\"Apple\",\"mccmnc\":\"310-680\",\"model\":\"iPhone\",\"os\":\"iOS\",\"osv\":\"11.1\",\"ppi\":100,\"pxratio\":1.5,\"ua\":\"\(userAgentEscaped)\",\"w\":200}")
     }
     
     func testGeoToJsonString() {

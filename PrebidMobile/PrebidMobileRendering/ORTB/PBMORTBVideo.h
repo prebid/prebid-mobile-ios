@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMORTBVideo : PBMORTBAbstract
     
 //Content MIME types supported (e.g., “video/x-ms-wmv”, “video/mp4”).
-@property (nonatomic, copy) NSArray<NSString *> *mimes;
+@property (nonatomic, copy, nullable) NSArray<NSString *> *mimes;
 
 //Int. Minimum video ad duration in seconds.
 @property (nonatomic, strong, nullable) NSNumber *minduration;
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 //9) DAAST 1.0
 //10) DAAST 1.0 Wrapper
 //Note: since this is not settable by the pub, it can be an Int array instead of NSNumber.
-@property (nonatomic, copy) NSArray<NSNumber *> *protocols;
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *protocols;
 
 //NOTE: Deprecated in favor of protocols.
 //Supported video protocol. Refer to List 5.8. At least one

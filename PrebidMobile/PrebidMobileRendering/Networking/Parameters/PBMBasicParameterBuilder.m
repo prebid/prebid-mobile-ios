@@ -110,7 +110,9 @@
     }
     
     for (PBMORTBImp *rtbImp in bidRequest.imp) {
-        rtbImp.displaymanagerver = self.sdkVersion;
+        rtbImp.displaymanager = self.adConfiguration.isOriginalAPI ? nil : @"prebid-mobile";
+        rtbImp.displaymanagerver = self.adConfiguration.isOriginalAPI ? nil : self.sdkVersion;
+        
         rtbImp.instl = @(self.adConfiguration.presentAsInterstitial ? 1 : 0);
         
         //set secure=1 for https or secure=0 for http

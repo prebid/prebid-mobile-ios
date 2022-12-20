@@ -223,6 +223,9 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testSourceOMID() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        
+        Targeting.shared.omidPartnerName = "Prebid"
+        Targeting.shared.omidPartnerVersion = PBMFunctions.omidVersion()
 
         var bidRequest = buildBidRequest(with: adUnitConfig)
 
@@ -405,6 +408,117 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual($0.banner?.api, apiSignalsAsNumbers)
         }
     }
+    
+    func testDefaultVideoParameters_OriginalAPI() {
+        let adUnit = VideoAdUnit(configId: "configId", size: CGSize(width: 300, height: 250))
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        //Check that this is counted as an interstitial
+        PBMAssertEq(bidRequest.imp.count, 1)
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+        
+        guard let video = imp.video else {
+            XCTFail("No video object!")
+            return
+        }
+        
+        XCTAssertEqual(video.mimes, nil)
+        XCTAssertEqual(video.protocols, nil)
+        XCTAssertEqual(video.playbackend, nil)
+        XCTAssertEqual(video.delivery, nil)
+        XCTAssertEqual(video.pos, nil)
+        XCTAssertEqual(video.api, nil)
+    }
+    
+    func testDefaultVideoParameters_RenderingAPI() {
+        let adUnit = BannerView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 250)), configID: "configId", adSize: CGSize(width: 300, height: 250))
+        adUnit.adFormat = .video
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        //Check that this is counted as an interstitial
+        PBMAssertEq(bidRequest.imp.count, 1)
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+        
+        guard let video = imp.video else {
+            XCTFail("No video object!")
+            return
+        }
+        
+        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
+        PBMAssertEq(video.protocols, [2,5])
+        PBMAssertEq(video.delivery!, [3])
+        PBMAssertEq(video.pos, 7)
+        PBMAssertEq(video.playbackend, 2)
+    }
+    
+    func testParameterBuilderInterstitialVAST() {
+        let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
+        adUnit.adFormats = [.video]
+        let adConfiguration = adUnit.adUnitConfig.adConfiguration
+        let parameters = VideoParameters()
+        parameters.placement = .Interstitial
+        parameters.linearity = 1
+        adConfiguration.videoParameters = parameters
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        //Check that this is counted as an interstitial
+        PBMAssertEq(bidRequest.imp.count, 1)
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+        
+        PBMAssertEq(imp.instl, 1)
+        
+        guard let video = imp.video else {
+            XCTFail("No video object!")
+            return
+        }
+        
+        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
+        PBMAssertEq(video.protocols, [2,5])
+        PBMAssertEq(video.delivery!, [3])
+        PBMAssertEq(video.pos, 7)
+    }
+    
+    func testParameterBuilderOutstream() {
+        let adUnit = BannerView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 250)), configID: "configID", adSize: CGSize(width: 300, height: 250))
+        
+        let adConfiguration = adUnit.adUnitConfig.adConfiguration
+        adConfiguration.adFormats = [.video]
+        adConfiguration.size = CGSize(width: 300, height: 250)
+        
+        
+        // Run the Builder
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        PBMAssertEq(bidRequest.imp.count, 1)
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+        PBMAssertEq(imp.instl, 0)
+        
+        guard let video = imp.video else {
+            XCTFail("No video object!")
+            return
+        }
+        
+        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
+        PBMAssertEq(video.protocols, [2,5])
+        XCTAssertNil(video.placement)
+        
+        PBMAssertEq(video.delivery!, [3])
+        PBMAssertEq(video.pos, 7)
+    }
+    
     
     // MARK: - Helpers
     

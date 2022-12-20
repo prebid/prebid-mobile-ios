@@ -31,7 +31,7 @@ final class PrebidGMASDKTests: XCTestCase {
         loggerHelper = .init()
         
         let currentGMASDKVersion = GADMobileAds.sharedInstance()
-        Utils.shared.checkGMAVersion(currentGMASDKVersion)
+        Prebid.handleGADMobileAdsObject(currentGMASDKVersion)
         
         let log = Log.getLogFileAsString() ?? ""
         

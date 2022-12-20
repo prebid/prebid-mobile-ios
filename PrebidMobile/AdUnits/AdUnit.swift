@@ -64,11 +64,13 @@ import ObjectiveC.runtime
 
     public init(configId: String, size: CGSize?) {
         adUnitConfig = AdUnitConfig(configId: configId, size: size ?? CGSize.zero)
+        adUnitConfig.adConfiguration.isOriginalAPI = true
         identifier = UUID.init().uuidString
         super.init()
         
         // PBS should cache the bid for original api.
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
+        Prebid.shared.useExternalClickthroughBrowser = true
     }
 
     //TODO: dynamic is used by tests
