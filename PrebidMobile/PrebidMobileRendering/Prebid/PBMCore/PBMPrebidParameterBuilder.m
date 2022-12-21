@@ -248,14 +248,17 @@
                 }
             }
         }
+        
         if (isInterstitial) {
             nextImp.instl = @(1);
         }
+        
         if (!appExtPrebid.source) {
-            appExtPrebid.source = nextImp.displaymanager;
+            appExtPrebid.source = @"prebid-mobile";
         }
+        
         if (!appExtPrebid.version) {
-            appExtPrebid.version = nextImp.displaymanagerver;
+            appExtPrebid.version = Prebid.shared.version;
         }
     }
 }
