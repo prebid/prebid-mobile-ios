@@ -23,7 +23,6 @@ public class InterstitialAdUnit: BannerBaseAdUnit {
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adFormats = [.display]
-        adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
     }
     
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
