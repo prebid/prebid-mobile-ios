@@ -908,10 +908,12 @@ class TargetingTests: XCTestCase {
     func testKeywords() {
         //Init
         let Targeting = Targeting.shared
-        XCTAssertNil(Targeting.keywords)
+        XCTAssert(Targeting.getUserKeywords().isEmpty)
         
-        let keywords = "Key, words"
-        Targeting.addUserKeyword(keywords)
-        XCTAssertEqual(Targeting.keywords, keywords)
+        let keywords1 = "Key"
+        let keywords2 = "words"
+        Targeting.addUserKeyword(keywords1)
+        Targeting.addUserKeyword(keywords2)
+        XCTAssertEqual(Targeting.getUserKeywords(), [keywords1, keywords2])
     }
 }
