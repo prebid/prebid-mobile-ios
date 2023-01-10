@@ -423,14 +423,6 @@ public class Targeting: NSObject {
     
     // MARK: - Global User Keywords (user.keywords)
     
-    /**
-     Comma separated list of user keywords, interests, or intent.
-     */
-    public var keywords: String? {
-        let result = getUserKeywords().joined(separator: ",")
-        return result.isEmpty ? nil : result
-    }
-    
     public func addUserKeyword(_ newElement: String) {
         userKeywordsSet.insert(newElement)
     }
@@ -448,10 +440,10 @@ public class Targeting: NSObject {
     }
     
     public func getUserKeywords() -> [String] {
-        Log.info("global user keywords set is \(userKeywordsSet)")
         return Array(userKeywordsSet)
     }
     
+    @available(*, deprecated, message: "This property is deprecated. Please, use getUserKeywords method instead.")
     public var userKeywords: [String] {
         Array(userKeywordsSet)
     }
