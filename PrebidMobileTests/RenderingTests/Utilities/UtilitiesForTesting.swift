@@ -289,7 +289,6 @@ typealias JsonDictionary = [String:Any]
         targeting.userCustomData = nil
         targeting.userExt = nil
         targeting.eids = nil
-        targeting.keywords = nil
         targeting.location = nil
         targeting.locationPrecision = nil
         targeting.sourceapp = nil

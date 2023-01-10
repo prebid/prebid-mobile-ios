@@ -911,7 +911,7 @@ class TargetingTests: XCTestCase {
         XCTAssertNil(Targeting.keywords)
         
         let keywords = "Key, words"
-        Targeting.keywords = keywords
+        Targeting.addUserKeyword(keywords)
         XCTAssertEqual(Targeting.keywords, keywords)
     }
 }
