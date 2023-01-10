@@ -509,6 +509,37 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.placement, 5)
         XCTAssertEqual(video.api, nil)
     }
+    
+    func testDefaultVideoParameters_VideoRewarded_OriginalAPI() {
+        let adUnit = RewardedVideoAdUnit(configId: "test")
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+
+        guard let video = imp.video else {
+            XCTFail("No video object!")
+            return
+        }
+
+        XCTAssertEqual(video.mimes, nil)
+        XCTAssertEqual(video.minduration, nil)
+        XCTAssertEqual(video.maxduration, nil)
+        XCTAssertEqual(video.maxduration, nil)
+        XCTAssertEqual(video.minbitrate, nil)
+        XCTAssertEqual(video.maxbitrate, nil)
+        XCTAssertEqual(video.playbackmethod, nil)
+        XCTAssertEqual(video.playbackend, nil)
+        XCTAssertEqual(video.linearity, nil)
+        XCTAssertEqual(video.protocols, nil)
+        XCTAssertEqual(video.playbackend, nil)
+        XCTAssertEqual(video.delivery, [3])
+        XCTAssertEqual(video.pos, 7)
+        XCTAssertEqual(video.placement, 5)
+        XCTAssertEqual(video.api, nil)
+    }
 
     func testDefaultVideoParameters_RenderingAPI() {
         let adUnit = BannerView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 250)), configID: "configId", adSize: CGSize(width: 300, height: 250))
