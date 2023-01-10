@@ -114,10 +114,6 @@
         [bidRequest.user appendEids:[targeting getExternalUserIds]];
     }
     
-    if ([targeting getUserKeywords].count > 0) {
-        bidRequest.user.keywords = [[targeting getUserKeywords] componentsJoinedByString:@","];
-    }
-    
     bidRequest.app.storeurl = targeting.storeURL;
     bidRequest.app.domain = targeting.domain;
     bidRequest.app.bundle = targeting.itunesID;

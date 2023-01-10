@@ -109,11 +109,6 @@ public class Targeting: NSObject {
     public var buyerUID: String?
 
     /**
-     Comma separated list of keywords, interests, or intent.
-     */
-    public var keywords: String?
-
-    /**
      Optional feature to pass bidder data that was set in the
      exchange’s cookie. The string must be in base85 cookie safe
      characters and be in any format. Proper JSON encoding must
@@ -427,6 +422,14 @@ public class Targeting: NSObject {
     }
     
     // MARK: - Global User Keywords (user.keywords)
+    
+    /**
+     Comma separated list of user keywords, interests, or intent.
+     */
+    public var keywords: String? {
+        let result = getUserKeywords().joined(separator: ",")
+        return result.isEmpty ? nil : result
+    }
     
     public func addUserKeyword(_ newElement: String) {
         userKeywordsSet.insert(newElement)
