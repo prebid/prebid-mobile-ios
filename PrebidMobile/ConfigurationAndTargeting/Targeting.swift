@@ -109,11 +109,6 @@ public class Targeting: NSObject {
     public var buyerUID: String?
 
     /**
-     Comma separated list of keywords, interests, or intent.
-     */
-    public var keywords: String?
-
-    /**
      Optional feature to pass bidder data that was set in the
      exchange’s cookie. The string must be in base85 cookie safe
      characters and be in any format. Proper JSON encoding must
@@ -445,10 +440,10 @@ public class Targeting: NSObject {
     }
     
     public func getUserKeywords() -> [String] {
-        Log.info("global user keywords set is \(userKeywordsSet)")
         return Array(userKeywordsSet)
     }
     
+    @available(*, deprecated, message: "This property is deprecated. Please, use getUserKeywords method instead.")
     public var userKeywords: [String] {
         Array(userKeywordsSet)
     }

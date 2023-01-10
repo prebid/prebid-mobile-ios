@@ -46,9 +46,9 @@ class ParameterBuilderServiceTest : XCTestCase {
         targeting.userGender = .male
         targeting.buyerUID = "buyerUID"
         targeting.storeURL = url
-        targeting.keywords = "keyword1,keyword2"
         targeting.userCustomData = "customDataString"
         targeting.publisherName = publisherName
+        targeting.addUserKeyword("keyword1,keyword2")
         
         let sdkConfiguration = Prebid.mock
         

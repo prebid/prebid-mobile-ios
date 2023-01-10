@@ -103,7 +103,6 @@
     
     bidRequest.user.gender      = targeting.userGenderDescription;
     bidRequest.user.buyeruid    = targeting.buyerUID;
-    bidRequest.user.keywords    = targeting.keywords;
     bidRequest.user.customdata  = targeting.userCustomData;
    
     if (targeting.userExt) {
@@ -112,6 +111,10 @@
     
     if ([targeting getExternalUserIds]) {
         [bidRequest.user appendEids:[targeting getExternalUserIds]];
+    }
+    
+    if ([targeting getUserKeywords].count > 0) {
+        bidRequest.user.keywords = [[targeting getUserKeywords] componentsJoinedByString:@","];
     }
     
     bidRequest.app.storeurl = targeting.storeURL;
