@@ -19,13 +19,16 @@ public class VideoInterstitialAdUnit: VideoBaseAdUnit {
 
     public init(configId: String) {
         super.init(configId: configId, size: nil)
-        super.adUnitConfig.adConfiguration.isInterstitialAd = true
-        super.adUnitConfig.adPosition = .fullScreen
-        super.adUnitConfig.adFormats = [.video]
+        
+        adUnitConfig.adConfiguration.isInterstitialAd = true
+        adUnitConfig.adPosition = .fullScreen
+        adUnitConfig.adFormats = [.video]
+        adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
     }
     
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
         self.init(configId: configId)
-        super.adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
+        
+        adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
     }
 }

@@ -181,8 +181,9 @@
                     nextVideo.pos = @(7);
                     nextVideo.protocols = @[@(2),@(5)];
                     nextVideo.mimes = PBMConstants.supportedVideoMimeTypes;
-                    nextVideo.delivery = @[@(3)];
                 }
+                
+                nextVideo.delivery = @[@(3)];
                 
                 if (formats.count) {
                     PBMORTBFormat * const primarySize = (PBMORTBFormat *)formats[0];
