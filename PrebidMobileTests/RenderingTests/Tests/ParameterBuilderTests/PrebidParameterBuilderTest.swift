@@ -407,12 +407,31 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
     }
     
-    func testDefaultVideoParameters_OriginalAPI() {
+    func testDefaultBannerParameters_DisplayBanner_OriginalAPI() {
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        PBMAssertEq(bidRequest.imp.count, 1)
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+
+        guard let banner = imp.banner else {
+            XCTFail("No banner object!")
+            return
+        }
+
+        XCTAssertEqual(banner.pos, nil)
+        XCTAssertEqual(banner.api, nil)
+    }
+    
+    func testDefaultVideoParameters_VideoBanner_OriginalAPI() {
         let adUnit = VideoAdUnit(configId: "configId", size: CGSize(width: 300, height: 250))
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
-        //Check that this is counted as an interstitial
         PBMAssertEq(bidRequest.imp.count, 1)
+        
         guard let imp = bidRequest.imp.first else {
             XCTFail("No Imp object!")
             return
@@ -424,10 +443,101 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
 
         XCTAssertEqual(video.mimes, nil)
+        XCTAssertEqual(video.minduration, nil)
+        XCTAssertEqual(video.maxduration, nil)
+        XCTAssertEqual(video.startdelay, nil)
+        XCTAssertEqual(video.linearity, nil)
+        XCTAssertEqual(video.minbitrate, nil)
+        XCTAssertEqual(video.maxbitrate, nil)
+        XCTAssertEqual(video.playbackmethod, nil)
+        XCTAssertEqual(video.playbackend, nil)
         XCTAssertEqual(video.protocols, nil)
         XCTAssertEqual(video.playbackend, nil)
-        XCTAssertEqual(video.delivery, nil)
+        XCTAssertEqual(video.delivery, [3])
         XCTAssertEqual(video.pos, nil)
+        XCTAssertEqual(video.api, nil)
+        XCTAssertEqual(video.placement, nil)
+        XCTAssertEqual(video.w, 300)
+        XCTAssertEqual(video.h, 250)
+    }
+    
+    func testDefaultBannerParameters_DisplayInterstitial_OriginalAPI() {
+        let adUnit = InterstitialAdUnit(configId: "test")
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        PBMAssertEq(bidRequest.imp.count, 1)
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+
+        guard let banner = imp.banner else {
+            XCTFail("No banner object!")
+            return
+        }
+
+        XCTAssertEqual(banner.pos, 7)
+    }
+    
+    func testDefaultVideoParameters_VideoInterstitial_OriginalAPI() {
+        let adUnit = VideoInterstitialAdUnit(configId: "test")
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+
+        guard let video = imp.video else {
+            XCTFail("No video object!")
+            return
+        }
+
+        XCTAssertEqual(video.mimes, nil)
+        XCTAssertEqual(video.minduration, nil)
+        XCTAssertEqual(video.maxduration, nil)
+        XCTAssertEqual(video.maxduration, nil)
+        XCTAssertEqual(video.minbitrate, nil)
+        XCTAssertEqual(video.maxbitrate, nil)
+        XCTAssertEqual(video.playbackmethod, nil)
+        XCTAssertEqual(video.playbackend, nil)
+        XCTAssertEqual(video.linearity, nil)
+        XCTAssertEqual(video.protocols, nil)
+        XCTAssertEqual(video.playbackend, nil)
+        XCTAssertEqual(video.delivery, [3])
+        XCTAssertEqual(video.pos, 7)
+        XCTAssertEqual(video.placement, 5)
+        XCTAssertEqual(video.api, nil)
+    }
+    
+    func testDefaultVideoParameters_VideoRewarded_OriginalAPI() {
+        let adUnit = RewardedVideoAdUnit(configId: "test")
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+
+        guard let video = imp.video else {
+            XCTFail("No video object!")
+            return
+        }
+
+        XCTAssertEqual(video.mimes, nil)
+        XCTAssertEqual(video.minduration, nil)
+        XCTAssertEqual(video.maxduration, nil)
+        XCTAssertEqual(video.maxduration, nil)
+        XCTAssertEqual(video.minbitrate, nil)
+        XCTAssertEqual(video.maxbitrate, nil)
+        XCTAssertEqual(video.playbackmethod, nil)
+        XCTAssertEqual(video.playbackend, nil)
+        XCTAssertEqual(video.linearity, nil)
+        XCTAssertEqual(video.protocols, nil)
+        XCTAssertEqual(video.playbackend, nil)
+        XCTAssertEqual(video.delivery, [3])
+        XCTAssertEqual(video.pos, 7)
+        XCTAssertEqual(video.placement, 5)
         XCTAssertEqual(video.api, nil)
     }
 
