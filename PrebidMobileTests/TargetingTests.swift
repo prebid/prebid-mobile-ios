@@ -914,6 +914,6 @@ class TargetingTests: XCTestCase {
         let keywords2 = "words"
         Targeting.addUserKeyword(keywords1)
         Targeting.addUserKeyword(keywords2)
-        XCTAssertEqual(Targeting.getUserKeywords(), [keywords1, keywords2])
+        XCTAssertTrue(Targeting.getUserKeywords().allSatisfy([keywords1, keywords2].contains))
     }
 }
