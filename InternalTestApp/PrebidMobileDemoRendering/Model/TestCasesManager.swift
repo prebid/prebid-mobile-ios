@@ -224,7 +224,7 @@ struct TestCaseManager {
         }
         
         if let value = openRtb["keywords"] as? String {
-            targeting.keywords = value
+            Targeting.shared.addUserKeyword(value)
         }
         if let value = openRtb["customdata"] as? String {
             targeting.userCustomData = value
