@@ -29,7 +29,7 @@
     PBMMutableJsonDictionary * const ret = [PBMMutableJsonDictionary new];
     
     if (self.sourceapp && self.skadnetids.count > 0) {
-        ret[@"versions"] = @[@"2.2"];
+        ret[@"versions"] = @[@"2.2", @"3.0", @"4.0"];
         ret[@"sourceapp"] = self.sourceapp;
         ret[@"skadnetids"] = self.skadnetids;
     }

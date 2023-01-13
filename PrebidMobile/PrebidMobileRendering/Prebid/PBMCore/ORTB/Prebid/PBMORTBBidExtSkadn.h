@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *network;
 // Campaign ID compatible with Apple’s spec
 @property (nonatomic, copy, nullable) NSNumber *campaign;
+// A four-digit integer that ad networks define to represent the ad campaign. Used in SKAdNetwork 4.0+,
+// replaces Campaign ID `campaign`. DSPs must generate signatures in 4.0+ using the Source Identifier.
+@property (nonatomic, copy, nullable) NSString *sourceidentifier;
 // ID of advertiser’s app in Apple’s app store
 @property (nonatomic, copy, nullable) NSNumber *itunesitem;
 // ID of publisher’s app in Apple’s app store
