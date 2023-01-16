@@ -17,9 +17,6 @@
 #import "PBMORTB.h"
 #import "InternalUserConsentDataManager.h"
 
-#import "PrebidMobileSwiftHeaders.h"
-#import <PrebidMobile/PrebidMobile-Swift.h>
-
 @interface PBMUserConsentParameterBuilder ()
 @end
 
