@@ -27,6 +27,8 @@
 #import "PBMORTBAppContent.h"
 #import "PBMORTBAppExt.h"
 
+#import "PBMFunctions.h"
+
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
 #import "PrebidMobile-Swift.h"
@@ -96,6 +98,11 @@
     }
 
     PBMORTBSourceExtOMID *extSource = [PBMORTBSourceExtOMID new];
+    
+    if (!self.adConfiguration.adConfiguration.isOriginalAPI) {
+        extSource.omidpn = @"Prebid";
+        extSource.omidpv = [PBMFunctions omidVersion];
+    }
     
     if (Targeting.shared.omidPartnerName) {
         extSource.omidpn = Targeting.shared.omidPartnerName;
