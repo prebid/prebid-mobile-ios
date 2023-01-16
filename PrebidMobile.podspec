@@ -53,16 +53,20 @@ Pod::Spec.new do |s|
                  ]
   s.weak_frameworks  = [ 'AdSupport', 'StoreKit', 'WebKit' ]
 
-  s.module_map   = 'PrebidMobile/BuildFiles/PrebidMobile.modulemap'
-
   # Support previous intagration
   s.default_subspec = 'core'
 
   s.subspec 'core' do |core|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
-    core.resources    = 'PrebidMobile/PrebidMobileRendering/Assets/**/*.{json,png,js,html,xib,xcassets}'
+    core.resource_bundles    = {
+      'PrebidSDKCoreResources' => ['PrebidMobile/PrebidMobileRendering/Assets/**/*.{js,html,xib,xcassets}']
+    }
+    core.private_header_files = [ 
+      'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMParameterBuilderService.h', 
+      'PrebidMobile/PrebidMobileRendering/Prebid+TestExtension.h',
+      'PrebidMobile/PrebidMobileRendering/3dPartyWrappers/OpenMeasurement/PBMOpenMeasurementFriendlyObstructionTypeBridge.h'
+    ]
     core.vendored_frameworks = 'Frameworks/OMSDK-Static_Prebidorg.xcframework'
   end
-
 end
