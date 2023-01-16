@@ -513,7 +513,7 @@
 		5BC37AD4271F1D0100444D5E /* PBMParameterBuilderProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3789B271F1CFF00444D5E /* PBMParameterBuilderProtocol.h */; };
 		5BC37AD5271F1D0100444D5E /* PBMParameterBuilderService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3789C271F1CFF00444D5E /* PBMParameterBuilderService.h */; };
 		5BC37AD6271F1D0100444D5E /* PBMORTBParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3789D271F1CFF00444D5E /* PBMORTBParameterBuilder.m */; };
-		5BC37AD7271F1D0100444D5E /* PBMUserConsentParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3789E271F1CFF00444D5E /* PBMUserConsentParameterBuilder.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5BC37AD7271F1D0100444D5E /* PBMUserConsentParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3789E271F1CFF00444D5E /* PBMUserConsentParameterBuilder.h */; };
 		5BC37AD8271F1D0100444D5E /* PBMGeoLocationParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3789F271F1CFF00444D5E /* PBMGeoLocationParameterBuilder.h */; };
 		5BC37ADC271F1D0100444D5E /* PBMTrackingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC378A4271F1CFF00444D5E /* PBMTrackingRecord.m */; };
 		5BC37ADD271F1D0100444D5E /* PBMTrackingRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC378A5271F1CFF00444D5E /* PBMTrackingRecord.h */; };
