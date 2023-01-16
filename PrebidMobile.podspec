@@ -65,7 +65,9 @@ Pod::Spec.new do |s|
     core.private_header_files = [ 
       'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMParameterBuilderService.h', 
       'PrebidMobile/PrebidMobileRendering/Prebid+TestExtension.h',
-      'PrebidMobile/PrebidMobileRendering/3dPartyWrappers/OpenMeasurement/PBMOpenMeasurementFriendlyObstructionTypeBridge.h'
+      'PrebidMobile/PrebidMobileRendering/3dPartyWrappers/OpenMeasurement/PBMOpenMeasurementFriendlyObstructionTypeBridge.h',
+      'PrebidMobile/ConfigurationAndTargeting/InternalUserConsentDataManager.h',
+      'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMUserConsentParameterBuilder.h'
     ]
     core.vendored_frameworks = 'Frameworks/OMSDK-Static_Prebidorg.xcframework'
   end
