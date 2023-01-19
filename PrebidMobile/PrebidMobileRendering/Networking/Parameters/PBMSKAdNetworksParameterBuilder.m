@@ -64,6 +64,7 @@
     PBMAssert(bundle && targeting);
     _bundle = bundle;
     _targeting = targeting;
+    _adConfiguration = adConfiguration;
     
     return self;
 }
