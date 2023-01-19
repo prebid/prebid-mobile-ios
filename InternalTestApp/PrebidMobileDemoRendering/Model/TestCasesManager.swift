@@ -705,6 +705,7 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
+            // NOTE: works only with InternalTestApp-Skadn target
             TestCase(title: "Banner 320x50 (In-App) [SKAdN 2.2]",
                      tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -971,6 +972,7 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            // NOTE: works only with InternalTestApp-Skadn target
             TestCase(title: "Display Interstitial 320x480 (In-App) [SKAdN 2.2]",
                      tags: [.interstitial, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -1419,6 +1421,7 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
 
+            // NOTE: works only with InternalTestApp-Skadn target
             TestCase(title: "Video Interstitial 320x480 (In-App) [SKAdN 2.2]",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -1708,6 +1711,7 @@ struct TestCaseManager {
                 ];
             }),
             
+            // NOTE: works only with InternalTestApp-Skadn target
             TestCase(title: "Video Outstream (In-App) [SKAdN 2.2]",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
