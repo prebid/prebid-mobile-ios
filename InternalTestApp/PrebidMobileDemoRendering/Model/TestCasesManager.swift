@@ -712,6 +712,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50-skadn"
                 bannerController.storedAuctionResponse = "response-prebid-banner-320-50-skadn"
@@ -729,6 +732,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50-skadn-v22"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
@@ -992,6 +998,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-skadn"
@@ -1008,6 +1017,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-skadn"
@@ -1453,6 +1465,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skadn"
                 interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skadn"
@@ -1470,6 +1485,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skadn"
                 interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skadn-v22"
@@ -1756,9 +1774,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-video-outstream-skadn"
-                         bannerController.storedAuctionResponse = "response-prebid-video-outstream-skadn"
+                bannerController.storedAuctionResponse = "response-prebid-video-outstream-skadn"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 bannerController.adFormat = .video
                 
@@ -1774,6 +1795,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-video-outstream-skadn"
                 bannerController.storedAuctionResponse = "response-prebid-video-outstream-skadn-v22"

@@ -54,6 +54,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     
     deinit {
         Prebid.shared.storedAuctionResponse = nil
+        Targeting.shared.sourceapp = nil
     }
     
     func configurationController() -> BaseConfigurationController? {
