@@ -25,10 +25,6 @@
     return self;
 }
 
-- (void)setSkadnetids:(NSArray<NSString *> *)scadnetids {
-    _skadnetids = scadnetids ? [NSArray arrayWithArray:scadnetids] : @[];
-}
-
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary * const ret = [PBMMutableJsonDictionary new];
     
