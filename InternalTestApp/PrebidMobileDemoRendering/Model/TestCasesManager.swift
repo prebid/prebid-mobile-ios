@@ -705,26 +705,6 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (In-App) [SKAdN]",
-                     tags: [.banner, .inapp, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                Targeting.shared.sourceapp = "InternalTestApp"
-                         
-                let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "imp-prebid-banner-320-50-skadn"
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50-skadn"
-                bannerController.adSizes = [CGSize(width: 320, height: 50)]
-
-                adapterVC.setup(adapter: bannerController)
-                        
-                setupCustomParams(for: bannerController.prebidConfigId)
-            }),
-            
             TestCase(title: "Banner 320x50 (In-App) [SKAdN 2.2]",
                      tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -986,25 +966,6 @@ struct TestCaseManager {
                 interstitialController.adFormats = [.display]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-multisize"
                 interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-multisize"
-                adapterVC.setup(adapter: interstitialController)
-                        
-                setupCustomParams(for: interstitialController.prebidConfigId)
-            }),
-            
-            TestCase(title: "Display Interstitial 320x480 (In-App) [SKAdN]",
-                     tags: [.interstitial, .inapp, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                Targeting.shared.sourceapp = "InternalTestApp"
-                         
-                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.display]
-                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-skadn"
-                interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480-skadn"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1458,26 +1419,6 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
 
-            TestCase(title: "Video Interstitial 320x480 (In-App) [SKAdN]",
-                     tags: [.video, .inapp, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                Targeting.shared.sourceapp = "InternalTestApp"
-                         
-                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skadn"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skadn"
-                interstitialController.adFormats = [.video]
-                
-                adapterVC.setup(adapter: interstitialController)
-                        
-                setupCustomParams(for: interstitialController.prebidConfigId)
-            }),
-            
             TestCase(title: "Video Interstitial 320x480 (In-App) [SKAdN 2.2]",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -1765,27 +1706,6 @@ struct TestCaseManager {
                     TestCaseManager.createDummyTableCell(for: tableView),
                     TestCaseManager.createDummyTableCell(for: tableView),
                 ];
-            }),
-            
-            TestCase(title: "Video Outstream (In-App) [SKAdN]",
-                     tags: [.video, .inapp, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                
-                Targeting.shared.sourceapp = "InternalTestApp"
-                         
-                let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "imp-prebid-video-outstream-skadn"
-                bannerController.storedAuctionResponse = "response-prebid-video-outstream-skadn"
-                bannerController.adSizes = [CGSize(width: 300, height: 250)]
-                bannerController.adFormat = .video
-                
-                adapterVC.setup(adapter: bannerController)
-                        
-                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Video Outstream (In-App) [SKAdN 2.2]",
