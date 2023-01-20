@@ -67,7 +67,7 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
         
         // 3. Create a GAMBannerView
         gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
-        gamBannerView.adUnitID = "/21808260008/unified_native_ad_unit"
+        gamBannerView.adUnitID = "/21808260008/prebid-demo-original-native-styles"
         gamBannerView.rootViewController = self
         gamBannerView.delegate = self
         
