@@ -1907,6 +1907,24 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
+            
+            TestCase(title: "Video Rewarded 320x480 (In-App) [SKAdN 2.2]",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                Targeting.shared.sourceapp = "InternalTestApp"
+                
+                rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-skadn"
+                
+                rewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-skadn-v22"
+                adapterVC.setup(adapter: rewardedAdController)
+                        
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
 
             TestCase(title: "Video Rewarded 320x480 (In-App) [noBids]",
                      tags: [.video, .inapp, .server],
@@ -1951,6 +1969,7 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
+            
             
             TestCase(title: "Video Rewarded With Ad Configuration Server 320x480 (In-App)",
                      tags: [.video, .inapp, .server],
