@@ -270,6 +270,29 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
+            TestCase(title: "Banner 320x50 (GAM Original) [NO SKAdN 2.2]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                
+                let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 320, height: 50)
+                        
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50";
+                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
+                bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner"
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
             TestCase(title: "Banner 300x250 (GAM Original) [OK, PUC]",
                      tags: [.banner, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
