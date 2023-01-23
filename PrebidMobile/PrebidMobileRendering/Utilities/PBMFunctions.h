@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)sdkVersion;
 + (NSString *)omidVersion;
++ (nonnull NSArray<NSString *> *)supportedSKAdNetworkVersions;
 + (NSDictionary<NSString *, NSString *> *)extractVideoAdParamsFromTheURLString:(NSString *)urlString forKeys:(NSArray *)keys;
 + (BOOL)canLoadVideoAdWithDomain:(NSString *)domain adUnitID:(nullable NSString *)adUnitID adUnitGroupID:(nullable NSString *)adUnitGroupID;
 + (void)checkCertificateChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler;
