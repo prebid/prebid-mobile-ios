@@ -87,8 +87,8 @@ public class SkadnParametersManager: NSObject {
                 }
                 
                 if #available(iOS 16.0, *) {
-                    if let sourceIdentifier = skadnInfo.sourceidentifier {
-                        productParams[SKStoreProductParameterAdNetworkSourceIdentifier] = sourceIdentifier
+                    if let sourceIdentifier = skadnInfo.sourceidentifier, let sourceidentifierInteger = Int(sourceIdentifier) {
+                        productParams[SKStoreProductParameterAdNetworkSourceIdentifier] = NSNumber(value: sourceidentifierInteger)
                     }
                 }
                 
