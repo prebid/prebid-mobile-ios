@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *sourceapp;
 
 //A subset of SKAdNetworkItem entries in the publisher app’s Info.plist that are relevant to the DSP.
-@property (nonatomic, copy) NSArray<NSString *> *skadnetids;
+@property (nonatomic, copy, nullable) NSArray<NSString *> *skadnetids;
 
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext object is not supported.

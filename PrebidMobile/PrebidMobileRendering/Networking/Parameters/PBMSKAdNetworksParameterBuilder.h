@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nonnull instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle targeting:(Targeting *)targeting adConfiguration:(AdConfiguration *)adConfiguration NS_DESIGNATED_INITIALIZER;
 
+- (NSArray<NSString *> *)SKAdNetworkIds;
 @end
 
 NS_ASSUME_NONNULL_END
