@@ -270,7 +270,7 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (GAM Original) [NO SKAdN 2.2]",
+            TestCase(title: "Banner 320x50 (GAM Original) [NO SKAdN]",
                      tags: [.banner, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -729,7 +729,7 @@ struct TestCaseManager {
             }),
             
             // NOTE: works only with InternalTestApp-Skadn target
-            TestCase(title: "Banner 320x50 (In-App) [SKAdN 2.2]",
+            TestCase(title: "Banner 320x50 (In-App) [SKAdN]",
                      tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -996,7 +996,7 @@ struct TestCaseManager {
             }),
             
             // NOTE: works only with InternalTestApp-Skadn target
-            TestCase(title: "Display Interstitial 320x480 (In-App) [SKAdN 2.2]",
+            TestCase(title: "Display Interstitial 320x480 (In-App) [SKAdN]",
                      tags: [.interstitial, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1445,7 +1445,7 @@ struct TestCaseManager {
             }),
 
             // NOTE: works only with InternalTestApp-Skadn target
-            TestCase(title: "Video Interstitial 320x480 (In-App) [SKAdN 2.2]",
+            TestCase(title: "Video Interstitial 320x480 (In-App) [SKAdN]",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1735,7 +1735,7 @@ struct TestCaseManager {
             }),
             
             // NOTE: works only with InternalTestApp-Skadn target
-            TestCase(title: "Video Outstream (In-App) [SKAdN 2.2]",
+            TestCase(title: "Video Outstream (In-App) [SKAdN]",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1908,7 +1908,7 @@ struct TestCaseManager {
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 (In-App) [SKAdN 2.2]",
+            TestCase(title: "Video Rewarded 320x480 (In-App) [SKAdN]",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
