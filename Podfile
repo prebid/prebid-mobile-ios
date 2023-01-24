@@ -100,6 +100,13 @@ target 'InternalTestApp' do
   ima_pod
 end
 
+target 'InternalTestApp-Skadn' do
+  use_frameworks!
+  project 'InternalTestApp/InternalTestApp.xcodeproj'
+  internalTestApp_pods
+  ima_pod
+end
+
 target 'InternalTestAppTests' do
   use_frameworks!
   project 'InternalTestApp/InternalTestApp.xcodeproj'

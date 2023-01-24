@@ -47,6 +47,7 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
     
     deinit {
         Prebid.shared.storedAuctionResponse = nil
+        Targeting.shared.sourceapp = nil
     }
     
     // MARK: - Public Methods

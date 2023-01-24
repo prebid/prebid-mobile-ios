@@ -54,6 +54,7 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
     }
     
     deinit {
+        Targeting.shared.sourceapp = nil
         Prebid.shared.storedAuctionResponse = nil
     }
     
