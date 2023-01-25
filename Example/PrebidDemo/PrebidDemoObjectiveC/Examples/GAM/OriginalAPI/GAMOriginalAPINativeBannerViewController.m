@@ -20,7 +20,7 @@
 
 NSString * const nativeBannerStoredResponse = @"response-prebid-banner-native-styles";
 NSString * const nativeStoredBannerImpression = @"imp-prebid-banner-native-styles";
-NSString * const gamAdUnit = @"/21808260008/unified_native_ad_unit";
+NSString * const gamAdUnit = @"/21808260008/prebid-demo-original-native-styles";
 
 @interface GAMOriginalAPINativeBannerViewController ()
 

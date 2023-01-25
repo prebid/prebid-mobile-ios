@@ -447,7 +447,7 @@ struct TestCaseManager {
                 }
                          
                 let nativeController = PrebidOriginalAPINativeBannerController(rootController: adapterVC)
-                nativeController.adUnitID = "/21808260008/unified_native_ad_unit"
+                nativeController.adUnitID = "/21808260008/prebid-demo-original-native-styles"
                 nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
                 nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
