@@ -139,7 +139,6 @@
 		53ED303D29798104007D13EE /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53ED303E29798104007D13EE /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53ED305229798DBC007D13EE /* Info-Skadn.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53ED305129798DBC007D13EE /* Info-Skadn.plist */; };
-		53ED305329798DD0007D13EE /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7E2100D59000B46B43 /* Info.plist */; };
 		5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */; };
 		5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7A2100D59000B46B43 /* LaunchScreen.xib */; };
 		5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7C2100D59000B46B43 /* Main.storyboard */; };
@@ -1229,7 +1228,6 @@
 				5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */,
 				AC812BF52600E5E400370A33 /* FeedGAMAdTableViewCell.xib in Resources */,
 				3459DF0825E8D46C004EC761 /* UnifiedNativeAdView.xib in Resources */,
-				53ED305329798DD0007D13EE /* Info.plist in Resources */,
 				5B8EB5F022676914003CC15C /* DummyTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
