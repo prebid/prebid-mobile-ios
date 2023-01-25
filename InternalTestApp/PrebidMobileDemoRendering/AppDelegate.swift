@@ -111,11 +111,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.set(params.first, forKey: "IABGPP_GppSID")
         }
         
-        processArgumentsParser.addOption("GPP_CLEAN", paramsCount: 1) { params in
-            UserDefaults.standard.removeObject(forKey: "IABGPP_HDR_GppString")
-            UserDefaults.standard.removeObject(forKey: "IABGPP_GppSID")
-        }
-        
         processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
        
         // AdMob
