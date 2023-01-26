@@ -16,22 +16,25 @@
 import Foundation
 
 public class RawWinningBidFabricator {
-    static func makeRawWinningBid(price: Double, bidder: String?, cacheID: String?) -> PBMORTBBid<PBMORTBBidExt> {
+    static func makeRawWinningBid(price: Double?, bidder: String?, cacheID: String?) -> PBMORTBBid<PBMORTBBidExt> {
         let rawBid = PBMORTBBid<PBMORTBBidExt>()
-        rawBid.price = NSNumber(value: price)
         rawBid.ext = .init()
         rawBid.ext.prebid = .init()
-        rawBid.ext.prebid?.targeting = [
-            "hb_pb": "\(NSString(format: "%4.2f", price))",
-            "hb_size": "300x250"
-        ]
+      
+        if let price = price {
+            rawBid.price = NSNumber(value: price)
+            
+            rawBid.ext.prebid?.targeting = [
+                "hb_pb": "\(NSString(format: "%4.2f", price))"
+            ]
+        }
         
-        rawBid.ext.prebid?.targeting!["hb_bidder"] = bidder
-        rawBid.ext.prebid?.targeting!["hb_cache_id"] = cacheID
+        rawBid.ext.prebid?.targeting?["hb_bidder"] = bidder
+        rawBid.ext.prebid?.targeting?["hb_cache_id"] = cacheID
         return rawBid
     }
     
-    static func makeWinningBid(price: Double, bidder: String?, cacheID: String?) -> Bid {
+    static func makeWinningBid(price: Double?, bidder: String?, cacheID: String?) -> Bid {
         let rawBid = makeRawWinningBid(price: price, bidder: bidder, cacheID: cacheID)
         
         return Bid(bid: rawBid)
