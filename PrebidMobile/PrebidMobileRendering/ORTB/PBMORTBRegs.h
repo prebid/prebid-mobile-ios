@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 //Int. Flag indicating if this request is subject to the COPPA regulations established by the USA FTC, where 0 = no, 1 = yes
 @property (nonatomic, strong, nullable) NSNumber *coppa;
 
+@property (nonatomic, strong, nullable) NSString *gpp;
+@property (nonatomic, strong, nullable) NSArray<NSNumber *> *gppSID;
+
 /// Placeholder for exchange-specific extensions to OpenRTB.
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, id> *ext;
 
