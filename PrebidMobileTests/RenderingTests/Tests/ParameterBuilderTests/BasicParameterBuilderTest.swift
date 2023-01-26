@@ -351,7 +351,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         // Check Regs
         XCTAssertTrue(bidRequest.regs.coppa == 1)
         XCTAssertTrue((bidRequest.regs.gpp) == gppString)
-        XCTAssertTrue((bidRequest.regs.gppSid as! [Int]) == [2,3,4,5])
+        XCTAssertTrue((bidRequest.regs.gppSID as! [Int]) == [2,3,4,5])
     }
     
     // MARK: - Helpers
