@@ -331,7 +331,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     func testParameterBuilderRegs() {
         // Set Regs
         let gppString = "gppString"
-        let gppSID = "gppSID"
+        let gppSID = "2_3_4_5"
         UserDefaults.standard.set(gppString, forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
         UserDefaults.standard.set(gppSID, forKey: InternalUserConsentDataManager.IABGPP_GppSID)
         UserConsentDataManager.shared.subjectToCOPPA = true
@@ -350,8 +350,8 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         // Check Regs
         XCTAssertTrue(bidRequest.regs.coppa == 1)
-        XCTAssertTrue((bidRequest.regs.ext!["gpp"] as! String) == gppString)
-        XCTAssertTrue((bidRequest.regs.ext!["gpp_sid"] as! String) == gppSID)
+        XCTAssertTrue((bidRequest.regs.gpp) == gppString)
+        XCTAssertTrue((bidRequest.regs.gppSID as! [Int]) == [2,3,4,5])
     }
     
     // MARK: - Helpers

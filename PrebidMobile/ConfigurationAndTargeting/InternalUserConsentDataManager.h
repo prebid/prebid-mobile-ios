@@ -34,6 +34,6 @@
 @property (nonatomic, nullable, class, readonly) NSString * usPrivacyString;
 
 @property (nonatomic, nullable, class, readonly) NSString * gppHDRString;
-@property (nonatomic, nullable, class, readonly) NSString * gppSID;
+@property (nonatomic, nullable, class, readonly) NSMutableArray<NSNumber *> * gppSID;
 
 @end

@@ -53,6 +53,8 @@
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
     
     ret[@"coppa"] = self._coppa;
+    ret[@"gpp"] = self.gpp;
+    ret[@"gpp_sid"] = self.gppSID;
     
     ret[@"ext"] = [self.ext nullIfEmpty];
 

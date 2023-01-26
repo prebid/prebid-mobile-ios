@@ -38,8 +38,18 @@
     return [NSUserDefaults.standardUserDefaults stringForKey:InternalUserConsentDataManager.IABGPP_HDR_GppString];
 }
 
-+ (NSString *)gppSID {
-    return [NSUserDefaults.standardUserDefaults stringForKey:InternalUserConsentDataManager.IABGPP_GppSID];
++ (NSMutableArray<NSNumber *> *)gppSID {
+    NSString * gppSID = [NSUserDefaults.standardUserDefaults stringForKey:InternalUserConsentDataManager.IABGPP_GppSID];
+    
+    NSMutableArray<NSString *> *gppSIDStringArray = [[gppSID componentsSeparatedByString:@"_"] mutableCopy];
+    NSMutableArray<NSNumber *> *gppSIDIntArray = [NSMutableArray new];
+    
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    for (NSString *gppSIDString in gppSIDStringArray) {
+        [gppSIDIntArray addObject:[numberFormatter numberFromString:gppSIDString]];
+    }
+    
+    return gppSIDIntArray;
 }
 
 @end

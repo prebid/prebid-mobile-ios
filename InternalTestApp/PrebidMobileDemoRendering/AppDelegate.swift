@@ -103,6 +103,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appConfig.appContentData = (appConfig.appContentData ?? []) + [(key: params[0], value: params[1])]
         }
         
+        processArgumentsParser.addOption("GPP_HDR_STRING", paramsCount: 1) { params in
+            UserDefaults.standard.set(params.first, forKey: "IABGPP_HDR_GppString")
+        }
+        
+        processArgumentsParser.addOption("GPP_SID", paramsCount: 1) { params in
+            UserDefaults.standard.set(params.first, forKey: "IABGPP_GppSID")
+        }
+        
         processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
        
         // AdMob

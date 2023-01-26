@@ -83,10 +83,10 @@ class InternalUserConsentDataManagerTests: XCTestCase {
     }
     
     func testIABGPPSID_withString() {
-        let gppSID = "test_gpp_sid"
+        let gppSID = "2_3_4_5"
         
         setIABGPPSIDString(val: gppSID)
-        assertIABGPPSID(gppSID)
+        assertIABGPPSID([2, 3, 4, 5])
     }
     
     func setAndLoadPrivacyString(usPrivacyString: String?, file: StaticString = #file, line: UInt = #line) {
@@ -114,7 +114,7 @@ class InternalUserConsentDataManagerTests: XCTestCase {
         XCTAssertEqual(InternalUserConsentDataManager.gppHDRString, gppString)
     }
     
-    func assertIABGPPSID(_ gppSID: String?) {
+    func assertIABGPPSID(_ gppSID: NSMutableArray?) {
         XCTAssertEqual(InternalUserConsentDataManager.gppSID, gppSID)
     }
 }
