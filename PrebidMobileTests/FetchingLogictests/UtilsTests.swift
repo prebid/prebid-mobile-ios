@@ -192,7 +192,10 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
     func testCheckGMAVersion_ok() {
         logToFile = .init()
         
-        Utils.shared.checkGMAVersion("afma-sdk-i-v9.12.0")
+        let latestTestedGMAVersion = Utils.shared.latestTestedGMAVersion
+        let version = "\(latestTestedGMAVersion.0).\(latestTestedGMAVersion.1).\(latestTestedGMAVersion.2)"
+        
+        Utils.shared.checkGMAVersion("afma-sdk-i-v\(version)")
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.isEmpty)
