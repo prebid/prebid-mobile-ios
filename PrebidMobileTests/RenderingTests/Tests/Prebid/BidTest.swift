@@ -24,20 +24,49 @@ class BidTest: XCTestCase {
         
         Prebid.reset()
     }
+    
+    func testWinningBidMarkers_hb_pb_noWinningBid() {
+        let bid = RawWinningBidFabricator.makeWinningBid(price: nil, bidder: "some bidder", cacheID: nil)
+        XCTAssertFalse(bid.isWinning)
+    }
+    
+    func testWinningBidMarkers_hb_bidder_noWinningBid() {
+        let bid = RawWinningBidFabricator.makeWinningBid(price: 0.75, bidder: nil, cacheID: nil)
+        XCTAssertFalse(bid.isWinning)
+    }
 
     // Rendering API doesn't require cache id by default.
     // But publisher can set useCacheForReportingWithRenderingAPI to true
     // in order to add hb_cache_id to winning bid markers.
-    func testWinningBidRendering() {
-        let rawBid = RawWinningBidFabricator.makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
-        let bid = Bid(bid: rawBid)
+    func testWinningBid_without_hb_cache_id() {
+        let bid = RawWinningBidFabricator.makeWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
         XCTAssertTrue(bid.isWinning)
     }
     
-    func testNoWinningBidRendering() {
+    func testNoWinningBid_hb_cache_id() {
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
-        let rawBid = RawWinningBidFabricator.makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
-        let bid = Bid(bid: rawBid)
+        let bid = RawWinningBidFabricator.makeWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
         XCTAssertFalse(bid.isWinning)
+    }
+    
+    func testWinningBid_with_hb_cache_id() {
+        Prebid.shared.useCacheForReportingWithRenderingAPI = true
+        let bid = RawWinningBidFabricator.makeWinningBid(price: 0.75, bidder: "some bidder", cacheID: "cache/id")
+        XCTAssertTrue(bid.isWinning)
+    }
+    
+    // No hb_cache_id = no winning bid in Original API
+    func testWinningBidMarkers_NoWinningBid_OriginalApi() {
+        let _ = AdUnit(configId: "configID", size: CGSize(width: 300, height: 250))
+        
+        let bid = RawWinningBidFabricator.makeWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
+        XCTAssertFalse(bid.isWinning)
+    }
+    
+    func testWinningBidMarkers_WinningBid_OriginalApi() {
+        let _ = AdUnit(configId: "configID", size: CGSize(width: 300, height: 250))
+        
+        let bid = RawWinningBidFabricator.makeWinningBid(price: 0.75, bidder: "some bidder", cacheID: "cache/id")
+        XCTAssertTrue(bid.isWinning)
     }
 }

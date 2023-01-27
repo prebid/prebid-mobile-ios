@@ -82,7 +82,7 @@ public class Bid: NSObject {
             return false
         }
         
-        var winningBidMarkers = ["hb_pb", "hb_bidder", "hb_size"]
+        var winningBidMarkers = ["hb_pb", "hb_bidder"]
         
         if Prebid.shared.useCacheForReportingWithRenderingAPI {
             winningBidMarkers.append("hb_cache_id")
