@@ -45,17 +45,12 @@ class PrebidTest: XCTestCase {
         let expectation = expectation(description: "Expected successful initialization")
         
         Prebid.initializeSDK { status, error in
-            switch status {
-            case .succeeded:
+            if case .succeeded = status {
                 expectation.fulfill()
-            case .failed:
-                if let error = error {
-                    XCTFail("Failed with error: \(error.localizedDescription)")
-                }
-            case .serverStatusWarning:
-                if let error = error {
-                    XCTFail("Failed with error: \(error.localizedDescription)")
-                }
+            }
+            
+            if let error = error {
+                XCTFail("Failed with error: \(error.localizedDescription)")
             }
         }
         

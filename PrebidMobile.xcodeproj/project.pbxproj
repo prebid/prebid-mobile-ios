@@ -83,6 +83,7 @@
 		53BDBF8C293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */; };
 		53C925022990FB30009E6F94 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925012990FB30009E6F94 /* String+Extensions.swift */; };
 		53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */; };
+		53C9250729915466009E6F94 /* PrebidServerStatusRequesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9250629915466009E6F94 /* PrebidServerStatusRequesterTests.swift */; };
 		53D934FF282CE62E0092E243 /* AgeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D934FE282CE62E0092E243 /* AgeUtils.swift */; };
 		53D93505282CEA900092E243 /* DateFormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D93504282CEA900092E243 /* DateFormatService.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
@@ -920,6 +921,7 @@
 		53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUserConsentDataManagerTests.swift; sourceTree = "<group>"; };
 		53C925012990FB30009E6F94 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequester.swift; sourceTree = "<group>"; };
+		53C9250629915466009E6F94 /* PrebidServerStatusRequesterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequesterTests.swift; sourceTree = "<group>"; };
 		53D934FE282CE62E0092E243 /* AgeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeUtils.swift; sourceTree = "<group>"; };
 		53D93504282CEA900092E243 /* DateFormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatService.swift; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
@@ -2779,6 +2781,7 @@
 				53019E6027E9E40700D509C1 /* LogTest.swift */,
 				920E8D6C28084BF200E6313B /* VideoControlsConfigTests.swift */,
 				53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */,
+				53C9250629915466009E6F94 /* PrebidServerStatusRequesterTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -3855,6 +3858,7 @@
 				925D5D842737BA6600A8A2B5 /* PBMOpenMeasurementWrapperObjcTest.m in Sources */,
 				47D9A18468F57BD786350961 /* mraid.js in Sources */,
 				925D5E162737E77200A8A2B5 /* DemandResponseInfoTest.swift in Sources */,
+				53C9250729915466009E6F94 /* PrebidServerStatusRequesterTests.swift in Sources */,
 				92F6720827F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift in Sources */,
 				925D5D9D2737C2FA00A8A2B5 /* DeviceInfoParameterBuilderTest.swift in Sources */,
 				533135C6282A869800AA1E4D /* BidTest.swift in Sources */,
