@@ -17,6 +17,8 @@ import Foundation
 
 fileprivate let defaultTimeoutMillis = 2000
 
+public typealias PrebidInitializationCallback = ((PrebidInitializationStatus, Error?) -> Void)
+
 @objcMembers
 public class Prebid: NSObject {
     
@@ -77,6 +79,12 @@ public class Prebid: NSObject {
         }
     }
     
+    public var customStatusEndpoint: String? {
+        didSet {
+            Prebid.serverStatusRequester.setStatusCustomEndpoint(customStatusEndpoint)
+        }
+    }
+    
     public var timeoutMillis: Int {
         didSet {
             timeoutMillisDynamic = NSNumber(value: timeoutMillis)
@@ -116,6 +124,10 @@ public class Prebid: NSObject {
         get { PBMLocationManager.shared.locationUpdatesEnabled }
         set { PBMLocationManager.shared.locationUpdatesEnabled = newValue }
     }
+    
+    // MARK: - Internal properties
+    
+    static let serverStatusRequester = PrebidServerStatusRequester()
     
     // MARK: - Public Methods
     
@@ -158,28 +170,38 @@ public class Prebid: NSObject {
     
     /// Initializes PrebidMobile SDK.
     ///
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as status server endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
+    ///
+    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
+    ///
     /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
     /// - Parameters:
     ///   - gadMobileAdsObject: GADMobileAds object
     ///   - completion: returns initialization status and optional error
-    public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: ((PrebidInitializationStatus, Error?) -> Void)? = nil) {
+    public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: PrebidInitializationCallback? = nil) {
         let _ = ServerConnection.shared
         let _ = PBMLocationManager.shared
         let _ = UserConsentDataManager.shared
         
         PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
         
-        checkServerStatus { completion?($0, $1) }
+        serverStatusRequester.requestStatus { completion?($0, $1) }
         
         handleGADMobileAdsObject(gadMobileAdsObject)
     }
     
     /// Initializes PrebidMobile SDK.
     ///
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as status server endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
+    ///
     /// Use this SDK initializer if you're using PrebidMobile without GMA SDK.
     /// - Parameters:
     ///   - completion: returns initialization status and optional error
-    public static func initializeSDK(_ completion: ((PrebidInitializationStatus, Error?) -> Void)? = nil) {
+    public static func initializeSDK(_ completion: PrebidInitializationCallback? = nil) {
         initializeSDK(nil, completion)
     }
     
@@ -187,27 +209,6 @@ public class Prebid: NSObject {
     
     override init() {
         timeoutMillis = defaultTimeoutMillis
-    }
-    
-    static func checkServerStatus(_ completion: @escaping (PrebidInitializationStatus, Error?) -> Void) {
-        do {
-            guard let serverURLHost = URL(string: try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost))?.host else {
-                completion(.failed, PBMError.error(description: "Provided host URL is not valid"))
-                return
-            }
-
-            let serverStatusURLString = PathBuilder.buildURL(for: serverURLHost, path: PBMServerEndpoints.status)
-            
-            ServerConnection.shared.get(serverStatusURLString, timeout: 0) { serverResponse in
-                if serverResponse.statusCode == 200 {
-                    completion(.successed, nil)
-                } else {
-                    completion(.failed, serverResponse.error ?? PBMError.error(description: "Error occured during Prebid Server status check"))
-                }
-            }
-        } catch {
-            completion(.failed, PBMError.error(description: "Provided host URL is not valid"))
-        }
     }
     
     static func handleGADMobileAdsObject(_ gadMobileAdsObject: AnyObject?) {

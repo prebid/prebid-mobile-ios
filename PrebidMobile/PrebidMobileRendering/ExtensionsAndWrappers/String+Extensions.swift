@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2023 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,13 +13,15 @@
  limitations under the License.
  */
 
-import Foundation
+import UIKit
 
-@objc public enum PrebidInitializationStatus: Int {
-    /// Prebid server successfully initialized.
-    case succeeded
-    /// SDK is not able to work.
-    case failed
-    /// Something went wrong during PBS status checking.
-    case serverStatusWarning
+extension String {
+    
+    func isValidURL() -> Bool {
+        if let url = URL(string: self) {
+            return UIApplication.shared.canOpenURL(url)
+        }
+        
+        return false
+    }
 }

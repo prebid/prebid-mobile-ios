@@ -81,6 +81,8 @@
 		53BDBF89293F5EFF004B6DE8 /* InternalUserConsentDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */; };
 		53BDBF8A293F605B004B6DE8 /* InternalUserConsentDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */; };
 		53BDBF8C293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */; };
+		53C925022990FB30009E6F94 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925012990FB30009E6F94 /* String+Extensions.swift */; };
+		53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */; };
 		53D934FF282CE62E0092E243 /* AgeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D934FE282CE62E0092E243 /* AgeUtils.swift */; };
 		53D93505282CEA900092E243 /* DateFormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D93504282CEA900092E243 /* DateFormatService.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
@@ -916,6 +918,8 @@
 		53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InternalUserConsentDataManager.h; sourceTree = "<group>"; };
 		53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InternalUserConsentDataManager.m; sourceTree = "<group>"; };
 		53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUserConsentDataManagerTests.swift; sourceTree = "<group>"; };
+		53C925012990FB30009E6F94 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequester.swift; sourceTree = "<group>"; };
 		53D934FE282CE62E0092E243 /* AgeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeUtils.swift; sourceTree = "<group>"; };
 		53D93504282CEA900092E243 /* DateFormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatService.swift; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
@@ -1845,14 +1849,15 @@
 		53DBEF4927DB87330000D68E /* ConfigurationAndTargeting */ = {
 			isa = PBXGroup;
 			children = (
+				53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */,
+				53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */,
+				53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */,
 				5BC37649271F1CFD00444D5E /* Gender.swift */,
 				5BC3764A271F1CFD00444D5E /* Targeting.swift */,
 				5BC377CF271F1CFF00444D5E /* Prebid.swift */,
 				53D934FE282CE62E0092E243 /* AgeUtils.swift */,
 				537B6580283524BB008AE9D1 /* PrebidInitializationStatus.swift */,
 				53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */,
-				53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */,
-				53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */,
 			);
 			path = ConfigurationAndTargeting;
 			sourceTree = "<group>";
@@ -1878,6 +1883,7 @@
 				5BC37661271F1CFD00444D5E /* UIView+PBMExtensions.m */,
 				5BC3765E271F1CFD00444D5E /* UIWindow+PBMExtensions.h */,
 				5BC3766F271F1CFD00444D5E /* UIWindow+PBMExtensions.m */,
+				53C925012990FB30009E6F94 /* String+Extensions.swift */,
 			);
 			path = ExtensionsAndWrappers;
 			sourceTree = "<group>";
@@ -4041,6 +4047,7 @@
 				5BC37AA7271F1D0000444D5E /* MediationBannerAdUnit.swift in Sources */,
 				53F35F6F292BAE9B001C1183 /* UserDefaults+Extensions.swift in Sources */,
 				5BC37A8A271F1D0000444D5E /* BannerViewDelegate.swift in Sources */,
+				53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */,
 				5BC378DE271F1CFF00444D5E /* PBMORTBDeviceExtPrebidInterstitial.m in Sources */,
 				5BC37A5F271F1D0000444D5E /* PBMORTBBidExtSkadn.m in Sources */,
 				5BC3793A271F1D0000444D5E /* PBMLocationManager.m in Sources */,
@@ -4099,6 +4106,7 @@
 				5BC37A90271F1D0000444D5E /* InterstitialAdUnitDelegate.swift in Sources */,
 				5BC37A88271F1D0000444D5E /* RewardedAdUnitDelegate.swift in Sources */,
 				5BC378DB271F1CFF00444D5E /* PBMORTBDeal.m in Sources */,
+				53C925022990FB30009E6F94 /* String+Extensions.swift in Sources */,
 				799109FB28F99C2B004837B4 /* PBMORTBAppExt.m in Sources */,
 				925A641627317A39009E72F9 /* HiddenWebViewManager.swift in Sources */,
 				5BC3796C271F1D0000444D5E /* PBMVastCreativeLinear.m in Sources */,
