@@ -62,7 +62,7 @@ class PrebidServerStatusRequesterTests: XCTestCase {
         let url = "https://prebid-server-test-j.prebid.org/openrtb2/auction"
         let requester = PrebidServerStatusRequester()
         
-        requester.setStatusCustomEndpoint(url)
+        requester.setCustomStatusEndpoint(url)
         
         XCTAssert(requester.serverEndpoint == url)
     }
@@ -71,7 +71,7 @@ class PrebidServerStatusRequesterTests: XCTestCase {
         let url = "/status"
         let requester = PrebidServerStatusRequester()
         
-        requester.setStatusCustomEndpoint(url)
+        requester.setCustomStatusEndpoint(url)
         
         XCTAssert(requester.serverEndpoint != url)
     }

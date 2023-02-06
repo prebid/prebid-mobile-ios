@@ -29,7 +29,7 @@ class PrebidServerStatusRequester {
         }
     }
     
-    func setStatusCustomEndpoint(_ customStatusEndpoint: String?) {
+    func setCustomStatusEndpoint(_ customStatusEndpoint: String?) {
         if let customStatusEndpoint = customStatusEndpoint {
             
             if customStatusEndpoint.isValidURL() {

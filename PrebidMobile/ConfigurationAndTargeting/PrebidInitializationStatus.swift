@@ -16,7 +16,7 @@
 import Foundation
 
 @objc public enum PrebidInitializationStatus: Int {
-    /// Prebid server successfully initialized.
+    /// Prebid Server successfully initialized.
     case succeeded
     /// SDK is not able to work.
     case failed

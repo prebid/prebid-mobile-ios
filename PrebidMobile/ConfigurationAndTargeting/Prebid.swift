@@ -81,7 +81,7 @@ public class Prebid: NSObject {
     
     public var customStatusEndpoint: String? {
         didSet {
-            Prebid.serverStatusRequester.setStatusCustomEndpoint(customStatusEndpoint)
+            Prebid.serverStatusRequester.setCustomStatusEndpoint(customStatusEndpoint)
         }
     }
     
