@@ -92,7 +92,7 @@ public class NativeRequest: AdUnit {
     public convenience init(configId: String, assets: [NativeAsset]? = nil, eventTrackers: [NativeEventTracker]? = nil) {
         self.init(configId: configId)
         self.assets = assets
-        self.eventtrackers = eventtrackers
+        self.eventtrackers = eventTrackers
     }
     
     public func addNativeAssets(_ assets: [NativeAsset]) {
