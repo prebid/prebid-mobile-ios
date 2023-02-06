@@ -18,14 +18,10 @@ import XCTest
 
 class PrebidServerStatusRequesterTests: XCTestCase {
     
-    private var logToFile: LogToFileLock?
-    
     override func tearDown() {
-        logToFile = nil
+        super.tearDown()
         
         Prebid.reset()
-        
-        super.tearDown()
     }
     
     func testURLValidation() {
