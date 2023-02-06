@@ -18,8 +18,11 @@ import UIKit
 extension String {
     
     func isValidURL() -> Bool {
-        if let url = URL(string: self) {
-            return UIApplication.shared.canOpenURL(url)
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        
+        // It is a link, if the match covers the whole string
+        if let match = detector.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count)) {
+            return match.range.length == self.utf16.count
         }
         
         return false
