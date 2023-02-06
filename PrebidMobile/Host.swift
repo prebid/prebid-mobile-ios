@@ -82,12 +82,17 @@ public class Host: NSObject {
     /**
      * This function verifies if the prebid server URL is in the url format
      */
-    public func verifyUrl(urlString: String?) -> Bool {
-        
+    public func verifyUrl (urlString: String?) -> Bool {
+        //Check for nil
         if let urlString = urlString {
-            return urlString.isValidURL()
+            // create NSURL instance
+            if let url = URL(string: urlString) {
+                // check if your application can open the NSURL instance
+                return UIApplication.shared.canOpenURL(url)
+
+            }
         }
-        
         return false
     }
+
 }
