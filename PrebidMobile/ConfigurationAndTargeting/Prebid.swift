@@ -170,7 +170,7 @@ public class Prebid: NSObject {
     
     /// Initializes PrebidMobile SDK.
     ///
-    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as status server endpoint.
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
     /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
     /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
     ///
@@ -194,7 +194,7 @@ public class Prebid: NSObject {
     
     /// Initializes PrebidMobile SDK.
     ///
-    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as status server endpoint.
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
     /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
     /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
     ///
