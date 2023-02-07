@@ -238,9 +238,9 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBImp.instl = 1
         pbmORTBImp.tagid = "tagid"
         pbmORTBImp.secure = 1
-        pbmORTBImp.extContextData = ["lookup_words": ["dragon", "flame"]]
+        pbmORTBImp.extData = ["lookup_words": ["dragon", "flame"]]
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"context\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]}},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\"}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\"}")
     }
     
     

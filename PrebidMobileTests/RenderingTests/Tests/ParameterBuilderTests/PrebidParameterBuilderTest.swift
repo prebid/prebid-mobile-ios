@@ -194,7 +194,7 @@ class PrebidParameterBuilderTest: XCTestCase {
             return
         }
         
-        XCTAssertEqual(imp.extContextData, ["buy": ["mushrooms"]])
+        XCTAssertEqual(imp.extData, ["buy": ["mushrooms"]])
     }
 
     func testPbAdSlotWithContextDataDictionary() {
@@ -210,13 +210,13 @@ class PrebidParameterBuilderTest: XCTestCase {
         let bidRequest = buildBidRequest(with: adUnitConfig)
 
         bidRequest.imp.forEach { imp in
-            guard let extContextData = imp.extContextData as? [String: Any], let result = extContextData["key"] as? [String] else {
+            guard let extData = imp.extData as? [String: Any], let result = extData["key"] as? [String] else {
                 XCTFail()
                 return
             }
 
             XCTAssertEqual(Set(result), Set(["value1", "value2"]))
-            XCTAssertEqual(extContextData["adslot"] as? String, testAdSlot)
+            XCTAssertEqual(extData["adslot"] as? String, testAdSlot)
         }
     }
 

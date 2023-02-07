@@ -125,7 +125,9 @@
     bidRequest.app.domain = targeting.domain;
     bidRequest.app.bundle = targeting.itunesID;
     
-    bidRequest.app.keywords = [[targeting getContextKeywords] componentsJoinedByString:@","];
+    if ([targeting getContextKeywords].count > 0) {
+        bidRequest.app.keywords = [[targeting getContextKeywords] componentsJoinedByString:@","];
+    }
     
     if (targeting.publisherName) {
         if (!bidRequest.app.publisher) {
