@@ -94,7 +94,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         adConfiguration.size = adSize
     }
     
-    // MARK: - Context Data (imp[].ext.context.data)
+    // MARK: - Context Data (imp[].ext.data)
 
     public func addContextData(key: String, value: String) {
         if extensionData[key] == nil {

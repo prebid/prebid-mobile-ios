@@ -183,7 +183,7 @@ import ObjectiveC.runtime
         }
     }
 
-    // MARK: - adunit context data aka inventory data (imp[].ext.context.data)
+    // MARK: - adunit context data aka inventory data (imp[].ext.data)
     
     /**
      * This method obtains the context data keyword & value for adunit context targeting

@@ -36,7 +36,7 @@
     _secure = @0;
     _extPrebid = [[PBMORTBImpExtPrebid alloc] init];
     _extSkadn = [PBMORTBImpExtSkadn new];
-    _extContextData = [NSMutableDictionary<NSString *, id> new];
+    _extData = [NSMutableDictionary<NSString *, id> new];
     
     return self;
 }
@@ -95,7 +95,7 @@
     _extPrebid = [[PBMORTBImpExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"]];
     _extSkadn = [[PBMORTBImpExtSkadn alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"skadn"]];
     
-    _extContextData = jsonDictionary[@"ext"][@"context"][@"data"];
+    _extData = jsonDictionary[@"ext"][@"data"];
     
     return self;
 }
@@ -116,10 +116,8 @@
         ret[@"skadn"] = extSkadnObj;
     }
     
-    if (self.extContextData && self.extContextData.count > 0) {
-        ret[@"context"] = @{
-            @"data": self.extContextData,
-        };
+    if (self.extData && self.extData.count > 0) {
+        ret[@"data"] = self.extData;
     }
     
     return [ret pbmCopyWithoutEmptyVals];
