@@ -219,7 +219,7 @@ import ObjectiveC.runtime
         return adUnitConfig.getContextData()
     }
     
-    // MARK: - adunit context keywords (imp[].ext.context.keywords)
+    // MARK: - adunit context keywords (imp[].ext.keywords)
     
     /**
      * This method obtains the context keyword for adunit context targeting

@@ -120,7 +120,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         contextDataDictionary
     }
 
-    // MARK: - Context keywords (imp[].ext.context.keywords)
+    // MARK: - Context keywords (imp[].ext.keywords)
 
     public func addContextKeyword(_ newElement: String) {
         contextKeywords.insert(newElement)

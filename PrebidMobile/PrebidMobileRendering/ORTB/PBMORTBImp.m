@@ -96,6 +96,7 @@
     _extSkadn = [[PBMORTBImpExtSkadn alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"skadn"]];
     
     _extData = jsonDictionary[@"ext"][@"data"];
+    _extKeywords = jsonDictionary[@"ext"][@"keywords"];
     
     return self;
 }
@@ -118,6 +119,10 @@
     
     if (self.extData && self.extData.count > 0) {
         ret[@"data"] = self.extData;
+    }
+    
+    if (self.extKeywords && self.extKeywords.length > 0) {
+        ret[@"keywords"] = self.extKeywords;
     }
     
     return [ret pbmCopyWithoutEmptyVals];

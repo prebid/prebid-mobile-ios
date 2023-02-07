@@ -166,6 +166,11 @@
             nextImp.extData = self.adConfiguration.contextDataDictionary.mutableCopy;
         }
         
+        if ([self.adConfiguration getContextKeywords].count > 0) {
+            NSMutableArray * contextKeywords = [NSMutableArray arrayWithArray:[[self.adConfiguration getContextKeywords] allObjects]];
+            nextImp.extKeywords = [contextKeywords componentsJoinedByString:@","];
+        }
+        
         nextImp.extData[@"adslot"] = [self.adConfiguration getPbAdSlot];
        
         for (AdFormat* adFormat in adFormats) {
