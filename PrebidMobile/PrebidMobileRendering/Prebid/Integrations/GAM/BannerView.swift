@@ -203,7 +203,7 @@ public class BannerView: UIView,
     // MARK: - Context Data (imp[].ext.data)
     
     @objc public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(key: data, value: key)
+        adUnitConfig.addContextData(key: key, value: data)
     }
     
     @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
