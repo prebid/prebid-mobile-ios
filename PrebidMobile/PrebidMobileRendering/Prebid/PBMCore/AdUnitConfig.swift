@@ -243,6 +243,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.minSizePerc = self.minSizePerc
         clone.extensionData = self.extensionData.merging(clone.extensionData) { $1 }
         clone.adPosition = self.adPosition
+        clone.pbAdSlot = self.pbAdSlot
         
         return clone
     }
