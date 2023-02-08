@@ -106,7 +106,7 @@ public class MediationBannerAdUnit : NSObject {
         adUnitConfig.clearContextKeywords()
     }
     
-    // MARK: - App Content (app.data)
+    // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)

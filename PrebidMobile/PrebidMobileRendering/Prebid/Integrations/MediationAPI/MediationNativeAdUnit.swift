@@ -79,7 +79,7 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.ext = ext
     }
     
-    // MARK: - App Content (app.data)
+    // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         nativeAdUnit.setAppContent(appContent)

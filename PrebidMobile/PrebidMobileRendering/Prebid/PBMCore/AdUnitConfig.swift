@@ -142,7 +142,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         contextKeywords
     }
 
-    // MARK: - App Content (app.data)
+    // MARK: - App Content (app.content.data)
 
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         self.appContent = appContent

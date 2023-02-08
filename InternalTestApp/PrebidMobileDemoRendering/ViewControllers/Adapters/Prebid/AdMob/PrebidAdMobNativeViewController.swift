@@ -88,7 +88,7 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
             }
         }
         
-        // app.data
+        // app.content.data
         if let appData = AppConfiguration.shared.appContentData {
             for dataPair in appData {
                 let appData = PBMORTBContentData()

@@ -86,7 +86,7 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
             }
         }
         
-        // app.data
+        // app.content.data
         if let appData = AppConfiguration.shared.appContentData {
             for dataPair in appData {
                 let appData = PBMORTBContentData()

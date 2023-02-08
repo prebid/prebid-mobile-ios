@@ -236,7 +236,7 @@ public class BannerView: UIView,
         adUnitConfig.clearContextKeywords()
     }
     
-    // MARK: - App Content (app.data)
+    // MARK: - App Content (app.content.data)
     
     @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)

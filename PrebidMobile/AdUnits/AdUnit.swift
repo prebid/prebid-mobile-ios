@@ -255,7 +255,7 @@ import ObjectiveC.runtime
         adUnitConfig.getContextKeywords()
     }
     
-    // MARK: - App Content (app.data)
+    // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContentObject: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContentObject)
