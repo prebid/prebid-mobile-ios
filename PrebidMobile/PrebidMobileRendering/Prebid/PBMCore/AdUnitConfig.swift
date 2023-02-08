@@ -242,6 +242,9 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.refreshInterval = self.refreshInterval
         clone.minSizePerc = self.minSizePerc
         clone.extensionData = self.extensionData.merging(clone.extensionData) { $1 }
+        clone.appContent = self.appContent
+        clone.contextKeywords = self.contextKeywords
+        clone.userData = self.userData
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot
         
