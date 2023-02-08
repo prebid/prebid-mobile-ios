@@ -110,7 +110,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
-                adUnit?.addContextData(key: dataPair.value, value: dataPair.key)
+                adUnit?.addContextData(key: dataPair.key, value: dataPair.value)
             }
         }
         

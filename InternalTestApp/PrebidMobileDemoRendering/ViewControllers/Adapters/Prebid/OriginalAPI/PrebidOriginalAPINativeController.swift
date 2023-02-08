@@ -118,7 +118,7 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
-                nativeUnit?.addContextData(key: dataPair.value, value: dataPair.key)
+                nativeUnit?.addContextData(key: dataPair.key, value: dataPair.value)
             }
         }
         
