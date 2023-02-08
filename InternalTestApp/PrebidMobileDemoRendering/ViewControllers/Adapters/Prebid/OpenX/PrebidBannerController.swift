@@ -93,12 +93,21 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         adBannerView?.delegate = self
         adBannerView?.accessibilityIdentifier = "PrebidBannerView"
         
+        // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adBannerView?.addContextData(dataPair.value, forKey: dataPair.key)
             }
         }
         
+        // imp[].ext.keywords
+        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
+            for keyword in AppConfiguration.shared.adUnitContextKeywords {
+                adBannerView?.addContextKeyword(keyword)
+            }
+        }
+        
+        // user.data
         if let userData = AppConfiguration.shared.userData {
             for dataPair in userData {
                 let appData = PBMORTBContentData()
@@ -107,6 +116,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
             }
         }
         
+        // app.data
         if let appData = AppConfiguration.shared.appContentData {
             for dataPair in appData {
                 let appData = PBMORTBContentData()

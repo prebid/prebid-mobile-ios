@@ -105,12 +105,21 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
             interstitialController?.adFormats = adFormats
         }
         
+        // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 interstitialController?.addContextData(dataPair.value, forKey: dataPair.key)
             }
         }
         
+        // imp[].ext.keywords
+        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
+            for keyword in AppConfiguration.shared.adUnitContextKeywords {
+                interstitialController?.addContextKeyword(keyword)
+            }
+        }
+        
+        // user.data
         if let userData = AppConfiguration.shared.userData {
             for dataPair in userData {
                 let appData = PBMORTBContentData()
@@ -119,6 +128,7 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
             }
         }
         
+        // app.data
         if let appData = AppConfiguration.shared.appContentData {
             for dataPair in appData {
                 let appData = PBMORTBContentData()

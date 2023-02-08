@@ -111,13 +111,22 @@ class PrebidAdMobBannerViewController:
         if let adFormat = adFormat {
             adUnit?.adFormat = adFormat
         }
-        
+                
+        // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
             }
         }
         
+        // imp[].ext.keywords
+        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
+            for keyword in AppConfiguration.shared.adUnitContextKeywords {
+                adUnit?.addContextKeyword(keyword)
+            }
+        }
+        
+        // user.data
         if let userData = AppConfiguration.shared.userData {
             for dataPair in userData {
                 let appData = PBMORTBContentData()
@@ -126,6 +135,7 @@ class PrebidAdMobBannerViewController:
             }
         }
         
+        // app.data
         if let appData = AppConfiguration.shared.appContentData {
             for dataPair in appData {
                 let appData = PBMORTBContentData()

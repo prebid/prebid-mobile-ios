@@ -106,19 +106,35 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
         setupNativeAdUnit()
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
+        // imp[].ext.data
+        if let adUnitContext = AppConfiguration.shared.adUnitContext {
+            for dataPair in adUnitContext {
+                adUnit?.addContextData(key: dataPair.value, value: dataPair.key)
+            }
+        }
+        
+        // imp[].ext.keywords
+        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
+            for keyword in AppConfiguration.shared.adUnitContextKeywords {
+                adUnit?.addContextKeyword(keyword)
+            }
+        }
+        
+        // user.data
         if let userData = AppConfiguration.shared.userData {
             for dataPair in userData {
                 let appData = PBMORTBContentData()
                 appData.ext = [dataPair.key: dataPair.value]
-                self.adUnit?.addUserData([appData])
+                adUnit?.addUserData([appData])
             }
         }
         
+        // app.data
         if let appData = AppConfiguration.shared.appContentData {
             for dataPair in appData {
                 let appData = PBMORTBContentData()
                 appData.ext = [dataPair.key: dataPair.value]
-                self.adUnit?.addAppContentData([appData])
+                adUnit?.addAppContentData([appData])
             }
         }
         

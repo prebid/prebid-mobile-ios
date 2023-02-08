@@ -70,6 +70,38 @@ class PrebidOriginalAPINativeBannerController: NSObject, AdaptedController, GADB
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
         
+        // imp[].ext.data
+        if let adUnitContext = AppConfiguration.shared.adUnitContext {
+            for dataPair in adUnitContext {
+                nativeUnit?.addContextData(key: dataPair.value, value: dataPair.key)
+            }
+        }
+        
+        // imp[].ext.keywords
+        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
+            for keyword in AppConfiguration.shared.adUnitContextKeywords {
+                nativeUnit?.addContextKeyword(keyword)
+            }
+        }
+        
+        // user.data
+        if let userData = AppConfiguration.shared.userData {
+            for dataPair in userData {
+                let appData = PBMORTBContentData()
+                appData.ext = [dataPair.key: dataPair.value]
+                nativeUnit?.addUserData([appData])
+            }
+        }
+        
+        // app.data
+        if let appData = AppConfiguration.shared.appContentData {
+            for dataPair in appData {
+                let appData = PBMORTBContentData()
+                appData.ext = [dataPair.key: dataPair.value]
+                nativeUnit?.addAppContentData([appData])
+            }
+        }
+        
         gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
         gamBannerView.adUnitID = adUnitID
         gamBannerView.rootViewController = self.rootController

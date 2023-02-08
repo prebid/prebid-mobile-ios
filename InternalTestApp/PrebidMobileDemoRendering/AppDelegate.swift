@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         processArgumentsParser.addOption("ADD_ADUNIT_KEYWORD", paramsCount: 1) { params in
             let appConfig = AppConfiguration.shared
-            appConfig.contextKeywords.append(params[0])
+            appConfig.adUnitContextKeywords.append(params[0])
         }
         
         processArgumentsParser.addOption("ADD_USER_EXT_DATA", paramsCount: 2) { params in
