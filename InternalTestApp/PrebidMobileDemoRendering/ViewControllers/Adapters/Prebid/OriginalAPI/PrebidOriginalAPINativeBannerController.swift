@@ -86,20 +86,26 @@ class PrebidOriginalAPINativeBannerController: NSObject, AdaptedController, GADB
         
         // user.data
         if let userData = AppConfiguration.shared.userData {
+            let ortbUserData = PBMORTBContentData()
+            ortbUserData.ext = [:]
+            
             for dataPair in userData {
-                let appData = PBMORTBContentData()
-                appData.ext = [dataPair.key: dataPair.value]
-                nativeUnit?.addUserData([appData])
+                ortbUserData.ext?[dataPair.key] = dataPair.value
             }
+            
+            nativeUnit?.addUserData([ortbUserData])
         }
         
         // app.content.data
         if let appData = AppConfiguration.shared.appContentData {
+            let ortbAppContentData = PBMORTBContentData()
+            ortbAppContentData.ext = [:]
+            
             for dataPair in appData {
-                let appData = PBMORTBContentData()
-                appData.ext = [dataPair.key: dataPair.value]
-                nativeUnit?.addAppContentData([appData])
+                ortbAppContentData.ext?[dataPair.key] = dataPair.value
             }
+            
+            nativeUnit?.addAppContentData([ortbAppContentData])
         }
         
         gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)

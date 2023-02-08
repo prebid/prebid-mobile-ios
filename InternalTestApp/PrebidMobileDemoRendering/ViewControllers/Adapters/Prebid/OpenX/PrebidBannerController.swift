@@ -109,20 +109,26 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         
         // user.data
         if let userData = AppConfiguration.shared.userData {
+            let ortbUserData = PBMORTBContentData()
+            ortbUserData.ext = [:]
+            
             for dataPair in userData {
-                let appData = PBMORTBContentData()
-                appData.ext = [dataPair.key: dataPair.value]
-                adBannerView?.addUserData([appData])
+                ortbUserData.ext?[dataPair.key] = dataPair.value
             }
+            
+            adBannerView?.addUserData([ortbUserData])
         }
         
         // app.content.data
         if let appData = AppConfiguration.shared.appContentData {
+            let ortbAppContentData = PBMORTBContentData()
+            ortbAppContentData.ext = [:]
+            
             for dataPair in appData {
-                let appData = PBMORTBContentData()
-                appData.ext = [dataPair.key: dataPair.value]
-                adBannerView?.addAppContentData([appData])
+                ortbAppContentData.ext?[dataPair.key] = dataPair.value
             }
+            
+            adBannerView?.addAppContentData([ortbAppContentData])
         }
         
         adBannerView?.loadAd()
