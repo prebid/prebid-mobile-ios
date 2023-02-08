@@ -187,7 +187,7 @@ public class BaseInterstitialAdUnit :
 
     }
 
-    // MARK: - Context Data
+    // MARK: - Context Data (imp[].ext.data)
 
     @objc public func addContextData(_ data: String, forKey key: String) {
         adUnitConfig.addContextData(key: key, value: data)
@@ -205,7 +205,25 @@ public class BaseInterstitialAdUnit :
         adUnitConfig.clearContextData()
     }
     
-    // MARK: - App Content
+    // MARK: - Context keywords (imp[].ext.keywords)
+    
+    @objc public func addContextKeyword(_ newElement: String) {
+        adUnitConfig.addContextKeyword(newElement)
+    }
+    
+    @objc public func addContextKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addContextKeywords(newElements)
+    }
+    
+    @objc public func removeContextKeyword(_ element: String) {
+        adUnitConfig.removeContextKeyword(element)
+    }
+
+    @objc public func clearContextKeywords() {
+        adUnitConfig.clearContextKeywords()
+    }
+    
+    // MARK: - App Content (app.data)
     
     @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
@@ -227,7 +245,7 @@ public class BaseInterstitialAdUnit :
         adUnitConfig.clearAppContentData()
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
     
     @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)

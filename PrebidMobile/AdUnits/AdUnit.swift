@@ -255,7 +255,7 @@ import ObjectiveC.runtime
         adUnitConfig.getContextKeywords()
     }
     
-    // MARK: - App Content
+    // MARK: - App Content (app.data)
     
     public func setAppContent(_ appContentObject: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContentObject)
@@ -281,7 +281,7 @@ import ObjectiveC.runtime
         adUnitConfig.clearAppContentData()
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
         
     public func getUserData() -> [PBMORTBContentData]? {
         return adUnitConfig.getUserData()
