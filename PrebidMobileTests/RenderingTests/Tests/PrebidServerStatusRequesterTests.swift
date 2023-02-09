@@ -30,6 +30,7 @@ class PrebidServerStatusRequesterTests: XCTestCase {
         XCTAssertTrue("http://stackoverflow.com".isValidURL())
         XCTAssertTrue("stackoverflow.com".isValidURL())
         XCTAssertTrue("http://127.0.0.1".isValidURL())
+        XCTAssertTrue("http://127.0.0.1/status".isValidURL())
         
         XCTAssertFalse("123".isValidURL())
         XCTAssertFalse("/status".isValidURL())
