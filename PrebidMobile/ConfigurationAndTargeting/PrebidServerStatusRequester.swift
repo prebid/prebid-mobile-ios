@@ -35,7 +35,8 @@ class PrebidServerStatusRequester {
             if customStatusEndpoint.isValidURL() {
                 serverEndpoint = customStatusEndpoint
             } else {
-                Log.warn("The provided Prebid Server custom status endpoint is not valid. The default endpoint will be used.")
+                let endpointMessage = serverEndpoint == nil ? "There is no status endpoint to use." : "The '\(serverEndpoint ?? "")' endpoint will be used."
+                Log.warn("The provided Prebid Server custom status endpoint is not valid. \(endpointMessage)")
             }
         }
     }
@@ -44,7 +45,7 @@ class PrebidServerStatusRequester {
     
     func requestStatus(_ completion: @escaping PrebidInitializationCallback) {
         guard let serverEndpoint = serverEndpoint else {
-            completion(.serverStatusWarning, PBMError.error(description: "The SDK failed to get Prebid Server status endpoint."))
+            completion(.serverStatusWarning, PBMError.error(description: "Prebid SDK failed to get Prebid Server status endpoint."))
             return
         }
         
