@@ -95,4 +95,11 @@ public class Host: NSObject {
         return false
     }
 
+    /**
+     * This function used for unit testing to reset `customHostURL`.
+     * Internal only.
+     */
+    func reset() {
+        customHostURL = nil
+    }
 }

@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2023 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,22 +13,18 @@
  limitations under the License.
  */
 
-import Foundation
+import UIKit
 
-public typealias AdRequestCallback = (ServerResponse?, Error?) -> Void
-
-@objcMembers
-public class ServerResponse: NSObject {
+extension String {
     
-    public var isOKStatusCode: Bool {
-        return (200...299).contains(statusCode)
+    func isValidURL() -> Bool {
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        
+        // It is a link, if the match covers the whole string
+        if let match = detector.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count)) {
+            return match.range.length == self.utf16.count
+        }
+        
+        return false
     }
-    
-    public var jsonDict: [String: Any]?
-    public var rawData: Data?
-    public var requestHeaders: [String: String]?
-    public var responseHeaders: [String: String]?
-    public var requestURL: String?
-    public var error: Error?
-    public var statusCode = 0
 }

@@ -47,15 +47,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Set up SDK.
         Prebid.initializeSDK { status, error in
             switch status {
-            case .successed:
+            case .succeeded:
                 print("Prebid successfully initialized")
             case .failed:
                 if let error = error {
                     print("An error occurred during Prebid initialization: \(error.localizedDescription)")
                 }
+            case .serverStatusWarning:
+                if let error = error {
+                    print("Prebid Server status checking failed: \(error.localizedDescription)")
+                }
             default:
                 break
-            }
+            }            
         }
         
         processArgumentsParser.addOption("AD_POSITION", paramsCount: 1, fireOnce: true) { params in

@@ -85,7 +85,7 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
         getFor(resourceURL, timeout: timeout, headersOnly: true, callback: callback)
     }
     
-    public func get(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping (ServerResponse) -> Void) {
+    public func get(_ resourceURL: String?, timeout: TimeInterval = 0, callback: @escaping (ServerResponse) -> Void) {
         getFor(resourceURL, timeout: timeout, headersOnly: false, callback: callback)
     }
     

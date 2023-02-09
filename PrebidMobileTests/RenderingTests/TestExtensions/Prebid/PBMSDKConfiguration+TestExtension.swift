@@ -14,7 +14,7 @@
  */
 
 import Foundation
-import PrebidMobile
+@testable import PrebidMobile
 
 extension Prebid {
     static let devintServerURL = "https://prebid.devint.openx.net/openrtb2/auction"
@@ -29,6 +29,7 @@ extension Prebid {
     static func reset() {
         Prebid.shared.prebidServerHost = PrebidHost.Custom
         Prebid.shared.prebidServerAccountId = ""
+        Host.shared.reset()
         
         Prebid.shared.timeoutMillis = 2000
         
