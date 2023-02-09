@@ -88,7 +88,7 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
                 ortbUserData.ext?[dataPair.key] = dataPair.value
             }
             
-            adUnit?.addUserData([ortbUserData])
+            nativeAdUnit?.addUserData([ortbUserData])
         }
         
         // app.content.data
@@ -100,7 +100,7 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
                 ortbAppContentData.ext?[dataPair.key] = dataPair.value
             }
             
-            adUnit?.addAppContentData([ortbAppContentData])
+            nativeAdUnit?.addAppContentData([ortbAppContentData])
         }
         
         nativeAdUnit.fetchDemand { [weak self] result in
