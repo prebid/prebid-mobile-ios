@@ -243,13 +243,15 @@ class PBMORTBAbstractTest : XCTestCase {
         codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\"}")
     }
     
-    
-    func testPBMORTBImpExtSkadnToJsonString() {
+    func testPBMORTBImpExtSkadnToJsonString() { 
         let skadn = PBMORTBImpExtSkadn()
         skadn.sourceapp = "12345678"
         skadn.skadnetids = ["1", "2", "3"]
         
-        codeAndDecode(abstract: skadn, expectedString: "{\"skadnetids\":[\"1\",\"2\",\"3\"],\"sourceapp\":\"12345678\",\"versions\":[\"2.2\"]}")
+        var expectedString = "{\"skadnetids\":[\"1\",\"2\",\"3\"],\"sourceapp\":\"12345678\",\"versions\":\(PBMFunctions.supportedSKAdNetworkVersions())}"
+        expectedString.removeAll(where: { $0 == " "})
+        
+        codeAndDecode(abstract: skadn, expectedString: expectedString)
     }
     
     func testNativeToJsonString() {
