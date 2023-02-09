@@ -20,6 +20,10 @@ public typealias AdRequestCallback = (ServerResponse?, Error?) -> Void
 @objcMembers
 public class ServerResponse: NSObject {
     
+    public var isOKStatusCode: Bool {
+        return (200...299).contains(statusCode)
+    }
+    
     public var jsonDict: [String: Any]?
     public var rawData: Data?
     public var requestHeaders: [String: String]?

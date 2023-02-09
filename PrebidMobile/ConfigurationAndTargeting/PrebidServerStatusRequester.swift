@@ -49,7 +49,7 @@ class PrebidServerStatusRequester {
         }
         
         ServerConnection.shared.get(serverEndpoint) { serverResponse in
-            guard (200...299).contains(serverResponse.statusCode) else {
+            guard serverResponse.isOKStatusCode else {
                 completion(.serverStatusWarning, serverResponse.error ?? PBMError.error(description: "Error occured during Prebid Server status check."))
                 return
             }
