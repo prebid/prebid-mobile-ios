@@ -28,6 +28,7 @@ public class MediationNativeAdUnit : NSObject {
     var configID: String
     
     // MARK: - Public Methods
+    
     public init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         self.configID = configId
         self.mediationDelegate = mediationDelegate
@@ -78,7 +79,7 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.ext = ext
     }
     
-    // MARK: - App Content
+    // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         nativeAdUnit.setAppContent(appContent)
@@ -96,7 +97,7 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.removeAppContentData(dataObject)
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
     
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         nativeAdUnit.addUserData(userDataObjects)
@@ -108,6 +109,42 @@ public class MediationNativeAdUnit : NSObject {
     
     public func clearUserData() {
         nativeAdUnit.clearUserData()
+    }
+    
+    // MARK: - Context Data (imp[].ext.data)
+    
+    public func addContextData(_ data: String, forKey key: String) {
+        nativeAdUnit.addContextData(key: key, value: data)
+    }
+    
+    public func updateContextData(_ data: Set<String>, forKey key: String) {
+        nativeAdUnit.updateContextData(key: key, value: data)
+    }
+    
+    public func removeContextDate(forKey key: String) {
+        nativeAdUnit.removeContextData(forKey: key)
+    }
+    
+    public func clearContextData() {
+        nativeAdUnit.clearContextData()
+    }
+    
+    // MARK: - Сontext keywords (imp[].ext.keywords)
+    
+    @objc public func addContextKeyword(_ newElement: String) {
+        nativeAdUnit.addContextKeyword(newElement)
+    }
+    
+    @objc public func addContextKeywords(_ newElements: Set<String>) {
+        nativeAdUnit.addContextKeywords(newElements)
+    }
+    
+    @objc public func removeContextKeyword(_ element: String) {
+        nativeAdUnit.removeContextKeyword(element)
+    }
+
+    @objc public func clearContextKeywords() {
+        nativeAdUnit.clearContextKeywords()
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

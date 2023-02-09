@@ -470,7 +470,6 @@ public class Targeting: NSObject {
     }
     
     public func getContextData() -> [String : [String]] {
-        Log.info("gloabal context data dictionary is \(contextDataDictionary)")
         return contextDataDictionary.mapValues { Array($0) }
     }
     
@@ -497,10 +496,10 @@ public class Targeting: NSObject {
     }
     
     public func getContextKeywords() -> [String] {
-        Log.info("global context keywords set is \(contextKeywordsSet)")
         return Array(contextKeywordsSet)
     }
     
+    @available(*, deprecated, message: "This property is deprecated. Please, use getContextKeywords method instead.")
     public var contextKeywords: [String] {
         Array(contextKeywordsSet)
     }

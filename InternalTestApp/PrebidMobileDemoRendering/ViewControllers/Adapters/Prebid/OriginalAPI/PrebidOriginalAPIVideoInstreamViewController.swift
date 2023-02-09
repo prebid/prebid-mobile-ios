@@ -107,6 +107,44 @@ class PrebidOriginalAPIVideoInstreamViewController:
         
         adUnit = VideoAdUnit(configId: prebidConfigId, size: CGSize(width: 1, height: 1))
         
+        // imp[].ext.data
+        if let adUnitContext = AppConfiguration.shared.adUnitContext {
+            for dataPair in adUnitContext {
+                adUnit?.addContextData(key: dataPair.key, value: dataPair.value)
+            }
+        }
+        
+        // imp[].ext.keywords
+        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
+            for keyword in AppConfiguration.shared.adUnitContextKeywords {
+                adUnit?.addContextKeyword(keyword)
+            }
+        }
+        
+        // user.data
+        if let userData = AppConfiguration.shared.userData {
+            let ortbUserData = PBMORTBContentData()
+            ortbUserData.ext = [:]
+            
+            for dataPair in userData {
+                ortbUserData.ext?[dataPair.key] = dataPair.value
+            }
+            
+            adUnit?.addUserData([ortbUserData])
+        }
+        
+        // app.content.data
+        if let appData = AppConfiguration.shared.appContentData {
+            let ortbAppContentData = PBMORTBContentData()
+            ortbAppContentData.ext = [:]
+            
+            for dataPair in appData {
+                ortbAppContentData.ext?[dataPair.key] = dataPair.value
+            }
+            
+            adUnit?.addAppContentData([ortbAppContentData])
+        }
+        
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn]

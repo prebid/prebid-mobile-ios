@@ -183,7 +183,7 @@ import ObjectiveC.runtime
         }
     }
 
-    // MARK: - adunit context data aka inventory data (imp[].ext.context.data)
+    // MARK: - adunit context data aka inventory data (imp[].ext.data)
     
     /**
      * This method obtains the context data keyword & value for adunit context targeting
@@ -219,7 +219,7 @@ import ObjectiveC.runtime
         return adUnitConfig.getContextData()
     }
     
-    // MARK: - adunit context keywords (imp[].ext.context.keywords)
+    // MARK: - adunit context keywords (imp[].ext.keywords)
     
     /**
      * This method obtains the context keyword for adunit context targeting
@@ -255,7 +255,7 @@ import ObjectiveC.runtime
         adUnitConfig.getContextKeywords()
     }
     
-    // MARK: - App Content
+    // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContentObject: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContentObject)
@@ -281,7 +281,7 @@ import ObjectiveC.runtime
         adUnitConfig.clearAppContentData()
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
         
     public func getUserData() -> [PBMORTBContentData]? {
         return adUnitConfig.getUserData()

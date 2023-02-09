@@ -38,4 +38,7 @@ final class AppConfiguration: NSObject {
     var adUnitContext: [(key: String, value: String)]?
     var userData: [(key: String, value: String)]?
     var appContentData: [(key: String, value: String)]?
+    
+    // imp[].ext.keywords
+    var adUnitContextKeywords = [String]()
 }

@@ -100,26 +100,42 @@ class PrebidNativeAdController: NSObject, AdaptedController {
         setupNativeAdUnit(configId: prebidConfigId)
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
+        // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adUnit?.addContextData(key: dataPair.value, value: dataPair.key)
             }
         }
         
-        if let userData = AppConfiguration.shared.userData {
-            for dataPair in userData {
-                let appData = PBMORTBContentData()
-                appData.ext = [dataPair.key: dataPair.value]
-                adUnit?.addUserData([appData])
+        // imp[].ext.keywords
+        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
+            for keyword in AppConfiguration.shared.adUnitContextKeywords {
+                adUnit?.addContextKeyword(keyword)
             }
         }
         
-        if let appData = AppConfiguration.shared.appContentData {
-            for dataPair in appData {
-                let appData = PBMORTBContentData()
-                appData.ext = [dataPair.key: dataPair.value]
-                adUnit?.addAppContentData([appData])
+        // user.data
+        if let userData = AppConfiguration.shared.userData {
+            let ortbUserData = PBMORTBContentData()
+            ortbUserData.ext = [:]
+            
+            for dataPair in userData {
+                ortbUserData.ext?[dataPair.key] = dataPair.value
             }
+            
+            adUnit?.addUserData([ortbUserData])
+        }
+        
+        // app.content.data
+        if let appData = AppConfiguration.shared.appContentData {
+            let ortbAppContentData = PBMORTBContentData()
+            ortbAppContentData.ext = [:]
+            
+            for dataPair in appData {
+                ortbAppContentData.ext?[dataPair.key] = dataPair.value
+            }
+            
+            adUnit?.addAppContentData([ortbAppContentData])
         }
         
         adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in

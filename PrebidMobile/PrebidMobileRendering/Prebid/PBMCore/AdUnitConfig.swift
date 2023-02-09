@@ -94,7 +94,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         adConfiguration.size = adSize
     }
     
-    // MARK: - Context Data (imp[].ext.context.data)
+    // MARK: - Context Data (imp[].ext.data)
 
     public func addContextData(key: String, value: String) {
         if extensionData[key] == nil {
@@ -120,7 +120,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         contextDataDictionary
     }
 
-    // MARK: - Context keywords (imp[].ext.context.keywords)
+    // MARK: - Context keywords (imp[].ext.keywords)
 
     public func addContextKeyword(_ newElement: String) {
         contextKeywords.insert(newElement)
@@ -142,7 +142,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         contextKeywords
     }
 
-    // MARK: - App Content (app.data)
+    // MARK: - App Content (app.content.data)
 
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         self.appContent = appContent
@@ -242,7 +242,11 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.refreshInterval = self.refreshInterval
         clone.minSizePerc = self.minSizePerc
         clone.extensionData = self.extensionData.merging(clone.extensionData) { $1 }
+        clone.appContent = self.appContent
+        clone.contextKeywords = self.contextKeywords
+        clone.userData = self.userData
         clone.adPosition = self.adPosition
+        clone.pbAdSlot = self.pbAdSlot
         
         return clone
     }

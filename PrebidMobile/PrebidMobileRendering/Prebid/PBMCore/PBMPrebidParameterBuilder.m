@@ -163,10 +163,15 @@
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
         
         if (self.adConfiguration.contextDataDictionary.count > 0) {
-            nextImp.extContextData = self.adConfiguration.contextDataDictionary.mutableCopy;
+            nextImp.extData = self.adConfiguration.contextDataDictionary.mutableCopy;
         }
         
-        nextImp.extContextData[@"adslot"] = [self.adConfiguration getPbAdSlot];
+        if ([self.adConfiguration getContextKeywords].count > 0) {
+            NSMutableArray * contextKeywords = [NSMutableArray arrayWithArray:[[self.adConfiguration getContextKeywords] allObjects]];
+            nextImp.extKeywords = [contextKeywords componentsJoinedByString:@","];
+        }
+        
+        nextImp.extData[@"adslot"] = [self.adConfiguration getPbAdSlot];
        
         for (AdFormat* adFormat in adFormats) {
             if (adFormat == AdFormat.display) {

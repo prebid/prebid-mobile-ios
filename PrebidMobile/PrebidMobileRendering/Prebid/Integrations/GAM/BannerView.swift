@@ -200,10 +200,10 @@ public class BannerView: UIView,
         }
     }
     
-    // MARK: - Context Data
+    // MARK: - Context Data (imp[].ext.data)
     
     @objc public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(key: data, value: key)
+        adUnitConfig.addContextData(key: key, value: data)
     }
     
     @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
@@ -218,7 +218,25 @@ public class BannerView: UIView,
         adUnitConfig.clearContextData()
     }
     
-    // MARK: - App Content
+    // MARK: - Context keywords (imp[].ext.keywords)
+    
+    @objc public func addContextKeyword(_ newElement: String) {
+        adUnitConfig.addContextKeyword(newElement)
+    }
+    
+    @objc public func addContextKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addContextKeywords(newElements)
+    }
+    
+    @objc public func removeContextKeyword(_ element: String) {
+        adUnitConfig.removeContextKeyword(element)
+    }
+
+    @objc public func clearContextKeywords() {
+        adUnitConfig.clearContextKeywords()
+    }
+    
+    // MARK: - App Content (app.content.data)
     
     @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
@@ -240,7 +258,7 @@ public class BannerView: UIView,
         adUnitConfig.clearAppContentData()
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
         
     @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
