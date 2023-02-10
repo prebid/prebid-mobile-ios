@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedImpVideoInterstitialLandscape = "imp-prebid-video-interstitial-vertical"
+fileprivate let storedImpVideoInterstitialLandscape = "imp-prebid-video-interstitial-landscape-with-end-card"
 
 class InAppVideoInterstitialLandscapeViewController: UIViewController {
     
