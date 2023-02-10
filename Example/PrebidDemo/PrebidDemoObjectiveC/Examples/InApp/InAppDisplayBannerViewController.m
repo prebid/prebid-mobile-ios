@@ -16,7 +16,6 @@
 #import "InAppDisplayBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedResponseDisplayBannerInApp = @"response-prebid-banner-320-50";
 NSString * const storedImpDisplayBannerInApp = @"imp-prebid-banner-320-50";
 
 @interface InAppDisplayBannerViewController ()
@@ -31,7 +30,6 @@ NSString * const storedImpDisplayBannerInApp = @"imp-prebid-banner-320-50";
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseDisplayBannerInApp;
     [self createAd];
 }
 

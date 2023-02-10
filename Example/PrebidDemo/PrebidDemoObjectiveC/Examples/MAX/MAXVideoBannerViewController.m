@@ -16,7 +16,6 @@
 #import "MAXVideoBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedResponseVideoBannerMAX = @"response-prebid-video-outstream";
 NSString * const storedImpVideoBannerMAX = @"imp-prebid-video-outstream";
 NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
 
@@ -36,7 +35,6 @@ NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseVideoBannerMAX;
     [self createAd];
 }
 

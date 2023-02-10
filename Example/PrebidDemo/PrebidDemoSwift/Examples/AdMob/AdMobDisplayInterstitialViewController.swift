@@ -19,7 +19,6 @@ import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
 fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
-fileprivate let storedResponseDisplayInterstitial = "response-prebid-display-interstitial-320-480"
 fileprivate let adMobAdUnitDisplayInterstitial = "ca-app-pub-5922967660082475/3383099861"
 
 class AdMobDisplayInterstitialViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
@@ -34,7 +33,6 @@ class AdMobDisplayInterstitialViewController: InterstitialBaseViewController, GA
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitial
         createAd()
     }
     

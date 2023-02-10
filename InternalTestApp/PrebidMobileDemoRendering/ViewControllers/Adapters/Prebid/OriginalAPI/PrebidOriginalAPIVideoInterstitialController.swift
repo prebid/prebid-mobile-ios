@@ -25,7 +25,6 @@ class PrebidOriginalAPIVideoInterstitialController:
     
     weak var rootController: AdapterViewController?
     var prebidConfigId = ""
-    var storedAuctionResponse = ""
     var adUnitID = ""
     
     var refreshInterval: TimeInterval = 0
@@ -52,10 +51,6 @@ class PrebidOriginalAPIVideoInterstitialController:
         setupAdapterController()
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -63,7 +58,6 @@ class PrebidOriginalAPIVideoInterstitialController:
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         adUnit = VideoInterstitialAdUnit(configId: prebidConfigId)
         

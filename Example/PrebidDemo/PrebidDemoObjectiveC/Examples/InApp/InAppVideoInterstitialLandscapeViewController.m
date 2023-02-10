@@ -16,8 +16,7 @@
 #import "InAppVideoInterstitialLandscapeViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoInterstitialLandscapeInApp = @"imp-prebid-video-interstitial-vertical";
-NSString * const storedResponseRenderingVideoInterstitialLandscapeInApp = @"response-prebid-video-interstitial-landscape-with-end-card";
+NSString * const storedImpVideoInterstitialLandscapeInApp = @"imp-prebid-video-interstitial-landscape-with-end-card";
 
 @interface InAppVideoInterstitialLandscapeViewController ()
 
@@ -31,7 +30,6 @@ NSString * const storedResponseRenderingVideoInterstitialLandscapeInApp = @"resp
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoInterstitialLandscapeInApp;
     [self createAd];
 }
 

@@ -17,7 +17,6 @@
 #import "PrebidDemoMacros.h"
 
 NSString * const storedImpVideoInterstitialVerticalInApp = @"imp-prebid-video-interstitial-vertical";
-NSString * const storedResponseRenderingVideoInterstitialVerticalInApp = @"response-prebid-video-interstitial-vertical-with-end-card";
 
 @interface InAppVideoInterstitialVerticalViewController ()
 
@@ -31,7 +30,6 @@ NSString * const storedResponseRenderingVideoInterstitialVerticalInApp = @"respo
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoInterstitialVerticalInApp;
     [self createAd];
 }
 

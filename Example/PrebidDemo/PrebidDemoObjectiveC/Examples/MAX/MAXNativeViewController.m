@@ -16,7 +16,6 @@
 #import "MAXNativeViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const nativeStoredResponseMAX = @"response-prebid-banner-native-styles";
 NSString * const nativeStoredImpressionMAX = @"imp-prebid-banner-native-styles";
 NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
 
@@ -37,7 +36,6 @@ NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = nativeStoredResponseMAX;
     [self createAd];
 }
 

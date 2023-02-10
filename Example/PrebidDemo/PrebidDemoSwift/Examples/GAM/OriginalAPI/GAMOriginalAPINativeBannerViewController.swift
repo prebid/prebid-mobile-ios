@@ -18,7 +18,6 @@ import PrebidMobile
 import GoogleMobileAds
 
 fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
-fileprivate let nativeStoredResponse = "response-prebid-banner-native-styles"
 
 class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
     
@@ -51,7 +50,6 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = nativeStoredResponse
         createAd()
     }
     

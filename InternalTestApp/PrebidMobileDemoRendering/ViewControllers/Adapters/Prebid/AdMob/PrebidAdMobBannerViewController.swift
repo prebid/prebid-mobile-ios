@@ -33,7 +33,6 @@ class PrebidAdMobBannerViewController:
     var refreshInterval: TimeInterval = 0
     
     var prebidConfigId = ""
-    var storedAuctionResponse = ""
     
     var adMobAdUnitId = ""
     var adUnitSize = CGSize()
@@ -78,10 +77,6 @@ class PrebidAdMobBannerViewController:
         setupAdapterController()
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     func configurationController() -> BaseConfigurationController? {
         return PrebidBannerConfigurationController(controller: self)
     }
@@ -96,10 +91,13 @@ class PrebidAdMobBannerViewController:
         adBannerView?.delegate = self
         
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: request, bannerView: adBannerView!)
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        adUnit = MediationBannerAdUnit(configID: prebidConfigId,
-                                       size: adUnitSize,
-                                       mediationDelegate: mediationDelegate!)
+        
+        adUnit = MediationBannerAdUnit(
+            configID: prebidConfigId,
+            size: adUnitSize,
+            mediationDelegate: mediationDelegate!
+        )
+        
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }

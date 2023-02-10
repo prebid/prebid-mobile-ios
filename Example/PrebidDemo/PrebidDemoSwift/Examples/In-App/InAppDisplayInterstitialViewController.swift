@@ -16,7 +16,6 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedResponseDisplayInterstitial = "response-prebid-display-interstitial-320-480"
 fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
 
 class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUnitDelegate {
@@ -27,7 +26,6 @@ class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUn
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitial
         createAd()
     }
     

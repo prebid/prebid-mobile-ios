@@ -18,7 +18,6 @@
 
 @import PrebidMobile;
 
-NSString * const storedResponseDisplayInterstitial = @"response-prebid-display-interstitial-320-480";
 NSString * const storedImpDisplayInterstitial = @"imp-prebid-display-interstitial-320-480";
 NSString * const gamAdUnitDisplayInterstitialOriginal = @"/21808260008/prebid-demo-app-original-api-display-interstitial";
 
@@ -35,7 +34,6 @@ NSString * const gamAdUnitDisplayInterstitialOriginal = @"/21808260008/prebid-de
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitial;
     [self createAd];
 }
 

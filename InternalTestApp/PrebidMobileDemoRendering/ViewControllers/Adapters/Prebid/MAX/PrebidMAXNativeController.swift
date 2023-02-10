@@ -22,7 +22,6 @@ class PrebidMAXNativeController: NSObject, AdaptedController {
     
     public var maxAdUnitId = ""
     public var prebidConfigId = ""
-    public var storedAuctionResponse = ""
     
     public var nativeAssets: [NativeAsset]?
     public var eventTrackers: [NativeEventTracker]?
@@ -47,13 +46,7 @@ class PrebidMAXNativeController: NSObject, AdaptedController {
         setupActions(rootController: rootController)
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     func loadAd() {
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        
         setUpBannerArea(rootController: rootController!)
         
         nativeAdLoader = MANativeAdLoader(adUnitIdentifier: maxAdUnitId)

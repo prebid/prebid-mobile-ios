@@ -17,7 +17,6 @@
 #import "PrebidDemoMacros.h"
 
 NSString * const storedImpVideoInterstitialInApp = @"imp-prebid-video-interstitial-320-480";
-NSString * const storedResponseRenderingVideoInterstitialInApp = @"response-prebid-video-interstitial-320-480";
 
 @interface InAppVideoInterstitialViewController ()
 
@@ -31,7 +30,6 @@ NSString * const storedResponseRenderingVideoInterstitialInApp = @"response-preb
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoInterstitialInApp;
     [self createAd];
 }
 

@@ -17,7 +17,6 @@ import UIKit
 import PrebidMobile
 
 fileprivate let storedImpVideoInterstitial = "imp-prebid-video-interstitial-320-480"
-fileprivate let storedResponseRenderingVideoInterstitial = "response-prebid-video-interstitial-320-480"
 
 class InAppVideoInterstitialViewController: InterstitialBaseViewController, InterstitialAdUnitDelegate {
 
@@ -27,7 +26,6 @@ class InAppVideoInterstitialViewController: InterstitialBaseViewController, Inte
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoInterstitial
         createAd()
     }
 

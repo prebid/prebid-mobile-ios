@@ -17,8 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let storedResponseOriginalVideoBanner = "response-prebid-video-outstream-original-api"
-fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream"
+fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream-original-api"
 fileprivate let gamAdUnitVideoBannerOriginal = "/21808260008/prebid-demo-original-api-video-banner"
 
 class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
@@ -32,7 +31,6 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseOriginalVideoBanner
         createAd()
     }
     

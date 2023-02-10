@@ -19,7 +19,6 @@ import PrebidMobileMAXAdapters
 import AppLovinSDK
 
 fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
-fileprivate let storedResponseDisplayInterstitial = "response-prebid-display-interstitial-320-480"
 fileprivate let maxAdUnitDisplayInterstitial = "98e49039f26d7f00"
 
 class MAXDisplayInterstitialViewController: InterstitialBaseViewController, MAAdDelegate {
@@ -34,7 +33,6 @@ class MAXDisplayInterstitialViewController: InterstitialBaseViewController, MAAd
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitial
         createAd()
     }
     

@@ -19,7 +19,6 @@ import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
 fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
-fileprivate let storedResponseDisplayBanner = "response-prebid-banner-320-50"
 fileprivate let adMobAdUnitDisplayBannerRendering = "ca-app-pub-5922967660082475/9483570409"
 
 class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
@@ -34,7 +33,6 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner
         createAd()
     }
     

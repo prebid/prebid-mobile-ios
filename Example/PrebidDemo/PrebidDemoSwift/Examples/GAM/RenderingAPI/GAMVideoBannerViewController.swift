@@ -19,7 +19,6 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
 fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream"
-fileprivate let storedResponseRenderingVideoBanner = "response-prebid-video-outstream"
 fileprivate let gamAdUnitVideoBannerRendering = "/21808260008/prebid_oxb_300x250_banner"
 
 class GAMVideoBannerViewController: BannerBaseViewController, BannerViewDelegate {
@@ -33,7 +32,6 @@ class GAMVideoBannerViewController: BannerBaseViewController, BannerViewDelegate
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoBanner
         createAd()
     }
     

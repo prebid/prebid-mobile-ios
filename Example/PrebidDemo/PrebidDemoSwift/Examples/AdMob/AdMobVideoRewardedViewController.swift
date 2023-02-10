@@ -19,7 +19,6 @@ import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
 fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480"
-fileprivate let storedResponseVideoRewarded = "response-prebid-video-rewarded-320-480"
 fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/7397370641"
 
 class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
@@ -34,7 +33,6 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseVideoRewarded
         createAd()
     }
     

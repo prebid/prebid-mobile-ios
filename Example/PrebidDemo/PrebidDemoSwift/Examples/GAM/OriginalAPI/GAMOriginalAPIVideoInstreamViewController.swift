@@ -18,7 +18,6 @@ import PrebidMobile
 import GoogleInteractiveMediaAds
 
 fileprivate let videoContentURL = "https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
-fileprivate let storedResponseVideo = "response-prebid-video-interstitial-320-480"
 fileprivate let storedImpVideo = "imp-prebid-video-interstitial-320-480"
 fileprivate let gamAdUnitVideo = "/21808260008/prebid_oxb_interstitial_video"
 
@@ -85,7 +84,6 @@ class GAMOriginalAPIVideoInstreamViewController:
         playButton.isHidden = true
         
         // Setup and load in-stream video
-        Prebid.shared.storedAuctionResponse = storedResponseVideo
         createAd()
     }
     

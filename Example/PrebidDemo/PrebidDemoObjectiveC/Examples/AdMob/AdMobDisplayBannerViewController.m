@@ -16,8 +16,7 @@
 #import "AdMobDisplayBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpDisplayBannerAdMob = @"response-prebid-banner-320-50";
-NSString * const storedResponseDisplayBannerAdMob = @"imp-prebid-banner-320-50";
+NSString * const storedImpDisplayBannerAdMob = @"imp-prebid-banner-320-50";
 NSString * const adMobAdUnitDisplayBannerRendering = @"ca-app-pub-5922967660082475/9483570409";
 
 @interface AdMobDisplayBannerViewController ()
@@ -36,7 +35,6 @@ NSString * const adMobAdUnitDisplayBannerRendering = @"ca-app-pub-59229676600824
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseDisplayBannerAdMob;
     [self createAd];
 }
 

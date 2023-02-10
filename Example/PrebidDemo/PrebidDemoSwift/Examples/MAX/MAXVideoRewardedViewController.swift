@@ -19,7 +19,6 @@ import PrebidMobileMAXAdapters
 import AppLovinSDK
 
 fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480"
-fileprivate let storedResponseVideoRewarded = "response-prebid-video-rewarded-320-480"
 fileprivate let maxAdUnitRewardedId = "f7a08e702c6bec54"
 
 class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewardedAdDelegate {
@@ -34,7 +33,6 @@ class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewarded
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseVideoRewarded
         createAd()
     }
     

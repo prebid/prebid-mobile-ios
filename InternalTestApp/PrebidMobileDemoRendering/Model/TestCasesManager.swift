@@ -262,7 +262,6 @@ struct TestCaseManager {
                 bannerController.adSize = CGSize(width: 320, height: 50)
                         
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50";
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner"
                          
                 adapterVC.setup(adapter: bannerController)
@@ -285,7 +284,6 @@ struct TestCaseManager {
                 bannerController.adSize = CGSize(width: 320, height: 50)
                         
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50";
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner"
                          
                 adapterVC.setup(adapter: bannerController)
@@ -306,7 +304,6 @@ struct TestCaseManager {
                 bannerController.adSize = CGSize(width: 300, height: 250)
                         
                 bannerController.prebidConfigId = "imp-prebid-banner-300-250"
-                bannerController.storedAuctionResponse = "response-prebid-banner-300-250"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner_300x250_order"
                          
                 adapterVC.setup(adapter: bannerController)
@@ -327,7 +324,6 @@ struct TestCaseManager {
                 bannerController.adSize = CGSize(width: 728, height: 90)
                 bannerController.gamSizes = [GADAdSizeLeaderboard]
                 bannerController.prebidConfigId = "imp-prebid-banner-728-90"
-                bannerController.storedAuctionResponse = "response-prebid-banner-728-90"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner_728x90"
                          
                 adapterVC.setup(adapter: bannerController)
@@ -348,7 +344,6 @@ struct TestCaseManager {
                 bannerController.adSize = CGSize(width: 728, height: 90)
                 bannerController.gamSizes = [GADAdSizeLeaderboard, GADAdSizeBanner]
                 bannerController.prebidConfigId = "imp-prebid-banner-multisize"
-                bannerController.storedAuctionResponse = "response-prebid-banner-multisize"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner_multisize"
                          
                 adapterVC.setup(adapter: bannerController)
@@ -367,8 +362,7 @@ struct TestCaseManager {
                 
                 let bannerController = PrebidOriginalAPIVideoBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 300, height: 250)
-                bannerController.prebidConfigId = "imp-prebid-video-outstream"
-                bannerController.storedAuctionResponse = "response-prebid-video-outstream-original-api"
+                bannerController.prebidConfigId = "imp-prebid-video-outstream-original-api"
                 bannerController.adUnitID = "/21808260008/prebid-demo-original-api-video-banner"
                          
                 adapterVC.setup(adapter: bannerController)
@@ -389,7 +383,6 @@ struct TestCaseManager {
                          
                 let interstitialController = PrebidOriginalAPIDisplayInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                 interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-display-interstitial"
                          
                 adapterVC.setup(adapter: interstitialController)
@@ -407,8 +400,7 @@ struct TestCaseManager {
                 }
                          
                 let interstitialController = PrebidOriginalAPIVideoInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-original-api"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-original-api"
                 interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
                          
                 adapterVC.setup(adapter: interstitialController)
@@ -426,8 +418,7 @@ struct TestCaseManager {
                 }
                          
                 let interstitialController = PrebidOriginalAPIVideoRewardedController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                interstitialController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-original-api"
+                interstitialController.prebidConfigId = "imp-prebid-video-rewarded-320-480-original-api"
                 interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
                          
                 adapterVC.setup(adapter: interstitialController)
@@ -449,7 +440,6 @@ struct TestCaseManager {
                 let nativeController = PrebidOriginalAPINativeBannerController(rootController: adapterVC)
                 nativeController.adUnitID = "/21808260008/prebid-demo-original-native-styles"
                 nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
-                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -471,7 +461,6 @@ struct TestCaseManager {
                          
                 nativeController.adUnitID = "/21808260008/apollo_custom_template_native_ad_unit"
                 nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
-                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -490,14 +479,10 @@ struct TestCaseManager {
                     return
                 }
                          
-                try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.rubiconproject.com/openrtb2/auction")
-                Prebid.shared.prebidServerAccountId = "1001"
-                         
                 let instreamController = PrebidOriginalAPIVideoInstreamViewController(rootController: adapterVC)
                 instreamController.videoContentURL = "https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
-                instreamController.storedResponseVideo = "sample_video_response"
-                instreamController.prebidConfigId = "1001-1"
-                instreamController.gamAdUnitVideo = "/5300653/test_adunit_vast_pavliuchyk"
+                instreamController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
+                instreamController.gamAdUnitVideo = "/21808260008/prebid_oxb_interstitial_video"
                          
                 adapterVC.setup(adapter: instreamController)
                 setupCustomParams(for: instreamController.prebidConfigId)
@@ -517,7 +502,6 @@ struct TestCaseManager {
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50";
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                         
                 adapterVC.setup(adapter: bannerController)
                         
@@ -538,7 +522,6 @@ struct TestCaseManager {
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50";
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                         
                 adapterVC.setup(adapter: bannerController)
                         
@@ -557,7 +540,6 @@ struct TestCaseManager {
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
                 bannerController.prebidConfigId = "imp-prebid-no-bids"
-                bannerController.storedAuctionResponse = "response-prebid-no-bids"
                         
                 adapterVC.setup(adapter: bannerController)
                         
@@ -574,7 +556,6 @@ struct TestCaseManager {
                 
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-items"
-                bannerController.storedAuctionResponse = "response-prebid-banner-items"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -591,7 +572,6 @@ struct TestCaseManager {
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-newtab"
-                bannerController.storedAuctionResponse = "response-prebid-banner-newtab"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -608,7 +588,6 @@ struct TestCaseManager {
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-incorrect-vast"
-                bannerController.storedAuctionResponse = "response-prebid-banner-incorrect-vast"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -625,7 +604,6 @@ struct TestCaseManager {
                 
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-deeplink"
-                bannerController.storedAuctionResponse = "response-prebid-banner-deeplink"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -642,7 +620,6 @@ struct TestCaseManager {
                 
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -659,7 +636,6 @@ struct TestCaseManager {
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-300-250"
-                bannerController.storedAuctionResponse = "response-prebid-banner-300-250"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -675,7 +651,6 @@ struct TestCaseManager {
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-728-90"
-                bannerController.storedAuctionResponse = "response-prebid-banner-728-90"
                 bannerController.adSizes = [CGSize(width: 728, height: 90)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -691,7 +666,6 @@ struct TestCaseManager {
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-multisize"
-                bannerController.storedAuctionResponse = "response-prebid-banner-multisize"
                 bannerController.adSizes = [CGSize(width: 320, height: 50), CGSize(width: 728, height: 90)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -721,7 +695,6 @@ struct TestCaseManager {
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -742,7 +715,6 @@ struct TestCaseManager {
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50-skadn-v22"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50-skadn-v22"
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)
@@ -762,7 +734,6 @@ struct TestCaseManager {
                 gamBannerController.validAdSizes = [GADAdSizeBanner]
                         
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                         
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -784,7 +755,6 @@ struct TestCaseManager {
                 gamBannerController.validAdSizes = [GADAdSizeBanner]
                         
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                         
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -798,9 +768,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_static"
                 gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -818,7 +788,6 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
 
                 gamBannerController.prebidConfigId = "imp-prebid-no-bids"
-                gamBannerController.storedAuctionResponse = "response-prebid-no-bids"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_static"
                 gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -835,7 +804,6 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_random"
                 gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -852,7 +820,6 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
                 gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -867,9 +834,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-banner-300-250"
-                gamBannerController.storedAuctionResponse = "response-prebid-banner-300-250"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
                 gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 adapterVC.setup(adapter: gamBannerController)
@@ -884,9 +851,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-banner-728-90"
-                gamBannerController.storedAuctionResponse = "response-prebid-banner-728-90"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_728x90_banner"
                 gamBannerController.validAdSizes = [GADAdSizeLeaderboard]
                 adapterVC.setup(adapter: gamBannerController)
@@ -901,9 +868,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-banner-multisize"
-                gamBannerController.storedAuctionResponse = "response-prebid-banner-multisize"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_multisize_banner"
                 gamBannerController.validAdSizes = [GADAdSizeBanner, GADAdSizeLeaderboard]
                 adapterVC.setup(adapter: gamBannerController)
@@ -921,7 +888,6 @@ struct TestCaseManager {
                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_android_300x250_banner"
                 gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 adapterVC.setup(adapter: gamBannerController)
@@ -939,10 +905,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                interstitialController.storedAuctionResponse="response-prebid-display-interstitial-320-480"
                  
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -956,10 +922,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display]
                 interstitialController.prebidConfigId = "imp-prebid-no-bids"
-                interstitialController.storedAuctionResponse="response-prebid-no-bids"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -974,7 +940,6 @@ struct TestCaseManager {
                 }
                 presentationVC.adFormats = [.display]
                 presentationVC.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                presentationVC.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                         
                 setupCustomParams(for: presentationVC.prebidConfigId)
             }),
@@ -986,10 +951,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-multisize"
-                interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-multisize"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1009,7 +974,6 @@ struct TestCaseManager {
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-skadn"
-                interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480-skadn-v22"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1024,10 +988,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
 
                 interstitialController.prebidConfigId = "imp-prebid-interstitial-multiformat"
-                interstitialController.storedAuctionResponse = "response-prebid-interstitial-multiformat"
                 adapterVC.setup(adapter: interstitialController)
                          
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1040,13 +1004,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
 
                 let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
-                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
+                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-random"
                 interstitialController.storedAuctionResponse = prebidStoredAuctionResponses.randomElement() ?? prebidStoredAuctionResponses[0]
 
-                        
                 adapterVC.setup(adapter: interstitialController)
                          
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1067,7 +1031,6 @@ struct TestCaseManager {
                         
                 gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 
-                gamInterstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
                 setupCustomParams(for: gamInterstitialController.prebidConfigId)
@@ -1080,10 +1043,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.adFormats = [.display]
                 gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial_random"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -1100,7 +1063,6 @@ struct TestCaseManager {
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.adFormats = [.display]
                 gamInterstitialController.prebidConfigId = "imp-prebid-no-bids"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-no-bids"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_320x480_html_interstitial_static"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -1114,10 +1076,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.adFormats = [.display]
                 gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-multisize"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-display-interstitial-multisize"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -1131,10 +1093,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.adFormats = [.display]
                 gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_html_interstitial"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -1150,12 +1112,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let randomId = [0, 1].randomElement() ?? 0
                 let interstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 let gamAdUnitIds = ["/21808260008/prebid_html_interstitial", "/21808260008/prebid_oxb_interstitial_video"]
                         
                 let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
-                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
+                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-random"
                 interstitialController.storedAuctionResponse = prebidStoredAuctionResponses[randomId]
                          
                 interstitialController.gamAdUnitId = gamAdUnitIds[randomId]
@@ -1175,7 +1138,6 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1190,8 +1152,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-ad-configuration"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-ad-configuration"
                 interstitialController.adFormats = [.video]
                          
                 // Custom video configuration
@@ -1209,12 +1170,13 @@ struct TestCaseManager {
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
+                         
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
                 interstitialController.adFormats = [.video]
                          
                 // Custom video configuration
@@ -1237,9 +1199,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-ad-configuration"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-ad-configuration"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1253,9 +1215,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1271,7 +1233,6 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-no-bids"
-                interstitialController.storedAuctionResponse = "response-prebid-no-bids"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1285,9 +1246,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1301,9 +1262,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-vertical"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-vertical"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1317,9 +1278,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-vertical"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-vertical-with-end-card"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-vertical-with-end-card"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1333,9 +1294,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-vertical"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-landscape-with-end-card"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-landscape-with-end-card"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1349,9 +1310,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-deeplink"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-deeplink"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1366,9 +1327,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skip-offset"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skip-offset"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1383,9 +1344,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-mp4"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-mp4"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1400,9 +1361,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-m4v"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-m4v"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1417,9 +1378,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-mov"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-mov"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1434,9 +1395,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-mraid-end-card"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-mraid-end-card"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1457,7 +1418,6 @@ struct TestCaseManager {
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skadn"
-                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skadn-v22"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1474,9 +1434,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_interstitial_video"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1491,9 +1451,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_320x480_interstitial_video_random"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1508,9 +1468,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "imp-prebid-no-bids"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-no-bids"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_320x480_interstitial_video_static"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1527,7 +1487,6 @@ struct TestCaseManager {
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_interstitial_video"
                       
@@ -1549,9 +1508,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_interstitial_video"
                          
@@ -1575,9 +1534,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-ad-configuration"
+                gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-ad-configuration"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_interstitial_video"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1592,9 +1551,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
+                gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_interstitial_video"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1610,9 +1569,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                    return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 gamInterstitialController.adFormats = [.video]
                
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_interstitial_video"
@@ -1630,9 +1589,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-video-outstream"
-                bannerController.storedAuctionResponse = "response-prebid-video-outstream"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 bannerController.adFormat = .video
                         
@@ -1648,9 +1607,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-no-bids"
-                bannerController.storedAuctionResponse = "response-prebid-no-bids"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 bannerController.adFormat = .video
                 adapterVC.setup(adapter: bannerController)
@@ -1671,7 +1630,6 @@ struct TestCaseManager {
                 bannerController.adFormat = .video
                         
                 bannerController.prebidConfigId = "imp-prebid-video-outstream-with-end-card"
-                bannerController.storedAuctionResponse = "response-prebid-video-outstream-with-end-card"
                  
                 adapterVC.setup(adapter: bannerController)
                         
@@ -1705,7 +1663,6 @@ struct TestCaseManager {
                         
                         
                         var prebidConfigId = "imp-prebid-video-outstream"
-                        var storedAuctionResponse = "response-prebid-video-outstream"
                         let adSize = CGSize(width: 300, height: 250)
                         let adBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize),configID: prebidConfigId,adSize: adSize)
                         
@@ -1721,7 +1678,6 @@ struct TestCaseManager {
                         }
                         
                         setupCustomParams(for: prebidConfigId)
-                        adBannerView.setStoredAuctionResponse(storedAuction: storedAuctionResponse)
                         adBannerView.loadAd()
                         
                         videoViewCell.bannerView.addSubview(adBannerView)
@@ -1747,7 +1703,6 @@ struct TestCaseManager {
                          
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-video-outstream-skadn"
-                bannerController.storedAuctionResponse = "response-prebid-video-outstream-skadn-v22"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 bannerController.adFormat = .video
                 
@@ -1765,12 +1720,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
                 gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 gamBannerController.prebidConfigId = "imp-prebid-video-outstream"
-                gamBannerController.storedAuctionResponse = "response-prebid-video-outstream"
                  
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -1789,7 +1744,6 @@ struct TestCaseManager {
                 gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 gamBannerController.prebidConfigId = "imp-prebid-video-outstream-with-end-card"
-                gamBannerController.storedAuctionResponse = "response-prebid-video-outstream-with-end-card"
                  
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -1803,9 +1757,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-video-outstream"
-                gamBannerController.storedAuctionResponse = "response-prebid-video-outstream-with-end-card"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
                 gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
@@ -1821,9 +1775,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-no-bids"
-                gamBannerController.storedAuctionResponse = "response-prebid-no-bids"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outsream_video"
                 gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
@@ -1858,7 +1812,6 @@ struct TestCaseManager {
                         }
                         
                         var prebidConfigId = "imp-prebid-video-outstream"
-                        var storedAuctionResponse = "response-prebid-video-outstream"
                         let gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
                         let validAdSize = GADAdSizeMediumRectangle
                         let adSize = validAdSize.size
@@ -1876,7 +1829,6 @@ struct TestCaseManager {
                         }
                         
                         setupCustomParams(for: prebidConfigId)
-                        adBannerView.setStoredAuctionResponse(storedAuction: storedAuctionResponse)
                         adBannerView.loadAd()
                         
                         videoViewCell.bannerView.addSubview(adBannerView)
@@ -1898,11 +1850,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 
                 rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                
-                rewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -1915,12 +1866,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 Targeting.shared.sourceapp = "InternalTestApp"
                 
                 rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-skadn"
                 
-                rewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-skadn-v22"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -1932,9 +1883,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "imp-prebid-no-bids"
-                rewardedAdController.storedAuctionResponse = "response-prebid-no-bids"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -1947,9 +1898,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-without-end-card"
-                rewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-without-end-card"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -1962,9 +1913,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                rewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -1980,9 +1931,7 @@ struct TestCaseManager {
                 }
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 
-                rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                
-                rewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-with-ad-configuration"
+                rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-with-ad-configuration"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -1997,11 +1946,11 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
                         
                 gamRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                gamRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480"
                  
                 adapterVC.setup(adapter: gamRewardedAdController)
                         
@@ -2015,11 +1964,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
-                        
-                gamRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                gamRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-with-ad-configuration"
+                gamRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-with-ad-configuration"
                  
                 adapterVC.setup(adapter: gamRewardedAdController)
                         
@@ -2033,9 +1981,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 gamRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                gamRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480"
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_random"
                 adapterVC.setup(adapter: gamRewardedAdController)
                         
@@ -2049,9 +1997,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 gamRewardedAdController.prebidConfigId = "imp-prebid-no-bids"
-                gamRewardedAdController.storedAuctionResponse = "response-prebid-no-bids"
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_static"
                 adapterVC.setup(adapter: gamRewardedAdController)
                         
@@ -2065,9 +2013,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 gamRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-without-end-card"
-                gamRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-without-end-card"
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
                 adapterVC.setup(adapter: gamRewardedAdController)
                         
@@ -2084,9 +2032,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-expand-1-part"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-expand-1-part"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2100,9 +2048,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-expand-2-part"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-expand-2-part"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                  
                 adapterVC.setup(adapter: bannerController)
@@ -2117,12 +2065,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
-                        
                 bannerController.prebidConfigId = "imp-prebid-mraid-resize"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-resize"
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)
@@ -2135,9 +2081,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-resize-with-errors"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-resize-with-errors"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2151,9 +2097,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-fullscreen"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-fullscreen"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2167,9 +2113,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-mraid-video-interstitial"
-                interstitialController.storedAuctionResponse = "response-prebid-mraid-video-interstitial"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -2182,9 +2128,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-viewability-compliance"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-viewability-compliance"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2201,7 +2147,6 @@ struct TestCaseManager {
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-resize-negative-test"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-resize-negative-test"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2215,9 +2160,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-load-and-events"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-load-and-events"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2231,9 +2176,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-test-properties-3"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-test-properties-3"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2247,9 +2192,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-test-methods-3"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-test-methods-3"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2266,7 +2211,6 @@ struct TestCaseManager {
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-resize-expandable"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-resize-expandable"
                 bannerController.adSizes = [CGSize(width: 300, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2283,7 +2227,6 @@ struct TestCaseManager {
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-mraid-resize"
-                bannerController.storedAuctionResponse = "response-prebid-mraid-resize"
                 bannerController.adSizes = [CGSize(width: 300, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2299,9 +2242,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-mraid-expand-1-part"
-                gamBannerController.storedAuctionResponse = "response-prebid-mraid-expand-1-part"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
                 gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -2317,9 +2260,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-mraid-resize"
-                gamBannerController.storedAuctionResponse = "response-prebid-mraid-resize"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
                 gamBannerController.validAdSizes = [GADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -2334,9 +2277,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "imp-prebid-mraid-video-interstitial"
-                gamInterstitialController.storedAuctionResponse = "response-prebid-mraid-video-interstitial"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -2358,7 +2301,6 @@ struct TestCaseManager {
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                         
                 admobBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                admobBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                  
                 adapterVC.setup(adapter: admobBannerController)
                         
@@ -2380,7 +2322,6 @@ struct TestCaseManager {
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                         
                 admobBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                admobBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                  
                 adapterVC.setup(adapter: admobBannerController)
                         
@@ -2394,9 +2335,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
                 admobBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                admobBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: admobBannerController)
@@ -2411,9 +2352,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
                 admobBannerController.prebidConfigId = "imp-prebid-no-bids"
-                admobBannerController.storedAuctionResponse = "response-prebid-no-bids"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: admobBannerController)
@@ -2430,7 +2371,6 @@ struct TestCaseManager {
                 }
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
                 admobBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                admobBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: admobBannerController)
@@ -2445,9 +2385,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
                 admobBannerController.prebidConfigId = "imp-prebid-banner-300-250"
-                admobBannerController.storedAuctionResponse = "response-prebid-banner-300-250"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 300, height: 250);
                 adapterVC.setup(adapter: admobBannerController)
@@ -2462,9 +2402,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
                 admobBannerController.prebidConfigId = "imp-prebid-banner-multisize"
-                admobBannerController.storedAuctionResponse = "response-prebid-banner-multisize"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 admobBannerController.additionalAdSizes = [CGSize(width: 728, height: 90)]
@@ -2488,7 +2428,6 @@ struct TestCaseManager {
                 admobInterstitialController.adFormats = [.display]
                 admobInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 
-                admobInterstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
@@ -2501,10 +2440,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.adFormats = [.display]
                 admobInterstitialController.prebidConfigId = "imp-prebid-no-bids"
-                admobInterstitialController.storedAuctionResponse = "response-prebid-no-bids"
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
@@ -2521,7 +2460,6 @@ struct TestCaseManager {
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.adFormats = [.display]
                 admobInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                admobInterstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
@@ -2539,7 +2477,6 @@ struct TestCaseManager {
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                admobInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
@@ -2556,7 +2493,6 @@ struct TestCaseManager {
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                admobInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                          
@@ -2578,9 +2514,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                admobInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
                 admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                          
@@ -2605,8 +2541,7 @@ struct TestCaseManager {
                     return
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
-                admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                admobInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-ad-configuration"
+                admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-ad-configuration"
                 admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
@@ -2621,9 +2556,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
-                admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                admobInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
+                admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
                 admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
@@ -2640,7 +2575,6 @@ struct TestCaseManager {
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                admobInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
@@ -2655,9 +2589,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.prebidConfigId = "imp-prebid-no-bids"
-                admobInterstitialController.storedAuctionResponse = "response-prebid-no-bids"
                 admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
@@ -2697,11 +2631,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
                 admobRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                
-                admobRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480"
                 adapterVC.setup(adapter: admobRewardedAdController)
                         
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
@@ -2714,11 +2647,11 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
-                admobRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
+                admobRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-with-ad-configuration"
                 
-                admobRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-with-ad-configuration"
                 adapterVC.setup(adapter: admobRewardedAdController)
                         
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
@@ -2731,9 +2664,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 admobRewardedAdController.prebidConfigId = "imp-prebid-no-bids"
-                admobRewardedAdController.storedAuctionResponse = "response-prebid-no-bids"
                 admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
                 adapterVC.setup(adapter: admobRewardedAdController)
                         
@@ -2747,9 +2680,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 admobRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                admobRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480"
                 admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
                 adapterVC.setup(adapter: admobRewardedAdController)
                         
@@ -2763,9 +2696,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 admobRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-without-end-card"
-                admobRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-without-end-card"
                 admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
                 adapterVC.setup(adapter: admobRewardedAdController)
                         
@@ -2784,7 +2717,6 @@ struct TestCaseManager {
                 let nativeController = PrebidAdMobNativeViewController(rootController: adapterVC)
                 nativeController.adMobAdUnitId = "ca-app-pub-5922967660082475/8634069303"
                 nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
-                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -2805,7 +2737,6 @@ struct TestCaseManager {
                 let nativeController = PrebidAdMobNativeViewController(rootController: adapterVC)
                 nativeController.adMobAdUnitId = "ca-app-pub-5922967660082475/8634069303"
                 nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
-                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -2820,12 +2751,11 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let nativeController = PrebidAdMobNativeViewController(rootController: adapterVC)
                 nativeController.adMobAdUnitId = "ca-app-pub-5922967660082475/8634069303"
                          
                 nativeController.prebidConfigId = "imp-prebid-no-bids"
-                
-                nativeController.storedAuctionResponse = "imp-prebid-no-bids"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -2846,7 +2776,6 @@ struct TestCaseManager {
                 nativeAdController.setupNativeAdView(NativeAdViewBox())
 
                 nativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                nativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
 
                 nativeAdController.nativeAssets = .defaultNativeRequestAssets
                 nativeAdController.eventTrackers = .defaultNativeEventTrackers
@@ -2869,7 +2798,6 @@ struct TestCaseManager {
                 nativeAdController.setupNativeAdView(NativeAdViewBox())
 
                 nativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                nativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
 
                 nativeAdController.nativeAssets = .defaultNativeRequestAssets
                 nativeAdController.eventTrackers = .defaultNativeEventTrackers
@@ -2885,10 +2813,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
                 nativeAdController.setupNativeAdView(NativeAdViewBoxLinks())
                 nativeAdController.prebidConfigId = "imp-prebid-native-links"
-                nativeAdController.storedAuctionResponse = "response-prebid-native-links"
                          
                 Prebid.shared.shouldAssignNativeAssetID = true
                          
@@ -2917,7 +2845,6 @@ struct TestCaseManager {
                 let nativeAdFeedController = PrebidNativeAdFeedController(rootTableViewController: feedVC)
 
                 nativeAdFeedController.prebidConfigId = "imp-prebid-banner-native-styles"
-                nativeAdFeedController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeAdFeedController.nativeAssets = .defaultNativeRequestAssets
                 nativeAdFeedController.eventTrackers = .defaultNativeEventTrackers
 
@@ -2941,7 +2868,6 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
                 gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
@@ -2968,7 +2894,6 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
                 gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
@@ -2990,7 +2915,6 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
                 gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
@@ -3013,7 +2937,6 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
                 gamNativeAdController.prebidConfigId = "imp-prebid-native-video-with-end-card--dummy"
-                gamNativeAdController.storedAuctionResponse = "response-prebid-video-with-end-card"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
@@ -3037,7 +2960,6 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdFeedController(rootTableViewController: feedVC)
 
                 gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
@@ -3064,7 +2986,6 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
                            
                 gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit"
                 gamNativeAdController.adTypes = [.native]
                         
@@ -3086,7 +3007,6 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
                         
                 gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
                 gamNativeAdController.adTypes = [.native]
                         
@@ -3105,10 +3025,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
                         
                 gamNativeAdController.prebidConfigId = "imp-prebid-native-video-with-end-card--dummy"
-                gamNativeAdController.storedAuctionResponse = "response-prebid-video-with-end-card"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
                 gamNativeAdController.adTypes = [.native]
                 
@@ -3134,7 +3054,6 @@ struct TestCaseManager {
                 maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
                         
                 maxBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                maxBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                  
                 adapterVC.setup(adapter: maxBannerController)
                         
@@ -3156,7 +3075,6 @@ struct TestCaseManager {
                 maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
                         
                 maxBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                maxBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                  
                 adapterVC.setup(adapter: maxBannerController)
                         
@@ -3170,10 +3088,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
-
                 maxBannerController.prebidConfigId = "imp-prebid-no-bids"
-                maxBannerController.storedAuctionResponse = "response-prebid-no-bids"
                 maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
                 maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: maxBannerController)
@@ -3190,7 +3107,6 @@ struct TestCaseManager {
                 }
                 let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
                 maxBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                maxBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
                 maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: maxBannerController)
@@ -3208,7 +3124,6 @@ struct TestCaseManager {
                         
                 let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
                 maxBannerController.prebidConfigId = "imp-prebid-banner-320-50"
-                maxBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
                 maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
                 maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: maxBannerController)
@@ -3223,9 +3138,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
                 maxBannerController.prebidConfigId = "imp-prebid-banner-300-250"
-                maxBannerController.storedAuctionResponse = "response-prebid-banner-300-250"
                 maxBannerController.maxAdUnitId = "7715f9965a065152"
                 maxBannerController.adUnitSize = CGSize(width: 300, height: 250);
                 adapterVC.setup(adapter: maxBannerController)
@@ -3240,9 +3155,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
                 maxBannerController.prebidConfigId = "imp-prebid-banner-multisize"
-                maxBannerController.storedAuctionResponse = "response-prebid-banner-multisize"
                 maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
                 maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 maxBannerController.additionalAdSizes = [CGSize(width: 728, height: 90)]
@@ -3265,7 +3180,6 @@ struct TestCaseManager {
                 maxInterstitialController.adFormats = [.display]
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 maxInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                 adapterVC.setup(adapter: maxInterstitialController)
                         
                 setupCustomParams(for: maxInterstitialController.prebidConfigId)
@@ -3278,10 +3192,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
                 maxInterstitialController.adFormats = [.display]
                 maxInterstitialController.prebidConfigId = "imp-prebid-no-bids"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-no-bids"
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: maxInterstitialController)
                         
@@ -3298,7 +3212,6 @@ struct TestCaseManager {
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
                 maxInterstitialController.adFormats = [.display]
                 maxInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480"
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: maxInterstitialController)
                         
@@ -3314,9 +3227,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
                 maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 maxInterstitialController.adFormats = [.video]
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: maxInterstitialController)
@@ -3331,9 +3244,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
                 maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 maxInterstitialController.adFormats = [.video]
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                         
@@ -3357,7 +3270,6 @@ struct TestCaseManager {
                 }
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
                 maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
                 maxInterstitialController.adFormats = [.video]
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                       
@@ -3381,9 +3293,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
-                maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-ad-configuration"
+                maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-ad-configuration"
                 maxInterstitialController.adFormats = [.video]
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: maxInterstitialController)
@@ -3398,9 +3310,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
-                maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
+                maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
                 maxInterstitialController.adFormats = [.video]
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: maxInterstitialController)
@@ -3415,9 +3327,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
                 maxInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 maxInterstitialController.adFormats = [.video]
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: maxInterstitialController)
@@ -3432,9 +3344,9 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
                 maxInterstitialController.prebidConfigId = "imp-prebid-no-bids"
-                maxInterstitialController.storedAuctionResponse = "response-prebid-no-bids"
                 maxInterstitialController.adFormats = [.video]
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: maxInterstitialController)
@@ -3456,7 +3368,7 @@ struct TestCaseManager {
                 let interstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
                 let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
                          
-                let prebidStoredImps = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480", ]
+                let prebidStoredImps = ["imp-prebid-display-interstitial-320-480-random", "imp-prebid-video-interstitial-320-480"]
                          
                 interstitialController.prebidConfigId = prebidStoredImps[randomId]
                          
@@ -3476,10 +3388,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
                 maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
                 maxRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                maxRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480"
                 adapterVC.setup(adapter: maxRewardedAdController)
                         
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
@@ -3492,10 +3404,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
                 maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
-                maxRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                maxRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-with-ad-configuration"
+                maxRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-with-ad-configuration"
                 adapterVC.setup(adapter: maxRewardedAdController)
                         
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
@@ -3508,10 +3420,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
                 maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
                 maxRewardedAdController.prebidConfigId = "imp-prebid-no-bids"
-                maxRewardedAdController.storedAuctionResponse = "response-prebid-no-bids"
                 adapterVC.setup(adapter: maxRewardedAdController)
                         
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
@@ -3524,10 +3436,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
                 maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
                 maxRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
-                maxRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480"
                 adapterVC.setup(adapter: maxRewardedAdController)
                         
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
@@ -3540,10 +3452,10 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
                 maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
                 maxRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-without-end-card"
-                maxRewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-without-end-card"
                 adapterVC.setup(adapter: maxRewardedAdController)
                         
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
@@ -3562,7 +3474,6 @@ struct TestCaseManager {
                 let nativeController = PrebidMAXNativeController(rootController: adapterVC)
                 nativeController.maxAdUnitId = "f4c3d8281ebf3c39"
                 nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
-                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -3583,7 +3494,6 @@ struct TestCaseManager {
                 let nativeController = PrebidMAXNativeController(rootController: adapterVC)
                 nativeController.maxAdUnitId = "f4c3d8281ebf3c39"
                 nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
-                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -3602,7 +3512,6 @@ struct TestCaseManager {
                 let nativeController = PrebidMAXNativeController(rootController: adapterVC)
                 nativeController.maxAdUnitId = "f4c3d8281ebf3c39"
                 nativeController.prebidConfigId = "imp-prebid-no-bids"
-                nativeController.storedAuctionResponse = "imp-prebid-no-bids"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          

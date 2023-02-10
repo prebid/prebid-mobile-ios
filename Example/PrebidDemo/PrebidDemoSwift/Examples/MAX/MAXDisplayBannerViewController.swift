@@ -18,7 +18,6 @@ import PrebidMobile
 import PrebidMobileMAXAdapters
 import AppLovinSDK
 
-fileprivate let storedResponseDisplayBanner = "response-prebid-banner-320-50"
 fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
 fileprivate let maxAdUnitBannerRendering = "5419948894cdf762"
 
@@ -34,7 +33,6 @@ class MAXDisplayBannerViewController: BannerBaseViewController, MAAdViewAdDelega
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner
         createAd()
     }
     

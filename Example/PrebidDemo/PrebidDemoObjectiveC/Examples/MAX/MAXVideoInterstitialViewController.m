@@ -16,7 +16,6 @@
 #import "MAXVideoInterstitialViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedResponseRenderingVideoInterstitialMAX = @"response-prebid-video-interstitial-320-480";
 NSString * const storedImpVideoInterstitialMAX = @"imp-prebid-video-interstitial-320-480";
 NSString * const maxAdUnitVideoInterstitial = @"48e8d410f74dfc7b";
 
@@ -36,7 +35,6 @@ NSString * const maxAdUnitVideoInterstitial = @"48e8d410f74dfc7b";
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoInterstitialMAX;
     [self createAd];
 }
 

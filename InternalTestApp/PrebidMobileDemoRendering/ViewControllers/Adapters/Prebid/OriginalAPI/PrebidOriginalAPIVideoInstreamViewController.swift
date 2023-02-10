@@ -26,7 +26,6 @@ class PrebidOriginalAPIVideoInstreamViewController:
     private weak var rootController: AdapterViewController!
     
     var videoContentURL = ""
-    var storedResponseVideo = ""
     var prebidConfigId = ""
     var gamAdUnitVideo = ""
     
@@ -63,12 +62,9 @@ class PrebidOriginalAPIVideoInstreamViewController:
         adsManager?.destroy()
         contentPlayer?.pause()
         contentPlayer = nil
-        
-        Prebid.shared.storedAuctionResponse = nil
     }
     
     func loadAd() {
-        Prebid.shared.storedAuctionResponse = storedResponseVideo
         
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"

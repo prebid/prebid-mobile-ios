@@ -21,7 +21,6 @@ import PrebidMobileGAMEventHandlers
 class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurableController, RewardedAdUnitDelegate {
     
     var prebidConfigId = ""
-    var storedAuctionResponse = ""
 
     var gamAdUnitId = ""
     
@@ -46,9 +45,7 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
         
         setupAdapterController()
     }
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
+ 
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -59,7 +56,6 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         let eventHandler = GAMRewardedAdEventHandler(adUnitID: gamAdUnitId)
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         rewardedAdController = RewardedAdUnit(configID: prebidConfigId, eventHandler: eventHandler)
         rewardedAdController?.delegate = self
    

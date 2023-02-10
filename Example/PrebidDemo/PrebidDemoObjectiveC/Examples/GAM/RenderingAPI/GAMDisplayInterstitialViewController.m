@@ -16,7 +16,6 @@
 #import "GAMDisplayInterstitialViewController.h"
 
 NSString * const storedImpGAMDisplayInterstitial = @"imp-prebid-display-interstitial-320-480";
-NSString * const storedResponseGAMDisplayInterstitial = @"response-prebid-display-interstitial-320-480";
 NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_oxb_html_interstitial";
 
 @interface GAMDisplayInterstitialViewController ()
@@ -31,7 +30,6 @@ NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_o
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseGAMDisplayInterstitial;
     [self createAd];
 }
 

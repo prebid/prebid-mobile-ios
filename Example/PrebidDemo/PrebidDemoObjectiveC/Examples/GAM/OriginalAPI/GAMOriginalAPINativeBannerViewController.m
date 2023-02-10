@@ -18,7 +18,6 @@
 
 @import PrebidMobile;
 
-NSString * const nativeBannerStoredResponse = @"response-prebid-banner-native-styles";
 NSString * const nativeStoredBannerImpression = @"imp-prebid-banner-native-styles";
 NSString * const gamAdUnit = @"/21808260008/prebid-demo-original-native-styles";
 
@@ -38,7 +37,6 @@ NSString * const gamAdUnit = @"/21808260008/prebid-demo-original-native-styles";
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = nativeBannerStoredResponse;
     [self createAd];
 }
 

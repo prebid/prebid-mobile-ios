@@ -16,7 +16,6 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedResponseDisplayBanner = "response-prebid-banner-320-50"
 fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
 
 class InAppDisplayBannerViewController: BannerBaseViewController, BannerViewDelegate {
@@ -27,7 +26,6 @@ class InAppDisplayBannerViewController: BannerBaseViewController, BannerViewDele
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner
         createAd()
     }
     

@@ -16,7 +16,6 @@
 #import "InAppVideoBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedResponseRenderingVideoBannerInApp = @"response-prebid-video-outstream";
 NSString * const storedImpVideoBannerInApp = @"imp-prebid-video-outstream";
 
 @interface InAppVideoBannerViewController ()
@@ -31,7 +30,6 @@ NSString * const storedImpVideoBannerInApp = @"imp-prebid-video-outstream";
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoBannerInApp;
     [self createAd];
 }
 

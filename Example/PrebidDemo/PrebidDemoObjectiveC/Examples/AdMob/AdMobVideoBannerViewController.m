@@ -17,7 +17,6 @@
 #import "PrebidDemoMacros.h"
 
 NSString * const storedImpVideoBannerAdMob = @"imp-prebid-video-outstream";
-NSString * const storedResponseVideoBannerAdMob = @"response-prebid-video-outstream";
 NSString * const adMobAdUnitVideoBannerRendering = @"ca-app-pub-5922967660082475/9483570409";
 
 @interface AdMobVideoBannerViewController ()
@@ -36,7 +35,6 @@ NSString * const adMobAdUnitVideoBannerRendering = @"ca-app-pub-5922967660082475
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseVideoBannerAdMob;
     [self createAd];
 }
 

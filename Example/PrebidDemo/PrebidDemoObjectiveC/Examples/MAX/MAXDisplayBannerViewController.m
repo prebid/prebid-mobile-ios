@@ -16,7 +16,6 @@
 #import "MAXDisplayBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedResponseDisplayBannerMAX = @"response-prebid-banner-320-50";
 NSString * const storedImpDisplayBannerMAX = @"imp-prebid-banner-320-50";
 NSString * const maxAdUnitBannerRendering = @"78869c25f5c54bab";
 
@@ -36,7 +35,6 @@ NSString * const maxAdUnitBannerRendering = @"78869c25f5c54bab";
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseDisplayBannerMAX;
     [self createAd];
 }
 

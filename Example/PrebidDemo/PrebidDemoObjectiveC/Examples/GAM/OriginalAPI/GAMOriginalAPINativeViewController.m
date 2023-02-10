@@ -16,7 +16,6 @@
 #import "GAMOriginalAPINativeViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const nativeStoredResponse = @"response-prebid-banner-native-styles";
 NSString * const nativeStoredImpression = @"imp-prebid-banner-native-styles";
 NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_native_ad_unit";
 
@@ -36,7 +35,6 @@ NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_nativ
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = nativeStoredResponse;
     [self createAd];
 }
 

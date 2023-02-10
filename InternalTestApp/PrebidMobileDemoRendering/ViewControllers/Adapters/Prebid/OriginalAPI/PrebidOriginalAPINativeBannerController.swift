@@ -21,7 +21,6 @@ import GoogleMobileAds
 class PrebidOriginalAPINativeBannerController: NSObject, AdaptedController, GADBannerViewDelegate {
     
     var prebidConfigId = ""
-    var storedAuctionResponse = ""
     var adUnitID = ""
     
     // Prebid
@@ -52,16 +51,9 @@ class PrebidOriginalAPINativeBannerController: NSObject, AdaptedController, GADB
         setupAdapterController()
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
-    
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
-        
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         nativeUnit = NativeRequest(configId: prebidConfigId, assets: nativeAssets)
         
