@@ -18,8 +18,7 @@
 
 @import PrebidMobile;
 
-NSString * const storedResponseVideoRewarded = @"response-prebid-video-rewarded-320-480-original-api";
-NSString * const storedImpVideoRewarded = @"imp-prebid-video-rewarded-320-480";
+NSString * const storedImpVideoRewarded = @"imp-prebid-video-rewarded-320-480-original-api";
 NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app-original-api-video-interstitial";
 
 @interface GAMOriginalAPIVideoRewardedViewController ()
@@ -34,7 +33,6 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseVideoRewarded;
     [self createAd];
 }
 

@@ -16,7 +16,6 @@
 #import "MAXVideoRewardedViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedResponseVideoRewardedMAX = @"response-prebid-video-rewarded-320-480";
 NSString * const storedImpVideoRewardedMAX = @"imp-prebid-video-rewarded-320-480";
 NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
 
@@ -36,7 +35,6 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseVideoRewardedMAX;
     [self createAd];
 }
 

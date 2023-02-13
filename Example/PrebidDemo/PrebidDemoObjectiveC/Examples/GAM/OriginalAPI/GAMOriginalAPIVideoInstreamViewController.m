@@ -19,7 +19,6 @@
 @import PrebidMobile;
 
 NSString * const videoContentURL = @"https://storage.googleapis.com/gvabox/media/samples/stock.mp4";
-NSString * const storedResponseVideo = @"response-prebid-video-interstitial-320-480";
 NSString * const storedImpVideo = @"imp-prebid-video-interstitial-320-480";
 NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
 
@@ -86,7 +85,6 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
     [self.playButton setHidden:YES];
     
     // Setup and load in-stream video
-    Prebid.shared.storedAuctionResponse = storedResponseVideo;
     [self createAd];
 }
 

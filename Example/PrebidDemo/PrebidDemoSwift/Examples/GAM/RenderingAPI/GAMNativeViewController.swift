@@ -19,7 +19,6 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
 fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
-fileprivate let nativeStoredResponse = "response-prebid-banner-native-styles"
 fileprivate let gamRenderingNativeAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
 
 class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoaderDelegate {
@@ -53,7 +52,6 @@ class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoader
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = nativeStoredResponse
         createAd()
     }
     

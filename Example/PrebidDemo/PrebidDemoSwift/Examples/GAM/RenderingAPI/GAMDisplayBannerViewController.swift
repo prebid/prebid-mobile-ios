@@ -19,7 +19,6 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
 fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
-fileprivate let storedResponseDisplayBanner = "response-prebid-banner-320-50"
 fileprivate let gamAdUnitDisplayBannerRendering = "/21808260008/prebid_oxb_320x50_banner"
 
 class GAMDisplayBannerViewController: BannerBaseViewController, BannerViewDelegate {
@@ -33,7 +32,6 @@ class GAMDisplayBannerViewController: BannerBaseViewController, BannerViewDelega
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner
         createAd()
     }
     

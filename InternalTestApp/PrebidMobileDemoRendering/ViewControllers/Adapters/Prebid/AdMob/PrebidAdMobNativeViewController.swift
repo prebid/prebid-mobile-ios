@@ -22,7 +22,6 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
     
     public let accountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
     public var prebidConfigId = "25e17008-5081-4676-94d5-923ced4359d3"
-    var storedAuctionResponse = ""
 
     public var adMobAdUnitId: String?
     public var nativeAssets: [NativeAsset]?
@@ -56,13 +55,8 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         setupActions(rootController: rootController)
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     func loadAd() {
-        setUpBannerArea(rootController: rootController!)
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        setUpBannerArea(rootController: rootController!) 
         setupMediationNativeAdUnit()
    
         // imp[].ext.data

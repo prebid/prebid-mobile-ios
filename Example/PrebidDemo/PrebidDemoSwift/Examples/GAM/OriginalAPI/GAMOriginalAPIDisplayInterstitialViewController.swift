@@ -17,7 +17,6 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let storedResponseDisplayInterstitial = "response-prebid-display-interstitial-320-480"
 fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
 fileprivate let gamAdUnitDisplayInterstitialOriginal = "/21808260008/prebid-demo-app-original-api-display-interstitial"
 
@@ -32,7 +31,6 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitial
         createAd()
     }
     

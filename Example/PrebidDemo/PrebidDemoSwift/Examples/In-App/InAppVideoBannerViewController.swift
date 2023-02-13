@@ -16,7 +16,6 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedResponseRenderingVideoBanner = "response-prebid-video-outstream"
 fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream"
 
 class InAppVideoBannerViewController: BannerBaseViewController, BannerViewDelegate {
@@ -27,7 +26,6 @@ class InAppVideoBannerViewController: BannerBaseViewController, BannerViewDelega
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoBanner
         createAd()
     }
     

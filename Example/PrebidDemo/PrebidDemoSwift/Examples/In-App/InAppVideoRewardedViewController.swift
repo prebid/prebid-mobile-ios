@@ -17,7 +17,6 @@ import UIKit
 import PrebidMobile
 
 fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480"
-fileprivate let storedResponseVideoRewarded = "response-prebid-video-rewarded-320-480"
 
 class InAppVideoRewardedViewController: InterstitialBaseViewController, RewardedAdUnitDelegate {
     
@@ -27,7 +26,6 @@ class InAppVideoRewardedViewController: InterstitialBaseViewController, Rewarded
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseVideoRewarded
         createAd()
     }
     

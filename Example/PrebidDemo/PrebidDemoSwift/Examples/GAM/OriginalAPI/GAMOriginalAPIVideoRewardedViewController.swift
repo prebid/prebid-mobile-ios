@@ -17,8 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let storedResponseVideoRewarded = "response-prebid-video-rewarded-320-480-original-api"
-fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480"
+fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480-original-api"
 fileprivate let gamAdUnitVideoRewardedOriginal = "/21808260008/prebid-demo-app-original-api-video-interstitial"
 
 class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
@@ -32,7 +31,6 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseVideoRewarded
         createAd()
     }
     

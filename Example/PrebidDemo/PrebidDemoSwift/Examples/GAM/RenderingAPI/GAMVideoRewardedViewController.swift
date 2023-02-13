@@ -18,7 +18,6 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
-fileprivate let storedResponseVideoRewarded = "response-prebid-video-rewarded-320-480"
 fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480"
 fileprivate let gamAdUnitVideoRewardedRendering = "/21808260008/prebid_oxb_rewarded_video_test"
 
@@ -30,7 +29,6 @@ class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAd
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseVideoRewarded
         createAd()
     }
     

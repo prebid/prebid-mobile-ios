@@ -19,7 +19,6 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
 fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
-fileprivate let storedResponseDisplayInterstitial = "response-prebid-display-interstitial-320-480"
 fileprivate let gamAdUnitDisplayInterstitialRendering = "/21808260008/prebid_oxb_html_interstitial"
 
 class GAMDisplayInterstitialViewController: InterstitialBaseViewController, InterstitialAdUnitDelegate {
@@ -30,7 +29,6 @@ class GAMDisplayInterstitialViewController: InterstitialBaseViewController, Inte
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitial
         createAd()
     }
     

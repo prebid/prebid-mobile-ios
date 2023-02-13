@@ -16,7 +16,6 @@
 #import "GAMVideoRewardedViewController.h"
 
 NSString * const storedImpGAMVideoRewarded = @"imp-prebid-video-rewarded-320-480";
-NSString * const storedResponseGAMVideoRewarded = @"response-prebid-video-rewarded-320-480";
 NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rewarded_video_test";
 
 @interface GAMVideoRewardedViewController ()
@@ -31,7 +30,6 @@ NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rew
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseGAMVideoRewarded;
     [self createAd];
 }
 

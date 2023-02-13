@@ -18,8 +18,8 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
 class PrebidGAMNativeAdController: NSObject, AdaptedController {
+    
     public var prebidConfigId = ""
-    var storedAuctionResponse = ""
 
     public var gamAdUnitId = ""
     public var gamCustomTemplateIDs: [String] = []
@@ -64,10 +64,6 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
         nativeAdViewBox.setUpDummyValues()
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     private func fillBannerArea(rootController: AdapterViewController) {
         guard let bannerView = rootController.bannerView else {
             return
@@ -104,7 +100,6 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
     
     func loadAd() {
         setupNativeAdUnit()
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

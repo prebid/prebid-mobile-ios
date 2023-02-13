@@ -25,7 +25,6 @@ class PrebidOriginalAPIDisplayBannerController:
     
     weak var rootController: AdapterViewController?
     var prebidConfigId = ""
-    var storedAuctionResponse = ""
     var adUnitID = ""
     
     var refreshInterval: TimeInterval = 0
@@ -62,10 +61,6 @@ class PrebidOriginalAPIDisplayBannerController:
         setupAdapterController()
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     func configurationController() -> BaseConfigurationController? {
         return PrebidBannerConfigurationController(controller: self)
     }
@@ -73,7 +68,6 @@ class PrebidOriginalAPIDisplayBannerController:
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
         adUnit.setAutoRefreshMillis(time: refreshInterval)

@@ -28,7 +28,6 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
     
     var prebidConfigId = ""
     var maxAdUnitId = ""
-    var storedAuctionResponse = ""
     
     var isAdaptive = false
     
@@ -63,17 +62,11 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
         setupAdapterController()
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     func configurationController() -> BaseConfigurationController? {
         return PrebidBannerConfigurationController(controller: self)
     }
     
     func loadAd() {
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         

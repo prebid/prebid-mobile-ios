@@ -15,7 +15,6 @@
 
 #import "GAMDisplayBannerViewController.h"
 
-NSString * const storedResponseDisplayBannerGAMRendering = @"response-prebid-banner-320-50";
 NSString * const storedImpDisplayBannerGAMRendering = @"imp-prebid-banner-320-50";
 NSString * const gamAdUnitDisplayBannerRendering = @"/21808260008/prebid_oxb_320x50_banner";
 
@@ -35,7 +34,6 @@ NSString * const gamAdUnitDisplayBannerRendering = @"/21808260008/prebid_oxb_320
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseDisplayBannerGAMRendering;
     [self createAd];
 }
 

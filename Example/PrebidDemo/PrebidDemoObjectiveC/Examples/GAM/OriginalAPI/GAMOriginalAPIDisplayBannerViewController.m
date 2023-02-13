@@ -19,7 +19,6 @@
 @import PrebidMobile;
 @import GoogleMobileAds;
 
-NSString * const storedResponseDisplayBanner = @"response-prebid-banner-320-50";
 NSString * const storedImpDisplayBanner = @"imp-prebid-banner-320-50";
 NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app_original_api_banner";
 
@@ -38,7 +37,6 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseDisplayBanner;
     [self createAd];
 }
 

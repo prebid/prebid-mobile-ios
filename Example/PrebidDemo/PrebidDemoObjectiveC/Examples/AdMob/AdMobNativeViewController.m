@@ -16,7 +16,6 @@
 #import "AdMobNativeViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const nativeStoredResponseAdMob = @"response-prebid-banner-native-styles";
 NSString * const nativeStoredImpressionAdMob = @"imp-prebid-banner-native-styles";
 NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/8634069303";
 
@@ -37,7 +36,6 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = nativeStoredResponseAdMob;
     [self createAd];
 }
 

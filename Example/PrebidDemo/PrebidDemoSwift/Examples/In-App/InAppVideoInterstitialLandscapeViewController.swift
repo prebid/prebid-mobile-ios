@@ -16,8 +16,7 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedImpVideoInterstitialLandscape = "imp-prebid-video-interstitial-vertical"
-fileprivate let storedResponseRenderingVideoInterstitialLandscape = "response-prebid-video-interstitial-landscape-with-end-card"
+fileprivate let storedImpVideoInterstitialLandscape = "imp-prebid-video-interstitial-landscape-with-end-card"
 
 class InAppVideoInterstitialLandscapeViewController: UIViewController {
     
@@ -27,7 +26,6 @@ class InAppVideoInterstitialLandscapeViewController: UIViewController {
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = storedResponseRenderingVideoInterstitialLandscape
         createAd()
     }
     

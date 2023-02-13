@@ -20,8 +20,6 @@ import PrebidMobile
 class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDelegate {
     
     var prebidConfigId = ""
-    var storedAuctionResponse = ""
-
     
     private var rewardedAdController : RewardedAdUnit?
     
@@ -46,7 +44,6 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
     }
     
     deinit {
-        Prebid.shared.storedAuctionResponse = nil
         Targeting.shared.sourceapp = nil
     }
     
@@ -54,7 +51,6 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
         rewardedAdController = RewardedAdUnit(configID: prebidConfigId)
         rewardedAdController?.delegate = self

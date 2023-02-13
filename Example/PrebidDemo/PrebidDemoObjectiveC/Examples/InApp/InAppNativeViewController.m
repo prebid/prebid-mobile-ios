@@ -17,7 +17,6 @@
 #import "PrebidDemoMacros.h"
 
 NSString * const nativeStoredImpressionInApp = @"imp-prebid-banner-native-styles";
-NSString * const nativeStoredResponseInApp = @"response-prebid-banner-native-styles";
 
 @interface InAppNativeViewController ()
 
@@ -32,7 +31,6 @@ NSString * const nativeStoredResponseInApp = @"response-prebid-banner-native-sty
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = nativeStoredResponseInApp;
     [self createAd];
 }
 

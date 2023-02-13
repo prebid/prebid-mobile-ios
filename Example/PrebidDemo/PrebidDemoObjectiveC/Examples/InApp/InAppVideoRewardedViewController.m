@@ -17,7 +17,6 @@
 #import "PrebidDemoMacros.h"
 
 NSString * const storedImpVideoRewardedInApp = @"imp-prebid-video-rewarded-320-480";
-NSString * const storedResponseVideoRewardedInApp = @"response-prebid-video-rewarded-320-480";
 
 @interface InAppVideoRewardedViewController ()
 
@@ -31,7 +30,6 @@ NSString * const storedResponseVideoRewardedInApp = @"response-prebid-video-rewa
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseVideoRewardedInApp;
     [self createAd];
 }
 

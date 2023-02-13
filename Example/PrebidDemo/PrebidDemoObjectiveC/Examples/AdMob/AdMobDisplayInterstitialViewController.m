@@ -17,7 +17,6 @@
 #import "PrebidDemoMacros.h"
 
 NSString * const storedImpDisplayInterstitialAdMob = @"imp-prebid-display-interstitial-320-480";
-NSString * const storedResponseDisplayInterstitialAdMob = @"response-prebid-display-interstitial-320-480";
 NSString * const adMobAdUnitDisplayInterstitial = @"ca-app-pub-5922967660082475/3383099861";
 
 @interface AdMobDisplayInterstitialViewController ()
@@ -36,7 +35,6 @@ NSString * const adMobAdUnitDisplayInterstitial = @"ca-app-pub-5922967660082475/
 - (void)loadView {
     [super loadView];
     
-    Prebid.shared.storedAuctionResponse = storedResponseDisplayInterstitialAdMob;
     [self createAd];
 }
 

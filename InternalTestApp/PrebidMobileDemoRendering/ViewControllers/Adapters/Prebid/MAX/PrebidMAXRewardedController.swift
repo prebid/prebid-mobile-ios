@@ -21,7 +21,6 @@ import PrebidMobileMAXAdapters
 class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurableController {
     
     var prebidConfigId: String = ""
-    var storedAuctionResponse = ""
     
     var maxAdUnitId = ""
     
@@ -53,17 +52,11 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         setupAdapterController()
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
     
     func loadAd() {
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         

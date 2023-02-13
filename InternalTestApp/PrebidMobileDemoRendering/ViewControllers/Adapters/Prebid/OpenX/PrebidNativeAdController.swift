@@ -19,7 +19,6 @@ import PrebidMobile
 class PrebidNativeAdController: NSObject, AdaptedController {
     
     public var prebidConfigId = ""
-    var storedAuctionResponse = ""
 
     public var nativeAssets: [NativeAsset]?
     public var eventTrackers: [NativeEventTracker]?
@@ -46,7 +45,6 @@ class PrebidNativeAdController: NSObject, AdaptedController {
     }
     
     deinit {
-        Prebid.shared.storedAuctionResponse = nil
         Prebid.shared.shouldAssignNativeAssetID = false
     }
     
@@ -98,7 +96,6 @@ class PrebidNativeAdController: NSObject, AdaptedController {
     
     func loadAd() {
         setupNativeAdUnit(configId: prebidConfigId)
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

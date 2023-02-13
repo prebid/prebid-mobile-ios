@@ -20,6 +20,7 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
 class FeedGAMAdTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var bannerView: UIView!
     
     var gamCustomTemplateIDs: [String] = []
@@ -39,11 +40,10 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     private weak var rootController: UIViewController?
     
     func loadAd(configID: String,
-                storedAuctionResponse: String,
                 GAMAdUnitID: String,
                 rootViewController: UIViewController,
                 adTypes: [GADAdLoaderAdType]) {
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        
         setupNativeAdUnit(configId: configID)
         self.rootController = rootViewController
         

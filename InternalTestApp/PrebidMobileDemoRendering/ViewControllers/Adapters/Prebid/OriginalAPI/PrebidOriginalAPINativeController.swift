@@ -20,7 +20,6 @@ import GoogleMobileAds
 class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoaderDelegate, GADCustomNativeAdLoaderDelegate {
     
     var prebidConfigId = ""
-    var storedAuctionResponse = ""
     var adUnitID = ""
 
     public var nativeAssets: [NativeAsset]?
@@ -51,7 +50,6 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
     }
     
     deinit {
-        Prebid.shared.storedAuctionResponse = nil
         Prebid.shared.shouldAssignNativeAssetID = false
     }
     
@@ -103,8 +101,6 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
     }
     
     func loadAd() {
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
                 

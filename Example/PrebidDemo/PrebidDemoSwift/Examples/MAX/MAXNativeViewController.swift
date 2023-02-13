@@ -19,7 +19,6 @@ import PrebidMobileMAXAdapters
 import AppLovinSDK
 
 fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
-fileprivate let nativeStoredResponse = "response-prebid-banner-native-styles"
 fileprivate let maxRenderingNativeAdUnitId = "e4375fdcc7c5e56c"
 
 class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
@@ -54,7 +53,6 @@ class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {
     override func loadView() {
         super.loadView()
         
-        Prebid.shared.storedAuctionResponse = nativeStoredResponse
         createAd()
     }
     
