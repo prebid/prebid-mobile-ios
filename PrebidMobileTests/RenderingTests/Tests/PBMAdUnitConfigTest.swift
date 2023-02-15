@@ -31,14 +31,14 @@ class PBMAdUnitConfigTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.refreshInterval, 120)
     }
     
-    // MARK: - Context data aka inventory data (imp[].ext.context.data)
+    // MARK: - [DEPRECATED API] Context data aka inventory data (imp[].ext.context.data)
     
     func testAddContextData() {
         let key1 = "key1"
         let value1 = "value1"
         
         adUnitConfig.addContextData(key: key1, value: value1)
-        let dictionary = adUnitConfig.getContextData()
+        let dictionary = adUnitConfig.getExtData()
         
         XCTAssertEqual(1, dictionary.count)
         XCTAssertTrue((dictionary[key1]?.contains(value1))!)
@@ -79,7 +79,55 @@ class PBMAdUnitConfigTest: XCTestCase {
         XCTAssertEqual(0, dictionary.count)
     }
     
-    // MARK: - Context keywords (imp[].ext.context.keywords)
+    // MARK: - Ext Data aka inventory data (imp[].ext.data)
+    
+    func testAddExtData() {
+        let key1 = "key1"
+        let value1 = "value1"
+        
+        adUnitConfig.addExtData(key: key1, value: value1)
+        let dictionary = adUnitConfig.getExtData()
+        
+        XCTAssertEqual(1, dictionary.count)
+        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
+    }
+    
+    func testUpdateExtData() {
+        let key1 = "key1"
+        let value1 = "value1"
+        let set: Set = [value1]
+        
+        adUnitConfig.updateExtData(key: key1, value: set)
+        
+        let dictionary = adUnitConfig.getExtData()
+        
+        XCTAssertEqual(1, dictionary.count)
+        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
+    }
+    
+    func testRemoveExtData() {
+        let key1 = "key1"
+        let value1 = "value1"
+        adUnitConfig.addExtData(key: key1, value: value1)
+        
+        adUnitConfig.removeExtData(for: key1)
+        let dictionary = adUnitConfig.getExtData()
+        
+        XCTAssertEqual(0, dictionary.count)
+    }
+    
+    func testClearExtData() {
+        let key1 = "key1"
+        let value1 = "value1"
+        adUnitConfig.addExtData(key: key1, value: value1)
+        
+        adUnitConfig.clearExtData()
+        let dictionary = adUnitConfig.getExtData()
+        
+        XCTAssertEqual(0, dictionary.count)
+    }
+    
+    // MARK: - [DEPRECATED API] Context keywords (imp[].ext.context.keywords)
     
     func testAddContextKeyword() {
         let element1 = "element1"
@@ -114,10 +162,53 @@ class PBMAdUnitConfigTest: XCTestCase {
     
     func testClearContextKeywords() {
         let element1 = "element1"
-        adUnitConfig.addContextKeyword(element1)
+        adUnitConfig.addExtKeyword(element1)
         
         adUnitConfig.clearContextKeywords()
         let set = adUnitConfig.getContextKeywords()
+        
+        XCTAssertEqual(0, set.count)
+    }
+    
+    // MARK: - Ext keywords (imp[].ext.keywords)
+    
+    func testAddExtKeyword() {
+        let element1 = "element1"
+        
+        adUnitConfig.addExtKeyword(element1)
+        let set = adUnitConfig.getExtKeywords()
+        
+        XCTAssertEqual(1, set.count)
+        XCTAssertTrue(set.contains(element1))
+    }
+    
+    func testAddExtKeywords() {
+        let element1 = "element1"
+        let inputSet: Set = [element1]
+        
+        adUnitConfig.addExtKeywords(inputSet)
+        let set = adUnitConfig.getExtKeywords()
+        
+        XCTAssertEqual(1, set.count)
+        XCTAssertTrue(set.contains(element1))
+    }
+    
+    func testRemoveExtKeyword() {
+        let element1 = "element1"
+        adUnitConfig.addExtKeyword(element1)
+        
+        adUnitConfig.removeExtKeyword(element1)
+        let set = adUnitConfig.getExtKeywords()
+        
+        XCTAssertEqual(0, set.count)
+    }
+    
+    func testClearExtKeywords() {
+        let element1 = "element1"
+        adUnitConfig.addExtKeyword(element1)
+        
+        adUnitConfig.clearExtKeywords()
+        let set = adUnitConfig.getExtKeywords()
         
         XCTAssertEqual(0, set.count)
     }

@@ -41,12 +41,12 @@ limitations under the License.
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_PurposeConsents"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [Targeting.shared clearContextData];
+    [Targeting.shared clearAppExtData];
+    [Targeting.shared clearAppKeywords];
     [Targeting.shared clearUserData];
+    [Targeting.shared clearUserKeywords];
     [Targeting.shared clearYearOfBirth];
     [Targeting.shared clearAccessControlList];
-    [Targeting.shared clearContextKeywords];
-    [Targeting.shared clearUserKeywords];
 }
 
 - (void)testStoreURL {
@@ -292,6 +292,8 @@ limitations under the License.
 
  }
 
+// MARK: - [DEPRECATED API] app.ext.data
+
 - (void)testContextData {
      //given
      NSString *key = @"key1";
@@ -303,7 +305,21 @@ limitations under the License.
      [Targeting.shared updateContextDataWithKey:key value:set];
      [Targeting.shared removeContextDataFor:key];
      [Targeting.shared clearContextData];
+ }
 
+// MARK: - app.ext.data
+
+- (void)testExtData {
+     //given
+     NSString *key = @"key1";
+     NSString *value = @"value10";
+     NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
+
+     //when
+     [Targeting.shared addAppExtDataWithKey:key value:value];
+     [Targeting.shared updateAppExtDataWithKey:key value:set];
+     [Targeting.shared removeAppExtDataFor:key];
+     [Targeting.shared clearAppExtData];
  }
 
 - (void)testUserKeyword {
@@ -316,8 +332,9 @@ limitations under the License.
     [Targeting.shared addUserKeywords:set];
     [Targeting.shared removeUserKeyword:keyword];
     [Targeting.shared clearUserKeywords];
-
 }
+
+// MARK: - [DEPRECATED API] app.keywords
 
 - (void)testContextKeyword {
     //given
@@ -329,7 +346,20 @@ limitations under the License.
     [Targeting.shared addContextKeywords:set];
     [Targeting.shared removeContextKeyword:keyword];
     [Targeting.shared clearContextKeywords];
+}
 
+// MARK: - app.keywords
+
+- (void)testExtKeyword {
+    //given
+    NSString *keyword = @"keyword";
+    NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
+    
+    //when
+    [Targeting.shared addAppKeyword:keyword];
+    [Targeting.shared addAppKeywords:set];
+    [Targeting.shared removeAppKeyword:keyword];
+    [Targeting.shared clearAppKeywords];
 }
 
 @end

@@ -49,7 +49,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         targeting.userCustomData = "customDataString"
         targeting.publisherName = publisherName
         targeting.addUserKeyword("keyword1,keyword2")
-        targeting.addContextKeyword("appKeyword1,appKeyword2")
+        targeting.addAppKeyword("appKeyword1,appKeyword2")
         
         let sdkConfiguration = Prebid.mock
         

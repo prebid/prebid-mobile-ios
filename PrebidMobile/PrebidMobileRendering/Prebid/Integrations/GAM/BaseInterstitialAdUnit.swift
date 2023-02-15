@@ -187,40 +187,80 @@ public class BaseInterstitialAdUnit :
 
     }
 
-    // MARK: - Context Data (imp[].ext.data)
+    // MARK: - Ext Data (imp[].ext.data)
 
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     @objc public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(key: key, value: data)
+        addExtData(key: key, value: data)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(key: key, value: data)
+        updateExtData(key: key, value: data)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     @objc public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(for: key)
+        removeExtData(forKey: key)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     @objc public func clearContextData() {
-        adUnitConfig.clearContextData()
+        clearExtData()
     }
     
-    // MARK: - Context keywords (imp[].ext.keywords)
+    @objc public func addExtData(key: String, value: String) {
+        adUnitConfig.addExtData(key: key, value: value)
+    }
     
+    @objc public func updateExtData(key: String, value: Set<String>) {
+        adUnitConfig.updateExtData(key: key, value: value)
+    }
+    
+    @objc public func removeExtData(forKey: String) {
+        adUnitConfig.removeExtData(for: forKey)
+    }
+    
+    @objc public func clearExtData() {
+        adUnitConfig.clearExtData()
+    }
+    
+    // MARK: - Ext keywords (imp[].ext.keywords)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
     @objc public func addContextKeyword(_ newElement: String) {
-        adUnitConfig.addContextKeyword(newElement)
+        addExtKeyword(newElement)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
     @objc public func addContextKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addContextKeywords(newElements)
+        addExtKeywords(newElements)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
     @objc public func removeContextKeyword(_ element: String) {
-        adUnitConfig.removeContextKeyword(element)
+        removeExtKeyword(element)
     }
 
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
     @objc public func clearContextKeywords() {
-        adUnitConfig.clearContextKeywords()
+        clearExtKeywords()
+    }
+    
+    @objc public func addExtKeyword(_ newElement: String) {
+        adUnitConfig.addExtKeyword(newElement)
+    }
+    
+    @objc public func addExtKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addExtKeywords(newElements)
+    }
+    
+    @objc public func removeExtKeyword(_ element: String) {
+        adUnitConfig.removeExtKeyword(element)
+    }
+    
+    @objc public func clearExtKeywords() {
+        adUnitConfig.clearExtKeywords()
     }
     
     // MARK: - App Content (app.content.data)

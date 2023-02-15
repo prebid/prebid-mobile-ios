@@ -152,8 +152,8 @@
     PBMORTBAppExt * const appExt = bidRequest.app.ext;
     PBMORTBAppExtPrebid * const appExtPrebid = appExt.prebid;
     
-    if (self.targeting.contextDataDictionary.count > 0) {
-        appExt.data = self.targeting.contextDataDictionary;
+    if ([self.targeting getAppExtData].count > 0) {
+        appExt.data = [self.targeting getAppExtData];
     }
     
     for (PBMORTBImp *nextImp in bidRequest.imp) {
@@ -162,13 +162,13 @@
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
         
-        if (self.adConfiguration.contextDataDictionary.count > 0) {
-            nextImp.extData = self.adConfiguration.contextDataDictionary.mutableCopy;
+        if ([self.adConfiguration getExtData].count > 0) {
+            nextImp.extData = [self.adConfiguration getExtData].mutableCopy;
         }
         
-        if ([self.adConfiguration getContextKeywords].count > 0) {
-            NSMutableArray * contextKeywords = [NSMutableArray arrayWithArray:[[self.adConfiguration getContextKeywords] allObjects]];
-            nextImp.extKeywords = [contextKeywords componentsJoinedByString:@","];
+        if ([self.adConfiguration getExtKeywords].count > 0) {
+            NSMutableArray * extKeywords = [NSMutableArray arrayWithArray:[[self.adConfiguration getExtKeywords] allObjects]];
+            nextImp.extKeywords = [extKeywords componentsJoinedByString:@","];
         }
         
         nextImp.extData[@"adslot"] = [self.adConfiguration getPbAdSlot];
