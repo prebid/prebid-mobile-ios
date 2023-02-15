@@ -152,8 +152,8 @@
     PBMORTBAppExt * const appExt = bidRequest.app.ext;
     PBMORTBAppExtPrebid * const appExtPrebid = appExt.prebid;
     
-    if ([self.targeting getExtData].count > 0) {
-        appExt.data = [self.targeting getExtData];
+    if ([self.targeting getAppExtData].count > 0) {
+        appExt.data = [self.targeting getAppExtData];
     }
     
     for (PBMORTBImp *nextImp in bidRequest.imp) {

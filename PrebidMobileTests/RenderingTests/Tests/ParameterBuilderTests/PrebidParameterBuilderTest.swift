@@ -157,8 +157,8 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         targeting.addBidderToAccessControlList("prebid-mobile")
         targeting.updateUserData(key: "fav_colors", value: Set(["red", "orange"]))
-        targeting.addContextData(key: "last_search_keywords", value: "wolf")
-        targeting.addContextData(key: "last_search_keywords", value: "pet")
+        targeting.addAppExtData(key: "last_search_keywords", value: "wolf")
+        targeting.addAppExtData(key: "last_search_keywords", value: "pet")
         
         let userDataObject1 = PBMORTBContentData()
         userDataObject1.id = "data id"
@@ -202,7 +202,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         let expectedKeywords = Set<String>(["keyword1", "keyword2", "keyword3"])
         
-        adUnit.addContextKeywords(expectedKeywords)
+        adUnit.addExtKeywords(expectedKeywords)
         
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         

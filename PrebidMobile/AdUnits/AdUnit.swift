@@ -191,7 +191,7 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     public func addContextData(key: String, value: String) {
-        adUnitConfig.addExtData(key: key, value: value)
+        addExtData(key: key, value: value)
     }
     
     /**
@@ -200,7 +200,7 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     public func updateContextData(key: String, value: Set<String>) {
-        adUnitConfig.updateExtData(key: key, value: value)
+        updateExtData(key: key, value: value)
     }
     
     /**
@@ -208,7 +208,7 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     public func removeContextData(forKey: String) {
-        adUnitConfig.removeExtData(for: forKey)
+        removeExtData(forKey: forKey)
     }
     
     /**
@@ -216,9 +216,10 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
-        adUnitConfig.clearExtData()
+        clearExtData()
     }
     
+    // Used for tests
     func getExtDataDictionary() -> [String: [String]] {
         return adUnitConfig.getExtData()
     }
@@ -261,7 +262,7 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
     public func addContextKeyword(_ newElement: String) {
-        adUnitConfig.addExtKeyword(newElement)
+        addExtKeyword(newElement)
     }
     
     /**
@@ -270,7 +271,7 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
     public func addContextKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addExtKeywords(newElements)
+        addExtKeywords(newElements)
     }
     
     /**
@@ -278,7 +279,7 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
     public func removeContextKeyword(_ element: String) {
-        adUnitConfig.removeExtKeyword(element)
+        removeExtKeyword(element)
     }
     
     /**
@@ -286,7 +287,7 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
     public func clearContextKeywords() {
-        adUnitConfig.clearExtKeywords()
+        clearExtKeywords()
     }
     
     /**
@@ -319,6 +320,7 @@ import ObjectiveC.runtime
         adUnitConfig.clearExtKeywords()
     }
     
+    // Used for tests
     func getExtKeywordsSet() -> Set<String> {
         adUnitConfig.getExtKeywords()
     }

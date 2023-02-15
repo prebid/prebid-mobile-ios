@@ -74,22 +74,22 @@ public class MediationBannerAdUnit : NSObject {
     
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addExtData(key: key, value: data)
+        addExtData(key: key, value: data)
     }
     
     @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateExtData(key: key, value: data)
+        updateExtData(key: key, value: data)
     }
     
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeExtData(for: key)
+        removeExtData(forKey: key)
     }
     
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
-        adUnitConfig.clearExtData()
+        clearExtData()
     }
     
     public func addExtData(key: String, value: String) {
@@ -112,22 +112,22 @@ public class MediationBannerAdUnit : NSObject {
     
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
     @objc public func addContextKeyword(_ newElement: String) {
-        adUnitConfig.addExtKeyword(newElement)
+        addExtKeyword(newElement)
     }
     
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
     @objc public func addContextKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addExtKeywords(newElements)
+        addExtKeywords(newElements)
     }
     
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
     @objc public func removeContextKeyword(_ element: String) {
-        adUnitConfig.removeExtKeyword(element)
+        removeExtKeyword(element)
     }
 
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
     @objc public func clearContextKeywords() {
-        adUnitConfig.clearExtKeywords()
+        clearExtKeywords()
     }
     
     public func addExtKeyword(_ newElement: String) {

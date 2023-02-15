@@ -96,6 +96,8 @@ AdUnit *adUnit;
     [adUnit stopAutoRefresh];
 }
 
+// MARK: - [DEPRECATED API] adunit context data
+
 - (void)testContextData {
     NSSet *set = [NSSet setWithArray:@[@"value2"]];
     [adUnit addContextDataWithKey:@"key1" value:@"value1"];
@@ -104,11 +106,32 @@ AdUnit *adUnit;
     [adUnit clearContextData];
 }
 
+// MARK: - [DEPRECATED API] adunit context keywords
+
 - (void)testContextKeywords {
     NSSet *set = [NSSet setWithArray:@[@"value2"]];
     [adUnit addContextKeywords:set];
     [adUnit removeContextKeyword:@"value2"];
     [adUnit clearContextKeywords];
+}
+
+// MARK: adunit ext data aka inventory data (imp[].ext.data)
+
+- (void)testExtData {
+    NSSet *set = [NSSet setWithArray:@[@"value2"]];
+    [adUnit addExtDataWithKey:@"key1" value:@"value1"];
+    [adUnit updateExtDataWithKey:@"key12" value:set];
+    [adUnit removeExtDataForKey:@"key1"];
+    [adUnit clearExtData];
+}
+
+// MARK: adunit ext keywords (imp[].ext.keywords)
+
+- (void)testExtKeywords {
+    NSSet *set = [NSSet setWithArray:@[@"value2"]];
+    [adUnit addExtKeywords:set];
+    [adUnit removeExtKeyword:@"value2"];
+    [adUnit clearExtKeywords];
 }
 
 // MARK: - global context data aka inventory data (app.content.data)

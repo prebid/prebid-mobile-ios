@@ -95,6 +95,31 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
     
     // MARK: - Ext Data (imp[].ext.data)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
+    public func addContextData(key: String, value: String) {
+        addExtData(key: key, value: value)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
+    public func updateContextData(key: String, value: Set<String>) {
+        updateExtData(key: key, value: value)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
+    public func removeContextData(for key: String) {
+        removeExtData(for: key)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
+    public func clearContextData() {
+        clearExtData()
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use getExtData method instead.")
+    public func getContextData() -> [String: [String]] {
+        getExtData()
+    }
 
     public func addExtData(key: String, value: String) {
         if extensionData[key] == nil {
@@ -121,6 +146,31 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
 
     // MARK: - Ext keywords (imp[].ext.keywords)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
+    public func addContextKeyword(_ newElement: String) {
+        addExtKeyword(newElement)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
+    public func addContextKeywords(_ newElements: Set<String>) {
+        addExtKeywords(newElements)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
+    public func removeContextKeyword(_ element: String) {
+        removeExtKeyword(element)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
+    public func clearContextKeywords() {
+        clearExtKeywords()
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use getExtKeywords method instead.")
+    public func getContextKeywords() -> Set<String> {
+        getExtKeywords()
+    }
 
     public func addExtKeyword(_ newElement: String) {
         extKeywords.insert(newElement)
