@@ -94,9 +94,9 @@ public class AdUnitConfig: NSObject, NSCopying {
         adConfiguration.size = adSize
     }
     
-    // MARK: - Context Data (imp[].ext.data)
+    // MARK: - Ext Data (imp[].ext.data)
 
-    public func addContextData(key: String, value: String) {
+    public func addExtData(key: String, value: String) {
         if extensionData[key] == nil {
             extensionData[key] = Set<String>()
         }
@@ -104,41 +104,41 @@ public class AdUnitConfig: NSObject, NSCopying {
         extensionData[key]?.insert(value)
     }
     
-    public func updateContextData(key: String, value: Set<String>) {
+    public func updateExtData(key: String, value: Set<String>) {
         extensionData[key] = value
     }
     
-    public func removeContextData(for key: String) {
+    public func removeExtData(for key: String) {
         extensionData.removeValue(forKey: key)
     }
     
-    public func clearContextData() {
+    public func clearExtData() {
         extensionData.removeAll()
     }
     
-    public func getContextData() -> [String: [String]] {
+    public func getExtData() -> [String: [String]] {
         contextDataDictionary
     }
 
-    // MARK: - Context keywords (imp[].ext.keywords)
+    // MARK: - Ext keywords (imp[].ext.keywords)
 
-    public func addContextKeyword(_ newElement: String) {
+    public func addExtKeyword(_ newElement: String) {
         contextKeywords.insert(newElement)
     }
 
-    public func addContextKeywords(_ newElements: Set<String>) {
+    public func addExtKeywords(_ newElements: Set<String>) {
         contextKeywords.formUnion(newElements)
     }
     
-    public func removeContextKeyword(_ element: String) {
+    public func removeExtKeyword(_ element: String) {
         contextKeywords.remove(element)
     }
 
-    public func clearContextKeywords() {
+    public func clearExtKeywords() {
         contextKeywords.removeAll()
     }
 
-    public func getContextKeywords() -> Set<String> {
+    public func getExtKeywords() -> Set<String> {
         contextKeywords
     }
 

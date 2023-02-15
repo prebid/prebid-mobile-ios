@@ -37,8 +37,8 @@ class PBMAdUnitConfigTest: XCTestCase {
         let key1 = "key1"
         let value1 = "value1"
         
-        adUnitConfig.addContextData(key: key1, value: value1)
-        let dictionary = adUnitConfig.getContextData()
+        adUnitConfig.addExtData(key: key1, value: value1)
+        let dictionary = adUnitConfig.getExtData()
         
         XCTAssertEqual(1, dictionary.count)
         XCTAssertTrue((dictionary[key1]?.contains(value1))!)
@@ -49,9 +49,9 @@ class PBMAdUnitConfigTest: XCTestCase {
         let value1 = "value1"
         let set: Set = [value1]
         
-        adUnitConfig.updateContextData(key: key1, value: set)
+        adUnitConfig.updateExtData(key: key1, value: set)
         
-        let dictionary = adUnitConfig.getContextData()
+        let dictionary = adUnitConfig.getExtData()
         
         XCTAssertEqual(1, dictionary.count)
         XCTAssertTrue((dictionary[key1]?.contains(value1))!)
@@ -60,10 +60,10 @@ class PBMAdUnitConfigTest: XCTestCase {
     func testRemoveContextData() {
         let key1 = "key1"
         let value1 = "value1"
-        adUnitConfig.addContextData(key: key1, value: value1)
+        adUnitConfig.addExtData(key: key1, value: value1)
         
-        adUnitConfig.removeContextData(for: key1)
-        let dictionary = adUnitConfig.getContextData()
+        adUnitConfig.removeExtData(for: key1)
+        let dictionary = adUnitConfig.getExtData()
         
         XCTAssertEqual(0, dictionary.count)
     }
@@ -71,10 +71,10 @@ class PBMAdUnitConfigTest: XCTestCase {
     func testClearContextData() {
         let key1 = "key1"
         let value1 = "value1"
-        adUnitConfig.addContextData(key: key1, value: value1)
+        adUnitConfig.addExtData(key: key1, value: value1)
         
-        adUnitConfig.clearContextData()
-        let dictionary = adUnitConfig.getContextData()
+        adUnitConfig.clearExtData()
+        let dictionary = adUnitConfig.getExtData()
         
         XCTAssertEqual(0, dictionary.count)
     }
@@ -84,8 +84,8 @@ class PBMAdUnitConfigTest: XCTestCase {
     func testAddContextKeyword() {
         let element1 = "element1"
         
-        adUnitConfig.addContextKeyword(element1)
-        let set = adUnitConfig.getContextKeywords()
+        adUnitConfig.addExtKeyword(element1)
+        let set = adUnitConfig.getExtKeywords()
         
         XCTAssertEqual(1, set.count)
         XCTAssertTrue(set.contains(element1))
@@ -95,8 +95,8 @@ class PBMAdUnitConfigTest: XCTestCase {
         let element1 = "element1"
         let inputSet: Set = [element1]
         
-        adUnitConfig.addContextKeywords(inputSet)
-        let set = adUnitConfig.getContextKeywords()
+        adUnitConfig.addExtKeywords(inputSet)
+        let set = adUnitConfig.getExtKeywords()
         
         XCTAssertEqual(1, set.count)
         XCTAssertTrue(set.contains(element1))
@@ -104,20 +104,20 @@ class PBMAdUnitConfigTest: XCTestCase {
     
     func testRemoveContextKeyword() {
         let element1 = "element1"
-        adUnitConfig.addContextKeyword(element1)
+        adUnitConfig.addExtKeyword(element1)
         
-        adUnitConfig.removeContextKeyword(element1)
-        let set = adUnitConfig.getContextKeywords()
+        adUnitConfig.removeExtKeyword(element1)
+        let set = adUnitConfig.getExtKeywords()
         
         XCTAssertEqual(0, set.count)
     }
     
     func testClearContextKeywords() {
         let element1 = "element1"
-        adUnitConfig.addContextKeyword(element1)
+        adUnitConfig.addExtKeyword(element1)
         
-        adUnitConfig.clearContextKeywords()
-        let set = adUnitConfig.getContextKeywords()
+        adUnitConfig.clearExtKeywords()
+        let set = adUnitConfig.getExtKeywords()
         
         XCTAssertEqual(0, set.count)
     }

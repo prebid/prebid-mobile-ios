@@ -235,7 +235,7 @@ class AdUnitTests: XCTestCase {
         
         //when
         adUnit.addContextData(key: key1, value: value1)
-        let dictionary = adUnit.getContextDataDictionary()
+        let dictionary = adUnit.getExtDataDictionary()
         
         //then
         XCTAssertEqual(1, dictionary.count)
@@ -251,7 +251,7 @@ class AdUnitTests: XCTestCase {
         adUnit.updateContextData(key: key1, value: set)
         
         //when
-        let dictionary = adUnit.getContextDataDictionary()
+        let dictionary = adUnit.getExtDataDictionary()
         
         //then
         XCTAssertEqual(1, dictionary.count)
@@ -267,7 +267,7 @@ class AdUnitTests: XCTestCase {
         
         //when
         adUnit.removeContextData(forKey: key1)
-        let dictionary = adUnit.getContextDataDictionary()
+        let dictionary = adUnit.getExtDataDictionary()
         
         //then
         XCTAssertEqual(0, dictionary.count)
@@ -282,7 +282,7 @@ class AdUnitTests: XCTestCase {
         
         //when
         adUnit.clearContextData()
-        let dictionary = adUnit.getContextDataDictionary()
+        let dictionary = adUnit.getExtDataDictionary()
         
         //then
         XCTAssertEqual(0, dictionary.count)
@@ -296,7 +296,7 @@ class AdUnitTests: XCTestCase {
         
         //when
         adUnit.addContextKeyword(element1)
-        let set = adUnit.getContextKeywordsSet()
+        let set = adUnit.getExtKeywordsSet()
         
         //then
         XCTAssertEqual(1, set.count)
@@ -311,7 +311,7 @@ class AdUnitTests: XCTestCase {
         
         //when
         adUnit.addContextKeywords(inputSet)
-        let set = adUnit.getContextKeywordsSet()
+        let set = adUnit.getExtKeywordsSet()
         
         //then
         XCTAssertEqual(1, set.count)
@@ -326,7 +326,7 @@ class AdUnitTests: XCTestCase {
         
         //when
         adUnit.removeContextKeyword(element1)
-        let set = adUnit.getContextKeywordsSet()
+        let set = adUnit.getExtKeywordsSet()
         
         //then
         XCTAssertEqual(0, set.count)
@@ -340,7 +340,7 @@ class AdUnitTests: XCTestCase {
         
         //when
         adUnit.clearContextKeywords()
-        let set = adUnit.getContextKeywordsSet()
+        let set = adUnit.getExtKeywordsSet()
         
         //then
         XCTAssertEqual(0, set.count)

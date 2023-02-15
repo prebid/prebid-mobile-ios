@@ -190,37 +190,37 @@ public class BaseInterstitialAdUnit :
     // MARK: - Context Data (imp[].ext.data)
 
     @objc public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(key: key, value: data)
+        adUnitConfig.addExtData(key: key, value: data)
     }
     
     @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(key: key, value: data)
+        adUnitConfig.updateExtData(key: key, value: data)
     }
     
     @objc public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(for: key)
+        adUnitConfig.removeExtData(for: key)
     }
     
     @objc public func clearContextData() {
-        adUnitConfig.clearContextData()
+        adUnitConfig.clearExtData()
     }
     
     // MARK: - Context keywords (imp[].ext.keywords)
     
     @objc public func addContextKeyword(_ newElement: String) {
-        adUnitConfig.addContextKeyword(newElement)
+        adUnitConfig.addExtKeyword(newElement)
     }
     
     @objc public func addContextKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addContextKeywords(newElements)
+        adUnitConfig.addExtKeywords(newElements)
     }
     
     @objc public func removeContextKeyword(_ element: String) {
-        adUnitConfig.removeContextKeyword(element)
+        adUnitConfig.removeExtKeyword(element)
     }
 
     @objc public func clearContextKeywords() {
-        adUnitConfig.clearContextKeywords()
+        adUnitConfig.clearExtKeywords()
     }
     
     // MARK: - App Content (app.content.data)

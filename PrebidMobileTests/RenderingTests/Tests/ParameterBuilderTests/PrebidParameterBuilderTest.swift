@@ -170,7 +170,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         adUnitConfig.addUserData([userDataObject1, userDataObject2])
         let objects = adUnitConfig.getUserData()!
         
-        adUnitConfig.addContextData(key: "buy", value: "mushrooms")
+        adUnitConfig.addExtData(key: "buy", value: "mushrooms")
         
         let bidRequest = buildBidRequest(with: adUnitConfig)
         
@@ -219,8 +219,8 @@ class PrebidParameterBuilderTest: XCTestCase {
 
         adUnitConfig.setPbAdSlot(testAdSlot)
 
-        adUnitConfig.addContextData(key: "key", value: "value1")
-        adUnitConfig.addContextData(key: "key", value: "value2")
+        adUnitConfig.addExtData(key: "key", value: "value1")
+        adUnitConfig.addExtData(key: "key", value: "value2")
 
         let bidRequest = buildBidRequest(with: adUnitConfig)
 

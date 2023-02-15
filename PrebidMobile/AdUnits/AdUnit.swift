@@ -183,76 +183,144 @@ import ObjectiveC.runtime
         }
     }
 
-    // MARK: - adunit context data aka inventory data (imp[].ext.data)
+    // MARK: - adunit ext data aka inventory data (imp[].ext.data)
     
     /**
      * This method obtains the context data keyword & value for adunit context targeting
      * if the key already exists the value will be appended to the list. No duplicates will be added
      */
+    @available(*, deprecated, message: "This class is deprecated. Please, use addExtData method instead.")
     public func addContextData(key: String, value: String) {
-        adUnitConfig.addContextData(key: key, value: value)
+        adUnitConfig.addExtData(key: key, value: value)
     }
     
     /**
      * This method obtains the context data keyword & values for adunit context targeting
      * the values if the key already exist will be replaced with the new set of values
      */
+    @available(*, deprecated, message: "This class is deprecated. Please, use updateExtData method instead.")
     public func updateContextData(key: String, value: Set<String>) {
-        adUnitConfig.updateContextData(key: key, value: value)
+        adUnitConfig.updateExtData(key: key, value: value)
     }
     
     /**
      * This method allows to remove specific context data keyword & values set from adunit context targeting
      */
+    @available(*, deprecated, message: "This class is deprecated. Please, use removeExtData method instead.")
     public func removeContextData(forKey: String) {
-        adUnitConfig.removeContextData(for: forKey)
+        adUnitConfig.removeExtData(for: forKey)
     }
     
     /**
      * This method allows to remove all context data set from adunit context targeting
      */
+    @available(*, deprecated, message: "This class is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
-        adUnitConfig.clearContextData()
+        adUnitConfig.clearExtData()
     }
     
-    func getContextDataDictionary() -> [String: [String]] {
-        return adUnitConfig.getContextData()
+    func getExtDataDictionary() -> [String: [String]] {
+        return adUnitConfig.getExtData()
     }
     
-    // MARK: - adunit context keywords (imp[].ext.keywords)
+    /**
+     * This method obtains the ext data keyword & value for adunit targeting
+     * if the key already exists the value will be appended to the list. No duplicates will be added
+     */
+    public func addExtData(key: String, value: String) {
+        adUnitConfig.addExtData(key: key, value: value)
+    }
+    
+    /**
+     * This method obtains the ext data keyword & values for adunit targeting
+     * the values if the key already exist will be replaced with the new set of values
+     */
+    public func updateExtData(key: String, value: Set<String>) {
+        adUnitConfig.updateExtData(key: key, value: value)
+    }
+    
+    /**
+     * This method allows to remove specific ext data keyword & values set from adunit targeting
+     */
+    public func removeExtData(forKey: String) {
+        adUnitConfig.removeExtData(for: forKey)
+    }
+    
+    /**
+     * This method allows to remove all ext data set from adunit targeting
+     */
+    public func clearExtData() {
+        adUnitConfig.clearExtData()
+    }    
+    
+    // MARK: - adunit ext keywords (imp[].ext.keywords)
     
     /**
      * This method obtains the context keyword for adunit context targeting
      * Inserts the given element in the set if it is not already present.
      */
+    @available(*, deprecated, message: "This class is deprecated. Please, use addExtKeyword method instead.")
     public func addContextKeyword(_ newElement: String) {
-        adUnitConfig.addContextKeyword(newElement)
+        adUnitConfig.addExtKeyword(newElement)
     }
     
     /**
      * This method obtains the context keyword set for adunit context targeting
      * Adds the elements of the given set to the set.
      */
+    @available(*, deprecated, message: "This class is deprecated. Please, use addExtKeywords method instead.")
     public func addContextKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addContextKeywords(newElements)
+        adUnitConfig.addExtKeywords(newElements)
     }
     
     /**
      * This method allows to remove specific context keyword from adunit context targeting
      */
+    @available(*, deprecated, message: "This class is deprecated. Please, use removeExtKeyword method instead.")
     public func removeContextKeyword(_ element: String) {
-        adUnitConfig.removeContextKeyword(element)
+        adUnitConfig.removeExtKeyword(element)
     }
     
     /**
      * This method allows to remove all keywords from the set of adunit context targeting
      */
+    @available(*, deprecated, message: "This class is deprecated. Please, use clearExtKeywords method instead.")
     public func clearContextKeywords() {
-        adUnitConfig.clearContextKeywords()
+        adUnitConfig.clearExtKeywords()
     }
     
-    func getContextKeywordsSet() -> Set<String> {
-        adUnitConfig.getContextKeywords()
+    /**
+     * This method obtains the keyword for adunit targeting
+     * Inserts the given element in the set if it is not already present.
+     */
+    public func addExtKeyword(_ newElement: String) {
+        adUnitConfig.addExtKeyword(newElement)
+    }
+    
+    /**
+     * This method obtains the keyword set for adunit targeting
+     * Adds the elements of the given set to the set.
+     */
+    public func addExtKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addExtKeywords(newElements)
+    }
+    
+    /**
+     * This method allows to remove specific keyword from adunit targeting
+     */
+    public func removeExtKeyword(_ element: String) {
+        adUnitConfig.removeExtKeyword(element)
+    }
+    
+    /**
+     * This method allows to remove all keywords from the set of adunit targeting
+     */
+    public func clearExtKeywords() {
+        adUnitConfig.clearExtKeywords()
+    }
+    
+    func getExtKeywordsSet() -> Set<String> {
+        adUnitConfig.getExtKeywords()
     }
     
     // MARK: - App Content (app.content.data)
