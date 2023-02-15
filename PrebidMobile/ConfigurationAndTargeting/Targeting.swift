@@ -448,60 +448,114 @@ public class Targeting: NSObject {
         Array(userKeywordsSet)
     }
     
-    // MARK: - Global Context Data (app.ext.data)
+    // MARK: - Global Data (app.ext.data)
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     public func addContextData(key: String, value: String) {
-        var values = rawContextDataDictionary[key] ?? Set<String>()
+        var values = rawExtDataDictionary[key] ?? Set<String>()
         values.insert(value)
         
-        rawContextDataDictionary[key] = values
+        rawExtDataDictionary[key] = values
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     public func updateContextData(key: String, value: Set<String>) {
-        rawContextDataDictionary[key] = value
+        rawExtDataDictionary[key] = value
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     public func removeContextData(for key: String) {
-        rawContextDataDictionary.removeValue(forKey: key)
+        rawExtDataDictionary.removeValue(forKey: key)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
-        rawContextDataDictionary.removeAll()
+        rawExtDataDictionary.removeAll()
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use getExtData method instead.")
     public func getContextData() -> [String : [String]] {
         return contextDataDictionary.mapValues { Array($0) }
     }
     
+    @available(*, deprecated, message: "This property is deprecated. Please, use getExtData method instead.")
     public var contextDataDictionary: [String : [String]] {
-        rawContextDataDictionary.mapValues { Array($0) }
+        rawExtDataDictionary.mapValues { Array($0) }
     }
     
-    // MARK: - Global Context Keywords (app.keywords)
+    public func addExtData(key: String, value: String) {
+        var values = rawExtDataDictionary[key] ?? Set<String>()
+        values.insert(value)
+        
+        rawExtDataDictionary[key] = values
+    }
     
+    public func updateExtData(key: String, value: Set<String>) {
+        rawExtDataDictionary[key] = value
+    }
+    
+    public func removeExtData(for key: String) {
+        rawExtDataDictionary.removeValue(forKey: key)
+    }
+    
+    public func clearExtData() {
+        rawExtDataDictionary.removeAll()
+    }
+    
+    public func getExtData() -> [String : [String]] {
+        rawExtDataDictionary.mapValues { Array($0) }
+    }
+    
+    // MARK: - Global Keywords (app.keywords)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
     public func addContextKeyword(_ newElement: String) {
-        contextKeywordsSet.insert(newElement)
+        extKeywordsSet.insert(newElement)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
     public func addContextKeywords(_ newElements: Set<String>) {
-        contextKeywordsSet.formUnion(newElements)
+        extKeywordsSet.formUnion(newElements)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
     public func removeContextKeyword(_ element: String) {
-        contextKeywordsSet.remove(element)
+        extKeywordsSet.remove(element)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
     public func clearContextKeywords() {
-        contextKeywordsSet.removeAll()
+        extKeywordsSet.removeAll()
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use getExtKeywords method instead.")
     public func getContextKeywords() -> [String] {
-        return Array(contextKeywordsSet)
+        return Array(extKeywordsSet)
     }
     
-    @available(*, deprecated, message: "This property is deprecated. Please, use getContextKeywords method instead.")
+    @available(*, deprecated, message: "This property is deprecated. Please, use getExtKeywords method instead.")
     public var contextKeywords: [String] {
-        Array(contextKeywordsSet)
+        Array(extKeywordsSet)
+    }
+    
+    public func addExtKeyword(_ newElement: String) {
+        extKeywordsSet.insert(newElement)
+    }
+    
+    public func addExtKeywords(_ newElements: Set<String>) {
+        extKeywordsSet.formUnion(newElements)
+    }
+    
+    public func removeExtKeyword(_ element: String) {
+        extKeywordsSet.remove(element)
+    }
+    
+    public func clearExtKeywords() {
+        extKeywordsSet.removeAll()
+    }
+    
+    public func getExtKeywords() -> [String] {
+        return Array(extKeywordsSet)
     }
         
     // MARK: - Internal Properties
@@ -509,11 +563,11 @@ public class Targeting: NSObject {
     public var parameterDictionary = [String : String]()
     
     private var userKeywordsSet = Set<String>()
-    private var contextKeywordsSet = Set<String>()
+    private var extKeywordsSet = Set<String>()
     
     private var rawAccessControlList = Set<String>()
     private var rawUserDataDictionary = [String : Set<String>]()
-    private var rawContextDataDictionary = [String : Set<String>]()
+    private var rawExtDataDictionary = [String : Set<String>]()
 
     private var yearofbirth = 0
     

@@ -200,7 +200,7 @@ public class BannerView: UIView,
         }
     }
     
-    // MARK: - Context Data (imp[].ext.data)
+    // MARK: - Ext Data (imp[].ext.data)
     
     @objc public func addContextData(_ data: String, forKey key: String) {
         adUnitConfig.addExtData(key: key, value: data)

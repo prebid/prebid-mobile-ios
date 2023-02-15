@@ -41,7 +41,7 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var adPosition = AdPosition.undefined
 
-    public var contextDataDictionary: [String : [String]] {
+    public var extDataDictionary: [String : [String]] {
         extensionData.mapValues { Array($0) }
     }
 
@@ -117,29 +117,29 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
     
     public func getExtData() -> [String: [String]] {
-        contextDataDictionary
+        extDataDictionary
     }
 
     // MARK: - Ext keywords (imp[].ext.keywords)
 
     public func addExtKeyword(_ newElement: String) {
-        contextKeywords.insert(newElement)
+        extKeywords.insert(newElement)
     }
 
     public func addExtKeywords(_ newElements: Set<String>) {
-        contextKeywords.formUnion(newElements)
+        extKeywords.formUnion(newElements)
     }
     
     public func removeExtKeyword(_ element: String) {
-        contextKeywords.remove(element)
+        extKeywords.remove(element)
     }
 
     public func clearExtKeywords() {
-        contextKeywords.removeAll()
+        extKeywords.removeAll()
     }
 
     public func getExtKeywords() -> Set<String> {
-        contextKeywords
+        extKeywords
     }
 
     // MARK: - App Content (app.content.data)
@@ -219,7 +219,7 @@ public class AdUnitConfig: NSObject, NSCopying {
 
     private var userData: [PBMORTBContentData]?
 
-    private var contextKeywords = Set<String>()
+    private var extKeywords = Set<String>()
     
     private var sizes: [CGSize]?
 
@@ -243,7 +243,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.minSizePerc = self.minSizePerc
         clone.extensionData = self.extensionData.merging(clone.extensionData) { $1 }
         clone.appContent = self.appContent
-        clone.contextKeywords = self.contextKeywords
+        clone.extKeywords = self.extKeywords
         clone.userData = self.userData
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot

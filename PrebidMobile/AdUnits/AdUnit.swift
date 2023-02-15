@@ -189,7 +189,7 @@ import ObjectiveC.runtime
      * This method obtains the context data keyword & value for adunit context targeting
      * if the key already exists the value will be appended to the list. No duplicates will be added
      */
-    @available(*, deprecated, message: "This class is deprecated. Please, use addExtData method instead.")
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     public func addContextData(key: String, value: String) {
         adUnitConfig.addExtData(key: key, value: value)
     }
@@ -198,7 +198,7 @@ import ObjectiveC.runtime
      * This method obtains the context data keyword & values for adunit context targeting
      * the values if the key already exist will be replaced with the new set of values
      */
-    @available(*, deprecated, message: "This class is deprecated. Please, use updateExtData method instead.")
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     public func updateContextData(key: String, value: Set<String>) {
         adUnitConfig.updateExtData(key: key, value: value)
     }
@@ -206,7 +206,7 @@ import ObjectiveC.runtime
     /**
      * This method allows to remove specific context data keyword & values set from adunit context targeting
      */
-    @available(*, deprecated, message: "This class is deprecated. Please, use removeExtData method instead.")
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     public func removeContextData(forKey: String) {
         adUnitConfig.removeExtData(for: forKey)
     }
@@ -214,7 +214,7 @@ import ObjectiveC.runtime
     /**
      * This method allows to remove all context data set from adunit context targeting
      */
-    @available(*, deprecated, message: "This class is deprecated. Please, use clearExtData method instead.")
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
         adUnitConfig.clearExtData()
     }
@@ -259,7 +259,7 @@ import ObjectiveC.runtime
      * This method obtains the context keyword for adunit context targeting
      * Inserts the given element in the set if it is not already present.
      */
-    @available(*, deprecated, message: "This class is deprecated. Please, use addExtKeyword method instead.")
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
     public func addContextKeyword(_ newElement: String) {
         adUnitConfig.addExtKeyword(newElement)
     }
@@ -268,7 +268,7 @@ import ObjectiveC.runtime
      * This method obtains the context keyword set for adunit context targeting
      * Adds the elements of the given set to the set.
      */
-    @available(*, deprecated, message: "This class is deprecated. Please, use addExtKeywords method instead.")
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
     public func addContextKeywords(_ newElements: Set<String>) {
         adUnitConfig.addExtKeywords(newElements)
     }
@@ -276,7 +276,7 @@ import ObjectiveC.runtime
     /**
      * This method allows to remove specific context keyword from adunit context targeting
      */
-    @available(*, deprecated, message: "This class is deprecated. Please, use removeExtKeyword method instead.")
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
     public func removeContextKeyword(_ element: String) {
         adUnitConfig.removeExtKeyword(element)
     }
@@ -284,7 +284,7 @@ import ObjectiveC.runtime
     /**
      * This method allows to remove all keywords from the set of adunit context targeting
      */
-    @available(*, deprecated, message: "This class is deprecated. Please, use clearExtKeywords method instead.")
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
     public func clearContextKeywords() {
         adUnitConfig.clearExtKeywords()
     }
