@@ -286,11 +286,7 @@
     // We should use OOP approach for logic encapsulation instead of 'if' logic.
 
     //Clickthrough
-    if ([state.view isKindOfClass:[PBMClickthroughBrowserView class]]) {
-        if (!state.adConfiguration) {
-            return;
-        }
-        
+    if (self.clickthroughVisible) {
         [self.creativeViewDelegate creativeClickthroughDidClose:self];
         self.clickthroughVisible = NO;
         

@@ -239,7 +239,7 @@
 - (void)modalManagerDidFinishPop:(PBMModalState*)state {
     
     //Clickthrough
-    if ([state.view isKindOfClass:[PBMClickthroughBrowserView class]]) {
+    if (self.clickthroughVisible) {
         [self.creativeViewDelegate creativeClickthroughDidClose:self];
         self.clickthroughVisible = NO;
         return;
