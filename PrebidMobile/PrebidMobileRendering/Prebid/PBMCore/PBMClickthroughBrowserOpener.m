@@ -191,6 +191,7 @@
         presentingViewController = self.modalManager.modalViewController;
     }
     
+    [self.modalManager modalManagerWillPresentModal];
     [presentingViewController presentViewController:self.safariViewController animated:YES completion:^{
         [windowLocker unlock];
         
@@ -204,11 +205,9 @@
 
 #pragma mark SFSafariViewControllerDelegate
 
-- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
-    
-}
-
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    
+    [self.modalManager modalManagerDidDismissModal];
     
     if (self.onClickthroughPoppedBlock != nil) {
         self.onClickthroughPoppedBlock(nil);
