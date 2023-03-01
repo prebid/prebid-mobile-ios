@@ -267,7 +267,9 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
                     guard let self = self else {
                         return;
                     }
-                    self.modalManager.modalViewControllerCloseButtonTapped(self.modalManager.modalViewController!)
+                    
+                    // Simulate onClickthroughExitBlock called
+                    self.videoCreative.resume()
                 }
             }
         })
