@@ -27,34 +27,14 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
         }
         
         let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
-            self?.htmlCreative.modalManagerDidFinishPop(poppedState)
+            self?.htmlCreative.modalManagerDidFinishPop(poppedState!)
         }, onStateHasLeftApp: { [weak self] leavingState in
-            self?.htmlCreative.modalManagerDidLeaveApp(leavingState)
+            self?.htmlCreative.modalManagerDidLeaveApp(leavingState!)
             
         })
         self.htmlCreative.modalManagerDidLeaveApp(state)
         
         XCTAssert(called)
-    }
-    
-    func testClickthroughBrowserClosedCalled() {
-        self.htmlCreative.clickthroughVisible = true
-        var called = false
-        self.creativeClickthroughDidCloseHandler = { (creative) in
-            PBMAssertEq(creative, self.htmlCreative)
-            called = true
-        }
-        
-        let state = PBMModalState(view: ClickthroughBrowserView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
-            self?.htmlCreative.modalManagerDidFinishPop(poppedState)
-        }, onStateHasLeftApp: { [weak self] leavingState in
-            self?.htmlCreative.modalManagerDidLeaveApp(leavingState)
-            
-        })
-        htmlCreative.modalManagerDidFinishPop(state)
-        
-        XCTAssert(called)
-        XCTAssertFalse(self.htmlCreative.clickthroughVisible)
     }
     
     func testInterstitialAdClosed() {
@@ -68,9 +48,9 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
         htmlCreative.setupView()
         
         let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
-            self?.htmlCreative.modalManagerDidFinishPop(poppedState)
+            self?.htmlCreative.modalManagerDidFinishPop(poppedState!)
         }, onStateHasLeftApp: { [weak self] leavingState in
-            self?.htmlCreative.modalManagerDidLeaveApp(leavingState)
+            self?.htmlCreative.modalManagerDidLeaveApp(leavingState!)
             
         })
         htmlCreative.modalManagerDidFinishPop(state)

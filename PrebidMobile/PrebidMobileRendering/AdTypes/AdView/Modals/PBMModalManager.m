@@ -19,7 +19,6 @@
 #import "PBMDownloadDataHelper.h"
 #import "PBMAbstractCreative.h"
 #import "PBMFunctions+Private.h"
-#import "PBMClickthroughBrowserView.h"
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMModalPresentationController.h"
 #import "PBMModalViewController.h"

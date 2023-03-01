@@ -15,7 +15,6 @@
 
 #import "PBMClickthroughBrowserOpener.h"
 
-#import "PBMClickthroughBrowserView.h"
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMDeferredModalState.h"
 #import "PBMFunctions.h"
