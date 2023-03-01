@@ -191,12 +191,14 @@
     }
     
     [self.modalManager modalManagerWillPresentModal];
+    
+    if (self.onWillLoadURLInClickthrough != nil) {
+        self.onWillLoadURLInClickthrough();
+    }
+    
     [presentingViewController presentViewController:self.safariViewController animated:YES completion:^{
         [windowLocker unlock];
         
-        if (self.onWillLoadURLInClickthrough != nil) {
-            self.onWillLoadURLInClickthrough();
-        }
     }];
     
     return YES;
