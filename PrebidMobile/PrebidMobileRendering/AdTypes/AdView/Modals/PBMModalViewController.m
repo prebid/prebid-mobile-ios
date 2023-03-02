@@ -239,6 +239,7 @@
 
 - (void)setupCloseButtonVisibility {
     // Set the close button view visibilty based on th view context (i.e. normal, clickthrough browser, rewarded video)
+    [self.closeButtonDecorator bringButtonToFront];
     if (self.modalState.adConfiguration.isOptIn) {
         return; // Must be hidden
     }
