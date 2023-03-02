@@ -80,6 +80,8 @@
 }
 
 - (BOOL)openURL:(NSURL *)url onClickthroughExitBlock:(nullable PBMVoidBlock)onClickthroughExitBlock {
+    self.onClickthroughExitBlock = onClickthroughExitBlock;
+    
     NSString * const strURLscheme = [self getURLScheme:url];
     if (!strURLscheme) {
         PBMLogError(@"Could not determine URL scheme from url: %@", url);
