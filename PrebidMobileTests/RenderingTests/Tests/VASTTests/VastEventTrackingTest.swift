@@ -269,7 +269,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
                     }
                     
                     // Simulate SFSafariViewController closing
-                    self.videoCreative.clickthroughOpener!.safariViewControllerDidFinish(self.videoCreative.clickthroughOpener!.safariViewController!)
+                    self.videoCreative.safariOpener!.safariViewControllerDidFinish(self.videoCreative.safariOpener!.safariViewController!)
                 }
             }
         })

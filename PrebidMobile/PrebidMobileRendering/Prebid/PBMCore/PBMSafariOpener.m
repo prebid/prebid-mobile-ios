@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "PBMClickthroughBrowserOpener.h"
+#import "PBMSafariOpener.h"
 
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMDeferredModalState.h"
@@ -33,7 +33,7 @@
 #import "PBMMacros.h"
 
 
-@interface PBMClickthroughBrowserOpener ()
+@interface PBMSafariOpener ()
 
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PBMModalManager *modalManager;
@@ -53,7 +53,7 @@
 @end
 
 
-@implementation PBMClickthroughBrowserOpener
+@implementation PBMSafariOpener
 
 - (instancetype)initWithSDKConfiguration:(Prebid *)sdkConfiguration
                             modalManager:(PBMModalManager *)modalManager

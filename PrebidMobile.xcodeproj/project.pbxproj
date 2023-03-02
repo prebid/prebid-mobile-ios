@@ -391,7 +391,7 @@
 		5BC37A20271F1D0000444D5E /* PBMORTBMacrosHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377D4271F1CFF00444D5E /* PBMORTBMacrosHelper.m */; };
 		5BC37A21271F1D0000444D5E /* PBMJsonCodable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377D5271F1CFF00444D5E /* PBMJsonCodable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37A22271F1D0000444D5E /* PBMWinNotifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377D6271F1CFF00444D5E /* PBMWinNotifier.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC37A23271F1D0000444D5E /* PBMClickthroughBrowserOpener.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377D7271F1CFF00444D5E /* PBMClickthroughBrowserOpener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5BC37A23271F1D0000444D5E /* PBMSafariOpener.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377D7271F1CFF00444D5E /* PBMSafariOpener.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37A24271F1D0000444D5E /* PBMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377D8271F1CFF00444D5E /* PBMError.m */; };
 		5BC37A26271F1D0000444D5E /* PBMBidRequesterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377DA271F1CFF00444D5E /* PBMBidRequesterFactory.m */; };
 		5BC37A51271F1D0000444D5E /* PBMPrebidParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37808271F1CFF00444D5E /* PBMPrebidParameterBuilder.m */; };
@@ -429,7 +429,7 @@
 		5BC37A71271F1D0000444D5E /* PBMORTBSeatBid.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782A271F1CFF00444D5E /* PBMORTBSeatBid.m */; };
 		5BC37A72271F1D0000444D5E /* BidResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782B271F1CFF00444D5E /* BidResponse.swift */; };
 		5BC37A74271F1D0000444D5E /* PBMWinNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782D271F1CFF00444D5E /* PBMWinNotifier.m */; };
-		5BC37A75271F1D0000444D5E /* PBMClickthroughBrowserOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782E271F1CFF00444D5E /* PBMClickthroughBrowserOpener.m */; };
+		5BC37A75271F1D0000444D5E /* PBMSafariOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782E271F1CFF00444D5E /* PBMSafariOpener.m */; };
 		5BC37A78271F1D0000444D5E /* PBMTransactionFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37832271F1CFF00444D5E /* PBMTransactionFactory.m */; };
 		5BC37A79271F1D0000444D5E /* PBMVastTransactionFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37833271F1CFF00444D5E /* PBMVastTransactionFactory.m */; };
 		5BC37A7A271F1D0000444D5E /* PBMDisplayTransactionFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37834271F1CFF00444D5E /* PBMDisplayTransactionFactory.m */; };
@@ -1221,7 +1221,7 @@
 		5BC377D4271F1CFF00444D5E /* PBMORTBMacrosHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBMacrosHelper.m; sourceTree = "<group>"; };
 		5BC377D5271F1CFF00444D5E /* PBMJsonCodable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMJsonCodable.h; sourceTree = "<group>"; };
 		5BC377D6271F1CFF00444D5E /* PBMWinNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMWinNotifier.h; sourceTree = "<group>"; };
-		5BC377D7271F1CFF00444D5E /* PBMClickthroughBrowserOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMClickthroughBrowserOpener.h; sourceTree = "<group>"; };
+		5BC377D7271F1CFF00444D5E /* PBMSafariOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMSafariOpener.h; sourceTree = "<group>"; };
 		5BC377D8271F1CFF00444D5E /* PBMError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMError.m; sourceTree = "<group>"; };
 		5BC377DA271F1CFF00444D5E /* PBMBidRequesterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMBidRequesterFactory.m; sourceTree = "<group>"; };
 		5BC377DD271F1CFF00444D5E /* NativeImageAssetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeImageAssetType.swift; sourceTree = "<group>"; };
@@ -1261,7 +1261,7 @@
 		5BC3782A271F1CFF00444D5E /* PBMORTBSeatBid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSeatBid.m; sourceTree = "<group>"; };
 		5BC3782B271F1CFF00444D5E /* BidResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidResponse.swift; sourceTree = "<group>"; };
 		5BC3782D271F1CFF00444D5E /* PBMWinNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMWinNotifier.m; sourceTree = "<group>"; };
-		5BC3782E271F1CFF00444D5E /* PBMClickthroughBrowserOpener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMClickthroughBrowserOpener.m; sourceTree = "<group>"; };
+		5BC3782E271F1CFF00444D5E /* PBMSafariOpener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMSafariOpener.m; sourceTree = "<group>"; };
 		5BC37832271F1CFF00444D5E /* PBMTransactionFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMTransactionFactory.m; sourceTree = "<group>"; };
 		5BC37833271F1CFF00444D5E /* PBMVastTransactionFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMVastTransactionFactory.m; sourceTree = "<group>"; };
 		5BC37834271F1CFF00444D5E /* PBMDisplayTransactionFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDisplayTransactionFactory.m; sourceTree = "<group>"; };
@@ -2285,8 +2285,8 @@
 				5BC377CA271F1CFF00444D5E /* PBMBidRequesterProtocol.h */,
 				5BC377C5271F1CFF00444D5E /* PBMBidResponseTransformer.h */,
 				5BC3780C271F1CFF00444D5E /* PBMBidResponseTransformer.m */,
-				5BC377D7271F1CFF00444D5E /* PBMClickthroughBrowserOpener.h */,
-				5BC3782E271F1CFF00444D5E /* PBMClickthroughBrowserOpener.m */,
+				5BC377D7271F1CFF00444D5E /* PBMSafariOpener.h */,
+				5BC3782E271F1CFF00444D5E /* PBMSafariOpener.m */,
 				5BC377C8271F1CFF00444D5E /* PBMError_Extension.swift */,
 				5BC377C3271F1CFF00444D5E /* PBMError.h */,
 				5BC377D8271F1CFF00444D5E /* PBMError.m */,
@@ -3247,7 +3247,7 @@
 				FAEE4D24262DC2B200AD9966 /* PrebidMobile.h in Headers */,
 				5BC378E7271F1CFF00444D5E /* PBMORTBBidRequestExtPrebid.h in Headers */,
 				5BC37930271F1D0000444D5E /* PBMVideoVerificationParameters.h in Headers */,
-				5BC37A23271F1D0000444D5E /* PBMClickthroughBrowserOpener.h in Headers */,
+				5BC37A23271F1D0000444D5E /* PBMSafariOpener.h in Headers */,
 				5BC378DA271F1CFF00444D5E /* PBMORTBSource.h in Headers */,
 				5BC37A1A271F1D0000444D5E /* PBMRawBidResponse.h in Headers */,
 				5BC3796F271F1D0000444D5E /* PBMVastCreativeCompanionAdsCompanion.h in Headers */,
@@ -4111,7 +4111,7 @@
 				5BC378D6271F1CFF00444D5E /* PBMORTBBidRequest.m in Sources */,
 				FAEE4D0A262DC2B200AD9966 /* Global.swift in Sources */,
 				5BC37A87271F1D0000444D5E /* InterstitialEventInteractionDelegate.swift in Sources */,
-				5BC37A75271F1D0000444D5E /* PBMClickthroughBrowserOpener.m in Sources */,
+				5BC37A75271F1D0000444D5E /* PBMSafariOpener.m in Sources */,
 				5BC37A60271F1D0000444D5E /* PBMORTBBidExtPrebid.m in Sources */,
 				5BC37982271F1D0000444D5E /* PBMMRAIDCommand.m in Sources */,
 				5BC37A53271F1D0000444D5E /* Bid.swift in Sources */,

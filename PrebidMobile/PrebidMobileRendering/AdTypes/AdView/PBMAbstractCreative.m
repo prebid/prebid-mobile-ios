@@ -18,7 +18,7 @@
 
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
-#import "PBMClickthroughBrowserOpener.h"
+#import "PBMSafariOpener.h"
 #import "PBMCreativeModel.h"
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMCreativeViewabilityTracker.h"
@@ -54,7 +54,7 @@
 
 @property (nonatomic, nonnull) WKWebView *hiddenWebView;
 
-@property (nonatomic, strong, nullable) PBMClickthroughBrowserOpener * clickthroughOpener;
+@property (nonatomic, strong, nullable) PBMSafariOpener * safariOpener;
 
 @end
 
@@ -304,7 +304,7 @@
     
     @weakify(self);
     
-    self.clickthroughOpener = [[PBMClickthroughBrowserOpener alloc] initWithSDKConfiguration:sdkConfiguration
+    self.safariOpener = [[PBMSafariOpener alloc] initWithSDKConfiguration:sdkConfiguration
                                                                            modalManager:self.modalManager
                                                                  viewControllerProvider:^UIViewController * _Nullable{
         @strongify(self);
@@ -326,7 +326,7 @@
         [self modalManagerDidLeaveApp:leavingState];
     }];
     
-    return [self.clickthroughOpener openURL:url onClickthroughExitBlock:onClickthroughExitBlock];
+    return [self.safariOpener openURL:url onClickthroughExitBlock:onClickthroughExitBlock];
 }
 
 - (BOOL)handleProductClickthrough:(NSURL*)url
