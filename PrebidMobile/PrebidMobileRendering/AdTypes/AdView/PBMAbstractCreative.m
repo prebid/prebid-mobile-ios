@@ -305,7 +305,6 @@
     @weakify(self);
     
     self.clickthroughOpener = [[PBMClickthroughBrowserOpener alloc] initWithSDKConfiguration:sdkConfiguration
-                                                                        adConfiguration:self.creativeModel.adConfiguration
                                                                            modalManager:self.modalManager
                                                                  viewControllerProvider:^UIViewController * _Nullable{
         @strongify(self);

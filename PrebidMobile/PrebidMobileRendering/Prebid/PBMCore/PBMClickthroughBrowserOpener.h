@@ -32,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMClickthroughBrowserOpener : NSObject <SFSafariViewControllerDelegate>
 
 - (instancetype)initWithSDKConfiguration:(Prebid *)sdkConfiguration
-                         adConfiguration:(nullable AdConfiguration *)adConfiguration
                             modalManager:(PBMModalManager *)modalManager
                   viewControllerProvider:(PBMViewControllerProvider)viewControllerProvider
               measurementSessionProvider:(PBMOpenMeasurementSessionProvider)measurementSessionProvider

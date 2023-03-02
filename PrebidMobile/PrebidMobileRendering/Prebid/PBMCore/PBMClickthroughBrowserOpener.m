@@ -36,7 +36,6 @@
 @interface PBMClickthroughBrowserOpener ()
 
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
-@property (nonatomic, strong, nullable, readonly) AdConfiguration *adConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PBMModalManager *modalManager;
 
 @property (nonatomic, strong, nonnull, readonly) PBMViewControllerProvider viewControllerProvider;
@@ -57,7 +56,6 @@
 @implementation PBMClickthroughBrowserOpener
 
 - (instancetype)initWithSDKConfiguration:(Prebid *)sdkConfiguration
-                         adConfiguration:(nullable AdConfiguration *)adConfiguration
                             modalManager:(PBMModalManager *)modalManager
                   viewControllerProvider:(PBMViewControllerProvider)viewControllerProvider
               measurementSessionProvider:(PBMOpenMeasurementSessionProvider)measurementSessionProvider
@@ -69,8 +67,8 @@
     if (!(self = [super init])) {
         return nil;
     }
+    
     _sdkConfiguration = sdkConfiguration;
-    _adConfiguration = adConfiguration;
     _modalManager = modalManager;
     _viewControllerProvider = viewControllerProvider;
     _measurementSessionProvider = measurementSessionProvider;
