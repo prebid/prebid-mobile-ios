@@ -392,12 +392,4 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     self.modalViewController.modalViewControllerDelegate = self;
 }
 
-- (void)modalManagerWillPresentModal {
-    [self.delegate modalManagerWillPresentModal];
-}
-
-- (void)modalManagerDidDismissModal {
-    [self.delegate modalManagerDidDismissModal];
-}
-
 @end

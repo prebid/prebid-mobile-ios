@@ -52,9 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hideModalAnimated:(BOOL)animated completionHandler:(nullable PBMVoidBlock)completionHandler;
 - (void)backModalAnimated:(BOOL)animated fromRootViewController:(nullable UIViewController *)fromRootViewController completionHandler:(nullable PBMVoidBlock)completionHandler;
 
-- (void)modalManagerWillPresentModal;
-- (void)modalManagerDidDismissModal;
-
 @end
 
 NS_ASSUME_NONNULL_END

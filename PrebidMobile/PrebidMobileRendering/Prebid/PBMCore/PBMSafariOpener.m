@@ -162,8 +162,6 @@
         presentingViewController = self.modalManager.modalViewController;
     }
     
-    [self.modalManager modalManagerWillPresentModal];
-    
     if (self.onWillLoadURLInClickthrough != nil) {
         self.onWillLoadURLInClickthrough();
     }
@@ -178,8 +176,6 @@
 #pragma mark SFSafariViewControllerDelegate
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    
-    [self.modalManager modalManagerDidDismissModal];
     
     if (self.onClickthroughPoppedBlock != nil) {
         self.onClickthroughPoppedBlock(nil);

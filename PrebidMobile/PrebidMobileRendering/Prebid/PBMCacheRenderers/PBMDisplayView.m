@@ -121,8 +121,7 @@
 }
 
 - (void)adWasClicked {
-    // nop?
-    // Note: modal handled in `modalManagerWillPresentModal`
+    [self interactionDelegateWillPresentModal];
 }
 
 - (void)adViewWasClicked {
@@ -145,8 +144,7 @@
 }
 
 - (void)adClickthroughDidClose {
-    // nop?
-    // Note: modal handled in `displayViewDidDismissModal`
+    [self interactionDelegateDidDismissModal];
 }
 
 - (void)adDidClose {
@@ -161,17 +159,11 @@
 // MARK: - PBMModalManagerDelegate
 
 - (void)modalManagerWillPresentModal {
-    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
-    if ([delegate respondsToSelector:@selector(willPresentModalFrom:)]) {
-        [delegate willPresentModalFrom:self];
-    }
+    [self interactionDelegateWillPresentModal];
 }
 
 - (void)modalManagerDidDismissModal {
-    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
-    if ([delegate respondsToSelector:@selector(didDismissModalFrom:)]) {
-        [delegate didDismissModalFrom:self];
-    }
+    [self interactionDelegateDidDismissModal];
 }
 
 // MARK: - Private Helpers
@@ -195,6 +187,20 @@
         self.adConfiguration.adConfiguration.isBuiltInVideo = YES;
     }
     [self.adViewManager handleExternalTransaction:transaction];
+}
+
+- (void)interactionDelegateWillPresentModal {
+    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
+    if ([delegate respondsToSelector:@selector(willPresentModalFrom:)]) {
+        [delegate willPresentModalFrom:self];
+    }
+}
+
+- (void)interactionDelegateDidDismissModal {
+    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
+    if ([delegate respondsToSelector:@selector(didDismissModalFrom:)]) {
+        [delegate didDismissModalFrom:self];
+    }
 }
 
 @end
