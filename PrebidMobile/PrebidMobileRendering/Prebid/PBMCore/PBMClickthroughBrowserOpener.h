@@ -45,8 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)openURL:(NSURL *)url onClickthroughExitBlock:(nullable PBMVoidBlock)onClickthroughExitBlock;
 
-- (PBMURLOpenAttempterBlock)asUrlOpenAttempter;
-
 @end
 
 NS_ASSUME_NONNULL_END

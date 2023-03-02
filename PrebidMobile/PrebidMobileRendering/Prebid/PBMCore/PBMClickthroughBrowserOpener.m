@@ -119,34 +119,6 @@
                  onClickthroughExitBlock:onClickthroughExitBlock];
 }
 
-- (PBMURLOpenAttempterBlock)asUrlOpenAttempter {
-    return ^(NSURL *url, PBMCanOpenURLResultHandlerBlock compatibilityCheckHandler) {
-        // Check if URL is compatible
-        NSString * const strURLscheme = [self getURLScheme:url];
-        if (strURLscheme == nil
-            || ![self shouldTryOpenURLScheme:strURLscheme]
-            || [self shouldOpenURLSchemeExternally:strURLscheme])
-        {
-            compatibilityCheckHandler(NO);
-            return;
-        }
-        
-        // Check if other properties are OK
-        UIViewController * const viewControllerForPresentingModals = self.viewControllerProvider();
-        if (viewControllerForPresentingModals == nil) {
-            compatibilityCheckHandler(NO);
-            return;
-        }
-        
-        // Show clickthrough browser
-        PBMExternalURLOpenCallbacks * const callbacks = compatibilityCheckHandler(YES);
-        BOOL const didOpenClickthrough = [self openClickthroughWithURL:url
-                                                        viewController:viewControllerForPresentingModals
-                                               onClickthroughExitBlock:callbacks.onClickthroughExitBlock];
-        callbacks.urlOpenedCallback(didOpenClickthrough);
-    };
-}
-
 // MARK: - Private
 
 - (NSString *)getURLScheme:(NSURL *)url {
@@ -198,7 +170,6 @@
     
     [presentingViewController presentViewController:self.safariViewController animated:YES completion:^{
         [windowLocker unlock];
-        
     }];
     
     return YES;
