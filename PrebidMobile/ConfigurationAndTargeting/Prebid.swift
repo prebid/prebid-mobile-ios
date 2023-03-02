@@ -110,7 +110,6 @@ public class Prebid: NSObject {
     public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
     
     //Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
-    //For original API should be true
     public var useExternalClickthroughBrowser = false
     
     //If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
