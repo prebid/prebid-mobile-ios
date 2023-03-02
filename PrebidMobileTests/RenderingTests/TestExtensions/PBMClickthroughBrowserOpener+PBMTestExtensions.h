@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2023 Prebid.org, Inc.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,14 +13,12 @@
   limitations under the License.
   */
 
-#import "PBMTransaction.h"
+#import <Foundation/Foundation.h>
+#import <SafariServices/SafariServices.h>
 
-@protocol PBMNSThreadProtocol;
+@interface PBMClickthroughBrowserOpener ()
 
-@interface PBMAbstractCreative ()
-
-@property (nonatomic, strong, nullable) PBMClickthroughBrowserOpener * clickthroughOpener;
-
-- (void)setupViewWithThread:(nonnull id<PBMNSThreadProtocol>)thread;
+@property (nonatomic, strong, nullable) SFSafariViewController * safariViewController;
+- (void)safariViewControllerDidFinish:(SFSafariViewController *_Nonnull)controller;
 
 @end

@@ -158,6 +158,7 @@
 #import "PBMJSLibraryManager+PBMTestExtension.h"
 #import "PBMMRAIDController+PBMTestExtension.h"
 #import "PBMCreativeViewabilityTracker+PBMTestExtension.h"
+#import "PBMClickthroughBrowserOpener+PBMTestExtensions.h"
 
 // Prebid
 #import "PBMAdLoadFlowController+PrivateState.h"
