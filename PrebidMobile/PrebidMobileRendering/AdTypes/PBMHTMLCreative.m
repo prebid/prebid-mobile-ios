@@ -285,7 +285,6 @@
     // We should use OOP approach for logic encapsulation instead of 'if' logic.
 
     // Clickthrough
-    // [SF]: here is the problem with determining whether clickthrough is presented
     if (self.clickthroughVisible) {
         [self.creativeViewDelegate creativeClickthroughDidClose:self];
         self.clickthroughVisible = NO;
