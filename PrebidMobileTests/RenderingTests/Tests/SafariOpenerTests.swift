@@ -74,7 +74,7 @@ final class SafariOpenerTests: XCTestCase {
         waitForExpectations(timeout: 3)
     }
     
-    func testApp_onDidLeaveAppBlockCall() {
+    func testLeaveApp_onDidLeaveAppBlockCall() {
         
         let clickthroughOpenInBrowserExpecation = expectation(description: "onDidLeaveAppBlock called.")
         
