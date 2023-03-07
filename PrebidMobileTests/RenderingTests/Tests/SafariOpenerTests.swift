@@ -74,7 +74,10 @@ final class SafariOpenerTests: XCTestCase {
         waitForExpectations(timeout: 3)
     }
     
-    func testLeaveApp_onDidLeaveAppBlockCall() {
+    func testOpenInExternalBrowser_onDidLeaveAppBlockCall() {
+        guard #available(iOS 14.0, *) else {
+            return
+        }
         
         let clickthroughOpenInBrowserExpecation = expectation(description: "onDidLeaveAppBlock called.")
         
@@ -88,9 +91,7 @@ final class SafariOpenerTests: XCTestCase {
             onExit: {})
         
         
-        if #available(iOS 14.0, *) {
-            creative?.safariOpener?.safariViewControllerWillOpenInBrowser(creative!.safariOpener!.safariViewController!)
-        }
+        creative?.safariOpener?.safariViewControllerWillOpenInBrowser(creative!.safariOpener!.safariViewController!)
         
         waitForExpectations(timeout: 3)
     }
