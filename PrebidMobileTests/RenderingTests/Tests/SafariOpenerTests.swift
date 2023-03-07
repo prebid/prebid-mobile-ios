@@ -90,8 +90,6 @@ final class SafariOpenerTests: XCTestCase {
         
         if #available(iOS 14.0, *) {
             creative?.safariOpener?.safariViewControllerWillOpenInBrowser(creative!.safariOpener!.safariViewController!)
-        } else {
-            NotificationCenter.default.post(Notification(name: UIApplication.willResignActiveNotification))
         }
         
         waitForExpectations(timeout: 3)

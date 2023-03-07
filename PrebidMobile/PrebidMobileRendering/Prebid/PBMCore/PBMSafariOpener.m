@@ -79,12 +79,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationWillResignActiveNotification
-                                                  object:[UIApplication sharedApplication]];
-}
-
 - (BOOL)openURL:(NSURL *)url onClickthroughExitBlock:(nullable PBMVoidBlock)onClickthroughExitBlock {
     self.onClickthroughExitBlock = onClickthroughExitBlock;
     
@@ -171,13 +165,6 @@
     
     [presentingViewController presentViewController:self.safariViewController animated:YES completion:^{
         [windowLocker unlock];
-        
-        if (SYSTEM_VERSION_LESS_THAN(@"14.0")) {
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(onUIApplicationWillResignActive)
-                                                         name:UIApplicationWillResignActiveNotification
-                                                       object:nil];
-        }
     }];
     
     return YES;
@@ -194,17 +181,9 @@
     if (self.onClickthroughExitBlock) {
         self.onClickthroughExitBlock();
     }
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationWillResignActiveNotification
-                                                  object:[UIApplication sharedApplication]];
 }
 
 - (void)safariViewControllerWillOpenInBrowser:(SFSafariViewController *)controller {
-    [self onUIApplicationWillResignActive];
-}
-
-- (void)onUIApplicationWillResignActive {
     if (self.onDidLeaveAppBlock) {
         self.onDidLeaveAppBlock(nil);
     }

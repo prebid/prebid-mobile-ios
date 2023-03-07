@@ -176,9 +176,3 @@
 #define unsafeify2(v_in, v_out) \
     __unsafe_unretained __typeof(v_in) v_out = v_in \
 
-
-/*
- *  System Versioning Preprocessor Macros
- */
-
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
