@@ -59,7 +59,7 @@ public class GAMUtils: NSObject {
     
     // Added for tests
     static func latestTestedGMAVersion() -> GADVersionNumber {
-        return GADVersionNumber(majorVersion: 10, minorVersion: 1, patchVersion: 0)
+        return GADVersionNumber(majorVersion: 10, minorVersion: 2, patchVersion: 0)
     }
     
     // MARK: Private Methods

@@ -25,7 +25,7 @@ public class Utils: NSObject {
     public static let shared = Utils()
     
     var latestTestedGMAVersion: (Int, Int, Int) {
-        (10, 1, 0)
+        (10, 2, 0)
     }
 
     /**
