@@ -56,9 +56,9 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
             LearnMoreBtn.tap()
             
             // Wait for the click through browser to come up.
-            let clickthroughBrowserCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
-            waitForHittable(element: clickthroughBrowserCloseBtn, waitSeconds: 5)
-            clickthroughBrowserCloseBtn.tap()
+            let done = app.descendants(matching: .button)["Done"]
+            waitForExists(element: done, waitSeconds: waitingTimeout)
+            done.tapFrameCenter()
             
             let videoCloseBtn = app.buttons["PBMCloseButton"]
             waitForHittable(element: videoCloseBtn, waitSeconds: 15)
@@ -96,9 +96,9 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
             endCardLink.tap()
             
             // Close button should be present
-            let videoCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
-            waitForHittable(element: videoCloseBtn, waitSeconds: 5)
-            videoCloseBtn.tap()
+            let done = app.descendants(matching: .button)["Done"]
+            waitForExists(element: done, waitSeconds: waitingTimeout)
+            done.tapFrameCenter()
             
             verifyPostEvents(expectClick: true)
         }

@@ -52,9 +52,9 @@ class PrebidVideoOutstreamUITest: RepeatedUITestCase {
             bannerView.tap()
 
             // Wait for the click through browser to come up.
-            let clickthroughBrowserCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
-            waitForHittable(element: clickthroughBrowserCloseBtn, waitSeconds: 5)
-            clickthroughBrowserCloseBtn.tap()
+            let done = app.descendants(matching: .button)["Done"]
+            waitForExists(element: done, waitSeconds: 5)
+            done.tapFrameCenter()
 
             let watchAgainButton = app.buttons["Watch Again"]
             waitForEnabled(element: watchAgainButton, waitSeconds: videoDuration)
@@ -71,10 +71,9 @@ class PrebidVideoOutstreamUITest: RepeatedUITestCase {
             waitForExists(element: endCardLink, waitSeconds: videoDuration)
             endCardLink.tap()
 
-            let videoCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
-            
-            waitForExists(element: videoCloseBtn, waitSeconds: 10)
-            videoCloseBtn.tap()
+            let done = app.descendants(matching: .button)["Done"]
+            waitForExists(element: done, waitSeconds: waitingTimeout)
+            done.tapFrameCenter()
             
             verifyPostEvents(screenWasPresented: true)
         }

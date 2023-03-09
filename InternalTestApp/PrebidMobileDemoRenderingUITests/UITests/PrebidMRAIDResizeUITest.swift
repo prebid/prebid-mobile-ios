@@ -71,7 +71,7 @@ class PrebidMRAIDResizeUITest: RepeatedUITestCase {
                 // As App Store is not present on Simulators, Clickthrough will not appear.
                 // Thus need to verify the command results effectively in no changes at all.
                 
-                tapMRAIDCommand(command: $0)
+                tapThenCloseMRAIDCommand(command: $0)
                 
                 Thread.sleep(forTimeInterval: 3) // wait for any harmful changes
                 closeResizedView() // check if still expanded
@@ -152,9 +152,10 @@ class PrebidMRAIDResizeUITest: RepeatedUITestCase {
         
         // Wait for the close button, then press it.
         Thread.sleep(forTimeInterval: 3)
-        let browserCloseButton = app.buttons["PBMCloseButtonClickThroughBrowser"]
-        waitForHittable(element: browserCloseButton, waitSeconds: waitingTimeout)
-        browserCloseButton.tap()
+        
+        let done = app.descendants(matching: .button)["Done"]
+        waitForExists(element: done, waitSeconds: waitingTimeout)
+        done.tapFrameCenter()
         
         let bannerAdView = app.buttons["PBMAdView"]
         waitForExists(element: bannerAdView, waitSeconds: 5)
