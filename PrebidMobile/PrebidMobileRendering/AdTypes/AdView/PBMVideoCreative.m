@@ -19,7 +19,6 @@
 #import "PBMFunctions+Private.h"
 #import "UIView+PBMExtensions.h"
 
-#import "PBMClickthroughBrowserView.h"
 #import "PBMConstants.h"
 #import "PBMCreativeModel.h"
 #import "PBMDownloadDataHelper.h"
@@ -239,7 +238,7 @@
 - (void)modalManagerDidFinishPop:(PBMModalState*)state {
     
     //Clickthrough
-    if ([state.view isKindOfClass:[PBMClickthroughBrowserView class]]) {
+    if (self.clickthroughVisible) {
         [self.creativeViewDelegate creativeClickthroughDidClose:self];
         self.clickthroughVisible = NO;
         return;

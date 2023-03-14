@@ -32,9 +32,6 @@
 #import "PBMAdViewManagerDelegate.h"
 #import "PBMAppInfoParameterBuilder.h"
 #import "PBMBasicParameterBuilder.h"
-#import "PBMClickthroughBrowserView.h"
-#import "PBMClickthroughBrowserView+NavigationHandler.h"
-#import "PBMClickthroughBrowserViewDelegate.h"
 #import "PBMConstants.h"
 #import "PBMCreativeFactory.h"
 #import "PBMCreativeFactoryJob.h"
@@ -161,6 +158,7 @@
 #import "PBMJSLibraryManager+PBMTestExtension.h"
 #import "PBMMRAIDController+PBMTestExtension.h"
 #import "PBMCreativeViewabilityTracker+PBMTestExtension.h"
+#import "PBMSafariVCOpener+PBMTestExtensions.h"
 
 // Prebid
 #import "PBMAdLoadFlowController+PrivateState.h"

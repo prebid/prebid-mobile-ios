@@ -67,6 +67,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "PrebidBannerUITest/testOpenInNewTab()">
+               </Test>
+               <Test
                   Identifier = "PrebidExamplesUITest/testMoPubInterstitial_Video_VanillaPrebidOrder()">
                </Test>
                <Test

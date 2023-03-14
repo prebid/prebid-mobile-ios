@@ -27,9 +27,9 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
         }
         
         let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
-            self?.htmlCreative.modalManagerDidFinishPop(poppedState)
+            self?.htmlCreative.modalManagerDidFinishPop(poppedState!)
         }, onStateHasLeftApp: { [weak self] leavingState in
-            self?.htmlCreative.modalManagerDidLeaveApp(leavingState)
+            self?.htmlCreative.modalManagerDidLeaveApp(leavingState!)
             
         })
         self.htmlCreative.modalManagerDidLeaveApp(state)
@@ -37,27 +37,28 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
         XCTAssert(called)
     }
     
-    func testClickthroughBrowserClosedCalled() {
-        self.htmlCreative.clickthroughVisible = true
+    func testInterstitialAdClosed() {
         var called = false
-        self.creativeClickthroughDidCloseHandler = { (creative) in
+        self.creativeInterstitialDidCloseHandler = { (creative) in
             PBMAssertEq(creative, self.htmlCreative)
             called = true
         }
         
-        let state = PBMModalState(view: ClickthroughBrowserView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
-            self?.htmlCreative.modalManagerDidFinishPop(poppedState)
+        htmlCreative.setupView()
+        
+        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
+            self?.htmlCreative.modalManagerDidFinishPop(poppedState!)
         }, onStateHasLeftApp: { [weak self] leavingState in
-            self?.htmlCreative.modalManagerDidLeaveApp(leavingState)
+            self?.htmlCreative.modalManagerDidLeaveApp(leavingState!)
             
         })
+        
         htmlCreative.modalManagerDidFinishPop(state)
         
         XCTAssert(called)
-        XCTAssertFalse(self.htmlCreative.clickthroughVisible)
     }
     
-    func testInterstitialAdClosed() {
+    func testInterstitialAdClosed_clickthroughOpened() {
         var called = false
         self.creativeInterstitialDidCloseHandler = { (creative) in
             PBMAssertEq(creative, self.htmlCreative)
@@ -68,11 +69,13 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
         htmlCreative.setupView()
         
         let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
-            self?.htmlCreative.modalManagerDidFinishPop(poppedState)
+            self?.htmlCreative.modalManagerDidFinishPop(poppedState!)
         }, onStateHasLeftApp: { [weak self] leavingState in
-            self?.htmlCreative.modalManagerDidLeaveApp(leavingState)
+            self?.htmlCreative.modalManagerDidLeaveApp(leavingState!)
             
         })
+        
+        htmlCreative.modalManagerDidFinishPop(state)
         htmlCreative.modalManagerDidFinishPop(state)
         
         XCTAssert(called)

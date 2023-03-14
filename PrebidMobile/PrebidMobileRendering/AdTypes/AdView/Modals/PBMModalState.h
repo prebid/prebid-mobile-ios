@@ -21,8 +21,8 @@
 @class AdConfiguration;
 @class PBMInterstitialDisplayProperties;
 
-typedef void (^PBMModalStatePopHandler)(PBMModalState * _Nonnull poppedState);
-typedef void (^PBMModalStateAppLeavingHandler)(PBMModalState * _Nonnull leavingState);
+typedef void (^PBMModalStatePopHandler)(PBMModalState * _Nullable poppedState);
+typedef void (^PBMModalStateAppLeavingHandler)(PBMModalState * _Nullable leavingState);
 
 @interface PBMModalState : NSObject
 

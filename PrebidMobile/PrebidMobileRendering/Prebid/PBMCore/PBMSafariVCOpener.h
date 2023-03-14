@@ -13,6 +13,8 @@
  limitations under the License.
  */
 
+#import <SafariServices/SafariServices.h>
+
 #import "PBMURLOpenAttempterBlock.h"
 #import "PBMViewControllerProvider.h"
 #import "PBMVoidBlock.h"
@@ -27,10 +29,9 @@ typedef PBMOpenMeasurementSession * _Nullable (^PBMOpenMeasurementSessionProvide
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMClickthroughBrowserOpener : NSObject
+@interface PBMSafariVCOpener : NSObject <SFSafariViewControllerDelegate>
 
 - (instancetype)initWithSDKConfiguration:(Prebid *)sdkConfiguration
-                         adConfiguration:(nullable AdConfiguration *)adConfiguration
                             modalManager:(PBMModalManager *)modalManager
                   viewControllerProvider:(PBMViewControllerProvider)viewControllerProvider
               measurementSessionProvider:(PBMOpenMeasurementSessionProvider)measurementSessionProvider
@@ -42,8 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 
 - (BOOL)openURL:(NSURL *)url onClickthroughExitBlock:(nullable PBMVoidBlock)onClickthroughExitBlock;
-
-- (PBMURLOpenAttempterBlock)asUrlOpenAttempter;
 
 @end
 

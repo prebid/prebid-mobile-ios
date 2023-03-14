@@ -69,17 +69,6 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     func testButtonPressed() {
         let closeButtonCallback = #selector(PBMModalViewController.closeButtonTapped)
         callMethod(selector: closeButtonCallback, message: "Expected closeButtonCallback to be called")
-        
-        let clickThroughBrowserViewWillLeaveApp = #selector(PBMModalViewController.clickThroughBrowserViewWillLeaveApp)
-        callMethod(selector: clickThroughBrowserViewWillLeaveApp, message: "Expected clickThroughBrowserViewWillLeaveApp to be called")
-    }
-    
-    func testClickthroughBrowserViewDelegate() {
-        let clickThroughBrowserViewCloseButtonTapped = #selector(PBMModalViewController.clickThroughBrowserViewCloseButtonTapped)
-        callMethod(selector: clickThroughBrowserViewCloseButtonTapped, message: "Expected clickThroughBrowserViewCloseButtonTapped to be called")
-        
-        let clickThroughBrowserViewWillLeaveApp = #selector(PBMModalViewController.clickThroughBrowserViewWillLeaveApp)
-        callMethod(selector: clickThroughBrowserViewWillLeaveApp, message: "Expected clickThroughBrowserViewWillLeaveApp to be called")
     }
     
     func testCloseButtonVisibility() {

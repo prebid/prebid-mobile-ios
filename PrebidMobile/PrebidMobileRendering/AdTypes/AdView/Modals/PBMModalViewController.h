@@ -15,7 +15,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PBMClickthroughBrowserViewDelegate.h"
 #import "PBMModalViewControllerDelegate.h"
 
 @class PBMAbstractCreative;
@@ -24,7 +23,7 @@
 @class PBMOpenMeasurementSession;
 @class PBMInterstitialDisplayProperties;
 
-@interface PBMModalViewController : UIViewController <PBMClickthroughBrowserViewDelegate>
+@interface PBMModalViewController : UIViewController
 
 @property (nonatomic, weak, nullable) id<PBMModalViewControllerDelegate> modalViewControllerDelegate;
 @property (nonatomic, weak, nullable) PBMModalManager *modalManager;

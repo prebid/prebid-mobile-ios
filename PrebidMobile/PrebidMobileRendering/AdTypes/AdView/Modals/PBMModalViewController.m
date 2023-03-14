@@ -13,8 +13,6 @@
  limitations under the License.
  */
 
-
-#import "PBMClickthroughBrowserView.h"
 #import "PBMCreativeModel.h"
 #import "PBMMacros.h"
 #import "PBMModalState.h"
@@ -129,7 +127,6 @@
 
     [self configureSubView];
     [self configureCloseButton];
-    [self configureClickThroughDelegate];
 }
 
 - (void)closeButtonTapped {
@@ -206,14 +203,6 @@
     }
 }
 
-- (void)configureClickThroughDelegate {
-    // If the view is a ClickthroughBrowserView, set its delegate to the interstitialVC so it can respond to UI Events passed from the ClickthroughBrowserView
-    if ([self.modalState.view isKindOfClass:[PBMClickthroughBrowserView class]]) {
-        PBMClickthroughBrowserView *clickthroughBrowserView = (PBMClickthroughBrowserView *)self.modalState.view;
-        clickthroughBrowserView.clickThroughBrowserViewDelegate = self;
-    }
-}
-
 - (void)addSafeAreaConstraintsToView:(UIView *)view {
     
     if (@available(iOS 11.0, *)) {
@@ -225,18 +214,6 @@
                                                   [view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
                                                   ]];
     }
-}
-
-#pragma mark - PBMClickthroughBrowserViewDelegate
-
-- (void)clickThroughBrowserViewCloseButtonTapped {
-    //Treat a tap on the "X" button on the clickthroughBrowserView as being
-    //equivalent to tapping the ModalViewController's own close button.
-    [self closeButtonTapped];
-}
-
-- (void)clickThroughBrowserViewWillLeaveApp {
-    [self.modalViewControllerDelegate modalViewControllerDidLeaveApp];
 }
 
 #pragma mark - Helper Methods (Close button)
@@ -263,11 +240,7 @@
 - (void)setupCloseButtonVisibility {
     // Set the close button view visibilty based on th view context (i.e. normal, clickthrough browser, rewarded video)
     [self.closeButtonDecorator bringButtonToFront];
-    if ([self.displayView isKindOfClass:[PBMClickthroughBrowserView class]]) {
-        [self.closeButtonDecorator sendSubviewToBack];
-        return; // Must be hidden
-    }
-    else if (self.modalState.adConfiguration.isOptIn && ![self.displayView isKindOfClass:[PBMClickthroughBrowserView class]]) {
+    if (self.modalState.adConfiguration.isOptIn) {
         return; // Must be hidden
     }
     else if (self.displayProperties && self.displayProperties.closeDelay > 0) {

@@ -37,14 +37,12 @@ class PrebidBannerUITest: RepeatedUITestCase {
             Thread.sleep(forTimeInterval: 1)
             bannerView.tap(withNumberOfTaps: 10, numberOfTouches: 1)
             
-            // Wait for the close button, then press it.
-            let interstitialCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
-            waitForExists(element: interstitialCloseBtn, waitSeconds: 12)
-            interstitialCloseBtn.tap()
-
+            let done = app.descendants(matching: .button)["Done"]
+            waitForExists(element: done, waitSeconds: waitingTimeout)
+            done.tapFrameCenter()
+            
             waitForExists(element: bannerView, waitSeconds: waitingTimeout)
             
-            // Verify event labels
             XCTAssertTrue(app.buttons["adViewWillPresentScreen called"].isEnabled)
             XCTAssertTrue(app.buttons["adViewDidDismissScreen called"].isEnabled)
             XCTAssertFalse(app.buttons["adViewWillLeaveApplication called"].isEnabled)
@@ -64,9 +62,9 @@ class PrebidBannerUITest: RepeatedUITestCase {
                 let link = app.staticTexts[linkText]
                 link.tap()
                 
-                let closeButton = app.buttons["PBMCloseButtonClickThroughBrowser"]
-                waitForExists(element: closeButton, waitSeconds: waitingTimeout)
-                closeButton.tap()
+                let done = app.descendants(matching: .button)["Done"]
+                waitForExists(element: done, waitSeconds: waitingTimeout)
+                done.tapFrameCenter()
             }
         }
     }
@@ -215,5 +213,11 @@ class PrebidBannerUITest: RepeatedUITestCase {
         let adReceivedButton = app.buttons["adViewDidReceiveAd called"]
         let adFailedToLoadButton = app.buttons["adViewDidFailToLoadAd called"]
         waitForEnabled(element: adReceivedButton, failElement: adFailedToLoadButton, waitSeconds: waitingTimeout)
+    }
+    
+    private func tapCoordinate(at xCoordinate: Double, and yCoordinate: Double) {
+        let normalized = app.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+        let coordinate = normalized.withOffset(CGVector(dx: xCoordinate, dy: yCoordinate))
+        coordinate.tap()
     }
 }

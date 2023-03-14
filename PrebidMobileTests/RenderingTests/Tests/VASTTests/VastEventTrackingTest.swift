@@ -267,7 +267,9 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
                     guard let self = self else {
                         return;
                     }
-                    self.modalManager.modalViewControllerCloseButtonTapped(self.modalManager.modalViewController!)
+                    
+                    // Simulate SFSafariViewController closing
+                    self.videoCreative.safariOpener!.safariViewControllerDidFinish(self.videoCreative.safariOpener!.safariViewController!)
                 }
             }
         })

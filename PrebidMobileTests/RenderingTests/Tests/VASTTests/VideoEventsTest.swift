@@ -175,7 +175,6 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
     
     func videoViewCompletedDisplay() {
         self.expectationVideoDidComplete.fulfill()
-        self.modalManager.popModal()
     }
     
     func videoWasClicked() {}

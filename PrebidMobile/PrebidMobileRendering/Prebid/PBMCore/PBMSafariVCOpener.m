@@ -13,9 +13,8 @@
  limitations under the License.
  */
 
-#import "PBMClickthroughBrowserOpener.h"
+#import "PBMSafariVCOpener.h"
 
-#import "PBMClickthroughBrowserView.h"
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMDeferredModalState.h"
 #import "PBMFunctions.h"
@@ -34,10 +33,9 @@
 #import "PBMMacros.h"
 
 
-@interface PBMClickthroughBrowserOpener ()
+@interface PBMSafariVCOpener ()
 
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
-@property (nonatomic, strong, nullable, readonly) AdConfiguration *adConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PBMModalManager *modalManager;
 
 @property (nonatomic, strong, nonnull, readonly) PBMViewControllerProvider viewControllerProvider;
@@ -48,13 +46,16 @@
 @property (nonatomic, strong, nullable, readonly) PBMModalStatePopHandler onClickthroughPoppedBlock;
 @property (nonatomic, strong, nullable, readonly) PBMModalStateAppLeavingHandler onDidLeaveAppBlock;
 
+@property (nonatomic, strong, nullable) PBMVoidBlock onClickthroughExitBlock;
+
+@property (nonatomic, strong, nullable) SFSafariViewController * safariViewController;
+
 @end
 
 
-@implementation PBMClickthroughBrowserOpener
+@implementation PBMSafariVCOpener
 
 - (instancetype)initWithSDKConfiguration:(Prebid *)sdkConfiguration
-                         adConfiguration:(nullable AdConfiguration *)adConfiguration
                             modalManager:(PBMModalManager *)modalManager
                   viewControllerProvider:(PBMViewControllerProvider)viewControllerProvider
               measurementSessionProvider:(PBMOpenMeasurementSessionProvider)measurementSessionProvider
@@ -66,8 +67,8 @@
     if (!(self = [super init])) {
         return nil;
     }
+    
     _sdkConfiguration = sdkConfiguration;
-    _adConfiguration = adConfiguration;
     _modalManager = modalManager;
     _viewControllerProvider = viewControllerProvider;
     _measurementSessionProvider = measurementSessionProvider;
@@ -79,6 +80,8 @@
 }
 
 - (BOOL)openURL:(NSURL *)url onClickthroughExitBlock:(nullable PBMVoidBlock)onClickthroughExitBlock {
+    self.onClickthroughExitBlock = onClickthroughExitBlock;
+    
     NSString * const strURLscheme = [self getURLScheme:url];
     if (!strURLscheme) {
         PBMLogError(@"Could not determine URL scheme from url: %@", url);
@@ -112,36 +115,7 @@
     //Show clickthrough browser
     
     return [self openClickthroughWithURL:url
-                          viewController:viewControllerForPresentingModals
-                 onClickthroughExitBlock:onClickthroughExitBlock];
-}
-
-- (PBMURLOpenAttempterBlock)asUrlOpenAttempter {
-    return ^(NSURL *url, PBMCanOpenURLResultHandlerBlock compatibilityCheckHandler) {
-        // Check if URL is compatible
-        NSString * const strURLscheme = [self getURLScheme:url];
-        if (strURLscheme == nil
-            || ![self shouldTryOpenURLScheme:strURLscheme]
-            || [self shouldOpenURLSchemeExternally:strURLscheme])
-        {
-            compatibilityCheckHandler(NO);
-            return;
-        }
-        
-        // Check if other properties are OK
-        UIViewController * const viewControllerForPresentingModals = self.viewControllerProvider();
-        if (viewControllerForPresentingModals == nil) {
-            compatibilityCheckHandler(NO);
-            return;
-        }
-        
-        // Show clickthrough browser
-        PBMExternalURLOpenCallbacks * const callbacks = compatibilityCheckHandler(YES);
-        BOOL const didOpenClickthrough = [self openClickthroughWithURL:url
-                                                        viewController:viewControllerForPresentingModals
-                                               onClickthroughExitBlock:callbacks.onClickthroughExitBlock];
-        callbacks.urlOpenedCallback(didOpenClickthrough);
-    };
+                          viewController:viewControllerForPresentingModals];
 }
 
 // MARK: - Private
@@ -170,65 +144,49 @@
     
 - (BOOL)openClickthroughWithURL:(NSURL *)url
                  viewController:(UIViewController *)viewControllerForPresentingModals
-        onClickthroughExitBlock:(nullable PBMVoidBlock)onClickthroughExitBlock
 {
-    NSBundle * const bundle = PBMFunctions.bundleForSDK;
-    PBMClickthroughBrowserView * const clickthroughBrowserView = [[bundle loadNibNamed:@"ClickthroughBrowserView"
-                                                                                 owner:nil
-                                                                               options:nil] firstObject];
-    if (!clickthroughBrowserView) {
-        PBMLogError(@"Unable to create a ClickthroughBrowserView");
-        return NO;
-    }
-    
-    @weakify(self);
-    PBMModalState * const state = [PBMModalState modalStateWithView:clickthroughBrowserView
-                                                    adConfiguration:self.adConfiguration
-                                                  displayProperties:[[PBMInterstitialDisplayProperties alloc] init]
-                                                 onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
-        // self is INTENTIONALLY retained here => no '@strongify'
-        if (self.onClickthroughPoppedBlock != nil) {
-            self.onClickthroughPoppedBlock(poppedState);
-        }
-        if (onClickthroughExitBlock != nil) {
-            onClickthroughExitBlock();
-        }
-    } onStateHasLeftApp:self.onDidLeaveAppBlock];
+    self.safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+    self.safariViewController.delegate = self;
     
     PBMOpenMeasurementSession * const measurementSession = self.measurementSessionProvider();
     PBMWindowLocker * windowLocker = [[PBMWindowLocker alloc] initWithWindow:viewControllerForPresentingModals.view.window
                                                           measurementSession:measurementSession];
     [windowLocker lock];
     
-    PBMDeferredModalState *deferredState = [[PBMDeferredModalState alloc] initWithModalState:state
-                                                                      fromRootViewController:viewControllerForPresentingModals
-                                                                                    animated:YES
-                                                                               shouldReplace:NO
-                                                                            preparationBlock:^(PBMDeferredModalStateResolutionHandler  _Nonnull completionBlock) {
-        @strongify(self);
-        if (self.onWillLoadURLInClickthrough != nil) {
-            self.onWillLoadURLInClickthrough();
-        }
-        [clickthroughBrowserView openURL:url completion:completionBlock];
+    UIViewController * presentingViewController = viewControllerForPresentingModals;
+    
+    if (self.modalManager.modalViewController) {
+        presentingViewController = self.modalManager.modalViewController;
     }
-                                                                              onWillBePushed:^{
+    
+    if (self.onWillLoadURLInClickthrough != nil) {
+        self.onWillLoadURLInClickthrough();
+    }
+    
+    [presentingViewController presentViewController:self.safariViewController animated:YES completion:^{
         [windowLocker unlock];
-    }
-                                                                               onPushStarted:nil
-                                                                             onPushCompleted:^{
-        @strongify(self);
-        [self.modalManager.modalViewController addFriendlyObstructionsToMeasurementSession:measurementSession];
-    }
-                                                                             onPushCancelled:^{
-        [windowLocker unlock];
-        if (onClickthroughExitBlock != nil) {
-            onClickthroughExitBlock();
-        }
     }];
     
-    [self.modalManager pushDeferredModal:deferredState];
-    
     return YES;
+}
+
+#pragma mark SFSafariViewControllerDelegate
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    
+    if (self.onClickthroughPoppedBlock != nil) {
+        self.onClickthroughPoppedBlock(nil);
+    }
+    
+    if (self.onClickthroughExitBlock) {
+        self.onClickthroughExitBlock();
+    }
+}
+
+- (void)safariViewControllerWillOpenInBrowser:(SFSafariViewController *)controller {
+    if (self.onDidLeaveAppBlock) {
+        self.onDidLeaveAppBlock(nil);
+    }
 }
 
 @end

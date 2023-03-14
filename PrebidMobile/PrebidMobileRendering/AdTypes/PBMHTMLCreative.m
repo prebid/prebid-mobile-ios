@@ -23,7 +23,6 @@
 #import "NSString+PBMExtensions.h"
 #import "UIView+PBMExtensions.h"
 
-#import "PBMClickthroughBrowserView.h"
 #import "PBMConstants.h"
 #import "PBMCreativeModel.h"
 #import "PBMDeviceAccessManager.h"
@@ -285,12 +284,8 @@
     // for Banner/Interstitial/MRAID ads.
     // We should use OOP approach for logic encapsulation instead of 'if' logic.
 
-    //Clickthrough
-    if ([state.view isKindOfClass:[PBMClickthroughBrowserView class]]) {
-        if (!state.adConfiguration) {
-            return;
-        }
-        
+    // Clickthrough
+    if (self.clickthroughVisible) {
         [self.creativeViewDelegate creativeClickthroughDidClose:self];
         self.clickthroughVisible = NO;
         

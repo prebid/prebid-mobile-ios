@@ -18,7 +18,7 @@
 
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
-#import "PBMClickthroughBrowserOpener.h"
+#import "PBMSafariVCOpener.h"
 #import "PBMCreativeModel.h"
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMCreativeViewabilityTracker.h"
@@ -53,6 +53,8 @@
 @property (nonatomic, assign) BOOL adWasShown;
 
 @property (nonatomic, nonnull) WKWebView *hiddenWebView;
+
+@property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
 
 @end
 
@@ -302,9 +304,7 @@
     
     @weakify(self);
     
-    PBMClickthroughBrowserOpener * const
-    clickthroughOpener = [[PBMClickthroughBrowserOpener alloc] initWithSDKConfiguration:sdkConfiguration
-                                                                        adConfiguration:self.creativeModel.adConfiguration
+    self.safariOpener = [[PBMSafariVCOpener alloc] initWithSDKConfiguration:sdkConfiguration
                                                                            modalManager:self.modalManager
                                                                  viewControllerProvider:^UIViewController * _Nullable{
         @strongify(self);
@@ -318,15 +318,15 @@
     } onWillLeaveAppBlock:^{
         @strongify(self);
         [self.creativeViewDelegate creativeInterstitialDidLeaveApp:self];
-    } onClickthroughPoppedBlock:^(PBMModalState * _Nonnull poppedState) {
+    } onClickthroughPoppedBlock:^(PBMModalState * poppedState) {
         @strongify(self);
         [self modalManagerDidFinishPop:poppedState];
-    } onDidLeaveAppBlock:^(PBMModalState * _Nonnull leavingState) {
+    } onDidLeaveAppBlock:^(PBMModalState * leavingState) {
         @strongify(self);
         [self modalManagerDidLeaveApp:leavingState];
     }];
     
-    return [clickthroughOpener openURL:url onClickthroughExitBlock:onClickthroughExitBlock];
+    return [self.safariOpener openURL:url onClickthroughExitBlock:onClickthroughExitBlock];
 }
 
 - (BOOL)handleProductClickthrough:(NSURL*)url

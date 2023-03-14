@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2023 Prebid.org, Inc.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,18 +13,14 @@
   limitations under the License.
   */
 
-#import "PBMTransaction.h"
+import Foundation
 
-@protocol PBMNSThreadProtocol;
+// Indicates the type of browser opened upon clicking the
+// creative in an app, where embedded = 0, native = 1.
 
-@interface PBMAbstractCreative ()
-
-@property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
-
-- (void)setupViewWithThread:(nonnull id<PBMNSThreadProtocol>)thread;
-
-- (BOOL)handleNormalClickthrough:(NSURL *_Nonnull)url
-                sdkConfiguration:(Prebid *_Nonnull)sdkConfiguration
-                          onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock;
-
-@end
+@objc(PBMClickbrowserType)
+public enum ClickbrowserType: Int {
+    
+    case embedded = 0
+    case native
+}
