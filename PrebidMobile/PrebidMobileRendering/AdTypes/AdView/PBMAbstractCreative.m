@@ -18,7 +18,7 @@
 
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
-#import "PBMSafariOpener.h"
+#import "PBMSafariVCOpener.h"
 #import "PBMCreativeModel.h"
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMCreativeViewabilityTracker.h"
@@ -54,7 +54,7 @@
 
 @property (nonatomic, nonnull) WKWebView *hiddenWebView;
 
-@property (nonatomic, strong, nullable) PBMSafariOpener * safariOpener;
+@property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
 
 @end
 
@@ -304,7 +304,7 @@
     
     @weakify(self);
     
-    self.safariOpener = [[PBMSafariOpener alloc] initWithSDKConfiguration:sdkConfiguration
+    self.safariOpener = [[PBMSafariVCOpener alloc] initWithSDKConfiguration:sdkConfiguration
                                                                            modalManager:self.modalManager
                                                                  viewControllerProvider:^UIViewController * _Nullable{
         @strongify(self);

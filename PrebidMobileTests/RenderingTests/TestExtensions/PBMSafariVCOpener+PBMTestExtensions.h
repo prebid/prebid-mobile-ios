@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import <SafariServices/SafariServices.h>
 
-@interface PBMSafariOpener ()
+@interface PBMSafariVCOpener ()
 
 @property (nonatomic, strong, nullable) SFSafariViewController * safariViewController;
 - (void)safariViewControllerDidFinish:(SFSafariViewController *_Nonnull)controller;

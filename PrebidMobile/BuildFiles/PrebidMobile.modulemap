@@ -117,7 +117,7 @@ framework module PrebidMobile {
     header "PBMExternalLinkHandler.h"
     header "PBMURLOpenAttempterBlock.h"
     header "PBMExternalURLOpenCallbacks.h"
-    header "PBMSafariOpener.h"
+    header "PBMSafariVCOpener.h"
     header "PBMDeepLinkPlusHelper.h"
     header "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"
     

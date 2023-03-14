@@ -29,7 +29,7 @@ typedef PBMOpenMeasurementSession * _Nullable (^PBMOpenMeasurementSessionProvide
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMSafariOpener : NSObject <SFSafariViewControllerDelegate>
+@interface PBMSafariVCOpener : NSObject <SFSafariViewControllerDelegate>
 
 - (instancetype)initWithSDKConfiguration:(Prebid *)sdkConfiguration
                             modalManager:(PBMModalManager *)modalManager

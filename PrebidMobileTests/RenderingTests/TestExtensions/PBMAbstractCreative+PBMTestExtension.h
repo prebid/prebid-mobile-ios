@@ -19,7 +19,7 @@
 
 @interface PBMAbstractCreative ()
 
-@property (nonatomic, strong, nullable) PBMSafariOpener * safariOpener;
+@property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
 
 - (void)setupViewWithThread:(nonnull id<PBMNSThreadProtocol>)thread;
 
