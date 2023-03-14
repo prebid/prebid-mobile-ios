@@ -83,6 +83,7 @@
 		53BDBF89293F5EFF004B6DE8 /* InternalUserConsentDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */; };
 		53BDBF8A293F605B004B6DE8 /* InternalUserConsentDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */; };
 		53BDBF8C293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */; };
+		53C8FE1729C0851300ED9230 /* ClickbrowserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */; };
 		53C925022990FB30009E6F94 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925012990FB30009E6F94 /* String+Extensions.swift */; };
 		53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */; };
 		53C9250729915466009E6F94 /* PrebidServerStatusRequesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9250629915466009E6F94 /* PrebidServerStatusRequesterTests.swift */; };
@@ -913,6 +914,7 @@
 		53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InternalUserConsentDataManager.h; sourceTree = "<group>"; };
 		53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InternalUserConsentDataManager.m; sourceTree = "<group>"; };
 		53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUserConsentDataManagerTests.swift; sourceTree = "<group>"; };
+		53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickbrowserType.swift; sourceTree = "<group>"; };
 		53C925012990FB30009E6F94 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequester.swift; sourceTree = "<group>"; };
 		53C9250629915466009E6F94 /* PrebidServerStatusRequesterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequesterTests.swift; sourceTree = "<group>"; };
@@ -1846,6 +1848,7 @@
 				53D934FE282CE62E0092E243 /* AgeUtils.swift */,
 				537B6580283524BB008AE9D1 /* PrebidInitializationStatus.swift */,
 				53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */,
+				53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */,
 			);
 			path = ConfigurationAndTargeting;
 			sourceTree = "<group>";
@@ -3958,6 +3961,7 @@
 				5BC37A72271F1D0000444D5E /* BidResponse.swift in Sources */,
 				5BC379C8271F1D0000444D5E /* PBMAutoRefreshManager.m in Sources */,
 				5BC37950271F1D0000444D5E /* PBMCreativeFactory.m in Sources */,
+				53C8FE1729C0851300ED9230 /* ClickbrowserType.swift in Sources */,
 				5BC37AD6271F1D0100444D5E /* PBMORTBParameterBuilder.m in Sources */,
 				5BC378E9271F1CFF00444D5E /* PBMORTBRegs.m in Sources */,
 				5BC37A7A271F1D0000444D5E /* PBMDisplayTransactionFactory.m in Sources */,

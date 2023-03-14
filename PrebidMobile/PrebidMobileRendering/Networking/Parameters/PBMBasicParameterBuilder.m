@@ -122,12 +122,7 @@
         //set secure=1 for https or secure=0 for http
         rtbImp.secure = @1;
         
-        // For Original API imp[].clickbrowser should be 1
-        if (self.adConfiguration.isOriginalAPI) {
-            rtbImp.clickbrowser = @(1);
-        } else {
-            rtbImp.clickbrowser = @(self.sdkConfiguration.useExternalClickthroughBrowser ? 1 : 0);
-        }
+        rtbImp.clickbrowser = @(self.sdkConfiguration.impClickbrowserType);
     }
     
     bidRequest.regs.coppa = self.targeting.coppa;
