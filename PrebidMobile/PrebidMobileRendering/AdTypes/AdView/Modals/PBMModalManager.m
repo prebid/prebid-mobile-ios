@@ -98,6 +98,8 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        if (!self) { return; }
+        
         PBMLogInfo(@"Forcing orientation to %@", [self pbmDescription:forcedOrientation]);
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: forcedOrientation] forKey:@"orientation"];
     });
@@ -149,6 +151,8 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
         __weak PBMDeferredModalState *weakDeferredState = deferredModalState;
         [deferredModalState prepareAndPushWithModalManager:self discardBlock:^{
             @strongify(self);
+            if (!self) { return; }
+            
             if (self.deferredModalState != nil && self.deferredModalState == weakDeferredState) {
                 self.deferredModalState = nil;
             }
@@ -161,6 +165,8 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     @weakify(self);
     return ^{
         @strongify(self);
+        if (!self) { return; }
+        
         PBMModalState * const removedState = weakModalState;
         if (removedState) {
             [self removeModal:removedState];
@@ -182,7 +188,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
-
+        
         //Is the stack empty?
         PBMModalState *poppedModalState = [self.modalStateStack lastObject];
         if (!poppedModalState) {
@@ -218,6 +224,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        if (!self) { return; }
         
         PBMModalState *poppedModalState = [self.modalStateStack lastObject];
         [self.modalStateStack removeAllObjects];
@@ -229,6 +236,8 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     @weakify(self);
     [self dismissModalOnceAnimated:YES completionHandler:^{
         @strongify(self);
+        if (!self) { return; }
+        
         self.modalViewController = nil;
         if (lastModalState.onStatePopFinished != nil) {
             lastModalState.onStatePopFinished(lastModalState);
@@ -246,6 +255,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        if (!self) { return; }
         
         // Step 1: If modalViewController doesn't exist, create one and show it
         if (!self.modalViewController) {
@@ -306,6 +316,8 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        if (!self) { return; }
+        
         if (self.modalViewController) {
             [self dismissModalOnceAnimated:animated completionHandler:completionHandler];
         }
@@ -325,6 +337,8 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     const BOOL isLastState = self.modalStateStack.count == 0;
     [self.modalViewController dismissViewControllerAnimated:animated completion:^{
         @strongify(self);
+        if (!self) { return; }
+        
         self.isModalDismissing = NO;
         if (isLastState) {
             [self.delegate modalManagerDidDismissModal];
@@ -339,6 +353,9 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
+        
         if (self.modalViewController && fromRootViewController) {
             [fromRootViewController presentViewController:self.modalViewController animated:animated completion:completionHandler];
         }
@@ -362,6 +379,8 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
 
+        if (!self) { return; }
+        
         for (PBMModalState *state in [[self.modalStateStack reverseObjectEnumerator] allObjects]) {
             if (state.onStateHasLeftApp != nil) {
                 state.onStateHasLeftApp(state);

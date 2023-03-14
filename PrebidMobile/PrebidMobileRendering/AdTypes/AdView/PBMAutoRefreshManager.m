@@ -109,12 +109,16 @@
         destinationQueue = self.lockingQueue;
         rawDestinationBlock = ^{
             @strongify(self);
+            if (!self) { return; }
+            
             [self acquireLockAndRefresh];
         };
     } else {
         destinationQueue = dispatch_get_main_queue();
         rawDestinationBlock = ^{
             @strongify(self);
+            if (!self) { return; }
+            
             [self refresh];
         };
     }
@@ -144,6 +148,8 @@
     @weakify(self);
     dispatch_block_t const newDelayedBlockRaw = ^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self refresh];
         [externalLock unlock];
     };

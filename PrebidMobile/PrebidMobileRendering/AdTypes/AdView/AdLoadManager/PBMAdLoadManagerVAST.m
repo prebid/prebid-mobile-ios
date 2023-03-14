@@ -46,6 +46,11 @@
     @weakify(self);
     dispatch_async(self.dispatchQueue, ^{
         @strongify(self);
+        if (!self) {
+            PBMLogError(@"PBMAdLoadManagerVast is nil!");
+            return;
+        }
+        
         if ([self prepareForLoading]) {
             [self.adRequester buildVastAdsArray:[vastString dataUsingEncoding:NSUTF8StringEncoding]];
         }
@@ -72,7 +77,7 @@
                                   successCallback: ^(NSArray *creativeModels) {
                                       @strongify(self);
                                       if (!self) {
-                                          PBMLogError(@"PBMAdLoadManager is nil!");
+                                          PBMLogError(@"PBMAdLoadManagerVAST is nil!");
                                           return;
                                       }
                                       
@@ -81,7 +86,7 @@
                                   failureCallback: ^(NSError *error) {
                                       @strongify(self);
                                       if (!self) {
-                                          PBMLogError(@"PBMAdLoadManager is nil!");
+                                          PBMLogError(@"PBMAdLoadManagerVAST is nil!");
                                           return;
                                       }
                                       

@@ -68,6 +68,7 @@ NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_nativ
     @weakify(self);
     [self.nativeUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
         
         //4. Configure and make a GAM ad request
         self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:gamNativeAdUnitId

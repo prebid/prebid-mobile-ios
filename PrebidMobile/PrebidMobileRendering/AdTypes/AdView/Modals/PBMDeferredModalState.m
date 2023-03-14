@@ -79,6 +79,8 @@
     @weakify(self);
     self.preparationBlock(^(BOOL success) {
         @strongify(self);
+        if (!self) { return; }
+        
         if (!self.hasResolved) {
             self.hasResolved = YES;
             [self onPreparationFinished:success];

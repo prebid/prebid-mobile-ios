@@ -75,6 +75,11 @@ typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
     [self buildAds:data wrapperAd:nil completion:^(NSError *error){
         @strongify(self);
         
+        if (!self) {
+            completionBlock(nil, [PBMError errorWithDescription:@"VAST error: the ads builder is failed" statusCode:PBMErrorCodeUndefined]);
+            return;
+        }
+        
         if (error) {
             completionBlock(nil, error);
             return;

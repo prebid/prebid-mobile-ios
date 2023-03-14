@@ -63,6 +63,7 @@ NSString * const nativeStoredImpressionInApp = @"imp-prebid-banner-native-styles
     @weakify(self);
     [self.nativeUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable kvResultDict) {
         @strongify(self);
+        if (!self) { return; }
         
         // 4. Find cached native ad
         NSString * cacheId = [kvResultDict valueForKey:@"hb_cache_id_local"];

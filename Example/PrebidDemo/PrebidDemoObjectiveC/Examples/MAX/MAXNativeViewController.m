@@ -98,6 +98,7 @@ NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
     @weakify(self);
     [self.maxMediationNativeAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
         
         // 8. Load the native ad
         [self.maxNativeAdLoader loadAdIntoAdView:maNativeAdView];

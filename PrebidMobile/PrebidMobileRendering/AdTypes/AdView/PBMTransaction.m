@@ -61,6 +61,8 @@
     @weakify(self);
     PBMCreativeFactoryFinishedCallback finishedCallback = ^(NSArray<PBMAbstractCreative *> *creatives, NSError *error) {
         @strongify(self);
+        if (!self) { return; }
+        
         self.creativeFactory = NULL;
         if (error) {
             [self.delegate transactionFailedToLoad:self error:error];
@@ -118,6 +120,8 @@
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^ {
         @strongify(self);
+        if (!self) { return; }
+        
         if (creative && !self.measurementSession) {
             [creative createOpenMeasurementSession];
         }

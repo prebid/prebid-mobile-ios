@@ -61,6 +61,11 @@
     [PBMVastRequester loadVastURL:url connection:self.serverConnection completion:^(ServerResponse * _Nullable serverResponse, NSError * _Nullable error) {
         @strongify(self);
         
+        if (!self) {
+            PBMLogError(@"PBMAdRequesterVAST is nil");
+            return;
+        }
+        
         if (error) {
             [self.adLoadManager requestCompletedFailure:error];
         } else {
@@ -84,6 +89,11 @@
     @weakify(self);
     [self.adsBuilder buildAds:rawVASTData completion:^(NSArray<PBMVastAbstractAd *> *ads, NSError *error) {
         @strongify(self);
+        
+        if (!self) {
+            PBMLogError(@"PBMAdRequesterVAST is nil");
+            return;
+        }
         
         if (error) {
             [self.adLoadManager requestCompletedFailure:error];

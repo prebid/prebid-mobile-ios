@@ -71,6 +71,8 @@
     @weakify(self);
     [self enqueueGatedBlock:^{
         @strongify(self);
+        if (!self) { return; }
+
         if (self.bidRequestError) {
             NSError * const requestError = self.bidRequestError;
             self.bidRequestError = nil;
@@ -86,6 +88,8 @@
     @weakify(self);
     [self enqueueGatedBlock:^{
         @strongify(self);
+        if (!self) { return; }
+        
         if (self.bidResponse.winningBid) {
             [self loadPrebidDisplayView];
         } else {
@@ -98,6 +102,8 @@
     @weakify(self);
     [self enqueueGatedBlock:^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self loadPrebidDisplayView];
     }];
 }
@@ -115,6 +121,8 @@
     @weakify(self);
     [self enqueueGatedBlock:^{
         @strongify(self);
+        if (!self) { return; }
+        
         self.prebidAdObject = nil;
         [self reportLoadingFailedWithError:error];
     }];
@@ -126,9 +134,8 @@
     @weakify(self);
     dispatch_async(self.dispatchQueue, ^{
         @strongify(self);
-        if (!self) {
-            return;
-        }
+        if (!self) { return; }
+        
         id<NSLocking> const lock = self.mutationLock;
         [lock lock];
         block();
@@ -141,6 +148,8 @@
     @weakify(self);
     [self enqueueGatedBlock:^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self moveToNextLoadingStep];
     }];
 }
@@ -149,6 +158,8 @@
     @weakify(self);
     [self enqueueGatedBlock:^{
         @strongify(self);
+        if (!self) { return; }
+        
         BOOL const moveForward = [self.delegate adLoadFlowControllerShouldContinue:self];
         if (moveForward) {
             [self moveToNextLoadingStep];
@@ -202,8 +213,12 @@
     @weakify(self);
     [self.bidRequester requestBidsWithCompletion:^(BidResponse *response, NSError *error) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self enqueueGatedBlock:^{
             @strongify(self);
+            if (!self) { return; }
+            
             [self handleBidResponse:response error:error];
         }];
     }];
@@ -228,6 +243,8 @@
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self.adLoader.primaryAdRequester requestAdWithBidResponse:bidResponse];
     });
 }
@@ -254,9 +271,12 @@
     
     self.flowState = PBMAdLoadFlowState_LoadingDisplayView;
     AdUnitConfig * const adUnitConfig = self.savedAdUnitConfig;
+    
     @weakify(self);
     dispatch_sync(dispatch_get_main_queue(), ^{
         @strongify(self);
+        if (!self) { return; }
+        
         __strong __block id prebidAdObjectBox = nil;
         [self.adLoader createPrebidAdWithBid:bid
                                 adUnitConfig:adUnitConfig
@@ -264,8 +284,12 @@
             prebidAdObjectBox = prebidAdObject;
         } loadMethodInvoker:^(dispatch_block_t _Nonnull loadMethod) {
             @strongify(self);
+            if (!self) { return; }
+            
             [self enqueueGatedBlock:^{
                 @strongify(self);
+                if (!self) { return; }
+                
                 self.prebidAdObject = prebidAdObjectBox;
                 loadMethod();
             }];

@@ -72,6 +72,8 @@
     @weakify(self);
     loadMethodInvoker(^{
         @strongify(self);
+        if (!self) { return; }
+        
         newDisplayView.loadingDelegate = self;
         [self.delegate bannerAdLoader:self createdDisplayView:newDisplayView];
         [newDisplayView displayAd];

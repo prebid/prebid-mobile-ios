@@ -57,6 +57,8 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
         @weakify(self);
         [GADRewardedAd loadWithAdUnitID:adMobAdUnitRewardedId request:gadRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
             @strongify(self);
+            if (!self) { return; }
+            
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);
                 return;

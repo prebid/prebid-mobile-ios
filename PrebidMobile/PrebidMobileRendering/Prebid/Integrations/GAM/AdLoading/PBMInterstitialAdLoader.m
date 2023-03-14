@@ -65,6 +65,8 @@
     @weakify(self);
     loadMethodInvoker(^{
         @strongify(self);
+        if (!self) { return; }
+        
         controller.loadingDelegate = self;
         [self.delegate interstitialAdLoader:self createdInterstitialController:controller];
         [controller loadAd];

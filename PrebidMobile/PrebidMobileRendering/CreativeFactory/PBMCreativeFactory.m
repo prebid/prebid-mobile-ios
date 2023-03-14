@@ -78,9 +78,12 @@
         [[PBMCreativeFactoryJob alloc] initFromCreativeModel:model transaction:self.transaction
                                             serverConnection:self.serverConnection
                                             finishedCallback: ^(PBMCreativeFactoryJob *job, NSError *error) {
-                                                @strongify(self);
-                                                [self onFinishedJob:job error:error];
-                                            }];
+            @strongify(self);
+            if (!self) { return; }
+            
+            [self onFinishedJob:job error:error];
+        }];
+        
         [jobsArray addObject:newJob];
     }
     
@@ -91,6 +94,8 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
+        if (!self) { return; }
+        
         if (error) {
             PBMLogInfo(@"PBMCreativeFactory: %@", error.description);
             self.finishedCallback(NULL, error);

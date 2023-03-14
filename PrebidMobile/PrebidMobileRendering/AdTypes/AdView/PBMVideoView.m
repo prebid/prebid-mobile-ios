@@ -475,6 +475,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     @weakify(self);
     self.skipButtonDecorator.buttonTouchUpInsideBlock = ^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self skipButtonTapped];
     };
 }
@@ -638,6 +640,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         @weakify(self);
         self.timeObserver = [self.avPlayer addPeriodicTimeObserverForInterval:thirtyThreeFPS queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             @strongify(self);
+            if (!self) { return; }
             
             [self periodicTimeObserver];
         }];
@@ -774,6 +777,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
             @weakify(self);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 @strongify(self);
+                if (!self) { return; }
+                
                 [self updateWatchAgainButton];
             });
         } else {
@@ -891,6 +896,9 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
+        
         if (self.avPlayer && self.avPlayer.currentItem) {
             switch (self.avPlayer.status) {
                 case AVPlayerStatusReadyToPlay: {
@@ -921,6 +929,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
         
+        if (!self) { return; }
+        
         CGFloat newVolume = self.avPlayer.volume;
         if (!self.isInitialVolumeTracked) {
             self.isInitialVolumeTracked = [NSNumber numberWithFloat:self.avPlayer.volume];
@@ -935,6 +945,9 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
+        
         [self.eventManager trackVolumeChanged:self.avPlayer.volume deviceVolume:AVAudioSession.sharedInstance.outputVolume];
     });
 }

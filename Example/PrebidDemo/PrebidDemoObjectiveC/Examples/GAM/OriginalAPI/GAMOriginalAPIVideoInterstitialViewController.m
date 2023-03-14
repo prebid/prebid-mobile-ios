@@ -52,9 +52,13 @@ NSString * const gamAdUnitVideoInterstitialOriginal = @"/21808260008/prebid-demo
     @weakify(self);
     [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
         
         // 4. Load a GAM interstitial ad
+        @weakify(self);
         [GAMInterstitialAd loadWithAdManagerAdUnitID:gamAdUnitVideoInterstitialOriginal request:gamRequest completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+            @strongify(self);
+            if (!self) { return; }
             
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);

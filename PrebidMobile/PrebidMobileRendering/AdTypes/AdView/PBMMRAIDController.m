@@ -194,6 +194,8 @@
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
 
         PBMMRAIDState prevState = self.prebidWebView.mraidState;
         [self.prebidWebView updateMRAIDLayoutInfoWithForceNotification:NO];
@@ -308,10 +310,7 @@
     @weakify(self);
     [webView MRAID_getExpandProperties:^(PBMMRAIDExpandProperties * _Nullable expandProperties) {
         @strongify(self);
-        
-        if (!self) {
-            return;
-        }
+        if (!self) { return; }
         
         if (!expandProperties) {
             [webView MRAID_error:@"Unable to get Expand Properties" action:PBMMRAIDActionExpand];
@@ -340,14 +339,20 @@
                                                            displayProperties:displayProperties
                                                           onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
                 @strongify(self);
+                if (!self) { return; }
+                
                 [self modalManagerDidFinishPop:poppedState];
             } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
                 @strongify(self);
+                if (!self) { return; }
+                
                 [self modalManagerDidLeaveApp:leavingState];
             }];
             
             self.dismissExpandedModalState = [self.creative.modalManager pushModal:pbmModalState fromRootViewController:self.viewControllerForPresentingModals animated:YES shouldReplace:shouldReplace completionHandler:^{
                 @strongify(self);
+                if (!self) { return; }
+                
                 // ALSO set the first part (banner) to Expanded per MRAID spec
                 self.delayedMraidState = PBMMRAIDStateExpanded;
 
@@ -363,14 +368,19 @@
                                                            displayProperties:displayProperties
                                                           onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
                 @strongify(self);
+                if (!self) { return; }
+                
                 [self modalManagerDidFinishPop:poppedState];
             } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
                 @strongify(self);
+                if (!self) { return; }
+                
                 [self modalManagerDidLeaveApp:leavingState];
             }];
             
             self.dismissExpandedModalState = [self.creative.modalManager pushModal:pbmModalState fromRootViewController:self.viewControllerForPresentingModals animated:YES shouldReplace:shouldReplace completionHandler:^{
                 @strongify(self);
+                if (!self) { return; }
                 
                 self.delayedMraidState = PBMMRAIDStateExpanded;
                 [self.creative.modalManager.modalViewController addFriendlyObstructionsToMeasurementSession:self.creative.transaction.measurementSession];
@@ -411,6 +421,7 @@
     @weakify(self);
     [webView MRAID_getResizeProperties:^(PBMMRAIDResizeProperties * _Nullable resizeProperties) {
         @strongify(self);
+        if (!self) { return; }
         
         if (!resizeProperties) {
             [webView MRAID_error:@"Was unable to get resizeProperties" action:PBMMRAIDActionResize];
@@ -443,9 +454,13 @@
                                                        displayProperties:displayProperties
                                                       onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
             @strongify(self);
+            if (!self) { return; }
+            
             [self modalManagerDidFinishPop:poppedState];
         } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
             @strongify(self);
+            if (!self) { return;  }
+            
             [self modalManagerDidLeaveApp:leavingState];
         }];
         pbmModalState.mraidState = PBMMRAIDStateResized;
@@ -456,6 +471,8 @@
                        shouldReplace:shouldReplace
                    completionHandler:^{
             @strongify(self);
+            if (!self) { return; }
+            
             self.mraidState = PBMMRAIDStateResized;
             self.delayedMraidState = PBMMRAIDStateResized;
             
@@ -566,6 +583,7 @@
     @weakify(self);
     self.downloadBlock(url, ^(NSData * _Nullable data, NSError * _Nullable error) {
         @strongify(self);
+        if (!self) { return; }
         
         if (error) {
             PBMLogError(@"Unable to load MRAID video. Error: %@", error);
@@ -592,9 +610,12 @@
                                                    displayProperties:[PBMInterstitialDisplayProperties new]
                                                   onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
                 @strongify(self);
+                if (!self) { return; }
                 [self modalManagerDidFinishPop:poppedState];
             } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
                 @strongify(self);
+                if (!self) { return; }
+                
                 [self modalManagerDidLeaveApp:leavingState];
             } nextOnStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
                 [weakVideoView modalManagerDidFinishPop:poppedState];
@@ -608,6 +629,8 @@
                   fromRootViewController:self.viewControllerForPresentingModals
                                 animated:YES shouldReplace:NO completionHandler:^{
                 @strongify(self);
+                if (!self) { return; }
+                
                 [videoView startPlayback];
                 [self.creative.modalManager.modalViewController addFriendlyObstructionsToMeasurementSession:self.creative.transaction.measurementSession];
             }];

@@ -61,6 +61,7 @@ NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
     @weakify(self);
     [self.maxAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
         
         // 6. Load the banner ad
         [self.maxAdBannerView loadAd];

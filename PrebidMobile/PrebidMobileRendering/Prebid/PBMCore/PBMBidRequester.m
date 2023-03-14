@@ -94,9 +94,7 @@
                   timeout:postTimeout
                  callback:^(ServerResponse * _Nonnull serverResponse) {
         @strongify(self);
-        if (!self) {
-            return;
-        }
+        if (!self) { return; }
         
         void (^ const completion)(BidResponse *, NSError *) = self.completion;
         self.completion = nil;

@@ -61,6 +61,7 @@ NSString * const adMobAdUnitDisplayBannerRendering = @"ca-app-pub-59229676600824
     @weakify(self);
     [self.prebidAdMobMediaitonAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
         
         // 6. Load ad
         [self.gadBanner loadRequest:gadRequest];

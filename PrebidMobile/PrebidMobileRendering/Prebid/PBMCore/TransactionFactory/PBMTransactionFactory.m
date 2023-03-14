@@ -107,6 +107,8 @@
     @weakify(self);
     return ^(PBMTransaction * _Nullable transaction, NSError * _Nullable error) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self onFinishedWithTransaction:transaction error:error];
     };
 }
