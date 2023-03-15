@@ -79,16 +79,21 @@
                                                                 callback:^(PBMTransaction * _Nullable transaction,
                                                                            NSError * _Nullable error) {
         @strongify(self);
+        if (!self) { return; }
+        
         if (error) {
             [self reportFailureWithError:error];
         } else {
             [self displayTransaction:transaction];
         }
     }];
+    
     [PBMWinNotifier notifyThroughConnection:ServerConnection.shared
                                  winningBid:self.bid
                                    callback:^(NSString *adMarkup) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self.transactionFactory loadWithAdMarkup:adMarkup];
     }];
 }

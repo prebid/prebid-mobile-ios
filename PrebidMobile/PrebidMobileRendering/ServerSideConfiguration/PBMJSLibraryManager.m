@@ -157,6 +157,8 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     @weakify(self);
     [connection download:urlString callback:^(ServerResponse *response) {
         @strongify(self);
+        if (!self) { return; }
+        
         PBMLogInfo(@"Server Side Configuration: The %@ was updated to the version %@", fileName, remoteLibrary.version);
         //updating contents string
         NSString *contentsString = [[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding];

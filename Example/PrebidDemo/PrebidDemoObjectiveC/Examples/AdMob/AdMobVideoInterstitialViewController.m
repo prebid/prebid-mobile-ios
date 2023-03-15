@@ -55,6 +55,8 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
         // 5. Load the interstitial ad
         [GADInterstitialAd loadWithAdUnitID:adMobAdUnitVideoInterstitialRendering request:gadRequest completionHandler:^(GADInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
             @strongify(self);
+            if (!self) { return; }
+            
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);
                 return;

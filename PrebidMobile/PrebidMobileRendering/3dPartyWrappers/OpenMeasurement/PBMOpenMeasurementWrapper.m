@@ -283,6 +283,11 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     @weakify(self);
     [connection download:self.jsLibURL callback:^(ServerResponse * _Nonnull response) {
         @strongify(self);
+        if (!self) {
+            PBMLogError(@"PBMOpenMeasurementWrapper is nil");
+            return;
+        }
+        
         // Delayed call to not process all error cases.
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion) {

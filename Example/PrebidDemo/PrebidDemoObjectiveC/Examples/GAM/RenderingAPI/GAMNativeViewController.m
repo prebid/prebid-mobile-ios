@@ -67,6 +67,8 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
     @weakify(self);
     [self.nativeUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable kvResultDict) {
         @strongify(self);
+        if (!self) { return; }
+        
         // 4. Prepare GAM request
         GAMRequest * gamRequest = [GAMRequest new];
         [GAMUtils.shared prepareRequest:gamRequest bidTargeting:kvResultDict ?: @{}];

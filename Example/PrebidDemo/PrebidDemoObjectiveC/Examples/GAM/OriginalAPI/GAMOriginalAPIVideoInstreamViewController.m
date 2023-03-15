@@ -107,6 +107,8 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
     @weakify(self);
     [self.adUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable prebidKeys) {
         @strongify(self);
+        if (!self) { return; }
+        
         if (resultCode == ResultCodePrebidDemandFetchSuccess) {
             @try
             {

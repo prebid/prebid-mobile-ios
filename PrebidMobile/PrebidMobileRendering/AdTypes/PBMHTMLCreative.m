@@ -192,6 +192,8 @@
     @weakify(self);
     dispatch_after([PBMFunctions dispatchTimeAfterTimeInterval:displayInterval], dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
         //If its open, don't count this as a creativeDidComplete. Re-start the display timer.
         if ([self isOpened]) {
             [self setupDisplayTimer];
@@ -336,6 +338,8 @@
              sdkConfiguration:self.sdkConfiguration
             completionHandler:^void(BOOL success) {
         @strongify(self);
+        if (!self) { return; }
+        
         if (success) {
             [self.creativeViewDelegate creativeWasClicked:self];
             if (self.creativeModel.isCompanionAd) {

@@ -121,6 +121,8 @@
         @weakify(self);
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
+            if (!self) { return; }
+            
             [[self.adViewManagerDelegate displayView] addSubview:creativeView];
             [self.currentCreative displayWithRootViewController:viewController];
         });
@@ -340,6 +342,8 @@
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
         
         //If we're currently displaying a creative, bail.
         if (self.currentCreative) {

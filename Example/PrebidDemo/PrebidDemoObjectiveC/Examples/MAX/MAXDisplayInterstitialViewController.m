@@ -51,7 +51,8 @@ NSString * const maxAdUnitDisplayInterstitial = @"48e8d410f74dfc7b";
     // 4. Make a bid request to Prebid Server
     @weakify(self);
     [self.maxAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
-        @strongify(self);
+        @strongify(self);  
+        if (!self) { return; }
         
         // 5. Load the interstitial ad
         self.maxInterstitial.delegate = self;

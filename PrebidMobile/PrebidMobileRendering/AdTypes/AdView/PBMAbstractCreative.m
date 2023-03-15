@@ -175,9 +175,13 @@
                                            displayProperties:displayProperties
                                           onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self modalManagerDidFinishPop:poppedState];
     } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self modalManagerDidLeaveApp:leavingState];
     }];
     
@@ -271,6 +275,8 @@
         @weakify(self);
         [PBMDeepLinkPlusHelper tryHandleDeepLinkPlus:effectiveURL completion:^(BOOL visited, NSURL *_Nullable fallbackURL, NSArray<NSURL *> *_Nullable trackingURLs) {
             @strongify(self);
+            if (!self) { return; }
+            
             if (visited) {
                 completion(YES);
                 onClickthroughExitBlock();
@@ -317,12 +323,18 @@
         self.clickthroughVisible = YES;
     } onWillLeaveAppBlock:^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self.creativeViewDelegate creativeInterstitialDidLeaveApp:self];
     } onClickthroughPoppedBlock:^(PBMModalState * poppedState) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self modalManagerDidFinishPop:poppedState];
     } onDidLeaveAppBlock:^(PBMModalState * leavingState) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self modalManagerDidLeaveApp:leavingState];
     }];
     
@@ -372,7 +384,8 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
-
+        if (!self) { return; }
+        
         if (self.isDownloaded) {
             return;
         }
@@ -387,6 +400,7 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
+        if (!self) { return; }
         
         if (self.isDownloaded) {
             return;

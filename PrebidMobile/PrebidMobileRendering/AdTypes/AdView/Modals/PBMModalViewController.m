@@ -233,6 +233,8 @@
     @weakify(self);
     self.closeButtonDecorator.buttonTouchUpInsideBlock = ^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self closeButtonTapped];
     };
 }

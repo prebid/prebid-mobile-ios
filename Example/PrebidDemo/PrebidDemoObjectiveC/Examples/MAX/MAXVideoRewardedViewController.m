@@ -52,6 +52,7 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
     @weakify(self);
     [self.maxRewardedAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
         
         // 5. Load the rewarded ad
         self.maxRewarded.delegate = self;

@@ -54,7 +54,11 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
         @strongify(self);
         
         // 4. Load the GAM rewarded ad
+        @weakify(self);
         [GADRewardedAd loadWithAdUnitID:gamAdUnitVideoRewardedOriginal request:gamRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
+            @strongify(self);
+            if (!self) { return; }
+            
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);
             } else if (rewardedAd != nil) {

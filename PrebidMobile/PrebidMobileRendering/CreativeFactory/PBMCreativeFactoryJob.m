@@ -68,6 +68,8 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
+        if (!self) { return; }
+        
         if (self.state == PBMCreativeFactoryJobStateRunning) {
             self.state = PBMCreativeFactoryJobStateSuccess;
             if (self.finishedCallback) {
@@ -81,6 +83,8 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
+        if (!self) { return; }
+        
         if (self.state == PBMCreativeFactoryJobStateRunning) {
             self.state = PBMCreativeFactoryJobStateError;
             if (self.finishedCallback) {
@@ -109,6 +113,8 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
+        if (!self) { return; }
+        
         if (self.state != PBMCreativeFactoryJobStateInitialized) {
             [self failWithError:[PBMError errorWithMessage:@"PBMCreativeFactoryJob: Tried to start PBMCreativeFactory twice" type:PBMErrorTypeInternalError]];
             return;
@@ -141,6 +147,8 @@
         dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(time, dispatch_get_main_queue(), ^(void){
             @strongify(self);
+            if (!self) { return; }
+            
             [self failWithError:[PBMError errorWithMessage:@"PBMCreativeFactoryJob: Failed to complete in specified time interval" type:PBMErrorTypeInternalError]];
         });
     };

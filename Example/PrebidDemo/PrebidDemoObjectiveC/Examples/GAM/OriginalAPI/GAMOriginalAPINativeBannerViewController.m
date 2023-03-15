@@ -80,6 +80,7 @@ NSString * const gamAdUnit = @"/21808260008/prebid-demo-original-native-styles";
     @weakify(self);
     [self.nativeUnit fetchDemandWithAdObject:self.gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
         
         // 5. Load the native ad
         [self.gamBannerView loadRequest:self.gamRequest];

@@ -67,6 +67,7 @@ NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-origi
     @weakify(self);
     [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
         
         // 5. Load GAM Ad
         [self.gamBanner loadRequest:gamRequest];

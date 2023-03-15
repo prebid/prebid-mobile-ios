@@ -94,10 +94,13 @@
     [self.videoView PBMAddFillSuperviewConstraints];
 }
 
-- (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {  
+- (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
+        
         if (self.creativeModel.adConfiguration.videoControlsConfig.isMuted) {
             [self.videoView mute];
         } else {
@@ -211,6 +214,8 @@
         // nop
     } onExit:^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self resume];
     }];
 }
@@ -266,6 +271,8 @@
     @weakify(self);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self.videoView showMediaFileURL:[NSURL URLWithString:self.creativeModel.videoFileURL] preloadedData:preloadedData];
     });
 }
