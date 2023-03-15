@@ -112,6 +112,8 @@
     @weakify(self);
     [self enqueueGatedBlock:^{
         @strongify(self);
+        if (!self) { return; }
+        
         self.adSize = [NSValue valueWithCGSize:self.bidResponse.winningBid.size];
         [self markReadyToDeployAdView];
     }];
