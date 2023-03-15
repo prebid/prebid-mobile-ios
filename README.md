@@ -38,10 +38,10 @@ Run the test script to run unit tests and integration tests.
 
 ## Carthage
 
-`2.0.8` version is available to build PrebidMobile with Carthage. For that, please, put the following content to your `Cartfile`:
+`2.0.9` version is available to build PrebidMobile with Carthage. For that, please, put the following content to your `Cartfile`:
 
 ```
-github "prebid/prebid-mobile-ios" == 2.0.8-carthage
+github "prebid/prebid-mobile-ios" == 2.0.9-carthage
 ```
 Run this command in order to build PrebidMobile with Carthage:
 
