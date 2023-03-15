@@ -287,6 +287,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
             UIViewController *rootVC = self.modalViewController.presentingViewController;
             [self dismissModalOnceAnimated:YES completionHandler:^{
                 @strongify(self);
+                if (!self) { return; }
                 self.modalViewController = nil;
                 [self display:state fromRootViewController:rootVC animated:animated completionHandler:completionHandler];
             }];
