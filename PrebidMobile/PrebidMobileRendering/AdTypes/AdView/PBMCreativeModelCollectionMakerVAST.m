@@ -110,17 +110,16 @@
     }
     
     if (companionItems.count > 0) {
-        // There is at least 1 companion.  Set the flag so that when the initial video creative has completed
-        // display, the appropriate view controllers will prevent the "close" button and the learn more after the video has
-        // finished, it will instead display the endcard.
-        creativeModel.hasCompanionAd = YES;
-        
         // Now try to create the companion items creatives.
         // Create a model of the best fitting companion ad.
         PBMCreativeModel *creativeModelCompanion = [self createCompanionCreativeModelWithAd:vastAd
                                                                                companionAds:companionItems
                                                                                    creative:creative];
         if (creativeModelCompanion) {
+            // There is at least 1 companion.  Set the flag so that when the initial video creative has completed
+            // display, the appropriate view controllers will prevent the "close" button and the learn more after the video has
+            // finished, it will instead display the endcard.
+            creativeModel.hasCompanionAd = YES;
             [creatives addObject:creativeModelCompanion];
         }
     }
