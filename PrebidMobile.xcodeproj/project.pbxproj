@@ -780,7 +780,7 @@
 		FAEE4D19262DC2B200AD9966 /* NativeEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF0262DC2B200AD9966 /* NativeEventTracker.swift */; };
 		FAEE4D1A262DC2B200AD9966 /* NativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF1262DC2B200AD9966 /* NativeAd.swift */; };
 		FAEE4D1B262DC2B200AD9966 /* InterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */; };
-		FAEE4D1C262DC2B200AD9966 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF3262DC2B200AD9966 /* VideoAdUnit.swift */; };
+		FAEE4D1C262DC2B200AD9966 /* InstreamVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF3262DC2B200AD9966 /* InstreamVideoAdUnit.swift */; };
 		FAEE4D1D262DC2B200AD9966 /* BannerAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF4262DC2B200AD9966 /* BannerAdUnit.swift */; };
 		FAEE4D1E262DC2B200AD9966 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */; };
 		FAEE4D1F262DC2B200AD9966 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF6262DC2B200AD9966 /* Utils.swift */; };
@@ -1647,7 +1647,7 @@
 		FAEE4CF0262DC2B200AD9966 /* NativeEventTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeEventTracker.swift; sourceTree = "<group>"; };
 		FAEE4CF1262DC2B200AD9966 /* NativeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAd.swift; sourceTree = "<group>"; };
 		FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialAdUnit.swift; sourceTree = "<group>"; };
-		FAEE4CF3262DC2B200AD9966 /* VideoAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAdUnit.swift; sourceTree = "<group>"; };
+		FAEE4CF3262DC2B200AD9966 /* InstreamVideoAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstreamVideoAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CF4262DC2B200AD9966 /* BannerAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoInterstitialAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CF6262DC2B200AD9966 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -1834,6 +1834,16 @@
 				53F096C927E917D40058C94C /* Log+Extensions.h */,
 			);
 			path = Logging;
+			sourceTree = "<group>";
+		};
+		5378542A29DAB4B200B0C70B /* Parameters */ = {
+			isa = PBXGroup;
+			children = (
+				FAEE4CF7262DC2B200AD9966 /* Signals.swift */,
+				53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */,
+				53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */,
+			);
+			path = Parameters;
 			sourceTree = "<group>";
 		};
 		53DBEF4927DB87330000D68E /* ConfigurationAndTargeting */ = {
@@ -3138,16 +3148,14 @@
 				FAEE4CE9262DC2B200AD9966 /* AdUnit.swift */,
 				FAEE4CF4262DC2B200AD9966 /* BannerAdUnit.swift */,
 				FAEE4CEA262DC2B200AD9966 /* BannerBaseAdUnit.swift */,
-				53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */,
 				FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */,
 				FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */,
-				FAEE4CF7262DC2B200AD9966 /* Signals.swift */,
 				FAEE4CF6262DC2B200AD9966 /* Utils.swift */,
-				FAEE4CF3262DC2B200AD9966 /* VideoAdUnit.swift */,
+				FAEE4CF3262DC2B200AD9966 /* InstreamVideoAdUnit.swift */,
 				FAEE4CF8262DC2B200AD9966 /* VideoBaseAdUnit.swift */,
 				FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */,
-				53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */,
 				FAEE4CEB262DC2B200AD9966 /* Native */,
+				5378542A29DAB4B200B0C70B /* Parameters */,
 			);
 			path = AdUnits;
 			sourceTree = "<group>";
@@ -3884,7 +3892,7 @@
 				5BC3798D271F1D0000444D5E /* PBMAdRefreshOptions.m in Sources */,
 				5BC378CC271F1CFF00444D5E /* PBMWeakTimerTargetBox.m in Sources */,
 				5BC379AC271F1D0000444D5E /* PBMModalManager.m in Sources */,
-				FAEE4D1C262DC2B200AD9966 /* VideoAdUnit.swift in Sources */,
+				FAEE4D1C262DC2B200AD9966 /* InstreamVideoAdUnit.swift in Sources */,
 				5BC37970271F1D0000444D5E /* PBMVastAbstractAd.m in Sources */,
 				53BDBF89293F5EFF004B6DE8 /* InternalUserConsentDataManager.m in Sources */,
 				92C85D5E27A96DBB0080BAC5 /* NativeData.swift in Sources */,
