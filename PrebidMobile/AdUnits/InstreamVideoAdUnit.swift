@@ -15,16 +15,16 @@
 
 import UIKit
 
-public class VideoAdUnit: VideoBaseAdUnit {
+@objcMembers
+public class InstreamVideoAdUnit: AdUnit {
     
+    public var videoParameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
+    }
+      
     public init(configId: String, size: CGSize) {
         super.init(configId: configId, size: size)
-    }
-    
-    public func addAdditionalSize(sizes: [CGSize]) {
-        if super.adUnitConfig.additionalSizes == nil {
-            super.adUnitConfig.additionalSizes = [CGSize]()
-        }
-        super.adUnitConfig.additionalSizes?.append(contentsOf: sizes)
+        adUnitConfig.adFormats = [.video]
     }
 }

@@ -15,21 +15,24 @@ limitations under the License.
 
 import UIKit
 
-public class RewardedVideoAdUnit: VideoBaseAdUnit {
+@objcMembers
+public class RewardedVideoAdUnit: AdUnit {
+    
+    public var videoParameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
+    }
 
     public init(configId: String) {
         super.init(configId: configId, size: nil)
-        
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adFormats = [.video]
-        
         adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
     }
     
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
         self.init(configId: configId)
-        
         adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
     }
 }

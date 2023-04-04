@@ -15,7 +15,23 @@
 
 import UIKit
 
-public class InterstitialAdUnit: BannerBaseAdUnit {
+@objcMembers
+public class InterstitialAdUnit: AdUnit {
+    
+    public var bannerParameters: BannerParameters {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+        set { adUnitConfig.adConfiguration.bannerParameters = newValue }
+    }
+    
+    public var videoParameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
+    }
+    
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
+    }
     
     public init(configId: String) {
         super.init(configId: configId, size: nil)
@@ -23,6 +39,7 @@ public class InterstitialAdUnit: BannerBaseAdUnit {
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adFormats = [.display]
+        adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
     }
     
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {

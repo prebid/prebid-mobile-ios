@@ -13,7 +13,8 @@
 import UIKit
 import ObjectiveC.runtime
 
-@objcMembers public class AdUnit: NSObject, DispatcherDelegate {
+@objcMembers
+public class AdUnit: NSObject, DispatcherDelegate {
     
     public var pbAdSlot: String? {
         get { adUnitConfig.getPbAdSlot()}
