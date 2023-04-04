@@ -20,7 +20,6 @@ public class VideoAdUnit: VideoBaseAdUnit {
     
     public init(configId: String, size: CGSize) {
         super.init(configId: configId, size: size)
-        adUnitConfig.adFormats = [.video]
     }
     
     public func addAdditionalSize(sizes: [CGSize]) {
