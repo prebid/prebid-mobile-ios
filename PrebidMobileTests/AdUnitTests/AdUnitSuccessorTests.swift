@@ -50,10 +50,10 @@ class AdUnitSuccessorTests: XCTestCase {
         let parameters = BannerParameters()
         parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         
-        bannerAdUnit.parameters = parameters
+        bannerAdUnit.bannerParameters = parameters
         
         //when
-        let testedBannerParameters = bannerAdUnit.parameters
+        let testedBannerParameters = bannerAdUnit.bannerParameters
         
         //then
         guard let api = testedBannerParameters.api else {
@@ -91,10 +91,10 @@ class AdUnitSuccessorTests: XCTestCase {
         XCTAssertTrue(adUnit.adUnitConfig.minSizePerc?.cgSizeValue.width == 50 && adUnit.adUnitConfig.minSizePerc?.cgSizeValue.height == 70)
     }
     
-    //MARK: - VideoAdUnit
-    func testVideoAdUnitCreation() {
+    //MARK: - InstreamVideoAdUnit
+    func testInstreamVideoAdUnitCreation() {
         //when
-        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
+        let adUnit = InstreamVideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
         
         //then
         checkDefault(adUnit: adUnit)
@@ -103,18 +103,14 @@ class AdUnitSuccessorTests: XCTestCase {
     //MARK: - VideoInterstitialAdUnit
     func testVideoInterstitialAdUnitCreation() {
         //when
-        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
+        let adUnit = InterstitialAdUnit(configId: Constants.configID1)
+        adUnit.adFormats = [.video]
         
         //then
         checkDefault(adUnit: adUnit)
         XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
         XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
         XCTAssertTrue(adUnit.adUnitConfig.adFormats == [.video])
-    }
-    
-    func testVideoInterstitialAdUnitConvenienceCreation() {
-        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
-        XCTAssertTrue(adUnit.adUnitConfig.minSizePerc?.cgSizeValue.width == 50 && adUnit.adUnitConfig.minSizePerc?.cgSizeValue.height == 70)
     }
     
     //MARK: - RewardedVideoAdUnit
@@ -136,28 +132,7 @@ class AdUnitSuccessorTests: XCTestCase {
     
     //MARK: - VideoBaseAdUnit
     func testVideoParametersCreation() {
-        
         //given
-        let videoAdUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
-        let videoInterstitialAdUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
-        let rewardedVideoAdUnit = RewardedVideoAdUnit(configId: Constants.configID1)
-        
-        let videoBaseAdUnitArr = [videoAdUnit, videoInterstitialAdUnit, rewardedVideoAdUnit]
-        
-        for videoBaseAdUnit in videoBaseAdUnitArr {
-            checkVideoParametersHelper(videoBaseAdUnit)
-        }
-    }
-    
-    //MARK: - private zone
-    private func checkDefault(adUnit: AdUnit) {
-        XCTAssertEqual(1, adUnit.adSizes.count)
-        XCTAssertEqual(Constants.configID1, adUnit.prebidConfigId)
-        XCTAssertNil(adUnit.dispatcher)
-    }
-    
-    private func checkVideoParametersHelper(_ videoBaseAdUnit: VideoBaseAdUnit) {
-        
         let parameters = VideoParameters()
         parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         parameters.maxBitrate = 1500
@@ -169,38 +144,27 @@ class AdUnitSuccessorTests: XCTestCase {
         parameters.protocols = [Signals.Protocols.VAST_2_0, Signals.Protocols.VAST_3_0]
         parameters.startDelay = Signals.StartDelay.PreRoll
         
-        videoBaseAdUnit.parameters = parameters
+        let videoAdUnit = InstreamVideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
+        videoAdUnit.videoParameters = parameters
         
-        //when
-        let videoParameters = videoBaseAdUnit.parameters
+        XCTAssert(videoAdUnit.videoParameters == parameters)
         
-        //then
-        guard let api = videoParameters.api,
-              let maxBitrate = videoParameters.maxBitrate,
-              let minBitrate = videoParameters.minBitrate,
-              let maxDuration = videoParameters.maxDuration,
-              let minDuration = videoParameters.minDuration,
-              let mimes = videoParameters.mimes,
-              let playbackMethod = videoParameters.playbackMethod,
-              let protocols = videoParameters.protocols,
-              let startDelay = videoParameters.startDelay else {
-            XCTFail("parsing fail")
-            return
-        }
+        let videoInterstitialAdUnit = InterstitialAdUnit(configId: Constants.configID1)
+        videoInterstitialAdUnit.adFormats = [.video]
+        videoInterstitialAdUnit.videoParameters = parameters
         
-        XCTAssertEqual(2, api.count)
-        XCTAssert(api.contains(1) && api.contains(2))
-        XCTAssertEqual(1500, maxBitrate)
-        XCTAssertEqual(300, minBitrate)
-        XCTAssertEqual(30, maxDuration)
-        XCTAssertEqual(5, minDuration)
-        XCTAssertEqual(2, mimes.count)
-        XCTAssert(mimes.contains("video/x-flv") && mimes.contains("video/mp4"))
-        XCTAssertEqual(2, playbackMethod.count)
-        XCTAssert(playbackMethod.contains(1) && playbackMethod.contains(3))
-        XCTAssertEqual(2, protocols.count)
-        XCTAssert(protocols.contains(2) && protocols.contains(3))
-        XCTAssertEqual(0, startDelay)
+        XCTAssert(videoInterstitialAdUnit.videoParameters == parameters)
+        
+        let rewardedVideoAdUnit = RewardedVideoAdUnit(configId: Constants.configID1)
+        rewardedVideoAdUnit.videoParameters = parameters
+        
+        XCTAssert(rewardedVideoAdUnit.videoParameters == parameters)
     }
-
+    
+    //MARK: - private zone
+    private func checkDefault(adUnit: AdUnit) {
+        XCTAssertEqual(1, adUnit.adSizes.count)
+        XCTAssertEqual(Constants.configID1, adUnit.prebidConfigId)
+        XCTAssertNil(adUnit.dispatcher)
+    }
 }

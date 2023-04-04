@@ -442,7 +442,9 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testDefaultVideoParameters_VideoBanner_OriginalAPI() {
-        let adUnit = VideoAdUnit(configId: "configId", size: CGSize(width: 300, height: 250))
+        let adUnit = BannerAdUnit(configId: "configId", size: CGSize(width: 300, height: 250))
+        adUnit.adFormats = [.video]
+        
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
         PBMAssertEq(bidRequest.imp.count, 1)
