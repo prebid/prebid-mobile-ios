@@ -24,6 +24,16 @@
 #import "PBMORTBSource.h"
 #import "PBMORTBUser.h"
 
+
+// 20230302 MB ozone change
+#import "PrebidMobileSwiftHeaders.h"
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
+
+
 @implementation PBMORTBBidRequest
 
 - (nonnull instancetype)init {
@@ -64,10 +74,22 @@
     ret[@"regs"] = [[self.regs toJsonDictionary] nullIfEmpty];
     ret[@"source"] = [[self.source toJsonDictionary] nullIfEmpty];
     
-    PBMMutableJsonDictionary * const ext = [PBMMutableJsonDictionary new];
-    ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
-    ret[@"ext"] = [[ext pbmCopyWithoutEmptyVals] nullIfEmpty];
-    
+    // was originally in the github code:
+    // PBMMutableJsonDictionary * const ext = [PBMMutableJsonDictionary new];
+    // ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
+    // ret[@"ext"] = [[ext pbmCopyWithoutEmptyVals] nullIfEmpty];
+
+    if(Prebid.shared.doInsertExtPrebid) {
+        PBMMutableJsonDictionary * const ext = [PBMMutableJsonDictionary new];
+        ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
+        ret[@"ext"] = [[ext pbmCopyWithoutEmptyVals] nullIfEmpty];
+    }
+    if(!ret[@"ext"]) {
+        ret[@"ext"] = [[NSMutableDictionary alloc] init];
+    }
+//    ret[@"ext"][@"ozone"] = Prebid.shared.extOzoneDict; // this is for ext.ozone - we're not adding this now
+
+
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;

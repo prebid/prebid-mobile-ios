@@ -49,6 +49,9 @@
     if (!(self = [super init])) {
         return nil;
     }
+    
+    NSLog(@"PBMBidRequester adUnitConfig = %@", adUnitConfiguration);
+    
     _connection = connection;
     _sdkConfiguration = sdkConfiguration;
     _targeting = targeting;
@@ -71,6 +74,7 @@
     self.completion = completion ?: ^(BidResponse *r, NSError *e) {};
     
     NSString * const requestString = [self getRTBRequest];
+    NSLog(@"request string is : %@", requestString);
            
     NSError * hostURLError = nil;
     NSString * const requestServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:&hostURLError];

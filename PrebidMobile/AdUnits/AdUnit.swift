@@ -379,4 +379,28 @@ import ObjectiveC.runtime
         }
         dispatcher.stop()
     }
+    
+    // MARK: ozone methods
+    /**
+     * set imp[].ext.ozone.AdUnitCode
+     */
+    public func ozoneSetImpAdUnitCode(code: String) {
+        adUnitConfig.ozoneAdUnitCode = code
+    }
+    public func ozoneGetImpAdUnitCode() -> String{
+        return adUnitConfig.ozoneAdUnitCode
+    }
+    /**
+     * set imp[].ext.ozone.customData
+     */
+    public func ozoneSetCustomDataTargeting(data: [AnyHashable: Any]) {
+        adUnitConfig.ozoneCustomDataTargeting = data
+    }
+    public func ozoneGetCustomDataTargeting() -> [AnyHashable: Any] {
+        return adUnitConfig.ozoneCustomDataTargeting ?? [:]
+    }
+    // NOTE that transactionId is set automatically
+
+    
+
 }

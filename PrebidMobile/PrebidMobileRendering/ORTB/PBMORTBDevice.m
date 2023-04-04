@@ -20,6 +20,17 @@
 
 #import "PBMORTBGeo.h"
 
+
+// 20230302 MB ozone change, allows us to pull data from Prebid.shared
+#import "PrebidMobileSwiftHeaders.h"
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
+
+
+
 @implementation PBMORTBDevice
 
 - (instancetype)init {
@@ -32,6 +43,8 @@
     
     return self;
 }
+
+
 
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
@@ -65,6 +78,10 @@
         ret[@"dpidmd5"] = self.dpidmd5;
         ret[@"macsha1"] = self.macsha1;
         ret[@"macmd5"] = self.macmd5;
+    }
+    // 20230301 ozone change
+    if (Prebid.shared.deviceIp) {
+        ret[@"ip"] = Prebid.shared.deviceIp;
     }
     
     PBMJsonDictionary * const extPrebidDic = [self.extPrebid toJsonDictionary];

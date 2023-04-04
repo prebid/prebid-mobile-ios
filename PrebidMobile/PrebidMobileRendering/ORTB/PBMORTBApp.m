@@ -20,6 +20,17 @@
 #import "PBMORTBAppExt.h"
 #import "PBMORTBAppContent.h"
 
+
+
+// 20230302 MB ozone change, allows us to pull data from Prebid.shared
+#import "PrebidMobileSwiftHeaders.h"
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
+
+
 @implementation PBMORTBApp
 
 - (nonnull instancetype )init {
@@ -35,6 +46,7 @@
     
     return self;
 }
+
 
 - (void)setCat:(NSArray<NSString *> *)cat {
     _cat = cat ? [NSArray arrayWithArray:cat] : @[];
@@ -53,7 +65,7 @@
     
     ret[@"id"] = self.id;
     ret[@"name"] = self.name;
-    ret[@"bundle"] = self.bundle;
+    ret[@"bundle"] = self.bundle; // the guys want app.bundle to be the appstore ID so call Targeting.shared.itunesID = "..." to set this
     ret[@"domain"] = self.domain;
     ret[@"storeurl"] = self.storeurl;
     ret[@"ver"] = self.ver;
@@ -63,6 +75,9 @@
     ret[@"publisher"] = [[self.publisher toJsonDictionary] nullIfEmpty];
     ret[@"content"] = [[self.content toJsonDictionary] nullIfEmpty];
     ret[@"ext"] = [[self.ext toJsonDictionary] nullIfEmpty];
+    if(Prebid.shared.ozoneAppPage) {
+        ret[@"ext"][@"page"] = Prebid.shared.ozoneAppPage;
+    }
     
     [ret pbmRemoveEmptyVals];
     

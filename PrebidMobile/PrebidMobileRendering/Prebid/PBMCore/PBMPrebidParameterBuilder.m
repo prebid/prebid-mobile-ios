@@ -162,6 +162,21 @@
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
         
+        /*
+         in adConfiguration:
+         public var ozoneAdUnitCode: String = "No adunit code set"
+         public var ozoneCustomData: [AnyHashable: Any]? = nil
+         public var ozoneTransactionId: String = UUID.init().uuidString
+         */
+        
+        nextImp.extOzoneData = [[NSMutableDictionary alloc] initWithDictionary:
+                                @{ @"adUnitCode": self.adConfiguration.ozoneAdUnitCode,
+                                   @"customData": @{
+                                      @"settings": @{},
+                                      @"targeting": self.adConfiguration.ozoneCustomDataTargeting},
+                                  @"transactionId": self.adConfiguration.ozoneTransactionId
+                                }];
+        
         if (self.adConfiguration.contextDataDictionary.count > 0) {
             nextImp.extContextData = self.adConfiguration.contextDataDictionary.mutableCopy;
         }

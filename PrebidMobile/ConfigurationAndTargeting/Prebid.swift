@@ -35,6 +35,43 @@ public class Prebid: NSObject {
     
     public var storedBidResponses: [String: String] = [:]
     
+    
+    // MARK: OZONE ADDITIONS; all ozone methods start `ozone....` so it's easy to find them in intellisense
+    
+    // MB 20230301 Ozone changes
+    /**
+     * set app.ext.page value
+     */
+    public func ozoneSetAppPage( url: String ) {
+        ozoneAppPage = url;
+    }
+    /**
+     * set device.ip
+     */
+    public func ozoneSetDeviceIp( ip: String ) {
+        deviceIp = ip;
+    }
+    /**
+     * Set the entire ext.ozone object at once
+     */
+    public func ozoneSetExtOzone(data: [AnyHashable: Any] ) {
+        extOzoneDict = data;
+    }
+    /**
+     * call this if you want to allow the code to insert the default ext.prebid object
+     */
+    public func ozoneIncludeExtPrebid() {
+        doInsertExtPrebid = true;
+    }
+    
+    @objc public var extOzoneDict:[AnyHashable: Any] = [:]
+    @objc public var doInsertExtPrebid: Bool = false
+    @objc public var ozoneAppPage: String? = nil
+    @objc public var deviceIp: String? = nil
+    
+    
+    // MARK: END OF OZONE
+    
     /**
      * This property is set by the developer when he is willing to assign the assetID for Native ad.
      **/
