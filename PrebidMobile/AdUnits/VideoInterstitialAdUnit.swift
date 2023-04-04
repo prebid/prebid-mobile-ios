@@ -15,6 +15,7 @@
 
 import UIKit
 
+@available(*, deprecated, message: "This class is deprecated.")
 public class VideoInterstitialAdUnit: VideoBaseAdUnit {
 
     public init(configId: String) {

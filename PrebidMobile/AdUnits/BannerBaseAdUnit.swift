@@ -12,19 +12,11 @@ limitations under the License.
 
 import Foundation
 
+@available(*, deprecated, message: "This class is deprecated.")
 public class BannerBaseAdUnit: AdUnit {
 
     public var parameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
         set { adUnitConfig.adConfiguration.bannerParameters = newValue }
-    }
-    
-    @available(*, deprecated, message: "This class is deprecated. Please, use BannerParameters instead.")
-    @objc(PBBannerAdUnitParameters)
-    public class Parameters: NSObject {
-        
-        /// List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
-        @objc
-        public var api: [Signals.Api]?
     }
 }
