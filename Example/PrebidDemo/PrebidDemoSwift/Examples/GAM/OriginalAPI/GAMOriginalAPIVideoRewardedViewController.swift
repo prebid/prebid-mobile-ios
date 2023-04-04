@@ -43,7 +43,7 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
         parameters.mimes = ["video/mp4"]
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        adUnit.parameters = parameters
+        adUnit.videoParameters = parameters
         
         // 3. Make a bid request to Prebid Server
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in

@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-class PrebidOriginalAPIVideoBannerController:
+class PrebidOriginalAPIBannerController:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
@@ -27,12 +27,14 @@ class PrebidOriginalAPIVideoBannerController:
     var prebidConfigId = ""
     var adUnitID = ""
     
+    var adFormats: Set<AdFormat> = [.display]
+    
     var refreshInterval: TimeInterval = 0
     var adSize = CGSize.zero
     var gamSizes = [GADAdSize]()
     
     // Prebid
-    private var adUnit: VideoAdUnit!
+    private var adUnit: BannerAdUnit!
     
     // GAM
     private var gamBanner: GAMBannerView!
@@ -69,8 +71,13 @@ class PrebidOriginalAPIVideoBannerController:
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        adUnit = VideoAdUnit(configId: prebidConfigId, size: adSize)
+        adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
         adUnit.setAutoRefreshMillis(time: refreshInterval)
+        adUnit.adFormats = adFormats
+        
+        if adFormats.contains(AdFormat.video) {
+            adUnit.videoParameters.mimes = ["video/mp4"]
+        }
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
@@ -109,7 +116,7 @@ class PrebidOriginalAPIVideoBannerController:
             
             adUnit?.addAppContentData([ortbAppContentData])
         }
-            
+        
         gamBanner = GAMBannerView(adSize: gamSizes.first ?? GADAdSizeFromCGSize(adSize))
         gamBanner.validAdSizes = gamSizes.map(NSValueFromGADAdSize)
         gamBanner.adUnitID = adUnitID
@@ -196,6 +203,8 @@ class PrebidOriginalAPIVideoBannerController:
         resetEvents()
         bannerViewDidFailToReceiveAd.isEnabled = true
         Log.error(error.localizedDescription)
+        
+        reloadButton.isEnabled = true
     }
     
     func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {

@@ -45,7 +45,7 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
     parameters.mimes = @[@"video/mp4"];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
-    self.adUnit.parameters = parameters;
+    self.adUnit.videoParameters = parameters;
     
     // 3. Make a bid request to Prebid Server
     GAMRequest * gamRequest = [GAMRequest new];

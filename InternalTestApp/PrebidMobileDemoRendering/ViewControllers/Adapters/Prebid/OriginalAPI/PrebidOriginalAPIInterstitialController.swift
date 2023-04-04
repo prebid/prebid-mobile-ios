@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-class PrebidOriginalAPIDisplayInterstitialController:
+class PrebidOriginalAPIInterstitialController:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
@@ -29,12 +29,15 @@ class PrebidOriginalAPIDisplayInterstitialController:
     
     var refreshInterval: TimeInterval = 0
     
+    var adFormats: Set<AdFormat> = [.display]
+    
     // Prebid
     private var adUnit: InterstitialAdUnit!
     
     // GAM
     private var gamInterstitial: GAMInterstitialAd!
     
+    private let adDidFailToLoadWithError = EventReportContainer()
     private let adDidFailToPresentFullScreenContentWithError = EventReportContainer()
     private let adDidRecordClick = EventReportContainer()
     private let adDidRecordImpression = EventReportContainer()
@@ -60,6 +63,11 @@ class PrebidOriginalAPIDisplayInterstitialController:
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         adUnit = InterstitialAdUnit(configId: prebidConfigId, minWidthPerc: 50, minHeightPerc: 70)
+        adUnit.adFormats = adFormats
+        
+        if adFormats.contains(AdFormat.video) {
+            adUnit.videoParameters.mimes = ["video/mp4"]
+        }
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
@@ -108,6 +116,7 @@ class PrebidOriginalAPIDisplayInterstitialController:
                 
                 if let error = error {
                     Log.error("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                    adDidFailToLoadWithError.isEnabled = true
                 } else if let ad = ad {
                     self.gamInterstitial = ad
                     self.gamInterstitial.fullScreenContentDelegate = self
@@ -136,6 +145,7 @@ class PrebidOriginalAPIDisplayInterstitialController:
     }
     
     private func setupActions() {
+        rootController?.setupAction(adDidFailToLoadWithError, "adDidFailToLoadWithError called")
         rootController?.setupAction(adDidFailToPresentFullScreenContentWithError, "adDidFailToPresentContent called")
         rootController?.setupAction(adDidRecordClick, "adDidRecordClick called")
         rootController?.setupAction(adDidRecordImpression, "adDidRecordImpression called")

@@ -23,7 +23,7 @@ fileprivate let gamAdUnitVideoBannerOriginal = "/21808260008/prebid-demo-origina
 class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
     
     // Prebid
-    private var adUnit: VideoAdUnit!
+    private var adUnit: BannerAdUnit!
     
     // GAM
     private var gamBanner: GAMBannerView!
@@ -35,18 +35,21 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
     }
     
     func createAd() {
-        // 1. Create a VideoAdUnit
-        adUnit = VideoAdUnit(configId: storedImpVideoBanner, size: adSize)
+        // 1. Create a BannerAdUnit
+        adUnit = BannerAdUnit(configId: storedImpVideoBanner, size: adSize)
         
-        // 2. Configure video parameters
+        // 2. Set ad format
+        adUnit.adFormats = [.video]
+        
+        // 3. Configure video parameters
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         parameters.placement = Signals.Placement.InBanner
-        adUnit.parameters = parameters
+        adUnit.videoParameters = parameters
         
-        // 3. Create a GAMBannerView
+        // 4. Create a GAMBannerView
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gamBanner.adUnitID = gamAdUnitVideoBannerOriginal
         gamBanner.rootViewController = self
@@ -56,12 +59,12 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
         bannerView.addSubview(gamBanner)
         bannerView.backgroundColor = .clear
         
-        // 4. Make a bid request to Prebid Server
+        // 5. Make a bid request to Prebid Server
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
-            // 5. Load GAM Ad
+            // 6. Load GAM Ad
             self?.gamBanner.load(gamRequest)
         }
     }

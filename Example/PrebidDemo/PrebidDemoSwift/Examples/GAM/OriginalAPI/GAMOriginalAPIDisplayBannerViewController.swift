@@ -42,7 +42,7 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
         // 2. Configure banner parameters
         let parameters = BannerParameters()
         parameters.api = [Signals.Api.MRAID_2]
-        adUnit.parameters = parameters
+        adUnit.bannerParameters = parameters
         
         // 3. Create a GAMBannerView
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))

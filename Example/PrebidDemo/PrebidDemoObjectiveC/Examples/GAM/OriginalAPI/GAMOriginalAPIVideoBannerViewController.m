@@ -25,7 +25,7 @@ NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-origi
 @interface GAMOriginalAPIVideoBannerViewController ()
 
 // Prebid
-@property (nonatomic) VideoAdUnit *adUnit;
+@property (nonatomic) BannerAdUnit *adUnit;
 
 // GAM
 @property (nonatomic) GAMBannerView *gamBanner;
@@ -41,18 +41,21 @@ NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-origi
 }
 
 - (void)createAd {
-    // 1. Create a VideoAdUnit
-    self.adUnit = [[VideoAdUnit alloc] initWithConfigId:storedImpVideoBanner size:self.adSize];
+    // 1. Create a BannerAdUnit
+    self.adUnit = [[BannerAdUnit alloc] initWithConfigId:storedImpVideoBanner size:self.adSize];
     
-    // 2. Configure video parameters
+    // 2. Set ad format
+    self.adUnit.adFormats = [NSSet setWithObject:AdFormat.video];
+    
+    // 3. Configure video parameters
     VideoParameters * parameters = [[VideoParameters alloc] init];
     parameters.mimes = @[@"video/mp4"];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
     parameters.placement = PBPlacement.InBanner;
-    self.adUnit.parameters = parameters;
+    self.adUnit.videoParameters = parameters;
     
-    // 3. Create a GAMBannerView
+    // 4. Create a GAMBannerView
     GAMRequest * gamRequest = [GAMRequest new];
     self.gamBanner = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(self.adSize)];
     self.gamBanner.adUnitID = gamAdUnitVideoBannerOriginal;
@@ -63,13 +66,13 @@ NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-origi
     self.bannerView.backgroundColor = [UIColor clearColor];
     [self.bannerView addSubview:self.gamBanner];
     
-    // 4. Make a bid request to Prebid Server
+    // 5. Make a bid request to Prebid Server
     @weakify(self);
     [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         
-        // 5. Load GAM Ad
+        // 6. Load GAM Ad
         [self.gamBanner loadRequest:gamRequest];
     }];
 }
