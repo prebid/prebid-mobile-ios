@@ -1,0 +1,132 @@
+
+<VAST version="2.0">
+    <Ad id="540069345">
+        <InLine>
+            <AdSystem version="1.0">OpenX Enterprise</AdSystem>
+            <AdTitle/>
+            <Impression>
+                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/ri?ph=a51065ab-17ee-4394-b5a7-32debc04780a&ts=2DAABBgABAAECAAIBAAsAAgAAAKccGApKQ1FxdDRHakxHHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbagLLYz9PUldABFo3u7eWbpJrrvQEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWvreGgwQVDDaut4aDBBbk-qGABNasAgAcJub6oYAEFryouoAEFtK9hoMEFsa9hoMEFQgcFPQDFNgEABUEFQIWrAImrAIhJQIAAAA&vtqe=false ]]>
+            </Impression>
+            <Impression>
+                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/ri?ph=a51065ab-17ee-4394-b5a7-32debc04780a&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA&vtqe=false ]]>
+            </Impression>
+            <Error>
+                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=error_vast2_[ERRORCODE]&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+            </Error>
+            <Error>
+                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=error_vast2_[ERRORCODE]&ts=2DAABBgABAAECAAIBAAsAAgAAAKccGApKQ1FxdDRHakxHHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbagLLYz9PUldABFo3u7eWbpJrrvQEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWvreGgwQVDDaut4aDBBbk-qGABNasAgAcJub6oYAEFryouoAEFtK9hoMEFsa9hoMEFQgcFPQDFNgEABUEFQIWrAImrAIhJQIAAAA ]]>
+            </Error>
+            <Creatives>
+                <Creative id="540069340">
+                    <Linear>
+                        <Duration>00:00:15</Duration>
+                        <TrackingEvents>
+                            <Tracking event="creativeView">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=creativeView&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="start">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=start&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="midpoint">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=midpoint&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="firstQuartile">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=firstQuartile&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="thirdQuartile">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=thirdQuartile&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="complete">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=complete&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="mute">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=mute&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="unmute">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=unmute&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="pause">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=pause&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="rewind">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=rewind&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="resume">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=resume&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="fullscreen">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=fullscreen&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="expand">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=expand&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="collapse">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=collapse&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="acceptInvitation">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=acceptInvitation&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                            <Tracking event="close">
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=close&ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickThrough>
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rc?ts=2DAABBgABAAECAAIBAAsAAgAAAKgcGAp3eHMzRkNZbzVsHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbAgKLeuqO0vcIBFqn0x76pnJyXuAEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWuLeGgwQVBhUCJq63hoMEFuT6oYAE1qwCABwm5vqhgAQWvKi6gAQWyL2GgwQWxr2GgwQVBhwU2AQUoAYAFQQVAhasAiasAkUCAAAA ]]>
+                            </ClickThrough>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile delivery="streaming" height="480" id="539733616" type="video/mp4" width="320">
+                                <![CDATA[ https://prebid-mobile-ad-assets.s3.amazonaws.com/video/Pbs_video_rewarded_320x480.mp4 ]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+                <Creative id="540069343">
+                    <CompanionAds>
+                        <Companion height="480" id="540069737" width="320">
+                            <TrackingEvents>
+                                <Tracking event="creativeView">
+                                    <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=creativeView&ts=2DAABBgABAAECAAIBAAsAAgAAAKccGApKQ1FxdDRHakxHHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbagLLYz9PUldABFo3u7eWbpJrrvQEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWvreGgwQVDDaut4aDBBbk-qGABNasAgAcJub6oYAEFryouoAEFtK9hoMEFsa9hoMEFQgcFPQDFNgEABUEFQIWrAImrAIhJQIAAAA ]]>
+                                </Tracking>
+                            </TrackingEvents>
+                            <HTMLResource creativeType="text/html">
+                                <![CDATA[ <a href="https://www.openx.com/"><img src="https://prebid-mobile-ad-assets.s3.amazonaws.com/interstitial/Pbs_intestitial_320x480.png" width="320" height="480"></img></a> ]]>
+                            </HTMLResource>
+                            <CompanionClickThrough>
+                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rc?ts=2DAABBgABAAECAAIBAAsAAgAAAKccGApKQ1FxdDRHakxHHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbagLLYz9PUldABFo3u7eWbpJrrvQEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWvreGgwQVDDaut4aDBBbk-qGABNasAgAcJub6oYAEFryouoAEFtK9hoMEFsa9hoMEFQgcFPQDFNgEABUEFQIWrAImrAIhJQIAAAA ]]>
+                            </CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="AdVerifications">
+                    <AdVerifications>
+                        <Verification vendor="iabtechlab.com-omid">
+                            <JavaScriptResource apiFramework="omid" browserOptional="true">
+                                <![CDATA[ https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js ]]>
+                            </JavaScriptResource>
+                            <TrackingEvents>
+                                <Tracking event="verificationNotExecuted">
+                                    <![CDATA[ ]]>
+                                </Tracking>
+                            </TrackingEvents>
+                            <VerificationParameters>
+                                <![CDATA[ "iabtechlab-openx" ]]>
+                            </VerificationParameters>
+                        </Verification>
+                        <Verification vendor="moat.com-openxvideo114183407631">
+                            <JavaScriptResource apiFramework="omid" browserOptional="true">
+                                <![CDATA[ https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/moatvideo.js ]]>
+                            </JavaScriptResource>
+                            <VerificationParameters>
+                                <![CDATA[ {"moatClientSlicer2": "537185865", "zMoatOX3TRANS": "OX3TRANS", "moatClientSlicer1": "openx-test-mobile-publisher", "moatClientLevel1": "openx-test-mobile-advertiser", "zMoatADID": "540397906", "zMoatTAGID": "TAGID", "zMoatSlicer3": "540397906", "zMoatOX3TRANSTIME": "OX3TRANSTIME", "zMoatBUID": "Bundle ID"} ]]>
+                            </VerificationParameters>
+                        </Verification>
+                    </AdVerifications>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+</VAST>
