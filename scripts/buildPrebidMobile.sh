@@ -123,11 +123,12 @@ do
 	# find all .bcsymbolmap and concatinate -debug-symbols
 	debugSymbolsBcsymbolmap=""
 
+	bcsymbolmapsFileName=$([ -d "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}.xcarchive/BCSymbolMaps" ] &&  find "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}.xcarchive/BCSymbolMaps" -name "*.bcsymbolmap")
 	while read bcsymbolmapsFileName
 	do
 	    # echo "BCSymbolMap: '$bcsymbolmapsFileName'"
 	    debugSymbolsBcsymbolmap="$debugSymbolsBcsymbolmap -debug-symbols \"$bcsymbolmapsFileName\""
-	done < <(find "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}.xcarchive/BCSymbolMaps" -name "*.bcsymbolmap")
+	done
 
 	# echo "debugSymbolsBcsymbolmap: '$debugSymbolsBcsymbolmap'"
 
