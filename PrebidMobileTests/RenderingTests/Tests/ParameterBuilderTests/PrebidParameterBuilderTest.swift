@@ -698,6 +698,17 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual($0.video?.linearity, 1)
         }
     }
+    
+    func testIncludeFormatOnMultiformatAdUnit() {
+        var adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
+        adUnit.adUnitConfig.adFormats = [.display]
+        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        XCTAssertNil(bidRequest.extPrebid.targeting["includeformat"])
+        
+        adUnit.adUnitConfig.adFormats = [.display, .video]
+        bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        XCTAssert(bidRequest.extPrebid.targeting["includeformat"] as! Bool == true)
+    }
 
     // MARK: - Helpers
     
