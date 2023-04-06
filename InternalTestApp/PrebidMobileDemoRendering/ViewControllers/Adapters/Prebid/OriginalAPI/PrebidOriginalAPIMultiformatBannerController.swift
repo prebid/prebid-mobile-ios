@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-class PrebidOriginalAPIBannerController:
+class PrebidOriginalAPIMultiformatBannerController:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
