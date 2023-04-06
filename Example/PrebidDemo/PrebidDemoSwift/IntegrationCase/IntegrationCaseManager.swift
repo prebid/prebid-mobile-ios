@@ -46,7 +46,7 @@ struct IntegrationCaseManager {
         IntegrationCase(
             title: "GAM (Original API) Multiformat Banner 300x250",
             integrationKind: .gamOriginal,
-            adFormat: .videoBanner,
+            adFormat: .multiformatBanner,
             configurationClosure: {
                 GAMOriginalAPIMultiformatBannerViewController(adSize: CGSize(width: 300, height: 250))
             }
@@ -73,7 +73,7 @@ struct IntegrationCaseManager {
         IntegrationCase(
             title: "GAM (Original API) Multiformat Interstitial 320x480",
             integrationKind: .gamOriginal,
-            adFormat: .videoInterstitial,
+            adFormat: .multiformatInterstitial,
             configurationClosure: {
                 GAMOriginalAPIMultiformatInterstitialViewController()
             }
