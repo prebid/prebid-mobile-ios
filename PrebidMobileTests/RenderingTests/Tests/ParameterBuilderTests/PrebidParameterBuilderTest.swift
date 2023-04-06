@@ -655,7 +655,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
         adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
 
-        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
         bidRequest.imp.forEach {
             XCTAssertEqual($0.banner?.api, [3, 5, 6, 7, 4, 1, 2, 4])
@@ -682,7 +682,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
         adUnit.adUnitConfig.adConfiguration.videoParameters = videoParamters
 
-        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
         bidRequest.imp.forEach {
             XCTAssertEqual($0.video?.api, [3, 5, 6, 7, 4, 1, 2, 4])
@@ -700,7 +700,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testIncludeFormatOnMultiformatAdUnit() {
-        var adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
         adUnit.adUnitConfig.adFormats = [.display]
         var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         XCTAssertNil(bidRequest.extPrebid.targeting["includeformat"])
