@@ -46,11 +46,14 @@ class AdMobVideoInterstitialViewController: InterstitialBaseViewController, GADF
         // 3. Create a MediationInterstitialAdUnit
         admobAdUnit = MediationInterstitialAdUnit(configId: storedImpVideoInterstitial, mediationDelegate: mediationDelegate!)
         
-        // 4. Make a bid request to Prebid Server
+        // 4. Set ad format
+        admobAdUnit?.adFormats = [.video]
+        
+        // 5. Make a bid request to Prebid Server
         admobAdUnit?.fetchDemand(completion: { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
             
-            // 5. Load the interstitial ad
+            // 6. Load the interstitial ad
             GADInterstitialAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: gadRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 
@@ -59,7 +62,7 @@ class AdMobVideoInterstitialViewController: InterstitialBaseViewController, GADF
                     return
                 }
                 
-                // 6. Present the interstitial ad
+                // 7. Present the interstitial ad
                 self.interstitial = ad
                 self.interstitial?.fullScreenContentDelegate = self
                 self.interstitial?.present(fromRootViewController: self)
