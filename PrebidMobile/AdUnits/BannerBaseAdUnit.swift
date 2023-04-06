@@ -19,6 +19,7 @@ public protocol BannerBasedAdUnitProtocol {
 @available(*, deprecated, message: "This class is deprecated.")
 public class BannerBaseAdUnit: AdUnit {
 
+    @available(*, deprecated, message: "This property is deprecated. Please, use bannerParameters instead.")
     public var parameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
         set { adUnitConfig.adConfiguration.bannerParameters = newValue }

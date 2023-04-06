@@ -22,6 +22,7 @@ public protocol VideoBasedAdUnitProtocol {
 @available(*, deprecated, message: "This class is deprecated.")
 public class VideoBaseAdUnit: AdUnit {
 
+    @available(*, deprecated, message: "This property is deprecated. Please, use videoParameters instead.")
     public var parameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
         set { adUnitConfig.adConfiguration.videoParameters = newValue }

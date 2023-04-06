@@ -16,7 +16,7 @@
 import UIKit
 
 @objcMembers
-public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitProtocol {
+public class InterstitialAdUnit: BannerBaseAdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitProtocol {
     
     public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
