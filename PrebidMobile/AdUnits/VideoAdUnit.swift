@@ -15,7 +15,7 @@
 
 import UIKit
 
-@available(*, deprecated, message: "This class is deprecated.")
+@available(*, deprecated, message: "This class is deprecated. Please, use BannerAdUnit with video adFormat.")
 public class VideoAdUnit: VideoBaseAdUnit {
     
     public init(configId: String, size: CGSize) {
