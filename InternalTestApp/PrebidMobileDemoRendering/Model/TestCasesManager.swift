@@ -462,7 +462,7 @@ struct TestCaseManager {
                 let interstitialController = PrebidOriginalAPIInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display, .video]
                          
-                let configIds = ["imp-prebid-display-interstitial-320-480"]
+                let configIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480-original-api"]
                 interstitialController.prebidConfigId = configIds.randomElement()!
                 interstitialController.adUnitID = "/21808260008/prebid-demo-intestitial-multiformat"
                          
