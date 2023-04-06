@@ -1,23 +1,23 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 import XCTest
 @testable import PrebidMobile
 
 class AdUnitSuccessorTests: XCTestCase {
-
+    
     let configId = Constants.configID1
     
     override func tearDown() {
@@ -31,11 +31,11 @@ class AdUnitSuccessorTests: XCTestCase {
     func testBannerAdUnitCreation() {
         //when
         let adUnit = BannerAdUnit(configId: configId, size: CGSize(width: Constants.width2, height: Constants.height2))
-
+        
         //then
         checkDefault(adUnit: adUnit)
     }
-
+    
     func testBannerAdUnitAddSize() {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
         adUnit.adSizes = [CGSize(width: Constants.width1, height: Constants.height1), CGSize(width: Constants.width2, height: Constants.height2)]
@@ -43,27 +43,12 @@ class AdUnitSuccessorTests: XCTestCase {
     }
     
     func testBannerParametersCreation() {
-
         //given
         let bannerAdUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        let interstitialAdUnit = InterstitialAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45")
         
-        let parameters = BannerParameters()
-        parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
-        
-        bannerAdUnit.bannerParameters = parameters
-        
-        //when
-        let testedBannerParameters = bannerAdUnit.bannerParameters
-        
-        //then
-        guard let api = testedBannerParameters.api else {
-            XCTFail("parsing fail")
-            return
-        }
-        
-        XCTAssertEqual(2, api.count)
-        XCTAssert(api.contains(1) && api.contains(2))
-
+        let bannerBasedAdUnits: [BannerBasedAdUnitProtocol] = [bannerAdUnit, interstitialAdUnit]
+        bannerBasedAdUnits.forEach { checkBannerParametersHelper($0) }
     }
     
     //MARK: - InterstitialAdUnit
@@ -133,6 +118,30 @@ class AdUnitSuccessorTests: XCTestCase {
     //MARK: - VideoBaseAdUnit
     func testVideoParametersCreation() {
         //given
+        let videoAdUnit = InstreamVideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
+        
+        let videoInterstitialAdUnit = InterstitialAdUnit(configId: Constants.configID1)
+        videoInterstitialAdUnit.adFormats = [.video]
+        
+        let rewardedVideoAdUnit = RewardedVideoAdUnit(configId: Constants.configID1)
+        
+        let videoBaseAdUnitArr: [VideoBasedAdUnitProtocol] = [videoAdUnit, videoInterstitialAdUnit, rewardedVideoAdUnit]
+        
+        for videoBaseAdUnit in videoBaseAdUnitArr {
+            checkVideoParametersHelper(videoBaseAdUnit)
+        }
+    }
+    
+    //MARK: - private zone
+    private func checkDefault(adUnit: AdUnit) {
+        XCTAssertEqual(1, adUnit.adSizes.count)
+        XCTAssertEqual(Constants.configID1, adUnit.prebidConfigId)
+        XCTAssertNil(adUnit.dispatcher)
+    }
+    
+    private func checkVideoParametersHelper(_ videoBaseAdUnit: VideoBasedAdUnitProtocol) {
+        var adUnit = videoBaseAdUnit
+        
         let parameters = VideoParameters()
         parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         parameters.maxBitrate = 1500
@@ -144,27 +153,60 @@ class AdUnitSuccessorTests: XCTestCase {
         parameters.protocols = [Signals.Protocols.VAST_2_0, Signals.Protocols.VAST_3_0]
         parameters.startDelay = Signals.StartDelay.PreRoll
         
-        let videoAdUnit = InstreamVideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
-        videoAdUnit.videoParameters = parameters
+        adUnit.videoParameters = parameters
         
-        XCTAssert(videoAdUnit.videoParameters == parameters)
+        //when
+        let videoParameters = videoBaseAdUnit.videoParameters
         
-        let videoInterstitialAdUnit = InterstitialAdUnit(configId: Constants.configID1)
-        videoInterstitialAdUnit.adFormats = [.video]
-        videoInterstitialAdUnit.videoParameters = parameters
+        //then
+        guard let api = videoParameters.api,
+              let maxBitrate = videoParameters.maxBitrate,
+              let minBitrate = videoParameters.minBitrate,
+              let maxDuration = videoParameters.maxDuration,
+              let minDuration = videoParameters.minDuration,
+              let mimes = videoParameters.mimes,
+              let playbackMethod = videoParameters.playbackMethod,
+              let protocols = videoParameters.protocols,
+              let startDelay = videoParameters.startDelay else {
+            XCTFail("parsing fail")
+            return
+        }
         
-        XCTAssert(videoInterstitialAdUnit.videoParameters == parameters)
-        
-        let rewardedVideoAdUnit = RewardedVideoAdUnit(configId: Constants.configID1)
-        rewardedVideoAdUnit.videoParameters = parameters
-        
-        XCTAssert(rewardedVideoAdUnit.videoParameters == parameters)
+        XCTAssertEqual(2, api.count)
+        XCTAssert(api.contains(1) && api.contains(2))
+        XCTAssertEqual(1500, maxBitrate)
+        XCTAssertEqual(300, minBitrate)
+        XCTAssertEqual(30, maxDuration)
+        XCTAssertEqual(5, minDuration)
+        XCTAssertEqual(2, mimes.count)
+        XCTAssert(mimes.contains("video/x-flv") && mimes.contains("video/mp4"))
+        XCTAssertEqual(2, playbackMethod.count)
+        XCTAssert(playbackMethod.contains(1) && playbackMethod.contains(3))
+        XCTAssertEqual(2, protocols.count)
+        XCTAssert(protocols.contains(2) && protocols.contains(3))
+        XCTAssertEqual(0, startDelay)
     }
     
-    //MARK: - private zone
-    private func checkDefault(adUnit: AdUnit) {
-        XCTAssertEqual(1, adUnit.adSizes.count)
-        XCTAssertEqual(Constants.configID1, adUnit.prebidConfigId)
-        XCTAssertNil(adUnit.dispatcher)
+    private func checkBannerParametersHelper(_ bannerBasedAdUnit: BannerBasedAdUnitProtocol) {
+        
+        var adUnit = bannerBasedAdUnit
+        
+        let parameters = BannerParameters()
+        parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
+        
+        adUnit.bannerParameters = parameters
+        
+        //when
+        let testedBannerParameters = adUnit.bannerParameters
+        
+        //then
+        guard let api = testedBannerParameters.api else {
+            XCTFail("parsing fail")
+            return
+        }
+        
+        XCTAssertEqual(2, api.count)
+        XCTAssert(api.contains(1) && api.contains(2))
     }
+    
 }

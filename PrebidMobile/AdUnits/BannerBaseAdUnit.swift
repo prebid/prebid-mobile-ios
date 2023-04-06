@@ -12,6 +12,10 @@ limitations under the License.
 
 import Foundation
 
+public protocol BannerBasedAdUnitProtocol {
+    var bannerParameters: BannerParameters { get set }
+}
+
 @available(*, deprecated, message: "This class is deprecated.")
 public class BannerBaseAdUnit: AdUnit {
 

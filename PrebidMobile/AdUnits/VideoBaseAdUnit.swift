@@ -15,6 +15,10 @@ limitations under the License.
 
 import UIKit
 
+public protocol VideoBasedAdUnitProtocol {
+    var videoParameters: VideoParameters { get set }
+}
+
 @available(*, deprecated, message: "This class is deprecated.")
 public class VideoBaseAdUnit: AdUnit {
 

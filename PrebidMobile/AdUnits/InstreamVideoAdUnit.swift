@@ -16,7 +16,7 @@
 import UIKit
 
 @objcMembers
-public class InstreamVideoAdUnit: AdUnit {
+public class InstreamVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
     
     public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }

@@ -16,7 +16,7 @@ limitations under the License.
 import UIKit
 
 @objcMembers
-public class RewardedVideoAdUnit: AdUnit {
+public class RewardedVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
     
     public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
