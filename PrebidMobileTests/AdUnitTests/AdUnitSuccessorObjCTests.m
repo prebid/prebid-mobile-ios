@@ -67,10 +67,16 @@ NSString * const configId = @"1001-1";
     XCTAssertNotNil(adunit);
 }
 
-//MARK: - InstreamVideoAdUnit
+//MARK: - VideoAdUnit
+- (void)testVideoAdUnitCreation {
+    //when
+    AdUnit *adunit = [[VideoAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250)];
+    XCTAssertNotNil(adunit);
+}
+
 - (void)testInstreamVideoAdUnitCreation {
     //when
-    AdUnit *adunit = [[InstreamVideoAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250)];
+    AdUnit *adunit = [[VideoAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250)];
     XCTAssertNotNil(adunit);
 }
 

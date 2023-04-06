@@ -85,17 +85,30 @@ class AdUnitSuccessorTests: XCTestCase {
         checkDefault(adUnit: adUnit)
     }
     
+    //MARK: - VideoAdUnit
+    func testVideoAdUnitCreation() {
+        //when
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
+        
+        //then
+        checkDefault(adUnit: adUnit)
+    }
+    
     //MARK: - VideoInterstitialAdUnit
     func testVideoInterstitialAdUnitCreation() {
         //when
-        let adUnit = InterstitialAdUnit(configId: Constants.configID1)
-        adUnit.adFormats = [.video]
+        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
         
         //then
         checkDefault(adUnit: adUnit)
         XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
         XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
         XCTAssertTrue(adUnit.adUnitConfig.adFormats == [.video])
+    }
+    
+    func testVideoInterstitialAdUnitConvenienceCreation() {
+        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
+        XCTAssertTrue(adUnit.adUnitConfig.minSizePerc?.cgSizeValue.width == 50 && adUnit.adUnitConfig.minSizePerc?.cgSizeValue.height == 70)
     }
     
     //MARK: - RewardedVideoAdUnit
