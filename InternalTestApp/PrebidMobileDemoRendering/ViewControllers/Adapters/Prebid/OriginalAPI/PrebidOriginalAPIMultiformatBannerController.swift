@@ -27,8 +27,6 @@ class PrebidOriginalAPIMultiformatBannerController:
     var prebidConfigId = ""
     var adUnitID = ""
     
-    var adFormats: Set<AdFormat> = [.display]
-    
     var refreshInterval: TimeInterval = 0
     var adSize = CGSize.zero
     var gamSizes = [GADAdSize]()
@@ -73,11 +71,9 @@ class PrebidOriginalAPIMultiformatBannerController:
         
         adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
         adUnit.setAutoRefreshMillis(time: refreshInterval)
-        adUnit.adFormats = adFormats
+        adUnit.adFormats = [.display, .video]
         
-        if adFormats.contains(AdFormat.video) {
-            adUnit.videoParameters.mimes = ["video/mp4"]
-        }
+        adUnit.videoParameters.mimes = ["video/mp4"]
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

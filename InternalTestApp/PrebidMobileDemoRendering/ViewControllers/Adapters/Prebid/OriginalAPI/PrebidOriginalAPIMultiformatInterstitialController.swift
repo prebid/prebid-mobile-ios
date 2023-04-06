@@ -29,8 +29,6 @@ class PrebidOriginalAPIMultiformatInterstitialController:
     
     var refreshInterval: TimeInterval = 0
     
-    var adFormats: Set<AdFormat> = [.display]
-    
     // Prebid
     private var adUnit: InterstitialAdUnit!
     
@@ -63,11 +61,9 @@ class PrebidOriginalAPIMultiformatInterstitialController:
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         adUnit = InterstitialAdUnit(configId: prebidConfigId, minWidthPerc: 50, minHeightPerc: 70)
-        adUnit.adFormats = adFormats
+        adUnit.adFormats = [.display, .video]
         
-        if adFormats.contains(AdFormat.video) {
-            adUnit.videoParameters.mimes = ["video/mp4"]
-        }
+        adUnit.videoParameters.mimes = ["video/mp4"]
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

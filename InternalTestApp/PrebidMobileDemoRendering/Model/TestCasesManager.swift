@@ -370,7 +370,7 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner Multiformat (GAM Original) [OK, PUC]",
+            TestCase(title: "Multiformat Banner (GAM Original) [OK, PUC]",
                      tags: [.banner, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -381,7 +381,6 @@ struct TestCaseManager {
                 
                 let bannerController = PrebidOriginalAPIMultiformatBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 300, height: 250)
-                bannerController.adFormats = [.display, .video]
                     
                 let configIds = ["imp-prebid-banner-300-250", "imp-prebid-video-outstream-original-api"]
                 bannerController.prebidConfigId = configIds.randomElement()!
@@ -448,7 +447,7 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Interstitial Multiformat 320x480 (GAM Original) [OK, PUC]",
+            TestCase(title: "Multiformat Interstitial 320x480 (GAM Original) [OK, PUC]",
                      tags: [.interstitial, .originalAPI, .server, .video],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -458,7 +457,6 @@ struct TestCaseManager {
                 }
                          
                 let interstitialController = PrebidOriginalAPIMultiformatInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.display, .video]
                          
                 let configIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480-original-api"]
                 interstitialController.prebidConfigId = configIds.randomElement()!
