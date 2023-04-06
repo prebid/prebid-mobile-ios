@@ -81,6 +81,10 @@
         bidRequest.extPrebid.cache = cache;
     }
     
+    if (adFormats.count >= 2) {
+        bidRequest.extPrebid.targeting[@"includeformat"] = [[NSNumber alloc] initWithBool:YES];
+    }
+    
     bidRequest.app.publisher.publisherID        = self.sdkConfiguration.prebidServerAccountId;
     bidRequest.app.ver          = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
     bidRequest.device.pxratio   = @([UIScreen mainScreen].scale);
