@@ -231,7 +231,7 @@
 		5BC37942271F1D0000444D5E /* PBMDeviceAccessManagerKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E5271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.m */; };
 		5BC37943271F1D0000444D5E /* PBMDeepLinkPlusHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E6271F1CFE00444D5E /* PBMDeepLinkPlusHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37945271F1D0000444D5E /* PBMMRAIDConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E8271F1CFE00444D5E /* PBMMRAIDConstants.h */; };
-		5BC37946271F1D0000444D5E /* companion.html in Resources */ = {isa = PBXBuildFile; fileRef = 5BC376EA271F1CFE00444D5E /* companion.html */; };
+		5BC37947271F1D0000444D5E /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 5BC376EB271F1CFE00444D5E /* mraid.js */; };
 		5BC37949271F1D0000444D5E /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BC376ED271F1CFE00444D5E /* images.xcassets */; };
 		5BC3794A271F1D0000444D5E /* PBMAdDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376EF271F1CFE00444D5E /* PBMAdDetails.m */; };
 		5BC3794B271F1D0000444D5E /* PBMAdDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376F0271F1CFE00444D5E /* PBMAdDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1068,7 +1068,7 @@
 		5BC376E5271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeviceAccessManagerKeys.m; sourceTree = "<group>"; };
 		5BC376E6271F1CFE00444D5E /* PBMDeepLinkPlusHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDeepLinkPlusHelper.h; sourceTree = "<group>"; };
 		5BC376E8271F1CFE00444D5E /* PBMMRAIDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMMRAIDConstants.h; sourceTree = "<group>"; };
-		5BC376EA271F1CFE00444D5E /* companion.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = companion.html; sourceTree = "<group>"; };
+		5BC376EB271F1CFE00444D5E /* mraid.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mraid.js; sourceTree = "<group>"; };
 		5BC376ED271F1CFE00444D5E /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		5BC376EF271F1CFE00444D5E /* PBMAdDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMAdDetails.m; sourceTree = "<group>"; };
 		5BC376F0271F1CFE00444D5E /* PBMAdDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMAdDetails.h; sourceTree = "<group>"; };
@@ -2070,7 +2070,8 @@
 		5BC376E9271F1CFE00444D5E /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				5BC376EA271F1CFE00444D5E /* companion.html */,
+				5339554E283E23BA00DA1DCD /* omsdk.js */,
+				5BC376EB271F1CFE00444D5E /* mraid.js */,
 				5BC376ED271F1CFE00444D5E /* images.xcassets */,
 			);
 			path = Assets;
@@ -3622,9 +3623,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BC37949271F1D0000444D5E /* images.xcassets in Resources */,
-				53D0ADFD2A0CF59400DB13F0 /* omsdk.js in Resources */,
-				53D0ADFC2A0CF59400DB13F0 /* mraid.js in Resources */,
-				5BC37946271F1D0000444D5E /* companion.html in Resources */,
+				5339554F283E23BA00DA1DCD /* omsdk.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
