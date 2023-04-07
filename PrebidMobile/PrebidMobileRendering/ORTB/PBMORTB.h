@@ -40,5 +40,6 @@
 #import "PBMORTBSourceExtOMID.h"
 #import "PBMORTBUser.h"
 #import "PBMORTBVideo.h"
+#import "PBMORTBData.h"
 
 #endif /* PBMORTB_h */

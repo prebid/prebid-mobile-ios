@@ -22,6 +22,7 @@
 @class PBMORTBRegs;
 @class PBMORTBSource;
 @class PBMORTBUser;
+@class PBMORTBData;
 
 //This file holds the structure for an ORTB 2.5 Bid Request Object
 //https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf
@@ -129,6 +130,9 @@ NS_ASSUME_NONNULL_BEGIN
 //A Regs object (Section 3.2.3) that specifies any industry, legal,
 //or governmental regulations in force for this request.
 @property (nonatomic, strong) PBMORTBRegs *regs;
+
+//Provide specific behavior intent like plugin_renderers
+@property (nonatomic, strong) PBMORTBData *data;
 
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext object not supported.

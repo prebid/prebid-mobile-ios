@@ -23,6 +23,7 @@
 #import "PBMORTBRegs.h"
 #import "PBMORTBSource.h"
 #import "PBMORTBUser.h"
+#import "PBMORTBData.h"
 
 @implementation PBMORTBBidRequest
 
@@ -37,6 +38,7 @@
     _user = [PBMORTBUser new];
     _regs = [PBMORTBRegs new];
     _source = [PBMORTBSource new];
+    _data = [PBMORTBData new];
     _extPrebid = [PBMORTBBidRequestExtPrebid new];
     
     return self;
@@ -63,6 +65,7 @@
     ret[@"tmax"] = self.tmax;
     ret[@"regs"] = [[self.regs toJsonDictionary] nullIfEmpty];
     ret[@"source"] = [[self.source toJsonDictionary] nullIfEmpty];
+    ret[@"data"] = [[self.data toJsonDictionary] nullIfEmpty];
     
     PBMMutableJsonDictionary * const ext = [PBMMutableJsonDictionary new];
     ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
@@ -95,6 +98,7 @@
     _tmax = jsonDictionary[@"tmax"];
     _regs = [[PBMORTBRegs alloc] initWithJsonDictionary:jsonDictionary[@"regs"]];
     _source = [[PBMORTBSource alloc] initWithJsonDictionary:jsonDictionary[@"source"]];
+    _data = [[PBMORTBData alloc] initWithJsonDictionary:jsonDictionary[@"data"]];
     
     _extPrebid = [[PBMORTBBidRequestExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"] ?: @{}];
     
