@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Build Frameworks
-          command: scripts/buildPrebidMobile.sh -b no
+          command: scripts/buildPrebidMobile.sh
 
   unit-test:
     macos:
