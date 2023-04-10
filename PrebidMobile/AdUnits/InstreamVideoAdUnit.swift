@@ -15,7 +15,6 @@
 
 import UIKit
 
-@objcMembers
 public class InstreamVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
     
     public var videoParameters: VideoParameters {
