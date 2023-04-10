@@ -19,7 +19,7 @@ import UIKit
     var videoParameters: VideoParameters { get set }
 }
 
-@available(*, deprecated, message: "This class is deprecated.")
+@available(*, deprecated, message: "This class is deprecated. Please, use BannerAdUnit or InterstitialAdUnit with video ad format or RewardedVideoAdUnit, or InstreamVideoAdUnit.")
 public class VideoBaseAdUnit: AdUnit {
 
     @available(*, deprecated, message: "This property is deprecated. Please, use videoParameters instead.")

@@ -16,7 +16,7 @@ import Foundation
     var bannerParameters: BannerParameters { get set }
 }
 
-@available(*, deprecated, message: "This class is deprecated.")
+@available(*, deprecated, message: "This class is deprecated. Please, use BannerAdUnit or InterstitialAdUnit with display ad format.")
 public class BannerBaseAdUnit: AdUnit {
 
     @available(*, deprecated, message: "This property is deprecated. Please, use bannerParameters instead.")
