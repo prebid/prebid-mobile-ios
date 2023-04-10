@@ -3,21 +3,6 @@ if [ -d "scripts" ]; then
 cd scripts/
 fi
 
-# Flags:
-# -b:   runs build with BITCODE.
-#       Options:
-#           "y": build with BITCODE
-#           any other: build without BITCODE
-#       It is needed for CircleCI builds.
-
-bitcode_script_flag=''
-
-while getopts 'b:' flag; do
-  case "${flag}" in
-    b) bitcode_script_flag="${OPTARG}" ;;
-  esac
-done
-
 # 1
 # Set bash script to exit immediately if any commands fail.
 set -e
@@ -46,7 +31,6 @@ GENERATED_DIR_NAME="generated"
 	OUTPUT_DIR="$GENERATED_DIR_NAME/output"
 	OUTPUT_DIR_ABSOLUTE="$PWD/$OUTPUT_DIR"
 
-BITCODE_FLAG=NO
 
 # If remnants from a previous build exist, delete them.
 if [ -d "$GENERATED_DIR_NAME" ]; then
@@ -55,23 +39,6 @@ fi
 
 mkdir -p "$LOG_DIR"
 touch "$LOG_FILE_FRAMEWORK"
-
-if [ -z "$bitcode_script_flag" ]
-then
-	echo -n "Embed bitcode (y/n)?"
-	read bitcodeAnswer
-	if [ "$bitcodeAnswer" != "${bitcodeAnswer#[Yy]}" ] ;then
-	    BITCODE_FLAG=YES
-	fi
-else
-	if [ "$bitcode_script_flag" != "${bitcode_script_flag#[Yy]}" ] ;then
-	    BITCODE_FLAG=YES
-	fi
-fi
-
-
-printf "\nBITCODE_FLAG: $BITCODE_FLAG\n"
-
 
 echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
@@ -91,7 +58,6 @@ do
 	xcodebuild archive \
 	only_active_arch=NO \
 	defines_module=YES \
-	ENABLE_BITCODE=$BITCODE_FLAG \
 	SKIP_INSTALL=NO \
 	-workspace PrebidMobile.xcworkspace \
 	-scheme "${schemes[$n]}" \
@@ -119,24 +85,12 @@ do
 
 	echo -e "${GREEN} - Creating ${schemes[$n]} XCFramework${NC}"
 	# Create XCFramework
-
-	# find all .bcsymbolmap and concatinate -debug-symbols
-	debugSymbolsBcsymbolmap=""
-
-	while read bcsymbolmapsFileName
-	do
-	    # echo "BCSymbolMap: '$bcsymbolmapsFileName'"
-	    debugSymbolsBcsymbolmap="$debugSymbolsBcsymbolmap -debug-symbols \"$bcsymbolmapsFileName\""
-	done < <(find "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}.xcarchive/BCSymbolMaps" -name "*.bcsymbolmap")
-
-	# echo "debugSymbolsBcsymbolmap: '$debugSymbolsBcsymbolmap'"
-
+    
 	# eval
 	eval " 
 	xcodebuild -create-xcframework \
 	    -framework "$XCODE_ARCHIVE_DIR/${schemes[$n]}.xcarchive/Products/Library/Frameworks/${schemes[$n]}.framework" \
 	    -debug-symbols "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}.xcarchive/dSYMs/${schemes[$n]}.framework.dSYM" \
-	    $debugSymbolsBcsymbolmap \
 	    -framework "$XCODE_ARCHIVE_DIR/${schemes[$n]}$POSTFIX_SIMULATOR.xcarchive/Products/Library/Frameworks/${schemes[$n]}.framework" \
 	    -debug-symbols "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}$POSTFIX_SIMULATOR.xcarchive/dSYMs/${schemes[$n]}.framework.dSYM" \
 	    -output "$OUTPUT_DIR/XC${schemes[$n]}.xcframework"
