@@ -54,8 +54,7 @@ NSString * const gamAdUnitMultiformatBannerOriginal = @"/21808260008/prebid-demo
     self.adUnit.bannerParameters = bannerParameters;
     
     // 4. Configure video parameters
-    VideoParameters * videoParameters = [[VideoParameters alloc] init];
-    videoParameters.mimes = @[@"video/mp4"];
+    VideoParameters * videoParameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
     videoParameters.protocols = @[PBProtocols.VAST_2_0];
     videoParameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
     videoParameters.placement = PBPlacement.InBanner;

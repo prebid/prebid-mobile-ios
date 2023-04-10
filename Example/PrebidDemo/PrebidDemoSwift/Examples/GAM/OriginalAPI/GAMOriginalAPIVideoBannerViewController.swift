@@ -42,8 +42,7 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
         adUnit.adFormats = [.video]
         
         // 3. Configure video parameters
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
+        let parameters = VideoParameters(mimes: ["video/mp4"])
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         parameters.placement = Signals.Placement.InBanner

@@ -96,14 +96,13 @@ NSString * const configId = @"1001-1";
 
 //MARK: - VideoBaseAdUnit
 - (void)testVideoParametersCreation {
-    VideoParameters *parameters = [[VideoParameters alloc] init];
+    VideoParameters *parameters = [[VideoParameters alloc] initWithMimes:@[@"video/x-flv", @"video/mp4"]];
     
     parameters.api = @[PBApi.VPAID_1, PBApi.VPAID_2];
     parameters.maxBitrate = [[SingleContainerInt alloc] initWithIntegerLiteral: 1500];
     parameters.minBitrate = [[SingleContainerInt alloc] initWithIntegerLiteral: 300];;
     parameters.maxDuration = [[SingleContainerInt alloc] initWithIntegerLiteral: 30];
     parameters.minDuration = [[SingleContainerInt alloc] initWithIntegerLiteral: 5];
-    parameters.mimes = @[@"video/x-flv", @"video/mp4"];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOn, PBPlaybackMethod.ClickToPlay];
     parameters.protocols = @[PBProtocols.VAST_2_0, PBProtocols.VAST_3_0];
     parameters.startDelay = PBStartDelay.PreRoll;

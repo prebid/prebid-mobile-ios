@@ -155,13 +155,12 @@ class AdUnitSuccessorTests: XCTestCase {
     private func checkVideoParametersHelper(_ videoBaseAdUnit: VideoBasedAdUnitProtocol) {
         var adUnit = videoBaseAdUnit
         
-        let parameters = VideoParameters()
+        let parameters = VideoParameters(mimes: ["video/x-flv", "video/mp4"])
         parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         parameters.maxBitrate = 1500
         parameters.minBitrate = 300
         parameters.maxDuration = 30
         parameters.minDuration = 5
-        parameters.mimes = ["video/x-flv", "video/mp4"]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn, Signals.PlaybackMethod.ClickToPlay]
         parameters.protocols = [Signals.Protocols.VAST_2_0, Signals.Protocols.VAST_3_0]
         parameters.startDelay = Signals.StartDelay.PreRoll
@@ -177,7 +176,6 @@ class AdUnitSuccessorTests: XCTestCase {
               let minBitrate = videoParameters.minBitrate,
               let maxDuration = videoParameters.maxDuration,
               let minDuration = videoParameters.minDuration,
-              let mimes = videoParameters.mimes,
               let playbackMethod = videoParameters.playbackMethod,
               let protocols = videoParameters.protocols,
               let startDelay = videoParameters.startDelay else {
@@ -191,8 +189,8 @@ class AdUnitSuccessorTests: XCTestCase {
         XCTAssertEqual(300, minBitrate)
         XCTAssertEqual(30, maxDuration)
         XCTAssertEqual(5, minDuration)
-        XCTAssertEqual(2, mimes.count)
-        XCTAssert(mimes.contains("video/x-flv") && mimes.contains("video/mp4"))
+        XCTAssertEqual(2, videoParameters.mimes.count)
+        XCTAssert(videoParameters.mimes.contains("video/x-flv") && videoParameters.mimes.contains("video/mp4"))
         XCTAssertEqual(2, playbackMethod.count)
         XCTAssert(playbackMethod.contains(1) && playbackMethod.contains(3))
         XCTAssertEqual(2, protocols.count)

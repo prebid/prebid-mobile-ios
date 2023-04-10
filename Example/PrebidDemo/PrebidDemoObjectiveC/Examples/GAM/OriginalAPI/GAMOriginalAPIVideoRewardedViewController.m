@@ -41,8 +41,7 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
     self.adUnit = [[RewardedVideoAdUnit alloc] initWithConfigId:storedImpVideoRewarded];
     
     // 2. Configure video parameters
-    VideoParameters * parameters = [[VideoParameters alloc] init];
-    parameters.mimes = @[@"video/mp4"];
+    VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
     self.adUnit.videoParameters = parameters;

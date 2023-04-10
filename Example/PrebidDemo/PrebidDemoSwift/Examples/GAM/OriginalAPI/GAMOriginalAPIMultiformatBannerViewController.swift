@@ -48,8 +48,7 @@ class GAMOriginalAPIMultiformatBannerViewController: BannerBaseViewController, G
         adUnit.bannerParameters = bannerParameters
         
         // 4. Configure video parameters
-        let videoParameters = VideoParameters()
-        videoParameters.mimes = ["video/mp4"]
+        let videoParameters = VideoParameters(mimes: ["video/mp4"])
         videoParameters.protocols = [Signals.Protocols.VAST_2_0]
         videoParameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         videoParameters.placement = Signals.Placement.InBanner

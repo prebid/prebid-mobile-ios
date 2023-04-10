@@ -41,7 +41,7 @@ public class VideoParameters: NSObject {
      * "video/mp4"
      * "video/x-ms-wmv"
      */
-    public var mimes: [String]?
+    public var mimes: [String]
     
     /// Allowed playback methods. If none specified, assume all are allowed.
     public var playbackMethod: [Signals.PlaybackMethod]?
@@ -76,5 +76,10 @@ public class VideoParameters: NSObject {
         get {
             protocols?.toIntArray()
         }
+    }
+    
+    /// - Parameter mimes: supported MIME types
+    public init(mimes: [String]) {
+        self.mimes = mimes
     }
 }

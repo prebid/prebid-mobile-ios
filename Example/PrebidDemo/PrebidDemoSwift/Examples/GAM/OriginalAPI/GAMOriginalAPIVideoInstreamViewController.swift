@@ -92,8 +92,7 @@ class GAMOriginalAPIVideoInstreamViewController:
         adUnit = InstreamVideoAdUnit(configId: storedImpVideo, size: CGSize(width: 1,height: 1))
         
         // 2. Configure Video Parameters
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
+        let parameters = VideoParameters(mimes: ["video/mp4"])
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn]
         adUnit.videoParameters = parameters

@@ -93,8 +93,7 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
     self.adUnit = [[InstreamVideoAdUnit alloc] initWithConfigId:storedImpVideo size:self.adSize];
     
     // 2. Configure Video Parameters
-    VideoParameters * parameters = [[VideoParameters alloc] init];
-    parameters.mimes = @[@"video/mp4"];
+    VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
     self.adUnit.videoParameters = parameters;

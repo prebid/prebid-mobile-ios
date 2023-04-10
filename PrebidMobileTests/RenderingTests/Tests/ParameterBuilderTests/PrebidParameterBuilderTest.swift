@@ -113,7 +113,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         adUnitConfig.adFormats = [.video]
         adUnitConfig.adPosition = .header
         
-        let parameters = VideoParameters()
+        let parameters = VideoParameters(mimes: [])
         parameters.linearity = 1
         parameters.placement = .Interstitial
         parameters.api = [Signals.Api.MRAID_1]
@@ -586,7 +586,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
         adUnit.adFormats = [.video]
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
-        let parameters = VideoParameters()
+        let parameters = VideoParameters(mimes: [])
         parameters.placement = .Interstitial
         parameters.linearity = 1
         adConfiguration.videoParameters = parameters
@@ -667,7 +667,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         let adUnit = AdUnit(configId: "test", size: CGSize(width: 300, height: 250))
         adUnit.adUnitConfig.adFormats = [.video]
 
-        let videoParamters = VideoParameters()
+        let videoParamters = VideoParameters(mimes: [])
         videoParamters.api = [.MRAID_1, .MRAID_2, .MRAID_3, .OMID_1, .ORMMA, .VPAID_1, .VPAID_2, .ORMMA]
         videoParamters.maxBitrate = 1500
         videoParamters.minBitrate = 30
