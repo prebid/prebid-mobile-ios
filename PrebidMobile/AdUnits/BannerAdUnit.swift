@@ -33,9 +33,14 @@ public class BannerAdUnit: BannerBaseAdUnit, BannerBasedAdUnitProtocol, VideoBas
         set { adUnitConfig.adFormats = newValue }
     }
     
-    public init(configId: String, size: CGSize) {
+    @available(*, deprecated, message: "This initializer is deprecated. Please, use `init(configId:size:adFormats:)` instead.")
+    public convenience init(configId: String, size: CGSize) {
+        self.init(configId: configId, size: size, adFormats: [.display])
+    }
+    
+    public init(configId: String, size: CGSize, adFormats: Set<AdFormat>) {
         super.init(configId: configId, size: size)
-        adFormats = [.display]
+        self.adFormats = adFormats
     }
 
     public func addAdditionalSize(sizes: [CGSize]) {

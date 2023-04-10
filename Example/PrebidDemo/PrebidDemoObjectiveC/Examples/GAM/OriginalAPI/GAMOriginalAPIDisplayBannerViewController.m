@@ -42,7 +42,7 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
 
 - (void)createAd {
     // 1. Create a BannerAdUnit
-    self.adUnit = [[BannerAdUnit alloc] initWithConfigId:storedImpDisplayBanner size:self.adSize];
+    self.adUnit = [[BannerAdUnit alloc] initWithConfigId:storedImpDisplayBanner size:self.adSize adFormats:[NSSet setWithObject:AdFormat.display]];
     
     // 2. Configure banner parameters
     BannerParameters * parameters = [[BannerParameters alloc] init];

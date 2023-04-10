@@ -36,7 +36,7 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
     
     func createAd() {
         // 1. Create an InterstitialAdUnit
-        adUnit = InterstitialAdUnit(configId: storedImpDisplayInterstitial, minWidthPerc: 60, minHeightPerc: 70)
+        adUnit = InterstitialAdUnit(configId: storedImpDisplayInterstitial, adFormats: [.display], minWidthPerc: 60, minHeightPerc: 70)
         
         // 2. Make a bid request to Prebid Server
         let gamRequest = GAMRequest()

@@ -39,7 +39,7 @@ NSString * const gamAdUnitDisplayInterstitialOriginal = @"/21808260008/prebid-de
 
 -(void)createAd {
     // 1. Create an InterstitialAdUnit
-    self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:storedImpDisplayInterstitial];
+    self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:storedImpDisplayInterstitial adFormats:[NSSet setWithObject:AdFormat.display]];
     
     // 2. Make a bid request to Prebid Server
     GAMRequest * gamRequest = [GAMRequest new];
