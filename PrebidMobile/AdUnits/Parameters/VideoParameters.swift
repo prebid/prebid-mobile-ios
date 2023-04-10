@@ -35,7 +35,8 @@ public class VideoParameters: NSObject {
     public var minDuration: SingleContainerInt?
     
     /**
-     Content MIME types supported
+     Content MIME types supported.
+     Prebid Server required property.   
      
      # Example #
      * "video/mp4"
