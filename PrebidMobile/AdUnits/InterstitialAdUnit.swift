@@ -32,28 +32,18 @@ public class InterstitialAdUnit: BannerBaseAdUnit, BannerBasedAdUnitProtocol, Vi
         set { adUnitConfig.adFormats = newValue }
     }
     
-    @available(*, deprecated, message: "This initializer is deprecated. Please, use `init(configId:adFormats:)` instead.")
-    public convenience init(configId: String) {
-        self.init(configId: configId, adFormats: [.display])
-    }
-    
-    @available(*, deprecated, message: "This initializer is deprecated. Please, use `init(configId:adFormats:minWidthPerc:minHeightPerc:)` instead.")
-    public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
-        self.init(configId: configId)
-        adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
-    }
-    
-    public init(configId: String, adFormats: Set<AdFormat>) {
+    public init(configId: String) {
         super.init(configId: configId, size: nil)
         
-        self.adFormats = adFormats
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
+        adUnitConfig.adFormats = [.display]
         adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
     }
     
-    public convenience init(configId: String, adFormats: Set<AdFormat>, minWidthPerc: Int, minHeightPerc: Int) {
-        self.init(configId: configId, adFormats: adFormats)
+    public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
+        self.init(configId: configId)
+        
         adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
     }
 }

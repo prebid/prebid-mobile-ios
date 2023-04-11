@@ -43,21 +43,24 @@ NSString * const gamAdUnitMultiformatBannerOriginal = @"/21808260008/prebid-demo
 - (void)createAd {
     // 1. Create a BannerAdUnit
     NSString * configId = [storedImpsBanner count] ? storedImpsBanner[arc4random_uniform((u_int32_t)[storedImpsBanner count])] : nil;
-    self.adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:self.adSize adFormats:[NSSet setWithObjects:AdFormat.display, AdFormat.video, nil]];
+    self.adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:self.adSize];
     
-    // 2. Configure banner parameters
+    // 2. Set adFormats
+    self.adUnit.adFormats = [NSSet setWithObjects:AdFormat.display, AdFormat.video, nil];
+    
+    // 3. Configure banner parameters
     BannerParameters * bannerParameters = [[BannerParameters alloc] init];
     bannerParameters.api = @[PBApi.MRAID_2];
     self.adUnit.bannerParameters = bannerParameters;
     
-    // 3. Configure video parameters
+    // 4. Configure video parameters
     VideoParameters * videoParameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
     videoParameters.protocols = @[PBProtocols.VAST_2_0];
     videoParameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
     videoParameters.placement = PBPlacement.InBanner;
     self.adUnit.videoParameters = videoParameters;
     
-    // 4. Create a GAMBannerView
+    // 5. Create a GAMBannerView
     GAMRequest * gamRequest = [GAMRequest new];
     self.gamBanner = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(self.adSize)];
     self.gamBanner.adUnitID = gamAdUnitMultiformatBannerOriginal;
@@ -67,13 +70,13 @@ NSString * const gamAdUnitMultiformatBannerOriginal = @"/21808260008/prebid-demo
     // Add GMA SDK banner view to the app UI
     [self.bannerView addSubview:self.gamBanner];
     
-    // 5. Make a bid request to Prebid Server
+    // 6. Make a bid request to Prebid Server
     @weakify(self);
     [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         
-        // 6. Load GAM Ad
+        // 7. Load GAM Ad
         [self.gamBanner loadRequest:gamRequest];
     }];
 }

@@ -36,20 +36,23 @@ class GAMOriginalAPIMultiformatInterstitialViewController: InterstitialBaseViewC
     
     func createAd() {
         // 1. Create an InterstitialAdUnit
-        adUnit = InterstitialAdUnit(configId: storedImpsInterstitial.randomElement()!, adFormats: [.display, .video], minWidthPerc: 60, minHeightPerc: 70)
+        adUnit = InterstitialAdUnit(configId: storedImpsInterstitial.randomElement()!, minWidthPerc: 60, minHeightPerc: 70)
         
-        // 2. Configure video parameters
+        // 2. Set adFormats
+        adUnit.adFormats = [.display, .video]
+        
+        // 3. Configure video parameters
         let parameters = VideoParameters(mimes: ["video/mp4"])
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         adUnit.videoParameters = parameters
         
-        // 3. Make a bid request to Prebid Server
+        // 4. Make a bid request to Prebid Server
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
-            // 4. Load a GAM interstitial ad
+            // 5. Load a GAM interstitial ad
             GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitMultiformatInterstitialOriginal, request: gamRequest) { ad, error in
                 guard let self = self else { return }
                 

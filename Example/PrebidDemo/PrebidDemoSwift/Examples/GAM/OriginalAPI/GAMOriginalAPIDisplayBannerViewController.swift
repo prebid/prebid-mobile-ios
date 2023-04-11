@@ -36,7 +36,7 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
     
     func createAd() {
         // 1. Create a BannerAdUnit
-        adUnit = BannerAdUnit(configId: storedImpDisplayBanner, size: adSize, adFormats: [.display])
+        adUnit = BannerAdUnit(configId: storedImpDisplayBanner, size: adSize)
         adUnit.setAutoRefreshMillis(time: 30000)
         
         // 2. Configure banner parameters
