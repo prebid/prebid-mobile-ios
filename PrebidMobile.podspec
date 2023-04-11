@@ -59,9 +59,6 @@ Pod::Spec.new do |s|
   s.subspec 'core' do |core|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
-    core.resource_bundles    = {
-      'PrebidSDKCoreResources' => ['PrebidMobile/PrebidMobileRendering/Assets/**/*.{js,html,xib,xcassets}']
-    }
     core.private_header_files = [ 
       'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMParameterBuilderService.h', 
       'PrebidMobile/PrebidMobileRendering/Prebid+TestExtension.h',
