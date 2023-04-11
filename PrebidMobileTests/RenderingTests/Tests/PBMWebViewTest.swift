@@ -62,6 +62,9 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationCommandExecuted = nil
         logToFile = nil
         
+        PBMJSLibraryManager.shared().mraidProvider = PrebidMRAIDScriptProvider()
+        PBMJSLibraryManager.shared().omsdkProvider = PrebidOMSDKScriptProvider()
+        
         super.tearDown()
     }
     
@@ -599,7 +602,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         XCTAssertEqual(webView.mraidState, .notEnabled)
         
-        webView.bundle = nil // force change to test
+        PBMJSLibraryManager.shared().mraidProvider = nil
         
         expectationWebViewFailed = expectation(description: "expectationWebViewFailed")
         
@@ -610,29 +613,10 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
     
     // MARK: -  Methods
     
-    func testInjectMRAIDForExpandContentNoBundle() {
-        let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-        webView.bundle = nil
-        
-        var testError: Error? = nil
-        do {
-            try webView.injectMRAIDForExpandContent(true)
-        }
-        catch {
-            testError = error
-        }
-        
-        XCTAssertNotNil(testError)
-        XCTAssertTrue(testError?.localizedDescription.contains("Could not load mraid.js from library manager") ?? false)
-    }
-    
     func testInjectMRAIDForExpandContentEmptyFile() {
         let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         
-        // The test file in the test's bundle was created by archiving the empty file and removing .zip extension.
-        // In this case, we get an encoding error on trying to read it.
-        let bundle = Bundle(for: type(of: self))
-        webView.bundle = bundle
+        PBMJSLibraryManager.shared().mraidProvider = nil
         
         var testError: Error? = nil
         do {
@@ -714,7 +698,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationWebViewReadyToDisplay = expectation(description:"expectationWebViewReadyToDisplay")
         expectationWebViewReadyToDisplay?.isInverted = true;
         
-        webView.bundle = nil // forced change to test the behaviour
+        PBMJSLibraryManager.shared().mraidProvider = nil
         webView.loadHTML(testHTML, baseURL:nil, injectMraidJs: true)
         
         XCTAssertEqual(webView.mraidState, .notEnabled)

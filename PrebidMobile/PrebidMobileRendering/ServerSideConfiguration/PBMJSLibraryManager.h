@@ -17,6 +17,8 @@
 #import "PBMJSLibrary.h"
 
 @protocol PrebidServerConnectionProtocol;
+@class PrebidMRAIDScriptProvider;
+@class PrebidOMSDKScriptProvider;
 
 typedef NS_ENUM(NSInteger, PBMJSLibraryType) {
     PBMJSLibraryTypeMRAID,
@@ -30,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) PBMJSLibrary *remoteMRAIDLibrary;
 @property (strong, nonatomic, nullable) PBMJSLibrary *remoteOMSDKLibrary;
 @property (strong, nonatomic, nonnull) NSBundle *bundle;
+
+@property (nonatomic, strong, nullable) PrebidMRAIDScriptProvider * mraidProvider;
+@property (nonatomic, strong, nullable) PrebidOMSDKScriptProvider * omsdkProvider;
 
 + (instancetype)sharedManager;
 - (nullable NSString *)getMRAIDLibrary;

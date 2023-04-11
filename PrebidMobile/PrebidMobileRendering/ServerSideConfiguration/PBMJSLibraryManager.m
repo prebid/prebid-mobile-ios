@@ -54,6 +54,10 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     if (self = [super init]) {
         self.bundle = [PBMFunctions bundleForSDK];
     }
+    
+    _mraidProvider = PrebidMRAIDScriptProvider.shared;
+    _omsdkProvider = PrebidOMSDKScriptProvider.shared;
+    
     return self;
 }
 
@@ -185,11 +189,11 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
 #pragma mark - Public Methods
 
 - (NSString *)getMRAIDLibrary {
-    return [self getJSLibraryWithName:PBMMRAIDFileName bundleName:PBMMRAIDBundleName bundleVersion:PBMMRAIDBundleVersion];
+    return self.mraidProvider.mraidScript;
 }
 
 - (NSString *)getOMSDKLibrary {
-    return [self getJSLibraryWithName:PBMOMSDKFileName bundleName:PBMOMSDKBundleName bundleVersion:PBMOMSDKBundleVersion];
+    return self.omsdkProvider.omsdkScript;
 }
 
 - (void)updateJSLibrariesIfNeededWithConnection:(id<PrebidServerConnectionProtocol>)connection {

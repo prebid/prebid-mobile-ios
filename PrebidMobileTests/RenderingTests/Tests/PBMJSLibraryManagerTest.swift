@@ -40,7 +40,7 @@ class PBMJSLibraryManagerTest: XCTestCase {
         XCTAssertFalse(libraryManager.getOMSDKLibrary()!.isEmpty)
     }
     
-    func testDiskSavingLoadingAndCache() {
+    func testDiskSavingLoading() {
         let fileName = "mraid.jslib"
         
         //saving file
@@ -54,20 +54,14 @@ class PBMJSLibraryManagerTest: XCTestCase {
         XCTAssertNotNil(loadedLibrary)
         XCTAssertEqual(loadedLibrary.version, "1.0.0")
         XCTAssertEqual(loadedLibrary.contentsString, "test mraid")
-        
-        let cachedMRAIDString = libraryManager.getMRAIDLibrary()
-        XCTAssertEqual(cachedMRAIDString, "test mraid")
     }
     
     func testLoadingFromBundle() {
-        let fileNameMRAID = "mraid"
-        let fileNameOMSDK = "omsdk"
-        
-        let mraidString = libraryManager.getLibraryContentsFromBundle(withName: fileNameMRAID)
+        let mraidString = PrebidMRAIDScriptProvider.shared.mraidScript
         XCTAssertFalse(mraidString.isEmpty)
-        XCTAssertTrue(mraidString.hasSuffix("mraid.js\");\r\n"))
+        XCTAssertTrue(mraidString.contains("mraid.js"))
         
-        let omsdkString = libraryManager.getLibraryContentsFromBundle(withName: fileNameOMSDK)
+        let omsdkString = PrebidOMSDKScriptProvider.shared.omsdkScript
         XCTAssertFalse(omsdkString.isEmpty)
         XCTAssertTrue(omsdkString.hasPrefix(";(function(omidGlobal)"))
     }

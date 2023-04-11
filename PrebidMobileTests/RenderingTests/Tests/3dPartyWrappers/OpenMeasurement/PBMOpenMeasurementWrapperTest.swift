@@ -39,18 +39,6 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
         XCTAssertNil(measurement.jsLib)
     }
     
-    func testLocalJSLibWrongBundle() {
-        let loadJSLibExpectation = expectation(description: "load js lib expectation")
-        let measurement = PBMOpenMeasurementWrapper()
-        
-        measurement.initializeJSLib(with: Bundle.main, completion: {
-            XCTAssertNil(measurement.jsLib)
-            loadJSLibExpectation.fulfill();
-        })
-        
-        waitForExpectations(timeout: 2)
-    }
-    
     func testLocalJSLib() {
         let loadJSLibExpectation = expectation(description: "load js lib expectation")
         let measurement = PBMOpenMeasurementWrapper()
