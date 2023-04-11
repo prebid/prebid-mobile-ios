@@ -52,10 +52,9 @@ class AdViewButtonDecoratorTests: XCTestCase {
         
         XCTAssertEqual(resultButtonSize, buttonSize)
         
-        let image = UIImage(named: "PBM_closeButton",
-                            in: Bundle(for: type(of: self)), compatibleWith: nil)
+        let image = PrebidImagesRepository.closeButton.base64DecodedImage
         buttonDecorator.setImage(image!)
-        XCTAssertEqual(buttonDecorator.button.currentImage, image)
+        XCTAssertEqual(buttonDecorator.button.currentImage?.pngData(), image?.pngData())
     }
     
     func testGetButtonConstraintConstant() {
