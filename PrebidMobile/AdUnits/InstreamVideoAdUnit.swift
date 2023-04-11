@@ -23,7 +23,6 @@ public class InstreamVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
     }
       
     public init(configId: String, size: CGSize) {
-        super.init(configId: configId, size: size)
-        adUnitConfig.adFormats = [.video]
+        super.init(configId: configId, size: size, adFormats: [.video])
     }
 }

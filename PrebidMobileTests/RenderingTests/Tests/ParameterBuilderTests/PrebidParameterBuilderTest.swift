@@ -198,7 +198,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testAdUnitSpecificKeywords() {
-        let adUnit = AdUnit(configId: "config_id", size: nil)
+        let adUnit = AdUnit(configId: "config_id", size: nil, adFormats: [.display])
         
         let expectedKeywords = Set<String>(["keyword1", "keyword2", "keyword3"])
         
@@ -360,7 +360,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         // This should not impact on caching the bid in original api
         sdkConfiguration.useCacheForReportingWithRenderingAPI = false
         
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
         let adUnitConfig = adUnit.adUnitConfig
         
         let bidRequest = buildBidRequest(with: adUnitConfig)
@@ -376,7 +376,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testDefaultAPISignalsInAllAdUnits() {
         // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
         
         var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         
@@ -647,7 +647,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
     func testBannerParameters() {
         // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
         adUnit.adUnitConfig.adFormats = [.display]
 
         let bannerParameters = BannerParameters()
@@ -664,7 +664,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
     func testVideoParameters() {
         // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 300, height: 250), adFormats: [.display])
         adUnit.adUnitConfig.adFormats = [.video]
 
         let videoParamters = VideoParameters(mimes: [])

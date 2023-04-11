@@ -16,16 +16,22 @@
 import UIKit
 
 @available(*, deprecated, message: "This class is deprecated. Please, use BannerAdUnit with video adFormat.")
-public class VideoAdUnit: VideoBaseAdUnit {
+public class VideoAdUnit: AdUnit {
+    
+    public var parameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
+    }
     
     public init(configId: String, size: CGSize) {
-        super.init(configId: configId, size: size)
+        super.init(configId: configId, size: size, adFormats: [.video])
     }
     
     public func addAdditionalSize(sizes: [CGSize]) {
         if super.adUnitConfig.additionalSizes == nil {
             super.adUnitConfig.additionalSizes = [CGSize]()
         }
+        
         super.adUnitConfig.additionalSizes?.append(contentsOf: sizes)
     }
 }

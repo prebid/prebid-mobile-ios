@@ -31,7 +31,7 @@ class AdUnitTests: XCTestCase {
         var resultCode: ResultCode?
         
         let expected = ResultCode.prebidDemandFetchSuccess
-        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.display])
         AdUnitSwizzleHelper.testScenario = expected
         AdUnitSwizzleHelper.toggleFetchDemand()
         
@@ -55,7 +55,7 @@ class AdUnitTests: XCTestCase {
         var kvDictResult: [String:String]?
         
         let expected = ResultCode.prebidDemandFetchSuccess
-        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.display])
         AdUnitSwizzleHelper.testScenario = expected
         AdUnitSwizzleHelper.toggleFetchDemand()
         
@@ -474,7 +474,7 @@ class AdUnitTests: XCTestCase {
     
     func testSetAppContent() {
         //given
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.display])
         let appDataObject1 = PBMORTBContentData()
         appDataObject1.id = "data id"
         appDataObject1.name = "test name"
@@ -498,7 +498,7 @@ class AdUnitTests: XCTestCase {
     
     func testClearAppContent() {
         //given
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.display])
         let appDataObject1 = PBMORTBContentData()
         appDataObject1.id = "data id"
         appDataObject1.name = "test name"
@@ -522,7 +522,7 @@ class AdUnitTests: XCTestCase {
     
     func testAddAppContentDataObject() {
         //given
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.display])
         let appDataObject1 = PBMORTBContentData()
         appDataObject1.id = "data id"
         appDataObject1.name = "test name"
@@ -540,7 +540,7 @@ class AdUnitTests: XCTestCase {
     }
 
     func testRemoveAppContentDataObjects() {
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.display])
         let appDataObject = PBMORTBContentData()
         appDataObject.id = "data id"
         appDataObject.name = "test name"
@@ -557,7 +557,7 @@ class AdUnitTests: XCTestCase {
     }
     
     func testClearAppContentDataObjects() {
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.display])
         let appDataObject1 = PBMORTBContentData()
         appDataObject1.id = "data id"
         appDataObject1.name = "test name"
@@ -578,7 +578,7 @@ class AdUnitTests: XCTestCase {
 
     func testAddUserDataObjects() {
         //given
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.display])
         let userDataObject1 = PBMORTBContentData()
         userDataObject1.id = "data id"
         userDataObject1.name = "test name"
@@ -596,7 +596,7 @@ class AdUnitTests: XCTestCase {
     }
     
     func testRemoveUserDataObjects() {
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.display])
         let userDataObject = PBMORTBContentData()
         userDataObject.id = "data id"
         userDataObject.name = "test name"
@@ -613,7 +613,7 @@ class AdUnitTests: XCTestCase {
     }
 
     func testClearUserDataObjects() {
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.display])
         let userDataObject1 = PBMORTBContentData()
         userDataObject1.id = "data id"
         userDataObject1.name = "test name"
