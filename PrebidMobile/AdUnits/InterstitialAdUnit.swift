@@ -39,7 +39,7 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
     }
     
     public init(configId: String) {
-        super.init(configId: configId, size: nil, adFormats: [.display])
+        super.init(configId: configId, size: nil, adFormats: [.banner])
         
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen

@@ -46,7 +46,7 @@ NSString * const gamAdUnitMultiformatBannerOriginal = @"/21808260008/prebid-demo
     self.adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:self.adSize];
     
     // 2. Set adFormats
-    self.adUnit.adFormats = [NSSet setWithObjects:AdFormat.display, AdFormat.video, nil];
+    self.adUnit.adFormats = [NSSet setWithObjects:AdFormat.banner, AdFormat.video, nil];
     
     // 3. Configure banner parameters
     BannerParameters * bannerParameters = [[BannerParameters alloc] init];

@@ -40,7 +40,7 @@ class GAMOriginalAPIMultiformatBannerViewController: BannerBaseViewController, G
         adUnit.setAutoRefreshMillis(time: 30000)
         
         // 2. Set adFormats
-        adUnit.adFormats = [.display, .video]
+        adUnit.adFormats = [.banner, .video]
         
         // 3. Configure banner parameters
         let bannerParameters = BannerParameters()

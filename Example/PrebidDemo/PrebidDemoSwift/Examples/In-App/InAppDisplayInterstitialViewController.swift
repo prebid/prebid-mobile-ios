@@ -34,7 +34,7 @@ class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUn
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial)
         
         // 2. Configure the InterstitialRenderingAdUnit
-        renderingInterstitial.adFormats = [.display]
+        renderingInterstitial.adFormats = [.banner]
         renderingInterstitial.delegate = self
         
         // 3. Load the interstitial ad

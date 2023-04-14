@@ -65,7 +65,7 @@
 - (void)buildBidRequest:(nonnull PBMORTBBidRequest *)bidRequest {
     
     NSSet<AdFormat *> *adFormats = self.adConfiguration.adConfiguration.adFormats;
-    BOOL const isHTML = ([adFormats containsObject:AdFormat.display]);
+    BOOL const isHTML = ([adFormats containsObject:AdFormat.banner]);
     BOOL const isInterstitial = self.adConfiguration.adConfiguration.isInterstitialAd;
     
     bidRequest.requestID = [NSUUID UUID].UUIDString;
@@ -180,7 +180,7 @@
         nextImp.extData[@"adslot"] = [self.adConfiguration getPbAdSlot];
        
         for (AdFormat* adFormat in adFormats) {
-            if (adFormat == AdFormat.display) {
+            if (adFormat == AdFormat.banner) {
                 PBMORTBBanner * const nextBanner = nextImp.banner;
                 if (formats) {
                     nextBanner.format = formats;

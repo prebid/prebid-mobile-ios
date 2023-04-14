@@ -137,7 +137,7 @@
 }
 
 - (void)appendFormatSpecificParametersForRequest:(PBMORTBBidRequest *)bidRequest {
-    if ([self.adConfiguration.adFormats containsObject:AdFormat.display]) {
+    if ([self.adConfiguration.adFormats containsObject:AdFormat.banner]) {
         [self appendDisplayParametersForRequest:bidRequest];
     }
     

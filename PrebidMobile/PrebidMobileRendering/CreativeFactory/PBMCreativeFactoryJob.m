@@ -130,7 +130,7 @@
         }
         
         AdFormat *adType = self.creativeModel.adConfiguration.winningBidAdFormat;
-        if (adType == AdFormat.display || self.creativeModel.isCompanionAd) {
+        if (adType == AdFormat.banner || self.creativeModel.isCompanionAd) {
             [self attemptAUIDCreative];
         } else if (adType == AdFormat.video) {
             [self attemptVASTCreative];

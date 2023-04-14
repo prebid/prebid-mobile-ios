@@ -25,7 +25,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     public var isOriginalAPI = false
     
-    public var adFormats: Set<AdFormat> = [.display]
+    public var adFormats: Set<AdFormat> = [.banner]
     
     /**
      Describes an OpenRTB banner object

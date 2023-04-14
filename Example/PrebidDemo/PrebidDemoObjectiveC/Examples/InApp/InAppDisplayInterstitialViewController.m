@@ -38,7 +38,7 @@ NSString * const storedImpDisplayInterstitialInApp = @"imp-prebid-display-inters
     self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpDisplayInterstitialInApp];
     
     // 2. Configure the InterstitialRenderingAdUnit
-    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.display, nil];
+    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.banner, nil];
     self.renderingInterstitial.delegate = self;
     
     // 3. Load the interstitial ad

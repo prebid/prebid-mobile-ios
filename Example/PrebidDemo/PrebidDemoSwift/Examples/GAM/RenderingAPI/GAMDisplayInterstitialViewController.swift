@@ -39,7 +39,7 @@ class GAMDisplayInterstitialViewController: InterstitialBaseViewController, Inte
         // 2. Create a InterstitialRenderingAdUnit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial, eventHandler: eventHandler)
         renderingInterstitial.delegate = self
-        renderingInterstitial.adFormats = [.display]
+        renderingInterstitial.adFormats = [.banner]
         
         // 3. Load the interstitial ad
         renderingInterstitial.loadAd()
