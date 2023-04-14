@@ -13,22 +13,23 @@
  limitations under the License.
  */
 
-#import "GAMOriginalAPIVideoRewardedViewController.h"
+#import "GAMOriginalAPIMultiformatInterstitialViewController.h"
 #import "PrebidDemoMacros.h"
 
 @import PrebidMobile;
 
-NSString * const storedImpVideoRewarded = @"imp-prebid-video-rewarded-320-480-original-api";
-NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app-original-api-video-interstitial";
+NSArray<NSString *> * const storedImpsInterstitial = @[@"imp-prebid-display-interstitial-320-480", @"imp-prebid-video-interstitial-320-480-original-api"];
+NSString * const gamAdUnitMultiformatInterstitialOriginal = @"/21808260008/prebid-demo-intestitial-multiformat";
 
-@interface GAMOriginalAPIVideoRewardedViewController ()
+@interface GAMOriginalAPIMultiformatInterstitialViewController ()
 
 // Prebid
-@property (nonatomic) RewardedVideoAdUnit * adUnit;
+@property (nonatomic) InterstitialAdUnit * adUnit;
 
 @end
 
-@implementation GAMOriginalAPIVideoRewardedViewController
+@implementation GAMOriginalAPIMultiformatInterstitialViewController
+
 
 - (void)loadView {
     [super loadView];
@@ -36,39 +37,42 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
     [self createAd];
 }
 
-- (void)createAd {
-    // 1. Create a RewardedVideoAdUnit
-    self.adUnit = [[RewardedVideoAdUnit alloc] initWithConfigId:storedImpVideoRewarded];
+-(void)createAd {
+    // 1. Create an InterstitialAdUnit
+    NSString * configId = [storedImpsInterstitial count] ? storedImpsInterstitial[arc4random_uniform((u_int32_t)[storedImpsInterstitial count])] : nil;
+    self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
     
-    // 2. Configure video parameters
+    // 2. Set adFormats
+    self.adUnit.adFormats = [NSSet setWithObjects:AdFormat.display, AdFormat.video, nil];
+    
+    // 3. Configure video parameters
     VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
     self.adUnit.videoParameters = parameters;
     
-    // 3. Make a bid request to Prebid Server
+    // 4. Make a bid request to Prebid Server
     GAMRequest * gamRequest = [GAMRequest new];
     @weakify(self);
     [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
         
-        // 4. Load the GAM rewarded ad
+        // 5. Load a GAM interstitial ad
         @weakify(self);
-        [GADRewardedAd loadWithAdUnitID:gamAdUnitVideoRewardedOriginal request:gamRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
+        [GAMInterstitialAd loadWithAdManagerAdUnitID:gamAdUnitMultiformatInterstitialOriginal request:gamRequest completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
             @strongify(self);
             if (!self) { return; }
-            
+           
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);
-            } else if (rewardedAd != nil) {
-                // 5. Present the interstitial ad
-                rewardedAd.fullScreenContentDelegate = self;
-                [rewardedAd presentFromRootViewController:self userDidEarnRewardHandler:^{
-                    
-                }];
+            } else if (interstitialAd != nil) {
+                // 6. Present the interstitial ad
+                interstitialAd.fullScreenContentDelegate = self;
+                [interstitialAd presentFromRootViewController:self];
             }
         }];
-    }];   
+    }];
 }
 
 // MARK: - GADFullScreenContentDelegate

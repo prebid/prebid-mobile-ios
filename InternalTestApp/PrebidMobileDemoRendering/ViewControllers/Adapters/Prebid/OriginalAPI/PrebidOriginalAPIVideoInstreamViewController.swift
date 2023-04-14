@@ -141,8 +141,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
             adUnit?.addAppContentData([ortbAppContentData])
         }
         
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
+        let parameters = VideoParameters(mimes: ["video/mp4"]) 
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn]
         parameters.protocols = [Signals.Protocols.VAST_2_0,Signals.Protocols.VAST_3_0,Signals.Protocols.VAST_4_0]
         parameters.api = [1,2]            // or alternative enum values [Api.VPAID_1, Api.VPAID_2]

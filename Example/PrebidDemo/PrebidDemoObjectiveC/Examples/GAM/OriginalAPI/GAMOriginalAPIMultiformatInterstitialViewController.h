@@ -13,18 +13,15 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "InterstitialBaseViewController.h"
 
-typedef NS_ENUM(NSUInteger, AdFormat) {
-    AdFormatDisplayBanner = 0,
-    AdFormatVideoBanner,
-    AdFormatNativeBanner,
-    AdFormatDisplayInterstitial,
-    AdFormatVideoInterstitial,
-    AdFormatVideoRewarded,
-    AdFormatVideoInstream,
-    AdFormatNative,
-    AdFormatMultiformatBanner,
-    AdFormatMultiformatInterstitial,
-    AdFormatAll
-};
+@import GoogleMobileAds;
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface GAMOriginalAPIMultiformatInterstitialViewController : InterstitialBaseViewController <GADFullScreenContentDelegate>
+
+@end
+
+NS_ASSUME_NONNULL_END

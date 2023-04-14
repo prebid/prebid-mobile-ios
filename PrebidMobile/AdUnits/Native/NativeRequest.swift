@@ -17,7 +17,6 @@ import UIKit
 
 public class NativeRequest: AdUnit {
     
-    
     public var version: String {
         get { adUnitConfig.nativeAdConfiguration?.version ?? "1.2" }
         set { adUnitConfig.nativeAdConfiguration?.version = newValue }
@@ -84,9 +83,8 @@ public class NativeRequest: AdUnit {
     }
     
     public init(configId: String) {
-        super.init(configId: configId, size: CGSize.zero)
+        super.init(configId: configId, size: CGSize.zero, adFormats: [.native])
         super.adUnitConfig.nativeAdConfiguration = NativeAdConfiguration()
-        super.adUnitConfig.adFormats = [.native]
     }
     
     public convenience init(configId: String, assets: [NativeAsset]? = nil, eventTrackers: [NativeEventTracker]? = nil) {

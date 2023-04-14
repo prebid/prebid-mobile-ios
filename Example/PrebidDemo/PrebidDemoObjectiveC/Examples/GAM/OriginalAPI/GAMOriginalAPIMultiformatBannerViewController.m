@@ -13,16 +13,16 @@
  limitations under the License.
  */
 
-#import "GAMOriginalAPIVideoBannerViewController.h"
+#import "GAMOriginalAPIMultiformatBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
 @import PrebidMobile;
 @import GoogleMobileAds;
 
-NSString * const storedImpVideoBanner = @"imp-prebid-video-outstream-original-api";
-NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-original-api-video-banner";
+NSArray<NSString *> * const storedImpsBanner = @[@"imp-prebid-banner-300-250", @"imp-prebid-video-outstream-original-api"];
+NSString * const gamAdUnitMultiformatBannerOriginal = @"/21808260008/prebid-demo-original-banner-multiformat";
 
-@interface GAMOriginalAPIVideoBannerViewController ()
+@interface GAMOriginalAPIMultiformatBannerViewController ()
 
 // Prebid
 @property (nonatomic) BannerAdUnit *adUnit;
@@ -32,7 +32,7 @@ NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-origi
 
 @end
 
-@implementation GAMOriginalAPIVideoBannerViewController
+@implementation GAMOriginalAPIMultiformatBannerViewController
 
 - (void)loadView {
     [super loadView];
@@ -42,36 +42,41 @@ NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-origi
 
 - (void)createAd {
     // 1. Create a BannerAdUnit
-    self.adUnit = [[BannerAdUnit alloc] initWithConfigId:storedImpVideoBanner size:self.adSize];
+    NSString * configId = [storedImpsBanner count] ? storedImpsBanner[arc4random_uniform((u_int32_t)[storedImpsBanner count])] : nil;
+    self.adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:self.adSize];
     
-    // 2. Set ad format
-    self.adUnit.adFormats = [NSSet setWithObject:AdFormat.video];
+    // 2. Set adFormats
+    self.adUnit.adFormats = [NSSet setWithObjects:AdFormat.display, AdFormat.video, nil];
     
-    // 3. Configure video parameters
-    VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
-    parameters.protocols = @[PBProtocols.VAST_2_0];
-    parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
-    parameters.placement = PBPlacement.InBanner;
-    self.adUnit.videoParameters = parameters;
+    // 3. Configure banner parameters
+    BannerParameters * bannerParameters = [[BannerParameters alloc] init];
+    bannerParameters.api = @[PBApi.MRAID_2];
+    self.adUnit.bannerParameters = bannerParameters;
     
-    // 4. Create a GAMBannerView
+    // 4. Configure video parameters
+    VideoParameters * videoParameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
+    videoParameters.protocols = @[PBProtocols.VAST_2_0];
+    videoParameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
+    videoParameters.placement = PBPlacement.InBanner;
+    self.adUnit.videoParameters = videoParameters;
+    
+    // 5. Create a GAMBannerView
     GAMRequest * gamRequest = [GAMRequest new];
     self.gamBanner = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(self.adSize)];
-    self.gamBanner.adUnitID = gamAdUnitVideoBannerOriginal;
+    self.gamBanner.adUnitID = gamAdUnitMultiformatBannerOriginal;
     self.gamBanner.rootViewController = self;
     self.gamBanner.delegate = self;
     
     // Add GMA SDK banner view to the app UI
-    self.bannerView.backgroundColor = [UIColor clearColor];
     [self.bannerView addSubview:self.gamBanner];
     
-    // 5. Make a bid request to Prebid Server
+    // 6. Make a bid request to Prebid Server
     @weakify(self);
     [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         
-        // 6. Load GAM Ad
+        // 7. Load GAM Ad
         [self.gamBanner loadRequest:gamRequest];
     }];
 }
@@ -79,6 +84,8 @@ NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-origi
 // MARK: - GADBannerViewDelegate
 
 - (void)bannerViewDidReceiveAd:(GADBannerView *)bannerView {
+    self.bannerView.backgroundColor = UIColor.clearColor;
+    
     [AdViewUtils findPrebidCreativeSize:bannerView success:^(CGSize size) {
         [self.gamBanner resize:GADAdSizeFromCGSize(size)];
     } failure:^(NSError * _Nonnull error) {

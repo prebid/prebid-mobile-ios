@@ -57,14 +57,14 @@ class BidTest: XCTestCase {
     
     // No hb_cache_id = no winning bid in Original API
     func testWinningBidMarkers_NoWinningBid_OriginalApi() {
-        let _ = AdUnit(configId: "configID", size: CGSize(width: 300, height: 250))
+        let _ = AdUnit(configId: "configID", size: CGSize(width: 300, height: 250), adFormats: [.display])
         
         let bid = RawWinningBidFabricator.makeWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
         XCTAssertFalse(bid.isWinning)
     }
     
     func testWinningBidMarkers_WinningBid_OriginalApi() {
-        let _ = AdUnit(configId: "configID", size: CGSize(width: 300, height: 250))
+        let _ = AdUnit(configId: "configID", size: CGSize(width: 300, height: 250), adFormats: [.display])
         
         let bid = RawWinningBidFabricator.makeWinningBid(price: 0.75, bidder: "some bidder", cacheID: "cache/id")
         XCTAssertTrue(bid.isWinning)

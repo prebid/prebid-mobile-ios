@@ -81,6 +81,12 @@
         bidRequest.extPrebid.cache = cache;
     }
     
+    // For multiformat ad units we should get hb_format in PBS response.
+    // In order to do this, we shoould specify ext.prebid.targeting.includeformat
+    if (adFormats.count >= 2) {
+        bidRequest.extPrebid.targeting[@"includeformat"] = [[NSNumber alloc] initWithBool:YES];
+    }
+    
     bidRequest.app.publisher.publisherID        = self.sdkConfiguration.prebidServerAccountId;
     bidRequest.app.ver          = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
     bidRequest.device.pxratio   = @([UIScreen mainScreen].scale);

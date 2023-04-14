@@ -17,16 +17,16 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480-original-api"
-fileprivate let gamAdUnitVideoRewardedOriginal = "/21808260008/prebid-demo-app-original-api-video-interstitial"
+fileprivate let storedImpsInterstitial = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480-original-api"]
+fileprivate let gamAdUnitMultiformatInterstitialOriginal = "/21808260008/prebid-demo-intestitial-multiformat"
 
-class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
+class GAMOriginalAPIMultiformatInterstitialViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
     
     // Prebid
-    private var adUnit: RewardedVideoAdUnit!
+    private var adUnit: InterstitialAdUnit!
     
     // GAM
-    private let gamRequest = GAMRequest()
+    private var gamInterstitial: GAMInterstitialAd!
     
     override func loadView() {
         super.loadView()
@@ -35,30 +35,33 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
     }
     
     func createAd() {
-        // 1. Create an RewardedVideoAdUnit
-        adUnit = RewardedVideoAdUnit(configId: storedImpVideoRewarded)
+        // 1. Create an InterstitialAdUnit
+        adUnit = InterstitialAdUnit(configId: storedImpsInterstitial.randomElement()!, minWidthPerc: 60, minHeightPerc: 70)
         
-        // 2. Configure video parameters
+        // 2. Set adFormats
+        adUnit.adFormats = [.display, .video]
+        
+        // 3. Configure video parameters
         let parameters = VideoParameters(mimes: ["video/mp4"])
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         adUnit.videoParameters = parameters
         
-        // 3. Make a bid request to Prebid Server
+        // 4. Make a bid request to Prebid Server
+        let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
-            // 4. Load the GAM rewarded ad
-            GADRewardedAd.load(withAdUnitID: gamAdUnitVideoRewardedOriginal, request: self?.gamRequest) { [weak self] ad, error in
+            // 5. Load a GAM interstitial ad
+            GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitMultiformatInterstitialOriginal, request: gamRequest) { ad, error in
                 guard let self = self else { return }
+                
                 if let error = error {
-                    PrebidDemoLogger.shared.error("Failed to load rewarded ad with error: \(error.localizedDescription)")
+                    PrebidDemoLogger.shared.error("Failed to load interstitial ad with error: \(error.localizedDescription)")
                 } else if let ad = ad {
                     // 5. Present the interstitial ad
                     ad.fullScreenContentDelegate = self
-                    ad.present(fromRootViewController: self, userDidEarnRewardHandler: {
-                        _ = ad.adReward
-                    })
+                    ad.present(fromRootViewController: self)
                 }
             }
         }
@@ -67,6 +70,6 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
     // MARK: - GADFullScreenContentDelegate
     
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-        PrebidDemoLogger.shared.error("Failed to present rewarded ad with error: \(error.localizedDescription)")
+        PrebidDemoLogger.shared.error("Failed to present interstitial ad with error: \(error.localizedDescription)")
     }
 }

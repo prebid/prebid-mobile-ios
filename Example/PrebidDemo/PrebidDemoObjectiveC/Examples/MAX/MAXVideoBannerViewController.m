@@ -57,13 +57,16 @@ NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
     // 4. Create a MediationBannerAdUnit
     self.maxAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:storedImpVideoBannerMAX size:self.adSize mediationDelegate:self.maxMediationDelegate];
     
-    // 5. Make a bid request to Prebid Server
+    // 5. Set ad format
+    self.maxAdUnit.adFormat = AdFormat.video;
+    
+    // 6. Make a bid request to Prebid Server
     @weakify(self);
     [self.maxAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         
-        // 6. Load the banner ad
+        // 7. Load the banner ad
         [self.maxAdBannerView loadAd];
     }];
 }

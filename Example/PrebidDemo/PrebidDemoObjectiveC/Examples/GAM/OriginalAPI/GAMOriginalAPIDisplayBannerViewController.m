@@ -47,7 +47,7 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
     // 2. Configure banner parameters
     BannerParameters * parameters = [[BannerParameters alloc] init];
     parameters.api = @[PBApi.MRAID_2];
-    self.adUnit.parameters = parameters;
+    self.adUnit.bannerParameters = parameters;
     
     // 3. Create a GAMBannerView
     GAMRequest * gamRequest = [GAMRequest new];

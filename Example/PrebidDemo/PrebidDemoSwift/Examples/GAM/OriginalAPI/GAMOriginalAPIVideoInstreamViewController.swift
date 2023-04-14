@@ -27,7 +27,7 @@ class GAMOriginalAPIVideoInstreamViewController:
     IMAAdsManagerDelegate {
     
     // Prebid
-    private var adUnit: VideoAdUnit!
+    private var adUnit: InstreamVideoAdUnit!
     
     // IMA
     var adsLoader: IMAAdsLoader!
@@ -88,15 +88,14 @@ class GAMOriginalAPIVideoInstreamViewController:
     }
     
     func createAd() {
-        // 1. Create VideoAdUnit
-        adUnit = VideoAdUnit(configId: storedImpVideo, size: CGSize(width: 1,height: 1))
+        // 1. Create InstreamVideoAdUnit
+        adUnit = InstreamVideoAdUnit(configId: storedImpVideo, size: CGSize(width: 1,height: 1))
         
         // 2. Configure Video Parameters
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
+        let parameters = VideoParameters(mimes: ["video/mp4"])
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn]
-        adUnit.parameters = parameters
+        adUnit.videoParameters = parameters
         
         // 3. Prepare IMAAdsLoader
         adsLoader = IMAAdsLoader(settings: nil)

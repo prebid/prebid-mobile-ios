@@ -17,10 +17,10 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream-original-api"
-fileprivate let gamAdUnitVideoBannerOriginal = "/21808260008/prebid-demo-original-api-video-banner"
+fileprivate let storedImpsBanner = ["imp-prebid-banner-300-250", "imp-prebid-video-outstream-original-api"]
+fileprivate let gamAdUnitMultiformatBannerOriginal = "/21808260008/prebid-demo-original-banner-multiformat"
 
-class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
+class GAMOriginalAPIMultiformatBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
     
     // Prebid
     private var adUnit: BannerAdUnit!
@@ -36,34 +36,39 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
     
     func createAd() {
         // 1. Create a BannerAdUnit
-        adUnit = BannerAdUnit(configId: storedImpVideoBanner, size: adSize)
+        adUnit = BannerAdUnit(configId: storedImpsBanner.randomElement()!, size: adSize)
+        adUnit.setAutoRefreshMillis(time: 30000)
         
-        // 2. Set ad format
-        adUnit.adFormats = [.video]
+        // 2. Set adFormats
+        adUnit.adFormats = [.display, .video]
         
-        // 3. Configure video parameters
-        let parameters = VideoParameters(mimes: ["video/mp4"])
-        parameters.protocols = [Signals.Protocols.VAST_2_0]
-        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        parameters.placement = Signals.Placement.InBanner
-        adUnit.videoParameters = parameters
+        // 3. Configure banner parameters
+        let bannerParameters = BannerParameters()
+        bannerParameters.api = [Signals.Api.MRAID_2]
+        adUnit.bannerParameters = bannerParameters
         
-        // 4. Create a GAMBannerView
+        // 4. Configure video parameters
+        let videoParameters = VideoParameters(mimes: ["video/mp4"])
+        videoParameters.protocols = [Signals.Protocols.VAST_2_0]
+        videoParameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+        videoParameters.placement = Signals.Placement.InBanner
+        adUnit.videoParameters = videoParameters
+        
+        // 5. Create a GAMBannerView
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
-        gamBanner.adUnitID = gamAdUnitVideoBannerOriginal
+        gamBanner.adUnitID = gamAdUnitMultiformatBannerOriginal
         gamBanner.rootViewController = self
         gamBanner.delegate = self
         
         // Add GMA SDK banner view to the app UI
-        bannerView.addSubview(gamBanner)
-        bannerView.backgroundColor = .clear
+        bannerView?.addSubview(gamBanner)
         
-        // 5. Make a bid request to Prebid Server
+        // 6. Make a bid request to Prebid Server
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
-            // 6. Load GAM Ad
+            // 7. Load GAM Ad
             self?.gamBanner.load(gamRequest)
         }
     }
@@ -83,3 +88,4 @@ class GAMOriginalAPIVideoBannerViewController: BannerBaseViewController, GADBann
         PrebidDemoLogger.shared.error("GAM did fail to receive ad with error: \(error)")
     }
 }
+

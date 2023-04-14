@@ -14,9 +14,18 @@
  */
 
 #import "PBMORTBBidRequestExtPrebid.h"
-#import "PBMORTBAbstract+Protected.h"
 
 @implementation PBMORTBBidRequestExtPrebid : PBMORTBAbstract
+
+- (instancetype)init {
+    if (!(self = [super init])) {
+        return nil;
+    }
+   
+    self.targeting = [PBMMutableJsonDictionary new];
+    
+    return self;
+}
 
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
@@ -33,8 +42,7 @@
     ret[@"storedrequest"] = storedRequest;
     storedRequest[@"id"] = self.storedRequestID;
     
-    PBMMutableJsonDictionary * const targeting = [PBMMutableJsonDictionary new];
-    ret[@"targeting"] = targeting;
+    ret[@"targeting"] = self.targeting;
     
     if (self.dataBidders != nil && self.dataBidders.count > 0) {
         ret[@"data"] = @{

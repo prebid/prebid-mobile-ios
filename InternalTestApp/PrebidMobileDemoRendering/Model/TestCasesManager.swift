@@ -363,7 +363,28 @@ struct TestCaseManager {
                 let bannerController = PrebidOriginalAPIVideoBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 300, height: 250)
                 bannerController.prebidConfigId = "imp-prebid-video-outstream-original-api"
-                bannerController.adUnitID = "/21808260008/prebid-demo-original-api-video-banner"
+                bannerController.adUnitID = "/21808260008/prebid-demo-original-api-video-banner"   
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Multiformat Banner (GAM Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIMultiformatBannerController(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 300, height: 250)
+                    
+                let configIds = ["imp-prebid-banner-300-250", "imp-prebid-video-outstream-original-api"]
+                bannerController.prebidConfigId = configIds.randomElement()!
+                bannerController.adUnitID = "/21808260008/prebid-demo-original-banner-multiformat"
                          
                 adapterVC.setup(adapter: bannerController)
                         
@@ -424,7 +445,27 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
-            }), 
+            }),
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server, .video],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIMultiformatInterstitialController(rootController: adapterVC)
+                         
+                let configIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480-original-api"]
+                interstitialController.prebidConfigId = configIds.randomElement()!
+                interstitialController.adUnitID = "/21808260008/prebid-demo-intestitial-multiformat"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
             
             // MARK: ---- Native (Original API)
             

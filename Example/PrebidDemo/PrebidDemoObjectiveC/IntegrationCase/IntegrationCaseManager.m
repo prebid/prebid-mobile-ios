@@ -18,8 +18,10 @@
 
 #import "GAMOriginalAPIDisplayBannerViewController.h"
 #import "GAMOriginalAPIVideoBannerViewController.h"
+#import "GAMOriginalAPIMultiformatBannerViewController.h"
 #import "GAMOriginalAPIDisplayInterstitialViewController.h"
 #import "GAMOriginalAPIVideoInterstitialViewController.h"
+#import "GAMOriginalAPIMultiformatInterstitialViewController.h"
 #import "GAMOriginalAPIVideoRewardedViewController.h"
 #import "GAMOriginalAPIVideoInstreamViewController.h"
 #import "GAMOriginalAPINativeBannerViewController.h"
@@ -85,6 +87,16 @@
         
         [
             [IntegrationCase alloc]
+            initWithTitle:@"GAM (Original API) Multiformat Banner 300x250"
+            integrationKind:IntegrationKindGAMOriginal
+            adFormat:AdFormatMultiformatBanner
+            configurationClosure:^UIViewController *{
+                return [[GAMOriginalAPIMultiformatBannerViewController alloc] initWithAdSize:CGSizeMake(300, 250)];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
             initWithTitle:@"GAM (Original API) Display Interstitial 320x480"
             integrationKind:IntegrationKindGAMOriginal
             adFormat:AdFormatDisplayInterstitial
@@ -100,6 +112,15 @@
             adFormat:AdFormatVideoInterstitial
             configurationClosure:^UIViewController *{
                 return [[GAMOriginalAPIVideoInterstitialViewController alloc] init];
+            }
+        ],
+        [
+            [IntegrationCase alloc]
+            initWithTitle:@"GAM (Original API) Multiformat Interstitial 320x480"
+            integrationKind:IntegrationKindGAMOriginal
+            adFormat:AdFormatMultiformatInterstitial
+            configurationClosure:^UIViewController *{
+                return [[GAMOriginalAPIMultiformatInterstitialViewController alloc] init];
             }
         ],
         

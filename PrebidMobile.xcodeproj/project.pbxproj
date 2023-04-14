@@ -90,6 +90,7 @@
 		53C925022990FB30009E6F94 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925012990FB30009E6F94 /* String+Extensions.swift */; };
 		53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */; };
 		53C9250729915466009E6F94 /* PrebidServerStatusRequesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9250629915466009E6F94 /* PrebidServerStatusRequesterTests.swift */; };
+		53CF5B3729DC690600613E84 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF5B3629DC690600613E84 /* VideoAdUnit.swift */; };
 		53D934FF282CE62E0092E243 /* AgeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D934FE282CE62E0092E243 /* AgeUtils.swift */; };
 		53D93505282CEA900092E243 /* DateFormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D93504282CEA900092E243 /* DateFormatService.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
@@ -775,7 +776,7 @@
 		FAEE4D10262DC2B200AD9966 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE5262DC2B200AD9966 /* CacheManager.swift */; };
 		FAEE4D12262DC2B200AD9966 /* RewardedVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */; };
 		FAEE4D13262DC2B200AD9966 /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE9262DC2B200AD9966 /* AdUnit.swift */; };
-		FAEE4D14262DC2B200AD9966 /* BannerBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CEA262DC2B200AD9966 /* BannerBaseAdUnit.swift */; };
+		FAEE4D14262DC2B200AD9966 /* BannerBasedAdUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CEA262DC2B200AD9966 /* BannerBasedAdUnitProtocol.swift */; };
 		FAEE4D15262DC2B200AD9966 /* NativeAdDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CEC262DC2B200AD9966 /* NativeAdDelegate.swift */; };
 		FAEE4D16262DC2B200AD9966 /* NativeAdEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CED262DC2B200AD9966 /* NativeAdEventDelegate.swift */; };
 		FAEE4D17262DC2B200AD9966 /* NativeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CEE262DC2B200AD9966 /* NativeRequest.swift */; };
@@ -783,12 +784,12 @@
 		FAEE4D19262DC2B200AD9966 /* NativeEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF0262DC2B200AD9966 /* NativeEventTracker.swift */; };
 		FAEE4D1A262DC2B200AD9966 /* NativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF1262DC2B200AD9966 /* NativeAd.swift */; };
 		FAEE4D1B262DC2B200AD9966 /* InterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */; };
-		FAEE4D1C262DC2B200AD9966 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF3262DC2B200AD9966 /* VideoAdUnit.swift */; };
+		FAEE4D1C262DC2B200AD9966 /* InstreamVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF3262DC2B200AD9966 /* InstreamVideoAdUnit.swift */; };
 		FAEE4D1D262DC2B200AD9966 /* BannerAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF4262DC2B200AD9966 /* BannerAdUnit.swift */; };
 		FAEE4D1E262DC2B200AD9966 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */; };
 		FAEE4D1F262DC2B200AD9966 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF6262DC2B200AD9966 /* Utils.swift */; };
 		FAEE4D20262DC2B200AD9966 /* Signals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF7262DC2B200AD9966 /* Signals.swift */; };
-		FAEE4D21262DC2B200AD9966 /* VideoBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF8262DC2B200AD9966 /* VideoBaseAdUnit.swift */; };
+		FAEE4D21262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF8262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift */; };
 		FAEE4D22262DC2B200AD9966 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF9262DC2B200AD9966 /* UIViewExtension.swift */; };
 		FAEE4D24262DC2B200AD9966 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEE4CFB262DC2B200AD9966 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAEE4D25262DC2B200AD9966 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CFC262DC2B200AD9966 /* TrackerInfo.swift */; };
@@ -924,6 +925,7 @@
 		53C925012990FB30009E6F94 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequester.swift; sourceTree = "<group>"; };
 		53C9250629915466009E6F94 /* PrebidServerStatusRequesterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequesterTests.swift; sourceTree = "<group>"; };
+		53CF5B3629DC690600613E84 /* VideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAdUnit.swift; sourceTree = "<group>"; };
 		53D934FE282CE62E0092E243 /* AgeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeUtils.swift; sourceTree = "<group>"; };
 		53D93504282CEA900092E243 /* DateFormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatService.swift; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
@@ -1645,7 +1647,7 @@
 		FAEE4CE5262DC2B200AD9966 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RewardedVideoAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CE9262DC2B200AD9966 /* AdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdUnit.swift; sourceTree = "<group>"; };
-		FAEE4CEA262DC2B200AD9966 /* BannerBaseAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerBaseAdUnit.swift; sourceTree = "<group>"; };
+		FAEE4CEA262DC2B200AD9966 /* BannerBasedAdUnitProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerBasedAdUnitProtocol.swift; sourceTree = "<group>"; };
 		FAEE4CEC262DC2B200AD9966 /* NativeAdDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdDelegate.swift; sourceTree = "<group>"; };
 		FAEE4CED262DC2B200AD9966 /* NativeAdEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdEventDelegate.swift; sourceTree = "<group>"; };
 		FAEE4CEE262DC2B200AD9966 /* NativeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeRequest.swift; sourceTree = "<group>"; };
@@ -1653,12 +1655,12 @@
 		FAEE4CF0262DC2B200AD9966 /* NativeEventTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeEventTracker.swift; sourceTree = "<group>"; };
 		FAEE4CF1262DC2B200AD9966 /* NativeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAd.swift; sourceTree = "<group>"; };
 		FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialAdUnit.swift; sourceTree = "<group>"; };
-		FAEE4CF3262DC2B200AD9966 /* VideoAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAdUnit.swift; sourceTree = "<group>"; };
+		FAEE4CF3262DC2B200AD9966 /* InstreamVideoAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstreamVideoAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CF4262DC2B200AD9966 /* BannerAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoInterstitialAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CF6262DC2B200AD9966 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		FAEE4CF7262DC2B200AD9966 /* Signals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signals.swift; sourceTree = "<group>"; };
-		FAEE4CF8262DC2B200AD9966 /* VideoBaseAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoBaseAdUnit.swift; sourceTree = "<group>"; };
+		FAEE4CF8262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoBasedAdUnitProtocol.swift; sourceTree = "<group>"; };
 		FAEE4CF9262DC2B200AD9966 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		FAEE4CFB262DC2B200AD9966 /* PrebidMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		FAEE4CFC262DC2B200AD9966 /* TrackerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerInfo.swift; sourceTree = "<group>"; };
@@ -1842,6 +1844,16 @@
 				53F096C927E917D40058C94C /* Log+Extensions.h */,
 			);
 			path = Logging;
+			sourceTree = "<group>";
+		};
+		5378542A29DAB4B200B0C70B /* Parameters */ = {
+			isa = PBXGroup;
+			children = (
+				FAEE4CF7262DC2B200AD9966 /* Signals.swift */,
+				53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */,
+				53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */,
+			);
+			path = Parameters;
 			sourceTree = "<group>";
 		};
 		53DBEF4927DB87330000D68E /* ConfigurationAndTargeting */ = {
@@ -3146,17 +3158,16 @@
 			children = (
 				FAEE4CE9262DC2B200AD9966 /* AdUnit.swift */,
 				FAEE4CF4262DC2B200AD9966 /* BannerAdUnit.swift */,
-				FAEE4CEA262DC2B200AD9966 /* BannerBaseAdUnit.swift */,
-				53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */,
+				FAEE4CEA262DC2B200AD9966 /* BannerBasedAdUnitProtocol.swift */,
+				FAEE4CF3262DC2B200AD9966 /* InstreamVideoAdUnit.swift */,
 				FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */,
 				FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */,
-				FAEE4CF7262DC2B200AD9966 /* Signals.swift */,
 				FAEE4CF6262DC2B200AD9966 /* Utils.swift */,
-				FAEE4CF3262DC2B200AD9966 /* VideoAdUnit.swift */,
-				FAEE4CF8262DC2B200AD9966 /* VideoBaseAdUnit.swift */,
+				53CF5B3629DC690600613E84 /* VideoAdUnit.swift */,
+				FAEE4CF8262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift */,
 				FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */,
-				53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */,
 				FAEE4CEB262DC2B200AD9966 /* Native */,
+				5378542A29DAB4B200B0C70B /* Parameters */,
 			);
 			path = AdUnits;
 			sourceTree = "<group>";
@@ -3882,7 +3893,7 @@
 				FAEE4D10262DC2B200AD9966 /* CacheManager.swift in Sources */,
 				5BC379A6271F1D0000444D5E /* PBMModalState.m in Sources */,
 				5BC37AAD271F1D0000444D5E /* RewardedEventHandlerStandalone.swift in Sources */,
-				FAEE4D21262DC2B200AD9966 /* VideoBaseAdUnit.swift in Sources */,
+				FAEE4D21262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift in Sources */,
 				5BC37910271F1CFF00444D5E /* PBMWindowLocker.m in Sources */,
 				FAEE4D0D262DC2B200AD9966 /* Log.swift in Sources */,
 				5BC37A99271F1D0000444D5E /* PBMInterstitialAdLoader.m in Sources */,
@@ -3896,7 +3907,7 @@
 				5BC3798D271F1D0000444D5E /* PBMAdRefreshOptions.m in Sources */,
 				5BC378CC271F1CFF00444D5E /* PBMWeakTimerTargetBox.m in Sources */,
 				5BC379AC271F1D0000444D5E /* PBMModalManager.m in Sources */,
-				FAEE4D1C262DC2B200AD9966 /* VideoAdUnit.swift in Sources */,
+				FAEE4D1C262DC2B200AD9966 /* InstreamVideoAdUnit.swift in Sources */,
 				5BC37970271F1D0000444D5E /* PBMVastAbstractAd.m in Sources */,
 				53BDBF89293F5EFF004B6DE8 /* InternalUserConsentDataManager.m in Sources */,
 				92C85D5E27A96DBB0080BAC5 /* NativeData.swift in Sources */,
@@ -3915,6 +3926,7 @@
 				5BC3797B271F1D0000444D5E /* PBMVastInlineAd.m in Sources */,
 				FAEE4D0F262DC2B200AD9966 /* StorageUtils.swift in Sources */,
 				5BC37AC6271F1D0100444D5E /* PBMSKAdNetworksParameterBuilder.m in Sources */,
+				53CF5B3729DC690600613E84 /* VideoAdUnit.swift in Sources */,
 				5BC37A1C271F1D0000444D5E /* PBMErrorFamily.m in Sources */,
 				FAEE4D28262DC2B200AD9966 /* PbFindSizeError.swift in Sources */,
 				5BC37990271F1D0000444D5E /* PBMVideoCreative.m in Sources */,
@@ -4072,7 +4084,7 @@
 				5BC378C3271F1CFF00444D5E /* NSString+PBMExtensions.m in Sources */,
 				5BC37903271F1CFF00444D5E /* PBMORTBVideo.m in Sources */,
 				5BC37914271F1CFF00444D5E /* PBMCircularProgressBarView.m in Sources */,
-				FAEE4D14262DC2B200AD9966 /* BannerBaseAdUnit.swift in Sources */,
+				FAEE4D14262DC2B200AD9966 /* BannerBasedAdUnitProtocol.swift in Sources */,
 				928E5A7227F0F799000ADA1A /* PlacementType.swift in Sources */,
 				5BC37AE8271F2D0F00444D5E /* NativeImageAssetType.swift in Sources */,
 				92C85D6227A977AD0080BAC5 /* NativeAdMarkupAsset.swift in Sources */,

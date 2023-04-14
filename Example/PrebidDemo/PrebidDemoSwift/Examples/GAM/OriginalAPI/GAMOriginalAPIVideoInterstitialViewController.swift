@@ -23,7 +23,7 @@ fileprivate let gamAdUnitVideoInterstitialOriginal = "/21808260008/prebid-demo-a
 class GAMOriginalAPIVideoInterstitialViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
     
     // Prebid
-    private var adUnit: VideoInterstitialAdUnit!
+    private var adUnit: InterstitialAdUnit!
     
     // GAM
     private var gamInterstitial: GAMInterstitialAd!
@@ -35,28 +35,30 @@ class GAMOriginalAPIVideoInterstitialViewController: InterstitialBaseViewControl
     }
     
     func createAd() {
-        // 1. Create an VideoInterstitialAdUnit
-        adUnit = VideoInterstitialAdUnit(configId: storedImpVideoInterstitial)
+        // 1. Create an InterstitialAdUnit
+        adUnit = InterstitialAdUnit(configId: storedImpVideoInterstitial)
         
-        // 2. Configure video parameters
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
+        // 2. Set ad format
+        adUnit.adFormats = [.video]
+        
+        // 3. Configure video parameters
+        let parameters = VideoParameters(mimes: ["video/mp4"])        
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        adUnit.parameters = parameters
+        adUnit.videoParameters = parameters
         
-        // 3. Make a bid request to Prebid Server
+        // 4. Make a bid request to Prebid Server
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
-            // 4. Load a GAM interstitial ad
+            // 5. Load a GAM interstitial ad
             GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitVideoInterstitialOriginal, request: gamRequest) { ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     PrebidDemoLogger.shared.error("Failed to load interstitial ad with error: \(error.localizedDescription)")
                 } else if let ad = ad {
-                    // 5. Present the interstitial ad
+                    // 6. Present the interstitial ad
                     ad.present(fromRootViewController: self)
                     ad.fullScreenContentDelegate = self
                 }
