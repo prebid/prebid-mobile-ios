@@ -39,7 +39,7 @@ class GAMOriginalAPIMultiformatInterstitialViewController: InterstitialBaseViewC
         adUnit = InterstitialAdUnit(configId: storedImpsInterstitial.randomElement()!, minWidthPerc: 60, minHeightPerc: 70)
         
         // 2. Set adFormats
-        adUnit.adFormats = [.display, .video]
+        adUnit.adFormats = [.banner, .video]
         
         // 3. Configure video parameters
         let parameters = VideoParameters(mimes: ["video/mp4"])

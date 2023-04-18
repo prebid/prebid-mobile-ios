@@ -60,7 +60,7 @@ class AdUnitSuccessorTests: XCTestCase {
         checkDefault(adUnit: adUnit)
         XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
         XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
-        XCTAssertTrue(adUnit.adUnitConfig.adFormats == [.display])
+        XCTAssertTrue(adUnit.adUnitConfig.adFormats == [.banner])
     }
     
     func testInterstitialAdUnitAdSize() {

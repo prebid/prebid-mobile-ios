@@ -39,7 +39,7 @@ public class BannerAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitPr
     }
     
     public init(configId: String, size: CGSize) {
-        super.init(configId: configId, size: size, adFormats: [.display])
+        super.init(configId: configId, size: size, adFormats: [.banner])
     }
 
     public func addAdditionalSize(sizes: [CGSize]) {

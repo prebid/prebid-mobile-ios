@@ -41,7 +41,7 @@ NSString * const gamAdUnitVideoInterstitialOriginal = @"/21808260008/prebid-demo
     self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitial];
     
     // 2. Set ad format
-    self.adUnit.adFormats = [NSSet setWithObject:AdFormat.display];
+    self.adUnit.adFormats = [NSSet setWithObject:AdFormat.banner];
     
     // 3. Configure video parameters
     VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];

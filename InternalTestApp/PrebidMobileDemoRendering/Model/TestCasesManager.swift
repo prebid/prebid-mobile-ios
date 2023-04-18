@@ -948,7 +948,7 @@ struct TestCaseManager {
                 }
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.display]
+                interstitialController.adFormats = [.banner]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                  
                 adapterVC.setup(adapter: interstitialController)
@@ -965,7 +965,7 @@ struct TestCaseManager {
                 }
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.display]
+                interstitialController.adFormats = [.banner]
                 interstitialController.prebidConfigId = "imp-prebid-no-bids"
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -979,7 +979,7 @@ struct TestCaseManager {
                 guard let presentationVC = vc as? PrebidPresentationViewController else {
                     return
                 }
-                presentationVC.adFormats = [.display]
+                presentationVC.adFormats = [.banner]
                 presentationVC.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                         
                 setupCustomParams(for: presentationVC.prebidConfigId)
@@ -994,7 +994,7 @@ struct TestCaseManager {
                 }
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.display]
+                interstitialController.adFormats = [.banner]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-multisize"
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1013,7 +1013,7 @@ struct TestCaseManager {
                 Targeting.shared.sourceapp = "InternalTestApp"
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.display]
+                interstitialController.adFormats = [.banner]
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-skadn"
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1067,7 +1067,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.adFormats = [.display]
+                gamInterstitialController.adFormats = [.banner]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial"
                         
                 gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
@@ -1086,7 +1086,7 @@ struct TestCaseManager {
                 }
                          
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.adFormats = [.display]
+                gamInterstitialController.adFormats = [.banner]
                 gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial_random"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1102,7 +1102,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.adFormats = [.display]
+                gamInterstitialController.adFormats = [.banner]
                 gamInterstitialController.prebidConfigId = "imp-prebid-no-bids"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_320x480_html_interstitial_static"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1119,7 +1119,7 @@ struct TestCaseManager {
                 }
                          
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.adFormats = [.display]
+                gamInterstitialController.adFormats = [.banner]
                 gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-multisize"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1136,7 +1136,7 @@ struct TestCaseManager {
                 }
                          
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.adFormats = [.display]
+                gamInterstitialController.adFormats = [.banner]
                 gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_html_interstitial"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -2466,7 +2466,7 @@ struct TestCaseManager {
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
-                admobInterstitialController.adFormats = [.display]
+                admobInterstitialController.adFormats = [.banner]
                 admobInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 
                 adapterVC.setup(adapter: admobInterstitialController)
@@ -2483,7 +2483,7 @@ struct TestCaseManager {
                 }
                          
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
-                admobInterstitialController.adFormats = [.display]
+                admobInterstitialController.adFormats = [.banner]
                 admobInterstitialController.prebidConfigId = "imp-prebid-no-bids"
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
                 adapterVC.setup(adapter: admobInterstitialController)
@@ -2499,7 +2499,7 @@ struct TestCaseManager {
                     return
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
-                admobInterstitialController.adFormats = [.display]
+                admobInterstitialController.adFormats = [.banner]
                 admobInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
                 adapterVC.setup(adapter: admobInterstitialController)
@@ -3218,7 +3218,7 @@ struct TestCaseManager {
                     return
                 }
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
-                maxInterstitialController.adFormats = [.display]
+                maxInterstitialController.adFormats = [.banner]
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 maxInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 adapterVC.setup(adapter: maxInterstitialController)
@@ -3235,7 +3235,7 @@ struct TestCaseManager {
                 }
                          
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
-                maxInterstitialController.adFormats = [.display]
+                maxInterstitialController.adFormats = [.banner]
                 maxInterstitialController.prebidConfigId = "imp-prebid-no-bids"
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: maxInterstitialController)
@@ -3251,7 +3251,7 @@ struct TestCaseManager {
                     return
                 }
                 let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
-                maxInterstitialController.adFormats = [.display]
+                maxInterstitialController.adFormats = [.banner]
                 maxInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: maxInterstitialController)

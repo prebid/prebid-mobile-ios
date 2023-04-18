@@ -36,7 +36,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testAdPositionHeader() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        adUnitConfig.adFormats = [.display]
+        adUnitConfig.adFormats = [.banner]
         
         var bidRequest = buildBidRequest(with: adUnitConfig)
         
@@ -85,7 +85,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testAdditionalSizes() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        adUnitConfig.adFormats = [.display]
+        adUnitConfig.adFormats = [.banner]
         
         var bidRequest = buildBidRequest(with: adUnitConfig)
         
@@ -198,7 +198,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testAdUnitSpecificKeywords() {
-        let adUnit = AdUnit(configId: "config_id", size: nil, adFormats: [.display])
+        let adUnit = AdUnit(configId: "config_id", size: nil, adFormats: [.banner])
         
         let expectedKeywords = Set<String>(["keyword1", "keyword2", "keyword3"])
         
@@ -360,7 +360,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         // This should not impact on caching the bid in original api
         sdkConfiguration.useCacheForReportingWithRenderingAPI = false
         
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.banner])
         let adUnitConfig = adUnit.adUnitConfig
         
         let bidRequest = buildBidRequest(with: adUnitConfig)
@@ -376,7 +376,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testDefaultAPISignalsInAllAdUnits() {
         // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.banner])
         
         var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         
@@ -647,8 +647,8 @@ class PrebidParameterBuilderTest: XCTestCase {
 
     func testBannerParameters() {
         // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
-        adUnit.adUnitConfig.adFormats = [.display]
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.banner])
+        adUnit.adUnitConfig.adFormats = [.banner]
 
         let bannerParameters = BannerParameters()
         bannerParameters.api = [.MRAID_1, .MRAID_2, .MRAID_3, .OMID_1, .ORMMA, .VPAID_1, .VPAID_2, .ORMMA]
@@ -664,7 +664,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
     func testVideoParameters() {
         // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 300, height: 250), adFormats: [.display])
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 300, height: 250), adFormats: [.banner])
         adUnit.adUnitConfig.adFormats = [.video]
 
         let videoParamters = VideoParameters(mimes: [])
@@ -701,11 +701,11 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testIncludeFormatOnMultiformatAdUnit() {
         let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
-        adUnit.adUnitConfig.adFormats = [.display]
+        adUnit.adUnitConfig.adFormats = [.banner]
         var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         XCTAssertNil(bidRequest.extPrebid.targeting["includeformat"])
         
-        adUnit.adUnitConfig.adFormats = [.display, .video]
+        adUnit.adUnitConfig.adFormats = [.banner, .video]
         bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         XCTAssert(bidRequest.extPrebid.targeting["includeformat"] as! Bool == true)
     }

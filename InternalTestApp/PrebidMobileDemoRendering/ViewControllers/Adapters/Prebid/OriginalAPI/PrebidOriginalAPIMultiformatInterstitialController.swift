@@ -61,7 +61,7 @@ class PrebidOriginalAPIMultiformatInterstitialController:
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         adUnit = InterstitialAdUnit(configId: prebidConfigId, minWidthPerc: 50, minHeightPerc: 70)
-        adUnit.adFormats = [.display, .video]
+        adUnit.adFormats = [.banner, .video]
         
         adUnit.videoParameters.mimes = ["video/mp4"]
         

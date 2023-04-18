@@ -71,7 +71,7 @@ class PrebidOriginalAPIMultiformatBannerController:
         
         adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
         adUnit.setAutoRefreshMillis(time: refreshInterval)
-        adUnit.adFormats = [.display, .video]
+        adUnit.adFormats = [.banner, .video]
         
         adUnit.videoParameters.mimes = ["video/mp4"]
         

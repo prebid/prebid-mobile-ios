@@ -34,11 +34,11 @@ public class AdFormat: NSObject, OptionSet {
         super.init()
     }
     
-    public static let display = AdFormat(rawValue: 1 << 0, stringEquivalent: "banner")
+    public static let banner = AdFormat(rawValue: 1 << 0, stringEquivalent: "banner")
     public static let video = AdFormat(rawValue: 1 << 1, stringEquivalent: "video")
     public static let native = AdFormat(rawValue: 1 << 2, stringEquivalent: "native")
     
     public static var allCases: [AdFormat] {
-        [.display, .video]
+        [.banner, .video, .native]
     }
 }
