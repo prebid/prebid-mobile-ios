@@ -15,8 +15,7 @@
 
 import Foundation
 
-@objc(PBMIMAAdSlotSize)
-public class IMAAdSlotSize: SingleContainerInt {
+@objc public class IMAAdSlotSize: SingleContainerInt {
     
     @objc
     public static let Size400x300 = IMAAdSlotSize(1)
@@ -40,7 +39,7 @@ class IMAAdSlotSizeDescriptor {
     }
 }
 
-@objc(PBMIMAUtils) @objcMembers
+@objcMembers
 public final class IMAUtils: NSObject {
     
     @objc public static let shared = IMAUtils()

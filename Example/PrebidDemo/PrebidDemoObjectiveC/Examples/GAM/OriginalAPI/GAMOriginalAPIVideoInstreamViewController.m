@@ -112,7 +112,7 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
             @try
             {
                 // 5. Generate GAM Instream URI
-                NSString * adServerTag = [PBMIMAUtils.shared generateInstreamUriForGAMWithAdUnitID:gamAdUnitVideo adSlotSizes:@[PBMIMAAdSlotSize.Size320x480] customKeywords:prebidKeys error:nil];
+                NSString * adServerTag = [IMAUtils.shared generateInstreamUriForGAMWithAdUnitID:gamAdUnitVideo adSlotSizes:@[IMAAdSlotSize.Size320x480] customKeywords:prebidKeys error:nil];
                 
                 // 6. Load IMA ad request
                 IMAAdDisplayContainer * adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.instreamView viewController:self];
