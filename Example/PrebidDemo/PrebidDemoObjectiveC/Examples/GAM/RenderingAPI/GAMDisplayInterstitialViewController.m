@@ -35,7 +35,7 @@ NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_o
 
 - (void)createAd {
     // 1. Create a GAMInterstitialEventHandler
-    GAMInterstitialEventHandler * eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:gamAdUnitDisplayInterstitialRendering];
+    PBMGAMInterstitialEventHandler * eventHandler = [[PBMGAMInterstitialEventHandler alloc] initWithAdUnitID:gamAdUnitDisplayInterstitialRendering];
     
     // 2. Create a InterstitialRenderingAdUnit
     self.renderingInterstitial = [[PBMInterstitialRenderingAdUnit alloc] initWithConfigID:storedImpGAMDisplayInterstitial minSizePercentage:CGSizeMake(30, 30) eventHandler:eventHandler];
