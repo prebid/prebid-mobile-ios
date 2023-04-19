@@ -17,7 +17,7 @@ import Foundation
 import PrebidMobile
 import AppLovinSDK
 
-@objcMembers
+@objc(PBMMAXUtils) @objcMembers
 public class MAXUtils: NSObject {
     
     public static func findNative(_ extras: [AnyHashable: Any]) -> Result<PrebidMAUnifiedNativeAd, Error> {
