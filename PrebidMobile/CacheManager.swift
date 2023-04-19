@@ -15,6 +15,7 @@ limitations under the License.
 
 import UIKit
 
+@objc(PBMCacheManager)
 public class CacheManager: NSObject {
     
     public static let cacheManagerExpireInterval : TimeInterval = 300
