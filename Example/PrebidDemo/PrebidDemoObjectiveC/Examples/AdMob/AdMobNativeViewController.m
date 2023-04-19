@@ -22,7 +22,7 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
 @interface AdMobNativeViewController ()
 
 // Prebid
-@property (nonatomic) NativeAd * nativeAd;
+@property (nonatomic) PBMNativeAd * nativeAd;
 @property (nonatomic) AdMobMediationNativeUtils * mediationDelegate;
 @property (nonatomic) MediationNativeAdUnit * admobMediationNativeAdUnit;
 
@@ -50,19 +50,19 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
     self.admobMediationNativeAdUnit = [[MediationNativeAdUnit alloc] initWithConfigId:nativeStoredImpressionAdMob mediationDelegate:self.mediationDelegate];
     
     // 4. Configure MediationNativeAdUnit
-    NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
-    image.type = ImageAsset.Main;
+    PBMNativeAssetImage *image = [[PBMNativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
+    image.type = PBMImageAsset.Main;
     
-    NativeAssetImage *icon = [[NativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
-    icon.type = ImageAsset.Icon;
+    PBMNativeAssetImage *icon = [[PBMNativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
+    icon.type = PBMImageAsset.Icon;
     
-    NativeAssetTitle *title = [[NativeAssetTitle alloc] initWithLength:90 required:true];
-    NativeAssetData *body = [[NativeAssetData alloc] initWithType:DataAssetDescription required:true];
-    NativeAssetData *cta = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:true];
-    NativeAssetData *sponsored = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:true];
+    PBMNativeAssetTitle *title = [[PBMNativeAssetTitle alloc] initWithLength:90 required:true];
+    PBMNativeAssetData *body = [[PBMNativeAssetData alloc] initWithType:PBMDataAssetDescription required:true];
+    PBMNativeAssetData *cta = [[PBMNativeAssetData alloc] initWithType:PBMDataAssetCtatext required:true];
+    PBMNativeAssetData *sponsored = [[PBMNativeAssetData alloc] initWithType:PBMDataAssetSponsored required:true];
     
-    NativeEventTracker * eventTracker = [[NativeEventTracker alloc] initWithEvent:EventType.Impression
-                                                                          methods:@[EventTracking.Image, EventTracking.js]];
+    PBMNativeEventTracker * eventTracker = [[PBMNativeEventTracker alloc] initWithEvent:PBMEventType.Impression
+                                                                          methods:@[PBMEventTracking.Image, PBMEventTracking.js]];
     
     [self.admobMediationNativeAdUnit addNativeAssets:@[title, icon, image, sponsored, body, cta]];
     [self.admobMediationNativeAdUnit addEventTracker:@[eventTracker]];

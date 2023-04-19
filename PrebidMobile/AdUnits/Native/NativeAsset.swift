@@ -1,20 +1,21 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 import UIKit
 
+@objc(PBMNativeAsset)
 public class NativeAsset: NSObject {
     
     var id: NSInteger!
@@ -46,7 +47,8 @@ public class NativeAsset: NSObject {
     
 }
 
-@objcMembers public class NativeAssetTitle: NativeAsset {
+@objc(PBMNativeAssetTitle) @objcMembers
+public class NativeAssetTitle: NativeAsset {
     
     var length: NSInteger! = 25
     
@@ -68,7 +70,8 @@ public class NativeAsset: NSObject {
     
 }
 
-@objcMembers public class NativeAssetImage: NativeAsset {
+@objc(PBMNativeAssetImage) @objcMembers
+public class NativeAssetImage: NativeAsset {
     
     public var type: ImageAsset?
     public var width: Int?
@@ -105,7 +108,8 @@ public class NativeAsset: NSObject {
     
 }
 
-@objcMembers public class NativeAssetData: NativeAsset {
+@objc(PBMNativeAssetData) @objcMembers
+public class NativeAssetData: NativeAsset {
     var type: DataAsset?
     public var length: Int?
     public var ext: AnyObject?
@@ -121,11 +125,12 @@ public class NativeAsset: NSObject {
         data["type"] = type?.rawValue
         data["len"] = length
         data["ext"] = ext
-
+        
         return data
     }
 }
 
+@objc(PBMImageAsset)
 public class ImageAsset: SingleContainerInt {
     
     @objc
@@ -140,7 +145,8 @@ public class ImageAsset: SingleContainerInt {
 }
 
 
-@objc public enum DataAsset: Int {
+@objc(PBMDataAsset)
+public enum DataAsset: Int {
     case sponsored = 1
     case description = 2
     case rating = 3
@@ -156,19 +162,19 @@ public class ImageAsset: SingleContainerInt {
     case Custom
     
     private static var customValue = 500
-        
-        public var exchangeID:Int {
-            get {
-                switch self {
-                case .Custom:
-                    return DataAsset.customValue
-                default:
-                    return self.rawValue
-                }
+    
+    public var exchangeID:Int {
+        get {
+            switch self {
+            case .Custom:
+                return DataAsset.customValue
+            default:
+                return self.rawValue
             }
-            set {
-                DataAsset.customValue = newValue
-            }
-            
         }
+        set {
+            DataAsset.customValue = newValue
+        }
+        
+    }
 }

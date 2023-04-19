@@ -15,7 +15,8 @@ limitations under the License.
 
 import UIKit
 
-@objc public class NativeEventTracker: NSObject {
+@objc(PBMNativeEventTracker)
+public class NativeEventTracker: NSObject {
     
     var event: EventType
     var methods: Array<EventTracking>
@@ -43,7 +44,9 @@ import UIKit
     }
 }
 
+@objc(PBMEventType)
 public class EventType: SingleContainerInt {
+    
     @objc
     public static let Impression = EventType(1)
 
@@ -60,7 +63,7 @@ public class EventType: SingleContainerInt {
     public static let Custom = EventType(500)
 }
 
-
+@objc(PBMEventTracking)
 public class EventTracking: SingleContainerInt {
     @objc
     public static let Image = EventTracking(1)

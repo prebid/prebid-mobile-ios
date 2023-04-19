@@ -16,7 +16,8 @@
 import Foundation
 import UIKit
 
-@objcMembers public class NativeAd: NSObject, CacheExpiryDelegate {
+@objc(PBMNativeAd) @objcMembers
+public class NativeAd: NSObject, CacheExpiryDelegate {
     
     // MARK: - Public properties
     
