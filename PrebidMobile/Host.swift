@@ -38,7 +38,7 @@ import UIKit
     }
 }
 
-@objc(PBMHost) @objcMembers
+@objcMembers
 public class Host: NSObject {
 
     private var customHostURL: URL?
