@@ -22,7 +22,7 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
 @interface MAXVideoRewardedViewController ()
 
 // Prebid
-@property (nonatomic) MediationRewardedAdUnit * maxRewardedAdUnit;
+@property (nonatomic) PBMMediationRewardedAdUnit * maxRewardedAdUnit;
 @property (nonatomic) PBMMAXMediationRewardedUtils * mediationDelegate;
 
 // MAX
@@ -46,7 +46,7 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
     self.mediationDelegate = [[PBMMAXMediationRewardedUtils alloc] initWithRewardedAd:self.maxRewarded];
     
     // 3. Create a MediationRewardedAdUnit
-    self.maxRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedMAX mediationDelegate:self.mediationDelegate];
+    self.maxRewardedAdUnit = [[PBMMediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedMAX mediationDelegate:self.mediationDelegate];
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);

@@ -22,7 +22,7 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
 @interface AdMobVideoRewardedViewController ()
 
 // Prebid
-@property (nonatomic) MediationRewardedAdUnit * admobRewardedAdUnit;
+@property (nonatomic) PBMMediationRewardedAdUnit * admobRewardedAdUnit;
 @property (nonatomic) PBMAdMobMediationRewardedUtils * mediationDelegate;
 
 // AdMob
@@ -46,7 +46,7 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
     self.mediationDelegate = [[PBMAdMobMediationRewardedUtils alloc] initWithGadRequest:gadRequest];
     
     // 3. Create a MediationRewardedAdUnit
-    self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedAdMob mediationDelegate:self.mediationDelegate];
+    self.admobRewardedAdUnit = [[PBMMediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedAdMob mediationDelegate:self.mediationDelegate];
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);

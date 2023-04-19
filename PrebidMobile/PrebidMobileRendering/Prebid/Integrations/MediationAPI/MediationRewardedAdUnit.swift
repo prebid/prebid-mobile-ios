@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMMediationRewardedAdUnit) @objcMembers
 public class MediationRewardedAdUnit : MediationBaseInterstitialAdUnit {
     
     // - MARK: Public Methods
