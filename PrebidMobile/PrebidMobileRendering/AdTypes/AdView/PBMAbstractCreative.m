@@ -345,7 +345,7 @@
                     productParams:(NSDictionary<NSString *, id> *)productParams
                            onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock {
     self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
-    HiddenWebViewManager *webViewManager = [[HiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
+    PBMHiddenWebViewManager *webViewManager = [[PBMHiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
     [self.hiddenWebView setHidden:YES];
     [webViewManager openHiddenWebView];
     
