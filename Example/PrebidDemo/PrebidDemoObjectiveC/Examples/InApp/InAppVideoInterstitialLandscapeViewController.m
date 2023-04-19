@@ -21,7 +21,7 @@ NSString * const storedImpVideoInterstitialLandscapeInApp = @"imp-prebid-video-i
 @interface InAppVideoInterstitialLandscapeViewController ()
 
 // Prebid
-@property (nonatomic) InterstitialRenderingAdUnit * renderingInterstitial;
+@property (nonatomic) PBMInterstitialRenderingAdUnit * renderingInterstitial;
 
 @end
 
@@ -35,7 +35,7 @@ NSString * const storedImpVideoInterstitialLandscapeInApp = @"imp-prebid-video-i
 
 - (void)createAd {
     // 1. Create a InterstitialRenderingAdUnit
-    self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpVideoInterstitialLandscapeInApp];
+    self.renderingInterstitial = [[PBMInterstitialRenderingAdUnit alloc] initWithConfigID:storedImpVideoInterstitialLandscapeInApp];
     
     // 2. Configure the InterstitialRenderingAdUnit
     self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.video, nil];
@@ -47,11 +47,11 @@ NSString * const storedImpVideoInterstitialLandscapeInApp = @"imp-prebid-video-i
 
 // MARK: - InterstitialAdUnitDelegate
 
-- (void)interstitialDidReceiveAd:(InterstitialRenderingAdUnit *)interstitial {
+- (void)interstitialDidReceiveAd:(PBMInterstitialRenderingAdUnit *)interstitial {
     [self.renderingInterstitial showFrom:self];
 }
 
-- (void)interstitial:(InterstitialRenderingAdUnit *)interstitial didFailToReceiveAdWithError:(NSError *)error {
+- (void)interstitial:(PBMInterstitialRenderingAdUnit *)interstitial didFailToReceiveAdWithError:(NSError *)error {
     PBMLogError(@"%@", error.localizedDescription);
 }
 

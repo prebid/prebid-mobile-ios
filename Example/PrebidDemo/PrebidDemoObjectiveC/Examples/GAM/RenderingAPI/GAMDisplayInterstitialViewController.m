@@ -21,7 +21,7 @@ NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_o
 @interface GAMDisplayInterstitialViewController ()
 
 // Prebid
-@property (nonatomic) InterstitialRenderingAdUnit * renderingInterstitial;
+@property (nonatomic) PBMInterstitialRenderingAdUnit * renderingInterstitial;
 
 @end
 
@@ -38,7 +38,7 @@ NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_o
     GAMInterstitialEventHandler * eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:gamAdUnitDisplayInterstitialRendering];
     
     // 2. Create a InterstitialRenderingAdUnit
-    self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpGAMDisplayInterstitial minSizePercentage:CGSizeMake(30, 30) eventHandler:eventHandler];
+    self.renderingInterstitial = [[PBMInterstitialRenderingAdUnit alloc] initWithConfigID:storedImpGAMDisplayInterstitial minSizePercentage:CGSizeMake(30, 30) eventHandler:eventHandler];
     self.renderingInterstitial.delegate = self;
     self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.banner, nil];
     
@@ -48,11 +48,11 @@ NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_o
 
 // MARK: - InterstitialAdUnitDelegate
 
-- (void)interstitialDidReceiveAd:(InterstitialRenderingAdUnit *)interstitial {
+- (void)interstitialDidReceiveAd:(PBMInterstitialRenderingAdUnit *)interstitial {
     [interstitial showFrom:self];
 }
 
-- (void)interstitial:(InterstitialRenderingAdUnit *)interstitial didFailToReceiveAdWithError:(NSError *)error {
+- (void)interstitial:(PBMInterstitialRenderingAdUnit *)interstitial didFailToReceiveAdWithError:(NSError *)error {
     PBMLogError(@"%@", error.localizedDescription);
 }
 

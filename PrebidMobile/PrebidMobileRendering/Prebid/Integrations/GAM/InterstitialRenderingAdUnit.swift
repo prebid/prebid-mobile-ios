@@ -15,7 +15,7 @@
 
 import UIKit
 
-@objcMembers
+@objc(PBMInterstitialRenderingAdUnit) @objcMembers
 public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
     
     @objc public var skipButtonArea: Double {
