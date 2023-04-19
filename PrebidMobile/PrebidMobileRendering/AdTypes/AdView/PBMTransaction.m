@@ -35,7 +35,7 @@
 @interface PBMTransaction()
 
 @property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
-@property (nonatomic, strong) AdConfiguration *adConfiguration;
+@property (nonatomic, strong) PBMAdConfiguration *adConfiguration;
 @property (nonatomic, strong) PBMCreativeFactory *creativeFactory;
 
 @end
@@ -43,7 +43,7 @@
 @implementation PBMTransaction
 
 - (instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)connection
-                         adConfiguration:(AdConfiguration*)adConfiguration
+                         adConfiguration:(PBMAdConfiguration*)adConfiguration
                                   models:(NSArray<PBMCreativeModel *> *)creativeModels {
     self = [super init];
     if (self) {
@@ -139,7 +139,7 @@
         nil;
 }
 
-- (void)resetAdConfiguration:(AdConfiguration *)adConfiguration {
+- (void)resetAdConfiguration:(PBMAdConfiguration *)adConfiguration {
     self.adConfiguration = adConfiguration;
     for (PBMCreativeModel *creativeModel in self.creativeModels) {
         creativeModel.adConfiguration = adConfiguration;

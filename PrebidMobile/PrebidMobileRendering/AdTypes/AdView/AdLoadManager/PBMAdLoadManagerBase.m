@@ -41,7 +41,7 @@
 
 - (instancetype)initWithBid:(PBMBid *)bid
                  connection:(id<PrebidServerConnectionProtocol>)connection
-            adConfiguration:(AdConfiguration *)adConfiguration {
+            adConfiguration:(PBMAdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         PBMAssert(connection);

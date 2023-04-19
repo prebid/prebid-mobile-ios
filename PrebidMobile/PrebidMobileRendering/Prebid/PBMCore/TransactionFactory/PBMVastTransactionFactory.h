@@ -15,7 +15,7 @@
 
 #import "PBMTransactionFactoryCallback.h"
 
-@class AdConfiguration;
+@class PBMAdConfiguration;
 @protocol PrebidServerConnectionProtocol;
 @class PBMBid;
 
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithBid:(PBMBid *)bid
                  connection:(id<PrebidServerConnectionProtocol>)connection
-            adConfiguration:(AdConfiguration *)adConfiguration
+            adConfiguration:(PBMAdConfiguration *)adConfiguration
                    callback:(PBMTransactionFactoryCallback)callback;
 
 - (BOOL)loadWithAdMarkup:(NSString *)adMarkup;

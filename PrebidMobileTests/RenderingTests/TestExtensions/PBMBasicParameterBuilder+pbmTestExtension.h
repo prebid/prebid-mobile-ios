@@ -17,7 +17,7 @@
 
 @interface PBMBasicParameterBuilder()
 
-@property (nonatomic, strong, nullable, readwrite) AdConfiguration *adConfiguration;
+@property (nonatomic, strong, nullable, readwrite) PBMAdConfiguration *adConfiguration;
 @property (nonatomic, strong, nullable, readwrite) Prebid *sdkConfiguration;
 @property (nonatomic, strong, nullable, readwrite) Targeting *targeting;
 @property (nonatomic, copy, nullable, readwrite) NSString *sdkVersion;

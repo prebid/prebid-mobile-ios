@@ -17,7 +17,7 @@
 
 @class PBMAdUnitConfig;
 @class PBMBid;
-@class AdConfiguration;
+@class PBMAdConfiguration;
 
 @protocol PrebidServerConnectionProtocol;
 
