@@ -15,7 +15,7 @@
 
 import UIKit
 
-@objc
+@objc(PBMRewardedAdUnit)
 public class RewardedAdUnit: BaseInterstitialAdUnit,
                              RewardedEventInteractionDelegate {
    

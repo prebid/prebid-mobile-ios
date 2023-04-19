@@ -21,7 +21,7 @@ NSString * const storedImpVideoRewardedInApp = @"imp-prebid-video-rewarded-320-4
 @interface InAppVideoRewardedViewController ()
 
 // Prebid
-@property (nonatomic) RewardedAdUnit * rewardedAdUnit;
+@property (nonatomic) PBMRewardedAdUnit * rewardedAdUnit;
 
 @end
 
@@ -35,7 +35,7 @@ NSString * const storedImpVideoRewardedInApp = @"imp-prebid-video-rewarded-320-4
 
 - (void)createAd {
     // 1. Create a RewardedAdUnit
-    self.rewardedAdUnit = [[RewardedAdUnit alloc] initWithConfigID:storedImpVideoRewardedInApp];
+    self.rewardedAdUnit = [[PBMRewardedAdUnit alloc] initWithConfigID:storedImpVideoRewardedInApp];
     self.rewardedAdUnit.delegate = self;
     
     // 2. Load the rewarded ad
@@ -44,11 +44,11 @@ NSString * const storedImpVideoRewardedInApp = @"imp-prebid-video-rewarded-320-4
 
 // MARK: - RewardedAdUnitDelegate
 
-- (void)rewardedAdDidReceiveAd:(RewardedAdUnit *)rewardedAd {
+- (void)rewardedAdDidReceiveAd:(PBMRewardedAdUnit *)rewardedAd {
     [self.rewardedAdUnit showFrom:self];
 }
 
-- (void)rewardedAd:(RewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {
+- (void)rewardedAd:(PBMRewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {
     PBMLogError(@"%@", error.localizedDescription);
 }
 

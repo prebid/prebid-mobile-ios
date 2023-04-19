@@ -21,7 +21,7 @@ NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rew
 @interface GAMVideoRewardedViewController ()
 
 // Prebid
-@property (nonatomic) RewardedAdUnit * rewardedAdUnit;
+@property (nonatomic) PBMRewardedAdUnit * rewardedAdUnit;
 
 @end
 
@@ -38,7 +38,7 @@ NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rew
     GAMRewardedAdEventHandler * eventHandler = [[GAMRewardedAdEventHandler alloc] initWithAdUnitID:gamAdUnitVideoRewardedRendering];
     
     // 2. Create a RewardedAdUnit
-    self.rewardedAdUnit = [[RewardedAdUnit alloc] initWithConfigID:storedImpGAMVideoRewarded eventHandler:eventHandler];
+    self.rewardedAdUnit = [[PBMRewardedAdUnit alloc] initWithConfigID:storedImpGAMVideoRewarded eventHandler:eventHandler];
     self.rewardedAdUnit.delegate = self;
     
     // 3. Load the rewarded ad
@@ -47,11 +47,11 @@ NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rew
 
 // MARK: - RewardedAdUnitDelegate
 
-- (void)rewardedAdDidReceiveAd:(RewardedAdUnit *)rewardedAd {
+- (void)rewardedAdDidReceiveAd:(PBMRewardedAdUnit *)rewardedAd {
     [self.rewardedAdUnit showFrom:self];
 }
 
-- (void)rewardedAd:(RewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {
+- (void)rewardedAd:(PBMRewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {
     PBMLogError(@"%@", error.localizedDescription);
 }
 
