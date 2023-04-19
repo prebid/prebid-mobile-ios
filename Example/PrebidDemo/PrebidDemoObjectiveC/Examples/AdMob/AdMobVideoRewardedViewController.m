@@ -23,7 +23,7 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
 
 // Prebid
 @property (nonatomic) MediationRewardedAdUnit * admobRewardedAdUnit;
-@property (nonatomic) AdMobMediationRewardedUtils * mediationDelegate;
+@property (nonatomic) PBMAdMobMediationRewardedUtils * mediationDelegate;
 
 // AdMob
 @property (nonatomic) GADRewardedAd * gadRewardedAd;
@@ -43,7 +43,7 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
     GADRequest * gadRequest = [GADRequest new];
     
     // 2. Create an AdMobMediationRewardedUtils
-    self.mediationDelegate = [[AdMobMediationRewardedUtils alloc] initWithGadRequest:gadRequest];
+    self.mediationDelegate = [[PBMAdMobMediationRewardedUtils alloc] initWithGadRequest:gadRequest];
     
     // 3. Create a MediationRewardedAdUnit
     self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedAdMob mediationDelegate:self.mediationDelegate];
