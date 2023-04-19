@@ -23,7 +23,7 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
 
 // Prebid
 @property (nonatomic) PBMNativeAd * nativeAd;
-@property (nonatomic) AdMobMediationNativeUtils * mediationDelegate;
+@property (nonatomic) PBMAdMobMediationNativeUtils * mediationDelegate;
 @property (nonatomic) PBMMediationNativeAdUnit * admobMediationNativeAdUnit;
 
 // AdMob
@@ -44,7 +44,7 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
     GADRequest * gadRequest = [GADRequest new];
     
     // 2. Create an AdMobMediationNativeUtils
-    self.mediationDelegate = [[AdMobMediationNativeUtils alloc] initWithGadRequest:gadRequest];
+    self.mediationDelegate = [[PBMAdMobMediationNativeUtils alloc] initWithGadRequest:gadRequest];
     
     // 3. Create a MediationNativeAdUnit
     self.admobMediationNativeAdUnit = [[PBMMediationNativeAdUnit alloc] initWithConfigId:nativeStoredImpressionAdMob mediationDelegate:self.mediationDelegate];
