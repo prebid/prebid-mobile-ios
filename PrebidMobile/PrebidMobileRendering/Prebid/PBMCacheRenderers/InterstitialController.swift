@@ -16,6 +16,7 @@
 import Foundation
 import UIKit
 
+@objc(PBMInterstitialController)
 public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
     @objc public var adFormats: Set<AdFormat> {
