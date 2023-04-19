@@ -21,7 +21,7 @@ NSString * const nativeStoredImpressionInApp = @"imp-prebid-banner-native-styles
 @interface InAppNativeViewController ()
 
 // Prebid
-@property (nonatomic) PBMNativeAd * nativeAd;
+@property (nonatomic) NativeAd * nativeAd;
 @property (nonatomic) NativeRequest * nativeUnit;
 
 @end
@@ -36,19 +36,19 @@ NSString * const nativeStoredImpressionInApp = @"imp-prebid-banner-native-styles
 
 - (void)createAd {
     // 1. Create a NativeRequest
-    PBMNativeAssetImage *image = [[PBMNativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
-    image.type = PBMImageAsset.Main;
+    NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
+    image.type = ImageAsset.Main;
     
-    PBMNativeAssetImage *icon = [[PBMNativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
-    icon.type = PBMImageAsset.Icon;
+    NativeAssetImage *icon = [[NativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
+    icon.type = ImageAsset.Icon;
     
-    PBMNativeAssetTitle *title = [[PBMNativeAssetTitle alloc] initWithLength:90 required:true];
-    PBMNativeAssetData *body = [[PBMNativeAssetData alloc] initWithType:PBMDataAssetDescription required:true];
-    PBMNativeAssetData *cta = [[PBMNativeAssetData alloc] initWithType:PBMDataAssetCtatext required:true];
-    PBMNativeAssetData *sponsored = [[PBMNativeAssetData alloc] initWithType:PBMDataAssetSponsored required:true];
+    NativeAssetTitle *title = [[NativeAssetTitle alloc] initWithLength:90 required:true];
+    NativeAssetData *body = [[NativeAssetData alloc] initWithType:DataAssetDescription required:true];
+    NativeAssetData *cta = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:true];
+    NativeAssetData *sponsored = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:true];
     
-    PBMNativeEventTracker * eventTracker = [[PBMNativeEventTracker alloc] initWithEvent:PBMEventType.Impression
-                                                                          methods:@[PBMEventTracking.Image, PBMEventTracking.js]];
+    NativeEventTracker * eventTracker = [[NativeEventTracker alloc] initWithEvent:EventType.Impression
+                                                                          methods:@[EventTracking.Image, EventTracking.js]];
     
     self.nativeUnit = [[NativeRequest alloc] initWithConfigId:nativeStoredImpressionInApp
                                                        assets:@[title, icon, image, sponsored, body, cta]
@@ -69,7 +69,7 @@ NSString * const nativeStoredImpressionInApp = @"imp-prebid-banner-native-styles
         NSString * cacheId = [kvResultDict valueForKey:@"hb_cache_id_local"];
         
         // 5. Create a NativeAd
-        PBMNativeAd * nativeAd = [PBMNativeAd createWithCacheId:cacheId];
+        NativeAd * nativeAd = [NativeAd createWithCacheId:cacheId];
         
         if (nativeAd == nil) {
             return;

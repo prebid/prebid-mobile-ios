@@ -15,7 +15,6 @@
 
 import UIKit
 
-@objc(PBMNativeAsset)
 public class NativeAsset: NSObject {
     
     var id: NSInteger!
@@ -47,7 +46,7 @@ public class NativeAsset: NSObject {
     
 }
 
-@objc(PBMNativeAssetTitle) @objcMembers
+@objcMembers
 public class NativeAssetTitle: NativeAsset {
     
     var length: NSInteger! = 25
@@ -70,7 +69,7 @@ public class NativeAssetTitle: NativeAsset {
     
 }
 
-@objc(PBMNativeAssetImage) @objcMembers
+@objcMembers
 public class NativeAssetImage: NativeAsset {
     
     public var type: ImageAsset?
@@ -108,7 +107,7 @@ public class NativeAssetImage: NativeAsset {
     
 }
 
-@objc(PBMNativeAssetData) @objcMembers
+@objcMembers
 public class NativeAssetData: NativeAsset {
     var type: DataAsset?
     public var length: Int?
@@ -130,7 +129,6 @@ public class NativeAssetData: NativeAsset {
     }
 }
 
-@objc(PBMImageAsset)
 public class ImageAsset: SingleContainerInt {
     
     @objc
@@ -144,8 +142,7 @@ public class ImageAsset: SingleContainerInt {
     
 }
 
-@objc(PBMDataAsset)
-public enum DataAsset: Int {
+@objc public enum DataAsset: Int {
     case sponsored = 1
     case description = 2
     case rating = 3

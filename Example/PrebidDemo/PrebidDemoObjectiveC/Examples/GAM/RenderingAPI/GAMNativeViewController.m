@@ -23,7 +23,7 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
 
 // Prebid
 @property (nonatomic) NativeRequest * nativeUnit;
-@property (nonatomic) PBMNativeAd * nativeAd;
+@property (nonatomic) NativeAd * nativeAd;
 
 // GAM
 @property (nonatomic) GADAdLoader * adLoader;
@@ -40,19 +40,19 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
 
 - (void)createAd {
     // 1. Create a NativeRequest
-    PBMNativeAssetImage *image = [[PBMNativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
-    image.type = PBMImageAsset.Main;
+    NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
+    image.type = ImageAsset.Main;
     
-    PBMNativeAssetImage *icon = [[PBMNativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
-    icon.type = PBMImageAsset.Icon;
+    NativeAssetImage *icon = [[NativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
+    icon.type = ImageAsset.Icon;
     
-    PBMNativeAssetTitle *title = [[PBMNativeAssetTitle alloc] initWithLength:90 required:true];
-    PBMNativeAssetData *body = [[PBMNativeAssetData alloc] initWithType:PBMDataAssetDescription required:true];
-    PBMNativeAssetData *cta = [[PBMNativeAssetData alloc] initWithType:PBMDataAssetCtatext required:true];
-    PBMNativeAssetData *sponsored = [[PBMNativeAssetData alloc] initWithType:PBMDataAssetSponsored required:true];
+    NativeAssetTitle *title = [[NativeAssetTitle alloc] initWithLength:90 required:true];
+    NativeAssetData *body = [[NativeAssetData alloc] initWithType:DataAssetDescription required:true];
+    NativeAssetData *cta = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:true];
+    NativeAssetData *sponsored = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:true];
     
-    PBMNativeEventTracker * eventTracker = [[PBMNativeEventTracker alloc] initWithEvent:PBMEventType.Impression
-                                                                          methods:@[PBMEventTracking.Image, PBMEventTracking.js]];
+    NativeEventTracker * eventTracker = [[NativeEventTracker alloc] initWithEvent:EventType.Impression
+                                                                          methods:@[EventTracking.Image, EventTracking.js]];
     
     self.nativeUnit = [[NativeRequest alloc] initWithConfigId:nativeStoredImpressionRendering
                                                        assets:@[title, icon, image, sponsored, body, cta]
@@ -89,7 +89,7 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
 }
 
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveCustomNativeAd:(GADCustomNativeAd *)customNativeAd {
-    [PBMGAMUtils.shared findCustomNativeAdObjcFor:customNativeAd completion:^(PBMNativeAd * _Nullable nativeAd, NSError * _Nullable error) {
+    [PBMGAMUtils.shared findCustomNativeAdObjcFor:customNativeAd completion:^(NativeAd * _Nullable nativeAd, NSError * _Nullable error) {
         if (error != nil && [error.domain isEqual: PBMGAMUtils.errorDomain] && error.code == PBMGAMEventHandlerErrorNonPrebidAd) {
             self.titleLable.text = [customNativeAd stringForKey:@"title"];
             self.bodyLabel.text = [customNativeAd stringForKey:@"text"];

@@ -20,7 +20,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GAMOriginalAPINativeViewController : NativeBaseViewController <GADAdLoaderDelegate, GADCustomNativeAdLoaderDelegate, PBMNativeAdDelegate>
+@interface GAMOriginalAPINativeViewController : NativeBaseViewController <GADAdLoaderDelegate, GADCustomNativeAdLoaderDelegate, NativeAdDelegate>
 
 @end
 
