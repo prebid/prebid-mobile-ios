@@ -34,7 +34,7 @@
 
 @interface PBMTransaction()
 
-@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 @property (nonatomic, strong) AdConfiguration *adConfiguration;
 @property (nonatomic, strong) PBMCreativeFactory *creativeFactory;
 
@@ -42,7 +42,7 @@
 
 @implementation PBMTransaction
 
-- (instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)connection
+- (instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)connection
                          adConfiguration:(AdConfiguration*)adConfiguration
                                   models:(NSArray<PBMCreativeModel *> *)creativeModels {
     self = [super init];

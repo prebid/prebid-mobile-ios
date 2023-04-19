@@ -40,7 +40,7 @@
 @implementation PBMAdLoadManagerBase
 
 - (instancetype)initWithBid:(Bid *)bid
-                 connection:(id<ServerConnectionProtocol>)connection
+                 connection:(id<PrebidServerConnectionProtocol>)connection
             adConfiguration:(AdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {

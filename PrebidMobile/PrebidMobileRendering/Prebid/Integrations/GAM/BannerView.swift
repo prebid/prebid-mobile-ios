@@ -121,7 +121,7 @@ public class BannerView: UIView,
         
         adLoadFlowController = PBMAdLoadFlowController(
             bidRequesterFactory: { [adUnitConfig] config in
-                PBMBidRequester(connection: ServerConnection.shared,
+                PBMBidRequester(connection: PrebidServerConnection.shared,
                                 sdkConfiguration: Prebid.shared,
                                 targeting: Targeting.shared,
                                 adUnitConfiguration: adUnitConfig)

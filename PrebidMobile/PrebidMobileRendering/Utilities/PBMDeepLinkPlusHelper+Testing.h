@@ -19,14 +19,14 @@
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMUIApplicationProtocol.h"
 
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMDeepLinkPlusHelper (Testing)
 
 @property (nonatomic, class, weak) id<PBMUIApplicationProtocol> application;
-@property (nonatomic, class, strong) id<ServerConnectionProtocol> connection;
+@property (nonatomic, class, strong) id<PrebidServerConnectionProtocol> connection;
 
 @end
 

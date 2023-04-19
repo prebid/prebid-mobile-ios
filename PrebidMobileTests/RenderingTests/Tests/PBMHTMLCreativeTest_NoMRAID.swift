@@ -32,7 +32,7 @@ class PBMHTMLCreativeTest_NoMRAID : PBMHTMLCreativeTest_Base {
         let sdkConfiguration = Prebid.mock
         
         
-        let serverConnection = ServerConnection(userAgentService: MockUserAgentService())
+        let serverConnection = PrebidServerConnection(userAgentService: MockUserAgentService())
         serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         let mockWebView = MockPBMWebView()

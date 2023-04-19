@@ -19,7 +19,7 @@
 
 @interface PBMVastTransactionFactory() <PBMAdLoadManagerDelegate>
 
-@property (nonatomic, strong, readonly, nonnull) id<ServerConnectionProtocol> connection;
+@property (nonatomic, strong, readonly, nonnull) id<PrebidServerConnectionProtocol> connection;
 @property (nonatomic, strong, readonly, nonnull) AdConfiguration *adConfiguration;
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 
@@ -38,7 +38,7 @@
 // MARK: - Public API
 
 - (instancetype)initWithBid:(Bid *)bid
-                 connection:(id<ServerConnectionProtocol>)connection
+                 connection:(id<PrebidServerConnectionProtocol>)connection
             adConfiguration:(AdConfiguration *)adConfiguration
                    callback:(PBMTransactionFactoryCallback)callback
 {

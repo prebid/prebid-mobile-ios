@@ -20,7 +20,7 @@
 
 @class AdUnitConfig;
 @class Prebid;
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 @protocol AdLoadFlowControllerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN

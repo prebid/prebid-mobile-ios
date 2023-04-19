@@ -79,7 +79,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         
         transactionFactory = PBMTransactionFactory(bid: bid,
                                                    adConfiguration: adConfiguration,
-                                                   connection: ServerConnection.shared,
+                                                   connection: PrebidServerConnection.shared,
                                                    callback: { [weak self] transaction, error in
                 
             if let transaction = transaction {
@@ -89,7 +89,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
             }
         })
         
-        PBMWinNotifier.notifyThroughConnection(ServerConnection.shared,
+        PBMWinNotifier.notifyThroughConnection(PrebidServerConnection.shared,
                                                winning: bid,
                                                callback: { [weak self] adMarkup in
             if let adMarkup = adMarkup {
@@ -197,7 +197,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     }
 
     func display(transaction: PBMTransaction) {
-        adViewManager = PBMAdViewManager(connection: ServerConnection.shared,
+        adViewManager = PBMAdViewManager(connection: PrebidServerConnection.shared,
                                          modalManagerDelegate: nil)
         adViewManager?.adViewManagerDelegate = self
         adViewManager?.adConfiguration.isInterstitialAd = true

@@ -52,7 +52,7 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
         self.expectationVideoDidComplete = self.expectation(description: "expectationCreativeDidComplete")
         self.expectationCreativeDidDisplay = self.expectation(description: "expectationCreativeDidDisplay")
         
-        //Make an ServerConnection and redirect its network requests to the Mock Server
+        //Make an PrebidServerConnection and redirect its network requests to the Mock Server
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
         
         //Change the inline response to claim that it will respond with m4v

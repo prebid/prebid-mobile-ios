@@ -13,11 +13,11 @@
   limitations under the License.
   */
 
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 
 @interface MediationInterstitialAdUnit ()
 - (void)fetchDemandWithObject:(NSObject *)adObject
-                   connection:(id<ServerConnectionProtocol>)connection
+                   connection:(id<PrebidServerConnectionProtocol>)connection
              sdkConfiguration:(Prebid *)sdkConfiguration
                     targeting:(Targeting *)targeting
                    completion:(void (^)(ResultCode))completion;

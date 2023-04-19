@@ -20,7 +20,7 @@ class PBMMRAIDControllerTest_Base: XCTestCase, PBMCreativeViewDelegate {
     
     let timeout: TimeInterval = 1
     
-    var serverConnection: ServerConnection!
+    var serverConnection: PrebidServerConnection!
     var transaction: PBMTransaction!
     var mockHtmlCreative: MockPBMHTMLCreative!
     var mockCreativeModel: MockPBMCreativeModel!
@@ -37,7 +37,7 @@ class PBMMRAIDControllerTest_Base: XCTestCase, PBMCreativeViewDelegate {
         self.mockViewController = MockViewController()
         
         //Set up MockServer
-        self.serverConnection = ServerConnection(userAgentService: MockUserAgentService())
+        self.serverConnection = PrebidServerConnection(userAgentService: MockUserAgentService())
         self.serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         //Set up creative model
@@ -155,7 +155,7 @@ class PBMMRAIDControllerTest_Base: XCTestCase, PBMCreativeViewDelegate {
         }
     }
     
-    func createLoader(connection: ServerConnectionProtocol) -> PBMCreativeFactoryDownloadDataCompletionClosure {
+    func createLoader(connection: PrebidServerConnectionProtocol) -> PBMCreativeFactoryDownloadDataCompletionClosure {
         let result: PBMCreativeFactoryDownloadDataCompletionClosure =  {url, completionBlock in
             let downloader = PBMDownloadDataHelper(serverConnection:connection)
             downloader.downloadData(for: url, completionClosure: { (data:Data?, error:Error?) in
