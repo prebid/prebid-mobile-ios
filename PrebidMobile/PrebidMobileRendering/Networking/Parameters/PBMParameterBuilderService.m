@@ -50,7 +50,7 @@
                                  pbmLocationManager:PBMLocationManager.shared
                              pbmDeviceAccessManager:[[PBMDeviceAccessManager alloc] initWithRootViewController: nil]
                              ctTelephonyNetworkInfo:[CTTelephonyNetworkInfo new]
-                                       reachability:Reachability.shared
+                                       reachability:PBMReachability.shared
                                    sdkConfiguration:Prebid.shared
                                          sdkVersion:[PBMFunctions sdkVersion]
                                           targeting:Targeting.shared
@@ -64,7 +64,7 @@
                                                                   pbmLocationManager:(nonnull PBMLocationManager *)pbmLocationManager
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager
                                                               ctTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo
-                                                                        reachability:(nonnull Reachability *)reachability
+                                                                        reachability:(nonnull PBMReachability *)reachability
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                            targeting:(nonnull Targeting *)targeting

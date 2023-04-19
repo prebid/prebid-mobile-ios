@@ -18,7 +18,7 @@ import SystemConfiguration
 
 public typealias NetworkReachableBlock = (Reachability?) -> Void
 
-@objcMembers
+@objc(PBMReachability) @objcMembers
 public class Reachability: NSObject {
     
     // MARK: - Public properties

@@ -46,7 +46,7 @@
                                                                   pbmLocationManager:(nonnull PBMLocationManager *)pbmLocationManager
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager
                                                               ctTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo
-                                                                        reachability:(nonnull Reachability *)reachability
+                                                                        reachability:(nonnull PBMReachability *)reachability
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                            targeting:(nonnull Targeting *)targeting
