@@ -43,7 +43,7 @@ NSString * const gamAdUnitMultiformatInterstitialOriginal = @"/21808260008/prebi
     self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
     
     // 2. Set adFormats
-    self.adUnit.adFormats = [NSSet setWithObjects:AdFormat.banner, AdFormat.video, nil];
+    self.adUnit.adFormats = [NSSet setWithObjects:PBMAdFormat.banner, PBMAdFormat.video, nil];
     
     // 3. Configure video parameters
     VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];

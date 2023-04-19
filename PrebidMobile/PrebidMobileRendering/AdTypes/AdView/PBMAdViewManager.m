@@ -215,7 +215,7 @@
         if (self.currentCreative.view && self.currentCreative.view.superview) {
             [self.currentCreative.view removeFromSuperview];
         }
-    } else if (self.adConfiguration.winningBidAdFormat == AdFormat.video) {
+    } else if (self.adConfiguration.winningBidAdFormat == PBMAdFormat.video) {
         self.videoInterstitialDidClose = YES;
     }
     

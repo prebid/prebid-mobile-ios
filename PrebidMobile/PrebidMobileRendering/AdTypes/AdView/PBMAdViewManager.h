@@ -22,7 +22,7 @@
 
 @class PBMModalManager;
 @class AdConfiguration;
-@class AdFormat;
+@class PBMAdFormat;
 @protocol PBMModalManagerDelegate;
 @protocol PrebidServerConnectionProtocol;
 

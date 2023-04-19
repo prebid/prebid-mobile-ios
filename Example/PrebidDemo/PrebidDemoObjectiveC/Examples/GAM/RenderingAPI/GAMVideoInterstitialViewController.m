@@ -42,7 +42,7 @@ NSString * const gamAdUnitVideoInterstitialRendering = @"/21808260008/prebid_oxb
     
     // 3. Configure the InterstitialRenderingAdUnit
     self.renderingInterstitial.delegate = self;
-    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.video, nil];
+    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:PBMAdFormat.video, nil];
     
     // 4. Load the interstitial ad
     [self.renderingInterstitial loadAd];

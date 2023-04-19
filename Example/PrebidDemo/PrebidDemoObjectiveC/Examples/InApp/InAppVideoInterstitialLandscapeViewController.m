@@ -38,7 +38,7 @@ NSString * const storedImpVideoInterstitialLandscapeInApp = @"imp-prebid-video-i
     self.renderingInterstitial = [[PBMInterstitialRenderingAdUnit alloc] initWithConfigID:storedImpVideoInterstitialLandscapeInApp];
     
     // 2. Configure the InterstitialRenderingAdUnit
-    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.video, nil];
+    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:PBMAdFormat.video, nil];
     self.renderingInterstitial.delegate = self;
     
     // 3. Load the interstitial ad

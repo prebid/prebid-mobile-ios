@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMAdFormat) @objcMembers
 public class AdFormat: NSObject, OptionSet {
     
     public typealias RawValue = Int

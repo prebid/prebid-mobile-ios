@@ -137,15 +137,15 @@
 }
 
 - (void)appendFormatSpecificParametersForRequest:(PBMORTBBidRequest *)bidRequest {
-    if ([self.adConfiguration.adFormats containsObject:AdFormat.banner]) {
+    if ([self.adConfiguration.adFormats containsObject:PBMAdFormat.banner]) {
         [self appendDisplayParametersForRequest:bidRequest];
     }
     
-    if ([self.adConfiguration.adFormats containsObject:AdFormat.video]) {
+    if ([self.adConfiguration.adFormats containsObject:PBMAdFormat.video]) {
         [self appendVideoParametersForRequest:bidRequest];
     }
     
-    if ([self.adConfiguration.adFormats containsObject:AdFormat.native] && self.adConfiguration.adFormats.count == 1) {
+    if ([self.adConfiguration.adFormats containsObject:PBMAdFormat.native] && self.adConfiguration.adFormats.count == 1) {
         [self appendNativeParametersForRequest:bidRequest];
     }
 }

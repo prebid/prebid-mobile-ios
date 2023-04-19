@@ -64,8 +64,8 @@
 
 - (void)buildBidRequest:(nonnull PBMORTBBidRequest *)bidRequest {
     
-    NSSet<AdFormat *> *adFormats = self.adConfiguration.adConfiguration.adFormats;
-    BOOL const isHTML = ([adFormats containsObject:AdFormat.banner]);
+    NSSet<PBMAdFormat *> *adFormats = self.adConfiguration.adConfiguration.adFormats;
+    BOOL const isHTML = ([adFormats containsObject:PBMAdFormat.banner]);
     BOOL const isInterstitial = self.adConfiguration.adConfiguration.isInterstitialAd;
     
     bidRequest.requestID = [NSUUID UUID].UUIDString;
@@ -179,8 +179,8 @@
         
         nextImp.extData[@"adslot"] = [self.adConfiguration getPbAdSlot];
        
-        for (AdFormat* adFormat in adFormats) {
-            if (adFormat == AdFormat.banner) {
+        for (PBMAdFormat* adFormat in adFormats) {
+            if (adFormat == PBMAdFormat.banner) {
                 PBMORTBBanner * const nextBanner = nextImp.banner;
                 if (formats) {
                     nextBanner.format = formats;
@@ -195,7 +195,7 @@
                 if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextBanner.pos = @(self.adConfiguration.adPosition);
                 }
-            } else if (adFormat == AdFormat.video) {
+            } else if (adFormat == PBMAdFormat.video) {
                 PBMORTBVideo * const nextVideo = nextImp.video;
                 
                 if (!self.adConfiguration.adConfiguration.isOriginalAPI) {
@@ -262,7 +262,7 @@
                 if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);
                 }
-            } else if (adFormat == AdFormat.native && adFormats.count == 1) {
+            } else if (adFormat == PBMAdFormat.native && adFormats.count == 1) {
                 PBMORTBNative * const nextNative = nextImp.native;
                 nextNative.request = [self.adConfiguration.nativeAdConfiguration.markupRequestObject toJsonStringWithError:nil];
                 NSString * const ver = self.adConfiguration.nativeAdConfiguration.version;

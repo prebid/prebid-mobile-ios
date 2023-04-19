@@ -47,7 +47,7 @@ NSString * const maxAdUnitVideoInterstitial = @"48e8d410f74dfc7b";
     
     // 3. Create a MediationInterstitialAdUnit
     self.maxAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitialMAX mediationDelegate:self.maxMediationDelegate];
-    self.maxAdUnit.adFormats = [[NSSet alloc] initWithObjects:AdFormat.video, nil];
+    self.maxAdUnit.adFormats = [[NSSet alloc] initWithObjects:PBMAdFormat.video, nil];
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);

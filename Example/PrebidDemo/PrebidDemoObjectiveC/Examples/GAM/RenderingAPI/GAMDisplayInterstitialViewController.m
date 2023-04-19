@@ -40,7 +40,7 @@ NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_o
     // 2. Create a InterstitialRenderingAdUnit
     self.renderingInterstitial = [[PBMInterstitialRenderingAdUnit alloc] initWithConfigID:storedImpGAMDisplayInterstitial minSizePercentage:CGSizeMake(30, 30) eventHandler:eventHandler];
     self.renderingInterstitial.delegate = self;
-    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.banner, nil];
+    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:PBMAdFormat.banner, nil];
     
     // 3. Load the interstitial ad
     [self.renderingInterstitial loadAd];

@@ -45,7 +45,7 @@ NSString * const gamAdUnitVideoBannerOriginal = @"/21808260008/prebid-demo-origi
     self.adUnit = [[BannerAdUnit alloc] initWithConfigId:storedImpVideoBanner size:self.adSize];
     
     // 2. Set ad format
-    self.adUnit.adFormats = [NSSet setWithObject:AdFormat.video];
+    self.adUnit.adFormats = [NSSet setWithObject:PBMAdFormat.video];
     
     // 3. Configure video parameters
     VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];

@@ -58,7 +58,7 @@ NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
     self.maxAdUnit = [[PBMMediationBannerAdUnit alloc] initWithConfigID:storedImpVideoBannerMAX size:self.adSize mediationDelegate:self.maxMediationDelegate];
     
     // 5. Set ad format
-    self.maxAdUnit.adFormat = AdFormat.video;
+    self.maxAdUnit.adFormat = PBMAdFormat.video;
     
     // 6. Make a bid request to Prebid Server
     @weakify(self);
