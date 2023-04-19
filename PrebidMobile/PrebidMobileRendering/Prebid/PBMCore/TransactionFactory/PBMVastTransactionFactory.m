@@ -21,7 +21,7 @@
 
 @property (nonatomic, strong, readonly, nonnull) id<PrebidServerConnectionProtocol> connection;
 @property (nonatomic, strong, readonly, nonnull) AdConfiguration *adConfiguration;
-@property (nonatomic, strong, readonly, nonnull) Bid *bid;
+@property (nonatomic, strong, readonly, nonnull) PBMBid *bid;
 
 // NOTE: need to call the completion callback only in the main thread
 // use onFinishedWithTransaction
@@ -37,7 +37,7 @@
 
 // MARK: - Public API
 
-- (instancetype)initWithBid:(Bid *)bid
+- (instancetype)initWithBid:(PBMBid *)bid
                  connection:(id<PrebidServerConnectionProtocol>)connection
             adConfiguration:(AdConfiguration *)adConfiguration
                    callback:(PBMTransactionFactoryCallback)callback

@@ -15,7 +15,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class Bid;
+@class PBMBid;
 @protocol PBMDisplayViewLoadingDelegate;
 @protocol PBMDisplayViewInteractionDelegate;
 
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, weak, nullable) NSObject<PBMDisplayViewInteractionDelegate> *interactionDelegate;
 @property (nonatomic, readonly) BOOL isCreativeOpened;
 
-- (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid configId:(NSString *)configId;
+- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid configId:(NSString *)configId;
 
 - (void)displayAd;
 

@@ -17,13 +17,13 @@
 
 @class AdConfiguration;
 @protocol PrebidServerConnectionProtocol;
-@class Bid;
+@class PBMBid;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMVastTransactionFactory : NSObject
 
-- (instancetype)initWithBid:(Bid *)bid
+- (instancetype)initWithBid:(PBMBid *)bid
                  connection:(id<PrebidServerConnectionProtocol>)connection
             adConfiguration:(AdConfiguration *)adConfiguration
                    callback:(PBMTransactionFactoryCallback)callback;

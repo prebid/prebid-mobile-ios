@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly, nullable) id<PrebidServerConnectionProtocol> connection;
 
-- (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid adConfiguration:(PBMAdUnitConfig *)adConfiguration;
+- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid adConfiguration:(PBMAdUnitConfig *)adConfiguration;
 
 @end
 

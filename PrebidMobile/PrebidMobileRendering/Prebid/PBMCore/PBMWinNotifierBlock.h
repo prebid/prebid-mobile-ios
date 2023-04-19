@@ -17,6 +17,6 @@
 
 #import "PBMAdMarkupStringHandler.h"
 
-@class Bid;
+@class PBMBid;
 
-typedef void(^PBMWinNotifierBlock)(Bid * _Nonnull bid, PBMAdMarkupStringHandler _Nonnull adMarkupConsumer);
+typedef void(^PBMWinNotifierBlock)(PBMBid * _Nonnull bid, PBMAdMarkupStringHandler _Nonnull adMarkupConsumer);

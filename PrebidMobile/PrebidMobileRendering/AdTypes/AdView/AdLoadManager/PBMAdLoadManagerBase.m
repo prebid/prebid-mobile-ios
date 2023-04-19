@@ -39,7 +39,7 @@
 
 @implementation PBMAdLoadManagerBase
 
-- (instancetype)initWithBid:(Bid *)bid
+- (instancetype)initWithBid:(PBMBid *)bid
                  connection:(id<PrebidServerConnectionProtocol>)connection
             adConfiguration:(AdConfiguration *)adConfiguration {
     self = [super init];

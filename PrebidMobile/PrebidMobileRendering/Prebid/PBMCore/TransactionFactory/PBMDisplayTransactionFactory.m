@@ -30,7 +30,7 @@
 
 @interface PBMDisplayTransactionFactory() <PBMTransactionDelegate>
 
-@property (nonatomic, strong, readonly, nonnull) Bid *bid;
+@property (nonatomic, strong, readonly, nonnull) PBMBid *bid;
 @property (nonatomic, strong, readonly, nonnull) PBMAdUnitConfig *adConfiguration;
 @property (nonatomic, strong, readonly, nonnull) id<PrebidServerConnectionProtocol> connection;
 
@@ -49,7 +49,7 @@
 
 // MARK: - Public API
 
-- (instancetype)initWithBid:(Bid *)bid
+- (instancetype)initWithBid:(PBMBid *)bid
             adConfiguration:(PBMAdUnitConfig *)adConfiguration
                  connection:(id<PrebidServerConnectionProtocol>)connection
                    callback:(PBMTransactionFactoryCallback)callback
@@ -111,7 +111,7 @@
     [self.transaction startCreativeFactory];
 }
 
-- (PBMCreativeModel *)htmlCreativeModelFromBid:(Bid *)bid
+- (PBMCreativeModel *)htmlCreativeModelFromBid:(PBMBid *)bid
                                       adMarkup:(NSString *)adMarkup
                                adConfiguration:(PBMAdUnitConfig *)adConfiguration {
     PBMCreativeModel * const model = [[PBMCreativeModel alloc] init];

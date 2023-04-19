@@ -20,7 +20,7 @@
 
 @class AdConfiguration;
 @protocol PrebidServerConnectionProtocol;
-@class Bid;
+@class PBMBid;
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol PBMAdLoadManagerProtocol <NSObject, PBMTransactionDelegate>
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<PBMAdLoadManagerDelegate> adLoadManagerDelegate;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithBid:(Bid *)bid
+- (instancetype)initWithBid:(PBMBid *)bid
                  connection:(id<PrebidServerConnectionProtocol>)connection
             adConfiguration:(AdConfiguration *)adConfiguration;
 

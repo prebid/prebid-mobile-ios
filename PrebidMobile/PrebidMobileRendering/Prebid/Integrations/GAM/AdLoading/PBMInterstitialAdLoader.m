@@ -54,7 +54,7 @@
     return self.delegate.eventHandler;
 }
 
-- (void)createPrebidAdWithBid:(Bid *)bid
+- (void)createPrebidAdWithBid:(PBMBid *)bid
                  adUnitConfig:(PBMAdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker

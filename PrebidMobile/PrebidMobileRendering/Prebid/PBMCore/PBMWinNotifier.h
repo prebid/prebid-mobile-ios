@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, class, readonly) PBMWinNotifierFactoryBlock factoryBlock;
 
 + (void)notifyThroughConnection:(id<PrebidServerConnectionProtocol>)connection
-                     winningBid:(Bid *)bid
+                     winningBid:(PBMBid *)bid
                        callback:(PBMAdMarkupStringHandler)adMarkupConsumer;
 
 + (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<PrebidServerConnectionProtocol>)connection;

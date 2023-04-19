@@ -18,6 +18,7 @@ import Foundation
 import StoreKit
 import UIKit
 
+@objc(PBMBid)
 public class Bid: NSObject {
     /// Bid price expressed as CPM although the actual transaction is for a unit impression only.
     /// Note that while the type indicates float, integer math is highly recommended

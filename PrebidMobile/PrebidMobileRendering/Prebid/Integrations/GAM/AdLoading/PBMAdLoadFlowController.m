@@ -265,7 +265,7 @@
         return;
     }
     
-    Bid * const bid = self.bidResponse.winningBid;
+    PBMBid * const bid = self.bidResponse.winningBid;
     if (!bid) {
         [self reportLoadingFailedWithError:[PBMError noWinningBid]];
         return;

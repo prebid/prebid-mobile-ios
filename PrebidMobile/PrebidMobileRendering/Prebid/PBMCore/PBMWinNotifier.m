@@ -29,7 +29,7 @@
 @implementation PBMWinNotifier
 
 + (void)notifyThroughConnection:(id<PrebidServerConnectionProtocol>)connection
-                     winningBid:(Bid *)bid
+                     winningBid:(PBMBid *)bid
                        callback:(PBMAdMarkupStringHandler)adMarkupConsumer
 {
     PBMORTBMacrosHelper * const macrosHelper = [[PBMORTBMacrosHelper alloc] initWithBid:bid.bid];
@@ -74,7 +74,7 @@
 }
 
 + (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<PrebidServerConnectionProtocol>)connection {
-    return ^(Bid *bid, PBMAdMarkupStringHandler adMarkupConsumer) {
+    return ^(PBMBid *bid, PBMAdMarkupStringHandler adMarkupConsumer) {
         [PBMWinNotifier notifyThroughConnection:connection winningBid:bid callback:adMarkupConsumer];
     };
 }
