@@ -20,16 +20,16 @@
 @class AdConfiguration;
 @class PBMAdRequestResponseVAST;
 
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMCreativeModelCollectionMakerVAST : NSObject
 
 @property (strong)AdConfiguration *adConfiguration;
-@property (strong)id<ServerConnectionProtocol> serverConnection;
+@property (strong)id<PrebidServerConnectionProtocol> serverConnection;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)pbmServer
+- (instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)pbmServer
                             adConfiguration:(AdConfiguration *)adConfiguration;
 
 - (void)makeModels:(PBMAdRequestResponseVAST *)requestResponse

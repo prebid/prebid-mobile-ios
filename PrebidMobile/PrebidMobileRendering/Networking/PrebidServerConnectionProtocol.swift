@@ -15,16 +15,16 @@
 
 import Foundation
 
-public typealias ServerResponseCallback = (ServerResponse) -> Void
+public typealias PrebidServerResponseCallback = (PrebidServerResponse) -> Void
 
-@objc public protocol ServerConnectionProtocol {
+@objc public protocol PrebidServerConnectionProtocol {
     
     var userAgentService: PBMUserAgentService { get }
     
     func fireAndForget(_ resourceURL: String?)
-    func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping  ServerResponseCallback)
-    func get(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping ServerResponseCallback)
-    func post(_ resourceURL: String?, data: Data?, timeout: TimeInterval, callback: @escaping  ServerResponseCallback)
-    func post(_ resourceURL: String?, contentType: String?, data: Data?, timeout: TimeInterval, callback: @escaping ServerResponseCallback)
-    func download(_ resourceURL: String?, callback: @escaping ServerResponseCallback)
+    func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping  PrebidServerResponseCallback)
+    func get(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping PrebidServerResponseCallback)
+    func post(_ resourceURL: String?, data: Data?, timeout: TimeInterval, callback: @escaping  PrebidServerResponseCallback)
+    func post(_ resourceURL: String?, contentType: String?, data: Data?, timeout: TimeInterval, callback: @escaping PrebidServerResponseCallback)
+    func download(_ resourceURL: String?, callback: @escaping PrebidServerResponseCallback)
 }

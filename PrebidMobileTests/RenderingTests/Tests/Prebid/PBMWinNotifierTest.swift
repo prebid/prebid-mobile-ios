@@ -324,7 +324,7 @@ class PBMWinNotifierTest: XCTestCase {
         let nextCallbackIndexBox = NSMutableArray(object: NSNumber(0))
         let connection = MockServerConnection(onDownload: expectedUrls.map { expectedDestination in { url, callback in
             nextCallbackIndexBox[0] = NSNumber(value: (nextCallbackIndexBox[0] as! NSNumber).intValue + 1)
-            let response = ServerResponse()
+            let response = PrebidServerResponse()
             if let nurlMarkup = expectedDestination.adMarkup {
                 response.rawData = nurlMarkup.data(using: .utf8)
             } else {

@@ -26,7 +26,7 @@
 
 @implementation PBMBidResponseTransformer
 
-+ (BidResponse *)transformResponse:(ServerResponse *)response error:(NSError **)error {
++ (BidResponse *)transformResponse:(PrebidServerResponse *)response error:(NSError **)error {
     NSString * const responseBody = [[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding];
     if ([responseBody containsString:@"Invalid request"]) {
         if (error) {

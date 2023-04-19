@@ -39,12 +39,12 @@ class ServerConnectionTest : XCTestCase {
     }
     
     func testSharedCreation() {
-        let serverConnectionShared = ServerConnection.shared
+        let serverConnectionShared = PrebidServerConnection.shared
         XCTAssertNotNil(serverConnectionShared)
         
-        XCTAssert(serverConnectionShared === ServerConnection.shared)
+        XCTAssert(serverConnectionShared === PrebidServerConnection.shared)
 
-        let serverConnectionInstance = ServerConnection()
+        let serverConnectionInstance = PrebidServerConnection()
         XCTAssert(serverConnectionShared !== serverConnectionInstance)
     }
     
@@ -62,9 +62,9 @@ class ServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.httpBody, nil)
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             XCTAssertEqual(urlRequest.allHTTPHeaderFields!, [
-                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                ServerConnection.isPBMRequestKey     : "True",
-                ServerConnection.internalIDKey       : connection.internalID.uuidString
+                PrebidServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                PrebidServerConnection.isPBMRequestKey     : "True",
+                PrebidServerConnection.internalIDKey       : connection.internalID.uuidString
                 ])
             
             self.didTalkToServerExpectation.fulfill()
@@ -113,10 +113,10 @@ class ServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             
             let expectedRequestHeaders = [
-                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
-                ServerConnection.isPBMRequestKey     : "True",
-                ServerConnection.internalIDKey       : connection.internalID.uuidString
+                PrebidServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                PrebidServerConnection.contentTypeKey      : PrebidServerConnection.contentTypeVal,
+                PrebidServerConnection.isPBMRequestKey     : "True",
+                PrebidServerConnection.internalIDKey       : connection.internalID.uuidString
             ]
             
             let actualRequestHeaders = urlRequest.allHTTPHeaderFields!
@@ -126,7 +126,7 @@ class ServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Test
-        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:ServerResponse) in
+        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PrebidServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
 
@@ -160,7 +160,7 @@ class ServerConnectionTest : XCTestCase {
 
         let serverConnection = getMockedServerConnection()
         serverConnection.get(self.invalidURL, timeout: 0.5, callback: { (serverResponse) in
-            XCTFail("ServerConnection should not allow an HTTP request with invalid URL")
+            XCTFail("PrebidServerConnection should not allow an HTTP request with invalid URL")
             self.didTalkToServerExpectation.fulfill()
         })
 
@@ -183,10 +183,10 @@ class ServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.httpBody, nil)
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             let expectedRequestHeaders = [
-                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
-                ServerConnection.isPBMRequestKey     : "True",
-                ServerConnection.internalIDKey       : connection.internalID.uuidString
+                PrebidServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                PrebidServerConnection.contentTypeKey      : PrebidServerConnection.contentTypeVal,
+                PrebidServerConnection.isPBMRequestKey     : "True",
+                PrebidServerConnection.internalIDKey       : connection.internalID.uuidString
             ]
             
             let actualRequestHeaders = urlRequest.allHTTPHeaderFields!
@@ -196,7 +196,7 @@ class ServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Test
-        connection.head("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:ServerResponse) in
+        connection.head("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PrebidServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
             let expectedResponseHeaders = [
@@ -221,7 +221,7 @@ class ServerConnectionTest : XCTestCase {
 
         let serverConnection = getMockedServerConnection()
         serverConnection.head(self.invalidURL, timeout: 0.5, callback: { (serverResponse) in
-            XCTFail("ServerConnection should not allow an HTTP request with invalid URL")
+            XCTFail("PrebidServerConnection should not allow an HTTP request with invalid URL")
             self.didTalkToServerExpectation.fulfill()
         })
 
@@ -246,10 +246,10 @@ class ServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             
             let expectedRequestHeaders = [
-                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
-                ServerConnection.isPBMRequestKey     :  "True",
-                ServerConnection.internalIDKey       : connection.internalID.uuidString,
+                PrebidServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                PrebidServerConnection.contentTypeKey      : PrebidServerConnection.contentTypeVal,
+                PrebidServerConnection.isPBMRequestKey     :  "True",
+                PrebidServerConnection.internalIDKey       : connection.internalID.uuidString,
                 "Content-Length"                     : "\(self.strPostData.count)",
             ]
             let actualRequestHeaders = urlRequest.allHTTPHeaderFields!
@@ -258,7 +258,7 @@ class ServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         let postData = strPostData.data(using: .utf8)!
-        connection.post("http://foo.com/bo?param_key=abc123", data:postData, timeout:3.0, callback:{ (serverResponse:ServerResponse) in
+        connection.post("http://foo.com/bo?param_key=abc123", data:postData, timeout:3.0, callback:{ (serverResponse:PrebidServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
             let expectedResponseHeaderDict:[String:String] = [
@@ -291,7 +291,7 @@ class ServerConnectionTest : XCTestCase {
 
         let serverConnection = getMockedServerConnection()
         serverConnection.post(self.invalidURL, data: strPostData.data(using: .utf8)!,timeout: 0.5, callback: { (serverResponse) in
-            XCTFail("ServerConnection should not allow an HTTP request with invalid URL")
+            XCTFail("PrebidServerConnection should not allow an HTTP request with invalid URL")
             self.didTalkToServerExpectation.fulfill()
         })
 
@@ -320,10 +320,10 @@ class ServerConnectionTest : XCTestCase {
             XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
             
             var expectedRequestHeaders = [
-                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
-                ServerConnection.isPBMRequestKey     : "True",
-                ServerConnection.internalIDKey       : connection.internalID.uuidString
+                PrebidServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                PrebidServerConnection.contentTypeKey      : PrebidServerConnection.contentTypeVal,
+                PrebidServerConnection.isPBMRequestKey     : "True",
+                PrebidServerConnection.internalIDKey       : connection.internalID.uuidString
             ]
             
             expectedRequestHeaders.merge(dict: Prebid.shared.customHeaders)
@@ -335,7 +335,7 @@ class ServerConnectionTest : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Test
-        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:ServerResponse) in
+        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PrebidServerResponse) in
             XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
             XCTAssertEqual(serverResponse.statusCode, 123)
 
@@ -383,8 +383,8 @@ class ServerConnectionTestJSON : XCTestCase {
         MockServer.shared.resetRules([rule])
 
         //Run the test
-        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
-        conn.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response:ServerResponse) in
+        self.callbackCalledExpectation = self.expectation(description: "Expected PrebidServerConnection to fire callback")
+        conn.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response:PrebidServerResponse) in
             self.callbackCalledExpectation.fulfill()
             XCTAssertEqual(response.statusCode, 200)
 
@@ -429,7 +429,7 @@ class ServerConnectionTestJSON : XCTestCase {
     }
 
     func testInvalidJSON() {
-        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
+        self.callbackCalledExpectation = self.expectation(description: "Expected PrebidServerConnection to fire callback")
 
         let connection = getMockedServerConnection()
 
@@ -467,9 +467,9 @@ class ServerConnectionTestJSON : XCTestCase {
         rule.statusCode = 200
         MockServer.shared.resetRules([rule])
 
-        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
+        self.callbackCalledExpectation = self.expectation(description: "Expected PrebidServerConnection to fire callback")
         
-        connection.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response: ServerResponse) in
+        connection.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response: PrebidServerResponse) in
             self.callbackCalledExpectation.fulfill()
             
             XCTAssertTrue(response.responseHeaders!.values.contains(MockServerMimeType.JSON.rawValue))
@@ -496,9 +496,9 @@ class ServerConnectionTestJSON : XCTestCase {
         
         MockServer.shared.resetRules([rule])
 
-        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
+        self.callbackCalledExpectation = self.expectation(description: "Expected PrebidServerConnection to fire callback")
         
-        connection.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response: ServerResponse) in
+        connection.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response: PrebidServerResponse) in
             self.callbackCalledExpectation.fulfill()
             
             XCTAssertTrue(response.responseHeaders!.values.contains(MockServerMimeType.jsonCharset.rawValue))
@@ -523,9 +523,9 @@ class ServerConnectionTestJSON : XCTestCase {
         
         MockServer.shared.resetRules([rule])
 
-        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
+        self.callbackCalledExpectation = self.expectation(description: "Expected PrebidServerConnection to fire callback")
         
-        connection.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response: ServerResponse) in
+        connection.post("http://foo.com", data:Data(), timeout:3.0, callback:{ (response: PrebidServerResponse) in
             self.callbackCalledExpectation.fulfill()
             
             XCTAssertTrue(response.responseHeaders!.values.contains(MockServerMimeType.XML.rawValue))
@@ -555,8 +555,8 @@ class ServerConnectionTestJSONSlow : XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Run the test
-        self.callbackCalledExpectation = self.expectation(description: "Expected ServerConnection to fire callback")
-        conn.post("http://foo.com", data:Data(), timeout:30.0, callback:{ (response:ServerResponse) in
+        self.callbackCalledExpectation = self.expectation(description: "Expected PrebidServerConnection to fire callback")
+        conn.post("http://foo.com", data:Data(), timeout:30.0, callback:{ (response:PrebidServerResponse) in
             self.callbackCalledExpectation.fulfill()
             XCTAssertEqual(response.statusCode, 200)
             
@@ -603,7 +603,7 @@ class ServerConnectionTestJSONSlow : XCTestCase {
 }
 
 class ServerConnectionTest_Redirect: XCTestCase {
-    // Test how ServerConnection responds to a 302 - resource moved temporarily
+    // Test how PrebidServerConnection responds to a 302 - resource moved temporarily
     // Ref: http://www.ietf.org/rfc/rfc2616.txt
     
     override func tearDown() {
@@ -628,7 +628,7 @@ class ServerConnectionTest_Redirect: XCTestCase {
         firstRule.redirectRequest = URLRequest(url: URL(string:secondURL)!)
         firstRule.redirectRequest?.allHTTPHeaderFields = [
             "foo":"bar",
-            ServerConnection.internalIDKey : connection.internalID.uuidString
+            PrebidServerConnection.internalIDKey : connection.internalID.uuidString
         ]
         
         firstRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
@@ -637,10 +637,10 @@ class ServerConnectionTest_Redirect: XCTestCase {
             PBMAssertEq(urlRequest.httpBody, nil)
             
             let expectedRequestHeaders = [
-                ServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
-                ServerConnection.contentTypeKey      : ServerConnection.contentTypeVal,
-                ServerConnection.isPBMRequestKey     : "True",
-                ServerConnection.internalIDKey       : connection.internalID.uuidString
+                PrebidServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                PrebidServerConnection.contentTypeKey      : PrebidServerConnection.contentTypeVal,
+                PrebidServerConnection.isPBMRequestKey     : "True",
+                PrebidServerConnection.internalIDKey       : connection.internalID.uuidString
             ]
             PBMAssertEq(expectedRequestHeaders, urlRequest.allHTTPHeaderFields)
             expectationFirstRuleHandled.fulfill()
@@ -653,15 +653,15 @@ class ServerConnectionTest_Redirect: XCTestCase {
             PBMAssertEq(urlRequest.httpBody, nil)
             PBMAssertEq(urlRequest.allHTTPHeaderFields, [
                 "foo":"bar",
-                ServerConnection.internalIDKey : connection.internalID.uuidString
+                PrebidServerConnection.internalIDKey : connection.internalID.uuidString
                 ])
             
             expectationSecondRuleHandled.fulfill()
         }
         MockServer.shared.resetRules([firstRule, secondRule])
         
-        // Test ServerConnection
-        connection.get(firstURL, timeout:3.0, callback:{ (serverResponse: ServerResponse) in
+        // Test PrebidServerConnection
+        connection.get(firstURL, timeout:3.0, callback:{ (serverResponse: PrebidServerResponse) in
             
             //The result should be that the 302 is handled internally and we get back a 200.
             PBMAssertEq(serverResponse.statusCode, 200)
@@ -708,12 +708,12 @@ func unfulfilledExpectation(_ testCase: XCTestCase, description: String) -> XCTe
 }
 
 /**
- *  Creates an `ServerConnection` using a `MockUserAgentService` and `MockServerURLProtocol`.
+ *  Creates an `PrebidServerConnection` using a `MockUserAgentService` and `MockServerURLProtocol`.
  *
- *  - returns: `ServerConnection`
+ *  - returns: `PrebidServerConnection`
  */
-func getMockedServerConnection() -> ServerConnection {
-    let serverConnection = ServerConnection(userAgentService: MockUserAgentService())
+func getMockedServerConnection() -> PrebidServerConnection {
+    let serverConnection = PrebidServerConnection(userAgentService: MockUserAgentService())
     serverConnection.protocolClasses.append(MockServerURLProtocol.self)
 
     return serverConnection

@@ -27,12 +27,12 @@
 @implementation PBMBidRequesterFactory
 
 + (PBMBidRequesterFactoryBlock)requesterFactoryWithSingletons {
-    return [self requesterFactoryWithConnection:[ServerConnection shared]
+    return [self requesterFactoryWithConnection:[PrebidServerConnection shared]
                                sdkConfiguration:[Prebid shared]
                                       targeting:[Targeting shared]];
 }
 
-+ (PBMBidRequesterFactoryBlock)requesterFactoryWithConnection:(id<ServerConnectionProtocol>)connection
++ (PBMBidRequesterFactoryBlock)requesterFactoryWithConnection:(id<PrebidServerConnectionProtocol>)connection
                                              sdkConfiguration:(Prebid *)sdkConfiguration
                                                     targeting:(Targeting *)targeting
 {

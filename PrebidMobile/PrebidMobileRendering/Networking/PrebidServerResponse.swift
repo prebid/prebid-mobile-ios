@@ -15,10 +15,10 @@
 
 import Foundation
 
-public typealias AdRequestCallback = (ServerResponse?, Error?) -> Void
+public typealias AdRequestCallback = (PrebidServerResponse?, Error?) -> Void
 
 @objcMembers
-public class ServerResponse: NSObject {
+public class PrebidServerResponse: NSObject {
     
     public var isOKStatusCode: Bool {
         return (200...299).contains(statusCode)

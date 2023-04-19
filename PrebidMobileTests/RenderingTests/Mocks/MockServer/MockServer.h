@@ -23,8 +23,8 @@
 
 @property BOOL useNotFoundRule;
 
-// The key in the header of NSURLRequest added by ServerConnection.
-// This property must be initilized before all tests by ServerConnection.internalIDKey.
+// The key in the header of NSURLRequest added by PrebidServerConnection.
+// This property must be initilized before all tests by PrebidServerConnection.internalIDKey.
 // MockServer checks the value for this key in a request - ConnectionID, to select a proper rule.
 @property NSString* _Nonnull connectionIDHeaderKey;
 

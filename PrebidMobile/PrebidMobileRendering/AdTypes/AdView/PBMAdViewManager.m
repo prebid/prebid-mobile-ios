@@ -38,7 +38,7 @@
 
 @interface PBMAdViewManager ()
 
-@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 @property (weak, nullable) PBMAbstractCreative *currentCreative;
 @property (nonatomic, strong, nullable) PBMTransaction *externalTransaction;
 @property (nonatomic, nullable, readonly) PBMTransaction *currentTransaction; // computed
@@ -48,7 +48,7 @@
 
 @implementation PBMAdViewManager
 
-- (instancetype)initWithConnection:(id<ServerConnectionProtocol>)connection
+- (instancetype)initWithConnection:(id<PrebidServerConnectionProtocol>)connection
               modalManagerDelegate:(nullable id<PBMModalManagerDelegate>)modalManagerDelegate
 {
     if (!(self = [super init])) {

@@ -16,12 +16,12 @@
 import Foundation
 import XCTest
 
-class MockServerConnection: NSObject, ServerConnectionProtocol {
+class MockServerConnection: NSObject, PrebidServerConnectionProtocol {
     typealias FireAndForgetHandler = (String)->()
-    typealias GetHandler = (String, TimeInterval, @escaping ServerResponseCallback) -> ()
-    typealias PostHandler = (String, String, Data, TimeInterval, @escaping ServerResponseCallback) -> ()
-    typealias PostHandler_NoContentType = (String, Data, TimeInterval, @escaping ServerResponseCallback) -> ()
-    typealias DownloadHandler = (String, @escaping ServerResponseCallback) -> ()
+    typealias GetHandler = (String, TimeInterval, @escaping PrebidServerResponseCallback) -> ()
+    typealias PostHandler = (String, String, Data, TimeInterval, @escaping PrebidServerResponseCallback) -> ()
+    typealias PostHandler_NoContentType = (String, Data, TimeInterval, @escaping PrebidServerResponseCallback) -> ()
+    typealias DownloadHandler = (String, @escaping PrebidServerResponseCallback) -> ()
     
     let defaultContentType = "application/json" // Note: Must be equivalent to PBMContentTypeVal
     
@@ -85,7 +85,7 @@ class MockServerConnection: NSObject, ServerConnectionProtocol {
         handler(resourceURL)
     }
     
-    func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping ServerResponseCallback) {
+    func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping PrebidServerResponseCallback) {
         guard let resourceURL = resourceURL else {
             return
         }
@@ -98,7 +98,7 @@ class MockServerConnection: NSObject, ServerConnectionProtocol {
         handler(resourceURL, timeout, callback)
     }
     
-    func get(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping ServerResponseCallback) {
+    func get(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping PrebidServerResponseCallback) {
         guard let resourceURL = resourceURL else {
             return
         }
@@ -111,7 +111,7 @@ class MockServerConnection: NSObject, ServerConnectionProtocol {
         handler(resourceURL, timeout, callback)
     }
     
-    func post(_ resourceURL: String?, contentType: String?, data: Data?, timeout: TimeInterval, callback: @escaping ServerResponseCallback) {
+    func post(_ resourceURL: String?, contentType: String?, data: Data?, timeout: TimeInterval, callback: @escaping PrebidServerResponseCallback) {
         guard let resourceURL = resourceURL, let contentType = contentType, let data = data else {
             return
         }
@@ -124,11 +124,11 @@ class MockServerConnection: NSObject, ServerConnectionProtocol {
         handler(resourceURL, contentType, data, timeout, callback)
     }
     
-    func post(_ resourceURL: String?, data: Data?, timeout: TimeInterval, callback: @escaping ServerResponseCallback) {
+    func post(_ resourceURL: String?, data: Data?, timeout: TimeInterval, callback: @escaping PrebidServerResponseCallback) {
         post(resourceURL, contentType: defaultContentType, data: data, timeout: timeout, callback: callback)
     }
     
-    func download(_ resourceURL: String?, callback: @escaping ServerResponseCallback) {
+    func download(_ resourceURL: String?, callback: @escaping PrebidServerResponseCallback) {
         guard let resourceURL = resourceURL else {
             return
         }

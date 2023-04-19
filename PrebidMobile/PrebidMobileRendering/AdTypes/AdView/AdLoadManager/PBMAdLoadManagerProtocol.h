@@ -19,7 +19,7 @@
 #import "PBMTransactionDelegate.h"
 
 @class AdConfiguration;
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 @class Bid;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithBid:(Bid *)bid
-                 connection:(id<ServerConnectionProtocol>)connection
+                 connection:(id<PrebidServerConnectionProtocol>)connection
             adConfiguration:(AdConfiguration *)adConfiguration;
 
 @end

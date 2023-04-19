@@ -46,7 +46,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     override func setUp() {
         super.setUp()
         
-        adViewManager = PBMAdViewManager(connection: ServerConnection(), modalManagerDelegate: nil)
+        adViewManager = PBMAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
         
         adViewManager.adViewManagerDelegate = self
         Prebid.forcedIsViewable = false
@@ -88,7 +88,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     }
     
     func testInitDefaults() {
-        let adViewManager = PBMAdViewManager(connection: ServerConnection(), modalManagerDelegate: nil)
+        let adViewManager = PBMAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
         XCTAssertNil(adViewManager.externalTransaction)
         XCTAssert(adViewManager.autoDisplayOnLoad == true)
     }

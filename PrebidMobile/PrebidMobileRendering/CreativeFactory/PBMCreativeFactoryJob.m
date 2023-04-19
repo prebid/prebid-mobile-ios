@@ -35,7 +35,7 @@
 
 @property (nonatomic, strong) PBMCreativeModel *creativeModel;
 @property (nonatomic, copy) PBMCreativeFactoryJobFinishedCallback finishedCallback;
-@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 @property (nonatomic, strong) PBMTransaction *transaction;
 
 @end
@@ -46,7 +46,7 @@
 
 - (nonnull instancetype)initFromCreativeModel:(nonnull PBMCreativeModel *)creativeModel
                                   transaction:(PBMTransaction *)transaction
-                             serverConnection:(nonnull id<ServerConnectionProtocol>)serverConnection
+                             serverConnection:(nonnull id<PrebidServerConnectionProtocol>)serverConnection
                               finishedCallback:(PBMCreativeFactoryJobFinishedCallback)finishedCallback {
     self = [super init];
     if (self) {
@@ -225,7 +225,7 @@
 }
 
 - (PBMCreativeFactoryDownloadDataCompletionClosure)createLoader {
-    id<ServerConnectionProtocol> const connection = self.serverConnection;
+    id<PrebidServerConnectionProtocol> const connection = self.serverConnection;
     PBMCreativeFactoryDownloadDataCompletionClosure result = ^(NSURL* _Nonnull  url, PBMDownloadDataCompletionClosure _Nonnull completionBlock) {
         PBMDownloadDataHelper *downloader = [[PBMDownloadDataHelper alloc] initWithServerConnection:connection];
         [downloader downloadDataForURL:url completionClosure:^(NSData * _Nullable data, NSError * _Nullable error) {

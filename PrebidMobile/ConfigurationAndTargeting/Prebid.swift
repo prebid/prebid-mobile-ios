@@ -184,7 +184,7 @@ public class Prebid: NSObject {
     ///   - gadMobileAdsObject: GADMobileAds object
     ///   - completion: returns initialization status and optional error
     public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: PrebidInitializationCallback? = nil) {
-        let _ = ServerConnection.shared
+        let _ = PrebidServerConnection.shared
         let _ = PBMLocationManager.shared
         let _ = UserConsentDataManager.shared
         

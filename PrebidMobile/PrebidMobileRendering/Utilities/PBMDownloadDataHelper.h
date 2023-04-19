@@ -15,14 +15,14 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 
 typedef void (^PBMDownloadDataCompletionClosure)(NSData* _Nullable, NSError* _Nullable);
 
 @interface PBMDownloadDataHelper : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithServerConnection:(nonnull id<ServerConnectionProtocol>)serverConnection NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithServerConnection:(nonnull id<PrebidServerConnectionProtocol>)serverConnection NS_DESIGNATED_INITIALIZER;
 
 - (void)downloadDataForURL:(nullable NSURL *)url
          completionClosure:(nonnull PBMDownloadDataCompletionClosure)completionClosure;
