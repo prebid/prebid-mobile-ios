@@ -18,7 +18,7 @@ import GoogleMobileAds
 
 import PrebidMobile
 
-@objcMembers
+@objc(PBMGAMRewardedAdEventHandler) @objcMembers
 public class GAMRewardedAdEventHandler :
     NSObject,
     RewardedEventHandlerProtocol,

@@ -35,7 +35,7 @@ NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rew
 
 - (void)createAd {
     // 1. Create a GAMRewardedAdEventHandler
-    GAMRewardedAdEventHandler * eventHandler = [[GAMRewardedAdEventHandler alloc] initWithAdUnitID:gamAdUnitVideoRewardedRendering];
+    PBMGAMRewardedAdEventHandler * eventHandler = [[PBMGAMRewardedAdEventHandler alloc] initWithAdUnitID:gamAdUnitVideoRewardedRendering];
     
     // 2. Create a RewardedAdUnit
     self.rewardedAdUnit = [[PBMRewardedAdUnit alloc] initWithConfigID:storedImpGAMVideoRewarded eventHandler:eventHandler];
