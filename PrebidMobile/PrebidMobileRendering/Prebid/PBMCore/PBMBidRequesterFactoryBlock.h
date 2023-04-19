@@ -15,6 +15,6 @@
 
 #import "PBMBidRequesterProtocol.h"
 
-@class AdUnitConfig;
+@class PBMAdUnitConfig;
 
-typedef id<PBMBidRequesterProtocol> _Nonnull (^PBMBidRequesterFactoryBlock)(AdUnitConfig * _Nonnull adUnitConfig);
+typedef id<PBMBidRequesterProtocol> _Nonnull (^PBMBidRequesterFactoryBlock)(PBMAdUnitConfig * _Nonnull adUnitConfig);

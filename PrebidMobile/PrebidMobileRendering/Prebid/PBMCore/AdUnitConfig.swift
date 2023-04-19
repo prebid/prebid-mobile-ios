@@ -20,7 +20,7 @@ public let refreshIntervalMin: TimeInterval  = 15
 public let refreshIntervalMax: TimeInterval = 120
 public let refreshIntervalDefault: TimeInterval  = 60
 
-@objcMembers
+@objc(PBMAdUnitConfig) @objcMembers
 public class AdUnitConfig: NSObject, NSCopying {
 
     // MARK: - Public properties

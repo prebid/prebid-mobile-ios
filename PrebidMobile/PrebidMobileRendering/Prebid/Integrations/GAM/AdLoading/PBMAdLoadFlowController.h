@@ -18,14 +18,14 @@
 #import "PBMAdLoaderProtocol.h"
 #import "PBMBidRequesterProtocol.h"
 
-@class AdUnitConfig;
+@class PBMAdUnitConfig;
 @class Prebid;
 @protocol PrebidServerConnectionProtocol;
 @protocol AdLoadFlowControllerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef BOOL(^PBMAdUnitConfigValidationBlock)(AdUnitConfig *adUnitConfig, BOOL renderWithPrebid);
+typedef BOOL(^PBMAdUnitConfigValidationBlock)(PBMAdUnitConfig *adUnitConfig, BOOL renderWithPrebid);
 
 @interface PBMAdLoadFlowController : NSObject
 
@@ -42,7 +42,7 @@ typedef BOOL(^PBMAdUnitConfigValidationBlock)(AdUnitConfig *adUnitConfig, BOOL r
 // State: DemandReceived
 @property (nonatomic, strong, nullable) BidResponse *bidResponse;
 
-- (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
+- (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(PBMAdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
                                    delegate:(id<AdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock;

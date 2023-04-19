@@ -55,7 +55,7 @@
 }
 
 - (void)createPrebidAdWithBid:(Bid *)bid
-                 adUnitConfig:(AdUnitConfig *)adUnitConfig
+                 adUnitConfig:(PBMAdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker
 {

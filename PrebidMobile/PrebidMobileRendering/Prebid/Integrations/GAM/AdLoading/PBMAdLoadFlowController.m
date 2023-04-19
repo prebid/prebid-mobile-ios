@@ -36,7 +36,7 @@
 // MARK: - Lifecycle
 
 
-- (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
+- (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(PBMAdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
                                    delegate:(id<AdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock
@@ -195,7 +195,7 @@
 }
 
 - (void)tryLaunchingAdRequestFlow {
-    AdUnitConfig * const configClone = [self.delegate.adUnitConfig copy];
+    PBMAdUnitConfig * const configClone = [self.delegate.adUnitConfig copy];
     const BOOL configIsValid = self.configValidationBlock(configClone, NO);
     if (!configIsValid) {
         [self reportLoadingFailedWithError:[PBMError errorWithMessage:@"AdUnitConfig is not valid." type:PBMErrorTypeInternalError]];
@@ -272,7 +272,7 @@
     }
     
     self.flowState = PBMAdLoadFlowState_LoadingDisplayView;
-    AdUnitConfig * const adUnitConfig = self.savedAdUnitConfig;
+    PBMAdUnitConfig * const adUnitConfig = self.savedAdUnitConfig;
     
     @weakify(self);
     dispatch_sync(dispatch_get_main_queue(), ^{

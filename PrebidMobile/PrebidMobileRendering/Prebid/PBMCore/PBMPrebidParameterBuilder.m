@@ -38,7 +38,7 @@
 
 @interface PBMPrebidParameterBuilder ()
 
-@property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adConfiguration;
+@property (nonatomic, strong, nonnull, readonly) PBMAdUnitConfig *adConfiguration;
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) Targeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) PBMUserAgentService *userAgentService;
@@ -47,7 +47,7 @@
 
 @implementation PBMPrebidParameterBuilder
 
-- (instancetype)initWithAdConfiguration:(AdUnitConfig *)adConfiguration
+- (instancetype)initWithAdConfiguration:(PBMAdUnitConfig *)adConfiguration
                        sdkConfiguration:(Prebid *)sdkConfiguration
                               targeting:(Targeting *)targeting
                        userAgentService:(PBMUserAgentService *)userAgentService

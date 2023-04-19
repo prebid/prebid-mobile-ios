@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "PBMParameterBuilderProtocol.h"
 
-@class AdUnitConfig;
+@class PBMAdUnitConfig;
 @class Prebid;
 @class Targeting;
 @class PBMUserAgentService;
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMPrebidParameterBuilder : NSObject <PBMParameterBuilder>
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithAdConfiguration:(AdUnitConfig *)adConfiguration
+- (instancetype)initWithAdConfiguration:(PBMAdUnitConfig *)adConfiguration
                        sdkConfiguration:(Prebid *)sdkConfiguration
                               targeting:(Targeting *)targeting
                        userAgentService:(PBMUserAgentService *)userAgentService NS_DESIGNATED_INITIALIZER;

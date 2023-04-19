@@ -34,7 +34,7 @@
 @property (nonatomic, strong, nonnull, readonly) id<PrebidServerConnectionProtocol> connection;
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) Targeting *targeting;
-@property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
+@property (nonatomic, strong, nonnull, readonly) PBMAdUnitConfig *adUnitConfiguration;
 
 @property (nonatomic, copy, nullable) void (^completion)(BidResponse *, NSError *);
 
@@ -45,7 +45,7 @@
 - (instancetype)initWithConnection:(id<PrebidServerConnectionProtocol>)connection
                   sdkConfiguration:(Prebid *)sdkConfiguration
                          targeting:(Targeting *)targeting
-               adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration {
+               adUnitConfiguration:(PBMAdUnitConfig *)adUnitConfiguration {
     if (!(self = [super init])) {
         return nil;
     }

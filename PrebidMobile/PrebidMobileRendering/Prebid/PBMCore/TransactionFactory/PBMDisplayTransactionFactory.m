@@ -31,7 +31,7 @@
 @interface PBMDisplayTransactionFactory() <PBMTransactionDelegate>
 
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
-@property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
+@property (nonatomic, strong, readonly, nonnull) PBMAdUnitConfig *adConfiguration;
 @property (nonatomic, strong, readonly, nonnull) id<PrebidServerConnectionProtocol> connection;
 
 // NOTE: need to call the completion callback only in the main thread
@@ -50,7 +50,7 @@
 // MARK: - Public API
 
 - (instancetype)initWithBid:(Bid *)bid
-            adConfiguration:(AdUnitConfig *)adConfiguration
+            adConfiguration:(PBMAdUnitConfig *)adConfiguration
                  connection:(id<PrebidServerConnectionProtocol>)connection
                    callback:(PBMTransactionFactoryCallback)callback
 {
@@ -113,7 +113,7 @@
 
 - (PBMCreativeModel *)htmlCreativeModelFromBid:(Bid *)bid
                                       adMarkup:(NSString *)adMarkup
-                               adConfiguration:(AdUnitConfig *)adConfiguration {
+                               adConfiguration:(PBMAdUnitConfig *)adConfiguration {
     PBMCreativeModel * const model = [[PBMCreativeModel alloc] init];
     
     model.html = adMarkup;

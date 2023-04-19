@@ -36,7 +36,7 @@
                                              sdkConfiguration:(Prebid *)sdkConfiguration
                                                     targeting:(Targeting *)targeting
 {
-    return ^id<PBMBidRequesterProtocol> (AdUnitConfig * adUnitConfig) {
+    return ^id<PBMBidRequesterProtocol> (PBMAdUnitConfig * adUnitConfig) {
         return [[PBMBidRequester alloc] initWithConnection:connection
                                           sdkConfiguration:sdkConfiguration
                                                  targeting:targeting
