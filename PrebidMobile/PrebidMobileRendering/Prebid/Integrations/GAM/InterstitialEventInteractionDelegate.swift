@@ -15,7 +15,8 @@
 
 import Foundation
 
-@objc public protocol InterstitialEventInteractionDelegate: NSObjectProtocol {
+@objc(PBMInterstitialEventInteractionDelegate)
+public protocol InterstitialEventInteractionDelegate: NSObjectProtocol {
     
     /*!
      @abstract Call this when the ad server SDK is about to present a modal
