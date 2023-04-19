@@ -96,14 +96,14 @@
         NSString *impURL = self.transaction.impURL;
         
         if (impURL) {
-            ServerEvent *impEvent = [[ServerEvent alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
+            PBMServerEvent *impEvent = [[PBMServerEvent alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
             [internalEventTracker addServerEvents:@[impEvent]];
         }
         
         NSString *winURL = self.transaction.winURL;
         
         if (winURL) {
-            ServerEvent *winEvent = [[ServerEvent alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
+            PBMServerEvent *winEvent = [[PBMServerEvent alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
             [internalEventTracker addServerEvents:@[winEvent]];
         }
         
