@@ -144,7 +144,6 @@ public class ImageAsset: SingleContainerInt {
     
 }
 
-
 @objc(PBMDataAsset)
 public enum DataAsset: Int {
     case sponsored = 1

@@ -16,7 +16,7 @@ limitations under the License.
 import Foundation
 
 @objc(PBMNativeAdEventDelegate)
-public protocol NativeAdEventDelegate : AnyObject {
+public protocol NativeAdEventDelegate: AnyObject {
     /**
      * Sent when the native ad is expired.
      */
