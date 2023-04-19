@@ -28,7 +28,7 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@interface PBMInterstitialAdLoader () <InterstitialControllerLoadingDelegate, RewardedEventLoadingDelegate>
+@interface PBMInterstitialAdLoader () <PBMInterstitialControllerLoadingDelegate, RewardedEventLoadingDelegate>
 @property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate> delegate;
 @end
 

@@ -15,7 +15,8 @@
 
 import Foundation
 
-@objc public protocol InterstitialControllerLoadingDelegate: NSObjectProtocol {
+@objc(PBMInterstitialControllerLoadingDelegate)
+public protocol InterstitialControllerLoadingDelegate: NSObjectProtocol {
 
     func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController)
     func interstitialController(_ interstitialController: InterstitialController,
