@@ -15,8 +15,6 @@
 
 import Foundation
 
-public typealias AdRequestCallback = (PrebidServerResponse?, Error?) -> Void
-
 @objcMembers
 public class PrebidServerResponse: NSObject {
     
