@@ -65,7 +65,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 @property (nonatomic, weak) UIButton *btnUnmute;
 @property (nonatomic, weak) UIView *muteControlsView;
 
-@property (nonatomic, strong) AdViewButtonDecorator *skipButtonDecorator;
+@property (nonatomic, strong) PBMAdViewButtonDecorator *skipButtonDecorator;
 
 #pragma mark Injected Properties
 
@@ -462,7 +462,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)setupSkipButton {
-    self.skipButtonDecorator = [AdViewButtonDecorator new];
+    self.skipButtonDecorator = [PBMAdViewButtonDecorator new];
     self.skipButtonDecorator.button.hidden = YES;
     self.skipButtonDecorator.buttonArea = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonArea;
     self.skipButtonDecorator.buttonPosition = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonPosition;
