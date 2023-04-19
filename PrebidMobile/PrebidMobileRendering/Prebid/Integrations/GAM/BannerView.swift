@@ -17,6 +17,7 @@ import UIKit
 
 fileprivate let assertionMessageMainThread = "Expected to only be called on the main thread"
 
+@objc(PBMBannerView)
 public class BannerView: UIView,
                          BannerAdLoaderDelegate,
                          AdLoadFlowControllerDelegate,

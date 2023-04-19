@@ -21,7 +21,7 @@ NSString * const storedImpDisplayBannerInApp = @"imp-prebid-banner-320-50";
 @interface InAppDisplayBannerViewController ()
 
 // Prebid
-@property (nonatomic) BannerView * prebidBannerView;
+@property (nonatomic) PBMBannerView * prebidBannerView;
 
 @end
 
@@ -35,7 +35,7 @@ NSString * const storedImpDisplayBannerInApp = @"imp-prebid-banner-320-50";
 
 - (void)createAd {
     // 1. Create a BannerView
-    self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpDisplayBannerInApp adSize:self.adSize];
+    self.prebidBannerView = [[PBMBannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpDisplayBannerInApp adSize:self.adSize];
     
     // 2. Configure the BannerView
     self.prebidBannerView.delegate = self;
@@ -55,7 +55,7 @@ NSString * const storedImpDisplayBannerInApp = @"imp-prebid-banner-320-50";
     return self;
 }
 
-- (void)bannerView:(BannerView *)bannerView didFailToReceiveAdWith:(NSError *)error {
+- (void)bannerView:(PBMBannerView *)bannerView didFailToReceiveAdWith:(NSError *)error {
     PBMLogError(@"%@", error.localizedDescription);
 }
 

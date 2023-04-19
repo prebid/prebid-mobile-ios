@@ -21,7 +21,7 @@ NSString * const storedImpVideoBannerInApp = @"imp-prebid-video-outstream";
 @interface InAppVideoBannerViewController ()
 
 // Prebid
-@property (nonatomic) BannerView * prebidBannerView;
+@property (nonatomic) PBMBannerView * prebidBannerView;
 
 @end
 
@@ -35,7 +35,7 @@ NSString * const storedImpVideoBannerInApp = @"imp-prebid-video-outstream";
 
 - (void)createAd {
     // 1. Create a BannerView
-    self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpVideoBannerInApp adSize:self.adSize];
+    self.prebidBannerView = [[PBMBannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpVideoBannerInApp adSize:self.adSize];
     
     // 2. Configure the BannerView
     self.prebidBannerView.delegate = self;
@@ -56,7 +56,7 @@ NSString * const storedImpVideoBannerInApp = @"imp-prebid-video-outstream";
     return self;
 }
 
-- (void)bannerView:(BannerView *)bannerView didFailToReceiveAdWith:(NSError *)error {
+- (void)bannerView:(PBMBannerView *)bannerView didFailToReceiveAdWith:(NSError *)error {
     PBMLogError(@"%@", error.localizedDescription);
 }
 

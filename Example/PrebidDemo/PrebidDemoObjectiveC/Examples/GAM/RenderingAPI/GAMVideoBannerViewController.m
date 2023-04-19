@@ -20,7 +20,7 @@ NSString * const gamAdUnitVideoRendering = @"/21808260008/prebid_oxb_300x250_ban
 @interface GAMVideoBannerViewController ()
 
 // Prebid
-@property (nonatomic) BannerView * prebidBannerView;
+@property (nonatomic) PBMBannerView * prebidBannerView;
 
 // GAM
 @property (nonatomic) GAMRequest *gamRequest;
@@ -41,7 +41,7 @@ NSString * const gamAdUnitVideoRendering = @"/21808260008/prebid_oxb_300x250_ban
     GAMBannerEventHandler * eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:gamAdUnitVideoRendering validGADAdSizes:@[NSValueFromGADAdSize(GADAdSizeMediumRectangle)]];
     
     // 2. Create a BannerView
-    self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpVideoGAMRendering adSize:self.adSize eventHandler:eventHandler];
+    self.prebidBannerView = [[PBMBannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpVideoGAMRendering adSize:self.adSize eventHandler:eventHandler];
     
     // 3. Configure the BannerView
     self.prebidBannerView.adFormat = AdFormat.video;
@@ -62,7 +62,7 @@ NSString * const gamAdUnitVideoRendering = @"/21808260008/prebid_oxb_300x250_ban
     return self;
 }
 
-- (void)bannerView:(BannerView *)bannerView didFailToReceiveAdWith:(NSError *)error {
+- (void)bannerView:(PBMBannerView *)bannerView didFailToReceiveAdWith:(NSError *)error {
     PBMLogError(@"%@", error.localizedDescription);
 }
 
