@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import AppLovinSDK
 
-@objcMembers
+@objc(PBMMAXMediationBannerUtils) @objcMembers
 public class MAXMediationBannerUtils: NSObject, PrebidMediationDelegate {
     
     public var adView: MAAdView

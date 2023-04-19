@@ -23,7 +23,7 @@ NSString * const maxAdUnitBannerRendering = @"78869c25f5c54bab";
 
 // Prebid
 @property (nonatomic) PBMMediationBannerAdUnit * maxAdUnit;
-@property (nonatomic) MAXMediationBannerUtils * maxMediationDelegate;
+@property (nonatomic) PBMMAXMediationBannerUtils * maxMediationDelegate;
 
 // MAX
 @property (nonatomic) MAAdView * maxAdBannerView;
@@ -51,7 +51,7 @@ NSString * const maxAdUnitBannerRendering = @"78869c25f5c54bab";
     [self.bannerView addSubview:self.maxAdBannerView];
     
     // 3. Setup a MAXMediationBannerUtils
-    self.maxMediationDelegate = [[MAXMediationBannerUtils alloc] initWithAdView:self.maxAdBannerView];
+    self.maxMediationDelegate = [[PBMMAXMediationBannerUtils alloc] initWithAdView:self.maxAdBannerView];
     
     // 4. Setup a MediationBannerAdUnit
     self.maxAdUnit = [[PBMMediationBannerAdUnit alloc] initWithConfigID:storedImpDisplayBannerMAX size:self.adSize mediationDelegate:self.maxMediationDelegate];
