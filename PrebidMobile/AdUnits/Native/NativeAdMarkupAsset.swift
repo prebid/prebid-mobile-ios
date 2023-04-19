@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMNativeAdMarkupAsset) @objcMembers
 public class NativeAdMarkupAsset: NSObject, JsonDecodable {
     
     /// Optional if asseturl/dcourl is being used; required if embeded asset is being used
