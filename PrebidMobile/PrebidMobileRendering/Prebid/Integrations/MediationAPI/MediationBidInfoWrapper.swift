@@ -15,7 +15,8 @@
 
 import Foundation
 
-public class MediationBidInfoWrapper : NSObject {
+@objc(PBMMediationBidInfoWrapper)
+public class MediationBidInfoWrapper: NSObject {
     @objc public var keywords: String?
     @objc public var localExtras: [AnyHashable : Any]?
 }
