@@ -85,7 +85,7 @@
             if (self.transaction.skadnInfo) {
                 SKAdImpression *imp = [SkadnParametersManager getSkadnImpressionFor:self.transaction.skadnInfo];
                 if (imp) {
-                    SkadnEventTracker *skadnTracker = [[SkadnEventTracker alloc] initWith:imp];
+                    PBMSkadnEventTracker *skadnTracker = [[PBMSkadnEventTracker alloc] initWith:imp];
                     [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
                 }
             }
