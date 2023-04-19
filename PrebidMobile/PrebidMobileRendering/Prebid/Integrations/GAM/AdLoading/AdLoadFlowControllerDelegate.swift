@@ -15,7 +15,8 @@
 
 import Foundation
 
-@objc public protocol AdLoadFlowControllerDelegate: NSObjectProtocol {
+@objc(PBMAdLoadFlowControllerDelegate)
+public protocol AdLoadFlowControllerDelegate: NSObjectProtocol {
 
     var adUnitConfig:AdUnitConfig { get }
 

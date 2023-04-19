@@ -21,7 +21,7 @@
 @class PBMAdUnitConfig;
 @class Prebid;
 @protocol PrebidServerConnectionProtocol;
-@protocol AdLoadFlowControllerDelegate;
+@protocol PBMAdLoadFlowControllerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,7 +44,7 @@ typedef BOOL(^PBMAdUnitConfigValidationBlock)(PBMAdUnitConfig *adUnitConfig, BOO
 
 - (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(PBMAdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
-                                   delegate:(id<AdLoadFlowControllerDelegate>)delegate
+                                   delegate:(id<PBMAdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock;
 
 /// Starts new flow of loading the ad (if idle or failed) or continues previously paused flow
