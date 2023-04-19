@@ -86,8 +86,8 @@ NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_nativ
 }
 
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveCustomNativeAd:(GADCustomNativeAd *)customNativeAd {
-    Utils.shared.delegate = self;
-    [Utils.shared findNativeWithAdObject:customNativeAd];
+    PBMUtils.shared.delegate = self;
+    [PBMUtils.shared findNativeWithAdObject:customNativeAd];
 }
 
 // MARK: GADAdLoaderDelegate

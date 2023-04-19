@@ -36,7 +36,7 @@ limitations under the License.
     NSDictionary *dictionary = @{ @"key1" : @"value1", @"key2" : @"value2"};
     
     //when
-    NSString *result = [Utils.shared convertDictToMoPubKeywordsWithDict:dictionary];
+    NSString *result = [PBMUtils.shared convertDictToMoPubKeywordsWithDict:dictionary];
     
     //then
     XCTAssertTrue([result isEqualToString:@"key1:value1,key2:value2"] || [result isEqualToString:@"key2:value2,key1:value1"]);

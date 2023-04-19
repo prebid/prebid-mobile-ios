@@ -16,6 +16,7 @@
 import Foundation
 import WebKit
 
+@objc(PBMUtils)
 public class Utils: NSObject {
 
     /**
