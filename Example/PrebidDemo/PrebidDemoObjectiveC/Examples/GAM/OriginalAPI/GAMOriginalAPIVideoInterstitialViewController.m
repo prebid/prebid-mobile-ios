@@ -52,7 +52,7 @@ NSString * const gamAdUnitVideoInterstitialOriginal = @"/21808260008/prebid-demo
     // 4. Make a bid request to Prebid Server
     GAMRequest * gamRequest = [GAMRequest new];
     @weakify(self);
-    [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
+    [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum PBMResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         

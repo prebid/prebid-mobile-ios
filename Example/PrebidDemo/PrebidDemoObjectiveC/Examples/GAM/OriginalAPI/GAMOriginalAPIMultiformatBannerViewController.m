@@ -72,7 +72,7 @@ NSString * const gamAdUnitMultiformatBannerOriginal = @"/21808260008/prebid-demo
     
     // 6. Make a bid request to Prebid Server
     @weakify(self);
-    [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
+    [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum PBMResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         

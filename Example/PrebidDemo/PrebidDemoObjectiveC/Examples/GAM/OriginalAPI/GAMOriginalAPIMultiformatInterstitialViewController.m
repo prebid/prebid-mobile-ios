@@ -54,7 +54,7 @@ NSString * const gamAdUnitMultiformatInterstitialOriginal = @"/21808260008/prebi
     // 4. Make a bid request to Prebid Server
     GAMRequest * gamRequest = [GAMRequest new];
     @weakify(self);
-    [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
+    [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum PBMResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         

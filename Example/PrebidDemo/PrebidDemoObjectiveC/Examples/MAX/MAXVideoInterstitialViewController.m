@@ -51,7 +51,7 @@ NSString * const maxAdUnitVideoInterstitial = @"48e8d410f74dfc7b";
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);
-    [self.maxAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
+    [self.maxAdUnit fetchDemandWithCompletion:^(enum PBMResultCode resultCode) {
         @strongify(self); 
         if (!self) { return; }
         

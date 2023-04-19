@@ -52,7 +52,7 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
     self.admobAdUnit.adFormats = [NSSet setWithObject:AdFormat.video];
     
     // 5. Make a bid request to Prebid Server
-    [self.admobAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
+    [self.admobAdUnit fetchDemandWithCompletion:^(enum PBMResultCode resultCode) {
         @weakify(self);
         
         // 6. Load the interstitial ad

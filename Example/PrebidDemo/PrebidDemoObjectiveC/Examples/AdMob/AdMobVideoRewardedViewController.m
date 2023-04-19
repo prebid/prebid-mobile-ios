@@ -50,7 +50,7 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);
-    [self.admobRewardedAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
+    [self.admobRewardedAdUnit fetchDemandWithCompletion:^(enum PBMResultCode resultCode) {
         @strongify(self);
         
         // 5. Load the rewarded ad

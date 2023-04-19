@@ -49,7 +49,7 @@ NSString * const adMobAdUnitDisplayInterstitial = @"ca-app-pub-5922967660082475/
     self.admobAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpDisplayInterstitialAdMob mediationDelegate:self.mediationDelegate];
     
     // 4. Make a bid request to Prebid Server
-    [self.admobAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
+    [self.admobAdUnit fetchDemandWithCompletion:^(enum PBMResultCode resultCode) {
         @weakify(self);
         
         // 5. Load the interstitial ad

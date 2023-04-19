@@ -15,7 +15,8 @@
 
 import Foundation
 
-@objc public enum ResultCode : Int {
+@objc(PBMResultCode)
+public enum ResultCode: Int {
     case prebidDemandFetchSuccess = 0
     case prebidServerNotSpecified
     case prebidInvalidAccountId

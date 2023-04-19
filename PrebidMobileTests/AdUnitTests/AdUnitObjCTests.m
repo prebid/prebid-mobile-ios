@@ -42,11 +42,11 @@ AdUnit *adUnit;
     //given
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     NSObject *testObject = [[NSObject alloc] init];
-    __block ResultCode resultCode;
+    __block PBMResultCode resultCode;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //when
-    [adUnit fetchDemandWithAdObject:testObject completion:^(enum ResultCode result) {
+    [adUnit fetchDemandWithAdObject:testObject completion:^(enum PBMResultCode result) {
         resultCode = result;
         [expectation fulfill];
     }];
@@ -55,19 +55,19 @@ AdUnit *adUnit;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
-    XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
+    XCTAssertEqual(PBMResultCodePrebidDemandFetchSuccess, resultCode);
 }
 
 - (void)testFetchDemandBids {
     
     //given
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    __block ResultCode resultCode;
+    __block PBMResultCode resultCode;
     __block NSDictionary<NSString *, NSString *> *kvDictResult;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //when
-    [adUnit fetchDemandWithCompletion:^(enum ResultCode code, NSDictionary<NSString *,NSString *> * _Nullable kvDict) {
+    [adUnit fetchDemandWithCompletion:^(enum PBMResultCode code, NSDictionary<NSString *,NSString *> * _Nullable kvDict) {
         resultCode = code;
         kvDictResult = kvDict;
         [expectation fulfill];
@@ -77,14 +77,14 @@ AdUnit *adUnit;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
-    XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
+    XCTAssertEqual(PBMResultCodePrebidDemandFetchSuccess, resultCode);
     XCTAssertEqual(1, kvDictResult.count);
     XCTAssertEqualObjects(@"value1", kvDictResult[@"key1"]);
 
 }
 
 - (void)testResultCode {
-    ResultCode resultCode = ResultCodePrebidDemandFetchSuccess;
+    PBMResultCode resultCode = PBMResultCodePrebidDemandFetchSuccess;
     XCTAssertEqual(0, resultCode);
 }
 

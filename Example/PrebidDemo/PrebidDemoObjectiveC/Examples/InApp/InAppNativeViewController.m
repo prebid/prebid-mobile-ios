@@ -61,7 +61,7 @@ NSString * const nativeStoredImpressionInApp = @"imp-prebid-banner-native-styles
     
     // 3. Make a bid request to Prebid Server
     @weakify(self);
-    [self.nativeUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable kvResultDict) {
+    [self.nativeUnit fetchDemandWithCompletion:^(enum PBMResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable kvResultDict) {
         @strongify(self);
         if (!self) { return; }
         

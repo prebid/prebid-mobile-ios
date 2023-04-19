@@ -20,5 +20,5 @@
                    connection:(id<ServerConnectionProtocol>)connection
              sdkConfiguration:(Prebid *)sdkConfiguration
                     targeting:(Targeting *)targeting
-                   completion:(void (^)(ResultCode))completion;
+                   completion:(void (^)(PBMResultCode))completion;
 @end
