@@ -15,6 +15,7 @@ limitations under the License.
 
 import Foundation
 
+@objc(PBMSingleContainerInt)
 public class SingleContainerInt: NSObject, ExpressibleByIntegerLiteral {
 
     public typealias IntegerLiteralType = Int
@@ -50,6 +51,7 @@ public class SingleContainerInt: NSObject, ExpressibleByIntegerLiteral {
     }
 }
 
+@objc(PBMSignals)
 public class Signals: NSObject {
     /**
      # OpenRTB - API Frameworks #
