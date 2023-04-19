@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import AppLovinSDK
 
-@objcMembers
+@objc(PBMMAXMediationRewardedUtils) @objcMembers
 public class MAXMediationRewardedUtils: NSObject, PrebidMediationDelegate {
     
     public var rewardedAd: MARewardedAd

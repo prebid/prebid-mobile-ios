@@ -23,7 +23,7 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
 
 // Prebid
 @property (nonatomic) MediationRewardedAdUnit * maxRewardedAdUnit;
-@property (nonatomic) MAXMediationRewardedUtils * mediationDelegate;
+@property (nonatomic) PBMMAXMediationRewardedUtils * mediationDelegate;
 
 // MAX
 @property (nonatomic) MARewardedAd * maxRewarded;
@@ -43,7 +43,7 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
     self.maxRewarded = [MARewardedAd sharedWithAdUnitIdentifier:maxAdUnitRewardedId];
     
     // 2. Create a MAXMediationRewardedUtils
-    self.mediationDelegate = [[MAXMediationRewardedUtils alloc] initWithRewardedAd:self.maxRewarded];
+    self.mediationDelegate = [[PBMMAXMediationRewardedUtils alloc] initWithRewardedAd:self.maxRewarded];
     
     // 3. Create a MediationRewardedAdUnit
     self.maxRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedMAX mediationDelegate:self.mediationDelegate];
