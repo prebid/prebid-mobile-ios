@@ -22,7 +22,7 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
 @interface AdMobVideoInterstitialViewController ()
 
 // Prebid
-@property (nonatomic) MediationInterstitialAdUnit * admobAdUnit;
+@property (nonatomic) PBMMediationInterstitialAdUnit * admobAdUnit;
 @property (nonatomic) PBMAdMobMediationInterstitialUtils * mediationDelegate;
 
 // AdMob
@@ -46,7 +46,7 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
     self.mediationDelegate = [[PBMAdMobMediationInterstitialUtils alloc] initWithGadRequest:gadRequest];
     
     // 3. Create a MediationInterstitialAdUnit
-    self.admobAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitialAdMob mediationDelegate:self.mediationDelegate];
+    self.admobAdUnit = [[PBMMediationInterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitialAdMob mediationDelegate:self.mediationDelegate];
     
     // 4. Set ad format
     self.admobAdUnit.adFormats = [NSSet setWithObject:PBMAdFormat.video];

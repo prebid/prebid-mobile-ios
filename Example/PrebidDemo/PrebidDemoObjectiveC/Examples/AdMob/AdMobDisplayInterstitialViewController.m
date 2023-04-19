@@ -22,7 +22,7 @@ NSString * const adMobAdUnitDisplayInterstitial = @"ca-app-pub-5922967660082475/
 @interface AdMobDisplayInterstitialViewController ()
 
 // Prebid
-@property (nonatomic) MediationInterstitialAdUnit * admobAdUnit;
+@property (nonatomic) PBMMediationInterstitialAdUnit * admobAdUnit;
 @property (nonatomic) PBMAdMobMediationInterstitialUtils * mediationDelegate;
 
 // AdMob
@@ -46,7 +46,7 @@ NSString * const adMobAdUnitDisplayInterstitial = @"ca-app-pub-5922967660082475/
     self.mediationDelegate = [[PBMAdMobMediationInterstitialUtils alloc] initWithGadRequest:gadRequest];
     
     // 3. Create a MediationInterstitialAdUnit
-    self.admobAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpDisplayInterstitialAdMob mediationDelegate:self.mediationDelegate];
+    self.admobAdUnit = [[PBMMediationInterstitialAdUnit alloc] initWithConfigId:storedImpDisplayInterstitialAdMob mediationDelegate:self.mediationDelegate];
     
     // 4. Make a bid request to Prebid Server
     [self.admobAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {

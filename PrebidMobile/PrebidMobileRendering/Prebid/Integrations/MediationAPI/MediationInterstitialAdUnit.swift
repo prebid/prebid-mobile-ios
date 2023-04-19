@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objcMembers
+@objc(PBMMediationInterstitialAdUnit) @objcMembers
 public class MediationInterstitialAdUnit : MediationBaseInterstitialAdUnit {
     
     // MARK: - Public Properties

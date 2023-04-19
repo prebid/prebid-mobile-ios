@@ -22,7 +22,7 @@ NSString * const maxAdUnitDisplayInterstitial = @"48e8d410f74dfc7b";
 @interface MAXDisplayInterstitialViewController ()
 
 // Prebid
-@property (nonatomic) MediationInterstitialAdUnit * maxAdUnit;
+@property (nonatomic) PBMMediationInterstitialAdUnit * maxAdUnit;
 @property (nonatomic) PBMMAXMediationInterstitialUtils * maxMediationDelegate;
 
 // MAX
@@ -46,7 +46,7 @@ NSString * const maxAdUnitDisplayInterstitial = @"48e8d410f74dfc7b";
     self.maxMediationDelegate = [[PBMMAXMediationInterstitialUtils alloc] initWithInterstitialAd:self.maxInterstitial];
     
     // 3. Create a MediationInterstitialAdUnit
-    self.maxAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpDisplayInterstitialMAX mediationDelegate:self.maxMediationDelegate];
+    self.maxAdUnit = [[PBMMediationInterstitialAdUnit alloc] initWithConfigId:storedImpDisplayInterstitialMAX mediationDelegate:self.maxMediationDelegate];
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);
