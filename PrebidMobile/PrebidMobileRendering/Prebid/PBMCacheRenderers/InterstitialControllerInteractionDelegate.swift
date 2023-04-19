@@ -16,7 +16,8 @@
 import Foundation
 import UIKit
 
-@objc public protocol InterstitialControllerInteractionDelegate: NSObjectProtocol {
+@objc(PBMInterstitialControllerInteractionDelegate)
+public protocol InterstitialControllerInteractionDelegate: NSObjectProtocol {
 
     func trackImpression(forInterstitialController: InterstitialController)
 
