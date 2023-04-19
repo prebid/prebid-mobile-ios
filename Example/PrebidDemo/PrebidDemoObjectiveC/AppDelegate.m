@@ -37,7 +37,7 @@
     [[GADMobileAds sharedInstance] startWithCompletionHandler:^(GADInitializationStatus * _Nonnull status) {}];
     
     [PBMGAMUtils.shared initializeGAM];
-    [AdMobUtils initializeGAD];
+    [PBMAdMobUtils initializeGAD];
     
     // Initialize AppLovin MAX SDK
     [ALSdk shared].mediationProvider = ALMediationProviderMAX;

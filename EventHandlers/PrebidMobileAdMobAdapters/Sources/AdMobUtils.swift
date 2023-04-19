@@ -19,7 +19,7 @@ import PrebidMobile
 
 fileprivate let HBKeywordPrefix = "hb_"
 
-@objcMembers
+@objc(PBMAdMobUtils) @objcMembers
 public class AdMobUtils: NSObject {
     public static func initializeGAD() {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
