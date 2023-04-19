@@ -16,6 +16,7 @@
 import Foundation
 import UIKit
 
+@objc(PBMBaseInterstitialAdUnit)
 public class BaseInterstitialAdUnit :
     NSObject,
     PBMInterstitialAdLoaderDelegate,
