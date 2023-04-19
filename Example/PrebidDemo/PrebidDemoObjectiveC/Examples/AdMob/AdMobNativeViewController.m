@@ -73,7 +73,7 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
     
     // 5. Make a bid request to Prebid Server
     @weakify(self);
-    [self.admobMediationNativeAdUnit fetchDemandWithCompletion:^(enum PBMResultCode resultCode) {
+    [self.admobMediationNativeAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         

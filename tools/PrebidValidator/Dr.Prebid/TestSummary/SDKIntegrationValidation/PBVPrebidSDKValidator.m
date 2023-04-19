@@ -155,13 +155,13 @@
             self.dfpView.rootViewController = (UIViewController *)_delegate;
             
             self.request = [[GAMRequest alloc] init];
-            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum PBMResultCode result) {
+            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
                 [self.dfpView loadRequest:self.request];
             }];
             
         } else if([adFormatName isEqualToString:kInterstitialString]){
             self.request = [[GAMRequest alloc] init];
-            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum PBMResultCode result) {
+            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
                 
                 [GAMInterstitialAd loadWithAdManagerAdUnitID:adUnitID
                                                      request:self.request
@@ -185,7 +185,7 @@
             self.dfpView.rootViewController = (UIViewController *)_delegate;
             
             self.request = [[GAMRequest alloc] init];
-            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum PBMResultCode result) {
+            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
                 [self.dfpView loadRequest:self.request];
             }];
             

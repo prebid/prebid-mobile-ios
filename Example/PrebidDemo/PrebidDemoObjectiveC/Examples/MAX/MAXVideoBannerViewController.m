@@ -62,7 +62,7 @@ NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
     
     // 6. Make a bid request to Prebid Server
     @weakify(self);
-    [self.maxAdUnit fetchDemandWithCompletion:^(enum PBMResultCode resultCode) {
+    [self.maxAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         

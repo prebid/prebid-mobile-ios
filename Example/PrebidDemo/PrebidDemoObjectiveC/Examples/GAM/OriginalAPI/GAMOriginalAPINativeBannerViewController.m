@@ -78,7 +78,7 @@ NSString * const gamAdUnit = @"/21808260008/prebid-demo-original-native-styles";
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);
-    [self.nativeUnit fetchDemandWithAdObject:self.gamRequest completion:^(enum PBMResultCode resultCode) {
+    [self.nativeUnit fetchDemandWithAdObject:self.gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         

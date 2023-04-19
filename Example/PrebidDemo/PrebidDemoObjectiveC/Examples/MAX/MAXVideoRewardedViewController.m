@@ -50,7 +50,7 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);
-    [self.maxRewardedAdUnit fetchDemandWithCompletion:^(enum PBMResultCode resultCode) {
+    [self.maxRewardedAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         

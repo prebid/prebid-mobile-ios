@@ -96,7 +96,7 @@ NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
     
     // 7. Make a bid request to Prebid Server
     @weakify(self);
-    [self.maxMediationNativeAdUnit fetchDemandWithCompletion:^(enum PBMResultCode resultCode) {
+    [self.maxMediationNativeAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         

@@ -66,7 +66,7 @@ NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_nativ
     // 3. Make a bid request
     GAMRequest * gamRequest = [GAMRequest new];
     @weakify(self);
-    [self.nativeUnit fetchDemandWithAdObject:gamRequest completion:^(enum PBMResultCode resultCode) {
+    [self.nativeUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         
