@@ -108,7 +108,7 @@ limitations under the License.
 }
 
 - (void)testLogLevel {
-    [Prebid.shared setLogLevel:LogLevel.debug];
+    [Prebid.shared setLogLevel:PBMLogLevel.debug];
 }
 
 - (void)testBidderName {
