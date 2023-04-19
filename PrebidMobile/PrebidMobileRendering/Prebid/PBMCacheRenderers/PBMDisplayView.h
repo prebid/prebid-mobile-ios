@@ -16,15 +16,15 @@
 #import <UIKit/UIKit.h>
 
 @class Bid;
-@protocol DisplayViewLoadingDelegate;
-@protocol DisplayViewInteractionDelegate;
+@protocol PBMDisplayViewLoadingDelegate;
+@protocol PBMDisplayViewInteractionDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMDisplayView : UIView
 
-@property (atomic, weak, nullable) NSObject<DisplayViewLoadingDelegate> *loadingDelegate;
-@property (atomic, weak, nullable) NSObject<DisplayViewInteractionDelegate> *interactionDelegate;
+@property (atomic, weak, nullable) NSObject<PBMDisplayViewLoadingDelegate> *loadingDelegate;
+@property (atomic, weak, nullable) NSObject<PBMDisplayViewInteractionDelegate> *interactionDelegate;
 @property (nonatomic, readonly) BOOL isCreativeOpened;
 
 - (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid configId:(NSString *)configId;

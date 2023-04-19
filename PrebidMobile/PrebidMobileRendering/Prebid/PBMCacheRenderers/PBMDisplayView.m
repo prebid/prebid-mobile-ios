@@ -195,14 +195,14 @@
 }
 
 - (void)interactionDelegateWillPresentModal {
-    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
+    NSObject<PBMDisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
     if ([delegate respondsToSelector:@selector(willPresentModalFrom:)]) {
         [delegate willPresentModalFrom:self];
     }
 }
 
 - (void)interactionDelegateDidDismissModal {
-    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
+    NSObject<PBMDisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
     if ([delegate respondsToSelector:@selector(didDismissModalFrom:)]) {
         [delegate didDismissModalFrom:self];
     }

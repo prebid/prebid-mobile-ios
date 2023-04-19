@@ -31,7 +31,7 @@
 #endif
 
 
-@interface PBMBannerAdLoader () <DisplayViewLoadingDelegate, BannerEventLoadingDelegate>
+@interface PBMBannerAdLoader () <PBMDisplayViewLoadingDelegate, BannerEventLoadingDelegate>
 @property (nonatomic, weak, nullable, readonly) id<BannerAdLoaderDelegate> delegate;
 @end
 
