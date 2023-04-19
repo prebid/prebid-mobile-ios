@@ -25,7 +25,7 @@ class MockDelayedReachability: Reachability {
         return isReachable
     }
     
-    override func onNetworkRestored(_ reachableBlock: @escaping NetworkReachableBlock) {
+    override func onNetworkRestored(_ reachableBlock: @escaping PBMNetworkReachableBlock) {
         isReachable = true
         reachableBlock(self)
     }
