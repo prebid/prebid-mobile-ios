@@ -99,10 +99,10 @@ NSString * const configId = @"1001-1";
     VideoParameters *parameters = [[VideoParameters alloc] initWithMimes:@[@"video/x-flv", @"video/mp4"]];
     
     parameters.api = @[PBApi.VPAID_1, PBApi.VPAID_2];
-    parameters.maxBitrate = [[SingleContainerInt alloc] initWithIntegerLiteral: 1500];
-    parameters.minBitrate = [[SingleContainerInt alloc] initWithIntegerLiteral: 300];;
-    parameters.maxDuration = [[SingleContainerInt alloc] initWithIntegerLiteral: 30];
-    parameters.minDuration = [[SingleContainerInt alloc] initWithIntegerLiteral: 5];
+    parameters.maxBitrate = [[PBMSingleContainerInt alloc] initWithIntegerLiteral: 1500];
+    parameters.minBitrate = [[PBMSingleContainerInt alloc] initWithIntegerLiteral: 300];;
+    parameters.maxDuration = [[PBMSingleContainerInt alloc] initWithIntegerLiteral: 30];
+    parameters.minDuration = [[PBMSingleContainerInt alloc] initWithIntegerLiteral: 5];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOn, PBPlaybackMethod.ClickToPlay];
     parameters.protocols = @[PBProtocols.VAST_2_0, PBProtocols.VAST_3_0];
     parameters.startDelay = PBStartDelay.PreRoll;
