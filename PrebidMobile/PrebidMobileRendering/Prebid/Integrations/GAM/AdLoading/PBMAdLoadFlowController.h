@@ -40,7 +40,7 @@ typedef BOOL(^PBMAdUnitConfigValidationBlock)(PBMAdUnitConfig *adUnitConfig, BOO
 @property (nonatomic, assign, readonly) BOOL hasFailedLoading;
 
 // State: DemandReceived
-@property (nonatomic, strong, nullable) BidResponse *bidResponse;
+@property (nonatomic, strong, nullable) PBMBidResponse *bidResponse;
 
 - (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(PBMAdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader

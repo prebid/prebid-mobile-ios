@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMBidResponse) @objcMembers
 public class BidResponse: NSObject {
     
     public var adUnitId: String?

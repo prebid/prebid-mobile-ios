@@ -15,13 +15,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class BidResponse;
+@class PBMBidResponse;
 @class PrebidServerResponse;
 
 @interface PBMBidResponseTransformer : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 
-+ (BidResponse * _Nullable)transformResponse:(PrebidServerResponse * _Nonnull)response error:(NSError * _Nullable __autoreleasing * _Nullable)error;
++ (PBMBidResponse * _Nullable)transformResponse:(PrebidServerResponse * _Nonnull)response error:(NSError * _Nullable __autoreleasing * _Nullable)error;
 
 @end

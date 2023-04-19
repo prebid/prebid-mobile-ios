@@ -26,7 +26,7 @@
 
 @implementation PBMBidResponseTransformer
 
-+ (BidResponse *)transformResponse:(PrebidServerResponse *)response error:(NSError **)error {
++ (PBMBidResponse *)transformResponse:(PrebidServerResponse *)response error:(NSError **)error {
     NSString * const responseBody = [[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding];
     if ([responseBody containsString:@"Invalid request"]) {
         if (error) {
@@ -40,7 +40,7 @@
         }
         return nil;
     }
-    BidResponse * const bidResponse = [[BidResponse alloc] initWithJsonDictionary:response.jsonDict];
+    PBMBidResponse * const bidResponse = [[PBMBidResponse alloc] initWithJsonDictionary:response.jsonDict];
     if (!bidResponse) {
         if (error) {
             *error = [PBMError responseDeserializationFailed];
