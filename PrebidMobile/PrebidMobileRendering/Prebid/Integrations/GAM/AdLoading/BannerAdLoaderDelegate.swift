@@ -16,7 +16,8 @@
 import Foundation
 import UIKit
 
-@objc public protocol BannerAdLoaderDelegate: NSObjectProtocol {
+@objc(PBMBannerAdLoaderDelegate)
+public protocol BannerAdLoaderDelegate: NSObjectProtocol {
     
     var eventHandler: BannerEventHandler? { get }
 

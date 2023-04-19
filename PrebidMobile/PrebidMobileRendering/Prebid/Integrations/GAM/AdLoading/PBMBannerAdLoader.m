@@ -32,7 +32,7 @@
 
 
 @interface PBMBannerAdLoader () <PBMDisplayViewLoadingDelegate, PBMBannerEventLoadingDelegate>
-@property (nonatomic, weak, nullable, readonly) id<BannerAdLoaderDelegate> delegate;
+@property (nonatomic, weak, nullable, readonly) id<PBMBannerAdLoaderDelegate> delegate;
 @end
 
 
@@ -43,7 +43,7 @@
 
 // MARK: - Lifecycle
 
-- (instancetype)initWithDelegate:(id<BannerAdLoaderDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<PBMBannerAdLoaderDelegate>)delegate {
     if (!(self = [super init])) {
         return nil;
     }
