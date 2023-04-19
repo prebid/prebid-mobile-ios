@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InAppVideoBannerViewController : BannerBaseViewController <BannerViewDelegate>
+@interface InAppVideoBannerViewController : BannerBaseViewController <PBMBannerViewDelegate>
 
 @end
 

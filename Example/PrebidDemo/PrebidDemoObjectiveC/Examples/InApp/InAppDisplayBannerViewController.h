@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InAppDisplayBannerViewController : BannerBaseViewController <BannerViewDelegate>
+@interface InAppDisplayBannerViewController : BannerBaseViewController <PBMBannerViewDelegate>
 
 @end
 

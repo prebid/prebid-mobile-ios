@@ -21,7 +21,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GAMVideoBannerViewController : BannerBaseViewController<BannerViewDelegate>
+@interface GAMVideoBannerViewController : BannerBaseViewController<PBMBannerViewDelegate>
 
 @end
 

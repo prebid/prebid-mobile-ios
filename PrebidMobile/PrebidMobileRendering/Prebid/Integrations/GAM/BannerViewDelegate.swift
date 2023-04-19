@@ -16,7 +16,8 @@
 import Foundation
 import UIKit
 
-@objc public protocol BannerViewDelegate: NSObjectProtocol {
+@objc(PBMBannerViewDelegate)
+public protocol BannerViewDelegate: NSObjectProtocol {
 
     /** @name Methods */
     /*!
