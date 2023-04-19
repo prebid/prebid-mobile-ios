@@ -71,7 +71,7 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
         
         // 4. Prepare GAM request
         GAMRequest * gamRequest = [GAMRequest new];
-        [GAMUtils.shared prepareRequest:gamRequest bidTargeting:kvResultDict ?: @{}];
+        [PBMGAMUtils.shared prepareRequest:gamRequest bidTargeting:kvResultDict ?: @{}];
         
         // 5. Load the native ad
         self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:gamRenderingNativeAdUnitId
@@ -89,8 +89,8 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
 }
 
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveCustomNativeAd:(GADCustomNativeAd *)customNativeAd {
-    [GAMUtils.shared findCustomNativeAdObjcFor:customNativeAd completion:^(PBMNativeAd * _Nullable nativeAd, NSError * _Nullable error) {
-        if (error != nil && [error.domain isEqual: GAMUtils.errorDomain] && error.code == GAMEventHandlerErrorNonPrebidAd) {
+    [PBMGAMUtils.shared findCustomNativeAdObjcFor:customNativeAd completion:^(PBMNativeAd * _Nullable nativeAd, NSError * _Nullable error) {
+        if (error != nil && [error.domain isEqual: PBMGAMUtils.errorDomain] && error.code == PBMGAMEventHandlerErrorNonPrebidAd) {
             self.titleLable.text = [customNativeAd stringForKey:@"title"];
             self.bodyLabel.text = [customNativeAd stringForKey:@"text"];
             self.sponsoredLabel.text = [customNativeAd stringForKey:@"sponsoredBy"];

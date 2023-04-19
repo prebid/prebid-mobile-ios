@@ -19,7 +19,7 @@ import PrebidMobile
 
 fileprivate let prebidKeywordPrefix = "hb_"
 
-@objcMembers
+@objc(PBMGAMUtils) @objcMembers
 public class GAMUtils: NSObject {
     
     // MARK: - Private Properties

@@ -36,7 +36,7 @@
     GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[ GADSimulatorID ];
     [[GADMobileAds sharedInstance] startWithCompletionHandler:^(GADInitializationStatus * _Nonnull status) {}];
     
-    [GAMUtils.shared initializeGAM];
+    [PBMGAMUtils.shared initializeGAM];
     [AdMobUtils initializeGAD];
     
     // Initialize AppLovin MAX SDK
