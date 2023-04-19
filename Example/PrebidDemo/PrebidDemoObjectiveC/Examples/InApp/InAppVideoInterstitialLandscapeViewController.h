@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InAppVideoInterstitialLandscapeViewController : InterstitialBaseViewController <InterstitialAdUnitDelegate>
+@interface InAppVideoInterstitialLandscapeViewController : InterstitialBaseViewController <PBMInterstitialAdUnitDelegate>
 
 @end
 

@@ -21,7 +21,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GAMDisplayInterstitialViewController : InterstitialBaseViewController <InterstitialAdUnitDelegate>
+@interface GAMDisplayInterstitialViewController : InterstitialBaseViewController <PBMInterstitialAdUnitDelegate>
 
 @end
 

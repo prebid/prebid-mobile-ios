@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InAppDisplayInterstitialViewController : InterstitialBaseViewController <InterstitialAdUnitDelegate>
+@interface InAppDisplayInterstitialViewController : InterstitialBaseViewController <PBMInterstitialAdUnitDelegate>
 
 @end
 

@@ -20,7 +20,7 @@ import Foundation
  *
  * All messages will be invoked on the main thread.
  */
-@objc
+@objc(PBMInterstitialAdUnitDelegate)
 public protocol InterstitialAdUnitDelegate: NSObjectProtocol {
 
     /// Called when an ad is loaded and ready for display
