@@ -88,7 +88,7 @@ NSString * const gamAdUnit = @"/21808260008/prebid-demo-original-native-styles";
 }
 
 - (void)bannerViewDidReceiveAd:(GADBannerView *)bannerView {
-    [AdViewUtils findPrebidCreativeSize:bannerView success:^(CGSize size) {
+    [PBMAdViewUtils findPrebidCreativeSize:bannerView success:^(CGSize size) {
         [self.gamBannerView resize:GADAdSizeFromCGSize(size)];
     } failure:^(NSError * _Nonnull error) {
         PBMLogError(@"%@", error.localizedDescription)

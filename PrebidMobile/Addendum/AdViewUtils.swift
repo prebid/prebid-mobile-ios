@@ -16,6 +16,7 @@
 import Foundation
 import WebKit
 
+@objc(PBMAdViewUtils)
 public final class AdViewUtils: NSObject {
 
     private static let innerHtmlScript = "document.body.innerHTML"

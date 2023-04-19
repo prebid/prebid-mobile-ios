@@ -73,7 +73,7 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
 // MARK: - GADBannerViewDelegate
 
 - (void)bannerViewDidReceiveAd:(GADBannerView *)bannerView {
-    [AdViewUtils findPrebidCreativeSize:bannerView success:^(CGSize size) {
+    [PBMAdViewUtils findPrebidCreativeSize:bannerView success:^(CGSize size) {
         [self.gamBanner resize:GADAdSizeFromCGSize(size)];
     } failure:^(NSError * _Nonnull error) {
         PBMLogError(@"%@", error.localizedDescription)

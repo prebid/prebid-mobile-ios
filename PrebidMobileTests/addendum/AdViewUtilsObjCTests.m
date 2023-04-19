@@ -33,7 +33,7 @@ limitations under the License.
 
 - (void)testFindPrebidCreativeSize {
     WKWebView *wkWebView = [[WKWebView alloc] init];
-    [AdViewUtils findPrebidCreativeSize:wkWebView success:^(CGSize size) {
+    [PBMAdViewUtils findPrebidCreativeSize:wkWebView success:^(CGSize size) {
         
     } failure:^(NSError * _Nonnull error) {
         
