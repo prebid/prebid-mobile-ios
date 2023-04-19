@@ -18,12 +18,12 @@
 
 #import "PBMParameterBuilderProtocol.h"
 
-@class Reachability;
+@class PBMReachability;
 
 NS_SWIFT_NAME(NetworkParameterBuilder)
 @interface PBMNetworkParameterBuilder : NSObject <PBMParameterBuilder>
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithCtTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo reachability:(nonnull Reachability *)reachability NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithCtTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo reachability:(nonnull PBMReachability *)reachability NS_DESIGNATED_INITIALIZER;
 
 @end
