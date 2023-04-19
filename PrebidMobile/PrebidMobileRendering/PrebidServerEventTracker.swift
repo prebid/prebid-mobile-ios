@@ -15,7 +15,7 @@
 
 import UIKit
 
-@objcMembers
+@objc(PBMPrebidServerEventTracker) @objcMembers
 public class PrebidServerEventTracker: NSObject, PBMEventTrackerProtocol {
     
     public private(set) var serverEvents = [ServerEvent]()
