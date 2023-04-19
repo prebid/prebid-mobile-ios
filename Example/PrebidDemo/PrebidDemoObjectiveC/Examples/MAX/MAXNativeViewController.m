@@ -23,7 +23,7 @@ NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
 
 // Prebid
 @property (nonatomic) PBMMediationNativeAdUnit * maxMediationNativeAdUnit;
-@property (nonatomic) MAXMediationNativeUtils * mediationDelegate;
+@property (nonatomic) PBMMAXMediationNativeUtils * mediationDelegate;
 
 // MAX
 @property (nonatomic) MANativeAdLoader * maxNativeAdLoader;
@@ -51,7 +51,7 @@ NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
     self.maxNativeAdLoader.nativeAdDelegate = self;
     
     // 2. Create the MAXMediationNativeUtils
-    self.mediationDelegate = [[MAXMediationNativeUtils alloc] initWithNativeAdLoader:self.maxNativeAdLoader];
+    self.mediationDelegate = [[PBMMAXMediationNativeUtils alloc] initWithNativeAdLoader:self.maxNativeAdLoader];
     
     // 3. Create the MediationNativeAdUnit
     self.maxMediationNativeAdUnit = [[PBMMediationNativeAdUnit alloc] initWithConfigId:nativeStoredImpressionMAX mediationDelegate:self.mediationDelegate];
