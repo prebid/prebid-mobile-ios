@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMNativeTitle) @objcMembers
 public class NativeTitle: NSObject, JsonDecodable {
     /// The text associated with the text element.
     public var text: String?

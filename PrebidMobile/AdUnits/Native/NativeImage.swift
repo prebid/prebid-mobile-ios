@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMNativeImage) @objcMembers
 public class NativeImage: NSObject, JsonDecodable {
     /// The type of image element being submitted from the Image Asset Types table.
     /// Required for assetsurl or dcourl responses, not required for embedded asset responses.

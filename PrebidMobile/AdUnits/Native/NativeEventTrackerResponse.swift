@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMNativeEventTrackerResponse) @objcMembers
 public class NativeEventTrackerResponse: NSObject, JsonDecodable {
     
     /// Type of event to track.

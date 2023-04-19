@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMNativeLink) @objcMembers
 public class NativeLink: NSObject, JsonDecodable {
     
     /// Landing URL of the clickable link.

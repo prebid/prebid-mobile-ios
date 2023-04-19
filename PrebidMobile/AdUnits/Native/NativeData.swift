@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMNativeData) @objcMembers
 public class NativeData: NSObject, JsonDecodable {
     /// The type of data element being submitted from the Data Asset Types table.
     /// Required for assetsurl/dcourl responses, not required for embedded asset responses.

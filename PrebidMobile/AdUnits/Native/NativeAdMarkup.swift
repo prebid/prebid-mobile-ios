@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMNativeAdMarkup) @objcMembers
 public class NativeAdMarkup: NSObject, JsonDecodable {
 
     /// Version of the Native Markup version in use.
