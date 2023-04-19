@@ -86,7 +86,7 @@ NSString * const gamAdUnitMultiformatBannerOriginal = @"/21808260008/prebid-demo
 - (void)bannerViewDidReceiveAd:(GADBannerView *)bannerView {
     self.bannerView.backgroundColor = UIColor.clearColor;
     
-    [PBMAdViewUtils findPrebidCreativeSize:bannerView success:^(CGSize size) {
+    [AdViewUtils findPrebidCreativeSize:bannerView success:^(CGSize size) {
         [self.gamBanner resize:GADAdSizeFromCGSize(size)];
     } failure:^(NSError * _Nonnull error) {
         PBMLogError(@"%@", error.localizedDescription)
