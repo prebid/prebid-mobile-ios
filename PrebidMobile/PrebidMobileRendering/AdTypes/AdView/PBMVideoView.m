@@ -52,7 +52,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 #pragma mark Model
 
 @property (nonatomic, weak) PBMVideoCreative *creative;
-@property (nonatomic, strong) EventManager *eventManager;
+@property (nonatomic, strong) PBMEventManager *eventManager;
 @property (nonatomic, strong) PBMTouchDownRecognizer *tapdownGestureRecognizer;
 @property (nonatomic, assign) BOOL showLearnMore;
 
@@ -109,7 +109,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 #pragma mark - Initialization
 
-- (instancetype)initWithEventManager:(EventManager *)eventManager {
+- (instancetype)initWithEventManager:(PBMEventManager *)eventManager {
     self = [super init];
     if (self) {
         [self setupWithEventManager:eventManager];
@@ -149,7 +149,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
 }
 
-- (void)setupWithEventManager:(EventManager *)eventManager {
+- (void)setupWithEventManager:(PBMEventManager *)eventManager {
     self.isPlaybackFinished = NO;
     self.showLearnMore = NO;
     self.isPlaybackStarted = NO;

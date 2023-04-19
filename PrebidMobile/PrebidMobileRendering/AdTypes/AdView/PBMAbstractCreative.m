@@ -47,7 +47,7 @@
 @interface PBMAbstractCreative() <SKStoreProductViewControllerDelegate>
 
 @property (nonatomic, weak, readwrite) PBMTransaction *transaction;
-@property (nonatomic, strong, readwrite) EventManager *eventManager;
+@property (nonatomic, strong, readwrite) PBMEventManager *eventManager;
 @property (nonatomic, copy, nullable, readwrite) PBMVoidBlock dismissInterstitialModalState;
 
 @property (nonatomic, assign) BOOL adWasShown;
@@ -74,7 +74,7 @@
         self.transaction = transaction;
         self.dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
 
-        self.eventManager = [EventManager new];
+        self.eventManager = [PBMEventManager new];
         if (creativeModel.eventTracker) {
             [self.eventManager registerTracker: (id<PBMEventTrackerProtocol>)creativeModel.eventTracker];
         } else {
