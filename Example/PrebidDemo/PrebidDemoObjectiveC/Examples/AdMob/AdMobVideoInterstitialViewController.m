@@ -23,7 +23,7 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
 
 // Prebid
 @property (nonatomic) MediationInterstitialAdUnit * admobAdUnit;
-@property (nonatomic) AdMobMediationInterstitialUtils * mediationDelegate;
+@property (nonatomic) PBMAdMobMediationInterstitialUtils * mediationDelegate;
 
 // AdMob
 @property (nonatomic) GADInterstitialAd * interstitial;
@@ -43,7 +43,7 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
     GADRequest * gadRequest = [GADRequest new];
     
     // 2. Create an AdMobMediationInterstitialUtils
-    self.mediationDelegate = [[AdMobMediationInterstitialUtils alloc] initWithGadRequest:gadRequest];
+    self.mediationDelegate = [[PBMAdMobMediationInterstitialUtils alloc] initWithGadRequest:gadRequest];
     
     // 3. Create a MediationInterstitialAdUnit
     self.admobAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitialAdMob mediationDelegate:self.mediationDelegate];
