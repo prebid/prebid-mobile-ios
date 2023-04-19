@@ -16,7 +16,8 @@
 import Foundation
 import UIKit
 
-@objc public protocol BannerEventHandler : PBMPrimaryAdRequesterProtocol {
+@objc(PBMBannerEventHandler)
+public protocol BannerEventHandler : PBMPrimaryAdRequesterProtocol {
 
     /// Delegate for custom event handler to inform the PBM SDK about the events related to the ad server communication.
     weak var loadingDelegate: BannerEventLoadingDelegate? { get set }

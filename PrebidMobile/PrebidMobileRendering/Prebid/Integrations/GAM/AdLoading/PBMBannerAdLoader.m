@@ -54,7 +54,7 @@
 // MARK: - PBMAdLoaderProtocol
 
 - (id<PBMPrimaryAdRequesterProtocol>)primaryAdRequester {
-    id<BannerEventHandler> const eventHandler = self.delegate.eventHandler;
+    id<PBMBannerEventHandler> const eventHandler = self.delegate.eventHandler;
     eventHandler.loadingDelegate = self;
     return eventHandler;
 }
