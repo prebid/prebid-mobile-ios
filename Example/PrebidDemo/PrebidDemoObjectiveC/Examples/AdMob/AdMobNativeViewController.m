@@ -24,7 +24,7 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
 // Prebid
 @property (nonatomic) PBMNativeAd * nativeAd;
 @property (nonatomic) AdMobMediationNativeUtils * mediationDelegate;
-@property (nonatomic) MediationNativeAdUnit * admobMediationNativeAdUnit;
+@property (nonatomic) PBMMediationNativeAdUnit * admobMediationNativeAdUnit;
 
 // AdMob
 @property (nonatomic) GADAdLoader * adLoader;
@@ -47,7 +47,7 @@ NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/86
     self.mediationDelegate = [[AdMobMediationNativeUtils alloc] initWithGadRequest:gadRequest];
     
     // 3. Create a MediationNativeAdUnit
-    self.admobMediationNativeAdUnit = [[MediationNativeAdUnit alloc] initWithConfigId:nativeStoredImpressionAdMob mediationDelegate:self.mediationDelegate];
+    self.admobMediationNativeAdUnit = [[PBMMediationNativeAdUnit alloc] initWithConfigId:nativeStoredImpressionAdMob mediationDelegate:self.mediationDelegate];
     
     // 4. Configure MediationNativeAdUnit
     PBMNativeAssetImage *image = [[PBMNativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];

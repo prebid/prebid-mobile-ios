@@ -14,8 +14,8 @@
   */
 import Foundation
 
-@objcMembers
-public class MediationBaseInterstitialAdUnit : NSObject {
+@objc(PBMMediationBaseInterstitialAdUnit) @objcMembers
+public class MediationBaseInterstitialAdUnit: NSObject {
     
     public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }

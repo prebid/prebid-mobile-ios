@@ -22,7 +22,7 @@ NSString * const adMobAdUnitVideoBannerRendering = @"ca-app-pub-5922967660082475
 @interface AdMobVideoBannerViewController ()
 
 // Prebid
-@property (nonatomic) MediationBannerAdUnit * prebidAdMobMediaitonAdUnit;
+@property (nonatomic) PBMMediationBannerAdUnit * prebidAdMobMediaitonAdUnit;
 @property (nonatomic) AdMobMediationBannerUtils * mediationDelegate;
 
 // AdMob
@@ -56,7 +56,7 @@ NSString * const adMobAdUnitVideoBannerRendering = @"ca-app-pub-5922967660082475
     self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:gadRequest bannerView:self.gadBanner];
     
     // 4. Create a MediationBannerAdUnit
-    self.prebidAdMobMediaitonAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:storedImpVideoBannerAdMob size:self.adSize mediationDelegate:self.mediationDelegate];
+    self.prebidAdMobMediaitonAdUnit = [[PBMMediationBannerAdUnit alloc] initWithConfigID:storedImpVideoBannerAdMob size:self.adSize mediationDelegate:self.mediationDelegate];
     
     // 5. Set ad format
     self.prebidAdMobMediaitonAdUnit.adFormat = AdFormat.video;

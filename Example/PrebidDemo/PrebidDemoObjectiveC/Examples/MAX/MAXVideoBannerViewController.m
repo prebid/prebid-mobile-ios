@@ -22,7 +22,7 @@ NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
 @interface MAXVideoBannerViewController ()
 
 // Prebid
-@property (nonatomic) MediationBannerAdUnit * maxAdUnit;
+@property (nonatomic) PBMMediationBannerAdUnit * maxAdUnit;
 @property (nonatomic) MAXMediationBannerUtils * maxMediationDelegate;
 
 // MAX
@@ -55,7 +55,7 @@ NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
     self.maxMediationDelegate = [[MAXMediationBannerUtils alloc] initWithAdView:self.maxAdBannerView];
     
     // 4. Create a MediationBannerAdUnit
-    self.maxAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:storedImpVideoBannerMAX size:self.adSize mediationDelegate:self.maxMediationDelegate];
+    self.maxAdUnit = [[PBMMediationBannerAdUnit alloc] initWithConfigID:storedImpVideoBannerMAX size:self.adSize mediationDelegate:self.maxMediationDelegate];
     
     // 5. Set ad format
     self.maxAdUnit.adFormat = AdFormat.video;

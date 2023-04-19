@@ -15,8 +15,8 @@
 
 import Foundation
 
-@objcMembers
-public class MediationNativeAdUnit : NSObject {
+@objc(PBMMediationNativeAdUnit) @objcMembers
+public class MediationNativeAdUnit: NSObject {
     
     var completion: ((ResultCode) -> Void)?
     let mediationDelegate: PrebidMediationDelegate

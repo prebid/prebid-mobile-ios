@@ -22,7 +22,7 @@ NSString * const adMobAdUnitDisplayBannerRendering = @"ca-app-pub-59229676600824
 @interface AdMobDisplayBannerViewController ()
 
 // Prebid
-@property (nonatomic) MediationBannerAdUnit * prebidAdMobMediaitonAdUnit;
+@property (nonatomic) PBMMediationBannerAdUnit * prebidAdMobMediaitonAdUnit;
 @property (nonatomic) AdMobMediationBannerUtils * mediationDelegate;
 
 // AdMob
@@ -55,7 +55,7 @@ NSString * const adMobAdUnitDisplayBannerRendering = @"ca-app-pub-59229676600824
     self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:gadRequest bannerView:self.gadBanner];
     
     // 4. Create a MediationBannerAdUnit
-    self.prebidAdMobMediaitonAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:storedImpDisplayBannerAdMob size:self.adSize mediationDelegate:self.mediationDelegate];
+    self.prebidAdMobMediaitonAdUnit = [[PBMMediationBannerAdUnit alloc] initWithConfigID:storedImpDisplayBannerAdMob size:self.adSize mediationDelegate:self.mediationDelegate];
     
     // 5. Make a bid request to Prebid Server
     @weakify(self);

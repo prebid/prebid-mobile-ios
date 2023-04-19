@@ -22,7 +22,7 @@ NSString * const maxAdUnitBannerRendering = @"78869c25f5c54bab";
 @interface MAXDisplayBannerViewController ()
 
 // Prebid
-@property (nonatomic) MediationBannerAdUnit * maxAdUnit;
+@property (nonatomic) PBMMediationBannerAdUnit * maxAdUnit;
 @property (nonatomic) MAXMediationBannerUtils * maxMediationDelegate;
 
 // MAX
@@ -54,7 +54,7 @@ NSString * const maxAdUnitBannerRendering = @"78869c25f5c54bab";
     self.maxMediationDelegate = [[MAXMediationBannerUtils alloc] initWithAdView:self.maxAdBannerView];
     
     // 4. Setup a MediationBannerAdUnit
-    self.maxAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:storedImpDisplayBannerMAX size:self.adSize mediationDelegate:self.maxMediationDelegate];
+    self.maxAdUnit = [[PBMMediationBannerAdUnit alloc] initWithConfigID:storedImpDisplayBannerMAX size:self.adSize mediationDelegate:self.maxMediationDelegate];
     
     // 5. Make a bid request to Prebid Server
     @weakify(self);

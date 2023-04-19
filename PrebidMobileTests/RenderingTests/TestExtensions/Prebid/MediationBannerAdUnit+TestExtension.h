@@ -15,7 +15,7 @@
 
 @protocol PrebidServerConnectionProtocol;
 
-@interface MediationBannerAdUnit ()
+@interface PBMMediationBannerAdUnit ()
 - (void)fetchDemandWithObject:(NSObject *)adObject
                    connection:(id<PrebidServerConnectionProtocol>)connection
              sdkConfiguration:(Prebid *)sdkConfiguration

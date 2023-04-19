@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objcMembers
+@objc(PBMMediationBannerAdUnit) @objcMembers
 public class MediationBannerAdUnit : NSObject {
     
     var bidRequester: PBMBidRequester?
