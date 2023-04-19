@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMAdMobConstants) @objcMembers
 public class AdMobConstants: NSObject {
     public static let PrebidAdMobEventExtrasLabel = "PrebidAdMobCustomEventExtras"
     public static let PrebidAdMobRewardedAdapterVersion = "2.0.0"
