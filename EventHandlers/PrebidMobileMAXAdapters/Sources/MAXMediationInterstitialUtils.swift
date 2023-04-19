@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import AppLovinSDK
 
-@objcMembers
+@objc(PBMMAXMediationInterstitialUtils) @objcMembers
 public class MAXMediationInterstitialUtils: NSObject, PrebidMediationDelegate {
     
     public var interstitialAd: MAInterstitialAd

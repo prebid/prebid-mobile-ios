@@ -23,7 +23,7 @@ NSString * const maxAdUnitDisplayInterstitial = @"48e8d410f74dfc7b";
 
 // Prebid
 @property (nonatomic) MediationInterstitialAdUnit * maxAdUnit;
-@property (nonatomic) MAXMediationInterstitialUtils * maxMediationDelegate;
+@property (nonatomic) PBMMAXMediationInterstitialUtils * maxMediationDelegate;
 
 // MAX
 @property (nonatomic) MAInterstitialAd * maxInterstitial;
@@ -43,7 +43,7 @@ NSString * const maxAdUnitDisplayInterstitial = @"48e8d410f74dfc7b";
     self.maxInterstitial = [[MAInterstitialAd alloc] initWithAdUnitIdentifier:maxAdUnitDisplayInterstitial];
     
     // 2. Create a MAXMediationInterstitialUtils
-    self.maxMediationDelegate = [[MAXMediationInterstitialUtils alloc] initWithInterstitialAd:self.maxInterstitial];
+    self.maxMediationDelegate = [[PBMMAXMediationInterstitialUtils alloc] initWithInterstitialAd:self.maxInterstitial];
     
     // 3. Create a MediationInterstitialAdUnit
     self.maxAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpDisplayInterstitialMAX mediationDelegate:self.maxMediationDelegate];
