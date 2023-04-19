@@ -15,8 +15,8 @@
 
 import Foundation
 
-
-@objc public protocol RewardedEventHandlerProtocol: PBMInterstitialAd {
+@objc(PBMRewardedEventHandlerProtocol)
+public protocol RewardedEventHandlerProtocol: PBMInterstitialAd {
 
     /// Delegate for custom event handler to inform the PBM SDK about the events related to the ad server communication.
     weak var loadingDelegate: RewardedEventLoadingDelegate? { get set }
