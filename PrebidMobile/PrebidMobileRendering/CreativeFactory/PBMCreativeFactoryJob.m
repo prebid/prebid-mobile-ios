@@ -212,7 +212,7 @@
 }
 
 - (NSTimeInterval)getTimeInterval {
-    AdConfiguration *adConfig = self.creativeModel.adConfiguration;
+    PBMAdConfiguration *adConfig = self.creativeModel.adConfiguration;
     if (adConfig.winningBidAdFormat == AdFormat.video || adConfig.presentAsInterstitial) {
         return Prebid.shared.creativeFactoryTimeoutPreRenderContent;
     } else {

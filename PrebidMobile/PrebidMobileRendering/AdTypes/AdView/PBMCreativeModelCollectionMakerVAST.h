@@ -17,7 +17,7 @@
 #import "PBMCreativeModelMakerResult.h"
 
 @class PBMCreativeModel;
-@class AdConfiguration;
+@class PBMAdConfiguration;
 @class PBMAdRequestResponseVAST;
 
 @protocol PrebidServerConnectionProtocol;
@@ -25,12 +25,12 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMCreativeModelCollectionMakerVAST : NSObject
 
-@property (strong)AdConfiguration *adConfiguration;
+@property (strong)PBMAdConfiguration *adConfiguration;
 @property (strong)id<PrebidServerConnectionProtocol> serverConnection;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)pbmServer
-                            adConfiguration:(AdConfiguration *)adConfiguration;
+                            adConfiguration:(PBMAdConfiguration *)adConfiguration;
 
 - (void)makeModels:(PBMAdRequestResponseVAST *)requestResponse
    successCallback:(PBMCreativeModelMakerSuccessCallback)successCallback

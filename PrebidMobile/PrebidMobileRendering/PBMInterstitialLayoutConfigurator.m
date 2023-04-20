@@ -24,7 +24,7 @@
 
 @implementation PBMInterstitialLayoutConfigurator
 
-+ (void)configurePropertiesWithAdConfiguration:(AdConfiguration *)adConfiguration displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
++ (void)configurePropertiesWithAdConfiguration:(PBMAdConfiguration *)adConfiguration displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
     PBMInterstitialLayout layout = adConfiguration.interstitialLayout;
     if (layout && layout != PBMInterstitialLayoutUndefined) {
         displayProperties.interstitialLayout = layout;

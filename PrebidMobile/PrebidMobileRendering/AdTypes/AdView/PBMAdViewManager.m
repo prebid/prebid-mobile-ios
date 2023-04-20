@@ -60,7 +60,7 @@
     _autoDisplayOnLoad = YES;
     _serverConnection = connection;
     _modalManager = [[PBMModalManager alloc] initWithDelegate:modalManagerDelegate];
-    _adConfiguration = [AdConfiguration new];
+    _adConfiguration = [PBMAdConfiguration new];
     _videoInterstitialDidClose = NO;
     
     return self;

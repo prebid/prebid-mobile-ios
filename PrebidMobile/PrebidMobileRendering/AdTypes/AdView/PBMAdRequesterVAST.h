@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "PBMAdLoadManagerVAST.h"
 
-@class AdConfiguration;
+@class PBMAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,12 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMAdRequesterVAST : NSObject
 
-@property (nonatomic, strong) AdConfiguration *adConfiguration;
+@property (nonatomic, strong) PBMAdConfiguration *adConfiguration;
 @property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 @property (nonatomic, weak, nullable) PBMAdLoadManagerVAST *adLoadManager;
 
 - (instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)serverConnection
-                         adConfiguration:(AdConfiguration *)adConfiguration;
+                         adConfiguration:(PBMAdConfiguration *)adConfiguration;
 // - (void)load;
 - (void)buildVastAdsArray:(NSData *)rawVASTData;
 

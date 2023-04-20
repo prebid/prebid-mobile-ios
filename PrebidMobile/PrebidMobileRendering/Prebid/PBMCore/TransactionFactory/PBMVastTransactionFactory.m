@@ -20,7 +20,7 @@
 @interface PBMVastTransactionFactory() <PBMAdLoadManagerDelegate>
 
 @property (nonatomic, strong, readonly, nonnull) id<PrebidServerConnectionProtocol> connection;
-@property (nonatomic, strong, readonly, nonnull) AdConfiguration *adConfiguration;
+@property (nonatomic, strong, readonly, nonnull) PBMAdConfiguration *adConfiguration;
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 
 // NOTE: need to call the completion callback only in the main thread
@@ -39,7 +39,7 @@
 
 - (instancetype)initWithBid:(Bid *)bid
                  connection:(id<PrebidServerConnectionProtocol>)connection
-            adConfiguration:(AdConfiguration *)adConfiguration
+            adConfiguration:(PBMAdConfiguration *)adConfiguration
                    callback:(PBMTransactionFactoryCallback)callback
 {
     if (!(self = [super init])) {

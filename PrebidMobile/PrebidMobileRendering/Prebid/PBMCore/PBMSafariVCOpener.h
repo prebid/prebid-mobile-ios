@@ -23,7 +23,7 @@
 #import "PBMOpenMeasurementSession.h"
 
 @class Prebid;
-@class AdConfiguration;
+@class PBMAdConfiguration;
 
 typedef PBMOpenMeasurementSession * _Nullable (^PBMOpenMeasurementSessionProvider)(void);
 
