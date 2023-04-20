@@ -665,7 +665,6 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testBannerParameters_deprecatedDisplayFormat() {
         // Original API
         let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
-        adUnit.adUnitConfig.adFormats = [.banner]
 
         let bannerParameters = BannerParameters()
         bannerParameters.api = [.MRAID_1, .MRAID_2, .MRAID_3, .OMID_1, .ORMMA, .VPAID_1, .VPAID_2, .ORMMA]
