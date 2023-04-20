@@ -27,7 +27,7 @@
 @protocol PBMParameterBuilder;
 
 @class Targeting;
-@class AdConfiguration;
+@class PBMAdConfiguration;
 @class PBMDeviceAccessManager;
 @class PBMLocationManager;
 @class Prebid;
@@ -35,18 +35,18 @@
 @interface PBMParameterBuilderService : NSObject
 
 //API Version
-+ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration;
++ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration;
 
-+ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration
++ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders;
 
 //DI Version
-+ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration
++ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration
                                                                               bundle:(nonnull id<PBMBundleProtocol>)bundle
                                                                   pbmLocationManager:(nonnull PBMLocationManager *)pbmLocationManager
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager
                                                               ctTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo
-                                                                        reachability:(nonnull Reachability *)reachability
+                                                                        reachability:(nonnull PBMReachability *)reachability
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                            targeting:(nonnull Targeting *)targeting

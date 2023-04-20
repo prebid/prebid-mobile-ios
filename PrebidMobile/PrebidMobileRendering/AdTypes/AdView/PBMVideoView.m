@@ -52,7 +52,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 #pragma mark Model
 
 @property (nonatomic, weak) PBMVideoCreative *creative;
-@property (nonatomic, strong) EventManager *eventManager;
+@property (nonatomic, strong) PBMEventManager *eventManager;
 @property (nonatomic, strong) PBMTouchDownRecognizer *tapdownGestureRecognizer;
 @property (nonatomic, assign) BOOL showLearnMore;
 
@@ -65,7 +65,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 @property (nonatomic, weak) UIButton *btnUnmute;
 @property (nonatomic, weak) UIView *muteControlsView;
 
-@property (nonatomic, strong) AdViewButtonDecorator *skipButtonDecorator;
+@property (nonatomic, strong) PBMAdViewButtonDecorator *skipButtonDecorator;
 
 #pragma mark Injected Properties
 
@@ -109,7 +109,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 #pragma mark - Initialization
 
-- (instancetype)initWithEventManager:(EventManager *)eventManager {
+- (instancetype)initWithEventManager:(PBMEventManager *)eventManager {
     self = [super init];
     if (self) {
         [self setupWithEventManager:eventManager];
@@ -149,7 +149,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
 }
 
-- (void)setupWithEventManager:(EventManager *)eventManager {
+- (void)setupWithEventManager:(PBMEventManager *)eventManager {
     self.isPlaybackFinished = NO;
     self.showLearnMore = NO;
     self.isPlaybackStarted = NO;
@@ -462,7 +462,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)setupSkipButton {
-    self.skipButtonDecorator = [AdViewButtonDecorator new];
+    self.skipButtonDecorator = [PBMAdViewButtonDecorator new];
     self.skipButtonDecorator.button.hidden = YES;
     self.skipButtonDecorator.buttonArea = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonArea;
     self.skipButtonDecorator.buttonPosition = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonPosition;

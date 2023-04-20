@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMLog) @objcMembers
 public class Log: NSObject {
 
     // MARK: - Public properties

@@ -37,8 +37,8 @@
 
 @implementation PBMCreativeModelCollectionMakerVAST
 
-- (instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)serverConnection
-                            adConfiguration:(AdConfiguration *)adConfiguration {
+- (instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)serverConnection
+                            adConfiguration:(PBMAdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         self.adConfiguration = adConfiguration;

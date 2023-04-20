@@ -15,13 +15,13 @@
 
 #import "PBMTrackingURLVisitorBlock.h"
 
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMTrackingURLVisitors : NSObject
 
-+ (PBMTrackingURLVisitorBlock)connectionAsTrackingURLVisitor:(id<ServerConnectionProtocol>)connection;
++ (PBMTrackingURLVisitorBlock)connectionAsTrackingURLVisitor:(id<PrebidServerConnectionProtocol>)connection;
 
 - (instancetype)init NS_UNAVAILABLE;
 

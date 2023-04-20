@@ -192,7 +192,7 @@
                     nextBanner.api = bannerParameters.rawAPI;
                 }
                 
-                if (self.adConfiguration.adPosition != AdPositionUndefined) {
+                if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextBanner.pos = @(self.adConfiguration.adPosition);
                 }
             } else if (adFormat == AdFormat.video) {
@@ -259,7 +259,7 @@
                     nextVideo.linearity = [NSNumber numberWithInteger:videoParameters.linearity.value];
                 }
                 
-                if (self.adConfiguration.adPosition != AdPositionUndefined) {
+                if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);
                 }
             } else if (adFormat == AdFormat.native && adFormats.count == 1) {

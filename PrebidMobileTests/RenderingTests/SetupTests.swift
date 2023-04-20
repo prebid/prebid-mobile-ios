@@ -18,6 +18,6 @@ import UIKit
 class SetupTests: NSObject {
     
     override init() {
-        MockServer.shared.connectionIDHeaderKey = ServerConnection.internalIDKey
+        MockServer.shared.connectionIDHeaderKey = PrebidServerConnection.internalIDKey
     }
 }

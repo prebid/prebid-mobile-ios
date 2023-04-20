@@ -19,14 +19,14 @@
 #import "PBMParameterBuilderProtocol.h"
 
 @class Targeting;
-@class AdConfiguration;
+@class PBMAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMSKAdNetworksParameterBuilder : NSObject <PBMParameterBuilder>
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle targeting:(Targeting *)targeting adConfiguration:(AdConfiguration *)adConfiguration NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle targeting:(Targeting *)targeting adConfiguration:(PBMAdConfiguration *)adConfiguration NS_DESIGNATED_INITIALIZER;
 
 - (NSArray<NSString *> *)SKAdNetworkIds;
 @end

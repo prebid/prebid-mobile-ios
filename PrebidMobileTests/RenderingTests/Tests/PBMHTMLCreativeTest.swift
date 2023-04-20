@@ -263,7 +263,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
         
         PBMJSLibraryManager.shared().clearData()
         
-        let serverConnection = ServerConnection()
+        let serverConnection = PrebidServerConnection()
         serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         //Test

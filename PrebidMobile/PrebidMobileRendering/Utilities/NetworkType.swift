@@ -20,7 +20,8 @@ import Foundation
 // Ethernet: 1 (skipped because it's not possible on a phone)
 // Wifi: 2
 // Cellular Unknown: 3
-@objc public enum NetworkType: Int, CustomStringConvertible {
+@objc(PBMNetworkType)
+public enum NetworkType: Int, CustomStringConvertible {
     case unknown = 0
     case wifi = 2
     case celluar = 3

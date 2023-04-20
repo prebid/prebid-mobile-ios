@@ -27,7 +27,7 @@
 @interface PBMAdModelEventTracker()
 
 @property (nonatomic, weak) PBMCreativeModel *creativeModel;
-@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 
 @end
 
@@ -36,7 +36,7 @@
 #pragma mark - Initialization
 
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                     serverConnection:(id<ServerConnectionProtocol>)serverConnection {
+                     serverConnection:(id<PrebidServerConnectionProtocol>)serverConnection {
     self = [super init];
     if (self) {
         self.creativeModel = creativeModel;

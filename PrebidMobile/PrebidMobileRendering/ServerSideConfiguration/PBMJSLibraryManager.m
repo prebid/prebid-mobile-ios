@@ -143,7 +143,7 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     return nil;
 }
 
-- (void)updateJSLibraryIfNeededWithConnection:(id<ServerConnectionProtocol>)connection remoteLibrary:(PBMJSLibrary *)remoteLibrary bundleVersion:(NSString *)bundleVersion fileName:(NSString *)fileName {
+- (void)updateJSLibraryIfNeededWithConnection:(id<PrebidServerConnectionProtocol>)connection remoteLibrary:(PBMJSLibrary *)remoteLibrary bundleVersion:(NSString *)bundleVersion fileName:(NSString *)fileName {
     if (!remoteLibrary) {
         return;
     }
@@ -155,7 +155,7 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     
     NSString *urlString = [remoteLibrary.downloadURL absoluteString];
     @weakify(self);
-    [connection download:urlString callback:^(ServerResponse *response) {
+    [connection download:urlString callback:^(PrebidServerResponse *response) {
         @strongify(self);
         if (!self) { return; }
         
@@ -192,7 +192,7 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     return [self getJSLibraryWithName:PBMOMSDKFileName bundleName:PBMOMSDKBundleName bundleVersion:PBMOMSDKBundleVersion];
 }
 
-- (void)updateJSLibrariesIfNeededWithConnection:(id<ServerConnectionProtocol>)connection {
+- (void)updateJSLibrariesIfNeededWithConnection:(id<PrebidServerConnectionProtocol>)connection {
     [self updateJSLibraryIfNeededWithConnection:connection remoteLibrary:self.remoteMRAIDLibrary bundleVersion:PBMMRAIDBundleVersion fileName:PBMMRAIDFileName];
     [self updateJSLibraryIfNeededWithConnection:connection remoteLibrary:self.remoteOMSDKLibrary bundleVersion:PBMOMSDKBundleVersion fileName:PBMOMSDKFileName];
 }

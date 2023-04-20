@@ -29,14 +29,14 @@
 // @objc and public because it will be used by publishers to display an ad in their own view
 
 @class PBMAdDetails;
-@class AdConfiguration;
+@class PBMAdConfiguration;
 @class PBMAdModelEventTracker;
 @class PBMVideoVerificationParameters;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMCreativeModel : NSObject
 
-@property (nonatomic, strong, nullable) AdConfiguration *adConfiguration;
+@property (nonatomic, strong, nullable) PBMAdConfiguration *adConfiguration;
 @property (nonatomic, strong, nullable) PBMAdModelEventTracker *eventTracker;
 @property (nonatomic, copy, nullable) NSNumber *displayDurationInSeconds;
 @property (nonatomic, strong, nullable) NSNumber *skipOffset;
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isCompanionAd;
 @property (atomic, assign) bool hasCompanionAd;
 
-- (instancetype)initWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration;
+- (instancetype)initWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration;
 
 @end
 NS_ASSUME_NONNULL_END

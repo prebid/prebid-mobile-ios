@@ -70,7 +70,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
-        fetchDemand(connection: ServerConnection.shared,
+        fetchDemand(connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
                     targeting: Targeting.shared,
                     completion: completion)
@@ -191,7 +191,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     // MARK: - Internal Methods
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(connection: ServerConnectionProtocol,
+    func fetchDemand(connection: PrebidServerConnectionProtocol,
                      sdkConfiguration: Prebid,
                      targeting: Targeting,
                      completion: ((ResultCode)->Void)?) {

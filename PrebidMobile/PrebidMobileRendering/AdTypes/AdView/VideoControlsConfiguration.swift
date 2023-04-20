@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMVideoControlsConfiguration) @objcMembers
 public class VideoControlsConfiguration: NSObject {
     
     /**

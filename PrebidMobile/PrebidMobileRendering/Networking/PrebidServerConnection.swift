@@ -20,7 +20,7 @@ fileprivate let HTTPMethodHEAD = "HEAD"
 fileprivate let HTTPMethodPOST = "POST"
 
 @objcMembers
-public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDelegate {
+public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, URLSessionDelegate {
     
     // MARK: - Public properties
     
@@ -28,7 +28,7 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
     
     public var protocolClasses: [URLProtocol.Type] = []
     
-    public static let shared = ServerConnection()
+    public static let shared = PrebidServerConnection()
     
     public static var userAgentHeaderKey: String {
         "User-Agent"
@@ -48,7 +48,7 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
         "PBMConnectionID"
     }
     
-    // The key for request's header of PBM ServerConnection requests
+    // The key for request's header of PBM PrebidServerConnection requests
     // Must be used only in tests.
     public static var isPBMRequestKey: String {
         "PBMIsPBMRequest"
@@ -81,21 +81,21 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
     }
     
     // HEAD is the same as GET but the server doesn't return a body.
-    public func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping (ServerResponse) -> Void) {
+    public func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping (PrebidServerResponse) -> Void) {
         getFor(resourceURL, timeout: timeout, headersOnly: true, callback: callback)
     }
     
-    public func get(_ resourceURL: String?, timeout: TimeInterval = 0, callback: @escaping (ServerResponse) -> Void) {
+    public func get(_ resourceURL: String?, timeout: TimeInterval = 0, callback: @escaping (PrebidServerResponse) -> Void) {
         getFor(resourceURL, timeout: timeout, headersOnly: false, callback: callback)
     }
     
     public func post(_ resourceURL: String?, data: Data?, timeout: TimeInterval,
-                     callback: @escaping (ServerResponse) -> Void) {
-        post(resourceURL, contentType: ServerConnection.contentTypeVal, data: data, timeout: timeout, callback: callback)
+                     callback: @escaping (PrebidServerResponse) -> Void) {
+        post(resourceURL, contentType: PrebidServerConnection.contentTypeVal, data: data, timeout: timeout, callback: callback)
     }
     
     public func post(_ resourceURL: String?, contentType: String?,data: Data?, timeout: TimeInterval,
-                     callback: @escaping (ServerResponse) -> Void) {
+                     callback: @escaping (PrebidServerResponse) -> Void) {
         guard var request = createRequest(resourceURL) else {
             return
         }
@@ -103,7 +103,7 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
         request.httpMethod = HTTPMethodPOST
         request.httpBody = data
         request.timeoutInterval = timeout
-        request.setValue(contentType, forHTTPHeaderField: ServerConnection.contentTypeKey)
+        request.setValue(contentType, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
         let session = createSession(timeout)
         let task = session.uploadTask(with: request, from: data) { [weak self] data, response, error in
@@ -113,12 +113,12 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
         task.resume()
     }
     
-    public func download(_ resourceURL: String?, callback: @escaping (ServerResponse) -> Void) {
+    public func download(_ resourceURL: String?, callback: @escaping (PrebidServerResponse) -> Void) {
         guard var request = createRequest(resourceURL) else {
             return
         }
         
-        request.setValue(ServerConnection.contentTypeVal, forHTTPHeaderField: ServerConnection.contentTypeKey)
+        request.setValue(PrebidServerConnection.contentTypeVal, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
         let session = createSession(PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT)
         let task = session.dataTask(with: request) { [weak self] data, response, error in
@@ -132,14 +132,14 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
     // MARK: Private methods
     
     private func getFor(_ resourceURL: String?, timeout: TimeInterval, headersOnly: Bool,
-                        callback: @escaping ServerResponseCallback) {
+                        callback: @escaping PrebidServerResponseCallback) {
         guard var request = createRequest(resourceURL) else {
             return
         }
         
         request.httpMethod = headersOnly ? HTTPMethodHEAD : HTTPMethodGET
         request.timeoutInterval = timeout
-        request.setValue(ServerConnection.contentTypeVal, forHTTPHeaderField: ServerConnection.contentTypeKey)
+        request.setValue(PrebidServerConnection.contentTypeVal, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
         let session = createSession(timeout)
         let task = session.dataTask(with: request) { [weak self] data, response, error in
@@ -152,9 +152,9 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
     
     private func proccessResponse(_ request: URLRequest, urlResponse: URLResponse?,
                                   responseData: Data?, error: Error?,
-                                  fullServerCallback: ServerResponseCallback) {
+                                  fullServerCallback: PrebidServerResponseCallback) {
         
-        let serverResponse = ServerResponse()
+        let serverResponse = PrebidServerResponse()
         
         serverResponse.requestURL = request.url?.path
         serverResponse.requestHeaders = request.allHTTPHeaderFields
@@ -195,8 +195,8 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
             serverResponse.rawData = responseData
             
             // Attempt to parse if response is JSON
-            if let contentType = responseHeaders[ServerConnection.contentTypeKey],
-               contentType.contains(ServerConnection.contentTypeVal) {
+            if let contentType = responseHeaders[PrebidServerConnection.contentTypeKey],
+               contentType.contains(PrebidServerConnection.contentTypeVal) {
                 do {
                     let json = try PBMFunctions.dictionaryFromData(responseData)
                     serverResponse.jsonDict = json
@@ -239,12 +239,12 @@ public class ServerConnection: NSObject, ServerConnectionProtocol, URLSessionDel
         }
         
         var request = URLRequest(url: url)
-        request.setValue(userAgentService.getFullUserAgent(), forHTTPHeaderField: ServerConnection.userAgentHeaderKey)
-        request.setValue("True", forHTTPHeaderField: ServerConnection.isPBMRequestKey)
+        request.setValue(userAgentService.getFullUserAgent(), forHTTPHeaderField: PrebidServerConnection.userAgentHeaderKey)
+        request.setValue("True", forHTTPHeaderField: PrebidServerConnection.isPBMRequestKey)
         
         // Add this header only in test mode for MOCKED protocols
         if protocolClasses.count > 0 {
-            request.addValue(internalID.uuidString, forHTTPHeaderField: ServerConnection.internalIDKey)
+            request.addValue(internalID.uuidString, forHTTPHeaderField: PrebidServerConnection.internalIDKey)
         }
         
         // Prebid custom headers

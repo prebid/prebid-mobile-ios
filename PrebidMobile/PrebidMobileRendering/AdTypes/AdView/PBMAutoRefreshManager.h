@@ -15,7 +15,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class AdConfiguration;
+@class PBMAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 

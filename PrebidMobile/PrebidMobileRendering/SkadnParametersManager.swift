@@ -16,7 +16,7 @@
 import Foundation
 import StoreKit
 
-@objcMembers
+@objc(PBMSkadnParametersManager) @objcMembers
 public class SkadnParametersManager: NSObject {
     
     private static func getFidelity(from skadnInfo: PBMORTBBidExtSkadn, fidelityType: NSNumber) -> PBMORTBSkadnFidelity? {

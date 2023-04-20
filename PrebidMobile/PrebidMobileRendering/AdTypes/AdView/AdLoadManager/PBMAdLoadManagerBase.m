@@ -40,8 +40,8 @@
 @implementation PBMAdLoadManagerBase
 
 - (instancetype)initWithBid:(Bid *)bid
-                 connection:(id<ServerConnectionProtocol>)connection
-            adConfiguration:(AdConfiguration *)adConfiguration {
+                 connection:(id<PrebidServerConnectionProtocol>)connection
+            adConfiguration:(PBMAdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         PBMAssert(connection);

@@ -20,9 +20,9 @@
 @class Prebid;
 @class PBMVastAbstractAd;
 
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 
-//TODO: alter ServerConnection to deliver NSData.
+//TODO: alter PrebidServerConnection to deliver NSData.
 //Otherwise, done.
 
 typedef void(^PBMVastAdsBuilderCompletionBlock)(NSArray<PBMVastAbstractAd *> * _Nullable, NSError * _Nullable);
@@ -30,7 +30,7 @@ typedef void(^PBMVastAdsBuilderCompletionBlock)(NSArray<PBMVastAbstractAd *> * _
 @interface PBMVastAdsBuilder : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithConnection:(nonnull id<ServerConnectionProtocol>)serverConnection NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithConnection:(nonnull id<PrebidServerConnectionProtocol>)serverConnection NS_DESIGNATED_INITIALIZER;
 
 - (void)buildAds:(nonnull NSData *)data completion:(nonnull PBMVastAdsBuilderCompletionBlock)completionBlock;
 

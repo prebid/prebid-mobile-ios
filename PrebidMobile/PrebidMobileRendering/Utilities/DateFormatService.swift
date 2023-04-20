@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMDateFormatService) @objcMembers
 public class DateFormatService: NSObject {
     
     // MARK: - Public properties

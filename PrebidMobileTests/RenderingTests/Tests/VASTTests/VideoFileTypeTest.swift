@@ -69,7 +69,7 @@ class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDeleg
             let replaceWith = mimeType.rawValue
             inlineResponse = inlineResponse.PBMstringByReplacingRegex(needle, replaceWith:replaceWith)
             
-            //Make an ServerConnection and redirect its network requests to the Mock Server
+            //Make an PrebidServerConnection and redirect its network requests to the Mock Server
             let connection = UtilitiesForTesting.createConnectionForMockedTest()
             
             //Rule for VAST

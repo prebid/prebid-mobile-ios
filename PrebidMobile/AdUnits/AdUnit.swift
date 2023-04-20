@@ -124,7 +124,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         self.closureAd = completion
         adServerObject = adObject
 
-        bidRequester = PBMBidRequester(connection: ServerConnection.shared,
+        bidRequester = PBMBidRequester(connection: PrebidServerConnection.shared,
                                        sdkConfiguration: Prebid.shared,
                                        targeting: Targeting.shared,
                                        adUnitConfiguration: adUnitConfig)

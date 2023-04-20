@@ -270,7 +270,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                             versionString:[PBMFunctions omidVersion]];
 }
 
-- (void)downloadJSLibWithConnection:(id<ServerConnectionProtocol>)connection completion:(nullable PBMVoidBlock)completion {
+- (void)downloadJSLibWithConnection:(id<PrebidServerConnectionProtocol>)connection completion:(nullable PBMVoidBlock)completion {
     if (!connection) {
         PBMLogError(@"Connection is nil");
         if (completion) {
@@ -281,7 +281,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     @weakify(self);
-    [connection download:self.jsLibURL callback:^(ServerResponse * _Nonnull response) {
+    [connection download:self.jsLibURL callback:^(PrebidServerResponse * _Nonnull response) {
         @strongify(self);
         if (!self) {
             PBMLogError(@"PBMOpenMeasurementWrapper is nil");

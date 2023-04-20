@@ -75,7 +75,7 @@ limitations under the License.
 
 - (void)testGender {
     //given
-    int genderFemale = GenderFemale;
+    int genderFemale = PBMGenderFemale;
     
     //when
     Targeting.shared.userGender = genderFemale;

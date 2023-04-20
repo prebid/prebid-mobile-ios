@@ -35,7 +35,7 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
 
         self.vastRequestSuccessfulExpectation = self.expectation(description: "Expected VAST Load to be successful")
         
-        //Make an ServerConnection and redirect its network requests to the Mock Server
+        //Make an PrebidServerConnection and redirect its network requests to the Mock Server
         let conn = UtilitiesForTesting.createConnectionForMockedTest()
         let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]

@@ -15,11 +15,10 @@
 
 #import "PBMVideoView.h"
 
-
 @interface PBMVideoView ()
 
 @property (nonatomic, weak, nullable) PBMVideoCreative *creative;
-@property (nonatomic, strong) AdViewButtonDecorator * _Nonnull skipButtonDecorator;
+@property (nonatomic, strong) PBMAdViewButtonDecorator * _Nonnull skipButtonDecorator;
 
 - (void)updateControls;
 - (CGFloat)requiredVideoDuration;

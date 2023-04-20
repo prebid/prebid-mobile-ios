@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMAgeUtils) @objcMembers
 public class AgeUtils: NSObject {
     
     static func isYOBValid(_ yob: Int) -> Bool {        

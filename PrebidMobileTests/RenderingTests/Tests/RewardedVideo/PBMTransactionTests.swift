@@ -19,7 +19,7 @@ import XCTest
 
 class PBMTransactionTests: XCTestCase {
     
-    let connection = ServerConnection()
+    let connection = PrebidServerConnection()
     let adConfiguration = AdConfiguration()
     
     func testTransactionWithoutCreative() {
@@ -68,7 +68,7 @@ class PBMTransactionTests: XCTestCase {
     
     func testUpdateAdConfiguration() {
         
-        let serverConnection = ServerConnection()
+        let serverConnection = PrebidServerConnection()
         
         //Set up
         let adConfiguration = AdConfiguration()

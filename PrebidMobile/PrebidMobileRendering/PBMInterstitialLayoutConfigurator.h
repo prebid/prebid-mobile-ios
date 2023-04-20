@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "PBMInterstitialDisplayProperties.h"
 
-@class AdConfiguration;
+@class PBMAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isPortrait:(CGSize)size;
 + (BOOL)isLandscape:(CGSize)size;
 + (PBMInterstitialLayout)calculateLayoutFromSize:(CGSize)size;
-+ (void)configurePropertiesWithAdConfiguration:(AdConfiguration *)adConfiguration displayProperties:(PBMInterstitialDisplayProperties *)displayProperties;
++ (void)configurePropertiesWithAdConfiguration:(PBMAdConfiguration *)adConfiguration displayProperties:(PBMInterstitialDisplayProperties *)displayProperties;
 
 @end
 
