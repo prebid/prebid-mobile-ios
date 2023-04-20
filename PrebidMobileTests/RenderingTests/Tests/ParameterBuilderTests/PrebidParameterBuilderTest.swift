@@ -661,6 +661,23 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual($0.banner?.api, [3, 5, 6, 7, 4, 1, 2, 4])
         }
     }
+    
+    func testBannerParameters_DeprecatedDisplayFormat() {
+        // Original API
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
+        adUnit.adUnitConfig.adFormats = [.banner]
+
+        let bannerParameters = BannerParameters()
+        bannerParameters.api = [.MRAID_1, .MRAID_2, .MRAID_3, .OMID_1, .ORMMA, .VPAID_1, .VPAID_2, .ORMMA]
+
+        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
+
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        bidRequest.imp.forEach {
+            XCTAssertEqual($0.banner?.api, [3, 5, 6, 7, 4, 1, 2, 4])
+        }
+    }
 
     func testVideoParameters() {
         // Original API
