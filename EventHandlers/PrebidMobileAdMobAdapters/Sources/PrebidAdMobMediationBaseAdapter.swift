@@ -41,7 +41,7 @@ public class PrebidAdMobMediationBaseAdapter: NSObject, GADMediationAdapter {
         
     // Added for tests
     static func latestTestedGMAVersion() -> GADVersionNumber {
-        return GADVersionNumber(majorVersion: 10, minorVersion: 3, patchVersion: 0)
+        return GADVersionNumber(majorVersion: 10, minorVersion: 4, patchVersion: 0)
     }
     
     required public override init() {
