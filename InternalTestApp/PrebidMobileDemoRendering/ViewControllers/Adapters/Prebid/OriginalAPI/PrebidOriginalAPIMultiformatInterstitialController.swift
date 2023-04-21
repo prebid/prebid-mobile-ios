@@ -112,7 +112,7 @@ class PrebidOriginalAPIMultiformatInterstitialController:
                 
                 if let error = error {
                     Log.error("Failed to load interstitial ad with error: \(error.localizedDescription)")
-                    adDidFailToLoadWithError.isEnabled = true
+                    self.adDidFailToLoadWithError.isEnabled = true
                 } else if let ad = ad {
                     self.gamInterstitial = ad
                     self.gamInterstitial.fullScreenContentDelegate = self
