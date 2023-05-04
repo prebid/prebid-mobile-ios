@@ -167,6 +167,21 @@ public class Utils: NSObject {
 
             }
         }
+        
+        if adServerObject == .AL_TARGETING_DATA {
+            let isALMember = adObject.responds(to: NSSelectorFromString("setKeywords:"))
+            
+            if isALMember {
+                //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
+                if var existingKeywords = adObject.value(forKey: "keywords") as? [String] {   
+                    existingKeywords.removeAll { keyword in
+                        keyword.starts(with: "hb_")
+                    }
+                    
+                    adObject.setValue(existingKeywords, forKey: "keywords")
+                }
+            }
+        }
     }
 
     func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
@@ -258,6 +273,21 @@ public class Utils: NSObject {
                     }
                 }
 
+            }
+        } else if (adServerObject == .AL_TARGETING_DATA) {
+            let isALMember = adObject.responds(to: NSSelectorFromString("setKeywords:"))
+            if isALMember {
+                // check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
+                let targetingInfoArray = bidResponse.targetingInfo?.map({ "\($0):\($1)" }) ?? []
+                
+                if var existingKeywords = adObject.value(forKey: "keywords") as? [String] {
+                    existingKeywords.append(contentsOf: targetingInfoArray)
+                    adObject.setValue(existingKeywords, forKey: "keywords")
+                } else {
+                    adObject.setValue(targetingInfoArray, forKey: "keywords")
+                }
+
+                return
             }
         } else if let dictContainer = adObject as? DictionaryContainer<String, String>,
                   let targetingInfo = bidResponse.targetingInfo {

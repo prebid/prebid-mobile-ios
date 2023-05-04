@@ -137,7 +137,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
                 if (!self.timeOutSignalSent) {
                     self.handleBidResponse(adObject: adObject, bidResponse: bidResponse) { resultCode in
                         if resultCode == .prebidDemandFetchSuccess {
-                            Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse)
+                            Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
                         }
                         completion(resultCode)
                         return

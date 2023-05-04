@@ -27,6 +27,8 @@
 		34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */; };
 		457FD34BA45C3840CC31A8F5 /* Pods_InternalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */; };
 		530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E722B292FACB20025B44D /* UIImageView+Extensions.swift */; };
+		534056CE2A014CD100A8CFDE /* PrebidOriginalAPIMAXBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534056CD2A014CD100A8CFDE /* PrebidOriginalAPIMAXBanner.swift */; };
+		534056D62A0294C300A8CFDE /* PrebidOriginalAPIMAXVideoInterstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534056D52A0294C300A8CFDE /* PrebidOriginalAPIMAXVideoInterstitial.swift */; };
 		5397BD142936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */; };
 		5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */; };
 		5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */; };
@@ -369,6 +371,8 @@
 		35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternalTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		530E722B292FACB20025B44D /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		534056CD2A014CD100A8CFDE /* PrebidOriginalAPIMAXBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMAXBanner.swift; sourceTree = "<group>"; };
+		534056D52A0294C300A8CFDE /* PrebidOriginalAPIMAXVideoInterstitial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMAXVideoInterstitial.swift; sourceTree = "<group>"; };
 		5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayBannerController.swift; sourceTree = "<group>"; };
 		5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayInterstitialController.swift; sourceTree = "<group>"; };
 		5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoRewardedController.swift; sourceTree = "<group>"; };
@@ -682,6 +686,27 @@
 			path = PrebidMobileDemoRenderingUITests;
 			sourceTree = "<group>";
 		};
+		534056CB2A014BB200A8CFDE /* RenderingAPI */ = {
+			isa = PBXGroup;
+			children = (
+				9298653328060337007A2F34 /* MAXNativeAdView.xib */,
+				9289873E28003C250062BFAA /* PrebidMAXBannerController.swift */,
+				92221CE02804AF5B005DF671 /* PrebidMAXInterstitialController.swift */,
+				92221CE42804BBB6005DF671 /* PrebidMAXRewardedController.swift */,
+				92986536280604E4007A2F34 /* PrebidMAXNativeController.swift */,
+			);
+			path = RenderingAPI;
+			sourceTree = "<group>";
+		};
+		534056CC2A014BC000A8CFDE /* OriginalAPI */ = {
+			isa = PBXGroup;
+			children = (
+				534056CD2A014CD100A8CFDE /* PrebidOriginalAPIMAXBanner.swift */,
+				534056D52A0294C300A8CFDE /* PrebidOriginalAPIMAXVideoInterstitial.swift */,
+			);
+			path = OriginalAPI;
+			sourceTree = "<group>";
+		};
 		5397BD122936180600ABDA22 /* OriginalAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -884,11 +909,8 @@
 		9289873D28003BFE0062BFAA /* MAX */ = {
 			isa = PBXGroup;
 			children = (
-				9298653328060337007A2F34 /* MAXNativeAdView.xib */,
-				9289873E28003C250062BFAA /* PrebidMAXBannerController.swift */,
-				92221CE02804AF5B005DF671 /* PrebidMAXInterstitialController.swift */,
-				92221CE42804BBB6005DF671 /* PrebidMAXRewardedController.swift */,
-				92986536280604E4007A2F34 /* PrebidMAXNativeController.swift */,
+				534056CC2A014BC000A8CFDE /* OriginalAPI */,
+				534056CB2A014BB200A8CFDE /* RenderingAPI */,
 			);
 			path = MAX;
 			sourceTree = "<group>";
@@ -1154,6 +1176,7 @@
 					};
 					93FED9C21A376EFE009A6E9F = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = L9295BF929;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -1682,8 +1705,10 @@
 				346C6F5725DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift in Sources */,
 				5397BD2C2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift in Sources */,
 				5B3EEDE22101EDA200BAA0C4 /* TestCasesSectionsViewController.swift in Sources */,
+				534056CE2A014CD100A8CFDE /* PrebidOriginalAPIMAXBanner.swift in Sources */,
 				ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */,
 				92C4E60D27A2F6D700738370 /* NativeEventTracker+Extensions.swift in Sources */,
+				534056D62A0294C300A8CFDE /* PrebidOriginalAPIMAXVideoInterstitial.swift in Sources */,
 				34BA9600249CC118006AE372 /* PrebidRewardedController.swift in Sources */,
 				539F960B29DEF0B90061E7A5 /* PrebidOriginalAPIMultiformatBannerController.swift in Sources */,
 			);
@@ -2083,7 +2108,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L9295BF929;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2098,7 +2123,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp.pi;
 				PRODUCT_NAME = InternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2116,7 +2141,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L9295BF929;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2131,7 +2156,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp.pi;
 				PRODUCT_NAME = InternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

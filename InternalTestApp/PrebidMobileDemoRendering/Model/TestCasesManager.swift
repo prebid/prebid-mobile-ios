@@ -528,6 +528,104 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: instreamController)
                 setupCustomParams(for: instreamController.prebidConfigId)
             }),
+            
+            // MARK: ---- Banner (Applovin MAX Original Api)
+            
+            TestCase(title: "Banner Direct Sold 320x50 (Applovin MAX Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIMAXBanner(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 320, height: 50)
+                bannerController.adUnitId = "d3603edeb78556f7"
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner Custom Network 320x50 (Applovin MAX Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIMAXBanner(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 320, height: 50)
+                bannerController.adUnitId = "e939ae2b5e5599ab"
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Pre-setup Macros Banner Direct Sold 320x50 (Applovin MAX Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIMAXBanner(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 320, height: 50)
+                bannerController.adUnitId = "4f026d919f5a24a9"
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Pre-setup Macros Banner Custom Network 320x50 (Applovin MAX Original) [OK, PUC]",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIMAXBanner(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 320, height: 50)
+                bannerController.adUnitId = "1269bd4d761a7c05"
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            
+            TestCase(title: "Video Interstitial 320x480 (Applovin MAX Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server, .video],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIMAXVideoInterstitial(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-original-api"
+                interstitialController.adUnitId = "15ce5b0678067dd0"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
         
             // MARK: ---- Banner (In-App) ----
             
