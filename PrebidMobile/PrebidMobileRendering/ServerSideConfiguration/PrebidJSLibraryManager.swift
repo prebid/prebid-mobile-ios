@@ -20,7 +20,6 @@ fileprivate let PBMJSLibraryFileDirectory = "PBMJSLibraries"
 fileprivate let mraidLibraryURL = "https://cdn.jsdelivr.net/gh/prebid/prebid-mobile-ios@master/js/mraid.js"
 fileprivate let omsdkLibraryURL = "https://cdn.jsdelivr.net/gh/prebid/prebid-mobile-ios@master/js/omsdk.js"
 
-public typealias PrebidJSLibraryCallback = (PrebidJSLibrary?) -> ()
 public typealias PrebidJSLibraryContentsCallback = (String?) -> ()
 
 @objcMembers
@@ -36,55 +35,61 @@ public class PrebidJSLibraryManager: NSObject {
         PrebidJSLibrary(name: "omsdk", downloadURLString: omsdkLibraryURL)
     }()
     
-    public func getMRAIDLibrary(completion: @escaping PrebidJSLibraryContentsCallback) {
-        fetchLibrary(mraidLibrary) { [weak self] contents in
-            self?.mraidLibrary.contentsString = contents
-            completion(contents)
+    private var connection: PrebidServerConnection
+    
+    init(connection: PrebidServerConnection = .shared) {
+        self.connection = connection
+        super.init()
+    }
+    
+    public func downloadLibraries() {
+        // mraid.js
+        if checkIfCached(mraidLibrary.name) == false {
+            downloadJSLibrary(with: connection, remoteLibrary: mraidLibrary)
+        }
+        
+        // omsdk.js
+        if checkIfCached(omsdkLibrary.name) == false {
+            downloadJSLibrary(with: connection, remoteLibrary: omsdkLibrary)
         }
     }
     
-    public func getOMSDKLibrary(completion: @escaping PrebidJSLibraryContentsCallback) {
-        fetchLibrary(omsdkLibrary) { [weak self] contents in
-            self?.omsdkLibrary.contentsString = contents
-            completion(contents)
-        }
+    public func getMRAIDLibrary() -> String? {
+        let contents = fetchLibrary(mraidLibrary)
+        mraidLibrary.contentsString = contents
+        return contents
     }
     
-    func fetchLibrary(
-        _ jsLibrary: PrebidJSLibrary,
-        completion: @escaping PrebidJSLibraryContentsCallback
-    ) {
+    public func getOMSDKLibrary() -> String? {
+        let contents = fetchLibrary(omsdkLibrary)
+        omsdkLibrary.contentsString = contents
+        return contents
+    }
+    
+    func fetchLibrary(_ jsLibrary: PrebidJSLibrary) -> String? {
         // check if library was already fetched
         if let jsLibraryContentsString = jsLibrary.contentsString {
-            completion(jsLibraryContentsString)
+            return jsLibraryContentsString
         }
         // search for cached library
         else if let cachedLibraryContents = getLibraryFromDisk(with: jsLibrary.name) {
-            completion(cachedLibraryContents)
+            return cachedLibraryContents
         }
-        // no cached library - download
+        // no stored libraries - try download
         else {
-            downloadJSLibrary(
-                with: PrebidServerConnection.shared,
-                remoteLibrary: jsLibrary
-            ) { libraryContents in
-                guard let contentsString = libraryContents else {
-                    completion(nil)
-                    return
-                }
-                
-                completion(contentsString)
-            }
+            downloadLibraries()
         }
+        
+        return nil
     }
     
     func downloadJSLibrary(
         with connection: PrebidServerConnectionProtocol,
         remoteLibrary: PrebidJSLibrary,
-        completion: @escaping PrebidJSLibraryContentsCallback
+        completion: PrebidJSLibraryContentsCallback? = nil
     ) {
         guard let urlString = remoteLibrary.downloadURLString, !urlString.isEmpty else {
-            completion(nil)
+            completion?(nil)
             Log.error("Could not load remote library - download URL is empty")
             return
         }
@@ -92,7 +97,7 @@ public class PrebidJSLibraryManager: NSObject {
         DispatchQueue.global(qos: .background).async {
             connection.download(urlString) { [weak self] response in
                 guard let data = response.rawData, response.error == nil else {
-                    completion(nil)
+                    completion?(nil)
                     Log.error("Error occured during fetching remote library")
                     return
                 }
@@ -101,7 +106,7 @@ public class PrebidJSLibraryManager: NSObject {
                 let contentsString = String(data: data, encoding: .utf8)
                 
                 DispatchQueue.main.async {
-                    completion(contentsString)
+                    completion?(contentsString)
                 }
                 
                 // saving library into disk memory
@@ -139,6 +144,10 @@ public class PrebidJSLibraryManager: NSObject {
         }
         
         return nil
+    }
+    
+    func checkIfCached(_ filename: String) -> Bool {
+        getLibraryFromDisk(with: filename) != nil
     }
     
     /**

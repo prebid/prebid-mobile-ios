@@ -34,6 +34,16 @@ class PBMOpenMeasurementWrapperErrorMock : PBMOpenMeasurementWrapper {
 
 class PBMOpenMeasurementWrapperTest: XCTestCase {
     
+    override func setUp() {
+        super.setUp()
+        PrebidJSLibraryManager.shared.downloadLibraries()
+    }
+    
+    override func tearDown() {
+        PrebidJSLibraryManager.shared.clearData()
+        super.tearDown()
+    }
+    
     func testInitialization() {
         let measurement = PBMOpenMeasurementWrapper()
         XCTAssertNil(measurement.jsLib)
@@ -43,7 +53,7 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
         let loadJSLibExpectation = expectation(description: "load js lib expectation")
         let measurement = PBMOpenMeasurementWrapper()
         
-        measurement.initializeJSLib(with: PBMFunctions.bundleForSDK(), completion: {
+        measurement.initializeJSLib(completion: {
             XCTAssertNotNil(measurement.jsLib)
             loadJSLibExpectation.fulfill();
         })

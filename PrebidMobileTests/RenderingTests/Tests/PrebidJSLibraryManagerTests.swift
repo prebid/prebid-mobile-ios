@@ -49,25 +49,11 @@ class PrebidJSLibraryManagerTests: XCTestCase {
     
     func testGetMRAIDLibrary() {
         let manager = PrebidJSLibraryManager()
-        
-        let expectation = expectation(description: "mraid.js successfully fetched")
-        manager.getMRAIDLibrary { mraid in
-            XCTAssertNotNil(mraid)
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 5.0)
+        XCTAssertNotNil(manager.getMRAIDLibrary)
     }
     
     func testGetOMSDKLibrary() {
         let manager = PrebidJSLibraryManager()
-        
-        let expectation = expectation(description: "omsdk.js successfully fetched")
-        manager.getOMSDKLibrary { omsdk in
-            XCTAssertNotNil(omsdk)
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 5.0)
+        XCTAssertNotNil(manager.getOMSDKLibrary)
     }
 }

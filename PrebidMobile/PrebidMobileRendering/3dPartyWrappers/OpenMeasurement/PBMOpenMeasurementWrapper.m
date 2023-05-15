@@ -18,7 +18,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMJSLibraryManager.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -93,8 +92,8 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 
 #pragma mark - PBMMeasurementProtocol
 
-- (void)initializeJSLibWithBundle:(NSBundle *)bundle completion:(nullable PBMVoidBlock)completion {
-    [self loadLocalJSLibWithBundle:bundle];
+- (void)initializeJSLibWithCompletion:(nullable PBMVoidBlock)completion {
+    [self loadLocalJSLib];
     if (completion) {
         completion();
     }
@@ -309,9 +308,8 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }];
 }
 
-- (void)loadLocalJSLibWithBundle:(NSBundle *)bundle {
-    [PBMJSLibraryManager sharedManager].bundle = bundle;
-    NSString *omScript = [[PBMJSLibraryManager sharedManager] getOMSDKLibrary];
+- (void)loadLocalJSLib {
+    NSString *omScript = [[PrebidJSLibraryManager shared] getOMSDKLibrary];
     if (!omScript) {
         PBMLogError(@"Could not load omsdk.js from file");
         return;

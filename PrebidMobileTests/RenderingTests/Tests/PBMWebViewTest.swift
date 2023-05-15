@@ -58,13 +58,16 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
     
     private var logToFile: LogToFileLock?
     
+    override func setUp() {
+        super.setUp()
+        PrebidJSLibraryManager.shared.downloadLibraries()
+    }
+    
     override func tearDown() {
         expectationCommandExecuted = nil
         logToFile = nil
         
-        PBMJSLibraryManager.shared().mraidProvider = PrebidMRAIDScriptProvider()
-        PBMJSLibraryManager.shared().omsdkProvider = PrebidOMSDKScriptProvider()
-        
+        PrebidJSLibraryManager.shared.clearData()
         super.tearDown()
     }
     
@@ -602,7 +605,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         XCTAssertEqual(webView.mraidState, .notEnabled)
         
-        PBMJSLibraryManager.shared().mraidProvider = nil
+        webView.libraryManager = nil
         
         expectationWebViewFailed = expectation(description: "expectationWebViewFailed")
         
@@ -616,7 +619,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
     func testInjectMRAIDForExpandContentEmptyFile() {
         let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         
-        PBMJSLibraryManager.shared().mraidProvider = nil
+        webView.libraryManager = nil
         
         var testError: Error? = nil
         do {
@@ -698,7 +701,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationWebViewReadyToDisplay = expectation(description:"expectationWebViewReadyToDisplay")
         expectationWebViewReadyToDisplay?.isInverted = true;
         
-        PBMJSLibraryManager.shared().mraidProvider = nil
+        webView.libraryManager = nil
         webView.loadHTML(testHTML, baseURL:nil, injectMraidJs: true)
         
         XCTAssertEqual(webView.mraidState, .notEnabled)

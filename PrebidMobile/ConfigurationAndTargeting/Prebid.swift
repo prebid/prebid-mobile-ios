@@ -188,7 +188,8 @@ public class Prebid: NSObject {
         let _ = PBMLocationManager.shared
         let _ = UserConsentDataManager.shared
         
-        PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
+        PrebidJSLibraryManager.shared.downloadLibraries()
+        PBMOpenMeasurementWrapper.shared.initializeJSLib()
         
         serverStatusRequester.requestStatus { completion?($0, $1) }
         
