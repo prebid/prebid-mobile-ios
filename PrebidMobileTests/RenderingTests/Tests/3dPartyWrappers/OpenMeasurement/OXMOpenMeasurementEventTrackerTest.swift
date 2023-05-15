@@ -27,7 +27,9 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
     func testEventsForWebViewSession() {
         let measurement = PBMOpenMeasurementWrapper()
         
-        measurement.jsLib = "{}"
+        let mockLibraryManager = MockPrebidJSLibraryManager()
+        mockLibraryManager.omsdkScript = "{}"
+        measurement.libraryManager = mockLibraryManager
         
         let webViewSession = measurement.initializeWebViewSession(WKWebView(), contentUrl: nil)
         
@@ -44,7 +46,9 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
     func testEventsForNativeVideoSession() {
         let measurement = PBMOpenMeasurementWrapper()
         
-        measurement.jsLib = "{}"
+        let mockLibraryManager = MockPrebidJSLibraryManager()
+        mockLibraryManager.omsdkScript = "{}"
+        measurement.libraryManager = mockLibraryManager
         
         let verificationParams = PBMVideoVerificationParameters()
         let resource = PBMVideoVerificationResource()

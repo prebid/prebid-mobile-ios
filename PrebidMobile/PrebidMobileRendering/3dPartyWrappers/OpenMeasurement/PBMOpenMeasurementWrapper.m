@@ -1,17 +1,17 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 #import "PBMError.h"
 #import "PBMFunctions.h"
@@ -45,8 +45,9 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 @property (nonatomic, readonly) NSString *jsLibURL;
 @property (nonatomic, readonly) NSString *customRefId;
 
-@property (nonatomic, copy, nullable) NSString *jsLib;
 @property (nonatomic, strong, nonnull) OMIDPrebidorgPartner *partner;
+
+@property (nonatomic, strong, nullable) PrebidJSLibraryManager *libraryManager;
 
 @end
 
@@ -70,6 +71,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _libraryManager = PrebidJSLibraryManager.shared;
         [self initializeOMSDK];
     }
     
@@ -92,39 +94,34 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 
 #pragma mark - PBMMeasurementProtocol
 
-- (void)initializeJSLibWithCompletion:(nullable PBMVoidBlock)completion {
-    [self loadLocalJSLib];
-    if (completion) {
-        completion();
-    }
-}
-
 - (nullable NSString *)injectJSLib:(NSString *)html error:(NSError **)error {
     if (!html) {
         [PBMError createError:error description:@"Empty ad's html"];
         return nil;
     }
     
-    if (!self.jsLib) {
+    NSString *jsLib = [self fetchOMSDKScript];
+    
+    if (!jsLib) {
         [PBMError createError:error description:@"The js lib for Open Measurement is not loaded."];
         return nil;
     }
     
-    NSString *res = [OMIDPrebidorgScriptInjector injectScriptContent:self.jsLib
-                                                        intoHTML:html
-                                                           error:error];
+    NSString *res = [OMIDPrebidorgScriptInjector injectScriptContent:jsLib
+                                                            intoHTML:html
+                                                               error:error];
     
     return res;
 }
 
 - (nullable PBMOpenMeasurementSession *)initializeWebViewSession:(WKWebView *)webView contentUrl:(NSString *)contentUrl {
-
+    
     NSError *contextError;
     OMIDPrebidorgAdSessionContext *context = [[OMIDPrebidorgAdSessionContext alloc] initWithPartner:self.partner
-                                                                                    webView:webView
-                                                                                 contentUrl:contentUrl
-                                                                  customReferenceIdentifier:self.customRefId
-                                                                                      error:&contextError];
+                                                                                            webView:webView
+                                                                                         contentUrl:contentUrl
+                                                                          customReferenceIdentifier:self.customRefId
+                                                                                              error:&contextError];
     
     if (contextError) {
         PBMLogError(@"Unable to create Open Measurement session context with error: %@", [contextError localizedDescription]);
@@ -133,12 +130,14 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     
     NSError *configurationError;
     
-    OMIDPrebidorgAdSessionConfiguration *config = [[OMIDPrebidorgAdSessionConfiguration alloc] initWithCreativeType:OMIDCreativeTypeHtmlDisplay
-                                                                                             impressionType:OMIDImpressionTypeOnePixel
-                                                                                            impressionOwner:OMIDNativeOwner
-                                                                                           mediaEventsOwner:OMIDNoneOwner
-                                                                                 isolateVerificationScripts:NO
-                                                                                                      error:&configurationError];
+    OMIDPrebidorgAdSessionConfiguration *config = [
+        [OMIDPrebidorgAdSessionConfiguration alloc]
+        initWithCreativeType:OMIDCreativeTypeHtmlDisplay
+        impressionType:OMIDImpressionTypeOnePixel
+        impressionOwner:OMIDNativeOwner
+        mediaEventsOwner:OMIDNoneOwner
+        isolateVerificationScripts:NO
+        error:&configurationError];
     
     if (configurationError) {
         PBMLogError(@"Unable to create Open Measurement session configuration with error: %@", [configurationError localizedDescription]);
@@ -153,25 +152,27 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     [session setupMainView:webView];
-  
+    
     return session;
 }
 
 - (PBMOpenMeasurementSession *)initializeNativeVideoSession:(UIView *)videoView
                                      verificationParameters:(PBMVideoVerificationParameters *)verificationParameters {
     
-    if (!self.jsLib) {
+    NSString *jsLib = [self fetchOMSDKScript];
+    
+    if (!jsLib) {
         PBMLogError(@"Open Measurement SDK can't work without valid js script");
         return nil;
     }
     
     NSError *contextError;
     OMIDPrebidorgAdSessionContext *context = [[OMIDPrebidorgAdSessionContext alloc] initWithPartner:self.partner
-                                                                                     script:self.jsLib
-                                                                                  resources:[self getScriptResources:verificationParameters]
-                                                                                 contentUrl:nil
-                                                                  customReferenceIdentifier:nil
-                                                                                      error:&contextError];
+                                                                                             script:jsLib
+                                                                                          resources:[self getScriptResources:verificationParameters]
+                                                                                         contentUrl:nil
+                                                                          customReferenceIdentifier:nil
+                                                                                              error:&contextError];
     if (contextError) {
         PBMLogError(@"Unable to create Open Measurement session context with error: %@", [contextError localizedDescription]);
         return nil;
@@ -180,11 +181,11 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     NSError *configurationError;
     
     OMIDPrebidorgAdSessionConfiguration *config = [[OMIDPrebidorgAdSessionConfiguration alloc] initWithCreativeType:OMIDCreativeTypeVideo
-                                                                                             impressionType:OMIDImpressionTypeOnePixel
-                                                                                            impressionOwner:OMIDNativeOwner
-                                                                                           mediaEventsOwner:OMIDNativeOwner
-                                                                                 isolateVerificationScripts:NO
-                                                                                                      error:&configurationError];
+                                                                                                     impressionType:OMIDImpressionTypeOnePixel
+                                                                                                    impressionOwner:OMIDNativeOwner
+                                                                                                   mediaEventsOwner:OMIDNativeOwner
+                                                                                         isolateVerificationScripts:NO
+                                                                                                              error:&configurationError];
     if (configurationError) {
         PBMLogError(@"Unable to create Open Measurement session configuration with error: %@", [configurationError localizedDescription]);
         return nil;
@@ -207,21 +208,23 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                     vendorKey:(NSString *)vendorKey
                                                    parameters:(NSString *)verificationParameters {
     
-    if (!self.jsLib) {
+    NSString *jsLib = [self fetchOMSDKScript];
+    
+    if (!jsLib) {
         PBMLogError(@"Open Measurement SDK can't work without valid js script");
         return nil;
     }
     
     NSArray<OMIDPrebidorgVerificationScriptResource *> *resources = [self scriptResourcesFrom:omidJSUrl
-                                                                                vendorKey:vendorKey
-                                                                               parameters:verificationParameters];
+                                                                                    vendorKey:vendorKey
+                                                                                   parameters:verificationParameters];
     NSError *contextError;
     OMIDPrebidorgAdSessionContext *context = [[OMIDPrebidorgAdSessionContext alloc] initWithPartner:self.partner
-                                                                                     script:self.jsLib
-                                                                                  resources:resources
-                                                                                 contentUrl:nil
-                                                                  customReferenceIdentifier:nil
-                                                                                      error:&contextError];
+                                                                                             script:jsLib
+                                                                                          resources:resources
+                                                                                         contentUrl:nil
+                                                                          customReferenceIdentifier:nil
+                                                                                              error:&contextError];
     if (contextError) {
         PBMLogError(@"Unable to create Open Measurement session context with error: %@",
                     [contextError localizedDescription]);
@@ -230,12 +233,15 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     
     NSError *configurationError;
     
-    OMIDPrebidorgAdSessionConfiguration *config = [[OMIDPrebidorgAdSessionConfiguration alloc]      initWithCreativeType:OMIDCreativeTypeNativeDisplay
-              impressionType:OMIDImpressionTypeOnePixel
-             impressionOwner:OMIDNativeOwner
-            mediaEventsOwner:OMIDNoneOwner
-  isolateVerificationScripts:NO
-                       error:&configurationError];
+    OMIDPrebidorgAdSessionConfiguration *config = [
+        [OMIDPrebidorgAdSessionConfiguration alloc]
+        initWithCreativeType:OMIDCreativeTypeNativeDisplay
+        impressionType:OMIDImpressionTypeOnePixel
+        impressionOwner:OMIDNativeOwner
+        mediaEventsOwner:OMIDNoneOwner
+        isolateVerificationScripts:NO
+        error:&configurationError];
+    
     if (configurationError) {
         PBMLogError(@"Unable to create Open Measurement session configuration with error: %@",
                     [configurationError localizedDescription]);
@@ -266,19 +272,12 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     self.partner = [[OMIDPrebidorgPartner alloc] initWithName:self.partnerName
-                                            versionString:[PBMFunctions omidVersion]];
+                                                versionString:[PBMFunctions omidVersion]];
 }
 
-- (void)loadLocalJSLib {
-    NSString *omScript = [[PrebidJSLibraryManager shared] getOMSDKLibrary];
-    if (!omScript) {
-        PBMLogError(@"Could not load omsdk.js from file");
-        return;
-    }
-    
-    self.jsLib = omScript;
+-(nullable NSString*)fetchOMSDKScript {
+    return [self.libraryManager getOMSDKLibrary];;
 }
-
 
 - (nonnull NSArray<OMIDPrebidorgVerificationScriptResource *> *)getScriptResources:(PBMVideoVerificationParameters *)vastVerificationParamaters {
     NSMutableArray *scripts = [NSMutableArray new];
@@ -296,8 +295,8 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
         }
         
         OMIDPrebidorgVerificationScriptResource *resource = [[OMIDPrebidorgVerificationScriptResource alloc] initWithURL:url
-                                                                                                       vendorKey:vastResource.vendorKey
-                                                                                                      parameters:vastResource.params];
+                                                                                                               vendorKey:vastResource.vendorKey
+                                                                                                              parameters:vastResource.params];
         
         if (!resource) {
             PBMLogError(@"Can't create OM Verification Resource. Url: %@, vendorKey: %@, params: %@", vastResource.url, vastResource.vendorKey, vastResource.params);
@@ -311,8 +310,8 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 }
 
 - (nonnull NSArray<OMIDPrebidorgVerificationScriptResource *> *)scriptResourcesFrom:(NSString *)omidJSUrl
-                                                                      vendorKey:(NSString *)vendorKey
-                                                                     parameters:(NSString *)parameters {
+                                                                          vendorKey:(NSString *)vendorKey
+                                                                         parameters:(NSString *)parameters {
     
     if (!omidJSUrl || !vendorKey || !parameters) {
         PBMLogError(@"Invalid Verification Resource. All properties should be provided. Url: %@, vendorKey: %@, params: %@",
@@ -325,10 +324,10 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
         PBMLogError(@"The URL for OM Verification Resource is invalid. Url: %@", omidJSUrl);
         return @[];
     }
-         
+    
     OMIDPrebidorgVerificationScriptResource *resource = [[OMIDPrebidorgVerificationScriptResource alloc] initWithURL:url
-                                                                                                   vendorKey:vendorKey
-                                                                                                  parameters:parameters];
+                                                                                                           vendorKey:vendorKey
+                                                                                                          parameters:parameters];
     
     if (!resource) {
         PBMLogError(@"Can't create OM Verification Resource. Url: %@, vendorKey: %@, params: %@",

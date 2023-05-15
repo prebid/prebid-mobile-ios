@@ -34,36 +34,29 @@ class PBMOpenMeasurementWrapperErrorMock : PBMOpenMeasurementWrapper {
 
 class PBMOpenMeasurementWrapperTest: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        PrebidJSLibraryManager.shared.downloadLibraries()
-    }
-    
-    override func tearDown() {
-        PrebidJSLibraryManager.shared.clearData()
-        super.tearDown()
-    }
-    
     func testInitialization() {
         let measurement = PBMOpenMeasurementWrapper()
-        XCTAssertNil(measurement.jsLib)
+        XCTAssertNotNil(measurement.libraryManager)
     }
     
     func testLocalJSLib() {
-        let loadJSLibExpectation = expectation(description: "load js lib expectation")
         let measurement = PBMOpenMeasurementWrapper()
         
-        measurement.initializeJSLib(completion: {
-            XCTAssertNotNil(measurement.jsLib)
-            loadJSLibExpectation.fulfill();
-        })
+        let mockLibraryManager = MockPrebidJSLibraryManager()
+        mockLibraryManager.omsdkScript = "{}"
+        measurement.libraryManager = mockLibraryManager
         
-        waitForExpectations(timeout: 2)
+        let script = measurement.fetchOMSDKScript()
+        XCTAssertNotNil(script)
     }
     
     func testInjectJSLib() {
+        let testScript = "test JS"
         let measurement = PBMOpenMeasurementWrapper()
-        measurement.jsLib = "test JS";
+        
+        let mockLibraryManager = MockPrebidJSLibraryManager()
+        mockLibraryManager.omsdkScript = testScript
+        measurement.libraryManager = mockLibraryManager
         
         let html = "<html><\\html>"
         
@@ -72,7 +65,7 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
             return
         }
         
-        XCTAssertNotNil(htmlWithMeasurementJS.range(of: measurement.jsLib!))
+        XCTAssertNotNil(htmlWithMeasurementJS.range(of: testScript))
     }
     
     func testInitWebViewSession() {
@@ -92,10 +85,14 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     func testInitNativeVideoSession() {
         let measurement = PBMOpenMeasurementWrapper()
         
+        let mockLibraryManager = MockPrebidJSLibraryManager()
+        mockLibraryManager.omsdkScript = "{}"
+        measurement.libraryManager = mockLibraryManager
+        
         // No js lib - fail
         XCTAssertNil(measurement.initializeNativeVideoSession(UIView(), verificationParameters:nil))
         
-        measurement.jsLib = ""
+        mockLibraryManager.omsdkScript = ""
         
         // Empty resources - fail
         XCTAssertNil(measurement.initializeNativeVideoSession(UIView(), verificationParameters:nil))
@@ -119,14 +116,16 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
         // Resources fine but js is empty - fail
         XCTAssertNil(measurement.initializeNativeVideoSession(UIView(), verificationParameters:verificationParams))
         
-        measurement.jsLib = "{}"
+        mockLibraryManager.omsdkScript = "{}"
         XCTAssertNotNil(measurement.initializeNativeVideoSession(UIView(), verificationParameters:verificationParams))
     }
     
     func testInitNativeVideoSessionHappyPath() {
         let measurement = PBMOpenMeasurementWrapper()
         
-        measurement.jsLib = "{}"
+        let mockLibraryManager = MockPrebidJSLibraryManager()
+        mockLibraryManager.omsdkScript = "{}"
+        measurement.libraryManager = mockLibraryManager
         
         let verificationParams = PBMVideoVerificationParameters()
         let resource = PBMVideoVerificationResource()
@@ -143,7 +142,9 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     func testInitNativeVideoSessionWithoutCredentials() {
         let measurement = PBMOpenMeasurementWrapperErrorMock()
         
-        measurement.jsLib = "{}"
+        let mockLibraryManager = MockPrebidJSLibraryManager()
+        mockLibraryManager.omsdkScript = "{}"
+        measurement.libraryManager = mockLibraryManager
         
         let verificationParams = PBMVideoVerificationParameters()
         let resource = PBMVideoVerificationResource()
@@ -160,7 +161,9 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     func testInitEventTrackerForSessions() {
         let measurement = PBMOpenMeasurementWrapper()
         
-        measurement.jsLib = "{}"
+        let mockLibraryManager = MockPrebidJSLibraryManager()
+        mockLibraryManager.omsdkScript = "{}"
+        measurement.libraryManager = mockLibraryManager
         
         let verificationParams = PBMVideoVerificationParameters()
         let resource = PBMVideoVerificationResource()

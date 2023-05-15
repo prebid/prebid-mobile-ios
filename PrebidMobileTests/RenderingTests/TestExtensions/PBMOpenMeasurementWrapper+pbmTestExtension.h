@@ -17,6 +17,8 @@
 
 @interface PBMOpenMeasurementWrapper ()
 
-@property (nonatomic, copy, nullable) NSString *jsLib;
+@property (nonatomic, strong, nullable) PrebidJSLibraryManager *libraryManager;
+
+-(nullable NSString*)fetchOMSDKScript;
 
 @end

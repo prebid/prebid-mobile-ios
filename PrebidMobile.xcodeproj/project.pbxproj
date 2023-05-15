@@ -69,6 +69,7 @@
 		5335762129C45A300097242D /* VAST_with_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5335762029C45A300097242D /* VAST_with_companion.xml */; };
 		533E0FB7290FFEB9000CC24F /* PBMORTBAppExt.h in Headers */ = {isa = PBXBuildFile; fileRef = 799109FC28F99C7D004837B4 /* PBMORTBAppExt.h */; };
 		533E0FB929100076000CC24F /* MockGADMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FB829100076000CC24F /* MockGADMobileAds.swift */; };
+		533FDF852A12030C0066ED5A /* MockPrebidJSLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */; };
 		5355ACA929C454070014F16E /* VAST_with_empty_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */; };
 		5355ACAB29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */; };
 		536A427F282D11DA0069E9B2 /* PrebidServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* PrebidServerConnection.swift */; };
@@ -901,6 +902,7 @@
 		53322AA7282E29910049229D /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		5335762029C45A300097242D /* VAST_with_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_companion.xml; sourceTree = "<group>"; };
 		533E0FB829100076000CC24F /* MockGADMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGADMobileAds.swift; sourceTree = "<group>"; };
+		533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPrebidJSLibraryManager.swift; sourceTree = "<group>"; };
 		5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_empty_companion.xml; sourceTree = "<group>"; };
 		5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModelCollectionMakerVASTTests.swift; sourceTree = "<group>"; };
 		536A427E282D11DA0069E9B2 /* PrebidServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerConnection.swift; sourceTree = "<group>"; };
@@ -1713,6 +1715,7 @@
 				922AFC8727352B0100732C53 /* MockUserAgentService.swift */,
 				922AFC8C27352BE900732C53 /* MockViewController.swift */,
 				539D4C7129B5E23600B6B30E /* MockPBMAbstractCreative.swift */,
+				533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -3787,6 +3790,7 @@
 				922AFCCB27353B9A00732C53 /* MockServerRule.m in Sources */,
 				925D5D872737BAB300A8A2B5 /* PBMOpenMeasurementWrapperTest.swift in Sources */,
 				925D5E782737F60100A8A2B5 /* VastEventTrackingTest.swift in Sources */,
+				533FDF852A12030C0066ED5A /* MockPrebidJSLibraryManager.swift in Sources */,
 				922AFD452737298200732C53 /* PBMHTMLCreativeTest_MRAIDPlayVideo.swift in Sources */,
 				47D9AD2385D2A68745D1AD77 /* MockLocationManager.swift in Sources */,
 				925D5E4D2737F1DA00A8A2B5 /* DateFormatServiceTest.swift in Sources */,
