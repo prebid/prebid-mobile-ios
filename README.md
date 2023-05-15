@@ -2,7 +2,7 @@
 
 # Prebid Mobile iOS SDK
 
-To work with Prebid Mobile, you will need accesss to a Prebid Server. See [this page](http://prebid.org/prebid-mobile/prebid-mobile-pbs.html) for options.
+To work with Prebid Mobile, you will need accesss to a Prebid Server. See [this page](https://docs.prebid.org/prebid-server/overview/prebid-server-overview.html) for options.
 
 ## Use Cocoapods?
 
