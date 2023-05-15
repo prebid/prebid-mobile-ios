@@ -261,7 +261,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
             XCTFail("Unexpected request for \(urlRequest)")
         }
         
-        PrebidJSLibraryManager.shared.clearData()
+        PrebidJSLibraryManager.shared.downloadLibraries()
         
         let serverConnection = PrebidServerConnection()
         serverConnection.protocolClasses.append(MockServerURLProtocol.self)

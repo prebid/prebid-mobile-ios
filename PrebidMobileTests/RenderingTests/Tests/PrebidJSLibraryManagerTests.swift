@@ -20,7 +20,11 @@ class PrebidJSLibraryManagerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
+        PrebidJSLibraryManager.shared.downloadLibraries()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
         PrebidJSLibraryManager.shared.clearData()
     }
     

@@ -67,7 +67,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationCommandExecuted = nil
         logToFile = nil
         
-        PrebidJSLibraryManager.shared.clearData()
+        PrebidJSLibraryManager.shared.downloadLibraries()
         super.tearDown()
     }
     
