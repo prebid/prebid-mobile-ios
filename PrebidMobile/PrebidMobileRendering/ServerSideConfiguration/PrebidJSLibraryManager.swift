@@ -55,24 +55,16 @@ public class PrebidJSLibraryManager: NSObject {
     }
     
     public func getMRAIDLibrary() -> String? {
-        let contents = fetchLibrary(mraidLibrary)
-        mraidLibrary.contentsString = contents
-        return contents
+        fetchLibrary(mraidLibrary)
     }
     
     public func getOMSDKLibrary() -> String? {
-        let contents = fetchLibrary(omsdkLibrary)
-        omsdkLibrary.contentsString = contents
-        return contents
+        fetchLibrary(omsdkLibrary)
     }
     
     func fetchLibrary(_ jsLibrary: PrebidJSLibrary) -> String? {
-        // check if library was already fetched
-        if let jsLibraryContentsString = jsLibrary.contentsString {
-            return jsLibraryContentsString
-        }
         // search for cached library
-        else if let cachedLibraryContents = getLibraryFromDisk(with: jsLibrary.name) {
+        if let cachedLibraryContents = getLibraryFromDisk(with: jsLibrary.name) {
             return cachedLibraryContents
         }
         // no stored libraries - try download

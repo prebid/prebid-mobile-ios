@@ -19,8 +19,6 @@ import Foundation
 public class PrebidJSLibrary: NSObject {
     
     public var downloadURLString: String?
-    public var contentsString: String?
-    
     public var name: String
     
     public init(name: String, downloadURLString: String? = nil) {
