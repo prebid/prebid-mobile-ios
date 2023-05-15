@@ -269,45 +269,6 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                             versionString:[PBMFunctions omidVersion]];
 }
 
-- (void)downloadJSLibWithConnection:(id<PrebidServerConnectionProtocol>)connection completion:(nullable PBMVoidBlock)completion {
-    if (!connection) {
-        PBMLogError(@"Connection is nil");
-        if (completion) {
-            completion();
-        }
-        
-        return;
-    }
-    
-    @weakify(self);
-    [connection download:self.jsLibURL callback:^(PrebidServerResponse * _Nonnull response) {
-        @strongify(self);
-        if (!self) {
-            PBMLogError(@"PBMOpenMeasurementWrapper is nil");
-            return;
-        }
-        
-        // Delayed call to not process all error cases.
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (completion) {
-                completion();
-            }
-        });
-        
-        if (!response) {
-            PBMLogError(@"Unable to load Open Measurement js library.");
-            return;
-        }
-        
-        if (response.error) {
-            PBMLogError(@"Unable to load Open Measurement js library with error: %@", [response.error localizedDescription]);
-            return;
-        }
-        
-        self.jsLib = [[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding];
-    }];
-}
-
 - (void)loadLocalJSLib {
     NSString *omScript = [[PrebidJSLibraryManager shared] getOMSDKLibrary];
     if (!omScript) {
