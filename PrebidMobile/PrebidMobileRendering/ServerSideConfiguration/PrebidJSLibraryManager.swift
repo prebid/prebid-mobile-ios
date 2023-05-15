@@ -43,14 +43,14 @@ public class PrebidJSLibraryManager: NSObject {
     }
     
     public func downloadLibraries() {
-        // mraid.js
-        if checkIfCached(mraidLibrary.name) == false {
-            downloadJSLibrary(with: connection, remoteLibrary: mraidLibrary)
-        }
-        
-        // omsdk.js
-        if checkIfCached(omsdkLibrary.name) == false {
-            downloadJSLibrary(with: connection, remoteLibrary: omsdkLibrary)
+        for library in [mraidLibrary, omsdkLibrary] {
+            if checkIfCached(library.name) == false {
+                downloadJSLibrary(
+                    libraryName: library.name,
+                    downloadURLString: library.downloadURLString,
+                    with: connection
+                )
+            }
         }
     }
     
@@ -84,11 +84,12 @@ public class PrebidJSLibraryManager: NSObject {
     }
     
     func downloadJSLibrary(
+        libraryName: String,
+        downloadURLString: String?,
         with connection: PrebidServerConnectionProtocol,
-        remoteLibrary: PrebidJSLibrary,
         completion: PrebidJSLibraryContentsCallback? = nil
     ) {
-        guard let urlString = remoteLibrary.downloadURLString, !urlString.isEmpty else {
+        guard let urlString = downloadURLString, !urlString.isEmpty else {
             completion?(nil)
             Log.error("Could not load remote library - download URL is empty")
             return
@@ -110,7 +111,7 @@ public class PrebidJSLibraryManager: NSObject {
                 }
                 
                 // saving library into disk memory
-                self?.saveLibrary(with: remoteLibrary.name, contents: contentsString)
+                self?.saveLibrary(with: libraryName, contents: contentsString)
             }
         }
     }
