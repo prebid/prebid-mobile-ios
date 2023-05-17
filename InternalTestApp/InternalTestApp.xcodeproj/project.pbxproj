@@ -1154,6 +1154,7 @@
 					};
 					93FED9C21A376EFE009A6E9F = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = L9295BF929;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -2083,7 +2084,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L9295BF929;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2098,7 +2099,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp.pi;
 				PRODUCT_NAME = InternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2116,7 +2117,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L9295BF929;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2131,7 +2132,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp.pi;
 				PRODUCT_NAME = InternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
