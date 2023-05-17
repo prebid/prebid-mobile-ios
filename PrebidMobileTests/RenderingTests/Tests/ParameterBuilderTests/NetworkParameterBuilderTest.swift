@@ -30,12 +30,19 @@ class NetworkParameterBuilderTest : XCTestCase {
         
         networkParameterBuilder.build(bidRequest)
         
-        let actualMccmnc = bidRequest.device.mccmnc
-        let expectedMccmnc = "\(MockCTCarrier.mockMobileCountryCode)-\(MockCTCarrier.mockMobileNetworkCode)"
-        PBMAssertEq(actualMccmnc, expectedMccmnc)
+        PBMAssertEq(bidRequest.device.connectiontype, NSNumber(integerLiteral: mockReachability.currentReachabilityStatus.rawValue))
         
-        let expectedCarrierName = MockCTCarrier.mockCarrierName
-        let actualCarrierName = bidRequest.device.carrier
-        PBMAssertEq(actualCarrierName, expectedCarrierName)
+        if #available(iOS 16.0, *) {
+            // do nothing - CTCarrier is deprecated
+        } else {
+            //
+            let actualMccmnc = bidRequest.device.mccmnc
+            let expectedMccmnc = "\(MockCTCarrier.mockMobileCountryCode)-\(MockCTCarrier.mockMobileNetworkCode)"
+            PBMAssertEq(actualMccmnc, expectedMccmnc)
+            
+            let expectedCarrierName = MockCTCarrier.mockCarrierName
+            let actualCarrierName = bidRequest.device.carrier
+            PBMAssertEq(actualCarrierName, expectedCarrierName)
+        }
     }
 }
