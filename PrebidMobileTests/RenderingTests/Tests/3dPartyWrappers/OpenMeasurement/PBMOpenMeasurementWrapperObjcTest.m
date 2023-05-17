@@ -28,7 +28,6 @@
 
 - (void)testInjectNilHTML {
     PBMOpenMeasurementWrapper *measurement = [PBMOpenMeasurementWrapper new];
-    measurement.jsLib = @"test JS";
     
     NSString *html = nil;
     

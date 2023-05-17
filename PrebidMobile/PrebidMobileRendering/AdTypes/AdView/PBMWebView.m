@@ -23,7 +23,6 @@
 #import "PBMError.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialDisplayProperties.h"
-#import "PBMJSLibraryManager.h"
 #import "PBMLocationManager.h"
 #import "PBMMRAIDController.h"
 #import "PBMMRAIDJavascriptCommands.h"
@@ -75,6 +74,8 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 // the last frame sent to an ad via onSizeChange
 @property (nonatomic, assign) CGRect mraidLastSentFrame;
 
+@property (nonatomic, strong, nullable) PrebidJSLibraryManager *libraryManager;
+
 // Need to avoid warnings
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
@@ -108,6 +109,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     WKUserContentController * const wkUserContentController = [[WKUserContentController alloc] init];
     self.wkUserContentController = wkUserContentController;
     _targeting = targeting;
+    _libraryManager = PrebidJSLibraryManager.shared;
     _lastTapTimestamp = NSDate.distantPast;
     _viewable = NO;
     _isMRAID = NO;
@@ -461,8 +463,7 @@ static PBMError *extracted(NSString *errorMessage) {
 #pragma mark - MRAID Injection
 
 - (BOOL)injectMRAIDForExpandContent:(BOOL)isForExpandContent error:(NSError **)error {
-    [PBMJSLibraryManager sharedManager].bundle = self.bundle;
-    NSString *mraidScript = [[PBMJSLibraryManager sharedManager] getMRAIDLibrary];
+    NSString *mraidScript = [self.libraryManager getMRAIDLibrary];
     if (!mraidScript) {
         [PBMError createError:error message:@"Could not load mraid.js from library manager" type:PBMErrorTypeInternalError];
         return false;

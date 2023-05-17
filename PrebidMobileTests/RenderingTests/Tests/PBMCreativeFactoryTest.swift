@@ -19,6 +19,11 @@ import XCTest
 
 class PBMCreativeFactoryTest: XCTestCase {
     
+    override func setUp() {
+        super.setUp()
+        PrebidJSLibraryManager.shared.downloadLibraries()
+    }
+    
     func testNoCreativeModelsFactoryFail() {
         let expectation = self.expectation(description: "Expected creative factory failure callback")
         

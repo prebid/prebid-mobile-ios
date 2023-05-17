@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2023 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,18 +13,17 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface PBMJSLibrary : NSObject<NSCoding>
-
-@property (strong, nonatomic, nullable) NSURL *downloadURL;
-@property (strong, nonatomic, nonnull) NSString *version;
-@property (strong, nonatomic, nullable) NSString *contentsString;
-
-- (instancetype)initWithDict:(NSDictionary *)dict;
-
-@end
-
-NS_ASSUME_NONNULL_END
+@objcMembers
+public class PrebidJSLibrary: NSObject {
+    
+    public var downloadURLString: String?
+    public var name: String
+    
+    public init(name: String, downloadURLString: String? = nil) {
+        self.name = name
+        self.downloadURLString = downloadURLString
+        super.init()
+    }
+}

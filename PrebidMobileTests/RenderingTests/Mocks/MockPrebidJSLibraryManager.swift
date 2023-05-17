@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2023 Prebid.org, Inc.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,12 +13,20 @@
   limitations under the License.
   */
 
-#import "PBMOpenMeasurementWrapper.h"
+import Foundation
 
-@interface PBMOpenMeasurementWrapper ()
+@testable import PrebidMobile
 
-@property (nonatomic, strong, nullable) PrebidJSLibraryManager *libraryManager;
-
--(nullable NSString*)fetchOMSDKScript;
-
-@end
+class MockPrebidJSLibraryManager: PrebidJSLibraryManager {
+    
+    var omsdkScript: String?
+    var mraidScript: String?
+    
+    override func getMRAIDLibrary() -> String? {
+        return omsdkScript
+    }
+    
+    override func getOMSDKLibrary() -> String? {
+        return omsdkScript
+    }
+}

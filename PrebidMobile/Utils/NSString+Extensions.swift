@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2023 Prebid.org, Inc.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,20 +13,11 @@
   limitations under the License.
   */
 
-#import "PBMJSLibraryManager.h"
-#import "PBMJSLibrary.h"
+import UIKit
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface PBMJSLibraryManager()
-
-@property (strong, nonatomic) NSCache<NSString *, PBMJSLibrary *> *cachedLibraries;
-
-- (void)clearData;
-- (NSString *)getLibraryContentsFromBundleWithName:(NSString *)name;
-- (void)saveLibraryWithName:(NSString *)fileName jsLibrary:(PBMJSLibrary *)jsLibrary;
-- (PBMJSLibrary *)getLibrayFromDiskWithFileName:(NSString *)fileName;
-
-@end
-
-NS_ASSUME_NONNULL_END
+public extension NSString {
+    @objc var base64DecodedImage: UIImage? {
+        guard let data = Data(base64Encoded: self as String) else { return nil }
+        return UIImage(data: data)
+    }
+}

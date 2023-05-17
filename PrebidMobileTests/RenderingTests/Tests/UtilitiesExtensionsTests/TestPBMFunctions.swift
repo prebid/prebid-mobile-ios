@@ -222,29 +222,6 @@ class TestPBMFunctions: XCTestCase {
         XCTAssert(auid == "1610810552")
     }
 
-    // iOS info
-    func testBundleForSDK() {
-
-        let sdkBundle = PBMFunctions.bundleForSDK()
-    
-        let path = sdkBundle.bundlePath
-        
-        do {
-            
-            let fileArray = try FileManager.default.contentsOfDirectory(atPath: path)
-            
-            for file in fileArray {
-                Log.info("file = \(file)")
-            }
-
-            //We expect that if this is the SDK Bundle, it will contain a few files
-            XCTAssert(fileArray.contains("mraid.js"))
-        } catch {
-            XCTFail("error = \(error)")
-        }
-        
-    }
-
     func testInfoPlistValue() {
         
         //Basic tests
