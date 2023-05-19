@@ -74,6 +74,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
         // PBS should cache the bid for original api.
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
     }
+    
+    deinit {
+        dispatcher?.invalidate()
+    }
 
     //TODO: dynamic is used by tests
     dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
