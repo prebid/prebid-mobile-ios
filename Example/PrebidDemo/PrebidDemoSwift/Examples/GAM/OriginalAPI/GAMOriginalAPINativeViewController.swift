@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let storedPrebidImpression = "imp-prebid-banner-native-styles"
+fileprivate let storedPrebidImpression = "prebid-demo-banner-native-styles"
 fileprivate let gamRenderingNativeAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
 
 class GAMOriginalAPINativeViewController:

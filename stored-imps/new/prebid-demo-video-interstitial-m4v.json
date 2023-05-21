@@ -1,0 +1,22 @@
+{
+    "ext": {
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "response-prebid-video-interstitial-m4v"
+            }
+        }
+    },
+    "instl": 1,
+    "video": {
+        "h": 667,
+        "w": 375,
+        "mimes": [
+            "video/mp4"
+        ],
+        "linearity": 1,
+        "placement": 5,
+        "playbackmethod": [
+            2
+        ]
+    }
+}

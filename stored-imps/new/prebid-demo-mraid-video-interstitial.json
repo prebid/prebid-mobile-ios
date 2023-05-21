@@ -1,0 +1,22 @@
+{
+	"ext": {
+		"prebid": {
+     			 "storedauctionresponse": {
+        			"id": "response-prebid-mraid-video-interstitial"
+      			 }
+    		}
+	},
+	"instl": 1,
+	"video": {
+		"h": 480,
+		"w": 320,
+		"mimes": [
+			"video/mp4"
+		],
+		"linearity": 1,
+		"placement": 5,
+		"playbackmethod": [
+			2
+		]
+	}
+}

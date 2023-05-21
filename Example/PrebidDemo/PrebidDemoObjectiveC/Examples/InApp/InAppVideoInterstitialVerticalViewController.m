@@ -16,7 +16,7 @@
 #import "InAppVideoInterstitialVerticalViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoInterstitialVerticalInApp = @"imp-prebid-video-interstitial-vertical";
+NSString * const storedImpVideoInterstitialVerticalInApp = @"prebid-demo-video-interstitial-vertical";
 
 @interface InAppVideoInterstitialVerticalViewController ()
 

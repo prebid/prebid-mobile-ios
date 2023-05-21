@@ -18,7 +18,7 @@ import PrebidMobile
 import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
-fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream"
+fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream"
 fileprivate let adMobAdUnitDisplayBannerRendering = "ca-app-pub-5922967660082475/9483570409"
 
 class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDelegate {

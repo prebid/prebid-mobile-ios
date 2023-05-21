@@ -1,0 +1,21 @@
+{
+    "ext": {
+        "openx": {
+            "unit": "420000003",
+            "delDomain": "mobile-d.openx.net"
+        },
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "response-prebid-banner-newtab"
+            }
+        }
+    },
+    "banner": {
+        "format": [
+            {
+                "h": 50,
+                "w": 320
+            }
+        ]
+    }
+}

@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream"
+fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream"
 
 class InAppVideoBannerViewController: BannerBaseViewController, BannerViewDelegate {
     

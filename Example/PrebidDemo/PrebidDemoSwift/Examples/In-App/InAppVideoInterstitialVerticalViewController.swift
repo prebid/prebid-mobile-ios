@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedImpVideoInterstitialVertical = "imp-prebid-video-interstitial-vertical"
+fileprivate let storedImpVideoInterstitialVertical = "prebid-demo-video-interstitial-vertical"
 
 class InAppVideoInterstitialVerticalViewController: UIViewController {
 

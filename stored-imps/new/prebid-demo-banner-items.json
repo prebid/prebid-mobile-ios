@@ -1,0 +1,17 @@
+{
+    "ext": {
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "response-prebid-banner-items"
+            }
+        }
+    },
+    "banner": {
+        "format": [
+            {
+                "h": 50,
+                "w": 320
+            }
+        ]
+    }
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "bid": [
+      {
+        "id": "response-prebid-banner-320-50-original",
+        "impid": "4BF23A0B-0ED2-477A-BCDC-498794246D76",
+        "price": "0.10",
+        "adm": "TEST CREATIVE",
+        "crid": "420000003",
+        "w": 320,
+        "h": 50
+      }
+    ],
+    "seat": "openx"
+  }
+]

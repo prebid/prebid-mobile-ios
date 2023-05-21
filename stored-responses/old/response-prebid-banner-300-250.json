@@ -1,0 +1,46 @@
+[
+  {
+    "bid": [
+      {
+        "id": "response-prebid-banner-300-250",
+        "impid": "4D319445-BA03-4671-8B5D-175D1DA45ED8",
+        "price": 0.15,
+        "adm": "<div id='beacon_16652' style='position:absolute;left:0px;top:0px;visibility:hidden;'><img src='https://prebid-server-test-j.prebid.org/win/prebid?p=FIRST&t=2DAABBgABAAECAAIBAAsAAgAAAJocGApHZzFvb2Z2b25wHBauofqawNDe0wwWpbqfoZOmoJXwAQAcFtSQgurrmNH8exah_q7-nd3g8YABABaSgO72CxUGACwcFQIAHBUCAAAcJryh8YMEFQ4VBCa4ofGDBBaggJyABNasAgAcJp7DoIAEFoSi8YMEFoyi8YMEFoqi8YMEFRQcFPQDFNgEABUEFQoWrAImrAJFCgAAAA&ph=a51065ab-17ee-4394-b5a7-32debc04780a'/></div><script src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\"></script>\n<a href=\"https://www.openx.com/\"><img width=\"300\" height=\"250\" src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/banner/Pbs_banner_300x250.png\"></img></a>",
+        "crid": "540944518",
+        "w": 300,
+        "h": 250,
+        "ext": {
+          "prebid": {
+            "cache": {
+              "key": "",
+              "url": "",
+              "bids": {
+                "url": "prebid.openx.net/cache?uuid=39b403cc-8ddc-41a5-ba07-49becb57970a",
+                "cacheId": "39b403cc-8ddc-41a5-ba07-49becb57970a"
+              }
+            },
+            "targeting": {
+              "hb_bidder": "openx",
+              "hb_bidder_openx": "openx",
+              "hb_cache_host": "prebid.openx.net",
+              "hb_cache_host_openx": "prebid.openx.net",
+              "hb_cache_id": "39b403cc-8ddc-41a5-ba07-49becb57970a",
+              "hb_cache_id_openx": "39b403cc-8ddc-41a5-ba07-49becb57970a",
+              "hb_cache_path": "/cache",
+              "hb_cache_path_openx": "/cache",
+              "hb_env": "mobile-app",
+              "hb_env_openx": "mobile-app",
+              "hb_pb": "0.10",
+              "hb_pb_openx": "0.10",
+              "hb_size": "300x250",
+              "hb_size_openx": "300x250",
+              "hb_format": "banner"
+            },
+            "type": "banner"
+          }
+        }
+      }
+    ],
+    "seat": "openx"
+  }
+]

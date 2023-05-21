@@ -1,0 +1,45 @@
+[{
+		"bid": [{
+			"id": "response-prebid-display-interstitial-multisize",
+			"impid": "5BAB23B6-4C17-4A21-B535-5BF73B48EAE1",
+			"price": 0.15,
+			"adm": "<div id='beacon_50619' 
+style='position:absolute;left:0px;top:0px;visibility:hidden;'></div><a href=\"https://www.openx.com/\"><img 
+src='https://prebid-mobile-ad-assets.s3.amazonaws.com/interstitial/Pbs_intestitial_320x480.png' width='320' height='480' 
+border='0' alt=''></img></a>",
+			"crid": "541036263",
+			"w": 320,
+			"h": 480,
+			"ext": {
+				"prebid": {
+					"cache": {
+						"key": "",
+						"url": "",
+						"bids": {
+							"url": 
+"prebid.openx.net/cache?uuid=225d8a76-a355-4bf9-b7fe-e8cea2cbb1d7",
+							"cacheId": "225d8a76-a355-4bf9-b7fe-e8cea2cbb1d7"
+						}
+					},
+					"targeting": {
+						"hb_bidder": "openx",
+						"hb_bidder_openx": "openx",
+						"hb_cache_host": "prebid.openx.net",
+						"hb_cache_host_openx": "prebid.openx.net",
+						"hb_cache_id": "225d8a76-a355-4bf9-b7fe-e8cea2cbb1d7",
+						"hb_cache_id_openx": "225d8a76-a355-4bf9-b7fe-e8cea2cbb1d7",
+						"hb_cache_path": "/cache",
+						"hb_cache_path_openx": "/cache",
+						"hb_env": "mobile-app",
+						"hb_env_openx": "mobile-app",
+						"hb_pb": "0.10",
+						"hb_pb_openx": "0.10",
+						"hb_size": "320x480",
+						"hb_size_openx": "320x480"
+					},
+					"type": "banner"
+				}
+			}
+		}],
+		"seat": "openx"
+	}]

@@ -16,7 +16,7 @@
 #import "AdMobNativeViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const nativeStoredImpressionAdMob = @"imp-prebid-banner-native-styles";
+NSString * const nativeStoredImpressionAdMob = @"prebid-demo-banner-native-styles";
 NSString * const admobRenderingNativeAdUnitId = @"ca-app-pub-5922967660082475/8634069303";
 
 @interface AdMobNativeViewController ()

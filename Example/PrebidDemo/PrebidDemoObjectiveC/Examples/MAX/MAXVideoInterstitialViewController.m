@@ -16,7 +16,7 @@
 #import "MAXVideoInterstitialViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoInterstitialMAX = @"imp-prebid-video-interstitial-320-480";
+NSString * const storedImpVideoInterstitialMAX = @"prebid-demo-video-interstitial-320-480";
 NSString * const maxAdUnitVideoInterstitial = @"48e8d410f74dfc7b";
 
 @interface MAXVideoInterstitialViewController ()

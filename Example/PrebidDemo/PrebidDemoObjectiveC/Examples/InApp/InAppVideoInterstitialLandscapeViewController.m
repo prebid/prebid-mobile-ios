@@ -16,7 +16,7 @@
 #import "InAppVideoInterstitialLandscapeViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoInterstitialLandscapeInApp = @"imp-prebid-video-interstitial-landscape-with-end-card";
+NSString * const storedImpVideoInterstitialLandscapeInApp = @"prebid-demo-video-interstitial-landscape-with-end-card";
 
 @interface InAppVideoInterstitialLandscapeViewController ()
 

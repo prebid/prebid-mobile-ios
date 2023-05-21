@@ -18,7 +18,7 @@ import PrebidMobile
 import PrebidMobileMAXAdapters
 import AppLovinSDK
 
-fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
+fileprivate let storedImpDisplayInterstitial = "prebid-demo-display-interstitial-320-480"
 fileprivate let maxAdUnitDisplayInterstitial = "98e49039f26d7f00"
 
 class MAXDisplayInterstitialViewController: InterstitialBaseViewController, MAAdDelegate {

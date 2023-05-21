@@ -1,0 +1,171 @@
+[{
+		"bid": [{
+			"id": "response-prebid-mraid-expand-1-part",
+			"price": 0.15,
+			"adm": "<html>\n\t<head>\n        <script 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\"></script>\n\t\t<meta 
+http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\" />\n        <script 
+src=\"mraid.js\"></script>\n\t\t<script>\n\t\t\tfunction $(element)\n\t\t\t{\n\t\t\t\telement = 
+document.getElementById(element);\n\t\t\t\treturn element;\n\t\t\t}\n\t\t\t\n\t\t\tvar head = 
+document.getElementsByTagName(\"head\")[0];\n\t\t\tvar scr = 
+document.createElement(\"script\");\n\t\t\tscr.setAttribute('src', 'mraid.js');\n\t\t\tscr.setAttribute('type', 
+'text/javascript');\n\t\t\thead.appendChild(scr);\n\t\t\twindow._aron_init = 
+0;\n\t\t\twindow._aron_state='none';\n\t\t\t\n\t\t\t// Viewport setup\n\t\t\tvar meta = 
+document.querySelector(\"meta[name=viewport]\");\n\t\t\tif (!meta)\n\t\t\t{\n\t\t\t  meta = 
+document.createElement(\"meta\");\n\t\t\t  meta.name = \"viewport\";\n\t\t\t  meta.content = 
+\"width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1\";\n\t\t\t  
+head.appendChild(meta);\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t  meta.content = 
+\"width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1\";\n\t\t\t}\n\n\t\t\tfunction 
+logmessage(message)\n\t\t\t{ //Dual logging. It will show in the console and in the 
+ad.\n\t\t\t\tconsole.log(message);\n\t\t\t\tvar logdiv = 
+$('logdiv');\n\t\t\t\tif(logdiv)\n\t\t\t\t{\n\t\t\t\t\tlogdiv.insertBefore(document.createElement(\"br\"),logdiv.firstChild);\n\t\t\t\t\tlogdiv.insertBefore(document.createTextNode(new 
+Date().getTime()+\": \"+message),logdiv.firstChild);\n\t\t\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction 
+readycheck()\n\t\t\t{\n\t\t\t\tlogmessage('window.onload() triggered.');\n\t\t\t\tif(mraid.getState() == 'loading') 
+\n\t\t\t\t{\n\t\t\t\t\tmraid.addEventListener(\"ready\", statechange);  
+\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t{\n\t\t\t\t\tstatechange();\n\t\t\t\t}\n\t\t\t\tif(!mraid.isViewable())\n\t\t\t\t{\n\t\t\t\t  
+logmessage('Adview is not visible'); //Don't die from this error, just a 
+notice\n\t\t\t\t}\n\t\t\t\tmraid.addEventListener('error', mraiderror);\n\t\t\t\tmraid.addEventListener('stateChange', 
+statechange);\n\t\t\t\tmraid.addEventListener('sizeChange', sizechange);\n\t\t\t\tmraid.removeEventListener('stateChange', 
+statechange);\n\t\t\t\tmraid.addEventListener('stateChange', statechange); //Just to check that removing and adding the same 
+event listener works.\n\t\t\t}\n\n\t\t\tfunction initad()\n\t\t\t{\n\t\t\t\t//Inject a style\n\t\t\t\tlogmessage('initad() 
+triggered.');\n\t\t\t\tvar gcp = mraid.getCurrentPosition();\n\t\t\t\tvar head = 
+document.getElementsByTagName(\"head\")[0];\n\t\t\t\tvar style = 
+document.createElement('style');\n\t\t\t\tstyle.setAttribute('type', 
+'text/css')\n\t\t\t\tstyle.appendChild(document.createTextNode('div#aroniabtestad{text-align:center; width:100%; 
+height:100%; background:#000; color:#f00; font-size:12px; line-height:14px; position:relative; font-family:arial;} 
+div#aroniabtestad *{z-index:1;} span.btn{background:#000; font-size:24px; outline:2px outset #f00; line-height:50px;} 
+span#expandbtn{background:#fff; line-height:40px;} div#posdiv{position:absolute; background:#fff; outline:2px solid #f00; 
+font-size:20px; line-height:25px; z-index:0;} div#waterdiv{position:absolute; text-align:center; left:0; right:0; top:50%; 
+color:#333; font-size:8px;} div#logdiv{position:absolute; text-align:center; left:25px; right:25px; bottom:110px; 
+color:#222; height:50px; border:1px solid #f00; background:#fff; font-size:8px; overflow:scroll;} @media 
+(min-height:400px){div#logdiv{height:100px;}}'));\n\t\t\t\thead.appendChild(style);\n\t\t\t\tvar parentdiv = 
+$('aroniabtestad');\n\t\t\t\tvar maindiv = document.createElement(\"div\"); //This is where buttons go\n\t\t\t\tmaindiv.id = 
+'maindiv';\n\t\t\t\tparentdiv.appendChild(maindiv);\n\t\t\t\tvar sizediv = document.createElement(\"div\"); // This is pure 
+information\n\t\t\t\tsizediv.id = 'sizediv';\n\t\t\t\tparentdiv.appendChild(sizediv);\n\t\t\t\tvar posdiv = 
+document.createElement(\"div\"); //This is to show how sizing is working, visually\n\t\t\t\tposdiv.id = 
+'posdiv';\n\t\t\t\tparentdiv.appendChild(posdiv);\n\t\t\t\tposdiv.style.width = (gcp.width-30) + 
+'px';\n\t\t\t\tposdiv.style.height = (gcp.height-30) + 'px';\n\t\t\t\tposdiv.style.left = '15px';\n\t\t\t\tposdiv.style.top 
+= '15px';\n\t\t\t\tvar posdiv = $('posdiv');\n\t\t\t\tvar waterdiv = document.createElement(\"div\"); //This is to show how 
+sizing is working, visually\n\t\t\t\twaterdiv.id = 'waterdiv';\n\t\t\t\twaterdiv.appendChild(document.createTextNode(\"IAB 
+MRAID2 Expandable Compliance Ad.\"));\n\t\t\t\tparentdiv.appendChild(waterdiv);\n\t\t\t\tvar logdiv = 
+document.createElement(\"div\"); //A generic div for showing logmessage inline...\n\t\t\t\tlogdiv.id = 
+'logdiv';\n\t\t\t\tparentdiv.appendChild(logdiv);\n\t\t\t\twindow._aron_init = 1;\n\t\t\t}\n\n\t\t\tfunction 
+statechange()\n\t\t\t{\n\t\t\t\tif (window._aron_init == 
+0)\n\t\t\t\t{\n\t\t\t\t\tinitad();\n\t\t\t\t}\n\t\t\t\tupdateprops(\"State 
+Change\");\n\t\t\t\tif(mraid.getState()!=window._aron_state)\n\t\t\t\t{\n\t\t\t\t  
+window._aron_state=mraid.getState();\n\t\t\t\t  stepchange();\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction 
+stepchange()\n\t\t\t{\n\t\t\t\tvar gcp = mraid.getCurrentPosition();\n\t\t\t\tvar posdiv = $('posdiv');\n\t\t\t\tvar maindiv 
+= $('maindiv');\n\t\t\t\twhile 
+(maindiv.firstChild)\n\t\t\t\t{\n\t\t\t\t\tmaindiv.removeChild(maindiv.firstChild);\n\t\t\t\t}\n\t\t\t\twindow._aron_step = 
+0;\n\t\t\t\tswitch (mraid.getState())\n\t\t\t\t{\n\t\t\t\tcase 'default':\n\t\t\t\t\twhile 
+(posdiv.firstChild)\n\t\t\t\t\t{\n\t\t\t\t\t\tposdiv.removeChild(posdiv.firstChild);\n\t\t\t\t\t}\n\t\t\t\t\tvar expandbtn = 
+document.createElement(\"span\");\n\t\t\t\t\texpandbtn.setAttribute('onclick', 
+'expand()');\n\t\t\t\t\texpandbtn.setAttribute('type', 'submit');\n\t\t\t\t\texpandbtn.id = 
+'expandbtn';\n\t\t\t\t\texpandbtn.className = 
+'btn';\n\t\t\t\t\texpandbtn.appendChild(document.createTextNode('Expand!'));\n\t\t\t\t\texpandbtn.style.position = 
+'absolute';\n\t\t\t\t\texpandbtn.style.width = '120px';\n\t\t\t\t\texpandbtn.style.height = 
+'40px';\n\t\t\t\t\texpandbtn.style.left = ((gcp.width / 2) - 60) + 'px';\n\t\t\t\t\texpandbtn.style.top = ((gcp.height / 2) 
+- 20) + 'px';\n\t\t\t\t\texpandbtn.style.lineHeight = 
+'40px';\n\t\t\t\t\tmaindiv.appendChild(expandbtn);\n\t\t\t\t\t$('waterdiv').style.display='none';\n\t\t\t\t\t$('logdiv').style.display='none';\n\t\t\t\t\tposdiv.style.display='none';\n\t\t\t\t\tbreak;\n\t\t\t\tcase 
+'expanded':\n\t\t\t\t\tvar forceland = document.createElement(\"span\");\n\t\t\t\t\tforceland.setAttribute('onclick', 
+'forceland()');\n\t\t\t\t\tforceland.id = 
+'forceland';\n\t\t\t\t\tforceland.className='btn';\n\t\t\t\t\tforceland.style.position = 
+'absolute';\n\t\t\t\t\tforceland.style.width = '240px';\n\t\t\t\t\tforceland.style.height = 
+'50px';\n\t\t\t\t\tforceland.style.left = ((gcp.width / 2) - 120) + 'px';\n\t\t\t\t\tforceland.style.top = ((gcp.height) - 
+75)+ 'px';\n\t\t\t\t\tif(gcp.width>gcp.height)\n\t\t\t\t\t{\n\t\t\t\t\t  
+forceland.appendChild(document.createTextNode('Rotate to Portrait'));\n\t\t\t\t\t  forceland.setAttribute('onclick', 
+'false');\n\t\t\t\t\t\tforceland.style.background='#fff';\n\t\t\t\t\t}\n\t\t\t\t\telse\n\t\t\t\t\t{\n\t\t\t\t\t  
+forceland.appendChild(document.createTextNode('Lock to Landscape'));\n\t\t\t\t\t  forceland.setAttribute('onclick', 
+'forceland()');\n\t\t\t\t\t\tforceland.style.background='#000';\n\t\t\t\t\t}\n\t\t\t\t\tmaindiv.appendChild(forceland);\n\t\t\t\t\tvar 
+closediv = document.createElement(\"div\");\n\t\t\t\t\tclosediv.setAttribute('style', 'position:absolute; top:0; right:0; 
+width:50px; height:50px; background:#fff; font-size:50px; line-height:50px; 
+text-align:center;');\n\t\t\t\t\tclosediv.setAttribute('id', 
+'closediv');\n\t\t\t\t\tclosediv.appendChild(document.createTextNode('X'));\n\t\t\t\t\tmaindiv.appendChild(closediv);\n\t\t\t\t\tvar 
+posdivtxt = 
+document.createElement(\"div\");\n\t\t\t\t\tposdivtxt.style.paddingTop='30px';\n\t\t\t\t\tposdivtxt.appendChild(document.createTextNode('IAB 
+MRAID2 Expandable Compliance 
+Ad.'));\n\t\t\t\t\tposdivtxt.appendChild(document.createElement('br'));\n\t\t\t\t\tposdivtxt.appendChild(document.createTextNode('Top 
+and bottom must be equal 
+margin.'));\n\t\t\t\t\tposdivtxt.appendChild(document.createElement('br'));\n\t\t\t\t\tposdivtxt.appendChild(document.createTextNode('Left 
+and right must be equal 
+margin.'));\n\t\t\t\t\tposdiv.appendChild(posdivtxt);\n\t\t\t\t\tposdiv.style.display='block';\n\t\t\t\t\t$('waterdiv').style.display='block';\n\t\t\t\t\t$('logdiv').style.display='block';\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction 
+orientationchange()\n\t\t\t{\n\t\t\t\tupdateprops(\"Orientation Change\");\n\t\t\t}\n\n\t\t\tfunction 
+mraiderror(message,action)\n\t\t\t{\n\t\t\t\tupdateprops(\"MRAID Error: '\"+message+\"' From: 
+\"+action);\n\t\t\t}\n\n\t\t\tfunction updateprops(event)\n\t\t\t{\n\t\t\t\tvar gcp = 
+mraid.getCurrentPosition();\n\t\t\t\tvar gss = mraid.getScreenSize();\n\t\t\t\tvar expp = 
+mraid.getExpandProperties();\n\t\t\t\tvar orient = 'Undefined!';\n\t\t\t\tswitch 
+(window.orientation)\n\t\t\t\t{\n\t\t\t\tcase 0:\n\t\t\t\tcase 180:\n\t\t\t\t\torient = 
+'Portrait';\n\t\t\t\t\tbreak;\n\t\t\t\tcase 90:\n\t\t\t\tcase -90:\n\t\t\t\t\torient = 
+'Landscape';\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t\tlogmessage(\"[Cur: x: \" + gcp.x + \", y: \" + gcp.y + \", width: \" + 
+gcp.width + \", height: \" + gcp.height+\"] [\"+\n\t\t\t\t  \"Window: x: \" + window.innerWidth + \", y: \" + 
+window.innerHeight+\"] [\"+\n\t\t\t\t  \"Scr: width: \" + gss.width + \", height: \" + gss.height+\"] [\"+\n\t\t\t\t  
+\"expProps: width: \" + expp.width + \", height: \" + expp.height +\"] [\"+\n\t\t\t\t  \"Current orientation: \" + 
+orient+\"] [\"+\n\t\t\t\t  \"Last Event: \" + event+\"]\"\n\t\t\t\t);\n\t\t\t}\n\n\t\t\tfunction 
+expand()\n\t\t\t{\n\t\t\t\tmraid.setOrientationProperties(\n\t\t\t\t{\n\t\t\t\t\t\"allowOrientationChange\": 
+true\n\t\t\t\t});\n\t\t\t\tmraid.expand();\n\t\t\t}\n\n\t\t\tfunction forceland()\n\t\t\t{\n\t\t\t\twindow._aron_step = 
+1;\n\t\t\t\tmraid.setOrientationProperties(\n\t\t\t\t{\n\t\t\t\t\t\"allowOrientationChange\": 
+false,\n\t\t\t\t\t\"forceOrientation\": \"landscape\"\n\t\t\t\t});\n\t\t\t}\n\n\t\t\tfunction 
+forceport()\n\t\t\t{\n\t\t\t\twindow._aron_step = 
+2;\n\t\t\t\tmraid.setOrientationProperties(\n\t\t\t\t{\n\t\t\t\t\t\"forceOrientation\": \"portrait\"\n\t\t\t\t}); //Allow 
+should still be false\n\t\t\t}\n\n\t\t\tfunction unlock()\n\t\t\t{\n\t\t\t\twindow._aron_step = 
+3;\n\t\t\t\tmraid.setOrientationProperties(\n\t\t\t\t{\n\t\t\t\t\t\"forceOrientation\": 
+\"none\",\n\t\t\t\t\t\"allowOrientationChange\": 
+true\n\t\t\t\t});\n\t\t\t\t$('unlock').parentNode.removeChild($('unlock'));\n\t\t\t\tvar maindiv = 
+$('maindiv');\n\t\t\t\tvar span = document.createElement(\"span\");\n\t\t\t\tspan.id = 
+'informspan';\n\t\t\t\tspan.appendChild(document.createTextNode(\"Close ad by hitting the top 
+right.\"));\n\t\t\t\tspan.setAttribute('style', 'position:absolute; top:20px; width:100%; left:0; 
+right:0;');\n\t\t\t\tmaindiv.appendChild(span);\n\t\t\t}\n\n\t\t\tfunction sizechange(width, 
+height)\n\t\t\t{\n\t\t\t\tupdateprops(\"Size 
+Change\");\n\t\t\t\tif(mraid.getState()!=window._aron_state)\n\t\t\t\t{\n\t\t\t\t  
+window._aron_state=mraid.getState();\n\t\t\t\t  stepchange();\n\t\t\t\t}\n\t\t\t\tvar gcp = 
+mraid.getCurrentPosition();\n\t\t\t\tvar posdiv = $('posdiv');\n\t\t\t\tposdiv.style.width = (gcp.width-30) + 
+'px';\n\t\t\t\tposdiv.style.height = (gcp.height-30) + 'px';\n\t\t\t\tposdiv.style.left = '15px';\n\t\t\t\tposdiv.style.top 
+= '15px';\n\t\t\t\tswitch (window._aron_step)\n\t\t\t\t{\n\t\t\t\t  case 
+0:\n\t\t\t\t\tif(mraid.getState()=='expanded')\n\t\t\t\t\t{\n\t\t\t\t\t\t\tvar forceland=$('forceland');\n\t\t\t\t\t  
+forceland.style.left = ((gcp.width / 2) - 120) + 'px';\n\t\t\t\t\t  forceland.style.top = ((gcp.height) - 75)+ 
+'px';\n\t\t\t\t\t  forceland.removeChild(forceland.firstChild);\n\t\t\t\t\t  if(gcp.width>gcp.height)\n\t\t\t\t\t  
+{\n\t\t\t\t\tforceland.appendChild(document.createTextNode('Rotate To 
+Portrait'));\n\t\t\t\t\tforceland.setAttribute('onclick', 
+'false');\n\t\t\t\t\tforceland.style.background='#fff';\n\t\t\t\t\t  }\n\t\t\t\t\t  else\n\t\t\t\t\t  
+{\n\t\t\t\t\tforceland.appendChild(document.createTextNode('Lock to 
+Landscape'));\n\t\t\t\t\tforceland.setAttribute('onclick', 
+'forceland()');\n\t\t\t\t\tforceland.style.background='#000';\n\t\t\t\t\t  }\n\t\t\t\t\t}\n\t\t\t\t\tbreak;\n\t\t\t\tcase 
+1:\n\t\t\t\t\t//Add button to landscape\n\t\t\t\t\t$('forceland').parentNode.removeChild($('forceland'));\n\t\t\t\t\tvar 
+forceport = document.createElement(\"span\");\n\t\t\t\t\tforceport.setAttribute('onclick', 
+'forceport()');\n\t\t\t\t\tforceport.id = 'forceport';\n\t\t\t\t\tforceport.appendChild(document.createTextNode('Lock to 
+Portrait'));\n\t\t\t\t\tforceport.style.position = 'absolute';\n\t\t\t\t\tforceport.style.width = 
+'240px';\n\t\t\t\t\tforceport.style.height = '50px';\n\t\t\t\t\tforceport.style.left = ((gcp.width / 2) - 120) + 
+'px';\n\t\t\t\t\tforceport.style.top = ((gcp.height) - 75)+ 
+'px';\n\t\t\t\t\tforceport.className='btn';\n\t\t\t\t\tmaindiv.appendChild(forceport);\n\t\t\t\t\tbreak;\n\t\t\t\tcase 
+2:\n\t\t\t\t\t//Add button to portrait\n\t\t\t\t\t$('forceport').parentNode.removeChild($('forceport'));\n\t\t\t\t\tvar 
+unlock = document.createElement(\"span\");\n\t\t\t\t\tunlock.setAttribute('onclick', 'unlock()');\n\t\t\t\t\tunlock.id = 
+'unlock';\n\t\t\t\t\tunlock.appendChild(document.createTextNode('Release Lock'));\n\t\t\t\t\tunlock.style.position = 
+'absolute';\n\t\t\t\t\tunlock.style.width = '240px';\n\t\t\t\t\tunlock.style.height = '50px';\n\t\t\t\t\tunlock.style.left = 
+((gcp.width / 2) - 120) + 'px';\n\t\t\t\t\tunlock.style.top = ((gcp.height) - 75)+ 
+'px';\n\t\t\t\t\tunlock.className='btn';\n\t\t\t\t\tmaindiv.appendChild(unlock);\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t\tif(mraid.getState()=='default')\n\t\t\t\t{\n\t\t\t\t  
+var forceland=$('expandbtn');\n\t\t\t\t\texpandbtn.style.left = ((gcp.width / 2) - 60) + 
+'px';\n\t\t\t\t\texpandbtn.style.top = ((gcp.height / 2) - 20) + 
+'px';\n\t\t\t\t}\n\t\t\t}\n\t\t\n\t\t\twindow.addEventListener('orientationchange', orientationchange, 
+false);\n\t\t\n\t\t\tif(document.readyState==\"complete\")\n\t\t\t{\n\t\t\t\treadycheck();\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\twindow.addEventListener('load', 
+readycheck, false); //DOM and MRAID check\n\t\t\t}\n\t\t\n\t\t\n\t\t</script>\n\t\t<meta name=\"viewport\" 
+content=\"width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1\" />\n\t</head>\n\t<body><div 
+id=\"aroniabtestad\"></div></body>\n</html><script type=\"text/javascript\" 
+src=\"https://q.adrta.com/s/opx/aa.js?cb=30441#opx;paid=opx;avid=537137359;caid=97f6893d-f4e1-405b-bcd3-70bda98e901b;publisherId=537100304;plid=541201801;siteId=540944476;kv1=320x50;kv2=;kv4=194.79.22.0;kv5=1601035486;kv11=;kv7=a51065ab-17ee-4394-b5a7-32debc04780a;kv14=2;kv16=46.635;kv17=32.617;kv12=541201797;kv18=com.OpenX.OpenXInternalTestApplication;kv19=;kv23=;kv24=Mobile_InApp\"></script>\n<script 
+type=\"text/javascript\">\n(function(){\n  var supportMraid = window.mraid;\n  var isMraid = false;\n  
+document.querySelectorAll('script').forEach(function(item) {\n    if (item.src.match('mraid.js')) isMraid = true;\n  });  \n  
+if (supportMraid && isMraid) {\n    mraid.isViewable() ? track() : mraid.addEventListener('viewableChange', function() {\n      
+mraid.isViewable() && track();\n    });\n  } else if (!isMraid) track();\n\n  function track() {\n    var pixel = new 
+Image();\n    pixel.src = 
+'https://prebid-server-test-j.prebid.org/win/prebid?p=FIRST&t=2DAABBgABAAECAAIBAAsAAgAAAJocGApzS3RJMnlBTWppHBaWnPqe-ZP6zlIW5cnjiLKaq6OxAQAcFsn-9bHBsLuJ0AEWyb-L58rQx6yGAQAWvPPu9gsVBgAsHBUCABwVAgAAHCaK1pCEBBUOFQQmuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaS1pCEBBaM1pCEBBUUHBRkFIAFABUEFQgWrAImrAJFCAAAAA&ph=a51065ab-17ee-4394-b5a7-32debc04780a';\n    
+track = function(){};\n  }\n})();\n</script>\n",
+			"crid": "541201801",
+			"w": 320,
+			"h": 50,
+			"ext": {
+				"prebid": {
+					"type": "banner"
+				}
+			}
+		}],
+		"seat": "prebid"
+	}]

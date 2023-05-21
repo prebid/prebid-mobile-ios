@@ -16,7 +16,7 @@
 #import "AdMobVideoRewardedViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoRewardedAdMob = @"imp-prebid-video-rewarded-320-480";
+NSString * const storedImpVideoRewardedAdMob = @"prebid-demo-video-rewarded-320-480";
 NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/7397370641";
 
 @interface AdMobVideoRewardedViewController ()

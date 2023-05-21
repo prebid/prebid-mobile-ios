@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
+fileprivate let storedImpDisplayInterstitial = "prebid-demo-display-interstitial-320-480"
 
 class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUnitDelegate {
     

@@ -1,0 +1,13 @@
+{
+    "ext": {
+        "openx": {
+            "unit": "500000008",
+            "delDomain": "mobile-d.openx.net"
+        },
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "response-prebid-native-links"
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "bid": [
+      {
+        "id": "response-prebid-banner-320-50-original",
+        "price": "0.10",
+        "adm": "TEST CREATIVE",
+        "crid": "420000003",
+        "w": 320,
+        "h": 50
+      }
+    ],
+    "seat": "prebid"
+  }
+]

@@ -16,7 +16,7 @@
 #import "InAppVideoBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoBannerInApp = @"imp-prebid-video-outstream";
+NSString * const storedImpVideoBannerInApp = @"prebid-demo-video-outstream";
 
 @interface InAppVideoBannerViewController ()
 

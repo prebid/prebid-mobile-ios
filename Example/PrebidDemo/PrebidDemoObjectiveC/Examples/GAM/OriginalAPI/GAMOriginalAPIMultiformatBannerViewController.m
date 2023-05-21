@@ -19,7 +19,7 @@
 @import PrebidMobile;
 @import GoogleMobileAds;
 
-NSArray<NSString *> * const storedImpsBanner = @[@"imp-prebid-banner-300-250", @"imp-prebid-video-outstream-original-api"];
+NSArray<NSString *> * const storedImpsBanner = @[@"prebid-demo-banner-300-250", @"prebid-demo-video-outstream-original-api"];
 NSString * const gamAdUnitMultiformatBannerOriginal = @"/21808260008/prebid-demo-original-banner-multiformat";
 
 @interface GAMOriginalAPIMultiformatBannerViewController ()

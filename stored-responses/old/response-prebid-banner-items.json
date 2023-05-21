@@ -1,0 +1,63 @@
+[{
+        "bid": [{
+            "id": "response-prebid-banner-item-newtab",
+            "impid": "ACDBCF2E-31E6-4B44-AE5F-FD1691D1195D",
+            "price": 0.11854000000365104,
+            "adm": "<style>body{background-color:grey;font-size:10px;} 
+p{display:block;float:left;margin:0px;}a{display:block;float:left;margin:5px;}</style><p>On device all links should launch 
+iTunes or App Store apps. On Sim, links should do nothing and print an error message to the console.</p><a 
+href=\"itms://itunes.apple.com/us/app/apple-store/id1062038485?mt=8\">itms</a><a 
+href=\"itmss://itunes.apple.com/us/app/apple-store/id1062038485?mt=8\">itmss</a><a 
+href=\"itms-apps://itunes.apple.com/us/app/apple-store/id1062038485?mt=8\">itms-apps</a><a 
+href=\"itms-appss://itunes.apple.com/us/app/apple-store/id1062038485?mt=8\">itms-appss</a>",
+            "adid": "test-ad-id-12345",
+            "adomain": ["openx.com"],
+            "crid": "test-creative-id-1",
+            "w": 320,
+            "h": 50,
+            "ext": {
+                "prebid": {
+                    "cache": {
+                        "key": "",
+                        "url": "",
+                        "bids": {
+                            "url": "prebid.devint.openx.net/cache?uuid=fde76fc9-0fd8-48e8-b3c8-8e50cfcf16cd",
+                            "cacheId": "fde76fc9-0fd8-48e8-b3c8-8e50cfcf16cd"
+                        }
+                    },
+                    "targeting": {
+                        "hb_bidder": "openx",
+                        "hb_bidder_openx": "openx",
+                        "hb_cache_host": "prebid.devint.openx.net",
+                        "hb_cache_host_openx": "prebid.devint.openx.net",
+                        "hb_cache_id": "fde76fc9-0fd8-48e8-b3c8-8e50cfcf16cd",
+                        "hb_cache_id_openx": "fde76fc9-0fd8-48e8-b3c8-8e50cfcf16cd",
+                        "hb_cache_path": "/cache",
+                        "hb_cache_path_openx": "/cache",
+                        "hb_env": "mobile-app",
+                        "hb_env_openx": "mobile-app",
+                        "hb_pb": "0.10",
+                        "hb_pb_openx": "0.10",
+                        "hb_size": "375x667",
+                        "hb_size_openx": "375x667",
+                        "hb_uuid": "2c908d64-ca50-44e0-a791-a002901bf14a",
+                        "hb_uuid_openx": "2c908d64-ca50-44e0-a791-a002901bf14a"
+                    },
+                    "type": "video"
+                },
+                "bidder": {
+                    "ad_ox_cats": [2],
+                    "agency_id": "agency_10",
+                    "brand_id": "brand_10",
+                    "buyer_id": "buyer_10",
+                    "matching_ad_id": {
+                        "campaign_id": 1,
+                        "creative_id": 3,
+                        "placement_id": 2
+                    },
+                    "next_highest_bid_price": 0.099
+                }
+            }
+        }],
+        "seat": "openx"
+    }]

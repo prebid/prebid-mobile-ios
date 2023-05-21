@@ -18,7 +18,7 @@ import PrebidMobile
 import PrebidMobileMAXAdapters
 import AppLovinSDK
 
-fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480"
+fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480"
 fileprivate let maxAdUnitRewardedId = "f7a08e702c6bec54"
 
 class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewardedAdDelegate {

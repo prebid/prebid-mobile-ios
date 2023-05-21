@@ -1,0 +1,46 @@
+[{
+		"bid": [{
+			"id": "response-prebid-banner-728-90",
+			"impid": "0E227CE6-C3D3-4427-A33B-00672401FB03",
+			"price": 0.15,
+			"adm": "<div id='beacon_12204' style='position:absolute;left:0px;top:0px;visibility:hidden;'><img 
+src='https://prebid-server-test-j.prebid.org/win/prebid?p=FIRST&t=2DAABBgABAAECAAIBAAsAAgAAAJocGApHZzFvb2Z2b25wHBauofqawNDe0wwWpbqfoZOmoJXwAQAcFtSQgurrmNH8exah_q7-nd3g8YABABaSgO72CxUGACwcFQIAHBUCAAAcJryh8YMEFQ4VBCa4ofGDBBaggJyABNasAgAcJp7DoIAEFoSi8YMEFoyi8YMEFoqi8YMEFRQcFPQDFNgEABUEFQoWrAImrAJFCgAAAA&ph=a51065ab-17ee-4394-b5a7-32debc04780a'/></div><script 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\"></script>\n<a 
+href=\"https://www.openx.com/\"><img width=\"728\" height=\"90\" 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/banner/Pbs_banner_728x90.png\"></img></a>",
+			"crid": "541029128",
+			"w": 728,
+			"h": 90,
+			"ext": {
+				"prebid": {
+					"cache": {
+						"key": "",
+						"url": "",
+						"bids": {
+							"url": 
+"prebid.openx.net/cache?uuid=ac3886f1-1d29-46e8-8f15-ab0ab2db6592",
+							"cacheId": "ac3886f1-1d29-46e8-8f15-ab0ab2db6592"
+						}
+					},
+					"targeting": {
+						"hb_bidder": "openx",
+						"hb_bidder_openx": "openx",
+						"hb_cache_host": "prebid.openx.net",
+						"hb_cache_host_openx": "prebid.openx.net",
+						"hb_cache_id": "ac3886f1-1d29-46e8-8f15-ab0ab2db6592",
+						"hb_cache_id_openx": "ac3886f1-1d29-46e8-8f15-ab0ab2db6592",
+						"hb_cache_path": "/cache",
+						"hb_cache_path_openx": "/cache",
+						"hb_env": "mobile-app",
+						"hb_env_openx": "mobile-app",
+						"hb_pb": "0.10",
+						"hb_pb_openx": "0.10",
+						"hb_size": "728x90",
+						"hb_size_openx": "728x90"
+					},
+					"type": "banner"
+				}
+			}
+		}],
+		"seat": "openx"
+	}]

@@ -16,7 +16,7 @@
 #import "AdMobVideoBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoBannerAdMob = @"imp-prebid-video-outstream";
+NSString * const storedImpVideoBannerAdMob = @"prebid-demo-video-outstream";
 NSString * const adMobAdUnitVideoBannerRendering = @"ca-app-pub-5922967660082475/9483570409";
 
 @interface AdMobVideoBannerViewController ()

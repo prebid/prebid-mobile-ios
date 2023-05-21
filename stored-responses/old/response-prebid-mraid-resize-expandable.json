@@ -1,0 +1,200 @@
+[{
+		"bid": [{
+			"id": "response-prebid-mraid-resize-expandable",
+			"impid": "0485132B-4FF9-48C0-8D1B-EF8207988459",
+			"price": 0.15,
+			"adm": "<script src=\"mraid.js\" type=\"text/javascript\"></script>\n<div id=\"adContainer\" 
+style=\"width:320px;margin:0px;padding:0px;background-color:#ffffff;\">\n    <div id=\"normal\" 
+style=\"display:none;width:318px;height:48px;margin:auto;position:relative;top:0px;left:0px;background-color:#ffffff;border-style:solid;border-width:1px;border-color:rgb(238,50,36);\">\n        
+<img width=\"97\" height=\"48\" style=\"position:absolute;top:0px;left:0px;\" 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/mraid/iab-logo.gif\" />\n        <div 
+style=\"position:absolute;top:0px;left:97px;background-color:#acebd3\" onclick=\"javascript:resize(250);\">\n            
+<div 
+style=\"width:110px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\">Resize</div>\n        
+</div>\n        <div style=\"position:absolute;top:0px;left:198px;background-color:#ccb6e6\" 
+onclick=\"javascript:expand();\">\n            <div 
+style=\"width:100px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\">Expand</div>\n        
+</div>\n    </div>\n\n    <div id=\"resized\" 
+style=\"display:none;width:318px;height:248px;margin:auto;position:relative;top:0px;left:0px;background-color:#ffffff;border-style:solid;border-width:1px;border-color:rgb(238,50,36);\">\n        
+<img width=\"97\" height=\"50\" style=\"position:absolute;top:0px;left:0px;\" 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/mraid/iab-logo.gif\" />\n        <div 
+style=\"position:absolute;top:5px;right:5px;background-color:rgb(238,50,36);\">\n            <div 
+style=\"width:20px;height:20px;display:table-cell;text-align:center;vertical-align:middle;font-family: Arial, Helvetica, 
+sans-serif;\">X</div>\n        </div>\n\n        <div 
+style=\"position:absolute;top:90px;left:56px;background-color:rgb(238,50,36);\">\n            <div 
+style=\"width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;\" 
+onclick=\"javascript:openSite('https://www.openx.com/');\">Open URL</div>\n        </div>\n        <div 
+style=\"position:absolute;top:90px;left:113px;background-color:rgb(238,50,36);\">\n            <div 
+style=\"width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;\" 
+onclick=\"javascript:openSite('https://maps.google.com/maps?q=Interactive+Advertising+Bureau+116+East+27th+Street,+7th+Floor+New+York,+New+York+10016&hl=en&sll=37.556536,-122.31563&sspn=0.315717,0.463142&t=m&hq=Interactive+Advertising+Bureau+116+East+27th+Street,+7th+Floor+New+York,+New+York+10016&z=15')\">Click 
+to Map</div>\n        </div>\n        <div 
+style=\"position:absolute;top:90px;left:170px;background-color:rgb(238,50,36);\">\n            <div 
+style=\"width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;\" 
+onclick=\"javascript:clickToAppStore();\">Click to App</div>\n        </div>\n        <div 
+style=\"position:absolute;top:90px;left:227px;background-color:rgb(238,50,36);\">\n            <div 
+style=\"width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;\" 
+onclick=\"javascript:playVideo('video.mp4');\">Play Video</div>\n        </div>\n\n        <div 
+style=\"position:absolute;top:147px;left:56px;background-color:rgb(238,50,36);\">\n            <div 
+style=\"width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;\" 
+onclick=\"javascript:sendSMS('12123804700');\">SMS</div>\n        </div>\n        <div 
+style=\"position:absolute;top:147px;left:113px;background-color:rgb(238,50,36);\">\n            <div 
+style=\"width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;\" 
+onclick=\"javascript:storePicture('iab-logo.gif')\">Store Picture</div>\n        </div>\n        <div 
+style=\"position:absolute;top:147px;left:170px;background-color:rgb(238,50,36);\">\n            <div 
+style=\"width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;\" 
+onclick=\"javascript:createCalendarEvent()\">Create Calendar Event</div>\n        </div>\n        <div 
+style=\"position:absolute;top:147px;left:227px;background-color:rgb(238,50,36);\">\n            <div 
+style=\"width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;\" 
+onclick=\"javascript:callNumber('12123804700');\">Click to Call</div>\n        </div>\n\n        <div 
+id=\"resized_small\">\n            <div style=\"position:absolute;top:2px;left:105px;\">\n                <div 
+style=\"width:110px;height:26px;display:table-cell;text-align:center;vertical-align:middle;font-family: Arial, Helvetica, 
+sans-serif;\">[Resized/Small]</div>\n            </div>\n            <div 
+style=\"position:absolute;top:189px;left:0px;background-color:#cae68b\">\n                <div 
+style=\"width:105px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:resize(320);\">Resize(320)</div>\n            </div>\n            <div 
+style=\"position:absolute;top:189px;left:105px;background-color:#ccb6e6\">\n                <div 
+style=\"width:110px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:expand();\">Expand</div>\n            </div>\n            <div 
+style=\"position:absolute;top:189px;left:215px;background-color:#edc6c6\">\n                <div 
+style=\"width:105px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:collapse();\">Close</div>\n            </div>\n        </div>\n        \n        <div 
+id=\"resized_large\">\n            <div style=\"position:absolute;top:2px;left:105px;\">\n                <div 
+style=\"width:110px;height:26px;display:table-cell;text-align:center;vertical-align:middle;font-family: Arial, Helvetica, 
+sans-serif;\">[Resized/Large]</div>\n            </div>\n            <div 
+style=\"position:absolute;top:189px;left:0px;background-color:#cae68b\">\n                <div 
+style=\"width:105px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:resize(320);\">Resize(320)</div>\n            </div>\n            <div 
+style=\"position:absolute;top:189px;left:105px;background-color:#ccb6e6\">\n                <div 
+style=\"width:110px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:expand();\">Expand</div>\n            </div>\n            \n            <div 
+style=\"position:absolute;top:275px;left:0px;background-color:#acebd3\">\n                <div 
+style=\"width:105px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:resize(250);\">Resize(250)</div>\n            </div>\n            <img width=\"97\" height=\"50\" 
+style=\"position:absolute;top:270px;left:113px;\" 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/mraid/iab-logo.gif\" />\n            <div 
+style=\"position:absolute;top:275px;left:215px;background-color:#edc6c6\">\n                <div 
+style=\"width:105px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:collapse();\">Close</div>\n            </div>\n        </div>\n        \n        <div 
+id=\"expanded\">\n            <div style=\"position:absolute;top:2px;left:105px;\">\n                <div 
+style=\"width:110px;height:26px;display:table-cell;text-align:center;vertical-align:middle;font-family: Arial, Helvetica, 
+sans-serif;\">[Expanded]</div>\n            </div>\n            <div 
+style=\"position:absolute;top:189px;left:0px;background-color:#acebd3\">\n                <div 
+style=\"width:105px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:resize(250);\">Resize(250)</div>\n            </div>\n            <div 
+style=\"position:absolute;top:189px;left:105px;background-color:#cae68b\">\n                <div 
+style=\"width:110px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:resize(320);\">Resize(320)</div>\n            </div>\n            <div 
+style=\"position:absolute;top:189px;left:215px;background-color:#ccb6e6\">\n                <div 
+style=\"width:105px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:expand();\">Expand</div>\n            </div>\n            \n            <img width=\"97\" height=\"50\" 
+style=\"position:absolute;top:270px;left:0px;\" src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/mraid/iab-logo.gif\" 
+/>\n            <div style=\"position:absolute;top:275px;left:105px;background-color:#edc6c6\">\n                <div 
+style=\"width:215px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;\" 
+onclick=\"javascript:collapse();\">Close</div>\n            </div>\n            \n            <div id=\"logdiv\" 
+style=\"position: absolute; text-align: center; top:325px; left: 0px; right: 0px; height: 160px; color: #222; border: 1px 
+solid #f00; background: #fff; font-size: 12px; overflow: scroll;\"></div>\n            <div id=\"errordiv\" 
+style=\"position: absolute; text-align: center; top:485px; left: 0px; right: 0px; height: 160px; color: #222; border: 1px 
+solid #f00; background: #fff; font-size: 12px; overflow: scroll;\"><div>ERRORS:</div><br></div>\n        </div>\n        \n    
+</div>\n</div>\n\n<style type=\"text/css\">\n    body {\n        background-color: #FFFFFF;\n    }\n\n</style>\n\n<script>\n    
+// Expanded Click Action Functions\n    function openSite(url) {\n        mraid.open(url);\n    }\n\n    function expand() 
+{\n        mraid.setOrientationProperties({\n            \"allowOrientationChange\": true\n        });\n        
+mraid.expand();\n    }\n\n    function sendSMS(number) {\n        if (!mraid.supports(\"sms\")) {\n            
+logMRAIDMessage(\"SMS is not supported on this device.\");\n        } else {\n            mraid.open(\"sms://\" + number);\n        
+}\n    }\n\n    function callNumber(number) {\n        if (!mraid.supports(\"tel\")) {\n            
+logMRAIDMessage(\"Calling is not supported on this device.\");\n        } else {\n            mraid.open(\"tel://\" + 
+number);\n        }\n    }\n\n    function playVideo(url) {\n        mraid.playVideo(url);\n    }\n\n    function 
+storePicture(url) {\n        if (!mraid.supports(\"storePicture\")) {\n            logMRAIDMessage(\"storePicture is not 
+supported on this device.\");\n        } else {\n            mraid.storePicture(url);\n        }\n    }\n\n    function 
+createCalendarEvent() {\n        if (!mraid.supports(\"calendar\")) {\n            logMRAIDMessage(\"Calendar is not 
+supported on this device.\");\n        } else {\n            var calendarObject = {\n                description: \"Mayan 
+Apocalypse/End of World\",\n                location: \"everywhere\",\n                start: \"2013-12-21T00:00-05:00\",\n                
+end: \"2013-12-22T00:00-05:00\"\n            };\n\n            mraid.createCalendarEvent(calendarObject);\n        }\n    
+}\n\n    function clickToAppStore() {\n        if (isIOSDevice()) {\n            
+openSite('https://itunes.apple.com/us/app/iab-interactive-advertising/id795405931?mt=8');\n        } else if 
+(isAndroidDevice()) {\n            
+openSite('https://play.google.com/store/apps/details?id=com.coreapps.android.followme.iabevents');\n        } else {\n            
+logMRAIDMessage(\"There is no app strong link available for this device.\");\n        }\n    }\n\n    //JS utility function 
+to check if device is android/ios\n    function isIOSDevice() {\n        return (detectDeviceType(\"ipod\") || 
+detectDeviceType(\"iphone\") || detectDeviceType(\"ipad\"));\n    }\n\n    function isAndroidDevice() {\n        return 
+detectDeviceType(\"android\");\n    }\n\n    function detectDeviceType(key) {\n        var agent = 
+navigator.userAgent.toLowerCase();\n        var index = agent.indexOf(key);\n        return (index > -1);\n    }\n\n    // 
+Core Ad Functions\n    function collapse() {\n        mraid.close();\n    }\n\n    function mraidIsReady() {\n        
+mraid.removeEventListener(\"ready\", mraidIsReady);\n\n        showMyAd();\n    }\n\n    function showMyAd() {\n        var 
+el = document.getElementById(\"normal\");\n        el.style.display = '';\n\n        mraid.addEventListener(\"stateChange\", 
+updateAd);\n        mraid.addEventListener(\"sizeChange\", sizeChangeHandler);\n        mraid.addEventListener(\"error\", 
+errorHandler);\n    }\n\n    function resize(height) {\n        // Checking default position before doing resize just to see 
+if SDK is reporting correct location\n        var defaultPositionFrame = mraid.getDefaultPosition();\n        var 
+defaultPositionDisplayString = defaultPositionFrame.x + \",\" + defaultPositionFrame.y + \",\" + defaultPositionFrame.width 
++ \",\" + defaultPositionFrame.height;\n        logMRAIDMessage(\"Default position of banner: \" + 
+defaultPositionDisplayString);\n\n        // Resizing with offset 0,0 so should expand down from banner ideally unless there 
+is not enough space.\n        // If so since allowOffscreen is false it should should go down as much as possible and go up 
+for the rest.\n        mraid.setResizeProperties({\n            \"width\": 320,\n            \"height\": height,\n            
+\"offsetX\": 0,\n            \"offsetY\": 0,\n            \"allowOffscreen\": false\n        });\n        mraid.resize();\n    
+}\n\n    function updateAd(state) {\n        if (state == \"resized\") {\n            if(mraid.getResizeProperties().height 
+< 300) {\n                toggleLayer(['normal', 'expanded', 'resized_large'], ['resized', 'resized_small']);\n            } 
+else {\n                toggleLayer(['normal', 'expanded', 'resized_small'], ['resized', 'resized_large']);\n            }\n        
+} else if (state == \"default\") {\n            toggleLayer(['resized', 'resized_small', 'resized_large', 'expanded'], 
+['normal']);\n        } else if (state == \"expanded\") {\n            toggleLayer(['normal', 'resized_small', 
+'resized_large'], ['resized', 'expanded']);\n        } else {\n            toggleLayer(['normal', 'resized', 
+'resized_small', 'resized_large', 'expanded'], []);\n        }\n    }\n\n    function sizeChangeHandler(width, height) {\n        
+// This should get fired whenever the ad is resized\n        logMRAIDMessage(\"sizeChange event fired!: width = \" + width + 
+\", height = \" + height);\n    }\n\n    function errorHandler(message, action) {\n        logMRAIDError(\"message = \" + 
+JSON.stringify(message) + \", action = \" + JSON.stringify(action));\n        logMRAIDMessage(\"error event fired!: message 
+= \" + message + \", action = \" + action);\n\n        if (action == \"createCalendarEvent\") {\n            
+logMRAIDMessage(\"User canceled createCalendEvent action!\");\n        } else if (action == \"storePicture\") {\n            
+logMRAIDMessage(\"User canceled storePicture action!\");\n        }\n    }\n\n    function logMRAIDMessage(message) {\n        
+// Replace this method with whatever logging best works for your test environment\n        console.log(\"MRAID: \" + 
+message);\n        var logdiv = document.getElementById('logdiv');\n        if (logdiv) {\n            
+logdiv.insertBefore(document.createElement(\"br\"), logdiv.firstChild);\n            
+logdiv.insertBefore(document.createTextNode(new Date().toISOString() + \": \" + message), logdiv.firstChild);\n        }\n    
+}\n\n    function logMRAIDError(message) {\n        // Replace this method with whatever logging best works for your test 
+environment\n        console.log(\"MRAID: \" + message);\n        var errordiv = document.getElementById('errordiv');\n        
+if (errordiv) {\n            errordiv.appendChild(document.createTextNode(message));\n            
+errordiv.appendChild(document.createElement(\"br\"));\n        }\n    }\n\n    function toggleLayer(fromLayers, toLayers) 
+{\n        for (const fromLayer of fromLayers) {\n            var fromElem = document.getElementById(fromLayer);\n            
+fromElem.style.display = 'none';\n        }\n\n        for (const toLayer of toLayers) {\n            var toElem = 
+document.getElementById(toLayer);\n            toElem.style.display = '';\n        }\n    }\n\n    
+window.addEventListener(\"orientationchange\", function() {\n        if (mraid.getState() == \"resized\") {\n            
+collapse();\n        }\n    });\n\n    function setupViewport(width) {\n        var element = 
+document.querySelector(\"meta[name=viewport]\");\n        if (!element) {\n            element = 
+document.createElement(\"meta\");\n            element.name = \"viewport\";\n            element.content = \"width=\" + 
+width + \", user-scalable=no\";\n            document.getElementsByTagName('head')[0].appendChild(element);\n        } else 
+{\n            element.content = \"width=\" + width + \", user-scalable=no\";\n        }\n    }\n    setupViewport(320);\n\n    
+function doReadyCheck() {\n        if (mraid.getState() == 'loading') {\n            mraid.addEventListener(\"ready\", 
+mraidIsReady);\n        } else {\n            showMyAd();\n        }\n    }\n\n    doReadyCheck();\n\n</script>\n",
+			"crid": "542287902",
+			"w": 320,
+			"h": 50,
+			"ext": {
+				"prebid": {
+					"cache": {
+						"key": "",
+						"url": "",
+						"bids": {
+							"url": 
+"prebid.openx.net/cache?uuid=0faa9308-16a4-4383-8867-ce444c1942f6",
+							"cacheId": "0faa9308-16a4-4383-8867-ce444c1942f6"
+						}
+					},
+					"targeting": {
+						"hb_bidder": "openx",
+						"hb_bidder_openx": "openx",
+						"hb_cache_host": "prebid.openx.net",
+						"hb_cache_host_openx": "prebid.openx.net",
+						"hb_cache_id": "0faa9308-16a4-4383-8867-ce444c1942f6",
+						"hb_cache_id_openx": "0faa9308-16a4-4383-8867-ce444c1942f6",
+						"hb_cache_path": "/cache",
+						"hb_cache_path_openx": "/cache",
+						"hb_env": "mobile-app",
+						"hb_env_openx": "mobile-app",
+						"hb_pb": "0.10",
+						"hb_pb_openx": "0.10",
+						"hb_size": "320x50",
+						"hb_size_openx": "320x50"
+					},
+					"type": "banner"
+				}
+			}
+		}],
+		"seat": "openx"
+	}]

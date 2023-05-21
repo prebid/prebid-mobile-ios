@@ -1,0 +1,17 @@
+{
+	"ext": {
+		"prebid": {
+      			"storedauctionresponse": {
+        			"id": "response-prebid-banner-multisize"
+      			 }
+    		}
+	},
+	"banner": {
+		"format": [
+			{
+				"h": 90,
+				"w": 728
+			}
+		]
+	}
+}

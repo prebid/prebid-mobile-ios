@@ -16,7 +16,7 @@
 #import "AdMobDisplayBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpDisplayBannerAdMob = @"imp-prebid-banner-320-50";
+NSString * const storedImpDisplayBannerAdMob = @"prebid-demo-banner-320-50";
 NSString * const adMobAdUnitDisplayBannerRendering = @"ca-app-pub-5922967660082475/9483570409";
 
 @interface AdMobDisplayBannerViewController ()

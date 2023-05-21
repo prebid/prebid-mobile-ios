@@ -16,7 +16,7 @@
 #import "InAppDisplayBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpDisplayBannerInApp = @"imp-prebid-banner-320-50";
+NSString * const storedImpDisplayBannerInApp = @"prebid-demo-banner-320-50";
 
 @interface InAppDisplayBannerViewController ()
 

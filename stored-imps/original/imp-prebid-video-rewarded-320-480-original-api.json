@@ -1,0 +1,25 @@
+{
+    "ext": {
+            "openx": {
+                    "unit": "420000005",
+                    "delDomain": "mobile-d.openx.net"
+            },
+        "prebid": {
+          "storedauctionresponse": {
+            "id": "response-prebid-video-rewarded-320-480-original-api"
+          }
+        }
+    },
+    "video": {
+            "h": 480,
+            "w": 320,
+            "mimes": [
+                    "video/mp4"
+            ],
+            "linearity": 1,
+            "placement": 2,
+            "playbackmethod": [
+                    2
+            ]
+    }
+}

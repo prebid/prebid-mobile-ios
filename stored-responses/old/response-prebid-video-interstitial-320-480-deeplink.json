@@ -1,0 +1,61 @@
+[{
+		"bid": [{
+			"id": "response-prebid-video-interstitial-320-480-deeplink",
+			"impid": "8921BBF2-E02B-4A53-A5A4-AE53D8C93704",
+			"price": 0.15,
+			"adm": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><VAST version=\"2.0\"><Ad 
+id=\"1\"><Wrapper><AdSystem>OX</AdSystem><VASTAdTagURI><![CDATA[https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/vasts/vertical_320_480_deeplink_plus_vast_verification.xml]]></VASTAdTagURI><Error><![CDATA[https://prebid-server-test-j.prebid.org/events/v/1.0/rv?t=error_vast2_[ERRORCODE]&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Error><Impression><![CDATA[https://testresource:8082/win/prebid?p=FIRST&t=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA&ph=a51065ab-17ee-4394-b5a7-32debc04780a&vtqe=false]]></Impression><Creatives><Creative><Linear><TrackingEvents><Tracking 
+event=\"creativeView\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=creativeView&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"start\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=start&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"midpoint\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=midpoint&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"firstQuartile\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=firstQuartile&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"thirdQuartile\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=thirdQuartile&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"complete\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=complete&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"mute\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=mute&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"unmute\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=unmute&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"pause\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=pause&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"rewind\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=rewind&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"resume\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=resume&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"fullscreen\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=fullscreen&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"expand\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=expand&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"collapse\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=collapse&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"acceptInvitation\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=acceptInvitation&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking><Tracking 
+event=\"close\"><![CDATA[https://testresource:8082/events/v/1.0/rv?t=close&ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></Tracking></TrackingEvents><VideoClicks><ClickTracking><![CDATA[https://testresource:8082/events/v/1.0/rc?ts=2DAABBgABAAECAAIBAAsAAgAAAJscGApxTjExdjBMZE91HBaWk9LZn_Sq9HoWjaiTwtCk0prAAQAcFsKF2rHBm_eX6gEW57yCxrvB-6PFAQAW7MPr9wsVBgAsHBUCABwVAgAAHCb0oaCFBBUGFQImuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIoqCFBBaGoqCFBBUOHBSADhS8BgAVBBUIFqwCJqwCRQgAAAA]]></ClickTracking></VideoClicks></Linear></Creative></Creatives></Wrapper></Ad></VAST>",
+			"crid": "542378116",
+			"w": 414,
+			"h": 896,
+			"ext": {
+				"prebid": {
+					"cache": {
+						"key": "",
+						"url": "",
+						"bids": {
+							"url": 
+"prebid.openx.net/cache?uuid=07a29fcd-9d8a-4f9e-81f3-f3e12039d0bc",
+							"cacheId": "07a29fcd-9d8a-4f9e-81f3-f3e12039d0bc"
+						}
+					},
+					"targeting": {
+						"hb_bidder": "openx",
+						"hb_bidder_openx": "openx",
+						"hb_cache_host": "prebid.openx.net",
+						"hb_cache_host_openx": "prebid.openx.net",
+						"hb_cache_id": "07a29fcd-9d8a-4f9e-81f3-f3e12039d0bc",
+						"hb_cache_id_openx": "07a29fcd-9d8a-4f9e-81f3-f3e12039d0bc",
+						"hb_cache_path": "/cache",
+						"hb_cache_path_openx": "/cache",
+						"hb_env": "mobile-app",
+						"hb_env_openx": "mobile-app",
+						"hb_pb": "0.10",
+						"hb_pb_openx": "0.10",
+						"hb_size": "414x896",
+						"hb_size_openx": "414x896",
+						"hb_uuid": "2f896117-63f8-4874-a648-25aaa2ab56de",
+						"hb_uuid_openx": "2f896117-63f8-4874-a648-25aaa2ab56de"
+					},
+					"type": "video"
+				}
+			}
+		}],
+		"seat": "openx"
+	}]

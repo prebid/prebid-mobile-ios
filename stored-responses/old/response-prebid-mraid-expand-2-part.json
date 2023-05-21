@@ -1,0 +1,82 @@
+[{
+		"bid": [{
+			"id": "response-prebid-mraid-expand-2-part",
+			"impid": "DB51FB53-18BA-4854-BCA9-C9D76F617D30",
+			"price": 0.15,
+			"adm": "<script src=\"mraid.js\"></script>\n<script 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\"></script>\n<noscript 
+class=\"MOAT-openxdisplay970503469688?moatClientLevel1=openx-test-mobile-advertiser&amp;moatClientLevel2=&amp;moatClientLevel3=&amp;moatClientSlicer1=openx-test-mobile-publisher&amp;moatClientSlicer2=537185865&amp;moatClientSlicer3=538211425&amp;zMoatOX3TRANS=$req_id$&amp;zMoatOX3TRANSTIME=$req_time$&amp;zMoatADID=538077788&amp;zMoatSZ=$ad_size$&amp;zMoatBUID=$bundle_id$&amp;zMoatDEALID=$a_deal_id$\"></noscript>\n<script 
+src=\"https://z.moatads.com/openxdisplay970503469688/moatad.js#moatClientLevel1=openx-test-mobile-advertiser&moatClientLevel2=&moatClientLevel3=&moatClientSlicer1=openx-test-mobile-publisher&moatClientSlicer2=537185865&moatClientSlicer3=538211425&zMoatOX3TRANS=$req_id$&zMoatOX3TRANSTIME=$req_time$&zMoatADID=538077788&zMoatSZ=$ad_size$&zMoatBUID=$bundle_id$&zMoatDEALID=$a_deal_id$\" 
+type=\"text/javascript\"></script>\n<script>\n\nfunction $(element)\n{\n\telement = 
+document.getElementById(element);\n\treturn element;\n}\nwindow._aron_init = 0;\nwindow._aron_state='none';\n\n// Viewport 
+setup\nvar meta = document.querySelector(\"meta[name=viewport]\");\nvar head = 
+document.getElementsByTagName(\"head\")[0];\nif (!meta)\n{\n  meta = document.createElement(\"meta\");\n  meta.name = 
+\"viewport\";\n  meta.content = \"width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1\";\n  
+head.appendChild(meta);\n}\nelse\n{\n  meta.content = 
+\"width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1\";\n}\n\nfunction initad()\n{\n\t//Inject a 
+style\n\tconsole.log('initad() triggered.');\n\tvar head = document.getElementsByTagName(\"head\")[0];\n\tvar style = 
+document.createElement('style');\n\tstyle.setAttribute('type', 'text/css')\n\tstyle.appendChild(document.createTextNode(' 
+body{display:table; height:100%; width:100%;} div#arontwopartwrap{text-align:center; width:100%; background:#000; 
+color:#f00; font-size:12px; font-family:arial;display:block; vertical-align:middle;} a{ line-height:40px; font-size:30px; 
+padding:3px; background:#fff; color:#f00; border:1px solid #f00; display:block; height:40px; width:260px; margin:auto; 
+text-align:center; text-decoration:none;}'));\n\thead.appendChild(style);\n\twindow._aron_init = 1;\n\n}\n\n\n\nfunction 
+readycheck()\n{\n\tconsole.log('window.onload() triggered.');\n\tif(mraid.getState() == 'loading') 
+\n\t{\n\t\tmraid.addEventListener(\"ready\", initad);  
+\n\t}\n\telse\n\t{\n\t\tinitad();\n\t}\n\tif(!mraid.isViewable())\n\t{\n\t  console.log('Adview is not visible'); //Don't 
+die from this error, just a notice\n\t}\n\tmraid.addEventListener('error', 
+mraiderror);\n\tmraid.addEventListener('stateChange', statechange);\n}\n\nfunction statechange()\n{\n\tconsole.log(\"MRAID 
+State Change. State=\" + mraid.getState());\n}\n\nfunction mraiderror(message,action)\n{\n\tconsole.log(\"MRAID Error: 
+'\"+message+\"' From: \" + action);\n}\n\nfunction twopart()\n{\n  mraid.useCustomClose(true); //No SDK close button.\n\tvar 
+expp=mraid.getExpandProperties();//Check that useCustomClose is 
+true.\n\tif(expp.useCustomClose==false)\n\t{\n\t\tconsole.log('ERROR: mraid.getExpandProperties() was not updated from 
+mraid.useCustomClose()!');\n\t}\n\t\tmraid.setOrientationProperties(\n\t{\n\t\t\"forceOrientation\": 
+\"none\",\n\t\t\"allowOrientationChange\": 
+true\n\t});\n\tmraid.setExpandProperties({\"width\":200,\"height\":200,\"isModal\":false});//Setting this should have no 
+effect. useCustomClose should still be 
+true.\n\tmraid.expand(\"https://prebid-mobile-ad-assets.s3.amazonaws.com/mraid/part_2.html\"); //Change URL to test other 
+pages\n}\n\nif(document.readyState==\"complete\")\n{\n\treadycheck();\n}\nelse\n{\n\twindow.addEventListener('load', 
+readycheck, false); //DOM and MRAID check\n}\n\n</script>\n\n<div id=\"arontwopartwrap\">\n\t<a href=\"#\" 
+onclick=\"twopart(); return false;\" id=\"twopart\">Two Part Expand</a>\n</div><script 
+type=\"text/javascript\">\n(function(){\n  var supportMraid = window.mraid;\n  var isMraid = false;\n  
+document.querySelectorAll('script').forEach(function(item) {\n    if (item.src.match('mraid.js')) isMraid = true;\n  });  \n  
+if (supportMraid && isMraid) {\n    mraid.isViewable() ? track() : mraid.addEventListener('viewableChange', function() {\n      
+mraid.isViewable() && track();\n    });\n  } else if (!isMraid) track();\n\n  function track() {\n    var pixel = new 
+Image();\n    pixel.src = 
+'https://prebid-server-test-j.prebid.org/win/prebid?p=FIRST&t=2DAABBgABAAECAAIBAAsAAgAAAJocGApEYVNPS1VvZFpNHBbJ_vWA68j0q3kWscmfvbbUjfmjAQAcFpK4gvzh8ZCq9gEWjfTk3I-wsIflAQAW7t349wsVBgAsHBUCABwVAgAAHCaUnpWFBBUOFQQmuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaqnpWFBBaonpWFBBUUHBRkFIAFABUEFQgWrAImrAJFCAAAAA&ph=a51065ab-17ee-4394-b5a7-32debc04780a';\n    
+track = function(){};\n  }\n})();\n</script>\n",
+			"crid": "542287765",
+			"w": 320,
+			"h": 50,
+			"ext": {
+				"prebid": {
+					"cache": {
+						"key": "",
+						"url": "",
+						"bids": {
+							"url": 
+"prebid.openx.net/cache?uuid=bd374707-0882-40de-a869-663c8b352020",
+							"cacheId": "bd374707-0882-40de-a869-663c8b352020"
+						}
+					},
+					"targeting": {
+						"hb_bidder": "openx",
+						"hb_bidder_openx": "openx",
+						"hb_cache_host": "prebid.openx.net",
+						"hb_cache_host_openx": "prebid.openx.net",
+						"hb_cache_id": "bd374707-0882-40de-a869-663c8b352020",
+						"hb_cache_id_openx": "bd374707-0882-40de-a869-663c8b352020",
+						"hb_cache_path": "/cache",
+						"hb_cache_path_openx": "/cache",
+						"hb_env": "mobile-app",
+						"hb_env_openx": "mobile-app",
+						"hb_pb": "0.10",
+						"hb_pb_openx": "0.10",
+						"hb_size": "320x50",
+						"hb_size_openx": "320x50"
+					},
+					"type": "banner"
+				}
+			}
+		}],
+		"seat": "openx"
+	}]

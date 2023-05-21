@@ -1,0 +1,60 @@
+[{
+		"bid": [{
+			"id": "response-prebid-video-outstream",
+			"impid": "1592E407-667A-429D-AACD-B0EC495A15CA",
+			"price": 0.11701999999468729,
+			"adm": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<VAST version=\"2.0\">\n\t<Ad 
+id=\"1\">\n\t\t<Wrapper>\n\t\t\t<AdSystem>OX</AdSystem>\n\t\t\t<VASTAdTagURI><![CDATA[https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/vasts/vast.xml]]></VASTAdTagURI>\n\t\t\t<Impression></Impression>\n\t\t\t<Creatives>\n\t\t\t\t<Creative>\n\t\t\t\t\t<Linear>\n\t\t\t\t\t\t<TrackingEvents>\n\t\t\t\t\t\t\t<ClickTracking><![CDATA[https://prebid-server-test-j.prebid.org/events/v/1.0/rc?ts=1]]></ClickTracking>\n\t\t\t\t\t\t</TrackingEvents>\n\t\t\t\t\t\t<VideoClicks></VideoClicks>\n\t\t\t\t\t</Linear>\n\t\t\t\t</Creative>\n\t\t\t</Creatives>\n\t\t</Wrapper>\n\t</Ad>\n</VAST>",
+			"adid": "test-ad-id-12345",
+			"adomain": ["openx.com"],
+			"crid": "test-creative-id-1",
+			"w": 300,
+			"h": 250,
+			"ext": {
+				"prebid": {
+					"cache": {
+						"key": "",
+						"url": "",
+						"bids": {
+							"url": 
+"prebid.devint.openx.net/cache?uuid=4dab6210-70cc-4423-8446-ccf9ec889993",
+							"cacheId": "4dab6210-70cc-4423-8446-ccf9ec889993"
+						}
+					},
+					"targeting": {
+						"hb_bidder": "openx",
+						"hb_bidder_openx": "openx",
+						"hb_cache_host": "prebid.devint.openx.net",
+						"hb_cache_host_openx": "prebid.devint.openx.net",
+						"hb_cache_id": "4dab6210-70cc-4423-8446-ccf9ec889993",
+						"hb_cache_id_openx": "4dab6210-70cc-4423-8446-ccf9ec889993",
+						"hb_cache_path": "/cache",
+						"hb_cache_path_openx": "/cache",
+						"hb_env": "mobile-app",
+						"hb_env_openx": "mobile-app",
+						"hb_pb": "0.10",
+						"hb_pb_openx": "0.10",
+						"hb_size": "300x250",
+						"hb_size_openx": "300x250",
+						"hb_uuid": "a536dd9f-6143-4413-bea7-6d211ae4fcea",
+						"hb_uuid_openx": "a536dd9f-6143-4413-bea7-6d211ae4fcea",
+						"hb_format": "video"
+					},
+					"type": "video"
+				},
+				"bidder": {
+					"ad_ox_cats": [2],
+					"agency_id": "agency_10",
+					"brand_id": "brand_10",
+					"buyer_id": "buyer_10",
+					"matching_ad_id": {
+						"campaign_id": 1,
+						"creative_id": 3,
+						"placement_id": 2
+					},
+					"next_highest_bid_price": 0.099
+				}
+			}
+		}],
+		"seat": "openx"
+	}]

@@ -14,7 +14,7 @@
  */
 #import "GAMVideoBannerViewController.h"
 
-NSString * const storedImpVideoGAMRendering = @"imp-prebid-video-outstream";
+NSString * const storedImpVideoGAMRendering = @"prebid-demo-video-outstream";
 NSString * const gamAdUnitVideoRendering = @"/21808260008/prebid_oxb_300x250_banner";
 
 @interface GAMVideoBannerViewController ()

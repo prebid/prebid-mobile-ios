@@ -1,0 +1,133 @@
+[{
+		"bid": [{
+			"id": "response-prebid-mraid-test-properties-3",
+			"price": 0.15,
+			"adm": "<html>\n<head>\n    <script 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\"></script>\n    
+<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/>\n    <script src=\"mraid.js\"></script>\n    
+<script>\n        function $(element) {\n            element = document.getElementById(element);\n            return 
+element;\n        }\n\n        function onAudioVolumeChange(volumePercentage) {\n            $('indicator').innerHTML = 
+volumePercentage + '%';\n            logmessage(\"AudioVolume:\" + volumePercentage);\n        }\n\n        var head = 
+document.getElementsByTagName(\"head\")[0];\n        var scr = document.createElement(\"script\");\n        
+scr.setAttribute('src', 'mraid.js');\n        scr.setAttribute('type', 'text/javascript');\n        head.appendChild(scr);\n        
+window._aron_init = 0;\n        window._aron_state = 'none';\n\n        // Viewport setup\n        var meta = 
+document.querySelector(\"meta[name=viewport]\");\n        if (!meta) {\n            meta = 
+document.createElement(\"meta\");\n            meta.name = \"viewport\";\n            meta.content = 
+\"width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1\";\n            head.appendChild(meta);\n        } 
+else {\n            meta.content = \"width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1\";\n        }\n\n        
+function logmessage(message) { //Dual logging. It will show in the console and in the ad.\n            
+console.log(message);\n            var logdiv = $('logdiv');\n            if (logdiv) {\n                
+logdiv.insertBefore(document.createElement(\"br\"), logdiv.firstChild);\n                
+logdiv.insertBefore(document.createTextNode(new Date().getTime() + \": \" + message), logdiv.firstChild);\n\n            }\n        
+}\n\n        function readycheck() {\n            logmessage('window.onload() triggered.');\n            if 
+(mraid.getState() == 'loading') {\n                mraid.addEventListener(\"ready\", statechange);\n            } else {\n                
+statechange();\n            }\n            if (!mraid.isViewable()) {\n                logmessage('Adview is not visible'); 
+//Don't die from this error, just a notice\n            }\n            mraid.addEventListener('error', mraiderror);\n            
+mraid.addEventListener('stateChange', statechange);\n            mraid.addEventListener('sizeChange', sizechange);\n            
+mraid.removeEventListener('stateChange', statechange);\n            mraid.addEventListener('stateChange', statechange); 
+//Just to check that removing and adding the same event listener works.\n        }\n\n        function initad() {\n            
+//Inject a style\n            logmessage('initad() triggered.');\n            var gcp = mraid.getCurrentPosition();\n            
+var head = document.getElementsByTagName(\"head\")[0];\n            var style = document.createElement('style');\n            
+style.setAttribute('type', 'text/css')\n            style.appendChild(document.createTextNode('div#boxDiv { background:#fff; 
+color:#000; font-size:9px; position: absolute; top: 70px; left: 25px; right: 25px; bottom: 25px; overflow: scroll; height: 
+370px; text-align: left;} div#aroniabtestad{text-align:center; width:100%; height:100%; background:#000; color:#f00; 
+font-size:12px; line-height:14px; position:relative; font-family:arial;} div#aroniabtestad *{z-index:1;} 
+span.btn{background:#000; font-size:24px; outline:2px outset #f00; line-height:50px;} span#expandbtn{background:#fff; 
+line-height:40px;} div#posdiv{position:absolute; background:#fff; outline:2px solid #f00; font-size:20px; line-height:25px; 
+z-index:0;} div#waterdiv{position:absolute; text-align:center; left:0; right:0; top:65%; color:#333; font-size:14px;} 
+div#logdiv{position:absolute; text-align:center; left:25px; right:25px; bottom:25px; color:#222; height:50px; border:1px 
+solid #f00; background:#fff; font-size:12px; overflow:scroll;} @media (min-height:400px){div#logdiv{height:100px;}}'));\n            
+head.appendChild(style);\n            var parentdiv = $('aroniabtestad');\n            var maindiv = 
+document.createElement(\"div\"); //This is where buttons go\n            maindiv.id = 'maindiv';\n            
+parentdiv.appendChild(maindiv);\n            var sizediv = document.createElement(\"div\"); // This is pure information\n            
+sizediv.id = 'sizediv';\n            parentdiv.appendChild(sizediv);\n            var posdiv = 
+document.createElement(\"div\"); //This is to show how sizing is working, visually\n            posdiv.id = 'posdiv';\n            
+parentdiv.appendChild(posdiv);\n            posdiv.style.width = (gcp.width - 30) + 'px';\n            posdiv.style.height = 
+(gcp.height - 30) + 'px';\n            posdiv.style.left = '15px';\n            posdiv.style.top = '15px';\n            var 
+posdiv = $('posdiv');\n            var waterdiv = document.createElement(\"div\"); //This is to show how sizing is working, 
+visually\n            waterdiv.id = 'waterdiv';\n            waterdiv.appendChild(document.createTextNode(\"IAB MRAID3_1 
+audioVolumeChange example.\"));\n            var sound = document.createElement('audio');\n            sound.controls = 
+'controls';\n            sound.src = 'https://xvadim.github.io/test_sound.mp3';\n            sound.type = 'audio/mpeg';\n            
+waterdiv.appendChild(sound);\n\n            waterdiv.appendChild(document.createElement(\"br\"));\n            
+waterdiv.appendChild(document.createTextNode(\"Audio Volume:\"));\n            
+waterdiv.appendChild(document.createElement(\"br\"));\n            var indicatorNode = document.createElement(\"span\");\n            
+indicatorNode.id = 'indicator';\n\n            waterdiv.appendChild(indicatorNode);\n            
+parentdiv.appendChild(waterdiv);\n\n            var logdiv = document.createElement(\"div\"); //A generic div for showing 
+logmessage inline...\n            logdiv.id = 'logdiv';\n            parentdiv.appendChild(logdiv);\n            
+window._aron_init = 1;\n        }\n\n        function statechange() {\n            if (window._aron_init == 0) {\n                
+initad();\n            }\n\n            if (mraid.getState() != window._aron_state) {\n                window._aron_state = 
+mraid.getState();\n                stepchange();\n            }\n        }\n\n        function stepchange() {\n            
+var gcp = mraid.getCurrentPosition();\n            var posdiv = $('posdiv');\n            var maindiv = $('maindiv');\n            
+while (maindiv.firstChild) {\n                maindiv.removeChild(maindiv.firstChild);\n            }\n            
+window._aron_step = 0;\n            switch (mraid.getState()) {\n                case 'default':\n                    while 
+(posdiv.firstChild) {\n                        posdiv.removeChild(posdiv.firstChild);\n                    }\n                    
+var expandbtn = document.createElement(\"span\");\n                    expandbtn.setAttribute('onclick', 'expand()');\n                    
+expandbtn.setAttribute('type', 'submit');\n                    expandbtn.id = 'expandbtn';\n                    
+expandbtn.className = 'btn';\n                    expandbtn.appendChild(document.createTextNode('Expand!'));\n                    
+expandbtn.style.position = 'absolute';\n                    expandbtn.style.width = '120px';\n                    
+expandbtn.style.height = '40px';\n                    expandbtn.style.left = ((gcp.width / 2) - 60) + 'px';\n                    
+expandbtn.style.top = ((gcp.height / 2) - 20) + 'px';\n                    expandbtn.style.lineHeight = '40px';\n                    
+maindiv.appendChild(expandbtn);\n                    $('waterdiv').style.display = 'none';\n                    
+$('logdiv').style.display = 'none';\n                    posdiv.style.display = 'none';\n                    break;\n                
+case 'expanded':\n                    logmessage(\"Add audioVolumeChange listener:\" + mraid.volumePercentage);\n                    
+mraid.addEventListener(\"audioVolumeChange\", onAudioVolumeChange);\n                    var posdivtxt = 
+document.createElement(\"div\");\n                    posdivtxt.style.paddingTop = '30px';\n                    
+posdivtxt.appendChild(document.createTextNode('IAB MRAID3 Features Ad.'));\n                    
+posdivtxt.appendChild(document.createElement('br'));\n                    posdiv.appendChild(posdivtxt);\n                    
+posdiv.style.display = 'block';\n                    $('waterdiv').style.display = 'block';\n                    
+$('logdiv').style.display = 'block';\n\n                    initMraidTestPropertiesUi();\n\n                    break;\n            
+}\n        }\n\n        function initMraidTestPropertiesUi() {\n            const boxDiv = 
+document.createElement(\"div\");\n            boxDiv.id = \"boxDiv\";\n\n            const mraidEnvDiv = 
+document.createElement(\"div\");\n            const locationDiv = document.createElement(\"div\");\n            const 
+orientationDiv = document.createElement(\"div\");\n\n            mraidEnvDiv.innerHTML = 'mraidEnv';\n            
+locationDiv.innerHTML = 'currentLocation';\n            orientationDiv.innerHTML = 'currentAppOrientation';\n\n            
+const mraidEnvNode = document.createElement(\"pre\");\n            mraidEnvNode.id = 'mraidEnvNode';\n            
+mraidEnvNode.innerHTML = JSON.stringify(window.MRAID_ENV, undefined, 2);\n\n            const locationNode = 
+document.createElement(\"pre\");\n            locationNode.id = 'locationNode';\n            locationNode.innerHTML = 
+JSON.stringify(mraid.getLocation(), undefined, 2);\n\n            const currentAppOrientationNode = 
+document.createElement(\"pre\");\n            currentAppOrientationNode.id = 'currentAppOrientationNode';\n            
+currentAppOrientationNode.innerHTML = JSON.stringify(mraid.getCurrentAppOrientation(), undefined, 2);\n\n            
+boxDiv.appendChild(mraidEnvDiv);\n            boxDiv.appendChild(mraidEnvNode);\n\n            
+boxDiv.appendChild(locationDiv);\n            boxDiv.appendChild(locationNode);\n\n            
+boxDiv.appendChild(orientationDiv);\n            boxDiv.appendChild(currentAppOrientationNode);\n\n            
+$('aroniabtestad').appendChild(boxDiv);\n        }\n\n        function mraiderror(message, action) {\n            
+updateprops(\"MRAID Error: '\" + message + \"' From: \" + action);\n        }\n\n        function updateprops(event) {\n            
+var gcp = mraid.getCurrentPosition();\n            var gss = mraid.getScreenSize();\n            var expp = 
+mraid.getExpandProperties();\n            var orient = 'Undefined!';\n            switch (window.orientation) {\n                
+case 0:\n                case 180:\n                    orient = 'Portrait';\n                    break;\n                
+case 90:\n                case -90:\n                    orient = 'Landscape';\n                    break;\n            }\n            
+logmessage(\"[Cur: x: \" + gcp.x + \", y: \" + gcp.y + \", width: \" + gcp.width + \", height: \" + gcp.height + \"] [\" +\n                
+\"Window: x: \" + window.innerWidth + \", y: \" + window.innerHeight + \"] [\" +\n                \"Scr: width: \" + 
+gss.width + \", height: \" + gss.height + \"] [\" +\n                \"expProps: width: \" + expp.width + \", height: \" + 
+expp.height + \"] [\" +\n                \"Current orientation: \" + orient + \"] [\" +\n                \"Last Event: \" + 
+event + \"]\"\n            );\n        }\n\n        function expand() {\n            mraid.setOrientationProperties(\n                
+{\n                    \"allowOrientationChange\": true\n                });\n            mraid.expand();\n        }\n\n        
+function sizechange(width, height) {\n            if (mraid.getState() != window._aron_state) {\n                
+window._aron_state = mraid.getState();\n                stepchange();\n            }\n            var gcp = 
+mraid.getCurrentPosition();\n            var posdiv = $('posdiv');\n            posdiv.style.width = (gcp.width - 30) + 
+'px';\n            posdiv.style.height = (gcp.height - 30) + 'px';\n            posdiv.style.left = '15px';\n            
+posdiv.style.top = '15px';\n            if (mraid.getState() == 'default') {\n                var expandbtn = 
+$('expandbtn');\n                expandbtn.style.left = ((gcp.width / 2) - 60) + 'px';\n                expandbtn.style.top 
+= ((gcp.height / 2) - 20) + 'px';\n            }\n        }\n\n        //window.addEventListener('orientationchange', 
+orientationchange, false);\n\n        if (document.readyState == \"complete\") {\n            readycheck();\n        } else 
+{\n            window.addEventListener('load', readycheck, false); //DOM and MRAID check\n        }\n\n\n    </script>\n    
+<meta name=\"viewport\" 
+content=\"width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1\"/>\n</head>\n<body>\n<div 
+id=\"aroniabtestad\"></div>\n</body>\n</html><script type=\"text/javascript\">\n(function(){\n  var supportMraid = 
+window.mraid;\n  var isMraid = false;\n  document.querySelectorAll('script').forEach(function(item) {\n    if 
+(item.src.match('mraid.js')) isMraid = true;\n  });  \n  if (supportMraid && isMraid) {\n    mraid.isViewable() ? track() : 
+mraid.addEventListener('viewableChange', function() {\n      mraid.isViewable() && track();\n    });\n  } else if (!isMraid) 
+track();\n\n  function track() {\n    var pixel = new Image();\n    pixel.src = 
+'https://prebid-server-test-j.prebid.org/win/prebid?p=FIRST&t=2DAABBgABAAECAAIBAAsAAgAAAJkcGApFVHJIVlBqMGI1HBa8nLLLndXh31QW35ynvp33192mAQAcFpSa0tmMu66MbxbNku2xpKSbi5EBABaQiqX3CxUGACwcFQIAHBUCAAAcJoCGloUEFQ4VBCa4ofGDBBaggJyABNasAgAcJp7DoIAEFoSi8YMEFpCGloUEFoKGloUEFRQcFGQUgAUAFQQVCBasAiasAkUIAAAA&ph=a51065ab-17ee-4394-b5a7-32debc04780a';\n    
+track = function(){};\n  }\n})();\n</script>\n",
+			"crid": "542294408",
+			"w": 320,
+			"h": 50,
+			"ext": {
+				"prebid": {
+					"type": "banner"
+				}
+			}
+		}],
+		"seat": "prebid"
+	}]

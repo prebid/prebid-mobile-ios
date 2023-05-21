@@ -18,7 +18,7 @@ import PrebidMobile
 import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
-fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480"
+fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480"
 fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/7397370641"
 
 class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {

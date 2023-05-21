@@ -18,7 +18,7 @@ import PrebidMobile
 import PrebidMobileMAXAdapters
 import AppLovinSDK
 
-fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
+fileprivate let nativeStoredImpression = "prebid-demo-banner-native-styles"
 fileprivate let maxRenderingNativeAdUnitId = "e4375fdcc7c5e56c"
 
 class MAXNativeViewController: BannerBaseViewController, MANativeAdDelegate {

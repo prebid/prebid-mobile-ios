@@ -1,0 +1,21 @@
+{
+    "ext": {
+        "openx": {
+            "unit": "420000003",
+            "delDomain": "mobile-d.openx.net"
+        },
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "response-prebid-banner-728-90"
+            }
+        }
+    },
+    "banner": {
+        "format": [
+            {
+                "h": 90,
+                "w": 728
+            }
+        ]
+    }
+}
