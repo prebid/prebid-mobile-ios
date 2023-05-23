@@ -1,9 +1,0 @@
-{
-    "ext": {
-        "prebid": {
-            "storedauctionresponse": {
-                "id": "response-prebid-no-bids"
-            }
-        }
-    }
-}

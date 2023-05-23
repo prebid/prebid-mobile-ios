@@ -1,12 +1,8 @@
 {
     "ext": {
-        "openx": {
-            "unit": "420000005",
-            "delDomain": "mobile-d.openx.net"
-        },
         "prebid": {
             "storedauctionresponse": {
-                "id": "response-prebid-video-rewarded-320-480-skadn-v22"
+                "id": "prebid-demo-response-video-rewarded-320-480"
             }
         }
     },
