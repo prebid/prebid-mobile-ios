@@ -5,7 +5,7 @@
         "id": "prebid-demo-response-banner-320-50",
         "price": 0.10,
         "adm": "<div id='beacon_97599' style='position:absolute;left:0px;top:0px;visibility:hidden;'><img 
-src='https://prebid-server-test-j.prebid.org/win/prebid?p=FIRST&t=2DAABBgABAAECAAIBAAsAAgAAAJocGApiQ2JVRndacTlxHBaNw_Xgj_HhqLMBFpmN0Jvj_avD_AEAHBbh9P2d_Pyv_hgW_YfWn7jth6SYAQAW_rHY9gsVBgAsHBUCABwVAgAAHCa6ofGDBBUOFQQmuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIovGDBBaGovGDBBUUHBRkFIAFABUEFQoWrAImrAJFCgAAAA&ph=a51065ab-17ee-4394-b5a7-32debc04780a'/></div><script 
+src='https: //prebid-server-test-j.prebid.org/win/prebid?p=FIRST&t=2DAABBgABAAECAAIBAAsAAgAAAJocGApiQ2JVRndacTlxHBaNw_Xgj_HhqLMBFpmN0Jvj_avD_AEAHBbh9P2d_Pyv_hgW_YfWn7jth6SYAQAW_rHY9gsVBgAsHBUCABwVAgAAHCa6ofGDBBUOFQQmuKHxgwQWoICcgATWrAIAHCaew6CABBaEovGDBBaIovGDBBaGovGDBBUUHBRkFIAFABUEFQoWrAImrAJFCgAAAA&ph=a51065ab-17ee-4394-b5a7-32debc04780a'/></div><script 
 src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\"></script>\n<a 
 href=\"https://prebid.org/\"><img width=\"320\" height=\"50\" 
 src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/banner/Pbs_banner_320x50.png\"></img></a>",
