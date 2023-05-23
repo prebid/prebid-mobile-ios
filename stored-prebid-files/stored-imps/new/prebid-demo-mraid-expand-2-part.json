@@ -1,0 +1,17 @@
+{
+    "ext": {
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "prebid-demo-response-mraid-expand-2-part"
+            }
+        }
+    },
+    "banner": {
+        "format": [
+            {
+                "h": 50,
+                "w": 320
+            }
+        ]
+    }
+}

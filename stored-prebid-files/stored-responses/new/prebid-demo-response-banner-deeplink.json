@@ -1,0 +1,22 @@
+[{
+        "bid": [{
+            "id": "prebid-demo-response-banner-deeplink",
+            "price": 0.15,
+            "adm": "<div id='beacon_77994' 
+style='position:absolute;left:0px;top:0px;visibility:hidden;'><img 
+src='https://prebid-server-test-j.prebid.org/win/prebid?p=FIRST&t=2DAABBgABAAECAAIBAAsAAgAAAJocGApHZzFvb2Z2b25wHBauofqawNDe0wwWpbqfoZOmoJXwAQAcFtSQgurrmNH8exah_q7-nd3g8YABABaSgO72CxUGACwcFQIAHBUCAAAcJryh8YMEFQ4VBCa4ofGDBBaggJyABNasAgAcJp7DoIAEFoSi8YMEFoyi8YMEFoqi8YMEFRQcFPQDFNgEABUEFQoWrAImrAJFCgAAAA&ph=a51065ab-17ee-4394-b5a7-32debc04780a'/></div><script 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\"></script>\n<a 
+href=\"deeplink+://navigate?primaryUrl=google%3A%2F%2Ftimeline&primaryTrackingUrl=http%3A%2F%2Fmopub.com%2Fclicktracking&primaryTrackingUrl=http%3A%2F%2Fmopub.com%2Fmopubtracking&fallbackUrl=http%3A%2F%2Fmobile.twitter.com&fallbackTrackingUrl=http%3A%2F%2Fmopub.com%2Fmopubtrackingfallback\"><img 
+width=\"320\" height=\"50\" 
+src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/banner/Pbs_banner_320x50.png\"></img></a>",
+            "crid": "542287053",
+            "w": 320,
+            "h": 50,
+            "ext": {
+                "prebid": {
+                    "type": "banner"
+                }
+            }
+        }],
+        "seat": "prebid"
+    }]

@@ -1,0 +1,25 @@
+[
+    {
+        "bid": [
+            {
+                "id": "prebid-demo-response-native-links",
+                "adm": "{ \"assets\": [{ \"required\": 1, \"id\": 1,\"data\": { \"type\": 1, \"value\": \"Deeplink 
+Fallback\" }, \"link\": { \"url\": \"google://timeline\", \"clicktrackers\": [\"https://prebid-server-test-j.prebid.org/events/click/data/fallback\"], \"fallback\": \"https://mobile.twitter.com/\" } }, { \"required\": 1,\"id\": 2, \"data\": { \"type\": 2, \"value\": \"Deeplink OK\" }, \"link\": { \"url\": 
+\"twitter://timeline\", \"clicktrackers\": [\"https://prebid-server-test-j.prebid.org/events/click/data/deeplink\"], 
+\"fallback\": \"https://mobile.twitter.com/\" } }, { \"required\": 1,\"id\": 3, \"data\": { \"type\": 3, \"value\": \"Link 
+URL\" }, \"link\": { \"url\": \"https://prebid.org/\", \"clicktrackers\": [\"https://prebid-server-test-j.prebid.org/events/click/data/url\"] } }, { \"required\": 1,\"id\": 4, \"data\": { \"type\": 12, \"value\": \"Link Root\" } } ], \"link\": { \"url\": \"https://prebid.org/\", \"clicktrackers\": [\"https://prebid-server-test-j.prebid.org/events/click/root/url\"] }, \"eventtrackers\": [{ \"event\": 1, \"method\": 1, 
+\"url\": \"https://prebid-server-test-j.prebid.org/events/tracker/impression\" }, { \"event\": 2, \"method\": 1, \"url\": 
+\"https://prebid-server-test-j.prebid.org/events/tracker/mrc50\" }, { \"event\": 3, \"method\": 1, \"url\": 
+\"https://prebid-server-test-j.prebid.org/events/tracker/mrc100\" } ] }",
+                "price": 0.1,
+                "crid": "test-creative-id-1",
+                "ext": {
+                    "prebid": {
+                        "type": "native"
+                    }
+                }
+            }
+        ],
+        "seat": "prebid"
+    }
+]

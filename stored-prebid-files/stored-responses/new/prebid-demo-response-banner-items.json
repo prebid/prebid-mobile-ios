@@ -1,0 +1,24 @@
+[{
+        "bid": [{
+            "id": "prebid-demo-response-banner-items",
+            "price": 0.11854000000365104,
+            "adm": "<style>body{background-color:grey;font-size:10px;} 
+p{display:block;float:left;margin:0px;}a{display:block;float:left;margin:5px;}</style><p>On device all links should launch 
+iTunes or App Store apps. On Sim, links should do nothing and print an error message to the console.</p><a 
+href=\"itms://itunes.apple.com/us/app/apple-store/id1062038485?mt=8\">itms</a><a 
+href=\"itmss://itunes.apple.com/us/app/apple-store/id1062038485?mt=8\">itmss</a><a 
+href=\"itms-apps://itunes.apple.com/us/app/apple-store/id1062038485?mt=8\">itms-apps</a><a 
+href=\"itms-appss://itunes.apple.com/us/app/apple-store/id1062038485?mt=8\">itms-appss</a>",
+            "adid": "test-ad-id-12345",
+            "adomain": ["prebid.org"],
+            "crid": "test-creative-id-1",
+            "w": 320,
+            "h": 50,
+            "ext": {
+                "prebid": {
+                    "type": "video"
+                }
+            }
+        }],
+        "seat": "prebid"
+    }]

@@ -1,0 +1,25 @@
+[
+	{
+		"bid": [
+			{
+				"id": "prebid-demo-response-video-interstitial-mov",
+				"price": 0.11701999999468729,
+				"adm": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<VAST version=\"2.0\">\n\t<Ad 
+id=\"1\">\n\t\t<Wrapper>\n\t\t\t<AdSystem>Prebid</AdSystem>\n\t\t\t<VASTAdTagURI><![CDATA[https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/vasts/vast_mov.xml]]></VASTAdTagURI>\n\t\t\t<Impression></Impression>\n\t\t\t<Creatives>\n\t\t\t\t<Creative>\n\t\t\t\t\t<Linear>\n\t\t\t\t\t\t<TrackingEvents>\n\t\t\t\t\t\t\t<ClickTracking><![CDATA[https://testresource:8082/events/v/1.0/rc?ts=1]]></ClickTracking>\n\t\t\t\t\t\t</TrackingEvents>\n\t\t\t\t\t\t<VideoClicks></VideoClicks>\n\t\t\t\t\t</Linear>\n\t\t\t\t</Creative>\n\t\t\t</Creatives>\n\t\t</Wrapper>\n\t</Ad>\n</VAST>",
+				"adid": "test-ad-id-12345",
+				"adomain": [
+					"prebid.org"
+				],
+				"crid": "test-creative-id-1",
+				"w": 375,
+				"h": 667,
+				"ext": {
+					"prebid": {
+						"type": "video"
+					}
+				}
+			}
+		],
+		"seat": "prebid"
+	}
+]

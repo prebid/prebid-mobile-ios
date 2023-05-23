@@ -1,0 +1,22 @@
+{
+    "ext": {
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "prebid-demo-response-video-interstitial-vertical-with-end-card"
+            }
+        }
+    },
+    "instl": 1,
+    "video": {
+        "h": 896,
+        "w": 414,
+        "mimes": [
+            "video/mp4"
+        ],
+        "linearity": 1,
+        "placement": 5,
+        "playbackmethod": [
+            2
+        ]
+    }
+}

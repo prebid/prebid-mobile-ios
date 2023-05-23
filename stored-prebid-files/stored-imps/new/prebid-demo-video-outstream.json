@@ -1,0 +1,21 @@
+{
+    "ext": {
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "prebid-demo-response-video-outstream"
+            }
+        }
+    },
+    "video": {
+        "h": 250,
+        "w": 300,
+        "mimes": [
+            "video/mp4"
+        ],
+        "linearity": 1,
+        "placement": 2,
+        "playbackmethod": [
+            2
+        ]
+    }
+}

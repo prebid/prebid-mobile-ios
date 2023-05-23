@@ -1,0 +1,12 @@
+[
+  {
+    "bid": [
+      {
+        "id": "prebid-demo-response-no-bids",
+        "nbr": 2,
+        "ext": {}
+      }
+    ],
+	"seat": "prebid"
+  }
+]
