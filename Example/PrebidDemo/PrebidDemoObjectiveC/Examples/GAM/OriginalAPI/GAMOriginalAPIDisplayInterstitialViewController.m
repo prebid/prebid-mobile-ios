@@ -18,7 +18,7 @@
 
 @import PrebidMobile;
 
-NSString * const storedImpDisplayInterstitial = @"imp-prebid-display-interstitial-320-480";
+NSString * const storedImpDisplayInterstitial = @"prebid-demo-display-interstitial-320-480";
 NSString * const gamAdUnitDisplayInterstitialOriginal = @"/21808260008/prebid-demo-app-original-api-display-interstitial";
 
 @interface GAMOriginalAPIDisplayInterstitialViewController ()

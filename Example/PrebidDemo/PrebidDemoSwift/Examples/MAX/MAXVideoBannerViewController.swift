@@ -18,7 +18,7 @@ import PrebidMobile
 import PrebidMobileMAXAdapters
 import AppLovinSDK
 
-fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream"
+fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream"
 fileprivate let maxAdUnitMRECRendering = "2f88579e8f07bc23"
 
 class MAXVideoBannerViewController: BannerBaseViewController, MAAdViewAdDelegate {

@@ -1,0 +1,21 @@
+{
+    "ext": {
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "prebid-demo-response-video-rewarded-320-480"
+            }
+        }
+    },
+    "video": {
+        "h": 480,
+        "w": 320,
+        "mimes": [
+            "video/mp4"
+        ],
+        "linearity": 1,
+        "placement": 2,
+        "playbackmethod": [
+            2
+        ]
+    }
+}

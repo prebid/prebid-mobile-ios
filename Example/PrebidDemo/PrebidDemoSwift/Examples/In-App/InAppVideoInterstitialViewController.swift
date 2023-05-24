@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedImpVideoInterstitial = "imp-prebid-video-interstitial-320-480"
+fileprivate let storedImpVideoInterstitial = "prebid-demo-video-interstitial-320-480"
 
 class InAppVideoInterstitialViewController: InterstitialBaseViewController, InterstitialAdUnitDelegate {
 

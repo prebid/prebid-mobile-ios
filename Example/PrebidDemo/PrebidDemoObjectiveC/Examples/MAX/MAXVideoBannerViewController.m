@@ -16,7 +16,7 @@
 #import "MAXVideoBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoBannerMAX = @"imp-prebid-video-outstream";
+NSString * const storedImpVideoBannerMAX = @"prebid-demo-video-outstream";
 NSString * const maxAdUnitBannerVideoRendering = @"6d6c04cfc1c0548e";
 
 @interface MAXVideoBannerViewController ()

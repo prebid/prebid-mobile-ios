@@ -16,7 +16,7 @@
 #import "MAXDisplayInterstitialViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpDisplayInterstitialMAX = @"imp-prebid-display-interstitial-320-480";
+NSString * const storedImpDisplayInterstitialMAX = @"prebid-demo-display-interstitial-320-480";
 NSString * const maxAdUnitDisplayInterstitial = @"48e8d410f74dfc7b";
 
 @interface MAXDisplayInterstitialViewController ()

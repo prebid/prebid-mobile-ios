@@ -16,7 +16,7 @@
 #import "MAXNativeViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const nativeStoredImpressionMAX = @"imp-prebid-banner-native-styles";
+NSString * const nativeStoredImpressionMAX = @"prebid-demo-banner-native-styles";
 NSString * const maxRenderingNativeAdUnitId = @"240da3ba91611d72";
 
 @interface MAXNativeViewController ()

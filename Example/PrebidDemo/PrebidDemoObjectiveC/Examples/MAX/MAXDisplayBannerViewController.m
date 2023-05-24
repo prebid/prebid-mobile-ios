@@ -16,7 +16,7 @@
 #import "MAXDisplayBannerViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpDisplayBannerMAX = @"imp-prebid-banner-320-50";
+NSString * const storedImpDisplayBannerMAX = @"prebid-demo-banner-320-50";
 NSString * const maxAdUnitBannerRendering = @"78869c25f5c54bab";
 
 @interface MAXDisplayBannerViewController ()

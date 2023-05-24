@@ -16,7 +16,7 @@
 #import "InAppVideoRewardedViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoRewardedInApp = @"imp-prebid-video-rewarded-320-480";
+NSString * const storedImpVideoRewardedInApp = @"prebid-demo-video-rewarded-320-480";
 
 @interface InAppVideoRewardedViewController ()
 

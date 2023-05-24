@@ -16,7 +16,7 @@
 #import "AdMobDisplayInterstitialViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpDisplayInterstitialAdMob = @"imp-prebid-display-interstitial-320-480";
+NSString * const storedImpDisplayInterstitialAdMob = @"prebid-demo-display-interstitial-320-480";
 NSString * const adMobAdUnitDisplayInterstitial = @"ca-app-pub-5922967660082475/3383099861";
 
 @interface AdMobDisplayInterstitialViewController ()

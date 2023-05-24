@@ -16,7 +16,7 @@
 #import "InAppVideoInterstitialViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoInterstitialInApp = @"imp-prebid-video-interstitial-320-480";
+NSString * const storedImpVideoInterstitialInApp = @"prebid-demo-video-interstitial-320-480";
 
 @interface InAppVideoInterstitialViewController ()
 

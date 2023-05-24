@@ -19,7 +19,7 @@
 @import PrebidMobile;
 @import GoogleMobileAds;
 
-NSString * const storedImpDisplayBanner = @"imp-prebid-banner-320-50";
+NSString * const storedImpDisplayBanner = @"prebid-demo-banner-320-50";
 NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app_original_api_banner";
 
 @interface GAMOriginalAPIDisplayBannerViewController ()

@@ -18,7 +18,7 @@
 
 @import PrebidMobile;
 
-NSString * const storedImpVideoRewarded = @"imp-prebid-video-rewarded-320-480-original-api";
+NSString * const storedImpVideoRewarded = @"prebid-demo-video-rewarded-320-480-original-api";
 NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app-original-api-video-interstitial";
 
 @interface GAMOriginalAPIVideoRewardedViewController ()

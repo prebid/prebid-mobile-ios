@@ -18,7 +18,7 @@ import PrebidMobile
 import PrebidMobileMAXAdapters
 import AppLovinSDK
 
-fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
+fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50"
 fileprivate let maxAdUnitBannerRendering = "5419948894cdf762"
 
 class MAXDisplayBannerViewController: BannerBaseViewController, MAAdViewAdDelegate {
