@@ -29,6 +29,9 @@
                                 browserOptional="true">
                                 <![CDATA[https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js]]>
                             </JavaScriptResource>
+                            <VerificationParameters>
+                                <![CDATA[ "iabtechlab-prebid" ]]>
+                            </VerificationParameters>
                         </Verification>
                     </AdVerifications>
                 </Extension>
