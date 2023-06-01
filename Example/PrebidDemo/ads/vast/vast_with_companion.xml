@@ -21,9 +21,6 @@
                             <HTMLResource creativeType="text/html">
                                 <![CDATA[ <a href="https://www.prebid.org/"><img src="https://s3.amazonaws.com/files.prebid.org/creatives/prebid300x250.png" width="300" height="250"></img></a> ]]>
                             </HTMLResource>
-                            <CompanionClickThrough>
-                                <![CDATA[ https://prebid-server-test-j.prebid.org/events/v/1.0/rc?ts=2DAABBgABAAECAAIBAAsAAgAAAKccGApKQ1FxdDRHakxHHBaNwqXT2pDerpEBFoWh6OHovrvmrQEAHBbagLLYz9PUldABFo3u7eWbpJrrvQEAFvb7_bsLFQIAHBQCFAIAHBwVAgAcFQIAABwWwreGgwQWvreGgwQVDDaut4aDBBbk-qGABNasAgAcJub6oYAEFryouoAEFtK9hoMEFsa9hoMEFQgcFPQDFNgEABUEFQIWrAImrAIhJQIAAAA ]]>
-                            </CompanionClickThrough>
                         </Companion>
                     </CompanionAds>
                 </Creative>
