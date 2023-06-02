@@ -4,39 +4,21 @@
 			{
 				"id": "prebid-demo-response-video-interstitial-320-480-original-api",
 				"price": 0.11701999999468729,
-				"adm": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><VAST version=\"2.0\"><Ad 
-id=\"TestAd\"><InLine><AdSystem>Rubicon Project</AdSystem><AdTitle>VAST 2.0 Linear 
-Ad</AdTitle><Error><![CDATA[http: //myErrorURL/error]]></Error><Impression><![CDATA[]]></Impression><Impression><![CDATA[https://prebid-server.rubiconproject.com/event?t=imp&b=80d93070-80b7-4c49-88f0-354be613dc03&a=1001&aid=55bf5970-05df-4726-b078-412dfa907259&ts=1650555093416&bidder=rubicon&f=b&int=]]></Impression><Creatives><Creative 
-id=\"2014\" AdID=\"20150911\" sequence=\"1\"><Linear><Duration>00:00:15</Duration><TrackingEvents><Tracking 
-event=\"creativeView\"><![CDATA[]]></Tracking><Tracking event=\"start\"><![CDATA[]]></Tracking><Tracking 
-event=\"firstQuartile\"><![CDATA[]]></Tracking><Tracking event=\"midpoint\"><![CDATA[]]></Tracking><Tracking 
-event=\"thirdQuartile\"><![CDATA[]]></Tracking><Tracking 
-event=\"complete\"><![CDATA[]]></Tracking></TrackingEvents><VideoClicks><ClickThrough><![CDATA[http://iwanttoberecycled.org/]]></ClickThrough><ClickTracking><![CDATA[]]></ClickTracking></VideoClicks><MediaFiles><MediaFile 
-delivery=\"progressive\" bitrate=\"348\" width=\"320\" height=\"180\" 
-type=\"video/mp4\"><![CDATA[https://prebid-mobile-ad-assets.s3.amazonaws.com/video/Pbs_video_rewarded_320x480.mp4]]></MediaFile><MediaFile 
-delivery=\"progressive\" bitrate=\"381\" width=\"620\" height=\"360\" 
-type=\"video/mp4\"><![CDATA[https://prebid-mobile-ad-assets.s3.amazonaws.com/video/Pbs_video_rewarded_320x480.mp4]]></MediaFile><MediaFile 
-delivery=\"progressive\" bitrate=\"553\" width=\"620\" height=\"360\" 
-type=\"video/mp4\"><![CDATA[https://prebid-mobile-ad-assets.s3.amazonaws.com/video/Pbs_video_rewarded_320x480.mp4]]></MediaFile><MediaFile 
-delivery=\"progressive\" bitrate=\"983\" width=\"620\" height=\"360\" 
-type=\"video/mp4\"><![CDATA[https://prebid-mobile-ad-assets.s3.amazonaws.com/video/Pbs_video_rewarded_320x480.mp4]]></MediaFile></MediaFiles></Linear></Creative><Creative 
-AdID=\"TestAd-Companion\"><CompanionAds><Companion width=\"300\" height=\"250\"><StaticResource 
-creativeType=\"image/jpeg\"><![CDATA[http://sneezy.aws.rubiconproject.com/rp-eng-soln/rp-qa-sites/videoTest/ad1/recycling_300x250.jpg]]></StaticResource><TrackingEvents><Tracking 
-event=\"creativeView\"><![CDATA[]]></Tracking></TrackingEvents><CompanionClickThrough><![CDATA[http://iwanttoberecycled.org/]]></CompanionClickThrough></Companion></CompanionAds></Creative></Creatives></InLine></Ad></VAST>",
-						"adid": "test-ad-id-12345",
-						"adomain": [
-							"prebid.org"
-						],
-						"crid": "test-creative-id-1",
-						"w": 375,
-						"h": 667,
-						"ext": {
-							"prebid": {
-								"type": "video"
-							}
-						}
-					}
+				"adm": "<?xml version= \"1.0\" encoding= \"UTF-8\"?> <VAST version= \"2.0\"> <Ad id= \"TestAd\"> <InLine><AdSystem>Prebid</AdSystem><AdTitle>VAST 2.0 Linear Ad</AdTitle><Creatives><Creative id= \"2014\" AdID= \"20150911\" sequence= \"1\"><Linear><Duration>00:00:15</Duration><MediaFiles><MediaFile delivery= \"progressive\" bitrate= \"348\" width= \"320\" height= \"180\" type= \"video/mp4\"><![CDATA[https://s3.amazonaws.com/files.prebid.org/creatives/PrebidLogo.mp4]]></MediaFile><MediaFile delivery= \"progressive\" bitrate= \"381\" width= \"620\" height= \"360\" type= \"video/mp4\"><![CDATA[https://s3.amazonaws.com/files.prebid.org/creatives/PrebidLogo.mp4]]></MediaFile><MediaFile delivery= \"progressive\" bitrate= \"553\" width= \"620\" height= \"360\" type= \"video/mp4\"><![CDATA[https://s3.amazonaws.com/files.prebid.org/creatives/PrebidLogo.mp4]]></MediaFile><MediaFile delivery= \"progressive\" bitrate= \"983\" width= \"620\" height= \"360\" type= \"video/mp4\"><![CDATA[https://s3.amazonaws.com/files.prebid.org/creatives/PrebidLogo.mp4]]></MediaFile></MediaFiles></Linear></Creative><Creative AdID= \"TestAd-Companion\"><CompanionAds><Companion width= \"300\" height= \"250\"><StaticResource creativeType= \"image/jpeg\"><![CDATA[https://s3.amazonaws.com/files.prebid.org/creatives/prebid300x250.png]]></StaticResource><CompanionClickThrough><![CDATA[https://prebid.org/]]></CompanionClickThrough></Companion></CompanionAds></Creative></Creatives></InLine></Ad></VAST>",
+				"adid": "test-ad-id-12345",
+				"adomain": [
+					"prebid.org"
 				],
-				"seat": "prebid"
+				"crid": "test-creative-id-1",
+				"w": 375,
+				"h": 667,
+				"ext": {
+					"prebid": {
+						"type": "video"
+					}
+				}
 			}
-		]
+		],
+		"seat": "prebid"
+	}
+]
