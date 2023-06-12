@@ -62,10 +62,6 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
         setupAdapterController()
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }

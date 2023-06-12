@@ -60,10 +60,6 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         setupAdapterController()
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
