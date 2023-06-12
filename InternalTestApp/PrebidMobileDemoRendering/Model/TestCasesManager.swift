@@ -1048,9 +1048,8 @@ struct TestCaseManager {
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
 
-                let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
-                interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-random"
-                interstitialController.storedAuctionResponse = prebidStoredAuctionResponses.randomElement() ?? prebidStoredAuctionResponses[0]
+                let configIds = ["prebid-ita-display-interstitial-320-480", "prebid-ita-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = configIds.randomElement()!
 
                 adapterVC.setup(adapter: interstitialController)
                          
@@ -1158,9 +1157,8 @@ struct TestCaseManager {
                 let interstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 let gamAdUnitIds = ["/21808260008/prebid_html_interstitial", "/21808260008/prebid_oxb_interstitial_video"]
                         
-                let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
-                interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-random"
-                interstitialController.storedAuctionResponse = prebidStoredAuctionResponses[randomId]
+                let configIds = ["prebid-ita-display-interstitial-320-480", "prebid-ita-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = configIds[randomId]
                          
                 interstitialController.gamAdUnitId = gamAdUnitIds[randomId]
                 adapterVC.setup(adapter: interstitialController)
@@ -2652,12 +2650,11 @@ struct TestCaseManager {
                 let randomId = [0, 1].randomElement() ?? 0
                 let interstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 let admobAdUnitIds = ["ca-app-pub-5922967660082475/3383099861", "ca-app-pub-5922967660082475/4527792002"]
-                let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
-                         
-                interstitialController.prebidConfigId = "prebid-ita-display-interstitial-320-480"
-                         
-                interstitialController.storedAuctionResponse = prebidStoredAuctionResponses[randomId]
                 interstitialController.adMobAdUnitId = admobAdUnitIds[randomId]
+                         
+                let configIds = ["prebid-ita-display-interstitial-320-480", "prebid-ita-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = configIds[randomId]
+                         
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -3407,13 +3404,9 @@ struct TestCaseManager {
                          
                 let randomId = [0, 1].randomElement() ?? 0
                 let interstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
-                let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
+                let configIds = ["prebid-ita-display-interstitial-320-480", "prebid-ita-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = configIds.randomElement()!
                          
-                let prebidStoredImps = ["prebid-demo-display-interstitial-320-480-random", "prebid-ita-video-interstitial-320-480"]
-                         
-                interstitialController.prebidConfigId = prebidStoredImps[randomId]
-                         
-                interstitialController.storedAuctionResponse = prebidStoredAuctionResponses[randomId]
                 interstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: interstitialController)
                         
