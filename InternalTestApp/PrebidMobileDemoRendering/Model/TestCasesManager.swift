@@ -1158,7 +1158,7 @@ struct TestCaseManager {
                 let gamAdUnitIds = ["/21808260008/prebid_html_interstitial", "/21808260008/prebid_oxb_interstitial_video"]
                         
                 let configIds = ["prebid-ita-display-interstitial-320-480", "prebid-ita-video-interstitial-320-480"]
-                interstitialController.prebidConfigId = configIds.randomElement()!
+                interstitialController.prebidConfigId = configIds[randomId]
                          
                 interstitialController.gamAdUnitId = gamAdUnitIds[randomId]
                 adapterVC.setup(adapter: interstitialController)
@@ -2653,7 +2653,7 @@ struct TestCaseManager {
                 interstitialController.adMobAdUnitId = admobAdUnitIds[randomId]
                          
                 let configIds = ["prebid-ita-display-interstitial-320-480", "prebid-ita-video-interstitial-320-480"]
-                interstitialController.prebidConfigId = configIds.randomElement()!
+                interstitialController.prebidConfigId = configIds[randomId]
                          
                 adapterVC.setup(adapter: interstitialController)
                         
