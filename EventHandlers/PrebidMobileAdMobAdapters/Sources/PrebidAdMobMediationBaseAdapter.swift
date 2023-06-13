@@ -47,4 +47,8 @@ public class PrebidAdMobMediationBaseAdapter: NSObject, GADMediationAdapter {
     required public override init() {
         super.init()
     }
+    
+    public static func setUpWith(_ configuration: GADMediationServerConfiguration, completionHandler: @escaping GADMediationAdapterSetUpCompletionBlock) {
+        // TODO: Add Prebid SDK initialization logic
+    }
 }
