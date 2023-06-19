@@ -2656,7 +2656,6 @@
 				FAEE4D8C262DC8CD00AD9966 /* PrebidMobileTests */,
 				60D792F3217E229A0080F428 /* Products */,
 				6062B19A218243FA00CE1BA3 /* Frameworks */,
-				EE09B07119B6562CC4356195 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3075,13 +3074,6 @@
 				533E0FB829100076000CC24F /* MockGADMobileAds.swift */,
 			);
 			path = FetchingLogictests;
-			sourceTree = "<group>";
-		};
-		EE09B07119B6562CC4356195 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		FA5AD5E02271F99D00C8F274 /* UnitTests */ = {
