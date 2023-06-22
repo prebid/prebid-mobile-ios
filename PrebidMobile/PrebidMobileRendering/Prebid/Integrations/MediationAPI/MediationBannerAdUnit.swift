@@ -287,7 +287,7 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     private func isAdObjectVisible() -> Bool {
-        guard let adObject = adView else {
+        guard let adObject = lastAdView else {
             return false
         }
         
@@ -332,7 +332,7 @@ public class MediationBannerAdUnit : NSObject {
             markLoadingFinished()
         }
         
-        guard let adObject = self .adView,
+        guard let adObject = self.adView,
               let completion = self.completion else {
             return
         }
