@@ -24,19 +24,19 @@ extension PrebidMAXMediationAdapter: MANativeAdAdapter, NativeAdEventDelegate {
         
         guard let serverParameter = parameters.serverParameters[MAXCustomParametersKey] as? [String: String] else {
             let error = MAAdapterError(nsError: MAXAdaptersError.noServerParameter)
-            bannerDelegate?.didFailToLoadAdViewAdWithError(error)
+            nativeDelegate?.didFailToLoadNativeAdWithError(error)
             return
         }
                 
         guard let targetingInfo = parameters.localExtraParameters[PBMMediationTargetingInfoKey] as? [String: String] else {
             let error = MAAdapterError(nsError: MAXAdaptersError.noTargetingInfoInBid)
-            bannerDelegate?.didFailToLoadAdViewAdWithError(error)
+            nativeDelegate?.didFailToLoadNativeAdWithError(error)
             return
         }
         
         guard MediationUtils.isServerParameterDictInTargetingInfoDict(serverParameter, targetingInfo) else {
             let error = MAAdapterError(nsError: MAXAdaptersError.wrongServerParameter)
-            bannerDelegate?.didFailToLoadAdViewAdWithError(error)
+            nativeDelegate?.didFailToLoadNativeAdWithError(error)
             return
         }
         
