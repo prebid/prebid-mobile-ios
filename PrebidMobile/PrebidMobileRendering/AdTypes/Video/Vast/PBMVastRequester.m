@@ -30,7 +30,7 @@ static NSString *vastContentType = @"application/x-www-form-urlencoded";
 
 @implementation PBMVastRequester
 
-+ (void)loadVastURL:(NSString *)url connection:(id<ServerConnectionProtocol>)connection completion:(AdRequestCallback)completion {
++ (void)loadVastURL:(NSString *)url connection:(id<PrebidServerConnectionProtocol>)connection completion:(AdRequestCallback)completion {
     
     PBMURLComponents *urlComponents = [[PBMURLComponents alloc] initWithUrl:url paramsDict:@{}];
     if (!urlComponents) {
@@ -49,7 +49,7 @@ static NSString *vastContentType = @"application/x-www-form-urlencoded";
     [connection post:urlComponents.urlString
          contentType:vastContentType
                 data:data timeout:PBMTimeInterval.CONNECTION_TIMEOUT_DEFAULT
-            callback:^(ServerResponse * _Nonnull serverResponse) {
+            callback:^(PrebidServerResponse * _Nonnull serverResponse) {
         if (serverResponse.error) {
             completion(nil, serverResponse.error);
             return;

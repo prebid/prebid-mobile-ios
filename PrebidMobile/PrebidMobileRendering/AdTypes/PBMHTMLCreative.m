@@ -23,7 +23,6 @@
 #import "NSString+PBMExtensions.h"
 #import "UIView+PBMExtensions.h"
 
-#import "PBMClickthroughBrowserView.h"
 #import "PBMConstants.h"
 #import "PBMCreativeModel.h"
 #import "PBMDeviceAccessManager.h"
@@ -193,6 +192,8 @@
     @weakify(self);
     dispatch_after([PBMFunctions dispatchTimeAfterTimeInterval:displayInterval], dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
         //If its open, don't count this as a creativeDidComplete. Re-start the display timer.
         if ([self isOpened]) {
             [self setupDisplayTimer];
@@ -285,12 +286,8 @@
     // for Banner/Interstitial/MRAID ads.
     // We should use OOP approach for logic encapsulation instead of 'if' logic.
 
-    //Clickthrough
-    if ([state.view isKindOfClass:[PBMClickthroughBrowserView class]]) {
-        if (!state.adConfiguration) {
-            return;
-        }
-        
+    // Clickthrough
+    if (self.clickthroughVisible) {
         [self.creativeViewDelegate creativeClickthroughDidClose:self];
         self.clickthroughVisible = NO;
         
@@ -341,6 +338,8 @@
              sdkConfiguration:self.sdkConfiguration
             completionHandler:^void(BOOL success) {
         @strongify(self);
+        if (!self) { return; }
+        
         if (success) {
             [self.creativeViewDelegate creativeWasClicked:self];
             if (self.creativeModel.isCompanionAd) {

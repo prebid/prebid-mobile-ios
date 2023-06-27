@@ -43,8 +43,8 @@
 
 #pragma mark - PBMAdRequester
 
-- (instancetype) initWithServerConnection: (id<ServerConnectionProtocol>) serverConnection
-                             adConfiguration: (AdConfiguration*) adConfiguration  {
+- (instancetype) initWithServerConnection: (id<PrebidServerConnectionProtocol>) serverConnection
+                             adConfiguration: (PBMAdConfiguration*) adConfiguration  {
     self = [super init];
     if (self) {
         self.serverConnection = serverConnection;
@@ -58,8 +58,13 @@
 
 - (void)loadVASTURL:(NSString *)url {
     @weakify(self);
-    [PBMVastRequester loadVastURL:url connection:self.serverConnection completion:^(ServerResponse * _Nullable serverResponse, NSError * _Nullable error) {
+    [PBMVastRequester loadVastURL:url connection:self.serverConnection completion:^(PrebidServerResponse * _Nullable serverResponse, NSError * _Nullable error) {
         @strongify(self);
+        
+        if (!self) {
+            PBMLogError(@"PBMAdRequesterVAST is nil");
+            return;
+        }
         
         if (error) {
             [self.adLoadManager requestCompletedFailure:error];
@@ -84,6 +89,11 @@
     @weakify(self);
     [self.adsBuilder buildAds:rawVASTData completion:^(NSArray<PBMVastAbstractAd *> *ads, NSError *error) {
         @strongify(self);
+        
+        if (!self) {
+            PBMLogError(@"PBMAdRequesterVAST is nil");
+            return;
+        }
         
         if (error) {
             [self.adLoadManager requestCompletedFailure:error];

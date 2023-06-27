@@ -15,12 +15,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class Log;
+@class PBMLog;
 
-#define PBMLogError( s, ... ) [Log error:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
-#define PBMLogInfo( s, ... ) [Log info:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
-#define PBMLogDebug( s, ... ) [Log debug:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
-#define PBMLogVerbose( s, ... ) [Log verbose:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
-#define PBMLogWarn( s, ... ) [Log warn:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
-#define PBMLogSevere( s, ... ) [Log severe:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
-#define PBMLogWhereAmI() [Log whereAmIWithFilename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
+#define PBMLogError( s, ... ) [PBMLog error:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
+#define PBMLogInfo( s, ... ) [PBMLog info:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
+#define PBMLogDebug( s, ... ) [PBMLog debug:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
+#define PBMLogVerbose( s, ... ) [PBMLog verbose:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
+#define PBMLogWarn( s, ... ) [PBMLog warn:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
+#define PBMLogSevere( s, ... ) [PBMLog severe:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
+#define PBMLogWhereAmI() [PBMLog whereAmIWithFilename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];

@@ -17,7 +17,7 @@
 import Foundation
 import WebKit
 
-@objcMembers
+@objc(PBMHiddenWebViewManager) @objcMembers
 public class HiddenWebViewManager: NSObject {
     
     private var hiddenWebView: WKWebView

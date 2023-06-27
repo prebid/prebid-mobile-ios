@@ -44,7 +44,7 @@
     _secure = @0;
     _extPrebid = [[PBMORTBImpExtPrebid alloc] init];
     _extSkadn = [PBMORTBImpExtSkadn new];
-    _extContextData = [NSMutableDictionary<NSString *, id> new];
+    _extData = [NSMutableDictionary<NSString *, id> new];
     _extOzoneData =[[NSMutableDictionary alloc] init];
 
     return self;
@@ -109,7 +109,8 @@
     _extPrebid = [[PBMORTBImpExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"]];
     _extSkadn = [[PBMORTBImpExtSkadn alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"skadn"]];
     
-    _extContextData = jsonDictionary[@"ext"][@"context"][@"data"];
+    _extData = jsonDictionary[@"ext"][@"data"];
+    _extKeywords = jsonDictionary[@"ext"][@"keywords"];
     _extOzoneData = jsonDictionary[@"ext"][@"ozone"];
     
     return self;
@@ -131,14 +132,16 @@
         ret[@"skadn"] = extSkadnObj;
     }
     
-//  MB ozone change 20230301
-	// removed    
-    // if (self.extContextData && self.extContextData.count > 0) {
-    //    ret[@"context"] = @{
-    //        @"data": self.extContextData,
-    //    };
-    //}
-    ret[@"ozone"] = self.extOzoneData; // contains adUnitCode, targeting, transactionId
+    if (self.extData && self.extData.count > 0) {
+        ret[@"data"] = self.extData;
+    }
+    
+    if (self.extKeywords && self.extKeywords.length > 0) {
+        ret[@"keywords"] = self.extKeywords;
+    }
+
+// MB ozone - I might have to change some other things here, maybe comment something out
+ ret[@"ozone"] = self.extOzoneData; // contains adUnitCode, targeting, transactionId
     
     return [ret pbmCopyWithoutEmptyVals];
 }

@@ -98,10 +98,11 @@
     @weakify(self);
     [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
         @strongify(self);
+        if (!self) { return; }
         
         if (error) {
             PBMLogError(@"%@", error);
-        }        
+        }
         else if (result) {
             NSString *resultString = [NSString stringWithFormat:@"%@", result];
             self.userAgent = (resultString) ? resultString : @"";

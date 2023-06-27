@@ -30,7 +30,7 @@
 
 @interface PBMDownloadDataHelper()
 
-@property (nonatomic, weak) id<ServerConnectionProtocol> serverConnection;
+@property (nonatomic, weak) id<PrebidServerConnectionProtocol> serverConnection;
 
 @end
 
@@ -40,7 +40,7 @@
 
 #pragma mark - Initialization
 
-- (nonnull instancetype)initWithServerConnection:(nonnull id<ServerConnectionProtocol>)serverConnection {
+- (nonnull instancetype)initWithServerConnection:(nonnull id<PrebidServerConnectionProtocol>)serverConnection {
     self = [super init];
     if (self) {
         PBMAssert(serverConnection);
@@ -61,7 +61,7 @@
         return;
     }
 
-    [self.serverConnection head:url.absoluteString timeout:PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT callback:^(ServerResponse * _Nonnull serverResponse) {
+    [self.serverConnection head:url.absoluteString timeout:PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT callback:^(PrebidServerResponse * _Nonnull serverResponse) {
   
         NSString *strContentLength = serverResponse ? serverResponse.responseHeaders[@"Content-Length"] : nil;
         
@@ -92,7 +92,7 @@
         return;
     }
     
-    [self.serverConnection download:url.absoluteString callback:^(ServerResponse * _Nonnull response) {
+    [self.serverConnection download:url.absoluteString callback:^(PrebidServerResponse * _Nonnull response) {
         if (!response) {
             completionClosure(nil, [PBMError errorWithDescription:[NSString stringWithFormat:@"The response is empty for loading data from %@ ", url]]);
             return;

@@ -47,7 +47,6 @@
     return self;
 }
 
-
 - (void)setCat:(NSArray<NSString *> *)cat {
     _cat = cat ? [NSArray arrayWithArray:cat] : @[];
 }
@@ -65,7 +64,7 @@
     
     ret[@"id"] = self.id;
     ret[@"name"] = self.name;
-    ret[@"bundle"] = self.bundle; // the guys want app.bundle to be the appstore ID so call Targeting.shared.itunesID = "..." to set this
+    ret[@"bundle"] = self.bundle;
     ret[@"domain"] = self.domain;
     ret[@"storeurl"] = self.storeurl;
     ret[@"ver"] = self.ver;

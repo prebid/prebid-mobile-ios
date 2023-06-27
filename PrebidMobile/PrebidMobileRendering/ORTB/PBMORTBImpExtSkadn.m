@@ -16,6 +16,8 @@
 #import "PBMORTBImpExtSkadn.h"
 #import "PBMORTBAbstract+Protected.h"
 
+#import "PBMFunctions.h"
+
 @implementation PBMORTBImpExtSkadn
 
 - (instancetype )init {
@@ -29,7 +31,7 @@
     PBMMutableJsonDictionary * const ret = [PBMMutableJsonDictionary new];
     
     if (self.sourceapp && self.skadnetids.count > 0) {
-        ret[@"versions"] = @[@"2.2"];
+        ret[@"versions"] = PBMFunctions.supportedSKAdNetworkVersions;
         ret[@"sourceapp"] = self.sourceapp;
         ret[@"skadnetids"] = self.skadnetids;
     }

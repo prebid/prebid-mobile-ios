@@ -15,16 +15,38 @@
 
 import UIKit
 
-public class BannerAdUnit: BannerBaseAdUnit {
+public class BannerAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitProtocol {
+    
+    @available(*, deprecated, message: "This property is deprecated. Please, use bannerParameters instead.")
+    public var parameters: BannerParameters {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+        set { adUnitConfig.adConfiguration.bannerParameters = newValue }
+    }
+    
+    public var bannerParameters: BannerParameters {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+        set { adUnitConfig.adConfiguration.bannerParameters = newValue }
+    }
+    
+    public var videoParameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
+    }
+    
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
+    }
     
     public init(configId: String, size: CGSize) {
-        super.init(configId: configId, size: size)
+        super.init(configId: configId, size: size, adFormats: [.banner])
     }
 
     public func addAdditionalSize(sizes: [CGSize]) {
         if super.adUnitConfig.additionalSizes == nil {
             super.adUnitConfig.additionalSizes = [CGSize]()
         }
+        
         super.adUnitConfig.additionalSizes?.append(contentsOf: sizes)
     }
 }

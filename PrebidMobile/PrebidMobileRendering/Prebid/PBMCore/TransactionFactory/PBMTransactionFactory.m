@@ -32,7 +32,7 @@
 
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
-@property (nonatomic, strong, readonly, nonnull) id<ServerConnectionProtocol> connection;
+@property (nonatomic, strong, readonly, nonnull) id<PrebidServerConnectionProtocol> connection;
 
 // NOTE: need to call the completion callback only in the main thread
 // use onFinishedWithTransaction
@@ -54,7 +54,7 @@
 
 - (instancetype)initWithBid:(Bid *)bid
             adConfiguration:(AdUnitConfig *)adConfiguration
-                 connection:(id<ServerConnectionProtocol>)connection
+                 connection:(id<PrebidServerConnectionProtocol>)connection
                    callback:(PBMTransactionFactoryCallback)callback
 {
     if (!(self = [super init])) {
@@ -107,6 +107,8 @@
     @weakify(self);
     return ^(PBMTransaction * _Nullable transaction, NSError * _Nullable error) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self onFinishedWithTransaction:transaction error:error];
     };
 }

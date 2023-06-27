@@ -105,7 +105,7 @@ public class BaseInterstitialAdUnit :
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adConfiguration.adFormats = [.display, .video]
+        adUnitConfig.adConfiguration.adFormats = [.banner, .video]
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
         blocksLockToken = NSObject()
 
@@ -119,7 +119,7 @@ public class BaseInterstitialAdUnit :
         callEventHandler_setLoadingDelegate(adLoader)
         
         adLoadFlowController =  PBMAdLoadFlowController(bidRequesterFactory: { adUnitConfig in
-            return PBMBidRequester(connection: ServerConnection.shared,
+            return PBMBidRequester(connection: PrebidServerConnection.shared,
                                    sdkConfiguration: Prebid.shared,
                                    targeting: Targeting.shared,
                                    adUnitConfiguration: adUnitConfig)
@@ -187,25 +187,83 @@ public class BaseInterstitialAdUnit :
 
     }
 
-    // MARK: - Context Data
+    // MARK: - Ext Data (imp[].ext.data)
 
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     @objc public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(key: key, value: data)
+        addExtData(key: key, value: data)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(key: key, value: data)
+        updateExtData(key: key, value: data)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     @objc public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(for: key)
+        removeExtData(forKey: key)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     @objc public func clearContextData() {
-        adUnitConfig.clearContextData()
+        clearExtData()
     }
     
-    // MARK: - App Content
+    @objc public func addExtData(key: String, value: String) {
+        adUnitConfig.addExtData(key: key, value: value)
+    }
+    
+    @objc public func updateExtData(key: String, value: Set<String>) {
+        adUnitConfig.updateExtData(key: key, value: value)
+    }
+    
+    @objc public func removeExtData(forKey: String) {
+        adUnitConfig.removeExtData(for: forKey)
+    }
+    
+    @objc public func clearExtData() {
+        adUnitConfig.clearExtData()
+    }
+    
+    // MARK: - Ext keywords (imp[].ext.keywords)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
+    @objc public func addContextKeyword(_ newElement: String) {
+        addExtKeyword(newElement)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
+    @objc public func addContextKeywords(_ newElements: Set<String>) {
+        addExtKeywords(newElements)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
+    @objc public func removeContextKeyword(_ element: String) {
+        removeExtKeyword(element)
+    }
+
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
+    @objc public func clearContextKeywords() {
+        clearExtKeywords()
+    }
+    
+    @objc public func addExtKeyword(_ newElement: String) {
+        adUnitConfig.addExtKeyword(newElement)
+    }
+    
+    @objc public func addExtKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addExtKeywords(newElements)
+    }
+    
+    @objc public func removeExtKeyword(_ element: String) {
+        adUnitConfig.removeExtKeyword(element)
+    }
+    
+    @objc public func clearExtKeywords() {
+        adUnitConfig.clearExtKeywords()
+    }
+    
+    // MARK: - App Content (app.content.data)
     
     @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
@@ -227,7 +285,7 @@ public class BaseInterstitialAdUnit :
         adUnitConfig.clearAppContentData()
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
     
     @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)

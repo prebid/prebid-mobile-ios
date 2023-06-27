@@ -41,7 +41,7 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var adPosition = AdPosition.undefined
 
-    public var contextDataDictionary: [String : [String]] {
+    public var extDataDictionary: [String : [String]] {
         extensionData.mapValues { Array($0) }
     }
 
@@ -96,15 +96,40 @@ public class AdUnitConfig: NSObject, NSCopying {
         self.configId = configId
         self.adSize = size
         
-        adFormats = [.display]
+        adFormats = [.banner]
         
         adConfiguration.autoRefreshDelay = 0
         adConfiguration.size = adSize
     }
     
-    // MARK: - Context Data (imp[].ext.context.data)
-
+    // MARK: - Ext Data (imp[].ext.data)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     public func addContextData(key: String, value: String) {
+        addExtData(key: key, value: value)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
+    public func updateContextData(key: String, value: Set<String>) {
+        updateExtData(key: key, value: value)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
+    public func removeContextData(for key: String) {
+        removeExtData(for: key)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
+    public func clearContextData() {
+        clearExtData()
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use getExtData method instead.")
+    public func getContextData() -> [String: [String]] {
+        getExtData()
+    }
+
+    public func addExtData(key: String, value: String) {
         if extensionData[key] == nil {
             extensionData[key] = Set<String>()
         }
@@ -112,45 +137,70 @@ public class AdUnitConfig: NSObject, NSCopying {
         extensionData[key]?.insert(value)
     }
     
-    public func updateContextData(key: String, value: Set<String>) {
+    public func updateExtData(key: String, value: Set<String>) {
         extensionData[key] = value
     }
     
-    public func removeContextData(for key: String) {
+    public func removeExtData(for key: String) {
         extensionData.removeValue(forKey: key)
     }
     
-    public func clearContextData() {
+    public func clearExtData() {
         extensionData.removeAll()
     }
     
-    public func getContextData() -> [String: [String]] {
-        contextDataDictionary
+    public func getExtData() -> [String: [String]] {
+        extDataDictionary
     }
 
-    // MARK: - Context keywords (imp[].ext.context.keywords)
-
+    // MARK: - Ext keywords (imp[].ext.keywords)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
     public func addContextKeyword(_ newElement: String) {
-        contextKeywords.insert(newElement)
-    }
-
-    public func addContextKeywords(_ newElements: Set<String>) {
-        contextKeywords.formUnion(newElements)
+        addExtKeyword(newElement)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
+    public func addContextKeywords(_ newElements: Set<String>) {
+        addExtKeywords(newElements)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
     public func removeContextKeyword(_ element: String) {
-        contextKeywords.remove(element)
+        removeExtKeyword(element)
     }
-
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
     public func clearContextKeywords() {
-        contextKeywords.removeAll()
+        clearExtKeywords()
     }
-
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use getExtKeywords method instead.")
     public func getContextKeywords() -> Set<String> {
-        contextKeywords
+        getExtKeywords()
     }
 
-    // MARK: - App Content (app.data)
+    public func addExtKeyword(_ newElement: String) {
+        extKeywords.insert(newElement)
+    }
+
+    public func addExtKeywords(_ newElements: Set<String>) {
+        extKeywords.formUnion(newElements)
+    }
+    
+    public func removeExtKeyword(_ element: String) {
+        extKeywords.remove(element)
+    }
+
+    public func clearExtKeywords() {
+        extKeywords.removeAll()
+    }
+
+    public func getExtKeywords() -> Set<String> {
+        extKeywords
+    }
+
+    // MARK: - App Content (app.content.data)
 
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         self.appContent = appContent
@@ -227,7 +277,7 @@ public class AdUnitConfig: NSObject, NSCopying {
 
     private var userData: [PBMORTBContentData]?
 
-    private var contextKeywords = Set<String>()
+    private var extKeywords = Set<String>()
     
     private var sizes: [CGSize]?
 
@@ -250,7 +300,11 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.refreshInterval = self.refreshInterval
         clone.minSizePerc = self.minSizePerc
         clone.extensionData = self.extensionData.merging(clone.extensionData) { $1 }
+        clone.appContent = self.appContent
+        clone.extKeywords = self.extKeywords
+        clone.userData = self.userData
         clone.adPosition = self.adPosition
+        clone.pbAdSlot = self.pbAdSlot
         
         return clone
     }

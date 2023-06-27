@@ -37,8 +37,8 @@
 
 @implementation PBMCreativeModelCollectionMakerVAST
 
-- (instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)serverConnection
-                            adConfiguration:(AdConfiguration *)adConfiguration {
+- (instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)serverConnection
+                            adConfiguration:(PBMAdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         self.adConfiguration = adConfiguration;
@@ -110,17 +110,16 @@
     }
     
     if (companionItems.count > 0) {
-        // There is at least 1 companion.  Set the flag so that when the initial video creative has completed
-        // display, the appropriate view controllers will prevent the "close" button and the learn more after the video has
-        // finished, it will instead display the endcard.
-        creativeModel.hasCompanionAd = YES;
-        
         // Now try to create the companion items creatives.
         // Create a model of the best fitting companion ad.
         PBMCreativeModel *creativeModelCompanion = [self createCompanionCreativeModelWithAd:vastAd
                                                                                companionAds:companionItems
                                                                                    creative:creative];
         if (creativeModelCompanion) {
+            // There is at least 1 companion.  Set the flag so that when the initial video creative has completed
+            // display, the appropriate view controllers will prevent the "close" button and the learn more after the video has
+            // finished, it will instead display the endcard.
+            creativeModel.hasCompanionAd = YES;
             [creatives addObject:creativeModelCompanion];
         }
     }
@@ -262,22 +261,9 @@
     if (companion == nil) {
         return nil;
     }
-    NSBundle * sdkBundle = [PBMFunctions bundleForSDK];
-    if (sdkBundle == nil) {
-        return nil;
-    }
-    NSString *path = [sdkBundle pathForResource:@"companion" ofType:@"html"];
-    if (!path) {
-        // error reading html
-        return nil;
-    }
     
-    NSString *templateHtmlString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    if (!templateHtmlString) {
-        return nil;
-    }
+    NSString * html = [NSString stringWithFormat:PrebidConstants.companionHTMLTemplate, companion.clickThroughURI, companion.resource];
     
-    NSString * html = [NSString stringWithFormat:templateHtmlString, companion.clickThroughURI, companion.resource];
     return html;
 }
 

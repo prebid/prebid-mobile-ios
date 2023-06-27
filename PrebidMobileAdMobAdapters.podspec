@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobileAdMobAdapters"
-  s.version      = "2.0.8"
+  s.version      = "2.1.2"
   s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
 
   s.description  = "AdMob Adatpers manages rendering of Prebid ads in the case of integration with AdMob as a Primary Ad Server."
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
     }
 
   s.author        = { "Prebid.org, Inc." => "info@prebid.org" }
-  s.platform      = :ios, "10.0"
+  s.platform      = :ios, "11.0"
   s.swift_version = '5.0'
   s.source        = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
   s.xcconfig      = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
 
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '2.0.8'
+  s.dependency 'PrebidMobile', '2.1.2'
   s.dependency 'Google-Mobile-Ads-SDK'
 
 end

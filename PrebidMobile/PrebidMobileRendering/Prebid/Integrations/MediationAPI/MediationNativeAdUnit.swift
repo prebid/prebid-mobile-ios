@@ -28,6 +28,7 @@ public class MediationNativeAdUnit : NSObject {
     var configID: String
     
     // MARK: - Public Methods
+    
     public init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         self.configID = configId
         self.mediationDelegate = mediationDelegate
@@ -78,7 +79,7 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.ext = ext
     }
     
-    // MARK: - App Content
+    // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         nativeAdUnit.setAppContent(appContent)
@@ -96,7 +97,7 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.removeAppContentData(dataObject)
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
     
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         nativeAdUnit.addUserData(userDataObjects)
@@ -108,6 +109,82 @@ public class MediationNativeAdUnit : NSObject {
     
     public func clearUserData() {
         nativeAdUnit.clearUserData()
+    }
+    
+    // MARK: - Ext Data (imp[].ext.data)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
+    public func addContextData(_ data: String, forKey key: String) {
+        addExtData(key: key, value: data)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
+    public func updateContextData(_ data: Set<String>, forKey key: String) {
+        updateExtData(key: key, value: data)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
+    public func removeContextDate(forKey key: String) {
+        removeExtData(forKey: key)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
+    public func clearContextData() {
+        clearExtData()
+    }
+    
+    public func addExtData(key: String, value: String) {
+        nativeAdUnit.addExtData(key: key, value: value)
+    }
+    
+    public func updateExtData(key: String, value: Set<String>) {
+        nativeAdUnit.updateExtData(key: key, value: value)
+    }
+    
+    public func removeExtData(forKey: String) {
+        nativeAdUnit.removeExtData(forKey: forKey)
+    }
+    
+    public func clearExtData() {
+        nativeAdUnit.clearExtData()
+    }
+    
+    // MARK: - Ext keywords (imp[].ext.keywords)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
+    @objc public func addContextKeyword(_ newElement: String) {
+        addExtKeyword(newElement)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
+    @objc public func addContextKeywords(_ newElements: Set<String>) {
+        addExtKeywords(newElements)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
+    @objc public func removeContextKeyword(_ element: String) {
+        removeExtKeyword(element)
+    }
+
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
+    @objc public func clearContextKeywords() {
+        clearExtKeywords()
+    }
+    
+    public func addExtKeyword(_ newElement: String) {
+        nativeAdUnit.addExtKeyword(newElement)
+    }
+    
+    public func addExtKeywords(_ newElements: Set<String>) {
+        nativeAdUnit.addExtKeywords(newElements)
+    }
+    
+    public func removeExtKeyword(_ element: String) {
+        nativeAdUnit.removeExtKeyword(element)
+    }
+    
+    public func clearExtKeywords() {
+        nativeAdUnit.clearExtKeywords()
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

@@ -44,8 +44,6 @@
     return self;
 }
 
-
-
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
     

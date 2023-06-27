@@ -23,7 +23,6 @@
 #import "PBMError.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialDisplayProperties.h"
-#import "PBMJSLibraryManager.h"
 #import "PBMLocationManager.h"
 #import "PBMMRAIDController.h"
 #import "PBMMRAIDJavascriptCommands.h"
@@ -75,6 +74,8 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 // the last frame sent to an ad via onSizeChange
 @property (nonatomic, assign) CGRect mraidLastSentFrame;
 
+@property (nonatomic, strong, nullable) PrebidJSLibraryManager *libraryManager;
+
 // Need to avoid warnings
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
@@ -108,6 +109,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     WKUserContentController * const wkUserContentController = [[WKUserContentController alloc] init];
     self.wkUserContentController = wkUserContentController;
     _targeting = targeting;
+    _libraryManager = PrebidJSLibraryManager.shared;
     _lastTapTimestamp = NSDate.distantPast;
     _viewable = NO;
     _isMRAID = NO;
@@ -214,11 +216,13 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     
     @weakify(self);
     [self loadContentWithMRAID:injectMraidJs forExpandContent:NO contentLoader:^{
-         @strongify(self);
-         PBMLogInfo(@"loadHTMLString");
-         self.state = PBMWebViewStateLoading;
+        @strongify(self);
+        if (!self) { return; }
         
-         [self.internalWebView loadHTMLString:html baseURL:nil];
+        PBMLogInfo(@"loadHTMLString");
+        self.state = PBMWebViewStateLoading;
+        
+        [self.internalWebView loadHTMLString:html baseURL:nil];
     } onError:^(NSError * _Nullable error) {
         PBMLogError(@"%@", error.localizedDescription);
     }];
@@ -242,9 +246,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     }
     
     if (!currentThread.isMainThread) {
-        @weakify(self);
         dispatch_async(dispatch_get_main_queue(), ^{
-            @strongify(self);
             [self expand:url];
         });
         
@@ -254,11 +256,15 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     @weakify(self);
     [self loadContentWithMRAID:YES forExpandContent:YES contentLoader:^{
         @strongify(self);
+        if (!self) { return; }
+        
         self.state = PBMWebViewStateLoading;
         [self.internalWebView loadRequest:[NSURLRequest requestWithURL:url]];
     } onError:^(NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
+            if (!self) { return; }
+            
             [self.delegate webView:self failedToLoadWithError:error];
         });
     }];
@@ -297,6 +303,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
         @weakify(self);
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
+            if (!self) { return; }
             [self.delegate webView:self receivedMRAIDLink:url];
         });
         decisionHandler(WKNavigationActionPolicyCancel);
@@ -322,6 +329,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
         @weakify(self);
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
+            if (!self) { return; }
             [self.delegate webView:self receivedClickthroughLink:url];
         });
     } else {
@@ -350,11 +358,12 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:@"document.readyState" completionHandler:^(NSString * _Nullable readyState, NSError * _Nullable error) {
         // This callback always runs on main thread
-        
         @strongify(self);
+        
         if (self == nil) {
             return;
         }
+        
         if ([readyState isEqualToString:@"complete"]) {
             self.state = PBMWebViewStateLoaded;
             self.isPollingForDocumentReady = NO;
@@ -362,6 +371,9 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
         } else {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
                 @strongify(self);
+                
+                if (!self) { return; }
+                
                 [self checkDocumentReadyState];
             });
         }
@@ -381,6 +393,8 @@ static PBMError *extracted(NSString *errorMessage) {
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self.delegate webView:self failedToLoadWithError:prebidError];
     });
 }
@@ -434,6 +448,7 @@ static PBMError *extracted(NSString *errorMessage) {
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        if (!self) { return; }
         
         [self onStatusBarOrientationChanged];
     });
@@ -448,8 +463,7 @@ static PBMError *extracted(NSString *errorMessage) {
 #pragma mark - MRAID Injection
 
 - (BOOL)injectMRAIDForExpandContent:(BOOL)isForExpandContent error:(NSError **)error {
-    [PBMJSLibraryManager sharedManager].bundle = self.bundle;
-    NSString *mraidScript = [[PBMJSLibraryManager sharedManager] getMRAIDLibrary];
+    NSString *mraidScript = [self.libraryManager getMRAIDLibrary];
     if (!mraidScript) {
         [PBMError createError:error message:@"Could not load mraid.js from library manager" type:PBMErrorTypeInternalError];
         return false;
@@ -461,6 +475,8 @@ static PBMError *extracted(NSString *errorMessage) {
     [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:mraidScript completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         @strongify(self);
+        if (!self) { return; }
+        
         if (error) {
             PBMLogError(@"Error injecting MRAID script: %@", error);
             return;
@@ -531,6 +547,8 @@ static PBMError *extracted(NSString *errorMessage) {
         @weakify(self);
         PBMVoidBlock injectMraidLib = ^{
             @strongify(self);
+            if (!self) { return; }
+            
             NSError *error = nil;
             if(![self injectMRAIDForExpandContent:forExpandContent error:&error]) {
                 if (error && onError) {
@@ -819,6 +837,8 @@ static PBMError *extracted(NSString *errorMessage) {
     @weakify(self);
     self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc]initWithView:self pollingTimeInterval:0.2f onExposureChange:^(PBMCreativeViewabilityTracker *tracker, PBMViewExposure * _Nonnull viewExposure) {
         @strongify(self);
+        if (!self) { return; }
+
         [self MRAID_onExposureChange:viewExposure];
         if (self.exposureDelegate != nil) {
             [self.exposureDelegate webView:self exposureChange:viewExposure];
@@ -838,6 +858,7 @@ static PBMError *extracted(NSString *errorMessage) {
         [self.internalWebView.configuration.userContentController addUserScript:script];
         [self.internalWebView evaluateJavaScript:jsCommand completionHandler:^(id _Nullable jsRes, NSError * _Nullable error) {
             @strongify(self);
+            if (!self) { return; }
 
             if (self.jsEvaluatingCompletion) {
                 self.jsEvaluatingCompletion(jsCommand, jsRes, error);

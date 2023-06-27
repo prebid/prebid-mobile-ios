@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMNativeAdConfiguration) @objcMembers
 public class NativeAdConfiguration: NSObject {
     
     /// Version of the Native Markup version in use.

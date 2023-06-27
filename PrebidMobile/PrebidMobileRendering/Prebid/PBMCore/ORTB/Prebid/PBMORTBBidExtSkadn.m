@@ -27,6 +27,7 @@
         _campaign = jsonDictionary[@"campaign"];
         _itunesitem = jsonDictionary[@"itunesitem"];
         _sourceapp = jsonDictionary[@"sourceapp"];
+        _sourceidentifier = jsonDictionary[@"sourceidentifier"];
         
         NSMutableArray<PBMORTBSkadnFidelity *> *fidelities = [NSMutableArray<PBMORTBSkadnFidelity *> new];
         NSMutableArray<PBMJsonDictionary *> *fidelitiesData = jsonDictionary[@"fidelities"];
@@ -49,6 +50,8 @@
     ret[@"campaign"] = self.campaign;
     ret[@"itunesitem"] = self.itunesitem;
     ret[@"sourceapp"] = self.sourceapp;
+    ret[@"sourceidentifier"] = self.sourceidentifier;
+    
     NSMutableArray<PBMJsonDictionary *> *jsonFidelities = [NSMutableArray<PBMJsonDictionary *> new];
     for (PBMORTBSkadnFidelity *fidelity in self.fidelities) {
         PBMJsonDictionary *jsonFidelity = [fidelity toJsonDictionary];

@@ -15,20 +15,25 @@
 
 import UIKit
 
-public class VideoInterstitialAdUnit: VideoBaseAdUnit {
+@available(*, deprecated, message: "This class is deprecated. Please, use InterstitialAdUnit with video adFormat.")
+public class VideoInterstitialAdUnit: AdUnit {
+    
+    public var parameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
+    }
 
     public init(configId: String) {
-        super.init(configId: configId, size: nil)
+        super.init(configId: configId, size: nil, adFormats: [.video])
         
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adFormats = [.video]
         adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
     }
     
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
         self.init(configId: configId)
-        
+ 
         adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
     }
 }

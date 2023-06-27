@@ -62,7 +62,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         adUnitConfig = AdUnitConfig(configId: configId)
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adConfiguration.adFormats = [.display, .video]
+        adUnitConfig.adConfiguration.adFormats = [.banner, .video]
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
         
         super.init()
@@ -70,31 +70,89 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
-        fetchDemand(connection: ServerConnection.shared,
+        fetchDemand(connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
                     targeting: Targeting.shared,
                     completion: completion)
     }
     
-    // MARK: - Context Data
+    // MARK: - Ext Data (imp[].ext.data)
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(key: key, value: data)
+        adUnitConfig.addExtData(key: key, value: data)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(key: key, value: data)
+        adUnitConfig.updateExtData(key: key, value: data)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(for: key)
+        adUnitConfig.removeExtData(for: key)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
-        adUnitConfig.clearContextData()
+        adUnitConfig.clearExtData()
     }
     
-    // MARK: - App Content
+    public func addExtData(key: String, value: String) {
+        adUnitConfig.addExtData(key: key, value: value)
+    }
+    
+    public func updateExtData(key: String, value: Set<String>) {
+        adUnitConfig.updateExtData(key: key, value: value)
+    }
+    
+    public func removeExtData(forKey: String) {
+        adUnitConfig.removeExtData(for: forKey)
+    }
+    
+    public func clearExtData() {
+        adUnitConfig.clearExtData()
+    }
+    
+    // MARK: - Ext keywords (imp[].ext.keywords)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
+    @objc public func addContextKeyword(_ newElement: String) {
+        adUnitConfig.addExtKeyword(newElement)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
+    @objc public func addContextKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addExtKeywords(newElements)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
+    @objc public func removeContextKeyword(_ element: String) {
+        adUnitConfig.removeExtKeyword(element)
+    }
+
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
+    @objc public func clearContextKeywords() {
+        adUnitConfig.clearExtKeywords()
+    }
+    
+    public func addExtKeyword(_ newElement: String) {
+        adUnitConfig.addExtKeyword(newElement)
+    }
+    
+    public func addExtKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addExtKeywords(newElements)
+    }
+    
+    public func removeExtKeyword(_ element: String) {
+        adUnitConfig.removeExtKeyword(element)
+    }
+    
+    public func clearExtKeywords() {
+        adUnitConfig.clearExtKeywords()
+    }
+    
+    // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
@@ -116,7 +174,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         adUnitConfig.clearAppContentData()
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
     
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
@@ -133,7 +191,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     // MARK: - Internal Methods
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(connection: ServerConnectionProtocol,
+    func fetchDemand(connection: PrebidServerConnectionProtocol,
                      sdkConfiguration: Prebid,
                      targeting: Targeting,
                      completion: ((ResultCode)->Void)?) {

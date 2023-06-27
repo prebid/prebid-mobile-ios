@@ -75,20 +75,25 @@
     @weakify(self);
     self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
                                                          adConfiguration:self.adConfiguration
-                                                              connection:self.connection ?: ServerConnection.shared
+                                                              connection:self.connection ?: PrebidServerConnection.shared
                                                                 callback:^(PBMTransaction * _Nullable transaction,
                                                                            NSError * _Nullable error) {
         @strongify(self);
+        if (!self) { return; }
+        
         if (error) {
             [self reportFailureWithError:error];
         } else {
             [self displayTransaction:transaction];
         }
     }];
-    [PBMWinNotifier notifyThroughConnection:ServerConnection.shared
+    
+    [PBMWinNotifier notifyThroughConnection:PrebidServerConnection.shared
                                  winningBid:self.bid
                                    callback:^(NSString *adMarkup) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self.transactionFactory loadWithAdMarkup:adMarkup];
     }];
 }
@@ -121,8 +126,7 @@
 }
 
 - (void)adWasClicked {
-    // nop?
-    // Note: modal handled in `modalManagerWillPresentModal`
+    [self interactionDelegateWillPresentModal];
 }
 
 - (void)adViewWasClicked {
@@ -145,8 +149,7 @@
 }
 
 - (void)adClickthroughDidClose {
-    // nop?
-    // Note: modal handled in `displayViewDidDismissModal`
+    [self interactionDelegateDidDismissModal];
 }
 
 - (void)adDidClose {
@@ -161,17 +164,11 @@
 // MARK: - PBMModalManagerDelegate
 
 - (void)modalManagerWillPresentModal {
-    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
-    if ([delegate respondsToSelector:@selector(willPresentModalFrom:)]) {
-        [delegate willPresentModalFrom:self];
-    }
+    [self interactionDelegateWillPresentModal];
 }
 
 - (void)modalManagerDidDismissModal {
-    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
-    if ([delegate respondsToSelector:@selector(didDismissModalFrom:)]) {
-        [delegate didDismissModalFrom:self];
-    }
+    [self interactionDelegateDidDismissModal];
 }
 
 // MARK: - Private Helpers
@@ -187,7 +184,7 @@
 }
 
 - (void)displayTransaction:(PBMTransaction *)transaction {
-    id<ServerConnectionProtocol> const connection = self.connection ?: ServerConnection.shared;
+    id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
     self.adViewManager = [[PBMAdViewManager alloc] initWithConnection:connection modalManagerDelegate:self];
     self.adViewManager.adViewManagerDelegate = self;
     self.adViewManager.adConfiguration = self.adConfiguration.adConfiguration;
@@ -195,6 +192,20 @@
         self.adConfiguration.adConfiguration.isBuiltInVideo = YES;
     }
     [self.adViewManager handleExternalTransaction:transaction];
+}
+
+- (void)interactionDelegateWillPresentModal {
+    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
+    if ([delegate respondsToSelector:@selector(willPresentModalFrom:)]) {
+        [delegate willPresentModalFrom:self];
+    }
+}
+
+- (void)interactionDelegateDidDismissModal {
+    NSObject<DisplayViewInteractionDelegate> const *delegate = self.interactionDelegate;
+    if ([delegate respondsToSelector:@selector(didDismissModalFrom:)]) {
+        [delegate didDismissModalFrom:self];
+    }
 }
 
 @end

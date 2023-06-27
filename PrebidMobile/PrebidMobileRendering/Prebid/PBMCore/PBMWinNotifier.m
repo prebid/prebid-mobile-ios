@@ -28,7 +28,7 @@
 
 @implementation PBMWinNotifier
 
-+ (void)notifyThroughConnection:(id<ServerConnectionProtocol>)connection
++ (void)notifyThroughConnection:(id<PrebidServerConnectionProtocol>)connection
                      winningBid:(Bid *)bid
                        callback:(PBMAdMarkupStringHandler)adMarkupConsumer
 {
@@ -43,10 +43,10 @@
             if (adMarkup != nil) {
                 // markup already known -- report to chained callbacks and send notification in parallel
                 onResult(adMarkup);
-                [connection download:notificationUrl callback:^(ServerResponse * response) { /* nop */ }];
+                [connection download:notificationUrl callback:^(PrebidServerResponse * response) { /* nop */ }];
             } else {
                 // markup not yet known -- get a single response
-                [connection download:notificationUrl callback:^(ServerResponse * _Nonnull response) {
+                [connection download:notificationUrl callback:^(PrebidServerResponse * _Nonnull response) {
                     NSString *adMarkupFromResponse = nil;
                     if (response.error == nil && response.rawData != nil) {
                         NSString * const rawResponseString = [[NSString alloc] initWithData:response.rawData
@@ -73,14 +73,14 @@
     chainedNotifications(bid.adm); // launch chained events
 }
 
-+ (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<ServerConnectionProtocol>)connection {
++ (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<PrebidServerConnectionProtocol>)connection {
     return ^(Bid *bid, PBMAdMarkupStringHandler adMarkupConsumer) {
         [PBMWinNotifier notifyThroughConnection:connection winningBid:bid callback:adMarkupConsumer];
     };
 }
 
 + (PBMWinNotifierFactoryBlock)factoryBlock {
-    return ^PBMWinNotifierBlock (id<ServerConnectionProtocol> connection) {
+    return ^PBMWinNotifierBlock (id<PrebidServerConnectionProtocol> connection) {
         return [PBMWinNotifier winNotifierBlockWithConnection:connection];
     };
 }

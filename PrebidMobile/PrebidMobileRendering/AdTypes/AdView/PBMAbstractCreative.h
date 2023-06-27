@@ -30,7 +30,7 @@
 @class PBMModalManager;
 @class PBMModalState;
 @class PBMTransaction;
-@class EventManager;
+@class PBMEventManager;
 @class PBMOpenMeasurementSession;
 @class PBMDownloadDataHelper;
 @class PBMCreativeViewabilityTracker;
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly, nullable) PBMTransaction *transaction;
 @property (nonatomic, strong, nullable) PBMCreativeModel *creativeModel;
-@property (nonatomic, readonly, nonnull) EventManager *eventManager;
+@property (nonatomic, readonly, nonnull) PBMEventManager *eventManager;
 @property (nonatomic, strong, nullable) UIView *view;
 @property (nonatomic, assign) BOOL clickthroughVisible;
 @property (nonatomic, strong, nullable) PBMModalManager *modalManager;

@@ -16,6 +16,8 @@
 #import <UIKit/UIKit.h>
 #import "PBMInterstitialLayout.h"
 
+@class PrebidImagesRepository;
+
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMInterstitialDisplayProperties : NSObject <NSCopying>
 

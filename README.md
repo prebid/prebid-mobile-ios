@@ -1,27 +1,51 @@
-# Ozone Prebid Mobile iOS SDK
+[![Build Status](https://api.travis-ci.org/prebid/prebid-mobile-ios.svg?branch=master)](https://travis-ci.org/prebid/prebid-mobile-ios)
 
-To work with Ozone Prebid Mobile, you will need accesss to the Ozone Prebid Server. Contact your Ozone representative or email hello@ozoneproject.com
+# Prebid Mobile iOS SDK
+
+To work with Prebid Mobile, you will need accesss to a Prebid Server. See [this page](https://docs.prebid.org/prebid-server/overview/prebid-server-overview.html) for options.
 
 ## Use Cocoapods?
 
-Easily include the Ozone Prebid Mobile SDK for your primary ad server in your Podfile - NOTE you must set the :source to get the Ozone version.
+Easily include the Prebid Mobile SDK for your primary ad server in your Podfile/
 
 ```
 platform :ios, '11.0'
 
 target 'MyAmazingApp' do 
-    pod 'PrebidMobile', '2.0.8', :source => 'https://github.com/ozone-project/inapp-sdk-ios-podspec.git'
-    pod 'Google-Mobile-Ads-SDK', '10.3.0'
+    pod 'PrebidMobile'
 end
 ```
 
 ## Build framework from source
 
-Build Ozone Prebid Mobile from source code. After cloning the repo, from the root directory run
+Build Prebid Mobile from source code. After cloning the repo, from the root directory run
 
 ```
 ./scripts/buildPrebidMobile.sh
 ```
 
-to output the Ozone Prebid Mobile framework.
+to output the Prebid Mobile framework.
 
+
+## Test Prebid Mobile
+
+Run the test script to run unit tests and integration tests.
+
+```
+./scripts/testPrebidMobile.sh
+```
+
+
+## Carthage
+
+`2.1.1` version is available to build PrebidMobile with Carthage. For that, please, put the following content to your `Cartfile`:
+
+```
+github "prebid/prebid-mobile-ios" == 2.1.1-carthage
+```
+Run this command in order to build PrebidMobile with Carthage:
+
+```
+carthage update --use-xcframeworks --platform ios
+```
+Note that `PrebidMobileGAMEventHandlers`, `PrebidMobileAdMobAdapters`, `PrebidMobileMAXAdapters` are not available to build with Carthage.

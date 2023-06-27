@@ -35,7 +35,7 @@
 
 @property (nonatomic, strong) PBMCreativeModel *creativeModel;
 @property (nonatomic, copy) PBMCreativeFactoryJobFinishedCallback finishedCallback;
-@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 @property (nonatomic, strong) PBMTransaction *transaction;
 
 @end
@@ -46,7 +46,7 @@
 
 - (nonnull instancetype)initFromCreativeModel:(nonnull PBMCreativeModel *)creativeModel
                                   transaction:(PBMTransaction *)transaction
-                             serverConnection:(nonnull id<ServerConnectionProtocol>)serverConnection
+                             serverConnection:(nonnull id<PrebidServerConnectionProtocol>)serverConnection
                               finishedCallback:(PBMCreativeFactoryJobFinishedCallback)finishedCallback {
     self = [super init];
     if (self) {
@@ -68,6 +68,8 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
+        if (!self) { return; }
+        
         if (self.state == PBMCreativeFactoryJobStateRunning) {
             self.state = PBMCreativeFactoryJobStateSuccess;
             if (self.finishedCallback) {
@@ -81,6 +83,8 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
+        if (!self) { return; }
+        
         if (self.state == PBMCreativeFactoryJobStateRunning) {
             self.state = PBMCreativeFactoryJobStateError;
             if (self.finishedCallback) {
@@ -109,6 +113,8 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
+        if (!self) { return; }
+        
         if (self.state != PBMCreativeFactoryJobStateInitialized) {
             [self failWithError:[PBMError errorWithMessage:@"PBMCreativeFactoryJob: Tried to start PBMCreativeFactory twice" type:PBMErrorTypeInternalError]];
             return;
@@ -124,7 +130,7 @@
         }
         
         AdFormat *adType = self.creativeModel.adConfiguration.winningBidAdFormat;
-        if (adType == AdFormat.display || self.creativeModel.isCompanionAd) {
+        if (adType == AdFormat.banner || self.creativeModel.isCompanionAd) {
             [self attemptAUIDCreative];
         } else if (adType == AdFormat.video) {
             [self attemptVASTCreative];
@@ -141,6 +147,8 @@
         dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(time, dispatch_get_main_queue(), ^(void){
             @strongify(self);
+            if (!self) { return; }
+            
             [self failWithError:[PBMError errorWithMessage:@"PBMCreativeFactoryJob: Failed to complete in specified time interval" type:PBMErrorTypeInternalError]];
         });
     };
@@ -204,7 +212,7 @@
 }
 
 - (NSTimeInterval)getTimeInterval {
-    AdConfiguration *adConfig = self.creativeModel.adConfiguration;
+    PBMAdConfiguration *adConfig = self.creativeModel.adConfiguration;
     if (adConfig.winningBidAdFormat == AdFormat.video || adConfig.presentAsInterstitial) {
         return Prebid.shared.creativeFactoryTimeoutPreRenderContent;
     } else {
@@ -217,7 +225,7 @@
 }
 
 - (PBMCreativeFactoryDownloadDataCompletionClosure)createLoader {
-    id<ServerConnectionProtocol> const connection = self.serverConnection;
+    id<PrebidServerConnectionProtocol> const connection = self.serverConnection;
     PBMCreativeFactoryDownloadDataCompletionClosure result = ^(NSURL* _Nonnull  url, PBMDownloadDataCompletionClosure _Nonnull completionBlock) {
         PBMDownloadDataHelper *downloader = [[PBMDownloadDataHelper alloc] initWithServerConnection:connection];
         [downloader downloadDataForURL:url completionClosure:^(NSData * _Nullable data, NSError * _Nullable error) {

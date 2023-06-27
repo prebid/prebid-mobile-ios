@@ -47,6 +47,25 @@ static NSString * const PBMPlistExt = @"plist";
     return @"5.0";
 }
 
+// MARK: - SKAdNetwork
+
++ (nonnull NSArray<NSString *> *)supportedSKAdNetworkVersions {
+    NSMutableArray<NSString *> *supportedSKAdNVersions = [[NSMutableArray<NSString*> alloc] init];
+    
+    if (@available(iOS 14.5, *)) {
+        [supportedSKAdNVersions addObject:@"2.2"];
+    }
+    
+    if (@available(iOS 14.6, *)) {
+        [supportedSKAdNVersions addObject:@"3.0"];
+    }
+    
+    if (@available(iOS 16.2, *)) {
+        [supportedSKAdNVersions addObject:@"4.0"];
+    }
+    
+    return supportedSKAdNVersions;
+}
 
 + (nonnull NSDictionary<NSString *, NSString *> *)extractVideoAdParamsFromTheURLString:(NSString *)urlString forKeys:(NSArray *)keys {
     NSMutableDictionary<NSString *, NSString *> *result = [[NSMutableDictionary alloc] init];

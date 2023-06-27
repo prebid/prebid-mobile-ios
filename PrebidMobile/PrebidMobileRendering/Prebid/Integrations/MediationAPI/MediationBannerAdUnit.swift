@@ -43,7 +43,7 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     public var adFormat: AdFormat {
-        get { adUnitConfig.adFormats.first ?? .display }
+        get { adUnitConfig.adFormats.first ?? .banner }
         set { adUnitConfig.adFormats = [newValue] }
     }
     
@@ -70,25 +70,83 @@ public class MediationBannerAdUnit : NSObject {
         set { adUnitConfig.additionalSizes = newValue }
     }
     
-    // MARK: - Context Data
+    // MARK: - Ext Data (imp[].ext.data)
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(key: key, value: data)
+        addExtData(key: key, value: data)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(key: key, value: data)
+        updateExtData(key: key, value: data)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(for: key)
+        removeExtData(forKey: key)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
-        adUnitConfig.clearContextData()
+        clearExtData()
     }
     
-    // MARK: - App Content
+    public func addExtData(key: String, value: String) {
+        adUnitConfig.addExtData(key: key, value: value)
+    }
+    
+    public func updateExtData(key: String, value: Set<String>) {
+        adUnitConfig.updateExtData(key: key, value: value)
+    }
+    
+    public func removeExtData(forKey: String) {
+        adUnitConfig.removeExtData(for: forKey)
+    }
+    
+    public func clearExtData() {
+        adUnitConfig.clearExtData()
+    }
+    
+    // MARK: - Ext keywords (imp[].ext.keywords)
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
+    @objc public func addContextKeyword(_ newElement: String) {
+        addExtKeyword(newElement)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
+    @objc public func addContextKeywords(_ newElements: Set<String>) {
+        addExtKeywords(newElements)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
+    @objc public func removeContextKeyword(_ element: String) {
+        removeExtKeyword(element)
+    }
+
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
+    @objc public func clearContextKeywords() {
+        clearExtKeywords()
+    }
+    
+    public func addExtKeyword(_ newElement: String) {
+        adUnitConfig.addExtKeyword(newElement)
+    }
+    
+    public func addExtKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addExtKeywords(newElements)
+    }
+    
+    public func removeExtKeyword(_ element: String) {
+        adUnitConfig.removeExtKeyword(element)
+    }
+    
+    public func clearExtKeywords() {
+        adUnitConfig.clearExtKeywords()
+    }
+    
+    // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
@@ -110,7 +168,7 @@ public class MediationBannerAdUnit : NSObject {
         adUnitConfig.clearAppContentData()
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
     
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
@@ -149,7 +207,7 @@ public class MediationBannerAdUnit : NSObject {
                 return
             }
             
-            self.fetchDemand(connection: ServerConnection.shared,
+            self.fetchDemand(connection: PrebidServerConnection.shared,
                              sdkConfiguration: Prebid.shared,
                              targeting: Targeting.shared,
                              completion: completion)
@@ -158,7 +216,7 @@ public class MediationBannerAdUnit : NSObject {
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
-        fetchDemand(connection: ServerConnection.shared,
+        fetchDemand(connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
                     targeting: Targeting.shared,
                     completion: completion)
@@ -178,7 +236,7 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: Private functions
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(connection: ServerConnectionProtocol,
+    func fetchDemand(connection: PrebidServerConnectionProtocol,
                      sdkConfiguration: Prebid,
                      targeting: Targeting,
                      completion: ((ResultCode)->Void)?) {
@@ -229,7 +287,7 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     private func isAdObjectVisible() -> Bool {
-        guard let adObject = adView else {
+        guard let adObject = lastAdView else {
             return false
         }
         
@@ -274,7 +332,7 @@ public class MediationBannerAdUnit : NSObject {
             markLoadingFinished()
         }
         
-        guard let adObject = self .adView,
+        guard let adObject = self.adView,
               let completion = self.completion else {
             return
         }

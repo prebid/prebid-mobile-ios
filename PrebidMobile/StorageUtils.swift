@@ -25,12 +25,13 @@ class StorageUtils {
         guard let value: Data = getObjectFromUserDefaults(forKey: StorageUtils.PB_ExternalUserIdsKey) else {
             return nil
         }
-        return NSKeyedUnarchiver.unarchiveObject(with: value) as? [ExternalUserId]
+        
+        return try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [ExternalUserId.self, NSArray.self, NSString.self, NSNumber.self, NSDictionary.self], from: value) as? [ExternalUserId]
     }
     
     static func setExternalUserIds(value: [ExternalUserId]?) {
         if let value = value {
-            let encodeData = NSKeyedArchiver.archivedData(withRootObject: value)
+            let encodeData = try? NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false)
             setUserDefaults(value: encodeData, forKey: StorageUtils.PB_ExternalUserIdsKey)
         }
     }

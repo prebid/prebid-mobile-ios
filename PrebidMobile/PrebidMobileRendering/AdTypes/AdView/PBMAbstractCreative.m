@@ -18,7 +18,7 @@
 
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
-#import "PBMClickthroughBrowserOpener.h"
+#import "PBMSafariVCOpener.h"
 #import "PBMCreativeModel.h"
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMCreativeViewabilityTracker.h"
@@ -47,12 +47,14 @@
 @interface PBMAbstractCreative() <SKStoreProductViewControllerDelegate>
 
 @property (nonatomic, weak, readwrite) PBMTransaction *transaction;
-@property (nonatomic, strong, readwrite) EventManager *eventManager;
+@property (nonatomic, strong, readwrite) PBMEventManager *eventManager;
 @property (nonatomic, copy, nullable, readwrite) PBMVoidBlock dismissInterstitialModalState;
 
 @property (nonatomic, assign) BOOL adWasShown;
 
 @property (nonatomic, nonnull) WKWebView *hiddenWebView;
+
+@property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
 
 @end
 
@@ -72,7 +74,7 @@
         self.transaction = transaction;
         self.dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
 
-        self.eventManager = [EventManager new];
+        self.eventManager = [PBMEventManager new];
         if (creativeModel.eventTracker) {
             [self.eventManager registerTracker: (id<PBMEventTrackerProtocol>)creativeModel.eventTracker];
         } else {
@@ -81,9 +83,9 @@
         
         if(@available(iOS 14.5, *)) {
             if (self.transaction.skadnInfo) {
-                SKAdImpression *imp = [SkadnParametersManager getSkadnImpressionFor:self.transaction.skadnInfo];
+                SKAdImpression *imp = [PBMSkadnParametersManager getSkadnImpressionFor:self.transaction.skadnInfo];
                 if (imp) {
-                    SkadnEventTracker *skadnTracker = [[SkadnEventTracker alloc] initWith:imp];
+                    PBMSkadnEventTracker *skadnTracker = [[PBMSkadnEventTracker alloc] initWith:imp];
                     [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
                 }
             }
@@ -94,14 +96,14 @@
         NSString *impURL = self.transaction.impURL;
         
         if (impURL) {
-            ServerEvent *impEvent = [[ServerEvent alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
+            PBMServerEvent *impEvent = [[PBMServerEvent alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
             [internalEventTracker addServerEvents:@[impEvent]];
         }
         
         NSString *winURL = self.transaction.winURL;
         
         if (winURL) {
-            ServerEvent *winEvent = [[ServerEvent alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
+            PBMServerEvent *winEvent = [[PBMServerEvent alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
             [internalEventTracker addServerEvents:@[winEvent]];
         }
         
@@ -173,9 +175,13 @@
                                            displayProperties:displayProperties
                                           onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self modalManagerDidFinishPop:poppedState];
     } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self modalManagerDidLeaveApp:leavingState];
     }];
     
@@ -221,7 +227,7 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    PBMJsonDictionary * skadnetProductParameters = [SkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
+    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
     
     if (skadnetProductParameters) {
         clickthroughOpened = [self handleProductClickthrough:url
@@ -269,6 +275,8 @@
         @weakify(self);
         [PBMDeepLinkPlusHelper tryHandleDeepLinkPlus:effectiveURL completion:^(BOOL visited, NSURL *_Nullable fallbackURL, NSArray<NSURL *> *_Nullable trackingURLs) {
             @strongify(self);
+            if (!self) { return; }
+            
             if (visited) {
                 completion(YES);
                 onClickthroughExitBlock();
@@ -302,9 +310,7 @@
     
     @weakify(self);
     
-    PBMClickthroughBrowserOpener * const
-    clickthroughOpener = [[PBMClickthroughBrowserOpener alloc] initWithSDKConfiguration:sdkConfiguration
-                                                                        adConfiguration:self.creativeModel.adConfiguration
+    self.safariOpener = [[PBMSafariVCOpener alloc] initWithSDKConfiguration:sdkConfiguration
                                                                            modalManager:self.modalManager
                                                                  viewControllerProvider:^UIViewController * _Nullable{
         @strongify(self);
@@ -317,23 +323,29 @@
         self.clickthroughVisible = YES;
     } onWillLeaveAppBlock:^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self.creativeViewDelegate creativeInterstitialDidLeaveApp:self];
-    } onClickthroughPoppedBlock:^(PBMModalState * _Nonnull poppedState) {
+    } onClickthroughPoppedBlock:^(PBMModalState * poppedState) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self modalManagerDidFinishPop:poppedState];
-    } onDidLeaveAppBlock:^(PBMModalState * _Nonnull leavingState) {
+    } onDidLeaveAppBlock:^(PBMModalState * leavingState) {
         @strongify(self);
+        if (!self) { return; }
+        
         [self modalManagerDidLeaveApp:leavingState];
     }];
     
-    return [clickthroughOpener openURL:url onClickthroughExitBlock:onClickthroughExitBlock];
+    return [self.safariOpener openURL:url onClickthroughExitBlock:onClickthroughExitBlock];
 }
 
 - (BOOL)handleProductClickthrough:(NSURL*)url
                     productParams:(NSDictionary<NSString *, id> *)productParams
                            onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock {
     self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
-    HiddenWebViewManager *webViewManager = [[HiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
+    PBMHiddenWebViewManager *webViewManager = [[PBMHiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
     [self.hiddenWebView setHidden:YES];
     [webViewManager openHiddenWebView];
     
@@ -372,7 +384,8 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
-
+        if (!self) { return; }
+        
         if (self.isDownloaded) {
             return;
         }
@@ -387,6 +400,7 @@
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
+        if (!self) { return; }
         
         if (self.isDownloaded) {
             return;

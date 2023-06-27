@@ -38,7 +38,7 @@
 
 @interface PBMAdViewManager ()
 
-@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 @property (weak, nullable) PBMAbstractCreative *currentCreative;
 @property (nonatomic, strong, nullable) PBMTransaction *externalTransaction;
 @property (nonatomic, nullable, readonly) PBMTransaction *currentTransaction; // computed
@@ -48,7 +48,7 @@
 
 @implementation PBMAdViewManager
 
-- (instancetype)initWithConnection:(id<ServerConnectionProtocol>)connection
+- (instancetype)initWithConnection:(id<PrebidServerConnectionProtocol>)connection
               modalManagerDelegate:(nullable id<PBMModalManagerDelegate>)modalManagerDelegate
 {
     if (!(self = [super init])) {
@@ -60,7 +60,7 @@
     _autoDisplayOnLoad = YES;
     _serverConnection = connection;
     _modalManager = [[PBMModalManager alloc] initWithDelegate:modalManagerDelegate];
-    _adConfiguration = [AdConfiguration new];
+    _adConfiguration = [PBMAdConfiguration new];
     _videoInterstitialDidClose = NO;
     
     return self;
@@ -121,6 +121,8 @@
         @weakify(self);
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
+            if (!self) { return; }
+            
             [[self.adViewManagerDelegate displayView] addSubview:creativeView];
             [self.currentCreative displayWithRootViewController:viewController];
         });
@@ -340,6 +342,8 @@
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
         
         //If we're currently displaying a creative, bail.
         if (self.currentCreative) {

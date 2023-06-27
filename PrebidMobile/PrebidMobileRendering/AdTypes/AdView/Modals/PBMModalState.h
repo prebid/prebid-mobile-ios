@@ -18,15 +18,15 @@
 #import "PBMVoidBlock.h"
 
 @class PBMModalState;
-@class AdConfiguration;
+@class PBMAdConfiguration;
 @class PBMInterstitialDisplayProperties;
 
-typedef void (^PBMModalStatePopHandler)(PBMModalState * _Nonnull poppedState);
-typedef void (^PBMModalStateAppLeavingHandler)(PBMModalState * _Nonnull leavingState);
+typedef void (^PBMModalStatePopHandler)(PBMModalState * _Nullable poppedState);
+typedef void (^PBMModalStateAppLeavingHandler)(PBMModalState * _Nullable leavingState);
 
 @interface PBMModalState : NSObject
 
-@property (nonatomic, strong, nullable, readonly) AdConfiguration *adConfiguration;
+@property (nonatomic, strong, nullable, readonly) PBMAdConfiguration *adConfiguration;
 @property (nonatomic, strong, nullable, readonly) PBMInterstitialDisplayProperties *displayProperties;
 @property (nonatomic, strong, nullable, readonly) UIView *view;
 
@@ -47,14 +47,14 @@ typedef void (^PBMModalStateAppLeavingHandler)(PBMModalState * _Nonnull leavingS
 - (nonnull instancetype)init NS_UNAVAILABLE;
 
 + (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable AdConfiguration *)adConfiguration
+                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
                          displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
                         onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
                          onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp;
 
 
 + (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable AdConfiguration *)adConfiguration
+                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
                          displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
                         onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
                          onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
@@ -63,14 +63,14 @@ typedef void (^PBMModalStateAppLeavingHandler)(PBMModalState * _Nonnull leavingS
 
 
 + (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable AdConfiguration *)adConfiguration
+                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
                          displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
                         onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
                          onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
                         onModalPushedBlock:(nullable PBMVoidBlock)onModalPushedBlock;
 
 + (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable AdConfiguration *)adConfiguration
+                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
                          displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
                         onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
                          onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp

@@ -19,7 +19,6 @@
 #import "PBMFunctions+Private.h"
 #import "UIView+PBMExtensions.h"
 
-#import "PBMClickthroughBrowserView.h"
 #import "PBMConstants.h"
 #import "PBMCreativeModel.h"
 #import "PBMDownloadDataHelper.h"
@@ -95,10 +94,13 @@
     [self.videoView PBMAddFillSuperviewConstraints];
 }
 
-- (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {  
+- (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
+        
+        if (!self) { return; }
+        
         if (self.creativeModel.adConfiguration.videoControlsConfig.isMuted) {
             [self.videoView mute];
         } else {
@@ -212,6 +214,8 @@
         // nop
     } onExit:^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self resume];
     }];
 }
@@ -239,7 +243,7 @@
 - (void)modalManagerDidFinishPop:(PBMModalState*)state {
     
     //Clickthrough
-    if ([state.view isKindOfClass:[PBMClickthroughBrowserView class]]) {
+    if (self.clickthroughVisible) {
         [self.creativeViewDelegate creativeClickthroughDidClose:self];
         self.clickthroughVisible = NO;
         return;
@@ -267,6 +271,8 @@
     @weakify(self);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @strongify(self);
+        if (!self) { return; }
+        
         [self.videoView showMediaFileURL:[NSURL URLWithString:self.creativeModel.videoFileURL] preloadedData:preloadedData];
     });
 }

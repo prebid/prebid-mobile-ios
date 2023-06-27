@@ -1,17 +1,17 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 import Foundation
 import CoreLocation
@@ -74,7 +74,7 @@ public class Targeting: NSObject {
             guard let currentValue = parameterDictionary[PrebidTargetingKey_GENDER] else {
                 return .unknown
             }
-                        
+            
             return GenderFromDescription(currentValue)
         }
         
@@ -107,7 +107,7 @@ public class Targeting: NSObject {
      Buyer-specific ID for the user as mapped by the exchange for the buyer.
      */
     public var buyerUID: String?
-
+    
     /**
      Optional feature to pass bidder data that was set in the
      exchange’s cookie. The string must be in base85 cookie safe
@@ -153,7 +153,7 @@ public class Targeting: NSObject {
      */
     public var subjectToGDPR: Bool? {
         set { UserConsentDataManager.shared.subjectToGDPR = newValue }
-
+        
         get { UserConsentDataManager.shared.subjectToGDPR }
     }
     
@@ -176,12 +176,12 @@ public class Targeting: NSObject {
     }
     
     // MARK: - TCFv2
-
+    
     public var purposeConsents: String? {
         set { UserConsentDataManager.shared.purposeConsents = newValue }
         get { UserConsentDataManager.shared.purposeConsents }
     }
-
+    
     /*
      Purpose 1 - Store and/or access information on a device
      */
@@ -192,7 +192,7 @@ public class Targeting: NSObject {
     public func getDeviceAccessConsentObjc() -> NSNumber? {
         UserConsentDataManager.shared.getDeviceAccessConsent() as NSNumber?
     }
-
+    
     public func getPurposeConsent(index: Int) -> Bool? {
         UserConsentDataManager.shared.getPurposeConsent(index: index)
     }
@@ -298,18 +298,18 @@ public class Targeting: NSObject {
     public var domain: String?
     
     /**
-      * The itunes app id for targeting
-      */
+     * The itunes app id for targeting
+     */
     public var itunesID: String?
     
     /**
-      * The application location for targeting
-      */
+     * The application location for targeting
+     */
     public var location: CLLocation?
     
     /**
-      * The application location precision for targeting
-      */
+     * The application location precision for targeting
+     */
     public var locationPrecision: Int?
     
     public func setLocationPrecision(_ newValue: NSNumber?) {
@@ -319,7 +319,7 @@ public class Targeting: NSObject {
     public func getLocationPrecision() -> NSNumber? {
         return locationPrecision as NSNumber?
     }
-
+    
     // MARK: - Location and connection information
     
     /**
@@ -327,7 +327,7 @@ public class Targeting: NSObject {
      See CoreLocation framework documentation.
      */
     public var coordinate: NSValue?
-
+    
     
     // MARK: - Public Methods
     
@@ -364,7 +364,7 @@ public class Targeting: NSObject {
         let prefixedName = makeCustomParamFromName(name)
         addParam(value, withName:prefixedName)
     }
-        
+    
     // Store location in the user's section
     public func setLatitude(_ latitude: Double, longitude: Double) {
         coordinate = NSValue(mkCoordinate: CLLocationCoordinate2DMake(latitude, longitude))
@@ -379,7 +379,7 @@ public class Targeting: NSObject {
     public func removeBidderFromAccessControlList(_ bidderName: String) {
         rawAccessControlList.remove(bidderName)
     }
-
+    
     public func clearAccessControlList() {
         rawAccessControlList.removeAll()
     }
@@ -404,7 +404,7 @@ public class Targeting: NSObject {
     public func updateUserData(key: String, value: Set<String>) {
         rawUserDataDictionary[key] = value
     }
-     
+    
     public func removeUserData(for key: String) {
         rawUserDataDictionary.removeValue(forKey: key)
     }
@@ -430,7 +430,7 @@ public class Targeting: NSObject {
     public func addUserKeywords(_ newElements: Set<String>) {
         userKeywordsSet.formUnion(newElements)
     }
-  
+    
     public func removeUserKeyword(_ element: String) {
         userKeywordsSet.remove(element)
     }
@@ -448,74 +448,124 @@ public class Targeting: NSObject {
         Array(userKeywordsSet)
     }
     
-    // MARK: - Global Context Data (app.ext.data)
+    // MARK: - Global Data (app.ext.data)
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use addAppExtData method instead.")
     public func addContextData(key: String, value: String) {
-        var values = rawContextDataDictionary[key] ?? Set<String>()
+        addAppExtData(key: key, value: value)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateAppExtData method instead.")
+    public func updateContextData(key: String, value: Set<String>) {
+        updateAppExtData(key: key, value: value)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeAppExtData method instead.")
+    public func removeContextData(for key: String) {
+        removeAppExtData(for: key)
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearAppExtData method instead.")
+    public func clearContextData() {
+        clearAppExtData()
+    }
+    
+    @available(*, deprecated, message: "This method is deprecated. Please, use getAppExtData method instead.")
+    public func getContextData() -> [String : [String]] {
+        getAppExtData()
+    }
+    
+    @available(*, deprecated, message: "This property is deprecated. Please, use getAppExtData method instead.")
+    public var contextDataDictionary: [String : [String]] {
+        getAppExtData()
+    }
+    
+    public func addAppExtData(key: String, value: String) {
+        var values = rawAppExtDataDictionary[key] ?? Set<String>()
         values.insert(value)
         
-        rawContextDataDictionary[key] = values
+        rawAppExtDataDictionary[key] = values
     }
     
-    public func updateContextData(key: String, value: Set<String>) {
-        rawContextDataDictionary[key] = value
+    public func updateAppExtData(key: String, value: Set<String>) {
+        rawAppExtDataDictionary[key] = value
     }
     
-    public func removeContextData(for key: String) {
-        rawContextDataDictionary.removeValue(forKey: key)
+    public func removeAppExtData(for key: String) {
+        rawAppExtDataDictionary.removeValue(forKey: key)
     }
     
-    public func clearContextData() {
-        rawContextDataDictionary.removeAll()
+    public func clearAppExtData() {
+        rawAppExtDataDictionary.removeAll()
     }
     
-    public func getContextData() -> [String : [String]] {
-        Log.info("gloabal context data dictionary is \(contextDataDictionary)")
-        return contextDataDictionary.mapValues { Array($0) }
+    public func getAppExtData() -> [String : [String]] {
+        rawAppExtDataDictionary.mapValues { Array($0) }
     }
     
-    public var contextDataDictionary: [String : [String]] {
-        rawContextDataDictionary.mapValues { Array($0) }
-    }
+    // MARK: - Global Keywords (app.keywords)
     
-    // MARK: - Global Context Keywords (app.keywords)
-    
+    @available(*, deprecated, message: "This method is deprecated. Please, use addAppKeyword method instead.")
     public func addContextKeyword(_ newElement: String) {
-        contextKeywordsSet.insert(newElement)
+        addAppKeyword(newElement)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use addAppKeywords method instead.")
     public func addContextKeywords(_ newElements: Set<String>) {
-        contextKeywordsSet.formUnion(newElements)
+        addAppKeywords(newElements)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeAppKeyword method instead.")
     public func removeContextKeyword(_ element: String) {
-        contextKeywordsSet.remove(element)
+        removeAppKeyword(element)
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearAppKeywords method instead.")
     public func clearContextKeywords() {
-        contextKeywordsSet.removeAll()
+        clearAppKeywords()
     }
     
+    @available(*, deprecated, message: "This method is deprecated. Please, use getAppKeywords method instead.")
     public func getContextKeywords() -> [String] {
-        Log.info("global context keywords set is \(contextKeywordsSet)")
-        return Array(contextKeywordsSet)
+        getAppKeywords()
     }
     
+    @available(*, deprecated, message: "This property is deprecated. Please, use getAppKeywords method instead.")
     public var contextKeywords: [String] {
-        Array(contextKeywordsSet)
+        getAppKeywords()
     }
-        
+    
+    public func addAppKeyword(_ newElement: String) {
+        appKeywordsSet.insert(newElement)
+    }
+    
+    public func addAppKeywords(_ newElements: Set<String>) {
+        appKeywordsSet.formUnion(newElements)
+    }
+    
+    public func removeAppKeyword(_ element: String) {
+        appKeywordsSet.remove(element)
+    }
+    
+    public func clearAppKeywords() {
+        appKeywordsSet.removeAll()
+    }
+    
+    public func getAppKeywords() -> [String] {
+        return Array(appKeywordsSet)
+    }
+    
     // MARK: - Internal Properties
     
     public var parameterDictionary = [String : String]()
     
     private var userKeywordsSet = Set<String>()
-    private var contextKeywordsSet = Set<String>()
+    private var appKeywordsSet = Set<String>()
     
     private var rawAccessControlList = Set<String>()
     private var rawUserDataDictionary = [String : Set<String>]()
-    private var rawContextDataDictionary = [String : Set<String>]()
-
+    private var rawAppExtDataDictionary = [String : Set<String>]()
+    
     private var yearofbirth = 0
     
     // MARK: - Internal Methods

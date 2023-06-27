@@ -13,7 +13,8 @@
 import UIKit
 import ObjectiveC.runtime
 
-@objcMembers public class AdUnit: NSObject, DispatcherDelegate {
+@objcMembers
+public class AdUnit: NSObject, DispatcherDelegate {
     
     public var pbAdSlot: String? {
         get { adUnitConfig.getPbAdSlot()}
@@ -62,15 +63,20 @@ import ObjectiveC.runtime
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
 
-    public init(configId: String, size: CGSize?) {
+    public init(configId: String, size: CGSize?, adFormats: Set<AdFormat>) {
         adUnitConfig = AdUnitConfig(configId: configId, size: size ?? CGSize.zero)
         adUnitConfig.adConfiguration.isOriginalAPI = true
+        adUnitConfig.adFormats = adFormats
         identifier = UUID.init().uuidString
+        
         super.init()
         
         // PBS should cache the bid for original api.
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
-        Prebid.shared.useExternalClickthroughBrowser = true
+    }
+    
+    deinit {
+        dispatcher?.invalidate()
     }
 
     //TODO: dynamic is used by tests
@@ -122,7 +128,7 @@ import ObjectiveC.runtime
         self.closureAd = completion
         adServerObject = adObject
 
-        bidRequester = PBMBidRequester(connection: ServerConnection.shared,
+        bidRequester = PBMBidRequester(connection: PrebidServerConnection.shared,
                                        sdkConfiguration: Prebid.shared,
                                        targeting: Targeting.shared,
                                        adUnitConfiguration: adUnitConfig)
@@ -183,79 +189,149 @@ import ObjectiveC.runtime
         }
     }
 
-    // MARK: - adunit context data aka inventory data (imp[].ext.context.data)
+    // MARK: - adunit ext data aka inventory data (imp[].ext.data)
     
     /**
      * This method obtains the context data keyword & value for adunit context targeting
      * if the key already exists the value will be appended to the list. No duplicates will be added
      */
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     public func addContextData(key: String, value: String) {
-        adUnitConfig.addContextData(key: key, value: value)
+        addExtData(key: key, value: value)
     }
     
     /**
      * This method obtains the context data keyword & values for adunit context targeting
      * the values if the key already exist will be replaced with the new set of values
      */
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     public func updateContextData(key: String, value: Set<String>) {
-        adUnitConfig.updateContextData(key: key, value: value)
+        updateExtData(key: key, value: value)
     }
     
     /**
      * This method allows to remove specific context data keyword & values set from adunit context targeting
      */
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     public func removeContextData(forKey: String) {
-        adUnitConfig.removeContextData(for: forKey)
+        removeExtData(forKey: forKey)
     }
     
     /**
      * This method allows to remove all context data set from adunit context targeting
      */
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
-        adUnitConfig.clearContextData()
+        clearExtData()
     }
     
-    func getContextDataDictionary() -> [String: [String]] {
-        return adUnitConfig.getContextData()
+    // Used for tests
+    func getExtDataDictionary() -> [String: [String]] {
+        return adUnitConfig.getExtData()
     }
     
-    // MARK: - adunit context keywords (imp[].ext.context.keywords)
+    /**
+     * This method obtains the ext data keyword & value for adunit targeting
+     * if the key already exists the value will be appended to the list. No duplicates will be added
+     */
+    public func addExtData(key: String, value: String) {
+        adUnitConfig.addExtData(key: key, value: value)
+    }
+    
+    /**
+     * This method obtains the ext data keyword & values for adunit targeting
+     * the values if the key already exist will be replaced with the new set of values
+     */
+    public func updateExtData(key: String, value: Set<String>) {
+        adUnitConfig.updateExtData(key: key, value: value)
+    }
+    
+    /**
+     * This method allows to remove specific ext data keyword & values set from adunit targeting
+     */
+    public func removeExtData(forKey: String) {
+        adUnitConfig.removeExtData(for: forKey)
+    }
+    
+    /**
+     * This method allows to remove all ext data set from adunit targeting
+     */
+    public func clearExtData() {
+        adUnitConfig.clearExtData()
+    }    
+    
+    // MARK: - adunit ext keywords (imp[].ext.keywords)
     
     /**
      * This method obtains the context keyword for adunit context targeting
      * Inserts the given element in the set if it is not already present.
      */
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
     public func addContextKeyword(_ newElement: String) {
-        adUnitConfig.addContextKeyword(newElement)
+        addExtKeyword(newElement)
     }
     
     /**
      * This method obtains the context keyword set for adunit context targeting
      * Adds the elements of the given set to the set.
      */
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
     public func addContextKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addContextKeywords(newElements)
+        addExtKeywords(newElements)
     }
     
     /**
      * This method allows to remove specific context keyword from adunit context targeting
      */
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
     public func removeContextKeyword(_ element: String) {
-        adUnitConfig.removeContextKeyword(element)
+        removeExtKeyword(element)
     }
     
     /**
      * This method allows to remove all keywords from the set of adunit context targeting
      */
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
     public func clearContextKeywords() {
-        adUnitConfig.clearContextKeywords()
+        clearExtKeywords()
     }
     
-    func getContextKeywordsSet() -> Set<String> {
-        adUnitConfig.getContextKeywords()
+    /**
+     * This method obtains the keyword for adunit targeting
+     * Inserts the given element in the set if it is not already present.
+     */
+    public func addExtKeyword(_ newElement: String) {
+        adUnitConfig.addExtKeyword(newElement)
     }
     
-    // MARK: - App Content
+    /**
+     * This method obtains the keyword set for adunit targeting
+     * Adds the elements of the given set to the set.
+     */
+    public func addExtKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addExtKeywords(newElements)
+    }
+    
+    /**
+     * This method allows to remove specific keyword from adunit targeting
+     */
+    public func removeExtKeyword(_ element: String) {
+        adUnitConfig.removeExtKeyword(element)
+    }
+    
+    /**
+     * This method allows to remove all keywords from the set of adunit targeting
+     */
+    public func clearExtKeywords() {
+        adUnitConfig.clearExtKeywords()
+    }
+    
+    // Used for tests
+    func getExtKeywordsSet() -> Set<String> {
+        adUnitConfig.getExtKeywords()
+    }
+    
+    // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContentObject: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContentObject)
@@ -281,7 +357,7 @@ import ObjectiveC.runtime
         adUnitConfig.clearAppContentData()
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
         
     public func getUserData() -> [PBMORTBContentData]? {
         return adUnitConfig.getUserData()

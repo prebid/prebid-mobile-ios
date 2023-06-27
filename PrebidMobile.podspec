@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobile"
-  s.version      = "2.0.8"
+  s.version      = "2.1.2"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
     }
 
   s.author                 = { "Prebid.org, Inc." => "info@prebid.org" }
-  s.platform     	   = :ios, "10.0"
+  s.platform     	   = :ios, "11.0"
   s.swift_version 	   = '5.0'
   s.source      	   = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
   s.xcconfig 		   = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
@@ -59,9 +59,6 @@ Pod::Spec.new do |s|
   s.subspec 'core' do |core|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
-    core.resource_bundles    = {
-      'PrebidSDKCoreResources' => ['PrebidMobile/PrebidMobileRendering/Assets/**/*.{js,html,xib,xcassets}']
-    }
     core.private_header_files = [ 
       'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMParameterBuilderService.h', 
       'PrebidMobile/PrebidMobileRendering/Prebid+TestExtension.h',

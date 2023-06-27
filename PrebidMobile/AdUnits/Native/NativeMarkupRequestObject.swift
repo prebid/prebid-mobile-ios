@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMNativeMarkupRequestObject) @objcMembers
 public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
     
     /// [Recommended]

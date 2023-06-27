@@ -14,6 +14,7 @@
  */
 
 #import "PBMORTBAbstract.h"
+#import "PBMORTBAbstract+Protected.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSArray<NSDictionary<NSString *, NSString*> *> *storedBidResponses;
 
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, id> *cache;
+
+@property (nonatomic, strong) PBMMutableJsonDictionary *targeting;
 
 @end
 

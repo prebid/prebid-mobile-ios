@@ -42,7 +42,7 @@ typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
 @interface PBMVastAdsBuilder()
 
 @property (nonatomic, strong) dispatch_queue_t dispatchQueue;
-@property (nonatomic, strong) id<ServerConnectionProtocol> serverConnection;
+@property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 @property (nonatomic, assign) NSInteger requestsPending;
 @property (nonatomic, assign) NSInteger maximumWrapperDepth;     // Per VAST 4.0 spec section 2.3.4.1
 @property (nonatomic, strong, nullable) PBMVastResponse *rootResponse;
@@ -55,7 +55,7 @@ typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
 
 #pragma mark - Initialization
 
--(instancetype)initWithConnection:(id<ServerConnectionProtocol>)serverConnection {
+-(instancetype)initWithConnection:(id<PrebidServerConnectionProtocol>)serverConnection {
     self = [super init];
     if (self) {
         PBMAssert(serverConnection);
@@ -74,6 +74,11 @@ typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
     @weakify(self);
     [self buildAds:data wrapperAd:nil completion:^(NSError *error){
         @strongify(self);
+        
+        if (!self) {
+            completionBlock(nil, [PBMError errorWithDescription:@"VAST error: the ads builder is failed" statusCode:PBMErrorCodeUndefined]);
+            return;
+        }
         
         if (error) {
             completionBlock(nil, error);
@@ -195,7 +200,7 @@ typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
         self.requestsPending += 1;
     });
     
-    [self.serverConnection get:vastURL timeout:PBMTimeInterval.CONNECTION_TIMEOUT_DEFAULT callback:^(ServerResponse * _Nonnull serverResponse) {
+    [self.serverConnection get:vastURL timeout:PBMTimeInterval.CONNECTION_TIMEOUT_DEFAULT callback:^(PrebidServerResponse * _Nonnull serverResponse) {
         if (serverResponse.error) {
             completion(serverResponse.error);
             return;
