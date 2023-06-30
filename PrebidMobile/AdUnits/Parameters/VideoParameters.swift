@@ -93,5 +93,6 @@ public class VideoParameters: NSObject {
     /// - Parameter mimes: supported MIME types
     public init(mimes: [String]) {
         self.mimes = mimes
+        self.ext = [:] // ozone
     }
 }
