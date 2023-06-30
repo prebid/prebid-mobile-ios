@@ -101,6 +101,13 @@ public class AdUnit: NSObject, DispatcherDelegate {
         // check we have adUnitCode and customTargeting set
         if(self.ozoneGetImpAdUnitCode() == "") {
             print("ERROR: no adunit code has been set for this adunit!")
+            completion(.prebidSDKMisuse)
+            return
+        }
+        if(Prebid.shared.ozoneAppPage == nil) {
+            print("ERROR: you need to call Prebid.shared.ozoneSetAppPage(url:) before you can request ads for this adunit!")
+            completion(.prebidSDKMisuse)
+            return
         }
 
         if !(self is NativeRequest){
