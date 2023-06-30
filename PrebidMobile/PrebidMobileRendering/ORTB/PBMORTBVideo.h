@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //This object represents an in-stream video impression. Many of the fields are non-essential for minimally viable transactions, but are included to offer fine control when needed. Video in OpenRTB generally assumes compliance with the VAST standard. As such, the notion of companion ads is supported by optionally including an array of Banner objects that define these companion ads.
 @interface PBMORTBVideo : PBMORTBAbstract
-    
+
 //Content MIME types supported (e.g., “video/x-ms-wmv”, “video/mp4”).
 @property (nonatomic, copy, nullable) NSArray<NSString *> *mimes;
 
@@ -163,6 +163,9 @@ NS_ASSUME_NONNULL_BEGIN
 //Note: PrebidMobile doesn't yet support Companion ads, so no apis are supported.
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *api;
 
+// ozone. this is video.ext. Should contain context, playerSize, format
+@property (nonatomic, copy) NSDictionary *ext;
+
 //Int. Supported VAST companion ad types. Recommended if companion Banner objects are included via the companionad array.
 //Refer to 5.12:
 //1 Static Resource
@@ -172,7 +175,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext is not supported.
-    
+
 - (instancetype)init;
 
 @end

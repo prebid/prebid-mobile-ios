@@ -23,7 +23,7 @@
     if (!(self = [super init])) {
         return nil;
     }
-    
+
     return self;
 }
 
@@ -45,7 +45,7 @@
 
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
-    
+
     ret[@"mimes"] = self.mimes;
     ret[@"minduration"] = self.minduration;
     ret[@"maxduration"] = self.maxduration;
@@ -63,13 +63,15 @@
     if (self.api.count > 0) {
         ret[@"api"] = self.api;
     }
-    
+
     if (self.playbackmethod > 0) {
         ret[@"playbackmethod"] = self.playbackmethod;
     }
-    
+
+    ret[@"ext"] = self.ext; // ozone
+
     ret = [ret pbmCopyWithoutEmptyVals];
-    
+
     return ret;
 }
 
@@ -92,7 +94,8 @@
     _delivery = jsonDictionary[@"delivery"];
     _pos = jsonDictionary[@"pos"];
     _api = jsonDictionary[@"api"];
-    
+    _ext = jsonDictionary[@"ext"]; // ozone
+
     return self;
 }
 
