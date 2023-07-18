@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Placeholder for exchange-specific extensions to OpenRTB.
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSObject *> *ext;
 
+//ID of the user within the app.
+@property (nonatomic, copy, nullable) NSString *userid;
+
 - (instancetype)init;
 
 - (void)appendEids:(NSArray<NSDictionary<NSString *, id> *> *)eids;
