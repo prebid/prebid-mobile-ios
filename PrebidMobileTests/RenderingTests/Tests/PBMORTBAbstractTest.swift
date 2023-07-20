@@ -497,8 +497,9 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBUser.geo.lat = 34.1477849
         pbmORTBUser.geo.lon = -118.1445155
         pbmORTBUser.ext!["data"] = ["registration_date": "31.02.2021"]
+        pbmORTBUser.userid = "userid"
         
-        codeAndDecode(abstract:pbmORTBUser, expectedString:"{\"ext\":{\"data\":{\"registration_date\":\"31.02.2021\"}},\"gender\":\"M\",\"geo\":{\"lat\":34.1477849,\"lon\":-118.1445155},\"keywords\":\"key1,key2,key3\",\"yob\":1981}")
+        codeAndDecode(abstract:pbmORTBUser, expectedString:"{\"ext\":{\"data\":{\"registration_date\":\"31.02.2021\"}},\"gender\":\"M\",\"geo\":{\"lat\":34.1477849,\"lon\":-118.1445155},\"keywords\":\"key1,key2,key3\",\"yob\":1981,\"userid\":\"userid\"}")
     }
     
     func testUserEidsToJsonString() {
