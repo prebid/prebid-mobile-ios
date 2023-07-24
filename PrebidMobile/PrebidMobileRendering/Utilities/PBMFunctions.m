@@ -42,11 +42,6 @@ static NSString * const PBMPlistExt = @"plist";
     return version ? version : @"";
 }
 
-+ (NSString *)omidVersion {
-    // FIXME: review the version on the next certification with IAB
-    return @"5.0";
-}
-
 // MARK: - SKAdNetwork
 
 + (nonnull NSArray<NSString *> *)supportedSKAdNetworkVersions {
