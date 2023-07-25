@@ -296,6 +296,21 @@ import UIKit
                 Log.debug("Could not open click URL: \(clickUrl)")
             }
         }
+        if let clickTrackers = nativeAdMarkup?.link?.clicktrackers {
+            fireClickTrackers(clickTrackersUrls: clickTrackers)
+        }
+    }
+    
+    
+    private func fireClickTrackers(clickTrackersUrls: [String]) {
+        if clickTrackersUrls.count > 0 {
+            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersUrls) { [weak self] _ in
+                guard self != nil else {
+                    Log.debug("FAILED TO ACQUIRE strongSelf for fireClickTrackers")
+                    return
+                }
+            }
+        }
     }
     
     private func openURLWithExternalBrowser(url : URL) -> Bool {
