@@ -177,30 +177,6 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         prebidNativeAdNotValidExpectation = nil
     }
     
-    func testCheckGMAVersion_higherVersion() {
-        let warningMessage = """
-        The current version of Prebid SDK is not validated with the latest version of GMA SDK. Please update the Prebid SDK or post a ticket on the github.
-        """
-        logToFile = .init()
-        
-        Utils.shared.checkGMAVersion("afma-sdk-i-v100.1.0")
-        
-        let log = Log.getLogFileAsString() ?? ""
-        XCTAssertTrue(log.contains(warningMessage))
-    }
-    
-    func testCheckGMAVersion_ok() {
-        logToFile = .init()
-        
-        let latestTestedGMAVersion = Utils.shared.latestTestedGMAVersion
-        let version = "\(latestTestedGMAVersion.0).\(latestTestedGMAVersion.1).\(latestTestedGMAVersion.2)"
-        
-        Utils.shared.checkGMAVersion("afma-sdk-i-v\(version)")
-        
-        let log = Log.getLogFileAsString() ?? ""
-        XCTAssertTrue(log.isEmpty)
-    }
-    
     func testConvertDictToMoPubKeywords() {
         
         var dictionary = [String: String]()
