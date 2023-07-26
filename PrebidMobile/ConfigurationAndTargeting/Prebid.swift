@@ -81,7 +81,7 @@ public class Prebid: NSObject {
     
     public var customStatusEndpoint: String? {
         didSet {
-            Prebid.serverStatusRequester.setCustomStatusEndpoint(customStatusEndpoint)
+            PrebidSDKInitializer.setCustomStatusEndpoint(customStatusEndpoint)
         }
     }
     
@@ -128,9 +128,6 @@ public class Prebid: NSObject {
         set { PBMLocationManager.shared.locationUpdatesEnabled = newValue }
     }
     
-    // MARK: - Internal properties
-    
-    static let serverStatusRequester = PrebidServerStatusRequester()
     
     // MARK: - Public Methods
     
@@ -183,16 +180,27 @@ public class Prebid: NSObject {
     /// - Parameters:
     ///   - gadMobileAdsObject: GADMobileAds object
     ///   - completion: returns initialization status and optional error
+    @available(*, deprecated, message: "If the GMA SDK version is higher than 10.7.0 you should use `initializeSDK(gadMobileAdsVersion: String? = nil, _ completion: PrebidInitializationCallback? = nil)` method in order to initialize Prebid SDK.")
     public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: PrebidInitializationCallback? = nil) {
-        let _ = PrebidServerConnection.shared
-        let _ = PBMLocationManager.shared
-        let _ = UserConsentDataManager.shared
-        
-        PrebidJSLibraryManager.shared.downloadLibraries()
-        
-        serverStatusRequester.requestStatus { completion?($0, $1) }
-        
-        handleGADMobileAdsObject(gadMobileAdsObject)
+        PrebidSDKInitializer.initializeSDK(completion)
+        PrebidSDKInitializer.checkGMAVersion(gadObject: gadMobileAdsObject)
+    }
+    
+    /// Initializes PrebidMobile SDK.
+    ///
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
+    ///
+    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
+    /// - Parameters:
+    ///   - gadMobileAdsVersion: GADMobileAds version string, use `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)` to get it
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(gadMobileAdsVersion: String? = nil, _ completion: PrebidInitializationCallback? = nil) {
+        PrebidSDKInitializer.initializeSDK(completion)
+        PrebidSDKInitializer.checkGMAVersion(gadVersion: gadMobileAdsVersion)
     }
     
     /// Initializes PrebidMobile SDK.
@@ -205,29 +213,12 @@ public class Prebid: NSObject {
     /// - Parameters:
     ///   - completion: returns initialization status and optional error
     public static func initializeSDK(_ completion: PrebidInitializationCallback? = nil) {
-        initializeSDK(nil, completion)
+        PrebidSDKInitializer.initializeSDK(completion)
     }
     
     // MARK: - Private Methods
     
     override init() {
         timeoutMillis = defaultTimeoutMillis
-    }
-    
-    static func handleGADMobileAdsObject(_ gadMobileAdsObject: AnyObject?) {
-        guard let gadMobileAdsObject = gadMobileAdsObject else {
-             return
-        }
-        
-        guard gadMobileAdsObject.responds(to: NSSelectorFromString("sdkVersion")) else {
-            Log.error("There is no sdkVersion property in GADMobileAds object.")
-            return
-        }
-        
-        guard let sdkVersion = gadMobileAdsObject.value(forKey: "sdkVersion") as? String else {
-            return
-        }
-        
-        Utils.shared.checkGMAVersion(sdkVersion)
     }
 }

@@ -30,11 +30,11 @@ final class PrebidGMASDKTests: XCTestCase {
     func testGMAVersion() {
         loggerHelper = .init()
         
-        let currentGMASDKVersion = GADMobileAds.sharedInstance()
-        Prebid.handleGADMobileAdsObject(currentGMASDKVersion)
+        let currentGMASDKVersion = GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)
+        PrebidSDKInitializer.checkGMAVersion(gadVersion: currentGMASDKVersion)
         
         let log = Log.getLogFileAsString() ?? ""
         
-        XCTAssertTrue(log.isEmpty)
+        XCTAssertTrue(log.isEmpty, "The current version of Prebid SDK is not validated with the latest version of GMA SDK.")
     }
 }

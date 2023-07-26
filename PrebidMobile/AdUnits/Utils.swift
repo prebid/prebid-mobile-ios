@@ -25,7 +25,7 @@ public class Utils: NSObject {
     public static let shared = Utils()
     
     var latestTestedGMAVersion: (Int, Int, Int) {
-        (10, 6, 0)
+        (10, 8, 0)
     }
 
     /**
@@ -51,14 +51,22 @@ public class Utils: NSObject {
         
     }
     
-    func checkGMAVersion(_ sdkVersion: String) {        
+    // Example of old style GMA version (which started being deprecated since 10.7.0) - afma-sdk-i-v10.8.0
+    func checkDeprecatedGMAVersion(_ sdkVersion: String) {
         guard let vIndex = sdkVersion.lastIndex(of: "v") else {
             Log.error("Error occured during GMA SDK version parsing.")
             return
         }
         
         let versionStartIndex = sdkVersion.index(after: vIndex)
-        let sdkVersionIntegers = sdkVersion[versionStartIndex..<sdkVersion.endIndex]
+        
+        checkGMAVersion(String(sdkVersion[versionStartIndex..<sdkVersion.endIndex]))
+    }
+    
+    // Example of GMA version - 10.8.0
+    func checkGMAVersion(_ sdkVersion: String) {
+        
+        let sdkVersionIntegers = sdkVersion
             .split(separator: ".")
             .compactMap { Int($0) }
         

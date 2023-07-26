@@ -177,13 +177,48 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         prebidNativeAdNotValidExpectation = nil
     }
     
+    func testCheckDeprecatedGMAVersion_higherVersion() {
+        let warningMessage = """
+        The current version of Prebid SDK is not validated with the latest version of GMA SDK. Please update the Prebid SDK or post a ticket on the github.
+        """
+        logToFile = .init()
+        
+        Utils.shared.checkDeprecatedGMAVersion("afma-sdk-i-v100.1.0")
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.contains(warningMessage))
+    }
+    
+    func testCheckDeprecatedGMAVersion_ok() {
+        logToFile = .init()
+        
+        let latestTestedGMAVersion = Utils.shared.latestTestedGMAVersion
+        let version = "\(latestTestedGMAVersion.0).\(latestTestedGMAVersion.1).\(latestTestedGMAVersion.2)"
+        
+        Utils.shared.checkDeprecatedGMAVersion("afma-sdk-i-v\(version)")
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.isEmpty)
+    }
+    
+    func testCheckDeprecatedGMAVersion_parseFailure() {
+        let errorMessage = """
+        Error occured during GMA SDK version parsing.
+        """
+        
+        Utils.shared.checkDeprecatedGMAVersion("v10.0.0")
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.isEmpty)
+    }
+    
     func testCheckGMAVersion_higherVersion() {
         let warningMessage = """
         The current version of Prebid SDK is not validated with the latest version of GMA SDK. Please update the Prebid SDK or post a ticket on the github.
         """
         logToFile = .init()
         
-        Utils.shared.checkGMAVersion("afma-sdk-i-v100.1.0")
+        Utils.shared.checkGMAVersion("100.1.0")
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains(warningMessage))
@@ -195,7 +230,18 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let latestTestedGMAVersion = Utils.shared.latestTestedGMAVersion
         let version = "\(latestTestedGMAVersion.0).\(latestTestedGMAVersion.1).\(latestTestedGMAVersion.2)"
         
-        Utils.shared.checkGMAVersion("afma-sdk-i-v\(version)")
+        Utils.shared.checkGMAVersion(version)
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.isEmpty)
+    }
+    
+    func testCheckGMAVersion_parseFailure() {
+        let errorMessage = """
+        Error occured during GMA SDK version parsing.
+        """
+        
+        Utils.shared.checkGMAVersion("v10.0.0")
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.isEmpty)

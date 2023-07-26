@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
         
         // Initialize Prebid SDK
-        Prebid.initializeSDK(GADMobileAds.sharedInstance()) { status, error in
+        Prebid.initializeSDK(gadMobileAdsVersion: GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)) { status, error in
             if let error = error {
                 print("Initialization Error: \(error.localizedDescription)")
                 return
@@ -62,6 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ALSdk.shared()?.mediationProvider = ALMediationProviderMAX
         ALSdk.shared()?.userIdentifier = "USER_ID"
         ALSdk.shared()?.initializeSdk()
+        
+        
         
         return true
     }
