@@ -22,15 +22,21 @@ final class GMATests: XCTestCase {
     
     func testGMAVersion() {
         let latestTestedGMAVersion = GAMUtils.latestTestedGMAVersion()
-        let latestTestedGMAVersionString = "\(latestTestedGMAVersion.majorVersion).\(latestTestedGMAVersion.minorVersion).\(latestTestedGMAVersion.patchVersion)"
-        let currentGMAVersion = GADMobileAds.sharedInstance().sdkVersion
+        let currentGMAVersion = GADMobileAds.sharedInstance().versionNumber
         
-        if GADMobileAds.sharedInstance().isSDKVersionAtLeast(major: latestTestedGMAVersion.majorVersion,
-                                                             minor: latestTestedGMAVersion.minorVersion,
-                                                             patch: latestTestedGMAVersion.patchVersion) {
-            if !currentGMAVersion.contains(latestTestedGMAVersionString) {
-                XCTFail("There is a new version of GMA SDK!")
-            }  
+        if GADMobileAds.sharedInstance().isSDKVersionAtLeast(
+            major: latestTestedGMAVersion.majorVersion,
+            minor: latestTestedGMAVersion.minorVersion,
+            patch: latestTestedGMAVersion.patchVersion
+        ) {
+            
+            if currentGMAVersion.majorVersion != latestTestedGMAVersion.majorVersion ||
+                currentGMAVersion.minorVersion != latestTestedGMAVersion.minorVersion ||
+                currentGMAVersion.patchVersion != latestTestedGMAVersion.patchVersion {
+                
+                XCTFail("The current version of GAM Event Handlers is not validated with the latest version of GMA SDK.")
+            }
+            
         } else {
             Log.info("Current GMA SDK version is lower than latest tested.")
         }
