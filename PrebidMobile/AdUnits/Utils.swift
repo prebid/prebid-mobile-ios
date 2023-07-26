@@ -23,10 +23,6 @@ public class Utils: NSObject {
      */
     @objc
     public static let shared = Utils()
-    
-    var latestTestedGMAVersion: (Int, Int, Int) {
-        (10, 8, 0)
-    }
 
     /**
      * The initializer that needs to be created only once
@@ -49,36 +45,6 @@ public class Utils: NSObject {
     public func convertDictToMoPubKeywords(dict: Dictionary<String, String>) -> String {
         return dict.toString(entrySeparator: ",", keyValueSeparator: ":")
         
-    }
-    
-    // Example of old style GMA version (which started being deprecated since 10.7.0) - afma-sdk-i-v10.8.0
-    func checkDeprecatedGMAVersion(_ sdkVersion: String) {
-        guard let vIndex = sdkVersion.lastIndex(of: "v") else {
-            Log.error("Error occured during GMA SDK version parsing.")
-            return
-        }
-        
-        let versionStartIndex = sdkVersion.index(after: vIndex)
-        
-        checkGMAVersion(String(sdkVersion[versionStartIndex..<sdkVersion.endIndex]))
-    }
-    
-    // Example of GMA version - 10.8.0
-    func checkGMAVersion(_ sdkVersion: String) {
-        
-        let sdkVersionIntegers = sdkVersion
-            .split(separator: ".")
-            .compactMap { Int($0) }
-        
-        if sdkVersionIntegers.count == 3 {
-            if latestTestedGMAVersion.0 < sdkVersionIntegers[0] ||
-                latestTestedGMAVersion.1 < sdkVersionIntegers[1] ||
-                latestTestedGMAVersion.2 < sdkVersionIntegers[2] {
-                Log.warn("The current version of Prebid SDK is not validated with the latest version of GMA SDK. Please update the Prebid SDK or post a ticket on the github.")
-            }
-        } else {
-            Log.error("Error occured during GMA SDK version parsing.")
-        }
     }
 
     func removeHBKeywords (adObject: AnyObject) {

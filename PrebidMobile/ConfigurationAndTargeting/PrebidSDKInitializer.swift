@@ -19,6 +19,8 @@ class PrebidSDKInitializer {
     
     private static let serverStatusRequester = PrebidServerStatusRequester()
     
+    private static var gamVersionChecker = PrebidGAMVersionChecker()
+    
     static func initializeSDK(_ completion: PrebidInitializationCallback? = nil) {
         let _ = PrebidServerConnection.shared
         let _ = PBMLocationManager.shared
@@ -45,7 +47,7 @@ class PrebidSDKInitializer {
             return
         }
         
-        Utils.shared.checkDeprecatedGMAVersion(sdkVersion)
+        gamVersionChecker.checkGMAVersionDeprecated(sdkVersion)
     }
     
     // check for `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)`
@@ -55,10 +57,24 @@ class PrebidSDKInitializer {
             return
         }
         
-        Utils.shared.checkGMAVersion(gadVersion)
+        gamVersionChecker.checkGMAVersion(gadVersion)
     }
     
     static func setCustomStatusEndpoint(_ endpoint: String?) {
         serverStatusRequester.setCustomStatusEndpoint(endpoint)
+    }
+    
+    static func logInitializerWarningIfNeeded() {
+        // GAM SDK version when `sdkVersion` property started being deprecated
+        let gamVersion = (10, 7, 0)
+        
+        guard let currentGAMVersion = gamVersionChecker.currentGMAVersion else {
+            Log.error("Current GMA SDK version has not been extracted yet.")
+            return
+        }
+        
+        if currentGAMVersion.0 >= gamVersion.0 || currentGAMVersion.1 >= gamVersion.1 || currentGAMVersion.2 >= gamVersion.2 {
+            Log.warn("Please, use `initializeSDK(gadMobileAdsVersion:, _ completion:)` method in order to initialize Prebid SDK.")
+        }
     }
 }
