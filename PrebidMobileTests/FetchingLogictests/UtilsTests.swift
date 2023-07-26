@@ -202,14 +202,16 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
     }
     
     func testCheckDeprecatedGMAVersion_parseFailure() {
+        logToFile = .init()
+        
         let errorMessage = """
         Error occured during GMA SDK version parsing.
         """
         
-        Utils.shared.checkDeprecatedGMAVersion("v10.0.0")
+        Utils.shared.checkDeprecatedGMAVersion("ver.10")
         
         let log = Log.getLogFileAsString() ?? ""
-        XCTAssertTrue(log.isEmpty)
+        XCTAssertTrue(log.contains(errorMessage))
     }
     
     func testCheckGMAVersion_higherVersion() {
@@ -237,14 +239,16 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
     }
     
     func testCheckGMAVersion_parseFailure() {
+        logToFile = .init()
+        
         let errorMessage = """
         Error occured during GMA SDK version parsing.
         """
         
-        Utils.shared.checkGMAVersion("v10.0.0")
+        Utils.shared.checkGMAVersion("v10")
         
         let log = Log.getLogFileAsString() ?? ""
-        XCTAssertTrue(log.isEmpty)
+        XCTAssertTrue(log.contains(errorMessage))
     }
     
     func testConvertDictToMoPubKeywords() {
