@@ -180,7 +180,7 @@ public class Prebid: NSObject {
     /// - Parameters:
     ///   - gadMobileAdsObject: GADMobileAds object
     ///   - completion: returns initialization status and optional error
-    @available(*, deprecated, message: "If the GMA SDK version is higher than 10.7.0 you should use `initializeSDK(gadMobileAdsVersion: String? = nil, _ completion: PrebidInitializationCallback? = nil)` method in order to initialize Prebid SDK.")
+    @available(*, deprecated, message: "If the GMA SDK version is higher than 10.7.0 you should use `initializeSDK(gadMobileAdsVersion:, _ completion:)` method in order to initialize Prebid SDK.")
     public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: PrebidInitializationCallback? = nil) {
         PrebidSDKInitializer.initializeSDK(completion)
         PrebidSDKInitializer.checkGMAVersion(gadObject: gadMobileAdsObject)
