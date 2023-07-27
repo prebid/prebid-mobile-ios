@@ -26,7 +26,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     private var omidVersion: String {
-        return PBMFunctions.omidVersion();
+        return PBMFunctions.sdkVersion();
     }
     
     private let userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 OpenXSDK/\(Prebid.shared.version)"
