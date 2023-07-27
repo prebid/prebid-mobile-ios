@@ -26,8 +26,9 @@ class TrackerManagerTests: XCTestCase {
 
     func testTrackerManagerWithFireTrackerURL() {
         firedImpressionTrackerExpectation = expectation(description: "\(#function)")
-        let urlString = "https://acdn.adnxs.com/mobile/native_test/empty_response.json"
-        TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: [urlString]) { [weak self] (isTrackerURLFired) in
+        let impressionString = "https://acdn.adnxs.com/mobile/native_test/empty_response.json"
+        let clickTrackerString = "https://testUrl.com/events/click/root/url"
+        TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: [impressionString, clickTrackerString]) { [weak self] (isTrackerURLFired) in
             if isTrackerURLFired{
                 self?.firedImpressionTrackerExpectation?.fulfill()
             }

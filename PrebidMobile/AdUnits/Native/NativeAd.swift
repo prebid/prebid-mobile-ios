@@ -292,8 +292,21 @@ import UIKit
         if let clickUrl = nativeAdMarkup?.link?.url,
            let clickUrlString = clickUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let url = URL(string: clickUrlString) {
-            if !openURLWithExternalBrowser(url: url) {
+            if openURLWithExternalBrowser(url: url) {
+                if let clickTrackers = nativeAdMarkup?.link?.clicktrackers {
+                    fireClickTrackers(clickTrackersUrls: clickTrackers)
+                }
+            } else {
                 Log.debug("Could not open click URL: \(clickUrl)")
+            }
+        }
+    }
+    
+    
+    private func fireClickTrackers(clickTrackersUrls: [String]) {
+        if clickTrackersUrls.count > 0 {
+            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersUrls) {
+                _ in
             }
         }
     }
