@@ -107,7 +107,7 @@
     
     if (!self.adConfiguration.adConfiguration.isOriginalAPI) {
         extSource.omidpn = @"Prebid";
-        extSource.omidpv = [PBMFunctions omidVersion];
+        extSource.omidpv = [PBMFunctions sdkVersion];
     }
     
     if (Targeting.shared.omidPartnerName) {

@@ -272,7 +272,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     self.partner = [[OMIDPrebidorgPartner alloc] initWithName:self.partnerName
-                                                versionString:[PBMFunctions omidVersion]];
+                                                versionString:[PBMFunctions sdkVersion]];
 }
 
 -(nullable NSString*)fetchOMSDKScript {
