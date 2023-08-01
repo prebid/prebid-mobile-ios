@@ -49,7 +49,7 @@ class SkadnParametersManagerTest: XCTestCase {
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkAttributionSignature]!, expected: expected[SKStoreProductParameterAdNetworkAttributionSignature]!)
     }
     
-    @available(iOS 16.0, *)
+    @available(iOS 16.1, *)
     func testGetSkadnImpression_version_4_0() {
         let skadn = SkadnUtilities.createSkadnExtWithFidelities_version_4_0()
         let nonceForFidelity0 = skadn.fidelities!.filter({ $0.fidelity == 0 }).first!.nonce!
@@ -64,7 +64,7 @@ class SkadnParametersManagerTest: XCTestCase {
         PBMAssertEq(type: String.self, actual: actual.signature, expected: expected.signature)
     }
     
-    @available(iOS 16.0, *)
+    @available(iOS 16.1, *)
     func testGetProductParameters_version_4_0() {
         let skadn = SkadnUtilities.createSkadnExtWithFidelities_version_4_0()
         let actual = SkadnParametersManager.getSkadnProductParameters(for: skadn)!
@@ -143,7 +143,7 @@ class SkadnUtilities {
         
     }
     
-    @available(iOS 16.0, *)
+    @available(iOS 16.1, *)
     class func createSkadnProductParameters_version_4_0(from skadn: PBMORTBBidExtSkadn) -> [String: Any] {
         let fidelity1 = skadn.fidelities!.filter({ $0.fidelity == 1 }).first!
         return [
@@ -172,7 +172,7 @@ class SkadnUtilities {
         return imp
     }
     
-    @available(iOS 16.0, *)
+    @available(iOS 16.1, *)
     class func createSkadImpression_version_4_0(with nonce: UUID) -> SKAdImpression {
         let imp = SKAdImpression()
         imp.sourceAppStoreItemIdentifier = 880047117
