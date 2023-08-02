@@ -177,9 +177,10 @@
 
         nextImp.extOzoneData = [[NSMutableDictionary alloc] initWithDictionary:
                                 @{ @"adUnitCode": self.adConfiguration.ozoneAdUnitCode,
-                                   @"customData": @{
+                                   @"customData": @[@{
                                       @"settings": @{},
-                                      @"targeting": self.adConfiguration.ozoneCustomDataTargeting},
+                                      @"targeting": self.adConfiguration.ozoneCustomDataTargeting
+                                   }],
                                   @"transactionId": self.adConfiguration.ozoneTransactionId
                                 }];
 

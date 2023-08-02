@@ -411,7 +411,11 @@ public class AdUnit: NSObject, DispatcherDelegate {
         initDispatcher(refreshTime: time)
 
         if isInitialFetchDemandCallMade {
+            print("starting dispatcher")
             startDispatcher()
+        } else {
+            print("NOT starting dispatcher - initial call not made")
+
         }
     }
 
