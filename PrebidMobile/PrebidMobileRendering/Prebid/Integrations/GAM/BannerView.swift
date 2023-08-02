@@ -36,7 +36,7 @@ public class BannerView: UIView,
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
-    public var lastBidResponse: BidResponse? {
+    @objc public var lastBidResponse: BidResponse? {
         adLoadFlowController?.bidResponse
     }
     
