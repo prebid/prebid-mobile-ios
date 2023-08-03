@@ -127,7 +127,12 @@ public class Prebid: NSObject {
         get { PBMLocationManager.shared.locationUpdatesEnabled }
         set { PBMLocationManager.shared.locationUpdatesEnabled = newValue }
     }
-    
+
+    //If true, the sdk will add `includewinners` flag inside the targeting object described in [PBS Documentation](https://docs.prebid.org/prebid-server/endpoints/openrtb2/pbs-endpoint-auction.html#targeting)
+    public var includeWinners = false
+
+    //If true, the sdk will add `includebidderkeys` flag inside the targeting object described in [PBS Documentation](https://docs.prebid.org/prebid-server/endpoints/openrtb2/pbs-endpoint-auction.html#targeting)
+    public var includeBidderKeys = false
     
     // MARK: - Public Methods
     
