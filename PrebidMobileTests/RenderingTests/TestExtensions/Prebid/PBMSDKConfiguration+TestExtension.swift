@@ -38,6 +38,8 @@ extension Prebid {
         Prebid.forcedIsViewable = false
         Prebid.shared.clearCustomHeaders()
         Prebid.shared.clearStoredBidResponses()
+        Prebid.shared.includeWinners = false
+        Prebid.shared.includeBidderKeys = false
         
         Prebid.shared.useExternalClickthroughBrowser = false
     }
