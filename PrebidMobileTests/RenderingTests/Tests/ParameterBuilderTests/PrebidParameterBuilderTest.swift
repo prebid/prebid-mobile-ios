@@ -644,7 +644,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.pos, 7)
     }
 
-
     func testBannerParameters() {
         // Original API
         let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.banner])
@@ -724,6 +723,55 @@ class PrebidParameterBuilderTest: XCTestCase {
         adUnit.adUnitConfig.adFormats = [.banner, .video]
         bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         XCTAssert(bidRequest.extPrebid.targeting["includeformat"] as! Bool == true)
+    }
+
+    func testIncludewinnersAndIncludeBidderKeysAreNil() {
+        //Default value
+        Prebid.shared.includeWinners = false
+        Prebid.shared.includeBidderKeys = false
+
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        XCTAssertNil(bidRequest.extPrebid.targeting["includewinners"])
+        XCTAssertNil(bidRequest.extPrebid.targeting["includebidderkeys"])
+    }
+
+    
+    func testIncludewinnersAndIncludeBidderKeysAreNotNil() {
+        //Default value
+        Prebid.shared.includeWinners = true
+        Prebid.shared.includeBidderKeys = true
+
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        XCTAssertNotNil(bidRequest.extPrebid.targeting["includewinners"])
+        XCTAssertNotNil(bidRequest.extPrebid.targeting["includebidderkeys"])
+    }
+    
+    
+    func testIncludeWinnersFlagIsTrue() {
+        Prebid.shared.includeWinners = true
+
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        XCTAssertNotNil(bidRequest.extPrebid.targeting["includewinners"])
+        XCTAssert(bidRequest.extPrebid.targeting["includewinners"] as! Bool == true)
+    }
+
+    
+    func testIncludeBidderKeys() {
+        Prebid.shared.includeBidderKeys = true
+        
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+
+        XCTAssertNotNil(bidRequest.extPrebid.targeting["includebidderkeys"])
+        XCTAssert(bidRequest.extPrebid.targeting["includebidderkeys"] as! Bool == true)
     }
 
     // MARK: - Helpers
