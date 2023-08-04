@@ -294,8 +294,7 @@ import UIKit
     @objc private func handleClick() {
         self.delegate?.adWasClicked?(ad: self)
         if let clickUrl = nativeAdMarkup?.link?.url,
-           let clickUrlString = clickUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-           let url = URL(string: clickUrlString) {
+           let url = URL(string: clickUrl) {
             if openURLWithExternalBrowser(url: url) {
                 if let clickTrackers = nativeAdMarkup?.link?.clicktrackers {
                     fireClickTrackers(clickTrackersUrls: clickTrackers)
