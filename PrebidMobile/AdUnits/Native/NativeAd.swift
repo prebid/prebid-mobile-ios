@@ -107,7 +107,11 @@ import UIKit
         }) else {
             return nil
         }
-        
+
+        let macrosHelper = PBMORTBMacrosHelper(bid: rawBid)
+        rawBid.adm = macrosHelper.replaceMacros(in: rawBid.adm)
+        rawBid.nurl = macrosHelper.replaceMacros(in: rawBid.nurl)
+
         let ad = NativeAd()
         
         let internalEventTracker = PrebidServerEventTracker()
