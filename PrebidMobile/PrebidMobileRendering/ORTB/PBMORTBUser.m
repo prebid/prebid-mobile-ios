@@ -39,6 +39,7 @@
     ret[@"buyeruid"] = self.buyeruid;
     ret[@"keywords"] = self.keywords;
     ret[@"customdata"] = self.customdata;
+    ret[@"id"] = self.userid;
     
     if (self.geo.lat && self.geo.lon) {
         ret[@"geo"] = [self.geo toJsonDictionary];
@@ -72,6 +73,7 @@
     _keywords    = jsonDictionary[@"keywords"];
     _customdata  = jsonDictionary[@"customdata"];
     _ext         = jsonDictionary[@"ext"];
+    _userid      = jsonDictionary[@"id"];
         
     _geo = [[PBMORTBGeo alloc] initWithJsonDictionary:jsonDictionary[@"geo"]];
     
