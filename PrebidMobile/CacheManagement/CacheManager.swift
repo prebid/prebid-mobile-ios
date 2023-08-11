@@ -20,6 +20,7 @@ import UIKit
 public class CacheManager: NSObject {
     
     public static let cacheManagerExpireInterval : TimeInterval = 300
+    
     /**
      * The class is created as a singleton object & used
      */
@@ -48,18 +49,16 @@ public class CacheManager: NSObject {
                     delegate.delegate?.cacheExpired()
                     self.delegates.removeAll { $0.id == cacheId }
                 }
-                
-                
             })
             return cacheId
         }
     }
     
-    public func isValid(cacheId: String) -> Bool{
+    public func isValid(cacheId: String) -> Bool {
         return self.savedValuesDict.keys.contains(cacheId)
     }
     
-    public func get(cacheId: String) -> String?{
+    public func get(cacheId: String) -> String? {
         return self.savedValuesDict[cacheId]
     }
     
