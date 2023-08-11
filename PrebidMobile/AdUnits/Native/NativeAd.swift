@@ -134,7 +134,9 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         }
         
         ad.nativeAdMarkup = nativeAdMarkup
-        CacheManager.shared.delegate = ad
+        
+        CacheManager.shared.setDelegate(delegate: CacheExpiryDelegateWrapper(id: cacheId, delegate: ad))
+        
         return ad
     }
     
