@@ -16,7 +16,8 @@
 import Foundation
 import UIKit
 
-@objcMembers public class NativeAd: NSObject, CacheExpiryDelegate {
+@objcMembers
+public class NativeAd: NSObject, CacheExpiryDelegate {
     
     // MARK: - Public properties
     
@@ -35,7 +36,7 @@ import UIKit
     private var viewabilityTimer: Timer?
     private var viewabilityValue = 0
     private var impressionHasBeenTracked = false
-    private var viewForTracking: UIView?
+    private weak var viewForTracking: UIView?
     //Click Handling
     private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
     
