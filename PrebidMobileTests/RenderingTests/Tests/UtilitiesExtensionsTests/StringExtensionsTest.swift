@@ -18,7 +18,7 @@ import XCTest
 
 class StringExtensionsTest: XCTestCase {
     
-    func testEncodeURLIfNeeded() {
+    func testEncodeURL() {
         let str1 = "https://example.com/search?q=Prebid mobile&page=1"
         let encodedStr1 = str1.encodedURL(with: .urlQueryAllowed)?.absoluteString
         
