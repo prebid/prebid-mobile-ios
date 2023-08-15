@@ -109,6 +109,10 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             return nil
         }
         
+        let macrosHelper = PBMORTBMacrosHelper(bid: rawBid)
+        rawBid.adm = macrosHelper.replaceMacros(in: rawBid.adm)
+        rawBid.nurl = macrosHelper.replaceMacros(in: rawBid.nurl)
+        
         let ad = NativeAd()
         
         let internalEventTracker = PrebidServerEventTracker()
@@ -293,8 +297,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     @objc private func handleClick() {
         self.delegate?.adWasClicked?(ad: self)
         if let clickUrl = nativeAdMarkup?.link?.url,
-           let clickUrlString = clickUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-           let url = URL(string: clickUrlString) {
+           let url = clickUrl.encodedURL(with: .urlQueryAllowed) {
             if openURLWithExternalBrowser(url: url) {
                 if let clickTrackers = nativeAdMarkup?.link?.clicktrackers {
                     fireClickTrackers(clickTrackersUrls: clickTrackers)

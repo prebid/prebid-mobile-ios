@@ -75,6 +75,7 @@
 		533FDF852A12030C0066ED5A /* MockPrebidJSLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */; };
 		5355ACA929C454070014F16E /* VAST_with_empty_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */; };
 		5355ACAB29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */; };
+		536A39262A84C50F00B1CCEA /* StringExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */; };
 		536A427F282D11DA0069E9B2 /* PrebidServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* PrebidServerConnection.swift */; };
 		536A4283282D12E80069E9B2 /* PrebidServerConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A4282282D12E80069E9B2 /* PrebidServerConnectionProtocol.swift */; };
 		537B6518283372FD008AE9D1 /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B6517283372FD008AE9D1 /* PathBuilder.swift */; };
@@ -911,6 +912,7 @@
 		533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPrebidJSLibraryManager.swift; sourceTree = "<group>"; };
 		5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_empty_companion.xml; sourceTree = "<group>"; };
 		5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModelCollectionMakerVASTTests.swift; sourceTree = "<group>"; };
+		536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTest.swift; sourceTree = "<group>"; };
 		536A427E282D11DA0069E9B2 /* PrebidServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerConnection.swift; sourceTree = "<group>"; };
 		536A4282282D12E80069E9B2 /* PrebidServerConnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerConnectionProtocol.swift; sourceTree = "<group>"; };
 		537B6517283372FD008AE9D1 /* PathBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBuilder.swift; sourceTree = "<group>"; };
@@ -2973,6 +2975,7 @@
 				925D5E542737F2A900A8A2B5 /* PBMFunctionsPrivateTest.m */,
 				925D5E562737F2D900A8A2B5 /* PBMMacrosTest.m */,
 				925D5E582737F35500A8A2B5 /* UIViewExtensionsTest.swift */,
+				536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */,
 			);
 			path = UtilitiesExtensionsTests;
 			sourceTree = "<group>";
@@ -3807,6 +3810,7 @@
 				925D5E302737ED8C00A8A2B5 /* PBMRewardedVideoViewTest.swift in Sources */,
 				922AFCCB27353B9A00732C53 /* MockServerRule.m in Sources */,
 				925D5D872737BAB300A8A2B5 /* PBMOpenMeasurementWrapperTest.swift in Sources */,
+				536A39262A84C50F00B1CCEA /* StringExtensionsTest.swift in Sources */,
 				925D5E782737F60100A8A2B5 /* VastEventTrackingTest.swift in Sources */,
 				533FDF852A12030C0066ED5A /* MockPrebidJSLibraryManager.swift in Sources */,
 				922AFD452737298200732C53 /* PBMHTMLCreativeTest_MRAIDPlayVideo.swift in Sources */,
