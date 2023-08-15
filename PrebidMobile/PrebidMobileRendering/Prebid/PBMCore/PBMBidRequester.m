@@ -140,8 +140,13 @@
             }]].firstObject.sdkConfiguration;
             
             if(pbsSDKConfig) {
-                Prebid.shared.creativeFactoryTimeout = pbsSDKConfig.cftBanner.doubleValue;
-                Prebid.shared.creativeFactoryTimeoutPreRenderContent = pbsSDKConfig.cftPreRender.doubleValue;
+                if(pbsSDKConfig.cftBanner) {
+                    Prebid.shared.creativeFactoryTimeout = pbsSDKConfig.cftBanner.doubleValue;
+                }
+                
+                if(pbsSDKConfig.cftPreRender) {
+                    Prebid.shared.creativeFactoryTimeoutPreRenderContent = pbsSDKConfig.cftPreRender.doubleValue;
+                }
             }
         }
         
