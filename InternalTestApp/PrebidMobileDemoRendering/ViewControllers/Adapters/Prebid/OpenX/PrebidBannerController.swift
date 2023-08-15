@@ -27,6 +27,8 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     
     var adBannerView: BannerView?
     
+    var testPBSSDKConfig = false
+    
     weak var rootController: AdapterViewController?
     
     private let adViewDidReceiveAdButton = EventReportContainer()
@@ -162,6 +164,19 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = adSize.height
         lastLoadedAdSizeLabel.isHidden = false
         lastLoadedAdSizeLabel.text = "Ad Size: \(adSize.width)x\(adSize.height)"
+        
+        // Creative Factory Timeout Check
+        
+        if testPBSSDKConfig {
+            let pbsSDKConfig = bannerView.lastBidResponse?.ext?.extPrebid?.passthrough?.filter({
+                $0.type == "prebidmobilesdk"
+            }).first?.sdkConfiguration
+            
+            if pbsSDKConfig?.cftBanner?.doubleValue != Prebid.shared.creativeFactoryTimeout || pbsSDKConfig?.cftPreRender?.doubleValue != Prebid.shared.creativeFactoryTimeoutPreRenderContent {
+                resetEvents()
+                adViewDidFailToLoadAdButton.isEnabled = true
+            }
+        }
     }
     
     func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {

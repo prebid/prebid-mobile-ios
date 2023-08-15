@@ -194,7 +194,22 @@ class PBMORTBTest: XCTestCase {
         ]
         ext.tmaxrequest = 3000
         
-        codeAndDecode(abstract: ext, expectedString: "{\"responsetimemillis\":{\"openx\":16},\"tmaxrequest\":3000}")
+        let extPrebid = PBMORTBBidResponseExtPrebid()
+        
+        let passthrough = PBMORTBExtPrebidPassthrough()
+        
+        let sdkConfiguration = PBMORTBSDKConfiguration()
+        sdkConfiguration.cftBanner = 42
+        sdkConfiguration.cftPreRender = 4242
+        
+        passthrough.sdkConfiguration = sdkConfiguration
+        passthrough.type = "prebidmobilesdk"
+        
+        extPrebid.passthrough = [passthrough]
+        
+        ext.extPrebid = extPrebid
+        
+        codeAndDecode(abstract: ext, expectedString: "{\"prebid\":{\"passthrough\":[{\"sdkconfiguration\":{\"cftbanner\":42,\"cftprerender\":4242},\"type\":\"prebidmobilesdk\"}]},\"responsetimemillis\":{\"openx\":16},\"tmaxrequest\":3000}")
     }
     
     // MARK: - Skadn ext

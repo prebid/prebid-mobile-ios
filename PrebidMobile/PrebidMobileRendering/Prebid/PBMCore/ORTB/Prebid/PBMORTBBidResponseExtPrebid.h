@@ -14,22 +14,14 @@
  */
 
 #import "PBMORTBAbstract.h"
-#import "PBMORTBAbstract+Protected.h"
-
-@class PBMORTBAdConfiguration;
-@class PBMORTBSDKConfiguration;
+#import "PBMORTBExtPrebidPassthrough.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMORTBExtPrebidPassthrough: PBMORTBAbstract
+@interface PBMORTBBidResponseExtPrebid : PBMORTBAbstract
 
-@property (nonatomic, copy, nullable) NSString *type;
-
-@property (nonatomic, strong, nullable) PBMORTBAdConfiguration *adConfiguration;
-
-@property (nonatomic, strong, nullable) PBMORTBSDKConfiguration *sdkConfiguration;
+@property (nonatomic, copy, nullable) NSArray<PBMORTBExtPrebidPassthrough *> *passthrough;
 
 @end
 
 NS_ASSUME_NONNULL_END
-
