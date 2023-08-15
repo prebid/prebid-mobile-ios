@@ -16,13 +16,14 @@ limitations under the License.
 import UIKit
 
 @objc(PBMCacheManager)
+@objcMembers
 public class CacheManager: NSObject {
     
     public static let cacheManagerExpireInterval : TimeInterval = 300
+    
     /**
      * The class is created as a singleton object & used
      */
-    @objc
     public static let shared = CacheManager()
     
     /**
@@ -33,7 +34,7 @@ public class CacheManager: NSObject {
     }
     
     internal var savedValuesDict = [String : String]()
-    weak var delegate: CacheExpiryDelegate?
+    private(set) var delegates = [CacheExpiryDelegateWrapper]()
     
     public func save(content: String, expireInterval: TimeInterval = CacheManager.cacheManagerExpireInterval) -> String? {
         if content.isEmpty {
@@ -43,21 +44,25 @@ public class CacheManager: NSObject {
             self.savedValuesDict[cacheId] = content
             DispatchQueue.main.asyncAfter(deadline: .now() + expireInterval, execute: {
                 self.savedValuesDict.removeValue(forKey: cacheId)
-                self.delegate?.cacheExpired()
+                
+                if let delegate = self.delegates.filter({ $0.id == cacheId }).first {
+                    delegate.delegate?.cacheExpired()
+                    self.delegates.removeAll { $0.id == cacheId }
+                }
             })
             return cacheId
         }
     }
     
-    public func isValid(cacheId: String) -> Bool{
+    public func isValid(cacheId: String) -> Bool {
         return self.savedValuesDict.keys.contains(cacheId)
     }
     
-    public func get(cacheId: String) -> String?{
+    public func get(cacheId: String) -> String? {
         return self.savedValuesDict[cacheId]
     }
-}
-
-protocol CacheExpiryDelegate : AnyObject{
-    func cacheExpired()
+    
+    func setDelegate(delegate: CacheExpiryDelegateWrapper) {
+        delegates.append(delegate)
+    }
 }
