@@ -105,8 +105,7 @@ public class Prebid: NSObject {
     //Controls how long each creative has to load before it is considered a failure.
     public var creativeFactoryTimeout: TimeInterval = 6.0
     
-    //If preRenderContent flag is set, controls how long the creative has to completely pre-render before it is considered a failure.
-    //Useful for video interstitials.
+    //Controls how long video and interstitial creatives have to load before it is considered a failure.
     public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
     
     //Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
