@@ -14,6 +14,7 @@
  */
 
 #import "PBMORTBAbstract.h"
+#import "PBMORTBBidResponseExtPrebid.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// [Integer]
 @property (nonatomic, strong, nullable) NSNumber *tmaxrequest;
+
+@property (nonatomic, strong, nullable) PBMORTBBidResponseExtPrebid *extPrebid;
 
 @end
 

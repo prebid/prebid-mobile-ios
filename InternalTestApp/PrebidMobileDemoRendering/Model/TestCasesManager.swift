@@ -549,6 +549,28 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
+            TestCase(title: "Banner 320x50 Server-Side Creative Factory Timeout (In-App)",
+                     tags: [.banner, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Prebid.shared.prebidServerAccountId = "prebid-stored-request-sdk-config"
+                
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                        
+                bannerController.prebidConfigId = "prebid-ita-banner-320-50"
+                
+                bannerController.testPBSSDKConfig = true
+                        
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
             TestCase(title: "Banner Events 320x50 (In-App)",
                      tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",

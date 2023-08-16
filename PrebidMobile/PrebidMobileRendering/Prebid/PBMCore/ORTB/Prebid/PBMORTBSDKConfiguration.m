@@ -13,30 +13,18 @@
  limitations under the License.
  */
 
-#import "PBMORTBExtPrebidPassthrough.h"
-#import "PBMORTBAdConfiguration.h"
+#import <Foundation/Foundation.h>
 #import "PBMORTBSDKConfiguration.h"
 
-@implementation PBMORTBExtPrebidPassthrough
+@implementation PBMORTBSDKConfiguration
 
 - (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
     if (!(self = [super init])) {
         return nil;
     }
-
-    _type = jsonDictionary[@"type"];
     
-    PBMJsonDictionary * const adConfigDic = jsonDictionary[@"adconfiguration"];
-    
-    if (adConfigDic) {
-        _adConfiguration = [[PBMORTBAdConfiguration alloc] initWithJsonDictionary:adConfigDic];
-    }
-    
-    PBMJsonDictionary * const sdkConfigDic = jsonDictionary[@"sdkconfiguration"];
-    
-    if (sdkConfigDic) {
-        _sdkConfiguration = [[PBMORTBSDKConfiguration alloc] initWithJsonDictionary:sdkConfigDic];
-    }
+    _cftBanner = jsonDictionary[@"cftbanner"];
+    _cftPreRender = jsonDictionary[@"cftprerender"];
     
     return self;
 }
@@ -44,11 +32,8 @@
 - (PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary * const ret = [[PBMMutableJsonDictionary alloc] init];
     
-    ret[@"type"] = self.type;
-    
-    ret[@"adconfiguration"] = [self.adConfiguration toJsonDictionary];
-    
-    ret[@"sdkconfiguration"] = [self.sdkConfiguration toJsonDictionary];
+    ret[@"cftbanner"] = self.cftBanner;
+    ret[@"cftprerender"] = self.cftPreRender;
     
     [ret pbmRemoveEmptyVals];
     

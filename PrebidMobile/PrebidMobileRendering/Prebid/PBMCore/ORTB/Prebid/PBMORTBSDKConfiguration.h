@@ -16,20 +16,14 @@
 #import "PBMORTBAbstract.h"
 #import "PBMORTBAbstract+Protected.h"
 
-@class PBMORTBAdConfiguration;
-@class PBMORTBSDKConfiguration;
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMORTBExtPrebidPassthrough: PBMORTBAbstract
+@interface PBMORTBSDKConfiguration: PBMORTBAbstract
 
-@property (nonatomic, copy, nullable) NSString *type;
+@property (nonatomic, copy, nullable) NSNumber *cftBanner;
 
-@property (nonatomic, strong, nullable) PBMORTBAdConfiguration *adConfiguration;
-
-@property (nonatomic, strong, nullable) PBMORTBSDKConfiguration *sdkConfiguration;
+@property (nonatomic, copy, nullable) NSNumber *cftPreRender;
 
 @end
 
 NS_ASSUME_NONNULL_END
-

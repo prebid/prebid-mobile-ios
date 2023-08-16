@@ -24,6 +24,12 @@
     }
     _responsetimemillis = jsonDictionary[@"responsetimemillis"];
     _tmaxrequest = jsonDictionary[@"tmaxrequest"];
+    
+    PBMJsonDictionary * extPrebid = jsonDictionary[@"prebid"];
+    if (extPrebid) {
+        _extPrebid = [[PBMORTBBidResponseExtPrebid alloc] initWithJsonDictionary:extPrebid];
+    }
+    
     return self;
 }
 
@@ -32,6 +38,7 @@
     
     ret[@"responsetimemillis"] = self.responsetimemillis;
     ret[@"tmaxrequest"] = self.tmaxrequest;
+    ret[@"prebid"] = [self.extPrebid toJsonDictionary];
     
     [ret pbmRemoveEmptyVals];
     

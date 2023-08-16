@@ -19,6 +19,20 @@ import XCTest
 
 class PBMCreativeFactoryJobTest: XCTestCase {
     
+    private var sdkConfiguration: Prebid!
+    private let targeting = Targeting.shared
+    
+    override func setUp() {
+        super.setUp()
+        sdkConfiguration = Prebid.mock
+    }
+    
+    override func tearDown() {
+        sdkConfiguration = nil
+        Prebid.reset()
+        super.tearDown()
+    }
+    
     func testVastCreativeFail() {
         let expectationFailure = self.expectation(description: "Expected creative factory job failure callback")
         
@@ -129,5 +143,109 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         waitForExpectations(timeout: 5, handler: { _ in
             XCTAssertEqual(job.state, PBMCreativeFactoryJobStateError)
         })
+    }
+    
+    func testGetTimeInterval_default() {
+        // CTF values are default
+        let connection = PrebidServerConnection()
+        let transaction = UtilitiesForTesting.createEmptyTransaction()
+        let adConfig = AdConfiguration()
+        let model = PBMCreativeModel(adConfiguration: adConfig)
+        
+        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
+        
+        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        
+        // display banner
+        XCTAssertEqual(job.getTimeInterval(), 6.0)
+        
+        // video
+        adConfig.winningBidAdFormat = .video
+        XCTAssertEqual(job.getTimeInterval(), 30.0)
+        
+        // interstitial
+        adConfig.winningBidAdFormat = .banner
+        adConfig.isInterstitialAd = true
+        XCTAssertEqual(job.getTimeInterval(), 30.0)
+    }
+    
+    func testTimeoutInterval_apiProvided() {
+        let creativeFactoryTimeout = 11.1
+        let creativeFactoryTimeoutPreRenderContent = 22.2
+        
+        // CTF is provided via API
+        Prebid.shared.creativeFactoryTimeout = creativeFactoryTimeout
+        Prebid.shared.creativeFactoryTimeoutPreRenderContent = creativeFactoryTimeoutPreRenderContent
+        
+        // display banner
+        let connection = PrebidServerConnection()
+        let transaction = UtilitiesForTesting.createEmptyTransaction()
+        let adConfig = AdConfiguration()
+        let model = PBMCreativeModel(adConfiguration: adConfig)
+        
+        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
+        
+        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        
+        XCTAssertEqual(job.getTimeInterval(), creativeFactoryTimeout)
+        
+        // video
+        adConfig.winningBidAdFormat = .video
+        XCTAssertEqual(job.getTimeInterval(), creativeFactoryTimeoutPreRenderContent)
+        
+        // interstitial
+        adConfig.isInterstitialAd = true
+        XCTAssertEqual(job.getTimeInterval(), creativeFactoryTimeoutPreRenderContent)
+    }
+    
+    func testGetTimeInterval_serverSide() {
+        let creativeFactoryTimeout = 11.1
+        let creativeFactoryTimeoutPreRenderContent = 22.2
+        
+        // CTF values are provided by PBS
+        try! sdkConfiguration.setCustomPrebidServer(url: Prebid.devintServerURL)
+        sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
+        
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(PBMBidResponseTransformer.makeValidResponseWithCTF(bidPrice: 0.5, ctfBanner: creativeFactoryTimeout, ctfPreRender: creativeFactoryTimeoutPreRenderContent))
+        }])
+        
+        let requester = PBMBidRequester(connection: connection,
+                                        sdkConfiguration: sdkConfiguration,
+                                        targeting: targeting,
+                                        adUnitConfiguration: adUnitConfig)
+        
+        let exp = expectation(description: "exp")
+        requester.requestBids { (bidResponse, error) in
+            exp.fulfill()
+            if let error = error {
+                XCTFail(error.localizedDescription)
+                return
+            }
+            XCTAssertNotNil(bidResponse)
+        }
+        waitForExpectations(timeout: 5)
+        
+        // banner display
+        let transaction = UtilitiesForTesting.createEmptyTransaction()
+        var adConfig = AdConfiguration()
+        var model = PBMCreativeModel(adConfiguration: adConfig)
+
+        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
+
+        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+
+        XCTAssertEqual(job.getTimeInterval(), creativeFactoryTimeout)
+        
+        // video
+        adConfig.winningBidAdFormat = .video
+        XCTAssertEqual(job.getTimeInterval(), creativeFactoryTimeoutPreRenderContent)
+        
+        // interstitial
+        adConfig.winningBidAdFormat = .banner
+        adConfig.isInterstitialAd = true
+        XCTAssertEqual(job.getTimeInterval(), creativeFactoryTimeoutPreRenderContent)
     }
 }
