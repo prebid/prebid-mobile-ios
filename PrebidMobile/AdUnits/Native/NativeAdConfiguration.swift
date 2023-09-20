@@ -21,10 +21,16 @@ public class NativeAdConfiguration: NSObject {
     /// Version of the Native Markup version in use.
     public var version: String = "1.2"
     
-    public var markupRequestObject: NativeMarkupRequestObject
-
-    public required override init() {
-        markupRequestObject = NativeMarkupRequestObject()
+    public var markupRequestObject = NativeMarkupRequestObject()
+    
+    public override init() {
+        super.init()
+    }
+    
+    init(nativeParameters: NativeParameters) {
+        version = nativeParameters.version
+        markupRequestObject = NativeMarkupRequestObject(nativeParameters: nativeParameters)
+        
         super.init()
     }
 }

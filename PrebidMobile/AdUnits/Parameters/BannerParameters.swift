@@ -22,11 +22,21 @@ public class BannerParameters: NSObject {
     /// List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
     public var api: [Signals.Api]?
     
+    public var interstitialMinWidthPerc: Int?
+    public var interstitialMinHeightPerc: Int?
+    
+    public var adSizes: [CGSize]?
+    
     // MARK: - Helpers
     
     public var rawAPI: [Int]? {
         get {
             api?.toIntArray()
         }
+    }
+    
+    // Objective-C API
+    public func setSizes(_ sizes: [NSValue]) {
+        adSizes = sizes.map { $0.cgSizeValue }
     }
 }
