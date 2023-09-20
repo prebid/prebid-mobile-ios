@@ -371,7 +371,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Multiformat Banner (GAM Original) [OK, PUC]",
-                     tags: [.banner, .originalAPI, .server],
+                     tags: [.multiformat, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                          
@@ -448,7 +448,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Multiformat Interstitial 320x480 (GAM Original) [OK, PUC]",
-                     tags: [.interstitial, .originalAPI, .server, .video],
+                     tags: [.multiformat, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                          
@@ -527,6 +527,24 @@ struct TestCaseManager {
                          
                 adapterVC.setup(adapter: instreamController)
                 setupCustomParams(for: instreamController.prebidConfigId)
+            }),
+            
+            
+            // MARK: ---- Multiformat (Original API)
+            
+            TestCase(title: "Multiformat (Banner + Video + In-App Native) (GAM Original)",
+                     tags: [.multiformat, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let multiformatController = PrebidOriginalAPIMultiformatController(rootController: adapterVC)
+                multiformatController.bannerAdSize = CGSize(width: 300, height: 250)
+                multiformatController.adUnitID = "/21808260008/prebid-demo-multiformat"
+                adapterVC.setup(adapter: multiformatController)
             }),
         
             // MARK: ---- Banner (In-App) ----

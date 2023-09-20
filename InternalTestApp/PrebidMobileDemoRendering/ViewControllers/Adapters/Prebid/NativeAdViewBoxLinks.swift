@@ -46,6 +46,10 @@ class NativeAdViewBoxLinks: NativeAdViewBoxProtocol {
         }
         contentView = rootStackView
     }
+    
+    func removeFromSuperview() {
+        contentView.removeFromSuperview()
+    }
 }
 
 extension NativeAdViewBoxLinks {

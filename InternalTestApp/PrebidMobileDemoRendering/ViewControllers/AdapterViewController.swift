@@ -82,6 +82,7 @@ class AdapterViewController: UIViewController, ConfigurableViewController {
         if showConfigurationBeforeLoad, let configurationController = adapter?.configurationController() {
             showConfigurationBeforeLoad = false
             let navigator = UINavigationController(rootViewController: configurationController)
+            navigator.modalPresentationStyle = .overFullScreen
             present(navigator, animated: true, completion: nil)
 
             configurationController.loadAd = loadAdClosure
