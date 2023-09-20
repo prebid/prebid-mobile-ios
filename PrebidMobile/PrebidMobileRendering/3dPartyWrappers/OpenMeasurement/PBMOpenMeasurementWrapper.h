@@ -27,9 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - PBMMeasurementProtocol
 
-- (void)initializeJSLibWithBundle:(NSBundle *)bundle
-                       completion:(nullable PBMVoidBlock)completion;
-
 - (nullable NSString *)injectJSLib:(NSString *)html error:(NSError * __nullable * __null_unspecified)error;
 
 - (nullable PBMOpenMeasurementSession *)initializeWebViewSession:(WKWebView *)webView

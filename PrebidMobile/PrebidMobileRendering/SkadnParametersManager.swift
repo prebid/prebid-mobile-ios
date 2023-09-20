@@ -16,7 +16,7 @@
 import Foundation
 import StoreKit
 
-@objcMembers
+@objc(PBMSkadnParametersManager) @objcMembers
 public class SkadnParametersManager: NSObject {
     
     private static func getFidelity(from skadnInfo: PBMORTBBidExtSkadn, fidelityType: NSNumber) -> PBMORTBSkadnFidelity? {
@@ -55,7 +55,7 @@ public class SkadnParametersManager: NSObject {
             }
             
             // For SKAdNetwork 4.0 add sourceidentifier that replaces campaign
-            if #available(iOS 16.0, *) {
+            if #available(iOS 16.1, *) {
                 if let sourceidentifier = skadnInfo.sourceidentifier, let sourceidentifierInteger = Int(sourceidentifier) {
                     imp.sourceIdentifier = NSNumber(value: sourceidentifierInteger)
                 }
@@ -86,7 +86,7 @@ public class SkadnParametersManager: NSObject {
                     productParams[SKStoreProductParameterAdNetworkCampaignIdentifier] = campaign
                 }
                 
-                if #available(iOS 16.0, *) {
+                if #available(iOS 16.1, *) {
                     if let sourceIdentifier = skadnInfo.sourceidentifier, let sourceidentifierInteger = Int(sourceIdentifier) {
                         productParams[SKStoreProductParameterAdNetworkSourceIdentifier] = NSNumber(value: sourceidentifierInteger)
                     }

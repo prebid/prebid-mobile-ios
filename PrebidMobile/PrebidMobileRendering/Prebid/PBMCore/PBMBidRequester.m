@@ -19,6 +19,7 @@
 #import "PBMORTBPrebid.h"
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMParameterBuilderService.h"
+#import "PBMORTBSDKConfiguration.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -31,7 +32,7 @@
 
 @interface PBMBidRequester ()
 
-@property (nonatomic, strong, nonnull, readonly) id<ServerConnectionProtocol> connection;
+@property (nonatomic, strong, nonnull, readonly) id<PrebidServerConnectionProtocol> connection;
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) Targeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
@@ -42,7 +43,7 @@
 
 @implementation PBMBidRequester
 
-- (instancetype)initWithConnection:(id<ServerConnectionProtocol>)connection
+- (instancetype)initWithConnection:(id<PrebidServerConnectionProtocol>)connection
                   sdkConfiguration:(Prebid *)sdkConfiguration
                          targeting:(Targeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration {
@@ -92,7 +93,7 @@
     [self.connection post:requestServerURL
                      data:[requestString dataUsingEncoding:NSUTF8StringEncoding]
                   timeout:postTimeout
-                 callback:^(ServerResponse * _Nonnull serverResponse) {
+                 callback:^(PrebidServerResponse * _Nonnull serverResponse) {
         @strongify(self);
         if (!self) { return; }
         
@@ -132,6 +133,20 @@
                     self.sdkConfiguration.timeoutMillisDynamic = @(updatedTimeout);
                     self.sdkConfiguration.timeoutUpdated = true;
                 };
+            }
+            
+            PBMORTBSDKConfiguration *pbsSDKConfig = [bidResponse.ext.extPrebid.passthrough filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(PBMORTBExtPrebidPassthrough *_Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+                return [evaluatedObject.type isEqual: @"prebidmobilesdk"];
+            }]].firstObject.sdkConfiguration;
+            
+            if(pbsSDKConfig) {
+                if(pbsSDKConfig.cftBanner) {
+                    Prebid.shared.creativeFactoryTimeout = pbsSDKConfig.cftBanner.doubleValue;
+                }
+                
+                if(pbsSDKConfig.cftPreRender) {
+                    Prebid.shared.creativeFactoryTimeoutPreRenderContent = pbsSDKConfig.cftPreRender.doubleValue;
+                }
             }
         }
         

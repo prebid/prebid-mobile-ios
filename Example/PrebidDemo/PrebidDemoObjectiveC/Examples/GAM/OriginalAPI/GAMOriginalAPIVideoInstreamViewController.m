@@ -19,13 +19,13 @@
 @import PrebidMobile;
 
 NSString * const videoContentURL = @"https://storage.googleapis.com/gvabox/media/samples/stock.mp4";
-NSString * const storedImpVideo = @"imp-prebid-video-interstitial-320-480";
+NSString * const storedImpVideo = @"prebid-demo-video-interstitial-320-480";
 NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
 
 @interface GAMOriginalAPIVideoInstreamViewController ()
 
 // Prebid
-@property (nonatomic) VideoAdUnit * adUnit;
+@property (nonatomic) InstreamVideoAdUnit * adUnit;
 
 // IMA
 @property (nonatomic) IMAAdsLoader * adsLoader;
@@ -89,15 +89,14 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
 }
 
 - (void)createAd {
-    // 1. Create VideoAdUnit
-    self.adUnit = [[VideoAdUnit alloc] initWithConfigId:storedImpVideo size:self.adSize];
+    // 1. Create InstreamVideoAdUnit
+    self.adUnit = [[InstreamVideoAdUnit alloc] initWithConfigId:storedImpVideo size:self.adSize];
     
     // 2. Configure Video Parameters
-    VideoParameters * parameters = [[VideoParameters alloc] init];
-    parameters.mimes = @[@"video/mp4"];
+    VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
-    self.adUnit.parameters = parameters;
+    self.adUnit.videoParameters = parameters;
     
     // 3. Prepare IMAAdsLoader
     self.adsLoader = [[IMAAdsLoader alloc] init];

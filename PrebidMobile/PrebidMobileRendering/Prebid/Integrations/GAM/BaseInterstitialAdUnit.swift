@@ -34,7 +34,7 @@ public class BaseInterstitialAdUnit :
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
-    public var lastBidResponse: BidResponse? {
+    @objc public var lastBidResponse: BidResponse? {
         return adLoadFlowController?.bidResponse
     }
     
@@ -105,7 +105,7 @@ public class BaseInterstitialAdUnit :
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adConfiguration.adFormats = [.display, .video]
+        adUnitConfig.adConfiguration.adFormats = [.banner, .video]
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
         blocksLockToken = NSObject()
 
@@ -119,7 +119,7 @@ public class BaseInterstitialAdUnit :
         callEventHandler_setLoadingDelegate(adLoader)
         
         adLoadFlowController =  PBMAdLoadFlowController(bidRequesterFactory: { adUnitConfig in
-            return PBMBidRequester(connection: ServerConnection.shared,
+            return PBMBidRequester(connection: PrebidServerConnection.shared,
                                    sdkConfiguration: Prebid.shared,
                                    targeting: Targeting.shared,
                                    adUnitConfiguration: adUnitConfig)

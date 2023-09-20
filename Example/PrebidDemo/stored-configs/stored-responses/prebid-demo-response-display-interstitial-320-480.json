@@ -1,0 +1,20 @@
+[
+	{
+		"bid": [
+			{
+				"id": "prebid-demo-response-display-interstitial-320-480",
+				"price": 0.15,
+				"adm": "<script src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\"></script>\n<a href=\"https://prebid.org/\"><img src='https://s3.amazonaws.com/files.prebid.org/creatives/prebid300x250.png' width='300' height='250' border='0' alt=''></img></a>",
+				"crid": "540944520",
+				"w": 320,
+				"h": 480,
+				"ext": {
+					"prebid": {
+						"type": "banner"
+					}
+				}
+			}
+		],
+		"seat": "prebid"
+	}
+]

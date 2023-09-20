@@ -16,7 +16,7 @@
 import UIKit
 
 public let PrebidLocalCacheIdKey = "hb_cache_id_local"
-public let PREBID_VERSION = "2.0.9"
+public let PREBID_VERSION = "2.1.3"
 
 extension String {
 
@@ -99,5 +99,19 @@ public class PrebidConstants: NSObject {
     
     public static var supportedRenderingBannerAPISignals: [Signals.Api] {
         return [.MRAID_1, .MRAID_2, .MRAID_3, .OMID_1]
+    }
+    
+    public static var companionHTMLTemplate: String {
+        """
+        <html>
+            <body>
+                <div id="ad" align="center">
+                    <a href="%@">
+                        <img src="%@" align="center" style="max-width:100%vw; width:auto; max-height:100%vh">
+                            </a>
+                </div>
+            </body>
+        </html>
+        """
     }
 }

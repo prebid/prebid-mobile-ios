@@ -25,4 +25,10 @@ class MockCTTelephonyNetworkInfo : CTTelephonyNetworkInfo {
             return self.mockCTCarrier
         }
     }
+    
+    override var serviceSubscriberCellularProviders: [String : CTCarrier]? {
+        get {
+            return [mockCTCarrier.carrierName ?? "mock_carrier" : mockCTCarrier]
+        }
+    }
 }

@@ -16,7 +16,7 @@
 #import "GAMOriginalAPINativeViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const nativeStoredImpression = @"imp-prebid-banner-native-styles";
+NSString * const nativeStoredImpression = @"prebid-demo-banner-native-styles";
 NSString * const gamNativeAdUnitId = @"/21808260008/apollo_custom_template_native_ad_unit";
 
 @interface GAMOriginalAPINativeViewController ()

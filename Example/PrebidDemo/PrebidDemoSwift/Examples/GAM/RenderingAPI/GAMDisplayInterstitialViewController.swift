@@ -18,7 +18,7 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
-fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
+fileprivate let storedImpDisplayInterstitial = "prebid-demo-display-interstitial-320-480"
 fileprivate let gamAdUnitDisplayInterstitialRendering = "/21808260008/prebid_oxb_html_interstitial"
 
 class GAMDisplayInterstitialViewController: InterstitialBaseViewController, InterstitialAdUnitDelegate {
@@ -39,7 +39,7 @@ class GAMDisplayInterstitialViewController: InterstitialBaseViewController, Inte
         // 2. Create a InterstitialRenderingAdUnit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial, eventHandler: eventHandler)
         renderingInterstitial.delegate = self
-        renderingInterstitial.adFormats = [.display]
+        renderingInterstitial.adFormats = [.banner]
         
         // 3. Load the interstitial ad
         renderingInterstitial.loadAd()

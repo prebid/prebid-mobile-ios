@@ -24,5 +24,7 @@ typedef NS_ENUM(NSUInteger, AdFormat) {
     AdFormatVideoRewarded,
     AdFormatVideoInstream,
     AdFormatNative,
+    AdFormatMultiformatBanner,
+    AdFormatMultiformatInterstitial,
     AdFormatAll
 };

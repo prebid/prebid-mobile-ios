@@ -33,7 +33,7 @@ class PBMInterstitialDisplayPropertiesTests: XCTestCase {
         //the default button
         var closeButtonImage = displayProps.getCloseButtonImage();
         XCTAssertNotNil(closeButtonImage)
-        XCTAssertEqual(closeButtonImage?.size, CGSize(width: 38, height: 38))
+        XCTAssertEqual(closeButtonImage?.size, CGSize(width: 114, height: 114))
         
         displayProps.setButtonImageHidden()
         closeButtonImage = displayProps.getCloseButtonImage();

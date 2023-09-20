@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers
+@objc(PBMAutoRefreshCountConfig) @objcMembers
 public class AutoRefreshCountConfig: NSObject {
     
     /**

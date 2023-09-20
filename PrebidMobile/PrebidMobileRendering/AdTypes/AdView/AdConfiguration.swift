@@ -18,14 +18,14 @@ import UIKit
 /**
  Contains all the data needed to load an ad.
  */
-@objcMembers
+@objc(PBMAdConfiguration) @objcMembers
 public class AdConfiguration: AutoRefreshCountConfig {
     
     // MARK: - Request
     
     public var isOriginalAPI = false
     
-    public var adFormats: Set<AdFormat> = [.display]
+    public var adFormats: Set<AdFormat> = [.banner]
     
     /**
      Describes an OpenRTB banner object
@@ -35,7 +35,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     /**
      Describes an OpenRTB video object
      */
-    public lazy var videoParameters = VideoParameters()
+    public lazy var videoParameters = VideoParameters(mimes: [])
     
     // MARK: - Interstitial
     

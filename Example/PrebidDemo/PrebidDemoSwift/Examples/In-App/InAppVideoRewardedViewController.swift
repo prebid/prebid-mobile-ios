@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480"
+fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480"
 
 class InAppVideoRewardedViewController: InterstitialBaseViewController, RewardedAdUnitDelegate {
     

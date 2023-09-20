@@ -43,8 +43,8 @@
 
 #pragma mark - PBMAdRequester
 
-- (instancetype) initWithServerConnection: (id<ServerConnectionProtocol>) serverConnection
-                             adConfiguration: (AdConfiguration*) adConfiguration  {
+- (instancetype) initWithServerConnection: (id<PrebidServerConnectionProtocol>) serverConnection
+                             adConfiguration: (PBMAdConfiguration*) adConfiguration  {
     self = [super init];
     if (self) {
         self.serverConnection = serverConnection;
@@ -58,7 +58,7 @@
 
 - (void)loadVASTURL:(NSString *)url {
     @weakify(self);
-    [PBMVastRequester loadVastURL:url connection:self.serverConnection completion:^(ServerResponse * _Nullable serverResponse, NSError * _Nullable error) {
+    [PBMVastRequester loadVastURL:url connection:self.serverConnection completion:^(PrebidServerResponse * _Nullable serverResponse, NSError * _Nullable error) {
         @strongify(self);
         
         if (!self) {

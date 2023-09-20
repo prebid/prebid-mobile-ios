@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedImpDisplayInterstitial = "imp-prebid-display-interstitial-320-480"
+fileprivate let storedImpDisplayInterstitial = "prebid-demo-display-interstitial-320-480"
 
 class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUnitDelegate {
     
@@ -34,7 +34,7 @@ class InAppDisplayInterstitialViewController: UIViewController, InterstitialAdUn
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial)
         
         // 2. Configure the InterstitialRenderingAdUnit
-        renderingInterstitial.adFormats = [.display]
+        renderingInterstitial.adFormats = [.banner]
         renderingInterstitial.delegate = self
         
         // 3. Load the interstitial ad

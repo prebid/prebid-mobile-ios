@@ -18,7 +18,7 @@
 #import "PBMAdMarkupStringHandler.h"
 #import "PBMWinNotifierFactoryBlock.h"
 
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,11 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, class, readonly) PBMWinNotifierFactoryBlock factoryBlock;
 
-+ (void)notifyThroughConnection:(id<ServerConnectionProtocol>)connection
++ (void)notifyThroughConnection:(id<PrebidServerConnectionProtocol>)connection
                      winningBid:(Bid *)bid
                        callback:(PBMAdMarkupStringHandler)adMarkupConsumer;
 
-+ (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<ServerConnectionProtocol>)connection;
++ (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<PrebidServerConnectionProtocol>)connection;
 
 - (instancetype)init NS_UNAVAILABLE;
 

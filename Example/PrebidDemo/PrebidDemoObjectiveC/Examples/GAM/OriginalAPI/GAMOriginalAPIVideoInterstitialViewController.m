@@ -18,13 +18,13 @@
 
 @import PrebidMobile;
 
-NSString * const storedImpVideoInterstitial = @"imp-prebid-video-interstitial-320-480-original-api";
+NSString * const storedImpVideoInterstitial = @"prebid-demo-video-interstitial-320-480-original-api";
 NSString * const gamAdUnitVideoInterstitialOriginal = @"/21808260008/prebid-demo-app-original-api-video-interstitial";
 
 @interface GAMOriginalAPIVideoInterstitialViewController ()
 
 // Prebid
-@property (nonatomic) VideoInterstitialAdUnit * adUnit;
+@property (nonatomic) InterstitialAdUnit * adUnit;
 
 @end
 
@@ -37,24 +37,26 @@ NSString * const gamAdUnitVideoInterstitialOriginal = @"/21808260008/prebid-demo
 }
 
 - (void)createAd {
-    // 1. Create an VideoInterstitialAdUnit
-    self.adUnit = [[VideoInterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitial];
+    // 1. Create an InterstitialAdUnit
+    self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitial];
     
-    // 2. Configure video parameters
-    VideoParameters * parameters = [[VideoParameters alloc] init];
-    parameters.mimes = @[@"video/mp4"];
+    // 2. Set ad format
+    self.adUnit.adFormats = [NSSet setWithObject:AdFormat.banner];
+    
+    // 3. Configure video parameters
+    VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
-    self.adUnit.parameters = parameters;
+    self.adUnit.videoParameters = parameters;
     
-    // 3. Make a bid request to Prebid Server
+    // 4. Make a bid request to Prebid Server
     GAMRequest * gamRequest = [GAMRequest new];
     @weakify(self);
     [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         
-        // 4. Load a GAM interstitial ad
+        // 5. Load a GAM interstitial ad
         @weakify(self);
         [GAMInterstitialAd loadWithAdManagerAdUnitID:gamAdUnitVideoInterstitialOriginal request:gamRequest completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
             @strongify(self);
@@ -63,7 +65,7 @@ NSString * const gamAdUnitVideoInterstitialOriginal = @"/21808260008/prebid-demo
             if (error != nil) {
                 PBMLogError(@"%@", error.localizedDescription);
             } else if (interstitialAd != nil) {
-                // 5. Present the interstitial ad
+                // 6. Present the interstitial ad
                 interstitialAd.fullScreenContentDelegate = self;
                 [interstitialAd presentFromRootViewController:self];
             }

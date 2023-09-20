@@ -21,5 +21,6 @@
 - (void)successWithCreative:(PBMAbstractCreative *)creative;
 - (void)failWithError:(NSError *)error;
 - (void)startJobWithTimeInterval:(NSTimeInterval)timeInterval;
+- (NSTimeInterval)getTimeInterval;
 
 @end

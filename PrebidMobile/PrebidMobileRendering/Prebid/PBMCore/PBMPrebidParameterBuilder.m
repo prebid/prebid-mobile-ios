@@ -65,7 +65,7 @@
 - (void)buildBidRequest:(nonnull PBMORTBBidRequest *)bidRequest {
     
     NSSet<AdFormat *> *adFormats = self.adConfiguration.adConfiguration.adFormats;
-    BOOL const isHTML = ([adFormats containsObject:AdFormat.display]);
+    BOOL const isHTML = ([adFormats containsObject:AdFormat.banner]);
     BOOL const isInterstitial = self.adConfiguration.adConfiguration.isInterstitialAd;
     
     bidRequest.requestID = [NSUUID UUID].UUIDString;
@@ -79,6 +79,22 @@
         cache[@"bids"] = [PBMMutableJsonDictionary new];
         cache[@"vastxml"] = [PBMMutableJsonDictionary new];
         bidRequest.extPrebid.cache = cache;
+    }
+    
+    // For multiformat ad units we should get hb_format in PBS response.
+    // In order to do this, we shoould specify ext.prebid.targeting.includeformat
+    if (adFormats.count >= 2) {
+        bidRequest.extPrebid.targeting[@"includeformat"] = [[NSNumber alloc] initWithBool:YES];
+    }
+
+    if(Prebid.shared.includeWinners)
+    {
+        bidRequest.extPrebid.targeting[@"includewinners"] = [[NSNumber alloc] initWithBool:YES];
+    }
+
+    if(Prebid.shared.includeBidderKeys)
+    {
+        bidRequest.extPrebid.targeting[@"includebidderkeys"] = [[NSNumber alloc] initWithBool:YES];
     }
     
     bidRequest.app.publisher.publisherID        = self.sdkConfiguration.prebidServerAccountId;
@@ -101,7 +117,7 @@
     
     if (!self.adConfiguration.adConfiguration.isOriginalAPI) {
         extSource.omidpn = @"Prebid";
-        extSource.omidpv = [PBMFunctions omidVersion];
+        extSource.omidpv = [PBMFunctions sdkVersion];
     }
     
     if (Targeting.shared.omidPartnerName) {
@@ -172,9 +188,9 @@
         }
         
         nextImp.extData[@"adslot"] = [self.adConfiguration getPbAdSlot];
-       
+        
         for (AdFormat* adFormat in adFormats) {
-            if (adFormat == AdFormat.display) {
+            if (adFormat == AdFormat.banner || adFormat == AdFormat.display) {
                 PBMORTBBanner * const nextBanner = nextImp.banner;
                 if (formats) {
                     nextBanner.format = formats;
@@ -186,7 +202,7 @@
                     nextBanner.api = bannerParameters.rawAPI;
                 }
                 
-                if (self.adConfiguration.adPosition != AdPositionUndefined) {
+                if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextBanner.pos = @(self.adConfiguration.adPosition);
                 }
             } else if (adFormat == AdFormat.video) {
@@ -253,7 +269,7 @@
                     nextVideo.linearity = [NSNumber numberWithInteger:videoParameters.linearity.value];
                 }
                 
-                if (self.adConfiguration.adPosition != AdPositionUndefined) {
+                if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);
                 }
             } else if (adFormat == AdFormat.native && adFormats.count == 1) {

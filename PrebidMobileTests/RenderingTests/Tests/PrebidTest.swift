@@ -20,8 +20,17 @@ class PrebidTest: XCTestCase {
     
     private var logToFile: LogToFileLock?
     
+    private var sdkConfiguration: Prebid!
+    private let targeting = Targeting.shared
+    
+    override func setUp() {
+        super.setUp()
+        sdkConfiguration = Prebid.mock
+    }
+    
     override func tearDown() {
         logToFile = nil
+        sdkConfiguration = nil
         
         Prebid.reset()
         
@@ -285,6 +294,39 @@ class PrebidTest: XCTestCase {
         
         //then
         XCTAssertEqual(pbsDebug, Prebid.shared.pbsDebug)
+    }
+    
+    func testPBSCreativeFactoryTimeout() {
+        try! sdkConfiguration.setCustomPrebidServer(url: Prebid.devintServerURL)
+        sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
+        
+        let creativeFactoryTimeout = 11.1
+        let creativeFactoryTimeoutPreRenderContent = 22.2
+        
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(PBMBidResponseTransformer.makeValidResponseWithCTF(bidPrice: 0.5, ctfBanner: creativeFactoryTimeout, ctfPreRender: creativeFactoryTimeoutPreRenderContent))
+        }])
+        
+        let requester = PBMBidRequester(connection: connection,
+                                        sdkConfiguration: sdkConfiguration,
+                                        targeting: targeting,
+                                        adUnitConfiguration: adUnitConfig)
+        
+        let exp = expectation(description: "exp")
+        requester.requestBids { (bidResponse, error) in
+            exp.fulfill()
+            if let error = error {
+                XCTFail(error.localizedDescription)
+                return
+            }
+            XCTAssertNotNil(bidResponse)
+        }
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertEqual(Prebid.shared.creativeFactoryTimeout, creativeFactoryTimeout)
+        XCTAssertEqual(Prebid.shared.creativeFactoryTimeoutPreRenderContent, creativeFactoryTimeoutPreRenderContent)
     }
     
     // MARK: - Private Methods

@@ -38,8 +38,13 @@ extension Prebid {
         Prebid.forcedIsViewable = false
         Prebid.shared.clearCustomHeaders()
         Prebid.shared.clearStoredBidResponses()
+        Prebid.shared.includeWinners = false
+        Prebid.shared.includeBidderKeys = false
         
         Prebid.shared.useExternalClickthroughBrowser = false
+        
+        Prebid.shared.creativeFactoryTimeout = 6.0
+        Prebid.shared.creativeFactoryTimeoutPreRenderContent = 30.0
     }
     
     static var forcedIsViewable: Bool {

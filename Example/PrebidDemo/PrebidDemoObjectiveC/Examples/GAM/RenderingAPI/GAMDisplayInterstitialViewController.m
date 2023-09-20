@@ -15,7 +15,7 @@
 
 #import "GAMDisplayInterstitialViewController.h"
 
-NSString * const storedImpGAMDisplayInterstitial = @"imp-prebid-display-interstitial-320-480";
+NSString * const storedImpGAMDisplayInterstitial = @"prebid-demo-display-interstitial-320-480";
 NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_oxb_html_interstitial";
 
 @interface GAMDisplayInterstitialViewController ()
@@ -40,7 +40,7 @@ NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_o
     // 2. Create a InterstitialRenderingAdUnit
     self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpGAMDisplayInterstitial minSizePercentage:CGSizeMake(30, 30) eventHandler:eventHandler];
     self.renderingInterstitial.delegate = self;
-    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.display, nil];
+    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.banner, nil];
     
     // 3. Load the interstitial ad
     [self.renderingInterstitial loadAd];

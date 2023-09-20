@@ -1,0 +1,22 @@
+{
+    "ext": {
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "prebid-demo-response-video-interstitial-320-480"
+            }
+        }
+    },
+    "instl": 1,
+    "video": {
+        "h": 667,
+        "w": 375,
+        "mimes": [
+            "video/mp4"
+        ],
+        "linearity": 1,
+        "placement": 5,
+        "playbackmethod": [
+            2
+        ]
+    }
+}

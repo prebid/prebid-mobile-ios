@@ -21,21 +21,21 @@
 @class WKWebView;
 @class UIView;
 @class PBMModalManager;
-@class AdConfiguration;
+@class PBMAdConfiguration;
 @class PBMCreativeModel;
 @class PBMAbstractCreative;
 @class PBMAdDetails;
 @class PBMOpenMeasurementSession;
 @class PBMOpenMeasurementWrapper;
-@class AdConfiguration;
+@class PBMAdConfiguration;
 @class PBMORTBBidExtSkadn;
 
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMTransaction : NSObject
 
-@property (nonatomic, readonly, nonnull) AdConfiguration *adConfiguration; // If need to change use resetAdConfiguration
+@property (nonatomic, readonly, nonnull) PBMAdConfiguration *adConfiguration; // If need to change use resetAdConfiguration
 @property (nonatomic, strong) NSMutableArray<PBMAbstractCreative *> *creatives;
 @property (nonatomic, strong) NSArray<PBMCreativeModel *> *creativeModels;
 @property (nonatomic, strong, nullable) PBMOpenMeasurementSession *measurementSession;
@@ -43,13 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadnInfo;
 @property (nonatomic, strong, nullable) NSString *impURL; // bidResponse.ext.prebid.events.imp
-@property (nonatomic, strong, nullable) NSString *winURL; // idResponse.ext.prebid.events.win
+@property (nonatomic, strong, nullable) NSString *winURL; // bidResponse.ext.prebid.events.win
 
 @property (atomic, weak, nullable) id<PBMTransactionDelegate> delegate;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)connection
-                         adConfiguration:(AdConfiguration *)adConfiguration
+- (instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)connection
+                         adConfiguration:(PBMAdConfiguration *)adConfiguration
                                   models:(NSArray<PBMCreativeModel *> *)creativeModels NS_DESIGNATED_INITIALIZER;
 
 - (void)startCreativeFactory;
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable PBMAbstractCreative *)getFirstCreative;
 - (nullable PBMAbstractCreative *)getCreativeAfter:(PBMAbstractCreative *)creative;
 - (nullable NSString*)revenueForCreativeAfter:(PBMAbstractCreative *)creative;
-- (void)resetAdConfiguration:(AdConfiguration *)adConfiguration;
+- (void)resetAdConfiguration:(PBMAdConfiguration *)adConfiguration;
 
 @end
 NS_ASSUME_NONNULL_END

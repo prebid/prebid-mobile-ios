@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
+fileprivate let nativeStoredImpression = "prebid-demo-banner-native-styles"
 
 class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
     

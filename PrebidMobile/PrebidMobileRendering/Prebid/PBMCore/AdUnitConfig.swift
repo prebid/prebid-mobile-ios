@@ -88,7 +88,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         self.configId = configId
         self.adSize = size
         
-        adFormats = [.display]
+        adFormats = [.banner]
         
         adConfiguration.autoRefreshDelay = 0
         adConfiguration.size = adSize

@@ -15,7 +15,8 @@
 
 import Foundation
 
-@objc public enum Position: Int {
+@objc(PBMPosition)
+public enum Position: Int {
     case undefined = -1
     case topLeft
     case topCenter

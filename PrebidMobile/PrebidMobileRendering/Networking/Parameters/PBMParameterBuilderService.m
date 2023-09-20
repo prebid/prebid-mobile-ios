@@ -40,17 +40,17 @@
 
 @implementation PBMParameterBuilderService
 
-+ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration {
++ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration {
     return [self buildParamsDictWithAdConfiguration:adConfiguration extraParameterBuilders:nil];
 }
 
-+ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders {
++ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders {
     return [self buildParamsDictWithAdConfiguration:adConfiguration
                                              bundle:NSBundle.mainBundle
                                  pbmLocationManager:PBMLocationManager.shared
                              pbmDeviceAccessManager:[[PBMDeviceAccessManager alloc] initWithRootViewController: nil]
                              ctTelephonyNetworkInfo:[CTTelephonyNetworkInfo new]
-                                       reachability:Reachability.shared
+                                       reachability:PBMReachability.shared
                                    sdkConfiguration:Prebid.shared
                                          sdkVersion:[PBMFunctions sdkVersion]
                                           targeting:Targeting.shared
@@ -59,12 +59,12 @@
 
 // Input parameters validation: certain parameter will be validated in particular builder.
 // In such case, even if some parameter is invalid all other builders will work.
-+ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration
++ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration
                                                                               bundle:(nonnull id<PBMBundleProtocol>)bundle
                                                                   pbmLocationManager:(nonnull PBMLocationManager *)pbmLocationManager
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager
                                                               ctTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo
-                                                                        reachability:(nonnull Reachability *)reachability
+                                                                        reachability:(nonnull PBMReachability *)reachability
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                            targeting:(nonnull Targeting *)targeting
@@ -108,6 +108,7 @@
     bidRequest.user.gender      = targeting.userGenderDescription;
     bidRequest.user.buyeruid    = targeting.buyerUID;
     bidRequest.user.customdata  = targeting.userCustomData;
+    bidRequest.user.userid      = targeting.userID;
    
     if (targeting.userExt) {
         bidRequest.user.ext = [targeting.userExt mutableCopy];

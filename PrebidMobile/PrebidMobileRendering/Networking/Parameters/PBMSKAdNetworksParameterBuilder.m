@@ -34,7 +34,7 @@
 
 @property (nonatomic, strong, readonly) id<PBMBundleProtocol> bundle;
 @property (nonatomic, strong, readonly) Targeting *targeting;
-@property (nonatomic, strong, readwrite) AdConfiguration *adConfiguration;
+@property (nonatomic, strong, readwrite) PBMAdConfiguration *adConfiguration;
 
 @end
 
@@ -57,7 +57,7 @@
 
 - (nonnull instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle
                              targeting:(Targeting *)targeting
-                       adConfiguration:(AdConfiguration *)adConfiguration {
+                       adConfiguration:(PBMAdConfiguration *)adConfiguration {
     if (!(self = [super init])) {
         return nil;
     }

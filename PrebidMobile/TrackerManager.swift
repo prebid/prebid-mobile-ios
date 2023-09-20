@@ -66,8 +66,7 @@ class TrackerManager: NSObject {
         
         Log.debug("Internet is reachable - FIRING TRACKERS: \(arrayWithURLs)")
         arrayWithURLs.forEach { urlString in
-            if let clickUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: clickUrlString)
-            {
+            if let url = urlString.encodedURL(with: .urlQueryAllowed) {
                 let request = URLRequest(url: url)
                 URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
                     guard error == nil else {
@@ -80,12 +79,11 @@ class TrackerManager: NSObject {
                         return
                     }
                     if let completion = completion {
-                          completion(true)
+                        completion(true)
                     }
                 }.resume()
             }
         }
-        
     }
     
     private func queueTrackerURLForRetry(URL: String, completion: OnComplete){
@@ -120,12 +118,15 @@ class TrackerManager: NSObject {
             trackerArray.removeAll()
             trackerRetryTimer?.invalidate()
         }
+        
         if trackerArrayCopy?.count != 0  {
             trackerArrayCopy?.forEach({ info in
                 if info.expired{
                     return
                 }
-                if let urlString = info.URL, let clickUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: clickUrlString)
+                
+                if let urlString = info.URL,
+                   let url = urlString.encodedURL(with: .urlQueryAllowed)
                 {
                     let request = URLRequest(url: url)
                     URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
@@ -151,7 +152,6 @@ class TrackerManager: NSObject {
                         }
                     }.resume()
                 }
-                
             })
         }
     }

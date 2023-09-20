@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
-#import "PBMORTBAbstract+Protected.h"
 #import "PBMORTBExtPrebidPassthrough.h"
 #import "PBMORTBAdConfiguration.h"
+#import "PBMORTBSDKConfiguration.h"
 
 @implementation PBMORTBExtPrebidPassthrough
 
@@ -32,6 +32,12 @@
         _adConfiguration = [[PBMORTBAdConfiguration alloc] initWithJsonDictionary:adConfigDic];
     }
     
+    PBMJsonDictionary * const sdkConfigDic = jsonDictionary[@"sdkconfiguration"];
+    
+    if (sdkConfigDic) {
+        _sdkConfiguration = [[PBMORTBSDKConfiguration alloc] initWithJsonDictionary:sdkConfigDic];
+    }
+    
     return self;
 }
 
@@ -41,6 +47,8 @@
     ret[@"type"] = self.type;
     
     ret[@"adconfiguration"] = [self.adConfiguration toJsonDictionary];
+    
+    ret[@"sdkconfiguration"] = [self.sdkConfiguration toJsonDictionary];
     
     [ret pbmRemoveEmptyVals];
     

@@ -92,7 +92,7 @@
     }
     
     NSString *connectionID = request.allHTTPHeaderFields[self.connectionIDHeaderKey];
-    if (request.allHTTPHeaderFields[ServerConnection.isPBMRequestKey] && !connectionID) {
+    if (request.allHTTPHeaderFields[PrebidServerConnection.isPBMRequestKey] && !connectionID) {
         NSLog(@"All requests in mocked tests must be provided with internal connection ID in the header.");
         return nil;
     }

@@ -2,7 +2,7 @@
 
 # Prebid Mobile iOS SDK
 
-To work with Prebid Mobile, you will need accesss to a Prebid Server. See [this page](http://prebid.org/prebid-mobile/prebid-mobile-pbs.html) for options.
+To work with Prebid Mobile, you will need accesss to a Prebid Server. See [this page](https://docs.prebid.org/prebid-server/overview/prebid-server-overview.html) for options.
 
 ## Use Cocoapods?
 
@@ -38,10 +38,10 @@ Run the test script to run unit tests and integration tests.
 
 ## Carthage
 
-`2.0.9` version is available to build PrebidMobile with Carthage. For that, please, put the following content to your `Cartfile`:
+`2.1.3` version is available to build PrebidMobile with Carthage. For that, please, put the following content to your `Cartfile`:
 
 ```
-github "prebid/prebid-mobile-ios" == 2.0.9-carthage
+github "prebid/prebid-mobile-ios" == 2.1.3-carthage
 ```
 Run this command in order to build PrebidMobile with Carthage:
 

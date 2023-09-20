@@ -81,7 +81,7 @@ public class Prebid: NSObject {
     
     public var customStatusEndpoint: String? {
         didSet {
-            Prebid.serverStatusRequester.setCustomStatusEndpoint(customStatusEndpoint)
+            PrebidSDKInitializer.setCustomStatusEndpoint(customStatusEndpoint)
         }
     }
     
@@ -105,8 +105,7 @@ public class Prebid: NSObject {
     //Controls how long each creative has to load before it is considered a failure.
     public var creativeFactoryTimeout: TimeInterval = 6.0
     
-    //If preRenderContent flag is set, controls how long the creative has to completely pre-render before it is considered a failure.
-    //Useful for video interstitials.
+    //Controls how long video and interstitial creatives have to load before it is considered a failure.
     public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
     
     //Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
@@ -127,10 +126,12 @@ public class Prebid: NSObject {
         get { PBMLocationManager.shared.locationUpdatesEnabled }
         set { PBMLocationManager.shared.locationUpdatesEnabled = newValue }
     }
-    
-    // MARK: - Internal properties
-    
-    static let serverStatusRequester = PrebidServerStatusRequester()
+
+    //If true, the sdk will add `includewinners` flag inside the targeting object described in [PBS Documentation](https://docs.prebid.org/prebid-server/endpoints/openrtb2/pbs-endpoint-auction.html#targeting)
+    public var includeWinners = false
+
+    //If true, the sdk will add `includebidderkeys` flag inside the targeting object described in [PBS Documentation](https://docs.prebid.org/prebid-server/endpoints/openrtb2/pbs-endpoint-auction.html#targeting)
+    public var includeBidderKeys = false
     
     // MARK: - Public Methods
     
@@ -184,15 +185,26 @@ public class Prebid: NSObject {
     ///   - gadMobileAdsObject: GADMobileAds object
     ///   - completion: returns initialization status and optional error
     public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: PrebidInitializationCallback? = nil) {
-        let _ = ServerConnection.shared
-        let _ = PBMLocationManager.shared
-        let _ = UserConsentDataManager.shared
-        
-        PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
-        
-        serverStatusRequester.requestStatus { completion?($0, $1) }
-        
-        handleGADMobileAdsObject(gadMobileAdsObject)
+        PrebidSDKInitializer.initializeSDK(completion)
+        PrebidSDKInitializer.checkGMAVersion(gadObject: gadMobileAdsObject)
+        PrebidSDKInitializer.logInitializerWarningIfNeeded()
+    }
+    
+    /// Initializes PrebidMobile SDK.
+    ///
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
+    ///
+    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
+    /// - Parameters:
+    ///   - gadMobileAdsVersion: GADMobileAds version string, use `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)` to get it
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(gadMobileAdsVersion: String? = nil, _ completion: PrebidInitializationCallback? = nil) {
+        PrebidSDKInitializer.initializeSDK(completion)
+        PrebidSDKInitializer.checkGMAVersion(gadVersion: gadMobileAdsVersion)
     }
     
     /// Initializes PrebidMobile SDK.
@@ -205,29 +217,12 @@ public class Prebid: NSObject {
     /// - Parameters:
     ///   - completion: returns initialization status and optional error
     public static func initializeSDK(_ completion: PrebidInitializationCallback? = nil) {
-        initializeSDK(nil, completion)
+        PrebidSDKInitializer.initializeSDK(completion)
     }
     
     // MARK: - Private Methods
     
     override init() {
         timeoutMillis = defaultTimeoutMillis
-    }
-    
-    static func handleGADMobileAdsObject(_ gadMobileAdsObject: AnyObject?) {
-        guard let gadMobileAdsObject = gadMobileAdsObject else {
-             return
-        }
-        
-        guard gadMobileAdsObject.responds(to: NSSelectorFromString("sdkVersion")) else {
-            Log.error("There is no sdkVersion property in GADMobileAds object.")
-            return
-        }
-        
-        guard let sdkVersion = gadMobileAdsObject.value(forKey: "sdkVersion") as? String else {
-            return
-        }
-        
-        Utils.shared.checkGMAVersion(sdkVersion)
     }
 }

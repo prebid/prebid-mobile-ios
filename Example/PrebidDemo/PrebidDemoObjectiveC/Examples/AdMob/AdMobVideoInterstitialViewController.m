@@ -16,7 +16,7 @@
 #import "AdMobVideoInterstitialViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoInterstitialAdMob = @"imp-prebid-video-interstitial-320-480";
+NSString * const storedImpVideoInterstitialAdMob = @"prebid-demo-video-interstitial-320-480";
 NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660082475/3383099861";
 
 @interface AdMobVideoInterstitialViewController ()
@@ -48,11 +48,14 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
     // 3. Create a MediationInterstitialAdUnit
     self.admobAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:storedImpVideoInterstitialAdMob mediationDelegate:self.mediationDelegate];
     
-    // 4. Make a bid request to Prebid Server
+    // 4. Set ad format
+    self.admobAdUnit.adFormats = [NSSet setWithObject:AdFormat.video];
+    
+    // 5. Make a bid request to Prebid Server
     [self.admobAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @weakify(self);
         
-        // 5. Load the interstitial ad
+        // 6. Load the interstitial ad
         [GADInterstitialAd loadWithAdUnitID:adMobAdUnitVideoInterstitialRendering request:gadRequest completionHandler:^(GADInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
             @strongify(self);
             if (!self) { return; }
@@ -62,7 +65,7 @@ NSString * const adMobAdUnitVideoInterstitialRendering = @"ca-app-pub-5922967660
                 return;
             }
             
-            // 6. Present the interstitial ad
+            // 7. Present the interstitial ad
             if (interstitialAd != nil) {
                 self.interstitial = interstitialAd;
                 self.interstitial.fullScreenContentDelegate = self;

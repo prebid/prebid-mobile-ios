@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
+fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50"
 fileprivate let gamAdUnitDisplayBannerOriginal = "/21808260008/prebid_demo_app_original_api_banner"
 
 class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
@@ -42,7 +42,7 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
         // 2. Configure banner parameters
         let parameters = BannerParameters()
         parameters.api = [Signals.Api.MRAID_2]
-        adUnit.parameters = parameters
+        adUnit.bannerParameters = parameters
         
         // 3. Create a GAMBannerView
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))

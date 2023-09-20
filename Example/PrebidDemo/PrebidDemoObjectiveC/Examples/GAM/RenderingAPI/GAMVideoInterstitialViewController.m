@@ -15,7 +15,7 @@
 
 #import "GAMVideoInterstitialViewController.h"
 
-NSString * const storedImpGAMVideoInterstitial = @"imp-prebid-video-interstitial-320-480-original-api";
+NSString * const storedImpGAMVideoInterstitial = @"prebid-demo-video-interstitial-320-480-original-api";
 NSString * const gamAdUnitVideoInterstitialRendering = @"/21808260008/prebid_oxb_interstitial_video";
 
 @interface GAMVideoInterstitialViewController ()

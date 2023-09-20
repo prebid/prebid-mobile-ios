@@ -15,14 +15,35 @@
 
 import UIKit
 
-public class InterstitialAdUnit: BannerBaseAdUnit {
+public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitProtocol {
+    
+    @available(*, deprecated, message: "This property is deprecated. Please, use bannerParameters instead.")
+    public var parameters: BannerParameters {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+        set { adUnitConfig.adConfiguration.bannerParameters = newValue }
+    }
+    
+    public var bannerParameters: BannerParameters {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+        set { adUnitConfig.adConfiguration.bannerParameters = newValue }
+    }
+    
+    public var videoParameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
+    }
+    
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
+    }
     
     public init(configId: String) {
-        super.init(configId: configId, size: nil)
+        super.init(configId: configId, size: nil, adFormats: [.banner])
         
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adFormats = [.display]
+        adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
     }
     
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {

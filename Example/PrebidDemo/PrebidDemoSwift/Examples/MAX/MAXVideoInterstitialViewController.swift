@@ -18,7 +18,7 @@ import PrebidMobile
 import PrebidMobileMAXAdapters
 import AppLovinSDK
 
-fileprivate let storedImpVideoInterstitial = "imp-prebid-video-interstitial-320-480"
+fileprivate let storedImpVideoInterstitial = "prebid-demo-video-interstitial-320-480"
 fileprivate let maxAdUnitVideoInterstitial = "98e49039f26d7f00"
 
 class MAXVideoInterstitialViewController: InterstitialBaseViewController, MAAdDelegate {

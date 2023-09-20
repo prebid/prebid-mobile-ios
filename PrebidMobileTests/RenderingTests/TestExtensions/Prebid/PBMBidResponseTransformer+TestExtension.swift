@@ -17,43 +17,48 @@ import Foundation
 import PrebidMobile
 
 extension PBMBidResponseTransformer {
-    static func invalidAccountIDResponse(accountID: String) -> ServerResponse {
+    static func invalidAccountIDResponse(accountID: String) -> PrebidServerResponse {
         return buildResponse("Invalid request: Stored Request with ID=\"\(accountID)\" not found.")
     }
     
-    static func invalidConfigIdResponse(configId: String) -> ServerResponse {
+    static func invalidConfigIdResponse(configId: String) -> PrebidServerResponse {
         return buildResponse("Invalid request: Stored Imp with ID=\"\(configId)\" not found.")
     }
     
-    static func invalidSizeResponse(impIndex: Int, formatIndex: Int) -> ServerResponse {
+    static func invalidSizeResponse(impIndex: Int, formatIndex: Int) -> PrebidServerResponse {
         return buildResponse("Invalid request: Request imp[\(impIndex)].banner.format[\(formatIndex)] should define *either* {w, h} (for static size requirements) *or* {wmin, wratio, hratio} (for flexible sizes) to be non-zero.")
     }
     
-    static var serverErrorResponse: ServerResponse {
+    static var serverErrorResponse: PrebidServerResponse {
         return buildResponse("Invalid request: some server reason, probably")
     }
     
-    static var nonJsonDicResponse: ServerResponse {
+    static var nonJsonDicResponse: PrebidServerResponse {
         return buildResponse("Some texty (non-JSON-ish) response here")
     }
     
-    static var someValidResponse: ServerResponse {
+    static var someValidResponse: PrebidServerResponse {
         return makeValidResponse(bidPrice: 0.1091000000051168)
     }
     
-    static var noWinningBidResponse: ServerResponse {
+    static var noWinningBidResponse: PrebidServerResponse {
         return makeValidResponse(bidPrice: 0.1091000000051168, noWinningBidProperties: true)
     }
     
-    static func makeValidResponse(bidPrice: Float, noWinningBidProperties: Bool = false) -> ServerResponse {
+    static func makeValidResponse(bidPrice: Float, noWinningBidProperties: Bool = false) -> PrebidServerResponse {
         let winningBidFragment = noWinningBidProperties ? "" : "{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":\(bidPrice),\"adm\":\"<html><div>You Won! This is a test bid</div></html>\",\"adid\":\"test-ad-id-12345\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"openx\",\"hb_bidder_openx\":\"openx\",\"hb_env\":\"mobile-app\",\"hb_env_openx\":\"mobile-app\",\"hb_pb\":\"0.10\",\"hb_pb_openx\":\"0.10\",\"hb_size\":\"300x250\",\"hb_size_openx\":\"300x250\"},\"type\":\"banner\"},\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099}}}],\"seat\":\"openx\"}"
         return buildResponse("{\"id\":\"B4A2D3F4-41B6-4D37-B68B-EE8893E85C31\",\"seatbid\":[\(winningBidFragment)],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":62}}}")
     }
     
+    static func makeValidResponseWithCTF(bidPrice: Float, ctfBanner: Double, ctfPreRender: Double) -> PrebidServerResponse {
+        let winningBidFragment = "{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":\(bidPrice),\"adm\":\"<html><div>You Won! This is a test bid</div></html>\",\"adid\":\"test-ad-id-12345\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"openx\",\"hb_bidder_openx\":\"openx\",\"hb_env\":\"mobile-app\",\"hb_env_openx\":\"mobile-app\",\"hb_pb\":\"0.10\",\"hb_pb_openx\":\"0.10\",\"hb_size\":\"300x250\",\"hb_size_openx\":\"300x250\"},\"type\":\"banner\"},\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099}}}],\"seat\":\"openx\"}"
+        return buildResponse("{\"id\":\"B4A2D3F4-41B6-4D37-B68B-EE8893E85C31\",\"seatbid\":[\(winningBidFragment)],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":62},\"prebid\":{\"passthrough\":[{\"type\":\"prebidmobilesdk\", \"sdkconfiguration\":{\"cftbanner\":\(ctfBanner),\"cftprerender\":\(ctfPreRender)}}]}}}")
+    }
+    
     // MARK: - Private Helpers
     
-    static func buildResponse(_ body: String) -> ServerResponse {
-        let result = ServerResponse()
+    static func buildResponse(_ body: String) -> PrebidServerResponse {
+        let result = PrebidServerResponse()
         if let data = body.data(using: .utf8) {
             result.rawData = data
             if let dic = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {

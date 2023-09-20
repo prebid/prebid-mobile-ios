@@ -18,7 +18,7 @@
 
 @import PrebidMobile;
 
-NSString * const storedImpVideoRewarded = @"imp-prebid-video-rewarded-320-480-original-api";
+NSString * const storedImpVideoRewarded = @"prebid-demo-video-rewarded-320-480-original-api";
 NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app-original-api-video-interstitial";
 
 @interface GAMOriginalAPIVideoRewardedViewController ()
@@ -41,11 +41,10 @@ NSString * const gamAdUnitVideoRewardedOriginal = @"/21808260008/prebid-demo-app
     self.adUnit = [[RewardedVideoAdUnit alloc] initWithConfigId:storedImpVideoRewarded];
     
     // 2. Configure video parameters
-    VideoParameters * parameters = [[VideoParameters alloc] init];
-    parameters.mimes = @[@"video/mp4"];
+    VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
     parameters.protocols = @[PBProtocols.VAST_2_0];
     parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOff];
-    self.adUnit.parameters = parameters;
+    self.adUnit.videoParameters = parameters;
     
     // 3. Make a bid request to Prebid Server
     GAMRequest * gamRequest = [GAMRequest new];

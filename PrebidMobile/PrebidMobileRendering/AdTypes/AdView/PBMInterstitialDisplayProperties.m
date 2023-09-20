@@ -16,6 +16,14 @@
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMFunctions+Private.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
+
 @interface PBMInterstitialDisplayProperties()
 @property (nonatomic, strong) UIImage *closeButtonImage;
 @end
@@ -31,7 +39,7 @@
         self.closeDelayLeft = 0;
         self.contentFrame = CGRectInfinite;
         self.contentViewColor = [UIColor clearColor];
-        self.closeButtonImage = [UIImage imageNamed:@"PBM_closeButton" inBundle:[PBMFunctions bundleForSDK] compatibleWithTraitCollection:nil];
+        self.closeButtonImage = PrebidImagesRepository.closeButton.base64DecodedImage;
         self.interstitialLayout = PBMInterstitialLayoutUndefined;
     }
     return self;

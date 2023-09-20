@@ -32,7 +32,7 @@
 @interface PBMNetworkParameterBuilder ()
 
 @property (nonatomic, strong) CTTelephonyNetworkInfo *ctTelephonyNetworkInfo;
-@property (nonatomic, strong) Reachability *reachability;
+@property (nonatomic, strong) PBMReachability *reachability;
 
 @end
 
@@ -41,7 +41,7 @@
 @implementation PBMNetworkParameterBuilder
 
 #pragma mark - Initialization
-- (instancetype)initWithCtTelephonyNetworkInfo:(CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo reachability:(Reachability *)reachability {
+- (instancetype)initWithCtTelephonyNetworkInfo:(CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo reachability:(PBMReachability *)reachability {
     self = [super init];
     if (self) {
         PBMAssert(ctTelephonyNetworkInfo && reachability);
@@ -59,12 +59,26 @@
         PBMLogError(@"Invalid properties");
         return;
     }
-     
+    
     // reachability type
-    NetworkType networkStatus = [self.reachability currentReachabilityStatus];
+    PBMNetworkType networkStatus = [self.reachability currentReachabilityStatus];
     bidRequest.device.connectiontype = [NSNumber numberWithInteger:networkStatus];
     
-    CTCarrier *carrier = self.ctTelephonyNetworkInfo.subscriberCellularProvider;
+    [self setCarrierIn:bidRequest];
+}
+
+- (void)setCarrierIn:(PBMORTBBidRequest *)bidRequest {
+    CTCarrier * carrier;
+    
+    if (@available(iOS 16.0, *)) {
+        // do nothing - CTCarrier is deprecated with no replacement
+    } else if (@available(iOS 12.0, *)) {
+        carrier = [[self.ctTelephonyNetworkInfo.serviceSubscriberCellularProviders allValues] firstObject];
+    } else {
+        // Fallback on earlier versions
+        carrier = self.ctTelephonyNetworkInfo.subscriberCellularProvider;
+    }
+    
     if (!carrier) {
         return;
     }

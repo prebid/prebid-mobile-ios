@@ -13,7 +13,8 @@
 import UIKit
 import ObjectiveC.runtime
 
-@objcMembers public class AdUnit: NSObject, DispatcherDelegate {
+@objcMembers
+public class AdUnit: NSObject, DispatcherDelegate {
     
     public var pbAdSlot: String? {
         get { adUnitConfig.getPbAdSlot()}
@@ -62,14 +63,20 @@ import ObjectiveC.runtime
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
 
-    public init(configId: String, size: CGSize?) {
+    public init(configId: String, size: CGSize?, adFormats: Set<AdFormat>) {
         adUnitConfig = AdUnitConfig(configId: configId, size: size ?? CGSize.zero)
         adUnitConfig.adConfiguration.isOriginalAPI = true
+        adUnitConfig.adFormats = adFormats
         identifier = UUID.init().uuidString
+        
         super.init()
         
         // PBS should cache the bid for original api.
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
+    }
+    
+    deinit {
+        dispatcher?.invalidate()
     }
 
     //TODO: dynamic is used by tests
@@ -121,7 +128,7 @@ import ObjectiveC.runtime
         self.closureAd = completion
         adServerObject = adObject
 
-        bidRequester = PBMBidRequester(connection: ServerConnection.shared,
+        bidRequester = PBMBidRequester(connection: PrebidServerConnection.shared,
                                        sdkConfiguration: Prebid.shared,
                                        targeting: Targeting.shared,
                                        adUnitConfiguration: adUnitConfig)

@@ -16,7 +16,7 @@
 #import "InAppDisplayInterstitialViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpDisplayInterstitialInApp = @"imp-prebid-display-interstitial-320-480";
+NSString * const storedImpDisplayInterstitialInApp = @"prebid-demo-display-interstitial-320-480";
 
 @interface InAppDisplayInterstitialViewController ()
 
@@ -38,7 +38,7 @@ NSString * const storedImpDisplayInterstitialInApp = @"imp-prebid-display-inters
     self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpDisplayInterstitialInApp];
     
     // 2. Configure the InterstitialRenderingAdUnit
-    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.display, nil];
+    self.renderingInterstitial.adFormats = [[NSSet alloc] initWithObjects:AdFormat.banner, nil];
     self.renderingInterstitial.delegate = self;
     
     // 3. Load the interstitial ad

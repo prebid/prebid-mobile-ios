@@ -1,0 +1,18 @@
+[{
+		"bid": [{
+			"id": "prebid-demo-response-video-outstream",
+			"price": 0.11701999999468729,
+			"adm": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<VAST version=\"2.0\">\n\t<Ad id=\"1\">\n\t\t<Wrapper>\n\t\t\t<AdSystem>Prebid</AdSystem>\n\t\t\t<VASTAdTagURI><![CDATA[https://cdn.jsdelivr.net/gh/prebid/prebid-mobile-ios@master/Example/PrebidDemo/ads/vast/vast.xml]]></VASTAdTagURI>\n\t\t\t<Creatives>\n\t\t\t\t<Creative>\n\t\t\t\t\t<Linear>\n\t\t\t\t\t</Linear>\n\t\t\t\t</Creative>\n\t\t\t</Creatives>\n\t\t</Wrapper>\n\t</Ad>\n</VAST>",
+			"adid": "test-ad-id-12345",
+			"adomain": ["prebid.org"],
+			"crid": "test-creative-id-1",
+			"w": 300,
+			"h": 250,
+			"ext": {
+				"prebid": {
+					"type": "video"
+				}
+			}
+		}],
+		"seat": "prebid"
+	}]

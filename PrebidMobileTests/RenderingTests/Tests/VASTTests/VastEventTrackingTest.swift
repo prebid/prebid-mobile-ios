@@ -55,7 +55,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
 
         modalManager.modalViewControllerClass = MockPBMModalViewController.self
     
-        //Make an ServerConnection and redirect its network requests to the Mock Server
+        //Make an PrebidServerConnection and redirect its network requests to the Mock Server
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
         
         prepareMockServer(connectionID: connection.internalID)
@@ -72,7 +72,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
         self.wait(for: self.expectations, timeout: 15, enforceOrder: false)
     }
 
-    private func loadAndRun(connection: ServerConnectionProtocol, adConfiguration: AdConfiguration, modalManager: PBMModalManager) {
+    private func loadAndRun(connection: PrebidServerConnectionProtocol, adConfiguration: AdConfiguration, modalManager: PBMModalManager) {
        
         self.vastRequestSuccessfulExpectation = self.expectation(description: "Expected VAST Load to be successful")
         

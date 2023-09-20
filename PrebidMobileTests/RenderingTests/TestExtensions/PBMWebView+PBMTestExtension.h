@@ -22,6 +22,8 @@
 
 @property (nonatomic, assign, readwrite) PBMWebViewState state;
 
+@property (nonatomic, strong, nullable) PrebidJSLibraryManager *libraryManager;
+
 - (void)loadHTML:(nonnull NSString *)html
          baseURL:(nullable NSURL *)baseURL
    injectMraidJs:(BOOL)injectMraidJs

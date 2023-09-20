@@ -16,7 +16,7 @@
 #import "InAppNativeViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const nativeStoredImpressionInApp = @"imp-prebid-banner-native-styles";
+NSString * const nativeStoredImpressionInApp = @"prebid-demo-banner-native-styles";
 
 @interface InAppNativeViewController ()
 

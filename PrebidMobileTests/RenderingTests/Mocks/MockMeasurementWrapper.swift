@@ -26,10 +26,6 @@ class MockMeasurementWrapper : PBMOpenMeasurementWrapper {
         
     }
     
-    override func initializeJSLib(with bundle: Bundle, completion: PBMVoidBlock? = nil) {
-        assertionFailure("Unsued in tests for now")
-    }
-    
     override func injectJSLib(_ html: String) throws -> String {
         injectJSLibClosure?(html)
         throw PBMError.error(description:"PrebidMobileTests: do nothing")

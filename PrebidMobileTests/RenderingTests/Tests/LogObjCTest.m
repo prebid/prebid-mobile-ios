@@ -31,10 +31,10 @@
     
     PBMLogError(@"Test Log");
     
-    NSString *log = [Log getLogFileAsString];
+    NSString *log = [PBMLog getLogFileAsString];
     XCTAssert(log);
     XCTAssertTrue([log containsString:@"Test Log"]);
-    XCTAssertTrue([log containsString:LogLevel.error.stringValue]);
+    XCTAssertTrue([log containsString:PBMLogLevel.error.stringValue]);
 }
 
 - (void)testLogDebug {
@@ -42,10 +42,10 @@
     
     PBMLogDebug(@"Test Log");
     
-    NSString *log = [Log getLogFileAsString];
+    NSString *log = [PBMLog getLogFileAsString];
     XCTAssert(log);
     XCTAssertTrue([log containsString:@"Test Log"]);
-    XCTAssertTrue([log containsString:LogLevel.debug.stringValue]);
+    XCTAssertTrue([log containsString:PBMLogLevel.debug.stringValue]);
 }
 
 - (void)testLogInfo {
@@ -53,10 +53,10 @@
     
     PBMLogInfo(@"Test Log");
     
-    NSString *log = [Log getLogFileAsString];
+    NSString *log = [PBMLog getLogFileAsString];
     XCTAssert(log);
     XCTAssertTrue([log containsString:@"Test Log"]);
-    XCTAssertTrue([log containsString:LogLevel.info.stringValue]);
+    XCTAssertTrue([log containsString:PBMLogLevel.info.stringValue]);
 }
 
 - (void)testLogVerbose {
@@ -64,10 +64,10 @@
     
     PBMLogVerbose(@"Test Log");
     
-    NSString *log = [Log getLogFileAsString];
+    NSString *log = [PBMLog getLogFileAsString];
     XCTAssert(log);
     XCTAssertTrue([log containsString:@"Test Log"]);
-    XCTAssertTrue([log containsString:LogLevel.verbose.stringValue]);
+    XCTAssertTrue([log containsString:PBMLogLevel.verbose.stringValue]);
 }
 
 - (void)testLogWarn {
@@ -75,10 +75,10 @@
     
     PBMLogWarn(@"Test Log");
     
-    NSString *log = [Log getLogFileAsString];
+    NSString *log = [PBMLog getLogFileAsString];
     XCTAssert(log);
     XCTAssertTrue([log containsString:@"Test Log"]);
-    XCTAssertTrue([log containsString:LogLevel.warn.stringValue]);
+    XCTAssertTrue([log containsString:PBMLogLevel.warn.stringValue]);
 }
 
 - (void)testLogSevere {
@@ -86,10 +86,10 @@
     
     PBMLogSevere(@"Test Log");
     
-    NSString *log = [Log getLogFileAsString];
+    NSString *log = [PBMLog getLogFileAsString];
     XCTAssert(log);
     XCTAssertTrue([log containsString:@"Test Log"]);
-    XCTAssertTrue([log containsString:LogLevel.severe.stringValue]);
+    XCTAssertTrue([log containsString:PBMLogLevel.severe.stringValue]);
 }
 
 - (void)testLogWhereAmI {
@@ -97,9 +97,9 @@
     
     PBMLogWhereAmI()
     
-    NSString *log = [Log getLogFileAsString];
+    NSString *log = [PBMLog getLogFileAsString];
     XCTAssert(log);
-    XCTAssertTrue([log containsString:LogLevel.info.stringValue]);
+    XCTAssertTrue([log containsString:PBMLogLevel.info.stringValue]);
 }
 
 @end

@@ -8,11 +8,11 @@ project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
 project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
 
 def gma_pods
-    pod 'Google-Mobile-Ads-SDK'
+  pod 'Google-Mobile-Ads-SDK'
 end
 
 def applovin_pods
-    pod 'AppLovinSDK'
+  pod 'AppLovinSDK'
 end
 
 def event_handlers_project
@@ -53,7 +53,7 @@ end
 target 'PrebidMobileAdMobAdapters' do
   event_handlers_project
   gma_pods
-
+  
 end
 
 target 'PrebidMobileAdMobAdaptersTests' do
@@ -120,4 +120,14 @@ target 'OpenXMockServer' do
   
   pod 'Alamofire', '4.9.1'
   pod 'RxSwift'
+end
+
+post_install do |installer|
+  installer.generated_projects.each do |project|
+    project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+      end
+    end
+  end
 end

@@ -43,7 +43,7 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     public var adFormat: AdFormat {
-        get { adUnitConfig.adFormats.first ?? .display }
+        get { adUnitConfig.adFormats.first ?? .banner }
         set { adUnitConfig.adFormats = [newValue] }
     }
     
@@ -207,7 +207,7 @@ public class MediationBannerAdUnit : NSObject {
                 return
             }
             
-            self.fetchDemand(connection: ServerConnection.shared,
+            self.fetchDemand(connection: PrebidServerConnection.shared,
                              sdkConfiguration: Prebid.shared,
                              targeting: Targeting.shared,
                              completion: completion)
@@ -216,7 +216,7 @@ public class MediationBannerAdUnit : NSObject {
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
-        fetchDemand(connection: ServerConnection.shared,
+        fetchDemand(connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
                     targeting: Targeting.shared,
                     completion: completion)
@@ -236,7 +236,7 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: Private functions
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(connection: ServerConnectionProtocol,
+    func fetchDemand(connection: PrebidServerConnectionProtocol,
                      sdkConfiguration: Prebid,
                      targeting: Targeting,
                      completion: ((ResultCode)->Void)?) {
@@ -287,7 +287,7 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     private func isAdObjectVisible() -> Bool {
-        guard let adObject = adView else {
+        guard let adObject = lastAdView else {
             return false
         }
         
@@ -332,7 +332,7 @@ public class MediationBannerAdUnit : NSObject {
             markLoadingFinished()
         }
         
-        guard let adObject = self .adView,
+        guard let adObject = self.adView,
               let completion = self.completion else {
             return
         }

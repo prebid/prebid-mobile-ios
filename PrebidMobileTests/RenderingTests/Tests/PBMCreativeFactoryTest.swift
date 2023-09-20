@@ -19,10 +19,15 @@ import XCTest
 
 class PBMCreativeFactoryTest: XCTestCase {
     
+    override func setUp() {
+        super.setUp()
+        PrebidJSLibraryManager.shared.downloadLibraries()
+    }
+    
     func testNoCreativeModelsFactoryFail() {
         let expectation = self.expectation(description: "Expected creative factory failure callback")
         
-        let connection = ServerConnection()
+        let connection = PrebidServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         
         let creativeFactory =
@@ -45,7 +50,7 @@ class PBMCreativeFactoryTest: XCTestCase {
         let expectationFail = self.expectation(description: "Creative Factory fails")
         expectationFail.isInverted = true
         
-        let connection = ServerConnection()
+        let connection = PrebidServerConnection()
         let transaction = UtilitiesForTesting.createTransactionWithHTMLCreative()
         
         let creativeFactory =

@@ -29,7 +29,7 @@
 
 @interface PBMCreativeFactory ()
 
-@property (strong, nonatomic) id<ServerConnectionProtocol> serverConnection;
+@property (strong, nonatomic) id<PrebidServerConnectionProtocol> serverConnection;
 @property (strong, nonatomic) PBMTransaction *transaction;
 @property (strong, nonatomic) NSArray<PBMCreativeFactoryJob *> *jobs;
 @property (copy, nonatomic) PBMCreativeFactoryFinishedCallback finishedCallback;
@@ -40,7 +40,7 @@
     dispatch_queue_t _dispatchQueue;
 }
 
-- (nonnull instancetype)initWithServerConnection:(id<ServerConnectionProtocol>)serverConnection
+- (nonnull instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)serverConnection
                                      transaction:(PBMTransaction *)transaction
                                      finishedCallback:( PBMCreativeFactoryFinishedCallback)finishedCallback {
     self = [super init];

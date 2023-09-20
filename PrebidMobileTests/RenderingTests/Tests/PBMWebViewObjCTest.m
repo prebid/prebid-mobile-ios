@@ -42,7 +42,7 @@
     NSString *html = nil;
     [webView loadHTML:html baseURL:nil injectMraidJs: false];
     
-    NSString *log = [Log getLogFileAsString];
+    NSString *log = [PBMLog getLogFileAsString];
     XCTAssertTrue([log rangeOfString:@"Input HTML is nil"].location != NSNotFound);
     
     [self waitForExpectationsWithTimeout:3.0 handler:nil];
@@ -63,7 +63,7 @@
     [webView expand:url];
     
     
-    NSString *log = [Log getLogFileAsString];
+    NSString *log = [PBMLog getLogFileAsString];
     XCTAssertTrue([log rangeOfString:@"Could not expand with nil url"].location != NSNotFound);
     
     [self waitForExpectationsWithTimeout:3.0 handler:nil];

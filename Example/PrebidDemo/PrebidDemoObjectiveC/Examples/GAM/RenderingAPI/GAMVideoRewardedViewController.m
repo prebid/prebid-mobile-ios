@@ -15,7 +15,7 @@
 
 #import "GAMVideoRewardedViewController.h"
 
-NSString * const storedImpGAMVideoRewarded = @"imp-prebid-video-rewarded-320-480";
+NSString * const storedImpGAMVideoRewarded = @"prebid-demo-video-rewarded-320-480";
 NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rewarded_video_test";
 
 @interface GAMVideoRewardedViewController ()

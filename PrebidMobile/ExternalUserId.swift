@@ -19,7 +19,12 @@ import UIKit
  Defines the User Id Object from an External Thrid Party Source
  */
 @objcMembers
-public class ExternalUserId: NSObject, NSCoding, JSONConvertible {
+public class ExternalUserId: NSObject, NSCoding, NSSecureCoding, JSONConvertible {
+    
+    public static var supportsSecureCoding: Bool {
+        true
+    }
+    
     
     // MARK: - Properties
     public var source: String

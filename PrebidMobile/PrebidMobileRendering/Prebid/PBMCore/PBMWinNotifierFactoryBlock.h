@@ -17,6 +17,6 @@
 
 #import "PBMWinNotifierBlock.h"
 
-@protocol ServerConnectionProtocol;
+@protocol PrebidServerConnectionProtocol;
 
-typedef PBMWinNotifierBlock _Nonnull (^PBMWinNotifierFactoryBlock)(id<ServerConnectionProtocol> _Nonnull connection);
+typedef PBMWinNotifierBlock _Nonnull (^PBMWinNotifierFactoryBlock)(id<PrebidServerConnectionProtocol> _Nonnull connection);

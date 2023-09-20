@@ -1,0 +1,20 @@
+[
+  {
+    "bid": [
+      {
+        "id": "prebid-demo-response-video-rewarded-320-480",
+        "price": 0.15,
+        "adm": "<?xml version= \"1.0\" encoding= \"UTF-8\"?>\n\n<VAST version= \"2.0\">\n <Ad id= \"542346925\">\n <Wrapper>\n <AdSystem version= \"1.0\">Prebid</AdSystem>\n <VASTAdTagURI><![CDATA[https://cdn.jsdelivr.net/gh/prebid/prebid-mobile-ios@master/Example/PrebidDemo/ads/vast/vast_with_companion.xml]]>\n </VASTAdTagURI>\n <AdTitle></AdTitle>\n<Creatives>\n <Creative id= \"542346925\">\n\n\n\n <Linear>\n</Linear>\n\n\n </Creative>\n </Creatives>\n </Wrapper>\n </Ad>\n</VAST>",
+        "crid": "542377889",
+        "w": 414,
+        "h": 896,
+        "ext": {
+          "prebid": {
+            "type": "video"
+          }
+        }
+      }
+    ],
+    "seat": "prebid"
+  }
+]

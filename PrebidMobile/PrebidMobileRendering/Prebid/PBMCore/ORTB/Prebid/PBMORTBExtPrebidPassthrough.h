@@ -14,8 +14,10 @@
  */
 
 #import "PBMORTBAbstract.h"
+#import "PBMORTBAbstract+Protected.h"
 
 @class PBMORTBAdConfiguration;
+@class PBMORTBSDKConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *type;
 
 @property (nonatomic, strong, nullable) PBMORTBAdConfiguration *adConfiguration;
+
+@property (nonatomic, strong, nullable) PBMORTBSDKConfiguration *sdkConfiguration;
 
 @end
 

@@ -50,6 +50,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         targeting.publisherName = publisherName
         targeting.addUserKeyword("keyword1,keyword2")
         targeting.addAppKeyword("appKeyword1,appKeyword2")
+        targeting.userID = "userID"
         
         let sdkConfiguration = Prebid.mock
         
@@ -115,16 +116,20 @@ class ParameterBuilderServiceTest : XCTestCase {
         PBMAssertEq(bidRequest.device.lmt, 0)
         
         
-        //Verify NetworkParameterBuilder
-        let expectedMccmnc = "\(mockCTTelephonyNetworkInfo.subscriberCellularProvider!.mobileCountryCode!)-\(mockCTTelephonyNetworkInfo.subscriberCellularProvider!.mobileNetworkCode!)"
-        PBMAssertEq(bidRequest.device.mccmnc, expectedMccmnc)
-        PBMAssertEq(bidRequest.device.mccmnc, expectedMccmnc)
-        PBMAssertEq(bidRequest.device.carrier, MockCTCarrier.mockCarrierName)
-        PBMAssertEq(bidRequest.device.mccmnc, expectedMccmnc)
-        
-        //Verify SupportedProtocolsParameterBuilder
-        PBMAssertEq(bidRequest.imp.count, 1)
-        PBMAssertEq(bidRequest.imp.first?.banner?.api, nil)
+        if #available(iOS 16, *) {
+            // do nothing - CTCarrier is deprecated
+        } else {
+            //Verify NetworkParameterBuilder
+            let expectedMccmnc = "\(mockCTTelephonyNetworkInfo.subscriberCellularProvider!.mobileCountryCode!)-\(mockCTTelephonyNetworkInfo.subscriberCellularProvider!.mobileNetworkCode!)"
+            PBMAssertEq(bidRequest.device.mccmnc, expectedMccmnc)
+            PBMAssertEq(bidRequest.device.mccmnc, expectedMccmnc)
+            PBMAssertEq(bidRequest.device.carrier, MockCTCarrier.mockCarrierName)
+            PBMAssertEq(bidRequest.device.mccmnc, expectedMccmnc)
+            
+            //Verify SupportedProtocolsParameterBuilder
+            PBMAssertEq(bidRequest.imp.count, 1)
+            PBMAssertEq(bidRequest.imp.first?.banner?.api, nil)
+        }
         
         //Verify ORTBParameterBuilder
         guard #available(iOS 11.0, *) else {
@@ -132,15 +137,24 @@ class ParameterBuilderServiceTest : XCTestCase {
             return
         }
         
-        let yob = Targeting.shared.yearOfBirth;
-        let omidVersion = PBMFunctions.omidVersion()
         var deviceExt = ""
         if #available(iOS 14.0, *) {
             deviceExt = "\"ext\":{\"atts\":3},"
         }
         
+        var carrier = ""
+        var mccmnc = ""
+        
+        if #available(iOS 16, *) {
+            // do nothing - CTCarrier is deprecated with no replacement
+        }
+        else {
+            carrier = "\"carrier\":\"MOCK_CARRIER_NAME\","
+            mccmnc = "\"mccmnc\":\"123-456\","
+        }
+        
         let expectedOrtb = """
-        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"keywords\":\"appKeyword1,appKeyword2\",\"name\":\"MockBundleDisplayName\",\"publisher\":{\"name\":\"Publisher\"},\"storeurl\":\"https:\\/\\/openx.com\"},\"device\":{\"carrier\":\"MOCK_CARRIER_NAME\",\"connectiontype\":2,\(deviceExt)\"geo\":{\"lat\":34.149335,\"lon\":-118.1328249,\"type\":1},\"h\":200,\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\"mccmnc\":\"123-456\",\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":1,\"ext\":{\"gdpr\":0}},\"user\":{\"buyeruid\":\"buyerUID\",\"customdata\":\"customDataString\",\"ext\":{\"consent\":\"consentstring\"},\"gender\":\"M\",\"keywords\":\"keyword1,keyword2\"}}
+        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"keywords\":\"appKeyword1,appKeyword2\",\"name\":\"MockBundleDisplayName\",\"publisher\":{\"name\":\"Publisher\"},\"storeurl\":\"https:\\/\\/openx.com\"},\"device\":{\(carrier)\"connectiontype\":2,\(deviceExt)\"geo\":{\"lat\":34.149335,\"lon\":-118.1328249,\"type\":1},\"h\":200,\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\(mccmnc)\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":1,\"ext\":{\"gdpr\":0}},\"user\":{\"buyeruid\":\"buyerUID\",\"customdata\":\"customDataString\",\"ext\":{\"consent\":\"consentstring\"},\"gender\":\"M\",\"id\":\"userID\",\"keywords\":\"keyword1,keyword2\"}}
         """
         PBMAssertEq(strORTB, expectedOrtb)
     }

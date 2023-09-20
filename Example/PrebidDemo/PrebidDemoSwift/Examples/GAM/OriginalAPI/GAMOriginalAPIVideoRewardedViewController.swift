@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let storedImpVideoRewarded = "imp-prebid-video-rewarded-320-480-original-api"
+fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480-original-api"
 fileprivate let gamAdUnitVideoRewardedOriginal = "/21808260008/prebid-demo-app-original-api-video-interstitial"
 
 class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
@@ -39,11 +39,10 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
         adUnit = RewardedVideoAdUnit(configId: storedImpVideoRewarded)
         
         // 2. Configure video parameters
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
+        let parameters = VideoParameters(mimes: ["video/mp4"])
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        adUnit.parameters = parameters
+        adUnit.videoParameters = parameters
         
         // 3. Make a bid request to Prebid Server
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in

@@ -18,7 +18,7 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
-fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
+fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50"
 fileprivate let gamAdUnitDisplayBannerRendering = "/21808260008/prebid_oxb_320x50_banner"
 
 class GAMDisplayBannerViewController: BannerBaseViewController, BannerViewDelegate {

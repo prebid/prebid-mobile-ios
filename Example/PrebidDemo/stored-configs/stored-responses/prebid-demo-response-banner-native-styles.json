@@ -1,0 +1,18 @@
+[
+  {
+    "bid": [
+      {
+        "id": "prebid-demo-response-banner-native-styles",
+        "price": 0.1,
+        "adm": "{ \"assets\": [{ \"required\": 1, \"title\": { \"text\": \"Prebid (Title)\" } }, { \"required\": 1, \"id\": 1, \"img\": { \"type\": 1, \"url\": \"https://s3.amazonaws.com/files.prebid.org/creatives/prebid120x60.png\" } }, { \"required\": 1, \"id\": 2, \"img\": { \"type\": 3, \"url\": \"https://s3.amazonaws.com/files.prebid.org/creatives/prebid728x90.png\" } }, { \"required\": 1, \"id\": 3, \"data\": { \"type\": 1, \"value\": \"Prebid (Brand)\" } }, { \"required\": 1, \"id\": 4, \"data\": { \"type\": 2, \"value\": \"Learn all about this awesome story of someone using out PrebidMobile SDK.\" } }, { \"required\": 1, \"id\": 5, \"data\": { \"type\": 12, \"value\": \"Click here to visit our site!\" } } ], \"link\":{ \"url\": \"https://prebid.org/\" }, \"eventtrackers\":[ {\"event\":555,\"method\":2,\"url\":\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\",\"ext\":{\"vendorKey\":\"iabtechlab.com-omid\",\"verification_parameters\":\"iabtechlab-prebid\"}} ] }",
+        "crid": "test-creative-id-1",
+        "ext": {
+          "prebid": {
+            "type": "native"
+          }
+        }
+      }
+    ],
+    "seat": "prebid"
+  }
+]

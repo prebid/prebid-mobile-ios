@@ -18,7 +18,7 @@ import PrebidMobile
 import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
-fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream"
+fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream"
 fileprivate let adMobAdUnitDisplayBannerRendering = "ca-app-pub-5922967660082475/9483570409"
 
 class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
@@ -56,10 +56,13 @@ class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDel
         // 4. Create a MediationBannerAdUnit
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: adSize, mediationDelegate: mediationDelegate)
         
-        // 5. Make a bid request to Prebid Server
+        // 5. Set ad format
+        prebidAdMobMediaitonAdUnit.adFormat = .video
+        
+        // 6. Make a bid request to Prebid Server
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
-            // 6. Load the banner ad
+            // 7. Load the banner ad
             self?.gadBanner.load(gadRequest)
         }
     }

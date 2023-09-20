@@ -24,7 +24,7 @@
 #endif
 
 static id<PBMUIApplicationProtocol> _application;
-static id<ServerConnectionProtocol> _connection;
+static id<PrebidServerConnectionProtocol> _connection;
 
 @implementation PBMDeepLinkPlusHelper (Testing)
 
@@ -36,11 +36,11 @@ static id<ServerConnectionProtocol> _connection;
     _application = application;
 }
 
-+ (id<ServerConnectionProtocol>)connection {
++ (id<PrebidServerConnectionProtocol>)connection {
     return _connection;
 }
 
-+ (void)setConnection:(id<ServerConnectionProtocol>)connection {
++ (void)setConnection:(id<PrebidServerConnectionProtocol>)connection {
     _connection = connection;
 }
 

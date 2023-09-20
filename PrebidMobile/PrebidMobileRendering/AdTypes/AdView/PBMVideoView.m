@@ -52,7 +52,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 #pragma mark Model
 
 @property (nonatomic, weak) PBMVideoCreative *creative;
-@property (nonatomic, strong) EventManager *eventManager;
+@property (nonatomic, strong) PBMEventManager *eventManager;
 @property (nonatomic, strong) PBMTouchDownRecognizer *tapdownGestureRecognizer;
 @property (nonatomic, assign) BOOL showLearnMore;
 
@@ -65,7 +65,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 @property (nonatomic, weak) UIButton *btnUnmute;
 @property (nonatomic, weak) UIView *muteControlsView;
 
-@property (nonatomic, strong) AdViewButtonDecorator *skipButtonDecorator;
+@property (nonatomic, strong) PBMAdViewButtonDecorator *skipButtonDecorator;
 
 #pragma mark Injected Properties
 
@@ -109,7 +109,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 #pragma mark - Initialization
 
-- (instancetype)initWithEventManager:(EventManager *)eventManager {
+- (instancetype)initWithEventManager:(PBMEventManager *)eventManager {
     self = [super init];
     if (self) {
         [self setupWithEventManager:eventManager];
@@ -149,7 +149,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
 }
 
-- (void)setupWithEventManager:(EventManager *)eventManager {
+- (void)setupWithEventManager:(PBMEventManager *)eventManager {
     self.isPlaybackFinished = NO;
     self.showLearnMore = NO;
     self.isPlaybackStarted = NO;
@@ -403,12 +403,13 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
     
-    UIButton * const muteButton = [self createButtonWithImageName:@"mute_disabled"
-                                               accessibilityLabel:@"pbmMute"
-                                                           action:@selector(btnMuteClick:)];
-    UIButton * const unmuteButton = [self createButtonWithImageName:@"mute_enabled"
-                                                 accessibilityLabel:@"pbmUnmute"
-                                                             action:@selector(btnUnmuteClick:)];
+    UIButton * const muteButton = [self createButtonWithString:PrebidImagesRepository.muteDisabled
+                                            accessibilityLabel:@"pbmMute"
+                                                        action:@selector(btnMuteClick:)];
+    
+    UIButton * const unmuteButton = [self createButtonWithString:PrebidImagesRepository.muteEnabled
+                                              accessibilityLabel:@"pbmUnmute"
+                                                          action:@selector(btnUnmuteClick:)];
     
     muteButton.translatesAutoresizingMaskIntoConstraints = NO;
     unmuteButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -462,12 +463,12 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)setupSkipButton {
-    self.skipButtonDecorator = [AdViewButtonDecorator new];
+    self.skipButtonDecorator = [PBMAdViewButtonDecorator new];
     self.skipButtonDecorator.button.hidden = YES;
     self.skipButtonDecorator.buttonArea = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonArea;
     self.skipButtonDecorator.buttonPosition = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonPosition;
     
-    UIImage *skipButtonImage = [UIImage imageNamed:@"PBM_skipButton" inBundle:[PBMFunctions bundleForSDK] compatibleWithTraitCollection:nil];
+    UIImage *skipButtonImage = PrebidImagesRepository.skipButton.base64DecodedImage;
     
     [self.skipButtonDecorator setImage:skipButtonImage];
     [self.skipButtonDecorator addButtonTo:self displayView:self];
@@ -508,27 +509,18 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     });
 }
 
-- (UIButton *)createButtonWithImageName:(NSString *)imageName
-                     accessibilityLabel:(NSString *)accessibilityLabel
-                                 action:(SEL)action
+- (UIButton *)createButtonWithString:(NSString *)encodedString
+                  accessibilityLabel:(NSString *)accessibilityLabel
+                              action:(SEL)action
 {
     UIButton * const button = [[UIButton alloc] init];
     button.backgroundColor = [UIColor clearColor];
-    [button setImage:[UIImage imageNamed:imageName
-                                inBundle:[PBMFunctions bundleForSDK]
-           compatibleWithTraitCollection:[UIScreen mainScreen].traitCollection]
-            forState:UIControlStateNormal];
+    [button setImage:encodedString.base64DecodedImage forState:UIControlStateNormal];
     [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     [button setIsAccessibilityElement:YES];
     [button setAccessibilityLabel:accessibilityLabel];
-    
     button.layer.cornerRadius = 5;
-//    button.layer.borderWidth = 2;
-//
-//    button.layer.borderColor = [[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f] CGColor];
     button.layer.backgroundColor = [[UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:0.75] CGColor];
-    
-//    button.contentEdgeInsets = UIEdgeInsetsMake(10, 20, 10, 20);
     [button sizeToFit];
     
     return button;
