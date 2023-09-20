@@ -40,4 +40,8 @@ extension String {
         
         return nil
     }
+    
+    func contains(_ characterSet: CharacterSet) -> Bool {
+        return self.trimmingCharacters(in: characterSet).count != 0
+    }
 }

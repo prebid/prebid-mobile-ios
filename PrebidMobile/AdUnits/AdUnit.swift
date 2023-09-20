@@ -86,7 +86,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         closureAd = completion
         
-        processFetchDemand(with: adObject) { bidInfo in
+        baseFetchDemand(adObject: adObject) { bidInfo in
             completion(bidInfo.result)
         }
     }
@@ -96,7 +96,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         closureAd = completion
         
         config(with: request)
-        processFetchDemand(with: adObject) { bidInfo in
+        baseFetchDemand(adObject: adObject) { bidInfo in
             completion(bidInfo.result)
         }
     }
@@ -106,10 +106,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
         closureBidInfo = completion
         
         config(with: request)
-        processFetchDemand(completion: completion)
+        baseFetchDemand(completion: completion)
     }
     
-    private func processFetchDemand(with adObject: AnyObject? = nil, completion: @escaping(_ bidInfo: BidInfo) -> Void) {
+    private func baseFetchDemand(adObject: AnyObject? = nil, completion: @escaping(_ bidInfo: BidInfo) -> Void) {
         if !(self is NativeRequest){
             for size in adSizes {
                 if (size.width < 0 || size.height < 0) {
@@ -123,12 +123,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
             Utils.shared.removeHBKeywords(adObject: adObject)
         }
         
-        if (adUnitConfig.configId.isEmpty || (adUnitConfig.configId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
+        if adUnitConfig.configId.isEmpty || !adUnitConfig.configId.contains(.whitespaces) {
             completion(BidInfo(result: .prebidInvalidConfigId))
             return
         }
         
-        if (Prebid.shared.prebidServerAccountId.isEmpty || (Prebid.shared.prebidServerAccountId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
+        if Prebid.shared.prebidServerAccountId.isEmpty || !Prebid.shared.prebidServerAccountId.contains(.whitespaces) {
             completion(BidInfo(result: .prebidInvalidAccountId))
             return
         }
