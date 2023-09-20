@@ -34,9 +34,4 @@ public class BannerParameters: NSObject {
             api?.toIntArray()
         }
     }
-    
-    // Objective-C API
-    public func setSizes(_ sizes: [NSValue]) {
-        adSizes = sizes.map { $0.cgSizeValue }
-    }
 }

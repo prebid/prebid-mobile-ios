@@ -41,6 +41,7 @@ public class PrebidAdUnit: NSObject {
     
     
     // MARK: - Auto refresh API
+    
     /**
      * This method allows to set the auto refresh period for the demand
      *
