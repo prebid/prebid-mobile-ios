@@ -1,4 +1,4 @@
-/*   Copyright 2019-2022 Prebid.org, Inc.
+/*   Copyright 2019-2023 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,17 +13,15 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "MultiformatBaseViewController.h"
 
-typedef NS_ENUM(NSUInteger, AdFormat) {
-    AdFormatDisplayBanner = 0,
-    AdFormatVideoBanner,
-    AdFormatNativeBanner,
-    AdFormatDisplayInterstitial,
-    AdFormatVideoInterstitial,
-    AdFormatVideoRewarded,
-    AdFormatVideoInstream,
-    AdFormatNative,
-    AdFormatMultiformat,
-    AdFormatAll
-};
+@import GoogleMobileAds;
+@import PrebidMobile;
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface GAMOriginalAPIMultiformatViewController : MultiformatBaseViewController<GAMBannerAdLoaderDelegate, GADCustomNativeAdLoaderDelegate, NativeAdDelegate>
+
+@end
+
+NS_ASSUME_NONNULL_END

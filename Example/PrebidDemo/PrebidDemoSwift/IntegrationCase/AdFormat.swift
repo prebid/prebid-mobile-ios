@@ -25,8 +25,7 @@ enum AdFormat: CustomStringConvertible, CaseIterable {
     case videoRewarded
     case videoInstream
     case native
-    case multiformatBanner
-    case multiformatInterstitial
+    case multiformat
     
     var description: String {
         switch self {
@@ -46,10 +45,8 @@ enum AdFormat: CustomStringConvertible, CaseIterable {
             return "Video In-stream"
         case .native:
             return "Native"
-        case .multiformatBanner:
-            return "Multiformat Banner"
-        case .multiformatInterstitial:
-            return "Multiformat Interstitial"
+        case .multiformat:
+            return "Multiformat"
         }
     }
 }
