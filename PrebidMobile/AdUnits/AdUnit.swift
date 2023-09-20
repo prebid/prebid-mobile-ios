@@ -13,8 +13,6 @@
 import UIKit
 import ObjectiveC.runtime
 
-typealias FetchDemandCompletion = (_ bidInfo: BidInfo) -> Void
-
 @objcMembers
 public class AdUnit: NSObject, DispatcherDelegate {
     
@@ -39,7 +37,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     private var isInitialFetchDemandCallMade = false
     
     private var adServerObject: AnyObject?
-    private var lastFetchDemandCompletion: FetchDemandCompletion?
+    private var lastFetchDemandCompletion: ((_ bidInfo: BidInfo) -> Void)?
     
     //notification flag set to check if the prebid response is received within the specified time
     private var didReceiveResponse = false
@@ -87,7 +85,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     // SDK internal
-    func baseFetchDemand(adObject: AnyObject? = nil, completion: @escaping FetchDemandCompletion) {
+    func baseFetchDemand(adObject: AnyObject? = nil, completion: @escaping (_ bidInfo: BidInfo) -> Void) {
         if !(self is NativeRequest) {
             if adSizes.contains(where: { $0.width < 0 || $0.height < 0 }) {
                 completion(BidInfo(result: .prebidInvalidSize))
