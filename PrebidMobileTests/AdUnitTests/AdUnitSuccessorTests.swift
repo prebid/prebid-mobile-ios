@@ -38,7 +38,7 @@ class AdUnitSuccessorTests: XCTestCase {
     
     func testBannerAdUnitAddSize() {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
-        adUnit.adSizes = [CGSize(width: Constants.width1, height: Constants.height1), CGSize(width: Constants.width2, height: Constants.height2)]
+        adUnit.addAdditionalSize(sizes: [CGSize(width: Constants.width2, height: Constants.height2)])
         XCTAssertEqual(2, adUnit.adSizes.count)
     }
     
@@ -148,12 +148,12 @@ class AdUnitSuccessorTests: XCTestCase {
     //MARK: - private zone
     private func checkDefault(adUnit: AdUnit) {
         XCTAssertEqual(1, adUnit.adSizes.count)
-        XCTAssertEqual(Constants.configID1, adUnit.prebidConfigId)
+        XCTAssertEqual(Constants.configID1, adUnit.adUnitConfig.configId)
         XCTAssertNil(adUnit.dispatcher)
     }
     
     private func checkVideoParametersHelper(_ videoBaseAdUnit: VideoBasedAdUnitProtocol) {
-        var adUnit = videoBaseAdUnit
+        let adUnit = videoBaseAdUnit
         
         let parameters = VideoParameters(mimes: ["video/x-flv", "video/mp4"])
         parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
@@ -200,7 +200,7 @@ class AdUnitSuccessorTests: XCTestCase {
     
     private func checkBannerParametersHelper(_ bannerBasedAdUnit: BannerBasedAdUnitProtocol) {
         
-        var adUnit = bannerBasedAdUnit
+        let adUnit = bannerBasedAdUnit
         
         let parameters = BannerParameters()
         parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
