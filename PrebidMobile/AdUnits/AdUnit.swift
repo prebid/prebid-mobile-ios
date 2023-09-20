@@ -138,7 +138,15 @@ public class AdUnit: NSObject, DispatcherDelegate {
             }
             
             if (!self.timeOutSignalSent) {
-                let bidInfo = self.setUp(adObject, with: bidResponse)
+                let result = self.setUp(adObject, with: bidResponse)
+                
+                let bidInfo = BidInfo(
+                    result: result,
+                    targetingKeywords: bidResponse.targetingInfo,
+                    exp: bidResponse.winningBid?.bid.exp?.doubleValue,
+                    nativeAdCacheId: bidResponse.targetingInfo?[PrebidLocalCacheIdKey]
+                )
+                
                 completion(bidInfo)
             }
         }
@@ -153,28 +161,20 @@ public class AdUnit: NSObject, DispatcherDelegate {
         })
     }
     
-    private func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> BidInfo {
-        
+    private func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
         guard let winningBid = bidResponse.winningBid else {
-            return BidInfo(result: .prebidDemandNoBids)
+            return .prebidDemandNoBids
         }
-        
-        let bidInfo = BidInfo(
-            result: .prebidDemandFetchSuccess,
-            targetingKeywords: bidResponse.targetingInfo,
-            exp: bidResponse.winningBid?.bid.exp?.doubleValue
-        )
         
         if let cacheId = cacheBidIfNeeded(winningBid) {
             bidResponse.addTargetingInfoValue(key: PrebidLocalCacheIdKey, value: cacheId)
-            bidInfo.setNativeCacheId(cacheId)
         }
         
         if let adObject {
             Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
         }
         
-        return bidInfo
+        return .prebidDemandFetchSuccess
     }
     
     private func cacheBidIfNeeded(_ winningBid: Bid) -> String?  {

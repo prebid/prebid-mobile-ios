@@ -32,11 +32,4 @@ public class BidInfo: NSObject {
         
         super.init()
     }
-    
-    
-    // MARK: - Internal zone
-    
-    func setNativeCacheId(_ cacheId: String?) {
-        self.nativeAdCacheId = cacheId
-    }
 }
