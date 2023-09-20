@@ -13,6 +13,8 @@
 import UIKit
 import ObjectiveC.runtime
 
+typealias FetchDemandCompletion = (_ bidInfo: BidInfo) -> Void
+
 @objcMembers
 public class AdUnit: NSObject, DispatcherDelegate {
     
@@ -37,12 +39,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     private var isInitialFetchDemandCallMade = false
     
     private var adServerObject: AnyObject?
-    
-    private var prebidRequest: PrebidRequest?
-    
-    private var closureAd: ((ResultCode) -> Void)?
-    private var closureBids: ((ResultCode, [String : String]?) -> Void)?
-    private var closureBidInfo: ((BidInfo) -> Void)?
+    private var lastFetchDemandCompletion: FetchDemandCompletion?
     
     //notification flag set to check if the prebid response is received within the specified time
     private var didReceiveResponse = false
@@ -64,17 +61,21 @@ public class AdUnit: NSObject, DispatcherDelegate {
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
     }
     
+    // For tests
+    convenience init(configId: String, bidRequester: PBMBidRequester) {
+        self.init(configId: configId, size: CGSize.zero, adFormats: [])
+        self.bidRequester = bidRequester
+    }
+    
     deinit {
         dispatcher?.invalidate()
     }
     
     //TODO: dynamic is used by tests
     dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
-        closureBids = completion
-        
         let dictContainer = DictionaryContainer<String, String>()
         
-        fetchDemand(adObject: dictContainer) { (resultCode) in
+        fetchDemand(adObject: dictContainer) { resultCode in
             let dict = dictContainer.dict
             
             DispatchQueue.main.async {
@@ -84,52 +85,33 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
-        closureAd = completion
-        
-        baseFetchDemand(adObject: adObject) { bidInfo in
-            completion(bidInfo.result)
-        }
-    }
-    
-    dynamic public func fetchDemand(adObject: AnyObject, request: PrebidRequest, completion: @escaping (ResultCode) -> Void) {
-        prebidRequest = request
-        closureAd = completion
-        
-        config(with: request)
-        baseFetchDemand(adObject: adObject) { bidInfo in
-            completion(bidInfo.result)
-        }
-    }
-    
-    dynamic public func fetchDemand(request: PrebidRequest, completion: @escaping (BidInfo) -> Void) {
-        prebidRequest = request
-        closureBidInfo = completion
-        
-        config(with: request)
-        baseFetchDemand(completion: completion)
-    }
-    
-    private func baseFetchDemand(adObject: AnyObject? = nil, completion: @escaping(_ bidInfo: BidInfo) -> Void) {
-        if !(self is NativeRequest){
-            for size in adSizes {
-                if (size.width < 0 || size.height < 0) {
-                    completion(BidInfo(result: .prebidInvalidSize))
-                    return
-                }
+        if !(self is NativeRequest) {
+            if adSizes.contains(where: { $0.width < 0 || $0.height < 0 }) {
+                completion(.prebidInvalidSize)
+                return
             }
         }
         
+        baseFetchDemand(adObject: adObject) { bidInfo in
+            DispatchQueue.main.async {
+                completion(bidInfo.result)
+            }
+        }
+    }
+    
+    // SDK internal
+    func baseFetchDemand(adObject: AnyObject? = nil, completion: FetchDemandCompletion?) {
         if let adObject {
             Utils.shared.removeHBKeywords(adObject: adObject)
         }
         
-        if adUnitConfig.configId.isEmpty || !adUnitConfig.configId.contains(.whitespaces) {
-            completion(BidInfo(result: .prebidInvalidConfigId))
+        if adUnitConfig.configId.isEmpty || adUnitConfig.configId.containsOnly(.whitespaces) {
+            completion?(BidInfo(result: .prebidInvalidConfigId))
             return
         }
         
-        if Prebid.shared.prebidServerAccountId.isEmpty || !Prebid.shared.prebidServerAccountId.contains(.whitespaces) {
-            completion(BidInfo(result: .prebidInvalidAccountId))
+        if Prebid.shared.prebidServerAccountId.isEmpty || Prebid.shared.prebidServerAccountId.containsOnly(.whitespaces) {
+            completion?(BidInfo(result: .prebidInvalidAccountId))
             return
         }
         
@@ -140,6 +122,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         
         didReceiveResponse = false
         timeOutSignalSent = false
+        lastFetchDemandCompletion = completion
         adServerObject = adObject
         
         bidRequester.requestBids { [weak self] bidResponse, error in
@@ -149,7 +132,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
             
             guard let bidResponse = bidResponse else {
                 if (!self.timeOutSignalSent) {
-                    completion(BidInfo(result: PBMError.demandResult(from: error)))
+                    completion?(BidInfo(result: PBMError.demandResult(from: error)))
                 }
                 
                 return
@@ -157,7 +140,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
             
             if (!self.timeOutSignalSent) {
                 let bidInfo = self.setUp(adObject, with: bidResponse)
-                completion(bidInfo)
+                completion?(bidInfo)
             }
         }
         
@@ -165,7 +148,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(timeout), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
-                completion(BidInfo(result: .prebidDemandTimedOut))
+                completion?(BidInfo(result: .prebidDemandTimedOut))
                 return
             }
         })
@@ -178,10 +161,17 @@ public class AdUnit: NSObject, DispatcherDelegate {
             return BidInfo(result: .prebidDemandNoBids)
         }
         
+        let bidInfo = BidInfo(
+            result: .prebidDemandFetchSuccess,
+            targetingKeywords: bidResponse.targetingInfo,
+            exp: bidResponse.winningBid?.bid.exp?.doubleValue
+        )
+        
         // Cache native assets
         if bidResponse.winningBid?.adFormat == .native {
             if let cacheId = cacheNativeAssets(from: winningBid) {
                 bidResponse.addTargetingInfoValue(key: PrebidLocalCacheIdKey, value: cacheId)
+                bidInfo.setNativeCacheId(cacheId)
             }
         }
         
@@ -189,13 +179,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
         if let adObject {
             Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
         }
-        
-        let bidInfo = BidInfo(
-            result: .prebidDemandFetchSuccess,
-            targetingKeywords: bidResponse.targetingInfo,
-            exp: bidResponse.winningBid?.bid.exp?.doubleValue,
-            nativeAdCacheId: bidResponse.targetingInfo?[PrebidLocalCacheIdKey]
-        )
         
         return bidInfo
     }
@@ -212,51 +195,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
         }
         
         return nil
-    }
-    
-    private func config(with request: PrebidRequest) {
-        if let bannerParameters = request.bannerParameters {
-            adUnitConfig.adConfiguration.bannerParameters = bannerParameters
-            adUnitConfig.adFormats.insert(.banner)
-            
-            if let adSizes = bannerParameters.adSizes, let primaryAdSize = adSizes.first {
-                adUnitConfig.adSize = primaryAdSize
-                adUnitConfig.additionalSizes = Array(adSizes.dropFirst())
-            }
-        }
-        
-        if let videoParameters = request.videoParameters {
-            adUnitConfig.adConfiguration.videoParameters = videoParameters
-            adUnitConfig.adFormats.insert(.video)
-            
-            if let adSize = videoParameters.adSize {
-                adUnitConfig.adSize = adSize
-            }
-        }
-        
-        if let nativeParameters = request.nativeParameters {
-            adUnitConfig.nativeAdConfiguration = NativeAdConfiguration(nativeParameters: nativeParameters)
-            adUnitConfig.adFormats.insert(.native)
-        }
-        
-        adUnitConfig.adConfiguration.isInterstitialAd = request.isInterstitial
-        adUnitConfig.adConfiguration.isOptIn = request.isRewarded
-        
-        if request.isInterstitial || request.isRewarded {
-            adUnitConfig.adPosition = .fullScreen
-            adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
-        }
-        
-        if let minWidthPerc = request.bannerParameters?.interstitialMinWidthPerc,
-           let minHeightPerc = request.bannerParameters?.interstitialMinHeightPerc {
-            let minSizePercCG = CGSize(width: minWidthPerc, height: minHeightPerc)
-            adUnitConfig.minSizePerc = NSValue(cgSize: minSizePercCG)
-        }
-        
-        adUnitConfig.setExtData(request.getExtData())
-        adUnitConfig.setExtKeywords(request.getExtKeywords())
-        adUnitConfig.setAppContent(request.getAppContent())
-        adUnitConfig.setUserData(request.getUserData())
     }
     
     // MARK: - adunit ext data aka inventory data (imp[].ext.data)
@@ -493,15 +431,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     func refreshDemand() {
-        if adServerObject is DictionaryContainer<String, String>, let closureBids = closureBids {
-            fetchDemand(completion: closureBids)
-        } else if let adObject = adServerObject, let request = prebidRequest, let completion = closureAd {
-            fetchDemand(adObject: adObject, request: request, completion: completion)
-        } else if let adServerObject = adServerObject, let closureAd = closureAd {
-            fetchDemand(adObject: adServerObject, completion: closureAd)
-        } else if let request = prebidRequest, let completion = closureBidInfo {
-            fetchDemand(request: request, completion: completion)
-        }
+        baseFetchDemand(adObject: adServerObject, completion: lastFetchDemandCompletion)
     }
     
     func initDispatcher(refreshTime: Double) {
