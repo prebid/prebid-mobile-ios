@@ -23,7 +23,7 @@ public class PrebidAdUnit: NSObject {
         set { adUnit.pbAdSlot = newValue }
     }
     
-    private var adUnit: AdUnit
+    private let adUnit: AdUnit
     
     public init(configId: String) {
         adUnit = AdUnit(configId: configId, size: CGSize.zero, adFormats: [])
@@ -131,5 +131,10 @@ public class PrebidAdUnit: NSObject {
         adUnit.adUnitConfig.setExtKeywords(request.getExtKeywords())
         adUnit.adUnitConfig.setAppContent(request.getAppContent())
         adUnit.adUnitConfig.setUserData(request.getUserData())
+    }
+    
+    // For tests, SDK internal
+    func getConfiguration() -> AdUnitConfig {
+        return adUnit.adUnitConfig
     }
 }

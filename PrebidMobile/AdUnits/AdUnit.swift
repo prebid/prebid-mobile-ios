@@ -61,12 +61,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
     }
     
-    // For tests
-    convenience init(configId: String, bidRequester: PBMBidRequester) {
-        self.init(configId: configId, size: CGSize.zero, adFormats: [])
-        self.bidRequester = bidRequester
-    }
-    
     deinit {
         dispatcher?.invalidate()
     }
