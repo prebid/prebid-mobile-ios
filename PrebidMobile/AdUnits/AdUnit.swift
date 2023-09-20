@@ -85,13 +85,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
-        if !(self is NativeRequest) {
-            if adSizes.contains(where: { $0.width < 0 || $0.height < 0 }) {
-                completion(.prebidInvalidSize)
-                return
-            }
-        }
-        
         baseFetchDemand(adObject: adObject) { bidInfo in
             DispatchQueue.main.async {
                 completion(bidInfo.result)
@@ -100,18 +93,25 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     // SDK internal
-    func baseFetchDemand(adObject: AnyObject? = nil, completion: FetchDemandCompletion?) {
+    func baseFetchDemand(adObject: AnyObject? = nil, completion: @escaping FetchDemandCompletion) {
+        if !(self is NativeRequest) {
+            if adSizes.contains(where: { $0.width < 0 || $0.height < 0 }) {
+                completion(BidInfo(result: .prebidInvalidSize))
+                return
+            }
+        }
+        
         if let adObject {
             Utils.shared.removeHBKeywords(adObject: adObject)
         }
         
         if adUnitConfig.configId.isEmpty || adUnitConfig.configId.containsOnly(.whitespaces) {
-            completion?(BidInfo(result: .prebidInvalidConfigId))
+            completion(BidInfo(result: .prebidInvalidConfigId))
             return
         }
         
         if Prebid.shared.prebidServerAccountId.isEmpty || Prebid.shared.prebidServerAccountId.containsOnly(.whitespaces) {
-            completion?(BidInfo(result: .prebidInvalidAccountId))
+            completion(BidInfo(result: .prebidInvalidAccountId))
             return
         }
         
@@ -127,12 +127,11 @@ public class AdUnit: NSObject, DispatcherDelegate {
         
         bidRequester.requestBids { [weak self] bidResponse, error in
             guard let self = self else { return }
-            
             self.didReceiveResponse = true
             
             guard let bidResponse = bidResponse else {
                 if (!self.timeOutSignalSent) {
-                    completion?(BidInfo(result: PBMError.demandResult(from: error)))
+                    completion(BidInfo(result: PBMError.demandResult(from: error)))
                 }
                 
                 return
@@ -140,7 +139,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
             
             if (!self.timeOutSignalSent) {
                 let bidInfo = self.setUp(adObject, with: bidResponse)
-                completion?(bidInfo)
+                completion(bidInfo)
             }
         }
         
@@ -148,7 +147,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(timeout), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
-                completion?(BidInfo(result: .prebidDemandTimedOut))
+                completion(BidInfo(result: .prebidDemandTimedOut))
                 return
             }
         })
@@ -156,7 +155,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     private func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> BidInfo {
         
-        // No winning bid => return no bids
         guard let winningBid = bidResponse.winningBid else {
             return BidInfo(result: .prebidDemandNoBids)
         }
@@ -167,15 +165,11 @@ public class AdUnit: NSObject, DispatcherDelegate {
             exp: bidResponse.winningBid?.bid.exp?.doubleValue
         )
         
-        // Cache native assets
-        if bidResponse.winningBid?.adFormat == .native {
-            if let cacheId = cacheNativeAssets(from: winningBid) {
-                bidResponse.addTargetingInfoValue(key: PrebidLocalCacheIdKey, value: cacheId)
-                bidInfo.setNativeCacheId(cacheId)
-            }
+        if let cacheId = cacheBidIfNeeded(winningBid) {
+            bidResponse.addTargetingInfoValue(key: PrebidLocalCacheIdKey, value: cacheId)
+            bidInfo.setNativeCacheId(cacheId)
         }
         
-        // Attach keywords to ad object
         if let adObject {
             Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
         }
@@ -183,7 +177,11 @@ public class AdUnit: NSObject, DispatcherDelegate {
         return bidInfo
     }
     
-    private func cacheNativeAssets(from winningBid: Bid) -> String?  {
+    private func cacheBidIfNeeded(_ winningBid: Bid) -> String?  {
+        guard winningBid.adFormat == .native else {
+            return nil
+        }
+        
         let expireInterval = TimeInterval(truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber)
         
         do {
@@ -431,7 +429,9 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     func refreshDemand() {
-        baseFetchDemand(adObject: adServerObject, completion: lastFetchDemandCompletion)
+        if let lastFetchDemandCompletion = lastFetchDemandCompletion {
+            baseFetchDemand(adObject: adServerObject, completion: lastFetchDemandCompletion)
+        }
     }
     
     func initDispatcher(refreshTime: Double) {
