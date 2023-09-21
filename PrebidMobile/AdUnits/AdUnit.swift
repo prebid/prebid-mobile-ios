@@ -21,15 +21,15 @@ public class AdUnit: NSObject, DispatcherDelegate {
         set { adUnitConfig.setPbAdSlot(newValue) }
     }
     
-    var dispatcher: Dispatcher?
-    
-    var adUnitConfig: AdUnitConfig
-    
     var adSizes: [CGSize] {
         get { [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? []) }
     }
     
     private static let PB_MIN_RefreshTime = 30000.0
+    
+    private(set) var dispatcher: Dispatcher?
+    
+    private(set) var adUnitConfig: AdUnitConfig
     
     private var bidRequester: PBMBidRequester
     
