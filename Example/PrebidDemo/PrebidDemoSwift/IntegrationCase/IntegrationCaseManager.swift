@@ -116,7 +116,7 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            title: "GAM (Original API) Multiformat (Banner + Video + In-App Native)",
+            title: "GAM (Original API) Multiformat (Banner + Video + Native In-App)",
             integrationKind: .gamOriginal,
             adFormat: .multiformat,
             configurationClosure: {
