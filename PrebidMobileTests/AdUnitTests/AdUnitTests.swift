@@ -79,6 +79,42 @@ class AdUnitTests: XCTestCase {
         XCTAssertTrue(NSDictionary(dictionary: kvDictResult!).isEqual(to: expectedKVDictionary))
     }
     
+    func testFetchDemandBidInfo() {
+        //given
+        let expectation = expectation(description: "\(#function)")
+        
+        var realBidInfo: BidInfo?
+        
+        let expected = ResultCode.prebidDemandFetchSuccess
+        let expectedKVDictionary = ["key1" : "value1"]
+        let expectedExp = 5.0
+        let expectedCacheId = UUID().uuidString
+        
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        
+        AdUnitSwizzleHelper.testScenario = expected
+        AdUnitSwizzleHelper.targetingKeywords = expectedKVDictionary
+        AdUnitSwizzleHelper.exp = expectedExp
+        AdUnitSwizzleHelper.nativeAdCacheId = expectedCacheId
+        
+        AdUnitSwizzleHelper.toggleFetchDemand()
+        
+        //when
+        adUnit.fetchDemand { bidInfo in
+            expectation.fulfill()
+            realBidInfo = bidInfo
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        AdUnitSwizzleHelper.toggleFetchDemand()
+        
+        //then
+        XCTAssertEqual(realBidInfo?.result, expected)
+        XCTAssertEqual(realBidInfo?.targetingKeywords, expectedKVDictionary)
+        XCTAssertEqual(realBidInfo?.exp, expectedExp)
+        XCTAssertEqual(realBidInfo?.nativeAdCacheId, expectedCacheId)
+    }
+    
     func testFetchDemandAutoRefresh() {
         PBHTTPStubbingManager.shared().enable()
         PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true

@@ -64,6 +64,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     //TODO: dynamic is used by tests
+    @available(*, deprecated, message: "Deprecated. Use fetchDemand(completion: @escaping (_ bidInfo: BidInfo) -> Void) instead.")
     dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
         let dictContainer = DictionaryContainer<String, String>()
         
@@ -74,6 +75,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
                 completion(resultCode, dict.count > 0 ? dict : nil)
             }
         }
+    }
+    
+    dynamic public func fetchDemand(completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void) {
+        baseFetchDemand(completion: completionBidInfo)
     }
     
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
