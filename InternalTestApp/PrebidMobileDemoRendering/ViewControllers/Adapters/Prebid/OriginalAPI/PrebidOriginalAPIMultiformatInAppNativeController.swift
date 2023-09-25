@@ -17,11 +17,11 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let bannerConfigId = "prebid-demo-banner-300-250"
-fileprivate let videoConfigId = "prebid-demo-video-outstream-original-api"
-fileprivate let nativeConfigId = "prebid-demo-banner-native-styles"
+fileprivate let bannerConfigId = "prebid-ita-banner-300-250"
+fileprivate let videoConfigId = "prebid-ita-video-outstream-original-api"
+fileprivate let nativeConfigId = "prebid-ita-banner-native-styles"
 
-class PrebidOriginalAPIMultiformatController:
+class PrebidOriginalAPIMultiformatInAppNativeController:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
@@ -127,6 +127,7 @@ class PrebidOriginalAPIMultiformatController:
         adUnit.setAutoRefreshMillis(time: refreshInterval)
         
         let prebidRequest = PrebidRequest(bannerParameters: bannerParameters, videoParameters: videoParameters, nativeParameters: nativeParameters)
+        addData(to: prebidRequest)
         
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest, request: prebidRequest) { [weak self] _ in
@@ -211,7 +212,47 @@ class PrebidOriginalAPIMultiformatController:
     
     // MARK: - Private zone
     
-    func setupNativeAdView(_ nativeAdViewBox: NativeAdViewBoxProtocol) {
+    private func addData(to prebidRequest: PrebidRequest) {
+        // imp[].ext.data
+        if let adUnitContext = AppConfiguration.shared.adUnitContext {
+            for dataPair in adUnitContext {
+                prebidRequest.addExtData(key: dataPair.key, value: dataPair.value)
+            }
+        }
+        
+        // imp[].ext.keywords
+        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
+            for keyword in AppConfiguration.shared.adUnitContextKeywords {
+                prebidRequest.addExtKeyword(keyword)
+            }
+        }
+        
+        // user.data
+        if let userData = AppConfiguration.shared.userData {
+            let ortbUserData = PBMORTBContentData()
+            ortbUserData.ext = [:]
+            
+            for dataPair in userData {
+                ortbUserData.ext?[dataPair.key] = dataPair.value
+            }
+            
+            prebidRequest.addUserData([ortbUserData])
+        }
+        
+        // app.content.data
+        if let appData = AppConfiguration.shared.appContentData {
+            let ortbAppContentData = PBMORTBContentData()
+            ortbAppContentData.ext = [:]
+            
+            for dataPair in appData {
+                ortbAppContentData.ext?[dataPair.key] = dataPair.value
+            }
+            
+            prebidRequest.addAppContentData([ortbAppContentData])
+        }
+    }
+    
+    private func setupNativeAdView(_ nativeAdViewBox: NativeAdViewBoxProtocol) {
         self.nativeAdViewBox = nativeAdViewBox
         fillBannerArea(rootController: rootController!)
         self.nativeAdViewBox?.setUpDummyValues()

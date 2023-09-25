@@ -541,9 +541,25 @@ struct TestCaseManager {
                     return
                 }
                          
-                let multiformatController = PrebidOriginalAPIMultiformatController(rootController: adapterVC)
+                let multiformatController = PrebidOriginalAPIMultiformatInAppNativeController(rootController: adapterVC)
                 multiformatController.bannerAdSize = CGSize(width: 300, height: 250)
                 multiformatController.adUnitID = "/21808260008/prebid-demo-multiformat"
+                adapterVC.setup(adapter: multiformatController)
+            }),
+            
+            TestCase(title: "Multiformat (Banner + Video + Native Styles) (GAM Original)",
+                     tags: [.multiformat, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let multiformatController = PrebidOriginalAPIMultiformatNativeStylesController(rootController: adapterVC)
+                multiformatController.adSize = CGSize(width: 300, height: 250)
+                multiformatController.adUnitID = "/21808260008/prebid-demo-multiformat-native-styles"
+                multiformatController.gamSizes = [GADAdSizeFluid, GADAdSizeBanner, GADAdSizeMediumRectangle]
                 adapterVC.setup(adapter: multiformatController)
             }),
         
