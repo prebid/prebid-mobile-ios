@@ -47,7 +47,7 @@ public class AdUnitSwizzleHelper: NSObject {
     
     func swizzledFetchDemand(completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void) {
         completionBidInfo(BidInfo(
-            result: AdUnitSwizzleHelper.testScenario,
+            resultCode: AdUnitSwizzleHelper.testScenario,
             targetingKeywords: AdUnitSwizzleHelper.targetingKeywords,
             exp: AdUnitSwizzleHelper.exp,
             nativeAdCacheId: AdUnitSwizzleHelper.nativeAdCacheId)

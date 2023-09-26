@@ -84,7 +84,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         baseFetchDemand(adObject: adObject) { bidInfo in
             DispatchQueue.main.async {
-                completion(bidInfo.result)
+                completion(bidInfo.resultCode)
             }
         }
     }
@@ -93,7 +93,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     func baseFetchDemand(adObject: AnyObject? = nil, completion: @escaping (_ bidInfo: BidInfo) -> Void) {
         if !(self is NativeRequest) {
             if adSizes.contains(where: { $0.width < 0 || $0.height < 0 }) {
-                completion(BidInfo(result: .prebidInvalidSize))
+                completion(BidInfo(resultCode: .prebidInvalidSize))
                 return
             }
         }
@@ -103,12 +103,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
         }
         
         if adUnitConfig.configId.isEmpty || adUnitConfig.configId.containsOnly(.whitespaces) {
-            completion(BidInfo(result: .prebidInvalidConfigId))
+            completion(BidInfo(resultCode: .prebidInvalidConfigId))
             return
         }
         
         if Prebid.shared.prebidServerAccountId.isEmpty || Prebid.shared.prebidServerAccountId.containsOnly(.whitespaces) {
-            completion(BidInfo(result: .prebidInvalidAccountId))
+            completion(BidInfo(resultCode: .prebidInvalidAccountId))
             return
         }
         
@@ -128,17 +128,17 @@ public class AdUnit: NSObject, DispatcherDelegate {
             
             guard let bidResponse = bidResponse else {
                 if (!self.timeOutSignalSent) {
-                    completion(BidInfo(result: PBMError.demandResult(from: error)))
+                    completion(BidInfo(resultCode: PBMError.demandResult(from: error)))
                 }
                 
                 return
             }
             
             if (!self.timeOutSignalSent) {
-                let result = self.setUp(adObject, with: bidResponse)
+                let resultCode = self.setUp(adObject, with: bidResponse)
                 
                 let bidInfo = BidInfo(
-                    result: result,
+                    resultCode: resultCode,
                     targetingKeywords: bidResponse.targetingInfo,
                     exp: bidResponse.winningBid?.bid.exp?.doubleValue,
                     nativeAdCacheId: bidResponse.targetingInfo?[PrebidLocalCacheIdKey]
@@ -152,7 +152,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(timeout), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
-                completion(BidInfo(result: .prebidDemandTimedOut))
+                completion(BidInfo(resultCode: .prebidDemandTimedOut))
                 return
             }
         })

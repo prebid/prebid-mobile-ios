@@ -28,12 +28,12 @@ class PrebidAdUnitTests: XCTestCase {
         
         adUnit.fetchDemand(adObject: () as AnyObject, request: request) { bidInfo in
             expectation.fulfill()
-            XCTAssertEqual(bidInfo.result, .prebidInvalidRequest)
+            XCTAssertEqual(bidInfo.resultCode, .prebidInvalidRequest)
         }
         
         adUnit.fetchDemand(request: request) { bidInfo in
             expectation.fulfill()
-            XCTAssertEqual(bidInfo.result, .prebidInvalidRequest)
+            XCTAssertEqual(bidInfo.resultCode, .prebidInvalidRequest)
         }
         
         wait(for: [expectation], timeout: 10.0)

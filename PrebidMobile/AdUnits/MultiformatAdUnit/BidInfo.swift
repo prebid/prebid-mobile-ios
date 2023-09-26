@@ -19,13 +19,13 @@ import Foundation
 @objc(PBMBidInfo)
 public class BidInfo: NSObject {
   
-    public private(set) var result: ResultCode
+    public private(set) var resultCode: ResultCode
     public private(set) var targetingKeywords: [String: String]?
     public private(set) var exp: Double?
     public private(set) var nativeAdCacheId: String?
     
-    public init(result: ResultCode, targetingKeywords: [String : String]? = nil, exp: Double? = nil, nativeAdCacheId: String? = nil) {
-        self.result = result
+    public init(resultCode: ResultCode, targetingKeywords: [String : String]? = nil, exp: Double? = nil, nativeAdCacheId: String? = nil) {
+        self.resultCode = resultCode
         self.targetingKeywords = targetingKeywords
         self.exp = exp
         self.nativeAdCacheId = nativeAdCacheId

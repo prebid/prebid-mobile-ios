@@ -109,7 +109,7 @@ class AdUnitTests: XCTestCase {
         AdUnitSwizzleHelper.toggleFetchDemand()
         
         //then
-        XCTAssertEqual(realBidInfo?.result, expected)
+        XCTAssertEqual(realBidInfo?.resultCode, expected)
         XCTAssertEqual(realBidInfo?.targetingKeywords, expectedKVDictionary)
         XCTAssertEqual(realBidInfo?.exp, expectedExp)
         XCTAssertEqual(realBidInfo?.nativeAdCacheId, expectedCacheId)

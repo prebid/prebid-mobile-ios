@@ -33,7 +33,7 @@ public class PrebidAdUnit: NSObject {
     public func fetchDemand(adObject: AnyObject, request: PrebidRequest,
                             completion: @escaping (BidInfo) -> Void) {
         guard requestHasParameters(request) else {
-            completion(BidInfo(result: .prebidInvalidRequest))
+            completion(BidInfo(resultCode: .prebidInvalidRequest))
             return
         }
         
@@ -47,7 +47,7 @@ public class PrebidAdUnit: NSObject {
     
     public func fetchDemand(request: PrebidRequest, completion: @escaping (BidInfo) -> Void) {
         guard requestHasParameters(request) else {
-            completion(BidInfo(result: .prebidInvalidRequest))
+            completion(BidInfo(resultCode: .prebidInvalidRequest))
             return
         }
         
