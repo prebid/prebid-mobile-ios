@@ -20,7 +20,7 @@ import GoogleMobileAds
 fileprivate let storedPrebidImpressions = ["prebid-demo-banner-300-250", "prebid-demo-video-outstream-original-api", "prebid-demo-banner-native-styles"]
 fileprivate let gamRenderingMultiformatAdUnitId = "/21808260008/prebid-demo-multiformat"
 
-class GAMOriginalAPIMultiformatViewController:
+class GAMOriginalAPIMultiformatInAppNativeViewController:
     MultiformatBaseViewController,
     GAMBannerAdLoaderDelegate,
     GADCustomNativeAdLoaderDelegate,

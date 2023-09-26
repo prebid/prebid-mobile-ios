@@ -13,12 +13,12 @@
  limitations under the License.
  */
 
-#import "GAMOriginalAPIMultiformatViewController.h"
+#import "GAMOriginalAPIMultiformatInAppNativeViewController.h"
 
 NSArray<NSString *> * const multiformatStoredPrebidImpressions = @[@"prebid-demo-banner-300-250", @"prebid-demo-video-outstream-original-api", @"prebid-demo-banner-native-styles"];
 NSString * const gamMultiformatAdUnitId = @"/21808260008/prebid-demo-multiformat";
 
-@interface GAMOriginalAPIMultiformatViewController ()
+@interface GAMOriginalAPIMultiformatInAppNativeViewController ()
 
 // Prebid
 @property (nonatomic) PrebidAdUnit * adUnit;
@@ -31,7 +31,7 @@ NSString * const gamMultiformatAdUnitId = @"/21808260008/prebid-demo-multiformat
 
 @end
 
-@implementation GAMOriginalAPIMultiformatViewController
+@implementation GAMOriginalAPIMultiformatInAppNativeViewController
 
 - (NSArray<NativeAsset *> *)nativeAssets {
     NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
@@ -91,7 +91,7 @@ NSString * const gamMultiformatAdUnitId = @"/21808260008/prebid-demo-multiformat
     
     // 4. Make a bid request
     GAMRequest * gamRequest = [GAMRequest new];
-    [self.adUnit fetchDemandWithAdObject:gamRequest request:prebidRequest completion:^(enum ResultCode resultCode) {
+    [self.adUnit fetchDemandWithAdObject:gamRequest request:prebidRequest completion:^(PBMBidInfo * _Nonnull bidInfo) {
         
         // 5. Configure and make a GAM ad request
         self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:gamMultiformatAdUnitId

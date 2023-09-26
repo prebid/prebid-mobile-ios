@@ -23,7 +23,8 @@ struct TestCases {
     let gamOriginalDisplayInterstitialCase = "GAM (Original API) Display Interstitial 320x480"
     let gamOriginalVideoInterstitialCase = "GAM (Original API) Video Interstitial 320x480"
     let gamOriginalVideoRewardedCase = "GAM (Original API) Video Rewarded 320x480"
-    let gamOriginalMultiformatCase = "GAM (Original API) Multiformat (Banner + Video + Native In-App)"
+    let gamOriginalMultiformatInAppNativeCase = "GAM (Original API) Multiformat (Banner + Video + Native In-App)"
+    let gamOriginalMultiformatNativeStylesCase = "GAM (Original API) Multiformat (Banner + Video + Native Styles)"
     
     // In-App Rendering Api
     let inAppDisplayBannerCase = "In-App Display Banner 320x50"

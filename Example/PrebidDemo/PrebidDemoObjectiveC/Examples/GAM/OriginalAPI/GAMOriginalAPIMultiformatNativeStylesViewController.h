@@ -13,14 +13,14 @@
  limitations under the License.
  */
 
-#import "MultiformatBaseViewController.h"
+#import "BannerBaseViewController.h"
 
 @import GoogleMobileAds;
 @import PrebidMobile;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GAMOriginalAPIMultiformatViewController : MultiformatBaseViewController<GAMBannerAdLoaderDelegate, GADCustomNativeAdLoaderDelegate, NativeAdDelegate>
+@interface GAMOriginalAPIMultiformatNativeStylesViewController : BannerBaseViewController<GADBannerViewDelegate>
 
 @end
 

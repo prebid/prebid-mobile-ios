@@ -120,7 +120,16 @@ struct IntegrationCaseManager {
             integrationKind: .gamOriginal,
             adFormat: .multiformat,
             configurationClosure: {
-                GAMOriginalAPIMultiformatViewController(adSize: CGSize(width: 300, height: 250))
+                GAMOriginalAPIMultiformatInAppNativeViewController(adSize: CGSize(width: 300, height: 250))
+            }
+        ),
+        
+        IntegrationCase(
+            title: "GAM (Original API) Multiformat (Banner + Video + Native Styles)",
+            integrationKind: .gamOriginal,
+            adFormat: .multiformat,
+            configurationClosure: {
+                GAMOriginalAPIMultiformatNativeStylesViewController(adSize: CGSize(width: 300, height: 250))
             }
         ),
         
