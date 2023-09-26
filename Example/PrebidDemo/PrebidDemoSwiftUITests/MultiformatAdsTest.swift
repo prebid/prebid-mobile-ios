@@ -44,6 +44,7 @@ class MultiformatAdsTest: BaseAdsTest {
             }
         } else if testCase == testCases.gamOriginalMultiformatNativeStylesCase {
             XCTAssert(app.webViews.element.waitForExistence(timeout: 10), assertFailedMessage(testCase: testCase,reason: "Banner Web View is not displayed"))
+            XCTAssert(app.staticTexts["Test mode"].waitForExistence(timeout: 10))
         }
     }
 }
