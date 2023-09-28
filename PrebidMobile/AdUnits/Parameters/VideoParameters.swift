@@ -59,6 +59,8 @@ public class VideoParameters: NSObject {
     /// Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed.
     public var linearity: SingleContainerInt?
     
+    public var adSize: CGSize?
+    
     // MARK: - Helpers
     
     public var rawAPI: [Int]? {
@@ -82,5 +84,10 @@ public class VideoParameters: NSObject {
     /// - Parameter mimes: supported MIME types
     public init(mimes: [String]) {
         self.mimes = mimes
+    }
+    
+    // Objective-C API
+    public func setSize(_ size: NSValue) {
+        adSize = size.cgSizeValue
     }
 }

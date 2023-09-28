@@ -21,4 +21,5 @@ protocol NativeAdViewBoxProtocol: AnyObject {
     func embedIntoView(_ view: UIView)
     func renderNativeAd(_ nativeAd: NativeAd)
     func registerViews(_ nativeAd: NativeAd)
+    func removeFromSuperview()
 }

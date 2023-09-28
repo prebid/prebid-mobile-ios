@@ -32,6 +32,7 @@ enum TestCaseTag : String, Comparable {
     case mraid = "MRAID"
     case native = "Native"
     case instream = "In-stream"
+    case multiformat = "Multiformat"
     
     
     //SDK (Integration)
@@ -47,7 +48,7 @@ enum TestCaseTag : String, Comparable {
     }
     
     static var appearance: [TestCaseTag] {
-        return [.banner, .interstitial, .video, .mraid, .native, .instream]
+        return [.banner, .interstitial, .video, .mraid, .native, .instream, .multiformat]
     }
     
     static var integrations: [TestCaseTag] {

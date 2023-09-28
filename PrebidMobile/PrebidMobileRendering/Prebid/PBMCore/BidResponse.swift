@@ -93,4 +93,12 @@ public class BidResponse: NSObject {
     public func setTargetingInfo(with newValue: [String : String]) {
         targetingInfo = newValue
     }
+    
+    public func addTargetingInfoValue(key: String, value: String) {
+        if targetingInfo == nil {
+            targetingInfo = [:]
+        }
+        
+        targetingInfo?[key] = value
+    }
 }

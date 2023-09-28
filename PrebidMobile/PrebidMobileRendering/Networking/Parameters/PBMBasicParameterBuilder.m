@@ -145,7 +145,7 @@
         [self appendVideoParametersForRequest:bidRequest];
     }
     
-    if ([self.adConfiguration.adFormats containsObject:AdFormat.native] && self.adConfiguration.adFormats.count == 1) {
+    if ([self.adConfiguration.adFormats containsObject:AdFormat.native]) {
         [self appendNativeParametersForRequest:bidRequest];
     }
 }

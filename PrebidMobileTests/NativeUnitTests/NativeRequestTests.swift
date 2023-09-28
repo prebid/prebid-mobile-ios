@@ -21,7 +21,7 @@ class NativeRequestTests: XCTestCase {
     func testNativeAdUnitCreation() {
         let nativeUnit = NativeRequest(configId: Constants.configID1)
         XCTAssertNotNil(nativeUnit)
-        XCTAssertTrue(nativeUnit.prebidConfigId == Constants.configID1)
+        XCTAssertTrue(nativeUnit.adUnitConfig.configId == Constants.configID1)
     }
     
     func testNativeAdContextType() {

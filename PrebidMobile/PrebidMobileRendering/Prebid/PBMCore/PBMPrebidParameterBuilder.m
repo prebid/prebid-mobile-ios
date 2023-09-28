@@ -272,7 +272,7 @@
                 if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);
                 }
-            } else if (adFormat == AdFormat.native && adFormats.count == 1) {
+            } else if (adFormat == AdFormat.native) {
                 PBMORTBNative * const nextNative = nextImp.native;
                 nextNative.request = [self.adConfiguration.nativeAdConfiguration.markupRequestObject toJsonStringWithError:nil];
                 NSString * const ver = self.adConfiguration.nativeAdConfiguration.version;

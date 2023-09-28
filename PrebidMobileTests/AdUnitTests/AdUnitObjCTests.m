@@ -66,6 +66,8 @@ AdUnit *adUnit;
     __block NSDictionary<NSString *, NSString *> *kvDictResult;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
+    AdUnitSwizzleHelper.targetingKeywords = @{@"key1" : @"value1"};
+    
     //when
     [adUnit fetchDemandWithCompletion:^(enum ResultCode code, NSDictionary<NSString *,NSString *> * _Nullable kvDict) {
         resultCode = code;

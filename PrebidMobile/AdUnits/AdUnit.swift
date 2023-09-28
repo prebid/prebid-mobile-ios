@@ -21,53 +21,37 @@ public class AdUnit: NSObject, DispatcherDelegate {
         set { adUnitConfig.setPbAdSlot(newValue) }
     }
     
-    private static let PB_MIN_RefreshTime = 30000.0
-
-    var identifier: String
-
-    var dispatcher: Dispatcher?
-    
-    var adUnitConfig: AdUnitConfig
-    
-    var bidRequester: PBMBidRequester?
-    
     var adSizes: [CGSize] {
         get { [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? []) }
-        set {
-            if let adSize = newValue.first {
-                adUnitConfig.adSize = adSize
-            }
-            
-            if newValue.count > 1 {
-                adUnitConfig.additionalSizes = Array(newValue.dropFirst())
-            }
-        }
     }
     
-    var prebidConfigId: String {
-        get { adUnitConfig.configId }
-        set { adUnitConfig.configId = newValue }
-    }
-
+    private static let PB_MIN_RefreshTime = 30000.0
+    
+    private(set) var dispatcher: Dispatcher?
+    
+    private(set) var adUnitConfig: AdUnitConfig
+    
+    private var bidRequester: PBMBidRequester
+    
     //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
-    private var isInitialFetchDemandCallMade: Bool = false
-
+    private var isInitialFetchDemandCallMade = false
+    
     private var adServerObject: AnyObject?
-
-    private var closureAd: ((ResultCode) -> Void)?
-    private var closureBids: ((ResultCode, [String : String]?) -> Void)?
-
+    private var lastFetchDemandCompletion: ((_ bidInfo: BidInfo) -> Void)?
+    
     //notification flag set to check if the prebid response is received within the specified time
-    var didReceiveResponse: Bool! = false
-
+    private var didReceiveResponse = false
+    
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
-    var timeOutSignalSent: Bool! = false
-
+    private var timeOutSignalSent = false
+    
     public init(configId: String, size: CGSize?, adFormats: Set<AdFormat>) {
         adUnitConfig = AdUnitConfig(configId: configId, size: size ?? CGSize.zero)
         adUnitConfig.adConfiguration.isOriginalAPI = true
         adUnitConfig.adFormats = adFormats
-        identifier = UUID.init().uuidString
+        
+        bidRequester = PBMBidRequester(connection: PrebidServerConnection.shared, sdkConfiguration: Prebid.shared,
+                                       targeting: Targeting.shared, adUnitConfiguration: adUnitConfig)
         
         super.init()
         
@@ -78,117 +62,136 @@ public class AdUnit: NSObject, DispatcherDelegate {
     deinit {
         dispatcher?.invalidate()
     }
-
+    
     //TODO: dynamic is used by tests
+    @available(*, deprecated, message: "Deprecated. Use fetchDemand(completion: @escaping (_ bidInfo: BidInfo) -> Void) instead.")
     dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
-
-        closureBids = completion
-
         let dictContainer = DictionaryContainer<String, String>()
-
-        fetchDemand(adObject: dictContainer) { (resultCode) in
+        
+        fetchDemand(adObject: dictContainer) { resultCode in
             let dict = dictContainer.dict
-
+            
             DispatchQueue.main.async {
                 completion(resultCode, dict.count > 0 ? dict : nil)
             }
         }
     }
-
-    //TODO: dynamic is used by tests
+    
+    dynamic public func fetchDemand(completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void) {
+        baseFetchDemand(completion: completionBidInfo)
+    }
+    
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
-        
-        if !(self is NativeRequest){
-            for size in adSizes {
-                if (size.width < 0 || size.height < 0) {
-                    completion(.prebidInvalidSize)
-                    return
-                }
+        baseFetchDemand(adObject: adObject) { bidInfo in
+            DispatchQueue.main.async {
+                completion(bidInfo.resultCode)
             }
         }
-
-        Utils.shared.removeHBKeywords(adObject: adObject)
-
-        if (prebidConfigId.isEmpty || (prebidConfigId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
-            completion(.prebidInvalidConfigId)
+    }
+    
+    // SDK internal
+    func baseFetchDemand(adObject: AnyObject? = nil, completion: @escaping (_ bidInfo: BidInfo) -> Void) {
+        if !(self is NativeRequest) {
+            if adSizes.contains(where: { $0.width < 0 || $0.height < 0 }) {
+                completion(BidInfo(resultCode: .prebidInvalidSize))
+                return
+            }
+        }
+        
+        if let adObject {
+            Utils.shared.removeHBKeywords(adObject: adObject)
+        }
+        
+        if adUnitConfig.configId.isEmpty || adUnitConfig.configId.containsOnly(.whitespaces) {
+            completion(BidInfo(resultCode: .prebidInvalidConfigId))
             return
         }
-        if (Prebid.shared.prebidServerAccountId.isEmpty || (Prebid.shared.prebidServerAccountId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
-            completion(.prebidInvalidAccountId)
+        
+        if Prebid.shared.prebidServerAccountId.isEmpty || Prebid.shared.prebidServerAccountId.containsOnly(.whitespaces) {
+            completion(BidInfo(resultCode: .prebidInvalidAccountId))
             return
         }
-
+        
         if !isInitialFetchDemandCallMade {
             isInitialFetchDemandCallMade = true
             startDispatcher()
         }
-
+        
         didReceiveResponse = false
         timeOutSignalSent = false
-        self.closureAd = completion
+        lastFetchDemandCompletion = completion
         adServerObject = adObject
-
-        bidRequester = PBMBidRequester(connection: PrebidServerConnection.shared,
-                                       sdkConfiguration: Prebid.shared,
-                                       targeting: Targeting.shared,
-                                       adUnitConfiguration: adUnitConfig)
         
-        bidRequester?.requestBids { [weak self] bidResponse, error in
+        bidRequester.requestBids { [weak self] bidResponse, error in
             guard let self = self else { return }
             self.didReceiveResponse = true
             
-            if let bidResponse = bidResponse {
+            guard let bidResponse = bidResponse else {
                 if (!self.timeOutSignalSent) {
-                    self.handleBidResponse(adObject: adObject, bidResponse: bidResponse) { resultCode in
-                        if resultCode == .prebidDemandFetchSuccess {
-                            Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse)
-                        }
-                        completion(resultCode)
-                        return
-                    }
+                    completion(BidInfo(resultCode: PBMError.demandResult(from: error)))
                 }
-            } else {
-                if (!self.timeOutSignalSent) {
-                    completion(PBMError.demandResult(from: error))
-                    return
-                }
+                
+                return
+            }
+            
+            if (!self.timeOutSignalSent) {
+                let resultCode = self.setUp(adObject, with: bidResponse)
+                
+                let bidInfo = BidInfo(
+                    resultCode: resultCode,
+                    targetingKeywords: bidResponse.targetingInfo,
+                    exp: bidResponse.winningBid?.bid.exp?.doubleValue,
+                    nativeAdCacheId: bidResponse.targetingInfo?[PrebidLocalCacheIdKey]
+                )
+                
+                completion(bidInfo)
             }
         }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(truncating: Prebid.shared.timeoutMillisDynamic ?? NSNumber(value: .PB_Request_Timeout))), execute: {
+        
+        let timeout = Int(truncating: Prebid.shared.timeoutMillisDynamic ?? NSNumber(value: .PB_Request_Timeout))
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(timeout), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
-                completion(.prebidDemandTimedOut)
+                completion(BidInfo(resultCode: .prebidDemandTimedOut))
                 return
             }
         })
     }
     
-    private func handleBidResponse(adObject: AnyObject, bidResponse: BidResponse, completion: (ResultCode) -> Void) {
-        if let winningBid = bidResponse.winningBid {
-            if self.adUnitConfig.adFormats.contains(AdFormat.native) {
-                let expireInterval = TimeInterval(truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber)
-                do {
-                    if let cacheId = CacheManager.shared.save(content: try winningBid.bid.toJsonString(), expireInterval: expireInterval), !cacheId.isEmpty {
-                        var newTargetingInfo = bidResponse.targetingInfo ?? [:]
-                        newTargetingInfo[PrebidLocalCacheIdKey] = cacheId
-                        bidResponse.setTargetingInfo(with: newTargetingInfo)
-                        completion(.prebidDemandFetchSuccess)
-                        return
-                    }
-                } catch {
-                    Log.error("Error saving bid content to cache: \(error.localizedDescription)")
-                }
-            } else {
-                completion(.prebidDemandFetchSuccess)
-                return
-            }
-        } else {
-            completion(.prebidDemandNoBids)
-            return
+    private func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
+        guard let winningBid = bidResponse.winningBid else {
+            return .prebidDemandNoBids
         }
+        
+        if let cacheId = cacheBidIfNeeded(winningBid) {
+            bidResponse.addTargetingInfoValue(key: PrebidLocalCacheIdKey, value: cacheId)
+        }
+        
+        if let adObject {
+            Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
+        }
+        
+        return .prebidDemandFetchSuccess
     }
-
+    
+    private func cacheBidIfNeeded(_ winningBid: Bid) -> String?  {
+        guard winningBid.adFormat == .native else {
+            return nil
+        }
+        
+        let expireInterval = TimeInterval(truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber)
+        
+        do {
+            if let cacheId = CacheManager.shared.save(content: try winningBid.bid.toJsonString(), expireInterval: expireInterval), !cacheId.isEmpty {
+                return cacheId
+            }
+        } catch {
+            Log.error("Error saving bid content to cache: \(error.localizedDescription)")
+        }
+        
+        return nil
+    }
+    
     // MARK: - adunit ext data aka inventory data (imp[].ext.data)
     
     /**
@@ -258,7 +261,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
      */
     public func clearExtData() {
         adUnitConfig.clearExtData()
-    }    
+    }
     
     // MARK: - adunit ext keywords (imp[].ext.keywords)
     
@@ -348,7 +351,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
-
+    
     public func removeAppContentData(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
@@ -358,7 +361,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     // MARK: - User Data (user.data)
-        
+    
     public func getUserData() -> [PBMORTBContentData]? {
         return adUnitConfig.getUserData()
     }
@@ -374,35 +377,35 @@ public class AdUnit: NSObject, DispatcherDelegate {
     public func clearUserData() {
         adUnitConfig.clearUserData()
     }
-
+    
     // MARK: - others
-
+    
     /**
      * This method allows to set the auto refresh period for the demand
      *
      * - Parameter time: refresh time interval
      */
     public func setAutoRefreshMillis(time: Double) {
-
+        
         guard checkRefreshTime(time) else {
             Log.error("auto refresh not set as the refresh time is less than to \(AdUnit.PB_MIN_RefreshTime as Double) seconds")
             return
         }
         
-        if self.dispatcher?.state == .stopped {
-            self.dispatcher?.setAutoRefreshMillis(time: time)
+        if dispatcher?.state == .stopped {
+            dispatcher?.setAutoRefreshMillis(time: time)
             return
         }
         
         stopDispatcher()
         
         initDispatcher(refreshTime: time)
-
+        
         if isInitialFetchDemandCallMade {
             startDispatcher()
         }
     }
-
+    
     /**
      * This method stops the auto refresh of demand
      */
@@ -411,48 +414,42 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     public func resumeAutoRefresh() {
-        if self.dispatcher?.state == .stopped {
+        if dispatcher?.state == .stopped {
             if isInitialFetchDemandCallMade {
                 startDispatcher()
             }
         }
     }
-
+    
     dynamic func checkRefreshTime(_ time: Double) -> Bool {
         return time >= AdUnit.PB_MIN_RefreshTime
     }
-
+    
     func refreshDemand() {
-
-        guard let adServerObject = adServerObject else {
-            return
+        if let lastFetchDemandCompletion = lastFetchDemandCompletion {
+            baseFetchDemand(adObject: adServerObject, completion: lastFetchDemandCompletion)
         }
-
-        if adServerObject is DictionaryContainer<String, String>, let closureBids = closureBids {
-            fetchDemand(completion: closureBids)
-        } else if let closureAd = closureAd {
-            fetchDemand(adObject: adServerObject, completion: closureAd)
-        }
-
     }
-
+    
     func initDispatcher(refreshTime: Double) {
-        self.dispatcher = Dispatcher.init(withDelegate: self, autoRefreshMillies: refreshTime)
+        dispatcher = Dispatcher.init(withDelegate: self, autoRefreshMillies: refreshTime)
     }
-
+    
     func startDispatcher() {
         guard let dispatcher = self.dispatcher else {
             Log.verbose("Dispatcher is nil")
             return
         }
+        
         dispatcher.start()
     }
-
+    
     func stopDispatcher() {
         guard let dispatcher = self.dispatcher else {
             Log.verbose("Dispatcher is nil")
             return
         }
+        
         dispatcher.stop()
     }
 }
