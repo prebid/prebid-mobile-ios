@@ -111,6 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PBMORTBImpExtSkadn  *extSkadn;
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, id> *extData;
 @property (nonatomic, strong, nullable) NSString *extKeywords;
+@property (nonatomic, strong, nullable) NSString *extGPID;
 
 - (instancetype)init;
 

@@ -374,4 +374,32 @@ class PrebidAdUnitTests: XCTestCase {
 
         waitForExpectations(timeout: 5, handler: nil)
     }
+    
+    func testAdUnitConfiguration_gpid() {
+        let expectation = expectation(description: "\(#function)")
+        expectation.expectedFulfillmentCount = 2
+        
+        let gpid = "/12345/home_screen#identifier"
+        var adUnit = PrebidAdUnit(configId: "test-config-id")
+        
+        let request = PrebidRequest(bannerParameters: BannerParameters())
+        request.setGPID(gpid)
+        
+        // fetchDemand(request:completion)
+        adUnit.fetchDemand(request: request) { _ in
+            expectation.fulfill()
+            XCTAssertEqual(adUnit.getConfiguration().gpid, gpid)
+        }
+        
+        let testObject: AnyObject = () as AnyObject
+        adUnit = PrebidAdUnit(configId: "test-config-id")
+        
+        // fetchDemand(adObject:request:completion)
+        adUnit.fetchDemand(adObject: testObject, request: request) { _ in
+            expectation.fulfill()
+            XCTAssertEqual(adUnit.getConfiguration().gpid, gpid)
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+    }
 }

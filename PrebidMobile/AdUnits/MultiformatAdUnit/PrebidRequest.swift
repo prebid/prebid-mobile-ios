@@ -27,6 +27,8 @@ public class PrebidRequest: NSObject {
     private(set) var isInterstitial = false
     private(set) var isRewarded = false
     
+    private(set) var gpid: String?
+    
     // MARK: - Private properties
     
     private var extData = [String: Set<String>]()
@@ -43,6 +45,12 @@ public class PrebidRequest: NSObject {
         self.isRewarded = isRewarded
         
         super.init()
+    }
+    
+    // MARK: GPID
+    
+    public func setGPID(_ gpid: String?) {
+        self.gpid = gpid
     }
     
     // MARK: - adunit ext data aka inventory data (imp[].ext.data)

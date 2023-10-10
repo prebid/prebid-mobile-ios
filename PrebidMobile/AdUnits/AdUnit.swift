@@ -378,6 +378,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
         adUnitConfig.clearUserData()
     }
     
+    // MARK: GPID
+    
+    public func setGPID(_ gpid: String?) {
+        adUnitConfig.gpid = gpid
+    }
+    
     // MARK: - others
     
     /**

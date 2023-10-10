@@ -732,7 +732,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
         let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
         adUnit.adUnitConfig.adFormats = [.banner]
-        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         XCTAssertNil(bidRequest.extPrebid.targeting["includewinners"])
         XCTAssertNil(bidRequest.extPrebid.targeting["includebidderkeys"])
     }
@@ -745,7 +745,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
         let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
         adUnit.adUnitConfig.adFormats = [.banner]
-        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         XCTAssertNotNil(bidRequest.extPrebid.targeting["includewinners"])
         XCTAssertNotNil(bidRequest.extPrebid.targeting["includebidderkeys"])
     }
@@ -756,7 +756,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
         let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
         adUnit.adUnitConfig.adFormats = [.banner]
-        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
         XCTAssertNotNil(bidRequest.extPrebid.targeting["includewinners"])
         XCTAssert(bidRequest.extPrebid.targeting["includewinners"] as! Bool == true)
@@ -768,10 +768,21 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
         adUnit.adUnitConfig.adFormats = [.banner]
-        var bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
         XCTAssertNotNil(bidRequest.extPrebid.targeting["includebidderkeys"])
         XCTAssert(bidRequest.extPrebid.targeting["includebidderkeys"] as! Bool == true)
+    }
+    
+    func testGPID() {
+        let gpid = "/12345/home_screen#identifier"
+        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
+        adUnit.setGPID(gpid)
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        for imp in bidRequest.imp {
+            XCTAssertEqual(imp.extGPID, gpid)
+        }
     }
 
     // MARK: - Helpers
