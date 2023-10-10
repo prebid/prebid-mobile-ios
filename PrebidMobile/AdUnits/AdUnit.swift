@@ -384,6 +384,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
         adUnitConfig.gpid = gpid
     }
     
+    public func getGPID() -> String? {
+        return adUnitConfig.gpid
+    }
+    
     // MARK: - others
     
     /**
