@@ -135,10 +135,6 @@ public class PrebidRequest: NSObject {
         self.appContent = appContentObject
     }
     
-    public func getAppContent() -> PBMORTBAppContent? {
-        appContent
-    }
-    
     public func clearAppContent() {
         appContent = nil
     }
@@ -165,11 +161,11 @@ public class PrebidRequest: NSObject {
         appContent?.data?.removeAll()
     }
     
-    // MARK: - User Data (user.data)
-    
-    public func getUserData() -> [PBMORTBContentData]? {
-        userData
+    func getAppContent() -> PBMORTBAppContent? {
+        appContent
     }
+    
+    // MARK: - User Data (user.data)
     
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         if userData == nil {
@@ -187,5 +183,9 @@ public class PrebidRequest: NSObject {
     
     public func clearUserData() {
         userData?.removeAll()
+    }
+    
+    func getUserData() -> [PBMORTBContentData]? {
+        userData
     }
 }
