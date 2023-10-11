@@ -31,7 +31,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     private(set) var adUnitConfig: AdUnitConfig
     
-    private var bidRequester: PBMBidRequester
+    private var bidRequester: PBMBidRequesterProtocol
     
     //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
     private var isInitialFetchDemandCallMade = false
@@ -57,6 +57,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
         
         // PBS should cache the bid for original api.
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
+    }
+    
+    // Internal only!
+    convenience init(bidRequester: PBMBidRequesterProtocol, configId: String, size: CGSize?, adFormats: Set<AdFormat>) {
+        self.init(configId: configId, size: size, adFormats: adFormats)
+        self.bidRequester = bidRequester
     }
     
     deinit {
@@ -136,14 +142,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
             
             if (!self.timeOutSignalSent) {
                 let resultCode = self.setUp(adObject, with: bidResponse)
-                
-                let bidInfo = BidInfo(
-                    resultCode: resultCode,
-                    targetingKeywords: bidResponse.targetingInfo,
-                    exp: bidResponse.winningBid?.bid.exp?.doubleValue,
-                    nativeAdCacheId: bidResponse.targetingInfo?[PrebidLocalCacheIdKey]
-                )
-                
+                let bidInfo = BidInfo.create(resultCode: resultCode, bidResponse: bidResponse)
                 completion(bidInfo)
             }
         }

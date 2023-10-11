@@ -17,6 +17,12 @@ import XCTest
 @testable import PrebidMobile
 
 class CacheManagerTests: XCTestCase {
+    
+    override func setUp() {
+        super.setUp()
+        
+        CacheManager.shared.savedValuesDict = [:]
+    }
 
     func testCacheManagerSaveAndGetAPIsWithMultipleRequests() {
         let content1 = "Prebid Native Ad"
