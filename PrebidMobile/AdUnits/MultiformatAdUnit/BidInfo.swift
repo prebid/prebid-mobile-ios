@@ -19,7 +19,10 @@ import Foundation
 @objc(PBMBidInfo)
 public class BidInfo: NSObject {
     
+    /// Key to get Prebid win event from `events`
     public static let EVENT_WIN = "ext.prebid.events.win"
+    
+    /// Key to get Prebid imp event from `events`
     public static let EVENT_IMP = "ext.prebid.events.imp"
   
     public private(set) var resultCode: ResultCode
