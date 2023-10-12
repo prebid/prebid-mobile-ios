@@ -51,9 +51,9 @@ class PBMUserAgentServiceTest: XCTestCase {
     func testInjectedSDKVersion() {
         let injectedSDKVersion = "x.y.z"
         PBMUserAgentService.shared.sdkVersion = injectedSDKVersion
-        let userAgentString = PBMUserAgentService.shared.sdkVersion
+        let userAgentSDKVersion = PBMUserAgentService.shared.sdkVersion
         
-        let didFindInjectedSDKVersion = userAgentString?.PBMdoesMatch(injectedSDKVersion)
+        let didFindInjectedSDKVersion = userAgentSDKVersion?.PBMdoesMatch(injectedSDKVersion)
         XCTAssert((didFindInjectedSDKVersion != nil))
         
         PBMUserAgentService.shared.sdkVersion = PBMFunctions.sdkVersion()
