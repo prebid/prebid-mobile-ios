@@ -297,6 +297,15 @@ class PBMORTBAbstractTest : XCTestCase {
         codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
     }
     
+    func testImpExtGPID() {
+        let gpid = "/12345/home_screen#identifier"
+        
+        let imp = PBMORTBImp()
+        imp.extGPID = gpid
+        
+        codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\"},\"instl\":0,\"secure\":0}")
+    }
+    
     func testBannerToJsonString() {
         let pbmORTBBanner = PBMORTBBanner()
         pbmORTBBanner.pos = 1                   //Above the fold

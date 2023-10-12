@@ -27,6 +27,8 @@ public class PrebidRequest: NSObject {
     private(set) var isInterstitial = false
     private(set) var isRewarded = false
     
+    private(set) var gpid: String?
+    
     // MARK: - Private properties
     
     private var extData = [String: Set<String>]()
@@ -43,6 +45,12 @@ public class PrebidRequest: NSObject {
         self.isRewarded = isRewarded
         
         super.init()
+    }
+    
+    // MARK: GPID
+    
+    public func setGPID(_ gpid: String?) {
+        self.gpid = gpid
     }
     
     // MARK: - adunit ext data aka inventory data (imp[].ext.data)
@@ -127,10 +135,6 @@ public class PrebidRequest: NSObject {
         self.appContent = appContentObject
     }
     
-    public func getAppContent() -> PBMORTBAppContent? {
-        appContent
-    }
-    
     public func clearAppContent() {
         appContent = nil
     }
@@ -157,11 +161,11 @@ public class PrebidRequest: NSObject {
         appContent?.data?.removeAll()
     }
     
-    // MARK: - User Data (user.data)
-    
-    public func getUserData() -> [PBMORTBContentData]? {
-        userData
+    func getAppContent() -> PBMORTBAppContent? {
+        appContent
     }
+    
+    // MARK: - User Data (user.data)
     
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         if userData == nil {
@@ -179,5 +183,9 @@ public class PrebidRequest: NSObject {
     
     public func clearUserData() {
         userData?.removeAll()
+    }
+    
+    func getUserData() -> [PBMORTBContentData]? {
+        userData
     }
 }

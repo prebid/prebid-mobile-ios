@@ -77,6 +77,8 @@ public class AdUnitConfig: NSObject, NSCopying {
             }
         }
     }
+    
+    public var gpid: String?
 
     // MARK: - Public Methods
     
