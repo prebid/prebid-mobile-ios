@@ -68,7 +68,7 @@
 #pragma mark - Public Methods
 
 - (nonnull NSString *)getFullUserAgent {
-    return [NSString stringWithFormat:@"%@ PrebidMobile/%@", self.userAgent, self.sdkVersion];
+    return [NSString stringWithFormat:@"%@", self.userAgent];
 }
 
 #pragma mark - Private Methods

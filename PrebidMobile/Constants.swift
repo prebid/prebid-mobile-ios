@@ -16,7 +16,10 @@
 import UIKit
 
 public let PrebidLocalCacheIdKey = "hb_cache_id_local"
-public let PREBID_VERSION = "2.1.5"
+
+@objc public class Constants: NSObject {
+    @objc public static let PREBID_VERSION = "2.1.5"
+}
 
 extension String {
 
