@@ -115,6 +115,38 @@ class AdUnitTests: XCTestCase {
         XCTAssertEqual(realBidInfo?.nativeAdCacheId, expectedCacheId)
     }
     
+    func testBidInfoCompletion() {
+        Prebid.shared.prebidServerAccountId = "test-account-id"
+        
+        defer {
+            Prebid.shared.prebidServerAccountId = ""
+        }
+        
+        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") as PrebidMobile.JsonDictionary? else {
+            XCTFail("Couldn't load `sample_ortb_native_with_win_event.json` file.")
+            return
+        }
+        
+        let bidRequester = MockPBMBidRequester(jsonDictionary: json)
+        let adUnit = AdUnit(bidRequester: bidRequester, configId: "test-config-id", size: CGSize.zero, adFormats: [])
+        
+        let expectation = expectation(description: "Fetch demand completed.")
+        adUnit.baseFetchDemand { bidInfo in
+            expectation.fulfill()
+            
+            XCTAssertEqual(bidInfo.resultCode, .prebidDemandFetchSuccess)
+            
+            XCTAssertNotNil(bidInfo.targetingKeywords)
+            XCTAssertNotNil(bidInfo.exp)
+            XCTAssertNotNil(bidInfo.nativeAdCacheId)
+            XCTAssertNotNil(bidInfo.events[BidInfo.EVENT_WIN], "There is no win event in bid response.")
+            XCTAssertNotNil(bidInfo.events[BidInfo.EVENT_IMP], "There is no imp event in bid response.")
+            XCTAssertFalse(bidInfo.events.isEmpty)
+        }
+        
+        waitForExpectations(timeout: 30.0)
+    }
+    
     func testFetchDemandAutoRefresh() {
         PBHTTPStubbingManager.shared().enable()
         PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
