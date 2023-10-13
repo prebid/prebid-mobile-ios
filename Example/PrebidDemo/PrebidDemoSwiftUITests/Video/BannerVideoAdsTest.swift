@@ -36,7 +36,7 @@ class BannerVideoAds: BaseAdsTest {
     
     override func checkAd(testCase: String) {
         if testCase == testCases.gamOriginalVideoBannerCase {
-            XCTAssert(app.buttons["Play video"].waitForExistence(timeout: 30),assertFailedMessage(testCase: testCase, reason: "Play video button is not displayed"))
+            XCTAssert(app.buttons["Learn more"].waitForExistence(timeout: 30),assertFailedMessage(testCase: testCase, reason: "Play video button is not displayed"))
         } else {
             XCTAssert(app.otherElements["PBMVideoView"].waitForExistence(timeout: 20),assertFailedMessage(testCase: testCase, reason: "Video is not displayed"))
         }
