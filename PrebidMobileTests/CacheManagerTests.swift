@@ -78,7 +78,7 @@ class CacheManagerTests: XCTestCase {
     func testConcurrency() {
         let manager = CacheManager.shared
         for _ in 1 ... 1000 {
-            let expectation: XCTestExpectation = XCTestExpectation(description: "All tasks are done")
+            let expectation = XCTestExpectation(description: "All tasks are done")
             expectation.expectedFulfillmentCount = 2
             let concurrentQueue = DispatchQueue(label: "test", attributes: .concurrent)
             concurrentQueue.async {
@@ -89,7 +89,7 @@ class CacheManagerTests: XCTestCase {
                 _ = manager.get(cacheId: "1")
                 expectation.fulfill()
             }
-            wait(for: [expectation])
+            wait(for: [expectation], timeout: 5.0)
         }
     }
 }
