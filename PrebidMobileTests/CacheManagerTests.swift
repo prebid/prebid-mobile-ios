@@ -89,7 +89,7 @@ class CacheManagerTests: XCTestCase {
                 _ = manager.get(cacheId: "1")
                 expectation.fulfill()
             }
-            wait(for: [expectation])
+            wait(for: [expectation], timeout: 5.0)
         }
     }
 }
