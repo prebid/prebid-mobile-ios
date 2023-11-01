@@ -188,7 +188,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         return true
     }
     
-    private func unregisterViewFromTracking() {
+    func unregisterViewFromTracking() {
         detachAllGestureRecognizers()
         viewForTracking = nil
         invalidateTimer(viewabilityTimer)
