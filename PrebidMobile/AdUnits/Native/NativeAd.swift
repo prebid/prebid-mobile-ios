@@ -36,7 +36,13 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     private var viewabilityTimer: Timer?
     private var viewabilityValue = 0
     private var impressionHasBeenTracked = false
-    private weak var viewForTracking: UIView?
+    private weak var viewForTracking: UIView? {
+        didSet {
+            if (viewForTracking == nil) {
+                invalidateTimer(viewabilityTimer)
+            }
+        }
+    }
     //Click Handling
     private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
     
@@ -182,7 +188,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         return true
     }
     
-    func unregisterViewFromTracking() {
+    private func unregisterViewFromTracking() {
         detachAllGestureRecognizers()
         viewForTracking = nil
         invalidateTimer(viewabilityTimer)
