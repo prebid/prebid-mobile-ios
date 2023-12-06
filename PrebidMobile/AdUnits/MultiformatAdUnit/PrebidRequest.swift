@@ -28,6 +28,7 @@ public class PrebidRequest: NSObject {
     private(set) var isRewarded = false
     
     private(set) var gpid: String?
+    private(set) var ortbObject: [String: Any]?
     
     // MARK: - Private properties
     
@@ -51,6 +52,12 @@ public class PrebidRequest: NSObject {
     
     public func setGPID(_ gpid: String?) {
         self.gpid = gpid
+    }
+    
+    // MARK: ORTBObject
+    
+    public func setRequestOrtbObject(_ ortbObject: [String: Any]?) {
+        self.ortbObject = ortbObject
     }
     
     // MARK: - adunit ext data aka inventory data (imp[].ext.data)

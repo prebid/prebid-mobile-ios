@@ -79,6 +79,10 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
     
     public var gpid: String?
+    
+    public var ortbObject: [String: Any]?
+    
+    public var WTF: String?
 
     // MARK: - Public Methods
     

@@ -98,6 +98,7 @@
     _extData = jsonDictionary[@"ext"][@"data"];
     _extKeywords = jsonDictionary[@"ext"][@"keywords"];
     _extGPID = jsonDictionary[@"ext"][@"gpid"];
+    //_extOrtbObject = 
     
     return self;
 }
@@ -130,6 +131,8 @@
         ret[@"gpid"] = self.extGPID;
     }
     
+    //what to do with self.extOrtbObject
+
     return [ret pbmCopyWithoutEmptyVals];
 }
 
