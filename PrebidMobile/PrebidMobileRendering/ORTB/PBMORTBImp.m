@@ -98,7 +98,8 @@
     _extData = jsonDictionary[@"ext"][@"data"];
     _extKeywords = jsonDictionary[@"ext"][@"keywords"];
     _extGPID = jsonDictionary[@"ext"][@"gpid"];
-    //_extOrtbObject = 
+    //take all key values stored in ext because they will be filtered before sending
+    _extOrtbObject = jsonDictionary[@"ext"];
     
     return self;
 }
@@ -131,8 +132,12 @@
         ret[@"gpid"] = self.extGPID;
     }
     
-    //what to do with self.extOrtbObject
-
+    //loop through extra fields and add arbitrary ones but don't override the previously provided ones
+    //leave this loop at the end (or beginning) of this method so we don't duplicate fields and override provided ones
+    for (id key in self.extOrtbObject)
+        if ([ret objectForKey:key] == nil)
+            [ret setObject:[self.extOrtbObject objectForKey:key] forKey: key];
+            
     return [ret pbmCopyWithoutEmptyVals];
 }
 
