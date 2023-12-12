@@ -784,6 +784,21 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual(imp.extGPID, gpid)
         }
     }
+    
+    func testArbitraryORTBParams() {
+        let gpid = "/12345/home_screen#identifier"
+        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
+        adUnit.setGPID(gpid)
+        adUnit.setOrtbObject(["param1": "param1", "param2": 1, "param3": true] as [String : Any])
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        for imp in bidRequest.imp {
+            XCTAssertEqual(imp.extGPID, gpid)
+            XCTAssertEqual((imp.extOrtbObject)?["param1"] as? String, "param1")
+            XCTAssertEqual((imp.extOrtbObject)?["param2"] as? Int, 1)
+            XCTAssertEqual((imp.extOrtbObject)?["param3"] as? Bool, true)
+        }
+    }
 
     // MARK: - Helpers
     

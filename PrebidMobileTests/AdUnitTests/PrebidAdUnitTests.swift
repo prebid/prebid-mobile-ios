@@ -402,4 +402,40 @@ class PrebidAdUnitTests: XCTestCase {
         
         waitForExpectations(timeout: 5, handler: nil)
     }
+    
+    func testAdUnitConfiguration_arbitraryParams() {
+        let expectation = expectation(description: "\(#function)")
+        expectation.expectedFulfillmentCount = 2
+        
+        let gpid = "/12345/home_screen#identifier"
+        let arbitraryParams = ["param1": "param1", "param2": 1, "param3": true] as [String : Any]
+        var adUnit = PrebidAdUnit(configId: "test-config-id")
+        
+        let request = PrebidRequest(bannerParameters: BannerParameters())
+        request.setGPID(gpid)
+        request.setRequestOrtbObject(arbitraryParams)
+        
+        // fetchDemand(request:completion)
+        adUnit.fetchDemand(request: request) { _ in
+            expectation.fulfill()
+            XCTAssertEqual(adUnit.getConfiguration().gpid, gpid)
+            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param1"] as? String, "param1")
+            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param2"] as? Int, 1)
+            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param3"] as? Bool, true)
+        }
+        
+        let testObject: AnyObject = () as AnyObject
+        adUnit = PrebidAdUnit(configId: "test-config-id")
+        
+        // fetchDemand(adObject:request:completion)
+        adUnit.fetchDemand(adObject: testObject, request: request) { _ in
+            expectation.fulfill()
+            XCTAssertEqual(adUnit.getConfiguration().gpid, gpid)
+            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param1"] as? String, "param1")
+            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param2"] as? Int, 1)
+            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param3"] as? Bool, true)
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+    }
 }

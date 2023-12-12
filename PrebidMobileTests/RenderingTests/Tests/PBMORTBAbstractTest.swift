@@ -306,6 +306,17 @@ class PBMORTBAbstractTest : XCTestCase {
         codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\"},\"instl\":0,\"secure\":0}")
     }
     
+    func testImpExtArbitraryORTBParams() {
+        let gpid = "/12345/home_screen#identifier"
+        
+        let imp = PBMORTBImp()
+        imp.extGPID = gpid
+        let swiftDictionary = ["param1": "param1", "param2": 1, "param3": true] as [String : Any]
+        imp.extOrtbObject = NSMutableDictionary(dictionary: swiftDictionary)
+        
+        codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\",\"param1\":\"param1\",\"param2\":1,\"param3\":true},\"instl\":0,\"secure\":0}")
+    }
+    
     func testBannerToJsonString() {
         let pbmORTBBanner = PBMORTBBanner()
         pbmORTBBanner.pos = 1                   //Above the fold
