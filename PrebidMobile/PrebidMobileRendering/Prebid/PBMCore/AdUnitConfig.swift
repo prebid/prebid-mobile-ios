@@ -82,8 +82,6 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var ortbObject: [String: Any]?
     
-    public var WTF: String?
-
     // MARK: - Public Methods
     
     public convenience init(configId: String) {
