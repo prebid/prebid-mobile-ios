@@ -80,7 +80,9 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var gpid: String?
     
-    public var ortbObject: [String: Any]?
+    public var impExtORTBObject: [String: Any]?
+    
+    public var impORTBObject: [String: Any]?
     
     // MARK: - Public Methods
     

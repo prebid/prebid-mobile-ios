@@ -178,7 +178,8 @@
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
         nextImp.extGPID = self.adConfiguration.gpid;
-        nextImp.extOrtbObject = self.adConfiguration.ortbObject;
+        nextImp.impExtORTBObject = self.adConfiguration.impExtORTBObject;
+        nextImp.impORTBObject = self.adConfiguration.impORTBObject;
         
         if ([self.adConfiguration getExtData].count > 0) {
             nextImp.extData = [self.adConfiguration getExtData].mutableCopy;

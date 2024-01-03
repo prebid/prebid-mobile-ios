@@ -387,14 +387,24 @@ public class AdUnit: NSObject, DispatcherDelegate {
         return adUnitConfig.gpid
     }
     
-    // MARK: ORTBObject
-    
-    public func setOrtbObject(_ ortbObject: [String : Any]?) {
-        adUnitConfig.ortbObject = ortbObject
+    // MARK: IMP ORTBObject
+    public func setImpORTBObject(_ ortbObject: [String : Any]?) {
+        adUnitConfig.impORTBObject = ortbObject
     }
     
-    public func getOrtbObject() -> [String : Any]? {
-        return adUnitConfig.ortbObject
+    public func getImpORTBObject() -> [String : Any]? {
+        return adUnitConfig.impORTBObject
+    }
+    
+    
+    // MARK: IMP EXT ORTBObject
+    
+    public func setImpExtORTBObject(_ ortbObject: [String : Any]?) {
+        adUnitConfig.impExtORTBObject = ortbObject
+    }
+    
+    public func getImpExtORTBObject() -> [String : Any]? {
+        return adUnitConfig.impExtORTBObject
     }
     
     // MARK: - others

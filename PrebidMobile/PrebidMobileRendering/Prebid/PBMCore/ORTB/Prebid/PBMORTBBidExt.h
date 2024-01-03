@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadn;
 
+@property (nonatomic, copy, nullable) NSMutableDictionary *ortbObject;
+
+
 // This part is dedicating to test server-side ad configurations.
 // Need to be removed when ext.prebid.passthrough will be available.
 #if DEBUG

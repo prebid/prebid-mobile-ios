@@ -408,20 +408,25 @@ class PrebidAdUnitTests: XCTestCase {
         expectation.expectedFulfillmentCount = 2
         
         let gpid = "/12345/home_screen#identifier"
-        let arbitraryParams = ["param1": "param1", "param2": 1, "param3": true] as [String : Any]
+        let impArbitraryParams = ["impparam1": "impparam1", "impparam2": 2, "impparam3": false] as [String : Any]
+        let extArbitraryParams = ["param1": "param1", "param2": 1, "param3": true] as [String : Any]
         var adUnit = PrebidAdUnit(configId: "test-config-id")
         
         let request = PrebidRequest(bannerParameters: BannerParameters())
         request.setGPID(gpid)
-        request.setRequestOrtbObject(arbitraryParams)
+        request.setRequestImpOrtbObject(impArbitraryParams)
+        request.setRequestImpExtOrtbObject(extArbitraryParams)
         
         // fetchDemand(request:completion)
         adUnit.fetchDemand(request: request) { _ in
             expectation.fulfill()
             XCTAssertEqual(adUnit.getConfiguration().gpid, gpid)
-            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param1"] as? String, "param1")
-            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param2"] as? Int, 1)
-            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param3"] as? Bool, true)
+            XCTAssertEqual((adUnit.getConfiguration().impORTBObject)?["impparam1"] as? String, "impparam1")
+            XCTAssertEqual((adUnit.getConfiguration().impORTBObject)?["impparam2"] as? Int, 2)
+            XCTAssertEqual((adUnit.getConfiguration().impORTBObject)?["impparam3"] as? Bool, false)
+            XCTAssertEqual((adUnit.getConfiguration().impExtORTBObject)?["param1"] as? String, "param1")
+            XCTAssertEqual((adUnit.getConfiguration().impExtORTBObject)?["param2"] as? Int, 1)
+            XCTAssertEqual((adUnit.getConfiguration().impExtORTBObject)?["param3"] as? Bool, true)
         }
         
         let testObject: AnyObject = () as AnyObject
@@ -431,9 +436,9 @@ class PrebidAdUnitTests: XCTestCase {
         adUnit.fetchDemand(adObject: testObject, request: request) { _ in
             expectation.fulfill()
             XCTAssertEqual(adUnit.getConfiguration().gpid, gpid)
-            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param1"] as? String, "param1")
-            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param2"] as? Int, 1)
-            XCTAssertEqual((adUnit.getConfiguration().ortbObject)?["param3"] as? Bool, true)
+            XCTAssertEqual((adUnit.getConfiguration().impExtORTBObject)?["param1"] as? String, "param1")
+            XCTAssertEqual((adUnit.getConfiguration().impExtORTBObject)?["param2"] as? Int, 1)
+            XCTAssertEqual((adUnit.getConfiguration().impExtORTBObject)?["param3"] as? Bool, true)
         }
         
         waitForExpectations(timeout: 5, handler: nil)
