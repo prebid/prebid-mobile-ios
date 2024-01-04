@@ -21,7 +21,7 @@ fileprivate let errorMessage = "MockedRequest.toJsonString error"
 
 // MARK: - Mock
 
-class MockedRequest : {
+class MockedRequest : PBMORTBBidRequest {
     
     override func toJsonString() throws -> String {
         throw PBMError.error(message: errorMessage, type: .internalError)

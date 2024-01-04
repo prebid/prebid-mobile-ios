@@ -166,7 +166,7 @@ class PBMORTBTest: XCTestCase {
             "hb_cache_id": "32541b8f-5d49-446d-ae26-18629273a6fe",
         ]
         prebid.type = "banner"
-
+        
         ext.prebid = prebid
         ext.bidder = [
             "ad_ox_cats": [
