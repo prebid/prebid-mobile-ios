@@ -28,7 +28,7 @@ public class PrebidRequest: NSObject {
     private(set) var isRewarded = false
     
     private(set) var gpid: String?
-    
+        
     // MARK: - Private properties
     
     private var extData = [String: Set<String>]()
