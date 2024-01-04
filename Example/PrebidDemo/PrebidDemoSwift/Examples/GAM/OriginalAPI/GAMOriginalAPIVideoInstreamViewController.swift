@@ -18,8 +18,8 @@ import PrebidMobile
 import GoogleInteractiveMediaAds
 
 fileprivate let videoContentURL = "https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
-fileprivate let storedImpVideo = "prebid-demo-video-interstitial-320-480"
-fileprivate let gamAdUnitVideo = "/21808260008/prebid_oxb_interstitial_video"
+fileprivate let storedImpVideo = "prebid-demo-video-interstitial-320-480-original-api"
+fileprivate let gamAdUnitVideo = "/21808260008/prebid_demo_app_instream"
 
 class GAMOriginalAPIVideoInstreamViewController:
     InstreamBaseViewController,
@@ -89,7 +89,7 @@ class GAMOriginalAPIVideoInstreamViewController:
     
     func createAd() {
         // 1. Create InstreamVideoAdUnit
-        adUnit = InstreamVideoAdUnit(configId: storedImpVideo, size: CGSize(width: 1,height: 1))
+        adUnit = InstreamVideoAdUnit(configId: storedImpVideo, size: CGSize(width: 640, height: 480))
         
         // 2. Configure Video Parameters
         let parameters = VideoParameters(mimes: ["video/mp4"])
@@ -108,7 +108,7 @@ class GAMOriginalAPIVideoInstreamViewController:
                 do {
                     
                     // 5. Generate GAM Instream URI
-                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: gamAdUnitVideo, adSlotSizes: [.Size320x480], customKeywords: prebidKeys!)
+                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: gamAdUnitVideo, adSlotSizes: [.Size640x480], customKeywords: prebidKeys!)
                     
                     // 6. Load IMA ad request
                     let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.instreamView, viewController: self)

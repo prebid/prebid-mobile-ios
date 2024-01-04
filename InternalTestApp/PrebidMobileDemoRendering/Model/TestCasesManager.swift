@@ -522,8 +522,8 @@ struct TestCaseManager {
                          
                 let instreamController = PrebidOriginalAPIVideoInstreamViewController(rootController: adapterVC)
                 instreamController.videoContentURL = "https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
-                instreamController.prebidConfigId = "prebid-ita-video-interstitial-320-480"
-                instreamController.gamAdUnitVideo = "/21808260008/prebid_oxb_interstitial_video"
+                instreamController.prebidConfigId = "prebid-demo-video-interstitial-320-480-original-api"
+                instreamController.gamAdUnitVideo = "/21808260008/prebid_demo_app_instream"
                          
                 adapterVC.setup(adapter: instreamController)
                 setupCustomParams(for: instreamController.prebidConfigId)

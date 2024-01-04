@@ -19,8 +19,8 @@
 @import PrebidMobile;
 
 NSString * const videoContentURL = @"https://storage.googleapis.com/gvabox/media/samples/stock.mp4";
-NSString * const storedImpVideo = @"prebid-demo-video-interstitial-320-480";
-NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
+NSString * const storedImpVideo = @"prebid-demo-video-interstitial-320-480-original-api";
+NSString * const gamAdUnitVideo = @"/21808260008/prebid_demo_app_instream";
 
 @interface GAMOriginalAPIVideoInstreamViewController ()
 
@@ -90,7 +90,7 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
 
 - (void)createAd {
     // 1. Create InstreamVideoAdUnit
-    self.adUnit = [[InstreamVideoAdUnit alloc] initWithConfigId:storedImpVideo size:self.adSize];
+    self.adUnit = [[InstreamVideoAdUnit alloc] initWithConfigId:storedImpVideo size:CGSizeMake(640, 480)];
     
     // 2. Configure Video Parameters
     VideoParameters * parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
@@ -112,7 +112,7 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_oxb_interstitial_video";
             @try
             {
                 // 5. Generate GAM Instream URI
-                NSString * adServerTag = [IMAUtils.shared generateInstreamUriForGAMWithAdUnitID:gamAdUnitVideo adSlotSizes:@[IMAAdSlotSize.Size320x480] customKeywords:prebidKeys error:nil];
+                NSString * adServerTag = [IMAUtils.shared generateInstreamUriForGAMWithAdUnitID:gamAdUnitVideo adSlotSizes:@[IMAAdSlotSize.Size640x480] customKeywords:prebidKeys error:nil];
                 
                 // 6. Load IMA ad request
                 IMAAdDisplayContainer * adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.instreamView viewController:self];
