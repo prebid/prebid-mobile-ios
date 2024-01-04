@@ -785,6 +785,18 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
     }
     
+    func testGlobalArbitraryORTBParams() {
+        let gpid = "/12345/home_screen#identifier"
+        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
+        adUnit.setGPID(gpid)
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        for imp in bidRequest.imp {
+            XCTAssertEqual(imp.extGPID, gpid)
+        }
+    }
+    
     func testArbitraryORTBParams() {
         let gpid = "/12345/home_screen#identifier"
         let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
