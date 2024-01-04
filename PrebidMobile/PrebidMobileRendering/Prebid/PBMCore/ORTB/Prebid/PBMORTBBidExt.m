@@ -41,9 +41,7 @@
     if (skadnDict) {
         _skadn = [[PBMORTBBidExtSkadn alloc] initWithJsonDictionary:skadnDict];
     }
-    
-    _ortbObject = jsonDictionary;
-    
+        
     #if DEBUG
     NSArray * const passthroughDics = jsonDictionary[@"passthrough"];
     _passthrough = nil;
@@ -70,12 +68,6 @@
     ret[@"bidder"] = self.bidder;
     ret[@"prebid"] = [self.prebid toJsonDictionary];
     ret[@"skadn"] = [self.skadn toJsonDictionary];
-    
-    //loop through extra fields and add arbitrary ones but don't override the previously provided ones
-    //leave this loop at the end of this method so we don't duplicate fields and override provided ones
-    for (id key in self.ortbObject)
-        if ([ret objectForKey:key] == nil)
-            [ret setObject:[self.ortbObject objectForKey:key] forKey: key];
     
     #if DEBUG
     NSMutableArray * const passthroughDicArr = [[NSMutableArray alloc] initWithCapacity:self.passthrough.count];

@@ -60,9 +60,6 @@
     
     //loop through extra fields and add arbitrary ones but don't override the previously provided ones
     //leave this loop at the end of this method so we don't duplicate fields and override provided ones
-    for (id key in self.impORTBObject)
-        if ([ret objectForKey:key] == nil)
-            [ret setObject:[self.impORTBObject objectForKey:key] forKey: key];
     
     ret = [ret pbmCopyWithoutEmptyVals];
     
@@ -104,11 +101,7 @@
     _extData = jsonDictionary[@"ext"][@"data"];
     _extKeywords = jsonDictionary[@"ext"][@"keywords"];
     _extGPID = jsonDictionary[@"ext"][@"gpid"];
-    //take all key values stored in ext because they will be filtered before sending
-    _impExtORTBObject = jsonDictionary[@"ext"];
-    
-    _impORTBObject = jsonDictionary;
-    
+        
     return self;
 }
 
@@ -139,12 +132,6 @@
     if (self.extGPID) {
         ret[@"gpid"] = self.extGPID;
     }
-    
-    //loop through extra fields and add arbitrary ones but don't override the previously provided ones
-    //leave this loop at the end of this method so we don't duplicate fields and override provided ones
-    for (id key in self.impExtORTBObject)
-        if ([ret objectForKey:key] == nil)
-            [ret setObject:[self.impExtORTBObject objectForKey:key] forKey: key];
             
     return [ret pbmCopyWithoutEmptyVals];
 }

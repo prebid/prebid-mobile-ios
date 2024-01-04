@@ -28,9 +28,7 @@ public class PrebidRequest: NSObject {
     private(set) var isRewarded = false
     
     private(set) var gpid: String?
-    private(set) var impORTBObject: [String: Any]?
-    private(set) var impExtORTBObject: [String: Any]?
-    
+
     // MARK: - Private properties
     
     private var extData = [String: Set<String>]()
@@ -53,24 +51,6 @@ public class PrebidRequest: NSObject {
     
     public func setGPID(_ gpid: String?) {
         self.gpid = gpid
-    }
-    
-    // MARK: IMP ORTBObject
-    
-    /**
-        For Arbitrary parameters in the imp level
-     */
-    public func setRequestImpOrtbObject(_ ortbObject: [String: Any]?) {
-        self.impORTBObject = ortbObject
-    }
-    
-    // MARK: IMP EXT ORTBObject
-    
-    /**
-        For Arbitrary parameters in the ext level under imp
-     */
-    public func setRequestImpExtOrtbObject(_ ortbObject: [String: Any]?) {
-        self.impExtORTBObject = ortbObject
     }
     
     // MARK: - adunit ext data aka inventory data (imp[].ext.data)

@@ -174,6 +174,11 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBBidRequest.test = 2
         
         codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"test\":2,\"tmax\":2000}")
+        
+        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "imp": [["clickbrowser": 1, "ext": ["dlp":2]]] as [[String : Any]], "tmax": 3000]
+        
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":2}}],\"test\":2,\"tmax\":3000}")
+        
     }
     
     func testBidRequestExtPrebidToJsonString() {
@@ -304,17 +309,6 @@ class PBMORTBAbstractTest : XCTestCase {
         imp.extGPID = gpid
         
         codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\"},\"instl\":0,\"secure\":0}")
-    }
-    
-    func testImpExtArbitraryORTBParams() {
-        let gpid = "/12345/home_screen#identifier"
-        
-        let imp = PBMORTBImp()
-        imp.extGPID = gpid
-        imp.impORTBObject = ["impparam1": "impparam1", "impparam2": 2, "impparam3": false, "secure": 1] as [String : Any]
-        imp.impExtORTBObject = ["param1": "param1", "param2": 1, "param3": true] as [String : Any]
-        
-        codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\",\"param1\":\"param1\",\"param2\":1,\"param3\":true},\"impparam1\":\"impparam1\",\"impparam2\":2,\"impparam3\":false,\"instl\":0,\"secure\":0}")
     }
     
     func testBannerToJsonString() {

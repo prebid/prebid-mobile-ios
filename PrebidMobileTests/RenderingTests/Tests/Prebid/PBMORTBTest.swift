@@ -166,7 +166,6 @@ class PBMORTBTest: XCTestCase {
             "hb_cache_id": "32541b8f-5d49-446d-ae26-18629273a6fe",
         ]
         prebid.type = "banner"
-        ext.ortbObject = ["arbitraryParam1": "param1", "arbitraryParam2": 1, "arbitraryParam3": true] as [String : Any]
         ext.prebid = prebid
         ext.bidder = [
             "ad_ox_cats": [
@@ -183,7 +182,7 @@ class PBMORTBTest: XCTestCase {
             "next_highest_bid_price": 0.099,
         ]
         
-        codeAndDecode(abstract: ext, expectedString: "{\"arbitraryParam1\":\"param1\",\"arbitraryParam2\":1,\"arbitraryParam3\":true,\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099000000000000005},\"prebid\":{\"cache\":{\"bids\":{\"cacheId\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"url\":\"prebid.devint.openx.net\\/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe\"},\"key\":\"kkk\",\"url\":\"some\\/url\"},\"targeting\":{\"hb_bidder\":\"openx\",\"hb_cache_host\":\"prebid.devint.openx.net\",\"hb_cache_id\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"hb_cache_path\":\"\\/cache\"},\"type\":\"banner\"}}")
+        codeAndDecode(abstract: ext, expectedString: "{\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099000000000000005},\"prebid\":{\"cache\":{\"bids\":{\"cacheId\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"url\":\"prebid.devint.openx.net\\/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe\"},\"key\":\"kkk\",\"url\":\"some\\/url\"},\"targeting\":{\"hb_bidder\":\"openx\",\"hb_cache_host\":\"prebid.devint.openx.net\",\"hb_cache_id\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"hb_cache_path\":\"\\/cache\"},\"type\":\"banner\"}}")
     }
     
     func testBidResponseExt() {
