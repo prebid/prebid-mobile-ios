@@ -41,7 +41,7 @@
     if (skadnDict) {
         _skadn = [[PBMORTBBidExtSkadn alloc] initWithJsonDictionary:skadnDict];
     }
-        
+    
     #if DEBUG
     NSArray * const passthroughDics = jsonDictionary[@"passthrough"];
     _passthrough = nil;
@@ -79,8 +79,6 @@
         ret[@"passthrough"] = passthroughDicArr;
     }
     #endif
-    
-    
     
     [ret pbmRemoveEmptyVals];
     

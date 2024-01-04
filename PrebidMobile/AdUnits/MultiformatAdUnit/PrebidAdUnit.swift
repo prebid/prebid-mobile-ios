@@ -128,6 +128,7 @@ public class PrebidAdUnit: NSObject {
         }
         
         adUnit.adUnitConfig.gpid = request.gpid
+        
         adUnit.adUnitConfig.setExtData(request.getExtData())
         adUnit.adUnitConfig.setExtKeywords(request.getExtKeywords())
         adUnit.adUnitConfig.setAppContent(request.getAppContent())
