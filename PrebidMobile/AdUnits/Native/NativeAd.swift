@@ -27,7 +27,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     // MARK: - Internal properties
     
     private static let nativeAdIABShouldBeViewableForTrackingDuration = 1.0
-    private static let nativeAdCheckViewabilityForTrackingFrequency: Double = 0.25
+    private static let nativeAdCheckViewabilityForTrackingFrequency = 0.25
     
     //NativeAd Expire
     private var expired = false
@@ -212,7 +212,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         
         Log.debug("\n\trequiredAmountOfSimultaneousViewableEvents=\(requiredAmountOfSimultaneousViewableEvents) \n\ttargetViewabilityValue=\(targetViewabilityValue)")
         
-        viewabilityTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(NativeAd.nativeAdCheckViewabilityForTrackingFrequency), repeats: true) { [weak self] timer in
+        viewabilityTimer = Timer.scheduledTimer(withTimeInterval: NativeAd.nativeAdCheckViewabilityForTrackingFrequency, repeats: true) { [weak self] timer in
             guard let strongSelf = self else {
                 timer.invalidate()
                 Log.debug("FAILED TO ACQUIRE strongSelf viewabilityTimer")
