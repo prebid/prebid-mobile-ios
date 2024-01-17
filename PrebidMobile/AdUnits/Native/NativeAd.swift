@@ -176,10 +176,14 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             Log.error("The native Ad is expired, cannot use it for tracking")
             return false
         }
-        viewForTracking = view
-        setupViewabilityTracker()
-        attachGestureRecognizersToNativeView(nativeView: view, withClickableViews: clickableViews)
-        return true
+        if (viewForTracking != nil || impressionHasBeenTracked) {
+            return false
+        } else {
+            viewForTracking = view
+            setupViewabilityTracker()
+            attachGestureRecognizersToNativeView(nativeView: view, withClickableViews: clickableViews)
+            return true
+        }
     }
     
     private func unregisterViewFromTracking() {
@@ -219,6 +223,9 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
                 return
             }
             strongSelf.checkViewability()
+            if (strongSelf.viewForTracking == nil) {
+                timer.invalidate()
+            }
         }
     }
     
