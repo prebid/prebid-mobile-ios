@@ -39,7 +39,7 @@ extension UIView {
         }
         
         let screenRect = UIScreen.main.bounds
-        let normalizedSelfRect = convert(screenRect, to: nil)
+        let normalizedSelfRect = convert(self.bounds, to: nil)
         let intersection = screenRect.intersection(normalizedSelfRect)
         if intersection.equalTo(.null) {
             return false
