@@ -79,7 +79,12 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
     
     public var gpid: String?
+    
+    public var globalOrtbObject: [String: Any]?
+    
+    public var impOrtbObject: [String: Any]?
 
+    
     // MARK: - Public Methods
     
     public convenience init(configId: String) {

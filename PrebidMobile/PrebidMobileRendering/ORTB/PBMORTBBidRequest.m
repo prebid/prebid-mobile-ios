@@ -68,6 +68,9 @@
     ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
     ret[@"ext"] = [[ext pbmCopyWithoutEmptyVals] nullIfEmpty];
     
+    for (id key in self.ortbObject)
+        [ret setObject:[self.ortbObject objectForKey:key] forKey: key];
+    
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;
@@ -97,6 +100,8 @@
     _source = [[PBMORTBSource alloc] initWithJsonDictionary:jsonDictionary[@"source"]];
     
     _extPrebid = [[PBMORTBBidRequestExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"] ?: @{}];
+    
+    _ortbObject = jsonDictionary;
     
     return self;
 }
