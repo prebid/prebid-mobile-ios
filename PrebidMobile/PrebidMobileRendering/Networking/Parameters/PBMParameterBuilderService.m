@@ -45,6 +45,7 @@
 }
 
 + (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders {
+    //build
     return [self buildParamsDictWithAdConfiguration:adConfiguration
                                              bundle:NSBundle.mainBundle
                                  pbmLocationManager:PBMLocationManager.shared
@@ -71,6 +72,7 @@
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders{
   
     PBMORTBBidRequest *bidRequest = [PBMParameterBuilderService createORTBBidRequestWithTargeting:targeting];
+    bidRequest.ortbObject = adConfiguration.ortbConfig;
     NSMutableArray<id<PBMParameterBuilder> > * const parameterBuilders = [[NSMutableArray alloc] init];
     [parameterBuilders addObjectsFromArray:@[
         [[PBMBasicParameterBuilder alloc] initWithAdConfiguration:adConfiguration
@@ -109,7 +111,7 @@
     bidRequest.user.buyeruid    = targeting.buyerUID;
     bidRequest.user.customdata  = targeting.userCustomData;
     bidRequest.user.userid      = targeting.userID;
-   
+    
     if (targeting.userExt) {
         bidRequest.user.ext = [targeting.userExt mutableCopy];
     }

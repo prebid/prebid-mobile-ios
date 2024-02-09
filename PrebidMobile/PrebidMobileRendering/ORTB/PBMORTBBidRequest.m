@@ -68,9 +68,58 @@
     ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
     ret[@"ext"] = [[ext pbmCopyWithoutEmptyVals] nullIfEmpty];
     
-    for (id key in self.ortbObject)
-        [ret setObject:[self.ortbObject objectForKey:key] forKey: key];
+    //remove "protected" fields from ortbObject then do a merge but merge ret into the ortbObject (addEntriesFromDictionary)
+    NSMutableDictionary *o = [self.arbitraryJsonConfig mutableCopy];
+    if (o[@"regs"]) {
+        o[@"regs"] = nil;
+    }
+    if (o[@"device"]) {
+        o[@"device"] = nil;
+    }
+    if (o[@"geo"]) {
+        o[@"geo"] = nil;
+    }
+    //merge with config from API/JSON
+    ret = [self mergeDictionaries: ret joiningArgument2: o joiningArgument3: false];
     
+    NSMutableDictionary *o2 = [self.ortbObject mutableCopy];
+    
+    if (o2[@"regs"]) {
+        o2[@"regs"] = nil;
+    }
+    if (o2[@"device"]) {
+        o2[@"device"] = nil;
+    }
+    if (o2[@"geo"]) {
+        o[@"geo"] = nil;
+    }
+    //merge with ortbConfig from SDK
+    ret = [self mergeDictionaries: ret joiningArgument2: o2 joiningArgument3: true];
+    
+    ret = [ret pbmCopyWithoutEmptyVals];
+    
+    return ret;
+}
+
+- (nonnull PBMMutableJsonDictionary *)mergeDictionaries:(NSMutableDictionary*)dictionary1 joiningArgument2:(NSMutableDictionary*)dictionary2
+                                       joiningArgument3:(Boolean)firstHasPriority{
+    PBMMutableJsonDictionary *ret = dictionary1;
+
+    for (id key in dictionary2)
+        if ([ret objectForKey: key]){
+            if ([[ret objectForKey: key] isKindOfClass: [NSDictionary class]]) {
+                //if is dictionary, need to call this method recursively for ret object for key and dictionary2 for key
+                [ret setObject:[self mergeDictionaries:[ret objectForKey: key] joiningArgument2: [dictionary2 objectForKey: key] joiningArgument3:firstHasPriority] forKey: key];
+            } else {
+                if (!firstHasPriority) {
+                    [ret setObject:[dictionary2 objectForKey: key] forKey:key];
+                }
+            }
+            //not sure what to do if array of objects
+        } else {
+            [ret setObject:[dictionary2 objectForKey:key] forKey: key];
+        }
+        
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;
@@ -101,7 +150,7 @@
     
     _extPrebid = [[PBMORTBBidRequestExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"] ?: @{}];
     
-    _ortbObject = jsonDictionary;
+    _arbitraryJsonConfig = jsonDictionary;
     
     return self;
 }

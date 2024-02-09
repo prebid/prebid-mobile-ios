@@ -24,7 +24,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     var adSizes: [CGSize] {
         get { [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? []) }
     }
-    
+        
     private static let PB_MIN_RefreshTime = 30000.0
     
     private(set) var dispatcher: Dispatcher?
@@ -389,22 +389,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     // MARK: Global ORTBObject
     
-    public func setGlobalOrtbObject(_ ortbObject: [String: Any]?) {
-        adUnitConfig.globalOrtbObject = ortbObject
+    public func setOrtbConfig(_ ortbObject: [String: Any]?) {
+        adUnitConfig.ortbConfig = ortbObject
     }
     
-    public func getGlobalOrtbObject() -> [String: Any]? {
-        return adUnitConfig.globalOrtbObject
-    }
-    
-    // MARK: imp-level ORTBObject
-    
-    public func setImpOrtbObject(_ ortbObject: [String: Any]?) {
-        adUnitConfig.impOrtbObject = ortbObject
-    }
-    
-    public func getImpOrtbObject() -> [String: Any]? {
-        return adUnitConfig.impOrtbObject
+    public func getOrtbConfig() -> [String: Any]? {
+        return adUnitConfig.ortbConfig
     }
     
     // MARK: - others

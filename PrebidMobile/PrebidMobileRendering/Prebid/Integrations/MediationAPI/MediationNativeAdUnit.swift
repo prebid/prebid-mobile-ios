@@ -79,6 +79,15 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.ext = ext
     }
     
+    public func getOrtbConfig() -> [String: Any]? {
+        return nativeAdUnit.getOrtbConfig()
+    }
+    
+    public func setOrtbConfig(_ ortbConfig: [String: Any]?) {
+        nativeAdUnit.setOrtbConfig(ortbConfig)
+    }
+    
+    
     // MARK: - App Content (app.content.data)
     
     public func setAppContent(_ appContent: PBMORTBAppContent) {

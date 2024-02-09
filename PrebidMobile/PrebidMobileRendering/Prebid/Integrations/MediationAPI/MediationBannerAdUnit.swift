@@ -70,6 +70,11 @@ public class MediationBannerAdUnit : NSObject {
         set { adUnitConfig.additionalSizes = newValue }
     }
     
+    public var ortbConfig: [String: Any]? {
+        get { adUnitConfig.ortbConfig }
+        set { adUnitConfig.ortbConfig = newValue }
+    }
+    
     // MARK: - Ext Data (imp[].ext.data)
     
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")

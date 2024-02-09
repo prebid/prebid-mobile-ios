@@ -58,11 +58,6 @@
     
     ret[@"ext"] = [[self extDictionary] nullIfEmpty];
     
-    //loop through extra fields and add arbitrary ones but don't override the previously provided ones
-    //leave this loop at the end of this method so we don't duplicate fields and override provided ones
-    for (id key in self.ortbObject)
-        [ret setObject:[self.ortbObject objectForKey:key] forKey: key];
-    
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;
@@ -103,8 +98,6 @@
     _extData = jsonDictionary[@"ext"][@"data"];
     _extKeywords = jsonDictionary[@"ext"][@"keywords"];
     _extGPID = jsonDictionary[@"ext"][@"gpid"];
-    
-    _ortbObject = jsonDictionary;
     
     return self;
 }

@@ -113,9 +113,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *extKeywords;
 @property (nonatomic, strong, nullable) NSString *extGPID;
 
-@property (nonatomic, strong, nullable) NSDictionary<NSString *, id> *ortbObject;
-
-
 - (instancetype)init;
 
 @end

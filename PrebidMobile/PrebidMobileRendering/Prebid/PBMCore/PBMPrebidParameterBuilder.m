@@ -73,7 +73,6 @@
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
-    bidRequest.ortbObject = self.adConfiguration.globalOrtbObject;
     
     if (Prebid.shared.useCacheForReportingWithRenderingAPI) {
         PBMMutableJsonDictionary * const cache = [PBMMutableJsonDictionary new];
@@ -179,7 +178,6 @@
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
         nextImp.extGPID = self.adConfiguration.gpid;
-        nextImp.ortbObject = self.adConfiguration.impOrtbObject;
         
         if ([self.adConfiguration getExtData].count > 0) {
             nextImp.extData = [self.adConfiguration getExtData].mutableCopy;

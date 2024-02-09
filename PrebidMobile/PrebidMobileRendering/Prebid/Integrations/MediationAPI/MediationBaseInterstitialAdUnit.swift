@@ -45,6 +45,11 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition = newValue }
     }
     
+    public var ortbConfig: [String: Any]? {
+        get { adUnitConfig.ortbConfig }
+        set { adUnitConfig.ortbConfig = newValue }
+    }
+    
     let adUnitConfig: AdUnitConfig
     
     public var configId: String {

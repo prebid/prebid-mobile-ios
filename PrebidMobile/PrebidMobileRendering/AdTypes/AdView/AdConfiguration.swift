@@ -122,7 +122,10 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     public var clickHandlerOverride: ((PBMVoidBlock) -> Void)?
     
+    public var ortbConfig: [String: Any]?
+    
     // MARK: Private properties
     
     private var _autoRefreshDelay: TimeInterval? = PBMAutoRefresh.AUTO_REFRESH_DELAY_DEFAULT
+    
 }

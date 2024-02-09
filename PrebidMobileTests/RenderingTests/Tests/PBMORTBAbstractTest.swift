@@ -175,9 +175,9 @@ class PBMORTBAbstractTest : XCTestCase {
         
         codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"test\":2,\"tmax\":2000}")
         
-        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000]
+        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000, "id": "1231234", "imp": ["hi": "hello"]]
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"test\":2,\"tmax\":3000}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"test\":2,\"tmax\":2000}")
         
     }
     

@@ -29,6 +29,8 @@ public class PrebidRequest: NSObject {
     
     private(set) var gpid: String?
     
+    private(set) var ortbConfig: [String: Any]?
+    
     // MARK: - Private properties
     
     private var extData = [String: Set<String>]()
