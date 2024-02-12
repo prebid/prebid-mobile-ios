@@ -101,7 +101,6 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         }
         
         request.httpMethod = HTTPMethodPOST
-        request.httpBody = data
         request.timeoutInterval = timeout
         request.setValue(contentType, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
