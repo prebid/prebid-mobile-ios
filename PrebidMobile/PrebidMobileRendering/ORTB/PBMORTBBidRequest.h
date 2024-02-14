@@ -135,6 +135,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) PBMORTBBidRequestExtPrebid *extPrebid;
 
+@property (nonatomic, strong, nullable) NSDictionary<NSString *, id> *arbitraryJsonConfig;
+
+@property (nonatomic, strong, nullable) NSString *ortbObject;
+
 - (instancetype)init;
 
 @end

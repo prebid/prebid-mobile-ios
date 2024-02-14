@@ -125,4 +125,12 @@ public class AdConfiguration: AutoRefreshCountConfig {
     // MARK: Private properties
     
     private var _autoRefreshDelay: TimeInterval? = PBMAutoRefresh.AUTO_REFRESH_DELAY_DEFAULT
+    
+    public var ortbConfig: String?
+    
+    func getCheckedOrtbConfig() -> [String: Any]? {
+        
+        return [:]
+    }
+    
 }

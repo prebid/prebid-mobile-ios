@@ -67,7 +67,63 @@
     PBMMutableJsonDictionary * const ext = [PBMMutableJsonDictionary new];
     ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
     ret[@"ext"] = [[ext pbmCopyWithoutEmptyVals] nullIfEmpty];
+
+    //remove "protected" fields from ortbObject then do a merge but merge ret into the ortbObject (addEntriesFromDictionary)
+    NSMutableDictionary *arbitraryServerConfig = [self.arbitraryJsonConfig mutableCopy];
     
+    if (arbitraryServerConfig[@"regs"]) {
+        arbitraryServerConfig[@"regs"] = nil;
+    }
+    if (arbitraryServerConfig[@"device"]) {
+        arbitraryServerConfig[@"device"] = nil;
+    }
+    if (arbitraryServerConfig[@"geo"]) {
+        arbitraryServerConfig[@"geo"] = nil;
+    }
+    //merge with config from API/JSON
+    ret = [self mergeDictionaries: ret joiningArgument2: arbitraryServerConfig joiningArgument3: false];
+    
+    NSMutableDictionary *o2 = [self.ortbObject mutableCopy];
+    
+    if (o2[@"regs"]) {
+        o2[@"regs"] = nil;
+    }
+    if (o2[@"device"]) {
+        o2[@"device"] = nil;
+    }
+    if (o2[@"geo"]) {
+        o2[@"geo"] = nil;
+    }
+    //merge with ortbConfig from SDK
+    ret = [self mergeDictionaries: ret joiningArgument2: o2 joiningArgument3: true];
+    
+    ret = [ret pbmCopyWithoutEmptyVals];
+    
+    return ret;
+}
+
+- (nonnull PBMMutableJsonDictionary *)mergeDictionaries:(NSMutableDictionary*)dictionary1 joiningArgument2:(NSMutableDictionary*)dictionary2
+                                       joiningArgument3:(Boolean)firstHasPriority{
+    PBMMutableJsonDictionary *ret = dictionary1;
+
+    for (id key in dictionary2)
+        if ([ret objectForKey: key]){
+            if ([[ret objectForKey: key] isKindOfClass: [NSDictionary class]]) {
+                //if is dictionary, need to call this method recursively for ret object for key and dictionary2 for key
+                [ret setObject:[self mergeDictionaries:[ret objectForKey: key] joiningArgument2: [dictionary2 objectForKey: key] joiningArgument3:firstHasPriority] forKey: key];
+            } else if ([[ret objectForKey: key] isKindOfClass: [NSArray class]] && [[dictionary2 objectForKey: key] isKindOfClass: [NSArray class]]) {
+                //merge arrays
+                NSArray *mergedArray = [[ret objectForKey: key] arrayByAddingObjectsFromArray: [dictionary2 objectForKey: key]];
+                //remove duplicates and set
+                [ret setObject:[mergedArray valueForKeyPath:@"@distinctUnionOfObjects.self"] forKey:key];
+            } else {
+                if (!firstHasPriority) {
+                    [ret setObject:[dictionary2 objectForKey: key] forKey:key];
+                }
+            }
+        } else {
+            [ret setObject:[dictionary2 objectForKey:key] forKey: key];
+        }
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;

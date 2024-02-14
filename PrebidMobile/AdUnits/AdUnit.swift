@@ -387,6 +387,16 @@ public class AdUnit: NSObject, DispatcherDelegate {
         return adUnitConfig.gpid
     }
     
+    // MARK: Global ORTBObject
+    
+    public func setOrtbConfig(_ ortbObject: String?) {
+        adUnitConfig.ortbConfig = ortbObject
+    }
+    
+    public func getOrtbConfig() -> String? {
+        return adUnitConfig.ortbConfig
+    }
+    
     // MARK: - others
     
     /**

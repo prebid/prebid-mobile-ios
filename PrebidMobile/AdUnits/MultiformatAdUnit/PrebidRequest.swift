@@ -28,6 +28,7 @@ public class PrebidRequest: NSObject {
     private(set) var isRewarded = false
     
     private(set) var gpid: String?
+    private(set) var ortbConfig: String?
     
     // MARK: - Private properties
     

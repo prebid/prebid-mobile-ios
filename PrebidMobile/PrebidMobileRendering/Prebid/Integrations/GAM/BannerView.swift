@@ -64,6 +64,11 @@ public class BannerView: UIView,
         set { adUnitConfig.adPosition = newValue }
     }
     
+    @objc public var ortbConfig: String? {
+        get { adUnitConfig.ortbConfig }
+        set { adUnitConfig.ortbConfig = newValue }
+    }
+
     @objc public weak var delegate: BannerViewDelegate?
     
     // MARK: Readonly storage
