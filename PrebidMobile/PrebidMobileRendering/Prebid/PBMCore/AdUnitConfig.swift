@@ -84,15 +84,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         get {adConfiguration.ortbConfig}
         set {adConfiguration.ortbConfig = newValue}
     }
-    
-//    if let unwrappedNewValue = newValue {
-//        if (JSONSerialization.isValidJSONObject(unwrappedNewValue.data(using: String.Encoding.utf8) as Any)) {
-//            adConfiguration.ortbConfig = unwrappedNewValue
-//        } else {
-//            Log.warn("The provided ortbConfig object is not valid JSON and therefore will be ignored.")
-//        }
-//    }
-    
+
     // MARK: - Public Methods
     
     public convenience init(configId: String) {

@@ -52,9 +52,19 @@
     for (PBMORTBImp *imp in self.imp) {
         [impressions addObject:[imp toJsonDictionary]];
     }
+    //set impressions and ext beforehand so they are not overridden by arbitrary params from API/JSON
+    ret[@"imp"] = impressions;
+    PBMMutableJsonDictionary * const ext = [PBMMutableJsonDictionary new];
+    ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
+    ret[@"ext"] = [[ext pbmCopyWithoutEmptyVals] nullIfEmpty];
+
+    //remove "protected" fields from ortbObject then do a merge but merge ret into the ortbObject (addEntriesFromDictionary)
+    NSMutableDictionary *arbitraryServerConfig = [self.arbitraryJsonConfig mutableCopy];
+    
+    //merge with config from API/JSON with priority from server
+    ret = [self mergeDictionaries: ret joiningArgument2: arbitraryServerConfig joiningArgument3: false];
     
     ret[@"id"] = self.requestID;
-    ret[@"imp"] = impressions;
     
     ret[@"app"] = [[self.app toJsonDictionary] nullIfEmpty];
     ret[@"device"] = [[self.device toJsonDictionary] nullIfEmpty];
@@ -64,38 +74,30 @@
     ret[@"regs"] = [[self.regs toJsonDictionary] nullIfEmpty];
     ret[@"source"] = [[self.source toJsonDictionary] nullIfEmpty];
     
-    PBMMutableJsonDictionary * const ext = [PBMMutableJsonDictionary new];
-    ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
-    ret[@"ext"] = [[ext pbmCopyWithoutEmptyVals] nullIfEmpty];
-
-    //remove "protected" fields from ortbObject then do a merge but merge ret into the ortbObject (addEntriesFromDictionary)
-    NSMutableDictionary *arbitraryServerConfig = [self.arbitraryJsonConfig mutableCopy];
+    NSMutableDictionary *ortbObj = [self.ortbObject mutableCopy];
     
-    if (arbitraryServerConfig[@"regs"]) {
-        arbitraryServerConfig[@"regs"] = nil;
+    //remove fields that are not meant to be overridden
+    if (ortbObj[@"regs"]) {
+        ortbObj[@"regs"] = nil;
     }
-    if (arbitraryServerConfig[@"device"]) {
-        arbitraryServerConfig[@"device"] = nil;
+    if (ortbObj[@"device"]) {
+        ortbObj[@"device"] = nil;
     }
-    if (arbitraryServerConfig[@"geo"]) {
-        arbitraryServerConfig[@"geo"] = nil;
+    if (ortbObj[@"geo"]) {
+        ortbObj[@"geo"] = nil;
     }
-    //merge with config from API/JSON
-    ret = [self mergeDictionaries: ret joiningArgument2: arbitraryServerConfig joiningArgument3: false];
+    if (ortbObj[@"ext"][@"gdpr"]) {
+        ortbObj[@"ext"][@"gdpr"] = nil;
+    }
+    if (ortbObj[@"ext"][@"us_privacy"]) {
+        ortbObj[@"ext"][@"us_privacy"] = nil;
+    }
+    if (ortbObj[@"ext"][@"consent"]) {
+        ortbObj[@"ext"][@"consent"] = nil;
+    }
     
-    NSMutableDictionary *o2 = [self.ortbObject mutableCopy];
-    
-    if (o2[@"regs"]) {
-        o2[@"regs"] = nil;
-    }
-    if (o2[@"device"]) {
-        o2[@"device"] = nil;
-    }
-    if (o2[@"geo"]) {
-        o2[@"geo"] = nil;
-    }
-    //merge with ortbConfig from SDK
-    ret = [self mergeDictionaries: ret joiningArgument2: o2 joiningArgument3: true];
+    //merge with ortbConfig from SDK with priority away from SDK
+    ret = [self mergeDictionaries: ret joiningArgument2: ortbObj joiningArgument3: true];
     
     ret = [ret pbmCopyWithoutEmptyVals];
     

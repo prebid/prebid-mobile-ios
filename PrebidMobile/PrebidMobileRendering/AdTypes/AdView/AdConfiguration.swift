@@ -128,8 +128,17 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     public var ortbConfig: String?
     
-    func getCheckedOrtbConfig() -> [String: Any]? {
-        
+    public func getCheckedOrtbConfig() -> [String: Any]? {
+        //return ortbConfig in dictionary form after checking if it's valid json
+        if let jsonString = ortbConfig {
+            if let data = jsonString.data(using: .utf8) {
+                do {
+                    return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                } catch {
+                    Log.warn("The provided ortbConfig object is not valid JSON and will be ignored.")
+                }
+            }
+        }
         return [:]
     }
     
