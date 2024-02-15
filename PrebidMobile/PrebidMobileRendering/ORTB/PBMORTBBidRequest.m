@@ -62,7 +62,7 @@
     NSMutableDictionary *arbitraryServerConfig = [self.arbitraryJsonConfig mutableCopy];
     
     //merge with config from API/JSON with priority from server
-    ret = [self mergeDictionaries: ret joiningArgument2: arbitraryServerConfig joiningArgument3: false];
+    ret = [self mergeDictionaries: ret joiningArgument2: arbitraryServerConfig joiningArgument3: true];
     
     ret[@"id"] = self.requestID;
     
@@ -97,7 +97,7 @@
     }
     
     //merge with ortbConfig from SDK with priority away from SDK
-    ret = [self mergeDictionaries: ret joiningArgument2: ortbObj joiningArgument3: true];
+    ret = [self mergeDictionaries: ret joiningArgument2: ortbObj joiningArgument3: false];
     
     ret = [ret pbmCopyWithoutEmptyVals];
     
@@ -117,7 +117,7 @@
                 //merge arrays
                 NSArray *mergedArray = [[ret objectForKey: key] arrayByAddingObjectsFromArray: [dictionary2 objectForKey: key]];
                 //remove duplicates and set
-                [ret setObject:[mergedArray valueForKeyPath:@"@distinctUnionOfObjects.self"] forKey:key];
+                [ret setObject:mergedArray forKey:key];
             } else {
                 if (!firstHasPriority) {
                     [ret setObject:[dictionary2 objectForKey: key] forKey:key];
