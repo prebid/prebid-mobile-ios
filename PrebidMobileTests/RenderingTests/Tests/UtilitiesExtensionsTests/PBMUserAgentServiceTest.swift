@@ -26,10 +26,10 @@ class PBMUserAgentServiceTest: XCTestCase {
         expectationUserAgentExecuted = expectation(description: "expectationUserAgentExecuted")
         
         let userAgentService = PBMUserAgentService.shared
-        
+        let userAgentString = userAgentService.getFullUserAgent()
+
         // Waiting for JS userAgent execute asynchronously
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let userAgentString = userAgentService.getFullUserAgent()
             
             //Should start with a useragent from the Web View
             XCTAssert(userAgentString.PBMdoesMatch("^Mozilla"))

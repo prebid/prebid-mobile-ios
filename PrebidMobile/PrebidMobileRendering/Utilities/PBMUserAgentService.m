@@ -86,7 +86,7 @@
 
 - (void)setUserAgentInThread:(id<PBMNSThreadProtocol>)thread {
     if (!thread.isMainThread) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             [self setUserAgent];
         });
         return;
@@ -95,21 +95,9 @@
 }
 
 - (void)generateUserAgent {
-    @weakify(self);
-    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
-        @strongify(self);
-        if (!self) { return; }
-        
-        if (error) {
-            PBMLogError(@"%@", error);
-        }
-        else if (result) {
-            NSString *resultString = [NSString stringWithFormat:@"%@", result];
-            self.userAgent = (resultString) ? resultString : @"";
-        }
-        
-        self.webView = nil;
-    }];
+    UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    NSString *resultString = [NSString stringWithFormat:@"%@", [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]];
+    self.userAgent = (resultString) ? resultString : @"";
 }
 
 @end
