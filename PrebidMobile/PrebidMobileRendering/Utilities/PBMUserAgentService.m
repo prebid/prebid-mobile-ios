@@ -30,7 +30,7 @@
 
 @interface PBMUserAgentService()
 
-@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, copy) NSString *userAgent;
 @property (nonatomic, copy) NSString *sdkVersion;
 
@@ -75,7 +75,7 @@
 
 - (WKWebView *)webView {
     if (!_webView) {
-        _webView = [UIWebView new];
+        _webView = [WKWebView new];
     }
     return _webView;
 }
@@ -95,10 +95,9 @@
 }
 
 - (void)generateUserAgent {
-    _webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-    NSString *resultString = [NSString stringWithFormat:@"%@", [_webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]];
-    self.userAgent = (resultString) ? resultString : @"";
-    _webView = nil;
+    self.userAgent = [self.webView valueForKey:@"userAgent"];
+    self.userAgent = (self.userAgent) ? self.userAgent : @"";
+    self.webView = nil;
 }
 
 @end
