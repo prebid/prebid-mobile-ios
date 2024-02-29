@@ -156,6 +156,8 @@
     
     _extPrebid = [[PBMORTBBidRequestExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"] ?: @{}];
     
+    _arbitraryJsonConfig = jsonDictionary;
+    
     return self;
 }
 
