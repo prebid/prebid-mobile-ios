@@ -79,6 +79,11 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
     
     public var gpid: String?
+    
+    public var ortbConfig: String? {
+        get {adConfiguration.ortbConfig}
+        set {adConfiguration.ortbConfig = newValue}
+    }
 
     // MARK: - Public Methods
     

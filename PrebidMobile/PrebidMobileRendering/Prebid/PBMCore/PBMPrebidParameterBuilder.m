@@ -73,6 +73,7 @@
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
+    bidRequest.ortbObject = [self.adConfiguration.adConfiguration getCheckedOrtbConfig];
     
     if (Prebid.shared.useCacheForReportingWithRenderingAPI) {
         PBMMutableJsonDictionary * const cache = [PBMMutableJsonDictionary new];
