@@ -33,6 +33,8 @@
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, copy) NSString *userAgent;
 @property (nonatomic, copy) NSString *sdkVersion;
+@property dispatch_semaphore_t uaSemaphore;
+
 
 @end
 
@@ -60,6 +62,7 @@
         self.sdkVersion = [PBMFunctions sdkVersion];
         PBMAssert(self.sdkVersion);
         self.userAgent = @"";
+        self.uaSemaphore = dispatch_semaphore_create(0);
         [self setUserAgent];
     }
     return self;
@@ -68,6 +71,12 @@
 #pragma mark - Public Methods
 
 - (nonnull NSString *)getFullUserAgent {
+    if (self.webView != nil) {
+        while (dispatch_semaphore_wait(self.uaSemaphore, DISPATCH_TIME_NOW)) {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                     beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+        }
+    }
     return [NSString stringWithFormat:@"%@", self.userAgent];
 }
 
@@ -92,12 +101,27 @@
         return;
     }
     [self generateUserAgent];
+
 }
 
 - (void)generateUserAgent {
-    self.userAgent = [self.webView valueForKey:@"userAgent"];
-    self.userAgent = (self.userAgent) ? self.userAgent : @"";
-    self.webView = nil;
+    @weakify(self);
+    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+        @strongify(self);
+        if (!self) {
+            return;
+        }
+        
+        if (error) {
+            PBMLogError(@"%@", error);
+        }
+        else if (result) {
+            NSString *resultString = [NSString stringWithFormat:@"%@", result];
+            self.userAgent = (resultString) ? resultString : @"";
+        }
+        dispatch_semaphore_signal(self.uaSemaphore);
+        self.webView = nil;
+    }];
 }
 
 @end
