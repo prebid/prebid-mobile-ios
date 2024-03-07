@@ -66,6 +66,11 @@ public class BannerView: UIView,
     
     @objc public weak var delegate: BannerViewDelegate?
     
+    /// Subscribe to plugin renderer events
+    @objc public func setPluginEventDelegate(_ pluginEventDelegate: PluginEventDelegate) {
+        PrebidMobilePluginRegister.shared.registerEventDelegate(pluginEventDelegate, adUnitConfigFingerprint: adUnitConfig.fingerprint)
+    }
+    
     // MARK: Readonly storage
     
     var autoRefreshManager: PBMAutoRefreshManager?

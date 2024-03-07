@@ -108,4 +108,8 @@ public class Bid: NSObject {
         adm = macrosHelper.replaceMacros(in: bid.adm)
         nurl = macrosHelper.replaceMacros(in: bid.nurl)
     }
+    
+    public func getPreferredPluginRendererName() -> String? {
+        return targetingInfo?[PrebidMobilePluginRegister.PLUGIN_RENDERER_KEY]
+    }
 }

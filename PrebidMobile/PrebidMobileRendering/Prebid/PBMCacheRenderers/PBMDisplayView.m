@@ -44,6 +44,9 @@
 
 @property (nonatomic, strong, readonly, nonnull) PBMInterstitialDisplayProperties *interstitialDisplayProperties;
 
+@property (nonatomic, strong, nullable) id<PrebidMobilePluginRenderer> renderer;
+
+
 @end
 
 
@@ -70,9 +73,24 @@
         return;
     }
     
+    self.renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:self.bid];
+    
     self.adConfiguration.adConfiguration.winningBidAdFormat = self.bid.adFormat;
     
     @weakify(self);
+    [self.renderer setupBid:self.bid
+              adConfiguration:self.adConfiguration
+                   connection:self.connection ?: PrebidServerConnection.shared
+                     callback:^(PBMTransaction * _Nullable transaction,
+                                NSError * _Nullable error) {
+        @strongify(self);
+        if (error) {
+            [self reportFailureWithError:error];
+        } else {
+            //[self reportSuccess];
+        }
+    }];
+    
     self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
                                                          adConfiguration:self.adConfiguration
                                                               connection:self.connection ?: PrebidServerConnection.shared

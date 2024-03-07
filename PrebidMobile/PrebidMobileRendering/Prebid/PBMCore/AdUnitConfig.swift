@@ -54,6 +54,8 @@ public class AdUnitConfig: NSObject, NSCopying {
         set { sizes = newValue }
     }
     
+    let fingerprint = UUID().uuidString
+    
     var _refreshInterval: TimeInterval = refreshIntervalDefault
     public var refreshInterval: TimeInterval {
         get { _refreshInterval }
