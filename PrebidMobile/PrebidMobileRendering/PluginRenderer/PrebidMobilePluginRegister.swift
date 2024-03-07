@@ -82,27 +82,12 @@ import Foundation
     
     /// Register event delegate
     @objc public func registerEventDelegate(_ pluginEventDelegate: PluginEventDelegate, adUnitConfigFingerprint: String) {
-        queue.sync {
+        queue.async(flags: .barrier) { [plugins] in
             plugins
                 .values
                 .forEach {
                     $0.registerEventDelegate?(pluginEventDelegate: pluginEventDelegate, adUnitConfigFingerprint: adUnitConfigFingerprint)
                 }
-        }
-        guard let name = pluginEventDelegate.pluginRendererName else {
-            Log.debug("Skipping PluginEventDelegate: pluginRendererName not implemented")
-            return
-        }
-        guard let plugin = get(for: name) else {
-            Log.debug("Skipping PluginEventDelegate with name \(name), such key does not exist")
-            return
-        }
-        queue.async(flags: .barrier) { [plugin] in
-            guard let registerEventDelegate = plugin.registerEventDelegate else {
-                Log.debug("Plugin \(plugin.name) does not implement registerEventDelegate")
-                return
-            }
-            registerEventDelegate(pluginEventDelegate, adUnitConfigFingerprint)
         }
     }
 }
@@ -113,4 +98,3 @@ import Foundation
 /// 2 PBM: bid request: build bid request / create renderers array for request getRTBListOfRenderers()
 /// 3 PBM response: PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid)
 /// 4 PBM load ad: pluginRenderer.loadAd() -> play ad --> NO RESIZE
-/// 5
