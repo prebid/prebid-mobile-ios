@@ -62,7 +62,6 @@
         self.sdkVersion = [PBMFunctions sdkVersion];
         PBMAssert(self.sdkVersion);
         self.userAgent = @"";
-        self.uaSemaphore = dispatch_semaphore_create(0);
         [self setUserAgent];
     }
     return self;
@@ -71,7 +70,8 @@
 #pragma mark - Public Methods
 
 - (nonnull NSString *)getFullUserAgent {
-    if (self.webView != nil) {
+    if (self.userAgent == nil) {
+        self.uaSemaphore = dispatch_semaphore_create(0);
         while (dispatch_semaphore_wait(self.uaSemaphore, DISPATCH_TIME_NOW)) {
             [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
                                      beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
@@ -109,7 +109,6 @@
     [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
         @strongify(self);
         if (!self) {
-            dispatch_semaphore_signal(self.uaSemaphore);
             return;
         }
         
@@ -120,7 +119,9 @@
             NSString *resultString = [NSString stringWithFormat:@"%@", result];
             self.userAgent = (resultString) ? resultString : @"";
         }
-        dispatch_semaphore_signal(self.uaSemaphore);
+        if (self.uaSemaphore != nil) {
+            dispatch_semaphore_signal(self.uaSemaphore);
+        }
         self.webView = nil;
     }];
 }
