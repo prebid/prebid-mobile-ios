@@ -109,6 +109,7 @@
     [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
         @strongify(self);
         if (!self) {
+            dispatch_semaphore_signal(self.uaSemaphore);
             return;
         }
         
