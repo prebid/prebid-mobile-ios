@@ -190,6 +190,26 @@ class PBMORTBAbstractTest : XCTestCase {
         codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"ext\":{\"prebid\":{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
     }
     
+    func testBidRequestWithOrtbObjectToJsonString() {
+        let pbmORTBBidRequest = PBMORTBBidRequest()
+        let uuid = UUID().uuidString
+        pbmORTBBidRequest.requestID = uuid
+        pbmORTBBidRequest.tmax = 2000
+        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000, "id": "1231234"]
+        
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"1231234\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":3000}")
+    }
+    
+    func testBidRequestWithOrtbObjectOverridingReservedToJsonString() {
+        let pbmORTBBidRequest = PBMORTBBidRequest()
+        let uuid = UUID().uuidString
+        pbmORTBBidRequest.requestID = uuid
+        pbmORTBBidRequest.tmax = 2000
+        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000, "id": "1231234", "device": "myTestDevice", "geo": "mylatlong", "regs": ["reg1":"reg2"]]
+        
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"1231234\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":3000}")
+    }
+    
     func testSourceToJsonString() {
         let pbmORTBSource = PBMORTBSource()
         
@@ -295,6 +315,15 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBImp.extPrebid = extPrebid
         
         codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
+    }
+    
+    func testImpExtGPID() {
+        let gpid = "/12345/home_screen#identifier"
+        
+        let imp = PBMORTBImp()
+        imp.extGPID = gpid
+        
+        codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\"},\"instl\":0,\"secure\":0}")
     }
     
     func testBannerToJsonString() {
@@ -580,7 +609,7 @@ class PBMORTBAbstractTest : XCTestCase {
         
         do {
             //Make a copy of the object
-            let newCodable = abstract.copy() as! PBMORTBAbstract
+            let newCodable = abstract as PBMORTBAbstract
             
             //Convert it to json
             let newJsonString = try newCodable.toJsonString()

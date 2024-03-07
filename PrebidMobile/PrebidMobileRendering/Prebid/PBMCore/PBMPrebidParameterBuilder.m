@@ -73,6 +73,7 @@
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
+    bidRequest.ortbObject = [self.adConfiguration.adConfiguration getCheckedOrtbConfig];
     
     if (Prebid.shared.useCacheForReportingWithRenderingAPI) {
         PBMMutableJsonDictionary * const cache = [PBMMutableJsonDictionary new];
@@ -177,6 +178,7 @@
         nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
+        nextImp.extGPID = self.adConfiguration.gpid;
         
         if ([self.adConfiguration getExtData].count > 0) {
             nextImp.extData = [self.adConfiguration getExtData].mutableCopy;
@@ -272,7 +274,7 @@
                 if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);
                 }
-            } else if (adFormat == AdFormat.native && adFormats.count == 1) {
+            } else if (adFormat == AdFormat.native) {
                 PBMORTBNative * const nextNative = nextImp.native;
                 nextNative.request = [self.adConfiguration.nativeAdConfiguration.markupRequestObject toJsonStringWithError:nil];
                 NSString * const ver = self.adConfiguration.nativeAdConfiguration.version;

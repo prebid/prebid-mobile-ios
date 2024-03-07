@@ -26,7 +26,7 @@ class AdUnitTests: XCTestCase {
 
     func testFetchDemand() {
         //given
-        let exception = expectation(description: "\(#function)")
+        let expectation = expectation(description: "\(#function)")
         let testObject: AnyObject = () as AnyObject
         var resultCode: ResultCode?
         
@@ -38,7 +38,7 @@ class AdUnitTests: XCTestCase {
         //when
         adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
             resultCode = code
-            exception.fulfill()
+            expectation.fulfill()
         }
         
         waitForExpectations(timeout: 5, handler: nil)
@@ -50,20 +50,24 @@ class AdUnitTests: XCTestCase {
     
     func testFetchDemandBids() {
         //given
-        let exception = expectation(description: "\(#function)")
+        let expectation = expectation(description: "\(#function)")
         var codeResult: ResultCode?
         var kvDictResult: [String:String]?
         
         let expected = ResultCode.prebidDemandFetchSuccess
+        let expectedKVDictionary = ["key1" : "value1"]
         let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        
         AdUnitSwizzleHelper.testScenario = expected
+        AdUnitSwizzleHelper.targetingKeywords = expectedKVDictionary
+        
         AdUnitSwizzleHelper.toggleFetchDemand()
         
         //when
         adUnit.fetchDemand() { (code: ResultCode, kvDict: [String:String]?) in
             codeResult = code
             kvDictResult = kvDict
-            exception.fulfill()
+            expectation.fulfill()
         }
         
         waitForExpectations(timeout: 5, handler: nil)
@@ -72,7 +76,75 @@ class AdUnitTests: XCTestCase {
         //then
         XCTAssertEqual(expected, codeResult)
         XCTAssertEqual(1, kvDictResult!.count)
-        XCTAssertEqual("value1", kvDictResult!["key1"])
+        XCTAssertTrue(NSDictionary(dictionary: kvDictResult!).isEqual(to: expectedKVDictionary))
+    }
+    
+    func testFetchDemandBidInfo() {
+        //given
+        let expectation = expectation(description: "\(#function)")
+        
+        var realBidInfo: BidInfo?
+        
+        let expected = ResultCode.prebidDemandFetchSuccess
+        let expectedKVDictionary = ["key1" : "value1"]
+        let expectedExp = 5.0
+        let expectedCacheId = UUID().uuidString
+        
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        
+        AdUnitSwizzleHelper.testScenario = expected
+        AdUnitSwizzleHelper.targetingKeywords = expectedKVDictionary
+        AdUnitSwizzleHelper.exp = expectedExp
+        AdUnitSwizzleHelper.nativeAdCacheId = expectedCacheId
+        
+        AdUnitSwizzleHelper.toggleFetchDemand()
+        
+        //when
+        adUnit.fetchDemand { bidInfo in
+            expectation.fulfill()
+            realBidInfo = bidInfo
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        AdUnitSwizzleHelper.toggleFetchDemand()
+        
+        //then
+        XCTAssertEqual(realBidInfo?.resultCode, expected)
+        XCTAssertEqual(realBidInfo?.targetingKeywords, expectedKVDictionary)
+        XCTAssertEqual(realBidInfo?.exp, expectedExp)
+        XCTAssertEqual(realBidInfo?.nativeAdCacheId, expectedCacheId)
+    }
+    
+    func testBidInfoCompletion() {
+        Prebid.shared.prebidServerAccountId = "test-account-id"
+        
+        defer {
+            Prebid.shared.prebidServerAccountId = ""
+        }
+        
+        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") as PrebidMobile.JsonDictionary? else {
+            XCTFail("Couldn't load `sample_ortb_native_with_win_event.json` file.")
+            return
+        }
+        
+        let bidRequester = MockPBMBidRequester(jsonDictionary: json)
+        let adUnit = AdUnit(bidRequester: bidRequester, configId: "test-config-id", size: CGSize.zero, adFormats: [])
+        
+        let expectation = expectation(description: "Fetch demand completed.")
+        adUnit.baseFetchDemand { bidInfo in
+            expectation.fulfill()
+            
+            XCTAssertEqual(bidInfo.resultCode, .prebidDemandFetchSuccess)
+            
+            XCTAssertNotNil(bidInfo.targetingKeywords)
+            XCTAssertNotNil(bidInfo.exp)
+            XCTAssertNotNil(bidInfo.nativeAdCacheId)
+            XCTAssertNotNil(bidInfo.events[BidInfo.EVENT_WIN], "There is no win event in bid response.")
+            XCTAssertNotNil(bidInfo.events[BidInfo.EVENT_IMP], "There is no imp event in bid response.")
+            XCTAssertFalse(bidInfo.events.isEmpty)
+        }
+        
+        waitForExpectations(timeout: 30.0)
     }
     
     func testFetchDemandAutoRefresh() {

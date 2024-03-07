@@ -81,6 +81,10 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
         setDefaultConstraints(imageView: mainImage, maxSize: CGSize(width: 728, height: 72))
     }
     
+    func removeFromSuperview() {
+        contentView.removeFromSuperview()
+    }
+    
     private func setDefaultConstraints(imageView: UIImageView, maxSize: CGSize) {
         setDefaultConstraints(view: imageView, maxSize: maxSize)
         imageView.contentMode = .scaleAspectFit

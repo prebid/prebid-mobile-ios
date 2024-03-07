@@ -32,7 +32,8 @@ public class CacheManager: NSObject {
     private override init() {
         super.init()
     }
-    
+
+    private let lock = NSLock()
     internal var savedValuesDict = [String : String]()
     private(set) var delegates = [CacheExpiryDelegateWrapper]()
     
@@ -40,9 +41,17 @@ public class CacheManager: NSObject {
         if content.isEmpty {
             return nil
         } else {
+            lock.lock()
+            defer {
+                lock.unlock()
+            }
             let cacheId = "Prebid_" + UUID().uuidString
             self.savedValuesDict[cacheId] = content
             DispatchQueue.main.asyncAfter(deadline: .now() + expireInterval, execute: {
+                self.lock.lock()
+                defer {
+                    self.lock.unlock()
+                }
                 self.savedValuesDict.removeValue(forKey: cacheId)
                 
                 if let delegate = self.delegates.filter({ $0.id == cacheId }).first {
@@ -55,14 +64,20 @@ public class CacheManager: NSObject {
     }
     
     public func isValid(cacheId: String) -> Bool {
-        return self.savedValuesDict.keys.contains(cacheId)
+        lock.withLock {
+            return self.savedValuesDict.keys.contains(cacheId)
+        }
     }
     
     public func get(cacheId: String) -> String? {
-        return self.savedValuesDict[cacheId]
+        lock.withLock {
+            return self.savedValuesDict[cacheId]
+        }
     }
     
     func setDelegate(delegate: CacheExpiryDelegateWrapper) {
-        delegates.append(delegate)
+        lock.withLock {
+            delegates.append(delegate)
+        }
     }
 }

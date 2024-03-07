@@ -37,6 +37,8 @@ import Foundation
     case prebidSDKMisuse = 8000
     case prebidSDKMisusePreviousFetchNotCompletedYet
     
+    case prebidInvalidRequest
+    
     public func name () -> String {
         switch self {
         
@@ -74,6 +76,8 @@ import Foundation
             return "SDK misuse"
         case .prebidSDKMisusePreviousFetchNotCompletedYet:
             return "SDK misuse, previous fetch has not complete yet"
+        case .prebidInvalidRequest:
+            return "Prebid Request does not contain any parameters"
         }
     }
 }

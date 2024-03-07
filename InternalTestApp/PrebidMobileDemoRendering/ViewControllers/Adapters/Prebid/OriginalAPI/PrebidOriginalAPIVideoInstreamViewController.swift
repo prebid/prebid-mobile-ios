@@ -101,7 +101,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
             name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
             object: contentPlayer?.currentItem)
         
-        adUnit = VideoAdUnit(configId: prebidConfigId, size: CGSize(width: 1, height: 1))
+        adUnit = VideoAdUnit(configId: prebidConfigId, size: CGSize(width: 640, height: 480))
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
@@ -158,7 +158,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
             guard let self = self else { return }
             if resultCode == .prebidDemandFetchSuccess {
                 do {
-                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: self.gamAdUnitVideo, adSlotSizes: [.Size320x480], customKeywords: prebidKeys!)
+                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: self.gamAdUnitVideo, adSlotSizes: [.Size640x480], customKeywords: prebidKeys!)
                     
                     let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.rootController.bannerView, viewController: self.rootController)
                     let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)

@@ -97,6 +97,7 @@
     
     _extData = jsonDictionary[@"ext"][@"data"];
     _extKeywords = jsonDictionary[@"ext"][@"keywords"];
+    _extGPID = jsonDictionary[@"ext"][@"gpid"];
     
     return self;
 }
@@ -123,6 +124,10 @@
     
     if (self.extKeywords && self.extKeywords.length > 0) {
         ret[@"keywords"] = self.extKeywords;
+    }
+    
+    if (self.extGPID) {
+        ret[@"gpid"] = self.extGPID;
     }
     
     return [ret pbmCopyWithoutEmptyVals];

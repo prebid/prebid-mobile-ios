@@ -36,10 +36,8 @@
             return @"Video In-stream";
         case AdFormatNative:
             return @"Native";
-        case AdFormatMultiformatBanner:
-            return @"Multiformat Banner";
-        case AdFormatMultiformatInterstitial:
-            return @"Multiformat Interstitial";
+        case AdFormatMultiformat:
+            return @"Multiformat";
         case AdFormatAll:
             return @"All";
     }

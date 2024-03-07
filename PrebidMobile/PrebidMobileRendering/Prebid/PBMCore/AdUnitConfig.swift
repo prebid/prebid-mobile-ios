@@ -27,7 +27,7 @@ public class AdUnitConfig: NSObject, NSCopying {
        
     public var configId: String
     
-    public let adConfiguration = AdConfiguration();
+    public let adConfiguration = AdConfiguration()
     
     public var adFormats: Set<AdFormat> {
         didSet {
@@ -79,6 +79,13 @@ public class AdUnitConfig: NSObject, NSCopying {
             }
         }
     }
+    
+    public var gpid: String?
+    
+    public var ortbConfig: String? {
+        get {adConfiguration.ortbConfig}
+        set {adConfiguration.ortbConfig = newValue}
+    }
 
     // MARK: - Public Methods
     
@@ -121,6 +128,10 @@ public class AdUnitConfig: NSObject, NSCopying {
     @available(*, deprecated, message: "This method is deprecated. Please, use getExtData method instead.")
     public func getContextData() -> [String: [String]] {
         getExtData()
+    }
+    
+    func setExtData(_ extData: [String: Set<String>]) {
+        extensionData = extData
     }
 
     public func addExtData(key: String, value: String) {
@@ -173,6 +184,10 @@ public class AdUnitConfig: NSObject, NSCopying {
     public func getContextKeywords() -> Set<String> {
         getExtKeywords()
     }
+    
+    func setExtKeywords(_ keywords: Set<String>) {
+        extKeywords = keywords
+    }
 
     public func addExtKeyword(_ newElement: String) {
         extKeywords.insert(newElement)
@@ -196,7 +211,7 @@ public class AdUnitConfig: NSObject, NSCopying {
 
     // MARK: - App Content (app.content.data)
 
-    public func setAppContent(_ appContent: PBMORTBAppContent) {
+    public func setAppContent(_ appContent: PBMORTBAppContent?) {
         self.appContent = appContent
     }
     
@@ -231,6 +246,10 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
     
     // MARK: - User Data (user.data)
+    
+    func setUserData(_ userData: [PBMORTBContentData]?) {
+        self.userData = userData
+    }
         
     public func getUserData() -> [PBMORTBContentData]? {
         return userData

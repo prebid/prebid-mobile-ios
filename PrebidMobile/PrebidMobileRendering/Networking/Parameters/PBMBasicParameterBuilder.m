@@ -128,6 +128,7 @@
     bidRequest.regs.coppa = self.targeting.coppa;
     bidRequest.regs.ext[@"gdpr"] = [self.targeting getSubjectToGDPR];
     bidRequest.regs.gpp = InternalUserConsentDataManager.gppHDRString;
+    bidRequest.ortbObject = [self.adConfiguration getCheckedOrtbConfig];
     
     if (InternalUserConsentDataManager.gppSID.count > 0) {
         bidRequest.regs.gppSID = InternalUserConsentDataManager.gppSID;
@@ -145,7 +146,7 @@
         [self appendVideoParametersForRequest:bidRequest];
     }
     
-    if ([self.adConfiguration.adFormats containsObject:AdFormat.native] && self.adConfiguration.adFormats.count == 1) {
+    if ([self.adConfiguration.adFormats containsObject:AdFormat.native]) {
         [self appendNativeParametersForRequest:bidRequest];
     }
 }

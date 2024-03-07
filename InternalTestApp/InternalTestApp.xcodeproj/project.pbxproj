@@ -41,6 +41,12 @@
 		539F961229DEF20A0061E7A5 /* PrebidOriginalAPIMultiformatInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F961029DEF20A0061E7A5 /* PrebidOriginalAPIMultiformatInterstitialController.swift */; };
 		539F961429DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F961329DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift */; };
 		539F961529DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F961329DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift */; };
+		53A369052AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A369042AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift */; };
+		53A369062AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A369042AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift */; };
+		53A369082AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A369072AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift */; };
+		53A369092AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A369072AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift */; };
+		53A651842AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */; };
+		53A651852AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */; };
 		53ED2FD329798104007D13EE /* LogInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D70F6A24E546DD0048CC78 /* LogInfo.swift */; };
 		53ED2FD429798104007D13EE /* PrebidOriginalAPINativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */; };
 		53ED2FD529798104007D13EE /* AdapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6EB3CC211336D300317ED9 /* AdapterViewController.swift */; };
@@ -379,6 +385,9 @@
 		539F960D29DEF1C40061E7A5 /* PrebidOriginalAPIVideoBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoBannerController.swift; sourceTree = "<group>"; };
 		539F961029DEF20A0061E7A5 /* PrebidOriginalAPIMultiformatInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMultiformatInterstitialController.swift; sourceTree = "<group>"; };
 		539F961329DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoInterstitialController.swift; sourceTree = "<group>"; };
+		53A369042AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMultiformatInAppNativeController.swift; sourceTree = "<group>"; };
+		53A369072AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMultiformatConfigurationController.swift; sourceTree = "<group>"; };
+		53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMultiformatNativeStylesController.swift; sourceTree = "<group>"; };
 		53ED304329798104007D13EE /* InternalTestApp-Skadn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InternalTestApp-Skadn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED305129798DBC007D13EE /* Info-Skadn.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Skadn.plist"; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
@@ -688,7 +697,9 @@
 				5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */,
 				5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */,
 				539F960A29DEF0B90061E7A5 /* PrebidOriginalAPIMultiformatBannerController.swift */,
+				53A369042AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift */,
 				539F961029DEF20A0061E7A5 /* PrebidOriginalAPIMultiformatInterstitialController.swift */,
+				53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */,
 				5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */,
 				5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */,
 				539F960D29DEF1C40061E7A5 /* PrebidOriginalAPIVideoBannerController.swift */,
@@ -796,8 +807,9 @@
 			isa = PBXGroup;
 			children = (
 				5B209B4921075E0A00C0F5CE /* BaseConfigurationController.swift */,
-				5B3EEDB42101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift */,
 				AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */,
+				5B3EEDB42101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift */,
+				53A369072AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift */,
 				34DB0CF8255ED26A00970F9E /* NativeAdConfigEditor */,
 			);
 			path = Configuration;
@@ -1290,7 +1302,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp-Skadn/Pods-InternalTestApp-Skadn-resources.sh",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.11.2/AppLovinSDKResources.bundle",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-12.1.0/AppLovinSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1308,7 +1320,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-resources.sh",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.11.2/AppLovinSDKResources.bundle",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-12.1.0/AppLovinSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1446,7 +1458,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-resources.sh",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.11.2/AppLovinSDKResources.bundle",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-12.1.0/AppLovinSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1527,6 +1539,7 @@
 				53ED2FD429798104007D13EE /* PrebidOriginalAPINativeController.swift in Sources */,
 				53ED2FD529798104007D13EE /* AdapterViewController.swift in Sources */,
 				53ED2FD629798104007D13EE /* TabNavigationController.swift in Sources */,
+				53A651852AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */,
 				53ED2FD729798104007D13EE /* UtilitiesViewController.swift in Sources */,
 				53ED2FD829798104007D13EE /* AdMobNativeAdView.swift in Sources */,
 				53ED2FD929798104007D13EE /* PrebidGAMInterstitialController.swift in Sources */,
@@ -1539,6 +1552,7 @@
 				53ED2FE029798104007D13EE /* UIImageView+Extensions.swift in Sources */,
 				53ED2FE129798104007D13EE /* FeedAdTableViewCell.swift in Sources */,
 				53ED2FE229798104007D13EE /* PrebidNativeAdFeedController.swift in Sources */,
+				53A369062AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift in Sources */,
 				53ED2FE329798104007D13EE /* PrebidOriginalAPIVideoRewardedController.swift in Sources */,
 				53ED2FE429798104007D13EE /* CommandArgsViewController.swift in Sources */,
 				53ED2FE529798104007D13EE /* ProcessArgumentsParser.swift in Sources */,
@@ -1581,6 +1595,7 @@
 				53ED300929798104007D13EE /* NativeAdViewBoxLinks.swift in Sources */,
 				53ED300A29798104007D13EE /* PrebidGAMRewardedController.swift in Sources */,
 				539F961529DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */,
+				53A369092AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */,
 				53ED300B29798104007D13EE /* PrebidMAXInterstitialController.swift in Sources */,
 				53ED300C29798104007D13EE /* DummyTableViewCell.swift in Sources */,
 				53ED300D29798104007D13EE /* AboutViewController.swift in Sources */,
@@ -1618,6 +1633,7 @@
 				5397BD2E2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift in Sources */,
 				5B6EB3CD211336D300317ED9 /* AdapterViewController.swift in Sources */,
 				D551B9712149207500FFF51D /* TabNavigationController.swift in Sources */,
+				53A651842AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */,
 				34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */,
 				92ABD58C279DA7E200AFDFF6 /* AdMobNativeAdView.swift in Sources */,
 				34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */,
@@ -1630,6 +1646,7 @@
 				530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */,
 				5BA4CF632739876200197C62 /* FeedAdTableViewCell.swift in Sources */,
 				92102C7327B11DE1003F12B2 /* PrebidNativeAdFeedController.swift in Sources */,
+				53A369052AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift in Sources */,
 				5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */,
 				ACBBDF852397E10F006D5FE6 /* CommandArgsViewController.swift in Sources */,
 				34215B0F25C4598E00C74A09 /* ProcessArgumentsParser.swift in Sources */,
@@ -1672,6 +1689,7 @@
 				92F9A5D227A15D04007B0B17 /* NativeAdViewBoxLinks.swift in Sources */,
 				34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */,
 				539F961429DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */,
+				53A369082AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */,
 				92221CE12804AF5B005DF671 /* PrebidMAXInterstitialController.swift in Sources */,
 				5B8EB5EF22676914003CC15C /* DummyTableViewCell.swift in Sources */,
 				5B3EEDCB2101D1AF00BAA0C4 /* AboutViewController.swift in Sources */,

@@ -46,6 +46,11 @@ public class BaseInterstitialAdUnit :
         get { adUnitConfig.adFormats }
         set { adUnitConfig.adFormats = newValue }
     }
+    
+    @objc public var ortbConfig: String? {
+        get { adUnitConfig.ortbConfig }
+        set { adUnitConfig.ortbConfig = newValue }
+    }
      
     @objc public var isReady: Bool {
         objc_sync_enter(blocksLockToken)

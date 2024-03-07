@@ -74,6 +74,22 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
         super.init()
     }
     
+    init(nativeParameters: NativeParameters) {
+        assets = nativeParameters.assets
+        eventtrackers = nativeParameters.eventtrackers
+        context = nativeParameters.context
+        contextsubtype = nativeParameters.contextSubType
+        plcmttype = nativeParameters.placementType
+        plcmtcnt = nativeParameters.placementCount
+        seq = nativeParameters.sequence
+        aurlsupport = nativeParameters.asseturlsupport
+        durlsupport = nativeParameters.durlsupport
+        privacy = nativeParameters.privacy
+        ext = nativeParameters.ext
+        
+        super.init()
+    }
+    
     // MARK: - NSCopying
     
     public func copy(with zone: NSZone? = nil) -> Any {

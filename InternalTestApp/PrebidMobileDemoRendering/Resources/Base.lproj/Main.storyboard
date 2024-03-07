@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6M7-3O-9SJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6M7-3O-9SJ">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -63,11 +63,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="tJI-xH-src">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2VA-7U-1vr">
-                                <rect key="frame" x="0.0" y="51" width="375" height="120"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="MDG-Pj-p2p"/>
                                 </constraints>
@@ -76,7 +76,7 @@
                                 </connections>
                             </containerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0bh-By-q91">
-                                <rect key="frame" x="0.0" y="171" width="375" height="496"/>
+                                <rect key="frame" x="0.0" y="176" width="375" height="491"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -113,27 +113,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cUH-0V-2aH">
-                                <rect key="frame" x="16" y="8" width="343" height="32"/>
+                                <rect key="frame" x="16" y="28" width="343" height="32"/>
                                 <segments>
                                     <segment title="First"/>
                                     <segment title="Second"/>
                                 </segments>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="U5N-K1-CMO" userLabel="Integration Control">
-                                <rect key="frame" x="16" y="44" width="343" height="32"/>
+                                <rect key="frame" x="16" y="64" width="343" height="32"/>
                                 <segments>
                                     <segment title="First"/>
                                     <segment title="Second"/>
                                 </segments>
                             </segmentedControl>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yy8-PI-le3" userLabel="GDPR Switch">
-                                <rect key="frame" x="20" y="80" width="51" height="31"/>
+                                <rect key="frame" x="20" y="100" width="51" height="31"/>
                                 <connections>
                                     <action selector="onGdprSwitchActionWithSender:" destination="LVH-wa-RTM" eventType="valueChanged" id="7pl-5t-CLN"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Enable GDPR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qim-PS-zyR" userLabel="GDPR">
-                                <rect key="frame" x="77" y="85" width="80" height="21"/>
+                                <rect key="frame" x="77" y="105" width="80" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FvB-lz-wzY"/>
                                 </constraints>
@@ -142,13 +142,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1rl-dI-lmn" userLabel="Enable Caching Switch">
-                                <rect key="frame" x="167" y="80" width="51" height="31"/>
+                                <rect key="frame" x="167" y="100" width="51" height="31"/>
                                 <connections>
                                     <action selector="onCacheSwitchActionWithSender:" destination="LVH-wa-RTM" eventType="valueChanged" id="d20-Wk-5Ix"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Enable Caching" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kn0-8a-KAE" userLabel="Enable Caching">
-                                <rect key="frame" x="224" y="85" width="94" height="21"/>
+                                <rect key="frame" x="224" y="105" width="94" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="F1e-JL-dJb"/>
                                 </constraints>
@@ -158,7 +158,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AT3-rL-Eal">
-                                <rect key="frame" x="329" y="82" width="30" height="29"/>
+                                <rect key="frame" x="329" y="102" width="30" height="29"/>
                                 <state key="normal" title="⚙"/>
                                 <connections>
                                     <action selector="onConfigureTapped:" destination="LVH-wa-RTM" eventType="touchUpInside" id="eek-70-NuM"/>
@@ -211,7 +211,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2e-vv-3Xu">
-                                <rect key="frame" x="27.5" y="30" width="320" height="50"/>
+                                <rect key="frame" x="27.5" y="50" width="320" height="50"/>
                                 <color key="backgroundColor" red="0.24313725490196078" green="0.72156862745098038" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="PBMAdView">
                                     <accessibilityTraits key="traits" button="YES"/>
@@ -222,7 +222,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fp3-vu-qYo">
-                                <rect key="frame" x="0.0" y="92" width="375" height="575"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RdL-bm-vod">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
@@ -244,7 +244,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="RlU-xd-Vns"/>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rzf-M3-9k5">
-                                <rect key="frame" x="168.5" y="30" width="38" height="30"/>
+                                <rect key="frame" x="168.5" y="50" width="38" height="30"/>
                                 <state key="normal" title="Show"/>
                             </button>
                         </subviews>
@@ -253,7 +253,7 @@
                         <constraints>
                             <constraint firstItem="N2e-vv-3Xu" firstAttribute="centerX" secondItem="x1A-C0-wv7" secondAttribute="centerX" id="0L6-MG-oWi"/>
                             <constraint firstItem="fp3-vu-qYo" firstAttribute="width" secondItem="HJv-no-xfH" secondAttribute="width" id="12H-Xi-26w"/>
-                            <constraint firstItem="fp3-vu-qYo" firstAttribute="top" secondItem="N2e-vv-3Xu" secondAttribute="bottom" constant="12" id="BvA-Lz-qYk"/>
+                            <constraint firstItem="fp3-vu-qYo" firstAttribute="top" secondItem="N2e-vv-3Xu" secondAttribute="bottom" constant="20" id="BvA-Lz-qYk"/>
                             <constraint firstItem="fp3-vu-qYo" firstAttribute="centerX" secondItem="x1A-C0-wv7" secondAttribute="centerX" id="EvC-eh-cUp"/>
                             <constraint firstItem="N2e-vv-3Xu" firstAttribute="top" secondItem="x1A-C0-wv7" secondAttribute="top" constant="30" id="TPI-7S-xJA">
                                 <variation key="heightClass=compact-widthClass=compact" constant="8"/>
@@ -300,7 +300,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="FaW-Uu-mUV">
-                                <rect key="frame" x="37.5" y="35" width="300" height="250"/>
+                                <rect key="frame" x="37.5" y="55" width="300" height="250"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Sl-d4-HYu">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
@@ -338,11 +338,11 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjY-Oy-f8V">
-                                <rect key="frame" x="168.5" y="30" width="38" height="30"/>
+                                <rect key="frame" x="168.5" y="50" width="38" height="30"/>
                                 <state key="normal" title="Show"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="STw-Jf-OKx">
-                                <rect key="frame" x="0.0" y="293" width="375" height="20"/>
+                                <rect key="frame" x="0.0" y="313" width="375" height="20"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="KRU-sg-Qlj">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>

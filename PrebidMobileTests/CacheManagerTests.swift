@@ -17,6 +17,12 @@ import XCTest
 @testable import PrebidMobile
 
 class CacheManagerTests: XCTestCase {
+    
+    override func setUp() {
+        super.setUp()
+        
+        CacheManager.shared.savedValuesDict = [:]
+    }
 
     func testCacheManagerSaveAndGetAPIsWithMultipleRequests() {
         let content1 = "Prebid Native Ad"
@@ -67,5 +73,23 @@ class CacheManagerTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 5.0)
+    }
+
+    func testConcurrency() {
+        let manager = CacheManager.shared
+        for _ in 1 ... 1000 {
+            let expectation = XCTestExpectation(description: "All tasks are done")
+            expectation.expectedFulfillmentCount = 2
+            let concurrentQueue = DispatchQueue(label: "test", attributes: .concurrent)
+            concurrentQueue.async {
+                _ = manager.save(content: UUID().uuidString)
+                expectation.fulfill()
+            }
+            concurrentQueue.async {
+                _ = manager.get(cacheId: "1")
+                expectation.fulfill()
+            }
+            wait(for: [expectation], timeout: 5.0)
+        }
     }
 }
