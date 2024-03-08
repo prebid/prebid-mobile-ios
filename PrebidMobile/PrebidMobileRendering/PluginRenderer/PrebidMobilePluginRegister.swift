@@ -19,7 +19,6 @@ import Foundation
 @objc public class PrebidMobilePluginRegister: NSObject {
     @objc public static let shared = PrebidMobilePluginRegister()
     
-    
     public static let PLUGIN_RENDERER_KEY = "plugin_renderer_key"
     
     private let queue = DispatchQueue(label: "PrebidMobilePluginRegisterQueue", attributes: .concurrent)
@@ -76,7 +75,7 @@ import Foundation
     
     private func get(for key: String) -> PrebidMobilePluginRenderer? {
         queue.sync {
-            self.plugins[key]
+            plugins[key]
         }
     }
     
