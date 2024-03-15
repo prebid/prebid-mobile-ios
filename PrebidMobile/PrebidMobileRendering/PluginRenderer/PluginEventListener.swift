@@ -16,14 +16,4 @@
 import Foundation
 
 
-@objc public protocol PluginEventDelegate: NSObjectProtocol {
-    /**
-     * Plugin renderer name, same as the one registered on PrebidMobilePluginRegister
-     */
-    @objc optional var pluginRendererName: String { get }
-}
-
-
-public protocol RendererName {
-    var pluginRendererName: String { get }
-}
+@objc public protocol PluginEventDelegate: NSObjectProtocol {}
