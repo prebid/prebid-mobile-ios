@@ -46,10 +46,7 @@
 
 @property (nonatomic, strong, nullable) id<PrebidMobilePluginRenderer> renderer;
 
-
 @end
-
-
 
 @implementation PBMDisplayView
 
@@ -79,8 +76,8 @@
     
     @weakify(self);
     [self.renderer setupBid:self.bid
-              adConfiguration:self.adConfiguration
-                   connection:self.connection ?: PrebidServerConnection.shared
+            adConfiguration:self.adConfiguration
+                 connection:self.connection ?: PrebidServerConnection.shared
                      callback:^(PBMTransaction * _Nullable transaction,
                                 NSError * _Nullable error) {
         @strongify(self);

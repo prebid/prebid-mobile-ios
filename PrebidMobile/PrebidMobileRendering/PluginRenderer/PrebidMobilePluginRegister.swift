@@ -15,12 +15,9 @@
 
 import Foundation
 
-/// Global singleton responsible for hosting plugin renderer instances
+/// Global singleton responsible to store plugin renderer instances
 @objc public class PrebidMobilePluginRegister: NSObject {
     @objc public static let shared = PrebidMobilePluginRegister()
-    
-    
-    public static let PLUGIN_RENDERER_KEY = "plugin_renderer_key"
     
     private let queue = DispatchQueue(label: "PrebidMobilePluginRegisterQueue", attributes: .concurrent)
     private var plugins = [String: PrebidMobilePluginRenderer]()
@@ -55,6 +52,7 @@ import Foundation
     @objc public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
         guard let preferredRendererName = bid.getPreferredPluginRendererName(),
               let preferredPlugin = get(for: preferredRendererName),
+              preferredPlugin.version == bid.getPreferredPluginRendererVersion(),
               preferredPlugin.isSupportRendering(for: bid.adFormat)
         else {
             return defaultRenderer

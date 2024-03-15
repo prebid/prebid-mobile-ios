@@ -19,12 +19,18 @@ import StoreKit
 import UIKit
 
 public class Bid: NSObject {
+    
+    public static let KEY_RENDERER_NAME = "rendererName";
+    
+    public static let KEY_RENDERER_VERSION = "rendererVersion";
+    
     /// Bid price expressed as CPM although the actual transaction is for a unit impression only.
     /// Note that while the type indicates float, integer math is highly recommended
     /// when handling currencies (e.g., BigDecimal in Java).
     @objc public var price: Float {
         bid.price.floatValue
     }
+    
     
     /// Win notice URL called by the exchange if the bid wins (not necessarily indicative of a delivered,
     /// viewed, or billable ad); optional means of serving ad markup.
@@ -110,6 +116,10 @@ public class Bid: NSObject {
     }
     
     public func getPreferredPluginRendererName() -> String? {
-        return targetingInfo?[PrebidMobilePluginRegister.PLUGIN_RENDERER_KEY]
+        return targetingInfo?[Bid.KEY_RENDERER_NAME]
+    }
+
+    public func getPreferredPluginRendererVersion() -> String? {
+        return targetingInfo?[Bid.KEY_RENDERER_VERSION]
     }
 }
