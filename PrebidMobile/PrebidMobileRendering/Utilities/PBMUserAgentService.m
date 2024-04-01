@@ -70,8 +70,8 @@
 #pragma mark - Public Methods
 
 - (nonnull NSString *)getFullUserAgent {
-    self.uaSemaphore = dispatch_semaphore_create(0);
-    if (self.userAgent == nil || [self.userAgent  isEqual: @""]) {
+    if (self.userAgent == nil) {
+        self.uaSemaphore = dispatch_semaphore_create(0);
         while (dispatch_semaphore_wait(self.uaSemaphore, DISPATCH_TIME_NOW)) {
             [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
                                      beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
