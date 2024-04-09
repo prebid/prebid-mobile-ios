@@ -72,7 +72,7 @@
 - (nonnull NSString *)getFullUserAgent {
     if (self.userAgent == nil) {
         NSNumber *numberOfLoops = [NSNumber numberWithInt: 0];
-        while (dispatch_semaphore_wait(self.uaSemaphore, DISPATCH_TIME_NOW) && [numberOfLoops intValue] < 100) {
+        while (dispatch_semaphore_wait(self.uaSemaphore, DISPATCH_TIME_NOW + 1) && [numberOfLoops intValue] < 100) {
             [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
                                      beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
             int value = [numberOfLoops intValue];
