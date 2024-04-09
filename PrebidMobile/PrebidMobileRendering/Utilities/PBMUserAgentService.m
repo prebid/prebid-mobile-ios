@@ -61,6 +61,7 @@
     if (self = [super init]) {
         self.sdkVersion = [PBMFunctions sdkVersion];
         PBMAssert(self.sdkVersion);
+        self.uaSemaphore = dispatch_semaphore_create(0);
         self.userAgent = @"";
         [self setUserAgent];
     }
@@ -71,7 +72,6 @@
 
 - (nonnull NSString *)getFullUserAgent {
     if (self.userAgent == nil) {
-        self.uaSemaphore = dispatch_semaphore_create(0);
         while (dispatch_semaphore_wait(self.uaSemaphore, DISPATCH_TIME_NOW)) {
             [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
                                      beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
