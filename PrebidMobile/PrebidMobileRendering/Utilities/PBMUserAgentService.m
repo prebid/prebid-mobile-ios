@@ -79,7 +79,7 @@
             numberOfLoops = [NSNumber numberWithInt:value + 1];
         }
     }
-    return [NSString stringWithFormat:@"%@", self.userAgent];
+    return [NSString stringWithFormat:@"%@", self.userAgent ?: @""];
 }
 
 #pragma mark - Private Methods
