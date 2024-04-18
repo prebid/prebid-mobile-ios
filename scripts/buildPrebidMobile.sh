@@ -42,7 +42,7 @@ touch "$LOG_FILE_FRAMEWORK"
 
 echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
-export PATH="/Users/distiller/.gem/ruby/2.7.0/bin:$PATH"
+export PATH="/Users/distiller/.gem/ruby/2.7.0/bin"
 gem install cocoapods --user-install
 pod install --repo-update
 
