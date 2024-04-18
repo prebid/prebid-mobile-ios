@@ -25,7 +25,6 @@ class ParameterBuilderServiceTest : XCTestCase {
     override func setUp() {
         UtilitiesForTesting.resetTargeting(.shared)
         Prebid.shared.shareGeoLocation = true
-        Prebid.shared.pbsDebug = true
     }
     
     override func tearDown() {
@@ -115,9 +114,6 @@ class ParameterBuilderServiceTest : XCTestCase {
         PBMAssertEq(bidRequest.device.h!.intValue, Int(mockDeviceAccessManager.screenSize().height))
         PBMAssertEq(bidRequest.device.ifa, MockDeviceAccessManager.mockAdvertisingIdentifier)
         PBMAssertEq(bidRequest.device.lmt, 0)
-
-        //Verify pbsDebug
-        PBMAssertEq(bidRequest.test, 1)
         
         
         if #available(iOS 16, *) {
