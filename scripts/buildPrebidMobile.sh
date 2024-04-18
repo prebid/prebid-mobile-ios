@@ -42,6 +42,9 @@ touch "$LOG_FILE_FRAMEWORK"
 
 echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
+export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+export PATH="$PATH:$GEM_HOME/bin"
+gem update
 gem install cocoapods -v 1.15.2 --user-install
 pod install --repo-update
 
