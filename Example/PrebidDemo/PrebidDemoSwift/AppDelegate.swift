@@ -59,9 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GAMUtils.shared.initializeGAM()
         
         // Initialize AppLovin MAX SDK
-        ALSdk.shared()?.mediationProvider = ALMediationProviderMAX
-        ALSdk.shared()?.userIdentifier = "USER_ID"
-        ALSdk.shared()?.initializeSdk()
+        ALSdk.shared().mediationProvider = ALMediationProviderMAX
+        ALSdk.shared().userIdentifier = "USER_ID"
+        ALSdk.shared().initializeSdk()
         
         
         
