@@ -42,10 +42,8 @@ touch "$LOG_FILE_FRAMEWORK"
 
 echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
-export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-export PATH="$PATH:$GEM_HOME/bin"
-gem update
-gem install cocoapods -v 1.15.2 --user-install
+export PATH="/Users/distiller/.gem/ruby/2.7.0/bin:$PATH"
+gem install cocoapods --user-install
 pod install --repo-update
 
 echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
