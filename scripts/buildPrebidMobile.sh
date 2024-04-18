@@ -42,7 +42,7 @@ touch "$LOG_FILE_FRAMEWORK"
 
 echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
-gem install cocoapods --user-install
+gem install cocoapods -v 1.15.2 --user-install
 pod install --repo-update
 
 echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
