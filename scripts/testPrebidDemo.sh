@@ -10,7 +10,8 @@ echo -e "\n\n${GREEN}TEST PREBID DEMO${NC}\n\n"
 cd ..
 echo $PWD
 
-gem install cocoapods --user-install
+export PATH="/Users/distiller/.gem/ruby/2.7.0/bin:$PATH"
+gem install cocoapods
 
 pod deintegrate
 pod install --repo-update
