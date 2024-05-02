@@ -31,21 +31,23 @@ import Foundation
     
     /// Creates and returns Banner View for a given Bid Response
     /// Returns nil in the case of an internal error
-//     View createBannerAdView(
-//             @NonNull Context context,
-//             @NonNull DisplayViewListener displayViewListener,
-//             @NonNull AdUnitConfiguration adUnitConfiguration,
-//             @NonNull BidResponse bidResponse
-//     );
-//
-//     // Creates and returns an implementation of PrebidMobileInterstitialControllerInterface for a given bid response
-//     // Returns nil in the case of an internal error
-//     PrebidMobileInterstitialControllerInterface createInterstitialController(
-//             @NonNull Context context,
-//             @NonNull InterstitialControllerListener interstitialControllerListener,
-//             @NonNull AdUnitConfiguration adUnitConfiguration,
-//             @NonNull BidResponse bidResponse
-//     );
+    ///View createBannerAdView(
+    ///        @NonNull Context context,
+    ///        @NonNull DisplayViewListener displayViewListener,
+    ///         @NonNull AdUnitConfiguration adUnitConfiguration,
+    ///        @NonNull BidResponse bidResponse
+    ///);
+    @objc func loadBannerAd(with frame: CGRect, bid: PrebidMobile.Bid, configId: String, adViewDelegate: PBMAdViewDelegate?)
 
+    /// Creates and returns an implementation of PrebidMobileInterstitialControllerInterface for a given bid response
+    /// Returns nil in the case of an internal error
+    /// PrebidMobileInterstitialControllerInterface createInterstitialController(
+    ///         @NonNull Context context,
+    ///         @NonNull InterstitialControllerListener interstitialControllerListener,
+    ///         @NonNull AdUnitConfiguration adUnitConfiguration,
+    ///         @NonNull BidResponse bidResponse
+    /// );
+    @objc optional func loadInterstitialAd(bid: PrebidMobile.Bid, configId: String, adViewDelegate: PBMAdViewDelegate?)
+    
     
 }

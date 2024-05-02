@@ -101,4 +101,20 @@ public class BidResponse: NSObject {
         
         targetingInfo?[key] = value
     }
+
+    public func getPreferredPluginRendererName() -> String? {
+        let bid: Bid? = winningBid;
+        if (bid != nil) {
+            return bid?.getPreferredPluginRendererName()
+        }
+        return nil;
+    }
+
+    public func getPreferredPluginRendererVersion() -> String? {
+        let bid: Bid? = winningBid;
+        if (bid != nil) {
+            return bid?.getPreferredPluginRendererVersion()
+        }
+        return nil;
+    }
 }
