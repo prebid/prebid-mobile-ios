@@ -33,6 +33,8 @@
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, copy) NSString *userAgent;
 @property (nonatomic, copy) NSString *sdkVersion;
+@property dispatch_semaphore_t uaSemaphore;
+
 
 @end
 
@@ -59,7 +61,7 @@
     if (self = [super init]) {
         self.sdkVersion = [PBMFunctions sdkVersion];
         PBMAssert(self.sdkVersion);
-        self.userAgent = @"";
+        self.uaSemaphore = dispatch_semaphore_create(0);
         [self setUserAgent];
     }
     return self;
@@ -68,7 +70,16 @@
 #pragma mark - Public Methods
 
 - (nonnull NSString *)getFullUserAgent {
-    return [NSString stringWithFormat:@"%@", self.userAgent];
+    if (self.userAgent == nil) {
+        NSNumber *numberOfLoops = [NSNumber numberWithInt: 0];
+        while (dispatch_semaphore_wait(self.uaSemaphore, DISPATCH_TIME_NOW + 1) && [numberOfLoops intValue] < 100) {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                     beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+            int value = [numberOfLoops intValue];
+            numberOfLoops = [NSNumber numberWithInt:value + 1];
+        }
+    }
+    return [NSString stringWithFormat:@"%@", self.userAgent ?: @""];
 }
 
 #pragma mark - Private Methods
@@ -86,19 +97,22 @@
 
 - (void)setUserAgentInThread:(id<PBMNSThreadProtocol>)thread {
     if (!thread.isMainThread) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             [self setUserAgent];
         });
         return;
     }
     [self generateUserAgent];
+
 }
 
 - (void)generateUserAgent {
     @weakify(self);
     [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
         @strongify(self);
-        if (!self) { return; }
+        if (!self) {
+            return;
+        }
         
         if (error) {
             PBMLogError(@"%@", error);
@@ -107,7 +121,9 @@
             NSString *resultString = [NSString stringWithFormat:@"%@", result];
             self.userAgent = (resultString) ? resultString : @"";
         }
-        
+        if (self.uaSemaphore != nil) {
+            dispatch_semaphore_signal(self.uaSemaphore);
+        }
         self.webView = nil;
     }];
 }

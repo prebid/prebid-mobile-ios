@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobileMAXAdapters"
-  s.version      = "2.2.0"
+  s.version      = "2.2.1"
   s.summary      = "The bridge between PrebidMobile SDK and Applovin MAX SDK."
 
   s.description  = "MAX Adapters manages rendering of Prebid or MAX ads respectively to the winning bid."
@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
   s.source_files = 'EventHandlers/PrebidMobileMAXAdapters/**/*.{h,m,swift}'
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '2.2.0'
+  s.dependency 'PrebidMobile', '2.2.1'
   s.dependency 'AppLovinSDK'
 
 end
