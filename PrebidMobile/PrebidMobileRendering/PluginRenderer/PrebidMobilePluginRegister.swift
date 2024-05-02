@@ -89,10 +89,3 @@ import Foundation
         }
     }
 }
-
-///
-/// 1 App loaunch: PrebidMobilePluginRegister.shared.register(TeadsPBMPluginRenderer())
-/// 2 App in ViewController: PrebidMobilePluginRegister.shared.registerEventDelegate(instance of TeadsPrebidRatioDelegate)
-/// 2 PBM: bid request: build bid request / create renderers array for request getRTBListOfRenderers()
-/// 3 PBM response: PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid)
-/// 4 PBM load ad: pluginRenderer.loadAd() -> play ad --> NO RESIZE
