@@ -84,7 +84,7 @@
         if (error) {
             [self reportFailureWithError:error];
         } else {
-            //[self reportSuccess];
+            [self reportSuccess];
         }
     }];
     
