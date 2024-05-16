@@ -26,20 +26,24 @@ class PBMUserAgentServiceTest: XCTestCase {
         expectationUserAgentExecuted = expectation(description: "expectationUserAgentExecuted")
         
         let userAgentService = PBMUserAgentService.shared
-        let userAgentString = userAgentService.getFullUserAgent()
         
-        //Should start with a useragent from the Web View
-        XCTAssert(userAgentString.PBMdoesMatch("^Mozilla"))
-        
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            XCTAssert(userAgentString.PBMdoesMatch("iPad"))
-        } else if UIDevice.current.userInterfaceIdiom == .phone {
-            XCTAssert(userAgentString.PBMdoesMatch("iPhone"))
+        // Waiting for JS userAgent execute asynchronously
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let userAgentString = userAgentService.getFullUserAgent()
+            
+            //Should start with a useragent from the Web View
+            XCTAssert(userAgentString.PBMdoesMatch("^Mozilla"))
+            
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                XCTAssert(userAgentString.PBMdoesMatch("iPad"))
+            } else if UIDevice.current.userInterfaceIdiom == .phone {
+                XCTAssert(userAgentString.PBMdoesMatch("iPhone"))
+            }
+            
+            XCTAssert(userAgentString.PBMdoesMatch("AppleWebKit"))
+            
+            self.expectationUserAgentExecuted?.fulfill()
         }
-        
-        XCTAssert(userAgentString.PBMdoesMatch("AppleWebKit"))
-        
-        self.expectationUserAgentExecuted?.fulfill()
         
         waitForExpectations(timeout: 5)
     }
