@@ -47,28 +47,10 @@ import Foundation
         }
     }
     
-    /// Returns the registered renderer according to the preferred renderer name in the bid response
-    /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior
-    @objc public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
-        guard let preferredRendererName = bid.getPreferredPluginRendererName(),
-              let preferredPlugin = get(for: preferredRendererName),
-              preferredPlugin.version == bid.getPreferredPluginRendererVersion(),
-              preferredPlugin.isSupportRendering(for: bid.adFormat)
-        else {
-            return defaultRenderer
-        }
-        return preferredPlugin
-    }
-    
-    /// Returns the list of available renderers for the given ad unit for RTB request
-    @objc public func getRTBListOfRenderers(for adFormat: AdFormat?) -> [String] {
+    /// Contains plugin
+    @objc public func containsPlugin(_ renderer: PrebidMobilePluginRenderer) -> Bool {
         queue.sync {
-            plugins
-                .values
-                .filter{
-                    $0.isSupportRendering(for: adFormat)
-                }
-                .map(\.name)
+            plugins.contains { $0.value === renderer }
         }
     }
     
@@ -87,5 +69,41 @@ import Foundation
                     $0.registerEventDelegate?(pluginEventDelegate: pluginEventDelegate, adUnitConfigFingerprint: adUnitConfigFingerprint)
                 }
         }
+    }
+    
+    /// Unregister event delegate
+    @objc public func unregisterEventDelegate(_ pluginEventDelegate: PluginEventDelegate, adUnitConfigFingerprint: String) {
+        queue.async(flags: .barrier) { [plugins] in
+            plugins
+                .values
+                .forEach {
+                    $0.unregisterEventDelegate?(pluginEventDelegate: pluginEventDelegate, adUnitConfigFingerprint: adUnitConfigFingerprint)
+                }
+        }
+    }
+    
+    /// Returns the list of available renderers for the given ad unit for RTB request
+    @objc public func getRTBListOfRenderers(for adFormat: AdFormat?) -> [String] {
+        queue.sync {
+            plugins
+                .values
+                .filter{
+                    $0.isSupportRendering(for: adFormat)
+                }
+                .map(\.name)
+        }
+    }
+    
+    /// Returns the registered renderer according to the preferred renderer name in the bid response
+    /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior
+    @objc public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
+        guard let preferredRendererName = bid.getPreferredPluginRendererName(),
+              let preferredPlugin = get(for: preferredRendererName),
+              preferredPlugin.version == bid.getPreferredPluginRendererVersion(),
+              preferredPlugin.isSupportRendering(for: bid.adFormat)
+        else {
+            return defaultRenderer
+        }
+        return preferredPlugin
     }
 }

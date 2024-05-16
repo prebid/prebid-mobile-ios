@@ -20,34 +20,26 @@ import Foundation
     @objc var name: String { get }
     @objc var version: String { get }
     @objc var token: String? { get }
+    
+    /// Creates and returns Banner View for a given Bid Response
+    /// Returns nil in the case of an internal error
+    @objc func createBannerAdView(with frame: CGRect, bid: PrebidMobile.Bid, configId: String, adViewDelegate: PBMAdViewDelegate?)
+    
+    /// Creates and returns an implementation of PrebidMobileInterstitialControllerInterface for a given bid response
+    /// Returns nil in the case of an internal error
+    @objc optional func createInterstitialController(bid: PrebidMobile.Bid, configId: String, adViewDelegate: PBMAdViewDelegate?)
 
     /// Returns true only if the given ad unit could be renderer by the plugin
     @objc func isSupportRendering(for format: AdFormat?) -> Bool
     
     /// Register a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events
     @objc optional func registerEventDelegate(pluginEventDelegate: PluginEventDelegate, adUnitConfigFingerprint: String)
+
+    /// Unregister a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events
+    @objc optional func unregisterEventDelegate(pluginEventDelegate: PluginEventDelegate, adUnitConfigFingerprint: String)
     
     @objc func setupBid(_ bid: PrebidMobile.Bid, adConfiguration: PrebidMobile.AdUnitConfig, connection: PrebidServerConnectionProtocol, callback: @escaping (PBMTransaction?, Error?) -> Void)
-    
-    /// Creates and returns Banner View for a given Bid Response
-    /// Returns nil in the case of an internal error
-    ///View createBannerAdView(
-    ///        @NonNull Context context,
-    ///        @NonNull DisplayViewListener displayViewListener,
-    ///         @NonNull AdUnitConfiguration adUnitConfiguration,
-    ///        @NonNull BidResponse bidResponse
-    ///);
-    @objc func loadBannerAd(with frame: CGRect, bid: PrebidMobile.Bid, configId: String, adViewDelegate: PBMAdViewDelegate?)
 
-    /// Creates and returns an implementation of PrebidMobileInterstitialControllerInterface for a given bid response
-    /// Returns nil in the case of an internal error
-    /// PrebidMobileInterstitialControllerInterface createInterstitialController(
-    ///         @NonNull Context context,
-    ///         @NonNull InterstitialControllerListener interstitialControllerListener,
-    ///         @NonNull AdUnitConfiguration adUnitConfiguration,
-    ///         @NonNull BidResponse bidResponse
-    /// );
-    @objc optional func loadInterstitialAd(bid: PrebidMobile.Bid, configId: String, adViewDelegate: PBMAdViewDelegate?)
     
     
 }

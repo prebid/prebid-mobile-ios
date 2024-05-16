@@ -42,6 +42,27 @@ public class Bid: NSObject {
     /// Substitution macros (Section 4.4) may be included.
     @objc public private(set) var adm: String?
     
+    /// ID of the bid object
+    @objc public var adid: String? {
+        bid.adid
+    }
+
+    /// Advertiser domain for block list checking (e.g., “ford.com”). This can be an array of for the case of rotating
+    /// creatives. Exchanges can mandate that only one domain is allowed.
+    @objc public var adomain: String? {
+        bid.adomain?.first
+    }
+
+    /// Creative ID to assist with ad quality checking.
+    @objc public var crid: String? {
+        bid.crid
+    }
+
+    /// ID of the Imp object in the related bid request.
+    @objc public var impid: String? {
+        bid.impid
+    }
+    
     /// Ad size
     @objc public var size: CGSize {
         guard let w = bid.w, let h = bid.h else {

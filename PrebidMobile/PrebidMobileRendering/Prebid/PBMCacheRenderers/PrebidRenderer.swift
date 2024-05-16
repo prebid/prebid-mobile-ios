@@ -29,6 +29,6 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     public func setupBid(_ bid: Bid, adConfiguration: AdUnitConfig, connection: PrebidServerConnectionProtocol, callback: @escaping (PBMTransaction?, Error?) -> Void) {
          
     }
-    public func loadBannerAd(with frame: CGRect, bid: Bid, configId: String, adViewDelegate: (any PBMAdViewDelegate)?) {
+    public func createBannerAdView(with frame: CGRect, bid: Bid, configId: String, adViewDelegate: (any PBMAdViewDelegate)?) {
     }
 }
