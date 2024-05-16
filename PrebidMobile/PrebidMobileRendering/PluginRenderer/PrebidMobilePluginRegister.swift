@@ -95,6 +95,7 @@ import Foundation
     
     /// Returns the registered renderer according to the preferred renderer name in the bid response
     /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior
+    /// Once bid is win we want to resolve the best PluginRenderer candidate to render the ad
     @objc public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
         guard let preferredRendererName = bid.getPreferredPluginRendererName(),
               let preferredPlugin = get(for: preferredRendererName),

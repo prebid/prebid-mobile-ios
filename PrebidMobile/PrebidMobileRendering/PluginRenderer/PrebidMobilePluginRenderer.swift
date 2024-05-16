@@ -19,7 +19,7 @@ import Foundation
     
     @objc var name: String { get }
     @objc var version: String { get }
-    @objc var token: String? { get }
+    @objc var data: String? { get }
     
     /// Creates and returns Banner View for a given Bid Response
     /// Returns nil in the case of an internal error

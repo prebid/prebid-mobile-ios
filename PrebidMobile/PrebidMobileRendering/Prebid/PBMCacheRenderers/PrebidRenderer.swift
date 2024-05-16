@@ -20,10 +20,10 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     
     public let version = Prebid.shared.version
     
-    public let token: String? = nil
+    public var data: String? = nil
     
     public func isSupportRendering(for format: AdFormat?) -> Bool {
-        (format == .banner || format == .video || format == .native)
+        AdFormat.allCases.contains(where: { $0 == format })
     }
    
     public func setupBid(_ bid: Bid, adConfiguration: AdUnitConfig, connection: PrebidServerConnectionProtocol, callback: @escaping (PBMTransaction?, Error?) -> Void) {
