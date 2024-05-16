@@ -38,6 +38,7 @@ import Foundation
     /// Unregister a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events
     @objc optional func unregisterEventDelegate(pluginEventDelegate: PluginEventDelegate, adUnitConfigFingerprint: String)
     
+    /// Setup a bid for a given ad unit configuration
     @objc func setupBid(_ bid: PrebidMobile.Bid, adConfiguration: PrebidMobile.AdUnitConfig, connection: PrebidServerConnectionProtocol, callback: @escaping (PBMTransaction?, Error?) -> Void)
 
     
