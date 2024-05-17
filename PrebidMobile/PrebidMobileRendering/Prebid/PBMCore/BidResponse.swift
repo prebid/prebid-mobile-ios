@@ -103,11 +103,7 @@ public class BidResponse: NSObject {
     }
 
     public func getPreferredPluginRendererName() -> String? {
-        let bid: Bid? = winningBid;
-        if (bid != nil) {
-            return bid?.getPreferredPluginRendererName()
-        }
-        return nil;
+        winningBid?.getPreferredPluginRendererName()
     }
 
     public func getPreferredPluginRendererVersion() -> String? {
