@@ -55,7 +55,6 @@ framework module PrebidMobile {
     header "PBMAdDetails.h"
     header "PBMTransaction.h"
     header "PBMInterstitialLayout.h"
-    header "PBMUserAgentService.h"
     
     header "PBMScheduledTimerFactory.h"
     header "NSTimer+PBMScheduledTimerFactory.h"

@@ -22,12 +22,12 @@ class PrebidSDKInitializer {
     private static var gamVersionChecker = PrebidGAMVersionChecker()
     
     static func initializeSDK(_ completion: PrebidInitializationCallback? = nil) {
+        let _ = UserAgentService.shared
         let _ = PrebidServerConnection.shared
         let _ = PBMLocationManager.shared
         let _ = UserConsentDataManager.shared
         
         PrebidJSLibraryManager.shared.downloadLibraries()
-        
         serverStatusRequester.requestStatus { completion?($0, $1) }
     }
     

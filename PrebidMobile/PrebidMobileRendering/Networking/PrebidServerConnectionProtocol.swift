@@ -19,7 +19,7 @@ public typealias PrebidServerResponseCallback = (PrebidServerResponse) -> Void
 
 @objc public protocol PrebidServerConnectionProtocol {
     
-    var userAgentService: PBMUserAgentService { get }
+    var userAgentService: UserAgentService { get }
     
     func fireAndForget(_ resourceURL: String?)
     func head(_ resourceURL: String?, timeout: TimeInterval, callback: @escaping  PrebidServerResponseCallback)

@@ -58,99 +58,101 @@
 }
 
 - (void)requestBidsWithCompletion:(void (^)(BidResponse *, NSError *))completion {
-    NSError * const setupError = [self findErrorInSettings];
-    if (setupError) {
-        completion(nil, setupError);
-        return;
-    }
-    
-    if (self.completion) {
-        completion(nil, [PBMError requestInProgress]);
-        return;
-    }
-    
-    self.completion = completion ?: ^(BidResponse *r, NSError *e) {};
-    
-    NSString * const requestString = [self getRTBRequest];
-           
-    NSError * hostURLError = nil;
-    NSString * const requestServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:&hostURLError];
-    
-    if (hostURLError) {
-        completion(nil, hostURLError);
-        return;
-    }
-    
-    const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.timeoutMillis;
-    NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.timeoutMillisDynamic;
-        
-    const NSTimeInterval postTimeout = (dynamicTimeout_onRead
-                                        ? dynamicTimeout_onRead.doubleValue
-                                        : (rawTimeoutMS_onRead / 1000.0));
-    
     @weakify(self);
-    NSDate * const requestDate = [NSDate date];
-    [self.connection post:requestServerURL
-                     data:[requestString dataUsingEncoding:NSUTF8StringEncoding]
-                  timeout:postTimeout
-                 callback:^(PrebidServerResponse * _Nonnull serverResponse) {
+    [PBMUserAgentService.shared generateUserAgentWithCompletion:^{
         @strongify(self);
-        if (!self) { return; }
-        
-        void (^ const completion)(BidResponse *, NSError *) = self.completion;
-        self.completion = nil;
-        
-        if (serverResponse.statusCode == 204) {
-            completion(nil, PBMError.blankResponse);
+        NSError * const setupError = [self findErrorInSettings];
+        if (setupError) {
+            completion(nil, setupError);
             return;
         }
         
-        if (serverResponse.error) {
-            PBMLogInfo(@"Bid Request Error: %@", [serverResponse.error localizedDescription]);
-            completion(nil, serverResponse.error);
+        if (self.completion) {
+            completion(nil, [PBMError requestInProgress]);
             return;
         }
         
-        PBMLogInfo(@"Bid Response: %@", [[NSString alloc] initWithData:serverResponse.rawData encoding:NSUTF8StringEncoding]);
+        self.completion = completion ?: ^(BidResponse *r, NSError *e) {};
         
-        NSError *trasformationError = nil;
-        BidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
+        NSString * const requestString = [self getRTBRequest];
         
-        if (bidResponse && !trasformationError) {
-            NSNumber * const tmaxrequest = bidResponse.tmaxrequest;
-            if (tmaxrequest) {
-                NSDate * const responseDate = [NSDate date];
-
-                const NSTimeInterval bidResponseTimeout = tmaxrequest.doubleValue / 1000.0;
-                const NSTimeInterval remoteTimeout = ([responseDate timeIntervalSinceDate:requestDate]
-                                                      + bidResponseTimeout
-                                                      + 0.2);
-                NSString * const currentServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:nil];
-                if (self.sdkConfiguration.timeoutMillisDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
-                    const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.timeoutMillis;
-                    const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;
-                    const NSTimeInterval updatedTimeout = MIN(remoteTimeout, appTimeout);
-                    self.sdkConfiguration.timeoutMillisDynamic = @(updatedTimeout);
-                    self.sdkConfiguration.timeoutUpdated = true;
-                };
+        NSError * hostURLError = nil;
+        NSString * const requestServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:&hostURLError];
+        
+        if (hostURLError) {
+            completion(nil, hostURLError);
+            return;
+        }
+        
+        const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.timeoutMillis;
+        NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.timeoutMillisDynamic;
+        
+        const NSTimeInterval postTimeout = (dynamicTimeout_onRead ? dynamicTimeout_onRead.doubleValue : (rawTimeoutMS_onRead / 1000.0));
+        
+        @weakify(self);
+        NSDate * const requestDate = [NSDate date];
+        [self.connection post:requestServerURL
+                         data:[requestString dataUsingEncoding:NSUTF8StringEncoding]
+                      timeout:postTimeout
+                     callback:^(PrebidServerResponse * _Nonnull serverResponse) {
+            @strongify(self);
+            if (!self) { return; }
+            
+            void (^ const completion)(BidResponse *, NSError *) = self.completion;
+            self.completion = nil;
+            
+            if (serverResponse.statusCode == 204) {
+                completion(nil, PBMError.blankResponse);
+                return;
             }
             
-            PBMORTBSDKConfiguration *pbsSDKConfig = [bidResponse.ext.extPrebid.passthrough filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(PBMORTBExtPrebidPassthrough *_Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-                return [evaluatedObject.type isEqual: @"prebidmobilesdk"];
-            }]].firstObject.sdkConfiguration;
+            if (serverResponse.error) {
+                PBMLogInfo(@"Bid Request Error: %@", [serverResponse.error localizedDescription]);
+                completion(nil, serverResponse.error);
+                return;
+            }
             
-            if(pbsSDKConfig) {
-                if(pbsSDKConfig.cftBanner) {
-                    Prebid.shared.creativeFactoryTimeout = pbsSDKConfig.cftBanner.doubleValue;
+            PBMLogInfo(@"Bid Response: %@", [[NSString alloc] initWithData:serverResponse.rawData encoding:NSUTF8StringEncoding]);
+            
+            NSError *trasformationError = nil;
+            BidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
+            
+            if (bidResponse && !trasformationError) {
+                NSNumber * const tmaxrequest = bidResponse.tmaxrequest;
+                if (tmaxrequest) {
+                    NSDate * const responseDate = [NSDate date];
+                    
+                    const NSTimeInterval bidResponseTimeout = tmaxrequest.doubleValue / 1000.0;
+                    const NSTimeInterval remoteTimeout = ([responseDate timeIntervalSinceDate:requestDate]
+                                                          + bidResponseTimeout
+                                                          + 0.2);
+                    NSString * const currentServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:nil];
+                    if (self.sdkConfiguration.timeoutMillisDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
+                        const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.timeoutMillis;
+                        const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;
+                        const NSTimeInterval updatedTimeout = MIN(remoteTimeout, appTimeout);
+                        self.sdkConfiguration.timeoutMillisDynamic = @(updatedTimeout);
+                        self.sdkConfiguration.timeoutUpdated = true;
+                    };
                 }
                 
-                if(pbsSDKConfig.cftPreRender) {
-                    Prebid.shared.creativeFactoryTimeoutPreRenderContent = pbsSDKConfig.cftPreRender.doubleValue;
+                PBMORTBSDKConfiguration *pbsSDKConfig = [bidResponse.ext.extPrebid.passthrough filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(PBMORTBExtPrebidPassthrough *_Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+                    return [evaluatedObject.type isEqual: @"prebidmobilesdk"];
+                }]].firstObject.sdkConfiguration;
+                
+                if(pbsSDKConfig) {
+                    if(pbsSDKConfig.cftBanner) {
+                        Prebid.shared.creativeFactoryTimeout = pbsSDKConfig.cftBanner.doubleValue;
+                    }
+                    
+                    if(pbsSDKConfig.cftPreRender) {
+                        Prebid.shared.creativeFactoryTimeoutPreRenderContent = pbsSDKConfig.cftPreRender.doubleValue;
+                    }
                 }
             }
-        }
-        
-        completion(bidResponse, trasformationError);
+            
+            completion(bidResponse, trasformationError);
+        }];
     }];
 }
 
