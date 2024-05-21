@@ -25,9 +25,8 @@ class UserAgentServiceTest: XCTestCase {
         
         let userAgentService = UserAgentService.shared
         
-        userAgentService.generateUserAgent { [weak self] in
-            //Should start with a useragent from the Web View
-            let userAgentString = userAgentService.userAgent
+        userAgentService.fetchUserAgent { [weak self] userAgentString in
+            XCTAssert(userAgentService.userAgent == userAgentString)
             
             XCTAssert(userAgentString.PBMdoesMatch("^Mozilla"))
             
@@ -68,15 +67,15 @@ class UserAgentServiceTest: XCTestCase {
         expectationUserAgentExecuted = expectation(description: "expectationUserAgentExecuted")
         expectationUserAgentExecuted?.expectedFulfillmentCount = 3
         
-        userAgentService.generateUserAgent { [weak self] in
+        userAgentService.fetchUserAgent { [weak self] _ in
             self?.expectationUserAgentExecuted?.fulfill()
         }
         
-        userAgentService.generateUserAgent { [weak self] in
+        userAgentService.fetchUserAgent { [weak self] _ in
             self?.expectationUserAgentExecuted?.fulfill()
         }
         
-        userAgentService.generateUserAgent { [weak self] in
+        userAgentService.fetchUserAgent { [weak self] _  in
             self?.expectationUserAgentExecuted?.fulfill()
         }
         

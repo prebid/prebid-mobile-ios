@@ -27,27 +27,29 @@ public class UserAgentService: NSObject {
     override init() {
         super.init()
         
-        generateUserAgent()
+        fetchUserAgent()
     }
     
-    public func generateUserAgent(completion: (() -> Void)? = nil) {
+    public func fetchUserAgent(completion: ((String) -> Void)? = nil) {
         // user agent has been already generated
         guard userAgent.isEmpty else {
-            completion?()
+            completion?(userAgent)
             return
         }
         
         DispatchQueue.main.async {
             self.webView.evaluateJavaScript("navigator.userAgent") { [weak self] result, error in
+                guard let self = self else { return }
+                
                 if let error {
                     Log.error(error.localizedDescription)
                 }
                 
-                if let result = result, self?.userAgent.isEmpty == true {
-                    self?.userAgent = "\(result)"
+                if let result = result, self.userAgent.isEmpty  {
+                    self.userAgent = "\(result)"
                 }
                 
-                completion?()
+                completion?(self.userAgent)
             }
         }
     }
