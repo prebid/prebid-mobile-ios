@@ -1,0 +1,22 @@
+{
+    "ext": {
+        "prebid": {
+            "storedauctionresponse": {
+                "id": "prebid-demo-response-display-interstitial-320-480"
+            }
+        }
+    },
+    "instl": 1,
+    "banner": {
+        "format": [
+            {
+                "h": 480,
+                "w": 320
+            },
+            {
+                "h": 640,
+                "w": 380
+            }
+        ]
+    }
+}

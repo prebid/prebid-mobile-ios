@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "1210"
+   version = "1.7">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
+               BuildableName = "InternalTestApp.app"
+               BlueprintName = "InternalTestApp"
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Script delete OpenXInternalTestApp from device before running tests.&#10;xcrun simctl uninstall booted com.OpenX.OpenXInternalTestApplication&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
+                     BuildableName = "InternalTestApp.app"
+                     BlueprintName = "InternalTestApp"
+                     ReferencedContainer = "container:InternalTestApp.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
+            BuildableName = "InternalTestApp.app"
+            BlueprintName = "InternalTestApp"
+            ReferencedContainer = "container:InternalTestApp.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "35F94D121F93F85D00CF46DB"
+               BuildableName = "InternalTestAppUITests.xctest"
+               BlueprintName = "InternalTestAppUITests"
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "PrebidBannerUITest/testOpenInNewTab()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testMoPubInterstitial_Video_VanillaPrebidOrder()">
+               </Test>
+               <Test
+                  Identifier = "PrebidServerUITests/testBannerNativeStyle()">
+               </Test>
+               <Test
+                  Identifier = "PrebidServerUITests/testGAMBannerNativeStyle_MRect()">
+               </Test>
+               <Test
+                  Identifier = "PrebidServerUITests/testMoPubBannerNativeStyle_OK()">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5B6EB00E2122CAA400C5B072"
+               BuildableName = "InternalTestAppTests.xctest"
+               BlueprintName = "InternalTestAppTests"
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D08680722398088A00E70E60"
+               BuildableName = "OpenXMockServerTests.xctest"
+               BlueprintName = "OpenXMockServerTests"
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
+            BuildableName = "InternalTestApp.app"
+            BlueprintName = "InternalTestApp"
+            ReferencedContainer = "container:InternalTestApp.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "mobile-d.openx.net 540397906"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "GPP_HDR_STRING nil"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "AD_POSITION 4"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "VIDEO_PLACEMENT_TYPE 4"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "mobile-d.openx.net 540396661"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "{\&quot;precache_configuration\&quot;:[{\&quot;auid\&quot;:\&quot;539733507\&quot;,\&quot;domain\&quot;:\&quot;mobile-d.openx.net\&quot;},{\&quot;pgid\&quot;:\&quot;540069345\&quot;,\&quot;domain\&quot;:\&quot;mobile-d.openx.net\&quot;}]}"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "EXTRA_OPEN_RTB &quot;[{\&quot;configId\&quot;:\&quot;7e2c753a-2aad-49fb-b3b3-9b18018feb67\&quot;,\&quot;openRtb\&quot;:{\&quot;age\&quot;:23,\&quot;url\&quot;:\&quot;https://url.com\&quot;,\&quot;crr\&quot;:\&quot;carrier\&quot;,\&quot;ip\&quot;:\&quot;127.0.0.1\&quot;,\&quot;xid\&quot;:\&quot;007\&quot;,\&quot;gen\&quot;:\&quot;MALE\&quot;,\&quot;buyerid\&quot;:\&quot;buyerid\&quot;,\&quot;customdata\&quot;:\&quot;customdata\&quot;, \&quot;keywords\&quot;:\&quot;keyword1,keyword2\&quot;,\&quot;geo\&quot;:{ \&quot;lat\&quot;:1.0, \&quot;lon\&quot;:2.0 }, \&quot;ext\&quot;:{ \&quot;key1\&quot;:\&quot;string\&quot;, \&quot;key2\&quot;:1, \&quot;object\&quot;:{ \&quot;inner\&quot;:\&quot;value\&quot; } }}}]&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "IABConsent_Settings"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;{\&quot;launchOptions\&quot;:{\&quot;IABConsent_CMPPresent\&quot;:false,\&quot;IABConsent_SubjectToGDPR\&quot;:null,\&quot;IABConsent_ConsentString\&quot;:null},\&quot;updateInterval\&quot;:15,\&quot;updatedOptions\&quot;:[{\&quot;IABConsent_CMPPresent\&quot;:true,\&quot;IABConsent_SubjectToGDPR\&quot;:\&quot;1\&quot;,\&quot;IABConsent_ConsentString\&quot;:\&quot;BOEFEAyOEFEAyAHABDENAI4AAAB9vABAASA\&quot;},{\&quot;IABConsent_CMPPresent\&quot;:true,\&quot;IABConsent_SubjectToGDPR\&quot;:\&quot;0\&quot;,\&quot;IABConsent_ConsentString\&quot;:null},{\&quot;IABConsent_CMPPresent\&quot;:true,\&quot;IABConsent_SubjectToGDPR\&quot;:null,\&quot;IABConsent_ConsentString\&quot;:null}]}&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;{\&quot;launchOptions\&quot;: {\&quot;IABUSPrivacy_String\&quot;: \&quot;1YNN\&quot;}}&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;{\&quot;launchOptions\&quot;: {\&quot;IABTCF_CmpSdkID\&quot;: \&quot;1\&quot;,\&quot;IABTCF_gdprApplies\&quot;: \&quot;1\&quot;,\&quot;IABTCF_TCString\&quot;: \&quot;BObdrPUOevsguAfDqFENCNAAAAAmeAAA.PVAfDObdrA.DqFENCAmeAENCDA.OevsguAfDq\&quot;}}&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "EXTRA_NATIVE &apos;{&quot;assets&quot;:[{&quot;img&quot;:{&quot;hmin&quot;:50,&quot;type&quot;:3,&quot;wmin&quot;:150},&quot;required&quot;:1},{&quot;img&quot;:{&quot;hmin&quot;:50,&quot;type&quot;:1,&quot;wmin&quot;:50},&quot;required&quot;:1},{&quot;required&quot;:1,&quot;title&quot;:{&quot;len&quot;:90}},{&quot;data&quot;:{&quot;type&quot;:2},&quot;required&quot;:1},{&quot;data&quot;:{&quot;type&quot;:12},&quot;required&quot;:1},{&quot;data&quot;:{&quot;type&quot;:1},&quot;required&quot;:1}],&quot;context&quot;:2,&quot;contextsubtype&quot;:20,&quot;eventtrackers&quot;:[{&quot;event&quot;:1,&quot;methods&quot;:[1,2]}],&quot;plcmttype&quot;:1,&quot;ver&quot;:&quot;1.2&quot;}&apos;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "ADD_USER_EXT_DATA bravo charlie ADD_USER_EXT_DATA bravo tango ADD_USER_EXT_DATA mango sushi"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "ADD_APP_EXT bravo charlie ADD_APP_EXT bravo tango ADD_APP_EXT mango sushi"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "ADD_USER_DATA_EXT bravo charlie ADD_USER_DATA_EXT bravo tango ADD_USER_DATA_EXT mango sushi"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "ADD_APP_CONTENT_DATA_EXT bravo charlie ADD_APP_CONTENT_DATA_EXT bravo tango ADD_APP_CONTENT_DATA_EXT mango sushi"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "ADD_ADUNIT_CONTEXT crab dragon ADD_ADUNIT_CONTEXT turtle butterfly ADD_ADUNIT_CONTEXT turtle rabbit"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "BIDDER_ACCESS_CONTROL_LIST tesla faraday"
+            isEnabled = "NO">
+         </CommandLineArgument>
+      </CommandLineArguments>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
+            BuildableName = "InternalTestApp.app"
+            BlueprintName = "InternalTestApp"
+            ReferencedContainer = "container:InternalTestApp.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>

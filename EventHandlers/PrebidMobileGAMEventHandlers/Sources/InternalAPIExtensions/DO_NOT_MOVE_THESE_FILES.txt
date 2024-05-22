@@ -1,0 +1,5 @@
+Please, do not move these files into another group or folder:
+
+As the files are atually located in SDK Core folder (not under OpenXApolloGAMEventHandlers),
+MOVING THE FILES from this fake group to another one,
+MIGHT BREAK THE COMPILATION OF FRAMEWORK.

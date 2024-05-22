@@ -1,0 +1,20 @@
+[
+  {
+    "bid": [
+      {
+        "id": "prebid-demo-response-banner-300-250",
+        "price": 0.15,
+        "adm": "<script src=\"https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js\"></script>\n<a href=\"https://prebid.org/\"><img width=\"300\" height=\"250\" src=\"https://s3.amazonaws.com/files.prebid.org/creatives/prebid300x250.png\"></img></a>",
+        "crid": "540944518",
+        "w": 300,
+        "h": 250,
+        "ext": {
+          "prebid": {
+            "type": "banner"
+          }
+        }
+      }
+    ],
+    "seat": "prebid"
+  }
+]

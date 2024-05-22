@@ -1,0 +1,41 @@
+<VAST version="2.0">
+    <Ad id="539733507">
+        <InLine>
+            <AdSystem version="1.0">Prebid</AdSystem>
+            <AdTitle/>
+            <Creatives>
+                <Creative id="539733507">
+                    <Linear>
+                        <Duration>00:00:15</Duration>
+                        <MediaFiles>
+                            <MediaFile
+                                delivery="streaming"
+                                height="480"
+                                id="539733616"
+                                type="video/mp4"
+                                width="320">
+                                <![CDATA[https://s3.amazonaws.com/files.prebid.org/creatives/PrebidLogo.mp4]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="AdVerifications">
+                    <AdVerifications>
+                        <Verification vendor="iabtechlab.com-omid">
+                            <JavaScriptResource
+                                apiFramework="omid"
+                                browserOptional="true">
+                                <![CDATA[https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js]]>
+                            </JavaScriptResource>
+                            <VerificationParameters>
+                                <![CDATA[ "iabtechlab-prebid" ]]>
+                            </VerificationParameters>
+                        </Verification>
+                    </AdVerifications>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+</VAST>

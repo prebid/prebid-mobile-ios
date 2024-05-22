@@ -1,0 +1,44 @@
+
+<VAST version="2.0">
+    <Ad id="540069345">
+        <InLine>
+            <AdSystem version="1.0">Prebid</AdSystem>
+            <AdTitle/>
+            <Creatives>
+                <Creative id="540069340">
+                    <Linear>
+                        <Duration>00:00:15</Duration>
+                        <MediaFiles>
+                            <MediaFile delivery="streaming" height="480" id="539733616" type="video/mp4" width="320">
+                                <![CDATA[ https://s3.amazonaws.com/files.prebid.org/creatives/PrebidLogo.mp4 ]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+                <Creative id="540069343">
+                    <CompanionAds>
+                        <Companion height="480" id="540069737" width="320">
+                            <HTMLResource creativeType="text/html">
+                                <![CDATA[ <a href="https://www.prebid.org/"><img src="https://s3.amazonaws.com/files.prebid.org/creatives/prebid300x250.png" width="300" height="250"></img></a> ]]>
+                            </HTMLResource>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="AdVerifications">
+                    <AdVerifications>
+                        <Verification vendor="iabtechlab.com-omid">
+                            <JavaScriptResource apiFramework="omid" browserOptional="true">
+                                <![CDATA[ https://prebid-mobile-ad-assets.s3.amazonaws.com/scripts/omid-validation-verification-script-v1.js ]]>
+                            </JavaScriptResource>
+                            <VerificationParameters>
+                                <![CDATA[ "iabtechlab-prebid" ]]>
+                            </VerificationParameters>
+                        </Verification>
+                    </AdVerifications>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+</VAST>

@@ -1,0 +1,60 @@
+{
+    "id": "0D559927-115B-4DFC-9FE3-88A0B2F4EABD",
+    "seatbid": [
+        {
+            "bid": [
+                {
+                    "id": "39299902906497854",
+                    "impid": "/19968336/PrebidMobileValidator_Banner_All_Sizes",
+                    "price": 0.51,
+                    "adm": "<script src=\"https://nym1-ib.adnxs.com/ab?e=wqT_3QKODaCOBgAAAwDWAAUBCPiSwuIFEIPNhKvd9NGLJRiEtIyqg46s8BgqNgkiIgECPOI_EVK4HoXrUeA_GQAAAIABCUghaZHtfD816j8pH4XrUbge7T8xERuoMP250rAY47UhAhwdINFDkx50nWL79XGAAaMDVdni8pwWAAQGKAQNVU0SSAQEG9GgEmAGsAqAB-gGoAQGwAQC4AQLAAQXIAQLQAQDYAQDgAQDwAQCSAtYDTzJNbWlWbG5FSWZjaUl1Q0hrZ1o4R3FhSDZxanpvR3NHY01VUkw3ZFRhb2oyU0stanU5SVduLUZaZXVZWnFCWmtUYkZNYVg1NWRnMlpuYnUyTlVja1o3RXFES0RkQXl1dG1ObGFoRWNnNjR1blhDM3B0TG85Y3hYcTdkTkhpNkVaM01rQUtiRWVFUm1yTGdENTR3MDhkMEVsRHBhNUFCMWxmTDNBVS1UNi0zbThpM0tyNzVXdzJvaG8wamFtNGZSdTNSWWtYU3M3ZkVTc2NLNmpwdmkzZjFkeE1NODJiUDI4RnVUcm13Z1dMMXM4N0lTNTFIcXB4bm1NVDM5YkJMLUNlZnloOTl1ZmFWdnhHa3VnVVZQN1JjMlNwSHRTc1JidHM1T1E2NnNYUnlpZ3Y1NGRhcXFRa3FuU1NHUVNkSEVmdmV3VXpST1RCazRCTnozekJncmZiNHRvR1R0NkFJM1pZYlJhWjRJSEFIZVVhczkweG9JVDIxZzFtakpZU1ZrZVdtWG1PMWpkVHhONjQ2N1dRWG9Ca3ZoLXFxeHFsYWRSUGd6cVJJOEEwMlZDdzNUTXBLNHBMU29NZlVqV0E0aFpidnIzNDRLS1o5RTlzdVpqeU0tb0HYAgDgArKYSPIC2wQKE0RFTElWRVJZX1BBUkFNRVRFUlMSwwRkaWQ9NWM1MDg5NzZiYWM1ODNjMTc3Nzg4MTllYjNmM2EyMDAmdT0lN0NKMmVkRUVRSjJFN2Q1T1htaFBMdXZuJTJCR2taWmZ2bkdUU3IlMkZoRjZ2NyUyQld3JTNEJTdDJnVtaXA9JTdDSjJlZEVFUUoyRTc5WlkybXczMW1aMm1QcmFOOGFJZ2l5JTJGYnFFb2ZNJTJCQzglM0QlN0MmYzE9b1NJTGJySTctek1NZG1wZV9SbnNqaWROOW4wbERMX2ZIRkZ4a0gtemRiZGFvVU56NDZNdWFLbnFuSUg0QjJrWjNKRGhsWW04RVVwOWdKMldiS3VZRnhTUzJVT3dHMndELThWWjBGb0hHR1diZjJVa184Rmx0c0RWMnFZYW9raFUxNklWZFA3eng4a2g3eVFaY1JRQ2UxT2QyZ043Y1JrVDhjcDBUMHlDSS1fS2dVLW5jVTIwcDBtODFjNlRfdWJLNnJOd1pkdzhxaUk1czFTVjUzaVd2X0ZrQkxfOGlXNFduSUdoaUU2eWFvRXl5VWlDakhwX0MxYmw5ZGpIaURzWEhmZjJfbmc1WW1KeE9zZGxMS1pBMWkzMm13TVpjcGpIcjVkRlZITTgwTDZ4RVBGWUZabHlnSXA1cnJkalhBT2owc1UwQXdNaE0tZGJqLWFaSHhvWjBXRkRidTVYOEpQOTZrZlRJbmtZeVVoQi10ekdaSW01STNxanhWLV9zckY3cW0zbkNWak5HVndWTVhLOU1LdWV0YlF2eG9RZmZkTnXyAi0KDFVe9EoBVVJMEh1yZGkudXMuY3JpdGVvLmNvbS9kZWxpdmVyeS9yL4ADAIgDAZADAJgDFKADAaoDKxoTMjY3MjY4MzY4MTQ0Mjc2ODUxNSoDOTAzOg9DUi05Mzg0LTMwMHgyNTDAA6wCyAMA0gMoCAASJGYyOWVjOTRlLTRjZDgtNDU2Yy04NTQzLTFlMTg5OThhNWI4ZdgDAOADAOgDAvgDAIAEAJIECS9vcGVucnRiMpgEAKIEDzIwNy4yMzcuMTUwLjI0NqgEAbIEDAgAEAAYACAAMAA4ALgEAMAEAMgEANoEAggB4AQA8ATkx50nggUTY29tLnByZWJpZC5EclByZWJpZIgFAZgFAKAFncORxp_Ly_5VqgUkMEQ1NTk5MjctMTE1Qi00REZDLTlGRTMtODhBMEIyRjRFQUJEwAUAyQUAAAAAAADwP9IFCQkAAAkObNgFAeAFAfAFgQ36BQQIABAAkAYAmAYAuAYAwQYJIiTwP8gGANoGFgoQCRA0AAAAAAAAAAAAABAAGAA.&s=87944d8cbca48af2b30096db7dd743cd88e5efadd&pp=${AUCTION_PRICE}\"></script>",
+                    "adid": "822732502",
+                    "adomain": [
+                        "gilt.com"
+                    ],
+                    "iurl": "https://nym1-ib.adnxs.com/cr?id=822732502",
+                    "cid": "903",
+                    "crid": "822732502",
+                    "cat": [
+                        "IAB22",
+                        "IAB22-4"
+                    ],
+                    "w": 300,
+                    "h": 250,
+                    "ext": {
+                        "prebid": {
+                            "targeting": {
+                                "hb_bidder": "appnexus",
+                                "hb_bidder_appnexus": "appnexus",
+                                "hb_cache_id": "7008d51d-af2a-4357-acea-1cb672ac2189",
+                                "hb_cache_id_appnexus": "7008d51d-af2a-4357-acea-1cb672ac2189",
+                                "hb_env": "mobile-app",
+                                "hb_env_appnexus": "mobile-app",
+                                "hb_pb": "0.50",
+                                "hb_pb_appnexus": "0.50",
+                                "hb_size": "300x250",
+                                "hb_size_appnexus": "300x250"
+                            },
+                            "type": "banner"
+                        },
+                        "bidder": {
+                            "appnexus": {
+                                "brand_id": 1665,
+                                "auction_id": 2672683681442768515,
+                                "bidder_id": 52,
+                                "bid_ad_type": 0
+                            }
+                        }
+                    }
+                }
+            ],
+            "seat": "appnexus"
+        }
+    ],
+    "ext": {
+        "responsetimemillis": {
+            "appnexus": 41
+        },
+        "tmaxrequest": 500
+    }
+}
