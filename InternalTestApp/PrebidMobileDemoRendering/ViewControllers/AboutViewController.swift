@@ -33,7 +33,7 @@ class AboutViewController : FormViewController {
             "OMSDK_Prebidorg": Prebid.shared.omsdkVersion
         ]),
         ("Ad Server SDKs", [
-            "GoogleMobileAds SDK": GADMobileAds.sharedInstance().sdkVersion,
+            "GoogleMobileAds SDK": GADMobileAds.sharedInstance().versionNumber,
         ]),
         ("Bridging SDKs", [
             "GAM Event Handlers": versionOfBundle(providing: GAMBannerEventHandler.self),
@@ -68,7 +68,7 @@ class AboutViewController : FormViewController {
             for (frameworkName, frameworkVersion) in frameworks {
                 section <<< LabelRow() { row in
                     row.title = frameworkName
-                    row.value = frameworkVersion
+                    row.value = frameworkVersion as? Cell<String>.Value
                     row.cellStyle = .subtitle
                 }.cellSetup { cell, row in
                     cell.detailTextLabel?.accessibilityIdentifier = "\(frameworkName) Version"

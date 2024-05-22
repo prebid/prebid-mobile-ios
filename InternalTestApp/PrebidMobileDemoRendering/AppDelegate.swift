@@ -141,10 +141,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AdMobUtils.initializeGAD()
         
-        ALSdk.shared()?.mediationProvider = "max"
-        ALSdk.shared()?.userIdentifier = "USER_ID"
-        ALSdk.shared()?.initializeSdk { (configuration: ALSdkConfiguration) in
-            Log.info(String(describing: ALSdk.shared()?.isInitialized))
+        ALSdk.shared().mediationProvider = "max"
+        ALSdk.shared().userIdentifier = "USER_ID"
+        ALSdk.shared().initializeSdk { (configuration: ALSdkConfiguration) in
+            Log.info(String(describing: ALSdk.shared().isInitialized))
         }
         
         // Prebid Rendering Configs

@@ -13,14 +13,18 @@
   limitations under the License.
   */
 
-import Foundation
+#import <Foundation/Foundation.h>
 
-@objc public protocol PluginEventDelegate: NSObjectProtocol {
-    @objc func getPluginName() -> String
-}
+NS_ASSUME_NONNULL_BEGIN
 
-@objc open class DefaultPluginEventDelegate: NSObject, PluginEventDelegate {
-    open func getPluginName() -> String {
-        return "DefaultPluginName"
-    }
-}
+@interface PBMORTBRendererConfig : NSObject
+
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *version;
+@property (nonatomic, copy) NSDictionary<NSString *, id> *data;
+
+- (instancetype)initWithName:(NSString *)name version:(NSString *)version data:(NSDictionary<NSString *, id> *)data;
+
+@end
+
+NS_ASSUME_NONNULL_END

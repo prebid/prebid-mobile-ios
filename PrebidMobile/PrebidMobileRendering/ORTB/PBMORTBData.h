@@ -14,12 +14,13 @@
   */
 
 #import "PBMORTBAbstract.h"
+#import "PBMORTBRendererConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMORTBData : PBMORTBAbstract
 
-@property (nonatomic, copy) NSArray<NSString *> *pluginRenderers;
+@property (nonatomic, copy) NSArray<PBMORTBRendererConfig *> *pluginRenderers;
 
 - (instancetype)init;
 
