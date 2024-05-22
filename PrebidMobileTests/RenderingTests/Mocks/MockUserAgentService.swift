@@ -17,16 +17,11 @@ import Foundation
 
 @testable import PrebidMobile
 
-class MockUserAgentService : PBMUserAgentService {
+class MockUserAgentService : UserAgentService {
     
     static let mockUserAgent = "TEST-USER-AGENT"
-    
-    override func getFullUserAgent() -> String {
-        // return known value (version/build# changes from time to time )
-        return MockUserAgentService.mockUserAgent
-    }
-    
-    override func setUserAgent() {
-        // Avoid superclass method
+
+    override var userAgent: String {
+        MockUserAgentService.mockUserAgent
     }
 }

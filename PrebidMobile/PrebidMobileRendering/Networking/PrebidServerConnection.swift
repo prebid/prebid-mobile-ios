@@ -24,7 +24,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     
     // MARK: - Public properties
     
-    public private(set) var userAgentService = PBMUserAgentService.shared
+    public private(set) var userAgentService = UserAgentService.shared
     
     public var protocolClasses: [URLProtocol.Type] = []
     
@@ -61,7 +61,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     
     // MARK: Init
     
-    public convenience init(userAgentService: PBMUserAgentService) {
+    public convenience init(userAgentService: UserAgentService) {
         self.init()
         self.userAgentService = userAgentService
     }
@@ -238,7 +238,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         }
         
         var request = URLRequest(url: url)
-        request.setValue(userAgentService.getFullUserAgent(), forHTTPHeaderField: PrebidServerConnection.userAgentHeaderKey)
+        request.setValue(userAgentService.userAgent, forHTTPHeaderField: PrebidServerConnection.userAgentHeaderKey)
         request.setValue("True", forHTTPHeaderField: PrebidServerConnection.isPBMRequestKey)
         
         // Add this header only in test mode for MOCKED protocols
