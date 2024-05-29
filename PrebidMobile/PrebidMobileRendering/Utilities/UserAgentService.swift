@@ -22,8 +22,6 @@ public class UserAgentService: NSObject {
     
     public private(set) var userAgent: String = ""
     
-    private let webView = WKWebView()
-    
     override init() {
         super.init()
         
@@ -38,7 +36,8 @@ public class UserAgentService: NSObject {
         }
         
         DispatchQueue.main.async {
-            self.webView.evaluateJavaScript("navigator.userAgent") { [weak self] result, error in
+            let webView = WKWebView()
+            webView.evaluateJavaScript("navigator.userAgent") { [weak self] result, error in
                 guard let self = self else { return }
                 
                 if let error {
