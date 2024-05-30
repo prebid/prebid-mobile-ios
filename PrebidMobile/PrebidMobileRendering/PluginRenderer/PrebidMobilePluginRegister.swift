@@ -82,16 +82,18 @@ import Foundation
         }
     }
     
-//    /// Returns the list of available renderers for the given ad unit for RTB request -> What about interstitial ?
-//    @objc public func getRTBListOfRenderersFor(for adUnit: AdUnitConfig) -> [PrebidMobilePluginRenderer] {
-//        queue.sync {
-//            plugins
-//                .values
-//                .filter{
-//                    $0.isSupportRendering(for: adUnit.adFormats)
-//                }
-//        }
-//    }
+    /// Returns the list of available renderers for the given ad unit for RTB request
+    @objc public func getRTBListOfRenderersFor(for adUnit: AdUnitConfig) -> [PrebidMobilePluginRenderer] {
+        queue.sync {
+            plugins
+                .values
+                .filter { renderer in
+                    adUnit.adFormats.contains { format in
+                        renderer.isSupportRendering(for: format)
+                    }
+                }
+        }
+    }
     
     /// Returns the registered renderer according to the preferred renderer name in the bid response
     /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior

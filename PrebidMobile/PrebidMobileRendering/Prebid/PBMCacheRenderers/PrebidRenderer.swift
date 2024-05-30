@@ -20,7 +20,7 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     
     public let version = Prebid.shared.version
     
-    public var data: String? = nil
+    public var data: [AnyHashable: Any]? = nil
     
     public func isSupportRendering(for format: AdFormat?) -> Bool {
         AdFormat.allCases.contains(where: { $0 == format })
