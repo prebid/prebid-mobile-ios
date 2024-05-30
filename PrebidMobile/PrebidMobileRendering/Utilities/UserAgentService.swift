@@ -22,11 +22,10 @@ public class UserAgentService: NSObject {
     
     public private(set) var userAgent: String = ""
     
-    private let webView = WKWebView()
-    
+    private var webViews = [WKWebView]()
+
     override init() {
         super.init()
-        
         fetchUserAgent()
     }
     
@@ -38,7 +37,9 @@ public class UserAgentService: NSObject {
         }
         
         DispatchQueue.main.async {
-            self.webView.evaluateJavaScript("navigator.userAgent") { [weak self] result, error in
+            let webView = WKWebView()
+            self.webViews.append(webView)
+            webView.evaluateJavaScript("navigator.userAgent") { [weak self] result, error in
                 guard let self = self else { return }
                 
                 if let error {
@@ -48,6 +49,8 @@ public class UserAgentService: NSObject {
                 if let result = result, self.userAgent.isEmpty  {
                     self.userAgent = "\(result)"
                 }
+                
+                self.webViews.removeAll(where: { $0 == webView })
                 
                 completion?(self.userAgent)
             }
