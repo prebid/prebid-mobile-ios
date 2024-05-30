@@ -23,12 +23,8 @@ class MockUIApplication : PBMUIApplicationProtocol {
     
     var openURLClosure:((URL)->Bool)?
     
-    func open(_ url: URL) -> Bool {
-        return self.openURLClosure?(url) ?? false
-    }
-    
     func open(_ url: URL, options: [String : Any]? = [:], completionHandler completion: ((Bool) -> Void)? = nil) {
-        let result = open(url)
+        let result = self.openURLClosure?(url) ?? false
         completion?(result)
     }
 }
