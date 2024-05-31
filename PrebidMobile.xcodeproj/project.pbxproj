@@ -768,6 +768,8 @@
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
+		A74C24C72C09CC3F007DF612 /* UserAgentPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74C24C62C09CC3F007DF612 /* UserAgentPersistence.swift */; };
+		A74C24C92C09D673007DF612 /* UserAgentPersistenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74C24C82C09D672007DF612 /* UserAgentPersistenceTest.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
 		FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */; };
@@ -1648,6 +1650,8 @@
 		97826AA621FB4F1B001E2C05 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9791778F2201AF4700E624CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		979177962201AF5F00E624CE /* DispatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatcherTests.swift; sourceTree = "<group>"; };
+		A74C24C62C09CC3F007DF612 /* UserAgentPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentPersistence.swift; sourceTree = "<group>"; };
+		A74C24C82C09D672007DF612 /* UserAgentPersistenceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentPersistenceTest.swift; sourceTree = "<group>"; };
 		FA4A88432497A99D00FDCBB6 /* Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzling.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestUtils.xcodeproj; path = ../tools/TestUtils/TestUtils.xcodeproj; sourceTree = "<group>"; };
@@ -2100,6 +2104,7 @@
 				537B651D2833A3DA008AE9D1 /* Reachability.swift */,
 				537B653F2833C091008AE9D1 /* NetworkType.swift */,
 				5347473A2BFB4D3D00966658 /* UserAgentService.swift */,
+				A74C24C62C09CC3F007DF612 /* UserAgentPersistence.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -3020,6 +3025,7 @@
 				925D5E562737F2D900A8A2B5 /* PBMMacrosTest.m */,
 				925D5E582737F35500A8A2B5 /* UIViewExtensionsTest.swift */,
 				536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */,
+				A74C24C82C09D672007DF612 /* UserAgentPersistenceTest.swift */,
 			);
 			path = UtilitiesExtensionsTests;
 			sourceTree = "<group>";
@@ -3831,6 +3837,7 @@
 				922AFD612737306900732C53 /* PBMModalViewControllerTest.swift in Sources */,
 				925D5E552737F2A900A8A2B5 /* PBMFunctionsPrivateTest.m in Sources */,
 				47D9A4E2F32109B33E75FD2C /* MockBundle.swift in Sources */,
+				A74C24C92C09D673007DF612 /* UserAgentPersistenceTest.swift in Sources */,
 				928E5A7427F0F84C000ADA1A /* NativeMarkupRequestObjectTest.swift in Sources */,
 				925D5DB72737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift in Sources */,
 				922AFCF42736FDD500732C53 /* PBMFunctionsObjCTest.m in Sources */,
@@ -4175,6 +4182,7 @@
 				FAEE4D0B262DC2B200AD9966 /* Dispatcher.swift in Sources */,
 				5BC37A10271F1D0000444D5E /* AdUnitConfig.swift in Sources */,
 				5BC37926271F1CFF00444D5E /* PBMDeepLinkPlusHelper+Testing.m in Sources */,
+				A74C24C72C09CC3F007DF612 /* UserAgentPersistence.swift in Sources */,
 				5BC37A90271F1D0000444D5E /* InterstitialAdUnitDelegate.swift in Sources */,
 				5BC37A88271F1D0000444D5E /* RewardedAdUnitDelegate.swift in Sources */,
 				5BC378DB271F1CFF00444D5E /* PBMORTBDeal.m in Sources */,
