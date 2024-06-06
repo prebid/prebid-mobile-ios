@@ -17,7 +17,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMORTBRendererConfig : NSObject
+@interface PBMORTBRendererConfig : PBMORTBAbstract
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *version;
