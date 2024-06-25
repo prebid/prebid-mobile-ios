@@ -3,7 +3,8 @@ version: 2.1
 jobs: 
   build:
     macos:
-      xcode: 14.1.0
+      xcode: 15.4.0
+    resource_class: macos.m1.large.gen1
     steps:
       - checkout
       - run:
@@ -12,7 +13,8 @@ jobs:
 
   unit-test:
     macos:
-      xcode: 14.1.0
+      xcode: 15.4.0
+    resource_class: macos.m1.large.gen1
     steps:
       - checkout
       - run:
@@ -21,7 +23,8 @@ jobs:
           
   run-swift-demo-integration-tests:
     macos:
-      xcode: 14.1.0
+      xcode: 15.4.0
+    resource_class: macos.m1.large.gen1
     steps:
       - checkout
       - run:
@@ -30,7 +33,8 @@ jobs:
           
   run-swift-demo-ui-tests:
     macos:
-      xcode: 14.1.0
+      xcode: 15.4.0
+    resource_class: macos.m1.large.gen1
     steps:
       - checkout
       - run:
