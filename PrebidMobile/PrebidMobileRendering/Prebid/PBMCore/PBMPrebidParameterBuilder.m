@@ -16,7 +16,6 @@
 #import "PBMPrebidParameterBuilder.h"
 
 #import "PBMORTB.h"
-#import "PBMUserAgentService.h"
 
 #import "PBMAdViewManagerDelegate.h"
 #import "PBMJsonCodable.h"
@@ -106,7 +105,7 @@
     bidRequest.app.ver          = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
     bidRequest.device.pxratio   = @([UIScreen mainScreen].scale);
     bidRequest.source.tid       = [NSUUID UUID].UUIDString;
-    bidRequest.device.ua        = [self.userAgentService getFullUserAgent];
+    bidRequest.device.ua        = self.userAgentService.userAgent;
     
     bidRequest.app.content = [self.adConfiguration getAppContent];
     

@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,15 +13,14 @@
   limitations under the License.
   */
 
-import Foundation
+#import <Foundation/Foundation.h>
 
-@testable import PrebidMobile
+NS_ASSUME_NONNULL_BEGIN
 
-class MockUserAgentService : UserAgentService {
-    
-    static let mockUserAgent = "TEST-USER-AGENT"
+@interface NSURL (PBMExtensions)
 
-    override var userAgent: String {
-        MockUserAgentService.mockUserAgent
-    }
-}
++ (NSURL *)PBMURLWithoutEncodingFromString:(NSString *)str;
+
+@end
+
+NS_ASSUME_NONNULL_END

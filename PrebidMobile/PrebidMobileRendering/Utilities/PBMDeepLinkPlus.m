@@ -14,6 +14,7 @@
  */
 
 #import "PBMDeepLinkPlus.h"
+#import "NSURL+PBMExtensions.h"
 
 @interface PBMDeepLinkPlus()
 
@@ -48,7 +49,7 @@
 
     for (NSURLQueryItem *queryItem in queryItems) {
         NSString *key = queryItem.name;
-        NSURL *valueURL = [NSURL URLWithString:queryItem.value];
+        NSURL *valueURL = [NSURL PBMURLWithoutEncodingFromString:queryItem.value];
         if (valueURL != nil) {
             if ([key isEqualToString:@"primaryUrl"]) {
                 if (self.primaryURL == nil) {

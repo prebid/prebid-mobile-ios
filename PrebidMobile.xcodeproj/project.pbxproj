@@ -75,6 +75,7 @@
 		533E0FB7290FFEB9000CC24F /* PBMORTBAppExt.h in Headers */ = {isa = PBXBuildFile; fileRef = 799109FC28F99C7D004837B4 /* PBMORTBAppExt.h */; };
 		533E0FB929100076000CC24F /* MockGADMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FB829100076000CC24F /* MockGADMobileAds.swift */; };
 		533FDF852A12030C0066ED5A /* MockPrebidJSLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */; };
+		5347473B2BFB4D3D00966658 /* UserAgentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5347473A2BFB4D3D00966658 /* UserAgentService.swift */; };
 		5355ACA929C454070014F16E /* VAST_with_empty_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */; };
 		5355ACAB29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */; };
 		536A39262A84C50F00B1CCEA /* StringExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */; };
@@ -116,6 +117,9 @@
 		53CE09012AD673020018CB75 /* sample_ortb_native_with_win_event.json in Resources */ = {isa = PBXBuildFile; fileRef = 53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */; };
 		53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */; };
 		53CF5B3729DC690600613E84 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF5B3629DC690600613E84 /* VideoAdUnit.swift */; };
+		53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */; };
+		53D3C38D2C2BEF9B0074D99B /* NSURL+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */; };
+		53D3C38E2C2BEF9B0074D99B /* NSURL+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */; };
 		53D934FF282CE62E0092E243 /* AgeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D934FE282CE62E0092E243 /* AgeUtils.swift */; };
 		53D93505282CEA900092E243 /* DateFormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D93504282CEA900092E243 /* DateFormatService.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
@@ -222,7 +226,6 @@
 		5BC37914271F1CFF00444D5E /* PBMCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B6271F1CFE00444D5E /* PBMCircularProgressBarView.m */; };
 		5BC37915271F1CFF00444D5E /* PBMCircularProgressBarLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B7271F1CFE00444D5E /* PBMCircularProgressBarLayer.h */; };
 		5BC37917271F1CFF00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B9271F1CFE00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC37918271F1CFF00444D5E /* PBMUserAgentService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376BA271F1CFE00444D5E /* PBMUserAgentService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3791B271F1CFF00444D5E /* PBMFunctions+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BD271F1CFE00444D5E /* PBMFunctions+Testing.m */; };
 		5BC3791C271F1CFF00444D5E /* PBMMRAIDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */; };
 		5BC3791F271F1CFF00444D5E /* PBMDeviceAccessManagerKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376C1271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.h */; };
@@ -249,7 +252,6 @@
 		5BC37939271F1D0000444D5E /* PBMFunctions+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3793A271F1D0000444D5E /* PBMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */; };
 		5BC3793B271F1D0000444D5E /* PBMVoidBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC3793D271F1D0000444D5E /* PBMUserAgentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E0271F1CFE00444D5E /* PBMUserAgentService.m */; };
 		5BC3793F271F1D0000444D5E /* PBMCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E2271F1CFE00444D5E /* PBMCircularProgressBarLayer.m */; };
 		5BC37940271F1D0000444D5E /* PBMCircularProgressBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E3271F1CFE00444D5E /* PBMCircularProgressBarView.h */; };
 		5BC37942271F1D0000444D5E /* PBMDeviceAccessManagerKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E5271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.m */; };
@@ -697,7 +699,7 @@
 		925D5E422737F09900A8A2B5 /* TestUtilitiesForTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E412737F09900A8A2B5 /* TestUtilitiesForTesting.swift */; };
 		925D5E442737F0C800A8A2B5 /* EnumSequenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E432737F0C800A8A2B5 /* EnumSequenceTest.swift */; };
 		925D5E462737F0ED00A8A2B5 /* TestPBMFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E452737F0ED00A8A2B5 /* TestPBMFunctions.swift */; };
-		925D5E492737F18500A8A2B5 /* PBMUserAgentServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E482737F18500A8A2B5 /* PBMUserAgentServiceTest.swift */; };
+		925D5E492737F18500A8A2B5 /* UserAgentServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E482737F18500A8A2B5 /* UserAgentServiceTest.swift */; };
 		925D5E4B2737F1AA00A8A2B5 /* TestStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E4A2737F1AA00A8A2B5 /* TestStringExtension.swift */; };
 		925D5E4D2737F1DA00A8A2B5 /* DateFormatServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E4C2737F1DA00A8A2B5 /* DateFormatServiceTest.swift */; };
 		925D5E4F2737F22200A8A2B5 /* DownloadSizeHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E4E2737F22200A8A2B5 /* DownloadSizeHelperTest.swift */; };
@@ -933,6 +935,7 @@
 		5335762029C45A300097242D /* VAST_with_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_companion.xml; sourceTree = "<group>"; };
 		533E0FB829100076000CC24F /* MockGADMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGADMobileAds.swift; sourceTree = "<group>"; };
 		533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPrebidJSLibraryManager.swift; sourceTree = "<group>"; };
+		5347473A2BFB4D3D00966658 /* UserAgentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentService.swift; sourceTree = "<group>"; };
 		5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_empty_companion.xml; sourceTree = "<group>"; };
 		5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModelCollectionMakerVASTTests.swift; sourceTree = "<group>"; };
 		536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTest.swift; sourceTree = "<group>"; };
@@ -974,6 +977,9 @@
 		53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_ortb_native_with_win_event.json; sourceTree = "<group>"; };
 		53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMBidRequester.swift; sourceTree = "<group>"; };
 		53CF5B3629DC690600613E84 /* VideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAdUnit.swift; sourceTree = "<group>"; };
+		53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+PBMExtensions.h"; sourceTree = "<group>"; };
+		53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+PBMExtensions.m"; sourceTree = "<group>"; };
 		53D934FE282CE62E0092E243 /* AgeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeUtils.swift; sourceTree = "<group>"; };
 		53D93504282CEA900092E243 /* DateFormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatService.swift; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
@@ -1081,7 +1087,6 @@
 		5BC376B6271F1CFE00444D5E /* PBMCircularProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMCircularProgressBarView.m; sourceTree = "<group>"; };
 		5BC376B7271F1CFE00444D5E /* PBMCircularProgressBarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCircularProgressBarLayer.h; sourceTree = "<group>"; };
 		5BC376B9271F1CFE00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"; sourceTree = "<group>"; };
-		5BC376BA271F1CFE00444D5E /* PBMUserAgentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMUserAgentService.h; sourceTree = "<group>"; };
 		5BC376BC271F1CFE00444D5E /* PBMLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMLocationManager.h; sourceTree = "<group>"; };
 		5BC376BD271F1CFE00444D5E /* PBMFunctions+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBMFunctions+Testing.m"; sourceTree = "<group>"; };
 		5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMMRAIDConstants.m; sourceTree = "<group>"; };
@@ -1109,7 +1114,6 @@
 		5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMFunctions+Testing.h"; sourceTree = "<group>"; };
 		5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMLocationManager.m; sourceTree = "<group>"; };
 		5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMVoidBlock.h; sourceTree = "<group>"; };
-		5BC376E0271F1CFE00444D5E /* PBMUserAgentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMUserAgentService.m; sourceTree = "<group>"; };
 		5BC376E2271F1CFE00444D5E /* PBMCircularProgressBarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMCircularProgressBarLayer.m; sourceTree = "<group>"; };
 		5BC376E3271F1CFE00444D5E /* PBMCircularProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCircularProgressBarView.h; sourceTree = "<group>"; };
 		5BC376E5271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeviceAccessManagerKeys.m; sourceTree = "<group>"; };
@@ -1422,7 +1426,6 @@
 		92028EA527F0D89E00783470 /* NativeAdConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdConfiguration.swift; sourceTree = "<group>"; };
 		920E8D6C28084BF200E6313B /* VideoControlsConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoControlsConfigTests.swift; sourceTree = "<group>"; };
 		922AFC8727352B0100732C53 /* MockUserAgentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserAgentService.swift; sourceTree = "<group>"; };
-		922AFC8927352B4C00732C53 /* PBMUserAgentService+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMUserAgentService+pbmTestExtension.h"; sourceTree = "<group>"; };
 		922AFC8C27352BE900732C53 /* MockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockViewController.swift; sourceTree = "<group>"; };
 		922AFC8E27352C0100732C53 /* MockServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServerConnection.swift; sourceTree = "<group>"; };
 		922AFC9027352C9B00732C53 /* MockPBMWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMWebView.swift; sourceTree = "<group>"; };
@@ -1583,7 +1586,7 @@
 		925D5E412737F09900A8A2B5 /* TestUtilitiesForTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtilitiesForTesting.swift; sourceTree = "<group>"; };
 		925D5E432737F0C800A8A2B5 /* EnumSequenceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumSequenceTest.swift; sourceTree = "<group>"; };
 		925D5E452737F0ED00A8A2B5 /* TestPBMFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPBMFunctions.swift; sourceTree = "<group>"; };
-		925D5E482737F18500A8A2B5 /* PBMUserAgentServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMUserAgentServiceTest.swift; sourceTree = "<group>"; };
+		925D5E482737F18500A8A2B5 /* UserAgentServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentServiceTest.swift; sourceTree = "<group>"; };
 		925D5E4A2737F1AA00A8A2B5 /* TestStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStringExtension.swift; sourceTree = "<group>"; };
 		925D5E4C2737F1DA00A8A2B5 /* DateFormatServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatServiceTest.swift; sourceTree = "<group>"; };
 		925D5E4E2737F22200A8A2B5 /* DownloadSizeHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadSizeHelperTest.swift; sourceTree = "<group>"; };
@@ -1882,6 +1885,7 @@
 				34C9CD5E2850CE6300FB5451 /* OMSDKVersionProvider.m */,
 				53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */,
 				53842BBB29E565030069A4B7 /* NSString+Extensions.swift */,
+				53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1976,6 +1980,8 @@
 				5BC3765E271F1CFD00444D5E /* UIWindow+PBMExtensions.h */,
 				5BC3766F271F1CFD00444D5E /* UIWindow+PBMExtensions.m */,
 				53C925012990FB30009E6F94 /* String+Extensions.swift */,
+				53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */,
+				53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */,
 			);
 			path = ExtensionsAndWrappers;
 			sourceTree = "<group>";
@@ -2116,8 +2122,6 @@
 				5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */,
 				5BC376C7271F1CFE00444D5E /* PBMNSThreadProtocol.h */,
 				5BC376C3271F1CFE00444D5E /* PBMUIApplicationProtocol.h */,
-				5BC376BA271F1CFE00444D5E /* PBMUserAgentService.h */,
-				5BC376E0271F1CFE00444D5E /* PBMUserAgentService.m */,
 				5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */,
 				5BC376CE271F1CFE00444D5E /* PBMWindowLocker.h */,
 				5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */,
@@ -2126,6 +2130,7 @@
 				53D93504282CEA900092E243 /* DateFormatService.swift */,
 				537B651D2833A3DA008AE9D1 /* Reachability.swift */,
 				537B653F2833C091008AE9D1 /* NetworkType.swift */,
+				5347473A2BFB4D3D00966658 /* UserAgentService.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2893,7 +2898,6 @@
 				47D9A4D57365DB380EAEF233 /* PBMOpenMeasurementSession+pbmTestExtension.h */,
 				925D5D852737BA8D00A8A2B5 /* PBMOpenMeasurementWrapper+pbmTestExtension.h */,
 				925D5E342737EE4500A8A2B5 /* PBMTransaction+pbmTestExtension.h */,
-				922AFC8927352B4C00732C53 /* PBMUserAgentService+pbmTestExtension.h */,
 				922AFD722737339000732C53 /* PBMVideoCreative+pbmTestExtension.h */,
 				925D5E312737EDCD00A8A2B5 /* PBMVideoView+pbmTestExtension.h */,
 				922AFD2127371E6D00732C53 /* PBMWebView+PBMTestExtension.h */,
@@ -3039,7 +3043,7 @@
 				925D5E412737F09900A8A2B5 /* TestUtilitiesForTesting.swift */,
 				925D5E432737F0C800A8A2B5 /* EnumSequenceTest.swift */,
 				925D5E452737F0ED00A8A2B5 /* TestPBMFunctions.swift */,
-				925D5E482737F18500A8A2B5 /* PBMUserAgentServiceTest.swift */,
+				925D5E482737F18500A8A2B5 /* UserAgentServiceTest.swift */,
 				925D5E4A2737F1AA00A8A2B5 /* TestStringExtension.swift */,
 				925D5E4C2737F1DA00A8A2B5 /* DateFormatServiceTest.swift */,
 				925D5E4E2737F22200A8A2B5 /* DownloadSizeHelperTest.swift */,
@@ -3391,7 +3395,6 @@
 				5BC3791F271F1CFF00444D5E /* PBMDeviceAccessManagerKeys.h in Headers */,
 				5BC378D2271F1CFF00444D5E /* PBMORTBBanner.h in Headers */,
 				5BC37987271F1D0000444D5E /* PBMCreativeModelMakerResult.h in Headers */,
-				5BC37918271F1CFF00444D5E /* PBMUserAgentService.h in Headers */,
 				5BC37915271F1CFF00444D5E /* PBMCircularProgressBarLayer.h in Headers */,
 				5BC378C9271F1CFF00444D5E /* NSTimer+PBMTimerInterface.h in Headers */,
 				5BC37AC5271F1D0100444D5E /* PBMDeviceInfoParameterBuilder.h in Headers */,
@@ -3401,6 +3404,7 @@
 				5BC37A66271F1D0000444D5E /* PBMORTBBidExtSkadn.h in Headers */,
 				5BC37AD7271F1D0100444D5E /* PBMUserConsentParameterBuilder.h in Headers */,
 				5BC37964271F1D0000444D5E /* PBMVastResponse.h in Headers */,
+				53D3C38E2C2BEF9B0074D99B /* NSURL+PBMExtensions.h in Headers */,
 				5BC379CC271F1D0000444D5E /* PBMAdLoadManagerVAST.h in Headers */,
 				5BC37985271F1D0000444D5E /* PBMMRAIDController.h in Headers */,
 				5BC3790F271F1CFF00444D5E /* PBMDeviceAccessManager.h in Headers */,
@@ -3818,7 +3822,7 @@
 				925D5E182737E7D200A8A2B5 /* PBMErrorTest.swift in Sources */,
 				922AFD3D273728D700732C53 /* PBMHTMLCreativeTest_MRAIDClose.swift in Sources */,
 				925D5E512737F24B00A8A2B5 /* PBMConstantsTests.swift in Sources */,
-				925D5E492737F18500A8A2B5 /* PBMUserAgentServiceTest.swift in Sources */,
+				925D5E492737F18500A8A2B5 /* UserAgentServiceTest.swift in Sources */,
 				925D5D8C2737BF3A00A8A2B5 /* OXMOpenMeasurementEventTrackerTest.swift in Sources */,
 				922AFD4D27372A2F00732C53 /* PBMHTMLCreativeTest.swift in Sources */,
 				922AFD5427372B6900732C53 /* PBMInterstitialLayoutConfiguratorTest.swift in Sources */,
@@ -4007,6 +4011,7 @@
 				9236A650272FEC5A00ABBEF4 /* ImpressionTask.swift in Sources */,
 				5BC37A97271F1D0000444D5E /* InterstitialEventHandlerProtocol.swift in Sources */,
 				5BC379F3271F1D0000444D5E /* PBMExternalLinkHandler.m in Sources */,
+				53D3C38D2C2BEF9B0074D99B /* NSURL+PBMExtensions.m in Sources */,
 				5BC379AD271F1D0000444D5E /* PBMTransaction.m in Sources */,
 				53269D55282E6D0F0098550D /* ServerEvent.swift in Sources */,
 				5BC37A5E271F1D0000444D5E /* PBMORTBBidResponseExt.m in Sources */,
@@ -4132,6 +4137,7 @@
 				5BC37953271F1D0000444D5E /* PBMCreativeFactoryJob.m in Sources */,
 				5BC378B8271F1CFF00444D5E /* PBMViewExposureChecker.m in Sources */,
 				5BC37978271F1D0000444D5E /* PBMVastCreativeNonLinearAdsNonLinear.m in Sources */,
+				5347473B2BFB4D3D00966658 /* UserAgentService.swift in Sources */,
 				FAEE4D22262DC2B200AD9966 /* UIViewExtension.swift in Sources */,
 				539B0D95282A675E00513501 /* PBMORTBExtPrebidEvents.m in Sources */,
 				5BC37AD1271F1D0100444D5E /* PBMAppInfoParameterBuilder.m in Sources */,
@@ -4176,7 +4182,6 @@
 				5BC37A8D271F1D0000444D5E /* InterstitialRenderingAdUnit.swift in Sources */,
 				5BC379C0271F1D0000444D5E /* PBMInterstitialDisplayProperties.m in Sources */,
 				53D93505282CEA900092E243 /* DateFormatService.swift in Sources */,
-				5BC3793D271F1D0000444D5E /* PBMUserAgentService.m in Sources */,
 				924F661E27FDBC3100C8DAF7 /* PBMORTBExtPrebidPassthrough.m in Sources */,
 				5BC37A51271F1D0000444D5E /* PBMPrebidParameterBuilder.m in Sources */,
 				92C85D6427A979F20080BAC5 /* NativeLink.swift in Sources */,
@@ -4239,6 +4244,7 @@
 				5BC37961271F1D0000444D5E /* PBMVastAdsBuilder.m in Sources */,
 				5BC37A91271F1D0000444D5E /* InterstitialEventLoadingDelegate.swift in Sources */,
 				530382F2283197E100B2B111 /* PrebidServerResponse.swift in Sources */,
+				53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */,
 				5BC3792F271F1D0000444D5E /* PBMDeviceAccessManager.m in Sources */,
 				5BC37A6E271F1D0000444D5E /* PBMORTBBidResponse.m in Sources */,
 				5BC37ACE271F1D0100444D5E /* PBMGeoLocationParameterBuilder.m in Sources */,
@@ -4499,7 +4505,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				CURRENT_PROJECT_VERSION = 2.2.1;
+				CURRENT_PROJECT_VERSION = 2.2.3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4518,7 +4524,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.2.3;
 				MODULEMAP_FILE = PrebidMobile/BuildFiles/PrebidMobile.modulemap;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4535,7 +4541,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				CURRENT_PROJECT_VERSION = 2.2.1;
+				CURRENT_PROJECT_VERSION = 2.2.3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4554,7 +4560,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.2.3;
 				MODULEMAP_FILE = PrebidMobile/BuildFiles/PrebidMobile.modulemap;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

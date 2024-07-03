@@ -141,11 +141,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AdMobUtils.initializeGAD()
         
-        ALSdk.shared().mediationProvider = "max"
-        ALSdk.shared().userIdentifier = "USER_ID"
-        ALSdk.shared().initializeSdk { (configuration: ALSdkConfiguration) in
-            Log.info(String(describing: ALSdk.shared().isInitialized))
-        }
+        let config = ALSdkInitializationConfiguration(
+            sdkKey: "1tLUnP4cVQqpHuHH2yMtfdESvvUhTB05NdbCoDTceDDNVnhd_T8kwIzXDN9iwbdULTboByF-TtNaiTmsoVbxZw"
+        )
+        
+        ALSdk.shared().initialize(with: config)
         
         // Prebid Rendering Configs
         Prebid.shared.logLevel = .info

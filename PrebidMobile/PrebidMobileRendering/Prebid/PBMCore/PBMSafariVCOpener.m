@@ -112,6 +112,11 @@
         return NO;
     }
      
+    if (!([strURLscheme isEqualToString:@"http"] || [strURLscheme isEqualToString:@"https"])) {
+        PBMLogError(@"Attempting to open url [%@] in SFSafariViewController. SFSafariViewController only supports initial URLs with http:// or https:// schemes.", url);
+        return NO;
+    }
+    
     //Show clickthrough browser
     
     return [self openClickthroughWithURL:url

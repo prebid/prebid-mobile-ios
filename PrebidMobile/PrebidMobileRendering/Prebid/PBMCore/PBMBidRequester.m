@@ -58,6 +58,14 @@
 }
 
 - (void)requestBidsWithCompletion:(void (^)(BidResponse *, NSError *))completion {
+    @weakify(self);
+    [PBMUserAgentService.shared fetchUserAgentWithCompletion:^(NSString * _Nonnull userAgent) {
+        @strongify(self);
+        [self makeRequestWithCompletion:completion];
+    }];
+}
+
+- (void)makeRequestWithCompletion:(void (^)(BidResponse *, NSError *))completion {
     NSError * const setupError = [self findErrorInSettings];
     if (setupError) {
         completion(nil, setupError);
@@ -72,7 +80,7 @@
     self.completion = completion ?: ^(BidResponse *r, NSError *e) {};
     
     NSString * const requestString = [self getRTBRequest];
-           
+    
     NSError * hostURLError = nil;
     NSString * const requestServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:&hostURLError];
     
@@ -83,10 +91,8 @@
     
     const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.timeoutMillis;
     NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.timeoutMillisDynamic;
-        
-    const NSTimeInterval postTimeout = (dynamicTimeout_onRead
-                                        ? dynamicTimeout_onRead.doubleValue
-                                        : (rawTimeoutMS_onRead / 1000.0));
+    
+    const NSTimeInterval postTimeout = (dynamicTimeout_onRead ? dynamicTimeout_onRead.doubleValue : (rawTimeoutMS_onRead / 1000.0));
     
     @weakify(self);
     NSDate * const requestDate = [NSDate date];
@@ -120,7 +126,7 @@
             NSNumber * const tmaxrequest = bidResponse.tmaxrequest;
             if (tmaxrequest) {
                 NSDate * const responseDate = [NSDate date];
-
+                
                 const NSTimeInterval bidResponseTimeout = tmaxrequest.doubleValue / 1000.0;
                 const NSTimeInterval remoteTimeout = ([responseDate timeIntervalSinceDate:requestDate]
                                                       + bidResponseTimeout

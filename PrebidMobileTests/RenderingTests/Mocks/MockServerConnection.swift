@@ -25,7 +25,7 @@ class MockServerConnection: NSObject, PrebidServerConnectionProtocol {
     
     let defaultContentType = "application/json" // Note: Must be equivalent to PBMContentTypeVal
     
-    let userAgentService = PBMUserAgentService.shared
+    let userAgentService = UserAgentService.shared
     
     private(set) var onFireAndForget: [FireAndForgetHandler]
     private(set) var onHead: [GetHandler]

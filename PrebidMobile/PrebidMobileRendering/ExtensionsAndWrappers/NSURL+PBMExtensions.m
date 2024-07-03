@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,15 +13,20 @@
   limitations under the License.
   */
 
-import Foundation
+#import "NSURL+PBMExtensions.h"
 
-@testable import PrebidMobile
+@implementation NSURL (PBMExtensions)
 
-class MockUserAgentService : UserAgentService {
++ (NSURL *)PBMURLWithoutEncodingFromString:(NSString *)str {
+    if (!str) {
+        return nil;
+    }
     
-    static let mockUserAgent = "TEST-USER-AGENT"
-
-    override var userAgent: String {
-        MockUserAgentService.mockUserAgent
+    if (@available(iOS 17.0, *)) {
+        return [NSURL URLWithString:str encodingInvalidCharacters:NO];
+    } else {
+        return [NSURL URLWithString:str];
     }
 }
+
+@end

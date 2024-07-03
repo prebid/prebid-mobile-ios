@@ -33,7 +33,7 @@ class AboutViewController : FormViewController {
             "OMSDK_Prebidorg": Prebid.shared.omsdkVersion
         ]),
         ("Ad Server SDKs", [
-            "GoogleMobileAds SDK": GADMobileAds.sharedInstance().versionNumber,
+            "GoogleMobileAds SDK": "\(GADMobileAds.sharedInstance().versionNumber)",
         ]),
         ("Bridging SDKs", [
             "GAM Event Handlers": versionOfBundle(providing: GAMBannerEventHandler.self),

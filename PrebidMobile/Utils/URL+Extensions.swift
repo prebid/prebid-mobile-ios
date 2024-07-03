@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,13 +13,19 @@
   limitations under the License.
   */
 
-#import "PBMUserAgentService.h"
+import Foundation
 
-@interface PBMUserAgentService (pbmTestExtension)
-
-@property (nonatomic, copy) NSString *sdkVersion;
-
-- (void)setUserAgent;
-- (void)setUserAgentInThread:(id<PBMNSThreadProtocol>)thread;
-
-@end
+extension URL {
+    
+    static func urlWithoutEncoding(from str: String?) -> URL? {
+        guard let str = str else {
+            return nil
+        }
+        
+        if #available(iOS 17.0, *) {
+            return URL(string: str, encodingInvalidCharacters: false)
+        }
+        
+        return URL(string: str)
+    }
+}

@@ -25,7 +25,7 @@ else
     SCHEME="PrebidDemoTests"
     TEST="Integration"
 fi
-xcodebuild test -workspace PrebidMobile.xcworkspace -scheme $SCHEME -test-iterations 2 -retry-tests-on-failure  -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+xcodebuild test -workspace PrebidMobile.xcworkspace -scheme $SCHEME -test-iterations 2 -retry-tests-on-failure  -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ ${TEST} Tests Passed"
