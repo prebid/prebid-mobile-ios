@@ -154,7 +154,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         fatalError("Init is unavailable.")
     }
     
-    func reportFailureWithError(_ error: Error?) {
+    public func reportFailureWithError(_ error: Error?) {
         renderer?.transactionFactory = nil
         if let error = error,
            let loadingDelegate = loadingDelegate {
@@ -169,7 +169,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         }
     }
 
-    func display(transaction: PBMTransaction) {
+    public func display(transaction: PBMTransaction) {
         adViewManager = PBMAdViewManager(connection: PrebidServerConnection.shared,
                                          modalManagerDelegate: nil)
         adViewManager?.adViewManagerDelegate = self

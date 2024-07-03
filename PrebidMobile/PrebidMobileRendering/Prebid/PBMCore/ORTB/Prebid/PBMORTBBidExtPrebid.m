@@ -33,6 +33,7 @@
     }
     
     _targeting = jsonDictionary[@"targeting"];
+    _meta = jsonDictionary[@"meta"];
     _type = jsonDictionary[@"type"];
     
     NSArray * const passthroughDics = jsonDictionary[@"passthrough"];
@@ -64,6 +65,7 @@
     
     ret[@"cache"] = [[self.cache toJsonDictionary] nullIfEmpty];
     ret[@"targeting"] = self.targeting;
+    ret[@"meta"] = self.meta;
     ret[@"type"] = self.type;
     
     NSMutableArray * const passthroughDicArr = [[NSMutableArray alloc] initWithCapacity:self.passthrough.count];

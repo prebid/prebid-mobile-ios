@@ -108,4 +108,15 @@ import Foundation
         }
         return preferredPlugin
     }
+    
+    @objc public func getAllPlugins() -> [PrebidMobilePluginRenderer] {
+        queue.sync {
+            if plugins.isEmpty {
+                return []
+            }
+            var allPlugins = Array(plugins.values)
+            allPlugins.append(defaultRenderer)
+            return allPlugins
+        }
+    }
 }

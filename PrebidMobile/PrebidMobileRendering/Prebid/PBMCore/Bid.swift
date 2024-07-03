@@ -56,6 +56,11 @@ public class Bid: NSObject {
         bid.ext.prebid?.targeting
     }
     
+    /// Targeting information that needs to be passed to the ad server SDK.
+    @objc public var meta: [String : String]? {
+        bid.ext.prebid?.meta
+    }
+    
     /**
      SKAdNetwork parameters about an App Store product.
      Used in the StoreKit
@@ -116,10 +121,10 @@ public class Bid: NSObject {
     }
     
     public func getPreferredPluginRendererName() -> String? {
-        return targetingInfo?[Bid.KEY_RENDERER_NAME]
+        return meta?[Bid.KEY_RENDERER_NAME]
     }
 
     public func getPreferredPluginRendererVersion() -> String? {
-        return targetingInfo?[Bid.KEY_RENDERER_VERSION]
+        return meta?[Bid.KEY_RENDERER_VERSION]
     }
 }

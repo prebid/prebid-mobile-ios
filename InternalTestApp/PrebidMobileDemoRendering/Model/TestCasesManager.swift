@@ -594,7 +594,7 @@ struct TestCaseManager {
                 let bannerController = CustomRendererBannerController(rootController: adapterVC)
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
-                bannerController.prebidConfigId = "prebid-ita-banner-320-50";
+                bannerController.prebidConfigId = "prebid-ita-banner-320-50-meta-custom-renderer";
                         
                 adapterVC.setup(adapter: bannerController)
                         
@@ -1038,9 +1038,9 @@ struct TestCaseManager {
                     return
                 }
                          
-                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                let interstitialController = CustomRendererInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.banner]
-                interstitialController.prebidConfigId = "prebid-ita-display-interstitial-320-480"
+                interstitialController.prebidConfigId = "prebid-ita-display-interstitial-320-480-meta-custom-renderer"
                  
                 adapterVC.setup(adapter: interstitialController)
                         
