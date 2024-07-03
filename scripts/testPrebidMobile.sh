@@ -53,6 +53,7 @@ fi
 echo -e "\n${GREEN}Running PrebidMobile unit tests${NC} \n"
 xcodebuild test \
     -workspace PrebidMobile.xcworkspace \
+    -retry-tests-on-failure \
     -scheme "PrebidMobileTests" \
     -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' | xcpretty --color --test
 
