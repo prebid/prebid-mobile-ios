@@ -15,6 +15,7 @@
 
 #import "PBMORTBBidRequestExtPrebid.h"
 
+#import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
 #import "PrebidMobile-Swift.h"
 #else
