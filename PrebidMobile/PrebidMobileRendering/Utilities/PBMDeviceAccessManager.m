@@ -92,7 +92,11 @@
 }
 
 - (nullable NSString *)userLangaugeCode {
-    return [self.locale objectForKey:NSLocaleLanguageCode];
+    NSString * languageCode = [self.locale objectForKey:NSLocaleLanguageCode];
+    if (languageCode.length == 0) {
+        return nil;
+    }
+    return languageCode;
 }
 
 #pragma mark - IDFA

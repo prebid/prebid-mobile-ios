@@ -57,7 +57,7 @@ public class Host: NSObject {
      */
     
     @objc public func setCustomHostURL(_ urlString: String?) throws {
-        guard let url = URL(string: urlString!) else {
+        guard let url = URL.urlWithoutEncoding(from: urlString) else {
             throw ErrorCode.prebidServerURLInvalid(urlString ?? "")
         }
         customHostURL = url

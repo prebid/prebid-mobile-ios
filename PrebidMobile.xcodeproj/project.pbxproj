@@ -115,6 +115,9 @@
 		53CE09012AD673020018CB75 /* sample_ortb_native_with_win_event.json in Resources */ = {isa = PBXBuildFile; fileRef = 53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */; };
 		53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */; };
 		53CF5B3729DC690600613E84 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF5B3629DC690600613E84 /* VideoAdUnit.swift */; };
+		53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */; };
+		53D3C38D2C2BEF9B0074D99B /* NSURL+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */; };
+		53D3C38E2C2BEF9B0074D99B /* NSURL+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */; };
 		53D934FF282CE62E0092E243 /* AgeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D934FE282CE62E0092E243 /* AgeUtils.swift */; };
 		53D93505282CEA900092E243 /* DateFormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D93504282CEA900092E243 /* DateFormatService.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
@@ -963,6 +966,9 @@
 		53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_ortb_native_with_win_event.json; sourceTree = "<group>"; };
 		53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMBidRequester.swift; sourceTree = "<group>"; };
 		53CF5B3629DC690600613E84 /* VideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAdUnit.swift; sourceTree = "<group>"; };
+		53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+PBMExtensions.h"; sourceTree = "<group>"; };
+		53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+PBMExtensions.m"; sourceTree = "<group>"; };
 		53D934FE282CE62E0092E243 /* AgeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeUtils.swift; sourceTree = "<group>"; };
 		53D93504282CEA900092E243 /* DateFormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatService.swift; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
@@ -1861,6 +1867,7 @@
 				34C9CD5E2850CE6300FB5451 /* OMSDKVersionProvider.m */,
 				53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */,
 				53842BBB29E565030069A4B7 /* NSString+Extensions.swift */,
+				53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1955,6 +1962,8 @@
 				5BC3765E271F1CFD00444D5E /* UIWindow+PBMExtensions.h */,
 				5BC3766F271F1CFD00444D5E /* UIWindow+PBMExtensions.m */,
 				53C925012990FB30009E6F94 /* String+Extensions.swift */,
+				53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */,
+				53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */,
 			);
 			path = ExtensionsAndWrappers;
 			sourceTree = "<group>";
@@ -3360,6 +3369,7 @@
 				5BC37A66271F1D0000444D5E /* PBMORTBBidExtSkadn.h in Headers */,
 				5BC37AD7271F1D0100444D5E /* PBMUserConsentParameterBuilder.h in Headers */,
 				5BC37964271F1D0000444D5E /* PBMVastResponse.h in Headers */,
+				53D3C38E2C2BEF9B0074D99B /* NSURL+PBMExtensions.h in Headers */,
 				5BC379CC271F1D0000444D5E /* PBMAdLoadManagerVAST.h in Headers */,
 				5BC37985271F1D0000444D5E /* PBMMRAIDController.h in Headers */,
 				5BC3790F271F1CFF00444D5E /* PBMDeviceAccessManager.h in Headers */,
@@ -3963,6 +3973,7 @@
 				9236A650272FEC5A00ABBEF4 /* ImpressionTask.swift in Sources */,
 				5BC37A97271F1D0000444D5E /* InterstitialEventHandlerProtocol.swift in Sources */,
 				5BC379F3271F1D0000444D5E /* PBMExternalLinkHandler.m in Sources */,
+				53D3C38D2C2BEF9B0074D99B /* NSURL+PBMExtensions.m in Sources */,
 				5BC379AD271F1D0000444D5E /* PBMTransaction.m in Sources */,
 				53269D55282E6D0F0098550D /* ServerEvent.swift in Sources */,
 				5BC37A5E271F1D0000444D5E /* PBMORTBBidResponseExt.m in Sources */,
@@ -4190,6 +4201,7 @@
 				5BC37961271F1D0000444D5E /* PBMVastAdsBuilder.m in Sources */,
 				5BC37A91271F1D0000444D5E /* InterstitialEventLoadingDelegate.swift in Sources */,
 				530382F2283197E100B2B111 /* PrebidServerResponse.swift in Sources */,
+				53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */,
 				5BC3792F271F1D0000444D5E /* PBMDeviceAccessManager.m in Sources */,
 				5BC37A6E271F1D0000444D5E /* PBMORTBBidResponse.m in Sources */,
 				5BC37ACE271F1D0100444D5E /* PBMGeoLocationParameterBuilder.m in Sources */,
