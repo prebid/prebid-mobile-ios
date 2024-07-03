@@ -24,7 +24,7 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     
     private var adViewManager: PBMAdViewManager?
     
-    private var transactionFactory: PBMTransactionFactory?
+    public var transactionFactory: PBMTransactionFactory?
     
     public func isSupportRendering(for format: AdFormat?) -> Bool {
         AdFormat.allCases.contains(where: { $0 == format })

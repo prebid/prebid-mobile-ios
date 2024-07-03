@@ -376,7 +376,6 @@
 		34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMRewardedController.swift; sourceTree = "<group>"; };
 		35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternalTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3C38A1722BF6113F004DBFB1 /* InternalTestApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InternalTestApp.entitlements; sourceTree = "<group>"; };
 		3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererBannerController.swift; sourceTree = "<group>"; };
 		530E722B292FACB20025B44D /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayBannerController.swift; sourceTree = "<group>"; };
@@ -942,7 +941,6 @@
 		93FED9BA1A376EFE009A6E9F = {
 			isa = PBXGroup;
 			children = (
-				3C38A1722BF6113F004DBFB1 /* InternalTestApp.entitlements */,
 				5B3C2A9C2100BC4900BD733C /* PrebidMobileDemoRendering */,
 				35F94D141F93F85D00CF46DB /* PrebidMobileDemoRenderingUITests */,
 				5B6EB0102122CAA400C5B072 /* PrebidMobileDemoRenderingTests */,
@@ -2109,7 +2107,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
-				CODE_SIGN_ENTITLEMENTS = InternalTestApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TN4TUCG8N;
@@ -2142,7 +2139,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
-				CODE_SIGN_ENTITLEMENTS = InternalTestApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TN4TUCG8N;

@@ -21,6 +21,8 @@ import Foundation
     @objc var version: String { get }
     @objc var data: [AnyHashable: Any]? { get }
     
+    var transactionFactory: PBMTransactionFactory? { get set }
+    
     /// Creates and returns Banner View for a given Bid Response
     /// Returns nil in the case of an internal error
     @objc func createBannerAdView(with frame: CGRect, bid: Bid, adConfiguration: AdUnitConfig, connection: PrebidServerConnectionProtocol, adViewDelegate: (any PBMAdViewDelegate)?)
