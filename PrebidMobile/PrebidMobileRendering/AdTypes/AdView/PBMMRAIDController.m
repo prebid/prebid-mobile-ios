@@ -20,6 +20,7 @@
 #import "NSException+PBMExtensions.h"
 #import "NSString+PBMExtensions.h"
 #import "UIView+PBMExtensions.h"
+#import "NSURL+PBMExtensions.h"
 
 #import "PBMAbstractCreative.h"
 #import "PBMCreativeModel.h"
@@ -277,7 +278,7 @@
         @throw [NSException pbmException:@"No arguments to MRAID.open()"];
     }
     
-    NSURL *url = [NSURL URLWithString:strURL];
+    NSURL *url = [NSURL PBMURLWithoutEncodingFromString:strURL];
     if (!url) {
         @throw [NSException pbmException:[NSString stringWithFormat:@"Could not create URL from string: %@", strURL]];
     }
@@ -323,7 +324,7 @@
         NSString *strExpandURL = [[command.arguments firstObject] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
         if (strExpandURL && ![strExpandURL isEqualToString:@""]) {
             //Epanding to a URL
-            NSURL *expandURL = [NSURL URLWithString:strExpandURL];
+            NSURL *expandURL = [NSURL PBMURLWithoutEncodingFromString:strExpandURL];
             if (!expandURL) {
                 PBMLogError(@"Could not create expand url to: %@", strExpandURL);
                 return;
@@ -532,7 +533,7 @@
         @throw [NSException pbmException:@"Insufficient arguments for MRAIDAction.playVideo"];
     }
     
-    NSURL *url = [NSURL URLWithString:strURL];
+    NSURL *url = [NSURL PBMURLWithoutEncodingFromString:strURL];
     if (!url) {
         NSString *message = [NSString stringWithFormat:@"MRAID attempted to load an invalid URL: %@", strURL];
         @throw [NSException pbmException:message];

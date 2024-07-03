@@ -232,7 +232,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
             return nil
         }
         
-        guard let url = URL(string: strUrl) else {
+        guard let url = URL.urlWithoutEncoding(from: strUrl) else {
             Log.error("URL creation failed for string: \(strUrl)")
             return nil
         }
