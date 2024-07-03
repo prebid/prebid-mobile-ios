@@ -17,6 +17,8 @@ import Foundation
 import UIKit
 
 public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
+
+    private var renderer: PrebidMobilePluginRenderer?
     
     @objc public var adFormats: Set<AdFormat> {
         get { adConfiguration.adFormats }
@@ -46,7 +48,6 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     var adConfiguration: AdUnitConfig
     var displayProperties: PBMInterstitialDisplayProperties
     
-    var transactionFactory: PBMTransactionFactory?
     var adViewManager: PBMAdViewManager?
     
     // MARK: - Life cycle
@@ -64,40 +65,12 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     }
     
     @objc public func loadAd() {
-        guard transactionFactory == nil else {
-            return
-        }
         
-        adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
-        videoControlsConfig.initialize(with: bid.videoAdConfiguration)
+        self.renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
+
         
-        // This part is dedicating to test server-side ad configurations.
-        // Need to be removed when ext.prebid.passthrough will be available.
-        #if DEBUG
-        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
-        #endif
-        
-        transactionFactory = PBMTransactionFactory(bid: bid,
-                                                   adConfiguration: adConfiguration,
-                                                   connection: PrebidServerConnection.shared,
-                                                   callback: { [weak self] transaction, error in
-                
-            if let transaction = transaction {
-                self?.display(transaction: transaction)
-            } else {
-                self?.reportFailureWithError(error)
-            }
-        })
-        
-        PBMWinNotifier.notifyThroughConnection(PrebidServerConnection.shared,
-                                               winning: bid,
-                                               callback: { [weak self] adMarkup in
-            if let adMarkup = adMarkup {
-                self?.transactionFactory?.load(withAdMarkup: adMarkup)
-            } else {
-                //TODO: inform failure
-            }
-        })
+        let connection: PrebidServerConnectionProtocol = PrebidServerConnection.shared
+        self.renderer?.createInterstitialController?(bid: bid, adConfiguration: adConfiguration, connection: connection, adViewManagerDelegate: self, videoControlsConfig: videoControlsConfig)
     }
 
     @objc public func show() {
@@ -182,7 +155,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     }
     
     func reportFailureWithError(_ error: Error?) {
-        transactionFactory = nil
+//        transactionFactory = nil
         if let error = error,
            let loadingDelegate = loadingDelegate {
             loadingDelegate.interstitialController(self, didFailWithError: error)
@@ -190,7 +163,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     }
 
     func reportSuccess() {
-        transactionFactory = nil
+//        transactionFactory = nil
         if let loadingDelegate = loadingDelegate {
             loadingDelegate.interstitialControllerDidLoadAd(self)
         }

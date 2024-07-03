@@ -583,6 +583,24 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
+            TestCase(title: "Banner 320x50 (CustomRenderer)",
+                     tags: [.banner, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = CustomRendererBannerController(rootController: adapterVC)
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                        
+                bannerController.prebidConfigId = "prebid-ita-banner-320-50";
+                        
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
             TestCase(title: "Banner 320x50 Server-Side Creative Factory Timeout (In-App)",
                      tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -996,6 +1014,23 @@ struct TestCaseManager {
             // MARK: ---- Interstitial (In-App) ----
             
             TestCase(title: "Display Interstitial 320x480 (In-App)",
+                     tags: [.interstitial, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.adFormats = [.banner]
+                interstitialController.prebidConfigId = "prebid-ita-display-interstitial-320-480"
+                 
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+    
+            TestCase(title: "Display Interstitial 320x480 (CustomRenderer)",
                      tags: [.interstitial, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
