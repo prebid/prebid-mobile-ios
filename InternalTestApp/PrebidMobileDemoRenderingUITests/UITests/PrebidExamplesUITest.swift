@@ -28,6 +28,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
         checkBannerLoadResult(exampleName: "Banner 320x50 (In-App)")
     }
     
+    func testInAppBanner_Custom_Renderer() {
+        checkBannerLoadResult(exampleName: "Banner 320x50 (CustomRenderer)")
+    }
+    
     func testInAppBanner_Small_noBids() {
         checkBannerLoadResult(exampleName: "Banner 320x50 (In-App) [noBids]",
                               expectFailure: true)
@@ -83,6 +87,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
     
     func testInAppInterstitial_Display_320x480() {
         checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (In-App)")
+    }
+
+    func testInAppInterstitial_Display_CustomRenderer() {
+        checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (CustomRenderer)")
     }
     
     func testInAppInterstitial_Display_320x480_noBids() {
