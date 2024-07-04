@@ -66,7 +66,8 @@
 
 - (void)displayAd {
     self.renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:self.bid];
-    
+
+    NSLog(@"Renderer: %@", self.renderer);
     self.adConfiguration.adConfiguration.winningBidAdFormat = self.bid.adFormat;
     id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
     [self.renderer createBannerAdViewWith:self.frame bid:self.bid adConfiguration:self.adConfiguration connection:connection adViewDelegate:self];
@@ -167,10 +168,6 @@
     if ([delegate respondsToSelector:@selector(didDismissModalFrom:)]) {
         [delegate didDismissModalFrom:self];
     }
-}
-
-- (void) adViewLoaded:(UIView *)adView adSize:(CGSize)adSize {
-    // needed for custom renderers
 }
 
 @end

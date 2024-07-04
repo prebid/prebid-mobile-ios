@@ -9,7 +9,6 @@
 import UIKit
 
 @objc public protocol PBMThirdPartyAdViewLoader: NSObjectProtocol {
-    func adViewLoaded(_ adView: UIView, adSize: CGSize) // PBMDisplayView
 }
 
 public typealias PBMAdViewDelegate = PBMThirdPartyAdViewLoader & PBMAdViewManagerDelegate & PBMModalManagerDelegate
