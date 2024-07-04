@@ -131,9 +131,6 @@ NS_ASSUME_NONNULL_BEGIN
 //or governmental regulations in force for this request.
 @property (nonatomic, strong) PBMORTBRegs *regs;
 
-//Provide specific behavior intent like plugin_renderers
-@property (nonatomic, strong) PBMORTBData *data;
-
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext object not supported.
 

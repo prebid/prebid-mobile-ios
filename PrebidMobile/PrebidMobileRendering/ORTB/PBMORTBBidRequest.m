@@ -38,7 +38,6 @@
     _user = [PBMORTBUser new];
     _regs = [PBMORTBRegs new];
     _source = [PBMORTBSource new];
-    _data = [PBMORTBData new];
     _extPrebid = [PBMORTBBidRequestExtPrebid new];
     
     return self;
@@ -75,7 +74,6 @@
     ret[@"tmax"] = self.tmax;
     ret[@"regs"] = [[self.regs toJsonDictionary] nullIfEmpty];
     ret[@"source"] = [[self.source toJsonDictionary] nullIfEmpty];
-    ret[@"data"] = [[self.data toJsonDictionary] nullIfEmpty];
     
     NSMutableDictionary *ortbObj = [self.ortbObject mutableCopy];
     
@@ -156,8 +154,6 @@
     _tmax = jsonDictionary[@"tmax"];
     _regs = [[PBMORTBRegs alloc] initWithJsonDictionary:jsonDictionary[@"regs"]];
     _source = [[PBMORTBSource alloc] initWithJsonDictionary:jsonDictionary[@"source"]];
-    _data = [[PBMORTBData alloc] initWithJsonDictionary:jsonDictionary[@"data"]];
-    
     _extPrebid = [[PBMORTBBidRequestExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"] ?: @{}];
     
     _arbitraryJsonConfig = jsonDictionary;
