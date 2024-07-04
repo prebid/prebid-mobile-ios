@@ -34,6 +34,7 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
     private let interstitialDidDismissAdButton = EventReportContainer()
     private let interstitialWillLeaveApplicationButton = EventReportContainer()
     private let interstitialDidClickAdButton = EventReportContainer()
+    private let sampleCustomRenderer = SampleCustomRenderer()
     
     private let configIdLabel = UILabel()
     
@@ -48,7 +49,7 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
     // MARK: - AdaptedController
     required init(rootController: AdapterViewController) {
         self.adapterViewController = rootController
-        Prebid.registerPluginRenderer(SampleCustomRenderer())
+        Prebid.registerPluginRenderer(sampleCustomRenderer)
         super.init()
         
         setupAdapterController()
@@ -56,7 +57,7 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
     
     deinit {
         Targeting.shared.sourceapp = nil
-        Prebid.unregisterPluginRenderer(SampleCustomRenderer())
+        Prebid.unregisterPluginRenderer(sampleCustomRenderer)
     }
     
     func configurationController() -> BaseConfigurationController? {

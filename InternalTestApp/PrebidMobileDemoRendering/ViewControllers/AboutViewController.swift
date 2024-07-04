@@ -68,7 +68,7 @@ class AboutViewController : FormViewController {
             for (frameworkName, frameworkVersion) in frameworks {
                 section <<< LabelRow() { row in
                     row.title = frameworkName
-                    row.value = frameworkVersion as? Cell<String>.Value
+                    row.value = frameworkVersion
                     row.cellStyle = .subtitle
                 }.cellSetup { cell, row in
                     cell.detailTextLabel?.accessibilityIdentifier = "\(frameworkName) Version"

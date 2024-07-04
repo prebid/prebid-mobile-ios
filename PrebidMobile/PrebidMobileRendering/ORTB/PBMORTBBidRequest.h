@@ -22,7 +22,6 @@
 @class PBMORTBRegs;
 @class PBMORTBSource;
 @class PBMORTBUser;
-@class PBMORTBData;
 
 //This file holds the structure for an ORTB 2.5 Bid Request Object
 //https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf

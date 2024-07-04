@@ -23,7 +23,6 @@
 #import "PBMORTBRegs.h"
 #import "PBMORTBSource.h"
 #import "PBMORTBUser.h"
-#import "PBMORTBData.h"
 
 @implementation PBMORTBBidRequest
 
