@@ -57,6 +57,7 @@
     ret[@"connectiontype"] = self.connectiontype;
     ret[@"didsha1"] = self.didsha1;
     ret[@"didmd5"] = self.didmd5;
+    ret[@"hwv"] = self.hwv;
     
     if (self.ifa) {
         ret[@"ifa"] = self.ifa;
