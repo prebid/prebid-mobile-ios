@@ -90,11 +90,17 @@
     if (adFormats.count >= 2) {
         bidRequest.extPrebid.targeting[@"includeformat"] = [[NSNumber alloc] initWithBool:YES];
     }
+
+    if(Prebid.shared.includeWinners)
+    {
+        bidRequest.extPrebid.targeting[@"includewinners"] = [[NSNumber alloc] initWithBool:YES];
+    }
+
+    if(Prebid.shared.includeBidderKeys)
+    {
+        bidRequest.extPrebid.targeting[@"includebidderkeys"] = [[NSNumber alloc] initWithBool:YES];
+    }
     
-    bidRequest.extPrebid.targeting[@"includewinners"] = [[NSNumber alloc] initWithBool:Prebid.shared.includeWinners];
-
-    bidRequest.extPrebid.targeting[@"includebidderkeys"] = [[NSNumber alloc] initWithBool:Prebid.shared.includeBidderKeys];
-
     bidRequest.app.publisher.publisherID        = self.sdkConfiguration.prebidServerAccountId;
     bidRequest.app.ver          = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
     bidRequest.device.pxratio   = @([UIScreen mainScreen].scale);
