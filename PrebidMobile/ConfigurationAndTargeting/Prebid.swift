@@ -128,10 +128,42 @@ public class Prebid: NSObject {
     }
 
     //If true, the sdk will add `includewinners` flag inside the targeting object described in [PBS Documentation](https://docs.prebid.org/prebid-server/endpoints/openrtb2/pbs-endpoint-auction.html#targeting)
-    public var includeWinners = false
+    private var _includeWinners = false
+    private var _includeWinnersFlagIsSet = false
+    public var includeWinnersFlagIsSet: Bool {
+        get { 
+            return includeWinnersFlagIsSet
+        }
+    }
+    public var includeWinners: Bool{
+        get { 
+            return _includeWinners
+        }
+        set { 
+            _includeWinnersFlagIsSet = true
+            _includeWinners = newValue 
+        }
+    }
 
     //If true, the sdk will add `includebidderkeys` flag inside the targeting object described in [PBS Documentation](https://docs.prebid.org/prebid-server/endpoints/openrtb2/pbs-endpoint-auction.html#targeting)
-    public var includeBidderKeys = false
+    private var _includeBidderKeys = false
+    private var _includeBidderKeysFlagIsSet = false
+
+    public var includeBidderKeysFlagIsSet: Bool {
+        get {
+            return _includeBidderKeysFlagIsSet
+        }
+    }
+
+    public var includeBidderKeys: Bool {
+        get {
+            return _includeBidderKeys
+        }
+        set {
+            _includeBidderKeysFlagIsSet = true
+            _includeBidderKeys = newValue
+        }
+    }
     
     // MARK: - Public Methods
     
