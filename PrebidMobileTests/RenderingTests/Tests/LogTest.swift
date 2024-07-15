@@ -107,6 +107,34 @@ class LogTest: XCTestCase {
         checkLogAndClean(level: .severe)
     }
     
+    func testAllKindsWithCustom() {
+        // Test: default params
+
+        logToFile = .init()
+        
+        Log.customLogger = CustomTestLogger()
+        
+        Log.error(message)
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssert(log.contains("TESTLOG"))
+        checkLogAndClean(level: .error)
+        
+        Log.info(message)
+        checkLogAndClean(level: .info)
+        
+        Log.debug(message)
+        checkLogAndClean(level: .debug)
+        
+        Log.verbose(message)
+        checkLogAndClean(level: .verbose)
+        
+        Log.warn(message)
+        checkLogAndClean(level: .warn)
+        
+        Log.severe(message)
+        checkLogAndClean(level: .severe)
+    }
+    
     func testWhereAmI() {
         logToFile = .init()
         
@@ -114,6 +142,16 @@ class LogTest: XCTestCase {
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains(LogLevel.info.stringValue))
+    }
+    
+    func testWhereAmICustom() {
+        logToFile = .init()
+        Log.customLogger = CustomTestLogger()
+
+        Log.whereAmI()
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.contains("WHEREAMI"))
     }
     
     func testLogLevel() {
@@ -150,5 +188,42 @@ class LogTest: XCTestCase {
         
         logToFile = nil
         logToFile = .init()
+    }
+    
+    class CustomTestLogger: PrebidLogger {
+        func error(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .error, filename: filename, line: line, function: function)
+        }
+        
+        func info(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .info, filename: filename, line: line, function: function)
+        }
+        
+        func debug(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .debug, filename: filename, line: line, function: function)
+        }
+        
+        func verbose(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .verbose, filename: filename, line: line, function: function)
+        }
+        
+        func warn(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .warn, filename: filename, line: line, function: function)
+        }
+        
+        func severe(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .severe, filename: filename, line: line, function: function)
+        }
+        
+        func whereAmI(filename: String, line: Int, function: String) {
+            log("WHEREAMI", logLevel: .info, filename: filename, line: line, function: function)
+        }
+        
+        func log(_ object: Any, logLevel: PrebidMobile.LogLevel, filename: String, line: Int, function: String) {
+            let finalMessage = "\(logLevel.stringValue) \(object): TESTLOG"
+            print(finalMessage)
+            Log.serialWriteToLog(finalMessage)
+        }
+        
     }
 }
