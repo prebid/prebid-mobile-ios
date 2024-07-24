@@ -30,21 +30,13 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
         AdFormat.allCases.contains(where: { $0 == format })
     }
    
-    public func setupBid(
-        _ bid: Bid,
-        adConfiguration: AdUnitConfig,
-        connection: PrebidServerConnectionProtocol
-    ) {
+    public func setupBid(_ bid: Bid, adConfiguration: AdUnitConfig, connection: PrebidServerConnectionProtocol) {
         
     }
     
-    public func createBannerAdView(
-        with frame: CGRect,
-        bid: Bid,
-        adConfiguration: AdUnitConfig,
-        connection: PrebidServerConnectionProtocol,
-        adViewDelegate: (any PBMAdViewDelegate)?
-    ) {
+    public func createBannerAdView(with frame: CGRect, bid: Bid, adConfiguration: AdUnitConfig,
+                                   connection: PrebidServerConnectionProtocol,
+                                   adViewDelegate: (any PBMAdViewDelegate)?) {
     
         self.transactionFactory = PBMTransactionFactory(bid: bid, adConfiguration: adConfiguration, connection: connection) { [weak self] transaction, error in
             self?.transactionFactory = nil
@@ -68,12 +60,9 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     }
     
     
-    private func displayTransaction(
-        _ transaction: PBMTransaction,
-        adConfiguration: AdUnitConfig,
-        connection: PrebidServerConnectionProtocol,
-        adViewDelegate: (any PBMAdViewDelegate)?
-    ) {
+    private func displayTransaction(_ transaction: PBMTransaction, adConfiguration: AdUnitConfig,
+                                    connection: PrebidServerConnectionProtocol,
+                                    adViewDelegate: (any PBMAdViewDelegate)?) {
         adViewManager = PBMAdViewManager(connection: connection, modalManagerDelegate: adViewDelegate)
         adViewManager?.adViewManagerDelegate = adViewDelegate
         adViewManager?.adConfiguration = adConfiguration.adConfiguration
@@ -88,13 +77,10 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     
     
     
-    public func createInterstitialController(
-        bid: Bid,
-        adConfiguration: AdUnitConfig,
-        connection: PrebidServerConnectionProtocol,
-        adViewManagerDelegate adViewDelegate: InterstitialController?,
-        videoControlsConfig: VideoControlsConfiguration?
-    ) {
+    public func createInterstitialController(bid: Bid, adConfiguration: AdUnitConfig,
+                                             connection: PrebidServerConnectionProtocol,
+                                             adViewManagerDelegate adViewDelegate: InterstitialController?,
+                                             videoControlsConfig: VideoControlsConfiguration?) {
         guard transactionFactory == nil else {
             return
         }
