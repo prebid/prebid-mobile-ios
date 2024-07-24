@@ -47,9 +47,13 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
     var skipDelay: Double?
     
     // MARK: - AdaptedController
-    required init(rootController: AdapterViewController) {
+    required init(
+        rootController: AdapterViewController
+    ) {
         self.adapterViewController = rootController
-        Prebid.registerPluginRenderer(sampleCustomRenderer)
+        Prebid.registerPluginRenderer(
+            sampleCustomRenderer
+        )
         super.init()
         
         setupAdapterController()
@@ -57,11 +61,15 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
     
     deinit {
         Targeting.shared.sourceapp = nil
-        Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        Prebid.unregisterPluginRenderer(
+            sampleCustomRenderer
+        )
     }
     
     func configurationController() -> BaseConfigurationController? {
-        return BaseConfigurationController(controller: self)
+        return BaseConfigurationController(
+            controller: self
+        )
     }
     
     // MARK: - Public Methods
@@ -72,14 +80,21 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
         if let storedAuctionResponse = storedAuctionResponse {
             Prebid.shared.storedAuctionResponse = storedAuctionResponse
         }
-
-        interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
-                                                       minSizePercentage: CGSize(width: 30, height: 30))
+        
+        interstitialController = InterstitialRenderingAdUnit(
+            configID: prebidConfigId,
+            minSizePercentage: CGSize(
+                width: 30,
+                height: 30
+            )
+        )
         interstitialController?.delegate = self
         
         // Custom video configuarion
         if let maxDuration = maxDuration {
-            interstitialController?.videoParameters.maxDuration = SingleContainerInt(integerLiteral: maxDuration)
+            interstitialController?.videoParameters.maxDuration = SingleContainerInt(
+                integerLiteral: maxDuration
+            )
         }
         
         if let closeButtonArea = closeButtonArea {
@@ -109,14 +124,19 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
-                interstitialController?.addContextData(dataPair.value, forKey: dataPair.key)
+                interstitialController?.addContextData(
+                    dataPair.value,
+                    forKey: dataPair.key
+                )
             }
         }
         
         // imp[].ext.keywords
         if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
             for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                interstitialController?.addContextKeyword(keyword)
+                interstitialController?.addContextKeyword(
+                    keyword
+                )
             }
         }
         
@@ -129,7 +149,9 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
                 ortbUserData.ext?[dataPair.key] = dataPair.value
             }
             
-            interstitialController?.addUserData([ortbUserData])
+            interstitialController?.addUserData(
+                [ortbUserData]
+            )
         }
         
         // app.content.data
@@ -141,7 +163,9 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
                 ortbAppContentData.ext?[dataPair.key] = dataPair.value
             }
             
-            interstitialController?.addAppContentData([ortbAppContentData])
+            interstitialController?.addAppContentData(
+                [ortbAppContentData]
+            )
         }
         
         interstitialController?.loadAd()
@@ -150,31 +174,44 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
     // MARK: - GADInterstitialDelegate
     
     
-    func interstitialDidReceiveAd(_ interstitial: InterstitialRenderingAdUnit) {
+    func interstitialDidReceiveAd(
+        _ interstitial: InterstitialRenderingAdUnit
+    ) {
         adapterViewController?.showButton.isEnabled = true
         interstitialDidReceiveAdButton.isEnabled = true
     }
-
-    func interstitial(_ interstitial: InterstitialRenderingAdUnit, didFailToReceiveAdWithError error: Error?) {
+    
+    func interstitial(
+        _ interstitial: InterstitialRenderingAdUnit,
+        didFailToReceiveAdWithError error: Error?
+    ) {
         interstitialDidFailToReceiveAdButton.isEnabled = true
     }
     
-    func interstitialWillPresentAd(_ interstitial: InterstitialRenderingAdUnit) {
+    func interstitialWillPresentAd(
+        _ interstitial: InterstitialRenderingAdUnit
+    ) {
         interstitialWillPresentAdButton.isEnabled = true
     }
     
-    func interstitialDidDismissAd(_ interstitial: InterstitialRenderingAdUnit) {
+    func interstitialDidDismissAd(
+        _ interstitial: InterstitialRenderingAdUnit
+    ) {
         interstitialDidDismissAdButton.isEnabled = true
     }
     
-    func interstitialWillLeaveApplication(_ interstitial: InterstitialRenderingAdUnit) {
+    func interstitialWillLeaveApplication(
+        _ interstitial: InterstitialRenderingAdUnit
+    ) {
         interstitialWillLeaveApplicationButton.isEnabled = true
     }
     
-    func interstitialDidClickAd(_ interstitial: InterstitialRenderingAdUnit) {
+    func interstitialDidClickAd(
+        _ interstitial: InterstitialRenderingAdUnit
+    ) {
         interstitialDidClickAdButton.isEnabled = true
     }
-        
+    
     // MARK: - Private Methods
     private func setupAdapterController() {
         adapterViewController?.bannerView.isHidden = true
@@ -183,27 +220,55 @@ class CustomRendererInterstitialController: NSObject, AdaptedController, PrebidC
         setupActions()
         
         configIdLabel.isHidden = true
-        adapterViewController?.actionsView.addArrangedSubview(configIdLabel)
+        adapterViewController?.actionsView.addArrangedSubview(
+            configIdLabel
+        )
     }
     
     private func setupShowButton() {
         adapterViewController?.showButton.isEnabled = false
-        adapterViewController?.showButton.addTarget(self, action:#selector(self.showButtonClicked), for: .touchUpInside)
+        adapterViewController?.showButton.addTarget(
+            self,
+            action:#selector(
+                self.showButtonClicked
+            ),
+            for: .touchUpInside
+        )
     }
     
     private func setupActions() {
-        adapterViewController?.setupAction(interstitialDidReceiveAdButton, "interstitialDidReceiveAd called")
-        adapterViewController?.setupAction(interstitialDidFailToReceiveAdButton, "interstitialDidFailToReceiveAd called")
-        adapterViewController?.setupAction(interstitialWillPresentAdButton, "interstitialWillPresentAd called")
-        adapterViewController?.setupAction(interstitialDidDismissAdButton, "interstitialDidDismissAd called")
-        adapterViewController?.setupAction(interstitialWillLeaveApplicationButton, "interstitialWillLeaveApplication called")
-        adapterViewController?.setupAction(interstitialDidClickAdButton, "interstitialDidClickAd called")
+        adapterViewController?.setupAction(
+            interstitialDidReceiveAdButton,
+            "interstitialDidReceiveAd called"
+        )
+        adapterViewController?.setupAction(
+            interstitialDidFailToReceiveAdButton,
+            "interstitialDidFailToReceiveAd called"
+        )
+        adapterViewController?.setupAction(
+            interstitialWillPresentAdButton,
+            "interstitialWillPresentAd called"
+        )
+        adapterViewController?.setupAction(
+            interstitialDidDismissAdButton,
+            "interstitialDidDismissAd called"
+        )
+        adapterViewController?.setupAction(
+            interstitialWillLeaveApplicationButton,
+            "interstitialWillLeaveApplication called"
+        )
+        adapterViewController?.setupAction(
+            interstitialDidClickAdButton,
+            "interstitialDidClickAd called"
+        )
     }
     
     @IBAction func showButtonClicked() {
         if let interstitialController = interstitialController, interstitialController.isReady {
             adapterViewController?.showButton.isEnabled = false
-            interstitialController.show(from: adapterViewController!)
+            interstitialController.show(
+                from: adapterViewController!
+            )
         }
     }
 }

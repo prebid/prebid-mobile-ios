@@ -33,8 +33,8 @@ import Foundation
         let rendererName = renderer.name
         
         queue.async(flags: .barrier) { [weak self] in
-            guard self?.plugins[rendererName] == nil else {
-                Log.debug("New plugin renderer with name \(rendererName) will replace the previous one with same name")
+            if self?.plugins[rendererName] != nil {
+                Log.debug("Plugin with name \(rendererName) is already registered.")
                 return
             }
             self?.plugins[rendererName] = renderer
@@ -54,7 +54,7 @@ import Foundation
         }
     }
     
-    private func get(for key: String) -> PrebidMobilePluginRenderer? {
+    private func getPluginRenderer(for key: String) -> PrebidMobilePluginRenderer? {
         queue.sync {
             plugins[key]
         }
@@ -99,14 +99,14 @@ import Foundation
     /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior
     /// Once bid is win we want to resolve the best PluginRenderer candidate to render the ad
     @objc public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
-        guard let preferredRendererName = bid.getPreferredPluginRendererName(),
-              let preferredPlugin = get(for: preferredRendererName),
-              preferredPlugin.version == bid.getPreferredPluginRendererVersion(),
-              preferredPlugin.isSupportRendering(for: bid.adFormat)
-        else {
+        if let preferredRendererName = bid.getPreferredPluginRendererName(),
+           let preferredPlugin = getPluginRenderer(for: preferredRendererName),
+           preferredPlugin.version == bid.getPreferredPluginRendererVersion(),
+           preferredPlugin.isSupportRendering(for: bid.adFormat) {
+            return preferredPlugin
+        } else {
             return defaultRenderer
         }
-        return preferredPlugin
     }
     
     @objc public func getAllPlugins() -> [PrebidMobilePluginRenderer] {

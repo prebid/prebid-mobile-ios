@@ -21,15 +21,25 @@ import Foundation
     @objc var version: String { get }
     @objc var data: [AnyHashable: Any]? { get }
     
-    var transactionFactory: PBMTransactionFactory? { get set }
-    
     /// Creates and returns Banner View for a given Bid Response
     /// Returns nil in the case of an internal error
-    @objc func createBannerAdView(with frame: CGRect, bid: Bid, adConfiguration: AdUnitConfig, connection: PrebidServerConnectionProtocol, adViewDelegate: (any PBMAdViewDelegate)?)
+    @objc func createBannerAdView(
+        with frame: CGRect,
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        connection: PrebidServerConnectionProtocol,
+        adViewDelegate: (any PBMAdViewDelegate)?
+    )
     
     /// Creates and returns an implementation of PrebidMobileInterstitialControllerInterface for a given bid response
     /// Returns nil in the case of an internal error
-    @objc optional func createInterstitialController( bid: Bid, adConfiguration: AdUnitConfig, connection: PrebidServerConnectionProtocol, adViewManagerDelegate: InterstitialController?, videoControlsConfig: VideoControlsConfiguration?)
+    @objc optional func createInterstitialController(
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        connection: PrebidServerConnectionProtocol,
+        adViewManagerDelegate: InterstitialController?,
+        videoControlsConfig: VideoControlsConfiguration?
+    )
 
     /// Returns true only if the given ad unit could be renderer by the plugin
     @objc func isSupportRendering(for format: AdFormat?) -> Bool

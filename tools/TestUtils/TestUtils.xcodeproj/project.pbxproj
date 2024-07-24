@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CD0ADF12C51274A006CDA6B /* SampleCustomRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD0ADF02C51274A006CDA6B /* SampleCustomRenderer.swift */; };
 		53AB8AB22851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */; };
 		53AB8AB32851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92C0CEA027BD411E00C480EB /* emptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C0CE9F27BD411E00C480EB /* emptyResponse.json */; };
@@ -60,6 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3CD0ADF02C51274A006CDA6B /* SampleCustomRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCustomRenderer.swift; sourceTree = "<group>"; };
 		537B669C283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = ../../Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
 		53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "OMSDK-Static_Prebidorg.xcframework"; path = "../../Frameworks/OMSDK-Static_Prebidorg.xcframework"; sourceTree = "<group>"; };
 		92C0CE9F27BD411E00C480EB /* emptyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = emptyResponse.json; sourceTree = "<group>"; };
@@ -112,6 +114,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3CD0ADEF2C5126FD006CDA6B /* SamplePluginRegister */ = {
+			isa = PBXGroup;
+			children = (
+				3CD0ADF02C51274A006CDA6B /* SampleCustomRenderer.swift */,
+			);
+			path = SamplePluginRegister;
+			sourceTree = "<group>";
+		};
 		537B669B283DFCCD008AE9D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +151,7 @@
 		FA9E5E0F2649420C0049B214 /* TestUtils */ = {
 			isa = PBXGroup;
 			children = (
+				3CD0ADEF2C5126FD006CDA6B /* SamplePluginRegister */,
 				FAC853582649462E009DC0F3 /* Category */,
 				FAC8536726494646009DC0F3 /* Responses */,
 				FAC8537B26494647009DC0F3 /* Stubbing */,
@@ -253,6 +264,7 @@
 				TargetAttributes = {
 					FA9E5E0C2649420C0049B214 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -310,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC8535B2649462E009DC0F3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
+				3CD0ADF12C51274A006CDA6B /* SampleCustomRenderer.swift in Sources */,
 				FAC8539926494647009DC0F3 /* PBHTTPStubbingManager.m in Sources */,
 				FAC8539A26494647009DC0F3 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				FAC853652649463A009DC0F3 /* PBTestGlobal.m in Sources */,
@@ -443,6 +456,7 @@
 		FA9E5E162649420C0049B214 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -459,6 +473,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.TestUtils;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -466,6 +482,7 @@
 		FA9E5E172649420C0049B214 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -482,6 +499,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.TestUtils;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

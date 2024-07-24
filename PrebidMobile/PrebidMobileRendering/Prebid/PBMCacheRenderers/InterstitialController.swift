@@ -64,6 +64,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         self.init(bid: bid, adConfiguration: adConfig)
     }
     
+    // TODO: provide a more relevant name for this function.
     @objc public func loadAd() {
         
         self.renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
@@ -155,7 +156,6 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     }
     
     public func reportFailureWithError(_ error: Error?) {
-        renderer?.transactionFactory = nil
         if let error = error,
            let loadingDelegate = loadingDelegate {
             loadingDelegate.interstitialController(self, didFailWithError: error)
@@ -163,7 +163,6 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     }
 
     func reportSuccess() {
-        renderer?.transactionFactory = nil
         if let loadingDelegate = loadingDelegate {
             loadingDelegate.interstitialControllerDidLoadAd(self)
         }

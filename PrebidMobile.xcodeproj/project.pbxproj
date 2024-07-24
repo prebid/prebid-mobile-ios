@@ -14,6 +14,8 @@
 		38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B322576624C00E026A2 /* TrackerManagerTests.swift */; };
 		3CADBD242BFDDE01007B6913 /* PBMORTBRendererConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CADBD222BFDDE01007B6913 /* PBMORTBRendererConfig.h */; };
 		3CADBD252BFDDE01007B6913 /* PBMORTBRendererConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CADBD232BFDDE01007B6913 /* PBMORTBRendererConfig.m */; };
+		3CD0ADEE2C5125E9006CDA6B /* PluginRegisterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */; };
+		3CD0ADF32C512E5E006CDA6B /* RawSampleCustomRendererBidFabricator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD0ADF22C512E5E006CDA6B /* RawSampleCustomRendererBidFabricator.swift */; };
 		47D9A008EA5B9DF894E98CA2 /* ACJRefreshTest_0.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AF9402144C399D6D4A1C /* ACJRefreshTest_0.json */; };
 		47D9A16ECCE6B2FB6D603053 /* MockCTTelephonyNetworkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9A0E0865B22D90C20EF00 /* MockCTTelephonyNetworkInfo.swift */; };
 		47D9A173B721CE2B39D98A82 /* MockMeasurementSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9AA7EC422522283555E44 /* MockMeasurementSession.swift */; };
@@ -869,6 +871,8 @@
 		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
 		3CADBD222BFDDE01007B6913 /* PBMORTBRendererConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMORTBRendererConfig.h; sourceTree = "<group>"; };
 		3CADBD232BFDDE01007B6913 /* PBMORTBRendererConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRendererConfig.m; sourceTree = "<group>"; };
+		3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginRegisterTest.swift; sourceTree = "<group>"; };
+		3CD0ADF22C512E5E006CDA6B /* RawSampleCustomRendererBidFabricator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawSampleCustomRendererBidFabricator.swift; sourceTree = "<group>"; };
 		47D9A0396ABC8830B365D7DD /* MockLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
 		47D9A0CD7FB1815DEF68BDCF /* MockPBMModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPBMModalViewController.swift; sourceTree = "<group>"; };
 		47D9A0E0865B22D90C20EF00 /* MockCTTelephonyNetworkInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCTTelephonyNetworkInfo.swift; sourceTree = "<group>"; };
@@ -3006,6 +3010,7 @@
 			children = (
 				925D5E0D2737DFCC00A8A2B5 /* RawWinningBidFabricator.swift */,
 				925D5E0F2737DFDE00A8A2B5 /* WinningBidResponseFabricator.swift */,
+				3CD0ADF22C512E5E006CDA6B /* RawSampleCustomRendererBidFabricator.swift */,
 			);
 			path = FakeDataFabricationHelpers;
 			sourceTree = "<group>";
@@ -3200,6 +3205,7 @@
 				FAC837D72321583500565051 /* CollectionExtensionTest.swift */,
 				FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */,
 				FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */,
+				3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -3854,6 +3860,7 @@
 				925D5DB12737C54500A8A2B5 /* MockAdLoader.swift in Sources */,
 				925D5D742737B7FB00A8A2B5 /* UserConsentManagerTest.swift in Sources */,
 				922AFD2E2737260900732C53 /* PBMDeepLinkPlusHelperTest.swift in Sources */,
+				3CD0ADF32C512E5E006CDA6B /* RawSampleCustomRendererBidFabricator.swift in Sources */,
 				925D5E622737F41D00A8A2B5 /* PBMRewardedVideoCreativeTest.swift in Sources */,
 				925D5E7C2737F66000A8A2B5 /* PBMVASTFailToLoadTest.swift in Sources */,
 				47D9A20753E95F99F258111F /* MockAlertAction.swift in Sources */,
@@ -3874,6 +3881,7 @@
 				928E5A7427F0F84C000ADA1A /* NativeMarkupRequestObjectTest.swift in Sources */,
 				925D5DB72737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift in Sources */,
 				922AFCF42736FDD500732C53 /* PBMFunctionsObjCTest.m in Sources */,
+				3CD0ADEE2C5125E9006CDA6B /* PluginRegisterTest.swift in Sources */,
 				47D9AC0B7F63CB839FB2C751 /* MockCTCarrier.swift in Sources */,
 				922AFD6F2737333A00732C53 /* PBMORTBParameterBuilderTest.swift in Sources */,
 				925D5D9B2737C2A800A8A2B5 /* GeoLocationParameterBuilderTest.swift in Sources */,
