@@ -19,7 +19,7 @@ import Foundation
 public class Log: NSObject {
 
     // MARK: - Public properties
-    public static var customLogger: PrebidLogger? = nil
+    public static var logger: PrebidLogger? = SDKConsoleLogger()
     public static var dateFormat = "yyyy-MM-dd hh:mm:ssSSS"
     public static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -29,75 +29,55 @@ public class Log: NSObject {
         return formatter
     }
     
+    public static func setCustomLogger(customLogger: PrebidLogger?) {
+        logger = customLogger
+    }
+    
     public static var logLevel: LogLevel = .debug
     public static var logToFile = false
 
     public static func error(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        if (customLogger == nil) {
-            log(object, logLevel: .error, filename: filename, line: line, function: function)
-        } else {
-            customLogger?.error(object, filename: filename, line: line, function: function)
-        }
+        log(object, logLevel: .error, filename: filename, line: line, function: function)
+        logger?.error(object, filename: filename, line: line, function: function)
     }
 
     public static func info(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        if (customLogger == nil) {
-            log(object, logLevel: .info, filename: filename, line: line, function: function)
-        } else {
-            customLogger?.info(object, filename: filename, line: line, function: function)
-        }
+        log(object, logLevel: .info, filename: filename, line: line, function: function)
+        logger?.info(object, filename: filename, line: line, function: function)
     }
 
     public static func debug(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        if (customLogger == nil) {
-            log(object, logLevel: .debug, filename: filename, line: line, function: function)
-        } else {
-            customLogger?.debug(object, filename: filename, line: line, function: function)
-        }
+        log(object, logLevel: .debug, filename: filename, line: line, function: function)
+        logger?.debug(object, filename: filename, line: line, function: function)
     }
 
     public static func verbose(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        if (customLogger == nil) {
-            log(object, logLevel: .verbose, filename: filename, line: line, function: function)
-        } else {
-            customLogger?.verbose(object, filename: filename, line: line, function: function)
-        }
+        log(object, logLevel: .verbose, filename: filename, line: line, function: function)
+        logger?.verbose(object, filename: filename, line: line, function: function)
     }
 
     public static func warn(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        if (customLogger == nil) {
-            log(object, logLevel: .warn, filename: filename, line: line, function: function)
-        } else {
-            customLogger?.warn(object, filename: filename, line: line, function: function)
-        }
+        log(object, logLevel: .warn, filename: filename, line: line, function: function)
+        logger?.warn(object, filename: filename, line: line, function: function)
     }
 
     public static func severe(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        if (customLogger == nil) {
-            log(object, logLevel: .severe, filename: filename, line: line, function: function)
-        } else {
-            customLogger?.severe(object, filename: filename, line: line, function: function)
-        }
+        log(object, logLevel: .severe, filename: filename, line: line, function: function)
+        logger?.severe(object, filename: filename, line: line, function: function)
     }
     
     public static func whereAmI(filename: String = #file, line: Int = #line, function: String = #function) {
-        if (customLogger == nil) {
-            log("", logLevel: .info, filename: filename, line: line, function: function)
-        } else {
-            customLogger?.whereAmI(filename: filename, line: line, function: function)
-        }
+        log("", logLevel: .info, filename: filename, line: line, function: function)
+        logger?.whereAmI(filename: filename, line: line, function: function)
     }
     
     static func log(_ object: Any, logLevel: LogLevel, filename: String, line: Int, function: String) {
-        if (customLogger == nil) {
-            if isLoggingEnabled(for: logLevel) {
-                let finalMessage = "\(sdkName): \(Date().toString()) \(logLevel.stringValue)[\(sourceFileName(filePath: filename))]:\(line) \(function) -> \(object)"
-                print(finalMessage)
-                serialWriteToLog(finalMessage)
-            }
-        } else {
-            customLogger?.log(object, logLevel: logLevel, filename: filename, line: line, function: function)
+        if isLoggingEnabled(for: logLevel) {
+            let finalMessage = "\(sdkName): \(Date().toString()) \(logLevel.stringValue)[\(sourceFileName(filePath: filename))]:\(line) \(function) -> \(object)"
+            print(finalMessage)
+            serialWriteToLog(finalMessage)
         }
+        logger?.log(object, logLevel: logLevel, filename: filename, line: line, function: function)
     }
     
     public static func serialWriteToLog(_ message: String) {

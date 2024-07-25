@@ -112,7 +112,7 @@ class LogTest: XCTestCase {
 
         logToFile = .init()
         
-        Log.customLogger = CustomTestLogger()
+        Log.setCustomLogger(customLogger: CustomTestLogger())
         
         Log.error(message)
         let log = Log.getLogFileAsString() ?? ""
@@ -133,7 +133,7 @@ class LogTest: XCTestCase {
         
         Log.severe(message)
         checkLogAndClean(level: .severe)
-        Log.customLogger = nil
+        Log.setCustomLogger(customLogger: nil)
     }
     
     func testWhereAmI() {
@@ -147,13 +147,13 @@ class LogTest: XCTestCase {
     
     func testWhereAmICustom() {
         logToFile = .init()
-        Log.customLogger = CustomTestLogger()
+        Log.setCustomLogger(customLogger: CustomTestLogger())
 
         Log.whereAmI()
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains("WHEREAMI"))
-        Log.customLogger = nil
+        Log.setCustomLogger(customLogger: nil)
     }
     
     func testLogLevel() {
