@@ -45,15 +45,6 @@ public class PrebidAdMobNativeAdapter:
     
     public var store: String?
     
-    public var privacyUrl: String? {
-        set {
-            prebidNativeAd?.nativeAdMarkup?.privacy = newValue
-        }
-        get {
-            return prebidNativeAd?.nativeAdMarkup?.privacy
-        }
-    }
-    
     public var price: String? {
         prebidNativeAd?.dataObjects(of: .salePrice).first?.value
     }
