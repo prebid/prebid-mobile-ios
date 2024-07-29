@@ -14,6 +14,8 @@
  */
 
 #import <StoreKit/SKStoreProductViewController.h>
+#import <StoreKit/SKOverlay.h>
+#import <StoreKit/SKOverlayConfiguration.h>
 #import <WebKit/WebKit.h>
 
 #import "PBMAbstractCreative+Protected.h"
@@ -230,9 +232,15 @@
     PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
     
     if (skadnetProductParameters) {
-        clickthroughOpened = [self handleProductClickthrough:url
-                                               productParams:skadnetProductParameters
-                                                      onExit:onClickthroughExitBlock];
+        if (skadnetProductParameters[@"skoverlay_delay"] == nil) {
+            clickthroughOpened = [self handleProductClickthrough:url
+                                                   productParams:skadnetProductParameters
+                                                          onExit:onClickthroughExitBlock];
+        } else {
+            clickthroughOpened = [self handleSKOverlayClickThrough:url
+                                                   productParams:skadnetProductParameters
+                                                          onExit:onClickthroughExitBlock];
+        }
     } else {
         
         if ([self handleDeepLinkIfNeeded:url
@@ -369,6 +377,53 @@
                     PBMLogError(@"Error presenting a product: %@", error.localizedDescription);
                 }
             }];
+        });
+    }
+
+    return YES;
+}
+
+- (BOOL)handleSKOverlayClickThrough:(NSURL*)url
+                    productParams:(NSDictionary<NSString *, id> *)productParams
+                           onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock {
+    self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
+    PBMHiddenWebViewManager *webViewManager = [[PBMHiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
+    [self.hiddenWebView setHidden:YES];
+    [webViewManager openHiddenWebView];
+    
+    if (!self.viewControllerForPresentingModals) {
+        PBMLogError(@"self.viewControllerForPresentingModals is nil");
+        return NO;
+    }
+    
+    if (@available(iOS 14, *)) {
+        
+        if (self.viewControllerForPresentingModals.presentedViewController) {
+            [self.viewControllerForPresentingModals.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+        }
+        
+        SKOverlayAppConfiguration *config = [SKOverlayAppConfiguration init];
+        config.appIdentifier = productParams[SKStoreProductParameterITunesItemIdentifier];
+        if (productParams[@"skoverlay_pos"] == 0) {
+            config.position = SKOverlayPositionBottom;
+        } else {
+            config.position = SKOverlayPositionBottomRaised;
+        }
+        if (productParams[@"skoverlay_dismissable"] == 0) {
+            config.userDismissible = false;
+        } else {
+            config.userDismissible = true;
+        }
+        //need to do something about endcarddelay
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+            float delayInSeconds = [numberFormatter numberFromString: productParams[@"skoverlay_delay"]].floatValue;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                SKOverlay *overlay = [[SKOverlay alloc] initWithConfiguration: config];
+                [overlay presentInScene: self.view.window.windowScene];
+            });
         });
     }
 

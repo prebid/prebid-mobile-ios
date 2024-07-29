@@ -27,8 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSNumber *dismissable;
 // Position of the overlay, 0 = bottom, 1 = bottom raised
 @property (nonatomic, copy, nullable) NSNumber *pos;
-// Placeholder for exchange-specific extensions to OpenRTB
-@property (nonatomic, copy, nullable) NSString *ext;
 
 @end
 

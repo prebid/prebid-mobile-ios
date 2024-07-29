@@ -26,7 +26,6 @@
         _endcarddelay = jsonDictionary[@"endcarddelay"];
         _dismissable = jsonDictionary[@"dismissable"];
         _pos = jsonDictionary[@"pos"];
-        _ext = jsonDictionary[@"ext"];
     }
     return self;
 }
@@ -38,7 +37,6 @@
     ret[@"endcarddelay"] = self.endcarddelay;
     ret[@"dismissable"] = self.dismissable;
     ret[@"pos"] = self.pos;
-    ret[@"ext"] = self.ext;
     
     [ret pbmRemoveEmptyVals];
     
