@@ -232,12 +232,12 @@
     PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
     
     if (skadnetProductParameters) {
-        if (skadnetProductParameters[@"skoverlay_delay"] == nil) {
-            clickthroughOpened = [self handleProductClickthrough:url
+        if (skadnetProductParameters[@"skoverlay_delay"] != nil && skadnetProductParameters[@"skoverlay_endcarddelay"] != nil) {
+            clickthroughOpened = [self handleSKOverlayClickThrough:url
                                                    productParams:skadnetProductParameters
                                                           onExit:onClickthroughExitBlock];
         } else {
-            clickthroughOpened = [self handleSKOverlayClickThrough:url
+            clickthroughOpened = [self handleProductClickthrough:url
                                                    productParams:skadnetProductParameters
                                                           onExit:onClickthroughExitBlock];
         }
@@ -414,7 +414,7 @@
         } else {
             config.userDismissible = true;
         }
-        //need to do something about endcarddelay
+        //need to do something about endcarddelay (figure out if endcard is showing?)
         dispatch_async(dispatch_get_main_queue(), ^{
             NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
             numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
