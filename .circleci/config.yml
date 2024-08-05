@@ -50,11 +50,11 @@ jobs:
       - run:
           name: Install Jazzy
           command: gem install jazzy
-      
       - run:
           name: Generate documentation
           command: jazzy
-
+      - store_artifacts:
+          path: PrebidMobile_Docs/
 
 workflows:
   pr-check:
