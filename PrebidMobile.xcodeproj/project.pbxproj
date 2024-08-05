@@ -4483,6 +4483,8 @@
 				MARKETING_VERSION = 2.2.3;
 				MODULEMAP_FILE = PrebidMobile/BuildFiles/PrebidMobile.modulemap;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4519,6 +4521,8 @@
 				MARKETING_VERSION = 2.2.3;
 				MODULEMAP_FILE = PrebidMobile/BuildFiles/PrebidMobile.modulemap;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
