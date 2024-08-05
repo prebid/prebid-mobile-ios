@@ -40,6 +40,20 @@ jobs:
       - run:
           name: Run Smoke UI Tests
           command: scripts/testPrebidDemo.sh -ui -l
+          
+  generate-documentation:
+    macos:
+      xcode: 15.4.0
+    resource_class: macos.m1.medium.gen1
+    steps:
+      - checkout
+      - run:
+          name: Install Jazzy
+          command: gem install jazzy
+      
+      - run:
+          name: Generate documentation
+          command: jazzy
 
 
 workflows:
@@ -53,3 +67,12 @@ workflows:
          name: Run Intgration Tests - Swift Demo App
       - run-swift-demo-ui-tests:
          name: Run Smoke UI Tests - Swift Demo App
+  
+  release:
+    jobs:
+      - generate-documentation:
+          name: Generate PrebidMobile Documentation
+          filters:
+            tags:
+              only: /^test-.*/
+
