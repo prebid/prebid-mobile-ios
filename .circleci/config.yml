@@ -53,11 +53,10 @@ jobs:
       - run:
           name: Generate documentation
           command: jazzy
-      - store_artifacts:
-          path: PrebidMobile_Docs/
-    post-steps:
       - run:
           git checkout docs && git pull --rebase && git commit -m "Add Prebid Mobile docs" && git push
+      - store_artifacts:
+          path: PrebidMobile_Docs/
 
 workflows:
   pr-check:
