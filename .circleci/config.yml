@@ -54,7 +54,8 @@ jobs:
           name: Generate documentation
           command: jazzy
       - run:
-          git checkout docs && git pull --rebase && git commit -m "Add Prebid Mobile docs" && git push
+          name: Commit and Push
+          command: git config --global user.name "OlenaPostindustria" && git config --global user.email "olena.stepaniuk@postindustria.com" &&  git checkout docs && git pull --rebase && git commit -m "Add Prebid Mobile docs" && git push
       - store_artifacts:
           path: PrebidMobile_Docs/
 
