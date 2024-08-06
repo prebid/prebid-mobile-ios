@@ -55,7 +55,7 @@ jobs:
           command: jazzy
       - run:
           name: Commit and Push
-          command: git config --global user.name "OlenaPostindustria" && git config --global user.email "olena.stepaniuk@postindustria.com" &&  git checkout docs && git pull --rebase && git commit -m "Add Prebid Mobile docs" && git push
+          command: git config --global user.name "OlenaPostindustria" && git config --global user.email "olena.stepaniuk@postindustria.com" &&  git checkout docs && git pull --rebase && git add PrebidMobile_Docs/ && git commit -m "Add Prebid Mobile docs" && git push
       - store_artifacts:
           path: PrebidMobile_Docs/
 
