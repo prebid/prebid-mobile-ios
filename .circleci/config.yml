@@ -55,6 +55,9 @@ jobs:
           command: jazzy
       - store_artifacts:
           path: PrebidMobile_Docs/
+    post-steps:
+      - run:
+          git checkout docs && git pull --rebase && git commit -m "Add Prebid Mobile docs" && git push
 
 workflows:
   pr-check:
