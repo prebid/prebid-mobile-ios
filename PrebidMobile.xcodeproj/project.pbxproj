@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A9DDDCC2C5BE190000EA4A0 /* PrebidEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */; };
+		2A9DDDD42C63665A000EA4A0 /* PBMEventDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */; };
+		2A9DDDD82C63A88C000EA4A0 /* PrebidEventDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */; };
 		34C9CD5F2850CE6300FB5451 /* OMSDKVersionProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C9CD5D2850CE6300FB5451 /* OMSDKVersionProvider.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		34C9CD602850CE6300FB5451 /* OMSDKVersionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C9CD5E2850CE6300FB5451 /* OMSDKVersionProvider.m */; };
 		34F51A562850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F51A552850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework */; };
@@ -866,6 +869,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegate.swift; sourceTree = "<group>"; };
+		2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMEventDelegateHelper.swift; sourceTree = "<group>"; };
+		2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegateTests.swift; sourceTree = "<group>"; };
 		34C9CD5D2850CE6300FB5451 /* OMSDKVersionProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OMSDKVersionProvider.h; sourceTree = "<group>"; };
 		34C9CD5E2850CE6300FB5451 /* OMSDKVersionProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OMSDKVersionProvider.m; sourceTree = "<group>"; };
 		34F51A552850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "OMSDK-Static_Prebidorg.xcframework"; path = "Frameworks/OMSDK-Static_Prebidorg.xcframework"; sourceTree = "<group>"; };
@@ -1959,6 +1965,7 @@
 				53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */,
 				53138B292A71152200B18B5C /* PrebidSDKInitializer.swift */,
 				53138B2B2A7132CD00B18B5C /* PrebidGAMVersionChecker.swift */,
+				2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */,
 			);
 			path = ConfigurationAndTargeting;
 			sourceTree = "<group>";
@@ -2423,6 +2430,7 @@
 				5BC377C6271F1CFF00444D5E /* PBMWinNotifierBlock.h */,
 				5BC3780D271F1CFF00444D5E /* PBMWinNotifierFactoryBlock.h */,
 				5BC37831271F1CFF00444D5E /* TransactionFactory */,
+				2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */,
 			);
 			path = PBMCore;
 			sourceTree = "<group>";
@@ -3330,6 +3338,7 @@
 				606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */,
 				38F03B262576421400E026A2 /* CacheManagerTests.swift */,
 				38F03B322576624C00E026A2 /* TrackerManagerTests.swift */,
+				2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */,
 				47D9A35B40BBC16996BC05A9 /* RenderingTests */,
 			);
 			path = PrebidMobileTests;
@@ -3814,6 +3823,7 @@
 				92C85D9627A9DC9D0080BAC5 /* NativeAdTests.swift in Sources */,
 				922AFCE42735573900732C53 /* ServerConnectionTest.swift in Sources */,
 				925D5D9F2737C33800A8A2B5 /* NetworkParameterBuilderTest.swift in Sources */,
+				2A9DDDD82C63A88C000EA4A0 /* PrebidEventDelegateTests.swift in Sources */,
 				922AFD4B27372A0500732C53 /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
 				922AFCE12735424F00732C53 /* PBMAssert.swift in Sources */,
@@ -4025,6 +4035,7 @@
 				5BC378D7271F1CFF00444D5E /* PBMORTBUser.m in Sources */,
 				5BC3798D271F1D0000444D5E /* PBMAdRefreshOptions.m in Sources */,
 				5BC378CC271F1CFF00444D5E /* PBMWeakTimerTargetBox.m in Sources */,
+				2A9DDDD42C63665A000EA4A0 /* PBMEventDelegateHelper.swift in Sources */,
 				5BC379AC271F1D0000444D5E /* PBMModalManager.m in Sources */,
 				FAEE4D1C262DC2B200AD9966 /* InstreamVideoAdUnit.swift in Sources */,
 				53B221D12A0E3D3D00C91CCB /* PrebidJSLibraryManager.swift in Sources */,
@@ -4105,6 +4116,7 @@
 				929865392806CCC4007A2F34 /* UIView+Extensions.swift in Sources */,
 				5BC37997271F1D0000444D5E /* PBMAbstractCreative.m in Sources */,
 				92EE5A0D27F9D292003D7691 /* Position.swift in Sources */,
+				2A9DDDCC2C5BE190000EA4A0 /* PrebidEventDelegate.swift in Sources */,
 				92C3A83627F989E200DC05E9 /* AutoRefreshCountConfig.swift in Sources */,
 				5BC37A72271F1D0000444D5E /* BidResponse.swift in Sources */,
 				5BC379C8271F1D0000444D5E /* PBMAutoRefreshManager.m in Sources */,

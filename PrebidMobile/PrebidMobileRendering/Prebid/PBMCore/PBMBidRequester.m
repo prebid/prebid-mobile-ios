@@ -94,10 +94,12 @@
     
     const NSTimeInterval postTimeout = (dynamicTimeout_onRead ? dynamicTimeout_onRead.doubleValue : (rawTimeoutMS_onRead / 1000.0));
     
+    NSData *rtbRequestData = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
     @weakify(self);
     NSDate * const requestDate = [NSDate date];
     [self.connection post:requestServerURL
-                     data:[requestString dataUsingEncoding:NSUTF8StringEncoding]
+                     data:rtbRequestData
                   timeout:postTimeout
                  callback:^(PrebidServerResponse * _Nonnull serverResponse) {
         @strongify(self);
@@ -157,6 +159,8 @@
         }
         
         completion(bidResponse, trasformationError);
+        [Prebid.shared callEventDelegate_prebidBidRequestDidFinishWithRequestData:rtbRequestData 
+                                                                     responseData:serverResponse.rawData];
     }];
 }
 
