@@ -26,7 +26,7 @@
 
 @implementation PBMORTBParameterBuilder
 
-+ (NSDictionary<NSString *, NSString *> *)buildOpenRTBFor:(PBMORTBBidRequest *)bidRequest {
++ (NSDictionary<NSString *, NSString *> *)buildOpenRTBFor:(PBMORTBBidRequest *)bidRequest withAdConfiguration:(PBMAdConfiguration *)adConfiguration {
     NSMutableDictionary<NSString *, NSString *> *ret = [NSMutableDictionary<NSString *, NSString *> new];
     
     if (!bidRequest) {
