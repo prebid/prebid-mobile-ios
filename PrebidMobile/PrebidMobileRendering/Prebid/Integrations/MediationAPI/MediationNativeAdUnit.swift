@@ -264,7 +264,7 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.clearExtKeywords()
     }
     
-    /// Fetches demand for the native ad unit.
+    /// Makes bid request for the native ad unit and setups mediation parameters.
     /// - Parameter completion: The completion handler to call with the result code.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         

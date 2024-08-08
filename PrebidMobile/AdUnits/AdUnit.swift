@@ -80,7 +80,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     //TODO: dynamic is used by tests
     
-    /// Fetches demand and provides the result as a dictionary of key-value pairs.
+    /// Makes bid request and provides the result as a dictionary of key-value pairs.
     ///
     /// - Parameter completion: A closure called with the result code and an optional dictionary of targeting keywords.
     ///   - result: The result code indicating the outcome of the demand fetch.
@@ -98,14 +98,14 @@ public class AdUnit: NSObject, DispatcherDelegate {
         }
     }
     
-    /// Fetches demand and provides the result as a `BidInfo` object.
+    /// Makes bid request  and provides the result as a `BidInfo` object.
     ///
     /// - Parameter completionBidInfo: A closure called with a `BidInfo` object representing the fetched demand.
     dynamic public func fetchDemand(completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void) {
         baseFetchDemand(completion: completionBidInfo)
     }
     
-    /// Fetches demand for a specific ad object and provides the result code.
+    /// Makes bid request for a specific ad object and provides the result code. Setups targeting keywords into the adObject.
     ///
     /// - Parameters:
     ///   - adObject: The ad object for which demand is being fetched.

@@ -34,7 +34,7 @@ public class PrebidAdUnit: NSObject {
         super.init()
     }
     
-    /// Fetches demand for the specified ad object and request.
+    /// Makes bid request for the specified ad object and request config. Setups targeting keywords into the adObject.
     /// - Parameters:
     ///   - adObject: The ad object to fetch demand for.
     ///   - request: The `PrebidRequest` containing the demand request parameters.
@@ -54,7 +54,7 @@ public class PrebidAdUnit: NSObject {
         }
     }
     
-    /// Fetches demand for the specified request.
+    /// Makes bid request for the specified request config.
     /// - Parameters:
     ///   - request: The `PrebidRequest` containing the demand request parameters.
     ///   - completion: A closure to be called with the `BidInfo` result.

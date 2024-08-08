@@ -83,6 +83,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         videoParameters.placement = .Interstitial
     }
     
+    /// Makes bid request and setups mediation parameters.
+    /// - Parameters:
+    ///   - completion: A closure called with the result code indicating the outcome of the demand fetch.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         fetchDemand(connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
