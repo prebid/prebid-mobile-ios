@@ -283,7 +283,7 @@ public class MediationBannerAdUnit : NSObject {
         })
     }
     
-    /// Makes bid request.
+    /// Makes bid request and setups mediation parameters.
     /// - Parameter completion: The completion handler to call when the demand fetch is complete.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
