@@ -15,56 +15,26 @@ limitations under the License.
 
 import Foundation
 
-public class SingleContainerInt: NSObject, ExpressibleByIntegerLiteral {
-
-    public typealias IntegerLiteralType = Int
-    
-    @objc
-    public let value: Int
-    
-    @objc
-    public required init(integerLiteral value: Int) {
-        self.value = value
-    }
-    
-    static func == (lhs: SingleContainerInt, rhs: SingleContainerInt) -> Bool {
-        return lhs.value == rhs.value
-    }
-
-    override public func isEqual(_ object: Any?) -> Bool {
-
-        if let other = object as? SingleContainerInt {
-            if self === other {
-                return true
-            } else {
-                return self.value == other.value
-            }
-        }
-
-        return false
-
-    }
-
-    override public var hash : Int {
-        return value.hashValue
-    }
-}
-
+/// A class containing constants related to OpenRTB signals.
+///
+/// This class provides static constants and values representing different
+/// API frameworks, playback methods, protocols, start delays, and video
+/// placement types as defined in the OpenRTB specification.
+///
 public class Signals: NSObject {
-    /**
-     # OpenRTB - API Frameworks #
-     ```
-     | Value | Description |
-     |-------|-------------|
-     | 1     | VPAID 1.0   |
-     | 2     | VPAID 2.0   |
-     | 3     | MRAID-1     |
-     | 4     | ORMMA       |
-     | 5     | MRAID-2     |
-     | 6     | MRAID-3     |
-     | 7     | OMID-1      |
-     ```
-     */
+    
+     ///# OpenRTB - API Frameworks #
+     /// ```
+     /// | Value | Description |
+     /// |-------|-------------|
+     /// | 1     | VPAID 1.0   |
+     /// | 2     | VPAID 2.0   |
+     /// | 3     | MRAID-1     |
+     /// | 4     | ORMMA       |
+     /// | 5     | MRAID-2     |
+     /// | 6     | MRAID-3     |
+     /// | 7     | OMID-1      |
+     /// ```
     @objc(PBApi)
     public class Api: SingleContainerInt {
         
@@ -97,19 +67,18 @@ public class Signals: NSObject {
         public static let OMID_1 = Api(7)
     }
 
-    /**
-    # OpenRTB - Playback Methods #
-    ```
-    | Value | Description                                              |
-    |-------|----------------------------------------------------------|
-    | 1     | Initiates on Page Load with Sound On                     |
-    | 2     | Initiates on Page Load with Sound Off by Default         |
-    | 3     | Initiates on Click with Sound On                         |
-    | 4     | Initiates on Mouse-Over with Sound On                    |
-    | 5     | Initiates on Entering Viewport with Sound On             |
-    | 6     | Initiates on Entering Viewport with Sound Off by Default |
-    ```
-    */
+    
+    /// # OpenRTB - Playback Methods #
+    /// ```
+    /// | Value | Description                                              |
+    /// |-------|----------------------------------------------------------|
+    /// | 1     | Initiates on Page Load with Sound On                     |
+    /// | 2     | Initiates on Page Load with Sound Off by Default         |
+    /// | 3     | Initiates on Click with Sound On                         |
+    /// | 4     | Initiates on Mouse-Over with Sound On                    |
+    /// | 5     | Initiates on Entering Viewport with Sound On             |
+    /// | 6     | Initiates on Entering Viewport with Sound Off by Default |
+    /// ```
     @objc(PBPlaybackMethod)
     public class PlaybackMethod: SingleContainerInt {
 
@@ -139,23 +108,21 @@ public class Signals: NSObject {
 
     }
 
-    /**
-    # OpenRTB - Protocols #
-    ```
-    | Value | Description       |
-    |-------|-------------------|
-    | 1     | VAST 1.0          |
-    | 2     | VAST 2.0          |
-    | 3     | VAST 3.0          |
-    | 4     | VAST 1.0 Wrapper  |
-    | 5     | VAST 2.0 Wrapper  |
-    | 6     | VAST 3.0 Wrapper  |
-    | 7     | VAST 4.0          |
-    | 8     | VAST 4.0 Wrapper  |
-    | 9     | DAAST 1.0         |
-    | 10    | DAAST 1.0 Wrapper |
-    ```
-    */
+    /// # OpenRTB - Protocols #
+    /// ```
+    /// | Value | Description       |
+    /// |-------|-------------------|
+    /// | 1     | VAST 1.0          |
+    /// | 2     | VAST 2.0          |
+    /// | 3     | VAST 3.0          |
+    /// | 4     | VAST 1.0 Wrapper  |
+    /// | 5     | VAST 2.0 Wrapper  |
+    /// | 6     | VAST 3.0 Wrapper  |
+    /// | 7     | VAST 4.0          |
+    /// | 8     | VAST 4.0 Wrapper  |
+    /// | 9     | DAAST 1.0         |
+    /// | 10    | DAAST 1.0 Wrapper |
+    /// ```
     @objc(PBProtocols)
     public class Protocols: SingleContainerInt {
         
@@ -201,17 +168,15 @@ public class Signals: NSObject {
         
     }
 
-    /**
-    # OpenRTB - Start Delay #
-    ```
-    | Value | Description                                      |
-    |-------|--------------------------------------------------|
-    | > 0   | Mid-Roll (value indicates start delay in second) |
-    | 0     | Pre-Roll                                         |
-    | -1    | Generic Mid-Roll                                 |
-    | -2    | Generic Post-Roll                                |
-    ```
-    */
+    /// # OpenRTB - Start Delay #
+    /// ```
+    /// | Value | Description                                      |
+    /// |-------|--------------------------------------------------|
+    /// | > 0   | Mid-Roll (value indicates start delay in second) |
+    /// | 0     | Pre-Roll                                         |
+    /// | -1    | Generic Mid-Roll                                 |
+    /// | -2    | Generic Post-Roll                                |
+    /// ```
     @objc(PBStartDelay)
     public class StartDelay: SingleContainerInt {
         
@@ -229,18 +194,16 @@ public class Signals: NSObject {
         
     }
 
-    /**
-    # OpenRTB - Video Placement Types #
-    ```
-    | Value | Description                  |
-    |-------|------------------------------|
-    | 1     | In-Stream                    |
-    | 2     | In-Banner                    |
-    | 3     | In-Article                   |
-    | 4     | In-Feed                      |
-    | 5     | Interstitial/Slider/Floating |
-    ```
-    */
+    /// # OpenRTB - Video Placement Types #
+    /// ```
+    /// | Value | Description                  |
+    /// |-------|------------------------------|
+    /// | 1     | In-Stream                    |
+    /// | 2     | In-Banner                    |
+    /// | 3     | In-Article                   |
+    /// | 4     | In-Feed                      |
+    /// | 5     | Interstitial/Slider/Floating |
+    /// ```
     @objc(PBPlacement)
     public class Placement: SingleContainerInt {
         
@@ -272,6 +235,7 @@ public class Signals: NSObject {
         @objc
         public static let Floating = Placement(5)
         
+        /// Helper function
         @objc public static func getPlacementByRawValue(_ value: Int) -> Signals.Placement? {
             switch value {
             case 1:

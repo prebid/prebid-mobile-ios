@@ -1,5 +1,5 @@
 # Ordered by output of `jazzy — help config`
-output: PrebidMobile_Docs
+output: docs
 clean: true
 xcodebuild_arguments:
 - -workspace
@@ -11,6 +11,8 @@ author: Prebid
 readme: README.md
 exclude:
   - PrebidMobile/Addendum/*
+  - PrebidMobile/AdUnits/BannerBasedAdUnitProtocol.swift
+  - PrebidMobile/AdUnits/VideoBasedAdUnitProtocol.swift
   - PrebidMobile/CacheManagement/*
   - PrebidMobile/ConfigurationAndTargeting/AgeUtils.swift
   - PrebidMobile/ConfigurationAndTargeting/ClickbrowserType.swift
@@ -43,13 +45,16 @@ exclude:
   - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/InterstitialEventLoadingDelegate.swift
   - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/RewardedEventInteractionDelegate.swift
   - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/RewardedEventLoadingDelegate.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BaseInterstitialAdUnitProtocol.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/InterstitialEventHandlerProtocol.swift
   - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationUtils.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationNativeUtils.swift
   - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationConstants.swift
-  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationBaseInterstitialAdUnit.swift
   - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationBidInfoWrapper.swift
   - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/PBMStandaloneSDK/DemandResponseInfo.swift
   - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/PBMStandaloneSDK/EventHandlers/*
   - PrebidMobile/PrebidMobileRendering/Prebid/PBMCore/*
+  - PrebidMobile/PrebidMobileRendering/Prebid/PBMCacheRenderers/*
   - PrebidMobile/PrebidMobileRendering/PrebidServerEventTracker.swift
   - PrebidMobile/PrebidMobileRendering/ServerEvent.swift
   - PrebidMobile/PrebidMobileRendering/ServerSideConfiguration/*

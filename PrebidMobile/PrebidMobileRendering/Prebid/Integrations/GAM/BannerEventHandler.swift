@@ -16,6 +16,9 @@
 import Foundation
 import UIKit
 
+/// A protocol for handling events related to banner ads in the PBM SDK.
+///
+/// This protocol defines methods and properties for managing events associated with banner ads, including loading events, user interactions, and ad sizes. Implementing this protocol allows for custom handling of these events within the PBM SDK.
 @objc public protocol BannerEventHandler : PBMPrimaryAdRequesterProtocol {
 
     /// Delegate for custom event handler to inform the PBM SDK about the events related to the ad server communication.

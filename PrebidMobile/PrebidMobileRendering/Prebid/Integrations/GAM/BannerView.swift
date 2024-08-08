@@ -17,7 +17,7 @@ import UIKit
 
 fileprivate let assertionMessageMainThread = "Expected to only be called on the main thread"
 
-/// The view that will display the particular banner ad.
+/// The view that will display the particular banner ad. Built for rendering type of integration.
 public class BannerView: UIView,
                          BannerAdLoaderDelegate,
                          AdLoadFlowControllerDelegate,
@@ -238,21 +238,32 @@ public class BannerView: UIView,
     
     // MARK: - Ext Data (imp[].ext.data)
     
+    /// Adds context data for a specified key.
+    /// - Parameters:
+    ///   - data: The data to add.
+    ///   - key: The key associated with the data.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     @objc public func addContextData(_ data: String, forKey key: String) {
         addExtData(key: key, value: data)
     }
     
+    /// Updates context data for a specified key.
+    /// - Parameters:
+    ///   - data: A set of data to update.
+    ///   - key: The key associated with the data.
     @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
         updateExtData(key: key, value: data)
     }
     
+    /// Removes context data for a specified key.
+    /// - Parameter key: The key associated with the data to remove.
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     @objc public func removeContextDate(forKey key: String) {
         removeExtData(forKey: key)
     }
     
+    /// Clears all context data.
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     @objc public func clearContextData() {
         clearExtData()
@@ -288,21 +299,28 @@ public class BannerView: UIView,
     
     // MARK: - Ext keywords (imp[].ext.keywords)
     
+    /// Adds a context keyword.
+    /// - Parameter newElement: The keyword to add.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
     @objc public func addContextKeyword(_ newElement: String) {
         addExtKeyword(newElement)
     }
     
+    /// Adds a set of context keywords.
+    /// - Parameter newElements: A set of keywords to add.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
     @objc public func addContextKeywords(_ newElements: Set<String>) {
         addExtKeywords(newElements)
     }
     
+    /// Removes a context keyword.
+    /// - Parameter element: The keyword to remove.
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
     @objc public func removeContextKeyword(_ element: String) {
         removeExtKeyword(element)
     }
 
+    /// Clears all context keywords.
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
     @objc public func clearContextKeywords() {
         clearExtKeywords()

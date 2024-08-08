@@ -15,7 +15,9 @@
 
 import Foundation
 
-
+/// A protocol for handling events related to rewarded ads.
+///
+/// This protocol extends `PBMInterstitialAd` and defines properties for delegates that handle events related to the ad server communication and user interactions with rewarded ads. Implementing this protocol allows for custom handling of these events within the rewarded ad lifecycle.
 @objc public protocol RewardedEventHandlerProtocol: PBMInterstitialAd {
 
     /// Delegate for custom event handler to inform the PBM SDK about the events related to the ad server communication.

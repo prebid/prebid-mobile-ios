@@ -15,6 +15,7 @@
 
 import Foundation
 
+/// Represents the title element in a native ad, including optional text and length.
 @objcMembers
 public class NativeTitle: NSObject, JsonDecodable {
     /// The text associated with the text element.
@@ -28,6 +29,9 @@ public class NativeTitle: NSObject, JsonDecodable {
     /// flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
+    /// Initializes a `NativeTitle` object from a JSON dictionary.
+    ///
+    /// - Parameter jsonDictionary: A dictionary containing the JSON representation of the title.
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native title json dicitonary is empty")
@@ -43,6 +47,7 @@ public class NativeTitle: NSObject, JsonDecodable {
         }
     }
     
+    /// Initializes a `NativeTitle` object with default values.
     public override init() {
         super.init()
     }

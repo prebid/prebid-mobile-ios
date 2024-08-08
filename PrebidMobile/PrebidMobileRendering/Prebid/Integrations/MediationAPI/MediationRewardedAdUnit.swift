@@ -15,11 +15,17 @@
 
 import Foundation
 
+/// This class is responsible for making bid request and providing the winning bid and targeting keywords to mediating SDKs.
+/// This class is a part of Mediation API.
 @objcMembers
 public class MediationRewardedAdUnit : MediationBaseInterstitialAdUnit {
     
     // - MARK: Public Methods
     
+    /// Initializes a new instance of the `MediationRewardedAdUnit` with the specified configuration ID and mediation delegate.
+    /// - Parameters:
+    ///   - configId: The configuration ID for the ad unit.
+    ///   - mediationDelegate: The delegate for mediation-related tasks.
     public override init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         super.init(configId: configId, mediationDelegate: mediationDelegate)
         
