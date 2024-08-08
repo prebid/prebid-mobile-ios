@@ -15,31 +15,37 @@ limitations under the License.
 
 import UIKit
 
-/**
- Defines the User Id Object from an External Thrid Party Source
- */
+/// Defines the User Id Object from an External Thrid Party Source
 @objcMembers
 public class ExternalUserId: NSObject, NSCoding, NSSecureCoding, JSONConvertible {
     
+    /// Indicates whether the class supports secure coding.
     public static var supportsSecureCoding: Bool {
         true
     }
     
     
     // MARK: - Properties
+    
+    /// The source of the external user ID.
     public var source: String
+    
+    /// The identifier of the external user ID.
     public var identifier: String
+    
+    /// The type of the external user ID, represented as an optional `NSNumber`.
     public var atype: NSNumber?
+    
+    /// Additional attributes related to the external user ID, represented as an optional dictionary.
     public var ext: [String: Any]?
 
     // MARK: - Initialization
-    /**
-     Initialize ExternalUserId Class
-    - Parameter source: Source of the External User Id String.
-    - Parameter identifier: String of the External User Id.
-    - Parameter atype: (Optional) Int of the External User Id.
-    - Parameter ext: (Optional) Dictionary of the External User Id.
-    */
+    
+    ///Initialize ExternalUserId Class
+    /// - Parameter source: Source of the External User Id String.
+    /// - Parameter identifier: String of the External User Id.
+    /// - Parameter atype: (Optional) Int of the External User Id.
+    /// - Parameter ext: (Optional) Dictionary of the External User Id.
     public init(source: String, identifier: String, atype: NSNumber? = nil, ext:[String: Any]? = nil) {
         self.source = source
         self.identifier = identifier
@@ -48,6 +54,7 @@ public class ExternalUserId: NSObject, NSCoding, NSSecureCoding, JSONConvertible
         super.init()
     }
     
+    /// Encodes the properties of the class using the given encoder.
     public func encode(with coder: NSCoder) {
         coder.encode(self.source, forKey: "source")
         coder.encode(self.identifier, forKey: "identifier")
@@ -55,6 +62,7 @@ public class ExternalUserId: NSObject, NSCoding, NSSecureCoding, JSONConvertible
         coder.encode(self.ext, forKey: "ext")
     }
     
+    /// Initializes an `ExternalUserId` instance from the given decoder.
     public required init?(coder: NSCoder) {
         self.source = coder.decodeObject(forKey: "source") as? String ?? ""
         self.identifier = coder.decodeObject(forKey: "identifier") as? String ?? ""
@@ -62,6 +70,7 @@ public class ExternalUserId: NSObject, NSCoding, NSSecureCoding, JSONConvertible
         self.ext = coder.decodeObject(forKey: "ext") as? [String: Any]
     }
     
+    /// Converts the `ExternalUserId` instance to a JSON dictionary.
     public func toJSONDictionary() -> [AnyHashable: Any] {
         guard source.count != 0 && identifier.count != 0 else {
             return [:]

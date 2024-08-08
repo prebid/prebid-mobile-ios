@@ -16,12 +16,16 @@
 import Foundation
 import UIKit
 
+/// Represents a native ad and handles its various properties and functionalities.
 @objcMembers
 public class NativeAd: NSObject, CacheExpiryDelegate {
     
     // MARK: - Public properties
     
+    /// The native ad markup containing the ad assets.
     public var nativeAdMarkup: NativeAdMarkup?
+    
+    /// The delegate to receive native ad events.
     public weak var delegate: NativeAdEventDelegate?
     
     // MARK: - Internal properties
@@ -44,58 +48,73 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     
     // MARK: - Array getters
     
+    /// Returns an array of titles from the native ad markup.
     @objc public var titles: [NativeTitle] {
         nativeAdMarkup?.assets?.compactMap { return $0.title } ?? []
     }
     
+    /// Returns an array of data objects from the native ad markup.
     @objc public var dataObjects: [NativeData] {
         nativeAdMarkup?.assets?.compactMap { return $0.data } ?? []
     }
     
+    /// Returns an array of images from the native ad markup.
     @objc public var images: [NativeImage] {
         nativeAdMarkup?.assets?.compactMap { return $0.img } ?? []
     }
     
+    /// Returns an array of event trackers from the native ad markup.
     @objc public var eventTrackers: [NativeEventTrackerResponse]? {
         return nativeAdMarkup?.eventtrackers
     }
     
     // MARK: - Filtered array getters
     
+    /// Returns an array of data objects filtered by the specified data type.
     @objc public func dataObjects(of dataType: NativeDataAssetType) -> [NativeData] {
         dataObjects.filter { $0.type == dataType.rawValue }
     }
 
+    /// Returns an array of images filtered by the specified image type.
     @objc public func images(of imageType: NativeImageAssetType) -> [NativeImage] {
         images.filter { $0.type == imageType.rawValue }
     }
     
     // MARK: - Property getters
     
+    /// Returns the first title text from the native ad markup.
     @objc public var title: String? {
         return titles.first?.text
     }
     
+    /// Returns the URL of the main image from the native ad markup.
     @objc public var imageUrl: String? {
         return images(of: .main).first?.url
     }
     
+    /// Returns the URL of the icon image from the native ad markup.
     @objc public var iconUrl: String? {
         return images(of: .icon).first?.url
     }
     
+    /// Returns the sponsored by text from the native ad markup.
     @objc public var sponsoredBy: String? {
         return dataObjects(of: .sponsored).first?.value
     }
     
+    /// Returns the description text from the native ad markup.
     @objc public var text: String? {
         return dataObjects(of: .desc).first?.value
     }
     
+    /// Returns the call-to-action text from the native ad markup.
     @objc public var callToAction: String? {
         return dataObjects(of: .ctaText).first?.value
     }
     
+    /// Creates a `NativeAd` instance from the given cache ID.
+    /// - Parameter cacheId: The cache ID to retrieve the bid response.
+    /// - Returns: A `NativeAd` instance if successful, otherwise `nil`.
     public static func create(cacheId: String) -> NativeAd? {
         guard let bidString = CacheManager.shared.get(cacheId: cacheId),
               let bidDic = Utils.shared.getDictionaryFromString(bidString) else {
@@ -164,7 +183,11 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         }
     }
     
-    //MARK: registerView function
+    /// Registers a view for tracking viewability and click events.
+    /// - Parameters:
+    ///   - view: The view to register.
+    ///   - clickableViews: An array of views that should be clickable.
+    /// - Returns: `true` if the view was successfully registered, otherwise `false`.
     @discardableResult
     public func registerView(view: UIView?, clickableViews: [UIView]? ) -> Bool {
         guard let view = view else {

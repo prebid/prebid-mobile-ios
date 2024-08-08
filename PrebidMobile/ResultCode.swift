@@ -15,33 +15,68 @@
 
 import Foundation
 
+/// Enum representing the result codes for various operations within the Prebid SDK.
+///
+/// This enum provides a range of result codes indicating different outcomes or errors that may occur during SDK operations. Each case corresponds to a specific result or error, which helps in diagnosing issues and understanding the status of SDK operations.
 @objc public enum ResultCode : Int {
+    
+    /// The demand fetch request was successful.
     case prebidDemandFetchSuccess = 0
+    
+    /// The Prebid server was not specified in the request.
     case prebidServerNotSpecified
+    
+    /// The account ID provided is not recognized by the Prebid server.
     case prebidInvalidAccountId
+    
+    /// The config ID provided is not recognized by the Prebid server.
     case prebidInvalidConfigId
+    
+    /// The size requested is not recognized by the Prebid server.
     case prebidInvalidSize
+    
+    /// There was a network error during the operation.
     case prebidNetworkError
+    
+    /// The Prebid server encountered an error while processing the request.
     case prebidServerError
+    
+    /// The Prebid server did not return any bids.
     case prebidDemandNoBids
+    
+    /// The demand request timed out.
     case prebidDemandTimedOut
+    
+    /// The URL of the Prebid server is invalid.
     case prebidServerURLInvalid
+    
+    /// An unknown error occurred within the Prebid SDK.
     case prebidUnknownError
     
+    /// The structure of the response received is invalid.
     case prebidInvalidResponseStructure = 1000
     
+    /// An internal error occurred within the SDK.
     case prebidInternalSDKError = 7000
+    
+    /// Incorrect arguments were provided to the SDK.
     case prebidWrongArguments
+    
+    /// No VAST tag was found in the media data.
     case prebidNoVastTagInMediaData
 
+    /// Misuse of the SDK was detected.
     case prebidSDKMisuse = 8000
+    
+    /// SDK misuse due to a previous fetch operation not being completed yet.
     case prebidSDKMisusePreviousFetchNotCompletedYet
     
+    /// The Prebid request does not contain any parameters.
     case prebidInvalidRequest
     
-    public func name () -> String {
+    /// Returns a descriptive name for the result code.
+    public func name() -> String {
         switch self {
-        
         case .prebidDemandFetchSuccess:
             return "Prebid demand fetch successful"
         case .prebidServerNotSpecified:

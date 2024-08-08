@@ -15,6 +15,7 @@
 
 import Foundation
 
+/// Represents an asset in the native ad markup, which can be a title, image, data, or link.
 @objcMembers
 public class NativeAdMarkupAsset: NSObject, JsonDecodable {
     
@@ -44,6 +45,8 @@ public class NativeAdMarkupAsset: NSObject, JsonDecodable {
     /// flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
+    /// Initializes a new instance of `NativeAdMarkupAsset` from a JSON dictionary.
+    /// - Parameter jsonDictionary: A dictionary representing the asset in the native ad markup.
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native title json dicitonary is empty")
@@ -67,6 +70,7 @@ public class NativeAdMarkupAsset: NSObject, JsonDecodable {
         }
     }
     
+    /// Initializes a new instance of `NativeAdMarkupAsset` with default values.
     public override init() {
         super.init()
     }

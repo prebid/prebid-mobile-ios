@@ -106,6 +106,7 @@
 		53A657B12A8B650900AE0B4F /* PBMORTBSDKConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A657AE2A8B64B300AE0B4F /* PBMORTBSDKConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53A657B52A8B8B0500AE0B4F /* PBMORTBBidResponseExtPrebid.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A657B42A8B8B0500AE0B4F /* PBMORTBBidResponseExtPrebid.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53A657B72A8B8B6400AE0B4F /* PBMORTBBidResponseExtPrebid.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A657B62A8B8B6400AE0B4F /* PBMORTBBidResponseExtPrebid.m */; };
+		53A8CBDB2C64D12A008ABEA7 /* SingleContainerInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8CBDA2C64D12A008ABEA7 /* SingleContainerInt.swift */; };
 		53B221CF2A0E3D2800C91CCB /* PrebidJSLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B221CE2A0E3D2800C91CCB /* PrebidJSLibrary.swift */; };
 		53B221D12A0E3D3D00C91CCB /* PrebidJSLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B221D02A0E3D3D00C91CCB /* PrebidJSLibraryManager.swift */; };
 		53B221D32A0E3DA900C91CCB /* PrebidJSLibraryManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B221D22A0E3DA900C91CCB /* PrebidJSLibraryManagerTests.swift */; };
@@ -967,6 +968,7 @@
 		53A657AF2A8B64C200AE0B4F /* PBMORTBSDKConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSDKConfiguration.m; sourceTree = "<group>"; };
 		53A657B42A8B8B0500AE0B4F /* PBMORTBBidResponseExtPrebid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBBidResponseExtPrebid.h; sourceTree = "<group>"; };
 		53A657B62A8B8B6400AE0B4F /* PBMORTBBidResponseExtPrebid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBBidResponseExtPrebid.m; sourceTree = "<group>"; };
+		53A8CBDA2C64D12A008ABEA7 /* SingleContainerInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContainerInt.swift; sourceTree = "<group>"; };
 		53B221CE2A0E3D2800C91CCB /* PrebidJSLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidJSLibrary.swift; sourceTree = "<group>"; };
 		53B221D02A0E3D3D00C91CCB /* PrebidJSLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidJSLibraryManager.swift; sourceTree = "<group>"; };
 		53B221D22A0E3DA900C91CCB /* PrebidJSLibraryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidJSLibraryManagerTests.swift; sourceTree = "<group>"; };
@@ -1909,6 +1911,7 @@
 				53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */,
 				53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */,
 				53A368EA2AB2E95E00A03B3E /* NativeParameters.swift */,
+				53A8CBDA2C64D12A008ABEA7 /* SingleContainerInt.swift */,
 			);
 			path = Parameters;
 			sourceTree = "<group>";
@@ -4194,6 +4197,7 @@
 				5BC3792B271F1D0000444D5E /* PBMConstants.m in Sources */,
 				5BC37A61271F1D0000444D5E /* PBMORTBBidExt.m in Sources */,
 				FAEE4D13262DC2B200AD9966 /* AdUnit.swift in Sources */,
+				53A8CBDB2C64D12A008ABEA7 /* SingleContainerInt.swift in Sources */,
 				5BC379CF271F1D0000444D5E /* PBMAdLoadManagerBase.m in Sources */,
 				924F661C27FDBA5200C8DAF7 /* PBMORTBAdConfiguration.m in Sources */,
 				5BC379FB271F1D0000444D5E /* PBMExternalURLOpenCallbacks.m in Sources */,

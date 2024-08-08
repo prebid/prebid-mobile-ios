@@ -15,6 +15,7 @@
 
 import Foundation
 
+/// Class representing a response for a native event tracker.
 @objcMembers
 public class NativeEventTrackerResponse: NSObject, JsonDecodable {
     
@@ -37,6 +38,9 @@ public class NativeEventTrackerResponse: NSObject, JsonDecodable {
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
+    /// Initializes a `NativeEventTrackerResponse` object from a JSON dictionary.
+    ///
+    /// - Parameter jsonDictionary: A dictionary containing the JSON data to initialize the object.
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native event trackers json dicitonary is empty")
@@ -62,6 +66,7 @@ public class NativeEventTrackerResponse: NSObject, JsonDecodable {
         }
     }
     
+    /// Initializes with default values
     public override init() {
         super.init()
     }

@@ -15,11 +15,26 @@
 
 import Foundation
 
+/// An enumeration representing gender options for ad targeting or other purposes.
+/// This enum is used to specify different gender options and is intended for use in contexts where gender information may be relevant.
+///
+/// - `unknown`: Gender is not specified or unknown.
+/// - `male`: Represents the male gender.
+/// - `female`: Represents the female gender.
+/// - `other`: Represents any other gender that does not fit into the male or female categories.
 @objc(PBMGender)
 public enum Gender : Int {
+    
+    /// Gender is not specified or unknown.
     case unknown
+    
+    /// Represents the male gender.
     case male
+    
+    /// Represents the female gender.
     case female
+    
+    /// Represents any other gender that does not fit into the male or female categories.
     case other
 }
 

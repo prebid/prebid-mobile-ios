@@ -15,16 +15,25 @@ limitations under the License.
 
 import UIKit
 
+/// Represents a generic native ad asset which could be a title, image, or data.
 public class NativeAsset: NSObject {
     
+    /// Unique identifier for the asset.
     var id: NSInteger!
-    public var required: Bool = false
     
+    /// Indicates whether the asset is required for the ad to be considered valid.
+    public var required: Bool = false
+
+    /// Initializes a new instance of `NativeAsset`.
+    /// - Parameter isRequired: A boolean indicating whether the asset is required.
     public init(isRequired: Bool) {
         super.init()
         required = isRequired
     }
     
+    /// Generates a dictionary representation of the asset object.
+    /// - Parameter id: An optional identifier to be included in the asset dictionary.
+    /// - Returns: A dictionary representing the asset with its properties.
     func getAssetObject(id : Int) -> [AnyHashable: Any] {
         var asset: [AnyHashable: Any] = [:]
         
@@ -46,17 +55,26 @@ public class NativeAsset: NSObject {
     
 }
 
+/// Represents a title asset in a native ad.
 @objcMembers public class NativeAssetTitle: NativeAsset {
     
+    /// Maximum length of the title.
     var length: NSInteger! = 25
     
+    /// Additional custom properties for the title asset.
     public var ext: AnyObject?
     
+    /// Initializes a new instance of `NativeAssetTitle`.
+    /// - Parameters:
+    ///   - length: The maximum length of the title.
+    ///   - required: A boolean indicating whether the asset is required.
     public required init(length: NSInteger, required: Bool) {
         super.init(isRequired: required)
         self.length = length
     }
     
+    /// Generates a dictionary representation of the title asset object.
+    /// - Returns: A dictionary representing the title asset with its properties.
     func getTitleObject() -> [AnyHashable: Any] {
         var title: [AnyHashable: Any] = [:]
         
@@ -65,29 +83,52 @@ public class NativeAsset: NSObject {
         
         return title
     }
-    
 }
 
+/// Represents an image asset in a native ad.
 @objcMembers public class NativeAssetImage: NativeAsset {
     
+    /// The type of the image asset.
     public var type: ImageAsset?
+    
+    /// The width of the image asset.
     public var width: Int?
+    
+    /// The minimum width of the image asset.
     public var widthMin: Int?
+    
+    /// The height of the image asset.
     public var height: Int?
+    
+    /// The minimum height of the image asset.
     public var heightMin: Int?
+    
+    /// The MIME types supported for the image asset.
     public var mimes: Array<String>?
+    
+    /// Additional custom properties for the image asset.
     public var ext: AnyObject?
     
+    /// Initializes a new instance of `NativeAssetImage`.
+    /// - Parameters:
+    ///   - minimumWidth: The minimum width of the image.
+    ///   - minimumHeight: The minimum height of the image.
+    ///   - required: A boolean indicating whether the asset is required.
     public convenience init(minimumWidth: Int, minimumHeight: Int, required: Bool) {
         self.init(isRequired: required)
         self.widthMin = minimumWidth
         self.heightMin = minimumHeight
     }
     
+    /// Initializes a new instance of `NativeAssetImage`.
+    /// - Parameters:
+    ///   - isRequired: A boolean indicating whether the asset is required.
     public override init(isRequired: Bool) {
         super.init(isRequired: isRequired)
     }
     
+    /// Generates a dictionary representation of the image asset object.
+    /// - Returns: A dictionary representing the image asset with its properties.
     func getImageObject() -> [AnyHashable: Any] {
         
         var image: [AnyHashable: Any] = [:]
@@ -102,19 +143,31 @@ public class NativeAsset: NSObject {
         
         return image
     }
-    
 }
 
+/// Represents a data asset in a native ad.
 @objcMembers public class NativeAssetData: NativeAsset {
+    
+    /// The type of the data asset.
     var type: DataAsset?
+    
+    /// The length of the data asset.
     public var length: Int?
+    
+    /// Additional custom properties for the data asset.
     public var ext: AnyObject?
     
+    /// Initializes a new instance of `NativeAssetData`.
+    /// - Parameters:
+    ///   - type: The type of the data asset.
+    ///   - required: A boolean indicating whether the asset is required.
     public required init(type: DataAsset, required: Bool) {
         super.init(isRequired: required)
         self.type = type
     }
     
+    /// Generates a dictionary representation of the data asset object.
+    /// - Returns: A dictionary representing the data asset with its properties.
     func getDataObject() -> [AnyHashable: Any]{
         var data: [AnyHashable: Any] = [:]
         
@@ -126,21 +179,25 @@ public class NativeAsset: NSObject {
     }
 }
 
+/// Native image asset type.
 public class ImageAsset: SingleContainerInt {
     
+    /// Represents an icon image asset.
     @objc
     public static let Icon = ImageAsset(1)
     
+    /// Represents the main image asset.
     @objc
     public static let Main = ImageAsset(3)
     
+    /// Represents a custom image asset.
     @objc
-    public static let Custom = ContextType(500)
-    
+    public static let Custom = ImageAsset(500)
 }
 
-
+/// Enum representing different types of native data assets.
 @objc public enum DataAsset: Int {
+    
     case sponsored = 1
     case description = 2
     case rating = 3
@@ -153,22 +210,25 @@ public class ImageAsset: SingleContainerInt {
     case description2 = 10
     case displayurl = 11
     case ctatext = 12
+    /// Custom type for user-defined data assets
     case Custom
     
     private static var customValue = 500
-        
-        public var exchangeID:Int {
-            get {
-                switch self {
-                case .Custom:
-                    return DataAsset.customValue
-                default:
-                    return self.rawValue
-                }
+    
+    /// Gets or sets the exchange ID for the asset type.
+    /// - Returns: The exchange ID for the asset type.
+    public var exchangeID:Int {
+        get {
+            switch self {
+            case .Custom:
+                return DataAsset.customValue
+            default:
+                return self.rawValue
             }
-            set {
-                DataAsset.customValue = newValue
-            }
-            
         }
+        set {
+            DataAsset.customValue = newValue
+        }
+        
+    }
 }

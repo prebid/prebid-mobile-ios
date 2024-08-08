@@ -15,9 +15,18 @@
 
 import Foundation
 
+/// Enum representing various types of native image assets used in ads.
+///
+/// Each case corresponds to a different type of image asset that can be used in native ads.
+/// Values are defined according to the role or importance of the image in the ad.
 @objc public enum NativeImageAssetType: Int {
+    
+    /// Represents an icon image, which is typically a small image used as a visual representation of the product or service.
     case icon = 1
+    
+    /// Represents the main image of the ad, which is usually the primary visual element and central to the ad's presentation.
     case main = 3
     
+    /// Reserved for exchange-specific usage.
     case custom = 500
 }
