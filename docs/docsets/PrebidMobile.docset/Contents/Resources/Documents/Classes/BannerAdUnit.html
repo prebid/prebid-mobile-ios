@@ -17,7 +17,7 @@
     <a title="BannerAdUnit Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (27% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (94% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -89,22 +89,19 @@
                 <a href="../Classes/InterstitialAdUnit.html">InterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/InterstitialController.html">InterstitialController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationBannerAdUnit.html">MediationBannerAdUnit</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/MediationBaseInterstitialAdUnit.html">MediationBaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/MediationInterstitialAdUnit.html">MediationInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationNativeAdUnit.html">MediationNativeAdUnit</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/MediationNativeUtils.html">MediationNativeUtils</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationRewardedAdUnit.html">MediationRewardedAdUnit</a>
@@ -255,34 +252,13 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/BannerBasedAdUnitProtocol.html">BannerBasedAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/BannerEventHandler.html">BannerEventHandler</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/BaseInterstitialAdUnitProtocol.html">BaseInterstitialAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewInteractionDelegate.html">DisplayViewInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewLoadingDelegate.html">DisplayViewLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerInteractionDelegate.html">InterstitialControllerInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerLoadingDelegate.html">InterstitialControllerLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialEventHandlerProtocol.html">InterstitialEventHandlerProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/NativeAdDelegate.html">NativeAdDelegate</a>
@@ -298,9 +274,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/VideoBasedAdUnitProtocol.html">VideoBasedAdUnitProtocol</a>
               </li>
             </ul>
           </li>
@@ -321,11 +294,11 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">BannerAdUnit</span> <span class="p">:</span> <span class="kt"><a href="../Classes/AdUnit.html">AdUnit</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/BannerBasedAdUnitProtocol.html">BannerBasedAdUnitProtocol</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/VideoBasedAdUnitProtocol.html">VideoBasedAdUnitProtocol</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">BannerAdUnit</span> <span class="p">:</span> <span class="kt"><a href="../Classes/AdUnit.html">AdUnit</a></span><span class="p">,</span> <span class="kt">BannerBasedAdUnitProtocol</span><span class="p">,</span> <span class="kt">VideoBasedAdUnitProtocol</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A class representing a banner ad unit for original type of integration.</p>
 
           </section>
           <section class="section task-group-section">
@@ -344,14 +317,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A deprecated property for banner ad parameters.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">parameters</span><span class="p">:</span> <span class="kt"><a href="../Classes/BannerParameters.html">BannerParameters</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This property is deprecated. Please, use bannerParameters instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">parameters</span><span class="p">:</span> <span class="kt"><a href="../Classes/BannerParameters.html">BannerParameters</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -371,7 +345,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The banner ad parameters used to configure the ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -398,7 +372,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The video ad parameters used to configure the ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -425,7 +399,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The set of ad formats for the ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -452,7 +426,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new <code>BannerAdUnit</code> with the specified configuration ID and size.</p>
 
                       </div>
                       <div class="declaration">
@@ -462,6 +436,37 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>size</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The size of the banner ad unit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -479,7 +484,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds additional sizes to the banner ad unit&rsquo;s configuration.</p>
 
                       </div>
                       <div class="declaration">
@@ -490,6 +495,25 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sizes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of <code>CGSize</code> objects representing additional sizes.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -498,7 +522,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-06)</p>
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

@@ -17,7 +17,7 @@
     <a title="InterstitialRenderingAdUnit Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (27% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (94% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -89,22 +89,19 @@
                 <a href="../Classes/InterstitialAdUnit.html">InterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/InterstitialController.html">InterstitialController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationBannerAdUnit.html">MediationBannerAdUnit</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/MediationBaseInterstitialAdUnit.html">MediationBaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/MediationInterstitialAdUnit.html">MediationInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationNativeAdUnit.html">MediationNativeAdUnit</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/MediationNativeUtils.html">MediationNativeUtils</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationRewardedAdUnit.html">MediationRewardedAdUnit</a>
@@ -255,34 +252,13 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/BannerBasedAdUnitProtocol.html">BannerBasedAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/BannerEventHandler.html">BannerEventHandler</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/BaseInterstitialAdUnitProtocol.html">BaseInterstitialAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewInteractionDelegate.html">DisplayViewInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewLoadingDelegate.html">DisplayViewLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerInteractionDelegate.html">InterstitialControllerInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerLoadingDelegate.html">InterstitialControllerLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialEventHandlerProtocol.html">InterstitialEventHandlerProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/NativeAdDelegate.html">NativeAdDelegate</a>
@@ -298,9 +274,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/VideoBasedAdUnitProtocol.html">VideoBasedAdUnitProtocol</a>
               </li>
             </ul>
           </li>
@@ -326,7 +299,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Represents an interstitial ad unit. Built for rendering type of integration.</p>
 
           </section>
           <section class="section task-group-section">
@@ -345,7 +318,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The area of the skip button in the video controls, specified as a percentage of the screen width.</p>
 
                       </div>
                       <div class="declaration">
@@ -373,7 +346,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The position of the skip button in the video controls.</p>
 
                       </div>
                       <div class="declaration">
@@ -401,7 +374,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The delay before the skip button appears, in seconds.</p>
 
                       </div>
                       <div class="declaration">
@@ -429,7 +402,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new interstitial rendering ad unit with the specified configuration ID.</p>
 
                       </div>
                       <div class="declaration">
@@ -440,6 +413,25 @@
 <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -457,7 +449,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new interstitial rendering ad unit with the specified configuration ID and minimum size percentage.</p>
 
                       </div>
                       <div class="declaration">
@@ -468,6 +460,37 @@
 <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">minSizePercentage</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>minSizePercentage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The minimum size percentage of the ad.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -485,7 +508,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new interstitial rendering ad unit with the specified configuration ID, minimum size percentage, and event handler.</p>
 
                       </div>
                       <div class="declaration">
@@ -496,6 +519,49 @@
 <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">minSizePercentage</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">,</span> <span class="nv">eventHandler</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>minSizePercentage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The minimum size percentage of the ad.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eventHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The event handler to manage ad events.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -526,7 +592,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when an ad is successfully received.</p>
 
                       </div>
                       <div class="declaration">
@@ -553,7 +619,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad fails to be received.</p>
 
                       </div>
                       <div class="declaration">
@@ -580,7 +646,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad will be presented.</p>
 
                       </div>
                       <div class="declaration">
@@ -607,7 +673,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad is dismissed.</p>
 
                       </div>
                       <div class="declaration">
@@ -634,7 +700,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the user will leave the application.</p>
 
                       </div>
                       <div class="declaration">
@@ -661,7 +727,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad is clicked.</p>
 
                       </div>
                       <div class="declaration">
@@ -688,7 +754,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Checks if the ad is ready to be displayed.</p>
 
                       </div>
                       <div class="declaration">
@@ -715,7 +781,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sets the loading delegate for the event handler.</p>
 
                       </div>
                       <div class="declaration">
@@ -742,7 +808,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sets the interaction delegate for the event handler.</p>
 
                       </div>
                       <div class="declaration">
@@ -769,7 +835,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Requests an ad with the specified bid response</p>
 
                       </div>
                       <div class="declaration">
@@ -796,7 +862,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Shows the ad from the specified view controller.</p>
 
                       </div>
                       <div class="declaration">
@@ -823,7 +889,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Tracks an impression for the ad.</p>
 
                       </div>
                       <div class="declaration">
@@ -842,7 +908,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-06)</p>
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

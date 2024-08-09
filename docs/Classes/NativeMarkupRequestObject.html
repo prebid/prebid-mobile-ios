@@ -17,7 +17,7 @@
     <a title="NativeMarkupRequestObject Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (27% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (94% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -89,22 +89,19 @@
                 <a href="../Classes/InterstitialAdUnit.html">InterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/InterstitialController.html">InterstitialController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationBannerAdUnit.html">MediationBannerAdUnit</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/MediationBaseInterstitialAdUnit.html">MediationBaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/MediationInterstitialAdUnit.html">MediationInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationNativeAdUnit.html">MediationNativeAdUnit</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/MediationNativeUtils.html">MediationNativeUtils</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationRewardedAdUnit.html">MediationRewardedAdUnit</a>
@@ -255,34 +252,13 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/BannerBasedAdUnitProtocol.html">BannerBasedAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/BannerEventHandler.html">BannerEventHandler</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/BaseInterstitialAdUnitProtocol.html">BaseInterstitialAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewInteractionDelegate.html">DisplayViewInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewLoadingDelegate.html">DisplayViewLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerInteractionDelegate.html">InterstitialControllerInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerLoadingDelegate.html">InterstitialControllerLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialEventHandlerProtocol.html">InterstitialEventHandlerProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/NativeAdDelegate.html">NativeAdDelegate</a>
@@ -298,9 +274,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/VideoBasedAdUnitProtocol.html">VideoBasedAdUnitProtocol</a>
               </li>
             </ul>
           </li>
@@ -327,7 +300,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Represents a request object for native markup, including details about the ad&rsquo;s context, placement, and supported features.</p>
 
           </section>
           <section class="section task-group-section">
@@ -662,7 +635,7 @@ Set to 1 when the native ad supports buyer-specific privacy notice. Set to 0 (or
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a <code>NativeMarkupRequestObject</code> with default values.</p>
 
                       </div>
                       <div class="declaration">
@@ -702,7 +675,7 @@ Set to 1 when the native ad supports buyer-specific privacy notice. Set to 0 (or
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Creates a copy of the current <code>NativeMarkupRequestObject</code> instance.</p>
 
                       </div>
                       <div class="declaration">
@@ -712,6 +685,29 @@ Set to 1 when the native ad supports buyer-specific privacy notice. Set to 0 (or
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">copy</span><span class="p">(</span><span class="n">with</span> <span class="nv">zone</span><span class="p">:</span> <span class="kt">NSZone</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>zone</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional zone for the copy operation.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A copy of the <code>NativeMarkupRequestObject</code> instance.</p>
                       </div>
                     </section>
                   </div>
@@ -742,7 +738,7 @@ Set to 1 when the native ad supports buyer-specific privacy notice. Set to 0 (or
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Converts the <code>NativeMarkupRequestObject</code> instance to a JSON dictionary.</p>
 
                       </div>
                       <div class="declaration">
@@ -752,6 +748,10 @@ Set to 1 when the native ad supports buyer-specific privacy notice. Set to 0 (or
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">jsonDictionary</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A dictionary representation of the <code>NativeMarkupRequestObject</code> instance.</p>
                       </div>
                     </section>
                   </div>
@@ -769,7 +769,12 @@ Set to 1 when the native ad supports buyer-specific privacy notice. Set to 0 (or
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Converts the <code>NativeMarkupRequestObject</code> instance to a JSON string.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An error if the conversion to JSON string fails.
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -780,6 +785,10 @@ Set to 1 when the native ad supports buyer-specific privacy notice. Set to 0 (or
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A JSON string representation of the <code>NativeMarkupRequestObject</code> instance.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -788,7 +797,7 @@ Set to 1 when the native ad supports buyer-specific privacy notice. Set to 0 (or
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-06)</p>
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

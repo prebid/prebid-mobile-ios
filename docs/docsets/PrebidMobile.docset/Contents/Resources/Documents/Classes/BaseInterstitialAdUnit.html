@@ -17,7 +17,7 @@
     <a title="BaseInterstitialAdUnit Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (27% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (94% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -89,22 +89,19 @@
                 <a href="../Classes/InterstitialAdUnit.html">InterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/InterstitialController.html">InterstitialController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationBannerAdUnit.html">MediationBannerAdUnit</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/MediationBaseInterstitialAdUnit.html">MediationBaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/MediationInterstitialAdUnit.html">MediationInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationNativeAdUnit.html">MediationNativeAdUnit</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/MediationNativeUtils.html">MediationNativeUtils</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationRewardedAdUnit.html">MediationRewardedAdUnit</a>
@@ -255,34 +252,13 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/BannerBasedAdUnitProtocol.html">BannerBasedAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/BannerEventHandler.html">BannerEventHandler</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/BaseInterstitialAdUnitProtocol.html">BaseInterstitialAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewInteractionDelegate.html">DisplayViewInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewLoadingDelegate.html">DisplayViewLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerInteractionDelegate.html">InterstitialControllerInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerLoadingDelegate.html">InterstitialControllerLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialEventHandlerProtocol.html">InterstitialEventHandlerProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/NativeAdDelegate.html">NativeAdDelegate</a>
@@ -298,9 +274,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/VideoBasedAdUnitProtocol.html">VideoBasedAdUnitProtocol</a>
               </li>
             </ul>
           </li>
@@ -325,13 +298,13 @@
     <span class="kt">NSObject</span><span class="p">,</span>
     <span class="kt">PBMInterstitialAdLoaderDelegate</span><span class="p">,</span>
     <span class="kt">AdLoadFlowControllerDelegate</span><span class="p">,</span>
-    <span class="kt"><a href="../Protocols/InterstitialControllerInteractionDelegate.html">InterstitialControllerInteractionDelegate</a></span><span class="p">,</span>
+    <span class="kt">InterstitialControllerInteractionDelegate</span><span class="p">,</span>
     <span class="kt">InterstitialEventInteractionDelegate</span><span class="p">,</span>
-    <span class="kt"><a href="../Protocols/BaseInterstitialAdUnitProtocol.html">BaseInterstitialAdUnitProtocol</a></span></code></pre>
+    <span class="kt">BaseInterstitialAdUnitProtocol</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A base class for interstitial ad units.</p>
 
           </section>
           <section class="section task-group-section">
@@ -359,7 +332,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The banner parameters used for configuring ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -387,7 +360,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The video parameters used for configuring ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -415,7 +388,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The last bid response received for the ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -443,7 +416,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The configuration ID for the ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -471,7 +444,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The set of ad formats supported by this ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -499,7 +472,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The ORTB (OpenRTB) configuration string for the ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -527,7 +500,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A Boolean value indicating whether the ad unit is ready to be displayed.</p>
 
                       </div>
                       <div class="declaration">
@@ -555,7 +528,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A Boolean value indicating whether the video controls are muted.</p>
 
                       </div>
                       <div class="declaration">
@@ -583,7 +556,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A Boolean value indicating whether the sound button is visible in the video controls.</p>
 
                       </div>
                       <div class="declaration">
@@ -611,7 +584,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The area of the close button in the video controls as a percentage.</p>
 
                       </div>
                       <div class="declaration">
@@ -639,7 +612,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The position of the close button in the video controls.</p>
 
                       </div>
                       <div class="declaration">
@@ -667,7 +640,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A delegate for handling interactions with the ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -695,7 +668,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The configuration object for the ad unit.</p>
 
                       </div>
                       <div class="declaration">
@@ -735,7 +708,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new <code>BaseInterstitialAdUnit</code> with the specified configuration ID, minimum size percentage, and event handler.</p>
 
                       </div>
                       <div class="declaration">
@@ -747,6 +720,49 @@
                      <span class="nv">eventHandler</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>minSizePerc</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The minimum size percentage for the ad unit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eventHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional event handler object for handling ad events.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -764,7 +780,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new <code>BaseInterstitialAdUnit</code> with the specified configuration ID, minimum size percentage, and event handler.</p>
 
                       </div>
                       <div class="declaration">
@@ -776,6 +792,49 @@
                         <span class="nv">eventHandler</span><span class="p">:</span><span class="kt">AnyObject</span><span class="p">?)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>minSizePercentage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The minimum size percentage for the ad unit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eventHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional event handler object for handling ad events.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -793,7 +852,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new <code>BaseInterstitialAdUnit</code> with the specified configuration ID and event handler.</p>
 
                       </div>
                       <div class="declaration">
@@ -804,6 +863,37 @@
                         <span class="nv">eventHandler</span><span class="p">:</span><span class="kt">AnyObject</span><span class="p">?)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eventHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional event handler object for handling ad events.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -821,7 +911,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new <code>BaseInterstitialAdUnit</code> with the specified configuration ID and minimum size percentage.</p>
 
                       </div>
                       <div class="declaration">
@@ -832,6 +922,37 @@
                         <span class="nv">minSizePercentage</span><span class="p">:</span><span class="kt">CGSize</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>minSizePercentage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The minimum size percentage for the ad unit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -849,7 +970,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new <code>BaseInterstitialAdUnit</code> with the specified configuration ID.</p>
 
                       </div>
                       <div class="declaration">
@@ -859,6 +980,25 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -876,7 +1016,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Loads a new ad.</p>
 
                       </div>
                       <div class="declaration">
@@ -904,7 +1044,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Shows the ad from a specified view controller.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This method must be called on the main thread.
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -915,6 +1060,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">show</span><span class="p">(</span><span class="n">from</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>controller</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The view controller from which the ad will be presented.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -945,17 +1109,49 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds context data for a specified key.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addExtData method instead."</span><span class="p">)</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to add.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key associated with the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -973,17 +1169,49 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Updates context data for a specified key.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use updateExtData method instead."</span><span class="p">)</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateContextData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A set of data to update.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key associated with the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1001,17 +1229,37 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Removes context data for a specified key.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use removeExtData method instead."</span><span class="p">)</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeContextDate</span><span class="p">(</span><span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key associated with the data to remove.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1029,14 +1277,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Clears all context data.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use clearExtData method instead."</span><span class="p">)</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearContextData</span><span class="p">()</span></code></pre>
 
                         </div>
@@ -1057,7 +1306,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds ext data.</p>
 
                       </div>
                       <div class="declaration">
@@ -1068,6 +1317,37 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addExtData</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1085,7 +1365,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Updates ext data.</p>
 
                       </div>
                       <div class="declaration">
@@ -1096,6 +1376,37 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateExtData</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1113,7 +1424,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Removes ext data.</p>
 
                       </div>
                       <div class="declaration">
@@ -1124,6 +1435,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeExtData</span><span class="p">(</span><span class="nv">forKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1141,7 +1471,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Clears ext data.</p>
 
                       </div>
                       <div class="declaration">
@@ -1182,17 +1512,37 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds a context keyword.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addExtKeyword method instead."</span><span class="p">)</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElement</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newElement</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The keyword to add.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1210,17 +1560,37 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds a set of context keywords.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addExtKeywords method instead."</span><span class="p">)</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextKeywords</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newElements</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A set of keywords to add.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1238,17 +1608,37 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Removes a context keyword.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use removeExtKeyword method instead."</span><span class="p">)</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeContextKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>element</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The keyword to remove.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1266,14 +1656,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Clears all context keywords.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use clearExtKeywords method instead."</span><span class="p">)</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearContextKeywords</span><span class="p">()</span></code></pre>
 
                         </div>
@@ -1294,7 +1685,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds an extended keyword.</p>
 
                       </div>
                       <div class="declaration">
@@ -1305,6 +1696,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addExtKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElement</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newElement</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The keyword to be added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1322,7 +1732,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds multiple extended keywords.</p>
 
                       </div>
                       <div class="declaration">
@@ -1333,6 +1743,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addExtKeywords</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newElements</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A set of keywords to be added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1350,7 +1779,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Removes an extended keyword.</p>
 
                       </div>
                       <div class="declaration">
@@ -1361,6 +1790,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeExtKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>element</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The keyword to be removed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1378,7 +1826,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Clears all extended keywords.</p>
 
                       </div>
                       <div class="declaration">
@@ -1419,7 +1867,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sets the app content data.</p>
 
                       </div>
                       <div class="declaration">
@@ -1430,6 +1878,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">setAppContent</span><span class="p">(</span><span class="n">_</span> <span class="nv">appContent</span><span class="p">:</span> <span class="kt">PBMORTBAppContent</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appContent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The app content data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1447,7 +1914,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Clears the app content data.</p>
 
                       </div>
                       <div class="declaration">
@@ -1475,7 +1942,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds app content data objects.</p>
 
                       </div>
                       <div class="declaration">
@@ -1486,6 +1953,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addAppContentData</span><span class="p">(</span><span class="n">_</span> <span class="nv">dataObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt">PBMORTBContentData</span><span class="p">])</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dataObjects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data objects to be added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1503,7 +1989,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Removes an app content data object.</p>
 
                       </div>
                       <div class="declaration">
@@ -1514,6 +2000,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeAppContentDataObject</span><span class="p">(</span><span class="n">_</span> <span class="nv">dataObject</span><span class="p">:</span> <span class="kt">PBMORTBContentData</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dataObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data object to be removed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1531,7 +2036,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Clears all app content data objects.</p>
 
                       </div>
                       <div class="declaration">
@@ -1572,7 +2077,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds user data objects.</p>
 
                       </div>
                       <div class="declaration">
@@ -1583,6 +2088,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addUserData</span><span class="p">(</span><span class="n">_</span> <span class="nv">userDataObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt">PBMORTBContentData</span><span class="p">])</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userDataObjects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The user data objects to be added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1600,7 +2124,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Removes a user data object.</p>
 
                       </div>
                       <div class="declaration">
@@ -1611,6 +2135,25 @@
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeUserData</span><span class="p">(</span><span class="n">_</span> <span class="nv">userDataObject</span><span class="p">:</span> <span class="kt">PBMORTBContentData</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userDataObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The user data object to be removed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -1628,7 +2171,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Clears all user data objects.</p>
 
                       </div>
                       <div class="declaration">
@@ -1669,7 +2212,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Internal delegate method.</p>
 
                       </div>
                       <div class="declaration">
@@ -1698,7 +2241,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Internal delegate method.</p>
 
                       </div>
                       <div class="declaration">
@@ -1706,7 +2249,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialAdLoader</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialAdLoader</span><span class="p">:</span> <span class="kt">PBMInterstitialAdLoader</span><span class="p">,</span>
-                                 <span class="n">createdInterstitialController</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt"><a href="../Classes/InterstitialController.html">InterstitialController</a></span><span class="p">)</span></code></pre>
+                                 <span class="n">createdInterstitialController</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1726,7 +2269,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The event handler for the interstitial events.</p>
 
                       </div>
                       <div class="declaration">
@@ -1766,7 +2309,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad load flow controller is about to send a bid request.</p>
 
                       </div>
                       <div class="declaration">
@@ -1793,7 +2336,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad load flow controller is about to request the primary ad.</p>
 
                       </div>
                       <div class="declaration">
@@ -1820,7 +2363,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called to determine if the ad load flow controller should continue with the current flow.</p>
 
                       </div>
                       <div class="declaration">
@@ -1847,7 +2390,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad load flow controller fails with an error.</p>
 
                       </div>
                       <div class="declaration">
@@ -1887,14 +2430,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Tracks an impression for the given interstitial controller.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">trackImpression</span><span class="p">(</span><span class="nv">forInterstitialController</span><span class="p">:</span> <span class="kt"><a href="../Classes/InterstitialController.html">InterstitialController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">trackImpression</span><span class="p">(</span><span class="nv">forInterstitialController</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1914,14 +2457,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad in the interstitial controller is clicked.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidClickAd</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt"><a href="../Classes/InterstitialController.html">InterstitialController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidClickAd</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1941,14 +2484,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad in the interstitial controller is closed.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidCloseAd</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt"><a href="../Classes/InterstitialController.html">InterstitialController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidCloseAd</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1968,14 +2511,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad in the interstitial controller causes the app to leave.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidLeaveApp</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt"><a href="../Classes/InterstitialController.html">InterstitialController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidLeaveApp</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1995,14 +2538,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the interstitial controller displays an ad.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidDisplay</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt"><a href="../Classes/InterstitialController.html">InterstitialController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidDisplay</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -2022,14 +2565,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the interstitial controller completes the ad display.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidComplete</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt"><a href="../Classes/InterstitialController.html">InterstitialController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidComplete</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -2049,14 +2592,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Provides the view controller to use for modal presentation.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">viewControllerForModalPresentation</span><span class="p">(</span><span class="nv">fromInterstitialController</span><span class="p">:</span> <span class="kt"><a href="../Classes/InterstitialController.html">InterstitialController</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">viewControllerForModalPresentation</span><span class="p">(</span><span class="nv">fromInterstitialController</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -2089,7 +2632,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when an ad is about to be presented.</p>
 
                       </div>
                       <div class="declaration">
@@ -2116,7 +2659,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when an ad has been dismissed.</p>
 
                       </div>
                       <div class="declaration">
@@ -2143,7 +2686,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when the ad causes the app to leave.</p>
 
                       </div>
                       <div class="declaration">
@@ -2170,7 +2713,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called when an ad is clicked.</p>
 
                       </div>
                       <div class="declaration">
@@ -2210,7 +2753,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Requests an ad using the provided bid response.</p>
 
                       </div>
                       <div class="declaration">
@@ -2237,7 +2780,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Displays the ad using the provided view controller.</p>
 
                       </div>
                       <div class="declaration">
@@ -2277,7 +2820,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Checks if the ad unit is ready to show an ad.</p>
 
                       </div>
                       <div class="declaration">
@@ -2304,7 +2847,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Notifies the delegate that an ad has been successfully received.</p>
 
                       </div>
                       <div class="declaration">
@@ -2331,7 +2874,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Notifies the delegate that the ad failed to load.</p>
 
                       </div>
                       <div class="declaration">
@@ -2358,7 +2901,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Notifies the delegate that an ad is about to be presented.</p>
 
                       </div>
                       <div class="declaration">
@@ -2385,7 +2928,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Notifies the delegate that an ad has been dismissed.</p>
 
                       </div>
                       <div class="declaration">
@@ -2412,7 +2955,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Notifies the delegate that the app is about to leave due to an ad.</p>
 
                       </div>
                       <div class="declaration">
@@ -2439,7 +2982,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Notifies the delegate that an ad has been clicked.</p>
 
                       </div>
                       <div class="declaration">
@@ -2466,7 +3009,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sets the loading delegate for the event handler.</p>
 
                       </div>
                       <div class="declaration">
@@ -2493,7 +3036,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sets the interaction delegate for the event handler.</p>
 
                       </div>
                       <div class="declaration">
@@ -2520,7 +3063,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Shows the ad from the provided view controller.</p>
 
                       </div>
                       <div class="declaration">
@@ -2547,7 +3090,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Tracks an impression for the ad.</p>
 
                       </div>
                       <div class="declaration">
@@ -2566,7 +3109,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-06)</p>
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

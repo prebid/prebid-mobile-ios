@@ -17,7 +17,7 @@
     <a title="BidInfo Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (27% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (94% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -89,22 +89,19 @@
                 <a href="../Classes/InterstitialAdUnit.html">InterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/InterstitialController.html">InterstitialController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationBannerAdUnit.html">MediationBannerAdUnit</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/MediationBaseInterstitialAdUnit.html">MediationBaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/MediationInterstitialAdUnit.html">MediationInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationNativeAdUnit.html">MediationNativeAdUnit</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/MediationNativeUtils.html">MediationNativeUtils</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MediationRewardedAdUnit.html">MediationRewardedAdUnit</a>
@@ -255,34 +252,13 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/BannerBasedAdUnitProtocol.html">BannerBasedAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/BannerEventHandler.html">BannerEventHandler</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/BaseInterstitialAdUnitProtocol.html">BaseInterstitialAdUnitProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewInteractionDelegate.html">DisplayViewInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/DisplayViewLoadingDelegate.html">DisplayViewLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerInteractionDelegate.html">InterstitialControllerInteractionDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialControllerLoadingDelegate.html">InterstitialControllerLoadingDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialEventHandlerProtocol.html">InterstitialEventHandlerProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/NativeAdDelegate.html">NativeAdDelegate</a>
@@ -298,9 +274,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/VideoBasedAdUnitProtocol.html">VideoBasedAdUnitProtocol</a>
               </li>
             </ul>
           </li>
@@ -327,7 +300,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Contains information about bid.</p>
 
           </section>
           <section class="section task-group-section">
@@ -400,7 +373,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The result code of the bid request</p>
 
                       </div>
                       <div class="declaration">
@@ -427,7 +400,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Targeting keywords associated with the bid</p>
 
                       </div>
                       <div class="declaration">
@@ -454,7 +427,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The expiration time of the bid</p>
 
                       </div>
                       <div class="declaration">
@@ -481,7 +454,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The cache ID for native ads</p>
 
                       </div>
                       <div class="declaration">
@@ -508,7 +481,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Events related to the bid</p>
 
                       </div>
                       <div class="declaration">
@@ -535,17 +508,84 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a new <code>BidInfo</code> instance with the specified parameters.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">resultCode</span><span class="p">:</span> <span class="kt"><a href="../Enums/ResultCode.html">ResultCode</a></span><span class="p">,</span> <span class="nv">targetingKeywords</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">exp</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> 
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">resultCode</span><span class="p">:</span> <span class="kt"><a href="../Enums/ResultCode.html">ResultCode</a></span><span class="p">,</span> <span class="nv">targetingKeywords</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">exp</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="nv">nativeAdCacheId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">events</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resultCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The result code of the bid request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>targetingKeywords</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional targeting keywords associated with the bid.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>exp</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional expiration time of the bid.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nativeAdCacheId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional cache ID for native ads.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>events</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional dictionary of events related to the bid.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -563,7 +603,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Retrieves the expiration time of the bid as an <code>NSNumber</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -582,7 +622,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-06)</p>
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
