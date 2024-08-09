@@ -1577,6 +1577,26 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Video Interstitial 320x480 SKOverlay (In-App) [SKAdN]",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                Targeting.shared.skOverlay = true
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "prebid-demo-video-interstitial-320-480-skadn-skoverlay"
+                interstitialController.adFormats = [.video]
+                
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             // MARK: ---- Video Interstitial (GAM) ----
             
             TestCase(title: "Video Interstitial 320x480 (GAM) [OK, AppEvent]",

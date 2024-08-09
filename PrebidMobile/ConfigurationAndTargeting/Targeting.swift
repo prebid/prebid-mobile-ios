@@ -323,6 +323,9 @@ public class Targeting: NSObject {
     /// The itunes app id for targeting
     public var itunesID: String?
     
+    /// Whether SKOverlay should be supported (sent in SkAdn request)
+    public var skOverlay = false
+    
     /// The application location for targeting
     public var location: CLLocation?
     

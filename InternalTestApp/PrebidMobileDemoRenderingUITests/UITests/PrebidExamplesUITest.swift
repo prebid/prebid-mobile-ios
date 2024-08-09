@@ -136,6 +136,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
         checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 (In-App) [SKAdN]")
     }
     
+    func testInAppInterstitial_Video_320x480_SKAdN_SKOverlay() {
+        checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 SKOverlay (In-App) [SKAdN]")
+    }
+    
     // MARK: - Interstitials (GAM)
     
     func testGAMInterstitial_Display_AppEvent() {
