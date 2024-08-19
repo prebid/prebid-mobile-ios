@@ -75,7 +75,6 @@
         self.creativeModel = creativeModel;
         self.transaction = transaction;
         self.dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
-
         self.eventManager = [PBMEventManager new];
         if (creativeModel.eventTracker) {
             [self.eventManager registerTracker: (id<PBMEventTrackerProtocol>)creativeModel.eventTracker];
@@ -122,6 +121,9 @@
 
 - (void)dealloc {
     [self.viewabilityTracker stop];
+    if (@available(iOS 14, *)) {
+        [SKOverlay dismissOverlayInScene: self.viewControllerForPresentingModals.view.window.windowScene];
+    }
     self.viewabilityTracker = NULL;
     PBMLogWhereAmI();
 }
@@ -159,6 +161,11 @@
     }
     if (!self.adWasShown) {
         self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc] initWithCreative:self];
+    }
+    //add SKOverlay in init
+    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
+    if (skadnetProductParameters[@"skoverlay_delay"] != nil && skadnetProductParameters[@"skoverlay_endcarddelay"] != nil) {
+        [self handleSKOverlay :skadnetProductParameters];
     }
 }
 
@@ -232,15 +239,9 @@
     PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
     
     if (skadnetProductParameters) {
-        if (skadnetProductParameters[@"skoverlay_delay"] != nil && skadnetProductParameters[@"skoverlay_endcarddelay"] != nil) {
-            clickthroughOpened = [self handleSKOverlayClickThrough:url
-                                                   productParams:skadnetProductParameters
-                                                          onExit:onClickthroughExitBlock];
-        } else {
             clickthroughOpened = [self handleProductClickthrough:url
                                                    productParams:skadnetProductParameters
                                                           onExit:onClickthroughExitBlock];
-        }
     } else {
         
         if ([self handleDeepLinkIfNeeded:url
@@ -383,47 +384,22 @@
     return YES;
 }
 
-- (BOOL)handleSKOverlayClickThrough:(NSURL*)url
-                    productParams:(NSDictionary<NSString *, id> *)productParams
-                           onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock {
-    self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
-    PBMHiddenWebViewManager *webViewManager = [[PBMHiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
-    [self.hiddenWebView setHidden:YES];
-    [webViewManager openHiddenWebView];
-    
-    if (!self.viewControllerForPresentingModals) {
-        PBMLogError(@"self.viewControllerForPresentingModals is nil");
-        return NO;
-    }
+- (BOOL)handleSKOverlay: (NSDictionary<NSString *, id> *)productParams{
     
     if (@available(iOS 14, *)) {
-        
-        if (self.viewControllerForPresentingModals.presentedViewController) {
-            [self.viewControllerForPresentingModals.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-        }
-        
-        SKOverlayAppConfiguration *config = [SKOverlayAppConfiguration init];
-        config.appIdentifier = productParams[SKStoreProductParameterITunesItemIdentifier];
-        if (productParams[@"skoverlay_pos"] == 0) {
-            config.position = SKOverlayPositionBottom;
-        } else {
-            config.position = SKOverlayPositionBottomRaised;
-        }
-        if (productParams[@"skoverlay_dismissable"] == 0) {
+
+        SKOverlayAppConfiguration *config = [[SKOverlayAppConfiguration alloc] initWithAppIdentifier: productParams[SKStoreProductParameterITunesItemIdentifier] position:([productParams[@"skoverlay_pos"] floatValue] == 0.0f) ? SKOverlayPositionBottom : SKOverlayPositionBottomRaised];
+        if ([productParams[@"skoverlay_dismissable"] floatValue] == 0.0f) {
             config.userDismissible = false;
         } else {
             config.userDismissible = true;
         }
         //need to do something about endcarddelay (figure out if endcard is showing?)
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-            float delayInSeconds = [numberFormatter numberFromString: productParams[@"skoverlay_delay"]].floatValue;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                SKOverlay *overlay = [[SKOverlay alloc] initWithConfiguration: config];
-                [overlay presentInScene: self.view.window.windowScene];
-            });
+        float delayInSeconds = [productParams[@"skoverlay_delay"] floatValue];
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            SKOverlay *overlay = [[SKOverlay alloc] initWithConfiguration: config];
+            [overlay presentInScene: self.viewControllerForPresentingModals.view.window.windowScene];
         });
     }
 
@@ -517,7 +493,6 @@
     if (self.transaction.measurementSession.eventTracker) {
         [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
     }
-
     [self.creativeViewDelegate creativeDidDisplay:self];
     [self onWillTrackImpression];
     [self.eventManager trackEvent:PBMTrackingEventImpression];
