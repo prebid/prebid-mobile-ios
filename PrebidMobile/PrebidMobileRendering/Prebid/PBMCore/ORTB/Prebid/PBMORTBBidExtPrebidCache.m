@@ -24,6 +24,11 @@
     if (!(self = [super init])) {
         return nil;
     }
+    
+    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
+        return nil;
+    }
+    
     _url = jsonDictionary[@"url"];
     _key = jsonDictionary[@"key"];
     

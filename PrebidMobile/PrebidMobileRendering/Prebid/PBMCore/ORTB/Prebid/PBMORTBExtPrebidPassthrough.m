@@ -24,6 +24,10 @@
         return nil;
     }
 
+    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
+        return nil;
+    }
+
     _type = jsonDictionary[@"type"];
     
     PBMJsonDictionary * const adConfigDic = jsonDictionary[@"adconfiguration"];

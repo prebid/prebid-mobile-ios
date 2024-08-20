@@ -22,6 +22,11 @@
 
 - (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
     if (self = [super init]) {
+        
+        if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
+            return nil;
+        }
+        
         _version = jsonDictionary[@"version"];
         _network = jsonDictionary[@"network"];
         _campaign = jsonDictionary[@"campaign"];

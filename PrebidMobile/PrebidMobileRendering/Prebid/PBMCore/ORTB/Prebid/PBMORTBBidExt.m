@@ -30,6 +30,10 @@
         return nil;
     }
     
+    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
+        return nil;
+    }
+    
     _bidder = jsonDictionary[@"bidder"];
     
     PBMJsonDictionary * const prebidDic = jsonDictionary[@"prebid"];

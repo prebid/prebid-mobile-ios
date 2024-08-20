@@ -27,6 +27,10 @@
         return nil;
     }
     
+    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
+        return nil;
+    }
+    
     PBMJsonDictionary * const cacheDic = jsonDictionary[@"cache"];
     if (cacheDic) {
         _cache = [[PBMORTBBidExtPrebidCache alloc] initWithJsonDictionary:cacheDic];

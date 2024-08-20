@@ -22,6 +22,10 @@
         return nil;
     }
     
+    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
+        return nil;
+    }
+    
     NSArray * const passthroughDics = jsonDictionary[@"passthrough"];
     _passthrough = nil;
     if (passthroughDics) {
