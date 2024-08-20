@@ -164,7 +164,8 @@
     }
     //add SKOverlay in init
     PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
-    if (skadnetProductParameters[@"skoverlay_delay"] != nil && skadnetProductParameters[@"skoverlay_endcarddelay"] != nil) {
+    if (skadnetProductParameters[@"skoverlay_delay"] != nil && skadnetProductParameters[@"skoverlay_endcarddelay"] != nil &&
+        !self.creativeModel.hasCompanionAd) {
         [self handleSKOverlay :skadnetProductParameters];
     }
 }
@@ -394,8 +395,12 @@
         } else {
             config.userDismissible = true;
         }
-        //need to do something about endcarddelay (figure out if endcard is showing?)
+        
         float delayInSeconds = [productParams[@"skoverlay_delay"] floatValue];
+        //for end card
+        if (self.creativeModel.isCompanionAd) {
+            delayInSeconds = [productParams[@"skoverlay_endcarddelay"] floatValue];
+        }
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             SKOverlay *overlay = [[SKOverlay alloc] initWithConfiguration: config];
