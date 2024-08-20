@@ -44,9 +44,11 @@
     if (passthroughDics) {
         NSMutableArray * const newPassthrough = [[NSMutableArray alloc] initWithCapacity:passthroughDics.count];
         for(PBMJsonDictionary *nextDic in passthroughDics) {
-            PBMORTBExtPrebidPassthrough * const nextPassthrough = [[PBMORTBExtPrebidPassthrough alloc] initWithJsonDictionary:nextDic];
-            if (nextPassthrough) {
-                [newPassthrough addObject:nextPassthrough];
+            if ([nextDic isKindOfClass:[PBMJsonDictionary class]]) {
+                PBMORTBExtPrebidPassthrough * const nextPassthrough = [[PBMORTBExtPrebidPassthrough alloc] initWithJsonDictionary:nextDic];
+                if (nextPassthrough) {
+                    [newPassthrough addObject:nextPassthrough];
+                }
             }
         }
         if (newPassthrough.count > 0) {
