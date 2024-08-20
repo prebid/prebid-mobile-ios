@@ -94,7 +94,7 @@
         [builder buildBidRequest:bidRequest];
     }
     
-    return [PBMORTBParameterBuilder buildOpenRTBFor:bidRequest withAdConfiguration:adConfiguration];
+    return [PBMORTBParameterBuilder buildOpenRTBFor:bidRequest];
 }
 
 + (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {

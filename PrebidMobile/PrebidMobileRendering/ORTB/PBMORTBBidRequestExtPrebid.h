@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) PBMMutableJsonDictionary *targeting;
 
+@property (nonatomic, strong, nullable) PBMJsonDictionary *sdk;
+
 @end
 
 NS_ASSUME_NONNULL_END

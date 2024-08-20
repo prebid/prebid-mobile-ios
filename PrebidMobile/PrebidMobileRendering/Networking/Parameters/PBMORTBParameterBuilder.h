@@ -19,6 +19,6 @@
 
 @interface PBMORTBParameterBuilder : NSObject
 
-+ (NSDictionary<NSString *, NSString *> *)buildOpenRTBFor:(PBMORTBBidRequest *)bidRequest withAdConfiguration:(PBMAdConfiguration *)adConfiguration;
++ (NSDictionary<NSString *, NSString *> *)buildOpenRTBFor:(PBMORTBBidRequest *)bidRequest;
 
 @end

@@ -47,14 +47,10 @@
     
     PBMMutableJsonDictionary * const storedRequest = [PBMMutableJsonDictionary new];
     ret[@"storedrequest"] = storedRequest;
-    NSArray *renderers = [[PrebidMobilePluginRegister shared] getAllPlugins];
-//    TODO How to get the isOriginalAPI value here
-//    if (renderers.count != 0 || self.adConfiguration.isOriginalAPI) {
-    if (renderers.count != 0) {
-        ret[@"sdk"] = [PBMORTBBidRequestExtPrebid getRenderersJson];
-    }
-    
     storedRequest[@"id"] = self.storedRequestID;
+    if (self.sdk != nil) {
+        ret[@"sdk"] = self.sdk;
+    }
     
     ret[@"targeting"] = self.targeting;
     
@@ -73,20 +69,6 @@
     }
     
     return ret;
-}
-
-+ (nonnull PBMJsonDictionary *)getRenderersJson {
-    PBMMutableJsonDictionary * const sdk = [PBMMutableJsonDictionary new];
-    NSMutableArray *renderersArray = [NSMutableArray array];
-    NSArray *renderers = [[PrebidMobilePluginRegister shared] getAllPlugins];
-    for (id<PrebidMobilePluginRenderer> renderer in renderers) {
-        PBMMutableJsonDictionary *rendererDict = [PBMMutableJsonDictionary new];
-        rendererDict[@"name"] = renderer.name;
-        rendererDict[@"version"] = renderer.version;
-        [renderersArray addObject:rendererDict];
-    }
-    sdk[@"renderers"] = renderersArray;
-    return sdk;
 }
 
 - (instancetype)initWithJsonDictionary:(nonnull PBMJsonDictionary *)jsonDictionary {
