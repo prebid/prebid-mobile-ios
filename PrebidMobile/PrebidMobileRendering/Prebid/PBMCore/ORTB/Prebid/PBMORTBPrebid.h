@@ -29,4 +29,5 @@
 #import "PBMORTBBidExtPrebidCache.h"
 #import "PBMORTBBidExtPrebidCacheBids.h"
 #import "PBMORTBBidExtSkadn.h"
+#import "PBMORTBBidExtSkadnSKOverlay.h"
 
