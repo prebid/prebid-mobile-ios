@@ -822,7 +822,7 @@
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
 		F91B60AF2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B60AE2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m */; };
-		F9DD93C92C62882F009C2B3E /* PBMORTBBidExtSkadnSKOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B60AD2C58120C00DA9796 /* PBMORTBBidExtSkadnSKOverlay.h */; };
+		F9DD93C92C62882F009C2B3E /* PBMORTBBidExtSkadnSKOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B60AD2C58120C00DA9796 /* PBMORTBBidExtSkadnSKOverlay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A908694229E05EAF00B37479 /* PrebidMobilePluginRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */; };
 		A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */; };
 		A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694529E05F7900B37479 /* PrebidRenderer.swift */; };
@@ -3476,6 +3476,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9DD93C92C62882F009C2B3E /* PBMORTBBidExtSkadnSKOverlay.h in Headers */,
 				5BC37917271F1CFF00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h in Headers */,
 				5BC37A11271F1D0000444D5E /* PBMBidResponseTransformer.h in Headers */,
 				5BC37900271F1CFF00444D5E /* PBMORTBImpExtSkadn.h in Headers */,
@@ -3581,7 +3582,6 @@
 				5BC3794B271F1D0000444D5E /* PBMAdDetails.h in Headers */,
 				5BC37996271F1D0000444D5E /* PBMCreativeViewDelegate.h in Headers */,
 				5BC37ACF271F1D0100444D5E /* PBMSKAdNetworksParameterBuilder.h in Headers */,
-				F9DD93C92C62882F009C2B3E /* PBMORTBBidExtSkadnSKOverlay.h in Headers */,
 				5BC379B4271F1D0000444D5E /* PBMCreativeResolutionDelegate.h in Headers */,
 				5BC37988271F1D0000444D5E /* PBMCreativeModelCollectionMakerVAST.h in Headers */,
 				5BC37AD2271F1D0100444D5E /* PBMNetworkParameterBuilder.h in Headers */,
