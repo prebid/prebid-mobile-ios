@@ -20,11 +20,13 @@ public class UserAgentService: NSObject {
     
     public static let shared = UserAgentService()
     
-    public private(set) var userAgent: String = ""
+    public private(set) lazy var userAgent: String = store.userAgent ?? ""
     
+    private var store: UserAgentPersistence
     private var webViews = [WKWebView]()
 
-    override init() {
+    required init(store: UserAgentPersistence? = nil) {
+        self.store = store ?? UserAgentDefaults()
         super.init()
         fetchUserAgent()
     }
@@ -48,6 +50,7 @@ public class UserAgentService: NSObject {
                 
                 if let result = result, self.userAgent.isEmpty  {
                     self.userAgent = "\(result)"
+                    store.userAgent = self.userAgent
                 }
                 
                 self.webViews.removeAll(where: { $0 == webView })
