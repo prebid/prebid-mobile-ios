@@ -1,0 +1,34 @@
+name: Upload Docs iOS
+
+on:
+  push:
+    tags:
+      - 'test-*'
+
+jobs:
+  upload-docs:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: docs
+    - name: Generate docs
+      run: |
+        jazzy
+    - name: Commit documentation changes
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git status
+        TAG=$(git describe --tags --abbrev=0)
+        echo "Current tag: $TAG"
+        git add -A && git commit -m "Generate docs - $TAG"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: docs
