@@ -19,7 +19,7 @@ jobs:
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
-        git fetch origin docs || git checkout -b docs
+        git fetch || git checkout -b docs
         echo "This is a generated file." > generated_file.txt
         git add generated_file.txt
         git commit -m "Add generated TXT file"
