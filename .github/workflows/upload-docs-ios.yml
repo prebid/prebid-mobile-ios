@@ -22,14 +22,13 @@ jobs:
         fetch-depth: 0
     - name: Create local changes
       run: |
-        echo "This is a generated file." > generated_file.txt
+        echo "This is a generated file." > generated_file1.txt
     - name: Commit TXT file to docs branch
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git fetch || git checkout -b docs
-        git add generated_file.txt
-        git commit -m "Add generated TXT file"
+        git commit -a -m "Add generated TXT file"
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
