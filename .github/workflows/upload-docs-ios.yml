@@ -3,7 +3,7 @@ name: Upload Docs iOS
 on:
   push:
     tags:
-      - 'test-*'
+      - '[0-9]+.[0-9]+.[0-9]+' 
 
 jobs:
   upload-docs:
@@ -27,7 +27,8 @@ jobs:
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git status
-        TAG=$(git describe --tags --abbrev=0)
+        TAG_NAME=${{ github.ref }}
+        TAG_NAME=${TAG_NAME#refs/tags/}
         echo "Current tag: $TAG"
         git add -A && git commit -m "Generate docs - $TAG"
     - name: Push changes
