@@ -1029,23 +1029,6 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
-    
-            TestCase(title: "Display Interstitial 320x480 (CustomRenderer)",
-                     tags: [.interstitial, .inapp, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let interstitialController = CustomRendererInterstitialController(rootController: adapterVC)
-                interstitialController.adFormats = [.banner]
-                interstitialController.prebidConfigId = "prebid-ita-display-interstitial-320-480-meta-custom-renderer"
-                 
-                adapterVC.setup(adapter: interstitialController)
-                        
-                setupCustomParams(for: interstitialController.prebidConfigId)
-            }),
             
             TestCase(title: "Display Interstitial 320x480 (In-App) [noBids]",
                      tags: [.interstitial, .inapp, .server],

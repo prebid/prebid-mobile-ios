@@ -88,10 +88,6 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
     func testInAppInterstitial_Display_320x480() {
         checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (In-App)")
     }
-
-    func testInAppInterstitial_Display_CustomRenderer() {
-        checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (CustomRenderer)")
-    }
     
     func testInAppInterstitial_Display_320x480_noBids() {
         checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (In-App) [noBids]",

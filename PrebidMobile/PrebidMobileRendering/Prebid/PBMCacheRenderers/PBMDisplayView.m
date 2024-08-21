@@ -70,7 +70,9 @@
     NSLog(@"Renderer: %@", self.renderer);
     self.adConfiguration.adConfiguration.winningBidAdFormat = self.bid.adFormat;
     id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
-    [self.renderer createBannerAdViewWith:self.frame bid:self.bid adConfiguration:self.adConfiguration connection:connection adViewDelegate:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.renderer createBannerAdViewWith:self.frame bid:self.bid adConfiguration:self.adConfiguration connection:connection adViewDelegate:self];
+    });
 }
 
 - (BOOL)isCreativeOpened {

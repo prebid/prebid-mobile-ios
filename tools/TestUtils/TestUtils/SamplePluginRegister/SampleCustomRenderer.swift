@@ -1,10 +1,17 @@
-//
-//  SampleCustomRenderer.swift
-//  TestUtils
-//
-//  Created by Richard Dépierre on 24/07/2024.
-//
+/*   Copyright 2018-2021 Prebid.org, Inc.
 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 import Foundation
 import PrebidMobile
 import UIKit
@@ -19,159 +26,58 @@ public class SampleCustomRenderer: NSObject, PrebidMobilePluginRenderer {
     
     private var adViewManager: PBMAdViewManager?
     
-    public var transactionFactory: PBMTransactionFactory?
-    
-    public func isSupportRendering(
-        for format: AdFormat?
-    ) -> Bool {
-        .banner == format
+    public func isSupportRendering(for format: AdFormat?) -> Bool {
+        AdFormat.allCases.contains(where: { $0 == format })
     }
-    
-    public func setupBid(
-        _ bid: Bid,
-        adConfiguration: AdUnitConfig,
-        connection: PrebidServerConnectionProtocol
-    ) {
+   
+    public func setupBid(_ bid: Bid, adConfiguration: AdUnitConfig, connection: PrebidServerConnectionProtocol) {
         
     }
     
-    public func createBannerAdView(
-        with frame: CGRect,
-        bid: Bid,
-        adConfiguration: AdUnitConfig,
-        connection: PrebidServerConnectionProtocol,
-        adViewDelegate: (
-            any PBMAdViewDelegate
-        )?
-    ) {
-        
-        self.transactionFactory = PBMTransactionFactory(
-            bid: bid,
-            adConfiguration: adConfiguration,
-            connection: connection
-        ) {
-            [weak self] transaction,
-            error in
-            self?.transactionFactory = nil
-            guard let transaction else {
-                adViewDelegate?.failed(
-                    toLoad: NSError(
-                        domain: "",
-                        code: 0
-                    )
-                )
-                return
+    public func createBannerAdView(with frame: CGRect, bid: Bid, adConfiguration: AdUnitConfig,
+                                   connection: PrebidServerConnectionProtocol, adViewDelegate: (any PBMAdViewDelegate)?) {
+        DispatchQueue.main.async {
+            if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }),
+               let rootView = window.rootViewController?.view {
+                if let prebidBannerView = self.findPrebidBannerView(in: rootView) {
+                    print("Found PrebidBannerView: \(prebidBannerView)")
+                    
+                    let label = UILabel()
+                    label.text = "Prebid SDK - Custom Renderer"
+                    label.textAlignment = .center
+                    label.textColor = .black
+                    label.backgroundColor = .yellow
+                    label.translatesAutoresizingMaskIntoConstraints = false
+                    
+                    prebidBannerView.addSubview(label)
+                    
+                    NSLayoutConstraint.activate([
+                        label.centerXAnchor.constraint(equalTo: prebidBannerView.centerXAnchor),
+                        label.centerYAnchor.constraint(equalTo: prebidBannerView.centerYAnchor),
+                        label.widthAnchor.constraint(equalTo: prebidBannerView.widthAnchor),
+                        label.heightAnchor.constraint(equalTo: prebidBannerView.heightAnchor)
+                    ])
+                    
+                } else {
+                    print("PrebidBannerView not found.")
+                }
             }
-            if let error {
-                adViewDelegate?.failed(
-                    toLoad: error
-                )
-                return
-            }
-            self?.displayTransaction(
-                transaction,
-                adConfiguration: adConfiguration,
-                connection: connection,
-                adViewDelegate: adViewDelegate
-            )
         }
-        
-        PBMWinNotifier.notifyThroughConnection(
-            PrebidServerConnection.shared,
-            winning: bid
-        ) { [weak self] adMarkup in
-            
-            self?.transactionFactory?.load(
-                withAdMarkup: adMarkup!
-            )
-        }
-        
     }
     
-    
-    private func displayTransaction(
-        _ transaction: PBMTransaction,
-        adConfiguration: AdUnitConfig,
-        connection: PrebidServerConnectionProtocol,
-        adViewDelegate: (
-            any PBMAdViewDelegate
-        )?
-    ) {
-        adViewManager = PBMAdViewManager(
-            connection: connection,
-            modalManagerDelegate: adViewDelegate
-        )
-        adViewManager?.adViewManagerDelegate = adViewDelegate
-        adViewManager?.adConfiguration = adConfiguration.adConfiguration
-        
-        if adConfiguration.adConfiguration.winningBidAdFormat == .video {
-            adConfiguration.adConfiguration.isBuiltInVideo = true
+    private func findPrebidBannerView(in view: UIView) -> UIView? {
+        if view.accessibilityIdentifier == "PrebidBannerView" {
+            return view
         }
-        
-        adViewManager?.handleExternalTransaction(
-            transaction
-        )
-        
-        
-    }
-    
-    
-    
-    
-    public func createInterstitialController(
-        bid: Bid,
-        adConfiguration: AdUnitConfig,
-        connection: PrebidServerConnectionProtocol,
-        adViewManagerDelegate adViewDelegate: InterstitialController?,
-        videoControlsConfig: VideoControlsConfiguration?
-    ) {
-        guard transactionFactory == nil else {
-            return
+        for subview in view.subviews {
+            if let foundView = findPrebidBannerView(in: subview) {
+                return foundView
+            }
         }
-        
-        adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
-        adConfiguration.adConfiguration.isOriginalAPI
-        videoControlsConfig?.initialize(
-            with: bid.videoAdConfiguration
-        )
-        
-        // This part is dedicating to test server-side ad configurations.
-        // Need to be removed when ext.prebid.passthrough will be available.
-#if DEBUG
-        adConfiguration.adConfiguraxtion.videoControlsConfig.initialize(
-            with: bid.testVideoAdConfiguration
-        )
-#endif
-        transactionFactory = PBMTransactionFactory(bid: bid,
-                                                   adConfiguration: adConfiguration,
-                                                   connection: PrebidServerConnection.shared,
-                                                   callback: {
-            [weak adViewDelegate] transaction,
-            error in
-            
-            if let transaction = transaction {
-                adViewDelegate?.display(
-                    transaction: transaction
-                )
-            } else {
-                adViewDelegate?.reportFailureWithError(
-                    error
-                )
-            }
-        })
-        
-        PBMWinNotifier.notifyThroughConnection(PrebidServerConnection.shared,
-                                               winning: bid,
-                                               callback: {
-            [weak self] adMarkup in
-            if let adMarkup = adMarkup {
-                self?.transactionFactory?.load(
-                    withAdMarkup: adMarkup
-                )
-            } else {
-                //TODO: inform failure
-            }
-        })
+        return nil
     }
-    
+
+    public func createInterstitialController(bid: Bid, adConfiguration: AdUnitConfig, connection: PrebidServerConnectionProtocol,
+                                             adViewManagerDelegate adViewDelegate: InterstitialController?, videoControlsConfig: VideoControlsConfiguration?) {
+    }
 }
