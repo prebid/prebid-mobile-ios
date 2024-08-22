@@ -153,7 +153,6 @@
     _tmax = jsonDictionary[@"tmax"];
     _regs = [[PBMORTBRegs alloc] initWithJsonDictionary:jsonDictionary[@"regs"]];
     _source = [[PBMORTBSource alloc] initWithJsonDictionary:jsonDictionary[@"source"]];
-    
     _extPrebid = [[PBMORTBBidRequestExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"] ?: @{}];
     
     _arbitraryJsonConfig = jsonDictionary;

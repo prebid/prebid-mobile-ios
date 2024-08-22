@@ -25,6 +25,12 @@
 		34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E56989237DB96900B47B01 /* UtilitiesViewController.swift */; };
 		34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF324ADD3A80045553E /* PrebidInterstitialController.swift */; };
 		34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */; };
+		3C28C9D82C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */; };
+		3C28C9D92C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */; };
+		3C28C9DB2C357E3500D0A7DB /* SampleCustomRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28C9DA2C357E3500D0A7DB /* SampleCustomRenderer.swift */; };
+		3C28C9DC2C357E3500D0A7DB /* SampleCustomRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28C9DA2C357E3500D0A7DB /* SampleCustomRenderer.swift */; };
+		3CC4A3E92C11F96800B97128 /* CustomRendererBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */; };
+		3CC4A3EA2C11F96800B97128 /* CustomRendererBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */; };
 		457FD34BA45C3840CC31A8F5 /* Pods_InternalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */; };
 		530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E722B292FACB20025B44D /* UIImageView+Extensions.swift */; };
 		5397BD142936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */; };
@@ -374,6 +380,9 @@
 		34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMRewardedController.swift; sourceTree = "<group>"; };
 		35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternalTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererInterstitialController.swift; sourceTree = "<group>"; };
+		3C28C9DA2C357E3500D0A7DB /* SampleCustomRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCustomRenderer.swift; sourceTree = "<group>"; };
+		3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererBannerController.swift; sourceTree = "<group>"; };
 		530E722B292FACB20025B44D /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayBannerController.swift; sourceTree = "<group>"; };
 		5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayInterstitialController.swift; sourceTree = "<group>"; };
@@ -634,6 +643,7 @@
 		349302192473F2EF004A6086 /* Prebid */ = {
 			isa = PBXGroup;
 			children = (
+				3CC4A3E72C11F93A00B97128 /* CustomRenderer */,
 				3461835425A6020500783A2C /* NativeAdViewBox.swift */,
 				AC4F253825DFF6300095C601 /* NativeAdViewBoxLinks.swift */,
 				AC4F254A25E0112C0095C601 /* NativeAdViewBoxProtocol.swift */,
@@ -689,6 +699,15 @@
 				5B3C2AE52100C22900BD733C /* PrebidMobileDemoRenderingUITests-Bridging-Header.h */,
 			);
 			path = PrebidMobileDemoRenderingUITests;
+			sourceTree = "<group>";
+		};
+		3CC4A3E72C11F93A00B97128 /* CustomRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */,
+				3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */,
+			);
+			path = CustomRenderer;
 			sourceTree = "<group>";
 		};
 		5397BD122936180600ABDA22 /* OriginalAPI */ = {
@@ -828,6 +847,7 @@
 				34B10A2F255017DE00B5FE09 /* ThreadCheckingButton.swift */,
 				34C25816255D69E1000A4A73 /* EventReportContainer.swift */,
 				530E722B292FACB20025B44D /* UIImageView+Extensions.swift */,
+				3C28C9DA2C357E3500D0A7DB /* SampleCustomRenderer.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1166,6 +1186,7 @@
 					};
 					93FED9C21A376EFE009A6E9F = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 9TN4TUCG8N;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -1536,6 +1557,7 @@
 				53A651852AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */,
 				53ED2FD729798104007D13EE /* UtilitiesViewController.swift in Sources */,
 				53ED2FD829798104007D13EE /* AdMobNativeAdView.swift in Sources */,
+				3CC4A3EA2C11F96800B97128 /* CustomRendererBannerController.swift in Sources */,
 				53ED2FD929798104007D13EE /* PrebidGAMInterstitialController.swift in Sources */,
 				53ED2FDA29798104007D13EE /* PrebidMAXRewardedController.swift in Sources */,
 				53ED2FDB29798104007D13EE /* PrebidMAXNativeController.swift in Sources */,
@@ -1555,6 +1577,7 @@
 				53ED2FE829798104007D13EE /* PrebidBannerController.swift in Sources */,
 				53ED2FE929798104007D13EE /* PrebidBannerConfigurationController.swift in Sources */,
 				53ED2FEA29798104007D13EE /* TestCase.swift in Sources */,
+				3C28C9DC2C357E3500D0A7DB /* SampleCustomRenderer.swift in Sources */,
 				53ED2FEB29798104007D13EE /* PrebidAdMobNativeViewController.swift in Sources */,
 				53ED2FEC29798104007D13EE /* PrebidInterstitialController.swift in Sources */,
 				53ED2FED29798104007D13EE /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */,
@@ -1600,6 +1623,7 @@
 				53ED301229798104007D13EE /* ReactiveSdkInitFlag.swift in Sources */,
 				53ED301329798104007D13EE /* PrebidOriginalAPINativeBannerController.swift in Sources */,
 				53ED301429798104007D13EE /* TestCasesSectionsViewController.swift in Sources */,
+				3C28C9D92C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */,
 				53ED301529798104007D13EE /* AppSettingsKeys.swift in Sources */,
 				53ED301729798104007D13EE /* NativeEventTracker+Extensions.swift in Sources */,
 				53ED301829798104007D13EE /* PrebidRewardedController.swift in Sources */,
@@ -1630,6 +1654,7 @@
 				53A651842AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */,
 				34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */,
 				92ABD58C279DA7E200AFDFF6 /* AdMobNativeAdView.swift in Sources */,
+				3CC4A3E92C11F96800B97128 /* CustomRendererBannerController.swift in Sources */,
 				34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */,
 				92221CE52804BBB6005DF671 /* PrebidMAXRewardedController.swift in Sources */,
 				92986537280604E4007A2F34 /* PrebidMAXNativeController.swift in Sources */,
@@ -1649,6 +1674,7 @@
 				3493022224740BEE004A6086 /* PrebidBannerController.swift in Sources */,
 				5BDB85DA2739794900A529F6 /* PrebidBannerConfigurationController.swift in Sources */,
 				5B3EEDE52101FB8800BAA0C4 /* TestCase.swift in Sources */,
+				3C28C9DB2C357E3500D0A7DB /* SampleCustomRenderer.swift in Sources */,
 				92C475122796FF8400C26E27 /* PrebidAdMobNativeViewController.swift in Sources */,
 				34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */,
 				5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */,
@@ -1694,6 +1720,7 @@
 				346C6F5725DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift in Sources */,
 				5397BD2C2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift in Sources */,
 				5B3EEDE22101EDA200BAA0C4 /* TestCasesSectionsViewController.swift in Sources */,
+				3C28C9D82C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */,
 				ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */,
 				92C4E60D27A2F6D700738370 /* NativeEventTracker+Extensions.swift in Sources */,
 				34BA9600249CC118006AE372 /* PrebidRewardedController.swift in Sources */,
@@ -2092,10 +2119,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9TN4TUCG8N;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2125,10 +2151,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9TN4TUCG8N;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

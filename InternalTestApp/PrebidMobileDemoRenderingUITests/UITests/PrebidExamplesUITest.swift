@@ -28,6 +28,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
         checkBannerLoadResult(exampleName: "Banner 320x50 (In-App)")
     }
     
+    func testInAppBanner_Custom_Renderer() {
+        checkBannerLoadResult(exampleName: "Banner 320x50 (CustomRenderer)")
+    }
+    
     func testInAppBanner_Small_noBids() {
         checkBannerLoadResult(exampleName: "Banner 320x50 (In-App) [noBids]",
                               expectFailure: true)

@@ -32,9 +32,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSArray<NSDictionary<NSString *, NSString*> *> *storedBidResponses;
 
+@property (nonatomic, strong, nullable) NSArray<NSDictionary<NSString *, NSString*> *> *sdkRenderers;
+
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, id> *cache;
 
 @property (nonatomic, strong) PBMMutableJsonDictionary *targeting;
+
+@property (nonatomic, strong, nullable) PBMJsonDictionary *sdk;
 
 @end
 

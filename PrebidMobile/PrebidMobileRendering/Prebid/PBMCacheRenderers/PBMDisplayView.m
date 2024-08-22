@@ -34,19 +34,18 @@
 
 #import "PBMMacros.h"
 
-@interface PBMDisplayView () <PBMAdViewManagerDelegate, PBMModalManagerDelegate>
+@interface PBMDisplayView () <PBMAdViewManagerDelegate, PBMModalManagerDelegate, PBMThirdPartyAdViewLoader>
 
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 
-@property (nonatomic, strong, nullable) PBMTransactionFactory *transactionFactory;
 @property (nonatomic, strong, nullable) PBMAdViewManager *adViewManager;
 
 @property (nonatomic, strong, readonly, nonnull) PBMInterstitialDisplayProperties *interstitialDisplayProperties;
 
+@property (nonatomic, strong, nullable) id<PrebidMobilePluginRenderer> renderer;
+
 @end
-
-
 
 @implementation PBMDisplayView
 
@@ -66,36 +65,14 @@
 }
 
 - (void)displayAd {
-    if (self.transactionFactory) {
-        return;
-    }
-    
+    self.renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:self.bid];
+
+    NSLog(@"Renderer: %@", self.renderer);
     self.adConfiguration.adConfiguration.winningBidAdFormat = self.bid.adFormat;
-    
-    @weakify(self);
-    self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
-                                                         adConfiguration:self.adConfiguration
-                                                              connection:self.connection ?: PrebidServerConnection.shared
-                                                                callback:^(PBMTransaction * _Nullable transaction,
-                                                                           NSError * _Nullable error) {
-        @strongify(self);
-        if (!self) { return; }
-        
-        if (error) {
-            [self reportFailureWithError:error];
-        } else {
-            [self displayTransaction:transaction];
-        }
-    }];
-    
-    [PBMWinNotifier notifyThroughConnection:PrebidServerConnection.shared
-                                 winningBid:self.bid
-                                   callback:^(NSString *adMarkup) {
-        @strongify(self);
-        if (!self) { return; }
-        
-        [self.transactionFactory loadWithAdMarkup:adMarkup];
-    }];
+    id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.renderer createBannerAdViewWith:self.frame bid:self.bid adConfiguration:self.adConfiguration connection:connection adViewDelegate:self];
+    });
 }
 
 - (BOOL)isCreativeOpened {
@@ -174,24 +151,11 @@
 // MARK: - Private Helpers
 
 - (void)reportFailureWithError:(NSError *)error {
-    self.transactionFactory = nil;
     [self.loadingDelegate displayView:self didFailWithError:error];
 }
 
 - (void)reportSuccess {
-    self.transactionFactory = nil;
     [self.loadingDelegate displayViewDidLoadAd:self];
-}
-
-- (void)displayTransaction:(PBMTransaction *)transaction {
-    id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
-    self.adViewManager = [[PBMAdViewManager alloc] initWithConnection:connection modalManagerDelegate:self];
-    self.adViewManager.adViewManagerDelegate = self;
-    self.adViewManager.adConfiguration = self.adConfiguration.adConfiguration;
-    if (self.adConfiguration.adConfiguration.winningBidAdFormat == AdFormat.video) {
-        self.adConfiguration.adConfiguration.isBuiltInVideo = YES;
-    }
-    [self.adViewManager handleExternalTransaction:transaction];
 }
 
 - (void)interactionDelegateWillPresentModal {

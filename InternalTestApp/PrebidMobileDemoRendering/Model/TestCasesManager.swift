@@ -583,6 +583,24 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
+            TestCase(title: "Banner 320x50 (CustomRenderer)",
+                     tags: [.banner, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = CustomRendererBannerController(rootController: adapterVC)
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                        
+                bannerController.prebidConfigId = "prebid-ita-banner-320-50-meta-custom-renderer";
+                        
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
             TestCase(title: "Banner 320x50 Server-Side Creative Factory Timeout (In-App)",
                      tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
