@@ -234,7 +234,7 @@ static NSString * const PBMPlistExt = @"plist";
     if ([passthrough isKindOfClass:[NSArray<PBMJsonDictionary*> class]]) {
         NSArray<PBMJsonDictionary *> *response = passthrough;
         return response;
-    } else if ([passthrough isKindOfClass:[NSDictionary class]]) {
+    } else if ([passthrough isKindOfClass:[PBMJsonDictionary class]]) {
         NSDictionary *response = passthrough;
         return @[response];
     } else {
