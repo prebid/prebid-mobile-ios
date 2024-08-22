@@ -32,7 +32,7 @@ class PluginRegisterTest: XCTestCase {
         let containsPlugin = prebidMobilePluginRegister.containsPlugin(plugin)
         let plugins = prebidMobilePluginRegister.getAllPlugins()
         XCTAssertEqual(true, containsPlugin)
-        XCTAssertEqual(2, plugins.count)
+        XCTAssertEqual(1, plugins.count)
     }
 
     func testUnregisterPlugin() {

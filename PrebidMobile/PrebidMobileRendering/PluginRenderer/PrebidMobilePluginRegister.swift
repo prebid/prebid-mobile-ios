@@ -114,8 +114,7 @@ import Foundation
             if plugins.isEmpty {
                 return []
             }
-            var allPlugins = Array(plugins.values)
-            allPlugins.append(defaultRenderer)
+            let allPlugins = Array(plugins.values)
             return allPlugins
         }
     }
