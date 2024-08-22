@@ -25,6 +25,7 @@ jobs:
       with:
         fetch-depth: 0
         ref: docs
+        clean: false
     - name: Commit documentation changes
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
