@@ -23,10 +23,6 @@
         return nil;
     }
     
-    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
-        return nil;
-    }
-    
     _responsetimemillis = jsonDictionary[@"responsetimemillis"];
     _tmaxrequest = jsonDictionary[@"tmaxrequest"];
     

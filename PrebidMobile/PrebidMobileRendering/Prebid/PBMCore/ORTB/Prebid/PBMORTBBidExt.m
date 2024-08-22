@@ -30,10 +30,6 @@
         return nil;
     }
     
-    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
-        return nil;
-    }
-    
     _bidder = jsonDictionary[@"bidder"];
     
     PBMJsonDictionary * const prebidDic = jsonDictionary[@"prebid"];
@@ -47,16 +43,15 @@
     }
     
     #if DEBUG
-    NSArray * const passthroughDics = jsonDictionary[@"passthrough"];
+    
+    NSArray * const passthroughDics = [PBMFunctions dictionariesForPassthrough:jsonDictionary[@"passthrough"]];
     _passthrough = nil;
     if (passthroughDics) {
         NSMutableArray * const newPassthrough = [[NSMutableArray alloc] initWithCapacity:passthroughDics.count];
         for(PBMJsonDictionary *nextDic in passthroughDics) {
-            if ([nextDic isKindOfClass:[PBMJsonDictionary class]]) {
-                PBMORTBExtPrebidPassthrough * const nextPassthrough = [[PBMORTBExtPrebidPassthrough alloc] initWithJsonDictionary:nextDic];
-                if (nextPassthrough) {
-                    [newPassthrough addObject:nextPassthrough];
-                }
+            PBMORTBExtPrebidPassthrough * const nextPassthrough = [[PBMORTBExtPrebidPassthrough alloc] initWithJsonDictionary:nextDic];
+            if (nextPassthrough) {
+                [newPassthrough addObject:nextPassthrough];
             }
         }
         if (newPassthrough.count > 0) {

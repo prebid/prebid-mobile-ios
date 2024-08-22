@@ -23,10 +23,6 @@
         return nil;
     }
     
-    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
-        return nil;
-    }
-    
     _cftBanner = jsonDictionary[@"cftbanner"];
     _cftPreRender = jsonDictionary[@"cftprerender"];
     

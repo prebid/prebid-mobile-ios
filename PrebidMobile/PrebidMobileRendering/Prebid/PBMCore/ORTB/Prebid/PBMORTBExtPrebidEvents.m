@@ -23,10 +23,6 @@
         return nil;
     }
     
-    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
-        return nil;
-    }
-    
     _win = jsonDictionary[@"win"];
     _imp = jsonDictionary[@"imp"];
     

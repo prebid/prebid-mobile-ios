@@ -23,10 +23,6 @@
         return nil;
     }
     
-    if (![jsonDictionary isKindOfClass:[PBMJsonDictionary class]]) {
-        return nil;
-    }
-    
     _maxVideoDuration = jsonDictionary[@"maxvideoduration"];
     _isMuted = jsonDictionary[@"ismuted"];
     _closeButtonArea = jsonDictionary[@"closebuttonarea"];
