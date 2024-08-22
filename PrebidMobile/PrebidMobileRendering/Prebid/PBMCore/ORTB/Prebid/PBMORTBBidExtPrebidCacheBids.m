@@ -22,7 +22,6 @@
     if (!(self = [super init])) {
         return nil;
     }
-    
     _url = jsonDictionary[@"url"];
     _cacheId = jsonDictionary[@"cacheId"];
     return self;

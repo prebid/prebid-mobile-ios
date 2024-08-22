@@ -22,7 +22,6 @@
     if (!(self = [super init])) {
         return nil;
     }
-    
     _responsetimemillis = jsonDictionary[@"responsetimemillis"];
     _tmaxrequest = jsonDictionary[@"tmaxrequest"];
     

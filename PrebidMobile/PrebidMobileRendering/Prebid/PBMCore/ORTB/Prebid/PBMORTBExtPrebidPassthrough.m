@@ -23,7 +23,7 @@
     if (!(self = [super init])) {
         return nil;
     }
-    
+
     _type = jsonDictionary[@"type"];
     
     PBMJsonDictionary * const adConfigDic = jsonDictionary[@"adconfiguration"];

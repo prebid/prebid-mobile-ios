@@ -23,7 +23,6 @@
 
 - (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
     if (self = [super init]) {
-        
         _fidelity = jsonDictionary[@"fidelity"];
         _nonce = [[NSUUID alloc] initWithUUIDString:jsonDictionary[@"nonce"]];
         _timestamp = jsonDictionary[@"timestamp"];

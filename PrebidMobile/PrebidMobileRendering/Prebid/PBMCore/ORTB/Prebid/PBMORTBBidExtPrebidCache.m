@@ -24,7 +24,6 @@
     if (!(self = [super init])) {
         return nil;
     }
-    
     _url = jsonDictionary[@"url"];
     _key = jsonDictionary[@"key"];
     
