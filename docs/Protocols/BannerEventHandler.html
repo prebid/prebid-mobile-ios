@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BannerEventHandler Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/BannerEventHandler" class="dashAnchor"></a>
+    <a title="BannerEventHandler Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (94% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">PrebidMobile</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        <a href="../Protocols.html">Protocols</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        BannerEventHandler Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AdFormat.html">AdFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AdUnit.html">AdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BannerAdUnit.html">BannerAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BannerParameters.html">BannerParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BannerView.html">BannerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BaseInterstitialAdUnit.html">BaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BidInfo.html">BidInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContextSubType.html">ContextSubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContextType.html">ContextType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventTracking.html">EventTracking</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventType.html">EventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ExternalUserId.html">ExternalUserId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Host.html">Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageAsset.html">ImageAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InstreamVideoAdUnit.html">InstreamVideoAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InterstitialAdUnit.html">InterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationBannerAdUnit.html">MediationBannerAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationBaseInterstitialAdUnit.html">MediationBaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationInterstitialAdUnit.html">MediationInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationNativeAdUnit.html">MediationNativeAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationRewardedAdUnit.html">MediationRewardedAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAd.html">NativeAd</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAdConfiguration.html">NativeAdConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAdMarkup.html">NativeAdMarkup</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAdMarkupAsset.html">NativeAdMarkupAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAsset.html">NativeAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAssetData.html">NativeAssetData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAssetImage.html">NativeAssetImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAssetTitle.html">NativeAssetTitle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeData.html">NativeData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeEventTracker.html">NativeEventTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeEventTrackerResponse.html">NativeEventTrackerResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeImage.html">NativeImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeLink.html">NativeLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeMarkupRequestObject.html">NativeMarkupRequestObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeParameters.html">NativeParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeRequest.html">NativeRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeTitle.html">NativeTitle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlacementType.html">PlacementType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Prebid.html">Prebid</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PrebidAdUnit.html">PrebidAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PrebidRequest.html">PrebidRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RewardedAdUnit.html">RewardedAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RewardedVideoAdUnit.html">RewardedVideoAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals.html">Signals</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/Api.html">– Api</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/PlaybackMethod.html">– PlaybackMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/Protocols.html">– Protocols</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/StartDelay.html">– StartDelay</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/Placement.html">– Placement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleContainerInt.html">SingleContainerInt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Targeting.html">Targeting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Utils.html">Utils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoAdUnit.html">VideoAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoControlsConfiguration.html">VideoControlsConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoInterstitialAdUnit.html">VideoInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoParameters.html">VideoParameters</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AdPosition.html">AdPosition</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DataAsset.html">DataAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Gender.html">Gender</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NativeDataAssetType.html">NativeDataAssetType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NativeImageAssetType.html">NativeImageAssetType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Position.html">Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PrebidHost.html">PrebidHost</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PrebidInitializationStatus.html">PrebidInitializationStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResultCode.html">ResultCode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/BannerEventHandler.html">BannerEventHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NativeAdDelegate.html">NativeAdDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NativeAdEventDelegate.html">NativeAdEventDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PrebidMediationDelegate.html">PrebidMediationDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RewardedAdUnitDelegate.html">RewardedAdUnitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>BannerEventHandler</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">BannerEventHandler</span> <span class="p">:</span> <span class="kt">PBMPrimaryAdRequesterProtocol</span></code></pre>
+
+                </div>
+              </div>
+            <p>A protocol for handling events related to banner ads in the PBM SDK.</p>
+
+<p>This protocol defines methods and properties for managing events associated with banner ads, including loading events, user interactions, and ad sizes. Implementing this protocol allows for custom handling of these events within the PBM SDK.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(pl)BannerEventHandler(py)loadingDelegate"></a>
+                    <a name="//apple_ref/swift/Property/loadingDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)BannerEventHandler(py)loadingDelegate">loadingDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate for custom event handler to inform the PBM SDK about the events related to the ad server communication.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">loadingDelegate</span><span class="p">:</span> <span class="kt">BannerEventLoadingDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(pl)BannerEventHandler(py)interactionDelegate"></a>
+                    <a name="//apple_ref/swift/Property/interactionDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)BannerEventHandler(py)interactionDelegate">interactionDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate for custom event handler to inform the PBM SDK about the events related to the user&rsquo;s interaction with the ad.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">interactionDelegate</span><span class="p">:</span> <span class="kt">BannerEventInteractionDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(pl)BannerEventHandler(py)adSizes"></a>
+                    <a name="//apple_ref/swift/Property/adSizes" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)BannerEventHandler(py)adSizes">adSizes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The array of the CGRect entries for each valid ad sizes.
+The first size is treated as a frame for related ad unit.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">adSizes</span><span class="p">:</span> <span class="p">[</span><span class="kt">CGSize</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(pl)BannerEventHandler(im)trackImpression"></a>
+                    <a name="//apple_ref/swift/Method/trackImpression()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)BannerEventHandler(im)trackImpression">trackImpression()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">trackImpression</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-08-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>
