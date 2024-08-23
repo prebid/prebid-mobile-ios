@@ -8,7 +8,6 @@
 
 import Foundation
 
-@objc(PBMSDKConsoleLogger) @objcMembers
 public class SDKConsoleLogger: NSObject, PrebidLogger {
     
     public func error(_ object: Any, filename: String, line: Int, function: String) {
