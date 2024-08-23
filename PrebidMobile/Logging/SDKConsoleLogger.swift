@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SDKConsoleLogger: NSObject, PrebidLogger {
+@objc public class SDKConsoleLogger: NSObject, PrebidLogger {
     
     public func error(_ object: Any, filename: String, line: Int, function: String) {
         log(object, logLevel: .error, filename: filename, line: line, function: function)
