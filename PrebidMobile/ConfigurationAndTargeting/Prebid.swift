@@ -133,11 +133,6 @@ public class Prebid: NSObject {
     /// Controls how long video and interstitial creatives have to load before it is considered a failure.
     public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
     
-    /// Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
-    // Deprecated.
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
-    public var useExternalClickthroughBrowser = false
-    
     /// If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
     public var debugLogFileEnabled: Bool {
         get { Log.logToFile }

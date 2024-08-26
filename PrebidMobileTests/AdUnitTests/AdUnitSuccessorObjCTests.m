@@ -25,10 +25,6 @@ limitations under the License.
 NSString * const configId = @"1001-1";
 
 
-- (void)tearDown {
-    Prebid.shared.useExternalClickthroughBrowser = false;
-}
-
 //MARK: - BannerAdUnit
 - (void)testBannerAdUnitCreation {
     AdUnit *adunit = [[BannerAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250)];

@@ -42,9 +42,7 @@ extension Prebid {
         Prebid.shared.clearStoredBidResponses()
         Prebid.shared.includeWinners = false
         Prebid.shared.includeBidderKeys = false
-        
-        Prebid.shared.useExternalClickthroughBrowser = false
-        
+                
         Prebid.shared.creativeFactoryTimeout = 6.0
         Prebid.shared.creativeFactoryTimeoutPreRenderContent = 30.0
         
