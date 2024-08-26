@@ -128,11 +128,8 @@ public class Prebid: NSObject {
     /// Controls how long video and interstitial creatives have to load before it is considered a failure.
     public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
     
-    /// Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
-    public var useExternalClickthroughBrowser = false
-    
-    /// Indicates the type of browser opened upon clicking the creative in an app, where embedded = 0, native = 1.
-    /// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) imp.clickbrowser attribute.
+    //Indicates the type of browser opened upon clicking the creative in an app, where embedded = 0, native = 1.
+    //Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) imp.clickbrowser attribute.
     public var impClickbrowserType: ClickbrowserType = .native
     
     /// If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.

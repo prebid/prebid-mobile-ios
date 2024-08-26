@@ -88,7 +88,6 @@ NS_ASSUME_NONNULL_BEGIN
 //creative in an app, where 0 = embedded, 1 = native. Note that
 //the Safari View Controller in iOS 9.x devices is considered a
 //native browser for purposes of this attribute.
-//TODO: clarify with Product if this should be informed by PBMSDKConfiguration.useExternalClickthroughBrowser
 @property (nonatomic, strong) NSNumber *clickbrowser;
 
 //Flag to indicate if the impression requires secure HTTPS URL

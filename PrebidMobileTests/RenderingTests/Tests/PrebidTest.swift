@@ -346,9 +346,7 @@ class PrebidTest: XCTestCase {
         
         XCTAssertEqual(sdkConfiguration.creativeFactoryTimeout, 6.0)
         XCTAssertEqual(sdkConfiguration.creativeFactoryTimeoutPreRenderContent, 30.0)
-        
-        XCTAssertFalse(sdkConfiguration.useExternalClickthroughBrowser)
-        
+                
         // Prebid-specific
         
         XCTAssertEqual(sdkConfiguration.prebidServerAccountId, "")
