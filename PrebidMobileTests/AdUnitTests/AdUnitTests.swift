@@ -22,7 +22,6 @@ class AdUnitTests: XCTestCase {
         Targeting.shared.clearUserKeywords()
         Targeting.shared.forceSdkToChooseWinner = true
         
-        Prebid.shared.useExternalClickthroughBrowser = false
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         Prebid.shared.timeoutMillis = 2000
     }
