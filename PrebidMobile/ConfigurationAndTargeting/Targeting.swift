@@ -344,27 +344,6 @@ public class Targeting: NSObject {
         }
     }
     
-    public func setCustomParams(_ params: [String : String]?) {
-        guard let params = params else {
-            return
-        }
-        
-        params.keys.forEach { key in
-            if let value = params[key] {
-                addCustomParam(value, withName: key)
-            }
-        }
-    }
-    
-    public func addCustomParam(_ value: String, withName: String?) {
-        guard let name = withName else {
-            return
-        }
-        
-        let prefixedName = makeCustomParamFromName(name)
-        addParam(value, withName:prefixedName)
-    }
-    
     // Store location in the user's section
     public func setLatitude(_ latitude: Double, longitude: Double) {
         coordinate = NSValue(mkCoordinate: CLLocationCoordinate2DMake(latitude, longitude))

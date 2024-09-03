@@ -27,8 +27,6 @@
 		34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */; };
 		3C28C9D82C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */; };
 		3C28C9D92C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */; };
-		3C28C9DB2C357E3500D0A7DB /* SampleCustomRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28C9DA2C357E3500D0A7DB /* SampleCustomRenderer.swift */; };
-		3C28C9DC2C357E3500D0A7DB /* SampleCustomRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28C9DA2C357E3500D0A7DB /* SampleCustomRenderer.swift */; };
 		3CC4A3E92C11F96800B97128 /* CustomRendererBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */; };
 		3CC4A3EA2C11F96800B97128 /* CustomRendererBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */; };
 		457FD34BA45C3840CC31A8F5 /* Pods_InternalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */; };
@@ -381,7 +379,6 @@
 		35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternalTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererInterstitialController.swift; sourceTree = "<group>"; };
-		3C28C9DA2C357E3500D0A7DB /* SampleCustomRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCustomRenderer.swift; sourceTree = "<group>"; };
 		3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererBannerController.swift; sourceTree = "<group>"; };
 		530E722B292FACB20025B44D /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayBannerController.swift; sourceTree = "<group>"; };
@@ -847,7 +844,6 @@
 				34B10A2F255017DE00B5FE09 /* ThreadCheckingButton.swift */,
 				34C25816255D69E1000A4A73 /* EventReportContainer.swift */,
 				530E722B292FACB20025B44D /* UIImageView+Extensions.swift */,
-				3C28C9DA2C357E3500D0A7DB /* SampleCustomRenderer.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1577,7 +1573,6 @@
 				53ED2FE829798104007D13EE /* PrebidBannerController.swift in Sources */,
 				53ED2FE929798104007D13EE /* PrebidBannerConfigurationController.swift in Sources */,
 				53ED2FEA29798104007D13EE /* TestCase.swift in Sources */,
-				3C28C9DC2C357E3500D0A7DB /* SampleCustomRenderer.swift in Sources */,
 				53ED2FEB29798104007D13EE /* PrebidAdMobNativeViewController.swift in Sources */,
 				53ED2FEC29798104007D13EE /* PrebidInterstitialController.swift in Sources */,
 				53ED2FED29798104007D13EE /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */,
@@ -1674,7 +1669,6 @@
 				3493022224740BEE004A6086 /* PrebidBannerController.swift in Sources */,
 				5BDB85DA2739794900A529F6 /* PrebidBannerConfigurationController.swift in Sources */,
 				5B3EEDE52101FB8800BAA0C4 /* TestCase.swift in Sources */,
-				3C28C9DB2C357E3500D0A7DB /* SampleCustomRenderer.swift in Sources */,
 				92C475122796FF8400C26E27 /* PrebidAdMobNativeViewController.swift in Sources */,
 				34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */,
 				5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */,

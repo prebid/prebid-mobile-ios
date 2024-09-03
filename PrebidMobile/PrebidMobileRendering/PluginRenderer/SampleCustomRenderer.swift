@@ -12,8 +12,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+
 import Foundation
-import PrebidMobile
 import UIKit
 
 public class SampleCustomRenderer: NSObject, PrebidMobilePluginRenderer {
@@ -76,7 +76,7 @@ public class SampleCustomRenderer: NSObject, PrebidMobilePluginRenderer {
         }
         return nil
     }
-    
+
     public func createInterstitialController(bid: Bid, adConfiguration: AdUnitConfig, connection: PrebidServerConnectionProtocol,
                                              adViewManagerDelegate adViewDelegate: InterstitialController?, videoControlsConfig: VideoControlsConfiguration?) {
     }
