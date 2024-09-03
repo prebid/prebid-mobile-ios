@@ -138,12 +138,6 @@ public class Prebid: NSObject {
     @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
     public var useExternalClickthroughBrowser = false
     
-    /// Indicates the type of browser opened upon clicking the creative in an app, where embedded = 0, native = 1.
-    /// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) imp.clickbrowser attribute.
-    /// Deprecated.
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
-    public var impClickbrowserType: ClickbrowserType = .native
-    
     /// If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
     public var debugLogFileEnabled: Bool {
         get { Log.logToFile }
