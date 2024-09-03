@@ -121,8 +121,6 @@
         
         //set secure=1 for https or secure=0 for http
         rtbImp.secure = @1;
-        
-        rtbImp.clickbrowser = @(self.sdkConfiguration.impClickbrowserType);
     }
     
     bidRequest.regs.coppa = self.targeting.coppa;
