@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3CD0ADF12C51274A006CDA6B /* SampleCustomRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD0ADF02C51274A006CDA6B /* SampleCustomRenderer.swift */; };
 		53AB8AB22851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */; };
 		53AB8AB32851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92C0CEA027BD411E00C480EB /* emptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C0CE9F27BD411E00C480EB /* emptyResponse.json */; };
@@ -61,7 +60,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3CD0ADF02C51274A006CDA6B /* SampleCustomRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCustomRenderer.swift; sourceTree = "<group>"; };
 		537B669C283DFCCD008AE9D1 /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = ../../Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
 		53AB8AB12851D9EF00837C70 /* OMSDK-Static_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "OMSDK-Static_Prebidorg.xcframework"; path = "../../Frameworks/OMSDK-Static_Prebidorg.xcframework"; sourceTree = "<group>"; };
 		92C0CE9F27BD411E00C480EB /* emptyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = emptyResponse.json; sourceTree = "<group>"; };
@@ -114,14 +112,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3CD0ADEF2C5126FD006CDA6B /* SamplePluginRegister */ = {
-			isa = PBXGroup;
-			children = (
-				3CD0ADF02C51274A006CDA6B /* SampleCustomRenderer.swift */,
-			);
-			path = SamplePluginRegister;
-			sourceTree = "<group>";
-		};
 		537B669B283DFCCD008AE9D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,7 +141,6 @@
 		FA9E5E0F2649420C0049B214 /* TestUtils */ = {
 			isa = PBXGroup;
 			children = (
-				3CD0ADEF2C5126FD006CDA6B /* SamplePluginRegister */,
 				FAC853582649462E009DC0F3 /* Category */,
 				FAC8536726494646009DC0F3 /* Responses */,
 				FAC8537B26494647009DC0F3 /* Stubbing */,
@@ -322,7 +311,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC8535B2649462E009DC0F3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
-				3CD0ADF12C51274A006CDA6B /* SampleCustomRenderer.swift in Sources */,
 				FAC8539926494647009DC0F3 /* PBHTTPStubbingManager.m in Sources */,
 				FAC8539A26494647009DC0F3 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				FAC853652649463A009DC0F3 /* PBTestGlobal.m in Sources */,

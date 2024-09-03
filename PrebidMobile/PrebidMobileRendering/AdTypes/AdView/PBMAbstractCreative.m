@@ -14,6 +14,8 @@
  */
 
 #import <StoreKit/SKStoreProductViewController.h>
+#import <StoreKit/SKOverlay.h>
+#import <StoreKit/SKOverlayConfiguration.h>
 #import <WebKit/WebKit.h>
 
 #import "PBMAbstractCreative+Protected.h"
@@ -73,7 +75,6 @@
         self.creativeModel = creativeModel;
         self.transaction = transaction;
         self.dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
-
         self.eventManager = [PBMEventManager new];
         if (creativeModel.eventTracker) {
             [self.eventManager registerTracker: (id<PBMEventTrackerProtocol>)creativeModel.eventTracker];
@@ -120,6 +121,9 @@
 
 - (void)dealloc {
     [self.viewabilityTracker stop];
+    if (@available(iOS 14, *)) {
+        [SKOverlay dismissOverlayInScene: self.viewControllerForPresentingModals.view.window.windowScene];
+    }
     self.viewabilityTracker = NULL;
     PBMLogWhereAmI();
 }
@@ -157,6 +161,12 @@
     }
     if (!self.adWasShown) {
         self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc] initWithCreative:self];
+    }
+    //add SKOverlay in init
+    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
+    if (skadnetProductParameters[@"skoverlay_delay"] != nil && skadnetProductParameters[@"skoverlay_endcarddelay"] != nil &&
+        !self.creativeModel.hasCompanionAd) {
+        [self handleSKOverlay :skadnetProductParameters];
     }
 }
 
@@ -230,9 +240,9 @@
     PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
     
     if (skadnetProductParameters) {
-        clickthroughOpened = [self handleProductClickthrough:url
-                                               productParams:skadnetProductParameters
-                                                      onExit:onClickthroughExitBlock];
+            clickthroughOpened = [self handleProductClickthrough:url
+                                                   productParams:skadnetProductParameters
+                                                          onExit:onClickthroughExitBlock];
     } else {
         
         if ([self handleDeepLinkIfNeeded:url
@@ -375,6 +385,32 @@
     return YES;
 }
 
+- (BOOL)handleSKOverlay: (NSDictionary<NSString *, id> *)productParams{
+    
+    if (@available(iOS 14, *)) {
+
+        SKOverlayAppConfiguration *config = [[SKOverlayAppConfiguration alloc] initWithAppIdentifier: productParams[SKStoreProductParameterITunesItemIdentifier] position:([productParams[@"skoverlay_pos"] floatValue] == 0.0f) ? SKOverlayPositionBottom : SKOverlayPositionBottomRaised];
+        if ([productParams[@"skoverlay_dismissable"] floatValue] == 0.0f) {
+            config.userDismissible = false;
+        } else {
+            config.userDismissible = true;
+        }
+        
+        float delayInSeconds = [productParams[@"skoverlay_delay"] floatValue];
+        //for end card
+        if (self.creativeModel.isCompanionAd) {
+            delayInSeconds = [productParams[@"skoverlay_endcarddelay"] floatValue];
+        }
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            SKOverlay *overlay = [[SKOverlay alloc] initWithConfiguration: config];
+            [overlay presentInScene: self.viewControllerForPresentingModals.view.window.windowScene];
+        });
+    }
+
+    return YES;
+}
+
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
     [self.creativeViewDelegate creativeClickthroughDidClose:self];
 }
@@ -462,7 +498,6 @@
     if (self.transaction.measurementSession.eventTracker) {
         [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
     }
-
     [self.creativeViewDelegate creativeDidDisplay:self];
     [self onWillTrackImpression];
     [self.eventManager trackEvent:PBMTrackingEventImpression];

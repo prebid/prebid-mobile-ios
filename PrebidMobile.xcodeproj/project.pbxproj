@@ -775,11 +775,14 @@
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
+		F91B60AF2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = F91B60AE2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m */; };
+		F9DD93C92C62882F009C2B3E /* PBMORTBBidExtSkadnSKOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = F91B60AD2C58120C00DA9796 /* PBMORTBBidExtSkadnSKOverlay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A908694229E05EAF00B37479 /* PrebidMobilePluginRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */; };
 		A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */; };
 		A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694529E05F7900B37479 /* PrebidRenderer.swift */; };
 		A9750D7A2ABB9A300066E4E6 /* PluginEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9750D792ABB9A300066E4E6 /* PluginEventListener.swift */; };
 		A9A3396B2AC57193006AD0E7 /* PBMAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A3396A2AC57193006AD0E7 /* PBMAdViewDelegate.swift */; };
+		F95DA2072C87567D0068A2BB /* SampleCustomRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95DA2062C87567D0068A2BB /* SampleCustomRenderer.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
 		FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */; };
@@ -1667,11 +1670,14 @@
 		97826AA621FB4F1B001E2C05 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9791778F2201AF4700E624CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		979177962201AF5F00E624CE /* DispatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatcherTests.swift; sourceTree = "<group>"; };
+		F91B60AD2C58120C00DA9796 /* PBMORTBBidExtSkadnSKOverlay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBBidExtSkadnSKOverlay.h; sourceTree = "<group>"; };
+		F91B60AE2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBBidExtSkadnSKOverlay.m; sourceTree = "<group>"; };
 		A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRegister.swift; sourceTree = "<group>"; };
 		A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRenderer.swift; sourceTree = "<group>"; };
 		A908694529E05F7900B37479 /* PrebidRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRenderer.swift; sourceTree = "<group>"; };
 		A9750D792ABB9A300066E4E6 /* PluginEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginEventListener.swift; sourceTree = "<group>"; };
 		A9A3396A2AC57193006AD0E7 /* PBMAdViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdViewDelegate.swift; sourceTree = "<group>"; };
+		F95DA2062C87567D0068A2BB /* SampleCustomRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCustomRenderer.swift; sourceTree = "<group>"; };
 		FA4A88432497A99D00FDCBB6 /* Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzling.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestUtils.xcodeproj; path = ../tools/TestUtils/TestUtils.xcodeproj; sourceTree = "<group>"; };
@@ -2483,8 +2489,10 @@
 				5BC37816271F1CFF00444D5E /* PBMORTBBidExtPrebidCache.m */,
 				5BC37815271F1CFF00444D5E /* PBMORTBBidExtPrebidCacheBids.h */,
 				5BC3781B271F1CFF00444D5E /* PBMORTBBidExtPrebidCacheBids.m */,
+				F91B60AD2C58120C00DA9796 /* PBMORTBBidExtSkadnSKOverlay.h */,
 				5BC3781F271F1CFF00444D5E /* PBMORTBBidExtSkadn.h */,
 				5BC37818271F1CFF00444D5E /* PBMORTBBidExtSkadn.m */,
+				F91B60AE2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m */,
 				5BC3781D271F1CFF00444D5E /* PBMORTBBidResponseExt.h */,
 				5BC37817271F1CFF00444D5E /* PBMORTBBidResponseExt.m */,
 				53A657B42A8B8B0500AE0B4F /* PBMORTBBidResponseExtPrebid.h */,
@@ -3184,6 +3192,7 @@
 		A908694029E05E8D00B37479 /* PluginRenderer */ = {
 			isa = PBXGroup;
 			children = (
+				F95DA2062C87567D0068A2BB /* SampleCustomRenderer.swift */,
 				A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */,
 				A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */,
 				A9750D792ABB9A300066E4E6 /* PluginEventListener.swift */,
@@ -3336,6 +3345,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9DD93C92C62882F009C2B3E /* PBMORTBBidExtSkadnSKOverlay.h in Headers */,
 				5BC37917271F1CFF00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h in Headers */,
 				5BC37A11271F1D0000444D5E /* PBMBidResponseTransformer.h in Headers */,
 				5BC37900271F1CFF00444D5E /* PBMORTBImpExtSkadn.h in Headers */,
@@ -4113,6 +4123,7 @@
 				5BC37AAB271F1D0000444D5E /* MediationInterstitialAdUnit.swift in Sources */,
 				5BC378FC271F1CFF00444D5E /* PBMORTBDevice.m in Sources */,
 				5BC37A98271F1D0000444D5E /* PBMBannerAdLoader.m in Sources */,
+				F91B60AF2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m in Sources */,
 				A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */,
 				5BC37935271F1D0000444D5E /* PBMAdModelEventTracker.m in Sources */,
 				536A427F282D11DA0069E9B2 /* PrebidServerConnection.swift in Sources */,
@@ -4154,6 +4165,7 @@
 				537B6518283372FD008AE9D1 /* PathBuilder.swift in Sources */,
 				FAEE4D1A262DC2B200AD9966 /* NativeAd.swift in Sources */,
 				5BC37A1B271F1D0000444D5E /* Prebid.swift in Sources */,
+				F95DA2072C87567D0068A2BB /* SampleCustomRenderer.swift in Sources */,
 				5BC379A8271F1D0000444D5E /* PBMModalViewController.m in Sources */,
 				5BC37AC3271F1D0100444D5E /* PBMURLComponents.m in Sources */,
 				5BC378D3271F1CFF00444D5E /* PBMORTBAbstract.m in Sources */,
@@ -4323,6 +4335,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -4389,6 +4402,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -4501,6 +4515,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -4537,6 +4552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;

@@ -102,6 +102,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
         checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (In-App) [SKAdN]")
     }
     
+    func testInAppInterstitial_Display_320x480_SKOverlay_SKAdN() {
+        checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 SKOverlay (In-App) [SKAdN]")
+    }
+    
     // MARK: - Video Interstitials (In-App)
     
     func testInAppInterstitial_Video_320x480() {
@@ -110,6 +114,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
     
     func testInAppInterstitial_Video_320x480_with_EndCard() {
         checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 with End Card (In-App)")
+    }
+    
+    func testInAppInterstitial_Video_320x480_with_EndCard_SKOverlay() {
+        checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 with End Card SKOverlay (In-App) [SKAdN]")
     }
     
     func testInAppInterstitial_Video_noBids() {
@@ -139,6 +147,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
     
     func testInAppInterstitial_Video_320x480_SKAdN() {
         checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 (In-App) [SKAdN]")
+    }
+    
+    func testInAppInterstitial_Video_320x480_SKAdN_SKOverlay() {
+        checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 SKOverlay (In-App) [SKAdN]")
     }
     
     // MARK: - Interstitials (GAM)
