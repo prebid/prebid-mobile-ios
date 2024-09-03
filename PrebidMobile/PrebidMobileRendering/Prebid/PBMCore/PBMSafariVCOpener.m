@@ -94,18 +94,6 @@
         return NO;
     }
     
-    if ([self shouldOpenURLSchemeExternally:strURLscheme]) {
-        //Open link outside of app
-        [PBMFunctions attemptToOpen:url];
-        if (self.onWillLeaveAppBlock != nil) {
-            self.onWillLeaveAppBlock();
-        }
-        if (onClickthroughExitBlock != nil) {
-            onClickthroughExitBlock();
-        }
-        return YES;
-    }
-    
     UIViewController * const viewControllerForPresentingModals = self.viewControllerProvider();
     if (viewControllerForPresentingModals == nil) {
         PBMLogError(@"self.viewControllerForPresentingModals is nil");
@@ -138,12 +126,6 @@
 }
 
 - (BOOL)shouldOpenURLSchemeExternally:(NSString *)strURLscheme {
-    if (self.sdkConfiguration.useExternalClickthroughBrowser ||
-        [PBMConstants.urlSchemesNotSupportedOnClickthroughBrowser containsObject:strURLscheme])
-    {
-        return YES;
-    }
-    
     return NO;
 }
     
