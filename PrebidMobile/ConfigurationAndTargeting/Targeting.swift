@@ -114,11 +114,6 @@ public class Targeting: NSObject {
         set { parameterDictionary[PrebidTargetingKey_USER_ID] = newValue }
     }
     
-    /// Buyer-specific ID for the user as mapped by the exchange for the buyer.
-    /// Deprecated.
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
-    public var buyerUID: String?
-    
     /**
      Optional feature to pass bidder data that was set in the
      exchange’s cookie. The string must be in base85 cookie safe
