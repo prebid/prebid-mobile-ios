@@ -102,14 +102,12 @@ public class Targeting: NSObject {
         set { parameterDictionary[PrebidTargetingKey_USER_ID] = newValue }
     }
     
-    /// Buyer-specific ID for the user as mapped by the exchange for the buyer.
-    public var buyerUID: String?
-    
-    
-    /// Optional feature to pass bidder data that was set in the
-    /// exchange’s cookie. The string must be in base85 cookie safe
-    /// characters and be in any format. Proper JSON encoding must
-    /// be used to include “escaped” quotation marks.
+    /**
+     Optional feature to pass bidder data that was set in the
+     exchange’s cookie. The string must be in base85 cookie safe
+     characters and be in any format. Proper JSON encoding must
+     be used to include “escaped” quotation marks.
+     */
     public var userCustomData: String?
     
     /// Placeholder for User Identity Links.

@@ -882,24 +882,6 @@ class TargetingTests: XCTestCase {
         XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
     
-    func testBuyerUID() {
-        //Init
-        //Note: on init, and it never sends a value via an odinary ad request params.
-        let Targeting = Targeting.shared
-        XCTAssertNil(Targeting.buyerUID)
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Set
-        let buyerUID = "abc123"
-        Targeting.buyerUID = buyerUID
-        XCTAssertEqual(Targeting.buyerUID, buyerUID)
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Unset
-        Targeting.buyerUID = nil
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-    }
-    
     func testUserCustomData() {
 
         //Init
