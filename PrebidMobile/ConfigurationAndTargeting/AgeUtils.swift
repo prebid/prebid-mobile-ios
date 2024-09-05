@@ -18,7 +18,8 @@ import Foundation
 @objc(PBMAgeUtils) @objcMembers
 public class AgeUtils: NSObject {
     
-    static func isYOBValid(_ yob: Int) -> Bool {        
+    @available(*, deprecated, message: "Deprecated by ORTB")
+    static func isYOBValid(_ yob: Int) -> Bool {
         let date = Date()
         let calendar = Calendar.current
 

@@ -38,6 +38,7 @@ public class Targeting: NSObject {
     /**
      Indicates user birth year.
      */
+    @available(*, deprecated, message: "Deprecated by ORTB")
     public var yearOfBirth: Int {
         get { yearofbirth }
         set { setYearOfBirth(yob: newValue) }
@@ -46,6 +47,7 @@ public class Targeting: NSObject {
     /**
      * This method set the year of birth value
      */
+    @available(*, deprecated, message: "Deprecated by ORTB")
     public func setYearOfBirth(yob: Int) {
         if AgeUtils.isYOBValid(yob) {
             yearofbirth = yob
@@ -55,6 +57,7 @@ public class Targeting: NSObject {
     }
     
     // Objective C API
+    @available(*, deprecated, message: "Deprecated by ORTB")
     public func getYearOfBirth() -> NSNumber {
         NSNumber(value: yearOfBirth)
     }
@@ -69,6 +72,7 @@ public class Targeting: NSObject {
     /**
      Indicates the end-user's gender.
      */
+    @available(*, deprecated, message: "Deprecated by ORTB")
     public var userGender: Gender {
         get {
             guard let currentValue = parameterDictionary[PrebidTargetingKey_GENDER] else {
