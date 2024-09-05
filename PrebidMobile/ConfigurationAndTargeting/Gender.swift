@@ -44,6 +44,7 @@ enum GenderDescription : String {
     case other      = "O"
 }
 
+@available(*, deprecated, message: "Deprecated by ORTB")
 func GenderFromDescription(_ genderDescription: String) -> Gender {
     guard let knownGender = GenderDescription(rawValue: genderDescription) else {
         return .unknown
@@ -56,6 +57,7 @@ func GenderFromDescription(_ genderDescription: String) -> Gender {
     }
 }
 
+@available(*, deprecated, message: "Deprecated by ORTB")
 func DescriptionOfGender(_ gender: Gender) -> String? {
     switch gender {
         case .unknown:   return nil
