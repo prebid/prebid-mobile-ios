@@ -105,11 +105,13 @@ public class Targeting: NSObject {
     /// Buyer-specific ID for the user as mapped by the exchange for the buyer.
     public var buyerUID: String?
     
-    
-    /// Optional feature to pass bidder data that was set in the
-    /// exchange’s cookie. The string must be in base85 cookie safe
-    /// characters and be in any format. Proper JSON encoding must
-    /// be used to include “escaped” quotation marks.
+    /**
+     Optional feature to pass bidder data that was set in the
+     exchange’s cookie. The string must be in base85 cookie safe
+     characters and be in any format. Proper JSON encoding must
+     be used to include “escaped” quotation marks.
+     */
+    @available(*, deprecated, message: "This property is deprecated.  This is an exchange-specific property.")
     public var userCustomData: String?
     
     /// Placeholder for User Identity Links.
