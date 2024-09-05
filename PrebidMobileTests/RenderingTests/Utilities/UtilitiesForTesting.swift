@@ -290,7 +290,6 @@ typealias JsonDictionary = [String:Any]
         targeting.userExt = nil
         targeting.eids = nil
         targeting.location = nil
-        targeting.locationPrecision = nil
         targeting.sourceapp = nil
         targeting.storeURL = nil
         targeting.domain = nil
@@ -333,7 +332,6 @@ typealias JsonDictionary = [String:Any]
         XCTAssertNil(targeting.userExt)
         XCTAssertNil(targeting.eids)
         XCTAssertNil(targeting.location)
-        XCTAssertNil(targeting.locationPrecision)
         XCTAssertNil(targeting.sourceapp)
         XCTAssertNil(targeting.storeURL)
         XCTAssertNil(targeting.domain)
