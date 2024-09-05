@@ -114,6 +114,7 @@ public class Targeting: NSObject {
      characters and be in any format. Proper JSON encoding must
      be used to include “escaped” quotation marks.
      */
+    @available(*, deprecated, message: "This property is deprecated.  This is an exchange-specific property.")
     public var userCustomData: String?
     
     /**
