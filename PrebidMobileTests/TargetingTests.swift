@@ -105,22 +105,9 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.location = location
-        Targeting.shared.locationPrecision = 2
         
         //then
         XCTAssertEqual(location, Targeting.shared.location)
-        XCTAssertEqual(2, Targeting.shared.locationPrecision)
-    }
-    
-    func testLocationPrecision() {
-        //given
-        let locationPrecision = 2
-        
-        //when
-        Targeting.shared.locationPrecision = locationPrecision
-        
-        //then
-        XCTAssertEqual(locationPrecision, Targeting.shared.locationPrecision)
     }
     
     func testforceSdkToChooseWinner() {
