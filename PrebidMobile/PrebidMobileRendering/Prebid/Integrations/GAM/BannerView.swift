@@ -101,7 +101,7 @@ public class BannerView: UIView,
     
     // MARK: Computed helpers
     
-    /// whether auto-refresh is allowed to occur now
+    /// whether auto-refresh is allowed to occur now.
     var mayRefreshNow: Bool {
         guard let controller = adLoadFlowController else {
             return false
