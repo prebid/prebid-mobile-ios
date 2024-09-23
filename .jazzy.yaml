@@ -8,7 +8,7 @@ xcodebuild_arguments:
 - PrebidMobile
 - CODE_SIGNING_ALLOWED = NO
 author: Prebid
-readme: README.md
+readme: README_API_DOC.md
 exclude:
   - PrebidMobile/Addendum/*
   - PrebidMobile/AdUnits/BannerBasedAdUnitProtocol.swift
