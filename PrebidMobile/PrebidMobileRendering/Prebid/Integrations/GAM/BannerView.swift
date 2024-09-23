@@ -123,6 +123,12 @@ public class BannerView: UIView,
     
     // MARK: - Public Methods
     
+    /// Prints some non sense,
+    /// Need to test docs.
+    @objc public func foo() {
+        print("Hello Docs!")
+    }
+    
     /// Initializes a new `BannerView`.
     /// - Parameters:
     ///   - frame: The frame rectangle for the view.
