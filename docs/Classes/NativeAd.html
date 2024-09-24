@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NativeAd Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/NativeAd" class="dashAnchor"></a>
+    <a title="NativeAd Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (94% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">PrebidMobile</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        <a href="../Classes.html">Classes</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        NativeAd Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AdFormat.html">AdFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AdUnit.html">AdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BannerAdUnit.html">BannerAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BannerParameters.html">BannerParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BannerView.html">BannerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BaseInterstitialAdUnit.html">BaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BidInfo.html">BidInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContextSubType.html">ContextSubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContextType.html">ContextType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventTracking.html">EventTracking</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventType.html">EventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ExternalUserId.html">ExternalUserId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Host.html">Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageAsset.html">ImageAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InstreamVideoAdUnit.html">InstreamVideoAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InterstitialAdUnit.html">InterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationBannerAdUnit.html">MediationBannerAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationBaseInterstitialAdUnit.html">MediationBaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationInterstitialAdUnit.html">MediationInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationNativeAdUnit.html">MediationNativeAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationRewardedAdUnit.html">MediationRewardedAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAd.html">NativeAd</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAdConfiguration.html">NativeAdConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAdMarkup.html">NativeAdMarkup</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAdMarkupAsset.html">NativeAdMarkupAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAsset.html">NativeAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAssetData.html">NativeAssetData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAssetImage.html">NativeAssetImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAssetTitle.html">NativeAssetTitle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeData.html">NativeData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeEventTracker.html">NativeEventTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeEventTrackerResponse.html">NativeEventTrackerResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeImage.html">NativeImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeLink.html">NativeLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeMarkupRequestObject.html">NativeMarkupRequestObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeParameters.html">NativeParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeRequest.html">NativeRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeTitle.html">NativeTitle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlacementType.html">PlacementType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Prebid.html">Prebid</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PrebidAdUnit.html">PrebidAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PrebidRequest.html">PrebidRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RewardedAdUnit.html">RewardedAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RewardedVideoAdUnit.html">RewardedVideoAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals.html">Signals</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/Api.html">– Api</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/PlaybackMethod.html">– PlaybackMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/Protocols.html">– Protocols</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/StartDelay.html">– StartDelay</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/Placement.html">– Placement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleContainerInt.html">SingleContainerInt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Targeting.html">Targeting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Utils.html">Utils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoAdUnit.html">VideoAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoControlsConfiguration.html">VideoControlsConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoInterstitialAdUnit.html">VideoInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoParameters.html">VideoParameters</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AdPosition.html">AdPosition</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DataAsset.html">DataAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Gender.html">Gender</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NativeDataAssetType.html">NativeDataAssetType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NativeImageAssetType.html">NativeImageAssetType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Position.html">Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PrebidHost.html">PrebidHost</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PrebidInitializationStatus.html">PrebidInitializationStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResultCode.html">ResultCode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/BannerEventHandler.html">BannerEventHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NativeAdDelegate.html">NativeAdDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NativeAdEventDelegate.html">NativeAdEventDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PrebidMediationDelegate.html">PrebidMediationDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RewardedAdUnitDelegate.html">RewardedAdUnitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>NativeAd</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">@objcMembers</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">NativeAd</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">CacheExpiryDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>Represents a native ad and handles its various properties and functionalities.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20properties"></a>
+                <a name="//apple_ref/swift/Section/Public properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20properties"></a>
+                  <h3 class="section-name"><span>Public properties</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)nativeAdMarkup"></a>
+                    <a name="//apple_ref/swift/Property/nativeAdMarkup" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)nativeAdMarkup">nativeAdMarkup</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The native ad markup containing the ad assets.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">nativeAdMarkup</span><span class="p">:</span> <span class="kt"><a href="../Classes/NativeAdMarkup.html">NativeAdMarkup</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)delegate"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)delegate">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The delegate to receive native ad events.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/NativeAdEventDelegate.html">NativeAdEventDelegate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Array%20getters"></a>
+                <a name="//apple_ref/swift/Section/Array getters" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Array%20getters"></a>
+                  <h3 class="section-name"><span>Array getters</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)titles"></a>
+                    <a name="//apple_ref/swift/Property/titles" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)titles">titles</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an array of titles from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">titles</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeTitle.html">NativeTitle</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)dataObjects"></a>
+                    <a name="//apple_ref/swift/Property/dataObjects" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)dataObjects">dataObjects</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an array of data objects from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">dataObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeData.html">NativeData</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)images"></a>
+                    <a name="//apple_ref/swift/Property/images" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)images">images</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an array of images from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">images</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeImage.html">NativeImage</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)eventTrackers"></a>
+                    <a name="//apple_ref/swift/Property/eventTrackers" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)eventTrackers">eventTrackers</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an array of event trackers from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">eventTrackers</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeEventTrackerResponse.html">NativeEventTrackerResponse</a></span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Filtered%20array%20getters"></a>
+                <a name="//apple_ref/swift/Section/Filtered array getters" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Filtered%20array%20getters"></a>
+                  <h3 class="section-name"><span>Filtered array getters</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(im)dataObjectsOf:"></a>
+                    <a name="//apple_ref/swift/Method/dataObjects(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(im)dataObjectsOf:">dataObjects(of:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an array of data objects filtered by the specified data type.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">dataObjects</span><span class="p">(</span><span class="n">of</span> <span class="nv">dataType</span><span class="p">:</span> <span class="kt"><a href="../Enums/NativeDataAssetType.html">NativeDataAssetType</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeData.html">NativeData</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(im)imagesOf:"></a>
+                    <a name="//apple_ref/swift/Method/images(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(im)imagesOf:">images(of:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an array of images filtered by the specified image type.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">images</span><span class="p">(</span><span class="n">of</span> <span class="nv">imageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/NativeImageAssetType.html">NativeImageAssetType</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeImage.html">NativeImage</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Property%20getters"></a>
+                <a name="//apple_ref/swift/Section/Property getters" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Property%20getters"></a>
+                  <h3 class="section-name"><span>Property getters</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)title"></a>
+                    <a name="//apple_ref/swift/Property/title" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)title">title</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the first title text from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)imageUrl"></a>
+                    <a name="//apple_ref/swift/Property/imageUrl" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)imageUrl">imageUrl</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the URL of the main image from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">imageUrl</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)iconUrl"></a>
+                    <a name="//apple_ref/swift/Property/iconUrl" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)iconUrl">iconUrl</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the URL of the icon image from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">iconUrl</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)sponsoredBy"></a>
+                    <a name="//apple_ref/swift/Property/sponsoredBy" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)sponsoredBy">sponsoredBy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the sponsored by text from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">sponsoredBy</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)text"></a>
+                    <a name="//apple_ref/swift/Property/text" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)text">text</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the description text from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(py)callToAction"></a>
+                    <a name="//apple_ref/swift/Property/callToAction" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(py)callToAction">callToAction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the call-to-action text from the native ad markup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">callToAction</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(cm)createWithCacheId:"></a>
+                    <a name="//apple_ref/swift/Method/create(cacheId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(cm)createWithCacheId:">create(cacheId:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code>NativeAd</code> instance from the given cache ID.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">create</span><span class="p">(</span><span class="nv">cacheId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NativeAd</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cacheId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cache ID to retrieve the bid response.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code>NativeAd</code> instance if successful, otherwise <code>nil</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)NativeAd(im)registerViewWithView:clickableViews:"></a>
+                    <a name="//apple_ref/swift/Method/registerView(view:clickableViews:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeAd(im)registerViewWithView:clickableViews:">registerView(view:<wbr>clickableViews:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers a view for tracking viewability and click events.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerView</span><span class="p">(</span><span class="nv">view</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">?,</span> <span class="nv">clickableViews</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIView</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>view</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The view to register.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>clickableViews</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of views that should be clickable.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>true</code> if the view was successfully registered, otherwise <code>false</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-09-24)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signals Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Signals" class="dashAnchor"></a>
+    <a title="Signals Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">PrebidMobile 2.2.3 Docs</a> (94% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">PrebidMobile</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        <a href="../Classes.html">Classes</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        Signals Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AdFormat.html">AdFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AdUnit.html">AdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BannerAdUnit.html">BannerAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BannerParameters.html">BannerParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BannerView.html">BannerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BaseInterstitialAdUnit.html">BaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BidInfo.html">BidInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContextSubType.html">ContextSubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContextType.html">ContextType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventTracking.html">EventTracking</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventType.html">EventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ExternalUserId.html">ExternalUserId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Host.html">Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageAsset.html">ImageAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InstreamVideoAdUnit.html">InstreamVideoAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InterstitialAdUnit.html">InterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationBannerAdUnit.html">MediationBannerAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationBaseInterstitialAdUnit.html">MediationBaseInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationInterstitialAdUnit.html">MediationInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationNativeAdUnit.html">MediationNativeAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MediationRewardedAdUnit.html">MediationRewardedAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAd.html">NativeAd</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAdConfiguration.html">NativeAdConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAdMarkup.html">NativeAdMarkup</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAdMarkupAsset.html">NativeAdMarkupAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAsset.html">NativeAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAssetData.html">NativeAssetData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAssetImage.html">NativeAssetImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeAssetTitle.html">NativeAssetTitle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeData.html">NativeData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeEventTracker.html">NativeEventTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeEventTrackerResponse.html">NativeEventTrackerResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeImage.html">NativeImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeLink.html">NativeLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeMarkupRequestObject.html">NativeMarkupRequestObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeParameters.html">NativeParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeRequest.html">NativeRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NativeTitle.html">NativeTitle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlacementType.html">PlacementType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Prebid.html">Prebid</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PrebidAdUnit.html">PrebidAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PrebidRequest.html">PrebidRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RewardedAdUnit.html">RewardedAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RewardedVideoAdUnit.html">RewardedVideoAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals.html">Signals</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/Api.html">– Api</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/PlaybackMethod.html">– PlaybackMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/Protocols.html">– Protocols</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/StartDelay.html">– StartDelay</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/Placement.html">– Placement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleContainerInt.html">SingleContainerInt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Targeting.html">Targeting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Utils.html">Utils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoAdUnit.html">VideoAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoControlsConfiguration.html">VideoControlsConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoInterstitialAdUnit.html">VideoInterstitialAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoParameters.html">VideoParameters</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AdPosition.html">AdPosition</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DataAsset.html">DataAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Gender.html">Gender</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NativeDataAssetType.html">NativeDataAssetType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NativeImageAssetType.html">NativeImageAssetType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Position.html">Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PrebidHost.html">PrebidHost</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PrebidInitializationStatus.html">PrebidInitializationStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResultCode.html">ResultCode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/BannerEventHandler.html">BannerEventHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NativeAdDelegate.html">NativeAdDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NativeAdEventDelegate.html">NativeAdEventDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PrebidMediationDelegate.html">PrebidMediationDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RewardedAdUnitDelegate.html">RewardedAdUnitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Signals</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Signals</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>A class containing constants related to OpenRTB signals.</p>
+
+<p>This class provides static constants and values representing different
+API frameworks, playback methods, protocols, start delays, and video
+placement types as defined in the OpenRTB specification.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PrebidMobile7SignalsC3ApiC"></a>
+                    <a name="//apple_ref/swift/Class/Api" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PrebidMobile7SignalsC3ApiC">Api</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='openrtb-api-frameworks' class='heading'>OpenRTB - API Frameworks</h1>
+<pre class="highlight swift"><code> <span class="o">|</span> <span class="kt">Value</span> <span class="o">|</span> <span class="kt">Description</span> <span class="o">|</span>
+ <span class="o">|-------|-------------|</span>
+ <span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span> <span class="kt">VPAID</span> <span class="mf">1.0</span>   <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">2</span>     <span class="o">|</span> <span class="kt">VPAID</span> <span class="mf">2.0</span>   <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">3</span>     <span class="o">|</span> <span class="kt">MRAID</span><span class="o">-</span><span class="mi">1</span>     <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span> <span class="kt">ORMMA</span>       <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">5</span>     <span class="o">|</span> <span class="kt">MRAID</span><span class="o">-</span><span class="mi">2</span>     <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">6</span>     <span class="o">|</span> <span class="kt">MRAID</span><span class="o">-</span><span class="mi">3</span>     <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">7</span>     <span class="o">|</span> <span class="kt">OMID</span><span class="o">-</span><span class="mi">1</span>      <span class="o">|</span>
+</code></pre>
+
+                        <a href="../Classes/Signals/Api.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc(PBApi)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">Api</span> <span class="p">:</span> <span class="kt"><a href="../Classes/SingleContainerInt.html">SingleContainerInt</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PrebidMobile7SignalsC14PlaybackMethodC"></a>
+                    <a name="//apple_ref/swift/Class/PlaybackMethod" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PrebidMobile7SignalsC14PlaybackMethodC">PlaybackMethod</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='openrtb-playback-methods' class='heading'>OpenRTB - Playback Methods</h1>
+<pre class="highlight swift"><code><span class="o">|</span> <span class="kt">Value</span> <span class="o">|</span> <span class="kt">Description</span>                                              <span class="o">|</span>
+<span class="o">|-------|----------------------------------------------------------|</span>
+<span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span> <span class="kt">Initiates</span> <span class="n">on</span> <span class="kt">Page</span> <span class="kt">Load</span> <span class="n">with</span> <span class="kt">Sound</span> <span class="kt">On</span>                     <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>     <span class="o">|</span> <span class="kt">Initiates</span> <span class="n">on</span> <span class="kt">Page</span> <span class="kt">Load</span> <span class="n">with</span> <span class="kt">Sound</span> <span class="kt">Off</span> <span class="n">by</span> <span class="kt">Default</span>         <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>     <span class="o">|</span> <span class="kt">Initiates</span> <span class="n">on</span> <span class="kt">Click</span> <span class="n">with</span> <span class="kt">Sound</span> <span class="kt">On</span>                         <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span> <span class="kt">Initiates</span> <span class="n">on</span> <span class="kt">Mouse</span><span class="o">-</span><span class="kt">Over</span> <span class="n">with</span> <span class="kt">Sound</span> <span class="kt">On</span>                    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span>     <span class="o">|</span> <span class="kt">Initiates</span> <span class="n">on</span> <span class="kt">Entering</span> <span class="kt">Viewport</span> <span class="n">with</span> <span class="kt">Sound</span> <span class="kt">On</span>             <span class="o">|</span>
+<span class="o">|</span> <span class="mi">6</span>     <span class="o">|</span> <span class="kt">Initiates</span> <span class="n">on</span> <span class="kt">Entering</span> <span class="kt">Viewport</span> <span class="n">with</span> <span class="kt">Sound</span> <span class="kt">Off</span> <span class="n">by</span> <span class="kt">Default</span> <span class="o">|</span>
+</code></pre>
+
+                        <a href="../Classes/Signals/PlaybackMethod.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc(PBPlaybackMethod)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">PlaybackMethod</span> <span class="p">:</span> <span class="kt"><a href="../Classes/SingleContainerInt.html">SingleContainerInt</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PrebidMobile7SignalsC9ProtocolsC"></a>
+                    <a name="//apple_ref/swift/Class/Protocols" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PrebidMobile7SignalsC9ProtocolsC">Protocols</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='openrtb-protocols' class='heading'>OpenRTB - Protocols</h1>
+<pre class="highlight swift"><code><span class="o">|</span> <span class="kt">Value</span> <span class="o">|</span> <span class="kt">Description</span>       <span class="o">|</span>
+<span class="o">|-------|-------------------|</span>
+<span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span> <span class="kt">VAST</span> <span class="mf">1.0</span>          <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>     <span class="o">|</span> <span class="kt">VAST</span> <span class="mf">2.0</span>          <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>     <span class="o">|</span> <span class="kt">VAST</span> <span class="mf">3.0</span>          <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span> <span class="kt">VAST</span> <span class="mf">1.0</span> <span class="kt">Wrapper</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span>     <span class="o">|</span> <span class="kt">VAST</span> <span class="mf">2.0</span> <span class="kt">Wrapper</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">6</span>     <span class="o">|</span> <span class="kt">VAST</span> <span class="mf">3.0</span> <span class="kt">Wrapper</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">7</span>     <span class="o">|</span> <span class="kt">VAST</span> <span class="mf">4.0</span>          <span class="o">|</span>
+<span class="o">|</span> <span class="mi">8</span>     <span class="o">|</span> <span class="kt">VAST</span> <span class="mf">4.0</span> <span class="kt">Wrapper</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">9</span>     <span class="o">|</span> <span class="kt">DAAST</span> <span class="mf">1.0</span>         <span class="o">|</span>
+<span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span> <span class="kt">DAAST</span> <span class="mf">1.0</span> <span class="kt">Wrapper</span> <span class="o">|</span>
+</code></pre>
+
+                        <a href="../Classes/Signals/Protocols.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc(PBProtocols)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">Protocols</span> <span class="p">:</span> <span class="kt"><a href="../Classes/SingleContainerInt.html">SingleContainerInt</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PrebidMobile7SignalsC10StartDelayC"></a>
+                    <a name="//apple_ref/swift/Class/StartDelay" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PrebidMobile7SignalsC10StartDelayC">StartDelay</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='openrtb-start-delay' class='heading'>OpenRTB - Start Delay</h1>
+<pre class="highlight swift"><code><span class="o">|</span> <span class="kt">Value</span> <span class="o">|</span> <span class="kt">Description</span>                                      <span class="o">|</span>
+<span class="o">|-------|--------------------------------------------------|</span>
+<span class="o">|</span> <span class="o">&gt;</span> <span class="mi">0</span>   <span class="o">|</span> <span class="kt">Mid</span><span class="o">-</span><span class="kt">Roll</span> <span class="p">(</span><span class="n">value</span> <span class="n">indicates</span> <span class="n">start</span> <span class="n">delay</span> <span class="k">in</span> <span class="n">second</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">0</span>     <span class="o">|</span> <span class="kt">Pre</span><span class="o">-</span><span class="kt">Roll</span>                                         <span class="o">|</span>
+<span class="o">|</span> <span class="o">-</span><span class="mi">1</span>    <span class="o">|</span> <span class="kt">Generic</span> <span class="kt">Mid</span><span class="o">-</span><span class="kt">Roll</span>                                 <span class="o">|</span>
+<span class="o">|</span> <span class="o">-</span><span class="mi">2</span>    <span class="o">|</span> <span class="kt">Generic</span> <span class="kt">Post</span><span class="o">-</span><span class="kt">Roll</span>                                <span class="o">|</span>
+</code></pre>
+
+                        <a href="../Classes/Signals/StartDelay.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc(PBStartDelay)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">StartDelay</span> <span class="p">:</span> <span class="kt"><a href="../Classes/SingleContainerInt.html">SingleContainerInt</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PrebidMobile7SignalsC9PlacementC"></a>
+                    <a name="//apple_ref/swift/Class/Placement" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PrebidMobile7SignalsC9PlacementC">Placement</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='openrtb-video-placement-types' class='heading'>OpenRTB - Video Placement Types</h1>
+<pre class="highlight swift"><code><span class="o">|</span> <span class="kt">Value</span> <span class="o">|</span> <span class="kt">Description</span>                  <span class="o">|</span>
+<span class="o">|-------|------------------------------|</span>
+<span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span> <span class="kt">In</span><span class="o">-</span><span class="kt">Stream</span>                    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>     <span class="o">|</span> <span class="kt">In</span><span class="o">-</span><span class="kt">Banner</span>                    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>     <span class="o">|</span> <span class="kt">In</span><span class="o">-</span><span class="kt">Article</span>                   <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span> <span class="kt">In</span><span class="o">-</span><span class="kt">Feed</span>                      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span>     <span class="o">|</span> <span class="kt">Interstitial</span><span class="o">/</span><span class="kt">Slider</span><span class="o">/</span><span class="kt">Floating</span> <span class="o">|</span>
+</code></pre>
+
+                        <a href="../Classes/Signals/Placement.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc(PBPlacement)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">Placement</span> <span class="p">:</span> <span class="kt"><a href="../Classes/SingleContainerInt.html">SingleContainerInt</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-09-24)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>
