@@ -45,7 +45,6 @@ public class PrebidMAXMediationAdapter: ALMediationAdapter {
         // TODO: Add Prebid SDK initialization logic
         
         completionHandler(.initializedUnknown, nil)
-        Targeting.shared.subjectToCOPPA = ALPrivacySettings.isAgeRestrictedUser()
     }
     
     public override var sdkVersion: String {

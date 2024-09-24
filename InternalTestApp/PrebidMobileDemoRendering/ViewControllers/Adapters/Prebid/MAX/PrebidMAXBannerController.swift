@@ -98,7 +98,7 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
-                adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
+                adUnit?.addContextData(key: dataPair.value, value: dataPair.key)
             }
         }
         
