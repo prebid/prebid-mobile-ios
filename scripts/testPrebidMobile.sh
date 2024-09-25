@@ -32,6 +32,10 @@ pod install --repo-update
 
 echo -e "\n\n${GREEN}TEST PREBID MOBILE${NC}\n\n"
 
+echo -e "\n${GREEN}Clean build\n"
+
+xcodebuild clean build 
+
 if [ "$run_only_with_latest_ios" != "YES" ]
 then
  echo -e "\n${GREEN}Running some unit tests for iOS 13${NC} \n"
@@ -56,6 +60,8 @@ xcodebuild test \
     -retry-tests-on-failure \
     -scheme "PrebidMobileTests" \
     -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' | xcpretty --color --test
+
+
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobile Unit Tests Passed"
