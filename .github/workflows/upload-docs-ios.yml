@@ -29,6 +29,15 @@ jobs:
         clean: false
     - name: Commit documentation changes
       run: |
+          MIN_SIZE=5120
+          if [ -d docs_new ] && [ "$(du -s docs_new | cut -f1)" -ge "$MIN_SIZE" ]; then
+            rm -rf docs
+            cp -r docs_new docs
+            rm -rf docs_new
+          else
+            echo "docs_new directory either does not exist or is too small."
+          fi
+
           if [ "$(git status --porcelain | wc -l)" -gt 0 ]; then
             git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git config --local user.name "github-actions[bot]"
@@ -36,9 +45,6 @@ jobs:
             TAG_NAME=${{ github.ref }}
             TAG_NAME=${TAG_NAME#refs/tags/}
             echo "Current tag: $TAG_NAME"
-            rm -rf docs
-            cp -r docs_new docs
-            rm -rf docs_new
             git add docs
             git commit -m "Generate docs - $TAG_NAME"
           else
