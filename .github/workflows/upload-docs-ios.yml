@@ -36,6 +36,7 @@ jobs:
             rm -rf docs_new
           else
             echo "docs_new directory either does not exist or is too small."
+            exit 1
           fi
 
           if [ "$(git status --porcelain | wc -l)" -gt 0 ]; then
