@@ -75,7 +75,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     /**
      Sets an ad unit as an rewarded
      */
-    public var isOptIn = false
+    public var isRewarded = false
     
     /**
      Indicates whether the ad is built-in video e.g. 300x250.

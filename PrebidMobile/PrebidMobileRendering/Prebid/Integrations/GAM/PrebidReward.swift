@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,8 +15,16 @@
 
 import Foundation
 
-@objc public protocol RewardedEventInteractionDelegate: InterstitialEventInteractionDelegate {
-
-    /// Call this when the ad server SDK decides the use has earned reward
-    func userDidEarnReward(_ reward: PrebidReward)
+@objcMembers
+public class PrebidReward: NSObject {
+    
+    public var type: String?
+    public var count: NSNumber?
+    public var ext: [String: Any]?
+    
+//    init(with ortbReward: TQBORTBBidExtRewardedReward? = nil) {
+//        self.type = ortbReward?.type
+//        self.count = ortbReward?.count
+//        self.ext = ortbReward?.ext
+//    }
 }

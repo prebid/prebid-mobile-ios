@@ -19,21 +19,17 @@ import UIKit
 @objc
 public class RewardedAdUnit: BaseInterstitialAdUnit,
                              RewardedEventInteractionDelegate {
-   
-    /// The reward object for the ad unit.
-    @objc public private(set) var reward: NSObject?
-    
     // MARK: - Lifecycle
     
-    /// Initializes a `RewardedAdUnit` with the given configuration ID and event handler.
-    ///
-    /// - Parameter configID: The configuration ID for the ad unit.
-    /// - Parameter eventHandler: The event handler for the ad unit.
-    @objc public convenience init(configID: String, eventHandler: AnyObject) {
+    @objc public convenience init(
+        configID: String,
+        eventHandler: AnyObject
+    ) {
         self.init(
             configID: configID,
             minSizePerc: nil,
-            eventHandler: eventHandler)
+            eventHandler: eventHandler
+        )
     }
 
     /// Initializes a `RewardedAdUnit` with the given configuration ID and a default event handler.
@@ -43,46 +39,33 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
         self.init(
             configID: configID,
             minSizePerc: nil,
-            eventHandler: RewardedEventHandlerStandalone())
+            eventHandler: RewardedEventHandlerStandalone()
+        )
     }
     
-    /// Initializes a `RewardedAdUnit` with the given configuration ID, minimum size percentage, and event handler.
-    ///
-    /// - Parameter configID: The configuration ID for the ad unit.
-    /// - Parameter minSizePerc: The minimum size percentage for the ad unit.
-    /// - Parameter eventHandler: The event handler for the ad unit.
-    @objc required init(configID:String, minSizePerc: NSValue?, eventHandler: AnyObject?) {
+    @objc required init(
+        configID: String,
+        minSizePerc: NSValue?,
+        eventHandler: AnyObject?
+    ) {
         super.init(
             configID: configID,
             minSizePerc: minSizePerc,
-            eventHandler: eventHandler)
+            eventHandler: eventHandler
+        )
         
-        adUnitConfig.adConfiguration.isOptIn = true
-        adFormats = [.video]
+        adUnitConfig.adConfiguration.isRewarded = true
+        adFormats = [.banner, .video]
     }
     
-    // MARK: - PBMRewardedEventDelegate
+    // MARK: - RewardedEventDelegate
     
-    /// Called when the user earns a reward.
-    ///
-    /// - Parameter reward: The reward object associated with the event.
-    @objc public func userDidEarnReward(_ reward: NSObject?) {
-        DispatchQueue.main.async(execute: { [weak self] in
-            self?.reward = reward
-            self?.callDelegate_rewardedAdUserDidEarnReward()
-        })
+    @objc public func userDidEarnReward(_ reward: PrebidReward) {
+        DispatchQueue.main.async {
+            self.callDelegate_rewardedAdUserDidEarnReward(reward: reward)
+        }
     }
     
-    // MARK: - BaseInterstitialAdUnitProtocol protocol
-    
-    /// Called when the interstitial ad is closed.
-    ///
-    /// - Parameter interstitialController: The controller managing the interstitial ad.
-    @objc public override func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
-        callDelegate_rewardedAdUserDidEarnReward()
-        super.interstitialControllerDidCloseAd(interstitialController)
-    }
-
     // MARK: - Protected overrides
     
     /// Called when the ad unit receives an ad.
@@ -183,10 +166,9 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
     
     // MARK: - Private helpers
     
-    /// Calls the delegate method to notify that the user has earned a reward.
-    func callDelegate_rewardedAdUserDidEarnReward() {
+    func callDelegate_rewardedAdUserDidEarnReward(reward: PrebidReward) {
         if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdUserDidEarnReward?(self)
+            delegate.rewardedAdUserDidEarnReward?(self, reward: reward)
         }
     }
 }
