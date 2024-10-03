@@ -27,7 +27,7 @@ class Dispatcher: NSObject {
         case stopped
     }
     
-    private (set) var state = State.notStarted
+    private(set) var state = State.notStarted
 
     var timer: Timer?
 
