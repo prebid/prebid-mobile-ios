@@ -22,13 +22,18 @@ public class BannerParameters: NSObject {
     /// List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
     public var api: [Signals.Api]?
     
+    /// Min width percentage value for interstitial
     public var interstitialMinWidthPerc: Int?
+    
+    /// Min height percentage value for interstitial
     public var interstitialMinHeightPerc: Int?
     
+    /// Ad sizes of the ad
     public var adSizes: [CGSize]?
     
     // MARK: - Helpers
     
+    /// Helper for `api` values
     public var rawAPI: [Int]? {
         get {
             api?.toIntArray()

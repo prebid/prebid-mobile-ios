@@ -15,18 +15,30 @@ limitations under the License.
 
 import UIKit
 
+/// Class representing an event tracker for native ads.
 @objc public class NativeEventTracker: NSObject {
     
+    /// The type of event being tracked.
     var event: EventType
+    
+    /// List of event tracking methods to be used.
     var methods: Array<EventTracking>
+    
+    /// Optional custom extensions or metadata.
     var ext: AnyObject?
     
+    /// Initializes a new `NativeEventTracker` instance.
+    /// - Parameters:
+    ///   - event: The event type to track.
+    ///   - methods: The methods used for tracking the event.
     @objc
     public init(event: EventType, methods: Array<EventTracking>) {
         self.event = event
         self.methods = methods
     }
     
+    /// Returns a dictionary representation of the event tracker.
+    /// - Returns: A dictionary containing the event type and tracking methods.
     func getEventTracker() -> [AnyHashable: Any] {
         var methodsList:[Int] = []
         
@@ -43,6 +55,7 @@ import UIKit
     }
 }
 
+/// Class representing different event types.
 public class EventType: SingleContainerInt {
     @objc
     public static let Impression = EventType(1)
@@ -60,14 +73,15 @@ public class EventType: SingleContainerInt {
     public static let Custom = EventType(500)
 }
 
-
+/// Native event tracking type.
 public class EventTracking: SingleContainerInt {
-    @objc
-    public static let Image = EventTracking(1)
-
-    @objc
-    public static let js = EventTracking(2)
-
-    @objc
-    public static let Custom = EventTracking(500)
+    
+    /// Represents image-based event tracking.
+    @objc public static let Image = EventTracking(1)
+    
+    /// Represents JavaScript-based event tracking.
+    @objc public static let js = EventTracking(2)
+    
+    /// Represents a custom event tracking method.
+    @objc public static let Custom = EventTracking(500)
 }

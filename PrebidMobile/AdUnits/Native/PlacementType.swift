@@ -15,16 +15,22 @@
 
 import Foundation
 
+/// Represents different types of placements for native ads.
 @objcMembers
 public class PlacementType: SingleContainerInt {
-
+    
+    /// Placement type indicating the ad appears within feed content.
     public static let FeedContent = PlacementType(1)
-
+    
+    /// Placement type indicating the ad appears within atomic content.
     public static let AtomicContent = PlacementType(2)
-
+    
+    /// Placement type indicating the ad appears outside of content.
     public static let OutsideContent = PlacementType(3)
-
+    
+    /// Placement type indicating the ad appears within a recommendation widget.
     public static let RecommendationWidget = PlacementType(4)
-
+    
+    /// Placement type for custom placements not predefined in the standard.
     public static let Custom = PlacementType(500)
 }

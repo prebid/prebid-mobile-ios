@@ -1,0 +1,63 @@
+# Ordered by output of `jazzy — help config`
+output: docs
+clean: true
+xcodebuild_arguments:
+- -workspace
+- PrebidMobile.xcworkspace
+- -scheme
+- PrebidMobile
+- CODE_SIGNING_ALLOWED = NO
+author: Prebid
+readme: README_API_DOC.md
+exclude:
+  - PrebidMobile/Addendum/*
+  - PrebidMobile/AdUnits/BannerBasedAdUnitProtocol.swift
+  - PrebidMobile/AdUnits/VideoBasedAdUnitProtocol.swift
+  - PrebidMobile/CacheManagement/*
+  - PrebidMobile/ConfigurationAndTargeting/AgeUtils.swift
+  - PrebidMobile/ConfigurationAndTargeting/ClickbrowserType.swift
+  - PrebidMobile/ConfigurationAndTargeting/PrebidGAMVersionChecker.swift
+  - PrebidMobile/ConfigurationAndTargeting/PrebidSDKInitializer.swift
+  - PrebidMobile/ConfigurationAndTargeting/PrebidServerStatusRequester.swift
+  - PrebidMobile/ConfigurationAndTargeting/UserConsentDataManager.swift
+  - PrebidMobile/Constants.swift
+  - PrebidMobile/Dispatcher.swift
+  - PrebidMobile/ImageHelper.swift
+  - PrebidMobile/JSONConvertible.swift
+  - PrebidMobile/JsonDecodable.swift
+  - PrebidMobile/Logging/*
+  - PrebidMobile/StorageUtils.swift
+  - PrebidMobile/Tracker*
+  - PrebidMobile/UIViewExtension.swift
+  - PrebidMobile/Utils/*
+  - PrebidMobile/PrebidMobileRendering/AdTypes/AdView/AdConfiguration.swift
+  - PrebidMobile/PrebidMobileRendering/AdTypes/AdView/AdViewButtonDecorator.swift
+  - PrebidMobile/PrebidMobileRendering/AdTypes/AdView/HiddenWebViewManager.swift
+  - PrebidMobile/PrebidMobileRendering/Assets/PrebidImagesRepository.swift
+  - PrebidMobile/PrebidMobileRendering/AutoRefreshCountConfig.swift
+  - PrebidMobile/PrebidMobileRendering/Impression*
+  - PrebidMobile/PrebidMobileRendering/Networking*
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/AdLoading/AdLoadFlowControllerDelegate.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/AdLoading/BannerAdLoaderDelegate.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerEventInteractionDelegate.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerEventLoadingDelegate.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/InterstitialEventInteractionDelegate.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/InterstitialEventLoadingDelegate.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/RewardedEventInteractionDelegate.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/RewardedEventLoadingDelegate.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BaseInterstitialAdUnitProtocol.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/InterstitialEventHandlerProtocol.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationUtils.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationNativeUtils.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationConstants.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationBidInfoWrapper.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/PBMStandaloneSDK/DemandResponseInfo.swift
+  - PrebidMobile/PrebidMobileRendering/Prebid/Integrations/PBMStandaloneSDK/EventHandlers/*
+  - PrebidMobile/PrebidMobileRendering/Prebid/PBMCore/*
+  - PrebidMobile/PrebidMobileRendering/Prebid/PBMCacheRenderers/*
+  - PrebidMobile/PrebidMobileRendering/PrebidServerEventTracker.swift
+  - PrebidMobile/PrebidMobileRendering/ServerEvent.swift
+  - PrebidMobile/PrebidMobileRendering/ServerSideConfiguration/*
+  - PrebidMobile/PrebidMobileRendering/Skadn*
+  - PrebidMobile/PrebidMobileRendering/Utilities/*
+theme: apple

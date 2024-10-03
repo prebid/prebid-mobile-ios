@@ -16,20 +16,19 @@
 import Foundation
 import WebKit
 
+/// A utility class for handling various ad-related operations and conversions.
 public class Utils: NSObject {
 
-    /**
-     * The class is created as a singleton object & used
-     */
+    /// The class is created as a singleton object & used
     @objc
     public static let shared = Utils()
 
-    /**
-     * The initializer that needs to be created only once
-     */
+    /// The initializer that needs to be created only once
     private override init() {
         super.init()
     }
+    
+    /// A delegate to handle native ad events.
     @objc
     public weak var delegate: NativeAdDelegate?
 
@@ -40,6 +39,7 @@ public class Utils: NSObject {
     private let GAD_CUSTOM_NATIVE_AD = "GADCustomNativeAd"
     private let INNNER_HTML_SCRIPT = "document.body.innerHTML"
 
+    /// Deprecated. MoPub is not available anymore. Use Prebid MAX adapters instead.
     @available(*, deprecated, message: "MoPub is not available anymore. Use Prebid MAX adapters instead.")
     @objc
     public func convertDictToMoPubKeywords(dict: Dictionary<String, String>) -> String {
@@ -241,6 +241,9 @@ public class Utils: NSObject {
         }
     }
 
+    /// Finds a native ad object within a given object.
+    ///
+    /// - Parameter adObject: The object to search within.
     @objc
     public func findNative(adObject: AnyObject){
         if (self.isObjectFromClass(adObject, DFP_BANNER_VIEW_CLASSNAME)) {
@@ -425,10 +428,9 @@ public class Utils: NSObject {
       }
 }
 
-/**
- 1. It is a class that allow use it as AnyObject and passs to - func fetchDemand(adObject: AnyObject, ...)
- 2. It is not a public class as a result client can not directly pass it to - func fetchDemand(adObject: AnyObject, ...)
- */
+
+/// 1. It is a class that allow use it as AnyObject and passs to - func fetchDemand(adObject: AnyObject, ...)
+/// 2. It is not a public class as a result client can not directly pass it to - func fetchDemand(adObject: AnyObject, ...)
 class DictionaryContainer<T1: Hashable, T2: Hashable> {
     var dict = [T1 : T2]()
 }

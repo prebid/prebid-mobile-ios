@@ -68,7 +68,7 @@ class PrebidMAXNativeController: NSObject, AdaptedController {
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
-                nativeAdUnit?.addContextData(dataPair.value, forKey: dataPair.key)
+                nativeAdUnit?.addContextData(key: dataPair.value, value: dataPair.key)
             }
         }
         

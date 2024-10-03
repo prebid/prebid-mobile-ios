@@ -15,6 +15,7 @@
 
 import Foundation
 
+/// Represents a request object for native markup, including details about the ad's context, placement, and supported features.
 @objc(PBMNativeMarkupRequestObject) @objcMembers
 public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
     
@@ -70,6 +71,7 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support flexibility beyond the standard defined in this specification
     public var ext: [String : Any]?
     
+    /// Initializes a `NativeMarkupRequestObject` with default values.
     public override init() {
         super.init()
     }
@@ -92,6 +94,10 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
     
     // MARK: - NSCopying
     
+    /// Creates a copy of the current `NativeMarkupRequestObject` instance.
+    ///
+    /// - Parameter zone: An optional zone for the copy operation.
+    /// - Returns: A copy of the `NativeMarkupRequestObject` instance.
     public func copy(with zone: NSZone? = nil) -> Any {
         let clone = NativeMarkupRequestObject()
         
@@ -112,6 +118,9 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
     
     // MARK: - PBMJsonCodable
     
+    /// Converts the `NativeMarkupRequestObject` instance to a JSON dictionary.
+    ///
+    /// - Returns: A dictionary representation of the `NativeMarkupRequestObject` instance.
     public var jsonDictionary: [String : Any]? {
         var json = [String : Any]()
         
@@ -130,6 +139,10 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
         return json
     }
     
+    /// Converts the `NativeMarkupRequestObject` instance to a JSON string.
+    ///
+    /// - Returns: A JSON string representation of the `NativeMarkupRequestObject` instance.
+    /// - Throws: An error if the conversion to JSON string fails.
     public func toJsonString() throws -> String {
         try PBMFunctions.toStringJsonDictionary(jsonDictionary ?? [:])
     }

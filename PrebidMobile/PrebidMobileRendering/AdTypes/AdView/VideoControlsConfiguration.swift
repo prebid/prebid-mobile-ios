@@ -15,25 +15,22 @@
 
 import Foundation
 
+/// A class representing the configuration for video controls in an ad.
+/// This includes properties for video duration, mute status, and button positioning and visibility.
+/// Configuration values can be initialized from bid response or set directly by the user.
 @objc(PBMVideoControlsConfiguration) @objcMembers
 public class VideoControlsConfiguration: NSObject {
     
-    /**
-     This property indicates maximum video duration.
-     Obtained from the field ext,prebid.passthrough[].adConfiguration.maxvideoduration.
-     */
+    /// This property indicates maximum video duration.
+    /// Obtained from the field ext,prebid.passthrough[].adConfiguration.maxvideoduration.
     private(set) public var maxVideoDuration: NSNumber?
     
-    /**
-     This property indicates whether the ad should run playback with sound or not.
-     Obtained from the field ext,prebid.passthrough[].adConfiguration.ismuted or set by user.
-     */
+    /// This property indicates whether the ad should run playback with sound or not.
+    /// Obtained from the field ext,prebid.passthrough[].adConfiguration.ismuted or set by user.
     public var isMuted: Bool = false
     
-    /**
-     This property indicates the area which the close button should occupy on the screen.
-     Obtained from the field ext,prebid.passthrough[].adConfiguration.closebuttonarea or set by user.
-     */
+    /// This property indicates the area which the close button should occupy on the screen.
+    /// Obtained from the field ext,prebid.passthrough[].adConfiguration.closebuttonarea or set by user.
     public var closeButtonArea: Double {
         set {
             if newValue <= 1 && newValue >= 0 {
@@ -45,10 +42,8 @@ public class VideoControlsConfiguration: NSObject {
         get { _closeButtonArea }
     }
     
-    /**
-     This property indicates the position of the close button on the screen.
-     Obtained from the field ext,prebid.passthrough[].adConfiguration.closebuttonposition or set by user.
-     */
+    /// This property indicates the position of the close button on the screen.
+    /// Obtained from the field ext,prebid.passthrough[].adConfiguration.closebuttonposition or set by user.
     public var closeButtonPosition: Position {
         set {
             if ![Position.topRight, Position.topLeft].contains(newValue) {
@@ -61,10 +56,8 @@ public class VideoControlsConfiguration: NSObject {
         get { _closeButtonPosition }
     }
     
-    /**
-     This property indicates the area which the skip button should occupy on the screen.
-     Obtained from the field ext,prebid.passthrough[].adConfiguration.skipbuttonarea or set by user.
-     */
+    /// This property indicates the area which the skip button should occupy on the screen.
+    /// Obtained from the field ext,prebid.passthrough[].adConfiguration.skipbuttonarea or set by user.
     public var skipButtonArea: Double {
         set {
             if newValue <= 1 && newValue >= 0 {
@@ -77,10 +70,8 @@ public class VideoControlsConfiguration: NSObject {
         get { _skipButtonArea }
     }
     
-    /**
-     This property indicates the position of the skip button on the screen.
-     Obtained from the field ext,prebid.passthrough[].adConfiguration.skipbuttonposition or set by user.
-     */
+    /// This property indicates the position of the skip button on the screen.
+    /// Obtained from the field ext,prebid.passthrough[].adConfiguration.skipbuttonposition or set by user.
     public var skipButtonPosition: Position {
         set {
             if ![Position.topRight, Position.topLeft].contains(newValue) {
@@ -93,20 +84,14 @@ public class VideoControlsConfiguration: NSObject {
         get { _skipButtonPosition }
     }
     
-    /**
-     This property indicates the number of seconds which should be passed from the start of playback until the skip or close button should be shown.
-     Obtained from the field ext,prebid.passthrough[].adConfiguration.skipdelay or set by user.
-     */
+    /// This property indicates the number of seconds which should be passed from the start of playback until the skip or close button should be shown.
+    /// Obtained from the field ext,prebid.passthrough[].adConfiguration.skipdelay or set by user.
     public var skipDelay = PBMConstants.SKIP_DELAY_DEFAULT.doubleValue
     
-    /**
-     This property indicates whether mute controls is visible on the screen.
-     */
+    /// This property indicates whether mute controls is visible on the screen.
     public var isSoundButtonVisible = false
     
-    /**
-     Use to initialize video controls with server values.
-     */
+    /// Use to initialize video controls with server values.
     public func initialize(with ortbAdConfiguration: PBMORTBAdConfiguration?) {
         
         guard let ortbAdConfiguration = ortbAdConfiguration else {

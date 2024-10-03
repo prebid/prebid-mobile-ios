@@ -15,18 +15,23 @@
 
 import Foundation
 
+/// Represents the configuration for a native ad, including markup and version information.
 @objc(PBMNativeAdConfiguration) @objcMembers
 public class NativeAdConfiguration: NSObject {
     
     /// Version of the Native Markup version in use.
     public var version: String = "1.2"
     
+    /// The object containing the request details for the native markup.
     public var markupRequestObject = NativeMarkupRequestObject()
     
+    /// Initializes a new instance of `NativeAdMarkup` with default values.
     public override init() {
         super.init()
     }
     
+    /// Initializes a new instance of `NativeAdConfiguration` with the specified native parameters.
+    /// - Parameter nativeParameters: The parameters to configure the native ad.
     init(nativeParameters: NativeParameters) {
         version = nativeParameters.version
         markupRequestObject = NativeMarkupRequestObject(nativeParameters: nativeParameters)

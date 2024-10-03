@@ -13,9 +13,11 @@
 import UIKit
 import ObjectiveC.runtime
 
+/// Base class for ad units built for original type of integration.
 @objcMembers
 public class AdUnit: NSObject, DispatcherDelegate {
     
+    /// ORTB: imp[].ext.data.adslot
     public var pbAdSlot: String? {
         get { adUnitConfig.getPbAdSlot()}
         set { adUnitConfig.setPbAdSlot(newValue) }
@@ -33,18 +35,25 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     private var bidRequester: PBMBidRequesterProtocol
     
-    //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
+    /// This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
     private var isInitialFetchDemandCallMade = false
     
     private var adServerObject: AnyObject?
     private var lastFetchDemandCompletion: ((_ bidInfo: BidInfo) -> Void)?
     
-    //notification flag set to check if the prebid response is received within the specified time
+    /// notification flag set to check if the prebid response is received within the specified time
     private var didReceiveResponse = false
     
-    //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
+    /// notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     private var timeOutSignalSent = false
     
+    
+    /// Initializes a new `AdUnit` instance with the specified configuration ID, size, and ad formats.
+    ///
+    /// - Parameters:
+    ///   - configId: The configuration ID for the ad unit.
+    ///   - size: The primary size of the ad. If `nil`, a default size of `.zero` is used.
+    ///   - adFormats: A set of ad formats supported by the ad unit.
     public init(configId: String, size: CGSize?, adFormats: Set<AdFormat>) {
         adUnitConfig = AdUnitConfig(configId: configId, size: size ?? CGSize.zero)
         adUnitConfig.adConfiguration.isOriginalAPI = true
@@ -70,6 +79,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     //TODO: dynamic is used by tests
+    
+    /// Makes bid request and provides the result as a dictionary of key-value pairs.
+    ///
+    /// - Parameter completion: A closure called with the result code and an optional dictionary of targeting keywords.
+    ///   - result: The result code indicating the outcome of the demand fetch.
+    ///   - kvResultDict: A dictionary containing key-value pairs, or `nil` if no demand was fetched.
     @available(*, deprecated, message: "Deprecated. Use fetchDemand(completion: @escaping (_ bidInfo: BidInfo) -> Void) instead.")
     dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
         let dictContainer = DictionaryContainer<String, String>()
@@ -83,10 +98,18 @@ public class AdUnit: NSObject, DispatcherDelegate {
         }
     }
     
+    /// Makes bid request  and provides the result as a `BidInfo` object.
+    ///
+    /// - Parameter completionBidInfo: A closure called with a `BidInfo` object representing the fetched demand.
     dynamic public func fetchDemand(completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void) {
         baseFetchDemand(completion: completionBidInfo)
     }
     
+    /// Makes bid request for a specific ad object and provides the result code. Setups targeting keywords into the adObject.
+    ///
+    /// - Parameters:
+    ///   - adObject: The ad object for which demand is being fetched.
+    ///   - completion: A closure called with the result code indicating the outcome of the demand fetch.
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         baseFetchDemand(adObject: adObject) { bidInfo in
             DispatchQueue.main.async {
@@ -193,35 +216,28 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     // MARK: - adunit ext data aka inventory data (imp[].ext.data)
     
-    /**
-     * This method obtains the context data keyword & value for adunit context targeting
-     * if the key already exists the value will be appended to the list. No duplicates will be added
-     */
+
+    /// This method obtains the context data keyword & value for adunit context targeting
+    /// If the key already exists the value will be appended to the list. No duplicates will be added
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
     public func addContextData(key: String, value: String) {
         addExtData(key: key, value: value)
     }
-    
-    /**
-     * This method obtains the context data keyword & values for adunit context targeting
-     * the values if the key already exist will be replaced with the new set of values
-     */
+
+    /// This method obtains the context data keyword & values for adunit context targeting
+    /// The values if the key already exist will be replaced with the new set of values
     @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
     public func updateContextData(key: String, value: Set<String>) {
         updateExtData(key: key, value: value)
     }
     
-    /**
-     * This method allows to remove specific context data keyword & values set from adunit context targeting
-     */
+    /// This method allows to remove specific context data keyword & values set from adunit context targeting
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
     public func removeContextData(forKey: String) {
         removeExtData(forKey: forKey)
     }
     
-    /**
-     * This method allows to remove all context data set from adunit context targeting
-     */
+    /// This method allows to remove all context data set from adunit context targeting
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
         clearExtData()
@@ -232,98 +248,74 @@ public class AdUnit: NSObject, DispatcherDelegate {
         return adUnitConfig.getExtData()
     }
     
-    /**
-     * This method obtains the ext data keyword & value for adunit targeting
-     * if the key already exists the value will be appended to the list. No duplicates will be added
-     */
+    /// This method obtains the ext data keyword & value for adunit targeting.
+    /// If the key already exists the value will be appended to the list. No duplicates will be added
     public func addExtData(key: String, value: String) {
         adUnitConfig.addExtData(key: key, value: value)
     }
     
-    /**
-     * This method obtains the ext data keyword & values for adunit targeting
-     * the values if the key already exist will be replaced with the new set of values
-     */
+    /// This method obtains the ext data keyword & values for adunit targeting
+    /// The values if the key already exist will be replaced with the new set of values
     public func updateExtData(key: String, value: Set<String>) {
         adUnitConfig.updateExtData(key: key, value: value)
     }
     
-    /**
-     * This method allows to remove specific ext data keyword & values set from adunit targeting
-     */
+    /// This method allows to remove specific ext data keyword & values set from adunit targeting
     public func removeExtData(forKey: String) {
         adUnitConfig.removeExtData(for: forKey)
     }
     
-    /**
-     * This method allows to remove all ext data set from adunit targeting
-     */
+    /// This method allows to remove all ext data set from adunit targeting
     public func clearExtData() {
         adUnitConfig.clearExtData()
     }
     
     // MARK: - adunit ext keywords (imp[].ext.keywords)
     
-    /**
-     * This method obtains the context keyword for adunit context targeting
-     * Inserts the given element in the set if it is not already present.
-     */
+    /// This method obtains the context keyword for adunit context targeting
+    /// Inserts the given element in the set if it is not already present.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
     public func addContextKeyword(_ newElement: String) {
         addExtKeyword(newElement)
     }
     
-    /**
-     * This method obtains the context keyword set for adunit context targeting
-     * Adds the elements of the given set to the set.
-     */
+    /// This method obtains the context keyword set for adunit context targeting
+    /// Adds the elements of the given set to the set.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
     public func addContextKeywords(_ newElements: Set<String>) {
         addExtKeywords(newElements)
     }
     
-    /**
-     * This method allows to remove specific context keyword from adunit context targeting
-     */
+    /// This method allows to remove specific context keyword from adunit context targeting
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
     public func removeContextKeyword(_ element: String) {
         removeExtKeyword(element)
     }
     
-    /**
-     * This method allows to remove all keywords from the set of adunit context targeting
-     */
+    /// This method allows to remove all keywords from the set of adunit context targeting
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
     public func clearContextKeywords() {
         clearExtKeywords()
     }
-    
-    /**
-     * This method obtains the keyword for adunit targeting
-     * Inserts the given element in the set if it is not already present.
-     */
+
+    /// This method obtains the keyword for adunit targeting
+    /// Inserts the given element in the set if it is not already present.
     public func addExtKeyword(_ newElement: String) {
         adUnitConfig.addExtKeyword(newElement)
     }
     
-    /**
-     * This method obtains the keyword set for adunit targeting
-     * Adds the elements of the given set to the set.
-     */
+    /// This method obtains the keyword set for adunit targeting
+    /// Adds the elements of the given set to the set.
     public func addExtKeywords(_ newElements: Set<String>) {
         adUnitConfig.addExtKeywords(newElements)
     }
     
-    /**
-     * This method allows to remove specific keyword from adunit targeting
-     */
+    /// This method allows to remove specific keyword from adunit targeting
     public func removeExtKeyword(_ element: String) {
         adUnitConfig.removeExtKeyword(element)
     }
     
-    /**
-     * This method allows to remove all keywords from the set of adunit targeting
-     */
+    /// This method allows to remove all keywords from the set of adunit targeting
     public func clearExtKeywords() {
         adUnitConfig.clearExtKeywords()
     }
@@ -335,75 +327,109 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     // MARK: - App Content (app.content.data)
     
+    /// Sets the app content object, replacing any existing content.
+    ///
+    /// - Parameter appContentObject: The `PBMORTBAppContent` object representing the app's content.
     public func setAppContent(_ appContentObject: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContentObject)
     }
     
+    /// Retrieves the current app content object.
+    ///
+    /// - Returns: The current `PBMORTBAppContent` object, or `nil` if no content is set.
     public func getAppContent() -> PBMORTBAppContent? {
         return adUnitConfig.getAppContent()
     }
     
+    /// Clears the current app content object.
     public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
     
+    /// Adds an array of content data objects to the app content.
+    ///
+    /// - Parameter dataObjects: An array of `PBMORTBContentData` objects to add.
     public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
     
+    /// Removes a specific content data object from the app content.
+    ///
+    /// - Parameter dataObject: The `PBMORTBContentData` object to remove.
     public func removeAppContentData(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
+    /// Clears all content data objects from the app content.
     public func clearAppContentData() {
         adUnitConfig.clearAppContentData()
     }
     
     // MARK: - User Data (user.data)
     
+    /// Retrieves the current user data.
+    ///
+    /// - Returns: An array of `PBMORTBContentData` objects representing the user data, or `nil` if no data is available.
     public func getUserData() -> [PBMORTBContentData]? {
         return adUnitConfig.getUserData()
     }
     
+    /// Adds an array of user data objects.
+    ///
+    /// - Parameter userDataObjects: An array of `PBMORTBContentData` objects to add to the user data.
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
     
+    /// Removes a specific user data object.
+    ///
+    /// - Parameter userDataObject: The `PBMORTBContentData` object to remove from the user data.
     public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
+    /// Clears all user data.
     public func clearUserData() {
         adUnitConfig.clearUserData()
     }
     
     // MARK: GPID
     
+    /// Sets the GPID for the ad unit.
+    ///
+    /// - Parameter gpid: The GPID string to set. Can be `nil` to clear the GPID.
     public func setGPID(_ gpid: String?) {
         adUnitConfig.gpid = gpid
     }
     
+    /// Retrieves the current GPID for the ad unit.
+    ///
+    /// - Returns: The GPID string, or `nil` if no GPID is set.
     public func getGPID() -> String? {
         return adUnitConfig.gpid
     }
     
     // MARK: Global ORTBObject
     
+    /// Sets the OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The OpenRTB configuration string to set. Can be `nil` to clear the configuration.
     public func setOrtbConfig(_ ortbObject: String?) {
         adUnitConfig.ortbConfig = ortbObject
     }
     
+    /// Retrieves the current OpenRTB configuration string for the ad unit.
+    ///
+    /// - Returns: The OpenRTB configuration string, or `nil` if no configuration is set.
     public func getOrtbConfig() -> String? {
         return adUnitConfig.ortbConfig
     }
     
     // MARK: - others
     
-    /**
-     * This method allows to set the auto refresh period for the demand
-     *
-     * - Parameter time: refresh time interval
-     */
+    
+     /// This method allows to set the auto refresh period for the demand
+     /// - Parameter time: refresh time interval
     public func setAutoRefreshMillis(time: Double) {
         
         guard checkRefreshTime(time) else {
@@ -425,13 +451,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
         }
     }
     
-    /**
-     * This method stops the auto refresh of demand
-     */
+    /// This method stops the auto refresh of demand
     public func stopAutoRefresh() {
         stopDispatcher()
     }
     
+    /// This method resumes the auto refresh of demand
     public func resumeAutoRefresh() {
         if dispatcher?.state == .stopped {
             if isInitialFetchDemandCallMade {

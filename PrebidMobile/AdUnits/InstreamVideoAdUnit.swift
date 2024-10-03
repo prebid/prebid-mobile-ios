@@ -15,13 +15,18 @@
 
 import UIKit
 
+/// Represents an instream video ad unit for original type of integration.
 public class InstreamVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
     
+    /// The video parameters for this ad unit.
     public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
         set { adUnitConfig.adConfiguration.videoParameters = newValue }
     }
-      
+    
+    /// Initializes a new instream video ad unit.
+    /// - Parameter configId: The unique identifier for the ad unit configuration.
+    /// - Parameter size: The size of the ad.
     public init(configId: String, size: CGSize) {
         super.init(configId: configId, size: size, adFormats: [.video])
     }

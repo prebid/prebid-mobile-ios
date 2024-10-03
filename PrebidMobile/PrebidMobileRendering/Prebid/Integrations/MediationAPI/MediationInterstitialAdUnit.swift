@@ -16,31 +16,38 @@
 import Foundation
 import UIKit
 
+/// This class is responsible for making bid request and providing the winning bid and targeting keywords to mediating SDKs.
+/// This class is a part of Mediation API.
 @objcMembers
-public class MediationInterstitialAdUnit : MediationBaseInterstitialAdUnit {
+public class MediationInterstitialAdUnit: MediationBaseInterstitialAdUnit {
     
     // MARK: - Public Properties
     
+    /// The ad format for the ad unit.
     public var adFormats: Set<AdFormat> {
         get { adUnitConfig.adFormats }
         set { adUnitConfig.adFormats = newValue }
     }
     
+    /// Additional sizes for the ad unit.
     public var additionalSizes: [CGSize]? {
         get { adUnitConfig.additionalSizes }
         set { adUnitConfig.additionalSizes = newValue }
     }
     
+    /// The area for the skip button in the video ad.
     public var skipButtonArea: Double {
         get { adUnitConfig.adConfiguration.videoControlsConfig.skipButtonArea }
         set { adUnitConfig.adConfiguration.videoControlsConfig.skipButtonArea = newValue }
     }
     
+    /// The position of the skip button in the video ad.
     public var skipButtonPosition: Position {
         get { adUnitConfig.adConfiguration.videoControlsConfig.skipButtonPosition }
         set { adUnitConfig.adConfiguration.videoControlsConfig.skipButtonPosition = newValue }
     }
     
+    /// The delay before the skip button appears in the video ad.
     public var skipDelay: Double {
         get { adUnitConfig.adConfiguration.videoControlsConfig.skipDelay }
         set { adUnitConfig.adConfiguration.videoControlsConfig.skipDelay = newValue }
@@ -48,10 +55,19 @@ public class MediationInterstitialAdUnit : MediationBaseInterstitialAdUnit {
     
     // MARK: - Public Methods
     
+    /// Convenience initializer for the mediation interstitial ad unit.
+    /// - Parameters:
+    ///   - configId: The unique identifier for the ad unit configuration.
+    ///   - mediationDelegate: The delegate for handling mediation.
     public override convenience init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         self.init(configId: configId, minSizePercentage: nil, mediationDelegate: mediationDelegate)
     }
     
+    /// Initializes a new mediation interstitial ad unit with the specified configuration ID, minimum size percentage, and mediation delegate.
+    /// - Parameters:
+    ///   - configId: The unique identifier for the ad unit configuration.
+    ///   - minSizePercentage: The minimum size percentage for the ad.
+    ///   - mediationDelegate: The delegate for handling mediation.
     public init(configId: String, minSizePercentage: CGSize?, mediationDelegate: PrebidMediationDelegate) {
         super.init(configId: configId, mediationDelegate: mediationDelegate)
         
@@ -62,6 +78,7 @@ public class MediationInterstitialAdUnit : MediationBaseInterstitialAdUnit {
     
     // MARK: - Computed Properties
     
+    /// The configuration ID for the ad unit.
     public override var configId: String {
         adUnitConfig.configId
     }
