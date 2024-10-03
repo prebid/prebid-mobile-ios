@@ -131,7 +131,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         displayProperties.closeDelayLeft = 3
         
         let adConfiguration = AdConfiguration()
-        adConfiguration.isOptIn = true
+        adConfiguration.isRewarded = true
         
         let modalState = PBMModalState(view: UIView(), adConfiguration: adConfiguration, displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil)
         controller.modalState = modalState

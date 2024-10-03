@@ -162,7 +162,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
         let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = videoFileURL
         model.displayDurationInSeconds = 6
-        model.adConfiguration?.isOptIn = true
+        model.adConfiguration?.isRewarded = true
         
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadVideoData")
         

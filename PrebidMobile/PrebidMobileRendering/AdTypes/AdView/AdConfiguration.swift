@@ -73,7 +73,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     public var size = CGSize.zero
     
     /**
-     Sets a video interstitial ad unit as an opt-in video
+     Sets an ad unit as an rewarded
      */
     public var isOptIn = false
     

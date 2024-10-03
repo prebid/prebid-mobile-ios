@@ -185,7 +185,7 @@
         nextImp.impID = [NSUUID UUID].UUIDString;
         nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
-        nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
+        nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isRewarded;
         nextImp.extGPID = self.adConfiguration.gpid;
         
         if ([self.adConfiguration getExtData].count > 0) {

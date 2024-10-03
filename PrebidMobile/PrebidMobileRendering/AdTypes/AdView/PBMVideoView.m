@@ -157,7 +157,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     self.accessibilityIdentifier = @"PBMVideoView";
     
     if (!self.creative.creativeModel.adConfiguration.isInterstitialAd ||
-        (self.creative.creativeModel.adConfiguration.isOptIn && !self.creative.creativeModel.hasCompanionAd)) {
+        (self.creative.creativeModel.adConfiguration.isRewarded && !self.creative.creativeModel.hasCompanionAd)) {
         [self setupTapRecognizer];
     }
     
@@ -220,7 +220,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
     
     // For rewarded ad learn more should be hidden
-    if (self.creative.creativeModel.adConfiguration.isOptIn) {
+    if (self.creative.creativeModel.adConfiguration.isRewarded) {
         self.showLearnMore = NO;
         return;
     }
@@ -355,7 +355,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         [self.progressBar removeFromSuperview];
     }
     
-    if (!self.creative.creativeModel.adConfiguration.isOptIn) {
+    if (!self.creative.creativeModel.adConfiguration.isRewarded) {
         return;
     }
     
@@ -493,7 +493,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
     
-    if (!self.creative.creativeModel.hasCompanionAd || self.creative.creativeModel.adConfiguration.isOptIn || self.creative.creativeModel.adConfiguration.isBuiltInVideo) {
+    if (!self.creative.creativeModel.hasCompanionAd || self.creative.creativeModel.adConfiguration.isRewarded || self.creative.creativeModel.adConfiguration.isBuiltInVideo) {
         return;
     }
     
@@ -638,7 +638,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         }];
     }
     
-    if (self.creative.creativeModel.adConfiguration.isOptIn) {
+    if (self.creative.creativeModel.adConfiguration.isRewarded) {
         self.progressBar.duration = [self requiredVideoDuration];
     }
 }
@@ -759,7 +759,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     
     [self.videoViewDelegate videoViewCompletedDisplay];
     
-    if (self.creative.creativeModel.adConfiguration.isOptIn) {
+    if (self.creative.creativeModel.adConfiguration.isRewarded) {
         self.progressBar.hidden = YES;
     }
     
@@ -829,7 +829,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     CGFloat playingTime = CMTimeGetSeconds(currentTime);
     CGFloat remainingTime = [self requiredVideoDuration] - playingTime;
 
-    if (self.creative.creativeModel.adConfiguration.isOptIn) {
+    if (self.creative.creativeModel.adConfiguration.isRewarded) {
         [self.progressBar updateProgress:remainingTime];
     }
     

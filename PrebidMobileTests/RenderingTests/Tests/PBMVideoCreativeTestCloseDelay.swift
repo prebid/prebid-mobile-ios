@@ -27,7 +27,7 @@ class PBMVideoCreativeTestCloseDelay : XCTestCase {
         model.displayDurationInSeconds = 10
         
         //if model is opt in or has companion ad - return display duration
-        model.adConfiguration?.isOptIn = true
+        model.adConfiguration?.isRewarded = true
         model.hasCompanionAd = true
         
         expected = 10
@@ -35,7 +35,7 @@ class PBMVideoCreativeTestCloseDelay : XCTestCase {
         PBMAssertEq(actual, expected)
         
         //reset
-        model.adConfiguration?.isOptIn = false
+        model.adConfiguration?.isRewarded = false
         model.hasCompanionAd = false
         
         //for video without end cart use skip delay

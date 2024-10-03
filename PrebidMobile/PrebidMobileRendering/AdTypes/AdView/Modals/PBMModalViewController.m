@@ -242,7 +242,7 @@
 - (void)setupCloseButtonVisibility {
     // Set the close button view visibilty based on th view context (i.e. normal, clickthrough browser, rewarded video)
     [self.closeButtonDecorator bringButtonToFront];
-    if (self.modalState.adConfiguration.isOptIn) {
+    if (self.modalState.adConfiguration.isRewarded) {
         return; // Must be hidden
     }
     else if (self.displayProperties && self.displayProperties.closeDelay > 0) {
@@ -260,7 +260,7 @@
 }
 
 - (void)creativeDisplayCompleted:(PBMAbstractCreative *)creative {
-    if (self.modalState.adConfiguration.isOptIn) {
+    if (self.modalState.adConfiguration.isRewarded) {
         self.closeButtonDecorator.button.hidden = NO;
     }
 }

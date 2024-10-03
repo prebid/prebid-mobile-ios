@@ -288,7 +288,7 @@
 
 // TODO: - Clarify the requirements and fix calculation logic
 - (NSTimeInterval)calculateCloseDelayForPubCloseDelay:(NSTimeInterval)pubCloseDelay {
-    if (self.creativeModel.adConfiguration.isOptIn || self.creativeModel.hasCompanionAd) {
+    if (self.creativeModel.adConfiguration.isRewarded || self.creativeModel.hasCompanionAd) {
         return [self.creativeModel.displayDurationInSeconds doubleValue];
     } else if (self.creativeModel.adConfiguration.videoControlsConfig.skipDelay && self.creativeModel.adConfiguration.videoControlsConfig.skipDelay <= self.creativeModel.displayDurationInSeconds.doubleValue) {
         return self.creativeModel.adConfiguration.videoControlsConfig.skipDelay;

@@ -118,7 +118,7 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
         interstitialController = InterstitialController(bid: bid, configId: configId)
         interstitialController?.loadingDelegate = self
         interstitialController?.interactionDelegate = self
-        interstitialController?.isOptIn = true
+        interstitialController?.isRewarded = true
         
         if let videoAdConfig = parameters.localExtraParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
             interstitialController?.videoControlsConfig = videoAdConfig

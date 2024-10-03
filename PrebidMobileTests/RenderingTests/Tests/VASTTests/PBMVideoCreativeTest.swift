@@ -231,7 +231,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         let mockModalManager = MockModalManager()
         self.videoCreative.modalManager = mockModalManager
         self.videoCreative.creativeModel?.hasCompanionAd = false
-        self.videoCreative.creativeModel?.adConfiguration?.isOptIn = false
+        self.videoCreative.creativeModel?.adConfiguration?.isRewarded = false
         self.videoCreative.creativeModel?.adConfiguration?.videoControlsConfig.skipDelay = 1000
         mockModalManager.mock_pushModalClosure = { (modalState, _, _, _, completionHandler) in
             expectation.fulfill()

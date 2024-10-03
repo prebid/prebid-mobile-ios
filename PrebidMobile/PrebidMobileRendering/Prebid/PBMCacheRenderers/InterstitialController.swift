@@ -25,10 +25,10 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         set { adConfiguration.adFormats = newValue }
     }
     
-    /// Sets a video interstitial ad unit as an opt-in video
-    @objc public var isOptIn: Bool {
-        get { adConfiguration.adConfiguration.isOptIn }
-        set { adConfiguration.adConfiguration.isOptIn = newValue }
+    /// Sets an ad unit as a rewarded
+    @objc public var isRewarded: Bool {
+        get { adConfiguration.adConfiguration.isRewarded }
+        set { adConfiguration.adConfiguration.isRewarded = newValue }
     }
     
     @objc public var videoControlsConfig: VideoControlsConfiguration {
@@ -173,7 +173,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
                                          modalManagerDelegate: nil)
         adViewManager?.adViewManagerDelegate = self
         adViewManager?.adConfiguration.isInterstitialAd = true
-        adViewManager?.adConfiguration.isOptIn = adConfiguration.adConfiguration.isOptIn
+        adViewManager?.adConfiguration.isRewarded = adConfiguration.adConfiguration.isRewarded
         adViewManager?.handleExternalTransaction(transaction)
     }
 }

@@ -209,7 +209,7 @@
 }
 
 - (void)creativeInterstitialDidClose:(PBMAbstractCreative *) creative {
-    if (self.adConfiguration.isOptIn) {
+    if (self.adConfiguration.isRewarded) {
         // In Rewarded Video, the Video remains on the screen with the last frame showing.
         // Cleaning up here when the Interstial is closed.;
         if (self.currentCreative.view && self.currentCreative.view.superview) {

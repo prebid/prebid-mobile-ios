@@ -81,7 +81,7 @@ public class PrebidAdMobRewardedVideoAdapter:
         interstitialController?.loadingDelegate = self
         interstitialController?.interactionDelegate = self
         interstitialController?.adFormats = [.video]
-        interstitialController?.isOptIn = true
+        interstitialController?.isRewarded = true
         
         if let videoAdConfig = eventExtrasDictionary[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
             interstitialController?.videoControlsConfig = videoAdConfig
