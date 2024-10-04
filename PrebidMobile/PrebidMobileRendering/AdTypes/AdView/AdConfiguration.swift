@@ -141,5 +141,4 @@ public class AdConfiguration: AutoRefreshCountConfig {
         }
         return [:]
     }
-    
 }

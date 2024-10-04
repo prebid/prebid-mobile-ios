@@ -70,8 +70,11 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
             Prebid.shared.storedAuctionResponse = storedAuctionResponse
         }
 
-        interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
-                                                       minSizePercentage: CGSize(width: 30, height: 30))
+        interstitialController = InterstitialRenderingAdUnit(
+            configID: prebidConfigId,
+            minSizePercentage: CGSize(width: 30, height: 30)
+        )
+        
         interstitialController?.delegate = self
         
         // Custom video configuarion

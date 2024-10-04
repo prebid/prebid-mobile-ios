@@ -13,31 +13,44 @@
   limitations under the License.
   */
 
-
 import XCTest
-import PrebidMobile
+@testable import PrebidMobile
 
 class BaseInterstitialAdUnitTest: XCTestCase {
 
     func testCloseButtonArea() {
-        let adUnit = BaseInterstitialAdUnit(configID: "test")
-        XCTAssertTrue(adUnit.closeButtonArea == 0.1)
+        let adUnit = BaseInterstitialAdUnit(
+            configID: "test",
+            minSizePerc: nil,
+            eventHandler: InterstitialEventHandlerStandalone()
+        )
         
-        adUnit.closeButtonArea = 1.1
-        XCTAssertTrue(adUnit.closeButtonArea == 0.1)
+        let videoConfig = adUnit.adUnitConfig.adConfiguration.videoControlsConfig
         
-        adUnit.closeButtonArea = -0.1
-        XCTAssertTrue(adUnit.closeButtonArea == 0.1)
+        XCTAssertTrue(videoConfig.closeButtonArea == 0.1)
         
-        adUnit.closeButtonArea = 0.25
-        XCTAssertTrue(adUnit.closeButtonArea == 0.25)
+        videoConfig.closeButtonArea = 1.1
+        XCTAssertTrue(videoConfig.closeButtonArea == 0.1)
+        
+        videoConfig.closeButtonArea = -0.1
+        XCTAssertTrue(videoConfig.closeButtonArea == 0.1)
+        
+        videoConfig.closeButtonArea = 0.25
+        XCTAssertTrue(videoConfig.closeButtonArea == 0.25)
     }
     
     func testCloseButtonPosition() {
-        let adUnit = BaseInterstitialAdUnit(configID: "test")
-        XCTAssertEqual(adUnit.closeButtonPosition, .topRight)
+        let adUnit = BaseInterstitialAdUnit(
+            configID: "test",
+            minSizePerc: nil,
+            eventHandler: InterstitialEventHandlerStandalone()
+        )
         
-        adUnit.closeButtonPosition = .topLeft
-        XCTAssertEqual(adUnit.adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition, .topLeft)
+        let videoConfig = adUnit.adUnitConfig.adConfiguration.videoControlsConfig
+        
+        XCTAssertEqual(videoConfig.closeButtonPosition, .topRight)
+        
+        videoConfig.closeButtonPosition = .topLeft
+        XCTAssertEqual(videoConfig.closeButtonPosition, .topLeft)
     }
 }

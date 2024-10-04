@@ -63,7 +63,11 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testAdPositionFullScreen() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let interstitialAdUnit = InterstitialRenderingAdUnit(configID: configId)
+        let interstitialAdUnit = BaseInterstitialAdUnit(
+            configID: configId,
+            minSizePerc: nil,
+            eventHandler: InterstitialEventHandlerStandalone()
+        )
         
         let bidRequest = buildBidRequest(with: interstitialAdUnit.adUnitConfig)
         
@@ -396,7 +400,12 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual(imp.banner?.api, apiSignalsAsNumbers)
         }
         
-        let redenderingInterstitialAdUnit = BaseInterstitialAdUnit(configID: "configID")
+        let redenderingInterstitialAdUnit = BaseInterstitialAdUnit(
+            configID: "configID",
+            minSizePerc: nil,
+            eventHandler: InterstitialEventHandlerStandalone()
+        )
+        
         bidRequest = buildBidRequest(with: redenderingInterstitialAdUnit.adUnitConfig)
         
         bidRequest.imp.forEach {
@@ -583,8 +592,14 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
 
     func testParameterBuilderInterstitialVAST() {
-        let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
-        adUnit.adFormats = [.video]
+        let adUnit = BaseInterstitialAdUnit(
+            configID: "configID",
+            minSizePerc: nil,
+            eventHandler: InterstitialEventHandlerStandalone()
+        )
+        
+        adUnit.adUnitConfig.adFormats = [.video]
+        
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
         let parameters = VideoParameters(mimes: [])
         parameters.placement = .Interstitial

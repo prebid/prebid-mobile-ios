@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objc public protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
+@objc protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
 
     @objc func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController)
 
@@ -33,4 +33,6 @@ import UIKit
     @objc func callEventHandler_requestAd(with bidResponse: BidResponse?)
     @objc func callEventHandler_show(from controller: UIViewController?)
     @objc func callEventHandler_trackImpression()
+    
+    @objc optional func callDelegate_rewardedAdUserDidEarnReward(reward: PrebidReward)
 }

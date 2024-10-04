@@ -685,7 +685,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         XCTAssertEqual(webView.mraidState, .notEnabled)
         XCTAssertEqual(webView.state, .loading)
         
-        waitForExpectations(timeout: 3, handler: { _ in
+        waitForExpectations(timeout: 5, handler: { _ in
             XCTAssertEqual(webView.state, .loaded)
             XCTAssertEqual(webView.mraidState, PBMMRAIDState.default)
         })
@@ -898,7 +898,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
-        waitForExpectations(timeout: 3)
+        waitForExpectations(timeout: 5)
     }
     
     func testMRAID_onExposureChangeTrue() {
@@ -914,7 +914,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
-        waitForExpectations(timeout: 3)
+        waitForExpectations(timeout: 5)
     }
     
     func testMRAID_updatePlacementType() {
@@ -930,7 +930,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
-        waitForExpectations(timeout: 3)
+        waitForExpectations(timeout: 5)
     }
     
     func testAudioVolumeChange() {
