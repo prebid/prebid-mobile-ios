@@ -17,7 +17,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMFunctions+Testing.h"
 
-#import "PBMConstants.h"
 #import "PBMError.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -229,6 +228,18 @@ static NSString * const PBMPlistExt = @"plist";
     }
     
     return [jsonString stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+}
+
++ (nullable NSArray<PBMJsonDictionary *> *)dictionariesForPassthrough:(id)passthrough {
+    if ([passthrough isKindOfClass:[NSArray<PBMJsonDictionary*> class]]) {
+        NSArray<PBMJsonDictionary *> *response = passthrough;
+        return response;
+    } else if ([passthrough isKindOfClass:[PBMJsonDictionary class]]) {
+        NSDictionary *response = passthrough;
+        return @[response];
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - SDK Info
