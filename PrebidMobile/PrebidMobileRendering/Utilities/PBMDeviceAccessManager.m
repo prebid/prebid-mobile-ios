@@ -52,7 +52,7 @@
     self = [super init];
     if (self) {
         self.rootViewController = viewController;
-        
+
         _locale = (locale) ? locale : [NSLocale autoupdatingCurrentLocale];
     }
     return self;
@@ -87,7 +87,7 @@
     sysctlbyname("hw.machine", machine, &size, NULL, 0);
     NSString *platform = [NSString stringWithUTF8String:machine];
     free(machine);
-    
+
     return platform;
 }
 
@@ -128,11 +128,11 @@
 @implementation UIAlertController (PBMPrivate)
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
 }
 
 - (BOOL)shouldAutorotate {
-    return false;
+    return true;
 }
 
 @end
