@@ -2050,6 +2050,22 @@ struct TestCaseManager {
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
+            TestCase(title: "Video Rewarded Endcard Time 320x480 (In-App)",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                
+                rewardedAdController.prebidConfigId = "prebid-video-rewarded-endcard-time"
+                adapterVC.setup(adapter: rewardedAdController)
+                        
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
             // MARK: ---- Video Rewarded (GAM) ----
             
             TestCase(title: "Video Rewarded 320x480 (GAM) [OK, Metadata]",
