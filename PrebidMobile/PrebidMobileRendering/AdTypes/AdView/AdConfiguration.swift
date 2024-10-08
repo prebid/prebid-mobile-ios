@@ -94,6 +94,9 @@ public class AdConfiguration: AutoRefreshCountConfig {
      */
     public lazy var videoControlsConfig = VideoControlsConfiguration()
     
+    /// Server-side configuration for rewarded ads (bid.ext.rwdd)
+    public var rewardedConfig: RewardedConfig?
+    
     // MARK: - Impression Tracking
     
     public var pollFrequency: TimeInterval = 0.2

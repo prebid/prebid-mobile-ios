@@ -78,6 +78,21 @@
 		533E0FB929100076000CC24F /* MockGADMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FB829100076000CC24F /* MockGADMobileAds.swift */; };
 		533FDF852A12030C0066ED5A /* MockPrebidJSLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */; };
 		5347473B2BFB4D3D00966658 /* UserAgentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5347473A2BFB4D3D00966658 /* UserAgentService.swift */; };
+		534C611F2CB5252C0026119A /* PBMORTBRewardedConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 534C611D2CB5252C0026119A /* PBMORTBRewardedConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		534C61202CB5252C0026119A /* PBMORTBRewardedConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 534C611E2CB5252C0026119A /* PBMORTBRewardedConfiguration.m */; };
+		534C61232CB526CE0026119A /* PBMORTBRewardedReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 534C61212CB526CE0026119A /* PBMORTBRewardedReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		534C61242CB526CE0026119A /* PBMORTBRewardedReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 534C61222CB526CE0026119A /* PBMORTBRewardedReward.m */; };
+		534C61272CB5279C0026119A /* PBMORTBRewardedCompletionBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 534C61252CB5279C0026119A /* PBMORTBRewardedCompletionBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		534C61282CB5279C0026119A /* PBMORTBRewardedCompletionBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 534C61262CB5279C0026119A /* PBMORTBRewardedCompletionBanner.m */; };
+		534C612D2CB527F80026119A /* PBMORTBRewardedCompletionVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = 534C612B2CB527F80026119A /* PBMORTBRewardedCompletionVideo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		534C612E2CB527F80026119A /* PBMORTBRewardedCompletionVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 534C612C2CB527F80026119A /* PBMORTBRewardedCompletionVideo.m */; };
+		534C61312CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.h in Headers */ = {isa = PBXBuildFile; fileRef = 534C612F2CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		534C61322CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.m in Sources */ = {isa = PBXBuildFile; fileRef = 534C61302CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.m */; };
+		534C61352CB529240026119A /* PBMORTBRewardedClose.h in Headers */ = {isa = PBXBuildFile; fileRef = 534C61332CB529240026119A /* PBMORTBRewardedClose.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		534C61362CB529240026119A /* PBMORTBRewardedClose.m in Sources */ = {isa = PBXBuildFile; fileRef = 534C61342CB529240026119A /* PBMORTBRewardedClose.m */; };
+		534C61392CB52A4E0026119A /* PBMORTBRewardedCompletion.h in Headers */ = {isa = PBXBuildFile; fileRef = 534C61372CB52A4E0026119A /* PBMORTBRewardedCompletion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		534C613A2CB52A4E0026119A /* PBMORTBRewardedCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = 534C61382CB52A4E0026119A /* PBMORTBRewardedCompletion.m */; };
+		534C613C2CB536F00026119A /* RewardedConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C613B2CB536F00026119A /* RewardedConfig.swift */; };
 		5355ACA929C454070014F16E /* VAST_with_empty_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */; };
 		5355ACAB29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */; };
 		536A39262A84C50F00B1CCEA /* StringExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */; };
@@ -942,6 +957,21 @@
 		533E0FB829100076000CC24F /* MockGADMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGADMobileAds.swift; sourceTree = "<group>"; };
 		533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPrebidJSLibraryManager.swift; sourceTree = "<group>"; };
 		5347473A2BFB4D3D00966658 /* UserAgentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentService.swift; sourceTree = "<group>"; };
+		534C611D2CB5252C0026119A /* PBMORTBRewardedConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRewardedConfiguration.h; sourceTree = "<group>"; };
+		534C611E2CB5252C0026119A /* PBMORTBRewardedConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRewardedConfiguration.m; sourceTree = "<group>"; };
+		534C61212CB526CE0026119A /* PBMORTBRewardedReward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRewardedReward.h; sourceTree = "<group>"; };
+		534C61222CB526CE0026119A /* PBMORTBRewardedReward.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRewardedReward.m; sourceTree = "<group>"; };
+		534C61252CB5279C0026119A /* PBMORTBRewardedCompletionBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRewardedCompletionBanner.h; sourceTree = "<group>"; };
+		534C61262CB5279C0026119A /* PBMORTBRewardedCompletionBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRewardedCompletionBanner.m; sourceTree = "<group>"; };
+		534C612B2CB527F80026119A /* PBMORTBRewardedCompletionVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRewardedCompletionVideo.h; sourceTree = "<group>"; };
+		534C612C2CB527F80026119A /* PBMORTBRewardedCompletionVideo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRewardedCompletionVideo.m; sourceTree = "<group>"; };
+		534C612F2CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRewardedCompletionVideoEndcard.h; sourceTree = "<group>"; };
+		534C61302CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRewardedCompletionVideoEndcard.m; sourceTree = "<group>"; };
+		534C61332CB529240026119A /* PBMORTBRewardedClose.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRewardedClose.h; sourceTree = "<group>"; };
+		534C61342CB529240026119A /* PBMORTBRewardedClose.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRewardedClose.m; sourceTree = "<group>"; };
+		534C61372CB52A4E0026119A /* PBMORTBRewardedCompletion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRewardedCompletion.h; sourceTree = "<group>"; };
+		534C61382CB52A4E0026119A /* PBMORTBRewardedCompletion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRewardedCompletion.m; sourceTree = "<group>"; };
+		534C613B2CB536F00026119A /* RewardedConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedConfig.swift; sourceTree = "<group>"; };
 		5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_empty_companion.xml; sourceTree = "<group>"; };
 		5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModelCollectionMakerVASTTests.swift; sourceTree = "<group>"; };
 		536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTest.swift; sourceTree = "<group>"; };
@@ -2503,6 +2533,20 @@
 				924F661727FDB79C00C8DAF7 /* PBMORTBExtPrebidPassthrough.h */,
 				924F661D27FDBC3100C8DAF7 /* PBMORTBExtPrebidPassthrough.m */,
 				5BC3781C271F1CFF00444D5E /* PBMORTBPrebid.h */,
+				534C61332CB529240026119A /* PBMORTBRewardedClose.h */,
+				534C61342CB529240026119A /* PBMORTBRewardedClose.m */,
+				534C61372CB52A4E0026119A /* PBMORTBRewardedCompletion.h */,
+				534C61382CB52A4E0026119A /* PBMORTBRewardedCompletion.m */,
+				534C61252CB5279C0026119A /* PBMORTBRewardedCompletionBanner.h */,
+				534C61262CB5279C0026119A /* PBMORTBRewardedCompletionBanner.m */,
+				534C612B2CB527F80026119A /* PBMORTBRewardedCompletionVideo.h */,
+				534C612C2CB527F80026119A /* PBMORTBRewardedCompletionVideo.m */,
+				534C612F2CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.h */,
+				534C61302CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.m */,
+				534C611D2CB5252C0026119A /* PBMORTBRewardedConfiguration.h */,
+				534C611E2CB5252C0026119A /* PBMORTBRewardedConfiguration.m */,
+				534C61212CB526CE0026119A /* PBMORTBRewardedReward.h */,
+				534C61222CB526CE0026119A /* PBMORTBRewardedReward.m */,
 				53A657AE2A8B64B300AE0B4F /* PBMORTBSDKConfiguration.h */,
 				53A657AF2A8B64C200AE0B4F /* PBMORTBSDKConfiguration.m */,
 				92664564272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h */,
@@ -2560,6 +2604,7 @@
 				5BC37853271F1CFF00444D5E /* RewardedEventHandlerProtocol.swift */,
 				5BC37846271F1CFF00444D5E /* RewardedEventInteractionDelegate.swift */,
 				5BC3784F271F1CFF00444D5E /* RewardedEventLoadingDelegate.swift */,
+				534C613B2CB536F00026119A /* RewardedConfig.swift */,
 			);
 			path = GAM;
 			sourceTree = "<group>";
@@ -3404,6 +3449,7 @@
 				5BC37ACC271F1D0100444D5E /* PBMORTBParameterBuilder.h in Headers */,
 				5BC37A70271F1D0000444D5E /* PBMORTBAbstractResponse+Protected.h in Headers */,
 				5BC379AA271F1D0000444D5E /* PBMModalViewControllerDelegate.h in Headers */,
+				534C61272CB5279C0026119A /* PBMORTBRewardedCompletionBanner.h in Headers */,
 				5BC3791F271F1CFF00444D5E /* PBMDeviceAccessManagerKeys.h in Headers */,
 				5BC378D2271F1CFF00444D5E /* PBMORTBBanner.h in Headers */,
 				5BC37987271F1D0000444D5E /* PBMCreativeModelMakerResult.h in Headers */,
@@ -3462,6 +3508,7 @@
 				5BC379B8271F1D0000444D5E /* PBMAdViewManager.h in Headers */,
 				5BC379B3271F1D0000444D5E /* PBMVideoViewDelegate.h in Headers */,
 				5BC378F2271F1CFF00444D5E /* PBMORTBAbstract.h in Headers */,
+				534C611F2CB5252C0026119A /* PBMORTBRewardedConfiguration.h in Headers */,
 				5BC37AA0271F1D0000444D5E /* PBMAdLoaderFlowDelegate.h in Headers */,
 				5BC3794F271F1D0000444D5E /* PBMErrorType.h in Headers */,
 				5BC37928271F1CFF00444D5E /* PBMDownloadDataHelper.h in Headers */,
@@ -3472,6 +3519,7 @@
 				5BC379D8271F1D0000444D5E /* PBMDisplayView+InternalState.h in Headers */,
 				53BDBF8A293F605B004B6DE8 /* InternalUserConsentDataManager.h in Headers */,
 				5BC37A6B271F1D0000444D5E /* PBMORTBNoBidReason.h in Headers */,
+				534C61392CB52A4E0026119A /* PBMORTBRewardedCompletion.h in Headers */,
 				5BC3799A271F1D0000444D5E /* PBMModalViewController.h in Headers */,
 				5BC37A9C271F1D0000444D5E /* PBMAdLoaderProtocol.h in Headers */,
 				5BC37AA1271F1D0000444D5E /* PBMInterstitialAdLoader.h in Headers */,
@@ -3488,6 +3536,7 @@
 				5BC37A9E271F1D0000444D5E /* PBMAdLoadFlowState.h in Headers */,
 				5BC379BD271F1D0000444D5E /* PBMAdRefreshOptions.h in Headers */,
 				5BC378F8271F1CFF00444D5E /* PBMORTBPmp.h in Headers */,
+				534C612D2CB527F80026119A /* PBMORTBRewardedCompletionVideo.h in Headers */,
 				92664565272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h in Headers */,
 				53F096CA27E917D40058C94C /* Log+Extensions.h in Headers */,
 				5BC3797F271F1D0000444D5E /* PBMMRAIDCommand.h in Headers */,
@@ -3499,6 +3548,7 @@
 				5BC37A5B271F1D0000444D5E /* PBMORTBAbstractResponse.h in Headers */,
 				5BC37909271F1CFF00444D5E /* PBMDeepLinkPlusHelper+Testing.h in Headers */,
 				5BC3799B271F1D0000444D5E /* PBMDeferredModalState.h in Headers */,
+				534C61352CB529240026119A /* PBMORTBRewardedClose.h in Headers */,
 				5BC37912271F1CFF00444D5E /* PBMConstants.h in Headers */,
 				5BC37A64271F1D0000444D5E /* PBMORTBBidResponseExt.h in Headers */,
 				5BC3794D271F1D0000444D5E /* Prebid+TestExtension.h in Headers */,
@@ -3513,6 +3563,7 @@
 				5BC3795A271F1D0000444D5E /* PBMVastResourceContainerProtocol.h in Headers */,
 				5BC37925271F1CFF00444D5E /* PBMNSThreadProtocol.h in Headers */,
 				5BC37ABC271F1D0000444D5E /* PBMOpenMeasurementSession.h in Headers */,
+				534C61312CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.h in Headers */,
 				5BC379A1271F1D0000444D5E /* PBMModalPresentationController.h in Headers */,
 				5BC378B5271F1CFF00444D5E /* PBMViewExposureChecker.h in Headers */,
 				5BC37A52271F1D0000444D5E /* PBMAdMarkupStringHandler.h in Headers */,
@@ -3577,6 +3628,7 @@
 				5BC3799D271F1D0000444D5E /* PBMTouchForwardingView.h in Headers */,
 				5BC37AD4271F1D0100444D5E /* PBMParameterBuilderProtocol.h in Headers */,
 				5BC37A19271F1D0000444D5E /* PBMBidRequesterFactoryBlock.h in Headers */,
+				534C61232CB526CE0026119A /* PBMORTBRewardedReward.h in Headers */,
 				5BC379B0271F1D0000444D5E /* PBMAutoRefreshManager.h in Headers */,
 				5BC37AD3271F1D0100444D5E /* PBMBasicParameterBuilder.h in Headers */,
 				5BC3798A271F1D0000444D5E /* PBMInterstitialDisplayProperties.h in Headers */,
@@ -4064,6 +4116,7 @@
 				9236A64E272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift in Sources */,
 				FAEE4D26262DC2B200AD9966 /* ExternalUserId.swift in Sources */,
 				5BC379A0271F1D0000444D5E /* PBMTouchForwardingView.m in Sources */,
+				534C61202CB5252C0026119A /* PBMORTBRewardedConfiguration.m in Sources */,
 				5BC378D4271F1CFF00444D5E /* PBMORTBDeviceExtAtts.m in Sources */,
 				92C85D6E27A983150080BAC5 /* NativeAdMarkup.swift in Sources */,
 				53138B2C2A7132CD00B18B5C /* PrebidGAMVersionChecker.swift in Sources */,
@@ -4079,6 +4132,8 @@
 				537B651E2833A3DA008AE9D1 /* Reachability.swift in Sources */,
 				5BC37A5D271F1D0000444D5E /* PBMORTBBidExtPrebidCache.m in Sources */,
 				5BC379DB271F1D0000444D5E /* InterstitialControllerLoadingDelegate.swift in Sources */,
+				534C61242CB526CE0026119A /* PBMORTBRewardedReward.m in Sources */,
+				534C61322CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.m in Sources */,
 				5BC3794A271F1D0000444D5E /* PBMAdDetails.m in Sources */,
 				92C85D7027A987260080BAC5 /* NativeEventTrackerResponse.swift in Sources */,
 				5BC379C7271F1D0000444D5E /* PBMVideoView.m in Sources */,
@@ -4104,6 +4159,7 @@
 				5BC3796D271F1D0000444D5E /* PBMVastCreativeNonLinearAds.m in Sources */,
 				5BC379C9271F1D0000444D5E /* PBMAdRequestResponseVAST.m in Sources */,
 				5BC378F9271F1CFF00444D5E /* PBMORTBPublisher.m in Sources */,
+				534C61362CB529240026119A /* PBMORTBRewardedClose.m in Sources */,
 				5BC379D6271F1D0000444D5E /* PBMWebView.m in Sources */,
 				92AFE57F274FCD9900B0430C /* PBMORTBAppContent.m in Sources */,
 				92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */,
@@ -4134,11 +4190,13 @@
 				5BC378AC271F1CFF00444D5E /* Gender.swift in Sources */,
 				5BC37966271F1D0000444D5E /* PBMVastCreativeCompanionAds.m in Sources */,
 				5BC379D3271F1D0000444D5E /* PBMMRAIDJavascriptCommands.m in Sources */,
+				534C613C2CB536F00026119A /* RewardedConfig.swift in Sources */,
 				5BC378B7271F1CFF00444D5E /* UIView+PBMViewExposure.m in Sources */,
 				53322AA8282E29910049229D /* EventManager.swift in Sources */,
 				531CF21927E8FC1B005E5ABE /* LogLevel.swift in Sources */,
 				FAEE4D1E262DC2B200AD9966 /* VideoInterstitialAdUnit.swift in Sources */,
 				5BC378FF271F1CFF00444D5E /* PBMORTBImpExtPrebid.m in Sources */,
+				534C612E2CB527F80026119A /* PBMORTBRewardedCompletionVideo.m in Sources */,
 				5BC37A14271F1D0000444D5E /* PBMError_Extension.swift in Sources */,
 				34C9CD602850CE6300FB5451 /* OMSDKVersionProvider.m in Sources */,
 				5BC378B3271F1CFF00444D5E /* NSException+PBMExtensions.m in Sources */,
@@ -4187,8 +4245,10 @@
 				53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */,
 				5BC378DE271F1CFF00444D5E /* PBMORTBDeviceExtPrebidInterstitial.m in Sources */,
 				5BC37A5F271F1D0000444D5E /* PBMORTBBidExtSkadn.m in Sources */,
+				534C61282CB5279C0026119A /* PBMORTBRewardedCompletionBanner.m in Sources */,
 				5BC3793A271F1D0000444D5E /* PBMLocationManager.m in Sources */,
 				5BC37AB5271F1D0000444D5E /* PBMOpenMeasurementSession.m in Sources */,
+				534C613A2CB52A4E0026119A /* PBMORTBRewardedCompletion.m in Sources */,
 				9298964B275FD3C300D3C174 /* JSONConvertible.swift in Sources */,
 				53A368E42AB2E0AA00A03B3E /* PrebidAdUnit.swift in Sources */,
 				5BC37A58271F1D0000444D5E /* PBMORTBNoBidReason.m in Sources */,

@@ -13,18 +13,19 @@
  limitations under the License.
  */
 
-import Foundation
+#import "PBMORTBAbstract.h"
+#import "PBMORTBAbstract+Protected.h"
 
-@objcMembers
-public class PrebidReward: NSObject {
-    
-    public var type: String?
-    public var count: NSNumber?
-    public var ext: [String: Any]?
-    
-    init(with ortbReward: PBMORTBRewardedReward? = nil) {
-        self.type = ortbReward?.type
-        self.count = ortbReward?.count
-        self.ext = ortbReward?.ext
-    }
-}
+NS_ASSUME_NONNULL_BEGIN
+
+@interface PBMORTBRewardedCompletionVideoEndcard : PBMORTBAbstract
+
+/// The period of time that the ad is on the screen and the user earns a reward
+@property (nonatomic, strong, nullable) NSNumber *time;
+
+/// The URL with a custom schema that will be sent by the creative and should be caught by the SDK
+@property (nonatomic, strong, nullable) NSString *event;
+
+@end
+
+NS_ASSUME_NONNULL_END

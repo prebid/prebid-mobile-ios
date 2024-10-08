@@ -13,18 +13,8 @@
  limitations under the License.
  */
 
-import Foundation
+#import "PBMORTBRewardedCompletion.h"
 
-@objcMembers
-public class PrebidReward: NSObject {
-    
-    public var type: String?
-    public var count: NSNumber?
-    public var ext: [String: Any]?
-    
-    init(with ortbReward: PBMORTBRewardedReward? = nil) {
-        self.type = ortbReward?.type
-        self.count = ortbReward?.count
-        self.ext = ortbReward?.ext
-    }
-}
+@implementation PBMORTBRewardedCompletion
+
+@end

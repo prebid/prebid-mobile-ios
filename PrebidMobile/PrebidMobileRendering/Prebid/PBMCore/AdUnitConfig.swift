@@ -318,6 +318,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot
         
+        clone.adConfiguration.rewardedConfig = self.adConfiguration.rewardedConfig
         clone.adConfiguration.winningBidAdFormat = self.adConfiguration.winningBidAdFormat
         clone.adConfiguration.adFormats = self.adConfiguration.adFormats
         clone.adConfiguration.isOriginalAPI = self.adConfiguration.isOriginalAPI

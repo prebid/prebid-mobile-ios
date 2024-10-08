@@ -13,18 +13,30 @@
  limitations under the License.
  */
 
-import Foundation
+#import "PBMORTBRewardedCompletionBanner.h"
 
-@objcMembers
-public class PrebidReward: NSObject {
-    
-    public var type: String?
-    public var count: NSNumber?
-    public var ext: [String: Any]?
-    
-    init(with ortbReward: PBMORTBRewardedReward? = nil) {
-        self.type = ortbReward?.type
-        self.count = ortbReward?.count
-        self.ext = ortbReward?.ext
+@implementation PBMORTBRewardedCompletionBanner
+
+- (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
+    if (!(self = [self init])) {
+        return nil;
     }
+    
+    _time = jsonDictionary[@"time"];
+    _event = jsonDictionary[@"event"];
+    
+    return self;
 }
+
+- (PBMJsonDictionary *)toJsonDictionary {
+    PBMMutableJsonDictionary * const ret = [[PBMMutableJsonDictionary alloc] init];
+    
+    ret[@"time"] = self.time;
+    ret[@"event"] = self.event;
+    
+    [ret pbmRemoveEmptyVals];
+    
+    return ret;
+}
+
+@end

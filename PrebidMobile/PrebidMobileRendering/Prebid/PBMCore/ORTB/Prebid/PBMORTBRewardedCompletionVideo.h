@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,23 +16,22 @@
 #import "PBMORTBAbstract.h"
 #import "PBMORTBAbstract+Protected.h"
 
-@class PBMORTBAdConfiguration;
-@class PBMORTBSDKConfiguration;
-@class PBMORTBRewardedConfiguration;
+#import "PBMORTBRewardedCompletionVideoEndcard.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMORTBExtPrebidPassthrough: PBMORTBAbstract
+@interface PBMORTBRewardedCompletionVideo : PBMORTBAbstract
 
-@property (nonatomic, copy, nullable) NSString *type;
+/// The period of time that the ad is on the screen and the user earns a reward
+@property (nonatomic, strong, nullable) NSNumber *time;
 
-@property (nonatomic, strong, nullable) PBMORTBAdConfiguration *adConfiguration;
+/// The playback part when the user earns a reward
+@property (nonatomic, strong, nullable) NSString *playbackevent;
 
-@property (nonatomic, strong, nullable) PBMORTBSDKConfiguration *sdkConfiguration;
+/// Endcard completion criteria
+@property (nonatomic, strong, nullable) PBMORTBRewardedCompletionVideoEndcard *endcard;
 
-@property (nonatomic, strong, nullable) PBMORTBRewardedConfiguration *rewardedConfiguration;
 
 @end
 
 NS_ASSUME_NONNULL_END
-

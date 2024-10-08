@@ -16,6 +16,7 @@
 #import "PBMORTBExtPrebidPassthrough.h"
 #import "PBMORTBAdConfiguration.h"
 #import "PBMORTBSDKConfiguration.h"
+#import "PBMORTBRewardedConfiguration.h"
 
 @implementation PBMORTBExtPrebidPassthrough
 
@@ -38,6 +39,12 @@
         _sdkConfiguration = [[PBMORTBSDKConfiguration alloc] initWithJsonDictionary:sdkConfigDic];
     }
     
+    PBMJsonDictionary * const rewardedConfigDic = jsonDictionary[@"rwdd"];
+    
+    if (rewardedConfigDic) {
+        _rewardedConfiguration = [[PBMORTBRewardedConfiguration alloc] initWithJsonDictionary:rewardedConfigDic];
+    }
+    
     return self;
 }
 
@@ -49,6 +56,8 @@
     ret[@"adconfiguration"] = [self.adConfiguration toJsonDictionary];
     
     ret[@"sdkconfiguration"] = [self.sdkConfiguration toJsonDictionary];
+    
+    ret[@"rwdd"] = [self.rewardedConfiguration toJsonDictionary];
     
     [ret pbmRemoveEmptyVals];
     

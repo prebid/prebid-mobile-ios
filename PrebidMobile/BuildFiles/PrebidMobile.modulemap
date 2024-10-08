@@ -157,6 +157,15 @@ framework module PrebidMobile {
     header "PBMORTBContentSegment.h"
     header "PBMORTBNative.h"
     
+    // Rewarded
+    header "PBMORTBRewardedClose.h"
+    header "PBMORTBRewardedCompletion.h"
+    header "PBMORTBRewardedCompletionBanner.h"
+    header "PBMORTBRewardedCompletionVideo.h"
+    header "PBMORTBRewardedCompletionVideoEndcard.h"
+    header "PBMORTBRewardedConfiguration.h"
+    header "PBMORTBRewardedReward.h"
+    
     header "NSDictionary+PBMExtensions.h"
     header "NSMutableDictionary+PBMExtensions.h"
     header "PBMLocationManager.h"

@@ -13,18 +13,21 @@
  limitations under the License.
  */
 
-import Foundation
+#import "PBMORTBAbstract.h"
+#import "PBMORTBAbstract+Protected.h"
 
-@objcMembers
-public class PrebidReward: NSObject {
-    
-    public var type: String?
-    public var count: NSNumber?
-    public var ext: [String: Any]?
-    
-    init(with ortbReward: PBMORTBRewardedReward? = nil) {
-        self.type = ortbReward?.type
-        self.count = ortbReward?.count
-        self.ext = ortbReward?.ext
-    }
-}
+@class PBMORTBRewardedCompletionBanner;
+@class PBMORTBRewardedCompletionVideo;
+
+NS_ASSUME_NONNULL_BEGIN
+
+/// Describes the condition when the SDK should send a signal to the application that the user has earned the reward.
+@interface PBMORTBRewardedCompletion : PBMORTBAbstract
+
+@property (nonatomic, strong, nullable) PBMORTBRewardedCompletionBanner * banner;
+
+@property (nonatomic, strong, nullable) PBMORTBRewardedCompletionVideo * video;
+
+@end
+
+NS_ASSUME_NONNULL_END

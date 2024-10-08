@@ -13,18 +13,23 @@
  limitations under the License.
  */
 
-import Foundation
+#import "PBMORTBAbstract.h"
+#import "PBMORTBAbstract+Protected.h"
 
-@objcMembers
-public class PrebidReward: NSObject {
-    
-    public var type: String?
-    public var count: NSNumber?
-    public var ext: [String: Any]?
-    
-    init(with ortbReward: PBMORTBRewardedReward? = nil) {
-        self.type = ortbReward?.type
-        self.count = ortbReward?.count
-        self.ext = ortbReward?.ext
-    }
-}
+NS_ASSUME_NONNULL_BEGIN
+
+/// Metadata provided by the publisher to describe the reward
+@interface PBMORTBRewardedReward : PBMORTBAbstract
+
+/// Type of the reward
+@property (nonatomic, strong, nullable) NSString *type;
+
+/// Amount of reward
+@property (nonatomic, strong, nullable) NSNumber *count;
+
+/// For the future extensions
+@property (nonatomic, strong, nullable) PBMJsonDictionary *ext;
+
+@end
+
+NS_ASSUME_NONNULL_END

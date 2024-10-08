@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,23 +16,20 @@
 #import "PBMORTBAbstract.h"
 #import "PBMORTBAbstract+Protected.h"
 
-@class PBMORTBAdConfiguration;
-@class PBMORTBSDKConfiguration;
-@class PBMORTBRewardedConfiguration;
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMORTBExtPrebidPassthrough: PBMORTBAbstract
+/// Describes the close behavior. How should the SDK manage the ad when it is encountered as viewed
+@interface PBMORTBRewardedClose : PBMORTBAbstract
 
-@property (nonatomic, copy, nullable) NSString *type;
+/// The time interval in seconds passed after the reward event when SDK should close the interstitial
+@property (nonatomic, strong, nullable) NSNumber *postrewardtime;
 
-@property (nonatomic, strong, nullable) PBMORTBAdConfiguration *adConfiguration;
-
-@property (nonatomic, strong, nullable) PBMORTBSDKConfiguration *sdkConfiguration;
-
-@property (nonatomic, strong, nullable) PBMORTBRewardedConfiguration *rewardedConfiguration;
+/// The action that SDK should do.
+/// Available options:
+/// - autoclose - close the interstitial;
+/// - closebutton - show the close button.
+@property (nonatomic, strong, nullable) NSString *action;
 
 @end
 
 NS_ASSUME_NONNULL_END
-
