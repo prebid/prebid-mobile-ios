@@ -209,13 +209,7 @@
 }
 
 - (void)creativeInterstitialDidClose:(PBMAbstractCreative *) creative {
-    if (self.adConfiguration.isRewarded) {
-        // In Rewarded Video, the Video remains on the screen with the last frame showing.
-        // Cleaning up here when the Interstial is closed.;
-        if (self.currentCreative.view && self.currentCreative.view.superview) {
-            [self.currentCreative.view removeFromSuperview];
-        }
-    } else if (self.adConfiguration.winningBidAdFormat == AdFormat.video) {
+    if (self.adConfiguration.winningBidAdFormat == AdFormat.video) {
         self.videoInterstitialDidClose = YES;
     }
     
@@ -282,6 +276,13 @@
     [self.adViewManagerDelegate adDidClose];
 }
 
+/// NOTE: Rewarded API only
+- (void)creativeDidSendRewardedEvent:(PBMAbstractCreative *)creative {
+    if (self.isInterstitial && self.isRewarded) {
+        [self.adViewManagerDelegate adDidSendRewardedEvent];
+    }
+}
+
 #pragma mark - Utility Functions
 
 - (PBMTransaction *)currentTransaction {
@@ -290,6 +291,10 @@
 
 - (BOOL)isInterstitial {
     return self.adConfiguration.presentAsInterstitial;
+}
+
+- (BOOL)isRewarded {
+    return self.adConfiguration.isRewarded;
 }
 
 //Do not load an ad if the current one is "opened"

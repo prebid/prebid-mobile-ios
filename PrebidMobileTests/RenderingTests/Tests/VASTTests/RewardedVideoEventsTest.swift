@@ -165,6 +165,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     func creativeInterstitialDidLeaveApp(_ creative:PBMAbstractCreative) {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
     
     //MARK: - Utility
     

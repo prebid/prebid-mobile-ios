@@ -63,6 +63,9 @@
 @property (nonatomic, strong) Prebid *sdkConfiguration;
 @property (nonatomic, strong) PBMMRAIDController *MRAIDController;
 
+@property (nonatomic, strong) PBMRewardedConfig *rewardedConfig;
+@property (nonatomic, strong, nullable) PBMBackgroundAwareTimer *backgroundAwareTimer;
+
 @end
 
 #pragma mark - Implementation
@@ -96,6 +99,8 @@
         if (webView) {
             self.prebidWebView = webView;
         }
+        
+        self.rewardedConfig = self.creativeModel.adConfiguration.rewardedConfig;
     }
     
     return self;
@@ -135,6 +140,12 @@
         self.prebidWebView.frame = rect;
     }
     
+    if (self.creativeModel.isCompanionAd) {
+        self.prebidWebView.rewardedAdURL = self.rewardedConfig.endcardEvent;
+    } else {
+        self.prebidWebView.rewardedAdURL = self.rewardedConfig.bannerEvent;
+    }
+    
     self.prebidWebView.delegate = self;
     self.view = self.prebidWebView;
     
@@ -163,8 +174,11 @@
     if (self.creativeModel.isCompanionAd == YES) {
         [self.eventManager trackEvent:PBMTrackingEventCreativeView];
 
-        // FIXME: extremly ugly. It makes creative highly coupled with modal manager. Need to split responsibilities more carefully.
-        [self.modalManager creativeDisplayCompleted:self];
+        // For rewarded we have different logic for display completion.
+        // See `setupRewardTimerIfNeeded` for more details
+        if (!self.creativeModel.adConfiguration.isRewarded) {
+            [self.modalManager creativeDisplayCompleted:self];
+        }
     }
     
     [self.viewabilityTracker start];
@@ -173,9 +187,10 @@
 - (void)onAdDisplayed {
     [super onAdDisplayed];
     [self setupDisplayTimer];
+    [self setupRewardTimerIfNeeded];
 }
 
-- (void) setupDisplayTimer {
+- (void)setupDisplayTimer {
     //Banners display for a set amount of time and then signal creativeDidComplete.
     //Interstitials display for as long as the user is enjoying their presence.
     if (self.creativeModel.adConfiguration.presentAsInterstitial) {
@@ -202,6 +217,86 @@
         }
     });
 }
+
+- (void)setupRewardTimerIfNeeded {
+    // NOTE: Rewarded API only
+    // Signal to the application that the user has earned the reward after
+    // the certain period of time that the ad is on the screen.
+    if (!self.creativeModel.adConfiguration.isRewarded) {
+        return;
+    }
+    
+    if (!self.rewardedConfig) {
+        return;
+    }
+    
+    NSTimeInterval rewardNotificationInterval = 0.0;
+    
+    if (self.creativeModel.isCompanionAd) {
+        NSNumber * videoEndcardTime = self.rewardedConfig.endcardTime;
+        NSNumber * defaultEndcardTime = self.rewardedConfig.defaultCompletionTime;
+        rewardNotificationInterval = (videoEndcardTime) ? [videoEndcardTime intValue] : [defaultEndcardTime intValue];
+    } else {
+        NSNumber * bannerEndcardTime = self.rewardedConfig.bannerTime;
+        NSNumber * defaultBannerTime = self.rewardedConfig.defaultCompletionTime;
+        rewardNotificationInterval = (bannerEndcardTime) ? [bannerEndcardTime intValue] : [defaultBannerTime intValue];
+    }
+    
+    self.backgroundAwareTimer = [PBMBackgroundAwareTimer new];
+    
+    // Track user did earn reward
+    @weakify(self);
+    [self.backgroundAwareTimer startTimerWith:rewardNotificationInterval
+                                   completion:^{
+        @strongify(self);
+        
+        if (!self) { return; }
+        
+        if (!self.creativeModel.userHasEarnedReward) {
+            self.creativeModel.userHasEarnedReward = YES;
+            [self.creativeViewDelegate creativeDidSendRewardedEvent:self];
+        }
+        
+        // Track post reward event
+        [self setupPostRewardTimer];
+    }];
+}
+
+- (void)setupPostRewardTimer {
+    // NOTE: Rewarded API only
+    // Signal to the SDK about the post reward event in order to execute close ad logic.
+    if (!self.creativeModel.adConfiguration.isRewarded) {
+        return;
+    }
+    
+    if (!self.rewardedConfig) {
+        return;
+    }
+    
+    NSTimeInterval postRewardTime = [self.rewardedConfig.postRewardTime doubleValue] ?: 0;
+    
+    if (postRewardTime < 0.0 || !self.creativeModel.userHasEarnedReward ||
+        self.creativeModel.userPostRewardEventSent) {
+        return;
+    }
+    
+    self.backgroundAwareTimer = [PBMBackgroundAwareTimer new];
+    
+    // Track user did earn reward
+    @weakify(self);
+    [self.backgroundAwareTimer startTimerWith:postRewardTime
+                                   completion:^{
+        @strongify(self);
+        
+        if (!self) { return; }
+        
+        if (!self.creativeModel.userPostRewardEventSent) {
+            self.creativeModel.userPostRewardEventSent = YES;
+            [self.modalManager creativeDisplayCompleted:self];
+        }
+    }];
+}
+
 
 // The session must be created only after WebView finishes loading
 - (void)createOpenMeasurementSession {
@@ -276,6 +371,14 @@
     }
 }
 
+- (void)webView:(PBMWebView *)webView receivedRewardedEventLink:(NSURL *)url {
+    if (!self.creativeModel.userHasEarnedReward) {
+        [self.creativeViewDelegate creativeDidSendRewardedEvent:self];
+        self.creativeModel.userHasEarnedReward = YES;
+        
+        [self setupPostRewardTimer];
+    }
+}
 
 #pragma mark - PBMModalManagerDelegate
 
@@ -290,13 +393,6 @@
     if (self.clickthroughVisible) {
         [self.creativeViewDelegate creativeClickthroughDidClose:self];
         self.clickthroughVisible = NO;
-        
-        //Pop to root after clickthroughs
-        if (self.creativeModel.adConfiguration.presentAsInterstitial) {
-            if (self.dismissInterstitialModalState) {
-                self.dismissInterstitialModalState();
-            }
-        }
         
         return;
     }

@@ -14,7 +14,32 @@
  */
 
 #import "PBMORTBRewardedCompletion.h"
+#import "PBMORTBRewardedCompletionBanner.h"
+#import "PBMORTBRewardedCompletionVideo.h"
 
 @implementation PBMORTBRewardedCompletion
+
+- (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
+    if (!(self = [self init])) {
+        return nil;
+    }
+    
+    _banner = [[PBMORTBRewardedCompletionBanner alloc] initWithJsonDictionary:jsonDictionary[@"banner"]];
+    _video = [[PBMORTBRewardedCompletionVideo alloc] initWithJsonDictionary:jsonDictionary[@"video"]];
+    
+    return self;
+}
+
+- (PBMJsonDictionary *)toJsonDictionary {
+    PBMMutableJsonDictionary * const ret = [[PBMMutableJsonDictionary alloc] init];
+    
+    ret[@"banner"] = [self.banner toJsonDictionary];
+    ret[@"video"] = [self.video toJsonDictionary];
+    
+    [ret pbmRemoveEmptyVals];
+    
+    return ret;
+}
+
 
 @end

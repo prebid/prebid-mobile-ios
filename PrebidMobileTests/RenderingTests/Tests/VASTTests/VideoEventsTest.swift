@@ -167,6 +167,7 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
     func learnMoreWasClicked() {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
     
     // MARK: - PBMVideoViewDelegate
     
@@ -178,4 +179,5 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
     }
     
     func videoWasClicked() {}
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
 }

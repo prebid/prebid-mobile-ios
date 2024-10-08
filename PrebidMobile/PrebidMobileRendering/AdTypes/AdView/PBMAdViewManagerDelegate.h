@@ -62,6 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)videoAdWasMuted;
 - (void)videoAdWasUnmuted;
 
+// Used only for rewarded API
+- (void)adDidSendRewardedEvent;
+
 @end
 NS_ASSUME_NONNULL_END
 

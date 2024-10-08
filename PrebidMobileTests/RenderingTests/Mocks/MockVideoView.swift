@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,17 +13,14 @@
   limitations under the License.
   */
 
-#import "PBMVideoView.h"
+import Foundation
+@testable import PrebidMobile
 
-@interface PBMVideoView ()
-
-@property (nonatomic, weak, nullable) PBMVideoCreative *creative;
-@property (nonatomic, strong) PBMAdViewButtonDecorator * _Nonnull skipButtonDecorator;
-@property (nonatomic, strong, nonnull) NSNumber * progressBarDuration;
-
-- (void)updateControls;
-- (CGFloat)requiredVideoDuration;
-- (void)handleSkipDelay:(NSTimeInterval)skipDelay videoDuration:(NSTimeInterval)videoDuration;
-- (NSNumber * _Nonnull)calculateProgressBarDuration;
-
-@end
+class MockVideoView: PBMVideoView {
+    
+    var mockRequiredVideoDuration: CGFloat = 10
+    
+    override func requiredVideoDuration() -> CGFloat {
+        mockRequiredVideoDuration
+    }
+}

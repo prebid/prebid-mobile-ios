@@ -311,6 +311,35 @@ class PBMORTBTest: XCTestCase {
         }
     }
     
+    func testRewardedResponse() {
+        let rewarded = PBMORTBRewardedConfiguration()
+        
+        rewarded.completion = PBMORTBRewardedCompletion()
+        
+        rewarded.completion?.banner = PBMORTBRewardedCompletionBanner()
+        rewarded.completion?.banner?.time = 5
+        rewarded.completion?.banner?.event = "rwdd"
+        
+        rewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        rewarded.completion?.video?.time = 5
+        rewarded.completion?.video?.playbackevent = "complete"
+        
+        rewarded.completion?.video?.endcard = PBMORTBRewardedCompletionVideoEndcard()
+        rewarded.completion?.video?.endcard?.time = 5
+        rewarded.completion?.video?.endcard?.event = "rwdd"
+        
+        rewarded.close = PBMORTBRewardedClose()
+        rewarded.close?.action = "closebutton"
+        rewarded.close?.postrewardtime = 5
+        
+        rewarded.reward = PBMORTBRewardedReward()
+        rewarded.reward?.type = "coins"
+        rewarded.reward?.count = 5
+        
+        codeAndDecode(abstract: rewarded, expectedString:  "{\"close\":{\"action\":\"closebutton\",\"postrewardtime\":5},\"completion\":{\"banner\":{\"event\":\"rwdd\",\"time\":5},\"video\":{\"endcard\":{\"event\":\"rwdd\",\"time\":5},\"playbackevent\":\"complete\",\"time\":5}},\"reward\":{\"count\":5,\"type\":\"coins\"}}")
+    }
+
+    
     // MARK: - Private helpers
     
     private func codeAndDecode<T : PBMORTBAbstract>(abstract:T, expectedString:String, file: StaticString = #file, line: UInt = #line, decoder: (JsonDictionary) -> T?) {

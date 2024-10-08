@@ -20,9 +20,9 @@
 #import "PBMOpenMeasurementSession.h"
 #import "PBMFunctions+Private.h"
 #import "UIView+PBMExtensions.h"
-#import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMWebView.h"
+#import "PBMCloseActionManager.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -261,7 +261,24 @@
 
 - (void)creativeDisplayCompleted:(PBMAbstractCreative *)creative {
     if (self.modalState.adConfiguration.isRewarded) {
-        self.closeButtonDecorator.button.hidden = NO;
+        PBMRewardedConfig * rewardedConfig = creative.creativeModel.adConfiguration.rewardedConfig;
+        
+        NSString * ortbAction = rewardedConfig.closeAction ?: @"";
+        
+        PBMCloseAction action = [PBMCloseActionManager getActionWithDescription:ortbAction];
+        
+        switch(action){
+            case PBMCloseActionCloseButton:
+                self.closeButtonDecorator.button.hidden = NO;
+                break;
+            case PBMCloseActionAutoClose:
+                [self.modalViewControllerDelegate modalViewControllerCloseButtonTapped:self];
+                break;
+            case PBMCloseActionUnknown:
+                // By default SDK should show close button
+                self.closeButtonDecorator.button.hidden = NO;
+                PBMLogWarn(@"SDK met unknown close action.")
+        }
     }
 }
 

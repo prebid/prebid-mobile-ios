@@ -17,6 +17,8 @@
 #import "PBMAbstractCreative.h"
 #import "PBMVideoViewDelegate.h"
 
+@class PBMRewardedConfig;
+
 @interface PBMVideoCreative : PBMAbstractCreative <PBMVideoViewDelegate>
 
 @property (class, readonly) NSInteger maxSizeForPreRenderContent;

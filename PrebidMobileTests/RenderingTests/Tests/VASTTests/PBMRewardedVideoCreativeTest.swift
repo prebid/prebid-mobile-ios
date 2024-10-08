@@ -87,6 +87,7 @@ class PBMRewardedVideoCreativeTest: XCTestCase, PBMCreativeResolutionDelegate, P
     func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
     
     func creativeReady(_ creative: PBMAbstractCreative) {
         self.expectationDownloadCompleted.fulfill()

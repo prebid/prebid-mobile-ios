@@ -121,6 +121,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
     
     // MARK: - PBMVideoViewDelegate
     
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
     func videoViewFailedWithError(_ error: Error) {}
     func videoViewReadyToDisplay() {}
     func videoViewCompletedDisplay() {}
@@ -152,6 +153,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
     func learnMoreWasClicked() {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
     
     // MARK: - Helper Methods
     private func setupVideoCreative(videoFileURL:String = "http://get_video/small.mp4", localVideoFileName:String = "small.mp4") {

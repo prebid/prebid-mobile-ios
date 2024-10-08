@@ -1055,6 +1055,8 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationWebViewReceivedMRAIDLink?.fulfill()
     }
     
+    func webView(_ webView: PBMWebView, receivedRewardedEventLink url: URL) {}
+    
     // MARK: - Check methods
     
     private func checkJSEvaluating( webView: PBMWebView,

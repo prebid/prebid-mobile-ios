@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,21 +13,18 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "PBMCloseActionManager.h"
 
-// This protocol allows the VideoView to communicate events out to whatever is using one
-NS_ASSUME_NONNULL_BEGIN
-@protocol PBMVideoViewDelegate <NSObject>
+@implementation PBMCloseActionManager
 
-- (void)videoViewFailedWithError:(NSError *)error;
-
-- (void)videoViewReadyToDisplay;
-- (void)videoViewCompletedDisplay;
-- (void)videoViewWasTapped;
-
-- (void)videoViewCurrentPlayingTime:(NSNumber *)currentPlayingTime;
-
-- (void)learnMoreWasClicked;
++ (PBMCloseAction)getActionWithDescription:(NSString * _Nonnull)description {
+    if ([description isEqualToString:@"closebutton"]) {
+        return PBMCloseActionCloseButton;
+    } else if ([description isEqualToString:@"autoclose"]) {
+        return PBMCloseActionAutoClose;
+    } else {
+        return PBMCloseActionUnknown;
+    }
+}
 
 @end
-NS_ASSUME_NONNULL_END

@@ -1,23 +1,23 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 import XCTest
 @testable import PrebidMobile
 
 class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeViewDelegate, PBMVideoViewDelegate {
-
+    
     var vc: UIViewController?
     let connection = UtilitiesForTesting.createConnectionForMockedTest()
     
@@ -36,7 +36,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
     override func setUp() {
         MockServer.shared.reset()
     }
-
+    
     override func tearDown() {
         MockServer.shared.reset()
         self.videoCreative = nil
@@ -145,7 +145,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         // Expected duration of video small.mp4 is 6 sec
         let expectedVideoDuration = 6.0
         let expectedPausedTime = 3.0
-
+        
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
         self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
@@ -187,7 +187,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         // Expected duration of video small.mp4 is 6 sec
         let expectedVideoDuration = 6.0
         let expectedStoppedDely = 3.0
-
+        
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
         self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
@@ -262,7 +262,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         
         // Expected duration of video small.mp4 is 6 sec
         let expectedVideoDuration = 6.0
-
+        
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
         self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
@@ -317,6 +317,212 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         waitForExpectations(timeout: 2, handler: nil)
     }
     
+    func testCalculateProgressBarDuration_whenNotRewardedAndHasCompanionAd() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
+        
+        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:model,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        let mockVideoView = MockVideoView(creative: self.videoCreative)
+        mockVideoView.mockRequiredVideoDuration = 10
+        
+        let expectedDuration = mockVideoView.requiredVideoDuration()
+        let result = mockVideoView.calculateProgressBarDuration().doubleValue
+        
+        XCTAssertEqual(result, expectedDuration)
+    }
+    
+    func testCalculateProgressBarDuration_whenPlaybackEventIsStart() {
+        let postRewardTime: NSNumber = 5
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
+        adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "start")
+        
+        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:model,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        let mockVideoView = MockVideoView(creative: self.videoCreative)
+        mockVideoView.mockRequiredVideoDuration = 10
+        
+        let expectedDuration = postRewardTime.doubleValue
+        let result = mockVideoView.calculateProgressBarDuration().doubleValue
+        
+        XCTAssertEqual(result, expectedDuration)
+    }
+    
+    func testCalculateProgressBarDuration_whenPlaybackEventIsFirstQuartile() {
+        let postRewardTime: NSNumber = 5
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
+        adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "firstquartile")
+        
+        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:model,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        let mockVideoView = MockVideoView(creative: self.videoCreative)
+        
+        let expectedDuration = 0.25 * mockVideoView.requiredVideoDuration() + postRewardTime.doubleValue
+        let result = mockVideoView.calculateProgressBarDuration().doubleValue
+        
+        XCTAssertEqual(result, expectedDuration)
+    }
+    
+    func testCalculateProgressBarDuration_whenPlaybackEventIsMidpoint() {
+        let postRewardTime: NSNumber = 5
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
+        adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "midpoint")
+        
+        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:model,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        let mockVideoView = MockVideoView(creative: self.videoCreative)
+        
+        let expectedDuration = 0.5 * mockVideoView.requiredVideoDuration() + postRewardTime.doubleValue
+        let result = mockVideoView.calculateProgressBarDuration().doubleValue
+        
+        XCTAssertEqual(result, expectedDuration)
+    }
+    
+    func testCalculateProgressBarDuration_whenPlaybackEventIsThirdQuartile() {
+        let postRewardTime: NSNumber = 5
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
+        adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "thirdquartile")
+        
+        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:model,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        let mockVideoView = MockVideoView(creative: self.videoCreative)
+        
+        let expectedDuration = 0.5 * mockVideoView.requiredVideoDuration() + postRewardTime.doubleValue
+        let result = mockVideoView.calculateProgressBarDuration().doubleValue
+        
+        XCTAssertEqual(result, expectedDuration)
+    }
+    
+    func testCalculateProgressBarDuration_whenPlaybackEventIsComplete() {
+        let postRewardTime: NSNumber = 5
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
+        adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "complete")
+        
+        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:model,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        let mockVideoView = MockVideoView(creative: self.videoCreative)
+        
+        let expectedDuration = mockVideoView.requiredVideoDuration()
+        let result = mockVideoView.calculateProgressBarDuration().doubleValue
+        
+        XCTAssertEqual(result, expectedDuration)
+    }
+    
+    func testCalculateProgressBarDuration_whenCompletionCriteriaIsTime() {
+        let rewardTime: NSNumber = 2
+        let postRewardTime: NSNumber = 5
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
+        adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, time: rewardTime)
+        
+        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:model,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        let mockVideoView = MockVideoView(creative: self.videoCreative)
+        
+        let expectedDuration = rewardTime.doubleValue + postRewardTime.doubleValue
+        let result = mockVideoView.calculateProgressBarDuration().doubleValue
+        
+        XCTAssertEqual(result, expectedDuration)
+    }
+    
+    func testCalculateProgressBarDuration_whenCompletionCriteriaIsTimeAndExceedsVideoDuration() {
+        let rewardTime: NSNumber = 100
+        let postRewardTime: NSNumber = 5
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
+        adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, time: rewardTime)
+        
+        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:model,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        let mockVideoView = MockVideoView(creative: self.videoCreative)
+        
+        let expectedDuration = mockVideoView.requiredVideoDuration()
+        let result = mockVideoView.calculateProgressBarDuration().doubleValue
+        
+        XCTAssertEqual(result, expectedDuration)
+    }
+    
+    func testCalculateProgressBarDuration_default() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
+        adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: PBMORTBRewardedConfiguration())
+        
+        let model = PBMCreativeModel(adConfiguration: adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:model,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        let mockVideoView = MockVideoView(creative: self.videoCreative)
+        
+        let expectedDuration = mockVideoView.requiredVideoDuration()
+        let result = mockVideoView.calculateProgressBarDuration().doubleValue
+        
+        XCTAssertEqual(result, expectedDuration)
+    }
+    
+    
     // MARK: - PBMCreativeDownloadDelegate
     
     func creativeReady(_ creative: PBMAbstractCreative) {
@@ -365,7 +571,8 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
     func learnMoreWasClicked() {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
-   
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
     
     // MARK: - Helper Methods
     
@@ -418,7 +625,20 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         self.expectationVideoViewCompletedDisplay = expectation(description: "expectationVideoViewCompletedDisplay")
         
         waitForExpectations(timeout: expectedDuration + 5, handler:nil)
-
+        
         XCTAssertTrue(self.isVideoViewCompletedDisplay)
+    }
+    
+    private func createRewardedConfig(postRewardTime: NSNumber = 0, playbackevent: String? = nil,
+                                      time: NSNumber? = nil) -> RewardedConfig {
+        let ortbRewarded = PBMORTBRewardedConfiguration()
+        ortbRewarded.completion = PBMORTBRewardedCompletion()
+        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        ortbRewarded.completion?.video?.playbackevent = playbackevent
+        ortbRewarded.completion?.video?.time = time
+        ortbRewarded.close = PBMORTBRewardedClose()
+        ortbRewarded.close?.postrewardtime = postRewardTime
+        
+        return RewardedConfig(ortbRewarded: ortbRewarded)
     }
 }

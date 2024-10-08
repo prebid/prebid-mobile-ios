@@ -287,7 +287,8 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 
 #pragma mark - WKNavigationDelegate
 
-- (void) webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                                                     decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     
     //If there's no URL, bail
     NSURL *url = navigationAction.request.URL;
@@ -308,6 +309,21 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
         });
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
+    }
+    
+    //Identify and process Rewarded events
+    if (self.rewardedAdURL) {
+        if ([url.absoluteString isEqualToString:self.rewardedAdURL]) {
+            @weakify(self);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (!self) { return; }
+                [self.delegate webView:self receivedRewardedEventLink:url];
+            });
+            
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
     }
 
     //If this is the first URL, allow it.

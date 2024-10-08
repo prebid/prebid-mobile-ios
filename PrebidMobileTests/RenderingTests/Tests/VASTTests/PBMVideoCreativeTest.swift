@@ -13,7 +13,6 @@
   limitations under the License.
   */
 
-import Foundation
 import UIKit
 import XCTest
 import AVFoundation
@@ -31,6 +30,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     var expectationDownloadFailed:XCTestExpectation!
     var expectationDidLeaveApp:XCTestExpectation!
     var expectationVideoViewCompletedDisplay:XCTestExpectation?
+    var expectationCreativeDidSendRewardedEvent:XCTestExpectation?
     var isVideoViewCompletedDisplay = false;
     
     private var logToFile: LogToFileLock?
@@ -324,7 +324,75 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         waitForExpectations(timeout: 1)
     }
     
-    //MARK: - PBMCreativeResolutionDelegate
+    func testRewardEvent() {
+        let time: NSNumber = 5
+        expectationCreativeDidSendRewardedEvent = expectation(description: "Reward event - creativeDidSendRewardedEvent called")
+        
+        let ortbRewarded = PBMORTBRewardedConfiguration()
+        ortbRewarded.completion = PBMORTBRewardedCompletion()
+        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        ortbRewarded.completion?.video?.time = time
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
+        adConfiguration.isRewarded = true
+        
+        let creativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:creativeModel,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        self.videoCreative.creativeResolutionDelegate = self
+        self.videoCreative.creativeViewDelegate = self
+        
+        self.videoCreative.videoViewCurrentPlayingTime(time)
+        
+        waitForExpectations(timeout: 1)
+        
+        // If video without endcard - we should show learn more button when reward completion is fired
+        XCTAssertTrue(videoCreative.videoView.showLearnMore)
+    }
+    
+    func testPostRewardEvent() {
+        let rewardTime: NSNumber = 5
+        let postRewardTime: NSNumber = 2
+        expectationCreativeDidSendRewardedEvent = expectation(description: "Reward event - creativeDidSendRewardedEvent called")
+        
+        let ortbRewarded = PBMORTBRewardedConfiguration()
+        ortbRewarded.completion = PBMORTBRewardedCompletion()
+        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        ortbRewarded.completion?.video?.time = rewardTime
+        ortbRewarded.close = PBMORTBRewardedClose()
+        ortbRewarded.close?.postrewardtime = postRewardTime
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
+        adConfiguration.isRewarded = true
+        
+        let creativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:creativeModel,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        self.videoCreative.creativeResolutionDelegate = self
+        self.videoCreative.creativeViewDelegate = self
+        
+        self.videoCreative.videoViewCurrentPlayingTime(rewardTime)
+        self.videoCreative.videoViewCurrentPlayingTime(postRewardTime)
+        
+        XCTAssertTrue(videoCreative.creativeModel!.userPostRewardEventSent)
+        
+        waitForExpectations(timeout: 1)
+    }
+
+    
+    // MARK: - PBMCreativeResolutionDelegate
     func creativeReady(_ creative:PBMAbstractCreative) {
         self.expectationDownloadCompleted.fulfill()
         self.videoCreative.display(withRootViewController: UIViewController())
@@ -363,6 +431,12 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     func learnMoreWasClicked() {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func videoViewReadyToDisplay() {}
+    
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {
+        expectationCreativeDidSendRewardedEvent?.fulfill()
+    }
+    
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
     
     func videoViewCompletedDisplay() {
         isVideoViewCompletedDisplay = true

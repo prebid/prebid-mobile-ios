@@ -133,4 +133,5 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
     func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
 }

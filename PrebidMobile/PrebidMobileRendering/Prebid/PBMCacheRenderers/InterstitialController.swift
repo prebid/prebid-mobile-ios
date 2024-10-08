@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-import Foundation
 import UIKit
 
 public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
@@ -61,6 +60,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     @objc public convenience init(bid: Bid, configId: String) {
         let adConfig = AdUnitConfig(configId: configId)
         adConfig.adConfiguration.isInterstitialAd = true
+        adConfig.adConfiguration.isRewarded = bid.rewardedConfig != nil
         self.init(bid: bid, adConfiguration: adConfig)
     }
     
@@ -69,9 +69,15 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         
         self.renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
 
-        
         let connection: PrebidServerConnectionProtocol = PrebidServerConnection.shared
-        self.renderer?.createInterstitialController?(bid: bid, adConfiguration: adConfiguration, connection: connection, adViewManagerDelegate: self, videoControlsConfig: videoControlsConfig)
+        
+        self.renderer?.createInterstitialController?(
+            bid: bid,
+            adConfiguration: adConfiguration,
+            connection: connection,
+            adViewManagerDelegate: self,
+            videoControlsConfig: videoControlsConfig
+        )
     }
 
     @objc public func show() {
@@ -141,6 +147,12 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         adViewManager = nil
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidCloseAd(self)
+        }
+    }
+    
+    @objc public func adDidSendRewardedEvent() {
+        if let delegate = interactionDelegate as? RewardedEventInteractionDelegate {
+            delegate.userDidEarnReward(self, PrebidReward(with: bid.rewardedConfig?.reward))
         }
     }
     
