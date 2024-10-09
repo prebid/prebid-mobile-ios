@@ -133,6 +133,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     if (self) {
         self.creative = creative;
         [self setupWithEventManager:creative.eventManager];
+        self.progressBarDuration = [self calculateProgressBarDuration];
     }
     
     return self;

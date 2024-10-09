@@ -2060,7 +2060,7 @@ struct TestCaseManager {
                          
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 
-                rewardedAdController.prebidConfigId = "prebid-video-rewarded-endcard-time"
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)

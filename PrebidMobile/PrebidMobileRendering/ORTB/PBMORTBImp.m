@@ -55,6 +55,7 @@
     ret[@"tagid"] = self.tagid;
     ret[@"clickbrowser"] = self.clickbrowser;
     ret[@"secure"] = self.secure;
+    ret[@"rwdd"] = self.rewarded;
     
     ret[@"ext"] = [[self extDictionary] nullIfEmpty];
     
@@ -91,6 +92,7 @@
     _tagid = jsonDictionary[@"tagid"];
     _clickbrowser = jsonDictionary[@"clickbrowser"];
     _secure = jsonDictionary[@"secure"];
+    _rewarded = jsonDictionary[@"rwdd"];
     
     _extPrebid = [[PBMORTBImpExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"]];
     _extSkadn = [[PBMORTBImpExtSkadn alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"skadn"]];
