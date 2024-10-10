@@ -151,8 +151,8 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     }
     
     @objc public func adDidSendRewardedEvent() {
-        if let delegate = interactionDelegate as? RewardedEventInteractionDelegate {
-            delegate.userDidEarnReward(self, PrebidReward(with: bid.rewardedConfig?.reward))
+        if let delegate = interactionDelegate {
+            delegate.trackUserReward?(self, PrebidReward(with: bid.rewardedConfig?.reward))
         }
     }
     

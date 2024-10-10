@@ -13,149 +13,22 @@
   limitations under the License.
   */
 
-import Foundation
 import PrebidMobile
 import GoogleMobileAds
 
+@available(*, deprecated, message: "This class is deprecated. Use PrebidAdMobRewardedAdapter instead.")
 @objc(PrebidAdMobRewardedVideoAdapter)
-public class PrebidAdMobRewardedVideoAdapter:
-    PrebidAdMobMediationBaseAdapter,
-    GADMediationRewardedAd,
-    InterstitialControllerLoadingDelegate,
-    InterstitialControllerInteractionDelegate  {
+public class PrebidAdMobRewardedVideoAdapter: PrebidAdMobRewardedAdapter {
     
-    // MARK: - Private Properties
-    
-    var interstitialController: InterstitialController?
-    weak var rootViewController: UIViewController?
-    var adAvailable = false
-    
-    weak var delegate: GADMediationRewardedAdEventDelegate?
-    var completionHandler: GADMediationRewardedLoadCompletionHandler?
-    
-    // MARK: - GADMediationAdapter
-    
-    public func loadRewardedAd(for adConfiguration: GADMediationRewardedAdConfiguration,
-                               completionHandler: @escaping GADMediationRewardedLoadCompletionHandler) {
-        self.completionHandler = completionHandler
-        
-        guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
-            let error = AdMobAdaptersError.noServerParameter
-            delegate = completionHandler(nil, error)
-            return
+    override func createInterstitialController(
+        with adConfiguration: GADMediationRewardedAdConfiguration
+    ) -> Result<InterstitialController, any Error> {
+        let result = super.createInterstitialController(with: adConfiguration)
+        if case .success(let controller) = result {
+            controller.adFormats = [.video]
+            return .success(controller)
         }
         
-        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
-              let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
-              !eventExtrasDictionary.isEmpty else {
-            let error = AdMobAdaptersError.emptyCustomEventExtras
-            delegate = completionHandler(nil, error)
-            return
-        }
-        
-        guard let targetingInfo = eventExtrasDictionary[PBMMediationTargetingInfoKey] as? [String: String] else {
-            let error = AdMobAdaptersError.noTargetingInfoInEventExtras
-            delegate = completionHandler(nil, error)
-            return
-        }
-        
-        guard MediationUtils.isServerParameterInTargetingInfoDict(serverParameter, targetingInfo) else {
-            let error = AdMobAdaptersError.wrongServerParameter
-            delegate = completionHandler(nil, error)
-            return
-        }
-        
-        guard let bid = eventExtrasDictionary[PBMMediationAdUnitBidKey] as? Bid else {
-            let error = AdMobAdaptersError.noBidInEventExtras
-            delegate = completionHandler(nil, error)
-            return
-        }
-        
-        guard let configId = eventExtrasDictionary[PBMMediationConfigIdKey] as? String else {
-            let error = AdMobAdaptersError.noConfigIDInEventExtras
-            delegate = completionHandler(nil, error)
-            return
-        }
-        
-        interstitialController = InterstitialController(bid: bid, configId: configId)
-        interstitialController?.loadingDelegate = self
-        interstitialController?.interactionDelegate = self
-        interstitialController?.adFormats = [.video]
-        interstitialController?.isRewarded = true
-        
-        if let videoAdConfig = eventExtrasDictionary[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
-            interstitialController?.videoControlsConfig = videoAdConfig
-        }
-        
-        if let videoParameters = eventExtrasDictionary[PBMMediationVideoParameters] as? VideoParameters {
-            interstitialController?.videoParameters = videoParameters
-        }
-        
-        interstitialController?.loadAd()
+        return result
     }
-    
-    // MARK: - GADMediationRewardedAd
-    
-    public func present(from viewController: UIViewController) {
-        if adAvailable {
-            rootViewController = viewController
-            interstitialController?.show()
-        } else {
-            let error = AdMobAdaptersError.noAd
-            delegate?.didFailToPresentWithError(error)
-            
-            if let handler = completionHandler {
-                delegate = handler(nil, error)
-            }
-        }
-    }
-    
-    // MARK: - InterstitialControllerLoadingDelegate
-    
-    public func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController) {
-        adAvailable = true
-        
-        if let handler = completionHandler {
-            delegate = handler(self, nil)
-        }
-    }
-    
-    public func interstitialController(_ interstitialController: InterstitialController, didFailWithError error: Error) {
-        adAvailable = false
-    }
-    
-    // MARK: - InterstitialControllerInteractionDelegate
-    
-    public func trackImpression(forInterstitialController: InterstitialController) {
-        delegate?.reportImpression()
-    }
-    
-    public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
-        delegate?.reportClick()
-    }
-    
-    public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
-        adAvailable = false
-        delegate?.willDismissFullScreenView()
-        delegate?.didDismissFullScreenView()
-    }
-        
-    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {
-        delegate?.willPresentFullScreenView()
-        delegate?.didStartVideo()
-        delegate?.didEndVideo()
-    }
-    
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {
-        adAvailable = false
-        rootViewController = nil
-        
-        delegate?.didRewardUser()
-    }
-    
-    public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
-        rootViewController
-    }
-    
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {}
 }

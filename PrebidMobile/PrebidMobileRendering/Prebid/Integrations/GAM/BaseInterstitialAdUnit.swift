@@ -215,6 +215,7 @@ class BaseInterstitialAdUnit:
     
     public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {}
     public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {}
+    public func trackUserReward(_ interstitialController: InterstitialController, _ reward: PrebidReward) {}
     
     public func viewControllerForModalPresentation(
         fromInterstitialController: InterstitialController

@@ -17,7 +17,7 @@
 #import "PrebidDemoMacros.h"
 
 NSString * const storedImpDisplayRewardedAdMob = @"prebid-demo-banner-rewarded-time";
-NSString * const adMobAdUnitDisplayRewardedId = @"ca-app-pub-5922967660082475/7397370641";
+NSString * const adMobAdUnitDisplayRewardedId = @"ca-app-pub-5922967660082475/5628505938";
 
 @interface AdMobDisplayRewardedViewController ()
 

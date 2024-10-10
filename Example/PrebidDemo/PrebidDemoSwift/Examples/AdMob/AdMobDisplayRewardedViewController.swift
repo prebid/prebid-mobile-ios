@@ -19,7 +19,7 @@ import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
 fileprivate let storedImpDisplayRewarded = "prebid-demo-banner-rewarded-time"
-fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/7397370641"
+fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/5628505938"
 
 class AdMobDisplayRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
     

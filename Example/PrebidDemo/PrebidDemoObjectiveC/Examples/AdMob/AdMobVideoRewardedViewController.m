@@ -17,7 +17,7 @@
 #import "PrebidDemoMacros.h"
 
 NSString * const storedImpVideoRewardedAdMob = @"prebid-demo-video-rewarded-endcard-time";
-NSString * const adMobAdUnitVideoRewardedId = @"ca-app-pub-5922967660082475/7397370641";
+NSString * const adMobAdUnitVideoRewardedId = @"ca-app-pub-5922967660082475/5628505938";
 
 @interface AdMobVideoRewardedViewController ()
 

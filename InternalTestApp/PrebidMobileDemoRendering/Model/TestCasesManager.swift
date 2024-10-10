@@ -2811,7 +2811,7 @@ struct TestCaseManager {
                 }
                          
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
                 admobRewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time"
                 adapterVC.setup(adapter: admobRewardedAdController)
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
@@ -2826,7 +2826,7 @@ struct TestCaseManager {
                 }
                          
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
                 admobRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time"
                 adapterVC.setup(adapter: admobRewardedAdController)
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
@@ -2842,7 +2842,7 @@ struct TestCaseManager {
                          
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 admobRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time"
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
                 adapterVC.setup(adapter: admobRewardedAdController)
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
             }),
@@ -2856,7 +2856,7 @@ struct TestCaseManager {
                 }
                          
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
                 admobRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-ad-config"
                 adapterVC.setup(adapter: admobRewardedAdController)
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
@@ -2872,7 +2872,7 @@ struct TestCaseManager {
                          
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 admobRewardedAdController.prebidConfigId = "prebid-demo-no-bids"
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
                 adapterVC.setup(adapter: admobRewardedAdController)
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
             }),
