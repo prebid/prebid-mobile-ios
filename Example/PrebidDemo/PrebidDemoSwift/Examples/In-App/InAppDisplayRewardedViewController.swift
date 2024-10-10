@@ -1,4 +1,4 @@
-/*   Copyright 2019-2022 Prebid.org, Inc.
+/*   Copyright 2019-2024 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,18 +14,15 @@
  */
 
 import UIKit
-import GoogleMobileAds
 import PrebidMobile
-import PrebidMobileGAMEventHandlers
 
-fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
-fileprivate let gamAdUnitVideoRewardedRendering = "/21808260008/prebid_oxb_rewarded_video_test"
+fileprivate let storedImpDisplayRewarded = "prebid-demo-banner-rewarded-time"
 
-class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAdUnitDelegate {
+class InAppDisplayRewardedViewController: InterstitialBaseViewController, RewardedAdUnitDelegate {
     
     // Prebid
     private var rewardedAdUnit: RewardedAdUnit!
-    
+
     override func loadView() {
         super.loadView()
         
@@ -33,18 +30,11 @@ class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAd
     }
     
     func createAd() {
-        // 1. Create a GAMRewardedAdEventHandler
-        let eventHandler = GAMRewardedAdEventHandler(adUnitID: gamAdUnitVideoRewardedRendering)
-        
-        // 2. Create a RewardedAdUnit
-        rewardedAdUnit = RewardedAdUnit(
-            configID: storedImpVideoRewarded,
-            eventHandler: eventHandler
-        )
-        
+        // 1. Create a RewardedAdUnit
+        rewardedAdUnit = RewardedAdUnit(configID: storedImpDisplayRewarded)
         rewardedAdUnit.delegate = self
         
-        // 3. Load the rewarded ad
+        // 2. Load the rewarded ad
         rewardedAdUnit.loadAd()
     }
     
@@ -55,7 +45,7 @@ class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAd
     }
     
     func rewardedAd(_ rewardedAd: RewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
-        PrebidDemoLogger.shared.error("Rewarded ad unit failed to receive ad with error: \(error?.localizedDescription ?? "")")
+        PrebidDemoLogger.shared.error("Rewarded ad unit did fail to receive ad: \(error?.localizedDescription ?? "")")
     }
     
     func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit, reward: PrebidReward) {

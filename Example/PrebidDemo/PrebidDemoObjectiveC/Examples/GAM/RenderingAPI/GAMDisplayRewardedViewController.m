@@ -13,19 +13,19 @@
  limitations under the License.
  */
 
-#import "GAMVideoRewardedViewController.h"
+#import "GAMDisplayRewardedViewController.h"
 
-NSString * const storedImpGAMVideoRewarded = @"prebid-demo-video-rewarded-endcard-time";
-NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rewarded_video_test";
+NSString * const storedImpGAMDisplayRewarded = @"prebid-demo-banner-rewarded-time";
+NSString * const gamAdUnitDisplayRewardedRendering = @"/21808260008/prebid_oxb_rewarded_video_test";
 
-@interface GAMVideoRewardedViewController ()
+@interface GAMDisplayRewardedViewController ()
 
 // Prebid
 @property (nonatomic) RewardedAdUnit * rewardedAdUnit;
 
 @end
 
-@implementation GAMVideoRewardedViewController
+@implementation GAMDisplayRewardedViewController
 
 - (void)loadView {
     [super loadView];
@@ -35,10 +35,10 @@ NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rew
 
 - (void)createAd {
     // 1. Create a GAMRewardedAdEventHandler
-    GAMRewardedAdEventHandler * eventHandler = [[GAMRewardedAdEventHandler alloc] initWithAdUnitID:gamAdUnitVideoRewardedRendering];
+    GAMRewardedAdEventHandler * eventHandler = [[GAMRewardedAdEventHandler alloc] initWithAdUnitID:gamAdUnitDisplayRewardedRendering];
     
     // 2. Create a RewardedAdUnit
-    self.rewardedAdUnit = [[RewardedAdUnit alloc] initWithConfigID:storedImpGAMVideoRewarded eventHandler:eventHandler];
+    self.rewardedAdUnit = [[RewardedAdUnit alloc] initWithConfigID:storedImpGAMDisplayRewarded eventHandler:eventHandler];
     self.rewardedAdUnit.delegate = self;
     
     // 3. Load the rewarded ad

@@ -85,9 +85,7 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
         videoControlsConfig?.initialize(with: bid.videoAdConfiguration)
         
-        if let ortbRewardedConfig = bid.rewardedConfig {
-            adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewardedConfig)
-        }
+        adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
         
         // This part is dedicating to test server-side ad configurations.
         // Need to be removed when ext.prebid.passthrough will be available.

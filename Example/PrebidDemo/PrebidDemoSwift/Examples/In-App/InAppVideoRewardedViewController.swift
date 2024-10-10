@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 
-fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480"
+fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
 
 class InAppVideoRewardedViewController: InterstitialBaseViewController, RewardedAdUnitDelegate {
     
@@ -46,5 +46,9 @@ class InAppVideoRewardedViewController: InterstitialBaseViewController, Rewarded
     
     func rewardedAd(_ rewardedAd: RewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
         PrebidDemoLogger.shared.error("Rewarded ad unit did fail to receive ad: \(error?.localizedDescription ?? "")")
+    }
+    
+    func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit, reward: PrebidReward) {
+        PrebidDemoLogger.shared.info("User did earn reward: type - \(reward.type ?? ""), count - \(reward.count ?? 0)")
     }
 }

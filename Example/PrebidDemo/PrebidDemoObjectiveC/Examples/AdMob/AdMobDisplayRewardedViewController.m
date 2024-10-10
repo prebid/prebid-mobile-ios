@@ -13,13 +13,13 @@
  limitations under the License.
  */
 
-#import "AdMobVideoRewardedViewController.h"
+#import "AdMobDisplayRewardedViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoRewardedAdMob = @"prebid-demo-video-rewarded-endcard-time";
-NSString * const adMobAdUnitVideoRewardedId = @"ca-app-pub-5922967660082475/7397370641";
+NSString * const storedImpDisplayRewardedAdMob = @"prebid-demo-banner-rewarded-time";
+NSString * const adMobAdUnitDisplayRewardedId = @"ca-app-pub-5922967660082475/7397370641";
 
-@interface AdMobVideoRewardedViewController ()
+@interface AdMobDisplayRewardedViewController ()
 
 // Prebid
 @property (nonatomic) MediationRewardedAdUnit * admobRewardedAdUnit;
@@ -30,7 +30,7 @@ NSString * const adMobAdUnitVideoRewardedId = @"ca-app-pub-5922967660082475/7397
 
 @end
 
-@implementation AdMobVideoRewardedViewController
+@implementation AdMobDisplayRewardedViewController
 
 - (void)loadView {
     [super loadView];
@@ -46,7 +46,8 @@ NSString * const adMobAdUnitVideoRewardedId = @"ca-app-pub-5922967660082475/7397
     self.mediationDelegate = [[AdMobMediationRewardedUtils alloc] initWithGadRequest:gadRequest];
     
     // 3. Create a MediationRewardedAdUnit
-    self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpVideoRewardedAdMob mediationDelegate:self.mediationDelegate];
+    self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpDisplayRewardedAdMob
+                                                               mediationDelegate:self.mediationDelegate];
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);
@@ -55,7 +56,7 @@ NSString * const adMobAdUnitVideoRewardedId = @"ca-app-pub-5922967660082475/7397
         
         // 5. Load the rewarded ad
         @weakify(self);
-        [GADRewardedAd loadWithAdUnitID:adMobAdUnitVideoRewardedId
+        [GADRewardedAd loadWithAdUnitID:adMobAdUnitDisplayRewardedId
                                 request:gadRequest
                       completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
             @strongify(self);

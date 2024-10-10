@@ -18,10 +18,10 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
-fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
-fileprivate let gamAdUnitVideoRewardedRendering = "/21808260008/prebid_oxb_rewarded_video_test"
+fileprivate let storedImpDisplayRewarded = "prebid-demo-banner-rewarded-time"
+fileprivate let gamAdUnitBannerRewardedRendering = "/21808260008/prebid_oxb_rewarded_video_test"
 
-class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAdUnitDelegate {
+class GAMDisplayRewardedViewController: InterstitialBaseViewController, RewardedAdUnitDelegate {
     
     // Prebid
     private var rewardedAdUnit: RewardedAdUnit!
@@ -34,11 +34,11 @@ class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAd
     
     func createAd() {
         // 1. Create a GAMRewardedAdEventHandler
-        let eventHandler = GAMRewardedAdEventHandler(adUnitID: gamAdUnitVideoRewardedRendering)
+        let eventHandler = GAMRewardedAdEventHandler(adUnitID: gamAdUnitBannerRewardedRendering)
         
         // 2. Create a RewardedAdUnit
         rewardedAdUnit = RewardedAdUnit(
-            configID: storedImpVideoRewarded,
+            configID: storedImpDisplayRewarded,
             eventHandler: eventHandler
         )
         

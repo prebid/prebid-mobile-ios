@@ -18,10 +18,10 @@ import PrebidMobile
 import PrebidMobileMAXAdapters
 import AppLovinSDK
 
-fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
+fileprivate let storedImpDisplayRewarded = "prebid-demo-banner-rewarded-time"
 fileprivate let maxAdUnitRewardedId = "f7a08e702c6bec54"
 
-class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewardedAdDelegate {
+class MAXDisplayRewardedViewController: InterstitialBaseViewController, MARewardedAdDelegate {
     
     // Prebid
     private var maxRewardedAdUnit: MediationRewardedAdUnit!
@@ -45,12 +45,12 @@ class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewarded
         
         // 3. Create a MediationRewardedAdUnit
         maxRewardedAdUnit = MediationRewardedAdUnit(
-            configId: storedImpVideoRewarded,
+            configId: storedImpDisplayRewarded,
             mediationDelegate: mediationDelegate
         )
         
         // 4. Make a bid request to Prebid Server
-        maxRewardedAdUnit.fetchDemand { [weak self] result in 
+        maxRewardedAdUnit.fetchDemand { [weak self] result in
             // 5. Load the rewarded ad
             self?.maxRewarded.delegate = self
             self?.maxRewarded.load()

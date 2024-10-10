@@ -16,7 +16,7 @@
 import UIKit
 
 /// Represents an rewarded ad unit. Built for rendering type of integration.
-@objc
+@objc @objcMembers
 public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     /// A delegate for handling interactions with the ad unit.

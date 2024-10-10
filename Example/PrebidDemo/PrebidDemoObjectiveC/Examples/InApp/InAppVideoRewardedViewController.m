@@ -16,7 +16,7 @@
 #import "InAppVideoRewardedViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoRewardedInApp = @"prebid-demo-video-rewarded-320-480";
+NSString * const storedImpVideoRewardedInApp = @"prebid-demo-video-rewarded-endcard-time";
 
 @interface InAppVideoRewardedViewController ()
 
@@ -50,6 +50,10 @@ NSString * const storedImpVideoRewardedInApp = @"prebid-demo-video-rewarded-320-
 
 - (void)rewardedAd:(RewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {
     PBMLogError(@"%@", error.localizedDescription);
+}
+
+- (void)rewardedAdUserDidEarnReward:(RewardedAdUnit *)rewardedAd reward:(PrebidReward *)reward {
+    NSLog(@"User did earn reward - type: %@, count: %f", reward.type, [reward.count doubleValue]);
 }
 
 @end

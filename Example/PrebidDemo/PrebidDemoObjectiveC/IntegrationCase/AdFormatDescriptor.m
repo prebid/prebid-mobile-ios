@@ -30,6 +30,8 @@
             return @"Display Interstitial";
         case AdFormatVideoInterstitial:
             return @"Video Interstitial";
+        case AdFormatDisplayRewarded:
+            return @"Display Rewarded";
         case AdFormatVideoRewarded:
             return @"Video Rewarded";
         case AdFormatVideoInstream:

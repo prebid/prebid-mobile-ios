@@ -124,8 +124,9 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
         rewardedAdDidClickAdButton.isEnabled = true
     }
     
-    func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit) {
+    func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit, reward: PrebidReward) {
         rewardedAdUserDidEarnRewardButton.isEnabled = true
+        print("Did receive reward: type - \(reward.type ?? ""), count - \(reward.count ?? 0)")
     }
     
     // MARK: - Private Methods

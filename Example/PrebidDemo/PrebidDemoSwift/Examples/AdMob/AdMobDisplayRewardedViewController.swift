@@ -18,10 +18,10 @@ import PrebidMobile
 import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
-fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
+fileprivate let storedImpDisplayRewarded = "prebid-demo-banner-rewarded-time"
 fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/7397370641"
 
-class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
+class AdMobDisplayRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
     
     // Prebid
     private var mediationDelegate: AdMobMediationRewardedUtils!
@@ -44,7 +44,10 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
         
         // 3. Create a MediationRewardedAdUnit
-        admobRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
+        admobRewardedAdUnit = MediationRewardedAdUnit(
+            configId: storedImpDisplayRewarded,
+            mediationDelegate: mediationDelegate
+        )
         
         // 4. Make a bid request to Prebid Server
         admobRewardedAdUnit.fetchDemand { [weak self] result in
@@ -64,10 +67,7 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
                 self.gadRewardedAd = ad
                 self.gadRewardedAd?.fullScreenContentDelegate = self
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-                    self.gadRewardedAd?.present(
-                        fromRootViewController: self,
-                        userDidEarnRewardHandler: {}
-                    )
+                    self.gadRewardedAd?.present(fromRootViewController: self, userDidEarnRewardHandler: {})
                 }
             }
         }
