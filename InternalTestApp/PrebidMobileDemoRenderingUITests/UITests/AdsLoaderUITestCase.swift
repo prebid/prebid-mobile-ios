@@ -115,17 +115,20 @@ class AdsLoaderUITestCase: RepeatedUITestCase {
         }
     }
     
-    func checkRewardedLoadResult(exampleName: String,
-                                         callbacks: (Bool) -> (String) = defaultRewardedCallbacks,
-                                         expectFailure: Bool = false,
-                                         file: StaticString = #file,
-                                         line: UInt = #line)
-    {
-        checkInterstitialLoadResult(exampleName: exampleName,
-                                    callbacks: callbacks,
-                                    expectFailure: expectFailure,
-                                    file: file,
-                                    line: line)
+    func checkRewardedLoadResult(
+        exampleName: String,
+        callbacks: (Bool) -> (String) = defaultRewardedCallbacks,
+        expectFailure: Bool = false,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        checkInterstitialLoadResult(
+            exampleName: exampleName,
+            callbacks: callbacks,
+            expectFailure: expectFailure,
+            file: file,
+            line: line
+        )
     }
 
     private static func defaultBannerCallbacks(ok: Bool) -> String {

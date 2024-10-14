@@ -2126,7 +2126,7 @@ struct TestCaseManager {
             
             // MARK: ---- Rewarded (GAM) ----
             
-            TestCase(title: "Banner Rewarded Endcard Time 320x480 (GAM) [OK, Metadata]",
+            TestCase(title: "Banner Rewarded Time 320x480 (GAM) [OK, Metadata]",
                      tags: [.interstitial, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2138,22 +2138,6 @@ struct TestCaseManager {
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
                 gamRewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time"
-                adapterVC.setup(adapter: gamRewardedAdController)
-                setupCustomParams(for: gamRewardedAdController.prebidConfigId)
-            }),
-            
-            TestCase(title: "Video Rewarded Endcard Time 320x480 (GAM) [OK, Metadata]",
-                     tags: [.interstitial, .video, .gam, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                         
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
-                gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
-                gamRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time"
                 adapterVC.setup(adapter: gamRewardedAdController)
                 setupCustomParams(for: gamRewardedAdController.prebidConfigId)
             }),
@@ -2184,6 +2168,22 @@ struct TestCaseManager {
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
                 gamRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-ad-config"
+                adapterVC.setup(adapter: gamRewardedAdController)
+                setupCustomParams(for: gamRewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Endcard Time 320x480 (GAM) [OK, Metadata]",
+                     tags: [.interstitial, .video, .gam, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
+                gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
+                gamRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time"
                 adapterVC.setup(adapter: gamRewardedAdController)
                 setupCustomParams(for: gamRewardedAdController.prebidConfigId)
             }),

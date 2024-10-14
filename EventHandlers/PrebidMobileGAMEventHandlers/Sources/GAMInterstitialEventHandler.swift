@@ -127,9 +127,7 @@ public class GAMInterstitialEventHandler :
         }
     }
 
-    func interstitial(didFailToReceive ad:GAMInterstitialAdWrapper,
-                                error: Error)
-    {
+    func interstitial(didFailToReceive ad: GAMInterstitialAdWrapper, error: Error) {
         if requestInterstitial === ad {
             requestInterstitial = nil
             forgetCurrentInterstitial()

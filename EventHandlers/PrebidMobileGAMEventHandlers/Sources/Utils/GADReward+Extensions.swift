@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,10 +13,15 @@
  limitations under the License.
  */
 
-import Foundation
+import GoogleMobileAds
+import PrebidMobile
 
-@objc public protocol RewardedEventLoadingDelegate : InterstitialEventLoadingDelegate {
-
-    // The reward to be given to the user. May be assigned on successful loading.
-    weak var reward: NSObject? { get set }
+extension GADAdReward {
+    
+    func toPrebidReward() -> PrebidReward {
+        let reward = PrebidReward()
+        reward.type = type
+        reward.count = amount
+        return reward
+    }
 }

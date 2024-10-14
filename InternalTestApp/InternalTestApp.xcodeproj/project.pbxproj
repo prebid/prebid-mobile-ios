@@ -884,27 +884,27 @@
 		92700C66273C029F0006E9FA /* UITests */ = {
 			isa = PBXGroup;
 			children = (
-				92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */,
-				92700C68273C029F0006E9FA /* XCTestCaseExt.swift */,
-				92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */,
-				92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */,
-				92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */,
+				92700C74273C029F0006E9FA /* AdsLoaderUITestCase.swift */,
+				92700C78273C029F0006E9FA /* BaseUITestCase.swift */,
+				92700C77273C029F0006E9FA /* ConsolidatedBannerUITest.swift */,
+				92700C70273C029F0006E9FA /* PrebidBannerUITest.swift */,
+				92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */,
 				92700C6D273C029F0006E9FA /* PrebidInterstitialUITest.swift */,
+				92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */,
+				92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */,
+				92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */,
+				92700C72273C029F0006E9FA /* PrebidMRAIDResizeExpandableUITest.swift */,
+				92700C75273C029F0006E9FA /* PrebidMRAIDResizeUITest.swift */,
+				92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */,
 				92700C6E273C029F0006E9FA /* PrebidRewardedVideoUITest.swift */,
 				92700C6F273C029F0006E9FA /* PrebidServerUITests.swift */,
-				92700C70273C029F0006E9FA /* PrebidBannerUITest.swift */,
-				92700C71273C029F0006E9FA /* XCUIElementExt.swift */,
-				92700C72273C029F0006E9FA /* PrebidMRAIDResizeExpandableUITest.swift */,
 				92700C73273C029F0006E9FA /* PrebidVideoInterstitialUITest.swift */,
-				92700C74273C029F0006E9FA /* AdsLoaderUITestCase.swift */,
-				92700C75273C029F0006E9FA /* PrebidMRAIDResizeUITest.swift */,
-				92700C76273C029F0006E9FA /* XCTestCase+Throwing.h */,
-				92700C77273C029F0006E9FA /* ConsolidatedBannerUITest.swift */,
-				92700C78273C029F0006E9FA /* BaseUITestCase.swift */,
+				92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */,
 				92700C79273C029F0006E9FA /* RepeatedUITestCase.swift */,
-				92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */,
-				92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */,
-				92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */,
+				92700C76273C029F0006E9FA /* XCTestCase+Throwing.h */,
+				92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */,
+				92700C68273C029F0006E9FA /* XCTestCaseExt.swift */,
+				92700C71273C029F0006E9FA /* XCUIElementExt.swift */,
 			);
 			path = UITests;
 			sourceTree = "<group>";
@@ -1182,7 +1182,6 @@
 					};
 					93FED9C21A376EFE009A6E9F = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 9TN4TUCG8N;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -2115,7 +2114,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9TN4TUCG8N;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2147,7 +2146,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9TN4TUCG8N;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

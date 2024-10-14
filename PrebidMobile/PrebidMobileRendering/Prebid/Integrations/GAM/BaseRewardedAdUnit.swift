@@ -33,13 +33,21 @@ class BaseRewardedAdUnit: BaseInterstitialAdUnit, RewardedEventInteractionDelega
         adUnitConfig.adConfiguration.isRewarded = true
     }
     
+    // MARK: - InterstitialControllerInteractionDelegate
+    
     override func trackUserReward(_ interstitialController: InterstitialController, _ reward: PrebidReward) {
         DispatchQueue.main.async {
             self.delegate?.callDelegate_rewardedAdUserDidEarnReward?(reward: reward)
         }
     }
     
-    func userDidEarnReward(_ reward: NSObject?) {
-        /// ??????
+    // MARK: - RewardedEventInteractionDelegate
+    
+    func userDidEarnReward(_ reward: PrebidReward?) {
+        if let reward {
+            DispatchQueue.main.async {
+                self.delegate?.callDelegate_rewardedAdUserDidEarnReward?(reward: reward)
+            }
+        }
     }
 }

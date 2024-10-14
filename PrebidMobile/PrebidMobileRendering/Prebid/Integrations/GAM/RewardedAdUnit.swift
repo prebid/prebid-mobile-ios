@@ -366,7 +366,7 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
         if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
-            eventHandler.loadingDelegate = loadingDelegate as? RewardedEventLoadingDelegate
+            eventHandler.loadingDelegate = loadingDelegate as? InterstitialEventLoadingDelegate
         }
     }
     

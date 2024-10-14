@@ -22,7 +22,8 @@ public class PrebidReward: NSObject {
     public var count: NSNumber?
     public var ext: [String: Any]?
     
-    init(with ortbReward: PBMORTBRewardedReward? = nil) {
+    convenience init(with ortbReward: PBMORTBRewardedReward? = nil) {
+        self.init()
         self.type = ortbReward?.type
         self.count = ortbReward?.count
         self.ext = ortbReward?.ext
