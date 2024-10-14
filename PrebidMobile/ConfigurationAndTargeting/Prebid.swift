@@ -267,6 +267,6 @@ public class Prebid: NSObject {
     }
     
     public static func containsPluginRenderer(_ prebidMobilePluginRenderer: PrebidMobilePluginRenderer) {
-        _ = PrebidMobilePluginRegister.shared.containsPlugin(prebidMobilePluginRenderer);
+        PrebidMobilePluginRegister.shared.containsPlugin(prebidMobilePluginRenderer);
     }
 }

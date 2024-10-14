@@ -311,7 +311,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
         return;
     }
     
-    //Identify and process Rewarded events
+    // Identify and process rewarded events
     if (self.rewardedAdURL) {
         if ([url.absoluteString isEqualToString:self.rewardedAdURL]) {
             @weakify(self);

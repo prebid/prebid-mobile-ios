@@ -267,7 +267,7 @@
         
         PBMCloseAction action = [PBMCloseActionManager getActionWithDescription:ortbAction];
         
-        switch(action){
+        switch(action) {
             case PBMCloseActionCloseButton:
                 self.closeButtonDecorator.button.hidden = NO;
                 break;

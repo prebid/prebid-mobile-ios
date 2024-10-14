@@ -16,7 +16,7 @@
 #import "MAXDisplayRewardedViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpDisplayRewardedMAX = @"prebid-demo-video-rewarded-320-480";
+NSString * const storedImpDisplayRewardedMAX = @"prebid-demo-banner-rewarded-time";
 NSString * const maxAdUnitDisplayRewardedId = @"75edc39e22574a9d";
 
 @interface MAXDisplayRewardedViewController ()

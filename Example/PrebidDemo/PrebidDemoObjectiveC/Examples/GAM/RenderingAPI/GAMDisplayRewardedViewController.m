@@ -55,4 +55,8 @@ NSString * const gamAdUnitDisplayRewardedRendering = @"/21808260008/prebid_oxb_r
     PBMLogError(@"%@", error.localizedDescription);
 }
 
+- (void)rewardedAdUserDidEarnReward:(RewardedAdUnit *)rewardedAd reward:(PrebidReward *)reward {
+    NSLog(@"User did earn reward - type: %@, count: %f", reward.type, [reward.count doubleValue]);
+}
+
 @end
