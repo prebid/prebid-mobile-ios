@@ -72,6 +72,7 @@ NSString * const adMobAdUnitVideoRewardedId = @"ca-app-pub-5922967660082475/5628
                 self.gadRewardedAd.fullScreenContentDelegate = self;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.gadRewardedAd presentFromRootViewController:self userDidEarnRewardHandler:^{
+                        NSLog(@"User did earn reward.");
                     }];
                 });
             }

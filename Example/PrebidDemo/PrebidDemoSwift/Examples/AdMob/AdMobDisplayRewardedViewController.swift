@@ -67,7 +67,9 @@ class AdMobDisplayRewardedViewController: InterstitialBaseViewController, GADFul
                 self.gadRewardedAd = ad
                 self.gadRewardedAd?.fullScreenContentDelegate = self
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-                    self.gadRewardedAd?.present(fromRootViewController: self, userDidEarnRewardHandler: {})
+                    self.gadRewardedAd?.present(fromRootViewController: self, userDidEarnRewardHandler: {
+                        print("User did earn reward.")
+                    })
                 }
             }
         }

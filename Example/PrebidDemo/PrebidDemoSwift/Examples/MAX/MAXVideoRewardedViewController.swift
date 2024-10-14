@@ -79,5 +79,7 @@ class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewarded
     
     func didClick(_ ad: MAAd) {}
     
-    func didRewardUser(for ad: MAAd, with reward: MAReward) {}
+    func didRewardUser(for ad: MAAd, with reward: MAReward) {
+        print("User did earn reward: label - \(reward.label), amount - \(reward.amount)")
+    }
 }

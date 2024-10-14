@@ -86,6 +86,7 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
 }
 
 - (void)didRewardUserForAd:(MAAd *)ad withReward:(MAReward *)reward {
+    NSLog(@"User did earn reward: label - %@, amount - %ld", reward.label, reward.amount);
 }
 
 @end

@@ -66,7 +66,9 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
                     self.gadRewardedAd?.present(
                         fromRootViewController: self,
-                        userDidEarnRewardHandler: {}
+                        userDidEarnRewardHandler: {
+                            print("User did earn reward.")
+                        }
                     )
                 }
             }
