@@ -35,7 +35,7 @@
 #import "InAppVideoInterstitialViewController.h"
 #import "InAppVideoInterstitialVerticalViewController.h"
 #import "InAppVideoInterstitialLandscapeViewController.h"
-#import "InAppBannerRewardedViewController.h"
+#import "InAppDisplayRewardedViewController.h"
 #import "InAppVideoRewardedViewController.h"
 #import "InAppNativeViewController.h"
 
@@ -256,7 +256,7 @@
             integrationKind:IntegrationKindInApp
             adFormat:AdFormatVideoRewarded
             configurationClosure:^UIViewController *{
-                return [[InAppBannerRewardedViewController alloc] init];
+                return [[InAppDisplayRewardedViewController alloc] init];
             }
         ],
         

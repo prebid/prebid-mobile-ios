@@ -13,19 +13,19 @@
  limitations under the License.
  */
 
-#import "InAppBannerRewardedViewController.h"
+#import "InAppDisplayRewardedViewController.h"
 #import "PrebidDemoMacros.h"
 
 NSString * const storedImpBannerRewardedInApp = @"prebid-demo-banner-rewarded-time";
 
-@interface InAppBannerRewardedViewController ()
+@interface InAppDisplayRewardedViewController ()
 
 // Prebid
 @property (nonatomic) RewardedAdUnit * rewardedAdUnit;
 
 @end
 
-@implementation InAppBannerRewardedViewController
+@implementation InAppDisplayRewardedViewController
 
 - (void)loadView {
     [super loadView];
@@ -45,7 +45,9 @@ NSString * const storedImpBannerRewardedInApp = @"prebid-demo-banner-rewarded-ti
 // MARK: - RewardedAdUnitDelegate
 
 - (void)rewardedAdDidReceiveAd:(RewardedAdUnit *)rewardedAd {
-    [self.rewardedAdUnit showFrom:self];
+    if (rewardedAd.isReady) {
+        [rewardedAd showFrom:self];
+    }
 }
 
 - (void)rewardedAd:(RewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {

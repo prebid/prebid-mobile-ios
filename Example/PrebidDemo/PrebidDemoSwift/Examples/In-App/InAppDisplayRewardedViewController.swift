@@ -41,7 +41,9 @@ class InAppDisplayRewardedViewController: InterstitialBaseViewController, Reward
     // MARK: - RewardedAdUnitDelegate
     
     func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit) {
-        rewardedAdUnit.show(from: self)
+        if rewardedAd.isReady {
+            rewardedAd.show(from: self)
+        }
     }
     
     func rewardedAd(_ rewardedAd: RewardedAdUnit, didFailToReceiveAdWithError error: Error?) {

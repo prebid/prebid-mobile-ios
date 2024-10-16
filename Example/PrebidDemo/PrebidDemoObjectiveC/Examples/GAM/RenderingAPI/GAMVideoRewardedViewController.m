@@ -48,7 +48,9 @@ NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rew
 // MARK: - RewardedAdUnitDelegate
 
 - (void)rewardedAdDidReceiveAd:(RewardedAdUnit *)rewardedAd {
-    [self.rewardedAdUnit showFrom:self];
+    if (rewardedAd.isReady) {
+        [rewardedAd showFrom:self];
+    }
 }
 
 - (void)rewardedAd:(RewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {

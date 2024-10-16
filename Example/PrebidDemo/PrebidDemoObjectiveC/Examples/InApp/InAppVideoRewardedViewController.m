@@ -45,7 +45,9 @@ NSString * const storedImpVideoRewardedInApp = @"prebid-demo-video-rewarded-endc
 // MARK: - RewardedAdUnitDelegate
 
 - (void)rewardedAdDidReceiveAd:(RewardedAdUnit *)rewardedAd {
-    [self.rewardedAdUnit showFrom:self];
+    if (rewardedAd.isReady) {
+        [rewardedAd showFrom:self];
+    }
 }
 
 - (void)rewardedAd:(RewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {

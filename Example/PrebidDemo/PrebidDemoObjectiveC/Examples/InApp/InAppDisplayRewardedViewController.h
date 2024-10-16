@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InAppBannerRewardedViewController : InterstitialBaseViewController <RewardedAdUnitDelegate>
+@interface InAppDisplayRewardedViewController : InterstitialBaseViewController <RewardedAdUnitDelegate>
 
 @end
 
