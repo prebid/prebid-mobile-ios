@@ -15,14 +15,20 @@
 
 import UIKit
 
+/// Represents an rewarded ad unit. Built for rendering type of integration.
 @objc
 public class RewardedAdUnit: BaseInterstitialAdUnit,
                              RewardedEventInteractionDelegate {
    
+    /// The reward object for the ad unit.
     @objc public private(set) var reward: NSObject?
     
     // MARK: - Lifecycle
     
+    /// Initializes a `RewardedAdUnit` with the given configuration ID and event handler.
+    ///
+    /// - Parameter configID: The configuration ID for the ad unit.
+    /// - Parameter eventHandler: The event handler for the ad unit.
     @objc public convenience init(configID: String, eventHandler: AnyObject) {
         self.init(
             configID: configID,
@@ -30,6 +36,9 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
             eventHandler: eventHandler)
     }
 
+    /// Initializes a `RewardedAdUnit` with the given configuration ID and a default event handler.
+    ///
+    /// - Parameter configID: The configuration ID for the ad unit.
     @objc public convenience init(configID: String) {
         self.init(
             configID: configID,
@@ -37,6 +46,11 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
             eventHandler: RewardedEventHandlerStandalone())
     }
     
+    /// Initializes a `RewardedAdUnit` with the given configuration ID, minimum size percentage, and event handler.
+    ///
+    /// - Parameter configID: The configuration ID for the ad unit.
+    /// - Parameter minSizePerc: The minimum size percentage for the ad unit.
+    /// - Parameter eventHandler: The event handler for the ad unit.
     @objc required init(configID:String, minSizePerc: NSValue?, eventHandler: AnyObject?) {
         super.init(
             configID: configID,
@@ -48,6 +62,10 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
     }
     
     // MARK: - PBMRewardedEventDelegate
+    
+    /// Called when the user earns a reward.
+    ///
+    /// - Parameter reward: The reward object associated with the event.
     @objc public func userDidEarnReward(_ reward: NSObject?) {
         DispatchQueue.main.async(execute: { [weak self] in
             self?.reward = reward
@@ -57,6 +75,9 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
     
     // MARK: - BaseInterstitialAdUnitProtocol protocol
     
+    /// Called when the interstitial ad is closed.
+    ///
+    /// - Parameter interstitialController: The controller managing the interstitial ad.
     @objc public override func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
         callDelegate_rewardedAdUserDidEarnReward()
         super.interstitialControllerDidCloseAd(interstitialController)
@@ -64,42 +85,53 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
 
     // MARK: - Protected overrides
     
+    /// Called when the ad unit receives an ad.
     @objc public override func callDelegate_didReceiveAd() {
         if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdDidReceiveAd?(self)
         }
     }
 
+    /// Called when the ad unit fails to receive an ad.
+    ///
+    /// - Parameter error: The error describing the failure.
     @objc public override func callDelegate_didFailToReceiveAd(with error: Error?) {
         if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAd?(self, didFailToReceiveAdWithError: error)
         }
     }
     
+    /// Called when the ad unit will present an ad.
     @objc public override func callDelegate_willPresentAd() {
         if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdWillPresentAd?(self)
         }
     }
 
+    /// Called when the ad unit dismisses an ad.
     @objc public override func callDelegate_didDismissAd() {
         if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdDidDismissAd?(self)
         }
     }
 
+    /// Called when the ad unit will leave the application.
     @objc public override func callDelegate_willLeaveApplication() {
         if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdWillLeaveApplication?(self)
         }
     }
 
+    /// Called when the ad unit is clicked.
     @objc public override func callDelegate_didClickAd() {
         if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdDidClickAd?(self)
         }
     }
     
+    /// Returns whether the event handler is ready.
+    ///
+    /// - Returns: A boolean indicating if the event handler is ready.
     @objc public override func callEventHandler_isReady() -> Bool {
         if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             return eventHandler.isReady
@@ -108,30 +140,41 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
         }
     }
 
+    /// Sets the loading delegate for the event handler.
+    ///
+    /// - Parameter loadingDelegate: The loading delegate to set.
     @objc public override func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
         if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.loadingDelegate = loadingDelegate as? RewardedEventLoadingDelegate
         }
     }
 
+    /// Sets the interaction delegate for the event handler.
     @objc public override func callEventHandler_setInteractionDelegate() {
         if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.interactionDelegate = self
         }
     }
 
+    /// Requests an ad with the given bid response.
+    ///
+    /// - Parameter bidResponse: The bid response to use for the ad request.
     @objc public override func callEventHandler_requestAd(with bidResponse: BidResponse?) {
         if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.requestAd(with: bidResponse)
         }
     }
 
+    /// Shows the ad from the specified view controller.
+    ///
+    /// - Parameter controller: The view controller from which to present the ad.
     @objc public override func callEventHandler_show(from controller: UIViewController?) {
         if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.show(from: controller)
         }
     }
 
+    /// Tracks the impression for the ad.
     @objc public override func callEventHandler_trackImpression() {
         if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.trackImpression?()
@@ -140,6 +183,7 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
     
     // MARK: - Private helpers
     
+    /// Calls the delegate method to notify that the user has earned a reward.
     func callDelegate_rewardedAdUserDidEarnReward() {
         if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdUserDidEarnReward?(self)

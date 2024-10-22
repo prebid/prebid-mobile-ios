@@ -16,6 +16,8 @@
 import Foundation
 import UIKit
 
+/// This class is responsible for making bid request and providing the winning bid and targeting keywords to mediating SDKs.
+/// This class is a part of Mediation API.
 @objcMembers
 public class MediationBannerAdUnit : NSObject {
     
@@ -34,42 +36,51 @@ public class MediationBannerAdUnit : NSObject {
     
     var adUnitConfig: AdUnitConfig
     
+    /// Property that performs certain utilty work for the `MediationBannerAdUnit`
     public let mediationDelegate: PrebidMediationDelegate
     
     // MARK: - Computed properties
     
+    /// The configuration ID for an ad unit
     public var configID: String {
         adUnitConfig.configId
     }
     
+    /// The ad format for the ad unit.
     public var adFormat: AdFormat {
         get { adUnitConfig.adFormats.first ?? .banner }
         set { adUnitConfig.adFormats = [newValue] }
     }
     
+    /// The position of the ad on the screen.
     public var adPosition: AdPosition {
         get { adUnitConfig.adPosition }
         set { adUnitConfig.adPosition = newValue }
     }
     
+    /// Parameters for configuring banner ads.
     public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
     }
     
+    /// Parameters for configuring video ads.
     public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
+    /// The refresh interval for the ad.
     public var refreshInterval: TimeInterval {
         get { adUnitConfig.refreshInterval }
         set { adUnitConfig.refreshInterval = newValue }
     }
     
+    /// Additional sizes for the ad unit.
     public var additionalSizes: [CGSize]? {
         get { adUnitConfig.additionalSizes }
         set { adUnitConfig.additionalSizes = newValue }
     }
     
+    /// OpenRTB configuration
     public var ortbConfig: String? {
         get { adUnitConfig.ortbConfig }
         set { adUnitConfig.ortbConfig = newValue }
@@ -77,118 +88,171 @@ public class MediationBannerAdUnit : NSObject {
 
     // MARK: - Ext Data (imp[].ext.data)
     
+    /// This method obtains the context data keyword & value for adunit context targeting
+    /// if the key already exists the value will be appended to the list. No duplicates will be added
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
-    public func addContextData(_ data: String, forKey key: String) {
-        addExtData(key: key, value: data)
+    public func addContextData(key: String, value: String) {
+        addExtData(key: key, value: value)
     }
-    
+
+    /// This method obtains the context data keyword & values for adunit context targeting
+    /// the values if the key already exist will be replaced with the new set of values
     @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
-    public func updateContextData(_ data: Set<String>, forKey key: String) {
-        updateExtData(key: key, value: data)
+    public func updateContextData(key: String, value: Set<String>) {
+        updateExtData(key: key, value: value)
     }
     
+    /// This method allows to remove specific context data keyword & values set from adunit context targeting
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
-    public func removeContextDate(forKey key: String) {
-        removeExtData(forKey: key)
+    public func removeContextData(forKey: String) {
+        removeExtData(forKey: forKey)
     }
     
+    /// This method allows to remove all context data set from adunit context targeting
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
     public func clearContextData() {
         clearExtData()
     }
     
+    /// This method obtains the ext data keyword & value for adunit targeting.
+    /// If the key already exists the value will be appended to the list. No duplicates will be added
     public func addExtData(key: String, value: String) {
         adUnitConfig.addExtData(key: key, value: value)
     }
     
+    /// This method obtains the ext data keyword & values for adunit targeting.
+    /// The values if the key already exist will be replaced with the new set of values
     public func updateExtData(key: String, value: Set<String>) {
         adUnitConfig.updateExtData(key: key, value: value)
     }
     
+    /// This method allows to remove specific ext data keyword & values set from adunit targeting
     public func removeExtData(forKey: String) {
         adUnitConfig.removeExtData(for: forKey)
     }
     
+    /// This method allows to remove all ext data set from adunit targeting
     public func clearExtData() {
         adUnitConfig.clearExtData()
     }
     
     // MARK: - Ext keywords (imp[].ext.keywords)
     
+    /// This method obtains the context keyword for adunit context targeting
+    /// Inserts the given element in the set if it is not already present.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
-    @objc public func addContextKeyword(_ newElement: String) {
+    public func addContextKeyword(_ newElement: String) {
         addExtKeyword(newElement)
     }
     
+    /// This method obtains the context keyword set for adunit context targeting
+    /// Adds the elements of the given set to the set.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
-    @objc public func addContextKeywords(_ newElements: Set<String>) {
+    public func addContextKeywords(_ newElements: Set<String>) {
         addExtKeywords(newElements)
     }
     
+    /// This method allows to remove specific context keyword from adunit context targeting
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
-    @objc public func removeContextKeyword(_ element: String) {
+    public func removeContextKeyword(_ element: String) {
         removeExtKeyword(element)
     }
-
+    
+    /// This method allows to remove all keywords from the set of adunit context targeting
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
-    @objc public func clearContextKeywords() {
+    public func clearContextKeywords() {
         clearExtKeywords()
     }
     
+    /// This method obtains the keyword for adunit targeting
+    /// Inserts the given element in the set if it is not already present.
     public func addExtKeyword(_ newElement: String) {
         adUnitConfig.addExtKeyword(newElement)
     }
     
+    /// This method obtains the keyword set for adunit targeting
+    /// Adds the elements of the given set to the set.
     public func addExtKeywords(_ newElements: Set<String>) {
         adUnitConfig.addExtKeywords(newElements)
     }
     
+    /// This method allows to remove specific keyword from adunit targeting
     public func removeExtKeyword(_ element: String) {
         adUnitConfig.removeExtKeyword(element)
     }
     
+    /// This method allows to remove all keywords from the set of adunit targeting
     public func clearExtKeywords() {
         adUnitConfig.clearExtKeywords()
     }
     
     // MARK: - App Content (app.content.data)
     
-    public func setAppContent(_ appContent: PBMORTBAppContent) {
-        adUnitConfig.setAppContent(appContent)
+    /// Sets the app content object, replacing any existing content.
+    ///
+    /// - Parameter appContentObject: The `PBMORTBAppContent` object representing the app's content.
+    public func setAppContent(_ appContentObject: PBMORTBAppContent) {
+        adUnitConfig.setAppContent(appContentObject)
     }
     
+    /// Retrieves the current app content object.
+    ///
+    /// - Returns: The current `PBMORTBAppContent` object, or `nil` if no content is set.
+    public func getAppContent() -> PBMORTBAppContent? {
+        return adUnitConfig.getAppContent()
+    }
+    
+    /// Clears the current app content object.
     public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
     
+    /// Adds an array of content data objects to the app content.
+    ///
+    /// - Parameter dataObjects: An array of `PBMORTBContentData` objects to add.
     public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
     
-    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
+    /// Removes a specific content data object from the app content.
+    ///
+    /// - Parameter dataObject: The `PBMORTBContentData` object to remove.
+    public func removeAppContentData(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
-    public func clearAppContentDataObjects() {
+    /// Clears all content data objects from the app content.
+    public func clearAppContentData() {
         adUnitConfig.clearAppContentData()
     }
     
     // MARK: - User Data (user.data)
     
+    /// Adds an array of user data objects.
+    ///
+    /// - Parameter userDataObjects: An array of `PBMORTBContentData` objects to add to the user data.
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
     
+    /// Removes a specific user data object.
+    ///
+    /// - Parameter userDataObject: The `PBMORTBContentData` object to remove from the user data.
     public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
+    /// Clears all user data.
     public func clearUserData() {
         adUnitConfig.clearUserData()
     }
     
     // MARK: - Public Methods
     
+    /// Initializes a new mediation banner ad unit with the specified configuration ID, size, and mediation delegate.
+    /// - Parameter configID: The unique identifier for the ad unit configuration.
+    /// - Parameter size: The size of the ad.
+    /// - Parameter mediationDelegate: The delegate for handling mediation.
     public init(configID: String, size: CGSize, mediationDelegate: PrebidMediationDelegate) {
         adUnitConfig = AdUnitConfig(configId: configID, size: size)
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
@@ -219,6 +283,8 @@ public class MediationBannerAdUnit : NSObject {
         })
     }
     
+    /// Makes bid request and setups mediation parameters.
+    /// - Parameter completion: The completion handler to call when the demand fetch is complete.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
         fetchDemand(connection: PrebidServerConnection.shared,
@@ -227,10 +293,14 @@ public class MediationBannerAdUnit : NSObject {
                     completion: completion)
     }
     
+    /// Stops the auto-refresh for the ad unit.
     public func stopRefresh() {
         isRefreshStopped = true
     }
     
+    /// Handles the event when the ad object fails to load an ad.
+    /// - Parameter adObject: The ad object that failed to load the ad.
+    /// - Parameter error: The error that occurred during the ad load.
     public func adObjectDidFailToLoadAd(adObject: UIView,
                                         with error: Error) {
         if adObject === self.adView || adObject === self.lastAdView {

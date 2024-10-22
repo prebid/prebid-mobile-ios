@@ -15,20 +15,36 @@
 
 import Foundation
 
+/// Enum representing various types of native data assets that can be used in ads.
+///
+/// Each case represents a different type of data that can be provided in a native ad response.
+/// Values are defined according to the type of data they represent, such as descriptive text, ratings, or pricing information.
 @objc public enum NativeDataAssetType: Int {
     case undefined  = 0
-    case sponsored  = 1 /// Sponsored By message where response should contain the brand name of the sponsor.
-    case desc       = 2 /// Descriptive text associated with the product or service being advertised. Longer length of text in response may be truncated or ellipsed by the exchange.
-    case rating     = 3 /// Rating of the product being offered to the user. For example an app’s rating in an app store from 0-5.
-    case likes      = 4 /// Number of social ratings or “likes” of the product being offered to the user.
-    case downloads  = 5 /// Number downloads/installs of this product
-    case price      = 6 /// Price for product / app / in-app purchase. Value should include currency symbol in localised format.
-    case salePrice  = 7 /// Sale price that can be used together with price to indicate a discounted price compared to a regular price. Value should include currency symbol in localised format.
-    case phone      = 8 /// Phone number
-    case address    = 9 /// Address
-    case desc2      = 10 /// Additional descriptive text associated text with the product or service being advertised
-    case displayURL = 11 /// Display URL for the text ad. To be used when sponsoring entity doesn’t own the content. IE sponsored by BRAND on SITE (where SITE is transmitted in this field).
-    case ctaText    = 12 /// CTA description - descriptive text describing a ‘call to action’ button for the destination URL.
-    
-    case custom     = 500 /// Reserved for Exchange specific usage numbered above 500
+    /// Sponsored By message where response should contain the brand name of the sponsor.
+    case sponsored  = 1
+    /// Descriptive text associated with the product or service being advertised. Longer length of text in response may be truncated or ellipsed by the exchange.
+    case desc       = 2
+    /// Rating of the product being offered to the user. For example an app’s rating in an app store from 0-5.
+    case rating     = 3
+    /// Number of social ratings or “likes” of the product being offered to the user.
+    case likes      = 4
+    /// Number downloads/installs of this product
+    case downloads  = 5
+    /// Price for product / app / in-app purchase. Value should include currency symbol in localised format.
+    case price      = 6
+    /// Sale price that can be used together with price to indicate a discounted price compared to a regular price. Value should include currency symbol in localised format.
+    case salePrice  = 7
+    /// Phone number
+    case phone      = 8
+    /// Address
+    case address    = 9
+    /// Additional descriptive text associated text with the product or service being advertised
+    case desc2      = 10
+    /// Display URL for the text ad. To be used when sponsoring entity doesn’t own the content. IE sponsored by BRAND on SITE (where SITE is transmitted in this field).
+    case displayURL = 11
+    /// CTA description - descriptive text describing a ‘call to action’ button for the destination URL.
+    case ctaText    = 12
+    /// Reserved for Exchange specific usage numbered above 500
+    case custom     = 500
 }

@@ -1,0 +1,58 @@
+name: Upload Docs iOS
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'test-doc-*'
+
+jobs:
+  upload-docs:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout current branch
+      uses: actions/checkout@v4
+    - name: Install Jazzy
+      run: |
+        gem install jazzy
+    - name: Generate docs
+      run: |
+        jazzy
+        cp -r docs docs_new
+    - name: Checkout docs branch
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: docs
+        clean: false
+    - name: Commit documentation changes
+      run: |
+          MIN_SIZE=5120
+          if [ -d docs_new ] && [ "$(du -s docs_new | cut -f1)" -ge "$MIN_SIZE" ]; then
+            rm -rf docs
+            cp -r docs_new docs
+            rm -rf docs_new
+          else
+            echo "docs_new directory either does not exist or is too small."
+            exit 1
+          fi
+
+          if [ "$(git status --porcelain | wc -l)" -gt 0 ]; then
+            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            git status
+            TAG_NAME=${{ github.ref }}
+            TAG_NAME=${TAG_NAME#refs/tags/}
+            echo "Current tag: $TAG_NAME"
+            git add docs
+            git commit -m "Generate docs - $TAG_NAME"
+          else
+            echo "No changes to commit."
+          fi
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: docs

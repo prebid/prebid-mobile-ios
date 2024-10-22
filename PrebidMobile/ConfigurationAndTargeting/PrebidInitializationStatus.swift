@@ -15,6 +15,9 @@
 
 import Foundation
 
+/// Enum representing the initialization status of the Prebid SDK.
+///
+/// This enum provides various statuses that indicate the result of the Prebid SDK initialization process. It helps in understanding whether the SDK was successfully initialized or if there were issues during the initialization.
 @objc public enum PrebidInitializationStatus: Int {
     /// Prebid SDK successfully initialized.
     case succeeded

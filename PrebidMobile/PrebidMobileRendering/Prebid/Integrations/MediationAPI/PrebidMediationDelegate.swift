@@ -16,24 +16,20 @@
 import Foundation
 import UIKit
 
-// This protocol is dedicated to manage the work with Mediation SDKs.
+/// This protocol is dedicated to manage the work with Mediation SDKs.
 @objc
 public protocol PrebidMediationDelegate {
     
-    /**
-     Puts to ad object's localExtra the ad object (winning bid or native ad) and configId
-     and populates adObject's keywords by targeting info
-     @return YES on success and NO otherwise (when the passed ad has wrong type)
-     */
+    /// Puts to ad object's localExtra the ad object (winning bid or native ad) and configId
+    /// and populates adObject's keywords by targeting info
+    /// @return YES on success and NO otherwise (when the passed ad has wrong type)
     func setUpAdObject(with values: [String: Any]) -> Bool
-    /**
-     Removes an bid info from ad object's localExtra
-     and prebid-specific keywords from ad object's keywords
-     */
+    
+    /// Removes an bid info from ad object's localExtra
+    /// and prebid-specific keywords from ad object's keywords
     func cleanUpAdObject()
-    /**
-     Returns ad view that was passed into PrebidMediationDelegate earlier.
-     Returns nil if there was no view passed.
-     */
+    
+    /// Returns ad view that was passed into PrebidMediationDelegate earlier.
+    /// Returns nil if there was no view passed.
     func getAdView() -> UIView?
 }

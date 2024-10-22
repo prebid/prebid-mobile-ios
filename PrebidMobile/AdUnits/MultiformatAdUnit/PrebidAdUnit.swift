@@ -15,9 +15,11 @@
 
 import Foundation
 
+/// Multiformat ad unit. Built for original API.
 @objcMembers
 public class PrebidAdUnit: NSObject {
     
+    /// The ad slot identifier for the Prebid ad unit.
     public var pbAdSlot: String? {
         get { adUnit.pbAdSlot }
         set { adUnit.pbAdSlot = newValue }
@@ -25,11 +27,18 @@ public class PrebidAdUnit: NSObject {
     
     private let adUnit: AdUnit
     
+    /// Initializes a new `PrebidAdUnit` with the given configuration ID.
+    /// - Parameter configId: The configuration ID for the ad unit.
     public init(configId: String) {
         adUnit = AdUnit(configId: configId, size: CGSize.zero, adFormats: [])
         super.init()
     }
     
+    /// Makes bid request for the specified ad object and request config. Setups targeting keywords into the adObject.
+    /// - Parameters:
+    ///   - adObject: The ad object to fetch demand for.
+    ///   - request: The `PrebidRequest` containing the demand request parameters.
+    ///   - completion: A closure to be called with the `BidInfo` result.
     public func fetchDemand(adObject: AnyObject, request: PrebidRequest,
                             completion: @escaping (BidInfo) -> Void) {
         guard requestHasParameters(request) else {
@@ -45,6 +54,10 @@ public class PrebidAdUnit: NSObject {
         }
     }
     
+    /// Makes bid request for the specified request config.
+    /// - Parameters:
+    ///   - request: The `PrebidRequest` containing the demand request parameters.
+    ///   - completion: A closure to be called with the `BidInfo` result.
     public func fetchDemand(request: PrebidRequest, completion: @escaping (BidInfo) -> Void) {
         guard requestHasParameters(request) else {
             completion(BidInfo(resultCode: .prebidInvalidRequest))
@@ -62,22 +75,20 @@ public class PrebidAdUnit: NSObject {
     
     // MARK: - Auto refresh API
     
-    /**
-     * This method allows to set the auto refresh period for the demand
-     *
-     * - Parameter time: refresh time interval
-     */
+    
+    /// This method allows to set the auto refresh period for the demand
+    ///
+    /// - Parameter time: refresh time interval
     public func setAutoRefreshMillis(time: Double) {
         adUnit.setAutoRefreshMillis(time: time)
     }
     
-    /**
-     * This method stops the auto refresh of demand
-     */
+    /// This method stops the auto refresh of demand
     public func stopAutoRefresh() {
         adUnit.stopAutoRefresh()
     }
     
+    /// This method resumes the auto refresh of demand
     public func resumeAutoRefresh() {
         adUnit.resumeAutoRefresh()
     }

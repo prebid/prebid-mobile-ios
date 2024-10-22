@@ -15,6 +15,7 @@
 
 import Foundation
 
+/// Class that contains properties and methods to configure Prebid request.
 @objcMembers
 public class PrebidRequest: NSObject {
     
@@ -37,6 +38,13 @@ public class PrebidRequest: NSObject {
     private var userData: [PBMORTBContentData]?
     private var extKeywords = Set<String>()
     
+    /// Initializes a new `PrebidRequest` with the given parameters.
+    /// - Parameters:
+    ///   - bannerParameters: The banner parameters for the ad request.
+    ///   - videoParameters: The video parameters for the ad request.
+    ///   - nativeParameters: The native parameters for the ad request.
+    ///   - isInterstitial: Indicates if the request is for an interstitial ad.
+    ///   - isRewarded: Indicates if the request is for a rewarded ad.
     public init(bannerParameters: BannerParameters? = nil, videoParameters: VideoParameters? = nil,
                 nativeParameters: NativeParameters? = nil, isInterstitial: Bool = false, isRewarded: Bool = false) {
         self.bannerParameters = bannerParameters
@@ -50,16 +58,17 @@ public class PrebidRequest: NSObject {
     
     // MARK: GPID
     
+    /// Sets the GPID for the ad request.
+    /// - Parameter gpid: The GPID to set.
     public func setGPID(_ gpid: String?) {
         self.gpid = gpid
     }
     
     // MARK: - adunit ext data aka inventory data (imp[].ext.data)
     
-    /**
-     * This method obtains the ext data keyword & value for adunit targeting
-     * if the key already exists the value will be appended to the list. No duplicates will be added
-     */
+    
+    /// This method obtains the ext data keyword & value for adunit targeting
+    /// if the key already exists the value will be appended to the list. No duplicates will be added
     public func addExtData(key: String, value: String) {
         if extData[key] == nil {
             extData[key] = Set<String>()
@@ -68,24 +77,19 @@ public class PrebidRequest: NSObject {
         extData[key]?.insert(value)
     }
     
-    /**
-     * This method obtains the ext data keyword & values for adunit targeting
-     * the values if the key already exist will be replaced with the new set of values
-     */
+    
+    /// This method obtains the ext data keyword & values for adunit targeting
+    /// the values if the key already exist will be replaced with the new set of values
     public func updateExtData(key: String, value: Set<String>) {
         extData[key] = value
     }
     
-    /**
-     * This method allows to remove specific ext data keyword & values set from adunit targeting
-     */
+    /// This method allows to remove specific ext data keyword & values set from adunit targeting
     public func removeExtData(forKey: String) {
         extData.removeValue(forKey: forKey)
     }
     
-    /**
-     * This method allows to remove all ext data set from adunit targeting
-     */
+    /// This method allows to remove all ext data set from adunit targeting
     public func clearExtData() {
         extData.removeAll()
     }
@@ -96,32 +100,24 @@ public class PrebidRequest: NSObject {
     
     // MARK: - adunit ext keywords (imp[].ext.keywords)
     
-    /**
-     * This method obtains the keyword for adunit targeting
-     * Inserts the given element in the set if it is not already present.
-     */
+    /// This method obtains the keyword for adunit targeting
+    /// Inserts the given element in the set if it is not already present.
     public func addExtKeyword(_ newElement: String) {
         extKeywords.insert(newElement)
     }
     
-    /**
-     * This method obtains the keyword set for adunit targeting
-     * Adds the elements of the given set to the set.
-     */
+    /// This method obtains the keyword set for adunit targeting
+    /// Adds the elements of the given set to the set.
     public func addExtKeywords(_ newElements: Set<String>) {
         extKeywords.formUnion(newElements)
     }
     
-    /**
-     * This method allows to remove specific keyword from adunit targeting
-     */
+    /// This method allows to remove specific keyword from adunit targeting
     public func removeExtKeyword(_ element: String) {
         extKeywords.remove(element)
     }
     
-    /**
-     * This method allows to remove all keywords from the set of adunit targeting
-     */
+    /// This method allows to remove all keywords from the set of adunit targeting
     public func clearExtKeywords() {
         extKeywords.removeAll()
     }
@@ -132,14 +128,19 @@ public class PrebidRequest: NSObject {
     
     // MARK: - App Content (app.content.data)
     
+    /// Sets the app content for the ad request.
+    /// - Parameter appContentObject: The `PBMORTBAppContent` to set.
     public func setAppContent(_ appContentObject: PBMORTBAppContent) {
         self.appContent = appContentObject
     }
     
+    /// Clears the app content for the ad request.
     public func clearAppContent() {
         appContent = nil
     }
     
+    /// Adds data to the app content.
+    /// - Parameter dataObjects: The array of `PBMORTBContentData` to add.
     public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         if appContent == nil {
             appContent = PBMORTBAppContent()
@@ -152,12 +153,15 @@ public class PrebidRequest: NSObject {
         appContent?.data?.append(contentsOf: dataObjects)
     }
     
+    /// Removes specific data from the app content.
+    /// - Parameter dataObject: The `PBMORTBContentData` to remove.
     public func removeAppContentData(_ dataObject: PBMORTBContentData) {
         if let appContentData = appContent?.data, appContentData.contains(dataObject) {
             appContent?.data?.removeAll(where: { $0 == dataObject })
         }
     }
     
+    /// Clears all data from the app content.
     public func clearAppContentData() {
         appContent?.data?.removeAll()
     }
@@ -168,6 +172,8 @@ public class PrebidRequest: NSObject {
     
     // MARK: - User Data (user.data)
     
+    /// Adds user data to the ad request.
+    /// - Parameter userDataObjects: The array of `PBMORTBContentData` to add.
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         if userData == nil {
             userData = [PBMORTBContentData]()
@@ -176,12 +182,15 @@ public class PrebidRequest: NSObject {
         userData?.append(contentsOf: userDataObjects)
     }
     
+    /// Removes specific user data from the ad request.
+    /// - Parameter userDataObject: The `PBMORTBContentData` to remove.
     public func removeUserData(_ userDataObject: PBMORTBContentData) {
         if let userData = userData, userData.contains(userDataObject) {
             self.userData?.removeAll { $0 == userDataObject }
         }
     }
     
+    /// Clears all user data from the ad request.
     public func clearUserData() {
         userData?.removeAll()
     }

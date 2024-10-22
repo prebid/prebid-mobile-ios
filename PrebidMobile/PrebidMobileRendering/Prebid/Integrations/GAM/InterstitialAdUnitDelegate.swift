@@ -15,11 +15,10 @@
 
 import Foundation
 
-/*!
- * Protocol for interaction with the InterstitialAdUnit .
- *
- * All messages will be invoked on the main thread.
- */
+
+/// Protocol for interaction with the InterstitialAdUnit .
+/// 
+/// All messages will be invoked on the main thread.
 @objc
 public protocol InterstitialAdUnitDelegate: NSObjectProtocol {
 

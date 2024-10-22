@@ -15,6 +15,9 @@
 
 import Foundation
 
+/// Enum representing various positions on the screen.
+///
+/// This enum defines positions that can be used for placing elements within an ad. The positions are typically used to determine where controls or components should be located within the ad's user interface.
 @objc(PBMPosition)
 public enum Position: Int {
     case undefined = -1
@@ -27,6 +30,10 @@ public enum Position: Int {
     case bottomRight
     case custom
     
+    /// Returns the corresponding `Position` enum value for a given string literal.
+    ///
+    /// - Parameter stringValue: A string representing the position.
+    /// - Returns: The `Position` enum value if it matches one of the predefined cases; otherwise, returns `nil`.
     public static func getPositionByStringLiteral(_ stringValue: String) -> Position? {
         switch stringValue {
         case "topleft":

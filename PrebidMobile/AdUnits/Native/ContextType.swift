@@ -15,14 +15,19 @@
 
 import Foundation
 
+/// Native context type asset.
 @objcMembers
 public class ContextType: SingleContainerInt {
-
+    
+    /// Represents a content context type.
     public static let Content = ContextType(1)
-
+    
+    /// Represents a social media context type.
     public static let Social = ContextType(2)
     
+    /// Represents a product context type.
     public static let Product = ContextType(3)
     
+    /// Represents a custom context type.
     public static let Custom = ContextType(500)
 }

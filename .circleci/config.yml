@@ -41,7 +41,6 @@ jobs:
           name: Run Smoke UI Tests
           command: scripts/testPrebidDemo.sh -ui -l
 
-
 workflows:
   pr-check:
     jobs: 
