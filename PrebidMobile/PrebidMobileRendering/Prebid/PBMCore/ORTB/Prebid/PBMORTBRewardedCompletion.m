@@ -24,8 +24,8 @@
         return nil;
     }
     
-    _banner = [[PBMORTBRewardedCompletionBanner alloc] initWithJsonDictionary:jsonDictionary[@"banner"]];
-    _video = [[PBMORTBRewardedCompletionVideo alloc] initWithJsonDictionary:jsonDictionary[@"video"]];
+    _banner = [[PBMORTBRewardedCompletionBanner alloc] initWithJsonDictionary:[jsonDictionary[@"banner"] nullToNil]];
+    _video = [[PBMORTBRewardedCompletionVideo alloc] initWithJsonDictionary:[jsonDictionary[@"video"] nullToNil]];
     
     return self;
 }

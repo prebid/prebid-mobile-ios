@@ -98,6 +98,8 @@
 		534C61422CB55D980026119A /* BackgroundAwareTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61412CB55D980026119A /* BackgroundAwareTimer.swift */; };
 		534C61442CB5619B0026119A /* MockVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61432CB5619B0026119A /* MockVideoView.swift */; };
 		534C61462CB562E40026119A /* CloseActionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61452CB562E40026119A /* CloseActionManagerTests.swift */; };
+		535145E02CCB758800D40B19 /* NSObject+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 535145DF2CCB758800D40B19 /* NSObject+PBMExtensions.m */; };
+		535145E12CCB758800D40B19 /* NSObject+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 535145DE2CCB758800D40B19 /* NSObject+PBMExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5355ACA929C454070014F16E /* VAST_with_empty_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */; };
 		5355ACAB29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */; };
 		536A39262A84C50F00B1CCEA /* StringExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */; };
@@ -981,6 +983,8 @@
 		534C61412CB55D980026119A /* BackgroundAwareTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAwareTimer.swift; sourceTree = "<group>"; };
 		534C61432CB5619B0026119A /* MockVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockVideoView.swift; sourceTree = "<group>"; };
 		534C61452CB562E40026119A /* CloseActionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseActionManagerTests.swift; sourceTree = "<group>"; };
+		535145DE2CCB758800D40B19 /* NSObject+PBMExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+PBMExtensions.h"; sourceTree = "<group>"; };
+		535145DF2CCB758800D40B19 /* NSObject+PBMExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PBMExtensions.m"; sourceTree = "<group>"; };
 		5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_empty_companion.xml; sourceTree = "<group>"; };
 		5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModelCollectionMakerVASTTests.swift; sourceTree = "<group>"; };
 		536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTest.swift; sourceTree = "<group>"; };
@@ -2030,6 +2034,8 @@
 				53C925012990FB30009E6F94 /* String+Extensions.swift */,
 				53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */,
 				53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */,
+				535145DE2CCB758800D40B19 /* NSObject+PBMExtensions.h */,
+				535145DF2CCB758800D40B19 /* NSObject+PBMExtensions.m */,
 			);
 			path = ExtensionsAndWrappers;
 			sourceTree = "<group>";
@@ -3457,6 +3463,7 @@
 				5BC3796F271F1D0000444D5E /* PBMVastCreativeCompanionAdsCompanion.h in Headers */,
 				5BC378CA271F1CFF00444D5E /* PBMWeakTimerTargetBox.h in Headers */,
 				5BC37AC0271F1D0100444D5E /* PBMURLComponents.h in Headers */,
+				535145E12CCB758800D40B19 /* NSObject+PBMExtensions.h in Headers */,
 				5BC37A08271F1D0000444D5E /* PBMExternalURLOpenCallbacks.h in Headers */,
 				5BC37ACC271F1D0100444D5E /* PBMORTBParameterBuilder.h in Headers */,
 				5BC37A70271F1D0000444D5E /* PBMORTBAbstractResponse+Protected.h in Headers */,
@@ -4176,6 +4183,7 @@
 				5BC378F9271F1CFF00444D5E /* PBMORTBPublisher.m in Sources */,
 				534C61362CB529240026119A /* PBMORTBRewardedClose.m in Sources */,
 				5BC379D6271F1D0000444D5E /* PBMWebView.m in Sources */,
+				535145E02CCB758800D40B19 /* NSObject+PBMExtensions.m in Sources */,
 				92AFE57F274FCD9900B0430C /* PBMORTBAppContent.m in Sources */,
 				92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */,
 				5BC37A62271F1D0000444D5E /* PBMORTBBidExtPrebidCacheBids.m in Sources */,

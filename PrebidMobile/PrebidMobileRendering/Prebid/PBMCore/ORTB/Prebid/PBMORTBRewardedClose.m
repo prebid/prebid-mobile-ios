@@ -22,8 +22,8 @@
         return nil;
     }
     
-    _postrewardtime = jsonDictionary[@"postrewardtime"];
-    _action = jsonDictionary[@"action"];
+    _postrewardtime = [jsonDictionary[@"postrewardtime"] nullToNil];
+    _action = [jsonDictionary[@"action"] nullToNil];
     
     return self;
 }

@@ -26,9 +26,9 @@
         return nil;
     }
     
-    _reward = [[PBMORTBRewardedReward alloc] initWithJsonDictionary:jsonDictionary[@"reward"]];
-    _completion = [[PBMORTBRewardedCompletion alloc] initWithJsonDictionary:jsonDictionary[@"completion"]];
-    _close = [[PBMORTBRewardedClose alloc] initWithJsonDictionary:jsonDictionary[@"close"]];
+    _reward = [[PBMORTBRewardedReward alloc] initWithJsonDictionary:[jsonDictionary[@"reward"] nullToNil]];
+    _completion = [[PBMORTBRewardedCompletion alloc] initWithJsonDictionary:[jsonDictionary[@"completion"] nullToNil]];
+    _close = [[PBMORTBRewardedClose alloc] initWithJsonDictionary:[jsonDictionary[@"close"] nullToNil]];
     
     return self;
 }

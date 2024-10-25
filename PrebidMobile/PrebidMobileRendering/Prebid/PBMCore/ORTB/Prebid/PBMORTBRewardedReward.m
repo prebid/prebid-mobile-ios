@@ -22,9 +22,9 @@
         return nil;
     }
     
-    _type = jsonDictionary[@"type"];
-    _count = jsonDictionary[@"count"];
-    _ext = jsonDictionary[@"ext"];
+    _type = [jsonDictionary[@"type"] nullToNil];
+    _count = [jsonDictionary[@"count"] nullToNil];
+    _ext = [jsonDictionary[@"ext"] nullToNil];
     
     return self;
 }

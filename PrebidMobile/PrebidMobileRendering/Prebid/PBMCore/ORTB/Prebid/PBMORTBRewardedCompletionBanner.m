@@ -22,8 +22,8 @@
         return nil;
     }
     
-    _time = jsonDictionary[@"time"];
-    _event = jsonDictionary[@"event"];
+    _time = [jsonDictionary[@"time"] nullToNil];
+    _event = [jsonDictionary[@"event"] nullToNil];
     
     return self;
 }

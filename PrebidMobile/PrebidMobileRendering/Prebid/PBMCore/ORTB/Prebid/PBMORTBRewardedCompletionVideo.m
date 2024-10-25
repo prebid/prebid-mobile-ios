@@ -22,9 +22,9 @@
         return nil;
     }
     
-    _time = jsonDictionary[@"time"];
-    _playbackevent = jsonDictionary[@"playbackevent"];
-    _endcard = [[PBMORTBRewardedCompletionVideoEndcard alloc] initWithJsonDictionary:jsonDictionary[@"endcard"]];
+    _time = [jsonDictionary[@"time"] nullToNil];
+    _playbackevent = [jsonDictionary[@"playbackevent"] nullToNil];
+    _endcard = [[PBMORTBRewardedCompletionVideoEndcard alloc] initWithJsonDictionary:[jsonDictionary[@"endcard"] nullToNil]];
     
     return self;
 }
