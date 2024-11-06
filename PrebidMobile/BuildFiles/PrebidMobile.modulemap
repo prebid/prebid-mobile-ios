@@ -177,4 +177,5 @@ framework module PrebidMobile {
     
     header "OMSDKVersionProvider.h"
     header "NSObject+PBMExtensions.h"
+    header "PBMCreativeViewabilityTracker.h"
 }
