@@ -18,20 +18,24 @@ import UIKit
 /// A class that schedules a timer that checks if VC and views of particular type are presented.
 class InterstitialObserver {
     
-    private var timeInterval: TimeInterval
     private var timer: Timer?
+    private var checkInterval: TimeInterval
     
-    private var targetViewSearchClassNames: [String]
-    private var targetViewControllerSearchClassName: String
+    private var targetViewClassName: String
+    private var targetViewControllerClassName: String
+    
+    private var onTargetInterstitialPresented: ((UIView) -> Void)?
     
     init(
-        timeInterval: TimeInterval = 1.0,
-        targetViewSearchClassNames: [String] = ["GADWebAdView", "GADCloseButton"],
-        targetViewControllerSearchClassName: String = "GADFullScreenAdViewController"
+        checkInterval: TimeInterval = 1.0,
+        targetViewClassName: String = "GADWebAdView",
+        targetViewControllerClassName: String = "GADFullScreenAdViewController",
+        onTargetInterstitialPresented: ((UIView) -> Void)? = nil
     ) {
-        self.timeInterval = timeInterval
-        self.targetViewSearchClassNames = targetViewSearchClassNames
-        self.targetViewControllerSearchClassName = targetViewControllerSearchClassName
+        self.checkInterval = checkInterval
+        self.targetViewClassName = targetViewClassName
+        self.targetViewControllerClassName = targetViewControllerClassName
+        self.onTargetInterstitialPresented = onTargetInterstitialPresented
     }
     
     deinit {
@@ -40,7 +44,7 @@ class InterstitialObserver {
     
     func start() {
         let timer = Timer.scheduledTimer(
-            timeInterval: timeInterval,
+            timeInterval: checkInterval,
             target: self,
             selector: #selector(checkPresentedViewController),
             userInfo: nil,
@@ -58,6 +62,8 @@ class InterstitialObserver {
     }
     
     @objc private func checkPresentedViewController() {
+        // FIXME: when publisher loads multiple interstitials at the same time - how do we know which one is presented ?
+        
         if let presentedVC = UIWindow.topViewController {
             // printSubviews(of: presentedVC.view)
             
@@ -65,40 +71,22 @@ class InterstitialObserver {
             print("LOG: presentedVC \(String(describing: type(of: presentedVC)))")
             
             let presentedVCClassName = String(describing: type(of: presentedVC))
-            let isGADViewController = presentedVCClassName == targetViewControllerSearchClassName
+            let isGADViewController = presentedVCClassName == targetViewControllerClassName
             
             print("LOG: isGADViewController \(isGADViewController)")
             
             // => GADWebAdView
-            // => GADCloseButton
-            let gadViews = targetViewSearchClassNames.compactMap {
-                searchSubviews(of: presentedVC.view, targetClassName: $0)
-            }
+            let gadAdView = presentedVC.view.searchSubviews(targetClassName: targetViewClassName)
             
-            if isGADViewController && gadViews.count == targetViewSearchClassNames.count {
+            if let gadAdView, isGADViewController {
                 print("LOG: GMA View Controller was found!")
                 stop()
+                onTargetInterstitialPresented?(gadAdView)
             }
         }
     }
     
     // MARK: - Helpers
-    
-    private func searchSubviews(of view: UIView, targetClassName: String) -> UIView? {
-        let viewClassName = String(describing: type(of: view))
-        
-        if viewClassName == targetClassName {
-            return view
-        }
-        
-        for subview in view.subviews {
-            if let foundView = searchSubviews(of: subview, targetClassName: targetClassName) {
-                return foundView
-            }
-        }
-        
-        return nil
-    }
     
     private func printSubviews(of view: UIView, level: Int = 0) {
         let indentation = String(repeating: "-", count: level)

@@ -49,7 +49,6 @@ extension UIView {
         let intersectionArea = intersection.width * intersection.height
         let selfArea = normalizedSelfRect.width * normalizedSelfRect.height
         return intersectionArea >= 0.5 * selfArea
-        
     }
     
     func firstWebView() -> WKWebView? {
@@ -60,6 +59,22 @@ extension UIView {
         for subview in subviews {
             if let webView = subview.firstWebView() {
                 return webView
+            }
+        }
+        
+        return nil
+    }
+    
+    func searchSubviews(targetClassName: String) -> UIView? {
+        let viewClassName = String(describing: type(of: self))
+        
+        if viewClassName == targetClassName {
+            return self
+        }
+        
+        for subview in self.subviews {
+            if let foundView = subview.searchSubviews(targetClassName: targetClassName) {
+                return foundView
             }
         }
         
