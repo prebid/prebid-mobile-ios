@@ -15,59 +15,52 @@
 
 import UIKit
 
-/// Schedules reload tracker and every time GAM banner view reloads => fires viewability tracker.
+/// Schedules the reload tracker to monitor the GAM banner view.
+/// Each time the banner view reloads, the viewability tracker is triggered.
 class BannerViewImpressionTracker {
     
-    private var bannerViewReloadTracker: BannerViewReloadTracker?
-    private var viewabilityTracker: PBMCreativeViewabilityTracker?
+    private weak var monitoredView: UIView?
     
-    private weak var view: UIView?
+    private var reloadTracker: BannerViewReloadTracker?
+    private var viewabilityTracker: PBMCreativeViewabilityTracker?
     
     private var isImpressionTracked = false
     
-    private var defaultPollingTimeInterval: TimeInterval {
+    private var pollingInterval: TimeInterval {
         0.2
     }
     
-    init(view: UIView? = nil) {
-        self.view = view
-    }
-    
-    func start() {
-        initAdViewReloadTracker()
-    }
-    
-    func stop() {
-        bannerViewReloadTracker?.stop()
-        viewabilityTracker?.stop()
-    }
-    
-    private func initAdViewReloadTracker() {
-        guard let view else { return }
-        
-        bannerViewReloadTracker = BannerViewReloadTracker(in: view) { [weak self] in
+    init() {
+        reloadTracker = BannerViewReloadTracker(
+            reloadCheckInterval: pollingInterval
+        ) { [weak self] in
             self?.isImpressionTracked = false
             self?.initViewabilityTracker()
         }
-        
-        bannerViewReloadTracker?.start()
+    }
+    
+    func start(in view: UIView?) {
+        self.monitoredView = view
+        reloadTracker?.start(in: view)
+    }
+    
+    func stop() {
+        reloadTracker?.stop()
+        viewabilityTracker?.stop()
     }
     
     private func initViewabilityTracker() {
-        guard let view else { return }
+        guard let monitoredView else { return }
         
         viewabilityTracker = PBMCreativeViewabilityTracker(
-            view: view,
-            pollingTimeInterval: defaultPollingTimeInterval,
-            onExposureChange: { [weak self] tracker, viewExposure in
+            view: monitoredView,
+            pollingTimeInterval: pollingInterval,
+            onExposureChange: { [weak self] _, viewExposure in
                 guard let self = self else { return }
                 
-                if !self.isImpressionTracked {
+                if viewExposure.exposedPercentage > 0 && !self.isImpressionTracked {
                     print("LOG: \(viewExposure), exposedPercentage: \(viewExposure.exposedPercentage)")
-                }
-                
-                if viewExposure.exposedPercentage > 0, !self.isImpressionTracked {
-                    // Stop tracker
+                    
                     self.viewabilityTracker?.stop()
                     
                     self.isImpressionTracked = true

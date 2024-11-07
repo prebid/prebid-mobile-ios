@@ -14,6 +14,7 @@ limitations under the License.
 */
 
 import UIKit
+import WebKit
 
 extension UIView {
     
@@ -51,4 +52,17 @@ extension UIView {
         
     }
     
+    func firstWebView() -> WKWebView? {
+        if let webView = self as? WKWebView {
+            return webView
+        }
+        
+        for subview in subviews {
+            if let webView = subview.firstWebView() {
+                return webView
+            }
+        }
+        
+        return nil
+    }
 }
