@@ -62,10 +62,7 @@ class BannerViewImpressionTracker {
                 guard let self = self else { return }
                 
                 if viewExposure.exposureFactor > 0 && !self.isImpressionTracked {
-                    print("LOG: \(viewExposure), exposedPercentage: \(viewExposure.exposedPercentage)")
-                    
                     self.viewabilityTracker?.stop()
-                    
                     self.isImpressionTracked = true
                     
                     if let trackingURL {

@@ -36,7 +36,6 @@ class InterstitialImpressionTracker {
                     guard let self else { return }
                     
                     if viewExposure.exposureFactor > 0 {
-                        print("LOG: \(viewExposure), exposedPercentage: \(viewExposure.exposedPercentage)")
                         self.stop()
                         
                         if let trackingURL {
