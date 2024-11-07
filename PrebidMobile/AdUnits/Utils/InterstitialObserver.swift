@@ -65,35 +65,15 @@ class InterstitialObserver {
         // FIXME: when publisher loads multiple interstitials at the same time - how do we know which one is presented ?
         
         if let presentedVC = UIWindow.topViewController {
-            // printSubviews(of: presentedVC.view)
-            
-            // => GADFullScreenAdViewController
-            print("LOG: presentedVC \(String(describing: type(of: presentedVC)))")
-            
             let presentedVCClassName = String(describing: type(of: presentedVC))
             let isGADViewController = presentedVCClassName == targetViewControllerClassName
             
-            print("LOG: isGADViewController \(isGADViewController)")
-            
-            // => GADWebAdView
             let gadAdView = presentedVC.view.searchSubviews(targetClassName: targetViewClassName)
             
             if let gadAdView, isGADViewController {
-                print("LOG: GMA View Controller was found!")
                 stop()
                 onTargetInterstitialPresented?(gadAdView)
             }
-        }
-    }
-    
-    // MARK: - Helpers
-    
-    private func printSubviews(of view: UIView, level: Int = 0) {
-        let indentation = String(repeating: "-", count: level)
-        print("\(indentation) \(type(of: view))")
-        
-        for subview in view.subviews {
-            printSubviews(of: subview, level: level + 1)
         }
     }
 }
