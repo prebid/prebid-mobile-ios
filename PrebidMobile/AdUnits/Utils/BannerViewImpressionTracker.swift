@@ -24,6 +24,8 @@ class BannerViewImpressionTracker {
     private var reloadTracker: BannerViewReloadTracker?
     private var viewabilityTracker: PBMCreativeViewabilityTracker?
     
+    private var trackingURL: String?
+    
     private var isImpressionTracked = false
     
     private var pollingInterval: TimeInterval {
@@ -39,8 +41,9 @@ class BannerViewImpressionTracker {
         }
     }
     
-    func start(in view: UIView?) {
+    func start(in view: UIView?, trackingURL: String?) {
         self.monitoredView = view
+        self.trackingURL = trackingURL
         reloadTracker?.start(in: view)
     }
     
@@ -58,14 +61,16 @@ class BannerViewImpressionTracker {
             onExposureChange: { [weak self] _, viewExposure in
                 guard let self = self else { return }
                 
-                if viewExposure.exposedPercentage > 0 && !self.isImpressionTracked {
+                if viewExposure.exposureFactor > 0 && !self.isImpressionTracked {
                     print("LOG: \(viewExposure), exposedPercentage: \(viewExposure.exposedPercentage)")
                     
                     self.viewabilityTracker?.stop()
                     
                     self.isImpressionTracked = true
                     
-                    // TODO: Track burl
+                    if let trackingURL {
+                        PrebidServerConnection.shared.fireAndForget(trackingURL)
+                    }
                 }
             }
         )

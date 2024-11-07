@@ -54,7 +54,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     private var timeOutSignalSent = false
     
     private var bannerViewImpressionTracker = BannerViewImpressionTracker()
-    private var interstitialObserver: InterstitialObserver?
+    private var interstitialImpressionTracker = InterstitialImpressionTracker()
     
     /// Initializes a new `AdUnit` instance with the specified configuration ID, size, and ad formats.
     ///
@@ -85,7 +85,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     deinit {
         dispatcher?.invalidate()
         bannerViewImpressionTracker.stop()
-        interstitialObserver?.stop()
+        interstitialImpressionTracker.stop()
     }
     
     //TODO: dynamic is used by tests
@@ -120,8 +120,8 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// - Parameters:
     ///   - adObject: The ad object for which demand is being fetched.
     ///   - completion: A closure called with the result code indicating the outcome of the demand fetch.
-    dynamic public func fetchDemand(adObject: AnyObject, view: UIView? = nil, completion: @escaping(_ result: ResultCode) -> Void) {
-        baseFetchDemand(adObject: adObject, view: view) { bidInfo in
+    dynamic public func fetchDemand(adObject: AnyObject, adView: UIView? = nil, completion: @escaping(_ result: ResultCode) -> Void) {
+        baseFetchDemand(adObject: adObject, adView: adView) { bidInfo in
             DispatchQueue.main.async {
                 completion(bidInfo.resultCode)
             }
@@ -131,18 +131,9 @@ public class AdUnit: NSObject, DispatcherDelegate {
     // SDK internal
     func baseFetchDemand(
         adObject: AnyObject? = nil,
-        view: UIView? = nil,
+        adView: UIView? = nil,
         completion: @escaping (_ bidInfo: BidInfo) -> Void
     ) {
-        if let view {
-            bannerViewImpressionTracker.start(in: view)
-        }
-        
-        if adUnitConfig.adConfiguration.isInterstitialAd {
-            interstitialObserver = InterstitialObserver()
-            interstitialObserver?.start()
-        }
-        
         if !(self is NativeRequest) {
             if adSizes.contains(where: { $0.width < 0 || $0.height < 0 }) {
                 completion(BidInfo(resultCode: .prebidInvalidSize))
@@ -195,6 +186,19 @@ public class AdUnit: NSObject, DispatcherDelegate {
                 }
                 
                 return
+            }
+            
+            if let adView {
+                bannerViewImpressionTracker.start(
+                    in: adView,
+                    trackingURL: bidResponse.winningBid?.bid.burl
+                )
+            }
+            
+            if adUnitConfig.adConfiguration.isInterstitialAd {
+                interstitialImpressionTracker.start(
+                    withTrackingURL: bidResponse.winningBid?.bid.burl
+                )
             }
             
             if (!self.timeOutSignalSent) {
