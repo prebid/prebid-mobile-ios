@@ -76,21 +76,6 @@ class AdViewUtilsTests: XCTestCase {
         XCTAssert(result == "hb_size\":[\"728x90")
     }
     
-    func testStringToCGSize() {
-        var result = AdViewUtils.stringToCGSize("300x250")
-        XCTAssertNotNil(result)
-        XCTAssert(result == CGSize(width: 300, height: 250))
-        
-        result = AdViewUtils.stringToCGSize("300x250x1")
-        XCTAssertNil(result)
-        
-        result = AdViewUtils.stringToCGSize("ERROR")
-        XCTAssertNil(result)
-        
-        result = AdViewUtils.stringToCGSize("300x250ERROR")
-        XCTAssertNil(result)
-    }
-    
     func testFailureFindASizeInNilHtmlCode() {
         findSizeInHtmlFailureHelper(body: nil, expectedErrorCode: PbFindSizeErrorFactory.noHtmlCode)
     }

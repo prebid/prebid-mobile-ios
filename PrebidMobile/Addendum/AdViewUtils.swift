@@ -16,90 +16,68 @@
 import Foundation
 import WebKit
 
+@objcMembers
 public final class AdViewUtils: NSObject {
-
+    
     private static let innerHtmlScript = "document.body.innerHTML"
     private static let sizeValueRegexExpression = "[0-9]+x[0-9]+"
-    private static let sizeObjectRegexExpression = "hb_size\\W+\(sizeValueRegexExpression)" //"hb_size\\W+[0-9]+x[0-9]+"
+    private static let sizeObjectRegexExpression = "hb_size\\W+\(sizeValueRegexExpression)"
     
     private override init() {}
     
-    @objc
-    public static func findPrebidCreativeSize(_ adView: UIView, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
-        
-        let view = self.findView(adView) { (subView) -> Bool in
-            return isWKWebView(subView)
-        }
-        
-        if let wkWebView = view as? WKWebView  {
-            Log.debug("subView is WKWebView")
-            self.findSizeInWebViewAsync(wkWebView: wkWebView, success: success, failure: failure)
-            
-        } else {
+    public static func findPrebidCreativeSize(
+        _ adView: UIView,
+        success: @escaping (CGSize) -> Void,
+        failure: @escaping (Error) -> Void
+    ) {
+        guard let webView = adView.allSubViewsOf(type: WKWebView.self).first else {
             warnAndTriggerFailure(PbFindSizeErrorFactory.noWKWebView, failure: failure)
-        }
-    }
-    
-    static func triggerSuccess(size: CGSize, success: @escaping (CGSize) -> Void) {
-        success(size)
-    }
-    
-    static func warnAndTriggerFailure(_ error: PbFindSizeError, failure: @escaping (PbFindSizeError) -> Void) {
-        Log.warn(error.localizedDescription)
-        failure(error)
-    }
-    
-    static func findView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
-        if closure(view)  {
-            return view
-        } else {
-            return recursivelyFindView(view, closure: closure)
-        }
-    }
-    
-    static func recursivelyFindView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
-        for subview in view.subviews {
-            
-            if closure(subview)  {
-                return subview
-            }
-            
-            if let result = recursivelyFindView(subview, closure: closure) {
-                return result
-            }
+            return
         }
         
-        return nil
+        findSizeInWebViewAsync(wkWebView: webView, success: success, failure: failure)
     }
     
-    static func findSizeInWebViewAsync(wkWebView: WKWebView, success: @escaping (CGSize) -> Void, failure: @escaping (PbFindSizeError) -> Void) {
-        
-        wkWebView.evaluateJavaScript(AdViewUtils.innerHtmlScript, completionHandler: { (value: Any!, error: Error!) -> Void in
+    private static func findSizeInWebViewAsync(
+        wkWebView: WKWebView,
+        success: @escaping (CGSize) -> Void,
+        failure: @escaping (PbFindSizeError) -> Void
+    ) {
+        wkWebView.evaluateJavaScript(
+            AdViewUtils.innerHtmlScript,
+            completionHandler: { (value: Any!, error: Error!) -> Void in
             
-            if error != nil {
-                self.warnAndTriggerFailure(PbFindSizeErrorFactory.getWkWebViewFailedError(message: error.localizedDescription), failure: failure)
+            guard error == nil else{
+                warnAndTriggerFailure(
+                    PbFindSizeErrorFactory.getWkWebViewFailedError(message: error.localizedDescription),
+                    failure: failure
+                )
+                
                 return
             }
             
-            self.findSizeInHtml(body: value as? String, success: success, failure: failure)
+            findSizeInHtml(body: value as? String, success: success, failure: failure)
         })
-        
     }
     
-    static func findSizeInHtml(body: String?, success: @escaping (CGSize) -> Void, failure: @escaping (PbFindSizeError) -> Void) {
+    private static func findSizeInHtml(
+        body: String?,
+        success: @escaping (CGSize) -> Void,
+        failure: @escaping (PbFindSizeError) -> Void
+    ) {
         let result = findSizeInHtml(body: body)
         
         if let size = result.size {
-            triggerSuccess(size: size, success: success)
+            success(size)
         } else if let error = result.error {
             warnAndTriggerFailure(error, failure: failure)
         } else {
-            Log.error("The bouth values size and error are nil")
+            Log.error("Both values size and error are nil")
             warnAndTriggerFailure(PbFindSizeErrorFactory.unspecified, failure: failure)
         }
     }
     
-    static func findSizeInHtml(body: String?) -> (size: CGSize?, error: PbFindSizeError?) {
+    private static func findSizeInHtml(body: String?) -> (size: CGSize?, error: PbFindSizeError?) {
         guard let htmlBody = body, !htmlBody.isEmpty else {
             return (nil, PbFindSizeErrorFactory.noHtml)
         }
@@ -112,7 +90,7 @@ public final class AdViewUtils: NSObject {
             return (nil, PbFindSizeErrorFactory.noSizeValue)
         }
         
-        let maybeSize = stringToCGSize(hbSizeValue)
+        let maybeSize = hbSizeValue.toCGSize()
         if let size = maybeSize {
             return (size, nil)
         } else {
@@ -120,68 +98,21 @@ public final class AdViewUtils: NSObject {
         }
     }
     
-    static func findHbSizeObject(in text: String) -> String? {
-        return matchAndCheck(regex: AdViewUtils.sizeObjectRegexExpression, text: text)
+    private static func findHbSizeObject(in text: String) -> String? {
+        return text.matchAndCheck(regex: AdViewUtils.sizeObjectRegexExpression)
     }
     
-    static func findHbSizeValue(in hbSizeObject: String) -> String? {
-        return matchAndCheck(regex: AdViewUtils.sizeValueRegexExpression, text: hbSizeObject)
+    private static func findHbSizeValue(in hbSizeObject: String) -> String? {
+        return hbSizeObject.matchAndCheck(regex: AdViewUtils.sizeValueRegexExpression)
     }
     
-    static func isWKWebView(_ view: UIView) -> Bool {
-        return view is WKWebView
+    private static func warnAndTriggerFailure(
+        _ error: PbFindSizeError,
+        failure: @escaping (PbFindSizeError) -> Void
+    ) {
+        Log.warn(error.localizedDescription)
+        failure(error)
     }
-    
-    static func matchAndCheck(regex: String, text: String) -> String? {
-        let matched = matches(for: regex, in: text)
-        
-        if matched.isEmpty {
-            return nil
-        }
-        
-        let firstResult = matched[0]
-        
-        return firstResult
-    }
-    
-    static func matches(for regex: String, in text: String) -> [String] {
-        
-        do {
-            let regex = try NSRegularExpression(pattern: regex)
-            let results = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
-            return results.map {
-                String(text[Range($0.range, in: text)!])
-            }
-        } catch let error {
-            Log.warn("invalid regex: \(error.localizedDescription)")
-            return []
-        }
-    }
-    
-    static func stringToCGSize(_ size: String) -> CGSize? {
-        
-        let sizeArr = size.split{$0 == "x"}.map(String.init)
-        guard sizeArr.count == 2 else {
-            Log.warn("\(size) has a wrong format")
-            return nil
-        }
-        
-        let nsNumberWidth = NumberFormatter().number(from: sizeArr[0])
-        let nsNumberHeight = NumberFormatter().number(from: sizeArr[1])
-        
-        guard let numberWidth = nsNumberWidth, let numberHeight = nsNumberHeight else {
-            Log.warn("\(size) can not be converted to CGSize")
-            return nil
-        }
-        
-        let width = CGFloat(truncating: numberWidth)
-        let height = CGFloat(truncating: numberHeight)
-        
-        let gcSize = CGSize(width: width, height: height)
-        
-        return gcSize
-    }
-
 }
 
 //It is not possible to use Enum because of compatibility with Objective-C
