@@ -64,7 +64,7 @@ class BannerViewReloadTracker {
         let foundWebView = allWebViews.first
         
         if activeWebView !== foundWebView {
-            AdViewUtils.findPrebidCreativeCacheID(monitoredView) { result in
+            AdViewUtils.findPrebidCacheID(monitoredView) { result in
                 switch result {
                 case .success(let cacheID):
                     print("LOG: cache id \(cacheID)")
@@ -72,6 +72,12 @@ class BannerViewReloadTracker {
                     print("LOG: error \(error.localizedDescription)")
                 }
             }
+            
+            AdViewUtils.findPrebidCreativeSize(monitoredView, success: { size in
+                print("LOG: size \(size)")
+            }, failure: { error in
+                print("LOG: error \(error.localizedDescription)")
+            })
             
             onReloadDetected()
         }
