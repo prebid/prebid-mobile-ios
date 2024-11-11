@@ -20,8 +20,14 @@ import WebKit
 public final class AdViewUtils: NSObject {
     
     private static let innerHtmlScript = "document.body.innerHTML"
+    
+    // hb_size
     private static let sizeValueRegexExpression = "[0-9]+x[0-9]+"
     private static let sizeObjectRegexExpression = "hb_size\\W+\(sizeValueRegexExpression)"
+    
+    // hb_cache_id
+    private static let cacheIDValueRegexExpression = "[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"
+    private static let cacheIDObjectRegexExpression = "hb_cache_id\\W+\(cacheIDValueRegexExpression)"
     
     private override init() {}
     
@@ -31,92 +37,103 @@ public final class AdViewUtils: NSObject {
         failure: @escaping (Error) -> Void
     ) {
         guard let webView = adView.allSubViewsOf(type: WKWebView.self).first else {
-            warnAndTriggerFailure(PbFindSizeErrorFactory.noWKWebView, failure: failure)
+            let error = PbWebViewSearchErrorFactory.noWKWebView
+            Log.warn(error.localizedDescription)
+            failure(error)
             return
         }
         
-        findSizeInWebViewAsync(wkWebView: webView, success: success, failure: failure)
+        getInnerHTML(from: webView) { result in
+            switch result {
+            case .success(let innerHTML):
+                switch findSizeInHtml(body: innerHTML) {
+                case .success(let size):
+                    success(size)
+                case .failure(let error):
+                    failure(error)
+                }
+            case .failure(let error):
+                failure(error)
+            }
+        }
     }
     
-    private static func findSizeInWebViewAsync(
-        wkWebView: WKWebView,
-        success: @escaping (CGSize) -> Void,
-        failure: @escaping (PbFindSizeError) -> Void
+    static func findPrebidCreativeCacheID(
+        _ adView: UIView,
+        completion: ((Result<String, Error>) -> Void)? = nil
+    ) {
+        guard let webView = adView.allSubViewsOf(type: WKWebView.self).first else {
+            let error = PbWebViewSearchErrorFactory.noWKWebView
+            Log.warn(error.localizedDescription)
+            completion?(.failure(error))
+            return
+        }
+        
+        getInnerHTML(from: webView) { result in
+            switch result {
+            case .success(let innerHTML):
+                completion?(findCacheIDInHtml(body: innerHTML))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+    
+    private static func findSizeInHtml(body: String) -> Result<CGSize, PbWebViewSearchError> {
+        guard let hbSizeObject = body.matchAndCheck(regex: AdViewUtils.sizeObjectRegexExpression) else {
+            return .failure(PbWebViewSearchErrorFactory.noSizeObject)
+        }
+        
+        guard let hbSizeValue = hbSizeObject.matchAndCheck(regex: AdViewUtils.sizeValueRegexExpression) else {
+            return .failure(PbWebViewSearchErrorFactory.noSizeValue)
+        }
+        
+        if let size = hbSizeValue.toCGSize() {
+            return .success(size)
+        } else {
+            return .failure(PbWebViewSearchErrorFactory.sizeUnparsed)
+        }
+    }
+    
+    private static func findCacheIDInHtml(body: String) -> Result<String, Error> {
+        guard let hbCacheIDObject = body.matchAndCheck(regex: AdViewUtils.cacheIDObjectRegexExpression) else {
+            return .failure(PbWebViewSearchErrorFactory.noCacheIDObject)
+        }
+        
+        guard let hbCacheIDValue = hbCacheIDObject.matchAndCheck(regex: AdViewUtils.cacheIDValueRegexExpression) else {
+            return .failure(PbWebViewSearchErrorFactory.noCacheIDValue)
+        }
+        
+        return .success(hbCacheIDValue)
+    }
+    
+    private static func getInnerHTML(
+        from wkWebView: WKWebView,
+        completion: @escaping (Result<String, PbWebViewSearchError>) -> Void
     ) {
         wkWebView.evaluateJavaScript(
             AdViewUtils.innerHtmlScript,
             completionHandler: { (value: Any!, error: Error!) -> Void in
-            
-            guard error == nil else{
-                warnAndTriggerFailure(
-                    PbFindSizeErrorFactory.getWkWebViewFailedError(message: error.localizedDescription),
-                    failure: failure
-                )
+                guard error == nil else {
+                    let findError = PbWebViewSearchErrorFactory.getWkWebViewFailedError(message: error.localizedDescription)
+                    Log.warn(findError.localizedDescription)
+                    completion(.failure(findError))
+                    return
+                }
                 
-                return
-            }
-            
-            findSizeInHtml(body: value as? String, success: success, failure: failure)
-        })
-    }
-    
-    private static func findSizeInHtml(
-        body: String?,
-        success: @escaping (CGSize) -> Void,
-        failure: @escaping (PbFindSizeError) -> Void
-    ) {
-        let result = findSizeInHtml(body: body)
-        
-        if let size = result.size {
-            success(size)
-        } else if let error = result.error {
-            warnAndTriggerFailure(error, failure: failure)
-        } else {
-            Log.error("Both values size and error are nil")
-            warnAndTriggerFailure(PbFindSizeErrorFactory.unspecified, failure: failure)
-        }
-    }
-    
-    private static func findSizeInHtml(body: String?) -> (size: CGSize?, error: PbFindSizeError?) {
-        guard let htmlBody = body, !htmlBody.isEmpty else {
-            return (nil, PbFindSizeErrorFactory.noHtml)
-        }
-        
-        guard let hbSizeObject = findHbSizeObject(in: htmlBody) else {
-            return (nil, PbFindSizeErrorFactory.noSizeObject)
-        }
-        
-        guard let hbSizeValue = findHbSizeValue(in: hbSizeObject) else {
-            return (nil, PbFindSizeErrorFactory.noSizeValue)
-        }
-        
-        let maybeSize = hbSizeValue.toCGSize()
-        if let size = maybeSize {
-            return (size, nil)
-        } else {
-            return (nil, PbFindSizeErrorFactory.sizeUnparsed)
-        }
-    }
-    
-    private static func findHbSizeObject(in text: String) -> String? {
-        return text.matchAndCheck(regex: AdViewUtils.sizeObjectRegexExpression)
-    }
-    
-    private static func findHbSizeValue(in hbSizeObject: String) -> String? {
-        return hbSizeObject.matchAndCheck(regex: AdViewUtils.sizeValueRegexExpression)
-    }
-    
-    private static func warnAndTriggerFailure(
-        _ error: PbFindSizeError,
-        failure: @escaping (PbFindSizeError) -> Void
-    ) {
-        Log.warn(error.localizedDescription)
-        failure(error)
+                guard let innerHTML = value as? String, !innerHTML.isEmpty else {
+                    let findError = PbWebViewSearchErrorFactory.noHtml
+                    completion(.failure(findError))
+                    return
+                }
+                
+                completion(.success(innerHTML))
+            })
     }
 }
 
 //It is not possible to use Enum because of compatibility with Objective-C
-final class PbFindSizeErrorFactory {
+final class PbWebViewSearchErrorFactory {
     
     private init() {}
     
@@ -130,6 +147,8 @@ final class PbFindSizeErrorFactory {
     static let noSizeObjectCode = 140
     static let noSizeValueCode = 150
     static let sizeUnparsedCode = 160
+    static let noCacheIDObjectCode = 170
+    static let noCacheIDValueCode = 180
     
     //MARK: - fileprivate and private zone
     fileprivate static let unspecified = getUnspecifiedError()
@@ -137,37 +156,47 @@ final class PbFindSizeErrorFactory {
     fileprivate static let noHtml = getNoHtmlError()
     fileprivate static let noSizeObject = getNoSizeObjectError()
     fileprivate static let noSizeValue = getNoSizeValueError()
+    fileprivate static let noCacheIDObject = getNoCacheIDObjectError()
+    fileprivate static let noCacheIDValue = getNoCacheIDValueError()
     fileprivate static let sizeUnparsed = getSizeUnparsedError()
     
-    private static func getUnspecifiedError() -> PbFindSizeError{
+    private static func getUnspecifiedError() -> PbWebViewSearchError{
         return getError(code: unspecifiedCode, description: "Unspecified error")
     }
     
-    private static func getNoWKWebViewError() -> PbFindSizeError {
+    private static func getNoWKWebViewError() -> PbWebViewSearchError {
         return getError(code: noWKWebViewCode, description: "The view doesn't include WKWebView")
     }
     
-    fileprivate static func getWkWebViewFailedError(message: String) -> PbFindSizeError {
+    fileprivate static func getWkWebViewFailedError(message: String) -> PbWebViewSearchError {
         return getError(code: wkWebViewFailedCode, description: "WKWebView error:\(message)")
     }
     
-    private static func getNoHtmlError() -> PbFindSizeError {
+    private static func getNoHtmlError() -> PbWebViewSearchError {
         return getError(code: noHtmlCode, description: "The WebView doesn't have HTML")
     }
     
-    private static func getNoSizeObjectError() -> PbFindSizeError {
+    private static func getNoSizeObjectError() -> PbWebViewSearchError {
         return getError(code: noSizeObjectCode, description: "The HTML doesn't contain a size object")
     }
     
-    private static func getNoSizeValueError() -> PbFindSizeError {
+    private static func getNoSizeValueError() -> PbWebViewSearchError {
         return getError(code: noSizeValueCode, description: "The size object doesn't contain a value")
     }
     
-    private static func getSizeUnparsedError() -> PbFindSizeError {
+    private static func getNoCacheIDObjectError() -> PbWebViewSearchError {
+        return getError(code: noCacheIDObjectCode, description: "The HTML doesn't contain a cache ID object")
+    }
+    
+    private static func getNoCacheIDValueError() -> PbWebViewSearchError {
+        return getError(code: noCacheIDValueCode, description: "The cache ID object doesn't contain a value")
+    }
+    
+    private static func getSizeUnparsedError() -> PbWebViewSearchError {
         return getError(code: sizeUnparsedCode, description: "The size value has a wrong format")
     }
     
-    private static func getError(code: Int, description: String) -> PbFindSizeError {
-        return PbFindSizeError(domain: "com.prebidmobile.ios", code: code, userInfo: [NSLocalizedDescriptionKey: description])
+    private static func getError(code: Int, description: String) -> PbWebViewSearchError {
+        return PbWebViewSearchError(domain: "com.prebidmobile.ios", code: code, userInfo: [NSLocalizedDescriptionKey: description])
     }
 }

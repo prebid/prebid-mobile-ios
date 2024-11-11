@@ -57,13 +57,22 @@ class BannerViewReloadTracker {
         
         let allWebViews = monitoredView.allSubViewsOf(type: WKWebView.self)
         
-        if allWebViews.count == 1 {
+        if allWebViews.count > 1 {
             Log.error("SDK met unexpected number of web views in third-party ad view.")
         }
         
         let foundWebView = allWebViews.first
         
         if activeWebView !== foundWebView {
+            AdViewUtils.findPrebidCreativeCacheID(monitoredView) { result in
+                switch result {
+                case .success(let cacheID):
+                    print("LOG: cache id \(cacheID)")
+                case .failure(let error):
+                    print("LOG: error \(error.localizedDescription)")
+                }
+            }
+            
             onReloadDetected()
         }
         

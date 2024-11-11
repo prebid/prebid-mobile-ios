@@ -77,15 +77,15 @@ class AdViewUtilsTests: XCTestCase {
     }
     
     func testFailureFindASizeInNilHtmlCode() {
-        findSizeInHtmlFailureHelper(body: nil, expectedErrorCode: PbFindSizeErrorFactory.noHtmlCode)
+        findSizeInHtmlFailureHelper(body: nil, expectedErrorCode: PbWebViewSearchErrorFactory.noHtmlCode)
     }
     
     func testFailureFindASizeIfItIsNotPresent() {
-        findSizeInHtmlFailureHelper(body: "<script> \n </script>", expectedErrorCode: PbFindSizeErrorFactory.noSizeObjectCode)
+        findSizeInHtmlFailureHelper(body: "<script> \n </script>", expectedErrorCode: PbWebViewSearchErrorFactory.noSizeObjectCode)
     }
     
     func testFailureFindASizeIfItHasTheWrongType() {
-        findSizeInHtmlFailureHelper(body: "<script> \n \"hb_size\":\"1ERROR1\" \n </script>", expectedErrorCode: PbFindSizeErrorFactory.noSizeObjectCode)
+        findSizeInHtmlFailureHelper(body: "<script> \n \"hb_size\":\"1ERROR1\" \n </script>", expectedErrorCode: PbWebViewSearchErrorFactory.noSizeObjectCode)
     }
     
     func testSuccessFindASizeIfProperlyFormatted() {
@@ -95,7 +95,7 @@ class AdViewUtilsTests: XCTestCase {
     func findSizeInHtmlFailureHelper(body: String?, expectedErrorCode: Int) {
         // given
         var size: CGSize? = nil
-        var error: PbFindSizeError? = nil
+        var error: PbWebViewSearchError? = nil
         
         // when
         let result = AdViewUtils.findSizeInHtml(body: body)
@@ -111,7 +111,7 @@ class AdViewUtilsTests: XCTestCase {
     func findSizeInHtmlSuccessHelper(body: String?, expectedSize: CGSize) {
         // given
         var size: CGSize? = nil
-        var error: PbFindSizeError? = nil
+        var error: PbWebViewSearchError? = nil
         
         // when
         let result = AdViewUtils.findSizeInHtml(body: body)
@@ -128,21 +128,21 @@ class AdViewUtilsTests: XCTestCase {
         
         let uiView = UIView()
         
-        findSizeInViewFailureHelper(uiView, expectedErrorCode: PbFindSizeErrorFactory.noWKWebViewCode)
+        findSizeInViewFailureHelper(uiView, expectedErrorCode: PbWebViewSearchErrorFactory.noWKWebViewCode)
     }
     
     func testFailureFindSizeInViewIfWkWebViewWithoutHTML() {
         
         let wkWebView = WKWebView()
         
-        findSizeInViewFailureHelper(wkWebView, expectedErrorCode: PbFindSizeErrorFactory.noHtmlCode)
+        findSizeInViewFailureHelper(wkWebView, expectedErrorCode: PbWebViewSearchErrorFactory.noHtmlCode)
     }
     
     func testFailureFindSizeInUIView() {
         
         let uiView = UIView()
         
-        findSizeInViewFailureHelper(uiView, expectedErrorCode: PbFindSizeErrorFactory.noWKWebViewCode)
+        findSizeInViewFailureHelper(uiView, expectedErrorCode: PbWebViewSearchErrorFactory.noWKWebViewCode)
     }
     
     class TestingWKNavigationDelegate: NSObject, WKNavigationDelegate {
