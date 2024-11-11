@@ -20,15 +20,15 @@ import WebKit
 @objcMembers
 public final class AdViewUtils: NSObject {
     
-    private static let innerHtmlScript = "document.body.innerHTML"
+    static let innerHtmlScript = "document.body.innerHTML"
     
     // hb_size
-    private static let sizeValueRegexExpression = "[0-9]+x[0-9]+"
-    private static let sizeObjectRegexExpression = "hb_size\\W+\(sizeValueRegexExpression)"
+    static let sizeValueRegexExpression = "[0-9]+x[0-9]+"
+    static let sizeObjectRegexExpression = "hb_size\\W+\(sizeValueRegexExpression)"
     
     // hb_cache_id
-    private static let cacheIDValueRegexExpression = "[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"
-    private static let cacheIDObjectRegexExpression = "hb_cache_id\\W+\(cacheIDValueRegexExpression)"
+    static let cacheIDValueRegexExpression = "[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"
+    static let cacheIDObjectRegexExpression = "hb_cache_id\\W+\(cacheIDValueRegexExpression)"
     
     private override init() {}
     
@@ -108,7 +108,7 @@ public final class AdViewUtils: NSObject {
         }
     }
     
-    private static func findValueInHtml<T>(
+    static func findValueInHtml<T>(
         body: String,
         objectRegex: String,
         valueRegex: String,
@@ -125,7 +125,7 @@ public final class AdViewUtils: NSObject {
         return parseResult(valueMatch)
     }
     
-    private static func getInnerHTML(
+    static func getInnerHTML(
         from wkWebView: WKWebView,
         completion: @escaping (Result<String, PbWebViewSearchError>) -> Void
     ) {
