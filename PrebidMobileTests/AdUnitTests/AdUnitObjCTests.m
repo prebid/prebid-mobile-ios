@@ -46,7 +46,7 @@ AdUnit *adUnit;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //when
-    [adUnit fetchDemandWithAdObject:testObject completion:^(enum ResultCode result) {
+    [adUnit fetchDemandWithAdObject:testObject adView:nil completion:^(enum ResultCode result) {
         resultCode = result;
         [expectation fulfill];
     }];
