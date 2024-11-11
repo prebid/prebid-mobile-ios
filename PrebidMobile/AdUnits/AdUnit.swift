@@ -188,17 +188,19 @@ public class AdUnit: NSObject, DispatcherDelegate {
                 return
             }
             
-            if let adView {
-                bannerViewImpressionTracker.start(
-                    in: adView,
-                    trackingURL: bidResponse.winningBid?.bid.burl
-                )
-            }
-            
-            if adUnitConfig.adConfiguration.isInterstitialAd {
-                interstitialImpressionTracker.start(
-                    withTrackingURL: bidResponse.winningBid?.bid.burl
-                )
+            DispatchQueue.main.async {
+                if let adView {
+                    self.bannerViewImpressionTracker.start(
+                        in: adView,
+                        trackingURL: bidResponse.winningBid?.bid.burl
+                    )
+                }
+                
+                if self.adUnitConfig.adConfiguration.isInterstitialAd {
+                    self.interstitialImpressionTracker.start(
+                        withTrackingURL: bidResponse.winningBid?.bid.burl
+                    )
+                }
             }
             
             if (!self.timeOutSignalSent) {
