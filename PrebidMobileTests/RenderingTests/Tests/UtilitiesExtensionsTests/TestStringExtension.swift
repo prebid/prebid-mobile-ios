@@ -245,4 +245,18 @@ class TestStringExtension: XCTestCase {
         XCTAssert(expected == actual, "expected \(String(describing: expected)), got \(String(describing: actual))")
     }
     
+    func testStringToCGSize() {
+        var result = "300x250".toCGSize()
+        XCTAssertNotNil(result)
+        XCTAssert(result == CGSize(width: 300, height: 250))
+        
+        result = "300x250x1".toCGSize()
+        XCTAssertNil(result)
+        
+        result = "ERROR".toCGSize()
+        XCTAssertNil(result)
+        
+        result = "300x250ERROR".toCGSize()
+        XCTAssertNil(result)
+    }
 }

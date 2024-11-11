@@ -55,7 +55,13 @@ class BannerViewReloadTracker {
             return
         }
         
-        let foundWebView = monitoredView.firstWebView()
+        let allWebViews = monitoredView.allSubViewsOf(type: WKWebView.self)
+        
+        if allWebViews.count == 1 {
+            Log.error("SDK met unexpected number of web views in third-party ad view.")
+        }
+        
+        let foundWebView = allWebViews.first
         
         if activeWebView !== foundWebView {
             onReloadDetected()
