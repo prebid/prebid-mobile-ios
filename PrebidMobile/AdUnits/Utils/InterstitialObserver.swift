@@ -62,18 +62,18 @@ class InterstitialObserver {
     }
     
     @objc private func checkPresentedViewController() {
-        // FIXME: when publisher loads multiple interstitials at the same time - how do we know which one is presented ?
+        guard let presentedVC = UIWindow.topViewController else {
+            return
+        }
         
-        if let presentedVC = UIWindow.topViewController {
-            let presentedVCClassName = String(describing: type(of: presentedVC))
-            let isGADViewController = presentedVCClassName == targetViewControllerClassName
-            
-            let gadAdView = presentedVC.view.searchSubviews(targetClassName: targetViewClassName)
-            
-            if let gadAdView, isGADViewController {
-                stop()
-                onTargetInterstitialPresented?(gadAdView)
-            }
+        let presentedVCClassName = String(describing: type(of: presentedVC))
+        let isGADViewController = presentedVCClassName == targetViewControllerClassName
+        
+        let gadAdView = presentedVC.view.searchSubviews(targetClassName: targetViewClassName)
+        
+        if let gadAdView, isGADViewController {
+            stop()
+            onTargetInterstitialPresented?(gadAdView)
         }
     }
 }

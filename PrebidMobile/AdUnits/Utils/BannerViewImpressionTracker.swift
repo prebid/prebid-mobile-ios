@@ -24,7 +24,11 @@ class BannerViewImpressionTracker {
     private var reloadTracker: BannerViewReloadTracker?
     private var viewabilityTracker: PBMCreativeViewabilityTracker?
     
+    /// seatbid.bid.burl
     private var trackingURL: String?
+    
+    /// seatbid.bid.ext.prebid.targeting.hb_cache_id
+    private var creativeCacheID: String?
     
     private var isImpressionTracked = false
     
@@ -41,9 +45,10 @@ class BannerViewImpressionTracker {
         }
     }
     
-    func start(in view: UIView?, trackingURL: String?) {
+    func start(in view: UIView?, trackingURL: String?, creativeCacheID: String?) {
         self.monitoredView = view
         self.trackingURL = trackingURL
+        self.creativeCacheID = creativeCacheID
         reloadTracker?.start(in: view)
     }
     
@@ -58,15 +63,23 @@ class BannerViewImpressionTracker {
         viewabilityTracker = PBMCreativeViewabilityTracker(
             view: monitoredView,
             pollingTimeInterval: pollingInterval,
-            onExposureChange: { [weak self] _, viewExposure in
-                guard let self = self else { return }
+            onExposureChange: { [weak self, weak monitoredView] _, viewExposure in
+                guard let self = self, let monitoredView else { return }
                 
                 if viewExposure.exposureFactor > 0 && !self.isImpressionTracked {
                     self.viewabilityTracker?.stop()
                     self.isImpressionTracked = true
                     
-                    if let trackingURL {
-                        PrebidServerConnection.shared.fireAndForget(trackingURL)
+                    // Ensure that we found Prebid creative
+                    AdViewUtils.findPrebidCacheID(monitoredView) { result in
+                        switch result {
+                        case .success(let foundCacheID):
+                            if let trackingURL = self.trackingURL, foundCacheID == self.creativeCacheID {
+                                PrebidServerConnection.shared.fireAndForget(trackingURL)
+                            }
+                        case .failure(let error):
+                            Log.warn(error.localizedDescription)
+                        }
                     }
                 }
             }

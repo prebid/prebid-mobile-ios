@@ -16,6 +16,7 @@
 import Foundation
 import WebKit
 
+/// `AdViewUtils` provides utility methods for working with ad views, including finding creative sizes.
 @objcMembers
 public final class AdViewUtils: NSObject {
     
@@ -31,6 +32,12 @@ public final class AdViewUtils: NSObject {
     
     private override init() {}
     
+    /// Finds the creative size for a given ad view by searching for the `hb_size` attribute in the ad's HTML content.
+    ///
+    /// - Parameters:
+    ///   - adView: The ad view from which to extract the creative size.
+    ///   - success: Closure called with the `CGSize` of the ad creative if found successfully.
+    ///   - failure: Closure called with an `Error` if the size could not be determined.
     public static func findPrebidCreativeSize(
         _ adView: UIView,
         success: @escaping (CGSize) -> Void,

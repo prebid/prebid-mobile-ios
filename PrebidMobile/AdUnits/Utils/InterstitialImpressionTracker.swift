@@ -25,21 +25,29 @@ class InterstitialImpressionTracker {
         0.2
     }
     
-    func start(withTrackingURL trackingURL: String?) {
+    func start(withTrackingURL trackingURL: String?, creativeCacheID: String?) {
         interstitialObserver = InterstitialObserver { [weak self] view in
             guard let self = self else { return }
             
             self.viewabilityTracker = PBMCreativeViewabilityTracker(
                 view: view,
                 pollingTimeInterval: self.pollingInterval,
-                onExposureChange: { [weak self] _, viewExposure in
-                    guard let self else { return }
+                onExposureChange: { [weak self, weak view] _, viewExposure in
+                    guard let self, let view else { return }
                     
                     if viewExposure.exposureFactor > 0 {
                         self.stop()
                         
-                        if let trackingURL {
-                            PrebidServerConnection.shared.fireAndForget(trackingURL)
+                        // Ensure that we found Prebid creative
+                        AdViewUtils.findPrebidCacheID(view) { result in
+                            switch result {
+                            case .success(let foundCacheID):
+                                if let trackingURL, let creativeCacheID, creativeCacheID == foundCacheID {
+                                    PrebidServerConnection.shared.fireAndForget(trackingURL)
+                                }
+                            case .failure(let error):
+                                Log.warn(error.localizedDescription)
+                            }
                         }
                     }
                 }
