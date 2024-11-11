@@ -16,10 +16,8 @@
 
 import Foundation
 
-class PbFindSizeError: NSError {
+class PbWebViewSearchError: NSError {
     convenience init(code: Int, userInfo dict: [String : Any]? = nil) {
         self.init()
     }
-    
 }
-
