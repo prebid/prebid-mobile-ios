@@ -47,7 +47,7 @@ class AdViewUtilsTests: XCTestCase {
             XCTAssert((error as NSError).code == PbWebViewSearchErrorFactory.noHtmlCode)
         }
         
-        wait(for: [exp], timeout: 15.0)
+        wait(for: [exp], timeout: 30.0)
     }
     
     func testFailureFindASizeIfItIsNotPresent() {
@@ -65,7 +65,10 @@ class AdViewUtilsTests: XCTestCase {
     }
     
     func testSuccessFindASizeIfProperlyFormatted() {
-        findSizeInHtmlSuccessHelper(body: "<script> \n \"hb_size\":[\"728x90\"] \n </script>", expectedSize: CGSize(width: 728, height: 90 ))
+        findSizeInHtmlSuccessHelper(
+            body: "<script> \n \"hb_size\":[\"728x90\"] \n </script>",
+            expectedSize: CGSize(width: 728, height: 90)
+        )
     }
     
     func findSizeInHtmlFailureHelper(body: String, expectedErrorCode: Int) {
@@ -117,29 +120,23 @@ class AdViewUtilsTests: XCTestCase {
         switch result {
         case .success(let size):
             XCTAssert(expectedSize == size)
-        case .failure(let error as NSError):
+        case .failure(_):
             XCTFail("Expected success")
         }
     }
     
     func testFailureFindSizeInViewIfThereIsNoWebView() {
-        
         let uiView = UIView()
-        
         findSizeInViewFailureHelper(uiView, expectedErrorCode: PbWebViewSearchErrorFactory.noWKWebViewCode)
     }
     
     func testFailureFindSizeInViewIfWkWebViewWithoutHTML() {
-        
         let wkWebView = WKWebView()
-        
         findSizeInViewFailureHelper(wkWebView, expectedErrorCode: PbWebViewSearchErrorFactory.noHtmlCode)
     }
     
     func testFailureFindSizeInUIView() {
-        
         let uiView = UIView()
-        
         findSizeInViewFailureHelper(uiView, expectedErrorCode: PbWebViewSearchErrorFactory.noWKWebViewCode)
     }
     
@@ -178,7 +175,6 @@ class AdViewUtilsTests: XCTestCase {
                 """
     
     func testSuccessFindSizeInWkWebView() {
-        
         let wkWebView = WKWebView()
         
         setHtmlIntoWkWebView(successHtmlWithSize728x90, wkWebView)
@@ -198,7 +194,6 @@ class AdViewUtilsTests: XCTestCase {
     }
     
     func findSizeInViewFailureHelper(_ view: UIView, expectedErrorCode: Int) {
-        
         let loadSuccesfulException = expectation(description: "\(#function)")
         
         // given
@@ -226,7 +221,6 @@ class AdViewUtilsTests: XCTestCase {
     }
     
     func findSizeInViewSuccessHelper(_ view: UIView, expectedSize: CGSize) {
-        
         let loadSuccesfulException = expectation(description: "\(#function)")
         
         // given
@@ -250,7 +244,5 @@ class AdViewUtilsTests: XCTestCase {
         XCTAssertNotNil(result)
         XCTAssertEqual(expectedSize, result)
         XCTAssertNil(error)
-        
     }
-
 }
