@@ -53,7 +53,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     private var timeOutSignalSent = false
     
-    private var bannerViewImpressionTracker = BannerViewImpressionTracker()
+    private(set) var bannerViewImpressionTracker = BannerViewImpressionTracker()
     private var interstitialImpressionTracker = InterstitialImpressionTracker()
     
     /// Initializes a new `AdUnit` instance with the specified configuration ID, size, and ad formats.
@@ -119,8 +119,13 @@ public class AdUnit: NSObject, DispatcherDelegate {
     ///
     /// - Parameters:
     ///   - adObject: The ad object for which demand is being fetched.
+    ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView). This object will be used later for tracking `burl`.
     ///   - completion: A closure called with the result code indicating the outcome of the demand fetch.
-    dynamic public func fetchDemand(adObject: AnyObject, adView: UIView? = nil, completion: @escaping(_ result: ResultCode) -> Void) {
+    dynamic public func fetchDemand(
+        adObject: AnyObject,
+        adView: UIView? = nil,
+        completion: @escaping(_ result: ResultCode) -> Void
+    ) {
         baseFetchDemand(adObject: adObject, adView: adView) { bidInfo in
             DispatchQueue.main.async {
                 completion(bidInfo.resultCode)
