@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-import Foundation
+import UIKit
 
 /// Multiformat ad unit. Built for original API.
 @objcMembers
@@ -37,17 +37,22 @@ public class PrebidAdUnit: NSObject {
     /// Makes bid request for the specified ad object and request config. Setups targeting keywords into the adObject.
     /// - Parameters:
     ///   - adObject: The ad object to fetch demand for.
+    ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView). This object will be used later for tracking `burl`.
     ///   - request: The `PrebidRequest` containing the demand request parameters.
     ///   - completion: A closure to be called with the `BidInfo` result.
-    public func fetchDemand(adObject: AnyObject, request: PrebidRequest,
-                            completion: @escaping (BidInfo) -> Void) {
+    public func fetchDemand(
+        adObject: AnyObject,
+        adView: UIView? = nil,
+        request: PrebidRequest,
+        completion: @escaping (BidInfo) -> Void
+    ) {
         guard requestHasParameters(request) else {
             completion(BidInfo(resultCode: .prebidInvalidRequest))
             return
         }
         
         config(with: request)
-        adUnit.baseFetchDemand(adObject: adObject) { bidInfo in
+        adUnit.baseFetchDemand(adObject: adObject, adView: adView) { bidInfo in
             DispatchQueue.main.async {
                 completion(bidInfo)
             }
