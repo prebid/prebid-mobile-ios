@@ -58,7 +58,7 @@ class BannerViewReloadTracker {
         let allWebViews = monitoredView.allSubViewsOf(type: WKWebView.self)
         
         if allWebViews.count > 1 {
-            Log.error("SDK met unexpected number of web views in third-party ad view.")
+            Log.warn("SDK met unexpected number of web views in third-party ad view.")
         }
         
         let foundWebView = allWebViews.first
