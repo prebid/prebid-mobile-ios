@@ -33,7 +33,7 @@ class BannerViewImpressionTracker {
     private var isImpressionTracked = false
     
     private var pollingInterval: TimeInterval {
-        0.2
+        0.5
     }
     
     init() {
