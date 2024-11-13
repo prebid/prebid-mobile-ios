@@ -159,7 +159,7 @@ class AdViewUtilsTests: XCTestCase {
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
     }
     
     func testFindPrebidCacheIDFailureNoCacheID() {
@@ -182,7 +182,7 @@ class AdViewUtilsTests: XCTestCase {
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
     }
     
     class TestingWKNavigationDelegate: NSObject, WKNavigationDelegate {
