@@ -28,7 +28,7 @@ public class AdUnitSwizzleHelper: NSObject {
    
     class func toggleFetchDemand() {
         
-        Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(adObject:adView:completion:)), cls2: AdUnitSwizzleHelper.self, sel2: #selector(AdUnitSwizzleHelper.swizzledFetchDemand(adObject:adView:completion:)))
+        Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(adObject:completion:)), cls2: AdUnitSwizzleHelper.self, sel2: #selector(AdUnitSwizzleHelper.swizzledFetchDemand(adObject:completion:)))
         Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(completion:)), cls2: AdUnitSwizzleHelper.self, sel2: #selector(AdUnitSwizzleHelper.swizzledFetchDemand(completion:)))
         Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(completionBidInfo:)), cls2: AdUnitSwizzleHelper.self, sel2: #selector(AdUnitSwizzleHelper.swizzledFetchDemand(completionBidInfo:)))
     }
@@ -37,7 +37,7 @@ public class AdUnitSwizzleHelper: NSObject {
         Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.checkRefreshTime(_:)), cls2: AdUnitSwizzleHelper.self, sel2: #selector(AdUnitSwizzleHelper.swizzledCheckRefreshTime(_:)))
     }
 
-    func swizzledFetchDemand(adObject: AnyObject, adView: UIView?, completion: @escaping(_ result: ResultCode) -> Void) {
+    func swizzledFetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         completion(AdUnitSwizzleHelper.testScenario)
     }
     
