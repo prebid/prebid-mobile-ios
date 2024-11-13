@@ -17,10 +17,12 @@ import UIKit
 
 extension UIWindow {
     
-    static var topViewController: UIViewController? {
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-        
-        var topController = keyWindow?.rootViewController
+    static var firstKeyWindow: UIWindow? {
+        UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+    }
+    
+    var topViewController: UIViewController? {
+        var topController = rootViewController
         while let presentedViewController = topController?.presentedViewController {
             topController = presentedViewController
         }
