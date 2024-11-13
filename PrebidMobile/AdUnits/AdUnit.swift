@@ -53,7 +53,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     private var timeOutSignalSent = false
     
-    private(set) var bannerViewImpressionTracker = BannerViewImpressionTracker()
+    private var bannerViewImpressionTracker = BannerViewImpressionTracker()
     private var interstitialImpressionTracker = InterstitialImpressionTracker()
     
     /// Initializes a new `AdUnit` instance with the specified configuration ID, size, and ad formats.

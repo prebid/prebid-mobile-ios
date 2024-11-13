@@ -59,7 +59,7 @@ xcodebuild test \
     -workspace PrebidMobile.xcworkspace \
     -retry-tests-on-failure \
     -scheme "PrebidMobileTests" \
-    -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest' | xcbeautify
+    -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' | xcbeautify
 
 
 
@@ -74,7 +74,7 @@ echo -e "\n${GREEN}Running PrebidMobileGAMEventHandlers unit tests${NC} \n"
 xcodebuild test \
     -workspace PrebidMobile.xcworkspace  \
     -scheme "PrebidMobileGAMEventHandlersTests" \
-    -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest' | xcbeautify
+    -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' | xcbeautify
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobileGAMEventHandlers Unit Tests Passed"
@@ -94,7 +94,7 @@ else
 fi
 
 echo -e "\n${GREEN}Running PrebidMobileMAXAdapters unit tests${NC} \n"
-xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileMAXAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest' | xcbeautify
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileMAXAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' | xcbeautify
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobileMAXAdapters Unit Tests Passed"
