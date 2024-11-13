@@ -1,17 +1,17 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 import XCTest
 import WebKit
@@ -40,14 +40,14 @@ class AdViewUtilsTests: XCTestCase {
     func testFailureFindASizeInNilHtmlCode() {
         let exp = expectation(description: "findPrebidCreativeSize should fail")
         
-        AdViewUtils.findPrebidCreativeSize(WKWebView(frame: CGRect.zero)) { size in
-            
+        AdViewUtils.findPrebidCreativeSize(WKWebView()) { size in
+            XCTFail("Expected to fail but found creative size.")
         } failure: { error in
             exp.fulfill()
             XCTAssert((error as NSError).code == PbWebViewSearchErrorFactory.noHtmlCode)
         }
         
-        wait(for: [exp], timeout: 30.0)
+        wait(for: [exp], timeout: 15)
     }
     
     func testFailureFindASizeIfItIsNotPresent() {
@@ -140,6 +140,51 @@ class AdViewUtilsTests: XCTestCase {
         findSizeInViewFailureHelper(uiView, expectedErrorCode: PbWebViewSearchErrorFactory.noWKWebViewCode)
     }
     
+    func testFindPrebidCacheIDSuccess() {
+        let webView = WKWebView()
+        setHtmlIntoWkWebView(successHtmlWithSize728x90, webView)
+        
+        let adView = UIView()
+        adView.addSubview(webView)
+        
+        let expectation = expectation(description: "Expected to find a cache ID successfully")
+        
+        AdViewUtils.findPrebidCacheID(adView) { result in
+            switch result {
+            case .success(let cacheID):
+                XCTAssertEqual(cacheID, "376f6334-2bba-4f58-a76b-feeb419f513a")
+            case .failure:
+                XCTFail("Expected to find cache ID, but failed")
+            }
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func testFindPrebidCacheIDFailureNoCacheID() {
+        let html = "<div>No cache ID here</div>"
+        let webView = WKWebView()
+        setHtmlIntoWkWebView(html, webView)
+        
+        let adView = UIView()
+        adView.addSubview(webView)
+        
+        let expectation = expectation(description: "Expected to fail due to missing cache ID")
+        
+        AdViewUtils.findPrebidCacheID(adView) { result in
+            switch result {
+            case .success:
+                XCTFail("Expected to fail, but found a cache ID")
+            case .failure(let error):
+                XCTAssertEqual((error as? PbWebViewSearchError)?.code, PbWebViewSearchErrorFactory.noObjectCode)
+            }
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
     class TestingWKNavigationDelegate: NSObject, WKNavigationDelegate {
         let loadSuccesfulException: XCTestExpectation
         
@@ -165,7 +210,7 @@ class AdViewUtilsTests: XCTestCase {
                   ucTagData.adServerDomain = "";
                   ucTagData.pubUrl = "0.1.0.iphone.com.Prebid.PrebidDemo.adsenseformobileapps.com";
                   ucTagData.targetingMap = {"bidder":["rubicon"],"bidid":["ee34715d-336c-4e77-b651-ba62f9d4e026"],"hb_bidder":["rubicon"],"hb_bidder_rubicon":["rubicon"],"hb_cache_host":["prebid-cache-europe.rubiconproject.com"],"hb_cache_host_rubicon":["prebid-cache-europe.rubiconproject.com"],"hb_cache_id":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_id_rubicon":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_path":["/cache"],"hb_cache_path_rubicon":["/cache"],"hb_env":["mobile-app"],"hb_env_rubicon":["mobile-app"],"hb_pb":["1.40"],"hb_pb_rubicon":["1.40"],"hb_size":["728x90"],"hb_size_rubicon":["728x90"]};
-
+                
                   try {
                     ucTag.renderAd(document, ucTagData);
                   } catch (e) {
