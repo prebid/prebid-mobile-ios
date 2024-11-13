@@ -41,7 +41,7 @@ class BannerViewImpressionTracker {
             reloadCheckInterval: pollingInterval
         ) { [weak self] in
             self?.isImpressionTracked = false
-            self?.initViewabilityTracker()
+            self?.attachViewabilityTracker()
         }
     }
     
@@ -57,7 +57,7 @@ class BannerViewImpressionTracker {
         viewabilityTracker?.stop()
     }
     
-    private func initViewabilityTracker() {
+    private func attachViewabilityTracker() {
         guard let monitoredView else { return }
         
         viewabilityTracker = PBMCreativeViewabilityTracker(
