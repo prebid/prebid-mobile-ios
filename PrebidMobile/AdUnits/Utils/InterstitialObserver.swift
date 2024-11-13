@@ -18,6 +18,8 @@ import UIKit
 /// A class that schedules a timer that checks if VC and views of particular type are presented.
 class InterstitialObserver {
     
+    private var window: UIWindow?
+    
     private var timer: Timer?
     private var checkInterval: TimeInterval
     
@@ -30,11 +32,13 @@ class InterstitialObserver {
         checkInterval: TimeInterval = 1.0,
         targetViewClassName: String = "GADWebAdView",
         targetViewControllerClassName: String = "GADFullScreenAdViewController",
+        window: UIWindow? = UIWindow.firstKeyWindow,
         onTargetInterstitialPresented: ((UIView) -> Void)? = nil
     ) {
         self.checkInterval = checkInterval
         self.targetViewClassName = targetViewClassName
         self.targetViewControllerClassName = targetViewControllerClassName
+        self.window = window
         self.onTargetInterstitialPresented = onTargetInterstitialPresented
     }
     
@@ -62,18 +66,18 @@ class InterstitialObserver {
     }
     
     @objc private func checkPresentedViewController() {
-        guard let presentedVC = UIWindow.topViewController else {
+        guard let presentedVC = window?.topViewController else {
             return
         }
         
         let presentedVCClassName = String(describing: type(of: presentedVC))
-        let isGADViewController = presentedVCClassName == targetViewControllerClassName
+        let isTargetViewController = presentedVCClassName == targetViewControllerClassName
         
-        let gadAdView = presentedVC.view.searchSubviews(targetClassName: targetViewClassName)
+        let targetAdView = presentedVC.view.searchSubviews(targetClassName: targetViewClassName)
         
-        if let gadAdView, isGADViewController {
+        if let targetAdView, isTargetViewController {
             stop()
-            onTargetInterstitialPresented?(gadAdView)
+            onTargetInterstitialPresented?(targetAdView)
         }
     }
 }
