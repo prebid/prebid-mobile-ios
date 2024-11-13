@@ -192,7 +192,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
             }
             
             DispatchQueue.main.async {
-                if let adView {
+                if let adView, bidResponse.winningBid?.adFormat == .banner {
                     self.bannerViewImpressionTracker.start(
                         in: adView,
                         trackingURL: bidResponse.winningBid?.bid.burl,
@@ -200,7 +200,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
                     )
                 }
                 
-                if self.adUnitConfig.adConfiguration.isInterstitialAd {
+                if self.adUnitConfig.adConfiguration.isInterstitialAd && bidResponse.winningBid?.adFormat == .banner {
                     self.interstitialImpressionTracker.start(
                         withTrackingURL: bidResponse.winningBid?.bid.burl,
                         creativeCacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"]
