@@ -22,12 +22,16 @@ class InterstitialImpressionTracker {
     private var viewabilityTracker: PBMCreativeViewabilityTracker?
     
     private var pollingInterval: TimeInterval {
-        0.2
+        0.5
     }
     
     func start(withTrackingURL trackingURL: String?, creativeCacheID: String?) {
         interstitialObserver = InterstitialObserver { [weak self] view in
-            self?.attachViewabilityTracker(to: view, trackingURL: trackingURL, creativeCacheID: creativeCacheID)
+            self?.attachViewabilityTracker(
+                to: view,
+                trackingURL: trackingURL,
+                creativeCacheID: creativeCacheID
+            )
         }
         
         interstitialObserver?.start()
@@ -38,7 +42,11 @@ class InterstitialImpressionTracker {
         viewabilityTracker?.stop()
     }
     
-    private func attachViewabilityTracker(to view: UIView, trackingURL: String?, creativeCacheID: String?) {
+    private func attachViewabilityTracker(
+        to view: UIView,
+        trackingURL: String?,
+        creativeCacheID: String?
+    ) {
         viewabilityTracker = PBMCreativeViewabilityTracker(
             view: view,
             pollingTimeInterval: pollingInterval,
