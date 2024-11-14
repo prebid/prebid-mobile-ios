@@ -18,7 +18,7 @@ import UIKit
 /// A class that schedules a timer that checks if VC and views of particular type are presented.
 class InterstitialObserver {
     
-    private var window: UIWindow?
+    private weak var window: UIWindow?
     
     private var timer: Timer?
     private var checkInterval: TimeInterval
