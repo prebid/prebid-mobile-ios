@@ -22,7 +22,7 @@ class InterstitialImpressionTracker {
     private var viewabilityTracker: PBMCreativeViewabilityTracker?
     
     private var pollingInterval: TimeInterval {
-        0.5
+        0.2
     }
     
     func start(withTrackingURL trackingURL: String?, creativeCacheID: String?) {
