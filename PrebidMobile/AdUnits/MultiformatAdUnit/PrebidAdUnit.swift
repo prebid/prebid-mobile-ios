@@ -25,6 +25,12 @@ public class PrebidAdUnit: NSObject {
         set { adUnit.pbAdSlot = newValue }
     }
     
+    /// Flag that indicates whether `InterstitialImpressionTracker` should be activated.
+    public var activatePrebidInterstitialImpressionTracker: Bool {
+        set { adUnit.adUnitConfig.isInterstitialImpressionTrackerActivated = newValue }
+        get { adUnit.adUnitConfig.isInterstitialImpressionTrackerActivated }
+    }
+    
     private let adUnit: AdUnit
     
     /// Initializes a new `PrebidAdUnit` with the given configuration ID.

@@ -43,6 +43,12 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
         set { adUnitConfig.adFormats = newValue }
     }
     
+    /// Flag that indicates whether `InterstitialImpressionTracker` should be activated.
+    public var activatePrebidImpressionTracker: Bool {
+        set { adUnitConfig.isInterstitialImpressionTrackerActivated = newValue }
+        get { adUnitConfig.isInterstitialImpressionTrackerActivated }
+    }
+    
     /// Initializes a new interstitial ad unit with a unique configuration identifier.
     /// - Parameter configId: The unique identifier for the ad unit configuration.
     public init(configId: String) {
