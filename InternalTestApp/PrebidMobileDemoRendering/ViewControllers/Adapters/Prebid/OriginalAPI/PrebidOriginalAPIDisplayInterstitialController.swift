@@ -59,7 +59,13 @@ class PrebidOriginalAPIDisplayInterstitialController:
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        adUnit = InterstitialAdUnit(configId: prebidConfigId, minWidthPerc: 50, minHeightPerc: 70)
+        adUnit = InterstitialAdUnit(
+            configId: prebidConfigId,
+            minWidthPerc: 50,
+            minHeightPerc: 70
+        )
+        
+        adUnit.activatePrebidImpressionTracker = true
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
