@@ -36,6 +36,9 @@ public class Targeting: NSObject {
     /// A shared instance of the `Targeting` class.
     public static var shared = Targeting()
     
+    /// Global arbitrary ORTB configuration.
+    public var ortbConfig: String?
+    
     // MARK: - OMID Partner
     
     /// The name of the OMID partner.
