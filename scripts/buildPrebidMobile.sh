@@ -60,6 +60,7 @@ do
 	only_active_arch=NO \
 	defines_module=YES \
 	SKIP_INSTALL=NO \
+	BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
 	-workspace PrebidMobile.xcworkspace \
 	-scheme "${schemes[$n]}" \
 	-configuration Release \
@@ -75,10 +76,10 @@ do
 	only_active_arch=NO \
 	defines_module=YES \
 	SKIP_INSTALL=NO \
+	BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
 	-workspace PrebidMobile.xcworkspace \
 	-scheme "${schemes[$n]}" \
 	-configuration Release \
-	-arch x86_64 \
 	-sdk "iphonesimulator" \
 	-derivedDataPath $XCODE_BUILD_DIR \
 	-archivePath "$XCODE_ARCHIVE_DIR/${schemes[$n]}$POSTFIX_SIMULATOR.xcarchive" \
