@@ -82,9 +82,9 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var gpid: String?
     
-    public var ortbConfig: String? {
-        get {adConfiguration.ortbConfig}
-        set {adConfiguration.ortbConfig = newValue}
+    public var impressionORTBConfig: String? {
+        get { adConfiguration.impressionORTBConfig }
+        set { adConfiguration.impressionORTBConfig = newValue }
     }
 
     // MARK: - Public Methods
@@ -318,6 +318,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot
         
+        clone.adConfiguration.impressionORTBConfig = self.adConfiguration.impressionORTBConfig
         clone.adConfiguration.rewardedConfig = self.adConfiguration.rewardedConfig
         clone.adConfiguration.winningBidAdFormat = self.adConfiguration.winningBidAdFormat
         clone.adConfiguration.adFormats = self.adConfiguration.adFormats
