@@ -123,12 +123,68 @@ extension Dictionary where Key == AnyHashable, Value == Any {
         
         return resultString
     }
-    
 }
 
 extension Dictionary where Key == String, Value == String {
     func toString(entrySeparator: String, keyValueSeparator: String) -> String {
         return (self as Dictionary<AnyHashable, Any>).toString(entrySeparator: entrySeparator, keyValueSeparator: keyValueSeparator)
+    }
+}
+
+extension Array where Element: Hashable {
+    
+    func removingDuplicates() -> [Element] {
+        var addedDict = [Element: Bool]()
+        
+        return filter {
+            addedDict.updateValue(true, forKey: $0) == nil
+        }
+    }
+}
+
+extension Dictionary where Key == String {
+    
+    func deepMerging(
+        with otherDict: [String: Any],
+        shouldReplace: Bool = false
+    ) -> [String: Any] {
+        var result: [String: Any] = self
+        
+        for (key, value) in otherDict {
+            if let existingValue = result[key] {
+                if shouldReplace {
+                    result[key] = value
+                } else {
+                    // Merge arrays
+                    if let existingArray = existingValue as? [Any], let newArray = value as? [Any] {
+                        let mergedArray = existingArray + newArray
+                        if let hashableMergedArray = mergedArray as? [AnyHashable] {
+                            result[key] = hashableMergedArray.removingDuplicates()
+                        } else {
+                            result[key] = mergedArray
+                        }
+                    }
+                    // Merge dictionaries
+                    else if let existingDict = existingValue as? [String: Any],
+                            let newDict = value as? [String: Any] {
+                        result[key] = existingDict.deepMerging(
+                            with: newDict,
+                            shouldReplace: shouldReplace
+                        )
+                    }
+                    // Replace primitives & handle replacing with different type
+                    else {
+                        result[key] = value
+                    }
+                }
+            }
+            // Element doesn't exist in original dictionary
+            else {
+                result[key] = value
+            }
+        }
+        
+        return result
     }
 }
 

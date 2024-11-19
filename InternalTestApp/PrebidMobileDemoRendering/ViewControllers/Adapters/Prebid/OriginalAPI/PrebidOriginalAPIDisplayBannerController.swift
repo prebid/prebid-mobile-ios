@@ -119,6 +119,8 @@ class PrebidOriginalAPIDisplayBannerController:
         rootController?.bannerView?.addSubview(gamBanner)
         
         let gamRequest = GAMRequest()
+        adUnit.setImpressionORTBConfig("{\"banner\":{\"format\":[{\"h\":50,\"w\":320},{\"h\":728,\"w\":1029}]},\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"global\"}}},\"id\":\"global\"}")
+        Targeting.shared.setGlobalORTBConfig("{\"app\":{\"bundle\":\"org.prebid.PrebidDemoSwift_TEST\",\"ext\":{\"prebid\":{\"some_new_prebid_field\":0.111111},\"another\":{\"test\":1}},\"name\":\"TEST\",\"publisher\":{\"id\":\"TEST\"},\"ver\":\"1.3.0\",\"test\":{\"nested\":{}}},\"device\":{\"make\":\"FAKE_iPhone\"},\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"ext.prebid.global\"},\"targeting\":{\"some_field\":true}}},\"id\":\"global\",\"imp\":[{\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"global\"}}},\"id\":\"global\"}],\"regs\":{\"just_testing\":1},\"geo\":{\"test_geo\":33.3333,\"testing\":true},\"source\":{\"tid\":\"test_tid\"},\"test_rtb\":1}")
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             Log.info("Prebid demand fetch for GAM \(resultCode.name())")
             self?.gamBanner.load(gamRequest)

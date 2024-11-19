@@ -52,12 +52,6 @@ public class BaseInterstitialAdUnit :
         get { adUnitConfig.adFormats }
         set { adUnitConfig.adFormats = newValue }
     }
-    
-    /// The ORTB (OpenRTB) configuration string for the ad unit.
-    @objc public var ortbConfig: String? {
-        get { adUnitConfig.ortbConfig }
-        set { adUnitConfig.ortbConfig = newValue }
-    }
      
     /// A Boolean value indicating whether the ad unit is ready to be displayed.
     @objc public var isReady: Bool {
@@ -228,6 +222,20 @@ public class BaseInterstitialAdUnit :
             currentAdBlock?(controller);
             objc_sync_exit(blocksLockToken)
 
+    }
+    
+    // MARK: Arbitrary ORTB Configuration
+    
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setImpressionORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impressionORTBConfig = ortbConfig
+    }
+    
+    /// Returns the impression-level OpenRTB configuration string.
+    public func getImpressionORTBConfig() -> String? {
+        adUnitConfig.impressionORTBConfig
     }
 
     // MARK: - Ext Data (imp[].ext.data)

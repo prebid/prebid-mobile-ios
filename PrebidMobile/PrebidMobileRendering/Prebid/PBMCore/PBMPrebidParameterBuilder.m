@@ -72,7 +72,6 @@
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
-    bidRequest.ortbObject = [self.adConfiguration.adConfiguration getCheckedOrtbConfig];
 
     NSArray *renderers = [[PrebidMobilePluginRegister shared] getAllPlugins];
     if (renderers.count != 0 && self.adConfiguration.adConfiguration.isOriginalAPI == false) {

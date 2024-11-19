@@ -36,9 +36,6 @@ public class Targeting: NSObject {
     /// A shared instance of the `Targeting` class.
     public static var shared = Targeting()
     
-    /// Global arbitrary ORTB configuration.
-    public var ortbConfig: String?
-    
     // MARK: - OMID Partner
     
     /// The name of the OMID partner.
@@ -305,6 +302,20 @@ public class Targeting: NSObject {
     
     
     // MARK: - Public Methods
+    
+    // MARK: Arbitrary ORTB Configuration
+    
+    /// Sets the global-level OpenRTB configuration string.
+    ///
+    /// - Parameter ortbObject: The global-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setGlobalORTBConfig(_ ortbConfig: String?) {
+        globalORTBConfig = ortbConfig
+    }
+    
+    /// Returns the global-level OpenRTB configuration string.
+    public func getGlobalORTBConfig() -> String? {
+        globalORTBConfig
+    }
     
     /// Adds a parameter to the parameter dictionary with a specified name.
     ///
@@ -645,6 +656,8 @@ public class Targeting: NSObject {
     private var rawAppExtDataDictionary = [String : Set<String>]()
     
     private var yearofbirth = 0
+    
+    private var globalORTBConfig: String?
     
     // MARK: - Internal Methods
     

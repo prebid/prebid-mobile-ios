@@ -31,6 +31,7 @@
 @class PBMDeviceAccessManager;
 @class PBMLocationManager;
 @class Prebid;
+@class PBMArbitraryORTBParameterBuilder;
 
 @interface PBMParameterBuilderService : NSObject
 
