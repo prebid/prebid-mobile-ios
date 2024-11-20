@@ -33,6 +33,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
         get { [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? []) }
     }
     
+    /// Ad view for impression tracking(f.e. GAMBannerView).
+    /// SDK internal property.
+    weak var adView: UIView?
+    
     private static let PB_MIN_RefreshTime = 30000.0
     
     private(set) var dispatcher: Dispatcher?
@@ -45,6 +49,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     private var isInitialFetchDemandCallMade = false
     
     private var adServerObject: AnyObject?
+    
     private var lastFetchDemandCompletion: ((_ bidInfo: BidInfo) -> Void)?
     
     /// notification flag set to check if the prebid response is received within the specified time
@@ -134,7 +139,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
     // SDK internal
     func baseFetchDemand(
         adObject: AnyObject? = nil,
-        adView: UIView? = nil,
         completion: @escaping (_ bidInfo: BidInfo) -> Void
     ) {
         if !(self is NativeRequest) {
@@ -192,7 +196,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
             }
             
             DispatchQueue.main.async {
-                if let adView, bidResponse.winningBid?.adFormat == .banner {
+                if let adView = self.adView, bidResponse.winningBid?.adFormat == .banner {
                     self.bannerViewImpressionTracker.start(
                         in: adView,
                         trackingURL: bidResponse.winningBid?.bid.burl,
