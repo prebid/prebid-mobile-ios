@@ -50,24 +50,6 @@ public class BannerAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitPr
     public init(configId: String, size: CGSize) {
         super.init(configId: configId, size: size, adFormats: [.banner])
     }
-    
-    /// Makes bid request for a specific ad object and provides the result code. Setups targeting keywords into the adObject.
-    ///
-    /// - Parameters:
-    ///   - adObject: The ad object for which demand is being fetched.
-    ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView). This object will be used later for tracking `burl`.
-    ///   - completion: A closure called with the result code indicating the outcome of the demand fetch.
-    dynamic public func fetchDemand(
-        adObject: AnyObject,
-        adView: UIView? = nil,
-        completion: @escaping(_ result: ResultCode) -> Void
-    ) {
-        baseFetchDemand(adObject: adObject, adView: adView) { bidInfo in
-            DispatchQueue.main.async {
-                completion(bidInfo.resultCode)
-            }
-        }
-    }
 
     /// Adds additional sizes to the banner ad unit's configuration.
     /// - Parameter sizes: An array of `CGSize` objects representing additional sizes.
@@ -77,5 +59,14 @@ public class BannerAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitPr
         }
         
         super.adUnitConfig.additionalSizes?.append(contentsOf: sizes)
+    }
+    
+    // MARK: Prebid Impression Tracking
+    
+    /// Sets the view in which Prebid will start tracking an impression.
+    /// - Parameters:
+    ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView). This object will be used later for tracking `burl`.
+    public func activatePrebidImpressionTracker(adView: UIView) {
+        self.adView = adView
     }
 }
