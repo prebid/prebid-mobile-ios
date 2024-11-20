@@ -72,7 +72,8 @@
 		53269D55282E6D0F0098550D /* ServerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53269D54282E6D0F0098550D /* ServerEvent.swift */; };
 		532936792CEB887D0056FD8D /* ArbitraryORTBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532936782CEB887D0056FD8D /* ArbitraryORTBService.swift */; };
 		5329367B2CEBE92F0056FD8D /* ArbitraryORTBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329367A2CEBE92F0056FD8D /* ArbitraryORTBHelper.swift */; };
-		5329367E2CEC92340056FD8D /* ArbitratyORTBServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329367D2CEC92340056FD8D /* ArbitratyORTBServiceTests.swift */; };
+		5329367E2CEC92340056FD8D /* ArbitraryORTBServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329367D2CEC92340056FD8D /* ArbitraryORTBServiceTests.swift */; };
+		532936932CEF1FFE0056FD8D /* ArbitraryORTBHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532936922CEF1FFE0056FD8D /* ArbitraryORTBHelperTests.swift */; };
 		533135C6282A869800AA1E4D /* BidTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533135C5282A869800AA1E4D /* BidTest.swift */; };
 		53322AA3282D45EE0049229D /* PrebidServerEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53322AA2282D45EE0049229D /* PrebidServerEventTracker.swift */; };
 		53322AA8282E29910049229D /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53322AA7282E29910049229D /* EventManager.swift */; };
@@ -963,7 +964,8 @@
 		53269D54282E6D0F0098550D /* ServerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEvent.swift; sourceTree = "<group>"; };
 		532936782CEB887D0056FD8D /* ArbitraryORTBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryORTBService.swift; sourceTree = "<group>"; };
 		5329367A2CEBE92F0056FD8D /* ArbitraryORTBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryORTBHelper.swift; sourceTree = "<group>"; };
-		5329367D2CEC92340056FD8D /* ArbitratyORTBServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitratyORTBServiceTests.swift; sourceTree = "<group>"; };
+		5329367D2CEC92340056FD8D /* ArbitraryORTBServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryORTBServiceTests.swift; sourceTree = "<group>"; };
+		532936922CEF1FFE0056FD8D /* ArbitraryORTBHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryORTBHelperTests.swift; sourceTree = "<group>"; };
 		533135C5282A869800AA1E4D /* BidTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidTest.swift; sourceTree = "<group>"; };
 		53322AA2282D45EE0049229D /* PrebidServerEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerEventTracker.swift; sourceTree = "<group>"; };
 		53322AA7282E29910049229D /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
@@ -3055,7 +3057,8 @@
 				925D5DA42737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift */,
 				925D5DA62737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift */,
 				53ED304B29798585007D13EE /* SkadnParameterBuilderTest.swift */,
-				5329367D2CEC92340056FD8D /* ArbitratyORTBServiceTests.swift */,
+				5329367D2CEC92340056FD8D /* ArbitraryORTBServiceTests.swift */,
+				532936922CEF1FFE0056FD8D /* ArbitraryORTBHelperTests.swift */,
 			);
 			path = ParameterBuilderTests;
 			sourceTree = "<group>";
@@ -3912,6 +3915,7 @@
 				922AFD4B27372A0500732C53 /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
 				922AFCE12735424F00732C53 /* PBMAssert.swift in Sources */,
+				532936932CEF1FFE0056FD8D /* ArbitraryORTBHelperTests.swift in Sources */,
 				925D5E362737EE8600A8A2B5 /* PBMAdRequestResponseVASTTests.swift in Sources */,
 				922AFCD627353C8000732C53 /* MockServerURLProtocol.m in Sources */,
 				922AFD152737192300732C53 /* AdViewButtonDecoratorTests.swift in Sources */,
@@ -4041,7 +4045,7 @@
 				47D9AE6C09857CB297B6D8EA /* MockPBMAdLoadManagerVAST.swift in Sources */,
 				922AFD022737108200732C53 /* BasicParameterBuilderPureTargetingTest.swift in Sources */,
 				922AFD1C27371C7F00732C53 /* PBMCircularProgressBarViewTests.swift in Sources */,
-				5329367E2CEC92340056FD8D /* ArbitratyORTBServiceTests.swift in Sources */,
+				5329367E2CEC92340056FD8D /* ArbitraryORTBServiceTests.swift in Sources */,
 				47D9A3EF88B06B204F40463E /* MockPBMCreativeModel.swift in Sources */,
 				922AFD5027372AD900732C53 /* PBMHTMLFormatterTest.swift in Sources */,
 				53B221D32A0E3DA900C91CCB /* PrebidJSLibraryManagerTests.swift in Sources */,

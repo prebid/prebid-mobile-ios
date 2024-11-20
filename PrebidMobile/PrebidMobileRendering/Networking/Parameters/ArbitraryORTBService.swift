@@ -31,12 +31,26 @@ public class ArbitraryORTBService: NSObject {
         var resultORTB = existingORTB
         
         if let impORTBDict = ArbitraryImpORTBHelper(ortb: impORTB).getValidatedORTBDict() {
-            let existingImps = existingORTB["imp"] as? [[String: Any]] ?? []
-            resultORTB["imp"] = existingImps.map { $0.deepMerging(with: impORTBDict) }
+            let existingImps = resultORTB["imp"] as? [[String: Any]]
+            resultORTB["imp"] = existingImps?.map { $0.deepMerging(with: impORTBDict) } ?? [impORTBDict]
         }
         
-        if let globalORTBDict = ArbitraryGlobalORTBHelper(ortb: globalORTB).getValidatedORTBDict() {
+        if var globalORTBDict = ArbitraryGlobalORTBHelper(ortb: globalORTB).getValidatedORTBDict() {
+            let existingImpDict = resultORTB["imp"] as? [[String: Any]]
+            resultORTB["imp"] = nil
+            
+            let incomingImpDict = globalORTBDict["imp"] as? [[String: Any]]
+            globalORTBDict["imp"] = nil
+            
+            // All values except `imp` are merging
             resultORTB = resultORTB.deepMerging(with: globalORTBDict)
+            
+            // Append global imps to existing
+            if let existingImpDict, let incomingImpDict {
+                resultORTB["imp"] = existingImpDict + incomingImpDict
+            } else {
+                resultORTB["imp"] = existingImpDict ?? incomingImpDict
+            }
         }
         
         return resultORTB
