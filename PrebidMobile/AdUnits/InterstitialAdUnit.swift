@@ -43,9 +43,6 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
         set { adUnitConfig.adFormats = newValue }
     }
     
-    /// Flag that indicates whether `InterstitialImpressionTracker` should be activated.
-    public var activatePrebidImpressionTracker: Bool = false
-    
     /// Initializes a new interstitial ad unit with a unique configuration identifier.
     /// - Parameter configId: The unique identifier for the ad unit configuration.
     public init(configId: String) {
@@ -66,10 +63,8 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
         adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
     }
     
-    override func baseFetchDemand(adObject: AnyObject? = nil, completion: @escaping (BidInfo) -> Void) {
-        super.baseFetchDemand(adObject: adObject, completion: completion)
-        
-        if let window = UIWindow.firstKeyWindow, activatePrebidImpressionTracker {
+    public func activatePrebidImpressionTracker() {
+        if let window = UIWindow.firstKeyWindow {
             impressionTracker.start(in: window)
         }
     }
