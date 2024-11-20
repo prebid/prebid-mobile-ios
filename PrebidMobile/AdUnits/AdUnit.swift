@@ -33,10 +33,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
         get { [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? []) }
     }
     
-    /// Ad view for impression tracking(f.e. GAMBannerView).
-    /// SDK internal property.
-    weak var adView: UIView?
-    
     private static let PB_MIN_RefreshTime = 30000.0
     
     private(set) var dispatcher: Dispatcher?
@@ -58,8 +54,9 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     private var timeOutSignalSent = false
     
-    private var bannerViewImpressionTracker = BannerViewImpressionTracker()
-    private var interstitialImpressionTracker = InterstitialImpressionTracker()
+    private(set) lazy var impressionTracker = PrebidImpressionTracker(
+        isInterstitial: adUnitConfig.adConfiguration.isInterstitialAd
+    )
     
     /// Initializes a new `AdUnit` instance with the specified configuration ID, size, and ad formats.
     ///
@@ -72,8 +69,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
         adUnitConfig.adConfiguration.isOriginalAPI = true
         adUnitConfig.adFormats = adFormats
         
-        bidRequester = PBMBidRequester(connection: PrebidServerConnection.shared, sdkConfiguration: Prebid.shared,
-                                       targeting: Targeting.shared, adUnitConfiguration: adUnitConfig)
+        bidRequester = PBMBidRequester(
+            connection: PrebidServerConnection.shared,
+            sdkConfiguration: Prebid.shared,
+            targeting: Targeting.shared,
+            adUnitConfiguration: adUnitConfig
+        )
         
         super.init()
         
@@ -82,15 +83,19 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     // Internal only!
-    convenience init(bidRequester: PBMBidRequesterProtocol, configId: String, size: CGSize?, adFormats: Set<AdFormat>) {
+    convenience init(
+        bidRequester: PBMBidRequesterProtocol,
+        configId: String,
+        size: CGSize?,
+        adFormats: Set<AdFormat>
+    ) {
         self.init(configId: configId, size: size, adFormats: adFormats)
         self.bidRequester = bidRequester
     }
     
     deinit {
         dispatcher?.invalidate()
-        bannerViewImpressionTracker.stop()
-        interstitialImpressionTracker.stop()
+        impressionTracker.stop()
     }
     
     //TODO: dynamic is used by tests
@@ -195,25 +200,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
                 return
             }
             
-            DispatchQueue.main.async {
-                if let adView = self.adView, bidResponse.winningBid?.adFormat == .banner {
-                    self.bannerViewImpressionTracker.start(
-                        in: adView,
-                        trackingURL: bidResponse.winningBid?.bid.burl,
-                        creativeCacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"]
-                    )
-                }
-                
-                if self.adUnitConfig.isInterstitialImpressionTrackerActivated &&
-                    self.adUnitConfig.adConfiguration.isInterstitialAd &&
-                    bidResponse.winningBid?.adFormat == .banner {
-                    
-                    self.interstitialImpressionTracker.start(
-                        withTrackingURL: bidResponse.winningBid?.bid.burl,
-                        creativeCacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"]
-                    )
-                }
-            }
+            let impressionTrackingPayload = PrebidImpressionTrackerPayload(
+                cacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"],
+                trackingURLs: bidResponse.winningBid?.impressionTrackingURLs ?? []
+            )
+            
+            self.impressionTracker.register(payload: impressionTrackingPayload)
             
             if (!self.timeOutSignalSent) {
                 let resultCode = self.setUp(adObject, with: bidResponse)

@@ -16,22 +16,20 @@
 import WebKit
 
 /// Schedules an observer for interstitial views and, upon detection, activates the viewability tracker.
-class InterstitialImpressionTracker {
+class InterstitialImpressionTracker: PrebidImpressionTrackerProtocol {
     
     private var interstitialObserver: InterstitialObserver?
     private var viewabilityTracker: PBMCreativeViewabilityTracker?
+    
+    private var payload: PrebidImpressionTrackerPayload?
     
     private var pollingInterval: TimeInterval {
         0.2
     }
     
-    func start(withTrackingURL trackingURL: String?, creativeCacheID: String?) {
-        interstitialObserver = InterstitialObserver { [weak self] view in
-            self?.attachViewabilityTracker(
-                to: view,
-                trackingURL: trackingURL,
-                creativeCacheID: creativeCacheID
-            )
+    func start(in view: UIView) {
+        interstitialObserver = InterstitialObserver(window: view as? UIWindow) { [weak self] view in
+            self?.attachViewabilityTracker(to: view)
         }
         
         interstitialObserver?.start()
@@ -42,11 +40,7 @@ class InterstitialImpressionTracker {
         viewabilityTracker?.stop()
     }
     
-    private func attachViewabilityTracker(
-        to view: UIView,
-        trackingURL: String?,
-        creativeCacheID: String?
-    ) {
+    private func attachViewabilityTracker(to view: UIView) {
         viewabilityTracker = PBMCreativeViewabilityTracker(
             view: view,
             pollingTimeInterval: pollingInterval,
@@ -60,8 +54,12 @@ class InterstitialImpressionTracker {
                     AdViewUtils.findPrebidCacheID(view) { result in
                         switch result {
                         case .success(let foundCacheID):
-                            if let trackingURL, let creativeCacheID, creativeCacheID == foundCacheID {
-                                PrebidServerConnection.shared.fireAndForget(trackingURL)
+                            if let trackingURLs = self.payload?.trackingURLs,
+                               let creativeCacheID = self.payload?.cacheID,
+                               foundCacheID == creativeCacheID {
+                                for trackingURL in trackingURLs {
+                                    PrebidServerConnection.shared.fireAndForget(trackingURL)
+                                }
                             }
                         case .failure(let error):
                             Log.warn(error.localizedDescription)
@@ -72,5 +70,9 @@ class InterstitialImpressionTracker {
         )
         
         viewabilityTracker?.start()
+    }
+    
+    func register(payload: PrebidImpressionTrackerPayload) {
+        self.payload = payload
     }
 }

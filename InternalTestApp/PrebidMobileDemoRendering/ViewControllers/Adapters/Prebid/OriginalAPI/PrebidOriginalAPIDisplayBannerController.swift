@@ -119,7 +119,8 @@ class PrebidOriginalAPIDisplayBannerController:
         rootController?.bannerView?.addSubview(gamBanner)
         
         let gamRequest = GAMRequest()
-        adUnit.fetchDemand(adObject: gamRequest, adView: gamBanner) { [weak self] resultCode in
+        adUnit.activatePrebidImpressionTracker(adView: gamBanner)
+        adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             Log.info("Prebid demand fetch for GAM \(resultCode.name())")
             self?.gamBanner.load(gamRequest)
         }
@@ -164,7 +165,8 @@ class PrebidOriginalAPIDisplayBannerController:
         resetEvents()
         
         let gamRequest = GAMRequest()
-        adUnit.fetchDemand(adObject: gamRequest, adView: gamBanner) { [weak self] resultCode in
+        adUnit.activatePrebidImpressionTracker(adView: gamBanner)
+        adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             Log.info("Prebid demand fetch for GAM \(resultCode.name())")
             self?.gamBanner.load(gamRequest)
         }

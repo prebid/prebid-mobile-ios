@@ -32,6 +32,12 @@ public class Bid: NSObject {
         bid.price.floatValue
     }
     
+    /// Billing notice URL called by the exchange when a winning bid
+    /// becomes billable based on exchange-specific business policy
+    /// (e.g., typically delivered, viewed, etc.). 
+    @objc public var burl: String? {
+        bid.burl
+    }
     
     /// Win notice URL called by the exchange if the bid wins (not necessarily indicative of a delivered,
     /// viewed, or billable ad); optional means of serving ad markup.
@@ -140,5 +146,20 @@ public class Bid: NSObject {
         let macrosHelper = PBMORTBMacrosHelper(bid: bid)
         adm = macrosHelper.replaceMacros(in: bid.adm)
         nurl = macrosHelper.replaceMacros(in: bid.nurl)
+    }
+}
+
+// MARK: Impression Tracking Helpers
+
+@objc public extension Bid {
+    
+     var impressionTrackingURLs: [String] {
+        var urls = [String]()
+        
+        if let burl {
+            urls.append(burl)
+        }
+        
+        return urls
     }
 }
