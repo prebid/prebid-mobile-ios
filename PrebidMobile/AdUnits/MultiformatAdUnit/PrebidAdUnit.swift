@@ -25,9 +25,6 @@ public class PrebidAdUnit: NSObject {
         set { adUnit.pbAdSlot = newValue }
     }
     
-    /// Flag that indicates whether `InterstitialImpressionTracker` should be activated.    
-    public var activatePrebidInterstitialImpressionTracker: Bool = false
-    
     private let adUnit: AdUnit
     
     /// Initializes a new `PrebidAdUnit` with the given configuration ID.
@@ -78,10 +75,6 @@ public class PrebidAdUnit: NSObject {
         
         config(with: request)
         
-        if let window = UIWindow.firstKeyWindow, activatePrebidInterstitialImpressionTracker {
-            adUnit.impressionTracker.start(in: window)
-        }
-        
         adUnit.baseFetchDemand(adObject: adObject) { bidInfo in
             DispatchQueue.main.async {
                 completion(bidInfo)
@@ -91,11 +84,18 @@ public class PrebidAdUnit: NSObject {
     
     // MARK: Prebid Impression Tracking
     
-    /// Sets the view in which Prebid will start tracking an impression.
+    /// Sets the view in which Prebid will start tracking an impression and activates the impression tracker.
     /// - Parameters:
     ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView). This object will be used later for tracking `burl`.
     public func activatePrebidAdViewImpressionTracker(adView: UIView) {
         adUnit.impressionTracker.start(in: adView)
+    }
+    
+    /// Activates interstitial impression tracker.
+    public func activatePrebidInterstitialImpressionTracker() {
+        if let window = UIWindow.firstKeyWindow {
+            adUnit.impressionTracker.start(in: window)
+        }
     }
     
     // MARK: - Auto refresh API
