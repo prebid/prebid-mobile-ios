@@ -25,11 +25,8 @@ public class PrebidAdUnit: NSObject {
         set { adUnit.pbAdSlot = newValue }
     }
     
-    /// Flag that indicates whether `InterstitialImpressionTracker` should be activated.
-    public var activatePrebidInterstitialImpressionTracker: Bool {
-        set { adUnit.adUnitConfig.isInterstitialImpressionTrackerActivated = newValue }
-        get { adUnit.adUnitConfig.isInterstitialImpressionTrackerActivated }
-    }
+    /// Flag that indicates whether `InterstitialImpressionTracker` should be activated.    
+    public var activatePrebidInterstitialImpressionTracker: Bool = false
     
     private let adUnit: AdUnit
     
@@ -50,17 +47,11 @@ public class PrebidAdUnit: NSObject {
         request: PrebidRequest,
         completion: @escaping (BidInfo) -> Void
     ) {
-        guard requestHasParameters(request) else {
-            completion(BidInfo(resultCode: .prebidInvalidRequest))
-            return
-        }
-        
-        config(with: request)
-        adUnit.baseFetchDemand(adObject: adObject) { bidInfo in
-            DispatchQueue.main.async {
-                completion(bidInfo)
-            }
-        }
+        baseFetchDemand(
+            adObject: adObject,
+            request: request,
+            completion: completion
+        )
     }
     
     /// Makes bid request for the specified request config.
@@ -68,13 +59,30 @@ public class PrebidAdUnit: NSObject {
     ///   - request: The `PrebidRequest` containing the demand request parameters.
     ///   - completion: A closure to be called with the `BidInfo` result.
     public func fetchDemand(request: PrebidRequest, completion: @escaping (BidInfo) -> Void) {
+        baseFetchDemand(
+            adObject: nil,
+            request: request,
+            completion: completion
+        )
+    }
+    
+    private func baseFetchDemand(
+        adObject: AnyObject?,
+        request: PrebidRequest,
+        completion: @escaping (BidInfo) -> Void
+    ) {
         guard requestHasParameters(request) else {
             completion(BidInfo(resultCode: .prebidInvalidRequest))
             return
         }
         
         config(with: request)
-        adUnit.baseFetchDemand { bidInfo in
+        
+        if let window = UIWindow.firstKeyWindow, activatePrebidInterstitialImpressionTracker {
+            adUnit.impressionTracker.start(in: window)
+        }
+        
+        adUnit.baseFetchDemand(adObject: adObject) { bidInfo in
             DispatchQueue.main.async {
                 completion(bidInfo)
             }
@@ -86,8 +94,8 @@ public class PrebidAdUnit: NSObject {
     /// Sets the view in which Prebid will start tracking an impression.
     /// - Parameters:
     ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView). This object will be used later for tracking `burl`.
-    public func activatePrebidImpressionTracker(adView: UIView) {
-        adUnit.adView = adView
+    public func activatePrebidAdViewImpressionTracker(adView: UIView) {
+        adUnit.impressionTracker.start(in: adView)
     }
     
     // MARK: - Auto refresh API

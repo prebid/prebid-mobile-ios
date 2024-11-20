@@ -67,6 +67,6 @@ public class BannerAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitPr
     /// - Parameters:
     ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView). This object will be used later for tracking `burl`.
     public func activatePrebidImpressionTracker(adView: UIView) {
-        self.adView = adView
+        impressionTracker.start(in: adView)
     }
 }

@@ -46,10 +46,6 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
 
     public var nativeAdConfiguration: NativeAdConfiguration?
-    
-    /// Indicates whethe `InterstitialImpressionTracker` should start working.
-    /// Works with original API.
-    public var isInterstitialImpressionTrackerActivated = false
 
     // MARK: - Computed Properties
     

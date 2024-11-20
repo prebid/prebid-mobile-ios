@@ -32,7 +32,7 @@ class InterstitialObserver {
         checkInterval: TimeInterval = 1.0,
         targetViewClassName: String = "GADWebAdView",
         targetViewControllerClassName: String = "GADFullScreenAdViewController",
-        window: UIWindow? = UIWindow.firstKeyWindow,
+        window: UIWindow?,
         onTargetInterstitialPresented: ((UIView) -> Void)? = nil
     ) {
         self.checkInterval = checkInterval
