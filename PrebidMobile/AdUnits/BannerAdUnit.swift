@@ -60,4 +60,13 @@ public class BannerAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitPr
         
         super.adUnitConfig.additionalSizes?.append(contentsOf: sizes)
     }
+    
+    // MARK: Prebid Impression Tracking
+    
+    /// Sets the view in which Prebid will start tracking an impression.
+    /// - Parameters:
+    ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView). This object will be used later for tracking `burl`.
+    public func activatePrebidImpressionTracker(adView: UIView) {
+        impressionTracker.start(in: adView)
+    }
 }

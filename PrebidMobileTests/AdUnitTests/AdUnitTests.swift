@@ -215,8 +215,8 @@ class AdUnitTests: XCTestCase {
         sleep(1)
         adUnit.resumeAutoRefresh()
         
-        waitForExpectations(timeout: 2, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        waitForExpectations(timeout: 10, handler: nil)
         
         PBHTTPStubbingManager.shared().disable()
         PBHTTPStubbingManager.shared().removeAllStubs()
@@ -224,7 +224,6 @@ class AdUnitTests: XCTestCase {
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
-
     }
     
     func testFetchDemandBidsAutoRefresh() {

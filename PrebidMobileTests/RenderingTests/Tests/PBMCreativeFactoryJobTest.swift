@@ -230,8 +230,8 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         // banner display
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        var adConfig = AdConfiguration()
-        var model = PBMCreativeModel(adConfiguration: adConfig)
+        let adConfig = AdConfiguration()
+        let model = PBMCreativeModel(adConfiguration: adConfig)
 
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
 
