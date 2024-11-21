@@ -65,7 +65,7 @@ class PrebidOriginalAPIDisplayInterstitialController:
             minHeightPerc: 70
         )
         
-        adUnit.activatePrebidImpressionTracker = true
+        adUnit.activatePrebidImpressionTracker()
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
