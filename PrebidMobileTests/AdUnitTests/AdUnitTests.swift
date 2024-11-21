@@ -355,7 +355,6 @@ class AdUnitTests: XCTestCase {
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
-
     }
     
     func testFetchDemandBidsAutoRefresh() {
