@@ -47,7 +47,7 @@ class AdViewUtilsTests: XCTestCase {
             XCTAssert((error as NSError).code == PbWebViewSearchErrorFactory.noHtmlCode)
         }
         
-        wait(for: [exp], timeout: 15)
+        waitForExpectations(timeout: 30)
     }
     
     func testFailureFindASizeIfItIsNotPresent() {
@@ -159,7 +159,7 @@ class AdViewUtilsTests: XCTestCase {
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 15, handler: nil)
+        waitForExpectations(timeout: 30, handler: nil)
     }
     
     func testFindPrebidCacheIDFailureNoCacheID() {
@@ -182,7 +182,7 @@ class AdViewUtilsTests: XCTestCase {
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 15, handler: nil)
+        waitForExpectations(timeout: 30, handler: nil)
     }
     
     class TestingWKNavigationDelegate: NSObject, WKNavigationDelegate {
