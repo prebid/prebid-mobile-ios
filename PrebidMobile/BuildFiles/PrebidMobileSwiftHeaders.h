@@ -27,8 +27,6 @@
 #import "PBMAdLoaderProtocol.h"
 #import "PBMBannerAdLoader.h"
 
-#import "PBMORTBBidRequest.h"
-
 // Bid
 #import "PBMORTBBid.h"
 #import "PBMORTBBidExt.h"

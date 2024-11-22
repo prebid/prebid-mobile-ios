@@ -224,7 +224,7 @@
 		5BC378EC271F1CFF00444D5E /* PBMORTBSourceExtOMID.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3768D271F1CFD00444D5E /* PBMORTBSourceExtOMID.h */; };
 		5BC378ED271F1CFF00444D5E /* PBMORTBAppExtPrebid.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3768E271F1CFD00444D5E /* PBMORTBAppExtPrebid.m */; };
 		5BC378EE271F1CFF00444D5E /* PBMORTBUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3768F271F1CFD00444D5E /* PBMORTBUser.h */; };
-		5BC378EF271F1CFF00444D5E /* PBMORTBBidRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37690271F1CFD00444D5E /* PBMORTBBidRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5BC378EF271F1CFF00444D5E /* PBMORTBBidRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37690271F1CFD00444D5E /* PBMORTBBidRequest.h */; };
 		5BC378F0271F1CFF00444D5E /* PBMORTBAbstract+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37691271F1CFD00444D5E /* PBMORTBAbstract+Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC378F1271F1CFF00444D5E /* PBMORTBDeviceExtPrebid.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37692271F1CFD00444D5E /* PBMORTBDeviceExtPrebid.m */; };
 		5BC378F2271F1CFF00444D5E /* PBMORTBAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37693271F1CFD00444D5E /* PBMORTBAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
