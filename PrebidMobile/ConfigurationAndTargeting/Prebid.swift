@@ -54,6 +54,9 @@ public class Prebid: NSObject {
     /// Stored bid responses identified by bidder names.
     public var storedBidResponses: [String: String] = [:]
     
+	/// Optional Delegate which returns Request and Response Data for further processing
+    public weak var eventDelegate: PrebidEventDelegate?
+
     /// This property is set by the developer when he is willing to assign the assetID for Native ad.
     public var shouldAssignNativeAssetID : Bool = false
     
