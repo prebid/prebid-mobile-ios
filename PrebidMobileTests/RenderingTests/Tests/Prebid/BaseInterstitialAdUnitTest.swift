@@ -53,4 +53,19 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         videoConfig.closeButtonPosition = .topLeft
         XCTAssertEqual(videoConfig.closeButtonPosition, .topLeft)
     }
+    
+    func testSetAdPosition() {
+        let adUnit = BaseInterstitialAdUnit(configID: "test")
+        let adUnitConfig = adUnit.adUnitConfig
+        
+        adUnit.adPosition = .header
+        
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .header)
+        
+        adUnit.adPosition = .footer
+        
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .footer)
+    }
 }

@@ -101,4 +101,22 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         waitForExpectations(timeout: 0.1)
     }
     
+    func testSetAdPosition() {
+        let adUnit = MediationBaseInterstitialAdUnit(
+            configId: "test",
+            mediationDelegate: MockEmptyPrebidMediationDelegate()
+        )
+        
+        let adUnitConfig = adUnit.adUnitConfig
+        
+        adUnit.adPosition = .header
+        
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .header)
+        
+        adUnit.adPosition = .footer
+        
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .footer)
+    }
 }

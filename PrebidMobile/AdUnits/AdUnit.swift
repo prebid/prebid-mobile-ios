@@ -23,6 +23,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
         set { adUnitConfig.setPbAdSlot(newValue) }
     }
     
+    /// The position of the ad on the screen.
+    public var adPosition: AdPosition {
+        get { adUnitConfig.adPosition }
+        set { adUnitConfig.adPosition = newValue }
+    }
+    
     var adSizes: [CGSize] {
         get { [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? []) }
     }

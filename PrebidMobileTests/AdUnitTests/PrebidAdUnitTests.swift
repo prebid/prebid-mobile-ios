@@ -402,4 +402,19 @@ class PrebidAdUnitTests: XCTestCase {
         
         waitForExpectations(timeout: 5, handler: nil)
     }
+    
+    func testSetAdPosition() {
+        let request = PrebidRequest(bannerParameters: BannerParameters())
+        request.adPosition = .header
+        
+        let adUnit = PrebidAdUnit(configId: "test-config-id")
+        adUnit.fetchDemand(request: request, completion: { _ in })
+        
+        XCTAssertEqual(adUnit.getConfiguration().adPosition, .header)
+        
+        request.adPosition = .footer
+        adUnit.fetchDemand(request: request, completion: { _ in })
+        
+        XCTAssertEqual(adUnit.getConfiguration().adPosition, .footer)
+    }
 }
