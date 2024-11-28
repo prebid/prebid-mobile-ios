@@ -24,9 +24,4 @@ import UIKit
     @objc func bannerAdLoader(_ bannerAdLoader: PBMBannerAdLoader,
                               loadedAdView adView: UIView,
                               adSize: CGSize)
-
-    // Hook to insert interaction delegate
-    @objc func bannerAdLoader(_ bannerAdLoader: PBMBannerAdLoader,
-                              createdDisplayView displayView: PBMDisplayView)
-
 }

@@ -13,19 +13,18 @@
  limitations under the License.
  */
 
-import Foundation
 import UIKit
 
+@objc
+public protocol DisplayViewInteractionDelegate: NSObjectProtocol {
 
-@objc public protocol DisplayViewInteractionDelegate: NSObjectProtocol {
-
-    func trackImpression(forDisplayView:PBMDisplayView)
+    func trackImpression(for displayView: UIView)
     
-    func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController?
+    func viewControllerForModalPresentation(from displayView: UIView) -> UIViewController?
     
-    func didLeaveApp(from displayView: PBMDisplayView)
+    func didLeaveApp(from displayView: UIView)
     
-    func willPresentModal(from displayView: PBMDisplayView)
+    func willPresentModal(from displayView: UIView)
     
-    func didDismissModal(from displayView: PBMDisplayView)
+    func didDismissModal(from displayView: UIView)
 }

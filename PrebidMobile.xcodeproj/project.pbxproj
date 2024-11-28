@@ -807,10 +807,8 @@
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
 		A908694229E05EAF00B37479 /* PrebidMobilePluginRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */; };
 		A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */; };
-		A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694529E05F7900B37479 /* PrebidRenderer.swift */; };
+		A908694629E05F7900B37479 /* PrebidDisplayViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694529E05F7900B37479 /* PrebidDisplayViewRenderer.swift */; };
 		A9750D7A2ABB9A300066E4E6 /* PluginEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9750D792ABB9A300066E4E6 /* PluginEventListener.swift */; };
-		A9A3396B2AC57193006AD0E7 /* PBMAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A3396A2AC57193006AD0E7 /* PBMAdViewDelegate.swift */; };
-		F95DA2072C87567D0068A2BB /* SampleCustomRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95DA2062C87567D0068A2BB /* SampleCustomRenderer.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
 		FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */; };
@@ -1730,10 +1728,8 @@
 		979177962201AF5F00E624CE /* DispatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatcherTests.swift; sourceTree = "<group>"; };
 		A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRegister.swift; sourceTree = "<group>"; };
 		A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRenderer.swift; sourceTree = "<group>"; };
-		A908694529E05F7900B37479 /* PrebidRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRenderer.swift; sourceTree = "<group>"; };
+		A908694529E05F7900B37479 /* PrebidDisplayViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidDisplayViewRenderer.swift; sourceTree = "<group>"; };
 		A9750D792ABB9A300066E4E6 /* PluginEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginEventListener.swift; sourceTree = "<group>"; };
-		A9A3396A2AC57193006AD0E7 /* PBMAdViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdViewDelegate.swift; sourceTree = "<group>"; };
-		F95DA2062C87567D0068A2BB /* SampleCustomRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCustomRenderer.swift; sourceTree = "<group>"; };
 		FA4A88432497A99D00FDCBB6 /* Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzling.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestUtils.xcodeproj; path = ../tools/TestUtils/TestUtils.xcodeproj; sourceTree = "<group>"; };
@@ -2436,15 +2432,15 @@
 		5BC37786271F1CFE00444D5E /* PBMCacheRenderers */ = {
 			isa = PBXGroup;
 			children = (
+				5BC3778C271F1CFE00444D5E /* PBMDisplayView.h */,
 				5BC37787271F1CFE00444D5E /* PBMDisplayView.m */,
 				5BC37788271F1CFE00444D5E /* PBMDisplayView+InternalState.h */,
 				5BC3778B271F1CFE00444D5E /* InterstitialControllerLoadingDelegate.swift */,
-				5BC3778C271F1CFE00444D5E /* PBMDisplayView.h */,
 				5BC3778D271F1CFE00444D5E /* InterstitialControllerInteractionDelegate.swift */,
 				5BC3778E271F1CFE00444D5E /* InterstitialController.swift */,
 				5BC3778F271F1CFE00444D5E /* DisplayViewLoadingDelegate.swift */,
 				5BC37790271F1CFE00444D5E /* DisplayViewInteractionDelegate.swift */,
-				A908694529E05F7900B37479 /* PrebidRenderer.swift */,
+				A908694529E05F7900B37479 /* PrebidDisplayViewRenderer.swift */,
 			);
 			path = PBMCacheRenderers;
 			sourceTree = "<group>";
@@ -3276,11 +3272,9 @@
 		A908694029E05E8D00B37479 /* PluginRenderer */ = {
 			isa = PBXGroup;
 			children = (
-				F95DA2062C87567D0068A2BB /* SampleCustomRenderer.swift */,
 				A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */,
 				A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */,
 				A9750D792ABB9A300066E4E6 /* PluginEventListener.swift */,
-				A9A3396A2AC57193006AD0E7 /* PBMAdViewDelegate.swift */,
 			);
 			path = PluginRenderer;
 			sourceTree = "<group>";
@@ -4104,7 +4098,6 @@
 				FAEE4D20262DC2B200AD9966 /* Signals.swift in Sources */,
 				5BC37A79271F1D0000444D5E /* PBMVastTransactionFactory.m in Sources */,
 				5BC37911271F1CFF00444D5E /* PBMDeepLinkPlus.m in Sources */,
-				A9A3396B2AC57193006AD0E7 /* PBMAdViewDelegate.swift in Sources */,
 				5BC378DD271F1CFF00444D5E /* PBMORTBPmp.m in Sources */,
 				5BC378CE271F1CFF00444D5E /* PBMTouchDownRecognizer.m in Sources */,
 				5BC378ED271F1CFF00444D5E /* PBMORTBAppExtPrebid.m in Sources */,
@@ -4270,7 +4263,6 @@
 				537B6518283372FD008AE9D1 /* PathBuilder.swift in Sources */,
 				FAEE4D1A262DC2B200AD9966 /* NativeAd.swift in Sources */,
 				5BC37A1B271F1D0000444D5E /* Prebid.swift in Sources */,
-				F95DA2072C87567D0068A2BB /* SampleCustomRenderer.swift in Sources */,
 				5BC379A8271F1D0000444D5E /* PBMModalViewController.m in Sources */,
 				5BC37AC3271F1D0100444D5E /* PBMURLComponents.m in Sources */,
 				5BC378D3271F1CFF00444D5E /* PBMORTBAbstract.m in Sources */,
@@ -4348,7 +4340,7 @@
 				5BC37A8B271F1D0000444D5E /* BannerEventInteractionDelegate.swift in Sources */,
 				FAEE4D0B262DC2B200AD9966 /* Dispatcher.swift in Sources */,
 				5BC37A10271F1D0000444D5E /* AdUnitConfig.swift in Sources */,
-				A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */,
+				A908694629E05F7900B37479 /* PrebidDisplayViewRenderer.swift in Sources */,
 				5BC37926271F1CFF00444D5E /* PBMDeepLinkPlusHelper+Testing.m in Sources */,
 				5BC37A90271F1D0000444D5E /* InterstitialAdUnitDelegate.swift in Sources */,
 				5BC37A88271F1D0000444D5E /* RewardedAdUnitDelegate.swift in Sources */,

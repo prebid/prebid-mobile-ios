@@ -13,41 +13,70 @@
  limitations under the License.
  */
 
-import Foundation
+import UIKit
 
-@objc public protocol PrebidMobilePluginRenderer: AnyObject {
+@objc
+public protocol PrebidMobilePluginRenderer: AnyObject {
     
-    @objc var name: String { get }
-    @objc var version: String { get }
-    @objc var data: [AnyHashable: Any]? { get }
+    @objc
+    var name: String { get }
     
-    /// Creates and returns Banner View for a given Bid Response
+    @objc
+    var version: String { get }
+    
+    // TODO: send in ORTB
+    @objc
+    var data: [AnyHashable: Any]? { get }
+
+    /// Returns true only if the given ad unit could be renderer by the plugin
+    @objc
+    func isSupportRendering(for format: AdFormat?) -> Bool
+    
+    
+    // TODO: Determine the purpose
+    
+    /// Register a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events
+    @objc
+    optional func registerEventDelegate(
+        pluginEventDelegate: PluginEventDelegate,
+        adUnitConfigFingerprint: String
+    )
+
+    /// Unregister a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events
+    @objc
+    optional func unregisterEventDelegate(
+        pluginEventDelegate: PluginEventDelegate,
+        adUnitConfigFingerprint: String
+    )
+}
+
+@objc
+public protocol PrebidMobileAdViewPluginRenderer: PrebidMobilePluginRenderer {
+    
+    /// Creates and returns an ad view for a given bid response
     /// Returns nil in the case of an internal error
-    @objc func createBannerAdView(with frame: CGRect, bid: Bid, adConfiguration: AdUnitConfig,
-                                  connection: PrebidServerConnectionProtocol, adViewDelegate: (any PBMAdViewDelegate)?)
+    @objc
+    func createAdView(
+        with frame: CGRect,
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        loadingDelegate: DisplayViewLoadingDelegate?,
+        interactionDelegate: DisplayViewInteractionDelegate?
+    ) -> UIView
+    
+    // TODO: add display method (?)
+}
+
+@objc
+public protocol PrebidMobileInterstitialPluginRenderer: PrebidMobilePluginRenderer {
     
     /// Creates and returns an implementation of PrebidMobileInterstitialControllerInterface for a given bid response
     /// Returns nil in the case of an internal error
-    @objc optional func createInterstitialController( bid: Bid, adConfiguration: AdUnitConfig,
-                                                      connection: PrebidServerConnectionProtocol,
-                                                      adViewManagerDelegate: InterstitialController?,
-                                                      videoControlsConfig: VideoControlsConfiguration?)
-
-    /// Returns true only if the given ad unit could be renderer by the plugin
-    @objc func isSupportRendering(for format: AdFormat?) -> Bool
-    
-    /// Register a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events
-    @objc optional func registerEventDelegate(pluginEventDelegate: PluginEventDelegate,
-                                              adUnitConfigFingerprint: String)
-
-    /// Unregister a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events
-    @objc optional func unregisterEventDelegate(pluginEventDelegate: PluginEventDelegate,
-                                                adUnitConfigFingerprint: String)
-    
-    /// Setup a bid for a given ad unit configuration
-    @objc func setupBid(_ bid: PrebidMobile.Bid, adConfiguration: PrebidMobile.AdUnitConfig,
-                        connection: PrebidServerConnectionProtocol)
-
-    
-    
+    @objc
+    func createInterstitialController(
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        adViewManagerDelegate: InterstitialController?,
+        videoControlsConfig: VideoControlsConfiguration?
+    )
 }

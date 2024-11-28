@@ -51,6 +51,10 @@
 		53A369092AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A369072AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift */; };
 		53A651842AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */; };
 		53A651852AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */; };
+		53BFCD032CF792FB00A3287A /* SampleCustomAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */; };
+		53BFCD042CF792FB00A3287A /* SampleCustomAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */; };
+		53BFCD0C2CF8F56300A3287A /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */; };
+		53BFCD0D2CF8F56300A3287A /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */; };
 		53ED2FD329798104007D13EE /* LogInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D70F6A24E546DD0048CC78 /* LogInfo.swift */; };
 		53ED2FD429798104007D13EE /* PrebidOriginalAPINativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */; };
 		53ED2FD529798104007D13EE /* AdapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6EB3CC211336D300317ED9 /* AdapterViewController.swift */; };
@@ -394,6 +398,8 @@
 		53A369042AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMultiformatInAppNativeController.swift; sourceTree = "<group>"; };
 		53A369072AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMultiformatConfigurationController.swift; sourceTree = "<group>"; };
 		53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMultiformatNativeStylesController.swift; sourceTree = "<group>"; };
+		53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCustomAdViewRenderer.swift; sourceTree = "<group>"; };
+		53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdView.swift; sourceTree = "<group>"; };
 		53ED304329798104007D13EE /* InternalTestApp-Skadn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InternalTestApp-Skadn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED305129798DBC007D13EE /* Info-Skadn.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Skadn.plist"; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
@@ -669,6 +675,7 @@
 		3493022024740BD8004A6086 /* OpenX */ = {
 			isa = PBXGroup;
 			children = (
+				3CC4A3E72C11F93A00B97128 /* CustomRenderer */,
 				3493022124740BEE004A6086 /* PrebidBannerController.swift */,
 				34FC0CF324ADD3A80045553E /* PrebidInterstitialController.swift */,
 				34BA95FF249CC118006AE372 /* PrebidRewardedController.swift */,
@@ -701,6 +708,8 @@
 		3CC4A3E72C11F93A00B97128 /* CustomRenderer */ = {
 			isa = PBXGroup;
 			children = (
+				53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */,
+				53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */,
 				3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */,
 				3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */,
 			);
@@ -1572,6 +1581,7 @@
 				53ED2FE829798104007D13EE /* PrebidBannerController.swift in Sources */,
 				53ED2FE929798104007D13EE /* PrebidBannerConfigurationController.swift in Sources */,
 				53ED2FEA29798104007D13EE /* TestCase.swift in Sources */,
+				53BFCD032CF792FB00A3287A /* SampleCustomAdViewRenderer.swift in Sources */,
 				53ED2FEB29798104007D13EE /* PrebidAdMobNativeViewController.swift in Sources */,
 				53ED2FEC29798104007D13EE /* PrebidInterstitialController.swift in Sources */,
 				53ED2FED29798104007D13EE /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */,
@@ -1616,6 +1626,7 @@
 				53ED301129798104007D13EE /* AppConfiguration.swift in Sources */,
 				53ED301229798104007D13EE /* ReactiveSdkInitFlag.swift in Sources */,
 				53ED301329798104007D13EE /* PrebidOriginalAPINativeBannerController.swift in Sources */,
+				53BFCD0C2CF8F56300A3287A /* SampleAdView.swift in Sources */,
 				53ED301429798104007D13EE /* TestCasesSectionsViewController.swift in Sources */,
 				3C28C9D92C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */,
 				53ED301529798104007D13EE /* AppSettingsKeys.swift in Sources */,
@@ -1668,6 +1679,7 @@
 				3493022224740BEE004A6086 /* PrebidBannerController.swift in Sources */,
 				5BDB85DA2739794900A529F6 /* PrebidBannerConfigurationController.swift in Sources */,
 				5B3EEDE52101FB8800BAA0C4 /* TestCase.swift in Sources */,
+				53BFCD042CF792FB00A3287A /* SampleCustomAdViewRenderer.swift in Sources */,
 				92C475122796FF8400C26E27 /* PrebidAdMobNativeViewController.swift in Sources */,
 				34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */,
 				5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */,
@@ -1712,6 +1724,7 @@
 				D551B96F21491AAA00FFF51D /* AppConfiguration.swift in Sources */,
 				346C6F5725DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift in Sources */,
 				5397BD2C2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift in Sources */,
+				53BFCD0D2CF8F56300A3287A /* SampleAdView.swift in Sources */,
 				5B3EEDE22101EDA200BAA0C4 /* TestCasesSectionsViewController.swift in Sources */,
 				3C28C9D82C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */,
 				ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */,
