@@ -13,12 +13,10 @@
  limitations under the License.
  */
 
-import Foundation
+import UIKit
 
-@objc public protocol DisplayViewLoadingDelegate: NSObjectProtocol {
-
-    func displayViewDidLoadAd(_ displayView: PBMDisplayView)
-    
-    func displayView(_ displayView: PBMDisplayView,
-                     didFailWithError error: Error)
+@objc
+public protocol DisplayViewLoadingDelegate: NSObjectProtocol {
+    func displayViewDidLoadAd(_ displayView: UIView)
+    func displayView(_ displayView: UIView, didFailWithError error: Error)
 }

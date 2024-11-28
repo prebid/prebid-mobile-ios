@@ -83,18 +83,18 @@ public class PrebidAdMobBannerAdapter:
         displayView?.interactionDelegate = self
         displayView?.loadingDelegate = self
         
-        displayView?.displayAd()
+        displayView?.loadAd()
     }
     
     // MARK: - DisplayViewLoadingDelegate
     
-    public func displayViewDidLoadAd(_ displayView: PBMDisplayView) {
+    public func displayViewDidLoadAd(_ displayView: UIView) {
         if let handler = completionHandler {
             delegate = handler(self, nil)
         }
     }
     
-    public func displayView(_ displayView: PBMDisplayView, didFailWithError error: Error) {
+    public func displayView(_ displayView: UIView, didFailWithError error: Error) {
         if let handler = completionHandler {
             delegate = handler(nil, error)
         }
@@ -102,23 +102,23 @@ public class PrebidAdMobBannerAdapter:
     
     // MARK: - PBMDisplayViewInteractionDelegate
     
-    public func trackImpression(forDisplayView: PBMDisplayView) {
+    public func trackImpression(for displayView: UIView) {
         delegate?.reportImpression()
     }
     
-    public func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController? {
+    public func viewControllerForModalPresentation(from displayView: UIView) -> UIViewController? {
         return adConfiguration?.topViewController ?? UIApplication.shared.windows.first?.rootViewController
     }
     
-    public func didLeaveApp(from displayView: PBMDisplayView) {
+    public func didLeaveApp(from displayView: UIView) {
         delegate?.reportClick()
     }
     
-    public func willPresentModal(from displayView: PBMDisplayView) {
+    public func willPresentModal(from displayView: UIView) {
         delegate?.willPresentFullScreenView()
     }
     
-    public func didDismissModal(from displayView: PBMDisplayView) {
+    public func didDismissModal(from displayView: UIView) {
         delegate?.willDismissFullScreenView()
         delegate?.didDismissFullScreenView()
     }

@@ -593,9 +593,7 @@ struct TestCaseManager {
                 
                 let bannerController = CustomRendererBannerController(rootController: adapterVC)
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
-                        
-                bannerController.prebidConfigId = "prebid-ita-banner-320-50-meta-custom-renderer";
-                        
+                bannerController.prebidConfigId = "prebid-ita-banner-320-50-meta-custom-banner-view-renderer"
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)

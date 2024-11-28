@@ -17,8 +17,11 @@ import UIKit
 import GoogleMobileAds
 import PrebidMobile
 
-class CustomRendererInterstitialController: NSObject, AdaptedController,
-                                            PrebidConfigurableController, InterstitialAdUnitDelegate {
+class CustomRendererInterstitialController:
+    NSObject,
+    AdaptedController,
+    PrebidConfigurableController,
+    InterstitialAdUnitDelegate {
     
     var prebidConfigId = ""
     var storedAuctionResponse: String?
@@ -26,6 +29,7 @@ class CustomRendererInterstitialController: NSObject, AdaptedController,
     var adFormats: Set<AdFormat>?
     
     private var interstitialController : InterstitialRenderingAdUnit?
+    private let sampleCustomRenderer = SampleCustomAdViewRenderer()
     
     private weak var adapterViewController: AdapterViewController?
     
@@ -35,7 +39,6 @@ class CustomRendererInterstitialController: NSObject, AdaptedController,
     private let interstitialDidDismissAdButton = EventReportContainer()
     private let interstitialWillLeaveApplicationButton = EventReportContainer()
     private let interstitialDidClickAdButton = EventReportContainer()
-    private let sampleCustomRenderer = SampleCustomRenderer()
     
     private let configIdLabel = UILabel()
     
@@ -74,8 +77,11 @@ class CustomRendererInterstitialController: NSObject, AdaptedController,
             Prebid.shared.storedAuctionResponse = storedAuctionResponse
         }
 
-        interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
-                                                       minSizePercentage: CGSize(width: 30, height: 30))
+        interstitialController = InterstitialRenderingAdUnit(
+            configID: prebidConfigId,
+            minSizePercentage: CGSize(width: 30, height: 30)
+        )
+        
         interstitialController?.delegate = self
         
         // Custom video configuarion
