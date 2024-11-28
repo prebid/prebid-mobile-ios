@@ -17,7 +17,7 @@ import UIKit
 
 public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
 
-    private var renderer: PrebidMobilePluginRenderer?
+    private var renderer: PrebidMobileInterstitialPluginRenderer?
     
     @objc public var adFormats: Set<AdFormat> {
         get { adConfiguration.adFormats }
@@ -66,15 +66,10 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
     // TODO: provide a more relevant name for this function.
     @objc public func loadAd() {
-        
-        self.renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
-
-        let connection: PrebidServerConnectionProtocol = PrebidServerConnection.shared
-        
-        self.renderer?.createInterstitialController?(
+        renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid) as? PrebidMobileInterstitialPluginRenderer
+        renderer?.createInterstitialController(
             bid: bid,
             adConfiguration: adConfiguration,
-            connection: connection,
             adViewManagerDelegate: self,
             videoControlsConfig: videoControlsConfig
         )

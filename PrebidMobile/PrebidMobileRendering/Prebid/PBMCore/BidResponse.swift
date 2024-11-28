@@ -101,12 +101,4 @@ public class BidResponse: NSObject {
         
         targetingInfo?[key] = value
     }
-
-    public func getPreferredPluginRendererName() -> String? {
-        winningBid?.getPreferredPluginRendererName()
-    }
-
-    public func getPreferredPluginRendererVersion() -> String? {
-        winningBid?.getPreferredPluginRendererVersion()
-    }
 }
