@@ -1,25 +1,27 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 import UIKit
 
-public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
-
-    private var renderer: PrebidMobileInterstitialPluginRenderer?
+@objcMembers
+public class InterstitialController:
+    NSObject,
+    InterstitialControllerProtocol,
+    PBMAdViewManagerDelegate {
     
-    @objc public var adFormats: Set<AdFormat> {
+    public var adFormats: Set<AdFormat> {
         get { adConfiguration.adFormats }
         set { adConfiguration.adFormats = newValue }
     }
@@ -30,52 +32,81 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         set { adConfiguration.adConfiguration.isRewarded = newValue }
     }
     
-    @objc public var videoControlsConfig: VideoControlsConfiguration {
+    public var videoControlsConfig: VideoControlsConfiguration {
         get { adConfiguration.adConfiguration.videoControlsConfig }
         set { adConfiguration.adConfiguration.videoControlsConfig = newValue }
     }
     
-    @objc public var videoParameters: VideoParameters {
+    public var videoParameters: VideoParameters {
         get { adConfiguration.adConfiguration.videoParameters }
         set { adConfiguration.adConfiguration.videoParameters = newValue }
     }
     
-    @objc public weak var loadingDelegate: InterstitialControllerLoadingDelegate?
-    @objc public weak var interactionDelegate: InterstitialControllerInteractionDelegate?
+    public weak var loadingDelegate: InterstitialControllerLoadingDelegate?
+    public weak var interactionDelegate: InterstitialControllerInteractionDelegate?
     
     var bid: Bid
     var adConfiguration: AdUnitConfig
     var displayProperties: PBMInterstitialDisplayProperties
     
+    var transactionFactory: PBMTransactionFactory?
     var adViewManager: PBMAdViewManager?
     
     // MARK: - Life cycle
     
-    @objc public init(bid: Bid, adConfiguration: AdUnitConfig) {
+    public init(bid: Bid, adConfiguration: AdUnitConfig) {
         self.bid = bid
         self.adConfiguration = adConfiguration
         displayProperties = PBMInterstitialDisplayProperties()
     }
     
-    @objc public convenience init(bid: Bid, configId: String) {
+    public convenience init(bid: Bid, configId: String) {
         let adConfig = AdUnitConfig(configId: configId)
         adConfig.adConfiguration.isInterstitialAd = true
         adConfig.adConfiguration.isRewarded = bid.rewardedConfig != nil
         self.init(bid: bid, adConfiguration: adConfig)
     }
     
-    // TODO: provide a more relevant name for this function.
-    @objc public func loadAd() {
-        renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid) as? PrebidMobileInterstitialPluginRenderer
-        renderer?.createInterstitialController(
+    public func loadAd() {
+        guard transactionFactory == nil else {
+            return
+        }
+        
+        adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
+        videoControlsConfig.initialize(with: bid.videoAdConfiguration)
+        
+        // This part is dedicating to test server-side ad configurations.
+        // Need to be removed when ext.prebid.passthrough will be available.
+        #if DEBUG
+        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
+        #endif
+        
+        transactionFactory = PBMTransactionFactory(
             bid: bid,
             adConfiguration: adConfiguration,
-            adViewManagerDelegate: self,
-            videoControlsConfig: videoControlsConfig
-        )
+            connection: PrebidServerConnection.shared,
+            callback: { [weak self] transaction, error in
+                
+                if let transaction = transaction {
+                    self?.display(transaction: transaction)
+                } else {
+                    self?.reportFailureWithError(error)
+                }
+            })
+        
+        PBMWinNotifier.notifyThroughConnection(
+            PrebidServerConnection.shared,
+            winning: bid,
+            callback: { [weak self] adMarkup in
+                if let adMarkup = adMarkup {
+                    self?.transactionFactory?.load(withAdMarkup: adMarkup)
+                } else {
+                    Log.error("No ad markup received from server.")
+                }
+            })
     }
-
-    @objc public func show() {
+    
+    public func show() {
         if let adViewManager = adViewManager {
             adViewManager.show()
         }
@@ -83,62 +114,49 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
     // MARK: - PBMAdViewManagerDelegate protocol
     
-    @objc public func viewControllerForModalPresentation() -> UIViewController? {
-        if let interactionDelegate = interactionDelegate {
-            return interactionDelegate.viewControllerForModalPresentation(fromInterstitialController: self)
-        } else {
-            return nil
-        }
+    public func viewControllerForModalPresentation() -> UIViewController? {
+        interactionDelegate?.viewControllerForModalPresentation(fromInterstitialController: self)
     }
-
-    @objc public func adLoaded(_ pbmAdDetails: PBMAdDetails) {
+    
+    public func adLoaded(_ pbmAdDetails: PBMAdDetails) {
         reportSuccess()
     }
-
-    @objc public func failed(toLoad error: Error) {
+    
+    public func failed(toLoad error: Error) {
         reportFailureWithError(error)
     }
-
-    @objc public func adDidComplete() {
+    
+    public func adDidComplete() {
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidComplete(self)
         }
     }
     
-    @objc public func adDidDisplay() {
+    public func adDidDisplay() {
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidDisplay(self)
         }
     }
     
-    @objc public func adWasClicked() {
+    public func adWasClicked() {
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidClickAd(self)
         }
     }
     
-    @objc public func adViewWasClicked() {
+    public func adViewWasClicked() {
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidClickAd(self)
         }
     }
     
-    @objc public func adDidExpand() {
-    }
-    
-    @objc public func adDidCollapse() {
-    }
-    
-    @objc public func adDidLeaveApp() {
+    public func adDidLeaveApp() {
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidLeaveApp(self)
         }
     }
     
-    @objc public func adClickthroughDidClose() {
-    }
-    
-    @objc public func adDidClose() {
+    public func adDidClose() {
         adViewManager = nil
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidCloseAd(self)
@@ -151,9 +169,19 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         }
     }
     
+    @objc public func adDidSendRewardedEvent() {
+        if let delegate = interactionDelegate {
+            delegate.trackUserReward?(self, PrebidReward(with: bid.rewardedConfig?.reward))
+        }
+    }
+    
     @objc public func interstitialDisplayProperties() -> PBMInterstitialDisplayProperties {
         displayProperties
     }
+    
+    public func adClickthroughDidClose() {}
+    public func adDidExpand() {}
+    public func adDidCollapse() {}
     
     // MARK: - Private Helpers
     
@@ -168,16 +196,18 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
             loadingDelegate.interstitialController(self, didFailWithError: error)
         }
     }
-
+    
     func reportSuccess() {
         if let loadingDelegate = loadingDelegate {
             loadingDelegate.interstitialControllerDidLoadAd(self)
         }
     }
-
-    public func display(transaction: PBMTransaction) {
-        adViewManager = PBMAdViewManager(connection: PrebidServerConnection.shared,
-                                         modalManagerDelegate: nil)
+    
+    private func display(transaction: PBMTransaction) {
+        adViewManager = PBMAdViewManager(
+            connection: PrebidServerConnection.shared,
+            modalManagerDelegate: nil
+        )
         adViewManager?.adViewManagerDelegate = self
         adViewManager?.adConfiguration.isInterstitialAd = true
         adViewManager?.adConfiguration.isRewarded = adConfiguration.adConfiguration.isRewarded

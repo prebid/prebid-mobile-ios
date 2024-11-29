@@ -102,11 +102,11 @@ public class PrebidAdMobBannerAdapter:
     
     // MARK: - PBMDisplayViewInteractionDelegate
     
-    public func trackImpression(for displayView: UIView) {
+    public func trackImpression(forDisplayView: UIView) {
         delegate?.reportImpression()
     }
     
-    public func viewControllerForModalPresentation(from displayView: UIView) -> UIViewController? {
+    public func viewControllerForModalPresentation(fromDisplayView: UIView) -> UIViewController? {
         return adConfiguration?.topViewController ?? UIApplication.shared.windows.first?.rootViewController
     }
     

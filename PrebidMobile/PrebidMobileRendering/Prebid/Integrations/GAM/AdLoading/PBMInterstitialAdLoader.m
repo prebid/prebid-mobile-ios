@@ -30,8 +30,8 @@
 
 @interface PBMInterstitialAdLoader () <InterstitialControllerLoadingDelegate, InterstitialEventLoadingDelegate>
 
-@property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate> delegate;
-@property (nonatomic, weak, nullable, readonly) id<PBMPrimaryAdRequesterProtocol> eventHandler;
+@property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate, InterstitialControllerInteractionDelegate> delegate;
+@property (nonatomic, strong, nullable) id<PrebidMobileInterstitialPluginRenderer> renderer;
 
 @end
 
@@ -41,9 +41,7 @@
 
 // MARK: - Lifecycle
 
-- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate>)delegate
-                    eventHandler:(nonnull id<PBMPrimaryAdRequesterProtocol>)eventHandler {
-    
+- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate, InterstitialControllerInteractionDelegate>)delegate {
     if (!(self = [super init])) {
         return nil;
     }
@@ -63,25 +61,32 @@
 - (void)createPrebidAdWithBid:(Bid *)bid
                  adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
-            loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker
-{
-    InterstitialController * const controller = [[InterstitialController alloc] initWithBid:bid 
-                                                                            adConfiguration:adUnitConfig];
+            loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker {
+    
+    [self setRendererWithBid:bid];
+    
+    if (!self.renderer) {
+        return;
+    }
+    
+    PBMLogInfo(@"Renderer: %@", self.renderer);
+    
+    id<InterstitialControllerProtocol> controller = [self.renderer
+                                                           createInterstitialControllerWithBid:bid
+                                                           adConfiguration:adUnitConfig
+                                                           loadingDelegate:self
+                                                           interactionDelegate:self.delegate];
+    
     adObjectSaver(controller);
-    @weakify(self);
+    
     loadMethodInvoker(^{
-        @strongify(self);
-        if (!self) { return; }
-        
-        controller.loadingDelegate = self;
-        [self.delegate interstitialAdLoader:self createdInterstitialController:controller];
         [controller loadAd];
     });
 }
 
 - (void)reportSuccessWithAdObject:(id)adObject adSize:(nullable NSValue *)adSize {
-    if ([adObject isKindOfClass:[InterstitialController class]]) {
-        InterstitialController * const controller = (InterstitialController *)adObject;
+    if ([adObject conformsToProtocol:@protocol(InterstitialControllerProtocol)]) {
+        id<InterstitialControllerProtocol> controller = (id<InterstitialControllerProtocol>)adObject;
         [self.delegate interstitialAdLoader:self
                                    loadedAd:^(UIViewController *targetController) {
             [controller show];
@@ -110,11 +115,12 @@
 
 // MARK: - InterstitialControllerLoadingDelegate
 
-- (void)interstitialControllerDidLoadAd:(InterstitialController *)interstitialController {
+- (void)interstitialControllerDidLoadAd:(id<InterstitialControllerProtocol>)interstitialController {
     [self.flowDelegate adLoaderLoadedPrebidAd:self];
 }
 
-- (void)interstitialController:(InterstitialController *)interstitialController didFailWithError:(NSError *)error {
+- (void)interstitialController:(id<InterstitialControllerProtocol>)interstitialController
+              didFailWithError:(NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrebidError:error];
 }
 
@@ -130,6 +136,17 @@
 
 - (void)failedWithError:(nullable NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
+}
+
+// MARK: - Helpers
+
+- (void)setRendererWithBid:(Bid *)bid {
+    id render = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid
+                                                                           isInterstitial:true];
+    
+    if ([render conformsToProtocol:@protocol(PrebidMobileInterstitialPluginRenderer)]) {
+        self.renderer = render;
+    }
 }
 
 @end

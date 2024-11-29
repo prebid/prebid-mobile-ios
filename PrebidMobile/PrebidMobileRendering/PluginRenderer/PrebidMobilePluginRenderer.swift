@@ -76,7 +76,7 @@ public protocol PrebidMobileInterstitialPluginRenderer: PrebidMobilePluginRender
     func createInterstitialController(
         bid: Bid,
         adConfiguration: AdUnitConfig,
-        adViewManagerDelegate: InterstitialController?,
-        videoControlsConfig: VideoControlsConfiguration?
-    )
+        loadingDelegate: InterstitialControllerLoadingDelegate?,
+        interactionDelegate: InterstitialControllerInteractionDelegate?
+    ) -> InterstitialControllerProtocol
 }

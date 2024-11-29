@@ -127,7 +127,8 @@
 // MARK: - Helpers
 
 - (void)setRendererWithBid:(Bid *)bid {
-    id render = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid];
+    id render = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid
+                                                                           isInterstitial:false];
     
     if ([render conformsToProtocol:@protocol(PrebidMobileAdViewPluginRenderer)]) {
         self.renderer = render;

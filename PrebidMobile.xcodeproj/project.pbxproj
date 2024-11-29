@@ -144,6 +144,8 @@
 		53BDBF89293F5EFF004B6DE8 /* InternalUserConsentDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */; };
 		53BDBF8A293F605B004B6DE8 /* InternalUserConsentDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */; };
 		53BDBF8C293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */; };
+		53BFCD0F2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD0E2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift */; };
+		53BFCD112CF9156000A3287A /* InterstitialControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD102CF9155E00A3287A /* InterstitialControllerProtocol.swift */; };
 		53C8FE1729C0851300ED9230 /* ClickbrowserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */; };
 		53C925022990FB30009E6F94 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925012990FB30009E6F94 /* String+Extensions.swift */; };
 		53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */; };
@@ -1033,6 +1035,8 @@
 		53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InternalUserConsentDataManager.h; sourceTree = "<group>"; };
 		53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InternalUserConsentDataManager.m; sourceTree = "<group>"; };
 		53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUserConsentDataManagerTests.swift; sourceTree = "<group>"; };
+		53BFCD0E2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidInterstitialControllerRenderer.swift; sourceTree = "<group>"; };
+		53BFCD102CF9155E00A3287A /* InterstitialControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialControllerProtocol.swift; sourceTree = "<group>"; };
 		53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickbrowserType.swift; sourceTree = "<group>"; };
 		53C925012990FB30009E6F94 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequester.swift; sourceTree = "<group>"; };
@@ -2437,10 +2441,12 @@
 				5BC37788271F1CFE00444D5E /* PBMDisplayView+InternalState.h */,
 				5BC3778B271F1CFE00444D5E /* InterstitialControllerLoadingDelegate.swift */,
 				5BC3778D271F1CFE00444D5E /* InterstitialControllerInteractionDelegate.swift */,
+				53BFCD102CF9155E00A3287A /* InterstitialControllerProtocol.swift */,
 				5BC3778E271F1CFE00444D5E /* InterstitialController.swift */,
 				5BC3778F271F1CFE00444D5E /* DisplayViewLoadingDelegate.swift */,
 				5BC37790271F1CFE00444D5E /* DisplayViewInteractionDelegate.swift */,
 				A908694529E05F7900B37479 /* PrebidDisplayViewRenderer.swift */,
+				53BFCD0E2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift */,
 			);
 			path = PBMCacheRenderers;
 			sourceTree = "<group>";
@@ -4184,6 +4190,7 @@
 				5BC37AC8271F1D0100444D5E /* PBMBasicParameterBuilder.m in Sources */,
 				9298652528058CEB007A2F34 /* MediationNativeUtils.swift in Sources */,
 				5BC3798F271F1D0000444D5E /* PBMCreativeModel.m in Sources */,
+				53BFCD0F2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift in Sources */,
 				5BC37A6F271F1D0000444D5E /* PBMORTBAbstractResponse.m in Sources */,
 				5BC378AD271F1CFF00444D5E /* Targeting.swift in Sources */,
 				923B55002744F19600E00C88 /* PrebidMediationDelegate.swift in Sources */,
@@ -4400,6 +4407,7 @@
 				5BC37ABD271F1D0000444D5E /* PBMOpenMeasurementEventTracker.m in Sources */,
 				5BC37927271F1CFF00444D5E /* PBMFunctions.m in Sources */,
 				53842BB829E561750069A4B7 /* PrebidImagesRepository.swift in Sources */,
+				53BFCD112CF9156000A3287A /* InterstitialControllerProtocol.swift in Sources */,
 				92C85D5A27A96AC50080BAC5 /* NativeTitle.swift in Sources */,
 				5BC37AA4271F1D0000444D5E /* PBMAdLoadFlowController.m in Sources */,
 				5BC378C0271F1CFF00444D5E /* NSDictionary+PBMExtensions.m in Sources */,

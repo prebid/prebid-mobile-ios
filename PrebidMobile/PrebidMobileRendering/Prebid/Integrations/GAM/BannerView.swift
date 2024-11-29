@@ -439,7 +439,7 @@ public class BannerView:
     
     // MARK: - DisplayViewInteractionDelegate
     
-    public func trackImpression(for displayView: UIView) {
+    public func trackImpression(forDisplayView: UIView) {
         guard let eventHandler = self.eventHandler,
               eventHandler.responds(to: #selector(BannerEventHandler.trackImpression)) else {
                   return
@@ -448,7 +448,7 @@ public class BannerView:
         eventHandler.trackImpression()
     }
     
-    public func viewControllerForModalPresentation(from displayView: UIView) -> UIViewController? {
+    public func viewControllerForModalPresentation(fromDisplayView: UIView) -> UIViewController? {
         return viewControllerForPresentingModal
     }
     

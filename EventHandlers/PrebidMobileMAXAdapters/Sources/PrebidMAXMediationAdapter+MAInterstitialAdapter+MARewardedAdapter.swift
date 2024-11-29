@@ -121,13 +121,16 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
     
     // MARK: - InterstitialControllerLoadingDelegate
     
-    public func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidLoadAd(_ interstitialController: InterstitialControllerProtocol) {
         interstitialAdAvailable = true
         interstitialDelegate?.didLoadInterstitialAd()
         rewardedDelegate?.didLoadRewardedAd()
     }
     
-    public func interstitialController(_ interstitialController: InterstitialController, didFailWithError error: Error) {
+    public func interstitialController(
+        _ interstitialController: InterstitialControllerProtocol,
+        didFailWithError error: Error
+    ) {
         interstitialAdAvailable = false
         let maError = MAAdapterError(nsError: error)
         interstitialDelegate?.didFailToLoadInterstitialAdWithError(maError)
@@ -136,45 +139,32 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
     
     // MARK: - InterstitialControllerInteractionDelegate
     
-    public func trackImpression(forInterstitialController: InterstitialController) {}
-    
-    public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidClickAd(_ interstitialController: InterstitialControllerProtocol) {
         interstitialDelegate?.didClickInterstitialAd()
         rewardedDelegate?.didClickRewardedAd()
     }
     
-    public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialControllerProtocol) {
         interstitialDelegate?.didHideInterstitialAd()
         rewardedDelegate?.didHideRewardedAd()
     }
     
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {}
-    
-    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialControllerProtocol) {
         interstitialDelegate?.didDisplayInterstitialAd()
         rewardedDelegate?.didDisplayRewardedAd()
     }
     
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidComplete(_ interstitialController: InterstitialControllerProtocol) {
         interstitialAdAvailable = false
         rewardedDelegate?.didRewardUser(with: MAReward())
     }
     
     public func viewControllerForModalPresentation(
-        fromInterstitialController: InterstitialController
+        fromInterstitialController: InterstitialControllerProtocol
     ) -> UIViewController? {
         return UIApplication.shared.windows.first?.rootViewController
     }
     
-    public func trackUserReward(
-        _ interstitialController: InterstitialController,
-        _ reward: PrebidReward
-    ) {
-        let reward = MAReward(
-            amount: reward.count?.intValue ?? 0,
-            label: reward.type ?? ""
-        )
-        
-        rewardedDelegate?.didRewardUser(with: reward)
-    }
+    public func trackImpression(forInterstitialController: InterstitialControllerProtocol) {}
+    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialControllerProtocol) {}
 }

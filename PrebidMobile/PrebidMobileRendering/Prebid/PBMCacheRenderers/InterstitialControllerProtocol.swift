@@ -13,11 +13,11 @@
  limitations under the License.
  */
 
-import UIKit
+import Foundation
 
 @objc
-public protocol DisplayViewLoadingDelegate: NSObjectProtocol {
+public protocol InterstitialControllerProtocol: NSObjectProtocol {
     
-    func displayViewDidLoadAd(_ displayView: UIView)
-    func displayView(_ displayView: UIView, didFailWithError error: Error)
+    func loadAd()
+    func show()
 }
