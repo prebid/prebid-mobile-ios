@@ -13,34 +13,34 @@
   limitations under the License.
   */
 
-import UIKit
+import Foundation
 
-public class PrebidDisplayViewRenderer: NSObject, PrebidMobileAdViewPluginRenderer {
+public class PrebidInterstitialControllerRenderer:
+    NSObject,
+    PrebidMobileInterstitialPluginRenderer {
     
-    public let name = "PrebidDisplayViewRenderer"
-    public let version = Prebid.shared.version
+    public var name = "PrebidInterstitialControllerRenderer"
+    public var version = "1.0.0"
     public var data: [AnyHashable: Any]?
     
     public func isSupportRendering(for format: AdFormat?) -> Bool {
         [AdFormat.banner, AdFormat.video].contains(format)
     }
     
-    public func createAdView(
-        with frame: CGRect,
+    public func createInterstitialController(
         bid: Bid,
         adConfiguration: AdUnitConfig,
-        loadingDelegate: DisplayViewLoadingDelegate?,
-        interactionDelegate: DisplayViewInteractionDelegate?
-    ) -> UIView {
-        let displayView = PBMDisplayView(
-            frame: frame,
+        loadingDelegate: InterstitialControllerLoadingDelegate?,
+        interactionDelegate: InterstitialControllerInteractionDelegate?
+    ) -> InterstitialControllerProtocol {
+        let interstitialController = InterstitialController(
             bid: bid,
             adConfiguration: adConfiguration
         )
         
-        displayView.interactionDelegate = interactionDelegate
-        displayView.loadingDelegate = loadingDelegate
+        interstitialController.loadingDelegate = loadingDelegate
+        interstitialController.interactionDelegate = interactionDelegate
         
-        return displayView
+        return interstitialController
     }
 }

@@ -18,9 +18,9 @@ import UIKit
 @objc
 public protocol DisplayViewInteractionDelegate: NSObjectProtocol {
 
-    func trackImpression(for displayView: UIView)
+    func trackImpression(forDisplayView: UIView)
     
-    func viewControllerForModalPresentation(from displayView: UIView) -> UIViewController?
+    func viewControllerForModalPresentation(fromDisplayView: UIView) -> UIViewController?
     
     func didLeaveApp(from displayView: UIView)
     

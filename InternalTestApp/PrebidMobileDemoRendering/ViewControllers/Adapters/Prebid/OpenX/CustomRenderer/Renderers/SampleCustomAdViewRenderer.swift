@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ public class SampleCustomAdViewRenderer: NSObject, PrebidMobileAdViewPluginRende
     public var data: [AnyHashable: Any]?
     
     public func isSupportRendering(for format: AdFormat?) -> Bool {
-        AdFormat.allCases.contains(where: { $0 == format })
+        [AdFormat.banner, AdFormat.video].contains(format)
     }
     
     public func createAdView(

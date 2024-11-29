@@ -28,7 +28,8 @@ public class PrebidMobilePluginRegister: NSObject {
     
     private var plugins = [String: PrebidMobilePluginRenderer]()
     
-    private let defaultRenderer = PrebidDisplayViewRenderer()
+    private let defaultAdViewRenderer = PrebidDisplayViewRenderer()
+    private let defaultInterstitialRenderer = PrebidInterstitialControllerRenderer()
     
     private override init() {
         super.init()
@@ -114,14 +115,17 @@ public class PrebidMobilePluginRegister: NSObject {
     /// Returns the registered renderer according to the preferred renderer name in the bid response
     /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior
     /// Once bid is win we want to resolve the best PluginRenderer candidate to render the ad
-    public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
+    public func getPluginForPreferredRenderer(
+        bid: Bid,
+        isInterstitial: Bool
+    ) -> PrebidMobilePluginRenderer {
         if let preferredRendererName = bid.pluginRendererName,
            let preferredPlugin = getPluginRenderer(for: preferredRendererName),
            preferredPlugin.version == bid.pluginRendererVersion,
            preferredPlugin.isSupportRendering(for: bid.adFormat) {
             return preferredPlugin
         } else {
-            return defaultRenderer
+            return isInterstitial ? defaultInterstitialRenderer : defaultAdViewRenderer
         }
     }
     

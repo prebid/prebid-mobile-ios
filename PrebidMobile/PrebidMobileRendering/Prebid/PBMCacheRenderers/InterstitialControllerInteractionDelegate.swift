@@ -13,18 +13,20 @@
  limitations under the License.
  */
 
-import Foundation
 import UIKit
 
-@objc public protocol InterstitialControllerInteractionDelegate: NSObjectProtocol {
+@objc
+public protocol InterstitialControllerInteractionDelegate: NSObjectProtocol {
 
-    func trackImpression(forInterstitialController: InterstitialController)
+    func trackImpression(forInterstitialController: InterstitialControllerProtocol)
 
-    func interstitialControllerDidClickAd(_ interstitialController: InterstitialController)
-    func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController)
-    func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController)
-    func interstitialControllerDidDisplay(_ interstitialController: InterstitialController)
-    func interstitialControllerDidComplete(_ interstitialController: InterstitialController)
+    func interstitialControllerDidClickAd(_ interstitialController: InterstitialControllerProtocol)
+    func interstitialControllerDidCloseAd(_ interstitialController: InterstitialControllerProtocol)
+    func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialControllerProtocol)
+    func interstitialControllerDidDisplay(_ interstitialController: InterstitialControllerProtocol)
+    func interstitialControllerDidComplete(_ interstitialController: InterstitialControllerProtocol)
 
-    func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController?
+    func viewControllerForModalPresentation(
+        fromInterstitialController: InterstitialControllerProtocol
+    ) -> UIViewController?
 }
