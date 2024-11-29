@@ -15,9 +15,10 @@
 
 import Foundation
 
-@objc public protocol InterstitialControllerLoadingDelegate: NSObjectProtocol {
+@objc
+public protocol InterstitialControllerLoadingDelegate: NSObjectProtocol {
 
-    func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController)
-    func interstitialController(_ interstitialController: InterstitialController,
+    func interstitialControllerDidLoadAd(_ interstitialController: InterstitialControllerProtocol)
+    func interstitialController(_ interstitialController: InterstitialControllerProtocol,
                                 didFailWithError error: Error)
 }

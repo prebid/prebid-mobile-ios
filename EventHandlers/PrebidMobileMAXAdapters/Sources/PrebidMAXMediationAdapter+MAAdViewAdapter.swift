@@ -78,7 +78,7 @@ extension PrebidMAXMediationAdapter:
     
     // MARK: DisplayViewInteractionDelegate
     
-    public func viewControllerForModalPresentation(from displayView: UIView) -> UIViewController? {
+    public func viewControllerForModalPresentation(fromDisplayView: UIView) -> UIViewController? {
         return UIApplication.shared.windows.first?.rootViewController
     }
     
@@ -92,6 +92,6 @@ extension PrebidMAXMediationAdapter:
         bannerDelegate?.didCollapseAdViewAd()
     }
     
-    public func trackImpression(for displayView: UIView) {}
+    public func trackImpression(forDisplayView: UIView) {}
     public func didLeaveApp(from displayView: UIView) {}
 }

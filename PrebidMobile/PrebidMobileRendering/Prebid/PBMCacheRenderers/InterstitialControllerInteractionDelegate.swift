@@ -15,17 +15,18 @@
 
 import UIKit
 
-@objc public protocol InterstitialControllerInteractionDelegate: NSObjectProtocol {
+@objc
+public protocol InterstitialControllerInteractionDelegate: NSObjectProtocol {
 
-    func trackImpression(forInterstitialController: InterstitialController)
+    @objc func trackImpression(forInterstitialController: InterstitialControllerProtocol)
 
-    func interstitialControllerDidClickAd(_ interstitialController: InterstitialController)
-    func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController)
-    func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController)
-    func interstitialControllerDidDisplay(_ interstitialController: InterstitialController)
-    func interstitialControllerDidComplete(_ interstitialController: InterstitialController)
+    @objc func interstitialControllerDidClickAd(_ interstitialController: InterstitialControllerProtocol)
+    @objc func interstitialControllerDidCloseAd(_ interstitialController: InterstitialControllerProtocol)
+    @objc func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialControllerProtocol)
+    @objc func interstitialControllerDidDisplay(_ interstitialController: InterstitialControllerProtocol)
+    @objc func interstitialControllerDidComplete(_ interstitialController: InterstitialControllerProtocol)
 
-    func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController?
+    @objc func viewControllerForModalPresentation(fromInterstitialController: InterstitialControllerProtocol) -> UIViewController?
     
-    @objc optional func trackUserReward(_ interstitialController: InterstitialController, _ reward: PrebidReward)
+    @objc optional func trackUserReward(_ interstitialController: InterstitialControllerProtocol, _ reward: PrebidReward)
 }

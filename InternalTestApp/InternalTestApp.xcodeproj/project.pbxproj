@@ -55,6 +55,10 @@
 		53BFCD042CF792FB00A3287A /* SampleCustomAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */; };
 		53BFCD0C2CF8F56300A3287A /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */; };
 		53BFCD0D2CF8F56300A3287A /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */; };
+		53BFCD132CF9C67400A3287A /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD122CF9C67400A3287A /* SampleInterstitialController.swift */; };
+		53BFCD142CF9C67400A3287A /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD122CF9C67400A3287A /* SampleInterstitialController.swift */; };
+		53BFCD172CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD162CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift */; };
+		53BFCD182CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD162CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift */; };
 		53ED2FD329798104007D13EE /* LogInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D70F6A24E546DD0048CC78 /* LogInfo.swift */; };
 		53ED2FD429798104007D13EE /* PrebidOriginalAPINativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */; };
 		53ED2FD529798104007D13EE /* AdapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6EB3CC211336D300317ED9 /* AdapterViewController.swift */; };
@@ -400,6 +404,8 @@
 		53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMultiformatNativeStylesController.swift; sourceTree = "<group>"; };
 		53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCustomAdViewRenderer.swift; sourceTree = "<group>"; };
 		53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdView.swift; sourceTree = "<group>"; };
+		53BFCD122CF9C67400A3287A /* SampleInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInterstitialController.swift; sourceTree = "<group>"; };
+		53BFCD162CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCustomInterstitialRenderer.swift; sourceTree = "<group>"; };
 		53ED304329798104007D13EE /* InternalTestApp-Skadn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InternalTestApp-Skadn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED305129798DBC007D13EE /* Info-Skadn.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Skadn.plist"; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
@@ -708,8 +714,7 @@
 		3CC4A3E72C11F93A00B97128 /* CustomRenderer */ = {
 			isa = PBXGroup;
 			children = (
-				53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */,
-				53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */,
+				53BFCD152CF9C68000A3287A /* Renderers */,
 				3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */,
 				3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */,
 			);
@@ -733,6 +738,17 @@
 				5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */,
 			);
 			path = OriginalAPI;
+			sourceTree = "<group>";
+		};
+		53BFCD152CF9C68000A3287A /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */,
+				53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */,
+				53BFCD122CF9C67400A3287A /* SampleInterstitialController.swift */,
+				53BFCD162CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift */,
+			);
+			path = Renderers;
 			sourceTree = "<group>";
 		};
 		5B1BDB782100D59000B46B43 /* Resources */ = {
@@ -1565,6 +1581,7 @@
 				53ED2FD929798104007D13EE /* PrebidGAMInterstitialController.swift in Sources */,
 				53ED2FDA29798104007D13EE /* PrebidMAXRewardedController.swift in Sources */,
 				53ED2FDB29798104007D13EE /* PrebidMAXNativeController.swift in Sources */,
+				53BFCD142CF9C67400A3287A /* SampleInterstitialController.swift in Sources */,
 				53ED2FDC29798104007D13EE /* PrebidMAXBannerController.swift in Sources */,
 				53ED2FDD29798104007D13EE /* IABConsentHelper.swift in Sources */,
 				53ED2FDE29798104007D13EE /* PrebidNativeAdController.swift in Sources */,
@@ -1614,6 +1631,7 @@
 				53ED300729798104007D13EE /* PrebidFeedTableViewController.swift in Sources */,
 				53ED300829798104007D13EE /* TestCasesViewController.swift in Sources */,
 				53ED300929798104007D13EE /* NativeAdViewBoxLinks.swift in Sources */,
+				53BFCD172CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift in Sources */,
 				53ED300A29798104007D13EE /* PrebidGAMRewardedController.swift in Sources */,
 				539F961529DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */,
 				53A369092AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */,
@@ -1663,6 +1681,7 @@
 				34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */,
 				92221CE52804BBB6005DF671 /* PrebidMAXRewardedController.swift in Sources */,
 				92986537280604E4007A2F34 /* PrebidMAXNativeController.swift in Sources */,
+				53BFCD132CF9C67400A3287A /* SampleInterstitialController.swift in Sources */,
 				9289873F28003C250062BFAA /* PrebidMAXBannerController.swift in Sources */,
 				34BAD451239547420042DB33 /* IABConsentHelper.swift in Sources */,
 				92102C7227B11B67003F12B2 /* PrebidNativeAdController.swift in Sources */,
@@ -1712,6 +1731,7 @@
 				ACAF055724D8384B0089DFB1 /* PrebidFeedTableViewController.swift in Sources */,
 				5B3EEDDF2101EA9200BAA0C4 /* TestCasesViewController.swift in Sources */,
 				92F9A5D227A15D04007B0B17 /* NativeAdViewBoxLinks.swift in Sources */,
+				53BFCD182CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift in Sources */,
 				34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */,
 				539F961429DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */,
 				53A369082AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */,
