@@ -29,9 +29,9 @@ public class PrebidDisplayViewRenderer: NSObject, PrebidMobileAdViewPluginRender
         with frame: CGRect,
         bid: Bid,
         adConfiguration: AdUnitConfig,
-        loadingDelegate: DisplayViewLoadingDelegate?,
-        interactionDelegate: DisplayViewInteractionDelegate?
-    ) -> UIView {
+        loadingDelegate: DisplayViewLoadingDelegate,
+        interactionDelegate: DisplayViewInteractionDelegate
+    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
         let displayView = PBMDisplayView(
             frame: frame,
             bid: bid,

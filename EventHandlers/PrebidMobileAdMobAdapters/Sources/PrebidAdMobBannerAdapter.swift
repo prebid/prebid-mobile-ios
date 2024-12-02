@@ -88,13 +88,13 @@ public class PrebidAdMobBannerAdapter:
     
     // MARK: - DisplayViewLoadingDelegate
     
-    public func displayViewDidLoadAd(_ displayView: UIView) {
+    public func displayViewDidLoadAd(_ displayViewManager: UIView) {
         if let handler = completionHandler {
             delegate = handler(self, nil)
         }
     }
     
-    public func displayView(_ displayView: UIView, didFailWithError error: Error) {
+    public func displayView(_ displayViewManager: UIView, didFailWithError error: Error) {
         if let handler = completionHandler {
             delegate = handler(nil, error)
         }

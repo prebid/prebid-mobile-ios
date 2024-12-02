@@ -433,7 +433,9 @@ public class BannerView:
         eventHandler.trackImpression()
     }
     
-    public func viewControllerForModalPresentation(fromDisplayView: UIView) -> UIViewController? {
+    public func viewControllerForModalPresentation(
+        fromDisplayView: UIView
+    ) -> UIViewController? {
         return viewControllerForPresentingModal
     }
     

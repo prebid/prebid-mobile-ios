@@ -29,17 +29,14 @@ class SampleCustomInterstitialRenderer: PrebidMobileInterstitialPluginRenderer {
     func createInterstitialController(
         bid: Bid,
         adConfiguration: AdUnitConfig,
-        loadingDelegate: (any InterstitialControllerLoadingDelegate)?,
-        interactionDelegate: (any InterstitialControllerInteractionDelegate)?
-    ) -> any InterstitialControllerProtocol {
-        
+        loadingDelegate: InterstitialControllerLoadingDelegate,
+        interactionDelegate: InterstitialControllerInteractionDelegate
+    ) -> PrebidMobileInterstitialControllerProtocol? {
         let interstitialController = SampleInterstitialController()
+        
         interstitialController.loadingDelegate = loadingDelegate
         interstitialController.interactionDelegate = interactionDelegate
-        
-        if let adm = bid.adm {
-            interstitialController.htmlContent = adm
-        }
+        interstitialController.bid = bid
         
         return interstitialController
     }
