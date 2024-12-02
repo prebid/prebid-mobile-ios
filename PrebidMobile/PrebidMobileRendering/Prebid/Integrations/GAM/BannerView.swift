@@ -235,12 +235,12 @@ public class BannerView: UIView,
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
     ///
     /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
-    public func setImpressionORTBConfig(_ ortbConfig: String?) {
+    @objc public func setImpressionORTBConfig(_ ortbConfig: String?) {
         adUnitConfig.impressionORTBConfig = ortbConfig
     }
     
     /// Returns the impression-level OpenRTB configuration string.
-    public func getImpressionORTBConfig() -> String? {
+    @objc public func getImpressionORTBConfig() -> String? {
         adUnitConfig.impressionORTBConfig
     }
     
