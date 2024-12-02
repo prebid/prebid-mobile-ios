@@ -17,10 +17,23 @@ import UIKit
 import WebKit
 import PrebidMobile
 
-class SampleAdView: UIView {
+class SampleAdView: UIView, PrebidMobileDisplayViewProtocol {
+    
+    enum SampleError: LocalizedError {
+        case noAdm
+        
+        var errorDescription: String? {
+            switch self {
+            case .noAdm:
+                return "Renderer did fail - there is no ADM in the response."
+            }
+        }
+    }
     
     weak var interactionDelegate: DisplayViewInteractionDelegate?
     weak var loadingDelegate: DisplayViewLoadingDelegate?
+    
+    var bid: Bid?
     
     private let webView: WKWebView = {
         let webView = WKWebView()
@@ -52,12 +65,14 @@ class SampleAdView: UIView {
         setupView()
     }
     
-    func displayAd(_ bid: Bid) {
-        if let adm = bid.adm {
-            webView.loadHTMLString(adm, baseURL: nil)
-            loadingDelegate?.displayViewDidLoadAd(self)
-        } else {
-            print("Error displaying an ad: No ADM data found in bid response.")
+    func loadAd() {
+        DispatchQueue.main.async {
+            if let adm = self.bid?.adm {
+                self.webView.loadHTMLString(adm, baseURL: nil)
+                self.loadingDelegate?.displayViewDidLoadAd(self)
+            } else {
+                self.loadingDelegate?.displayView(self, didFailWithError: SampleError.noAdm)
+            }
         }
     }
     

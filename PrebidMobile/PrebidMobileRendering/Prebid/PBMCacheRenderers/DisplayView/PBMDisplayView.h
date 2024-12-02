@@ -17,6 +17,7 @@
 
 #import "PBMAdViewManagerDelegate.h"
 #import "PBMModalManagerDelegate.h"
+#import "PrebidMobileDisplayViewProtocol.h"
 
 @protocol DisplayViewLoadingDelegate;
 @protocol DisplayViewInteractionDelegate;
@@ -26,7 +27,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMDisplayView : UIView <PBMAdViewManagerDelegate, PBMModalManagerDelegate>
+@interface PBMDisplayView : UIView <PrebidMobileDisplayViewProtocol, PBMAdViewManagerDelegate, PBMModalManagerDelegate>
 
 @property (atomic, weak, nullable) NSObject<DisplayViewLoadingDelegate> *loadingDelegate;
 @property (atomic, weak, nullable) NSObject<DisplayViewInteractionDelegate> *interactionDelegate;

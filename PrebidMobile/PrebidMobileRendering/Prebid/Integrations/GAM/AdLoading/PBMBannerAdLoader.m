@@ -30,7 +30,6 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-
 @interface PBMBannerAdLoader () <DisplayViewLoadingDelegate, BannerEventLoadingDelegate>
 
 @property (nonatomic, weak, nullable, readonly) id<BannerAdLoaderDelegate, DisplayViewInteractionDelegate> delegate;
@@ -78,20 +77,22 @@
     CGRect const displayFrame = CGRectMake(0, 0, bid.size.width, bid.size.height);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIView * newDisplayView = [self.renderer createAdViewWith:displayFrame
-                                                              bid:bid
-                                                  adConfiguration:adUnitConfig
-                                                  loadingDelegate:self
-                                              interactionDelegate:self.delegate
+        UIView <PrebidMobileDisplayViewProtocol> * newDisplayView = [self.renderer createAdViewWith:displayFrame
+                                                                                                bid:bid
+                                                                                    adConfiguration:adUnitConfig
+                                                                                    loadingDelegate:self
+                                                                                interactionDelegate:self.delegate
         ];
+        
+        if (!newDisplayView) {
+            PBMLogError(@"SDK couldn't retrieve an implementation of PrebidMobileDisplayViewManagerProtocol.");
+            return;
+        }
         
         adObjectSaver(newDisplayView);
         
         loadMethodInvoker(^{
-            // TODO: looks awful, add display method to renderer (?)
-            if ([newDisplayView isKindOfClass:[PBMDisplayView class]]) {
-                [(PBMDisplayView *)newDisplayView loadAd];
-            }
+            [newDisplayView loadAd];
         });
     });
 }

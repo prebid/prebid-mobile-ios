@@ -69,11 +69,16 @@
     
     PBMLogInfo(@"Renderer: %@", self.renderer);
     
-    id<InterstitialControllerProtocol> controller = [self.renderer
-                                                           createInterstitialControllerWithBid:bid
-                                                           adConfiguration:adUnitConfig
-                                                           loadingDelegate:self
-                                                           interactionDelegate:self.delegate];
+    id<PrebidMobileInterstitialControllerProtocol> controller = [self.renderer
+                                                                 createInterstitialControllerWithBid:bid
+                                                                 adConfiguration:adUnitConfig
+                                                                 loadingDelegate:self
+                                                                 interactionDelegate:self.delegate];
+    
+    if (!controller) {
+        PBMLogError(@"SDK couldn't retrieve an implementation of PrebidMobileInterstitialControllerProtocol.");
+        return;
+    }
     
     adObjectSaver(controller);
     
@@ -83,8 +88,8 @@
 }
 
 - (void)reportSuccessWithAdObject:(id)adObject adSize:(nullable NSValue *)adSize {
-    if ([adObject conformsToProtocol:@protocol(InterstitialControllerProtocol)]) {
-        id<InterstitialControllerProtocol> controller = (id<InterstitialControllerProtocol>)adObject;
+    if ([adObject conformsToProtocol:@protocol(PrebidMobileInterstitialControllerProtocol)]) {
+        id<PrebidMobileInterstitialControllerProtocol> controller = (id<PrebidMobileInterstitialControllerProtocol>)adObject;
         [self.delegate interstitialAdLoader:self
                                    loadedAd:^(UIViewController *targetController) {
             [controller show];
@@ -113,11 +118,11 @@
 
 // MARK: - InterstitialControllerLoadingDelegate
 
-- (void)interstitialControllerDidLoadAd:(id<InterstitialControllerProtocol>)interstitialController {
+- (void)interstitialControllerDidLoadAd:(id<PrebidMobileInterstitialControllerProtocol>)interstitialController {
     [self.flowDelegate adLoaderLoadedPrebidAd:self];
 }
 
-- (void)interstitialController:(id<InterstitialControllerProtocol>)interstitialController
+- (void)interstitialController:(id<PrebidMobileInterstitialControllerProtocol>)interstitialController
               didFailWithError:(NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrebidError:error];
 }

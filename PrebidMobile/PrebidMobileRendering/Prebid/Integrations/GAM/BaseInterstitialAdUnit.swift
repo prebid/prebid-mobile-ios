@@ -435,42 +435,42 @@ public class BaseInterstitialAdUnit :
     // MARK: - InterstitialControllerInteractionDelegate
     
     /// Tracks an impression for the given interstitial controller.
-    public func trackImpression(forInterstitialController: InterstitialControllerProtocol) {
+    public func trackImpression(forInterstitialController: PrebidMobileInterstitialControllerProtocol) {
         DispatchQueue.main.async {
             self.callEventHandler_trackImpression()
         }
     }
     
     /// Called when the ad in the interstitial controller is clicked.
-    public func interstitialControllerDidClickAd(_ interstitialController: InterstitialControllerProtocol) {
+    public func interstitialControllerDidClickAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         callDelegate_didClickAd()
     }
     
     /// Called when the ad in the interstitial controller is closed.
-    public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialControllerProtocol) {
+    public func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         callDelegate_didDismissAd()
     }
     
     /// Called when the ad in the interstitial controller causes the app to leave.
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialControllerProtocol) {
+    public func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         callDelegate_willLeaveApplication()
     }
     
     /// Provides the view controller to use for modal presentation.
     public func viewControllerForModalPresentation(
-        fromInterstitialController: InterstitialControllerProtocol
+        fromInterstitialController: PrebidMobileInterstitialControllerProtocol
     ) -> UIViewController? {
         return targetController
     }
     
     /// Called when the interstitial controller displays an ad.
-    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialControllerProtocol) {}
+    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
     
     /// Called when the interstitial controller completes the ad display.
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialControllerProtocol) {}
+    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
     
     // MARK: - Private methods
 

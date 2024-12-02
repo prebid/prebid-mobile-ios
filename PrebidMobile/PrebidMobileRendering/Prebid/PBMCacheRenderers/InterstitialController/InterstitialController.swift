@@ -18,7 +18,7 @@ import UIKit
 @objcMembers
 public class InterstitialController:
     NSObject,
-    InterstitialControllerProtocol,
+    PrebidMobileInterstitialControllerProtocol,
     PBMAdViewManagerDelegate {
     
     public var adFormats: Set<AdFormat> {

@@ -30,13 +30,15 @@ public class SampleCustomAdViewRenderer: NSObject, PrebidMobileAdViewPluginRende
         with frame: CGRect,
         bid: Bid,
         adConfiguration: AdUnitConfig,
-        loadingDelegate: DisplayViewLoadingDelegate?,
-        interactionDelegate: DisplayViewInteractionDelegate?
-    ) -> UIView {
+        loadingDelegate: DisplayViewLoadingDelegate,
+        interactionDelegate: DisplayViewInteractionDelegate
+    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
         let bannerView = SampleAdView(frame: frame)
+        
         bannerView.interactionDelegate = interactionDelegate
         bannerView.loadingDelegate = loadingDelegate
-        bannerView.displayAd(bid)
+        bannerView.bid = bid
+        
         return bannerView
     }
 }

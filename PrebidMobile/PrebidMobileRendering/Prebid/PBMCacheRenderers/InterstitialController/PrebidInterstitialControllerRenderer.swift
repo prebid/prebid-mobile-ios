@@ -30,9 +30,9 @@ public class PrebidInterstitialControllerRenderer:
     public func createInterstitialController(
         bid: Bid,
         adConfiguration: AdUnitConfig,
-        loadingDelegate: InterstitialControllerLoadingDelegate?,
-        interactionDelegate: InterstitialControllerInteractionDelegate?
-    ) -> InterstitialControllerProtocol {
+        loadingDelegate: InterstitialControllerLoadingDelegate,
+        interactionDelegate: InterstitialControllerInteractionDelegate
+    ) -> PrebidMobileInterstitialControllerProtocol? {
         let interstitialController = InterstitialController(
             bid: bid,
             adConfiguration: adConfiguration
