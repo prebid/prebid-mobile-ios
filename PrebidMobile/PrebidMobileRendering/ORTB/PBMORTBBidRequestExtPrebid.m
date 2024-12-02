@@ -48,8 +48,10 @@
     PBMMutableJsonDictionary * const storedRequest = [PBMMutableJsonDictionary new];
     ret[@"storedrequest"] = storedRequest;
     storedRequest[@"id"] = self.storedRequestID;
-    if (self.sdk != nil) {
-        ret[@"sdk"] = self.sdk;
+    
+    if (self.sdkRenderers != nil && self.sdkRenderers.count > 0) {
+        NSDictionary * sdk = @{ @"renderers" : self.sdkRenderers };
+        ret[@"sdk"] = sdk;
     }
     
     ret[@"targeting"] = self.targeting;
