@@ -18,18 +18,15 @@ import XCTest
 
 class ArbitraryORTBServiceTests: XCTestCase {
     
-    func testEnrich_BothGlobalAndImpORTBAreEmpty() {
-        let impORTB: String? = nil
-        let globalORTB: String? = nil
-        
-        let existingORTB: [String: Any] = [
+    func testMerge_BothGlobalAndImpORTBAreEmpty() {
+        let sdkORTB: [String: Any] = [
             "user": ["id": "user123"]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: impORTB,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: nil
         )
         
         let expectedORTB = """
@@ -46,15 +43,15 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithImp_emptyGlobal() {
+    func testMergeORTBWithImp_emptyGlobal() {
         let impORTB = "{\"banner\": {\"format\": [{\"w\": 300, \"h\": 250}]}}"
-        let existingORTB = "{\"imp\": [{\"id\": \"1\", \"banner\": {\"format\": [{\"w\": 320, \"h\": 50}]}}]}"
+        let sdkORTB = "{\"imp\": [{\"id\": \"1\", \"banner\": {\"format\": [{\"w\": 320, \"h\": 50}]}}]}"
         let expectedORTB = "{\"imp\": [{\"id\": \"1\", \"banner\": {\"format\": [{\"w\": 320, \"h\": 50},{\"w\": 300, \"h\": 250}]}}]}"
         
-        let result = ArbitraryORTBService.enrich(
-            with: impORTB,
-            globalORTB: nil,
-            existingORTB: try! PBMFunctions.dictionaryFromJSONString(existingORTB)
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
+            impORTB: impORTB,
+            globalORTB: nil
         )
         
         XCTAssertEqual(
@@ -63,15 +60,15 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithImp_emptyExistingORTB() {
+    func testMergeORTBWithImp_emptyExistingORTB() {
         let impORTB = "{\"banner\": {\"format\": [{\"w\": 300, \"h\": 250}]}}"
-        let existingORTB = "{}"
+        let sdkORTB = "{}"
         let expectedORTB = "{\"imp\": [{\"banner\": {\"format\": [{\"w\": 300, \"h\": 250}]}}]}"
         
-        let result = ArbitraryORTBService.enrich(
-            with: impORTB,
-            globalORTB: nil,
-            existingORTB: try! PBMFunctions.dictionaryFromJSONString(existingORTB)
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
+            impORTB: impORTB,
+            globalORTB: nil
         )
         
         XCTAssertEqual(
@@ -80,7 +77,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_WithImpInGlobal() {
+    func testMergeORTBWithGlobal_WithImpInGlobal() {
         let globalORTB = """
         {
             "imp": [
@@ -91,16 +88,17 @@ class ArbitraryORTBServiceTests: XCTestCase {
             ]
         }
         """
-        let existingORTB: [String: Any] = [
+        
+        let sdkORTB: [String: Any] = [
             "imp": [
                 ["id": "existingImp", "native": ["request": "placeholder"]]
             ]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         XCTAssertNotNil(result)
@@ -126,7 +124,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithImp_providedGlobalAndImpressionLevelImps() {
+    func testMergeORTBWithImp_providedGlobalAndImpressionLevelImps() {
         let impORTB = "{\"banner\": {\"format\": [{\"w\": 300, \"h\": 250}]}}"
         
         let globalORTB = """
@@ -138,7 +136,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         }
         """
         
-        let existingORTB = """
+        let sdkORTB = """
         {
             "imp": [
                 {"banner": {"format": [{"w": 320, "h": 50}]}, "id": "existing_imp"}
@@ -160,10 +158,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
         }
         """
         
-        let result = ArbitraryORTBService.enrich(
-            with: impORTB,
-            globalORTB: globalORTB,
-            existingORTB: try! PBMFunctions.dictionaryFromJSONString(existingORTB)
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
+            impORTB: impORTB,
+            globalORTB: globalORTB
         )
         
         XCTAssertEqual(
@@ -172,7 +170,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithImp_BothGlobalAndImpConfigProvided_WithEmptyExistingORTB() {
+    func testMergeORTBWithImp_BothGlobalAndImpConfigProvided_WithEmptyExistingORTB() {
         let impORTB = """
         {
            "id": "imp1",
@@ -186,12 +184,12 @@ class ArbitraryORTBServiceTests: XCTestCase {
         }
         """
         
-        let existingORTB: [String: Any] = [:]
+        let sdkORTB: [String: Any] = [:]
         
-        let result = ArbitraryORTBService.enrich(
-            with: impORTB,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: impORTB,
+            globalORTB: globalORTB
         )
         
         XCTAssertNotNil(result)
@@ -217,7 +215,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_AppObject_NoConflicts() {
+    func testMergeORTBWithGlobal_AppObject_NoConflicts() {
         let globalORTB = """
          {
             "app": {
@@ -225,7 +223,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
          }
         """
-        let existingORTB: [String: Any] = [
+        let sdkORTB: [String: Any] = [
             "app": [
                 "name": "TestApp",
                 "bundle": "com.example.testapp"
@@ -242,10 +240,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
         }
         """
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         XCTAssertEqual(
@@ -254,7 +252,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_AppObject_WithConflicts() {
+    func testMergeORTBWithGlobal_AppObject_WithConflicts() {
         let globalORTB = """
         {
             "app": {
@@ -262,7 +260,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        let sdkORTB: [String: Any] = [
             "app": [
                 "name": "TestApp",
                 "version": "1.0"
@@ -278,10 +276,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
         }
         """
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         XCTAssertEqual(
@@ -290,7 +288,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_UserObject_NoConflicts() {
+    func testMergeORTBWithGlobal_UserObject_NoConflicts() {
         let globalORTB = """
         {
             "user": {
@@ -299,7 +297,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        let sdkORTB: [String: Any] = [
             "user": [
                 "geo": [
                     "lat": 37,
@@ -308,10 +306,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
             ]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         let expectedORTB = """
@@ -333,7 +331,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_UserObject_WithConflicts() {
+    func testMergeORTBWithGlobal_UserObject_WithConflicts() {
         let globalORTB = """
         {
             "user": {
@@ -344,7 +342,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        let sdkORTB: [String: Any] = [
             "user": [
                 "id": "12345",
                 "geo": [
@@ -353,10 +351,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
             ]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         let expectedORTB = """
@@ -376,7 +374,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_UserObject_ProtectedFieldsNotCopied() {
+    func testMergeORTBWithGlobal_UserObject_ProtectedFieldsNotCopied() {
         let globalORTB = """
         {
             "user": {
@@ -391,7 +389,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        let sdkORTB: [String: Any] = [
             "user": [
                 "geo": [
                     "lat": 37,
@@ -400,10 +398,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
             ]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         let expectedORTB = """
@@ -427,7 +425,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_SourceObject_NoConflicts() {
+    func testMergeORTBWithGlobal_SourceObject_NoConflicts() {
         let globalORTB = """
         {
             "source": {
@@ -435,7 +433,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        let sdkORTB: [String: Any] = [
             "source": [
                 "ext": [
                     "tid": "transaction123"
@@ -443,10 +441,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
             ]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         let expectedORTB = """
@@ -466,7 +464,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_SourceObject_WithConflicts() {
+    func testMergeORTBWithGlobal_SourceObject_WithConflicts() {
         let globalORTB = """
         {
             "source": {
@@ -477,7 +475,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        let sdkORTB: [String: Any] = [
             "source": [
                 "tid": "existingTransaction",
                 "ext": [
@@ -486,10 +484,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
             ]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         let expectedORTB = """
@@ -509,7 +507,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGLobal_ExtObject_NoConflicts() {
+    func testMergeORTBWithGLobal_ExtObject_NoConflicts() {
         let globalORTB = """
         {
             "ext": {
@@ -524,7 +522,8 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        
+        let sdkORTB: [String: Any] = [
             "ext": [
                 "prebid": [
                     "existingConfig": "existingValue"
@@ -532,10 +531,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
             ]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         let expectedORTB = """
@@ -560,7 +559,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_ExtObject_WithConflicts() {
+    func testMergeORTBWithGlobal_ExtObject_WithConflicts() {
         let globalORTB = """
         {
             "ext": {
@@ -571,7 +570,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        let sdkORTB: [String: Any] = [
             "ext": [
                 "prebid": [
                     "sharedField": "existingSharedValue",
@@ -580,10 +579,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
             ]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         let expectedORTB = """
@@ -604,7 +603,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_DeviceObject_NoConflicts() {
+    func testMergeORTBWithGlobal_DeviceObject_NoConflicts() {
         let globalORTB = """
         {
             "device": {
@@ -612,18 +611,18 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        
+        let sdkORTB: [String: Any] = [
             "device": [
                 "language": "en",
                 "connectiontype": 2
             ]
         ]
         
-        
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         let expectedORTB = """
@@ -642,7 +641,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrichORTBWithGlobal_DeviceObject_ProtectedFieldsNotCopied() {
+    func testMergeORTBWithGlobal_DeviceObject_ProtectedFieldsNotCopied() {
         let globalORTB = """
         {
             "device": {
@@ -652,17 +651,17 @@ class ArbitraryORTBServiceTests: XCTestCase {
             }
         }
         """
-        let existingORTB: [String: Any] = [
+        let sdkORTB: [String: Any] = [
             "device": [
                 "os": "iOS",
                 "model": "iPhone"
             ]
         ]
         
-        let result = ArbitraryORTBService.enrich(
-            with: nil,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalORTB: globalORTB
         )
         
         let expectedORTB = """
@@ -680,15 +679,11 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testEnrich_WithEmptyORTBs() {
-        let impORTB: String? = nil
-        let globalORTB: String? = nil
-        let existingORTB: [String: Any] = [:]
-        
-        let result = ArbitraryORTBService.enrich(
-            with: impORTB,
-            globalORTB: globalORTB,
-            existingORTB: existingORTB
+    func testMerge_WithEmptyORTBs() {
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: [:],
+            impORTB: nil,
+            globalORTB: nil
         )
         
         XCTAssertTrue(result.isEmpty)
