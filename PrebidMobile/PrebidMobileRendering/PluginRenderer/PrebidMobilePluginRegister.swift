@@ -134,4 +134,11 @@ public class PrebidMobilePluginRegister: NSObject {
             return plugins.isEmpty ? [] : Array(plugins.values)
         }
     }
+    
+    public func getAllPluginsJSONRepresentation() -> [[String: Any]] {
+        return PrebidMobilePluginRegister
+            .shared
+            .getAllPlugins()
+            .map { $0.jsonDictionary() }
+    }
 }

@@ -74,9 +74,8 @@
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
     bidRequest.ortbObject = [self.adConfiguration.adConfiguration getCheckedOrtbConfig];
 
-    NSArray *renderers = [[PrebidMobilePluginRegister shared] getAllPlugins];
-    if (renderers.count != 0 && self.adConfiguration.adConfiguration.isOriginalAPI == false) {
-        bidRequest.extPrebid.sdk = [PBMPrebidParameterBuilder getRenderersJson];
+    if (!self.adConfiguration.adConfiguration.isOriginalAPI) {
+        bidRequest.extPrebid.sdkRenderers = [PrebidMobilePluginRegister.shared getAllPluginsJSONRepresentation];
     }
 
     if (Prebid.shared.pbsDebug) {
@@ -312,20 +311,6 @@
             appExtPrebid.version = Prebid.shared.version;
         }
     }
-}
-
-+ (nonnull PBMJsonDictionary *)getRenderersJson {
-    PBMMutableJsonDictionary * const sdk = [PBMMutableJsonDictionary new];
-    NSMutableArray *renderersArray = [NSMutableArray array];
-    NSArray *renderers = [[PrebidMobilePluginRegister shared] getAllPlugins];
-    for (id<PrebidMobilePluginRenderer> renderer in renderers) {
-        PBMMutableJsonDictionary *rendererDict = [PBMMutableJsonDictionary new];
-        rendererDict[@"name"] = renderer.name;
-        rendererDict[@"version"] = renderer.version;
-        [renderersArray addObject:rendererDict];
-    }
-    sdk[@"renderers"] = renderersArray;
-    return sdk;
 }
 
 + (PBMORTBFormat *)ortbFormatWithSize:(NSValue *)size {
