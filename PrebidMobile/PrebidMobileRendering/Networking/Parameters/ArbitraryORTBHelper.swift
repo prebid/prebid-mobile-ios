@@ -21,15 +21,13 @@ protocol ArbitraryORTBHelperProtocol {
 
 class ArbitraryImpORTBHelper: ArbitraryORTBHelperProtocol {
     
-    private let ortb: String?
+    private let ortb: String
     
-    init(ortb: String?) {
+    init(ortb: String) {
         self.ortb = ortb
     }
     
     func getValidatedORTBDict() -> [String : Any]? {
-        guard let ortb else { return nil }
-        
         guard let ortbDict = try? PBMFunctions.dictionaryFromJSONString(ortb) else {
             Log.warn("The provided impression-level ortbConfig object is not valid JSON and will be ignored.")
             return nil
@@ -41,7 +39,7 @@ class ArbitraryImpORTBHelper: ArbitraryORTBHelperProtocol {
 
 class ArbitraryGlobalORTBHelper: ArbitraryORTBHelperProtocol {
     
-    private let ortb: String?
+    private let ortb: String
     
     struct ProtectedFields {
         
@@ -73,13 +71,11 @@ class ArbitraryGlobalORTBHelper: ArbitraryORTBHelperProtocol {
         }
     }
     
-    init(ortb: String?) {
+    init(ortb: String) {
         self.ortb = ortb
     }
     
     func getValidatedORTBDict() -> [String : Any]? {
-        guard let ortb else { return nil}
-        
         guard var ortbDict = try? PBMFunctions.dictionaryFromJSONString(ortb) else {
             Log.warn("The provided global-level ortbConfig object is not valid JSON and will be ignored.")
             return nil

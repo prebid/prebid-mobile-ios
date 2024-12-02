@@ -22,36 +22,31 @@ public class ArbitraryORTBService: NSObject {
         super.init()
     }
     
-    public static func enrich(
-        with impORTB: String?,
-        globalORTB: String?,
-        existingORTB: [String: Any]
+    public static func merge(
+        sdkORTB: [String: Any],
+        impORTB: String?,
+        globalORTB: String?
     ) -> [String: Any] {
+        var resultORTB = sdkORTB
+        var resultImp = resultORTB["imp"] as? [[String: Any]]
         
-        var resultORTB = existingORTB
-        
-        if let impORTBDict = ArbitraryImpORTBHelper(ortb: impORTB).getValidatedORTBDict() {
-            let existingImps = resultORTB["imp"] as? [[String: Any]]
-            resultORTB["imp"] = existingImps?.map { $0.deepMerging(with: impORTBDict) } ?? [impORTBDict]
+        if let impORTB,
+           let impORTBDict = ArbitraryImpORTBHelper(ortb: impORTB).getValidatedORTBDict() {
+            // Imp objects from imp configuration should be merged to existing imp objects.
+            resultImp = resultImp?.map { $0.deepMerging(with: impORTBDict) } ?? [impORTBDict]
         }
         
-        if var globalORTBDict = ArbitraryGlobalORTBHelper(ortb: globalORTB).getValidatedORTBDict() {
-            let existingImpDict = resultORTB["imp"] as? [[String: Any]]
-            resultORTB["imp"] = nil
-            
-            let incomingImpDict = globalORTBDict["imp"] as? [[String: Any]]
-            globalORTBDict["imp"] = nil
-            
-            // All values except `imp` are merging
+        if let globalORTB,
+           let globalORTBDict = ArbitraryGlobalORTBHelper(ortb: globalORTB).getValidatedORTBDict() {
             resultORTB = resultORTB.deepMerging(with: globalORTBDict)
             
-            // Append global imps to existing
-            if let existingImpDict, let incomingImpDict {
-                resultORTB["imp"] = existingImpDict + incomingImpDict
-            } else {
-                resultORTB["imp"] = existingImpDict ?? incomingImpDict
+            // Imp objects from global configuration should be appended to existing array.
+            if let globalImps = globalORTBDict["imp"] as? [[String: Any]] {
+                resultImp = (resultImp ?? []) + globalImps
             }
         }
+        
+        resultORTB["imp"] = resultImp
         
         return resultORTB
     }

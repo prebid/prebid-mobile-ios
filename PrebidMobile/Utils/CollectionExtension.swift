@@ -144,6 +144,19 @@ extension Array where Element: Hashable {
 
 extension Dictionary where Key == String {
     
+    /// Merges the current dictionary with another dictionary recursively,
+    /// with options to control replacement behavior.
+    ///
+    /// - Parameters:
+    ///   - otherDict: The dictionary to merge with the current dictionary.
+    ///   - shouldReplace: A Boolean indicating whether to replace existing values in the
+    ///     current dictionary with values from `otherDict`. Defaults to `false`.
+    ///
+    /// - Returns: A new dictionary that is the result of the merge operation.
+    ///
+    /// - Notes:
+    ///   - Arrays with matching keys are concatenated and deduplicated (if possible).
+    ///   - Nested dictionaries are merged recursively.
     func deepMerging(
         with otherDict: [String: Any],
         shouldReplace: Bool = false
@@ -155,7 +168,6 @@ extension Dictionary where Key == String {
                 if shouldReplace {
                     result[key] = value
                 } else {
-                    // Merge arrays
                     if let existingArray = existingValue as? [Any], let newArray = value as? [Any] {
                         let mergedArray = existingArray + newArray
                         if let hashableMergedArray = mergedArray as? [AnyHashable] {
@@ -164,7 +176,6 @@ extension Dictionary where Key == String {
                             result[key] = mergedArray
                         }
                     }
-                    // Merge dictionaries
                     else if let existingDict = existingValue as? [String: Any],
                             let newDict = value as? [String: Any] {
                         result[key] = existingDict.deepMerging(
@@ -172,13 +183,11 @@ extension Dictionary where Key == String {
                             shouldReplace: shouldReplace
                         )
                     }
-                    // Replace primitives & handle replacing with different type
                     else {
                         result[key] = value
                     }
                 }
             }
-            // Element doesn't exist in original dictionary
             else {
                 result[key] = value
             }

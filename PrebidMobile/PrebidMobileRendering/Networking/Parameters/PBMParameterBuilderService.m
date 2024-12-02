@@ -98,9 +98,9 @@
     
     NSDictionary *ortb = [bidRequest toJsonDictionary];
     
-    NSDictionary * arbitratyORTB = [PBMArbitraryORTBService enrichWith:adConfiguration.impressionORTBConfig
-                                                            globalORTB:[targeting getGlobalORTBConfig]
-                                                          existingORTB:ortb];
+    NSDictionary * arbitratyORTB = [PBMArbitraryORTBService mergeWithSdkORTB:ortb
+                                                                     impORTB:adConfiguration.impressionORTBConfig
+                                                                  globalORTB:[targeting getGlobalORTBConfig]];
     
     return [PBMORTBParameterBuilder buildOpenRTBFor:arbitratyORTB];
 }
