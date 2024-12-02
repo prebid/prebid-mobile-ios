@@ -18,12 +18,27 @@ import WebKit
 
 import PrebidMobile
 
-class SampleInterstitialController: NSObject, InterstitialControllerProtocol {
+class SampleInterstitialController: NSObject, PrebidMobileInterstitialControllerProtocol {
+    
+    enum SampleError: LocalizedError {
+        case noAdm
+        case noAvailableController
+        
+        var errorDescription: String? {
+            switch self {
+            case .noAdm:
+                return "Renderer did fail - there is no ADM in the response."
+            case .noAvailableController:
+                return "Coudn't find a controller to present from."
+            }
+        }
+    }
+
     
     weak var loadingDelegate: InterstitialControllerLoadingDelegate?
     weak var interactionDelegate: InterstitialControllerInteractionDelegate?
     
-    var htmlContent: String?
+    var bid: Bid?
     
     private var webView: WKWebView = {
         let webView = WKWebView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 250)))
@@ -41,7 +56,7 @@ class SampleInterstitialController: NSObject, InterstitialControllerProtocol {
         return label
     }()
     
-    private lazy var interstitialViewController: UIViewController? = {
+    private lazy var interstitialViewController: UIViewController = {
         let viewController = UIViewController()
         viewController.view.backgroundColor = .white
         
@@ -69,13 +84,13 @@ class SampleInterstitialController: NSObject, InterstitialControllerProtocol {
     }
     
     func loadAd() {
-        guard let htmlContent else {
-            print("Error: HTML content is not set.")
+        guard let adm = bid?.adm else {
+            loadingDelegate?.interstitialController(self, didFailWithError: SampleError.noAdm)
             return
         }
         
         DispatchQueue.main.async {
-            self.webView.loadHTMLString(htmlContent, baseURL: nil)
+            self.webView.loadHTMLString(adm, baseURL: nil)
             self.loadingDelegate?.interstitialControllerDidLoadAd(self)
         }
     }
@@ -83,16 +98,18 @@ class SampleInterstitialController: NSObject, InterstitialControllerProtocol {
     func show() {
         DispatchQueue.main.async {
             guard let presentingController = self.topViewController else {
-                print("Error: Unable to find a top view controller.")
+                self.loadingDelegate?.interstitialController(self, didFailWithError: SampleError.noAvailableController)
                 return
             }
             
-            guard let viewController = self.interstitialViewController else {
-                print("Error: Failed to create interstitial view controller. Make sure HTML content is set and loadAd is called.")
-                return
+            presentingController.present(
+                self.interstitialViewController,
+                animated: true
+            ) { [weak self] in
+                guard let self = self else { return }
+                self.interactionDelegate?.interstitialControllerDidCloseAd(self)
+                self.interactionDelegate?.interstitialControllerDidComplete(self)
             }
-            
-            presentingController.present(viewController, animated: true, completion: nil)
         }
     }
 }

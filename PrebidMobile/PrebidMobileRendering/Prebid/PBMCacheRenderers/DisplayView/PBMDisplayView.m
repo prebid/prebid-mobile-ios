@@ -34,7 +34,7 @@
 
 #import "PBMMacros.h"
 
-@interface PBMDisplayView ()
+@interface PBMDisplayView () <PrebidMobileDisplayViewProtocol>
 
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
@@ -47,6 +47,10 @@
 @end
 
 @implementation PBMDisplayView
+
+- (UIView *)adContentView {
+    return self;
+}
 
 // MARK: - Public API
 - (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid configId:(NSString *)configId {
@@ -70,6 +74,8 @@
     
     return self;
 }
+
+// TODO: Extract into another class (?)
 
 - (void)loadAd {
     if (self.transactionFactory) {

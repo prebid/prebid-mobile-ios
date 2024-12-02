@@ -18,7 +18,7 @@ import UIKit
 @objc
 public protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
 
-    @objc func interstitialControllerDidCloseAd(_ interstitialController: InterstitialControllerProtocol)
+    @objc func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol)
 
     @objc func callDelegate_didReceiveAd()
     @objc func callDelegate_didFailToReceiveAd(with error: Error?)

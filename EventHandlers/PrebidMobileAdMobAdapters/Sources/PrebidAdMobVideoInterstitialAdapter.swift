@@ -104,7 +104,7 @@ public class PrebidAdMobVideoInterstitialAdapter:
     // MARK: - InterstitialControllerLoadingDelegate
     
     public func interstitialControllerDidLoadAd(
-        _ interstitialController: InterstitialControllerProtocol
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
     ) {
         adAvailable = true
         
@@ -114,7 +114,7 @@ public class PrebidAdMobVideoInterstitialAdapter:
     }
     
     public func interstitialController(
-        _ interstitialController: InterstitialControllerProtocol,
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol,
         didFailWithError error: Error
     ) {
         adAvailable = false
@@ -126,29 +126,29 @@ public class PrebidAdMobVideoInterstitialAdapter:
     
     // MARK: - InterstitialControllerInteractionDelegate
     
-    public func trackImpression(forInterstitialController: InterstitialControllerProtocol) {
+    public func trackImpression(forInterstitialController: PrebidMobileInterstitialControllerProtocol) {
         delegate?.reportImpression()
     }
     
     public func viewControllerForModalPresentation(
-        fromInterstitialController: InterstitialControllerProtocol
+        fromInterstitialController: PrebidMobileInterstitialControllerProtocol
     ) -> UIViewController? {
         rootViewController
     }
     
-    public func interstitialControllerDidClickAd(_ interstitialController: InterstitialControllerProtocol) {
+    public func interstitialControllerDidClickAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         delegate?.reportClick()
     }
     
-    public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialControllerProtocol) {
+    public func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         delegate?.willDismissFullScreenView()
         delegate?.didDismissFullScreenView()
     }
     
-    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialControllerProtocol) {
+    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         delegate?.willPresentFullScreenView()
     }
     
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialControllerProtocol) {}
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialControllerProtocol) {}
+    public func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
 }

@@ -145,7 +145,8 @@
 		53BDBF8A293F605B004B6DE8 /* InternalUserConsentDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */; };
 		53BDBF8C293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */; };
 		53BFCD0F2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD0E2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift */; };
-		53BFCD112CF9156000A3287A /* InterstitialControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD102CF9155E00A3287A /* InterstitialControllerProtocol.swift */; };
+		53BFCD112CF9156000A3287A /* PrebidMobileInterstitialControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD102CF9155E00A3287A /* PrebidMobileInterstitialControllerProtocol.swift */; };
+		53BFCD1F2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 53BFCD1E2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53C8FE1729C0851300ED9230 /* ClickbrowserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */; };
 		53C925022990FB30009E6F94 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925012990FB30009E6F94 /* String+Extensions.swift */; };
 		53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */; };
@@ -1036,7 +1037,8 @@
 		53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InternalUserConsentDataManager.m; sourceTree = "<group>"; };
 		53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUserConsentDataManagerTests.swift; sourceTree = "<group>"; };
 		53BFCD0E2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidInterstitialControllerRenderer.swift; sourceTree = "<group>"; };
-		53BFCD102CF9155E00A3287A /* InterstitialControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialControllerProtocol.swift; sourceTree = "<group>"; };
+		53BFCD102CF9155E00A3287A /* PrebidMobileInterstitialControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileInterstitialControllerProtocol.swift; sourceTree = "<group>"; };
+		53BFCD1E2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileDisplayViewProtocol.h; sourceTree = "<group>"; };
 		53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickbrowserType.swift; sourceTree = "<group>"; };
 		53C925012990FB30009E6F94 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequester.swift; sourceTree = "<group>"; };
@@ -1995,6 +1997,32 @@
 			path = CacheManagement;
 			sourceTree = "<group>";
 		};
+		53BFCD2B2CFE39A700A3287A /* DisplayView */ = {
+			isa = PBXGroup;
+			children = (
+				53BFCD1E2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h */,
+				5BC3778C271F1CFE00444D5E /* PBMDisplayView.h */,
+				5BC37787271F1CFE00444D5E /* PBMDisplayView.m */,
+				5BC37788271F1CFE00444D5E /* PBMDisplayView+InternalState.h */,
+				5BC3778F271F1CFE00444D5E /* DisplayViewLoadingDelegate.swift */,
+				5BC37790271F1CFE00444D5E /* DisplayViewInteractionDelegate.swift */,
+				A908694529E05F7900B37479 /* PrebidDisplayViewRenderer.swift */,
+			);
+			path = DisplayView;
+			sourceTree = "<group>";
+		};
+		53BFCD2C2CFE39B200A3287A /* InterstitialController */ = {
+			isa = PBXGroup;
+			children = (
+				53BFCD102CF9155E00A3287A /* PrebidMobileInterstitialControllerProtocol.swift */,
+				5BC3778E271F1CFE00444D5E /* InterstitialController.swift */,
+				5BC3778B271F1CFE00444D5E /* InterstitialControllerLoadingDelegate.swift */,
+				5BC3778D271F1CFE00444D5E /* InterstitialControllerInteractionDelegate.swift */,
+				53BFCD0E2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift */,
+			);
+			path = InterstitialController;
+			sourceTree = "<group>";
+		};
 		53CE08FF2AD672980018CB75 /* ORTB-samples */ = {
 			isa = PBXGroup;
 			children = (
@@ -2436,17 +2464,8 @@
 		5BC37786271F1CFE00444D5E /* PBMCacheRenderers */ = {
 			isa = PBXGroup;
 			children = (
-				5BC3778C271F1CFE00444D5E /* PBMDisplayView.h */,
-				5BC37787271F1CFE00444D5E /* PBMDisplayView.m */,
-				5BC37788271F1CFE00444D5E /* PBMDisplayView+InternalState.h */,
-				5BC3778B271F1CFE00444D5E /* InterstitialControllerLoadingDelegate.swift */,
-				5BC3778D271F1CFE00444D5E /* InterstitialControllerInteractionDelegate.swift */,
-				53BFCD102CF9155E00A3287A /* InterstitialControllerProtocol.swift */,
-				5BC3778E271F1CFE00444D5E /* InterstitialController.swift */,
-				5BC3778F271F1CFE00444D5E /* DisplayViewLoadingDelegate.swift */,
-				5BC37790271F1CFE00444D5E /* DisplayViewInteractionDelegate.swift */,
-				A908694529E05F7900B37479 /* PrebidDisplayViewRenderer.swift */,
-				53BFCD0E2CF912A600A3287A /* PrebidInterstitialControllerRenderer.swift */,
+				53BFCD2B2CFE39A700A3287A /* DisplayView */,
+				53BFCD2C2CFE39B200A3287A /* InterstitialController */,
 			);
 			path = PBMCacheRenderers;
 			sourceTree = "<group>";
@@ -3573,6 +3592,7 @@
 				5BC37929271F1CFF00444D5E /* PBMLocationManagerProtocol.h in Headers */,
 				5BC37A9E271F1D0000444D5E /* PBMAdLoadFlowState.h in Headers */,
 				5BC379BD271F1D0000444D5E /* PBMAdRefreshOptions.h in Headers */,
+				53BFCD1F2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h in Headers */,
 				5BC378F8271F1CFF00444D5E /* PBMORTBPmp.h in Headers */,
 				534C612D2CB527F80026119A /* PBMORTBRewardedCompletionVideo.h in Headers */,
 				92664565272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h in Headers */,
@@ -4407,7 +4427,7 @@
 				5BC37ABD271F1D0000444D5E /* PBMOpenMeasurementEventTracker.m in Sources */,
 				5BC37927271F1CFF00444D5E /* PBMFunctions.m in Sources */,
 				53842BB829E561750069A4B7 /* PrebidImagesRepository.swift in Sources */,
-				53BFCD112CF9156000A3287A /* InterstitialControllerProtocol.swift in Sources */,
+				53BFCD112CF9156000A3287A /* PrebidMobileInterstitialControllerProtocol.swift in Sources */,
 				92C85D5A27A96AC50080BAC5 /* NativeTitle.swift in Sources */,
 				5BC37AA4271F1D0000444D5E /* PBMAdLoadFlowController.m in Sources */,
 				5BC378C0271F1CFF00444D5E /* NSDictionary+PBMExtensions.m in Sources */,
