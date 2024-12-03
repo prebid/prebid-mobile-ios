@@ -16,6 +16,7 @@
 import UIKit
 import WebKit
 import PrebidMobile
+import SafariServices
 
 class SampleAdView: UIView, PrebidMobileDisplayViewProtocol {
     
@@ -58,11 +59,13 @@ class SampleAdView: UIView, PrebidMobileDisplayViewProtocol {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        webView.navigationDelegate = self
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
+        webView.navigationDelegate = self
     }
     
     func loadAd() {
@@ -91,5 +94,43 @@ class SampleAdView: UIView, PrebidMobileDisplayViewProtocol {
             customRendererLabel.heightAnchor.constraint(equalToConstant: 40),
             customRendererLabel.widthAnchor.constraint(equalToConstant: 50)
         ])
+    }
+}
+
+extension SampleAdView: WKNavigationDelegate {
+    
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
+        guard let url = navigationAction.request.url,
+              navigationAction.navigationType == .linkActivated else {
+            decisionHandler(.allow)
+            return
+        }
+        
+        guard let presentingVC = interactionDelegate?
+            .viewControllerForModalPresentation(fromDisplayView: self) else {
+            decisionHandler(.allow)
+            return
+        }
+        
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.delegate = self
+        interactionDelegate?.willPresentModal(from: self)
+        presentingVC.present(safariVC, animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.interactionDelegate?.didDismissModal(from: self)
+        }
+        
+        decisionHandler(.cancel)
+    }
+}
+
+extension SampleAdView: SFSafariViewControllerDelegate {
+    
+    func safariViewControllerWillOpenInBrowser(_ controller: SFSafariViewController) {
+        interactionDelegate?.didLeaveApp(from: self)
     }
 }

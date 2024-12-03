@@ -15,7 +15,6 @@
 
 import UIKit
 import WebKit
-
 import PrebidMobile
 
 class SampleInterstitialController: NSObject, PrebidMobileInterstitialControllerProtocol {
@@ -33,44 +32,23 @@ class SampleInterstitialController: NSObject, PrebidMobileInterstitialController
             }
         }
     }
-
     
     weak var loadingDelegate: InterstitialControllerLoadingDelegate?
     weak var interactionDelegate: InterstitialControllerInteractionDelegate?
     
     var bid: Bid?
     
-    private var webView: WKWebView = {
-        let webView = WKWebView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 250)))
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.backgroundColor = .blue
-        return webView
-    }()
+    private var webView: WKWebView {
+        interstitialViewController.webView
+    }
     
-    private var customRendererLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Custom Renderer"
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var interstitialViewController: UIViewController = {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .white
+    private lazy var interstitialViewController: SampleModalViewController = {
+        let viewController = SampleModalViewController()
         
-        viewController.view.addSubview(customRendererLabel)
-        viewController.view.addSubview(webView)
-        
-        NSLayoutConstraint.activate([
-            customRendererLabel.topAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            customRendererLabel.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            webView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            webView.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            webView.widthAnchor.constraint(equalToConstant: 300),
-            webView.heightAnchor.constraint(equalToConstant: 250),
-        ])
+        viewController.onDismiss = { [weak self] in
+            guard let self else { return }
+            self.interactionDelegate?.interstitialControllerDidCloseAd(self)
+        }
         
         return viewController
     }()
@@ -83,13 +61,19 @@ class SampleInterstitialController: NSObject, PrebidMobileInterstitialController
         return topController
     }
     
+    override init() {
+        super.init()
+        webView.navigationDelegate = self
+    }
+    
     func loadAd() {
-        guard let adm = bid?.adm else {
-            loadingDelegate?.interstitialController(self, didFailWithError: SampleError.noAdm)
-            return
-        }
-        
         DispatchQueue.main.async {
+            guard let adm = self.bid?.adm else {
+                self.loadingDelegate?.interstitialController(self, didFailWithError: SampleError.noAdm)
+                return
+            }
+            
+            
             self.webView.loadHTMLString(adm, baseURL: nil)
             self.loadingDelegate?.interstitialControllerDidLoadAd(self)
         }
@@ -98,18 +82,43 @@ class SampleInterstitialController: NSObject, PrebidMobileInterstitialController
     func show() {
         DispatchQueue.main.async {
             guard let presentingController = self.topViewController else {
-                self.loadingDelegate?.interstitialController(self, didFailWithError: SampleError.noAvailableController)
+                self.loadingDelegate?.interstitialController(
+                    self,
+                    didFailWithError: SampleError.noAvailableController
+                )
                 return
             }
             
             presentingController.present(
                 self.interstitialViewController,
                 animated: true
-            ) { [weak self] in
-                guard let self = self else { return }
-                self.interactionDelegate?.interstitialControllerDidCloseAd(self)
-                self.interactionDelegate?.interstitialControllerDidComplete(self)
-            }
+            )
         }
+    }
+}
+
+extension SampleInterstitialController: WKNavigationDelegate {
+    
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
+        guard let url = navigationAction.request.url,
+              navigationAction.navigationType == .linkActivated else {
+            decisionHandler(.allow)
+            return
+        }
+        
+        interactionDelegate?.interstitialControllerDidClickAd(self)
+        
+        guard UIApplication.shared.canOpenURL(url) else {
+            decisionHandler(.allow)
+            return
+        }
+        
+        interactionDelegate?.interstitialControllerDidLeaveApp(self)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        decisionHandler(.cancel)
     }
 }

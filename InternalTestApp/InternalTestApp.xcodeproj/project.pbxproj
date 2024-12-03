@@ -31,6 +31,8 @@
 		3CC4A3EA2C11F96800B97128 /* CustomRendererBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */; };
 		457FD34BA45C3840CC31A8F5 /* Pods_InternalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */; };
 		530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E722B292FACB20025B44D /* UIImageView+Extensions.swift */; };
+		53514C8F2CFF92D000A480C0 /* SampleModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C8E2CFF92D000A480C0 /* SampleModalViewController.swift */; };
+		53514C902CFF92D000A480C0 /* SampleModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C8E2CFF92D000A480C0 /* SampleModalViewController.swift */; };
 		5397BD142936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */; };
 		5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */; };
 		5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */; };
@@ -389,6 +391,7 @@
 		3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererInterstitialController.swift; sourceTree = "<group>"; };
 		3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererBannerController.swift; sourceTree = "<group>"; };
 		530E722B292FACB20025B44D /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		53514C8E2CFF92D000A480C0 /* SampleModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleModalViewController.swift; sourceTree = "<group>"; };
 		5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayBannerController.swift; sourceTree = "<group>"; };
 		5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayInterstitialController.swift; sourceTree = "<group>"; };
 		5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoRewardedController.swift; sourceTree = "<group>"; };
@@ -747,6 +750,7 @@
 				53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */,
 				53BFCD122CF9C67400A3287A /* SampleInterstitialController.swift */,
 				53BFCD162CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift */,
+				53514C8E2CFF92D000A480C0 /* SampleModalViewController.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -1648,6 +1652,7 @@
 				53ED301429798104007D13EE /* TestCasesSectionsViewController.swift in Sources */,
 				3C28C9D92C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */,
 				53ED301529798104007D13EE /* AppSettingsKeys.swift in Sources */,
+				53514C902CFF92D000A480C0 /* SampleModalViewController.swift in Sources */,
 				53ED301729798104007D13EE /* NativeEventTracker+Extensions.swift in Sources */,
 				53ED301829798104007D13EE /* PrebidRewardedController.swift in Sources */,
 				539F960C29DEF0B90061E7A5 /* PrebidOriginalAPIMultiformatBannerController.swift in Sources */,
@@ -1748,6 +1753,7 @@
 				5B3EEDE22101EDA200BAA0C4 /* TestCasesSectionsViewController.swift in Sources */,
 				3C28C9D82C35713B00D0A7DB /* CustomRendererInterstitialController.swift in Sources */,
 				ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */,
+				53514C8F2CFF92D000A480C0 /* SampleModalViewController.swift in Sources */,
 				92C4E60D27A2F6D700738370 /* NativeEventTracker+Extensions.swift in Sources */,
 				34BA9600249CC118006AE372 /* PrebidRewardedController.swift in Sources */,
 				539F960B29DEF0B90061E7A5 /* PrebidOriginalAPIMultiformatBannerController.swift in Sources */,
