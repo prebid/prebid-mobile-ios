@@ -77,6 +77,8 @@
         return;
     }
     
+    self.adConfiguration.adConfiguration.winningBidAdFormat = self.bid.adFormat;
+    
     @weakify(self);
     self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
                                                          adConfiguration:self.adConfiguration
