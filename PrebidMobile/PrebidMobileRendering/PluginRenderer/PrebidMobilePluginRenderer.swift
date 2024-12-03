@@ -15,6 +15,11 @@
 
 import UIKit
 
+// 1. Determine the purpose of registerEventDelegate and unregisterEventDelegate
+// 2. Add cases to InternalTestApp with all delegates calling
+// 3. Ask if to add to Demo Apps
+// 4. Unit tests.
+
 /// A protocol for the plugin renderer, defining the basic interface that any renderer should implement.
 /// This protocol provides the ability to retrieve plugin details, support rendering formats, and manage event delegates.
 @objc
