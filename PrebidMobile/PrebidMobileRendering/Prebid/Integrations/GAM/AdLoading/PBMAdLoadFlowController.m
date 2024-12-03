@@ -275,7 +275,6 @@
     
     self.flowState = PBMAdLoadFlowState_LoadingDisplayView;
     AdUnitConfig * const adUnitConfig = self.savedAdUnitConfig;
-    adUnitConfig.adConfiguration.winningBidAdFormat = bid.adFormat;
     
     @weakify(self);
     dispatch_sync(dispatch_get_main_queue(), ^{
