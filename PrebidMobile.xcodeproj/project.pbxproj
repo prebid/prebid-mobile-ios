@@ -148,6 +148,7 @@
 		53BFCD112CF9156000A3287A /* PrebidMobileInterstitialControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD102CF9155E00A3287A /* PrebidMobileInterstitialControllerProtocol.swift */; };
 		53BFCD1F2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 53BFCD1E2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53BFCD312CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD302CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift */; };
+		53BFCD332CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD322CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift */; };
 		53C8FE1729C0851300ED9230 /* ClickbrowserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */; };
 		53C925022990FB30009E6F94 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925012990FB30009E6F94 /* String+Extensions.swift */; };
 		53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */; };
@@ -1041,6 +1042,7 @@
 		53BFCD102CF9155E00A3287A /* PrebidMobileInterstitialControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileInterstitialControllerProtocol.swift; sourceTree = "<group>"; };
 		53BFCD1E2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileDisplayViewProtocol.h; sourceTree = "<group>"; };
 		53BFCD302CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrebidMobilePluginRenderer+Extensions.swift"; sourceTree = "<group>"; };
+		53BFCD322CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPrebidMobilePluginRenderer.swift; sourceTree = "<group>"; };
 		53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickbrowserType.swift; sourceTree = "<group>"; };
 		53C925012990FB30009E6F94 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		53C925042990FBFB009E6F94 /* PrebidServerStatusRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerStatusRequester.swift; sourceTree = "<group>"; };
@@ -1836,6 +1838,7 @@
 				539D4C7129B5E23600B6B30E /* MockPBMAbstractCreative.swift */,
 				533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */,
 				53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */,
+				53BFCD322CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift */,
 				534C61432CB5619B0026119A /* MockVideoView.swift */,
 			);
 			path = Mocks;
@@ -3090,7 +3093,7 @@
 			isa = PBXGroup;
 			children = (
 				925D5DA92737C4E800A8A2B5 /* AdLoadFlow */,
-				927ADB2528058170006EB8D5 /* MediationAPI */,
+				3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */,
 				925D5E082737DF5F00A8A2B5 /* PBMBannerViewTest.swift */,
 				925D5E112737E04B00A8A2B5 /* PBMBidRequesterTest.swift */,
 				925D5E132737E74C00A8A2B5 /* PBMBidResponseTransformerTest.swift */,
@@ -3320,7 +3323,6 @@
 				FAC837D72321583500565051 /* CollectionExtensionTest.swift */,
 				FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */,
 				FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */,
-				3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -3885,6 +3887,7 @@
 				922AFD742737340300732C53 /* PrebidTest.swift in Sources */,
 				925D5E3F2737F01000A8A2B5 /* URLComponentsTests.swift in Sources */,
 				38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */,
+				53BFCD332CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift in Sources */,
 				925D5E382737EF0400A8A2B5 /* RewardedVideo_CompanionTest.swift in Sources */,
 				539D4C7029B5DDFD00B6B30E /* SafariOpenerTests.swift in Sources */,
 				539D4C7229B5E23600B6B30E /* MockPBMAbstractCreative.swift in Sources */,
