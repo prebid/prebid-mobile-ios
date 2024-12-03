@@ -826,6 +826,37 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         XCTAssert(bidRequest.ortbObject?.isEmpty == true)
     }
+    
+    func testExtPrebidSDKRenderers() {
+        let mockRenderer1 = MockPrebidMobilePluginRenderer(name: "MockRenderer1", version: "0.0.1")
+        let mockRenderer2 = MockPrebidMobilePluginRenderer(name: "MockRenderer2", version: "0.0.2")
+        let mockRenderer3 = MockPrebidMobilePluginRenderer(name: "MockRenderer3", version: "0.0.3")
+        
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer1)
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer2)
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer3)
+        
+        let adUnitConfig = AdUnitConfig(configId: "test")
+        let bidRequest = buildBidRequest(with: adUnitConfig)
+        let realResult = bidRequest.extPrebid.sdkRenderers
+        
+        XCTAssert(realResult?.count == 3)
+    }
+    
+    func testExtPrebidSDKRenderers_OriginalAPI() {
+        let mockRenderer1 = MockPrebidMobilePluginRenderer(name: "MockRenderer1", version: "0.0.1")
+        let mockRenderer2 = MockPrebidMobilePluginRenderer(name: "MockRenderer2", version: "0.0.2")
+        let mockRenderer3 = MockPrebidMobilePluginRenderer(name: "MockRenderer3", version: "0.0.3")
+        
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer1)
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer2)
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer3)
+        
+        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        XCTAssertNil(bidRequest.extPrebid.sdkRenderers)
+    }
 
     // MARK: - Helpers
     
