@@ -100,12 +100,12 @@ public class PrebidMobilePluginRegister: NSObject {
     }
     
     /// Returns the list of available renderers for the given ad unit for RTB request
-    public func getRTBListOfRenderersFor(for adUnit: AdUnitConfig) -> [PrebidMobilePluginRenderer] {
+    public func getRTBListOfRenderersFor(for adUnitConfig: AdUnitConfig) -> [PrebidMobilePluginRenderer] {
         queue.sync {
             plugins
                 .values
                 .filter { renderer in
-                    adUnit.adFormats.contains { format in
+                    adUnitConfig.adFormats.contains { format in
                         renderer.isSupportRendering(for: format)
                     }
                 }
