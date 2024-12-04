@@ -2,7 +2,7 @@ PODS:
   - Alamofire (4.9.1)
   - AppLovinSDK (13.0.1)
   - Eureka (5.5.0)
-  - Google-Mobile-Ads-SDK (11.12.0):
+  - Google-Mobile-Ads-SDK (11.13.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleAds-IMA-iOS-SDK (3.23.0)
   - GoogleUserMessagingPlatform (2.7.0)
@@ -35,7 +35,7 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppLovinSDK: fdae6a4361c9c9b09f8d7d18ede792368221d987
   Eureka: 1c18c7fcd8f772cc2ca42d6be36292dffa77eecb
-  Google-Mobile-Ads-SDK: 3a76704456669fbed2057efc8bdb99050ad0e3fb
+  Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
   GoogleAds-IMA-iOS-SDK: ee2a68ed7a1a17c7bb81bdb1b81590b35a3fc8f3
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
   RxSwift: 4e28be97cbcfeee614af26d83415febbf2bf6f45
@@ -43,4 +43,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: bae4436ed691a1d2217fde386d8881d6e7e06963
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
