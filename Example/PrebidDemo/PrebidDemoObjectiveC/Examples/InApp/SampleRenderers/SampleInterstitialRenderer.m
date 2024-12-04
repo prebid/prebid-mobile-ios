@@ -32,7 +32,7 @@
 }
 
 - (BOOL)isSupportRenderingFor:(AdFormat *)format {
-    return YES;
+    return [@[AdFormat.banner, AdFormat.video] containsObject:format];
 }
 
 - (id<PrebidMobileInterstitialControllerProtocol>)createInterstitialControllerWithBid:(Bid *)bid
