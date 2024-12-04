@@ -35,16 +35,33 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
     }
     
     func createAd() {
-        // 1. Create a BannerAdUnit
+        // 1. Set global ORTB
+        let globalORTB = """
+        {
+          "ext": {
+            "myext": {
+              "test": 1
+            }
+          },
+          "displaymanager": "Google",
+          "displaymanagerver": "\(GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber))"
+        }
+        """
+        Targeting.shared.setGlobalORTBConfig(globalORTB)
+        
+        // 2. Create a BannerAdUnit
         adUnit = BannerAdUnit(configId: storedImpDisplayBanner, size: adSize)
         adUnit.setAutoRefreshMillis(time: 30000)
         
-        // 2. Configure banner parameters
+        // 3. Configure banner parameters
         let parameters = BannerParameters()
         parameters.api = [Signals.Api.MRAID_2]
         adUnit.bannerParameters = parameters
         
-        // 3. Create a GAMBannerView
+        // 4. Set impression-level ORTB
+        adUnit.setImpressionORTBConfig("{\"bidfloor\":0.01,\"banner\":{\"battr\":[1,2,3,4]}}")
+        
+        // 5. Create a GAMBannerView
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gamBanner.adUnitID = gamAdUnitDisplayBannerOriginal
         gamBanner.rootViewController = self
@@ -53,12 +70,12 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
         // Add GMA SDK banner view to the app UI
         bannerView?.addSubview(gamBanner)
         
-        // 4. Make a bid request to Prebid Server
+        // 6. Make a bid request to Prebid Server
         let gamRequest = GAMRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
-            // 5. Load GAM Ad
+            // 7. Load GAM Ad
             self?.gamBanner.load(gamRequest)
         }
     }
