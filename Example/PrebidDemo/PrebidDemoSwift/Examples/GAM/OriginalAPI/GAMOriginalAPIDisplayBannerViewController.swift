@@ -34,6 +34,11 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
         createAd()
     }
     
+    deinit {
+        // Clean up global ORTB config
+        Targeting.shared.setGlobalORTBConfig(nil)
+    }
+    
     func createAd() {
         // 1. Set global ORTB
         let globalORTB = """

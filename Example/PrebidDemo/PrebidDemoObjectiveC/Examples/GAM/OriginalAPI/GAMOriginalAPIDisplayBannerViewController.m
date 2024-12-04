@@ -40,6 +40,11 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
     [self createAd];
 }
 
+- (void)dealloc {
+    // Clean up global ORTB config
+    [Targeting.shared setGlobalORTBConfig:nil];
+}
+
 - (void)createAd {
     // 1. Set global ORTB
     NSString *globalORTB = [NSString stringWithFormat:
