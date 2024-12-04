@@ -39,7 +39,8 @@ class InAppDisplayBannerPluginRendererViewController: BannerBaseViewController, 
         // 3. Create a BannerView
         prebidBannerView = BannerView(
             frame: CGRect(origin: .zero, size: adSize),
-            configID: storedImpDisplayBanner, adSize: adSize
+            configID: storedImpDisplayBanner,
+            adSize: adSize
         )
         
         // 4. Configure the BannerView

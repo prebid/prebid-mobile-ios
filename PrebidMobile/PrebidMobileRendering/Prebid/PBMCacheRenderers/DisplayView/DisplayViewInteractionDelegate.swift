@@ -37,7 +37,7 @@ public protocol DisplayViewInteractionDelegate: NSObjectProtocol {
     ///   - displayView: The `UIView` instance associated with the modal presentation.
     @objc func willPresentModal(from displayView: UIView)
     
-    /// Notifies the delegate that a modal view has been dismissed and control has returned to the app.
+    /// Notifies the delegate that a modal view has been dismissed.
     ///
     /// - Parameters:
     ///   - displayView: The `UIView` instance associated with the dismissed modal.
