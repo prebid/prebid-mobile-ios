@@ -16,9 +16,9 @@
 import UIKit
 import PrebidMobile
 
-class SampleCustomInterstitialRenderer: PrebidMobileInterstitialPluginRenderer {
+class SampleInterstitialRenderer: PrebidMobileInterstitialPluginRenderer {
     
-    var name = "SampleCustomInterstitialRenderer"
+    var name = "SampleInterstitialRenderer"
     var version = "1.0.0"
     var data: [AnyHashable : Any]?
     
