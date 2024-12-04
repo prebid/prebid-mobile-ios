@@ -43,7 +43,7 @@ class CustomRendererBannerController:
     
     private let reloadButton = ThreadCheckingButton()
     private let stopRefreshButton = ThreadCheckingButton()
-    private let sampleCustomRenderer = SampleCustomAdViewRenderer()
+    private let sampleCustomRenderer = SampleAdViewRenderer()
     
     let lastLoadedAdSizeLabel = UILabel()
     private let configIdLabel = UILabel()

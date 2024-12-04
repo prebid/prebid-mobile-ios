@@ -16,9 +16,9 @@
 import UIKit
 import PrebidMobile
 
-public class SampleCustomAdViewRenderer: NSObject, PrebidMobileAdViewPluginRenderer {
+public class SampleAdViewRenderer: NSObject, PrebidMobileAdViewPluginRenderer {
     
-    public let name = "SampleCustomAdViewRenderer"
+    public let name = "SampleAdViewRenderer"
     public let version = "1.0.0"
     public var data: [AnyHashable: Any]?
     

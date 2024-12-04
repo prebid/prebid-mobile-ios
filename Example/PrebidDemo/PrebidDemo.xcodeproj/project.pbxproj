@@ -67,6 +67,19 @@
 		5344E6C12922A97200A1F582 /* MAXVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C02922A97200A1F582 /* MAXVideoInterstitialViewController.swift */; };
 		5344E6C32922AAE500A1F582 /* MAXVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C22922AAE500A1F582 /* MAXVideoRewardedViewController.swift */; };
 		5344E6C52922AC2C00A1F582 /* MAXNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C42922AC2C00A1F582 /* MAXNativeViewController.swift */; };
+		53514C962CFF97DB00A480C0 /* InAppDisplayBannerPluginRendererViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C952CFF97DB00A480C0 /* InAppDisplayBannerPluginRendererViewController.swift */; };
+		53514C9E2CFF988E00A480C0 /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C982CFF988E00A480C0 /* SampleAdView.swift */; };
+		53514C9F2CFF988E00A480C0 /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C9B2CFF988E00A480C0 /* SampleInterstitialController.swift */; };
+		53514CA02CFF988E00A480C0 /* SampleAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C992CFF988E00A480C0 /* SampleAdViewRenderer.swift */; };
+		53514CA12CFF988E00A480C0 /* SampleInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C9A2CFF988E00A480C0 /* SampleInterstitialRenderer.swift */; };
+		53514CA32CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift */; };
+		53514CA72CFFA52A00A480C0 /* SampleAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CA62CFFA52A00A480C0 /* SampleAdView.m */; };
+		53514CAA2CFFA62700A480C0 /* SampleAdViewRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CA92CFFA62700A480C0 /* SampleAdViewRenderer.m */; };
+		53514CAD2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CAC2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.m */; };
+		53514CB02CFFAB6700A480C0 /* SampleInterstitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CAF2CFFAB6700A480C0 /* SampleInterstitialController.m */; };
+		53514CB32CFFAD5E00A480C0 /* UIApplication+TopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CB22CFFAD5E00A480C0 /* UIApplication+TopViewController.m */; };
+		53514CB62CFFADC200A480C0 /* SampleInterstitialRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CB52CFFADC200A480C0 /* SampleInterstitialRenderer.m */; };
+		53514CB92CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CB82CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.m */; };
 		534C614D2CB7EFD50026119A /* InAppDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C614C2CB7EFD50026119A /* InAppDisplayRewardedViewController.swift */; };
 		534C614F2CB7F20A0026119A /* GAMDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C614E2CB7F20A0026119A /* GAMDisplayRewardedViewController.swift */; };
 		534C61552CB7F32D0026119A /* MAXDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61542CB7F32D0026119A /* MAXDisplayRewardedViewController.swift */; };
@@ -281,6 +294,26 @@
 		5344E6C02922A97200A1F582 /* MAXVideoInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXVideoInterstitialViewController.swift; sourceTree = "<group>"; };
 		5344E6C22922AAE500A1F582 /* MAXVideoRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXVideoRewardedViewController.swift; sourceTree = "<group>"; };
 		5344E6C42922AC2C00A1F582 /* MAXNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXNativeViewController.swift; sourceTree = "<group>"; };
+		53514C952CFF97DB00A480C0 /* InAppDisplayBannerPluginRendererViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppDisplayBannerPluginRendererViewController.swift; sourceTree = "<group>"; };
+		53514C982CFF988E00A480C0 /* SampleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdView.swift; sourceTree = "<group>"; };
+		53514C992CFF988E00A480C0 /* SampleAdViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdViewRenderer.swift; sourceTree = "<group>"; };
+		53514C9A2CFF988E00A480C0 /* SampleInterstitialRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInterstitialRenderer.swift; sourceTree = "<group>"; };
+		53514C9B2CFF988E00A480C0 /* SampleInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInterstitialController.swift; sourceTree = "<group>"; };
+		53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppDisplayInterstitialPluginInterstitialViewController.swift; sourceTree = "<group>"; };
+		53514CA52CFFA52A00A480C0 /* SampleAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleAdView.h; sourceTree = "<group>"; };
+		53514CA62CFFA52A00A480C0 /* SampleAdView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleAdView.m; sourceTree = "<group>"; };
+		53514CA82CFFA62700A480C0 /* SampleAdViewRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleAdViewRenderer.h; sourceTree = "<group>"; };
+		53514CA92CFFA62700A480C0 /* SampleAdViewRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleAdViewRenderer.m; sourceTree = "<group>"; };
+		53514CAB2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InAppDisplayBannerPluginRendererViewController.h; sourceTree = "<group>"; };
+		53514CAC2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InAppDisplayBannerPluginRendererViewController.m; sourceTree = "<group>"; };
+		53514CAE2CFFAB6700A480C0 /* SampleInterstitialController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleInterstitialController.h; sourceTree = "<group>"; };
+		53514CAF2CFFAB6700A480C0 /* SampleInterstitialController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleInterstitialController.m; sourceTree = "<group>"; };
+		53514CB12CFFAD5E00A480C0 /* UIApplication+TopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+TopViewController.h"; sourceTree = "<group>"; };
+		53514CB22CFFAD5E00A480C0 /* UIApplication+TopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+TopViewController.m"; sourceTree = "<group>"; };
+		53514CB42CFFADC200A480C0 /* SampleInterstitialRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleInterstitialRenderer.h; sourceTree = "<group>"; };
+		53514CB52CFFADC200A480C0 /* SampleInterstitialRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleInterstitialRenderer.m; sourceTree = "<group>"; };
+		53514CB72CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InAppDisplayInterstitialPluginRendererViewController.h; sourceTree = "<group>"; };
+		53514CB82CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InAppDisplayInterstitialPluginRendererViewController.m; sourceTree = "<group>"; };
 		534C614C2CB7EFD50026119A /* InAppDisplayRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppDisplayRewardedViewController.swift; sourceTree = "<group>"; };
 		534C614E2CB7F20A0026119A /* GAMDisplayRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMDisplayRewardedViewController.swift; sourceTree = "<group>"; };
 		534C61542CB7F32D0026119A /* MAXDisplayRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXDisplayRewardedViewController.swift; sourceTree = "<group>"; };
@@ -549,8 +582,11 @@
 		53072B4E2920DF1000228462 /* In-App */ = {
 			isa = PBXGroup;
 			children = (
+				53514C972CFF981100A480C0 /* SampleRenderers */,
 				53072B7629226CFE00228462 /* InAppDisplayBannerViewController.swift */,
+				53514C952CFF97DB00A480C0 /* InAppDisplayBannerPluginRendererViewController.swift */,
 				53072B7A292270EE00228462 /* InAppDisplayInterstitialViewController.swift */,
+				53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift */,
 				5344E69E2922796000A1F582 /* InAppNativeViewController.swift */,
 				53072B7829226EF400228462 /* InAppVideoBannerViewController.swift */,
 				53072B802922753D00228462 /* InAppVideoInterstitialLandscapeViewController.swift */,
@@ -734,6 +770,32 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		53514C972CFF981100A480C0 /* SampleRenderers */ = {
+			isa = PBXGroup;
+			children = (
+				53514C982CFF988E00A480C0 /* SampleAdView.swift */,
+				53514C992CFF988E00A480C0 /* SampleAdViewRenderer.swift */,
+				53514C9B2CFF988E00A480C0 /* SampleInterstitialController.swift */,
+				53514C9A2CFF988E00A480C0 /* SampleInterstitialRenderer.swift */,
+			);
+			path = SampleRenderers;
+			sourceTree = "<group>";
+		};
+		53514CA42CFFA4F000A480C0 /* SampleRenderers */ = {
+			isa = PBXGroup;
+			children = (
+				53514CA52CFFA52A00A480C0 /* SampleAdView.h */,
+				53514CA62CFFA52A00A480C0 /* SampleAdView.m */,
+				53514CA82CFFA62700A480C0 /* SampleAdViewRenderer.h */,
+				53514CA92CFFA62700A480C0 /* SampleAdViewRenderer.m */,
+				53514CAE2CFFAB6700A480C0 /* SampleInterstitialController.h */,
+				53514CAF2CFFAB6700A480C0 /* SampleInterstitialController.m */,
+				53514CB42CFFADC200A480C0 /* SampleInterstitialRenderer.h */,
+				53514CB52CFFADC200A480C0 /* SampleInterstitialRenderer.m */,
+			);
+			path = SampleRenderers;
+			sourceTree = "<group>";
+		};
 		539928BC292534A70078053C /* IntegrationCase */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,12 +933,17 @@
 		539928D629254EEC0078053C /* InApp */ = {
 			isa = PBXGroup;
 			children = (
+				53514CA42CFFA4F000A480C0 /* SampleRenderers */,
 				53F35F262926A3E1001C1183 /* InAppDisplayBannerViewController.h */,
 				53F35F272926A3E1001C1183 /* InAppDisplayBannerViewController.m */,
+				53514CAB2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.h */,
+				53514CAC2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.m */,
 				53F35F292926A58B001C1183 /* InAppVideoBannerViewController.h */,
 				53F35F2A2926A58B001C1183 /* InAppVideoBannerViewController.m */,
 				53F35F2C2926A6D6001C1183 /* InAppDisplayInterstitialViewController.h */,
 				53F35F2D2926A6D6001C1183 /* InAppDisplayInterstitialViewController.m */,
+				53514CB72CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.h */,
+				53514CB82CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.m */,
 				53F35F2F2926B532001C1183 /* InAppVideoInterstitialViewController.h */,
 				53F35F302926B532001C1183 /* InAppVideoInterstitialViewController.m */,
 				53F35F322926BAFE001C1183 /* InAppVideoInterstitialVerticalViewController.h */,
@@ -1064,6 +1131,8 @@
 			isa = PBXGroup;
 			children = (
 				53F35F192926908B001C1183 /* PrebidDemoMacros.h */,
+				53514CB12CFFAD5E00A480C0 /* UIApplication+TopViewController.h */,
+				53514CB22CFFAD5E00A480C0 /* UIApplication+TopViewController.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1507,9 +1576,14 @@
 				53B03D8C291A6562000117E1 /* ExamplesViewController.swift in Sources */,
 				5344E6C32922AAE500A1F582 /* MAXVideoRewardedViewController.swift in Sources */,
 				53072B6929217D1800228462 /* GAMOriginalAPIVideoInstreamViewController.swift in Sources */,
+				53514CA32CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift in Sources */,
 				5344E6A92922815000A1F582 /* GAMVideoRewardedViewController.swift in Sources */,
 				534C61572CB7F4780026119A /* AdMobDisplayRewardedViewController.swift in Sources */,
 				53072B7B292270EE00228462 /* InAppDisplayInterstitialViewController.swift in Sources */,
+				53514C9E2CFF988E00A480C0 /* SampleAdView.swift in Sources */,
+				53514C9F2CFF988E00A480C0 /* SampleInterstitialController.swift in Sources */,
+				53514CA02CFF988E00A480C0 /* SampleAdViewRenderer.swift in Sources */,
+				53514CA12CFF988E00A480C0 /* SampleInterstitialRenderer.swift in Sources */,
 				53072B5E2921522000228462 /* GAMOriginalAPIVideoRewardedViewController.swift in Sources */,
 				530D4AA6291A4BC600A2C796 /* AppDelegate.swift in Sources */,
 				53072B6C29217E8600228462 /* InstreamBaseViewController.swift in Sources */,
@@ -1517,6 +1591,7 @@
 				53072B812922753D00228462 /* InAppVideoInterstitialLandscapeViewController.swift in Sources */,
 				5344E6C12922A97200A1F582 /* MAXVideoInterstitialViewController.swift in Sources */,
 				53072B7D2922733800228462 /* InAppVideoInterstitialViewController.swift in Sources */,
+				53514C962CFF97DB00A480C0 /* InAppDisplayBannerPluginRendererViewController.swift in Sources */,
 				534C614F2CB7F20A0026119A /* GAMDisplayRewardedViewController.swift in Sources */,
 				5344E6C52922AC2C00A1F582 /* MAXNativeViewController.swift in Sources */,
 				53B03DA5291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */,
@@ -1577,11 +1652,13 @@
 				539F960929DEEDE40061E7A5 /* GAMOriginalAPIMultiformatInterstitialViewController.m in Sources */,
 				53F35F3A2926BDB7001C1183 /* InAppVideoRewardedViewController.m in Sources */,
 				53A369012AB8CDEB00A03B3E /* GAMOriginalAPIMultiformatInAppNativeViewController.m in Sources */,
+				53514CB02CFFAB6700A480C0 /* SampleInterstitialController.m in Sources */,
 				539928DB29254F2A0078053C /* BannerBaseViewController.m in Sources */,
 				53F35F57292792D6001C1183 /* SettingsViewController.m in Sources */,
 				534C61642CB851C10026119A /* MAXDisplayRewardedViewController.m in Sources */,
 				539928E22925505B0078053C /* InterstitialBaseViewController.m in Sources */,
 				53F35F432926C84E001C1183 /* MAXVideoBannerViewController.m in Sources */,
+				53514CB92CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.m in Sources */,
 				5399290A292665D80078053C /* GAMOriginalAPINativeViewController.m in Sources */,
 				539928F5292566AD0078053C /* GAMOriginalAPIDisplayBannerViewController.m in Sources */,
 				539F960629DEEA0A0061E7A5 /* GAMOriginalAPIMultiformatBannerViewController.m in Sources */,
@@ -1591,11 +1668,14 @@
 				53F35F492926CFE3001C1183 /* MAXVideoInterstitialViewController.m in Sources */,
 				53F35F03292671E7001C1183 /* GAMDisplayBannerViewController.m in Sources */,
 				533784CC2AC2CFF5009A8650 /* GAMOriginalAPIMultiformatNativeStylesViewController.m in Sources */,
+				53514CAD2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.m in Sources */,
 				539929012926488B0078053C /* GAMOriginalAPIVideoRewardedViewController.m in Sources */,
+				53514CA72CFFA52A00A480C0 /* SampleAdView.m in Sources */,
 				53BA02C5292531D100BE6015 /* main.m in Sources */,
 				53F35F1C292692DC001C1183 /* AdMobDisplayInterstitialViewController.m in Sources */,
 				53BA02B7292531D000BE6015 /* SceneDelegate.m in Sources */,
 				53F35F312926B532001C1183 /* InAppVideoInterstitialViewController.m in Sources */,
+				53514CB32CFFAD5E00A480C0 /* UIApplication+TopViewController.m in Sources */,
 				53F35F1829268C62001C1183 /* AdMobVideoBannerViewController.m in Sources */,
 				53F35F0929267A30001C1183 /* GAMDisplayInterstitialViewController.m in Sources */,
 				53F35F152926845C001C1183 /* AdMobDisplayBannerViewController.m in Sources */,
@@ -1608,6 +1688,8 @@
 				53A368FD2AB8CBB300A03B3E /* MultiformatBaseViewController.m in Sources */,
 				53F35F2B2926A58B001C1183 /* InAppVideoBannerViewController.m in Sources */,
 				53F35F4C2926D130001C1183 /* MAXVideoRewardedViewController.m in Sources */,
+				53514CAA2CFFA62700A480C0 /* SampleAdViewRenderer.m in Sources */,
+				53514CB62CFFADC200A480C0 /* SampleInterstitialRenderer.m in Sources */,
 				53F35F1F29269668001C1183 /* AdMobVideoInterstitialViewController.m in Sources */,
 				539928C92925379C0078053C /* IntegrationKindDescriptor.m in Sources */,
 				53F35F0C29267C65001C1183 /* GAMVideoInterstitialViewController.m in Sources */,

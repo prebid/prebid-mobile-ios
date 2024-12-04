@@ -53,14 +53,14 @@
 		53A369092AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A369072AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift */; };
 		53A651842AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */; };
 		53A651852AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */; };
-		53BFCD032CF792FB00A3287A /* SampleCustomAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */; };
-		53BFCD042CF792FB00A3287A /* SampleCustomAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */; };
+		53BFCD032CF792FB00A3287A /* SampleAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD022CF792FB00A3287A /* SampleAdViewRenderer.swift */; };
+		53BFCD042CF792FB00A3287A /* SampleAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD022CF792FB00A3287A /* SampleAdViewRenderer.swift */; };
 		53BFCD0C2CF8F56300A3287A /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */; };
 		53BFCD0D2CF8F56300A3287A /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */; };
 		53BFCD132CF9C67400A3287A /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD122CF9C67400A3287A /* SampleInterstitialController.swift */; };
 		53BFCD142CF9C67400A3287A /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD122CF9C67400A3287A /* SampleInterstitialController.swift */; };
-		53BFCD172CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD162CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift */; };
-		53BFCD182CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD162CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift */; };
+		53BFCD172CF9F12300A3287A /* SampleInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD162CF9F12300A3287A /* SampleInterstitialRenderer.swift */; };
+		53BFCD182CF9F12300A3287A /* SampleInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD162CF9F12300A3287A /* SampleInterstitialRenderer.swift */; };
 		53ED2FD329798104007D13EE /* LogInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D70F6A24E546DD0048CC78 /* LogInfo.swift */; };
 		53ED2FD429798104007D13EE /* PrebidOriginalAPINativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2D2937821D00ABDA22 /* PrebidOriginalAPINativeController.swift */; };
 		53ED2FD529798104007D13EE /* AdapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6EB3CC211336D300317ED9 /* AdapterViewController.swift */; };
@@ -405,10 +405,10 @@
 		53A369042AB98F9700A03B3E /* PrebidOriginalAPIMultiformatInAppNativeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMultiformatInAppNativeController.swift; sourceTree = "<group>"; };
 		53A369072AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMultiformatConfigurationController.swift; sourceTree = "<group>"; };
 		53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMultiformatNativeStylesController.swift; sourceTree = "<group>"; };
-		53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCustomAdViewRenderer.swift; sourceTree = "<group>"; };
+		53BFCD022CF792FB00A3287A /* SampleAdViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdViewRenderer.swift; sourceTree = "<group>"; };
 		53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdView.swift; sourceTree = "<group>"; };
 		53BFCD122CF9C67400A3287A /* SampleInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInterstitialController.swift; sourceTree = "<group>"; };
-		53BFCD162CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCustomInterstitialRenderer.swift; sourceTree = "<group>"; };
+		53BFCD162CF9F12300A3287A /* SampleInterstitialRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInterstitialRenderer.swift; sourceTree = "<group>"; };
 		53ED304329798104007D13EE /* InternalTestApp-Skadn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InternalTestApp-Skadn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED305129798DBC007D13EE /* Info-Skadn.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Skadn.plist"; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
@@ -747,9 +747,9 @@
 			isa = PBXGroup;
 			children = (
 				53BFCD0B2CF8F56300A3287A /* SampleAdView.swift */,
-				53BFCD022CF792FB00A3287A /* SampleCustomAdViewRenderer.swift */,
+				53BFCD022CF792FB00A3287A /* SampleAdViewRenderer.swift */,
 				53BFCD122CF9C67400A3287A /* SampleInterstitialController.swift */,
-				53BFCD162CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift */,
+				53BFCD162CF9F12300A3287A /* SampleInterstitialRenderer.swift */,
 				53514C8E2CFF92D000A480C0 /* SampleModalViewController.swift */,
 			);
 			path = Renderers;
@@ -1602,7 +1602,7 @@
 				53ED2FE829798104007D13EE /* PrebidBannerController.swift in Sources */,
 				53ED2FE929798104007D13EE /* PrebidBannerConfigurationController.swift in Sources */,
 				53ED2FEA29798104007D13EE /* TestCase.swift in Sources */,
-				53BFCD032CF792FB00A3287A /* SampleCustomAdViewRenderer.swift in Sources */,
+				53BFCD032CF792FB00A3287A /* SampleAdViewRenderer.swift in Sources */,
 				53ED2FEB29798104007D13EE /* PrebidAdMobNativeViewController.swift in Sources */,
 				53ED2FEC29798104007D13EE /* PrebidInterstitialController.swift in Sources */,
 				53ED2FED29798104007D13EE /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */,
@@ -1635,7 +1635,7 @@
 				53ED300729798104007D13EE /* PrebidFeedTableViewController.swift in Sources */,
 				53ED300829798104007D13EE /* TestCasesViewController.swift in Sources */,
 				53ED300929798104007D13EE /* NativeAdViewBoxLinks.swift in Sources */,
-				53BFCD172CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift in Sources */,
+				53BFCD172CF9F12300A3287A /* SampleInterstitialRenderer.swift in Sources */,
 				53ED300A29798104007D13EE /* PrebidGAMRewardedController.swift in Sources */,
 				539F961529DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */,
 				53A369092AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */,
@@ -1703,7 +1703,7 @@
 				3493022224740BEE004A6086 /* PrebidBannerController.swift in Sources */,
 				5BDB85DA2739794900A529F6 /* PrebidBannerConfigurationController.swift in Sources */,
 				5B3EEDE52101FB8800BAA0C4 /* TestCase.swift in Sources */,
-				53BFCD042CF792FB00A3287A /* SampleCustomAdViewRenderer.swift in Sources */,
+				53BFCD042CF792FB00A3287A /* SampleAdViewRenderer.swift in Sources */,
 				92C475122796FF8400C26E27 /* PrebidAdMobNativeViewController.swift in Sources */,
 				34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */,
 				5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */,
@@ -1736,7 +1736,7 @@
 				ACAF055724D8384B0089DFB1 /* PrebidFeedTableViewController.swift in Sources */,
 				5B3EEDDF2101EA9200BAA0C4 /* TestCasesViewController.swift in Sources */,
 				92F9A5D227A15D04007B0B17 /* NativeAdViewBoxLinks.swift in Sources */,
-				53BFCD182CF9F12300A3287A /* SampleCustomInterstitialRenderer.swift in Sources */,
+				53BFCD182CF9F12300A3287A /* SampleInterstitialRenderer.swift in Sources */,
 				34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */,
 				539F961429DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift in Sources */,
 				53A369082AB996EF00A03B3E /* PrebidMultiformatConfigurationController.swift in Sources */,
