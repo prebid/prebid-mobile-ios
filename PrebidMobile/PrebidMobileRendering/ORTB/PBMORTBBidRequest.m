@@ -57,12 +57,6 @@
     PBMMutableJsonDictionary * const ext = [PBMMutableJsonDictionary new];
     ext[@"prebid"] = [[self.extPrebid toJsonDictionary] nullIfEmpty];
     ret[@"ext"] = [[ext pbmCopyWithoutEmptyVals] nullIfEmpty];
-
-    //remove "protected" fields from ortbObject then do a merge but merge ret into the ortbObject (addEntriesFromDictionary)
-    NSMutableDictionary *arbitraryServerConfig = [self.arbitraryJsonConfig mutableCopy];
-    
-    //merge with config from API/JSON with priority from server
-    ret = [self mergeDictionaries: ret joiningArgument2: arbitraryServerConfig joiningArgument3: true];
     
     ret[@"id"] = self.requestID;
     
@@ -74,58 +68,6 @@
     ret[@"regs"] = [[self.regs toJsonDictionary] nullIfEmpty];
     ret[@"source"] = [[self.source toJsonDictionary] nullIfEmpty];
     
-    NSMutableDictionary *ortbObj = [self.ortbObject mutableCopy];
-    
-    //remove fields that are not meant to be overridden
-    if (ortbObj[@"regs"]) {
-        ortbObj[@"regs"] = nil;
-    }
-    if (ortbObj[@"device"]) {
-        ortbObj[@"device"] = nil;
-    }
-    if (ortbObj[@"geo"]) {
-        ortbObj[@"geo"] = nil;
-    }
-    if (ortbObj[@"ext"][@"gdpr"]) {
-        ortbObj[@"ext"][@"gdpr"] = nil;
-    }
-    if (ortbObj[@"ext"][@"us_privacy"]) {
-        ortbObj[@"ext"][@"us_privacy"] = nil;
-    }
-    if (ortbObj[@"ext"][@"consent"]) {
-        ortbObj[@"ext"][@"consent"] = nil;
-    }
-    
-    //merge with ortbConfig from SDK with priority away from SDK
-    ret = [self mergeDictionaries: ret joiningArgument2: ortbObj joiningArgument3: false];
-    
-    ret = [ret pbmCopyWithoutEmptyVals];
-    
-    return ret;
-}
-
-- (nonnull PBMMutableJsonDictionary *)mergeDictionaries:(NSMutableDictionary*)dictionary1 joiningArgument2:(NSMutableDictionary*)dictionary2
-                                       joiningArgument3:(Boolean)firstHasPriority{
-    PBMMutableJsonDictionary *ret = dictionary1;
-
-    for (id key in dictionary2)
-        if ([ret objectForKey: key]){
-            if ([[ret objectForKey: key] isKindOfClass: [NSDictionary class]]) {
-                //if is dictionary, need to call this method recursively for ret object for key and dictionary2 for key
-                [ret setObject:[self mergeDictionaries:[ret objectForKey: key] joiningArgument2: [dictionary2 objectForKey: key] joiningArgument3:firstHasPriority] forKey: key];
-            } else if ([[ret objectForKey: key] isKindOfClass: [NSArray class]] && [[dictionary2 objectForKey: key] isKindOfClass: [NSArray class]]) {
-                //merge arrays
-                NSArray *mergedArray = [[ret objectForKey: key] arrayByAddingObjectsFromArray: [dictionary2 objectForKey: key]];
-                //remove duplicates and set
-                [ret setObject:mergedArray forKey:key];
-            } else {
-                if (!firstHasPriority) {
-                    [ret setObject:[dictionary2 objectForKey: key] forKey:key];
-                }
-            }
-        } else {
-            [ret setObject:[dictionary2 objectForKey:key] forKey: key];
-        }
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;
@@ -135,6 +77,7 @@
     if (!(self = [self init])) {
         return nil;
     }
+    
     _requestID = jsonDictionary[@"id"];
     
     NSMutableArray<PBMORTBImp *> *impressions = [NSMutableArray<PBMORTBImp *> new];
@@ -154,8 +97,6 @@
     _regs = [[PBMORTBRegs alloc] initWithJsonDictionary:jsonDictionary[@"regs"]];
     _source = [[PBMORTBSource alloc] initWithJsonDictionary:jsonDictionary[@"source"]];
     _extPrebid = [[PBMORTBBidRequestExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"] ?: @{}];
-    
-    _arbitraryJsonConfig = jsonDictionary;
     
     return self;
 }

@@ -123,12 +123,77 @@ extension Dictionary where Key == AnyHashable, Value == Any {
         
         return resultString
     }
-    
 }
 
 extension Dictionary where Key == String, Value == String {
     func toString(entrySeparator: String, keyValueSeparator: String) -> String {
         return (self as Dictionary<AnyHashable, Any>).toString(entrySeparator: entrySeparator, keyValueSeparator: keyValueSeparator)
+    }
+}
+
+extension Array where Element: Hashable {
+    
+    func removingDuplicates() -> [Element] {
+        var addedDict = [Element: Bool]()
+        
+        return filter {
+            addedDict.updateValue(true, forKey: $0) == nil
+        }
+    }
+}
+
+extension Dictionary where Key == String {
+    
+    /// Merges the current dictionary with another dictionary recursively,
+    /// with options to control replacement behavior.
+    ///
+    /// - Parameters:
+    ///   - otherDict: The dictionary to merge with the current dictionary.
+    ///   - shouldReplace: A Boolean indicating whether to replace existing values in the
+    ///     current dictionary with values from `otherDict`. Defaults to `false`.
+    ///
+    /// - Returns: A new dictionary that is the result of the merge operation.
+    ///
+    /// - Notes:
+    ///   - Arrays with matching keys are concatenated and deduplicated (if possible).
+    ///   - Nested dictionaries are merged recursively.
+    func deepMerging(
+        with otherDict: [String: Any],
+        shouldReplace: Bool = false
+    ) -> [String: Any] {
+        var result: [String: Any] = self
+        
+        for (key, value) in otherDict {
+            if let existingValue = result[key] {
+                if shouldReplace {
+                    result[key] = value
+                } else {
+                    if let existingArray = existingValue as? [Any], let newArray = value as? [Any] {
+                        let mergedArray = existingArray + newArray
+                        if let hashableMergedArray = mergedArray as? [AnyHashable] {
+                            result[key] = hashableMergedArray.removingDuplicates()
+                        } else {
+                            result[key] = mergedArray
+                        }
+                    }
+                    else if let existingDict = existingValue as? [String: Any],
+                            let newDict = value as? [String: Any] {
+                        result[key] = existingDict.deepMerging(
+                            with: newDict,
+                            shouldReplace: shouldReplace
+                        )
+                    }
+                    else {
+                        result[key] = value
+                    }
+                }
+            }
+            else {
+                result[key] = value
+            }
+        }
+        
+        return result
     }
 }
 

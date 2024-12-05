@@ -17,16 +17,7 @@ import XCTest
 
 // MARK: Test Properties
 
-fileprivate let errorMessage = "MockedRequest.toJsonString error"
-
-// MARK: - Mock
-
-class MockedRequest : PBMORTBBidRequest {
-    
-    override func toJsonString() throws -> String {
-        throw PBMError.error(message: errorMessage, type: .internalError)
-    }
-}
+fileprivate let errorMessage = "Not valid JSON object"
 
 // MARK: - Test Case
 
@@ -40,7 +31,7 @@ class PBMORTBParameterBuilderTest: XCTestCase {
     }
     
     func testAppendBuilderParameters() {
-        let res = PBMORTBParameterBuilder.buildOpenRTB(for: PBMORTBBidRequest())!
+        let res = PBMORTBParameterBuilder.buildOpenRTB(for: [:])!
         
         XCTAssertEqual(res.keys.count, 1)
         XCTAssertNotNil(res["openrtb"])
@@ -49,7 +40,8 @@ class PBMORTBParameterBuilderTest: XCTestCase {
     func testAppendBuilderParametersWitError() {
         logToFile = .init()
         
-        PBMORTBParameterBuilder.buildOpenRTB(for: MockedRequest())
+        class Dummy {}
+        PBMORTBParameterBuilder.buildOpenRTB(for: ["key": Dummy()])
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssert(log.contains(errorMessage))
