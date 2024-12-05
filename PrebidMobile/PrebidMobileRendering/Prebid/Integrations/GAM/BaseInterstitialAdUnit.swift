@@ -405,12 +405,6 @@ public class BaseInterstitialAdUnit :
         
         reportLoadingSuccess()
     }
-    
-    /// Internal delegate method.
-    public func interstitialAdLoader(_ interstitialAdLoader: PBMInterstitialAdLoader,
-                                     createdInterstitialController interstitialController: InterstitialController) {
-        interstitialController.interactionDelegate = self
-    }
    
     /// The event handler for the interstitial events.
     public var eventHandler: Any?
@@ -441,44 +435,42 @@ public class BaseInterstitialAdUnit :
     // MARK: - InterstitialControllerInteractionDelegate
     
     /// Tracks an impression for the given interstitial controller.
-    public func trackImpression(forInterstitialController: InterstitialController) {
+    public func trackImpression(forInterstitialController: PrebidMobileInterstitialControllerProtocol) {
         DispatchQueue.main.async {
             self.callEventHandler_trackImpression()
         }
     }
     
     /// Called when the ad in the interstitial controller is clicked.
-    public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidClickAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         callDelegate_didClickAd()
     }
     
     /// Called when the ad in the interstitial controller is closed.
-    public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         callDelegate_didDismissAd()
     }
     
     /// Called when the ad in the interstitial controller causes the app to leave.
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         callDelegate_willLeaveApplication()
     }
     
-    /// Called when the interstitial controller displays an ad.
-    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {
-        
-    }
-    
-    /// Called when the interstitial controller completes the ad display.
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {
-        
-    }
-    
     /// Provides the view controller to use for modal presentation.
-    public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
+    public func viewControllerForModalPresentation(
+        fromInterstitialController: PrebidMobileInterstitialControllerProtocol
+    ) -> UIViewController? {
         return targetController
     }
+    
+    /// Called when the interstitial controller displays an ad.
+    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    
+    /// Called when the interstitial controller completes the ad display.
+    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
     
     // MARK: - Private methods
 

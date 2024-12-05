@@ -13,12 +13,26 @@
  limitations under the License.
  */
 
-import Foundation
+#ifndef PBMDisplayView_InternalState_h
+#define PBMDisplayView_InternalState_h
 
-@objc public protocol DisplayViewLoadingDelegate: NSObjectProtocol {
+#import "PBMDisplayView.h"
 
-    func displayViewDidLoadAd(_ displayView: PBMDisplayView)
-    
-    func displayView(_ displayView: PBMDisplayView,
-                     didFailWithError error: Error)
-}
+@class AdUnitConfig;
+@protocol PrebidServerConnectionProtocol;
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface PBMDisplayView ()
+
+@property (nonatomic, strong, readonly, nullable) id<PrebidServerConnectionProtocol> connection;
+
+- (instancetype)initWithFrame:(CGRect)frame
+                          bid:(Bid *)bid
+              adConfiguration:(AdUnitConfig *)adConfiguration;
+
+@end
+
+NS_ASSUME_NONNULL_END
+
+#endif /* PBMDisplayView_InternalState_h */

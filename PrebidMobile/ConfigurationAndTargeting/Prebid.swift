@@ -258,15 +258,15 @@ public class Prebid: NSObject {
         timeoutMillis = defaultTimeoutMillis
     }
     
-    public static func registerPluginRenderer(_ prebidMobilePluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.registerPlugin(prebidMobilePluginRenderer);
+    public static func registerPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {
+        PrebidMobilePluginRegister.shared.registerPlugin(pluginRenderer)
     }
     
-    public static func unregisterPluginRenderer(_ prebidMobilePluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.unregisterPlugin(prebidMobilePluginRenderer);
+    public static func unregisterPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {
+        PrebidMobilePluginRegister.shared.unregisterPlugin(pluginRenderer)
     }
     
-    public static func containsPluginRenderer(_ prebidMobilePluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.containsPlugin(prebidMobilePluginRenderer);
+    public static func containsPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) -> Bool {
+        PrebidMobilePluginRegister.shared.containsPlugin(pluginRenderer)
     }
 }

@@ -33,10 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
                     loadedAd:(void (^)(UIViewController * _Nullable))showBlock
                 isReadyBlock:(BOOL (^)(void))isReadyBlock;
 
-// Hook to insert interaction delegate
-- (void) interstitialAdLoader:(PBMInterstitialAdLoader *)interstitialAdLoader
-createdInterstitialController:(InterstitialController *)interstitialController;
-
 @optional
 
 @property (nonatomic, strong, nullable) NSObject *reward;

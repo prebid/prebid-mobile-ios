@@ -13,24 +13,31 @@
  limitations under the License.
  */
 
-#ifndef PBMDisplayView_InternalState_h
-#define PBMDisplayView_InternalState_h
+#import <UIKit/UIKit.h>
 
-#import "PBMDisplayView.h"
+#import "PBMAdViewManagerDelegate.h"
+#import "PBMModalManagerDelegate.h"
+#import "PrebidMobileDisplayViewProtocol.h"
+
+@protocol DisplayViewLoadingDelegate;
+@protocol DisplayViewInteractionDelegate;
 
 @class AdUnitConfig;
-@protocol PrebidServerConnectionProtocol;
+@class Bid;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMDisplayView ()
+@interface PBMDisplayView : UIView <PrebidMobileDisplayViewProtocol, PBMAdViewManagerDelegate, PBMModalManagerDelegate>
 
-@property (nonatomic, strong, readonly, nullable) id<PrebidServerConnectionProtocol> connection;
+@property (atomic, weak, nullable) NSObject<DisplayViewLoadingDelegate> *loadingDelegate;
+@property (atomic, weak, nullable) NSObject<DisplayViewInteractionDelegate> *interactionDelegate;
+@property (nonatomic, readonly) BOOL isCreativeOpened;
 
+- (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid configId:(NSString *)configId;
 - (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid adConfiguration:(AdUnitConfig *)adConfiguration;
+
+- (void)loadAd;
 
 @end
 
 NS_ASSUME_NONNULL_END
-
-#endif /* PBMDisplayView_InternalState_h */

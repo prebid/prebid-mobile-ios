@@ -17,7 +17,10 @@ import Foundation
 import PrebidMobile
 import AppLovinSDK
 
-extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate, DisplayViewInteractionDelegate {
+extension PrebidMAXMediationAdapter:
+    MAAdViewAdapter,
+    DisplayViewLoadingDelegate,
+    DisplayViewInteractionDelegate {
     
     // MARK: - MAAdViewAdapter
 
@@ -59,41 +62,36 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
         displayView?.interactionDelegate = self
         displayView?.loadingDelegate = self
         
-        displayView?.displayAd()
+        displayView?.loadAd()
     }
     
     // MARK: - DisplayViewLoadingDelegate
     
-    public func displayViewDidLoadAd(_ displayView: PBMDisplayView) {
+    public func displayViewDidLoadAd(_ displayView: UIView) {
         bannerDelegate?.didLoadAd(forAdView: displayView)
     }
     
-    public func displayView(_ displayView: PBMDisplayView, didFailWithError error: Error) {
+    public func displayView(_ displayView: UIView, didFailWithError error: Error) {
         let maError = MAAdapterError(nsError: error)
         bannerDelegate?.didFailToLoadAdViewAdWithError(maError)
     }
     
     // MARK: DisplayViewInteractionDelegate
     
-    public func trackImpression(forDisplayView: PBMDisplayView) {
-        
-    }
-    
-    public func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController? {
+    public func viewControllerForModalPresentation(fromDisplayView: UIView) -> UIViewController? {
         return UIApplication.shared.windows.first?.rootViewController
     }
     
-    public func didLeaveApp(from displayView: PBMDisplayView) {
-        
-    }
-    
-    public func willPresentModal(from displayView: PBMDisplayView) {
+    public func willPresentModal(from displayView: UIView) {
         bannerDelegate?.didClickAdViewAd()
         bannerDelegate?.didExpandAdViewAd()
     }
     
-    public func didDismissModal(from displayView: PBMDisplayView) {
+    public func didDismissModal(from displayView: UIView) {
         bannerDelegate?.didHideAdViewAd()
         bannerDelegate?.didCollapseAdViewAd()
     }
+    
+    public func trackImpression(forDisplayView: UIView) {}
+    public func didLeaveApp(from displayView: UIView) {}
 }

@@ -78,7 +78,7 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
     /// Called when the interstitial ad is closed.
     ///
     /// - Parameter interstitialController: The controller managing the interstitial ad.
-    @objc public override func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+    @objc public override func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         callDelegate_rewardedAdUserDidEarnReward()
         super.interstitialControllerDidCloseAd(interstitialController)
     }
