@@ -174,7 +174,7 @@ struct IntegrationCaseManager {
             integrationKind: .inApp,
             adFormat: .displayInterstitial,
             configurationClosure: {
-                InAppDisplayInterstitialPluginInterstitialViewController()
+                InAppDisplayInterstitialPluginRendererViewController()
             }
         ),
         
