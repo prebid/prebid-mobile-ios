@@ -702,4 +702,24 @@ class AdUnitTests: XCTestCase {
         let objects2 = adUnit.getUserData()!
         XCTAssertEqual(0, objects2.count)
     }
+    
+    func testAdUnitSetAdPosition() {
+        let adUnit = AdUnit(
+            configId: "test",
+            size: CGSize(width: 300, height: 250),
+            adFormats: [.banner, .video]
+        )
+        
+        let adUnitConfig = adUnit.adUnitConfig
+        
+        adUnit.adPosition = .header
+        
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .header)
+        
+        adUnit.adPosition = .footer
+        
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .footer)
+    }
 }

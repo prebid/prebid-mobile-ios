@@ -26,7 +26,7 @@ class AdUnitSuccessorTests: XCTestCase {
         Prebid.shared.useExternalClickthroughBrowser = false
     }
     
-    //MARK: - BannerAdUnit
+    // MARK: - BannerAdUnit
     
     func testBannerAdUnitCreation() {
         //when
@@ -51,7 +51,8 @@ class AdUnitSuccessorTests: XCTestCase {
         bannerBasedAdUnits.forEach { checkBannerParametersHelper($0) }
     }
     
-    //MARK: - InterstitialAdUnit
+    // MARK: - InterstitialAdUnit
+    
     func testInterstitialAdUnitCreation() {
         //when
         let adUnit = InterstitialAdUnit(configId: Constants.configID1)
@@ -86,6 +87,7 @@ class AdUnitSuccessorTests: XCTestCase {
     }
     
     //MARK: - VideoAdUnit
+    
     func testVideoAdUnitCreation() {
         //when
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
@@ -95,6 +97,7 @@ class AdUnitSuccessorTests: XCTestCase {
     }
     
     //MARK: - VideoInterstitialAdUnit
+    
     func testVideoInterstitialAdUnitCreation() {
         //when
         let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)

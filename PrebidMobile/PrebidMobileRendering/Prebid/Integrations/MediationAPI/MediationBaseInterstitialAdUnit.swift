@@ -28,6 +28,12 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
+    /// The position of the ad on the screen.
+    public var adPosition: AdPosition {
+        get { adUnitConfig.adPosition }
+        set { adUnitConfig.adPosition = newValue }
+    }
+    
     /// Indicates whether the video ad is muted.
     public var isMuted: Bool {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }

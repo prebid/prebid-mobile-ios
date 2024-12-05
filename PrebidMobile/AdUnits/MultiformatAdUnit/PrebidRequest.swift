@@ -19,6 +19,11 @@ import Foundation
 @objcMembers
 public class PrebidRequest: NSObject {
     
+    // MARK: - Public properties
+    
+    /// The position of the ad on the screen.
+    public var adPosition: AdPosition = .undefined
+    
     // MARK: - Internal properties
     
     private(set) var bannerParameters: BannerParameters?
@@ -45,8 +50,13 @@ public class PrebidRequest: NSObject {
     ///   - nativeParameters: The native parameters for the ad request.
     ///   - isInterstitial: Indicates if the request is for an interstitial ad.
     ///   - isRewarded: Indicates if the request is for a rewarded ad.
-    public init(bannerParameters: BannerParameters? = nil, videoParameters: VideoParameters? = nil,
-                nativeParameters: NativeParameters? = nil, isInterstitial: Bool = false, isRewarded: Bool = false) {
+    public init(
+        bannerParameters: BannerParameters? = nil,
+        videoParameters: VideoParameters? = nil,
+        nativeParameters: NativeParameters? = nil,
+        isInterstitial: Bool = false,
+        isRewarded: Bool = false
+    ) {
         self.bannerParameters = bannerParameters
         self.videoParameters = videoParameters
         self.nativeParameters = nativeParameters

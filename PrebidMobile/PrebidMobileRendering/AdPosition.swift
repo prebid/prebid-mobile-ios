@@ -33,16 +33,25 @@ import Foundation
 public enum AdPosition: Int {
     
     /// 0 Unknown
-    case undefined  = 0
+    case undefined = 0
+    
+    /// 1 Above the Fold
+    case aboveTheFold = 1
+    
+    /// 2 Locked (i.e. fixed position)
+    case locked = 2
+    
+    /// 3 Below the Fold
+    case belowTheFold = 3
     
     /// 4 Header
-    case header     = 4
+    case header = 4
     
     /// 5 Footer
-    case footer     = 5
+    case footer = 5
     
     /// 6 Sidebar
-    case sidebar    = 6
+    case sidebar = 6
     
     /// 7 Full Screen
     case fullScreen = 7

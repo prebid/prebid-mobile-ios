@@ -30,6 +30,12 @@ fileprivate let HBKeywordPrefix                = "hb_"
     @objc var localExtras: [AnyHashable : Any]?
 }
 
+class MockEmptyPrebidMediationDelegate: PrebidMediationDelegate {
+    func setUpAdObject(with values: [String : Any]) -> Bool { true }
+    func cleanUpAdObject() {}
+    func getAdView() -> UIView? { UIView(frame: .zero)}
+}
+
 class MockMediationUtils: PrebidMediationDelegate {
     
     let adObject: MockAdObject

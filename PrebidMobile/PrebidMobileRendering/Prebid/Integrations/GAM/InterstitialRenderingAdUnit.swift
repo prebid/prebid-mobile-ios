@@ -33,6 +33,12 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         set { adUnitConfig.adFormats = newValue }
     }
     
+    /// The position of the ad on the screen.
+    public var adPosition: AdPosition {
+        get { adUnitConfig.adPosition }
+        set { adUnitConfig.adPosition = newValue }
+    }
+    
     /// The ORTB (OpenRTB) configuration string for the ad unit.
     public var ortbConfig: String? {
         get { adUnitConfig.ortbConfig }
