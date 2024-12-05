@@ -36,7 +36,7 @@
     _meta = jsonDictionary[@"meta"];
     _type = jsonDictionary[@"type"];
     
-    NSArray * const passthroughDics = jsonDictionary[@"passthrough"];
+    NSArray<PBMJsonDictionary *> *const passthroughDics = [PBMFunctions dictionariesForPassthrough:jsonDictionary[@"passthrough"]];
     _passthrough = nil;
     if (passthroughDics) {
         NSMutableArray * const newPassthrough = [[NSMutableArray alloc] initWithCapacity:passthroughDics.count];
