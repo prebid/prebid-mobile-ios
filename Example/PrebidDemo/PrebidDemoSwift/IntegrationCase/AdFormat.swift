@@ -22,6 +22,7 @@ enum AdFormat: CustomStringConvertible, CaseIterable {
     case nativeBanner
     case displayInterstitial
     case videoInterstitial
+    case displayRewarded
     case videoRewarded
     case videoInstream
     case native
@@ -39,6 +40,8 @@ enum AdFormat: CustomStringConvertible, CaseIterable {
             return "Display Interstitial"
         case .videoInterstitial:
             return "Video Interstitial"
+        case .displayRewarded:
+            return "Display Rewarded"
         case .videoRewarded:
             return "Video Rewarded"
         case .videoInstream:

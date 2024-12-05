@@ -125,21 +125,30 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         XCTAssertFalse(viewController.prefersStatusBarHidden)
     }
     
-    func testCreativeDisplayCompleted() {
+    func testCreativeDisplayCompleted_Rewarded() {
         let controller = PBMModalViewController()
         let displayProperties = PBMInterstitialDisplayProperties()
         displayProperties.closeDelayLeft = 3
         
         let adConfiguration = AdConfiguration()
-        adConfiguration.isOptIn = true
+        adConfiguration.isRewarded = true
+        adConfiguration.winningBidAdFormat = .video
         
-        let modalState = PBMModalState(view: UIView(), adConfiguration: adConfiguration, displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let modalState = PBMModalState(
+            view: UIView(),
+            adConfiguration: adConfiguration,
+            displayProperties: displayProperties,
+            onStatePopFinished: nil,
+            onStateHasLeftApp: nil
+        )
+        
         controller.modalState = modalState
         
-        controller.closeButtonDecorator.button.isHidden = true;
+        controller.closeButtonDecorator.button.isHidden = true
         XCTAssertTrue(controller.closeButtonDecorator.button.isHidden)
         
         let creative = UtilitiesForTesting.createHTMLCreative()
+        creative.creativeModel?.adConfiguration = adConfiguration
         controller.creativeDisplayCompleted(creative)
         XCTAssertFalse(controller.closeButtonDecorator.button.isHidden)
     }

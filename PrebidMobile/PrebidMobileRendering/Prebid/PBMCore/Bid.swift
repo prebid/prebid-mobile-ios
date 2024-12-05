@@ -87,6 +87,10 @@ public class Bid: NSObject {
     }
     #endif
     
+    public var rewardedConfig: PBMORTBRewardedConfiguration? {
+        bid.ext.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.rewardedConfiguration
+    }
+    
     /// Returns YES if this bid is intented for display.
     @objc public var isWinning: Bool {
         guard let targetingInfo = self.targetingInfo else {

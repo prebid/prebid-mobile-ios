@@ -61,6 +61,8 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 @property (nonatomic, assign) BOOL isMRAID;
 @property (nonatomic, assign, getter=isRotationEnabled) BOOL rotationEnabled;
 
+@property (nonatomic, strong, nullable) NSString *rewardedAdURL;
+
 #pragma mark - Initialization
 
 - (instancetype)initWithFrame:(CGRect)frame;

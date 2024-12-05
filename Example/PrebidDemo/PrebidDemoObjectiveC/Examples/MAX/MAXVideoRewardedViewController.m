@@ -16,7 +16,7 @@
 #import "MAXVideoRewardedViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoRewardedMAX = @"prebid-demo-video-rewarded-320-480";
+NSString * const storedImpVideoRewardedMAX = @"prebid-demo-video-rewarded-endcard-time";
 NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
 
 @interface MAXVideoRewardedViewController ()
@@ -86,6 +86,7 @@ NSString * const maxAdUnitRewardedId = @"75edc39e22574a9d";
 }
 
 - (void)didRewardUserForAd:(MAAd *)ad withReward:(MAReward *)reward {
+    NSLog(@"User did earn reward: label - %@, amount - %ld", reward.label, reward.amount);
 }
 
 @end

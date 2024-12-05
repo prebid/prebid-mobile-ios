@@ -16,177 +16,385 @@
 import UIKit
 
 /// Represents an rewarded ad unit. Built for rendering type of integration.
-@objc
-public class RewardedAdUnit: BaseInterstitialAdUnit,
-                             RewardedEventInteractionDelegate {
-   
-    /// The reward object for the ad unit.
-    @objc public private(set) var reward: NSObject?
+@objc @objcMembers
+public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
-    // MARK: - Lifecycle
+    /// A delegate for handling interactions with the ad unit.
+    public weak var delegate: RewardedAdUnitDelegate?
     
-    /// Initializes a `RewardedAdUnit` with the given configuration ID and event handler.
-    ///
-    /// - Parameter configID: The configuration ID for the ad unit.
-    /// - Parameter eventHandler: The event handler for the ad unit.
-    @objc public convenience init(configID: String, eventHandler: AnyObject) {
+    /// A Boolean value indicating whether the ad unit is ready to be displayed.
+    public var isReady: Bool {
+        baseAdUnit.isReady
+    }
+    
+    /// The set of ad formats supported by this ad unit.
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
+    }
+    
+    /// The ORTB (OpenRTB) configuration string for the ad unit.
+    public var ortbConfig: String? {
+        get { adUnitConfig.ortbConfig }
+        set { adUnitConfig.ortbConfig = newValue }
+    }
+    
+    /// The banner parameters used for configuring ad unit.
+    public var bannerParameters: BannerParameters {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+    }
+    
+    /// The video parameters used for configuring ad unit.
+    public var videoParameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+    }
+    
+    // MARK: - Video controls configuration
+    
+    /// The area of the close button in the video controls as a percentage.
+    public var closeButtonArea: Double {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea = newValue }
+    }
+    
+    /// The position of the close button in the video controls.
+    public var closeButtonPosition: Position {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition = newValue }
+    }
+    
+    /// A Boolean value indicating whether the video controls are muted.
+    public var isMuted: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
+    }
+    
+    /// A Boolean value indicating whether the sound button is visible in the video controls.
+    public var isSoundButtonVisible: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
+    }
+    
+    // MARK: Private properties
+    
+    private let baseAdUnit: BaseRewardedAdUnit
+    
+    private var adUnitConfig: AdUnitConfig {
+        baseAdUnit.adUnitConfig
+    }
+    
+    private var eventHandler: PBMPrimaryAdRequesterProtocol {
+        baseAdUnit.eventHandler
+    }
+    
+    /// Initializes a new `BaseInterstitialAdUnit` with the specified configuration ID.
+    /// - Parameter configID: The unique identifier for the ad unit configuration.
+    public convenience init(configID: String) {
         self.init(
             configID: configID,
             minSizePerc: nil,
-            eventHandler: eventHandler)
+            primaryAdRequester: RewardedEventHandlerStandalone()
+        )
     }
-
-    /// Initializes a `RewardedAdUnit` with the given configuration ID and a default event handler.
-    ///
-    /// - Parameter configID: The configuration ID for the ad unit.
-    @objc public convenience init(configID: String) {
+    
+    /// Initializes a new `InterstitialRenderingAdUnit` with the specified configuration ID and minimum size percentage.
+    /// - Parameters:
+    ///   - configID: The unique identifier for the ad unit configuration.
+    ///   - minSizePercentage: The minimum size percentage for the ad unit.
+    public convenience init(configID: String, minSizePercentage: CGSize) {
+        self.init(
+            configID: configID,
+            minSizePerc: NSValue(cgSize: minSizePercentage),
+            primaryAdRequester: RewardedEventHandlerStandalone()
+        )
+    }
+    
+    /// Initializes a new `InterstitialRenderingAdUnit` with the specified configuration ID and event handler.
+    /// - Parameters:
+    ///   - configID: The unique identifier for the ad unit configuration.
+    ///   - eventHandler: An object for handling ad events.
+    public convenience init(configID: String, eventHandler: AnyObject?) {
         self.init(
             configID: configID,
             minSizePerc: nil,
-            eventHandler: RewardedEventHandlerStandalone())
+            primaryAdRequester: (eventHandler as? PBMPrimaryAdRequesterProtocol) ?? RewardedEventHandlerStandalone()
+        )
     }
     
-    /// Initializes a `RewardedAdUnit` with the given configuration ID, minimum size percentage, and event handler.
-    ///
-    /// - Parameter configID: The configuration ID for the ad unit.
-    /// - Parameter minSizePerc: The minimum size percentage for the ad unit.
-    /// - Parameter eventHandler: The event handler for the ad unit.
-    @objc required init(configID:String, minSizePerc: NSValue?, eventHandler: AnyObject?) {
-        super.init(
+    /// Initializes a new `InterstitialRenderingAdUnit` with the specified configuration ID, minimum size percentage, and event handler.
+    /// - Parameters:
+    ///   - configID: The unique identifier for the ad unit configuration.
+    ///   - minSizePercentage: The minimum size percentage for the ad unit.
+    ///   - eventHandler: An object for handling ad events.
+    public convenience init(
+        configID: String,
+        minSizePercentage: CGSize,
+        eventHandler: AnyObject
+    ) {
+        self.init(
+            configID: configID,
+            minSizePerc: NSValue(cgSize: minSizePercentage),
+            primaryAdRequester: (eventHandler as? PBMPrimaryAdRequesterProtocol) ?? RewardedEventHandlerStandalone()
+        )
+    }
+    
+    required init(
+        configID: String,
+        minSizePerc: NSValue?,
+        primaryAdRequester: PBMPrimaryAdRequesterProtocol
+    ) {
+        baseAdUnit = BaseRewardedAdUnit(
             configID: configID,
             minSizePerc: minSizePerc,
-            eventHandler: eventHandler)
+            eventHandler: primaryAdRequester
+        )
         
-        adUnitConfig.adConfiguration.isOptIn = true
-        adFormats = [.video]
+        super.init()
+        
+        baseAdUnit.delegate = self
     }
     
-    // MARK: - PBMRewardedEventDelegate
+    // MARK: - Public methods
     
-    /// Called when the user earns a reward.
-    ///
-    /// - Parameter reward: The reward object associated with the event.
-    @objc public func userDidEarnReward(_ reward: NSObject?) {
-        DispatchQueue.main.async(execute: { [weak self] in
-            self?.reward = reward
-            self?.callDelegate_rewardedAdUserDidEarnReward()
-        })
+    /// Loads a new ad.
+    public func loadAd() {
+        baseAdUnit.loadAd()
     }
     
-    // MARK: - BaseInterstitialAdUnitProtocol protocol
-    
-    /// Called when the interstitial ad is closed.
-    ///
-    /// - Parameter interstitialController: The controller managing the interstitial ad.
-    @objc public override func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
-        callDelegate_rewardedAdUserDidEarnReward()
-        super.interstitialControllerDidCloseAd(interstitialController)
-    }
-
-    // MARK: - Protected overrides
-    
-    /// Called when the ad unit receives an ad.
-    @objc public override func callDelegate_didReceiveAd() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdDidReceiveAd?(self)
-        }
-    }
-
-    /// Called when the ad unit fails to receive an ad.
-    ///
-    /// - Parameter error: The error describing the failure.
-    @objc public override func callDelegate_didFailToReceiveAd(with error: Error?) {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAd?(self, didFailToReceiveAdWithError: error)
-        }
+    /// Shows the ad from a specified view controller.
+    /// - Parameter controller: The view controller from which the ad will be presented.
+    /// - Note: This method must be called on the main thread.
+    public func show(from controller: UIViewController) {
+        baseAdUnit.show(from: controller)
     }
     
-    /// Called when the ad unit will present an ad.
-    @objc public override func callDelegate_willPresentAd() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdWillPresentAd?(self)
-        }
+    // MARK: - Ext Data (imp[].ext.data)
+    
+    /// Adds context data for a specified key.
+    /// - Parameters:
+    ///   - data: The data to add.
+    ///   - key: The key associated with the data.
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
+    public func addContextData(_ data: String, forKey key: String) {
+        addExtData(key: key, value: data)
     }
-
-    /// Called when the ad unit dismisses an ad.
-    @objc public override func callDelegate_didDismissAd() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdDidDismissAd?(self)
-        }
+    
+    /// Updates context data for a specified key.
+    /// - Parameters:
+    ///   - data: A set of data to update.
+    ///   - key: The key associated with the data.
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
+    public func updateContextData(_ data: Set<String>, forKey key: String) {
+        updateExtData(key: key, value: data)
     }
-
-    /// Called when the ad unit will leave the application.
-    @objc public override func callDelegate_willLeaveApplication() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdWillLeaveApplication?(self)
-        }
+    
+    /// Removes context data for a specified key.
+    /// - Parameter key: The key associated with the data to remove.
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
+    public func removeContextDate(forKey key: String) {
+        removeExtData(forKey: key)
     }
-
-    /// Called when the ad unit is clicked.
-    @objc public override func callDelegate_didClickAd() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdDidClickAd?(self)
+    
+    /// Clears all context data.
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
+    public func clearContextData() {
+        clearExtData()
+    }
+    
+    /// Adds ext data.
+    /// - Parameters:
+    ///   - key: The key for the data.
+    ///   - value: The value for the data.
+    public func addExtData(key: String, value: String) {
+        adUnitConfig.addExtData(key: key, value: value)
+    }
+    
+    /// Updates ext data.
+    /// - Parameters:
+    ///   - key: The key for the data.
+    ///   - value: The value for the data.
+    public func updateExtData(key: String, value: Set<String>) {
+        adUnitConfig.updateExtData(key: key, value: value)
+    }
+    
+    /// Removes ext data.
+    /// - Parameters:
+    ///   - key: The key for the data.
+    public func removeExtData(forKey: String) {
+        adUnitConfig.removeExtData(for: forKey)
+    }
+    
+    /// Clears ext data.
+    public func clearExtData() {
+        adUnitConfig.clearExtData()
+    }
+    
+    // MARK: - Ext keywords (imp[].ext.keywords)
+    
+    /// Adds a context keyword.
+    /// - Parameter newElement: The keyword to add.
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
+    public func addContextKeyword(_ newElement: String) {
+        addExtKeyword(newElement)
+    }
+    
+    /// Adds a set of context keywords.
+    /// - Parameter newElements: A set of keywords to add.
+    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
+    public func addContextKeywords(_ newElements: Set<String>) {
+        addExtKeywords(newElements)
+    }
+    
+    /// Removes a context keyword.
+    /// - Parameter element: The keyword to remove.
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
+    public func removeContextKeyword(_ element: String) {
+        removeExtKeyword(element)
+    }
+    
+    /// Clears all context keywords.
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
+    public func clearContextKeywords() {
+        clearExtKeywords()
+    }
+    
+    /// Adds an extended keyword.
+    /// - Parameter newElement: The keyword to be added.
+    public func addExtKeyword(_ newElement: String) {
+        adUnitConfig.addExtKeyword(newElement)
+    }
+    
+    /// Adds multiple extended keywords.
+    /// - Parameter newElements: A set of keywords to be added.
+    public func addExtKeywords(_ newElements: Set<String>) {
+        adUnitConfig.addExtKeywords(newElements)
+    }
+    
+    /// Removes an extended keyword.
+    /// - Parameter element: The keyword to be removed.
+    public func removeExtKeyword(_ element: String) {
+        adUnitConfig.removeExtKeyword(element)
+    }
+    
+    /// Clears all extended keywords.
+    public func clearExtKeywords() {
+        adUnitConfig.clearExtKeywords()
+    }
+    
+    // MARK: - App Content (app.content.data)
+    
+    /// Sets the app content data.
+    /// - Parameter appContent: The app content data.
+    public func setAppContent(_ appContent: PBMORTBAppContent) {
+        adUnitConfig.setAppContent(appContent)
+    }
+    
+    /// Clears the app content data.
+    public func clearAppContent() {
+        adUnitConfig.clearAppContent()
+    }
+    
+    /// Adds app content data objects.
+    /// - Parameter dataObjects: The data objects to be added.
+    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
+        adUnitConfig.addAppContentData(dataObjects)
+    }
+    
+    /// Removes an app content data object.
+    /// - Parameter dataObject: The data object to be removed.
+    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
+        adUnitConfig.removeAppContentData(dataObject)
+    }
+    
+    /// Clears all app content data objects.
+    public func clearAppContentDataObjects() {
+        adUnitConfig.clearAppContentData()
+    }
+    
+    // MARK: - User Data (user.data)
+    
+    /// Adds user data objects.
+    /// - Parameter userDataObjects: The user data objects to be added.
+    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
+        adUnitConfig.addUserData(userDataObjects)
+    }
+    
+    /// Removes a user data object.
+        /// - Parameter userDataObject: The user data object to be removed.
+    public func removeUserData(_ userDataObject: PBMORTBContentData) {
+        adUnitConfig.removeUserData(userDataObject)
+    }
+    
+    /// Clears all user data objects.
+    public func clearUserData() {
+        adUnitConfig.clearUserData()
+    }
+    
+    // MARK: - Internal methods
+    
+    func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+        baseAdUnit.interstitialControllerDidCloseAd(interstitialController)
+    }
+    
+    func callDelegate_didReceiveAd() {
+        delegate?.rewardedAdDidReceiveAd?(self)
+    }
+    
+    func callDelegate_didFailToReceiveAd(with error: Error?) {
+        delegate?.rewardedAd?(self, didFailToReceiveAdWithError: error)
+    }
+    
+    func callDelegate_willPresentAd() {
+        delegate?.rewardedAdWillPresentAd?(self)
+    }
+    
+    func callDelegate_didDismissAd() {
+        delegate?.rewardedAdDidDismissAd?(self)
+    }
+    
+    func callDelegate_willLeaveApplication() {
+        delegate?.rewardedAdWillLeaveApplication?(self)
+    }
+    
+    func callDelegate_didClickAd() {
+        delegate?.rewardedAdDidClickAd?(self)
+    }
+    
+    func callEventHandler_isReady() -> Bool {
+        (eventHandler as? RewardedEventHandlerProtocol)?.isReady ?? false
+    }
+    
+    func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
+            eventHandler.loadingDelegate = loadingDelegate as? InterstitialEventLoadingDelegate
         }
     }
     
-    /// Returns whether the event handler is ready.
-    ///
-    /// - Returns: A boolean indicating if the event handler is ready.
-    @objc public override func callEventHandler_isReady() -> Bool {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
-            return eventHandler.isReady
-        } else {
-            return false
+    func callEventHandler_setInteractionDelegate() {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
+            eventHandler.interactionDelegate = baseAdUnit
         }
     }
-
-    /// Sets the loading delegate for the event handler.
-    ///
-    /// - Parameter loadingDelegate: The loading delegate to set.
-    @objc public override func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
-            eventHandler.loadingDelegate = loadingDelegate as? RewardedEventLoadingDelegate
-        }
-    }
-
-    /// Sets the interaction delegate for the event handler.
-    @objc public override func callEventHandler_setInteractionDelegate() {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
-            eventHandler.interactionDelegate = self
-        }
-    }
-
-    /// Requests an ad with the given bid response.
-    ///
-    /// - Parameter bidResponse: The bid response to use for the ad request.
-    @objc public override func callEventHandler_requestAd(with bidResponse: BidResponse?) {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
+    
+    func callEventHandler_requestAd(with bidResponse: BidResponse?) {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.requestAd(with: bidResponse)
         }
     }
-
-    /// Shows the ad from the specified view controller.
-    ///
-    /// - Parameter controller: The view controller from which to present the ad.
-    @objc public override func callEventHandler_show(from controller: UIViewController?) {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
+    
+    func callEventHandler_show(from controller: UIViewController?) {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.show(from: controller)
         }
     }
-
-    /// Tracks the impression for the ad.
-    @objc public override func callEventHandler_trackImpression() {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
+    
+    func callEventHandler_trackImpression() {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.trackImpression?()
         }
     }
     
-    // MARK: - Private helpers
-    
-    /// Calls the delegate method to notify that the user has earned a reward.
-    func callDelegate_rewardedAdUserDidEarnReward() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdUserDidEarnReward?(self)
-        }
+    func callDelegate_rewardedAdUserDidEarnReward(reward: PrebidReward) {
+        delegate?.rewardedAdUserDidEarnReward?(self, reward: reward)
     }
 }

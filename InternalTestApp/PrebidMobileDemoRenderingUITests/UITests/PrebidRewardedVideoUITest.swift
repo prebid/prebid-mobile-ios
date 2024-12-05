@@ -20,12 +20,8 @@ class PrebidRewardedVideoUITest: RepeatedUITestCase {
     private let waitingTimeout = 15.0
     private let videoDuration = TimeInterval(17)
     
-    let videoRewardedTitle = "Video Rewarded 320x480 without End Card (In-App)"
-    let videoRewardedEndCardTitle = "Video Rewarded 320x480 (In-App)"
-    
-    override func setUp() {
-        super.setUp()
-    }
+    let videoRewardedTitle = "Video Rewarded Time 320x480 (In-App)"
+    let videoRewardedEndCardTitle = "Video Rewarded Endcard Time 320x480 (In-App)"
     
     func testTapEndCardThenClose() {
         repeatTesting(times: 7) {
@@ -33,26 +29,33 @@ class PrebidRewardedVideoUITest: RepeatedUITestCase {
             
             // Tap on End card
             let endCardLink = app.links.firstMatch
-            waitForExists(element: endCardLink, waitSeconds: 5)
+            waitForExists(element: endCardLink, waitSeconds: 20)
             endCardLink.tap()
             
             //The video should still be visible. Close it.
-            closeAndVerifyPostEvents(expectClick: true)
+            let done = app.descendants(matching: .button)["Done"]
+            waitForExists(element: done, waitSeconds: waitingTimeout)
+            done.tapFrameCenter()
+            
+            // Wait for auto close action
+            sleep(10)
+            
+            verifyPostEvents(expectClick: true)
         }
     }
     
-    func testNoClickthrough () {
+    func testNoClickthrough() {
         repeatTesting(times: 7) {
             openVideoAndWait(title: videoRewardedEndCardTitle)
-            
-            closeAndVerifyPostEvents(expectClick: false)
+            // Wait for auto close action
+            sleep(10)
+            verifyPostEvents(expectClick: false)
         }
     }
     
     func testAutoClose() {
         repeatTesting(times: 7) {
             openVideoAndWait(title: videoRewardedTitle)
-            
             verifyPostEvents(expectClick: false)
         }
     }
@@ -92,7 +95,7 @@ class PrebidRewardedVideoUITest: RepeatedUITestCase {
             done.tapFrameCenter()
         } else {
             let closeBtn = app.buttons["PBMCloseButton"]
-            waitForExists(element: closeBtn, waitSeconds: 5)
+            waitForExists(element: closeBtn, waitSeconds: 10)
             closeBtn.tap()
         }
         

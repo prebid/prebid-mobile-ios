@@ -145,6 +145,8 @@ class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDeleg
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
     
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
+    
     // MARK: - PBMVideoViewDelegate
     
     func videoViewFailedWithError(_ error: Error) {}
@@ -155,4 +157,5 @@ class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDeleg
     }
     
     func videoWasClicked() {}
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
 }

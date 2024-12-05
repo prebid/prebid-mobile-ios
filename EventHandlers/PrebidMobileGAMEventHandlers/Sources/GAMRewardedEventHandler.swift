@@ -58,8 +58,7 @@ public class GAMRewardedAdEventHandler :
     
     // This is  a very dirty hack based on dynamic properties of Objc Object.
     // Need to rewrite Interstitial ad loader to swift and find out how to pass the reward
-    public weak var loadingDelegate: RewardedEventLoadingDelegate?
-    
+    public weak var loadingDelegate: InterstitialEventLoadingDelegate?
     public weak var interactionDelegate: RewardedEventInteractionDelegate?
     
     // MARK: - Public Methods
@@ -169,7 +168,7 @@ public class GAMRewardedAdEventHandler :
             forgetCurrentRewarded()
             
             embeddedRewarded = rewarded
-            loadingDelegate?.reward = rewarded?.reward
+            interactionDelegate?.userDidEarnReward(rewarded?.reward?.toPrebidReward())
             loadingDelegate?.adServerDidWin()
         }
     }
@@ -190,9 +189,9 @@ public class GAMRewardedAdEventHandler :
         embeddedRewarded = rewarded
         isExpectingAppEvent = false
         appEventTimer?.invalidate()
-        appEventTimer = nil;
+        appEventTimer = nil
         
-        loadingDelegate?.reward = rewarded?.reward
+        interactionDelegate?.userDidEarnReward(rewarded?.reward?.toPrebidReward())
         loadingDelegate?.adServerDidWin()
     }
     
@@ -211,7 +210,6 @@ public class GAMRewardedAdEventHandler :
             forgetCurrentRewarded()
             proxyRewarded = rewarded
             
-            loadingDelegate?.reward = rewarded?.reward
             loadingDelegate?.prebidDidWin()
         }
     }

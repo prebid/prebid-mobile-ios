@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-import Foundation
 import UIKit
 
 public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
@@ -25,10 +24,10 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         set { adConfiguration.adFormats = newValue }
     }
     
-    /// Sets a video interstitial ad unit as an opt-in video
-    @objc public var isOptIn: Bool {
-        get { adConfiguration.adConfiguration.isOptIn }
-        set { adConfiguration.adConfiguration.isOptIn = newValue }
+    /// Sets an ad unit as a rewarded
+    @objc public var isRewarded: Bool {
+        get { adConfiguration.adConfiguration.isRewarded }
+        set { adConfiguration.adConfiguration.isRewarded = newValue }
     }
     
     @objc public var videoControlsConfig: VideoControlsConfiguration {
@@ -61,6 +60,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     @objc public convenience init(bid: Bid, configId: String) {
         let adConfig = AdUnitConfig(configId: configId)
         adConfig.adConfiguration.isInterstitialAd = true
+        adConfig.adConfiguration.isRewarded = bid.rewardedConfig != nil
         self.init(bid: bid, adConfiguration: adConfig)
     }
     
@@ -69,9 +69,15 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         
         self.renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
 
-        
         let connection: PrebidServerConnectionProtocol = PrebidServerConnection.shared
-        self.renderer?.createInterstitialController?(bid: bid, adConfiguration: adConfiguration, connection: connection, adViewManagerDelegate: self, videoControlsConfig: videoControlsConfig)
+        
+        self.renderer?.createInterstitialController?(
+            bid: bid,
+            adConfiguration: adConfiguration,
+            connection: connection,
+            adViewManagerDelegate: self,
+            videoControlsConfig: videoControlsConfig
+        )
     }
 
     @objc public func show() {
@@ -144,6 +150,12 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         }
     }
     
+    @objc public func adDidSendRewardedEvent() {
+        if let delegate = interactionDelegate {
+            delegate.trackUserReward?(self, PrebidReward(with: bid.rewardedConfig?.reward))
+        }
+    }
+    
     @objc public func interstitialDisplayProperties() -> PBMInterstitialDisplayProperties {
         displayProperties
     }
@@ -173,7 +185,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
                                          modalManagerDelegate: nil)
         adViewManager?.adViewManagerDelegate = self
         adViewManager?.adConfiguration.isInterstitialAd = true
-        adViewManager?.adConfiguration.isOptIn = adConfiguration.adConfiguration.isOptIn
+        adViewManager?.adConfiguration.isRewarded = adConfiguration.adConfiguration.isRewarded
         adViewManager?.handleExternalTransaction(transaction)
     }
 }

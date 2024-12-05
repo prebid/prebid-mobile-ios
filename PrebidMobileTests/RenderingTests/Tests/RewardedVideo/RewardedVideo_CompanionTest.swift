@@ -180,7 +180,7 @@ class RewardedVideo_CompanionTest: XCTestCase  {
         adConfiguration.adFormats = [.video]
         
         adConfiguration.isInterstitialAd = true
-        adConfiguration.isOptIn = true
+        adConfiguration.isRewarded = true
         return adConfiguration
     }
 }

@@ -53,7 +53,9 @@ typedef NS_ENUM(NSInteger, PBMTrackingEvent) {
     
     PBMTrackingEventLoaded,
     
-    PBMTrackingEventPrebidWin
+    PBMTrackingEventPrebidWin,
+    
+    PBMTrackingEventUnknown
 };
 
 
@@ -61,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMTrackingEventDescription : NSObject
 
 + (NSString *)getDescription:(PBMTrackingEvent)event;
++ (PBMTrackingEvent)getEventWith:(NSString *)description;
 
 @end
 NS_ASSUME_NONNULL_END

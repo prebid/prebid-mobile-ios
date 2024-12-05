@@ -18,8 +18,8 @@ import PrebidMobile
 import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
-fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480"
-fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/7397370641"
+fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
+fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/5628505938"
 
 class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
     
@@ -64,7 +64,12 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
                 self.gadRewardedAd = ad
                 self.gadRewardedAd?.fullScreenContentDelegate = self
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-                    self.gadRewardedAd?.present(fromRootViewController: self, userDidEarnRewardHandler: {})
+                    self.gadRewardedAd?.present(
+                        fromRootViewController: self,
+                        userDidEarnRewardHandler: {
+                            print("User did earn reward.")
+                        }
+                    )
                 }
             }
         }

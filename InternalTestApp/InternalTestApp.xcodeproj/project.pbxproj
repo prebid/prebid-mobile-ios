@@ -640,13 +640,13 @@
 		349302192473F2EF004A6086 /* Prebid */ = {
 			isa = PBXGroup;
 			children = (
+				92E92500276B2986002B57F3 /* AdMob */,
 				3CC4A3E72C11F93A00B97128 /* CustomRenderer */,
+				3493021A2473F2FB004A6086 /* GAM */,
+				9289873D28003BFE0062BFAA /* MAX */,
 				3461835425A6020500783A2C /* NativeAdViewBox.swift */,
 				AC4F253825DFF6300095C601 /* NativeAdViewBoxLinks.swift */,
 				AC4F254A25E0112C0095C601 /* NativeAdViewBoxProtocol.swift */,
-				92E92500276B2986002B57F3 /* AdMob */,
-				3493021A2473F2FB004A6086 /* GAM */,
-				9289873D28003BFE0062BFAA /* MAX */,
 				3493022024740BD8004A6086 /* OpenX */,
 				5397BD122936180600ABDA22 /* OriginalAPI */,
 			);
@@ -801,20 +801,20 @@
 		5B3EEDB12101D1AF00BAA0C4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5B8EB5EC226768D1003CC15C /* TableCells */,
 				5B3EEDBE2101D1AF00BAA0C4 /* AboutViewController.swift */,
-				5B39E0CA211455B000BBB68F /* Adapters */,
 				5B6EB3CC211336D300317ED9 /* AdapterViewController.swift */,
+				ACBBDF842397E10E006D5FE6 /* CommandArgsViewController.swift */,
 				5BCCA3D52136D2E800DA3B5A /* ConfigurableViewController.swift */,
-				5B3EEDB32101D1AF00BAA0C4 /* Configuration */,
+				34BAD457239564740042DB33 /* IABConsentViewController.swift */,
+				ACC41AC92444E50B00B9A3A7 /* SettingsViewController.swift */,
 				D551B9702149207500FFF51D /* TabNavigationController.swift */,
 				5B3EEDDB2101DB7900BAA0C4 /* TabViewController.swift */,
 				5B3EEDE12101EDA200BAA0C4 /* TestCasesSectionsViewController.swift */,
 				5B3EEDDD2101EA9200BAA0C4 /* TestCasesViewController.swift */,
 				34E56989237DB96900B47B01 /* UtilitiesViewController.swift */,
-				34BAD457239564740042DB33 /* IABConsentViewController.swift */,
-				ACBBDF842397E10E006D5FE6 /* CommandArgsViewController.swift */,
-				ACC41AC92444E50B00B9A3A7 /* SettingsViewController.swift */,
+				5B39E0CA211455B000BBB68F /* Adapters */,
+				5B3EEDB32101D1AF00BAA0C4 /* Configuration */,
+				5B8EB5EC226768D1003CC15C /* TableCells */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -884,27 +884,27 @@
 		92700C66273C029F0006E9FA /* UITests */ = {
 			isa = PBXGroup;
 			children = (
-				92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */,
-				92700C68273C029F0006E9FA /* XCTestCaseExt.swift */,
-				92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */,
-				92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */,
-				92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */,
+				92700C74273C029F0006E9FA /* AdsLoaderUITestCase.swift */,
+				92700C78273C029F0006E9FA /* BaseUITestCase.swift */,
+				92700C77273C029F0006E9FA /* ConsolidatedBannerUITest.swift */,
+				92700C70273C029F0006E9FA /* PrebidBannerUITest.swift */,
+				92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */,
 				92700C6D273C029F0006E9FA /* PrebidInterstitialUITest.swift */,
+				92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */,
+				92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */,
+				92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */,
+				92700C72273C029F0006E9FA /* PrebidMRAIDResizeExpandableUITest.swift */,
+				92700C75273C029F0006E9FA /* PrebidMRAIDResizeUITest.swift */,
+				92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */,
 				92700C6E273C029F0006E9FA /* PrebidRewardedVideoUITest.swift */,
 				92700C6F273C029F0006E9FA /* PrebidServerUITests.swift */,
-				92700C70273C029F0006E9FA /* PrebidBannerUITest.swift */,
-				92700C71273C029F0006E9FA /* XCUIElementExt.swift */,
-				92700C72273C029F0006E9FA /* PrebidMRAIDResizeExpandableUITest.swift */,
 				92700C73273C029F0006E9FA /* PrebidVideoInterstitialUITest.swift */,
-				92700C74273C029F0006E9FA /* AdsLoaderUITestCase.swift */,
-				92700C75273C029F0006E9FA /* PrebidMRAIDResizeUITest.swift */,
-				92700C76273C029F0006E9FA /* XCTestCase+Throwing.h */,
-				92700C77273C029F0006E9FA /* ConsolidatedBannerUITest.swift */,
-				92700C78273C029F0006E9FA /* BaseUITestCase.swift */,
+				92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */,
 				92700C79273C029F0006E9FA /* RepeatedUITestCase.swift */,
-				92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */,
-				92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */,
-				92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */,
+				92700C76273C029F0006E9FA /* XCTestCase+Throwing.h */,
+				92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */,
+				92700C68273C029F0006E9FA /* XCTestCaseExt.swift */,
+				92700C71273C029F0006E9FA /* XCUIElementExt.swift */,
 			);
 			path = UITests;
 			sourceTree = "<group>";
@@ -1182,7 +1182,6 @@
 					};
 					93FED9C21A376EFE009A6E9F = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 9TN4TUCG8N;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -2115,7 +2114,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9TN4TUCG8N;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2147,7 +2146,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9TN4TUCG8N;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

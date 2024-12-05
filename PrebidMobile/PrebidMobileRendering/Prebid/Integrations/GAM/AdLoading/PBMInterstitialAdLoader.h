@@ -23,9 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMInterstitialAdLoader : NSObject <PBMAdLoaderProtocol>
 
-- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate>)delegate
+                    eventHandler:(id<PBMPrimaryAdRequesterProtocol>)eventHandler;
 
-@property (nonatomic, strong) NSObject *reward;
 @end
 
 NS_ASSUME_NONNULL_END

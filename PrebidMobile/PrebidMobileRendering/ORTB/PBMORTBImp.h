@@ -97,6 +97,9 @@ NS_ASSUME_NONNULL_BEGIN
 //support can be assumed.
 @property (nonatomic, strong) NSNumber *secure;
 
+//Indicates whether the ad is rewarded
+@property (nonatomic, strong, nullable) NSNumber *rewarded;
+
 //Array of exchange-specific names of supported iframe busters.
 //Note: iframebuster is not supported.
 

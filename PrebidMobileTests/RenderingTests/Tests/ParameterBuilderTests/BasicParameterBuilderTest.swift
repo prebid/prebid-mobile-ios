@@ -148,23 +148,22 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderDefaultInterstitialConfig() {
-        var adUnit = BaseInterstitialAdUnit.init(configID: "configId")
+        var adUnit = InterstitialRenderingAdUnit(configID: "configId")
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        adUnit = BaseInterstitialAdUnit.init(configID: "configId", minSizePerc: 0.2 as NSValue, eventHandler: InterstitialEventHandlerStandalone())
+        adUnit = InterstitialRenderingAdUnit(configID: "configId", minSizePerc: 0.2 as NSValue, primaryAdRequester: InterstitialEventHandlerStandalone())
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        adUnit = BaseInterstitialAdUnit.init(configID: "configId", minSizePercentage: CGSize.zero)
+        adUnit = InterstitialRenderingAdUnit(configID: "configId", minSizePercentage: CGSize.zero)
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        adUnit = BaseInterstitialAdUnit.init(configID: "configId", minSizePercentage: CGSize.zero, eventHandler: InterstitialEventHandlerStandalone())
+        adUnit = InterstitialRenderingAdUnit(configID: "configId", minSizePercentage: CGSize.zero, eventHandler: InterstitialEventHandlerStandalone())
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        adUnit = BaseInterstitialAdUnit.init(configID: "configId", eventHandler: InterstitialEventHandlerStandalone())
+        adUnit = InterstitialRenderingAdUnit(configID: "configId", eventHandler: InterstitialEventHandlerStandalone())
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        let mediationAdUnit = MediationBaseInterstitialAdUnit.init(configId: "configId", mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
-        
+        let mediationAdUnit = MediationBaseInterstitialAdUnit(configId: "configId", mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
         checkDefaultParametersForAdUnit(adConfiguration: mediationAdUnit.adUnitConfig.adConfiguration)
     }
     

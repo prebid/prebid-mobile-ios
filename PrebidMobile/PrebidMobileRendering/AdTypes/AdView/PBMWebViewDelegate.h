@@ -23,6 +23,7 @@
 - (void)webView:(nonnull PBMWebView *)webView failedToLoadWithError:(nonnull NSError *)error;
 - (void)webView:(nonnull PBMWebView *)webView receivedClickthroughLink:(nonnull NSURL *)url;
 - (void)webView:(nonnull PBMWebView *)webView receivedMRAIDLink:(nonnull NSURL *)url;
+- (void)webView:(nonnull PBMWebView *)webView receivedRewardedEventLink:(nonnull NSURL *)url;
 
 @end
 

@@ -23,7 +23,7 @@ import Foundation
     @objc optional func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit)
 
     /// Called when user is able to receive a reward from the app
-    @objc optional func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit)
+    @objc optional func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit, reward: PrebidReward)
     
     /// Called when the load process fails to produce a viable ad
     @objc optional func rewardedAd(_ rewardedAd: RewardedAdUnit,

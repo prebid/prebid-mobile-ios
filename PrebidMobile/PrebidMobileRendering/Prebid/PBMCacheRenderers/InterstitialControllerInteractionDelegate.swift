@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-import Foundation
 import UIKit
 
 @objc public protocol InterstitialControllerInteractionDelegate: NSObjectProtocol {
@@ -27,4 +26,6 @@ import UIKit
     func interstitialControllerDidComplete(_ interstitialController: InterstitialController)
 
     func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController?
+    
+    @objc optional func trackUserReward(_ interstitialController: InterstitialController, _ reward: PrebidReward)
 }

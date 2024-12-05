@@ -175,3 +175,5 @@
 #import "PBMLocationManagerProtocol.h"
 
 #import "InternalUserConsentDataManager.h"
+
+#import "PBMCloseActionManager.h"

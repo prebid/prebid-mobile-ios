@@ -18,7 +18,7 @@ import PrebidMobile
 import PrebidMobileMAXAdapters
 import AppLovinSDK
 
-fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480"
+fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
 fileprivate let maxAdUnitRewardedId = "f7a08e702c6bec54"
 
 class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewardedAdDelegate {
@@ -44,7 +44,10 @@ class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewarded
         mediationDelegate = MAXMediationRewardedUtils(rewardedAd: maxRewarded)
         
         // 3. Create a MediationRewardedAdUnit
-        maxRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
+        maxRewardedAdUnit = MediationRewardedAdUnit(
+            configId: storedImpVideoRewarded,
+            mediationDelegate: mediationDelegate
+        )
         
         // 4. Make a bid request to Prebid Server
         maxRewardedAdUnit.fetchDemand { [weak self] result in 
@@ -76,5 +79,7 @@ class MAXVideoRewardedViewController: InterstitialBaseViewController, MARewarded
     
     func didClick(_ ad: MAAd) {}
     
-    func didRewardUser(for ad: MAAd, with reward: MAReward) {}
+    func didRewardUser(for ad: MAAd, with reward: MAReward) {
+        print("User did earn reward: label - \(reward.label), amount - \(reward.amount)")
+    }
 }

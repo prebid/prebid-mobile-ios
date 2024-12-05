@@ -19,6 +19,7 @@
 #import "NSMutableDictionary+PBMExtensions.h"
 #import "PBMConstants.h"
 #import "PBMFunctions.h"
+#import "NSObject+PBMExtensions.h"
 
 @interface PBMORTBAbstract ()
 

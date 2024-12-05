@@ -15,8 +15,10 @@
 		344A7F0E250B749600743A93 /* GAMRequestWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F0D250B749600743A93 /* GAMRequestWrapperTest.swift */; };
 		344A7F14250B823F00743A93 /* GAMInterstitialAdWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F13250B823F00743A93 /* GAMInterstitialAdWrapperTest.swift */; };
 		344A7F1A250B8E5400743A93 /* GADRewardedAdWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F19250B8E5400743A93 /* GADRewardedAdWrapperTest.swift */; };
+		534C61682CB861930026119A /* PrebidAdMobRewardedAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61672CB861930026119A /* PrebidAdMobRewardedAdapter.swift */; };
 		53632B24290BC57A00139EF3 /* AdMobGMATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53632B23290BC57A00139EF3 /* AdMobGMATests.swift */; };
 		53632B2C290BE17300139EF3 /* GMATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53632B2B290BE17300139EF3 /* GMATests.swift */; };
+		53F2A57B2CB94FBE009B74CA /* GADReward+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2A57A2CB94FB3009B74CA /* GADReward+Extensions.swift */; };
 		5B36172626370A8700AFA1C2 /* GAMUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B36172526370A8700AFA1C2 /* GAMUtils.swift */; };
 		5B3617FC2638131A00AFA1C2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3617FB2638131A00AFA1C2 /* Constants.swift */; };
 		5B36182326384C7D00AFA1C2 /* GAMRewardedEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B36182226384C7D00AFA1C2 /* GAMRewardedEventHandler.swift */; };
@@ -112,8 +114,10 @@
 		34B64D5F24F7E41600FDD9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39183ECBC4E402BC48B3691D /* Pods_PrebidMobileGAMEventHandlersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileGAMEventHandlersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42CE6323AC67980202BFDE74 /* Pods-PrebidMobileAdMobAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileAdMobAdapters.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileAdMobAdapters/Pods-PrebidMobileAdMobAdapters.release.xcconfig"; sourceTree = "<group>"; };
+		534C61672CB861930026119A /* PrebidAdMobRewardedAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobRewardedAdapter.swift; sourceTree = "<group>"; };
 		53632B23290BC57A00139EF3 /* AdMobGMATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobGMATests.swift; sourceTree = "<group>"; };
 		53632B2B290BE17300139EF3 /* GMATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMATests.swift; sourceTree = "<group>"; };
+		53F2A57A2CB94FB3009B74CA /* GADReward+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GADReward+Extensions.swift"; sourceTree = "<group>"; };
 		58B193FE14C1F3D7E795F7AC /* Pods-PrebidMobileMAXAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileMAXAdapters.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileMAXAdapters/Pods-PrebidMobileMAXAdapters.release.xcconfig"; sourceTree = "<group>"; };
 		5B36172526370A8700AFA1C2 /* GAMUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMUtils.swift; sourceTree = "<group>"; };
 		5B3617FB2638131A00AFA1C2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 		34B64D6D24F7E54700FDD9F4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				34C7C9E8250901410021C6D0 /* Boxes */,
+				53F2A5792CB94FA8009B74CA /* Utils */,
 				5B69677F2642A56A0042372E /* PrebidMobileGAMEventHandlers.h */,
 				5B3617FB2638131A00AFA1C2 /* Constants.swift */,
 				5BF8E76D263BF4DF00341EE4 /* GAMBannerEventHandler.swift */,
@@ -343,7 +349,6 @@
 				5BF8E6B6263AC32800341EE4 /* GAMInterstitialEventHandler.swift */,
 				5B36182226384C7D00AFA1C2 /* GAMRewardedEventHandler.swift */,
 				5B36172526370A8700AFA1C2 /* GAMUtils.swift */,
-				34C7C9E8250901410021C6D0 /* Boxes */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -359,6 +364,14 @@
 				5BF8E790263C400F00341EE4 /* GADCustomNativeAdWrapper.swift */,
 			);
 			path = Boxes;
+			sourceTree = "<group>";
+		};
+		53F2A5792CB94FA8009B74CA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				53F2A57A2CB94FB3009B74CA /* GADReward+Extensions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		927ADB28280583AF006EB8D5 /* Sources */ = {
@@ -390,12 +403,13 @@
 				92C7A868279AAEF1000D31CB /* AdMobMediationNativeUtils.swift */,
 				92C474EC2795B57E00C26E27 /* AdMobMediationRewardedUtils.swift */,
 				92A2380C27731B48000157AA /* AdMobUtils.swift */,
+				92C474F42795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift */,
 				92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */,
 				926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */,
-				92C474F42795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift */,
-				92EB6DE42799FB4700470DEC /* PrebidAdMobNativeAdapter.swift */,
-				92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedVideoAdapter.swift */,
 				9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */,
+				534C61672CB861930026119A /* PrebidAdMobRewardedAdapter.swift */,
+				92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedVideoAdapter.swift */,
+				92EB6DE42799FB4700470DEC /* PrebidAdMobNativeAdapter.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -951,6 +965,7 @@
 				5BF8E781263C363800341EE4 /* GAMRequestWrapper.swift in Sources */,
 				5BF8E789263C3B4000341EE4 /* GADNativeAdWrapper.swift in Sources */,
 				5B36172626370A8700AFA1C2 /* GAMUtils.swift in Sources */,
+				53F2A57B2CB94FBE009B74CA /* GADReward+Extensions.swift in Sources */,
 				5B6967702642993B0042372E /* GAMEventHandlerError.swift in Sources */,
 				5BF8E779263C291300341EE4 /* GAMBannerViewWrapper.swift in Sources */,
 			);
@@ -990,6 +1005,7 @@
 				9267B400276FCF9300F1ADF1 /* AdMobConstants.swift in Sources */,
 				92C474F52795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift in Sources */,
 				92E924FD276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift in Sources */,
+				534C61682CB861930026119A /* PrebidAdMobRewardedAdapter.swift in Sources */,
 				9285B46627AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift in Sources */,
 				92C7A869279AAEF2000D31CB /* AdMobMediationNativeUtils.swift in Sources */,
 				92E924FF276A193E002B57F3 /* AdMobAdaptersError.swift in Sources */,

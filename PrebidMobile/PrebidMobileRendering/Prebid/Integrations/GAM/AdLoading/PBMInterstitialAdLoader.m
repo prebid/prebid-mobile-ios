@@ -28,11 +28,12 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@interface PBMInterstitialAdLoader () <InterstitialControllerLoadingDelegate, RewardedEventLoadingDelegate>
+@interface PBMInterstitialAdLoader () <InterstitialControllerLoadingDelegate, InterstitialEventLoadingDelegate>
+
 @property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate> delegate;
+@property (nonatomic, weak, nullable, readonly) id<PBMPrimaryAdRequesterProtocol> eventHandler;
+
 @end
-
-
 
 @implementation PBMInterstitialAdLoader
 
@@ -40,18 +41,23 @@
 
 // MARK: - Lifecycle
 
-- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate>)delegate
+                    eventHandler:(nonnull id<PBMPrimaryAdRequesterProtocol>)eventHandler {
+    
     if (!(self = [super init])) {
         return nil;
     }
+    
     _delegate = delegate;
+    _eventHandler = eventHandler;
+    
     return self;
 }
 
 // MARK: - PBMAdLoaderProtocol
 
 - (id<PBMPrimaryAdRequesterProtocol>)primaryAdRequester {
-    return self.delegate.eventHandler;
+    return self.eventHandler;
 }
 
 - (void)createPrebidAdWithBid:(Bid *)bid
@@ -59,8 +65,8 @@
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker
 {
-    InterstitialController * const controller = [[InterstitialController alloc] initWithBid:bid
-                                                                                  adConfiguration:adUnitConfig];
+    InterstitialController * const controller = [[InterstitialController alloc] initWithBid:bid 
+                                                                            adConfiguration:adUnitConfig];
     adObjectSaver(controller);
     @weakify(self);
     loadMethodInvoker(^{
@@ -119,13 +125,11 @@
 }
 
 - (void)adServerDidWin {
-    [self.flowDelegate adLoader:self loadedPrimaryAd:self.delegate.eventHandler adSize:nil];
+    [self.flowDelegate adLoader:self loadedPrimaryAd:self.eventHandler adSize:nil];
 }
 
 - (void)failedWithError:(nullable NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
 }
-
-@synthesize reward;
 
 @end

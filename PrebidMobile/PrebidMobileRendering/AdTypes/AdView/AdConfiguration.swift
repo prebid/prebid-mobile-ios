@@ -73,9 +73,9 @@ public class AdConfiguration: AutoRefreshCountConfig {
     public var size = CGSize.zero
     
     /**
-     Sets a video interstitial ad unit as an opt-in video
+     Sets an ad unit as an rewarded
      */
-    public var isOptIn = false
+    public var isRewarded = false
     
     /**
      Indicates whether the ad is built-in video e.g. 300x250.
@@ -93,6 +93,9 @@ public class AdConfiguration: AutoRefreshCountConfig {
      This property represents video controls custom configuration.
      */
     public lazy var videoControlsConfig = VideoControlsConfiguration()
+    
+    /// Server-side configuration for rewarded ads (bid.ext.rwdd)
+    public var rewardedConfig: RewardedConfig?
     
     // MARK: - Impression Tracking
     
@@ -141,5 +144,4 @@ public class AdConfiguration: AutoRefreshCountConfig {
         }
         return [:]
     }
-    
 }

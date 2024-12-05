@@ -151,7 +151,8 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
         self.wait(for: [inlineVastRequestSuccessfulExpectation], timeout: 1)
     }
     
-    //MARK: - CreativeViewDelegate
+    // MARK: - CreativeViewDelegate
+    
     func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
     func creativeDidComplete(_ creative:PBMAbstractCreative) {}
     func creativeWasClicked(_ creative: PBMAbstractCreative) {}
@@ -164,6 +165,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
     func creativeDidDisplay(_ creative: PBMAbstractCreative) {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
     
     //MARK: - Utility
     

@@ -28,9 +28,11 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testNoImmediateCalls() {
+        let adUnitConfig = AdUnitConfig(configId: "configId")
         let compositeMock = CompositeMock(expectedCalls: [])
         let flowController = PBMAdLoadFlowController(bidRequesterFactory: compositeMock.mockRequesterFactory,
                                                      adLoader: compositeMock.mockAdLoader,
+                                                     adUnitConfig: adUnitConfig,
                                                      delegate: compositeMock.mockFlowControllerDelegate,
                                                      configValidationBlock: compositeMock.mockConfigValidator)
         let timeExp = expectation(description: "no event")
@@ -66,7 +68,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let successReported = expectation(description: "success reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return true
@@ -110,6 +111,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -150,7 +152,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let successReported = expectation(description: "success reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return true
@@ -202,6 +203,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -234,7 +236,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let successReported = expectation(description: "success reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return true
@@ -285,6 +286,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -311,7 +313,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let failureReported = expectation(description: "failure reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return true
@@ -355,6 +356,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -381,7 +383,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let failureReported = expectation(description: "failure reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return true
@@ -429,6 +430,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -457,7 +459,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let successReported = expectation(description: "success reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return true
@@ -511,6 +512,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -539,7 +541,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let failureReported = expectation(description: "failure reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return true
@@ -586,6 +587,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -609,7 +611,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let failureReported = expectation(description: "failure reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return false
@@ -623,6 +624,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -646,7 +648,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let failureReported = expectation(description: "failure reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return true
@@ -686,6 +687,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -709,7 +711,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let failureReported = expectation(description: "failure reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 XCTAssertFalse(renderWithPrebid)
                 return true
@@ -750,6 +751,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -778,10 +780,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         let successReported = expectation(description: "success reported")
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: {
-                flowController().refresh()
-                return adUnitConfig
-            })),
             .configValidation(call: { (adConfig, renderWithPrebid) in
                 flowController().refresh()
                 return true
@@ -837,6 +835,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -873,7 +872,6 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         }
         
         compositeMockBox[0] = CompositeMock(expectedCalls: [
-            .flowControllerDelegate(call: .adUnitConfig(provider: { adUnitConfig })),
             .configValidation(call: { (adConfig, renderWithPrebid) in true }),
             .flowControllerDelegate(call: .willSendBidRequest(handler: { loader in })),
             .makeBidRequester(handler: { config, mockRequester in mockRequester }),
@@ -915,6 +913,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         flowControllerBox[0] = PBMAdLoadFlowController(bidRequesterFactory: compositeMock().mockRequesterFactory,
                                                        adLoader: compositeMock().mockAdLoader,
+                                                       adUnitConfig: adUnitConfig,
                                                        delegate: compositeMock().mockFlowControllerDelegate,
                                                        configValidationBlock: compositeMock().mockConfigValidator)
         
@@ -926,7 +925,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         waitForExpectations(timeout: 1)
         
         XCTAssertEqual(flowController().flowState, .demandReceived)
-        XCTAssertEqual(compositeMock().getProgress().done, 6)
+        XCTAssertEqual(compositeMock().getProgress().done, 5)
         
         nextShouldContinueExpectationBox[0] = expectation(description: "Second 'shouldContinue' reached")
         let secondTimeout = expectation(description: "first timeout")
@@ -936,7 +935,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         waitForExpectations(timeout: 1)
         
         XCTAssertEqual(flowController().flowState, .readyToDeploy)
-        XCTAssertEqual(compositeMock().getProgress().done, 13)
+        XCTAssertEqual(compositeMock().getProgress().done, 12)
         
         successReportedExpectationBox[0] = expectation(description: "success reported")
         
@@ -945,7 +944,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
         
         XCTAssertFalse(flowController().hasFailedLoading)
         XCTAssertEqual(flowController().flowState, .idle)
-        XCTAssertEqual(compositeMock().getProgress().done, 14)
+        XCTAssertEqual(compositeMock().getProgress().done, 13)
         compositeMock().checkIsFinished()
     }
 }

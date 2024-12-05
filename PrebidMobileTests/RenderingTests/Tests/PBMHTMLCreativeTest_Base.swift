@@ -130,6 +130,8 @@ class PBMHTMLCreativeTest_Base: XCTestCase, PBMCreativeViewDelegate {
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
     
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
+    
     // MARK: - Utilities
     /**
      Setup an expectation and associated, mocked `PBMWebView` to fulfill that expectation.

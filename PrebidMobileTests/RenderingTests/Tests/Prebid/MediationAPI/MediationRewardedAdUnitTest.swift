@@ -26,7 +26,7 @@ class MediationRewardedAdUnitTest: XCTestCase {
         let adUnitConfig = adUnit.adUnitConfig
         
         XCTAssertTrue(adUnitConfig.adConfiguration.isInterstitialAd)
-        XCTAssertTrue(adUnitConfig.adConfiguration.isOptIn)
+        XCTAssertTrue(adUnitConfig.adConfiguration.isRewarded)
         PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
         XCTAssertTrue(adUnitConfig.adFormats.contains(.video))
     }

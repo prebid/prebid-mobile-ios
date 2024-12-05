@@ -18,6 +18,7 @@
 
 @class PBMORTBAdConfiguration;
 @class PBMORTBSDKConfiguration;
+@class PBMORTBRewardedConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) PBMORTBAdConfiguration *adConfiguration;
 
 @property (nonatomic, strong, nullable) PBMORTBSDKConfiguration *sdkConfiguration;
+
+@property (nonatomic, strong, nullable) PBMORTBRewardedConfiguration *rewardedConfiguration;
 
 @end
 

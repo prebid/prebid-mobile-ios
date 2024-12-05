@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)creativeInterstitialDidLeaveApp:(PBMAbstractCreative *)creative;
 - (void)creativeFullScreenDidFinish:(PBMAbstractCreative *)creative;
 
+// Rewarded Ad Only
+- (void)creativeDidSendRewardedEvent:(PBMAbstractCreative *)creative;
+
 // MRAID Only
 - (void)creativeReadyToReimplant:(PBMAbstractCreative *)creative;
 - (void)creativeMraidDidCollapse:(PBMAbstractCreative *)creative;

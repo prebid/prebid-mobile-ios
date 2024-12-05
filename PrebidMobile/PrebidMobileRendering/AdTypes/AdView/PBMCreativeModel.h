@@ -55,6 +55,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isCompanionAd;
 @property (atomic, assign) bool hasCompanionAd;
 
+// NOTE: for rewarded ads only
+@property (nonatomic, assign) BOOL userHasEarnedReward;
+@property (nonatomic, assign) BOOL userPostRewardEventSent;
+
+@property (nonatomic, strong, nullable) NSNumber * rewardTime;
+@property (nonatomic, strong, nullable) NSNumber * postRewardTime;
+
 - (instancetype)initWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration;
 
 @end

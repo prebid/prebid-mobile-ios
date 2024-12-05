@@ -13,7 +13,6 @@
   limitations under the License.
   */
 
-import Foundation
 import PrebidMobile
 import AppLovinSDK
 
@@ -24,52 +23,20 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
     
     // MARK: - MAInterstitialAdapter
     
-    public func loadInterstitialAd(for parameters: MAAdapterResponseParameters, andNotify delegate: MAInterstitialAdapterDelegate) {
+    public func loadInterstitialAd(
+        for parameters: MAAdapterResponseParameters,
+        andNotify delegate: MAInterstitialAdapterDelegate
+    ) {
         interstitialDelegate = delegate
         
-        guard let serverParameter = parameters.serverParameters[MAXCustomParametersKey] as? [String: String] else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noServerParameter)
-            interstitialDelegate?.didFailToLoadInterstitialAdWithError(error)
-            return
+        switch createInterstitialController(with: parameters) {
+        case .success(let controller):
+            self.interstitialController = controller
+            interstitialController?.loadAd()
+        case .failure(let error):
+            let maError = MAAdapterError(nsError: error)
+            interstitialDelegate?.didFailToLoadInterstitialAdWithError(maError)
         }
-        
-        guard let bid = parameters.localExtraParameters[PBMMediationAdUnitBidKey] as? Bid else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noBidInLocalExtraParameters)
-            interstitialDelegate?.didFailToLoadInterstitialAdWithError(error)
-            return
-        }
-        
-        guard let targetingInfo = bid.targetingInfo else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noTargetingInfoInBid)
-            interstitialDelegate?.didFailToLoadInterstitialAdWithError(error)
-            return
-        }
-        
-        guard MediationUtils.isServerParameterDictInTargetingInfoDict(serverParameter, targetingInfo) else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.wrongServerParameter)
-            interstitialDelegate?.didFailToLoadInterstitialAdWithError(error)
-            return
-        }
-        
-        guard let configId = parameters.localExtraParameters[PBMMediationConfigIdKey] as? String else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noConfigIdInLocalExtraParameters)
-            interstitialDelegate?.didFailToLoadInterstitialAdWithError(error)
-            return
-        }
-        
-        interstitialController = InterstitialController(bid: bid, configId: configId)
-        interstitialController?.loadingDelegate = self
-        interstitialController?.interactionDelegate = self
-        
-        if let videoAdConfig = parameters.localExtraParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
-            interstitialController?.videoControlsConfig = videoAdConfig
-        }
-
-        if let videoParameters = parameters.localExtraParameters[PBMMediationVideoParameters] as? VideoParameters {
-            interstitialController?.videoParameters = videoParameters
-        }
-        
-        interstitialController?.loadAd()
     }
     
     public func showInterstitialAd(for parameters: MAAdapterResponseParameters, andNotify delegate: MAInterstitialAdapterDelegate) {
@@ -85,58 +52,71 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
     public func loadRewardedAd(for parameters: MAAdapterResponseParameters, andNotify delegate: MARewardedAdapterDelegate) {
         rewardedDelegate = delegate
         
-        guard let serverParameter = parameters.serverParameters[MAXCustomParametersKey] as? [String: String] else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noServerParameter)
-            rewardedDelegate?.didFailToLoadRewardedAdWithError(error)
-            return
+        switch createInterstitialController(with: parameters) {
+        case .success(let controller):
+            interstitialController = controller
+            interstitialController?.isRewarded = true
+            interstitialController?.loadAd()
+        case .failure(let error):
+            let maError = MAAdapterError(nsError: error)
+            rewardedDelegate?.didFailToLoadRewardedAdWithError(maError)
         }
-        
-        guard let bid = parameters.localExtraParameters[PBMMediationAdUnitBidKey] as? Bid else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noBidInLocalExtraParameters)
-            rewardedDelegate?.didFailToLoadRewardedAdWithError(error)
-            return
-        }
-        
-        guard let targetingInfo = bid.targetingInfo else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noTargetingInfoInBid)
-            rewardedDelegate?.didFailToLoadRewardedAdWithError(error)
-            return
-        }
-        
-        guard MediationUtils.isServerParameterDictInTargetingInfoDict(serverParameter, targetingInfo) else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.wrongServerParameter)
-            rewardedDelegate?.didFailToLoadRewardedAdWithError(error)
-            return
-        }
-        
-        guard let configId = parameters.localExtraParameters[PBMMediationConfigIdKey] as? String else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noConfigIdInLocalExtraParameters)
-            rewardedDelegate?.didFailToLoadRewardedAdWithError(error)
-            return
-        }
-        
-        interstitialController = InterstitialController(bid: bid, configId: configId)
-        interstitialController?.loadingDelegate = self
-        interstitialController?.interactionDelegate = self
-        interstitialController?.isOptIn = true
-        
-        if let videoAdConfig = parameters.localExtraParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
-            interstitialController?.videoControlsConfig = videoAdConfig
-        }
-        
-        if let videoParameters = parameters.localExtraParameters[PBMMediationVideoParameters] as? VideoParameters {
-            interstitialController?.videoParameters = videoParameters
-        }
-        
-        interstitialController?.loadAd()
     }
     
-    public func showRewardedAd(for parameters: MAAdapterResponseParameters, andNotify delegate: MARewardedAdapterDelegate) {
+    public func showRewardedAd(
+        for parameters: MAAdapterResponseParameters,
+        andNotify delegate: MARewardedAdapterDelegate
+    ) {
         if interstitialAdAvailable {
             interstitialController?.show()
         } else {
             interstitialDelegate?.didFailToLoadInterstitialAdWithError(MAAdapterError.adNotReady)
         }
+    }
+    
+    private func createInterstitialController(
+        with parameters: MAAdapterResponseParameters
+    ) -> Result<InterstitialController, Error> {
+        
+        guard let serverParameter = parameters
+            .serverParameters[MAXCustomParametersKey] as? [String: String] else {
+            return .failure(MAXAdaptersError.noServerParameter)
+        }
+        
+        guard let bid = parameters
+            .localExtraParameters[PBMMediationAdUnitBidKey] as? Bid else {
+            return .failure(MAXAdaptersError.noBidInLocalExtraParameters)
+        }
+        
+        guard let targetingInfo = bid.targetingInfo else {
+            return .failure(MAXAdaptersError.noTargetingInfoInBid)
+        }
+        
+        guard MediationUtils
+            .isServerParameterDictInTargetingInfoDict(serverParameter, targetingInfo) else {
+            return .failure(MAXAdaptersError.wrongServerParameter)
+        }
+        
+        guard let configId = parameters
+            .localExtraParameters[PBMMediationConfigIdKey] as? String else {
+            return .failure(MAXAdaptersError.noConfigIdInLocalExtraParameters)
+        }
+        
+        let interstitialController = InterstitialController(bid: bid, configId: configId)
+        interstitialController.loadingDelegate = self
+        interstitialController.interactionDelegate = self
+        
+        if let videoAdConfig = parameters
+            .localExtraParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
+            interstitialController.videoControlsConfig = videoAdConfig
+        }
+        
+        if let videoParameters = parameters
+            .localExtraParameters[PBMMediationVideoParameters] as? VideoParameters {
+            interstitialController.videoParameters = videoParameters
+        }
+        
+        return .success(interstitialController)
     }
     
     // MARK: - InterstitialControllerLoadingDelegate
@@ -156,9 +136,7 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
     
     // MARK: - InterstitialControllerInteractionDelegate
     
-    public func trackImpression(forInterstitialController: InterstitialController) {
-        
-    }
+    public func trackImpression(forInterstitialController: InterstitialController) {}
     
     public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
         interstitialDelegate?.didClickInterstitialAd()
@@ -170,9 +148,7 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
         rewardedDelegate?.didHideRewardedAd()
     }
     
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {
-        
-    }
+    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {}
     
     public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {
         interstitialDelegate?.didDisplayInterstitialAd()
@@ -184,7 +160,21 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
         rewardedDelegate?.didRewardUser(with: MAReward())
     }
     
-    public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
+    public func viewControllerForModalPresentation(
+        fromInterstitialController: InterstitialController
+    ) -> UIViewController? {
         return UIApplication.shared.windows.first?.rootViewController
+    }
+    
+    public func trackUserReward(
+        _ interstitialController: InterstitialController,
+        _ reward: PrebidReward
+    ) {
+        let reward = MAReward(
+            amount: reward.count?.intValue ?? 0,
+            label: reward.type ?? ""
+        )
+        
+        rewardedDelegate?.didRewardUser(with: reward)
     }
 }

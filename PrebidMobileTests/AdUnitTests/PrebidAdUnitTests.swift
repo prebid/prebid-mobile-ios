@@ -210,7 +210,7 @@ class PrebidAdUnitTests: XCTestCase {
         // fetchDemand(request:completion)
         adUnit.fetchDemand(request: request) { _ in
             XCTAssertTrue(config.adConfiguration.isInterstitialAd)
-            XCTAssertTrue(config.adConfiguration.isOptIn)
+            XCTAssertTrue(config.adConfiguration.isRewarded)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
 
@@ -223,7 +223,7 @@ class PrebidAdUnitTests: XCTestCase {
         // fetchDemand(adObject:request:completion)
         adUnit.fetchDemand(adObject: testObject, request: request) { _ in
             XCTAssertTrue(config.adConfiguration.isInterstitialAd)
-            XCTAssertTrue(config.adConfiguration.isOptIn)
+            XCTAssertTrue(config.adConfiguration.isRewarded)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
 

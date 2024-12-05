@@ -188,6 +188,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "In-App Display Rewarded 320x480",
+            integrationKind: .inApp,
+            adFormat: .displayRewarded,
+            configurationClosure: {
+                InAppDisplayRewardedViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "In-App Video Rewarded 320x480",
             integrationKind: .inApp,
             adFormat: .videoRewarded,
@@ -238,6 +247,15 @@ struct IntegrationCaseManager {
             adFormat: .videoInterstitial,
             configurationClosure: {
                 GAMVideoInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "GAM Display Rewarded 320x480",
+            integrationKind: .gam,
+            adFormat: .displayRewarded,
+            configurationClosure: {
+                GAMDisplayRewardedViewController()
             }
         ),
         
@@ -296,6 +314,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "AdMob Display Rewarded 320x480",
+            integrationKind: .adMob,
+            adFormat: .displayRewarded,
+            configurationClosure: {
+                AdMobDisplayRewardedViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "AdMob Video Rewarded 320x480",
             integrationKind: .adMob,
             adFormat: .videoRewarded,
@@ -350,9 +377,18 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            title: "MAX Rewarded 320x480",
+            title: "MAX Display Rewarded 320x480",
             integrationKind: .max,
-            adFormat: .videoInterstitial,
+            adFormat: .videoRewarded,
+            configurationClosure: {
+                MAXDisplayRewardedViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "MAX Video Rewarded 320x480",
+            integrationKind: .max,
+            adFormat: .videoRewarded,
             configurationClosure: {
                 MAXVideoRewardedViewController()
             }

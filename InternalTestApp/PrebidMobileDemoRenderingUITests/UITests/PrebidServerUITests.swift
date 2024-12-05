@@ -127,23 +127,4 @@ class PrebidServerUITests: AdsLoaderUITestCase {
     func testGAMInterstitial_Video_VanillaPrebidOrder() {
         checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 (GAM) [Vanilla Prebid Order]")
     }
-    
-    // MARK: - Rewarded Video
-    
-    func testRewardedVideo() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (In-App)")
-    }
-    
-    func testInAppRewarded_noBids() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (In-App) [noBids]",
-                                expectFailure: true)
-    }
-    
-    func testGAMRewarded() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (GAM) [OK, Metadata]")
-    }
-    
-    func testGAMRewarded_noBids_gamAd() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (GAM) [noBids, GAM Ad]")
-    }
 }

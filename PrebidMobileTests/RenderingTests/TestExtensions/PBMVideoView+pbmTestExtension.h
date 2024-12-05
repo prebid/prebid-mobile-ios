@@ -19,9 +19,11 @@
 
 @property (nonatomic, weak, nullable) PBMVideoCreative *creative;
 @property (nonatomic, strong) PBMAdViewButtonDecorator * _Nonnull skipButtonDecorator;
+@property (nonatomic, strong, nonnull) NSNumber * progressBarDuration;
 
 - (void)updateControls;
 - (CGFloat)requiredVideoDuration;
 - (void)handleSkipDelay:(NSTimeInterval)skipDelay videoDuration:(NSTimeInterval)videoDuration;
+- (NSNumber * _Nonnull)calculateProgressBarDuration;
 
 @end

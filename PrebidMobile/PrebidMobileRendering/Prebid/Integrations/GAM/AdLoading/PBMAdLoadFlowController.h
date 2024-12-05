@@ -44,6 +44,7 @@ typedef BOOL(^PBMAdUnitConfigValidationBlock)(AdUnitConfig *adUnitConfig, BOOL r
 
 - (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
+                               adUnitConfig:(AdUnitConfig *)adUnitConfig
                                    delegate:(id<AdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock;
 

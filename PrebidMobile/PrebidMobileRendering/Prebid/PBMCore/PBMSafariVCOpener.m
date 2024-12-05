@@ -150,27 +150,31 @@
 - (BOOL)openClickthroughWithURL:(NSURL *)url
                  viewController:(UIViewController *)viewControllerForPresentingModals
 {
-    self.safariViewController = [[SFSafariViewController alloc] initWithURL:url];
-    self.safariViewController.delegate = self;
-    
-    PBMOpenMeasurementSession * const measurementSession = self.measurementSessionProvider();
-    PBMWindowLocker * windowLocker = [[PBMWindowLocker alloc] initWithWindow:viewControllerForPresentingModals.view.window
-                                                          measurementSession:measurementSession];
-    [windowLocker lock];
-    
-    UIViewController * presentingViewController = viewControllerForPresentingModals;
-    
-    if (self.modalManager.modalViewController) {
-        presentingViewController = self.modalManager.modalViewController;
+    @try {
+        self.safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+        self.safariViewController.delegate = self;
+        
+        PBMOpenMeasurementSession * const measurementSession = self.measurementSessionProvider();
+        PBMWindowLocker * windowLocker = [[PBMWindowLocker alloc] initWithWindow:viewControllerForPresentingModals.view.window
+                                                              measurementSession:measurementSession];
+        [windowLocker lock];
+        
+        UIViewController * presentingViewController = viewControllerForPresentingModals;
+        
+        if (self.modalManager.modalViewController) {
+            presentingViewController = self.modalManager.modalViewController;
+        }
+        
+        if (self.onWillLoadURLInClickthrough != nil) {
+            self.onWillLoadURLInClickthrough();
+        }
+        
+        [presentingViewController presentViewController:self.safariViewController animated:YES completion:^{
+            [windowLocker unlock];
+        }];
+    } @catch (NSException *exception) {
+        PBMLogError(@"Error occurred during URL opening: %@", exception.reason);
     }
-    
-    if (self.onWillLoadURLInClickthrough != nil) {
-        self.onWillLoadURLInClickthrough();
-    }
-    
-    [presentingViewController presentViewController:self.safariViewController animated:YES completion:^{
-        [windowLocker unlock];
-    }];
     
     return YES;
 }

@@ -16,8 +16,8 @@
 #import "AdMobVideoRewardedViewController.h"
 #import "PrebidDemoMacros.h"
 
-NSString * const storedImpVideoRewardedAdMob = @"prebid-demo-video-rewarded-320-480";
-NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/7397370641";
+NSString * const storedImpVideoRewardedAdMob = @"prebid-demo-video-rewarded-endcard-time";
+NSString * const adMobAdUnitVideoRewardedId = @"ca-app-pub-5922967660082475/5628505938";
 
 @interface AdMobVideoRewardedViewController ()
 
@@ -55,7 +55,9 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
         
         // 5. Load the rewarded ad
         @weakify(self);
-        [GADRewardedAd loadWithAdUnitID:adMobAdUnitRewardedId request:gadRequest completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
+        [GADRewardedAd loadWithAdUnitID:adMobAdUnitVideoRewardedId
+                                request:gadRequest
+                      completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
             @strongify(self);
             if (!self) { return; }
             
@@ -70,6 +72,7 @@ NSString * const adMobAdUnitRewardedId = @"ca-app-pub-5922967660082475/739737064
                 self.gadRewardedAd.fullScreenContentDelegate = self;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.gadRewardedAd presentFromRootViewController:self userDidEarnRewardHandler:^{
+                        NSLog(@"User did earn reward.");
                     }];
                 });
             }

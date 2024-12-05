@@ -35,6 +35,9 @@
         
         self.trackingURLs = [NSDictionary new];
         self.adConfiguration = adConfiguration;
+        
+        self.userHasEarnedReward = NO;
+        self.userPostRewardEventSent = NO;
     }
     
     return self;

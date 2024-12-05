@@ -302,22 +302,42 @@ public class AdUnitConfig: NSObject, NSCopying {
         let clone = AdUnitConfig(configId: self.configId, size: self.adSize)
         
         clone.adFormats = self.adFormats
-        clone.adConfiguration.adFormats = self.adConfiguration.adFormats
-        clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
-        clone.adConfiguration.isOptIn = self.adConfiguration.isOptIn
         clone.nativeAdConfiguration = self.nativeAdConfiguration
-        clone.adConfiguration.bannerParameters = self.adConfiguration.bannerParameters
-        clone.adConfiguration.videoParameters = self.adConfiguration.videoParameters
-        clone.adConfiguration.videoControlsConfig = self.adConfiguration.videoControlsConfig
         clone.sizes = sizes
-        clone.refreshInterval = self.refreshInterval
+        clone.adSize = adSize
         clone.minSizePerc = self.minSizePerc
+        clone.adPosition = self.adPosition
+        clone.additionalSizes = self.additionalSizes
+        clone.refreshInterval = self.refreshInterval
+        clone.gpid = self.gpid
+        clone.ortbConfig = self.ortbConfig
         clone.extensionData = self.extensionData.merging(clone.extensionData) { $1 }
         clone.appContent = self.appContent
         clone.extKeywords = self.extKeywords
         clone.userData = self.userData
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot
+        
+        clone.adConfiguration.rewardedConfig = self.adConfiguration.rewardedConfig
+        clone.adConfiguration.winningBidAdFormat = self.adConfiguration.winningBidAdFormat
+        clone.adConfiguration.adFormats = self.adConfiguration.adFormats
+        clone.adConfiguration.isOriginalAPI = self.adConfiguration.isOriginalAPI
+        clone.adConfiguration.size = self.adConfiguration.size
+        clone.adConfiguration.isBuiltInVideo = self.adConfiguration.isBuiltInVideo
+        clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
+        clone.adConfiguration.isRewarded = self.adConfiguration.isRewarded
+        clone.adConfiguration.forceInterstitialPresentation = self.adConfiguration.forceInterstitialPresentation
+        clone.adConfiguration.interstitialLayout = self.adConfiguration.interstitialLayout
+        clone.nativeAdConfiguration = self.nativeAdConfiguration
+        clone.adConfiguration.bannerParameters = self.adConfiguration.bannerParameters
+        clone.adConfiguration.videoParameters = self.adConfiguration.videoParameters
+        clone.adConfiguration.videoControlsConfig = self.adConfiguration.videoControlsConfig
+        clone.adConfiguration.clickHandlerOverride = self.adConfiguration.clickHandlerOverride
+        clone.adConfiguration.autoRefreshDelay = self.adConfiguration.autoRefreshDelay
+        clone.adConfiguration.pollFrequency = self.adConfiguration.pollFrequency
+        clone.adConfiguration.viewableArea = self.adConfiguration.viewableArea
+        clone.adConfiguration.viewableDuration = self.adConfiguration.viewableDuration
+        clone.adConfiguration.ortbConfig = self.adConfiguration.ortbConfig
         
         return clone
     }

@@ -74,9 +74,6 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
         adViewManager?.handleExternalTransaction(transaction)
     }
     
-    
-    
-    
     public func createInterstitialController(bid: Bid, adConfiguration: AdUnitConfig,
                                              connection: PrebidServerConnectionProtocol,
                                              adViewManagerDelegate adViewDelegate: InterstitialController?,
@@ -87,6 +84,8 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
         
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
         videoControlsConfig?.initialize(with: bid.videoAdConfiguration)
+        
+        adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
         
         // This part is dedicating to test server-side ad configurations.
         // Need to be removed when ext.prebid.passthrough will be available.

@@ -1,4 +1,4 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2024 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -12,12 +12,20 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import Foundation
 
-@objc public protocol RewardedEventLoadingDelegate : InterstitialEventLoadingDelegate {
+#import "PBMORTBAbstract.h"
+#import "PBMORTBAbstract+Protected.h"
 
-    /*!
-     @abstract The reward to be given to the user. May be assigned on successful loading.
-     */
-    weak var reward: NSObject? { get set }
-}
+NS_ASSUME_NONNULL_BEGIN
+
+@interface PBMORTBRewardedCompletionVideoEndcard : PBMORTBAbstract
+
+/// The period of time that the ad is on the screen and the user earns a reward
+@property (nonatomic, strong, nullable) NSNumber *time;
+
+/// The URL with a custom schema that will be sent by the creative and should be caught by the SDK
+@property (nonatomic, strong, nullable) NSString *event;
+
+@end
+
+NS_ASSUME_NONNULL_END

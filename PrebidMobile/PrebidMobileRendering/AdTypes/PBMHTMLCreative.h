@@ -19,6 +19,7 @@
 #import "PBMCreativeFactory.h"
 
 @class PBMMRAIDResizeProperties;
+@class PBMBackgroundAwareTimer;
 
 @interface PBMHTMLCreative : PBMAbstractCreative
 

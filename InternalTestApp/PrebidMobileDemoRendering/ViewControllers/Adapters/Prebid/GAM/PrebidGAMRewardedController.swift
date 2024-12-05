@@ -128,7 +128,7 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
         rewardedAdDidClickAdButton.isEnabled = true
     }
     
-    func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit) {
+    func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit, reward: PrebidReward) {
         rewardedAdUserDidEarnRewardButton.isEnabled = true
     }
     

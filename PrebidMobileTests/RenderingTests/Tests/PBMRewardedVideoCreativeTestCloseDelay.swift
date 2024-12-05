@@ -24,7 +24,7 @@ class PBMRewardedVideoCreativeTestCloseDelay : XCTestCase {
         var actual: TimeInterval
         
         let model = PBMCreativeModel(adConfiguration:AdConfiguration())
-        model.adConfiguration?.isOptIn = true
+        model.adConfiguration?.isRewarded = true
         model.displayDurationInSeconds = 10
         
         actual = calculateCloseDelay(with:model, pubCloseDelay:5)

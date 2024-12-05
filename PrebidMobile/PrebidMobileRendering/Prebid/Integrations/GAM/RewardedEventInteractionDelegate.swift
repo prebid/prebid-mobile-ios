@@ -16,10 +16,7 @@
 import Foundation
 
 @objc public protocol RewardedEventInteractionDelegate: InterstitialEventInteractionDelegate {
-
-    /*!
-     @abstract Call this when the ad server SDK decides the use has earned reward
-     */
-    func userDidEarnReward(_ reward: NSObject?)
+    
+    /// Call this when the ad server SDK decides the user has earned reward
+    func userDidEarnReward(_ reward: PrebidReward?)
 }
-

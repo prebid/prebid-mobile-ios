@@ -22,6 +22,7 @@
 @class PBMModalManager;
 @class PBMOpenMeasurementSession;
 @class PBMInterstitialDisplayProperties;
+@class PBMCloseActionManager;
 
 @interface PBMModalViewController : UIViewController
 
