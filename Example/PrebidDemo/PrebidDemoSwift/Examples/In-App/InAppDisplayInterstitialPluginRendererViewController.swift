@@ -18,12 +18,13 @@ import PrebidMobile
 
 fileprivate let storedImpDisplayInterstitial = "prebid-demo-display-interstitial-320-480-custom-interstitial-renderer"
 
-class InAppDisplayInterstitialPluginInterstitialViewController:
+class InAppDisplayInterstitialPluginRendererViewController:
     UIViewController,
     InterstitialAdUnitDelegate {
     
     // Prebid
     private var renderingInterstitial: InterstitialRenderingAdUnit!
+    private let samplePluginRenderer = SampleInterstitialRenderer()
     
     override func loadView() {
         super.loadView()
@@ -31,21 +32,23 @@ class InAppDisplayInterstitialPluginInterstitialViewController:
         createAd()
     }
     
+    deinit {
+        // Unregister plugin when you no longer needed
+        Prebid.unregisterPluginRenderer(samplePluginRenderer)
+    }
+    
     func createAd() {
-        // 1. Create a plugin renderer
-        let samplePluginRenderer = SampleInterstitialRenderer()
-        
-        // 2. Register the plugin renderer
+        // 1. Register the plugin renderer
         Prebid.registerPluginRenderer(samplePluginRenderer)
         
-        // 3. Create a InterstitialRenderingAdUnit
+        // 2. Create a InterstitialRenderingAdUnit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial)
         
-        // 4. Configure the InterstitialRenderingAdUnit
+        // 3. Configure the InterstitialRenderingAdUnit
         renderingInterstitial.adFormats = [.banner]
         renderingInterstitial.delegate = self
         
-        // 5. Load the interstitial ad
+        // 4. Load the interstitial ad
         renderingInterstitial.loadAd()
     }
     

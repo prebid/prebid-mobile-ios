@@ -72,7 +72,7 @@
 		53514C9F2CFF988E00A480C0 /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C9B2CFF988E00A480C0 /* SampleInterstitialController.swift */; };
 		53514CA02CFF988E00A480C0 /* SampleAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C992CFF988E00A480C0 /* SampleAdViewRenderer.swift */; };
 		53514CA12CFF988E00A480C0 /* SampleInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C9A2CFF988E00A480C0 /* SampleInterstitialRenderer.swift */; };
-		53514CA32CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift */; };
+		53514CA32CFF9DD000A480C0 /* InAppDisplayInterstitialPluginRendererViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginRendererViewController.swift */; };
 		53514CA72CFFA52A00A480C0 /* SampleAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CA62CFFA52A00A480C0 /* SampleAdView.m */; };
 		53514CAA2CFFA62700A480C0 /* SampleAdViewRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CA92CFFA62700A480C0 /* SampleAdViewRenderer.m */; };
 		53514CAD2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CAC2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.m */; };
@@ -299,7 +299,7 @@
 		53514C992CFF988E00A480C0 /* SampleAdViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdViewRenderer.swift; sourceTree = "<group>"; };
 		53514C9A2CFF988E00A480C0 /* SampleInterstitialRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInterstitialRenderer.swift; sourceTree = "<group>"; };
 		53514C9B2CFF988E00A480C0 /* SampleInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInterstitialController.swift; sourceTree = "<group>"; };
-		53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppDisplayInterstitialPluginInterstitialViewController.swift; sourceTree = "<group>"; };
+		53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginRendererViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppDisplayInterstitialPluginRendererViewController.swift; sourceTree = "<group>"; };
 		53514CA52CFFA52A00A480C0 /* SampleAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleAdView.h; sourceTree = "<group>"; };
 		53514CA62CFFA52A00A480C0 /* SampleAdView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleAdView.m; sourceTree = "<group>"; };
 		53514CA82CFFA62700A480C0 /* SampleAdViewRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleAdViewRenderer.h; sourceTree = "<group>"; };
@@ -586,7 +586,7 @@
 				53072B7629226CFE00228462 /* InAppDisplayBannerViewController.swift */,
 				53514C952CFF97DB00A480C0 /* InAppDisplayBannerPluginRendererViewController.swift */,
 				53072B7A292270EE00228462 /* InAppDisplayInterstitialViewController.swift */,
-				53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift */,
+				53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginRendererViewController.swift */,
 				5344E69E2922796000A1F582 /* InAppNativeViewController.swift */,
 				53072B7829226EF400228462 /* InAppVideoBannerViewController.swift */,
 				53072B802922753D00228462 /* InAppVideoInterstitialLandscapeViewController.swift */,
@@ -1576,7 +1576,7 @@
 				53B03D8C291A6562000117E1 /* ExamplesViewController.swift in Sources */,
 				5344E6C32922AAE500A1F582 /* MAXVideoRewardedViewController.swift in Sources */,
 				53072B6929217D1800228462 /* GAMOriginalAPIVideoInstreamViewController.swift in Sources */,
-				53514CA32CFF9DD000A480C0 /* InAppDisplayInterstitialPluginInterstitialViewController.swift in Sources */,
+				53514CA32CFF9DD000A480C0 /* InAppDisplayInterstitialPluginRendererViewController.swift in Sources */,
 				5344E6A92922815000A1F582 /* GAMVideoRewardedViewController.swift in Sources */,
 				534C61572CB7F4780026119A /* AdMobDisplayRewardedViewController.swift in Sources */,
 				53072B7B292270EE00228462 /* InAppDisplayInterstitialViewController.swift in Sources */,

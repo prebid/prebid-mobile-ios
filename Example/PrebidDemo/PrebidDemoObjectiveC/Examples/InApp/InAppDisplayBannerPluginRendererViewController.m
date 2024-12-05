@@ -23,6 +23,7 @@ NSString * const storedImpDisplayBannerPluginRendererInApp = @"prebid-demo-displ
 
 // Prebid
 @property (nonatomic) BannerView * prebidBannerView;
+@property (nonatomic, strong) SampleAdViewRenderer * samplePluginRenderer;
 
 @end
 
@@ -34,12 +35,17 @@ NSString * const storedImpDisplayBannerPluginRendererInApp = @"prebid-demo-displ
     [self createAd];
 }
 
+- (void)dealloc {
+    // Unregister plugin when you no longer needed
+    [Prebid unregisterPluginRenderer:self.samplePluginRenderer];
+}
+
 - (void)createAd {
     // 1. Create a plugin renderer
-    SampleAdViewRenderer * samplePluginRenderer = [SampleAdViewRenderer new];
+    self.samplePluginRenderer = [SampleAdViewRenderer new];
     
     // 2. Register the plugin renderer
-    [Prebid registerPluginRenderer:samplePluginRenderer];
+    [Prebid registerPluginRenderer:self.samplePluginRenderer];
     
     // 3. Create a BannerView
     self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height)

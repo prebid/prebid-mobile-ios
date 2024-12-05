@@ -18,10 +18,13 @@ import PrebidMobile
 
 fileprivate let storedImpDisplayBanner = "prebid-demo-display-banner-320-50-custom-ad-view-renderer"
 
-class InAppDisplayBannerPluginRendererViewController: BannerBaseViewController, BannerViewDelegate {
+class InAppDisplayBannerPluginRendererViewController:
+    BannerBaseViewController,
+    BannerViewDelegate {
     
     // Prebid
     private var prebidBannerView: BannerView!
+    private let samplePluginRenderer = SampleAdViewRenderer()
     
     override func loadView() {
         super.loadView()
@@ -29,21 +32,23 @@ class InAppDisplayBannerPluginRendererViewController: BannerBaseViewController, 
         createAd()
     }
     
+    deinit {
+        // Unregister plugin when you no longer needed
+        Prebid.unregisterPluginRenderer(samplePluginRenderer)
+    }
+    
     func createAd() {
-        // 1. Create a plugin renderer
-        let samplePluginRenderer = SampleAdViewRenderer()
-        
-        // 2. Register the plugin renderer
+        // 1. Register the plugin renderer
         Prebid.registerPluginRenderer(samplePluginRenderer)
         
-        // 3. Create a BannerView
+        // 2. Create a BannerView
         prebidBannerView = BannerView(
             frame: CGRect(origin: .zero, size: adSize),
             configID: storedImpDisplayBanner,
             adSize: adSize
         )
         
-        // 4. Configure the BannerView
+        // 3. Configure the BannerView
         prebidBannerView.delegate = self
         prebidBannerView.adFormat = .banner
         prebidBannerView.videoParameters.placement = .InBanner
@@ -51,7 +56,7 @@ class InAppDisplayBannerPluginRendererViewController: BannerBaseViewController, 
         // Add Prebid banner view to the app UI
         bannerView.addSubview(prebidBannerView)
         
-        // 5. Load the banner ad
+        // 4. Load the banner ad
         prebidBannerView.loadAd()
     }
     
