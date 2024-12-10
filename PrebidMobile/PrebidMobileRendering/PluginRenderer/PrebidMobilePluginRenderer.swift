@@ -43,15 +43,9 @@ public protocol PrebidMobilePluginRenderer: AnyObject {
         pluginEventDelegate: PluginEventDelegate,
         adUnitConfigFingerprint: String
     )
-}
-
-/// A protocol for the ad view plugin renderer, extending the base plugin renderer functionality.
-/// This protocol is used specifically for the ad views.
-@objc
-public protocol PrebidMobileAdViewPluginRenderer: PrebidMobilePluginRenderer {
     
     /// Creates and returns an ad view conforming to `PrebidMobileDisplayViewManagerProtocol` for a given bid response.
-    /// Returns nil in the case of an internal error.
+    /// Returns nil in the case of an internal error or if no renderer is provided.
     ///
     /// - Parameters:
     ///   - frame: The frame specifying the initial size and position of the ad view.
@@ -59,22 +53,16 @@ public protocol PrebidMobileAdViewPluginRenderer: PrebidMobilePluginRenderer {
     ///   - adConfiguration: The `AdUnitConfig` instance providing configuration details for the ad unit.
     ///   - loadingDelegate: The delegate conforming to `DisplayViewLoadingDelegate` for handling ad loading events.
     ///   - interactionDelegate: The  delegate conforming to `DisplayViewInteractionDelegate` for handling ad interaction events.
-    @objc func createAdView(
+    @objc func createBannerView(
         with frame: CGRect,
         bid: Bid,
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
     ) -> (UIView & PrebidMobileDisplayViewProtocol)?
-}
-
-/// A protocol for a Prebid Mobile interstitial plugin renderer, extending the base plugin renderer functionality.
-/// This protocol is used specifically for the interstitials.
-@objc
-public protocol PrebidMobileInterstitialPluginRenderer: PrebidMobilePluginRenderer {
     
     /// Creates and returns an implementation of `PrebidMobileInterstitialControllerProtocol` for a given bid response.
-    /// Returns nil in the case of an internal error.
+    /// Returns nil in the case of an internal error or if no renderer is provided.
     ///
     /// - Parameters:
     ///   - bid: The `Bid` object containing the bid response used for rendering the interstitial ad.

@@ -13,10 +13,9 @@
   limitations under the License.
   */
 
-#import "SampleInterstitialRenderer.h"
-#import "SampleInterstitialController.h"
+#import "SampleRenderer.h"
 
-@implementation SampleInterstitialRenderer
+@implementation SampleRenderer
 
 @synthesize name;
 @synthesize version;
@@ -25,7 +24,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        name = @"SampleInterstitialRenderer";
+        name = @"SampleRenderer";
         version = @"1.0.0";
     }
     return self;
@@ -33,6 +32,20 @@
 
 - (BOOL)isSupportRenderingFor:(AdFormat *)format {
     return [@[AdFormat.banner, AdFormat.video] containsObject:format];
+}
+
+- (UIView<PrebidMobileDisplayViewProtocol> * _Nullable)createBannerViewWith:(CGRect)frame
+                                                                        bid:(Bid * _Nonnull)bid
+                                                            adConfiguration:(AdUnitConfig * _Nonnull)adConfiguration
+                                                            loadingDelegate:(id<DisplayViewLoadingDelegate> _Nonnull)loadingDelegate
+                                                        interactionDelegate:(id<DisplayViewInteractionDelegate> _Nonnull)interactionDelegate {
+    SampleAdView *adView = [[SampleAdView alloc] initWithFrame:frame];
+    
+    adView.interactionDelegate = interactionDelegate;
+    adView.loadingDelegate = loadingDelegate;
+    adView.bid = bid;
+    
+    return adView;
 }
 
 - (id<PrebidMobileInterstitialControllerProtocol>)createInterstitialControllerWithBid:(Bid *)bid

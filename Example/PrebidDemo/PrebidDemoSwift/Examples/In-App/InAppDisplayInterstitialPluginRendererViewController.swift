@@ -24,7 +24,7 @@ class InAppDisplayInterstitialPluginRendererViewController:
     
     // Prebid
     private var renderingInterstitial: InterstitialRenderingAdUnit!
-    private let samplePluginRenderer = SampleInterstitialRenderer()
+    private let samplePluginRenderer = SampleRenderer()
     
     override func loadView() {
         super.loadView()

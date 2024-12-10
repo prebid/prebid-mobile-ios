@@ -31,7 +31,6 @@
 @interface PBMInterstitialAdLoader () <InterstitialControllerLoadingDelegate, InterstitialEventLoadingDelegate>
 
 @property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate, InterstitialControllerInteractionDelegate> delegate;
-@property (nonatomic, strong, nullable) id<PrebidMobileInterstitialPluginRenderer> renderer;
 @property (nonatomic, weak, nullable, readonly) id<PBMPrimaryAdRequesterProtocol> eventHandler;
 
 @end
@@ -65,19 +64,13 @@
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker {
     
-    [self setRendererWithBid:bid];
+    id<PrebidMobilePluginRenderer> renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid];
+    PBMLogInfo(@"Renderer: %@", renderer);
     
-    if (!self.renderer) {
-        return;
-    }
-    
-    PBMLogInfo(@"Renderer: %@", self.renderer);
-    
-    id<PrebidMobileInterstitialControllerProtocol> controller = [self.renderer
-                                                                 createInterstitialControllerWithBid:bid
-                                                                 adConfiguration:adUnitConfig
-                                                                 loadingDelegate:self
-                                                                 interactionDelegate:self.delegate];
+    id<PrebidMobileInterstitialControllerProtocol> controller = [renderer createInterstitialControllerWithBid:bid
+                                                                                              adConfiguration:adUnitConfig
+                                                                                              loadingDelegate:self
+                                                                                          interactionDelegate:self.delegate];
     
     if (!controller) {
         PBMLogError(@"SDK couldn't retrieve an implementation of PrebidMobileInterstitialControllerProtocol.");
@@ -143,17 +136,6 @@
 
 - (void)failedWithError:(nullable NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
-}
-
-// MARK: - Helpers
-
-- (void)setRendererWithBid:(Bid *)bid {
-    id render = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid
-                                                                           isInterstitial:true];
-    
-    if ([render conformsToProtocol:@protocol(PrebidMobileInterstitialPluginRenderer)]) {
-        self.renderer = render;
-    }
 }
 
 @end

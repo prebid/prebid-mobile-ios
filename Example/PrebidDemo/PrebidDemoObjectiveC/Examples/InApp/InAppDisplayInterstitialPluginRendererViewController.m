@@ -15,7 +15,7 @@
 
 #import "InAppDisplayInterstitialPluginRendererViewController.h"
 #import "PrebidDemoMacros.h"
-#import "SampleInterstitialRenderer.h"
+#import "SampleRenderer.h"
 
 NSString * const storedImpDisplayInterstitialPluginRendererInApp = @"prebid-demo-display-interstitial-320-480-custom-interstitial-renderer";
 
@@ -23,7 +23,7 @@ NSString * const storedImpDisplayInterstitialPluginRendererInApp = @"prebid-demo
 
 // Prebid
 @property (nonatomic) InterstitialRenderingAdUnit * renderingInterstitial;
-@property (nonatomic, strong) SampleInterstitialRenderer * samplePluginRenderer;
+@property (nonatomic, strong) SampleRenderer * samplePluginRenderer;
 
 @end
 
@@ -42,7 +42,7 @@ NSString * const storedImpDisplayInterstitialPluginRendererInApp = @"prebid-demo
 
 - (void)createAd {
     // 1. Create a plugin renderer
-    self.samplePluginRenderer = [SampleInterstitialRenderer new];
+    self.samplePluginRenderer = [SampleRenderer new];
     
     // 2. Register the plugin renderer
     [Prebid registerPluginRenderer:self.samplePluginRenderer];

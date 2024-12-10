@@ -29,7 +29,7 @@ class CustomRendererInterstitialController:
     var adFormats: Set<AdFormat>?
     
     private var interstitialController : InterstitialRenderingAdUnit?
-    private let sampleCustomRenderer = SampleInterstitialRenderer()
+    private let sampleCustomRenderer = SampleRenderer()
     
     private weak var adapterViewController: AdapterViewController?
     

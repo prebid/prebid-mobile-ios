@@ -17,9 +17,9 @@ import UIKit
 import PrebidMobile
 
 /// A custom implementation of the ad view renderer.
-public class SampleAdViewRenderer: NSObject, PrebidMobileAdViewPluginRenderer {
+public class SampleRenderer: NSObject, PrebidMobilePluginRenderer {
     
-    public let name = "SampleAdViewRenderer"
+    public let name = "SampleRenderer"
     public let version = "1.0.0"
     public var data: [AnyHashable: Any]?
     
@@ -28,7 +28,7 @@ public class SampleAdViewRenderer: NSObject, PrebidMobileAdViewPluginRenderer {
     }
     
     /// This method creates an instance of `SampleAdView`, which is a custom view used to display the ad. 
-    public func createAdView(
+    public func createBannerView(
         with frame: CGRect,
         bid: Bid,
         adConfiguration: AdUnitConfig,
@@ -42,5 +42,22 @@ public class SampleAdViewRenderer: NSObject, PrebidMobileAdViewPluginRenderer {
         adView.bid = bid
         
         return adView
+    }
+    
+    /// This method creates an instance of `SampleInterstitialController`,
+    /// a custom controller used to display interstitial ads.
+    public func createInterstitialController(
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        loadingDelegate: InterstitialControllerLoadingDelegate,
+        interactionDelegate: InterstitialControllerInteractionDelegate
+    ) -> PrebidMobileInterstitialControllerProtocol? {
+        let interstitialController = SampleInterstitialController()
+        
+        interstitialController.loadingDelegate = loadingDelegate
+        interstitialController.interactionDelegate = interactionDelegate
+        interstitialController.bid = bid
+        
+        return interstitialController
     }
 }
