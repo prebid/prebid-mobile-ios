@@ -19,7 +19,7 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     
     public let name = "PrebidRenderer"
     public let version = Prebid.shared.version
-    public var data: [AnyHashable: Any]?
+    public var data: [String: Any]?
     
     public func isSupportRendering(for format: AdFormat?) -> Bool {
         [AdFormat.banner, AdFormat.video].contains(format)

@@ -63,24 +63,14 @@
                  adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker {
-    
-    id<PrebidMobilePluginRenderer> renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid];
-    PBMLogInfo(@"Renderer: %@", renderer);
-    
-    id<PrebidMobileInterstitialControllerProtocol> controller = [renderer createInterstitialControllerWithBid:bid
-                                                                                              adConfiguration:adUnitConfig
-                                                                                              loadingDelegate:self
-                                                                                          interactionDelegate:self.delegate];
-    
-    if (!controller) {
-        PBMLogError(@"SDK couldn't retrieve an implementation of PrebidMobileInterstitialControllerProtocol.");
-        return;
-    }
-    
-    adObjectSaver(controller);
-    
-    loadMethodInvoker(^{
-        [controller loadAd];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        id<PrebidMobileInterstitialControllerProtocol> controller = [self createInterstitialControllerWithBid:bid
+                                                                                                 adUnitConfig:adUnitConfig];
+        adObjectSaver(controller);
+        
+        loadMethodInvoker(^{
+            [controller loadAd];
+        });
     });
 }
 
@@ -136,6 +126,29 @@
 
 - (void)failedWithError:(nullable NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
+}
+
+- (id<PrebidMobileInterstitialControllerProtocol>)createInterstitialControllerWithBid:(Bid *)bid
+                                                                         adUnitConfig:(AdUnitConfig *)adUnitConfig {
+    id<PrebidMobilePluginRenderer> renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid];
+    PBMLogInfo(@"Renderer: %@", renderer);
+    
+    id<PrebidMobileInterstitialControllerProtocol> controller = [renderer createInterstitialControllerWithBid:bid
+                                                                                              adConfiguration:adUnitConfig
+                                                                                              loadingDelegate:self
+                                                                                          interactionDelegate:self.delegate];
+    
+    if (controller) {
+        return controller;
+    }
+    
+    PBMLogWarn(@"SDK couldn't retrieve an implementation of PrebidMobileInterstitialControllerProtocol. SDK will use the default one.");
+    
+    PrebidRenderer *defaultRenderer = [PrebidRenderer new];
+    return [defaultRenderer createInterstitialControllerWithBid:bid
+                                                adConfiguration:adUnitConfig
+                                                loadingDelegate:self
+                                            interactionDelegate:self.delegate];
 }
 
 @end
