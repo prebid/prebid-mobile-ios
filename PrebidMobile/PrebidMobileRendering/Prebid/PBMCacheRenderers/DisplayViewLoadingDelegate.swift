@@ -13,12 +13,23 @@
  limitations under the License.
  */
 
-import Foundation
+import UIKit
 
-@objc public protocol DisplayViewLoadingDelegate: NSObjectProtocol {
-
-    func displayViewDidLoadAd(_ displayView: PBMDisplayView)
+/// A protocol that defines methods for receiving loading events related to ad display views.
+/// This protocol is used to notify the delegate when an ad has successfully loaded or if an error occurs during loading.
+@objc
+public protocol DisplayViewLoadingDelegate: NSObjectProtocol {
     
-    func displayView(_ displayView: PBMDisplayView,
-                     didFailWithError error: Error)
+    /// Notifies that the ad has successfully loaded in the display view.
+    ///
+    /// - Parameters:
+    ///   - displayView: The `UIView` instance in which the ad has been loaded.
+    @objc func displayViewDidLoadAd(_ displayView: UIView)
+    
+    /// Notifies that an error occurred during the ad loading process.
+    ///
+    /// - Parameters:
+    ///   - displayView: The `UIView` instance where the ad was intended to load.
+    ///   - error: An `Error` instance describing the issue that occurred during the ad loading.
+    @objc func displayView(_ displayView: UIView, didFailWithError error: Error)
 }

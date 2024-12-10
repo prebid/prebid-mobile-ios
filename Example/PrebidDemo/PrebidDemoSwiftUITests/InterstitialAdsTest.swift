@@ -17,25 +17,57 @@ import XCTest
 
 class InterstitialAdsTest: BaseAdsTest {
     
+    private var closeButton: String?
+    private var labelText: String?
+    
+    override func tearDown() {
+        closeButton = nil
+        labelText = nil
+    }
+    
     public func testInAppInterstitialAd() {
+        closeButton = "PBMCloseButton"
         testAd(testCase: testCases.inAppDisplayInterstitialCase)
     }
     
+    public func testInAppInterstitialAdCustomRenderer() {
+        labelText = "Custom Renderer"
+        testAd(testCase: testCases.inAppDisplayInterstitialCustomRendererCase)
+    }
+    
     public func testGamOriginalInterstitialAd() {
+        closeButton = "Close Advertisement"
         testAd(testCase: testCases.gamOriginalDisplayInterstitialCase)
     }
     
     public func testGamRenderingInterstitialAd() {
+        closeButton = "PBMCloseButton"
         testAd(testCase: testCases.gamDisplayInterstitialCase)
     }
     
     public func testAdMobInterstitialAd() {
+        closeButton = "PBMCloseButton"
         testAd(testCase: testCases.adMobDisplayInterstitialCase)
     }
     
     override func checkAd(testCase: String) {
-        XCTAssert(app.webViews.element.waitForExistence(timeout: 10),assertFailedMessage(testCase: testCase,reason: "Interstitial Web View is not displayed"))
-        let closeButton = testCase == testCases.gamOriginalDisplayInterstitialCase ? "Close Advertisement" : "PBMCloseButton"
-        XCTAssert(app.buttons[closeButton].waitForExistence(timeout: 10), assertFailedMessage(testCase: testCase,reason: "Close button is not displayed"))
+        XCTAssert(
+            app.webViews.element.waitForExistence(timeout: 10),
+            assertFailedMessage(testCase: testCase,reason: "Interstitial Web View is not displayed")
+        )
+        
+        if let closeButton {
+            XCTAssert(
+                app.buttons[closeButton].waitForExistence(timeout: 10),
+                assertFailedMessage(testCase: testCase, reason: "Close button is not displayed")
+            )
+        }
+        
+        if let labelText {
+            XCTAssert(
+                app.staticTexts[labelText].waitForExistence(timeout: 10),
+                assertFailedMessage(testCase: testCase, reason: "`\(labelText)` is not displayed")
+            )
+        }
     }
 }
