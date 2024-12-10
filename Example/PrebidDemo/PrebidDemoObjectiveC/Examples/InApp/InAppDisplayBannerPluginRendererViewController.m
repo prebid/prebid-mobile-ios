@@ -15,7 +15,7 @@
 
 #import "InAppDisplayBannerPluginRendererViewController.h"
 #import "PrebidDemoMacros.h"
-#import "SampleAdViewRenderer.h"
+#import "SampleRenderer.h"
 
 NSString * const storedImpDisplayBannerPluginRendererInApp = @"prebid-demo-display-banner-320-50-custom-ad-view-renderer";
 
@@ -23,7 +23,7 @@ NSString * const storedImpDisplayBannerPluginRendererInApp = @"prebid-demo-displ
 
 // Prebid
 @property (nonatomic) BannerView * prebidBannerView;
-@property (nonatomic, strong) SampleAdViewRenderer * samplePluginRenderer;
+@property (nonatomic, strong) SampleRenderer * samplePluginRenderer;
 
 @end
 
@@ -42,7 +42,7 @@ NSString * const storedImpDisplayBannerPluginRendererInApp = @"prebid-demo-displ
 
 - (void)createAd {
     // 1. Create a plugin renderer
-    self.samplePluginRenderer = [SampleAdViewRenderer new];
+    self.samplePluginRenderer = [SampleRenderer new];
     
     // 2. Register the plugin renderer
     [Prebid registerPluginRenderer:self.samplePluginRenderer];

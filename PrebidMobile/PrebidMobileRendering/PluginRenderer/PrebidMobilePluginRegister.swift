@@ -28,8 +28,7 @@ public class PrebidMobilePluginRegister: NSObject {
     
     private var plugins = [String: PrebidMobilePluginRenderer]()
     
-    private let defaultAdViewRenderer = PrebidDisplayViewRenderer()
-    private let defaultInterstitialRenderer = PrebidInterstitialControllerRenderer()
+    private let defaultRenderer = PrebidRenderer()
     
     private override init() {
         super.init()
@@ -112,21 +111,19 @@ public class PrebidMobilePluginRegister: NSObject {
         }
     }
     
-    /// Returns the registered renderer according to the preferred renderer name in the bid response
-    /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior
-    /// Once bid is win we want to resolve the best PluginRenderer candidate to render the ad
-    public func getPluginForPreferredRenderer(
-        bid: Bid,
-        isInterstitial: Bool
-    ) -> PrebidMobilePluginRenderer {
-        if let preferredRendererName = bid.pluginRendererName,
-           let preferredPlugin = getPluginRenderer(for: preferredRendererName),
-           preferredPlugin.version == bid.pluginRendererVersion,
-           preferredPlugin.isSupportRendering(for: bid.adFormat) {
-            return preferredPlugin
-        } else {
-            return isInterstitial ? defaultInterstitialRenderer : defaultAdViewRenderer
+    /// Returns the registered renderer according to the preferred renderer name in the bid response.
+    /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior.
+    /// Once bid is win we want to resolve the best PluginRenderer candidate to render the ad.
+    public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
+        guard let preferredRendererName = bid.pluginRendererName,
+              let preferredPlugin = getPluginRenderer(for: preferredRendererName),
+              preferredPlugin.version == bid.pluginRendererVersion,
+              preferredPlugin.isSupportRendering(for: bid.adFormat)
+        else {
+            return defaultRenderer
         }
+        
+        return preferredPlugin
     }
     
     public func getAllPlugins() -> [PrebidMobilePluginRenderer] {

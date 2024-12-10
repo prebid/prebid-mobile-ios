@@ -33,7 +33,6 @@
 @interface PBMBannerAdLoader () <DisplayViewLoadingDelegate, BannerEventLoadingDelegate>
 
 @property (nonatomic, weak, nullable, readonly) id<BannerAdLoaderDelegate, DisplayViewInteractionDelegate> delegate;
-@property (nonatomic, strong, nullable) id<PrebidMobileAdViewPluginRenderer> renderer;
 
 @end
 
@@ -66,23 +65,17 @@
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker {
     
-    [self setRendererWithBid:bid];
-    
-    if (!self.renderer) {
-        return;
-    }
-    
-    PBMLogInfo(@"Renderer: %@", self.renderer);
+    id<PrebidMobilePluginRenderer> renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid];
+    PBMLogInfo(@"Renderer: %@", renderer);
     
     CGRect const displayFrame = CGRectMake(0, 0, bid.size.width, bid.size.height);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIView <PrebidMobileDisplayViewProtocol> * newDisplayView = [self.renderer createAdViewWith:displayFrame
-                                                                                                bid:bid
-                                                                                    adConfiguration:adUnitConfig
-                                                                                    loadingDelegate:self
-                                                                                interactionDelegate:self.delegate
-        ];
+        UIView <PrebidMobileDisplayViewProtocol> * newDisplayView = [renderer createBannerViewWith:displayFrame
+                                                                                               bid:bid
+                                                                                   adConfiguration:adUnitConfig
+                                                                                   loadingDelegate:self
+                                                                               interactionDelegate:self.delegate];
         
         if (!newDisplayView) {
             PBMLogError(@"SDK couldn't retrieve an implementation of PrebidMobileDisplayViewManagerProtocol.");
@@ -123,17 +116,6 @@
 
 - (void)failedWithError:(nullable NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
-}
-
-// MARK: - Helpers
-
-- (void)setRendererWithBid:(Bid *)bid {
-    id render = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid
-                                                                           isInterstitial:false];
-    
-    if ([render conformsToProtocol:@protocol(PrebidMobileAdViewPluginRenderer)]) {
-        self.renderer = render;
-    }
 }
 
 @end

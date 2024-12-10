@@ -28,9 +28,11 @@ struct TestCases {
     
     // In-App Rendering Api
     let inAppDisplayBannerCase = "In-App Display Banner 320x50"
+    let inAppDisplayBannerCustomRendererCase = "In-App Display Banner Plugin Renderer 320x50"
     let inAppNativeCase = "In-App Native"
     let inAppVideoBannerCase = "In-App Video Banner 300x250"
     let inAppDisplayInterstitialCase = "In-App Display Interstitial 320x480"
+    let inAppDisplayInterstitialCustomRendererCase = "In-App Display Interstitial Plugin Renderer 320x480"
     let inAppVideoInterstitialCase = "In-App Video Interstitial 320x480"
     let inAppVideoRewardedCase = "In-App Video Rewarded 320x480"
     

@@ -14,14 +14,15 @@
   */
 
 #import <UIKit/UIKit.h>
+#import "SampleAdView.h"
 #import "SampleInterstitialController.h"
 
 @import PrebidMobile;
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// A custom implementation of the interstitial ad renderer.
-@interface SampleInterstitialRenderer : NSObject <PrebidMobileInterstitialPluginRenderer>
+/// A custom implementation of the ad view renderer.
+@interface SampleRenderer : NSObject <PrebidMobilePluginRenderer>
 
 - (instancetype)init;
 

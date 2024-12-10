@@ -16,17 +16,33 @@
 import UIKit
 import PrebidMobile
 
-class SampleInterstitialRenderer: PrebidMobileInterstitialPluginRenderer {
+public class SampleRenderer: NSObject, PrebidMobilePluginRenderer {
     
-    var name = "SampleInterstitialRenderer"
-    var version = "1.0.0"
-    var data: [AnyHashable : Any]?
+    public let name = "SampleRenderer"
+    public let version = "1.0.0"
+    public var data: [AnyHashable: Any]?
     
-    func isSupportRendering(for format: PrebidMobile.AdFormat?) -> Bool {
+    public func isSupportRendering(for format: AdFormat?) -> Bool {
         [AdFormat.banner, AdFormat.video].contains(format)
     }
     
-    func createInterstitialController(
+    public func createBannerView(
+        with frame: CGRect,
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        loadingDelegate: DisplayViewLoadingDelegate,
+        interactionDelegate: DisplayViewInteractionDelegate
+    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+        let bannerView = SampleAdView(frame: frame)
+        
+        bannerView.interactionDelegate = interactionDelegate
+        bannerView.loadingDelegate = loadingDelegate
+        bannerView.bid = bid
+        
+        return bannerView
+    }
+    
+    public func createInterstitialController(
         bid: Bid,
         adConfiguration: AdUnitConfig,
         loadingDelegate: InterstitialControllerLoadingDelegate,

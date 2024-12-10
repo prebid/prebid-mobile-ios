@@ -28,16 +28,14 @@
 		457FD34BA45C3840CC31A8F5 /* Pods_InternalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */; };
 		530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E722B292FACB20025B44D /* UIImageView+Extensions.swift */; };
 		53514CE12D08416B00A480C0 /* CustomRendererInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDF2D08416B00A480C0 /* CustomRendererInterstitialController.swift */; };
-		53514CE22D08416B00A480C0 /* SampleAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CD92D08416B00A480C0 /* SampleAdViewRenderer.swift */; };
+		53514CE22D08416B00A480C0 /* SampleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CD92D08416B00A480C0 /* SampleRenderer.swift */; };
 		53514CE32D08416B00A480C0 /* SampleModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDC2D08416B00A480C0 /* SampleModalViewController.swift */; };
-		53514CE42D08416B00A480C0 /* SampleInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDB2D08416B00A480C0 /* SampleInterstitialRenderer.swift */; };
 		53514CE52D08416B00A480C0 /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDA2D08416B00A480C0 /* SampleInterstitialController.swift */; };
 		53514CE62D08416B00A480C0 /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CD82D08416B00A480C0 /* SampleAdView.swift */; };
 		53514CE72D08416B00A480C0 /* CustomRendererBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDE2D08416B00A480C0 /* CustomRendererBannerController.swift */; };
 		53514CE82D08416B00A480C0 /* CustomRendererInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDF2D08416B00A480C0 /* CustomRendererInterstitialController.swift */; };
-		53514CE92D08416B00A480C0 /* SampleAdViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CD92D08416B00A480C0 /* SampleAdViewRenderer.swift */; };
+		53514CE92D08416B00A480C0 /* SampleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CD92D08416B00A480C0 /* SampleRenderer.swift */; };
 		53514CEA2D08416B00A480C0 /* SampleModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDC2D08416B00A480C0 /* SampleModalViewController.swift */; };
-		53514CEB2D08416B00A480C0 /* SampleInterstitialRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDB2D08416B00A480C0 /* SampleInterstitialRenderer.swift */; };
 		53514CEC2D08416B00A480C0 /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDA2D08416B00A480C0 /* SampleInterstitialController.swift */; };
 		53514CED2D08416B00A480C0 /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CD82D08416B00A480C0 /* SampleAdView.swift */; };
 		53514CEE2D08416B00A480C0 /* CustomRendererBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDE2D08416B00A480C0 /* CustomRendererBannerController.swift */; };
@@ -390,9 +388,8 @@
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		530E722B292FACB20025B44D /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		53514CD82D08416B00A480C0 /* SampleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdView.swift; sourceTree = "<group>"; };
-		53514CD92D08416B00A480C0 /* SampleAdViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdViewRenderer.swift; sourceTree = "<group>"; };
+		53514CD92D08416B00A480C0 /* SampleRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleRenderer.swift; sourceTree = "<group>"; };
 		53514CDA2D08416B00A480C0 /* SampleInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInterstitialController.swift; sourceTree = "<group>"; };
-		53514CDB2D08416B00A480C0 /* SampleInterstitialRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInterstitialRenderer.swift; sourceTree = "<group>"; };
 		53514CDC2D08416B00A480C0 /* SampleModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleModalViewController.swift; sourceTree = "<group>"; };
 		53514CDE2D08416B00A480C0 /* CustomRendererBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererBannerController.swift; sourceTree = "<group>"; };
 		53514CDF2D08416B00A480C0 /* CustomRendererInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererInterstitialController.swift; sourceTree = "<group>"; };
@@ -716,10 +713,9 @@
 		53514CDD2D08416B00A480C0 /* Renderers */ = {
 			isa = PBXGroup;
 			children = (
+				53514CD92D08416B00A480C0 /* SampleRenderer.swift */,
 				53514CD82D08416B00A480C0 /* SampleAdView.swift */,
-				53514CD92D08416B00A480C0 /* SampleAdViewRenderer.swift */,
 				53514CDA2D08416B00A480C0 /* SampleInterstitialController.swift */,
-				53514CDB2D08416B00A480C0 /* SampleInterstitialRenderer.swift */,
 				53514CDC2D08416B00A480C0 /* SampleModalViewController.swift */,
 			);
 			path = Renderers;
@@ -1638,9 +1634,8 @@
 				53ED300C29798104007D13EE /* DummyTableViewCell.swift in Sources */,
 				53ED300D29798104007D13EE /* AboutViewController.swift in Sources */,
 				53514CE12D08416B00A480C0 /* CustomRendererInterstitialController.swift in Sources */,
-				53514CE22D08416B00A480C0 /* SampleAdViewRenderer.swift in Sources */,
+				53514CE22D08416B00A480C0 /* SampleRenderer.swift in Sources */,
 				53514CE32D08416B00A480C0 /* SampleModalViewController.swift in Sources */,
-				53514CE42D08416B00A480C0 /* SampleInterstitialRenderer.swift in Sources */,
 				53514CE52D08416B00A480C0 /* SampleInterstitialController.swift in Sources */,
 				53514CE62D08416B00A480C0 /* SampleAdView.swift in Sources */,
 				53514CE72D08416B00A480C0 /* CustomRendererBannerController.swift in Sources */,
@@ -1739,9 +1734,8 @@
 				5B8EB5EF22676914003CC15C /* DummyTableViewCell.swift in Sources */,
 				5B3EEDCB2101D1AF00BAA0C4 /* AboutViewController.swift in Sources */,
 				53514CE82D08416B00A480C0 /* CustomRendererInterstitialController.swift in Sources */,
-				53514CE92D08416B00A480C0 /* SampleAdViewRenderer.swift in Sources */,
+				53514CE92D08416B00A480C0 /* SampleRenderer.swift in Sources */,
 				53514CEA2D08416B00A480C0 /* SampleModalViewController.swift in Sources */,
-				53514CEB2D08416B00A480C0 /* SampleInterstitialRenderer.swift in Sources */,
 				53514CEC2D08416B00A480C0 /* SampleInterstitialController.swift in Sources */,
 				53514CED2D08416B00A480C0 /* SampleAdView.swift in Sources */,
 				53514CEE2D08416B00A480C0 /* CustomRendererBannerController.swift in Sources */,

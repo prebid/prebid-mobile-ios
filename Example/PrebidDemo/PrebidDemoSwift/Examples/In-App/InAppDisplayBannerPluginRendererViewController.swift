@@ -24,7 +24,7 @@ class InAppDisplayBannerPluginRendererViewController:
     
     // Prebid
     private var prebidBannerView: BannerView!
-    private let samplePluginRenderer = SampleAdViewRenderer()
+    private let samplePluginRenderer = SampleRenderer()
     
     override func loadView() {
         super.loadView()
