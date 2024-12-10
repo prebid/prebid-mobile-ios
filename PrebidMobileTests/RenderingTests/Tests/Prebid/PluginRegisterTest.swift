@@ -57,7 +57,7 @@ class PluginRegisterTest: XCTestCase {
     }
     
     func testGetPluginForBidContainingSampleCustomRenderer() {
-        let bidResponse = Bid(
+        let bid = Bid(
             bid: RawSampleCustomRendererBidFabricator.makeSampleCustomRendererBid(
                 rendererName: "MockPrebidMobilePluginRenderer",
                 rendererVersion: "1.0.0"
@@ -65,8 +65,7 @@ class PluginRegisterTest: XCTestCase {
         )
         
         let pluginRenderer = prebidMobilePluginRegister.getPluginForPreferredRenderer(
-            bid: bidResponse,
-            isInterstitial: false
+            bid: bid
         )
         
         XCTAssertEqual(pluginRenderer.name, plugin.name)

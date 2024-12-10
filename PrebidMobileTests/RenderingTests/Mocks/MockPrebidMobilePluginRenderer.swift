@@ -20,14 +20,10 @@ class MockPrebidMobilePluginRenderer: PrebidMobilePluginRenderer {
     
     let name: String
     let version: String
-    var data: [AnyHashable: Any]?
+    var data: [String: Any]?
     var formats: Set<AdFormat> = []
     
-    init(
-        name: String,
-        version: String,
-        data: [AnyHashable: Any]? = nil
-    ) {
+    init(name: String, version: String, data: [String: Any]? = nil) {
         self.name = name
         self.version = version
         self.data = data
@@ -47,5 +43,24 @@ class MockPrebidMobilePluginRenderer: PrebidMobilePluginRenderer {
         var json: [String: Any] = ["name": name, "version": version]
         json["data"] = data
         return json
+    }
+    
+    func createBannerView(
+        with frame: CGRect,
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        loadingDelegate: any DisplayViewLoadingDelegate,
+        interactionDelegate: any DisplayViewInteractionDelegate
+    ) -> (any UIView & PrebidMobileDisplayViewProtocol)? {
+        return nil
+    }
+    
+    func createInterstitialController(
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        loadingDelegate: any InterstitialControllerLoadingDelegate,
+        interactionDelegate: any InterstitialControllerInteractionDelegate
+    ) -> (any PrebidMobileInterstitialControllerProtocol)? {
+        return nil
     }
 }

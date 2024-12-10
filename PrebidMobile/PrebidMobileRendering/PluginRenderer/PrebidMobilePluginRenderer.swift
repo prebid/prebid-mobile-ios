@@ -16,7 +16,8 @@
 import UIKit
 
 /// A protocol for the plugin renderer, defining the basic interface that any renderer should implement.
-/// This protocol provides the ability to retrieve plugin details, support rendering formats, and manage event delegates.
+/// This protocol provides the ability to retrieve plugin details, support rendering formats, and manage event delegates and
+/// methods for creating custom banner view and insterstitial controller.
 @objc
 public protocol PrebidMobilePluginRenderer: AnyObject {
     
@@ -27,7 +28,7 @@ public protocol PrebidMobilePluginRenderer: AnyObject {
     @objc var version: String { get }
     
     /// The version of the plugin renderer.
-    @objc var data: [AnyHashable: Any]? { get }
+    @objc var data: [String: Any]? { get }
     
     /// Returns true only if the given ad unit could be renderer by the plugin.
     @objc func isSupportRendering(for format: AdFormat?) -> Bool

@@ -64,28 +64,14 @@
                  adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker {
-    
-    id<PrebidMobilePluginRenderer> renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid];
-    PBMLogInfo(@"Renderer: %@", renderer);
-    
-    CGRect const displayFrame = CGRectMake(0, 0, bid.size.width, bid.size.height);
-    
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIView <PrebidMobileDisplayViewProtocol> * newDisplayView = [renderer createBannerViewWith:displayFrame
-                                                                                               bid:bid
-                                                                                   adConfiguration:adUnitConfig
-                                                                                   loadingDelegate:self
-                                                                               interactionDelegate:self.delegate];
+        UIView <PrebidMobileDisplayViewProtocol> * displayView = [self createBannerViewWithBid:bid
+                                                                                  adUnitConfig:adUnitConfig];
         
-        if (!newDisplayView) {
-            PBMLogError(@"SDK couldn't retrieve an implementation of PrebidMobileDisplayViewManagerProtocol.");
-            return;
-        }
-        
-        adObjectSaver(newDisplayView);
+        adObjectSaver(displayView);
         
         loadMethodInvoker(^{
-            [newDisplayView loadAd];
+            [displayView loadAd];
         });
     });
 }
@@ -116,6 +102,32 @@
 
 - (void)failedWithError:(nullable NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
+}
+
+- (UIView<PrebidMobileDisplayViewProtocol> *)createBannerViewWithBid:(Bid *)bid adUnitConfig:(AdUnitConfig *)adUnitConfig {
+    id<PrebidMobilePluginRenderer> renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid];
+    PBMLogInfo(@"Renderer: %@", renderer);
+    
+    CGRect const displayFrame = CGRectMake(0, 0, bid.size.width, bid.size.height);
+    
+    UIView <PrebidMobileDisplayViewProtocol> * displayView = [renderer createBannerViewWith:displayFrame
+                                                                                        bid:bid
+                                                                            adConfiguration:adUnitConfig
+                                                                            loadingDelegate:self
+                                                                        interactionDelegate:self.delegate];
+    
+    if (displayView) {
+        return displayView;
+    }
+    
+    PBMLogWarn(@"SDK couldn't retrieve an implementation of PrebidMobileDisplayViewManagerProtocol. SDK will use the default one.");
+    
+    PrebidRenderer *defaultRenderer = [PrebidRenderer new];
+    return [defaultRenderer createBannerViewWith:displayFrame
+                                             bid:bid
+                                 adConfiguration:adUnitConfig
+                                 loadingDelegate:self
+                             interactionDelegate:self.delegate];
 }
 
 @end
