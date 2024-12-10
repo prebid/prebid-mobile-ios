@@ -21,7 +21,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// A custom implementation of the ad view renderer.
+/// A custom implementation of the renderer.
 @interface SampleRenderer : NSObject <PrebidMobilePluginRenderer>
 
 - (instancetype)init;

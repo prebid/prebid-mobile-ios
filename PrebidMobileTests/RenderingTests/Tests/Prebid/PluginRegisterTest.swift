@@ -71,24 +71,4 @@ class PluginRegisterTest: XCTestCase {
         XCTAssertEqual(pluginRenderer.name, plugin.name)
         XCTAssertEqual(pluginRenderer.version, plugin.version)
     }
-    
-    func testGetRTBListOfRenderersFor() {
-        plugin.formats = [.banner, .video]
-        
-        let adUnitConfigBanner = AdUnitConfig(
-            configId: "configID",
-            size: CGSize(width: 300, height: 250)
-        )
-        
-        var renderers = prebidMobilePluginRegister
-            .getRTBListOfRenderersFor(for: adUnitConfigBanner)
-        XCTAssertEqual(1, renderers.count)
-        
-        let adUnitConfigError = AdUnitConfig(configId: "configID")
-        adUnitConfigError.adFormats = [.native]
-        
-        renderers = prebidMobilePluginRegister
-            .getRTBListOfRenderersFor(for: adUnitConfigError)
-        XCTAssertEqual(0, renderers.count)
-    }
 }

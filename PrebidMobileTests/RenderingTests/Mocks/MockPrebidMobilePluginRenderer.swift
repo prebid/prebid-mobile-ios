@@ -29,16 +29,6 @@ class MockPrebidMobilePluginRenderer: PrebidMobilePluginRenderer {
         self.data = data
     }
     
-    func isSupportRendering(for format: AdFormat?) -> Bool {
-        guard !formats.isEmpty else { return true }
-        
-        if let format {
-            return formats.contains(format)
-        } else {
-            return true
-        }
-    }
-    
     func jsonDictionary() -> [String: Any] {
         var json: [String: Any] = ["name": name, "version": version]
         json["data"] = data

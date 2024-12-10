@@ -63,7 +63,11 @@
                  adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker {
+    @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
+        @strongify(self);
+        if (!self) { return; }
+        
         id<PrebidMobileInterstitialControllerProtocol> controller = [self createInterstitialControllerWithBid:bid
                                                                                                  adUnitConfig:adUnitConfig];
         adObjectSaver(controller);
