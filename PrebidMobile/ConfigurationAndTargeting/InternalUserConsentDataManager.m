@@ -40,7 +40,11 @@
 
 + (NSMutableArray<NSNumber *> *)gppSID {
     NSString * gppSID = [NSUserDefaults.standardUserDefaults stringForKey:InternalUserConsentDataManager.IABGPP_GppSID];
-    
+
+    if ([gppSID length] == 0) {
+        gppSID = nil;
+    }
+
     NSMutableArray<NSString *> *gppSIDStringArray = [[gppSID componentsSeparatedByString:@"_"] mutableCopy];
     NSMutableArray<NSNumber *> *gppSIDIntArray = [NSMutableArray new];
     
