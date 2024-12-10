@@ -213,34 +213,14 @@ class BaseInterstitialAdUnit:
         delegate?.callDelegate_willLeaveApplication()
     }
     
-    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialControllerProtocol) {}
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialControllerProtocol) {}
-    public func trackUserReward(_ interstitialController: InterstitialControllerProtocol, _ reward: PrebidReward) {}
+    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func trackUserReward(_ interstitialController: PrebidMobileInterstitialControllerProtocol, _ reward: PrebidReward) {}
     
     public func viewControllerForModalPresentation(
         fromInterstitialController: PrebidMobileInterstitialControllerProtocol
     ) -> UIViewController? {
         return targetController
-    }
-    
-    /// Called when the interstitial controller displays an ad.
-    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
-    
-    /// Called when the interstitial controller completes the ad display.
-    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
-    
-    // MARK: - Private methods
-
-    private func reportLoadingSuccess() {
-        DispatchQueue.main.async {
-            self.callDelegate_didReceiveAd()
-        }
-    }
-
-    private func reportLoadingFailed(with error: Error?) {
-        DispatchQueue.main.async {
-            self.callDelegate_didFailToReceiveAd(with: error)
-        }
     }
     
     // MARK: - InterstitialEventInteractionDelegate

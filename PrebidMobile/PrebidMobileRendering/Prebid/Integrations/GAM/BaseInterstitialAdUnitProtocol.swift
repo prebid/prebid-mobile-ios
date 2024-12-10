@@ -16,7 +16,7 @@
 import UIKit
 
 @objc
-public protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
+protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
 
     @objc func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol)
 

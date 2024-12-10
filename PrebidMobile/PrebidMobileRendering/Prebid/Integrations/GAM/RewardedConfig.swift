@@ -75,7 +75,7 @@ public class RewardedConfig: NSObject {
     
     private let ortbRewarded: PBMORTBRewardedConfiguration?
     
-    init(ortbRewarded: PBMORTBRewardedConfiguration?) {
+    public init(ortbRewarded: PBMORTBRewardedConfiguration?) {
         self.ortbRewarded = ortbRewarded
     }
 }

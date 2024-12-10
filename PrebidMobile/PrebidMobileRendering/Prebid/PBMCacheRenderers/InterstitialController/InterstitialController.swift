@@ -73,6 +73,7 @@ public class InterstitialController:
         }
         
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
+        adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
         videoControlsConfig.initialize(with: bid.videoAdConfiguration)
         
         // This part is dedicating to test server-side ad configurations.
@@ -160,12 +161,6 @@ public class InterstitialController:
         adViewManager = nil
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidCloseAd(self)
-        }
-    }
-    
-    @objc public func adDidSendRewardedEvent() {
-        if let delegate = interactionDelegate {
-            delegate.trackUserReward?(self, PrebidReward(with: bid.rewardedConfig?.reward))
         }
     }
     
