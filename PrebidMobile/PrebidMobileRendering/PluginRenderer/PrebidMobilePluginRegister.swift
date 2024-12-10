@@ -98,27 +98,13 @@ public class PrebidMobilePluginRegister: NSObject {
         }
     }
     
-    /// Returns the list of available renderers for the given ad unit for RTB request
-    public func getRTBListOfRenderersFor(for adUnitConfig: AdUnitConfig) -> [PrebidMobilePluginRenderer] {
-        queue.sync {
-            plugins
-                .values
-                .filter { renderer in
-                    adUnitConfig.adFormats.contains { format in
-                        renderer.isSupportRendering(for: format)
-                    }
-                }
-        }
-    }
-    
     /// Returns the registered renderer according to the preferred renderer name in the bid response.
     /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior.
     /// Once bid is win we want to resolve the best PluginRenderer candidate to render the ad.
     public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
         guard let preferredRendererName = bid.pluginRendererName,
               let preferredPlugin = getPluginRenderer(for: preferredRendererName),
-              preferredPlugin.version == bid.pluginRendererVersion,
-              preferredPlugin.isSupportRendering(for: bid.adFormat)
+              preferredPlugin.version == bid.pluginRendererVersion
         else {
             return defaultRenderer
         }

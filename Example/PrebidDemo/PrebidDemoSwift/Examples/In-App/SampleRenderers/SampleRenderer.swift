@@ -16,16 +16,12 @@
 import UIKit
 import PrebidMobile
 
-/// A custom implementation of the ad view renderer.
+/// A custom implementation of the renderer.
 public class SampleRenderer: NSObject, PrebidMobilePluginRenderer {
     
     public let name = "SampleRenderer"
     public let version = "1.0.0"
     public var data: [String: Any]?
-    
-    public func isSupportRendering(for format: PrebidMobile.AdFormat?) -> Bool {
-        [PrebidMobile.AdFormat.banner, PrebidMobile.AdFormat.video].contains(format)
-    }
     
     /// This method creates an instance of `SampleAdView`, which is a custom view used to display the ad. 
     public func createBannerView(

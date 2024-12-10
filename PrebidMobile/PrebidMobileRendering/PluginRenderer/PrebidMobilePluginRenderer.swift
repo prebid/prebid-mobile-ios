@@ -27,11 +27,8 @@ public protocol PrebidMobilePluginRenderer: AnyObject {
     /// The version of the plugin renderer.
     @objc var version: String { get }
     
-    /// The version of the plugin renderer.
+    /// Custom data to be included in the ORTB request.
     @objc var data: [String: Any]? { get }
-    
-    /// Returns true only if the given ad unit could be renderer by the plugin.
-    @objc func isSupportRendering(for format: AdFormat?) -> Bool
     
     /// Register a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events.
     @objc optional func registerEventDelegate(

@@ -30,10 +30,6 @@
     return self;
 }
 
-- (BOOL)isSupportRenderingFor:(AdFormat *)format {
-    return [@[AdFormat.banner, AdFormat.video] containsObject:format];
-}
-
 - (UIView<PrebidMobileDisplayViewProtocol> * _Nullable)createBannerViewWith:(CGRect)frame
                                                                         bid:(Bid * _Nonnull)bid
                                                             adConfiguration:(AdUnitConfig * _Nonnull)adConfiguration
