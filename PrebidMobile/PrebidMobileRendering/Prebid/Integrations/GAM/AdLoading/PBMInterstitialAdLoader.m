@@ -32,6 +32,7 @@
 
 @property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate, InterstitialControllerInteractionDelegate> delegate;
 @property (nonatomic, strong, nullable) id<PrebidMobileInterstitialPluginRenderer> renderer;
+@property (nonatomic, weak, nullable, readonly) id<PBMPrimaryAdRequesterProtocol> eventHandler;
 
 @end
 
@@ -41,7 +42,8 @@
 
 // MARK: - Lifecycle
 
-- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate, InterstitialControllerInteractionDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate, InterstitialControllerInteractionDelegate>)delegate
+                    eventHandler:(nonnull id<PBMPrimaryAdRequesterProtocol>)eventHandler  {
     if (!(self = [super init])) {
         return nil;
     }

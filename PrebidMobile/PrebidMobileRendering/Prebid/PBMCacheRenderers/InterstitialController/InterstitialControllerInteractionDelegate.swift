@@ -74,4 +74,14 @@ public protocol InterstitialControllerInteractionDelegate: NSObjectProtocol {
     @objc func viewControllerForModalPresentation(
         fromInterstitialController: PrebidMobileInterstitialControllerProtocol
     ) -> UIViewController?
+    
+    /// Notifies the delegate when a reward is granted to the user after interacting with a rewarded interstitial ad.
+    ///
+    /// - Parameters:
+    ///   - interstitialController: The instance of the interstitial ad controller responsible for managing the ad.
+    ///   - reward: An object containing details about the reward, such as the type and amount.
+    @objc optional func trackUserReward(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol,
+        _ reward: PrebidReward
+    )
 }

@@ -203,14 +203,34 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         addExtData(key: key, value: data)
     }
     
-    // MARK: - BaseInterstitialAdUnitProtocol protocol
+    /// Updates context data for a specified key.
+    /// - Parameters:
+    ///   - data: A set of data to update.
+    ///   - key: The key associated with the data.
+    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
+    public func updateContextData(_ data: Set<String>, forKey key: String) {
+        updateExtData(key: key, value: data)
+    }
     
-    /// Called when the interstitial ad is closed.
-    ///
-    /// - Parameter interstitialController: The controller managing the interstitial ad.
-    @objc public override func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
-        callDelegate_rewardedAdUserDidEarnReward()
-        super.interstitialControllerDidCloseAd(interstitialController)
+    /// Removes context data for a specified key.
+    /// - Parameter key: The key associated with the data to remove.
+    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
+    public func removeContextDate(forKey key: String) {
+        removeExtData(forKey: key)
+    }
+    
+    /// Clears all context data.
+    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
+    public func clearContextData() {
+        clearExtData()
+    }
+    
+    /// Adds ext data.
+    /// - Parameters:
+    ///   - key: The key for the data.
+    ///   - value: The value for the data.
+    public func addExtData(key: String, value: String) {
+        adUnitConfig.addExtData(key: key, value: value)
     }
     
     /// Updates ext data.
@@ -336,7 +356,7 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     // MARK: - Internal methods
     
-    func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+    func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         baseAdUnit.interstitialControllerDidCloseAd(interstitialController)
     }
     
