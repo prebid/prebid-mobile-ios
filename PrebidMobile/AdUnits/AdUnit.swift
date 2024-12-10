@@ -417,16 +417,26 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     // MARK: Arbitrary ORTB Configuration
     
+    @available(*, deprecated, renamed: "setImpORTBConfig")
+    public func setOrtbConfig(_ ortbObject: String?) {
+        adUnitConfig.impORTBConfig = ortbObject
+    }
+    
+    @available(*, deprecated, renamed: "getImpORTBConfig")
+    public func getOrtbConfig() -> String? {
+        return adUnitConfig.impORTBConfig
+    }
+    
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
     ///
     /// - Parameter ortbObject: The impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
-    public func setImpressionORTBConfig(_ ortbConfig: String?) {
-        adUnitConfig.impressionORTBConfig = ortbConfig
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
     }
     
     /// Returns the impression-level OpenRTB configuration string.
-    public func getImpressionORTBConfig() -> String? {
-        adUnitConfig.impressionORTBConfig
+    public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
     }
     
     // MARK: - Others

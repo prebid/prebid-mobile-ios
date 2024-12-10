@@ -82,9 +82,9 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var gpid: String?
     
-    public var impressionORTBConfig: String? {
-        get { adConfiguration.impressionORTBConfig }
-        set { adConfiguration.impressionORTBConfig = newValue }
+    public var impORTBConfig: String? {
+        get { adConfiguration.impORTBConfig }
+        set { adConfiguration.impORTBConfig = newValue }
     }
 
     // MARK: - Public Methods
@@ -310,7 +310,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.additionalSizes = self.additionalSizes
         clone.refreshInterval = self.refreshInterval
         clone.gpid = self.gpid
-        clone.ortbConfig = self.ortbConfig
         clone.extensionData = self.extensionData.merging(clone.extensionData) { $1 }
         clone.appContent = self.appContent
         clone.extKeywords = self.extKeywords
@@ -318,7 +317,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot
         
-        clone.adConfiguration.impressionORTBConfig = self.adConfiguration.impressionORTBConfig
+        clone.adConfiguration.impORTBConfig = self.adConfiguration.impORTBConfig
         clone.adConfiguration.rewardedConfig = self.adConfiguration.rewardedConfig
         clone.adConfiguration.winningBidAdFormat = self.adConfiguration.winningBidAdFormat
         clone.adConfiguration.adFormats = self.adConfiguration.adFormats
@@ -338,7 +337,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.pollFrequency = self.adConfiguration.pollFrequency
         clone.adConfiguration.viewableArea = self.adConfiguration.viewableArea
         clone.adConfiguration.viewableDuration = self.adConfiguration.viewableDuration
-        clone.adConfiguration.ortbConfig = self.adConfiguration.ortbConfig
         
         return clone
     }

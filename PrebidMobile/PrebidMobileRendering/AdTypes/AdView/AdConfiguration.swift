@@ -129,5 +129,5 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     private var _autoRefreshDelay: TimeInterval? = PBMAutoRefresh.AUTO_REFRESH_DELAY_DEFAULT
     
-    public var impressionORTBConfig: String?
+    public var impORTBConfig: String?
 }

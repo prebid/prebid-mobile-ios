@@ -64,7 +64,7 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
         adUnit.bannerParameters = parameters
         
         // 4. Set impression-level ORTB
-        adUnit.setImpressionORTBConfig("{\"bidfloor\":0.01,\"banner\":{\"battr\":[1,2,3,4]}}")
+        adUnit.setImpORTBConfig("{\"bidfloor\":0.01,\"banner\":{\"battr\":[1,2,3,4]}}")
         
         // 5. Create a GAMBannerView
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))

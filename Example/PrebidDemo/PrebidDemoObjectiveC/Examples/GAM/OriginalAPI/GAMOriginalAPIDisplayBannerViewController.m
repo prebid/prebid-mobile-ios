@@ -71,7 +71,7 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
     self.adUnit.bannerParameters = parameters;
     
     // 4. Set impression-level ORTB
-    [self.adUnit setImpressionORTBConfig:@"{\"bidfloor\":0.01,\"banner\":{\"battr\":[1,2,3,4]}}"];
+    [self.adUnit setImpORTBConfig:@"{\"bidfloor\":0.01,\"banner\":{\"battr\":[1,2,3,4]}}"];
     
     // 5. Create a GAMBannerView
     GAMRequest * gamRequest = [GAMRequest new];

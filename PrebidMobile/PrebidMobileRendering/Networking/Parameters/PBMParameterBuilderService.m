@@ -99,7 +99,7 @@
     NSDictionary *ortb = [bidRequest toJsonDictionary];
     
     NSDictionary * arbitratyORTB = [PBMArbitraryORTBService mergeWithSdkORTB:ortb
-                                                                     impORTB:adConfiguration.impressionORTBConfig
+                                                                     impORTB:adConfiguration.impORTBConfig
                                                                   globalORTB:[targeting getGlobalORTBConfig]];
     
     return [PBMORTBParameterBuilder buildOpenRTBFor:arbitratyORTB];

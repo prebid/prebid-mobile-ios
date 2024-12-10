@@ -57,13 +57,20 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition }
         set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition = newValue }
     }
-
-    let adUnitConfig: AdUnitConfig
+    
+    /// The ORTB (OpenRTB) configuration string for the ad unit.
+    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) and getImpORTBConfig() instead.")
+    public var ortbConfig: String? {
+        get { adUnitConfig.impORTBConfig }
+        set { adUnitConfig.impORTBConfig = newValue }
+    }
     
     /// The configuration ID for the ad unit.
     public var configId: String {
         adUnitConfig.configId
     }
+    
+    let adUnitConfig: AdUnitConfig
     
     var bidRequester: PBMBidRequester?
     
@@ -98,13 +105,13 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
     ///
     /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
-    public func setImpressionORTBConfig(_ ortbConfig: String?) {
-        adUnitConfig.impressionORTBConfig = ortbConfig
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
     }
     
     /// Returns the impression-level OpenRTB configuration string.
-    public func getImpressionORTBConfig() -> String? {
-        adUnitConfig.impressionORTBConfig
+    public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
     }
     
     // MARK: - Ext Data (imp[].ext.data)

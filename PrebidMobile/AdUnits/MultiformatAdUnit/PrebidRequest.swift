@@ -34,7 +34,7 @@ public class PrebidRequest: NSObject {
     private(set) var isRewarded = false
     
     private(set) var gpid: String?
-    private var impressionORTBConfig: String?
+    private var impORTBConfig: String?
     
     // MARK: - Private properties
     
@@ -79,13 +79,13 @@ public class PrebidRequest: NSObject {
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
     ///
     /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
-    public func setImpressionORTBConfig(_ ortbConfig: String?) {
-        self.impressionORTBConfig = ortbConfig
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        self.impORTBConfig = ortbConfig
     }
     
     /// Returns the impression-level OpenRTB configuration string.
-    public func getImpressionORTBConfig() -> String? {
-        impressionORTBConfig
+    public func getImpORTBConfig() -> String? {
+        impORTBConfig
     }
     
     // MARK: - adunit ext data aka inventory data (imp[].ext.data)

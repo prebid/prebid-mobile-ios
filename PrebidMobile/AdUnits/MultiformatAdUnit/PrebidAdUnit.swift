@@ -127,7 +127,7 @@ public class PrebidAdUnit: NSObject {
         adUnit.adUnitConfig.adConfiguration.isInterstitialAd = request.isInterstitial
         adUnit.adUnitConfig.adConfiguration.isRewarded = request.isRewarded
         adUnit.adUnitConfig.adPosition = request.adPosition
-        adUnit.adUnitConfig.impressionORTBConfig = request.getImpressionORTBConfig()
+        adUnit.adUnitConfig.impORTBConfig = request.getImpORTBConfig()
 
         if request.isInterstitial || request.isRewarded {
             adUnit.adUnitConfig.adPosition = .fullScreen

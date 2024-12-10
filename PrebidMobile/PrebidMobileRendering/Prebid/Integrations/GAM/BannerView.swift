@@ -75,6 +75,12 @@ public class BannerView: UIView,
         get { adUnitConfig.adPosition }
         set { adUnitConfig.adPosition = newValue }
     }
+    
+    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) and getImpORTBConfig() instead.")
+    @objc public var ortbConfig: String? {
+        get { adUnitConfig.impORTBConfig }
+        set { adUnitConfig.impORTBConfig = newValue }
+    }
 
     /// ORTB configuration string.
     @objc public weak var delegate: BannerViewDelegate?
@@ -235,13 +241,13 @@ public class BannerView: UIView,
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
     ///
     /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
-    @objc public func setImpressionORTBConfig(_ ortbConfig: String?) {
-        adUnitConfig.impressionORTBConfig = ortbConfig
+    @objc public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
     }
     
     /// Returns the impression-level OpenRTB configuration string.
-    @objc public func getImpressionORTBConfig() -> String? {
-        adUnitConfig.impressionORTBConfig
+    @objc public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
     }
     
     /// Stops the auto-refresh of the ad.
