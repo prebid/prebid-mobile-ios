@@ -51,6 +51,7 @@
 @property (nonatomic, copy, nullable, readwrite) PBMVoidBlock dismissInterstitialModalState;
 
 @property (nonatomic, assign) BOOL adWasShown;
+@property (nonatomic, assign) BOOL isViewableTracked;
 
 @property (nonatomic, nonnull) WKWebView *hiddenWebView;
 
@@ -70,6 +71,7 @@
         
         self.clickthroughVisible = NO;
         self.isDownloaded = NO;
+        self.isViewableTracked = NO;
         self.creativeModel = creativeModel;
         self.transaction = transaction;
         self.dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
@@ -82,8 +84,8 @@
         }
         
         if(@available(iOS 14.5, *)) {
-            if (self.transaction.skadnInfo) {
-                SKAdImpression *imp = [PBMSkadnParametersManager getSkadnImpressionFor:self.transaction.skadnInfo];
+            if (self.transaction.bid.skadn) {
+                SKAdImpression *imp = [PBMSkadnParametersManager getSkadnImpressionFor:self.transaction.bid.skadn];
                 if (imp) {
                     PBMSkadnEventTracker *skadnTracker = [[PBMSkadnEventTracker alloc] initWith:imp];
                     [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
@@ -93,18 +95,25 @@
         
         PrebidServerEventTracker *internalEventTracker = [[PrebidServerEventTracker alloc] initWithServerEvents:@[]];
         
-        NSString *impURL = self.transaction.impURL;
+        NSString *impURL = self.transaction.bid.events.imp;
         
         if (impURL) {
             PBMServerEvent *impEvent = [[PBMServerEvent alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
             [internalEventTracker addServerEvents:@[impEvent]];
         }
         
-        NSString *winURL = self.transaction.winURL;
+        NSString *winURL = self.transaction.bid.events.win;
         
         if (winURL) {
             PBMServerEvent *winEvent = [[PBMServerEvent alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
             [internalEventTracker addServerEvents:@[winEvent]];
+        }
+        
+        NSString * burl = self.transaction.bid.burl;
+        
+        if (burl) {
+            PBMServerEvent *billingEvent = [[PBMServerEvent alloc] initWithUrl:burl expectedEventType:PBMTrackingEventCreativeIsViewable];
+            [internalEventTracker addServerEvents:@[billingEvent]];
         }
         
         if (internalEventTracker.serverEvents.count > 0) {
@@ -157,6 +166,7 @@
     }
     if (!self.adWasShown) {
         self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc] initWithCreative:self];
+        self.viewabilityTracker.isViewabilityMode = NO;
     }
 }
 
@@ -227,7 +237,7 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
+    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.bid.skadn];
     
     if (skadnetProductParameters) {
         clickthroughOpened = [self handleProductClickthrough:url
@@ -416,6 +426,15 @@
         [self onAdDisplayed];
         self.adWasShown = YES;
     }
+    
+    if (!self.isViewableTracked && viewExposure.exposureFactor > 0) {
+        self.isViewableTracked = YES;
+        [self.eventManager trackEvent:PBMTrackingEventCreativeIsViewable];
+        
+        self.viewabilityTracker.isViewabilityMode = YES;
+    }
+    
+    PBMLogWarn(@"LOG: view exposure %f", viewExposure.exposureFactor);
 }
 
 - (void)pause {

@@ -46,13 +46,14 @@
 @property (nonatomic, strong, nonnull) PBMViewExposure *lastExposure;
 
 @property (nonatomic, nullable, weak, readonly) UIView *testedView;
-@property (nonatomic, assign) BOOL isViewabilityMode;
 
 @end
 
 @implementation PBMCreativeViewabilityTracker
 
-- (instancetype)initWithView:(UIView *)view pollingTimeInterval:(NSTimeInterval)pollingTimeInterval onExposureChange:(PBMViewExposureChangeHandler)onExposureChange {
+- (instancetype)initWithView:(UIView *)view
+         pollingTimeInterval:(NSTimeInterval)pollingTimeInterval
+            onExposureChange:(PBMViewExposureChangeHandler)onExposureChange {
     self = [super init];
     if (self) {
         _checker = [[PBMViewExposureChecker alloc] initWithView:view];
@@ -74,7 +75,6 @@
              onExposureChange:^(PBMCreativeViewabilityTracker *tracker, PBMViewExposure *viewExposure)
     {
         @strongify(creative);
-//        BOOL const isVisible = viewExposure.exposureFactor > 0;
         BOOL isVisible = [tracker isVisibleView:tracker.testedView];
         [creative onViewabilityChanged:isVisible viewExposure:viewExposure];
     }]) {

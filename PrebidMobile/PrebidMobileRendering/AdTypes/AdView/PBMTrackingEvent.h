@@ -18,6 +18,7 @@
 typedef NS_ENUM(NSInteger, PBMTrackingEvent) {
     PBMTrackingEventRequest = 0,
     PBMTrackingEventImpression,
+    PBMTrackingEventCreativeIsViewable,
     PBMTrackingEventClick,
     PBMTrackingEventOverlayClick,
     PBMTrackingEventCompanionClick, // split these or no?

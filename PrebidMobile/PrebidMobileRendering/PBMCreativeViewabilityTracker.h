@@ -26,6 +26,8 @@ typedef void(^PBMViewExposureChangeHandler)(PBMCreativeViewabilityTracker *track
 
 @interface PBMCreativeViewabilityTracker : NSObject
 
+@property (nonatomic, assign) BOOL isViewabilityMode;
+
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithView:(UIView *)view pollingTimeInterval:(NSTimeInterval)pollingTimeInterval onExposureChange:(PBMViewExposureChangeHandler)onExposureChange NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCreative:(PBMAbstractCreative *)creative;

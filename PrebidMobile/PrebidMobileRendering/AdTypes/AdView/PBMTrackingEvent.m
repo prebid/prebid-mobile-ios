@@ -21,6 +21,7 @@
     switch (event) {
         case PBMTrackingEventRequest            : return @"creativeModelTrackingKey_Request";
         case PBMTrackingEventImpression         : return @"creativeModelTrackingKey_Impression";
+        case PBMTrackingEventCreativeIsViewable : return @"creativeModelTrackingKey_IsViewable";
         case PBMTrackingEventClick              : return @"creativeModelTrackingKey_Click";
         case PBMTrackingEventOverlayClick       : return @"creativeModelTrackingKey_OverlayClick";
         case PBMTrackingEventCompanionClick     : return @"creativeModelTrackingKey_CompanionClick";
