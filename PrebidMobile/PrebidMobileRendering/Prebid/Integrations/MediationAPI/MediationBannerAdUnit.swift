@@ -80,10 +80,25 @@ public class MediationBannerAdUnit : NSObject {
         set { adUnitConfig.additionalSizes = newValue }
     }
     
-    /// OpenRTB configuration
+    /// The ORTB (OpenRTB) configuration string for the ad unit.
+    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) and getImpORTBConfig() instead.")
     public var ortbConfig: String? {
-        get { adUnitConfig.ortbConfig }
-        set { adUnitConfig.ortbConfig = newValue }
+        get { adUnitConfig.impORTBConfig }
+        set { adUnitConfig.impORTBConfig = newValue }
+    }
+    
+    // MARK: Arbitrary ORTB Configuration
+    
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
+    }
+    
+    /// Returns the impression-level OpenRTB configuration string.
+    public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
     }
 
     // MARK: - Ext Data (imp[].ext.data)

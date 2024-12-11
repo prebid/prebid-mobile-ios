@@ -16,6 +16,8 @@
 #import "PBMORTBParameterBuilder.h"
 #import "PBMConstants.h"
 #import "PBMORTBBidRequest.h"
+#import "PBMFunctions.h"
+#import "PBMFunctions+Private.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -26,18 +28,18 @@
 
 @implementation PBMORTBParameterBuilder
 
-+ (NSDictionary<NSString *, NSString *> *)buildOpenRTBFor:(PBMORTBBidRequest *)bidRequest {
++ (NSDictionary<NSString *, NSString *> *)buildOpenRTBFor:(PBMJsonDictionary *)ortbJsonDictionary {
     NSMutableDictionary<NSString *, NSString *> *ret = [NSMutableDictionary<NSString *, NSString *> new];
     
-    if (!bidRequest) {
+    if (!ortbJsonDictionary) {
         PBMLogError(@"Invalid properties");
         return ret;
     }
     
     NSError *error = nil;
-    NSString *json = [bidRequest toJsonStringWithError:&error];
-    if (json) {
-        ret[PBMParameterKeysOPEN_RTB] = json;
+    NSString *jsonString = [PBMFunctions toStringJsonDictionary:ortbJsonDictionary error:&error];
+    if (jsonString) {
+        ret[PBMParameterKeysOPEN_RTB] = jsonString;
     } else {
         PBMLogError(@"%@", [error localizedDescription]);
     }

@@ -40,16 +40,40 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
     [self createAd];
 }
 
+- (void)dealloc {
+    // Clean up global ORTB config
+    [Targeting.shared setGlobalORTBConfig:nil];
+}
+
 - (void)createAd {
-    // 1. Create a BannerAdUnit
+    // 1. Set global ORTB
+    NSString *globalORTB = [NSString stringWithFormat:
+        @"{"
+            "\"ext\": {"
+                "\"myext\": {"
+                    "\"test\": 1"
+                "}"
+            "},"
+            "\"displaymanager\": \"Google\","
+            "\"displaymanagerver\": \"%@\""
+        "}",
+        GADGetStringFromVersionNumber([GADMobileAds sharedInstance].versionNumber)
+    ];
+    
+    [Targeting.shared setGlobalORTBConfig:globalORTB];
+    
+    // 2. Create a BannerAdUnit
     self.adUnit = [[BannerAdUnit alloc] initWithConfigId:storedImpDisplayBanner size:self.adSize];
     
-    // 2. Configure banner parameters
+    // 3. Configure banner parameters
     BannerParameters * parameters = [[BannerParameters alloc] init];
     parameters.api = @[PBApi.MRAID_2];
     self.adUnit.bannerParameters = parameters;
     
-    // 3. Create a GAMBannerView
+    // 4. Set impression-level ORTB
+    [self.adUnit setImpORTBConfig:@"{\"bidfloor\":0.01,\"banner\":{\"battr\":[1,2,3,4]}}"];
+    
+    // 5. Create a GAMBannerView
     GAMRequest * gamRequest = [GAMRequest new];
     self.gamBanner = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(self.adSize)];
     self.gamBanner.adUnitID = gamAdUnitDisplayBannerOriginal;
@@ -59,13 +83,13 @@ NSString * const gamAdUnitDisplayBannerOriginal = @"/21808260008/prebid_demo_app
     // Add GMA SDK banner view to the app UI
     [self.bannerView addSubview:self.gamBanner];
     
-    // 4. Make a bid request to Prebid Server
+    // 6. Make a bid request to Prebid Server
     @weakify(self);
     [self.adUnit fetchDemandWithAdObject:gamRequest completion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
         
-        // 5. Load GAM Ad
+        // 7. Load GAM Ad
         [self.gamBanner loadRequest:gamRequest];
     }];
 }

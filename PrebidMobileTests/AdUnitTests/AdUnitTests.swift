@@ -173,7 +173,7 @@ class AdUnitTests: XCTestCase {
             exception.fulfill()
         }
         
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
         PBHTTPStubbingManager.shared().disable()

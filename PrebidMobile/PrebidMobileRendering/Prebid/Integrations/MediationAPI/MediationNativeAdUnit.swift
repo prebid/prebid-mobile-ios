@@ -107,17 +107,29 @@ public class MediationNativeAdUnit : NSObject {
     public func setExt(_ ext: [String: Any]) {
         nativeAdUnit.ext = ext
     }
-
-    /// Retrieves the OpenRTB configuration for the native ad unit.
-    /// - Returns: The OpenRTB configuration as a string, or `nil` if not set.
-    public func getOrtbConfig() -> String? {
-        return nativeAdUnit.getOrtbConfig()
+    
+    // MARK: Arbitrary ORTB Configuration
+    
+    @available(*, deprecated, renamed: "setImpORTBConfig")
+    public func setOrtbConfig(_ ortbConfig: String?) {
+        nativeAdUnit.setImpORTBConfig(ortbConfig)
     }
     
-    /// Sets the OpenRTB configuration for the native ad unit.
-    /// - Parameter ortbConfig: The OpenRTB configuration to set.
-    public func setOrtbConfig(_ ortbConfig: String?) {
-        nativeAdUnit.setOrtbConfig(ortbConfig)
+    @available(*, deprecated, renamed: "getImpORTBConfig")
+    public func getOrtbConfig() -> String? {
+        return nativeAdUnit.getImpORTBConfig()
+    }
+    
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        nativeAdUnit.adUnitConfig.impORTBConfig = ortbConfig
+    }
+    
+    /// Returns the impression-level OpenRTB configuration string.
+    public func getImpORTBConfig() -> String? {
+        nativeAdUnit.adUnitConfig.impORTBConfig
     }
     
     // MARK: - App Content (app.content.data)
