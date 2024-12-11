@@ -33,6 +33,12 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         set { adUnitConfig.adFormats = newValue }
     }
     
+    /// The position of the ad on the screen.
+    public var adPosition: AdPosition {
+        get { adUnitConfig.adPosition }
+        set { adUnitConfig.adPosition = newValue }
+    }
+    
     /// The ORTB (OpenRTB) configuration string for the ad unit.
     public var ortbConfig: String? {
         get { adUnitConfig.ortbConfig }
@@ -75,13 +81,16 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
     
+    // MARK: Internal Properties
+    
+    // Note: exposed for tests
+    var adUnitConfig: AdUnitConfig {
+        baseAdUnit.adUnitConfig
+    }
+    
     // MARK: Private properties
     
     private let baseAdUnit: BaseRewardedAdUnit
-    
-    private var adUnitConfig: AdUnitConfig {
-        baseAdUnit.adUnitConfig
-    }
     
     private var eventHandler: PBMPrimaryAdRequesterProtocol {
         baseAdUnit.eventHandler
