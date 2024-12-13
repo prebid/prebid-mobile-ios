@@ -799,6 +799,32 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual(imp.extGPID, gpid)
         }
     }
+    
+    // MARK: Arbitrary ORTB (Deprecated API)
+    
+    func testArbitraryORTBParams() {
+        let gpid = "/12345/home_screen#identifier"
+        let ortb = "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"imp\":[{}]}"
+        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
+        adUnit.setGPID(gpid)
+        adUnit.setOrtbConfig(ortb)
+
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        XCTAssertEqual(bidRequest.ortbObject?["arbitraryparamkey1"] as? String, "arbitraryparamvalue1")
+    }
+    
+    func testArbitraryORTBParamsIncorrectJSON() {
+        let gpid = "/12345/home_screen#identifier"
+        let ortb = "{{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"imp\":[{}]}"
+        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
+        adUnit.setGPID(gpid)
+        adUnit.setOrtbConfig(ortb)
+
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        XCTAssert(bidRequest.ortbObject?.isEmpty == true)
+    }
 
     // MARK: - Helpers
     

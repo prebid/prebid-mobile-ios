@@ -81,10 +81,10 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     /// The ORTB (OpenRTB) configuration string for the ad unit.
-    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) and getImpORTBConfig() instead.")
+    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) and getImpORTBConfig() for impression-level ORTB configuration.")
     public var ortbConfig: String? {
-        get { adUnitConfig.impORTBConfig }
-        set { adUnitConfig.impORTBConfig = newValue }
+        get { adUnitConfig.ortbConfig }
+        set { adUnitConfig.ortbConfig = newValue }
     }
     
     // MARK: Arbitrary ORTB Configuration

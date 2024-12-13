@@ -76,10 +76,10 @@ public class BannerView: UIView,
         set { adUnitConfig.adPosition = newValue }
     }
     
-    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) and getImpORTBConfig() instead.")
+    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) and getImpORTBConfig() for impression-level ORTB configuration.")
     @objc public var ortbConfig: String? {
-        get { adUnitConfig.impORTBConfig }
-        set { adUnitConfig.impORTBConfig = newValue }
+        get { adUnitConfig.ortbConfig }
+        set { adUnitConfig.ortbConfig = newValue }
     }
 
     /// ORTB configuration string.

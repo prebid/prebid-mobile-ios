@@ -110,14 +110,14 @@ public class MediationNativeAdUnit : NSObject {
     
     // MARK: Arbitrary ORTB Configuration
     
-    @available(*, deprecated, renamed: "setImpORTBConfig")
+    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) for impression-level ORTB configuration.")
     public func setOrtbConfig(_ ortbConfig: String?) {
-        nativeAdUnit.setImpORTBConfig(ortbConfig)
+        nativeAdUnit.setOrtbConfig(ortbConfig)
     }
     
-    @available(*, deprecated, renamed: "getImpORTBConfig")
+    @available(*, deprecated, message: "Deprecated. Use getImpORTBConfig() for impression-level ORTB configuration.")
     public func getOrtbConfig() -> String? {
-        return nativeAdUnit.getImpORTBConfig()
+        return nativeAdUnit.getOrtbConfig()
     }
     
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
