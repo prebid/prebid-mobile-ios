@@ -146,6 +146,13 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             internalEventTracker.addServerEvents([winEvent])
         }
         
+        if let burl = rawBid.burl {
+            let billingEvent = ServerEvent(url: burl, expectedEventType: .impression)
+            internalEventTracker.addServerEvents([billingEvent])
+        }
+        
+        // TODO: TRACK nurl
+        
         ad.eventManager.registerTracker(internalEventTracker)
         
         // Track win event immediately
