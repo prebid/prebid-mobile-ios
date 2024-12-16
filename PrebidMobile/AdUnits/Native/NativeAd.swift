@@ -128,30 +128,31 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             return nil
         }
         
-        let macrosHelper = PBMORTBMacrosHelper(bid: rawBid)
-        rawBid.adm = macrosHelper.replaceMacros(in: rawBid.adm)
-        rawBid.nurl = macrosHelper.replaceMacros(in: rawBid.nurl)
+        let bid = Bid(bid: rawBid)
         
         let ad = NativeAd()
         
         let internalEventTracker = PrebidServerEventTracker()
         
-        if let impURL = rawBid.ext.prebid?.events?.imp {
+        if let impURL = bid.events?.imp {
             let impEvent = ServerEvent(url: impURL, expectedEventType: .impression)
             internalEventTracker.addServerEvents([impEvent])
         }
         
-        if let winURL = rawBid.ext.prebid?.events?.win {
-            let winEvent = ServerEvent(url: winURL, expectedEventType: .prebidWin)
-            internalEventTracker.addServerEvents([winEvent])
-        }
-        
-        if let burl = rawBid.burl {
+        if let burl = bid.burl {
             let billingEvent = ServerEvent(url: burl, expectedEventType: .impression)
             internalEventTracker.addServerEvents([billingEvent])
         }
         
-        // TODO: TRACK nurl
+        if let winURL = bid.events?.win {
+            let winEvent = ServerEvent(url: winURL, expectedEventType: .prebidWin)
+            internalEventTracker.addServerEvents([winEvent])
+        }
+        
+        if let nurl = bid.nurl {
+            let noticeEvent = ServerEvent(url: nurl, expectedEventType: .prebidWin)
+            internalEventTracker.addServerEvents([noticeEvent])
+        }
         
         ad.eventManager.registerTracker(internalEventTracker)
         
@@ -159,7 +160,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         ad.eventManager.trackEvent(.prebidWin)
         
         guard let nativeAdMarkup = NativeAdMarkup(jsonString: rawBid.adm) else {
-            Log.warn("Can't retrieve native ad markup from bid response.")
+            Log.error("SDK couldn't retrieve native ad markup from bid response.")
             return nil
         }
         
