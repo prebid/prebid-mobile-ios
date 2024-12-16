@@ -201,7 +201,11 @@
             nextImp.extKeywords = [extKeywords componentsJoinedByString:@","];
         }
         
-        nextImp.extData[@"adslot"] = [self.adConfiguration getPbAdSlot];
+        NSString * pbAdSlot = [self.adConfiguration getPbAdSlot];
+        
+        // NOTE: `adslot` will be removed in future versions of Prebid SDK.
+        nextImp.extData[@"adslot"] = pbAdSlot;
+        nextImp.extData[@"pbadslot"] = pbAdSlot;
         
         for (AdFormat* adFormat in adFormats) {
             if (adFormat == AdFormat.banner || adFormat == AdFormat.display) {
