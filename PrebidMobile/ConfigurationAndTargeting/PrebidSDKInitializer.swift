@@ -28,7 +28,10 @@ class PrebidSDKInitializer {
         let _ = UserConsentDataManager.shared
         
         PrebidJSLibraryManager.shared.downloadLibraries()
+        
         serverStatusRequester.requestStatus { completion?($0, $1) }
+        
+        Prebid.registerPluginRenderer(PrebidRenderer())
     }
     
     // check for deprecated `GADMobileAds.sdkVersion`

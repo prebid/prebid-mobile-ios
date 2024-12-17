@@ -21,14 +21,17 @@ public class PrebidMobilePluginRegister: NSObject {
     
     public static let shared = PrebidMobilePluginRegister()
     
+    /// Default PrebidMobile SDK renderer
+    public var sdkRenderer: PrebidMobilePluginRenderer {
+        getPluginRenderer(for: PREBID_MOBILE_RENDERER_NAME) ?? PrebidRenderer()
+    }
+    
     private let queue = DispatchQueue(
         label: "PrebidMobilePluginRegisterQueue",
         attributes: .concurrent
     )
     
     private var plugins = [String: PrebidMobilePluginRenderer]()
-    
-    private let defaultRenderer = PrebidRenderer()
     
     private override init() {
         super.init()
@@ -58,10 +61,6 @@ public class PrebidMobilePluginRegister: NSObject {
         queue.sync {
             plugins.contains { $0.value === renderer }
         }
-    }
-    
-    private func getPluginRenderer(for key: String) -> PrebidMobilePluginRenderer? {
-        queue.sync { plugins[key] }
     }
     
     /// Register event delegate
@@ -106,7 +105,7 @@ public class PrebidMobilePluginRegister: NSObject {
               let preferredPlugin = getPluginRenderer(for: preferredRendererName),
               preferredPlugin.version == bid.pluginRendererVersion
         else {
-            return defaultRenderer
+            return sdkRenderer
         }
         
         return preferredPlugin
@@ -122,6 +121,11 @@ public class PrebidMobilePluginRegister: NSObject {
         return PrebidMobilePluginRegister
             .shared
             .getAllPlugins()
+            .filter({ $0.name != PREBID_MOBILE_RENDERER_NAME })
             .map { $0.jsonDictionary() }
+    }
+    
+    private func getPluginRenderer(for key: String) -> PrebidMobilePluginRenderer? {
+        queue.sync { plugins[key] }
     }
 }

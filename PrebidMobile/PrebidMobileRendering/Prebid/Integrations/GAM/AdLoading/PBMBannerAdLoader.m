@@ -124,14 +124,14 @@
         return displayView;
     }
     
-    PBMLogWarn(@"SDK couldn't retrieve an implementation of PrebidMobileDisplayViewManagerProtocol. SDK will use the default one.");
+    PBMLogWarn(@"SDK couldn't retrieve an implementation of PrebidMobileDisplayViewManagerProtocol. SDK will use the PrebidMobile SDK renderer.");
     
-    PrebidRenderer *defaultRenderer = [PrebidRenderer new];
-    return [defaultRenderer createBannerViewWith:displayFrame
-                                             bid:bid
-                                 adConfiguration:adUnitConfig
-                                 loadingDelegate:self
-                             interactionDelegate:self.delegate];
+    id<PrebidMobilePluginRenderer> sdkRenderer = PrebidMobilePluginRegister.shared.sdkRenderer;
+    return [sdkRenderer createBannerViewWith:displayFrame
+                                         bid:bid
+                             adConfiguration:adUnitConfig
+                             loadingDelegate:self
+                         interactionDelegate:self.delegate];
 }
 
 @end

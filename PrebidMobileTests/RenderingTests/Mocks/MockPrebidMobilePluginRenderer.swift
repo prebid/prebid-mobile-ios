@@ -21,7 +21,6 @@ class MockPrebidMobilePluginRenderer: PrebidMobilePluginRenderer {
     let name: String
     let version: String
     var data: [String: Any]?
-    var formats: Set<AdFormat> = []
     
     init(name: String, version: String, data: [String: Any]? = nil) {
         self.name = name

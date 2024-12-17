@@ -15,9 +15,11 @@
 
 import UIKit
 
+public let PREBID_MOBILE_RENDERER_NAME = "PrebidRenderer"
+
 public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     
-    public let name = "PrebidRenderer"
+    public let name = PREBID_MOBILE_RENDERER_NAME
     public let version = Prebid.shared.version
     public var data: [String: Any]?
     

@@ -39,7 +39,6 @@ class PluginRegisterTest: XCTestCase {
         super.setUp()
         prebidMobilePluginRegister.unregisterAllPlugins()
         prebidMobilePluginRegister.registerPlugin(plugin)
-        plugin.formats = []
     }
     
     func testRegisterPlugin() {

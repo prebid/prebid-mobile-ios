@@ -146,13 +146,13 @@
         return controller;
     }
     
-    PBMLogWarn(@"SDK couldn't retrieve an implementation of PrebidMobileInterstitialControllerProtocol. SDK will use the default one.");
+    PBMLogWarn(@"SDK couldn't retrieve an implementation of PrebidMobileInterstitialControllerProtocol. SDK will use the PrebidMobile SDK renderer.");
     
-    PrebidRenderer *defaultRenderer = [PrebidRenderer new];
-    return [defaultRenderer createInterstitialControllerWithBid:bid
-                                                adConfiguration:adUnitConfig
-                                                loadingDelegate:self
-                                            interactionDelegate:self.delegate];
+    id<PrebidMobilePluginRenderer> sdkRenderer = PrebidMobilePluginRegister.shared.sdkRenderer;
+    return [sdkRenderer createInterstitialControllerWithBid:bid
+                                            adConfiguration:adUnitConfig
+                                            loadingDelegate:self
+                                        interactionDelegate:self.delegate];
 }
 
 @end
