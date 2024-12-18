@@ -23,7 +23,12 @@ public class PrebidMobilePluginRegister: NSObject {
     
     /// Default PrebidMobile SDK renderer
     public var sdkRenderer: PrebidMobilePluginRenderer {
-        getPluginRenderer(for: PREBID_MOBILE_RENDERER_NAME) ?? PrebidRenderer()
+        if let renderer = getPluginRenderer(for: PREBID_MOBILE_RENDERER_NAME) {
+            return renderer
+        }
+        
+        Log.error("SDK couldn't find \(PREBID_MOBILE_RENDERER_NAME) in plugin register. The new instance of \(PREBID_MOBILE_RENDERER_NAME) will be created.")
+        return PrebidRenderer()
     }
     
     private let queue = DispatchQueue(
