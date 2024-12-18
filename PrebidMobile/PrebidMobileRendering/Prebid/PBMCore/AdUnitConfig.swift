@@ -275,6 +275,7 @@ public class AdUnitConfig: NSObject, NSCopying {
     // MARK: - The Prebid Ad Slot
 
     public func setPbAdSlot(_ newElement: String?) {
+        Log.warn("Prebid SDK will stop sending `imp[].ext.data.adslot` field soon. If you still need it, add a comment to: https://github.com/prebid/prebid-mobile-android/issues/810.")
         pbAdSlot = newElement
     }
 

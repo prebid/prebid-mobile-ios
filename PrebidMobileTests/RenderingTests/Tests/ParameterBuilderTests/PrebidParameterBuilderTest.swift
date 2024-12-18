@@ -236,6 +236,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
             XCTAssertEqual(Set(result), Set(["value1", "value2"]))
             XCTAssertEqual(extData["adslot"] as? String, testAdSlot)
+            XCTAssertEqual(extData["pbadslot"] as? String, testAdSlot)
         }
     }
 
