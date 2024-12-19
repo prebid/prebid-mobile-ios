@@ -18,6 +18,7 @@
 
 @protocol PBMTransactionDelegate;
 
+@class Bid;
 @class WKWebView;
 @class UIView;
 @class PBMModalManager;
@@ -41,9 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) PBMOpenMeasurementSession *measurementSession;
 @property (nonatomic, strong) PBMOpenMeasurementWrapper *measurementWrapper;
 
-@property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadnInfo;
-@property (nonatomic, strong, nullable) NSString *impURL; // bidResponse.ext.prebid.events.imp
-@property (nonatomic, strong, nullable) NSString *winURL; // bidResponse.ext.prebid.events.win
+@property (nonatomic, strong, nullable) Bid * bid;
 
 @property (atomic, weak, nullable) id<PBMTransactionDelegate> delegate;
 

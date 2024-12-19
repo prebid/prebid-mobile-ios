@@ -82,8 +82,8 @@
         }
         
         if(@available(iOS 14.5, *)) {
-            if (self.transaction.skadnInfo) {
-                SKAdImpression *imp = [PBMSkadnParametersManager getSkadnImpressionFor:self.transaction.skadnInfo];
+            if (self.transaction.bid.skadn) {
+                SKAdImpression *imp = [PBMSkadnParametersManager getSkadnImpressionFor:self.transaction.bid.skadn];
                 if (imp) {
                     PBMSkadnEventTracker *skadnTracker = [[PBMSkadnEventTracker alloc] initWith:imp];
                     [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
@@ -93,18 +93,25 @@
         
         PrebidServerEventTracker *internalEventTracker = [[PrebidServerEventTracker alloc] initWithServerEvents:@[]];
         
-        NSString *impURL = self.transaction.impURL;
+        NSString *impURL = self.transaction.bid.events.imp;
         
         if (impURL) {
             PBMServerEvent *impEvent = [[PBMServerEvent alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
             [internalEventTracker addServerEvents:@[impEvent]];
         }
         
-        NSString *winURL = self.transaction.winURL;
+        NSString *winURL = self.transaction.bid.events.win;
         
         if (winURL) {
             PBMServerEvent *winEvent = [[PBMServerEvent alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
             [internalEventTracker addServerEvents:@[winEvent]];
+        }
+        
+        NSString * burl = self.transaction.bid.burl;
+        
+        if (burl) {
+            PBMServerEvent *billingEvent = [[PBMServerEvent alloc] initWithUrl:burl expectedEventType:PBMTrackingEventImpression];
+            [internalEventTracker addServerEvents:@[billingEvent]];
         }
         
         if (internalEventTracker.serverEvents.count > 0) {
@@ -227,7 +234,7 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
+    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.bid.skadn];
     
     if (skadnetProductParameters) {
         clickthroughOpened = [self handleProductClickthrough:url

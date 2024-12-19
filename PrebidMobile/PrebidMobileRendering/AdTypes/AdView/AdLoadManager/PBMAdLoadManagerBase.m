@@ -59,10 +59,8 @@
     self.currentTransaction = [[PBMTransaction alloc] initWithServerConnection:self.connection
                                                                adConfiguration:self.adConfiguration
                                                                         models:creativeModels];
-
-    self.currentTransaction.skadnInfo = self.bid.skadn;
-    self.currentTransaction.impURL = self.bid.events.imp;
-    self.currentTransaction.winURL = self.bid.events.win;
+    
+    self.currentTransaction.bid = self.bid;
 
     self.currentTransaction.delegate = self;
     

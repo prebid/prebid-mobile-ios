@@ -103,9 +103,7 @@
                                                         adConfiguration:self.adConfiguration.adConfiguration
                                                                  models:creativeModels];
     
-    self.transaction.skadnInfo = self.bid.skadn;
-    self.transaction.impURL = self.bid.events.imp;
-    self.transaction.winURL = self.bid.events.win;
+    self.transaction.bid = self.bid;
     
     self.transaction.delegate = self;
     [self.transaction startCreativeFactory];
