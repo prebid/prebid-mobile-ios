@@ -1,35 +1,49 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 import Foundation
 
 /// Global singleton responsible to store plugin renderer instances
-@objc public class PrebidMobilePluginRegister: NSObject {
-    @objc public static let shared = PrebidMobilePluginRegister()
+@objcMembers
+public class PrebidMobilePluginRegister: NSObject {
     
-    private let queue = DispatchQueue(label: "PrebidMobilePluginRegisterQueue", attributes: .concurrent)
+    public static let shared = PrebidMobilePluginRegister()
+    
+    /// Default PrebidMobile SDK renderer
+    public var sdkRenderer: PrebidMobilePluginRenderer {
+        if let renderer = getPluginRenderer(for: PREBID_MOBILE_RENDERER_NAME) {
+            return renderer
+        }
+        
+        Log.error("SDK couldn't find \(PREBID_MOBILE_RENDERER_NAME) in plugin register. The new instance of \(PREBID_MOBILE_RENDERER_NAME) will be created.")
+        return PrebidRenderer()
+    }
+    
+    private let queue = DispatchQueue(
+        label: "PrebidMobilePluginRegisterQueue",
+        attributes: .concurrent
+    )
+    
     private var plugins = [String: PrebidMobilePluginRenderer]()
-    
-    private let defaultRenderer = PrebidRenderer()
     
     private override init() {
         super.init()
     }
     
     /// Register plugin as renderer
-    @objc public func registerPlugin(_ renderer: PrebidMobilePluginRenderer) {
+    public func registerPlugin(_ renderer: PrebidMobilePluginRenderer) {
         let rendererName = renderer.name
         
         queue.async(flags: .barrier) { [weak self] in
@@ -41,81 +55,82 @@ import Foundation
         }
     }
     
-    @objc public func unregisterPlugin(_ renderer: PrebidMobilePluginRenderer) {
+    public func unregisterPlugin(_ renderer: PrebidMobilePluginRenderer) {
         queue.async(flags: .barrier) { [weak self] in
             self?.plugins.removeValue(forKey: renderer.name)
         }
     }
     
     /// Contains plugin
-    @objc public func containsPlugin(_ renderer: PrebidMobilePluginRenderer) -> Bool {
+    public func containsPlugin(_ renderer: PrebidMobilePluginRenderer) -> Bool {
         queue.sync {
             plugins.contains { $0.value === renderer }
         }
     }
     
-    private func getPluginRenderer(for key: String) -> PrebidMobilePluginRenderer? {
-        queue.sync {
-            plugins[key]
-        }
-    }
-    
     /// Register event delegate
-    @objc public func registerEventDelegate(_ pluginEventDelegate: PluginEventDelegate, adUnitConfigFingerprint: String) {
+    public func registerEventDelegate(
+        _ pluginEventDelegate: PluginEventDelegate,
+        adUnitConfigFingerprint: String
+    ) {
         queue.async(flags: .barrier) { [plugins] in
             plugins
                 .values
                 .forEach {
-                    $0.registerEventDelegate?(pluginEventDelegate: pluginEventDelegate, adUnitConfigFingerprint: adUnitConfigFingerprint)
+                    $0.registerEventDelegate?(
+                        pluginEventDelegate: pluginEventDelegate,
+                        adUnitConfigFingerprint: adUnitConfigFingerprint
+                    )
                 }
         }
     }
     
     /// Unregister event delegate
-    @objc public func unregisterEventDelegate(_ pluginEventDelegate: PluginEventDelegate, adUnitConfigFingerprint: String) {
+    public func unregisterEventDelegate(
+        _ pluginEventDelegate: PluginEventDelegate,
+        adUnitConfigFingerprint: String
+    ) {
         queue.async(flags: .barrier) { [plugins] in
             plugins
                 .values
                 .forEach {
-                    $0.unregisterEventDelegate?(pluginEventDelegate: pluginEventDelegate, adUnitConfigFingerprint: adUnitConfigFingerprint)
+                    $0.unregisterEventDelegate?(
+                        pluginEventDelegate: pluginEventDelegate,
+                        adUnitConfigFingerprint: adUnitConfigFingerprint
+                    )
                 }
         }
     }
     
-    /// Returns the list of available renderers for the given ad unit for RTB request
-    @objc public func getRTBListOfRenderersFor(for adUnit: AdUnitConfig) -> [PrebidMobilePluginRenderer] {
+    /// Returns the registered renderer according to the preferred renderer name in the bid response.
+    /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior.
+    /// Once bid is win we want to resolve the best PluginRenderer candidate to render the ad.
+    public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
+        guard let preferredRendererName = bid.pluginRendererName,
+              let preferredPlugin = getPluginRenderer(for: preferredRendererName),
+              preferredPlugin.version == bid.pluginRendererVersion
+        else {
+            return sdkRenderer
+        }
+        
+        return preferredPlugin
+    }
+    
+    public func getAllPlugins() -> [PrebidMobilePluginRenderer] {
         queue.sync {
-            plugins
-                .values
-                .filter { renderer in
-                    adUnit.adFormats.contains { format in
-                        renderer.isSupportRendering(for: format)
-                    }
-                }
+            return plugins.isEmpty ? [] : Array(plugins.values)
         }
     }
     
-    /// Returns the registered renderer according to the preferred renderer name in the bid response
-    /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior
-    /// Once bid is win we want to resolve the best PluginRenderer candidate to render the ad
-    @objc public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
-        if let preferredRendererName = bid.getPreferredPluginRendererName(),
-           let preferredPlugin = getPluginRenderer(for: preferredRendererName),
-           preferredPlugin.version == bid.getPreferredPluginRendererVersion(),
-           preferredPlugin.isSupportRendering(for: bid.adFormat) {
-            return preferredPlugin
-        } else {
-            return defaultRenderer
-        }
+    public func getAllPluginsJSONRepresentation() -> [[String: Any]] {
+        return PrebidMobilePluginRegister
+            .shared
+            .getAllPlugins()
+            .filter({ $0.name != PREBID_MOBILE_RENDERER_NAME })
+            .map { $0.jsonDictionary() }
     }
     
-    @objc public func getAllPlugins() -> [PrebidMobilePluginRenderer] {
-        queue.sync {
-            if plugins.isEmpty {
-                return []
-            }
-            let allPlugins = Array(plugins.values)
-            return allPlugins
-        }
+    private func getPluginRenderer(for key: String) -> PrebidMobilePluginRenderer? {
+        queue.sync { plugins[key] }
     }
 }

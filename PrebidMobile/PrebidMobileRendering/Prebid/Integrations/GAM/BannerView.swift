@@ -18,11 +18,13 @@ import UIKit
 fileprivate let assertionMessageMainThread = "Expected to only be called on the main thread"
 
 /// The view that will display the particular banner ad. Built for rendering type of integration.
-public class BannerView: UIView,
-                         BannerAdLoaderDelegate,
-                         AdLoadFlowControllerDelegate,
-                         BannerEventInteractionDelegate,
-                         DisplayViewInteractionDelegate {
+@objcMembers
+public class BannerView:
+    UIView,
+    BannerAdLoaderDelegate,
+    AdLoadFlowControllerDelegate,
+    BannerEventInteractionDelegate,
+    DisplayViewInteractionDelegate {
     
     /// The ad unit configuration.
     public let adUnitConfig: AdUnitConfig
@@ -33,45 +35,45 @@ public class BannerView: UIView,
     // MARK: - Public Properties
     
     /// Banner-specific parameters.
-    @objc public var bannerParameters: BannerParameters {
+    public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
     }
     
     /// Video-specific parameters.
-    @objc public var videoParameters: VideoParameters {
+    public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
     /// The last bid response received.
-    @objc public var lastBidResponse: BidResponse? {
+    public var lastBidResponse: BidResponse? {
         adLoadFlowController?.bidResponse
     }
     
     /// ID of Stored Impression on the Prebid server
-    @objc public var configID: String {
+    public var configID: String {
         adUnitConfig.configId
     }
     
     /// The interval for refreshing the ad.
-    @objc public var refreshInterval: TimeInterval {
+    public var refreshInterval: TimeInterval {
         get { adUnitConfig.refreshInterval }
         set { adUnitConfig.refreshInterval = newValue }
     }
     
     /// Additional sizes for the ad.
-    @objc public var additionalSizes: [CGSize]? {
+    public var additionalSizes: [CGSize]? {
         get { adUnitConfig.additionalSizes }
         set { adUnitConfig.additionalSizes = newValue }
     }
     
     /// The ad format (e.g., banner, video).
-    @objc public var adFormat: AdFormat {
+    public var adFormat: AdFormat {
         get { adUnitConfig.adFormats.first ?? .banner }
         set { adUnitConfig.adFormats = [newValue] }
     }
     
     /// The position of the ad on the screen.
-    @objc public var adPosition: AdPosition {
+    public var adPosition: AdPosition {
         get { adUnitConfig.adPosition }
         set { adUnitConfig.adPosition = newValue }
     }
@@ -83,12 +85,7 @@ public class BannerView: UIView,
     }
 
     /// ORTB configuration string.
-    @objc public weak var delegate: BannerViewDelegate?
-    
-    /// Subscribe to plugin renderer events
-    @objc public func setPluginEventDelegate(_ pluginEventDelegate: PluginEventDelegate) {
-        PrebidMobilePluginRegister.shared.registerEventDelegate(pluginEventDelegate, adUnitConfigFingerprint: adUnitConfig.fingerprint)
-    }
+    public weak var delegate: BannerViewDelegate?
     
     // MARK: Readonly storage
     
@@ -135,11 +132,12 @@ public class BannerView: UIView,
     ///   - configID: The configuration ID for the ad unit.
     ///   - adSize: The size of the ad.
     ///   - eventHandler: The event handler for the banner view.
-    @objc public init(frame: CGRect,
-                      configID: String,
-                      adSize: CGSize,
-                      eventHandler: BannerEventHandler) {
-        
+    public init(
+        frame: CGRect,
+        configID: String,
+        adSize: CGSize,
+        eventHandler: BannerEventHandler
+    ) {
         adUnitConfig = AdUnitConfig(configId: configID, size: adSize)
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
 
@@ -151,10 +149,12 @@ public class BannerView: UIView,
         
         adLoadFlowController = PBMAdLoadFlowController(
             bidRequesterFactory: { [adUnitConfig] config in
-                PBMBidRequester(connection: PrebidServerConnection.shared,
-                                sdkConfiguration: Prebid.shared,
-                                targeting: Targeting.shared,
-                                adUnitConfiguration: adUnitConfig)
+                PBMBidRequester(
+                    connection: PrebidServerConnection.shared,
+                    sdkConfiguration: Prebid.shared,
+                    targeting: Targeting.shared,
+                    adUnitConfiguration: adUnitConfig
+                )
             },
             adLoader: bannerAdLoader,
             adUnitConfig: adUnitConfig,
@@ -187,16 +187,19 @@ public class BannerView: UIView,
     /// - Parameters:
     ///   - configID: The configuration ID for the ad unit.
     ///   - eventHandler: The event handler for the banner view.
-    @objc public convenience init(configID: String,
-                                  eventHandler: BannerEventHandler) {
-        
+    public convenience init(
+        configID: String,
+        eventHandler: BannerEventHandler
+    ) {
         let size = eventHandler.adSizes.first ?? CGSize()
         let frame = CGRect(origin: CGPoint.zero, size: size)
         
-        self.init(frame: frame,
-                  configID: configID,
-                  adSize: size,
-                  eventHandler: eventHandler)
+        self.init(
+            frame: frame,
+            configID: configID,
+            adSize: size,
+            eventHandler: eventHandler
+        )
         
         if eventHandler.adSizes.count > 1 {
             self.additionalSizes = Array(eventHandler.adSizes.suffix(from: 1))
@@ -208,13 +211,17 @@ public class BannerView: UIView,
     ///   - frame: The frame rectangle for the view.
     ///   - configID: The configuration ID for the ad unit.
     ///   - adSize: The size of the ad.
-    @objc public convenience init(frame: CGRect,
-                                  configID: String,
-                                  adSize: CGSize) {
-        self.init(frame: frame,
-                  configID: configID,
-                  adSize: adSize,
-                  eventHandler: BannerEventHandlerStandalone())
+    public convenience init(
+        frame: CGRect,
+        configID: String,
+        adSize: CGSize
+    ) {
+        self.init(
+            frame: frame,
+            configID: configID,
+            adSize: adSize,
+            eventHandler: BannerEventHandlerStandalone()
+        )
     }
     
     deinit {
@@ -226,13 +233,13 @@ public class BannerView: UIView,
     }
     
     /// Loads the ad for the banner view.
-    @objc public func loadAd() {
+    public func loadAd() {
         adLoadFlowController?.refresh()
     }
     
     /// Sets the stored auction response.
     /// - Parameter storedAuction: The stored auction response string.
-    @objc public func setStoredAuctionResponse(storedAuction:String){
+    public func setStoredAuctionResponse(storedAuction:String){
         Prebid.shared.storedAuctionResponse = storedAuction
     }
     
@@ -251,10 +258,20 @@ public class BannerView: UIView,
     }
     
     /// Stops the auto-refresh of the ad.
-    @objc public func stopRefresh() {
+    public func stopRefresh() {
         adLoadFlowController?.enqueueGatedBlock { [weak self] in
             self?.isRefreshStopped = true
         }
+    }
+    
+    // MARK: Custom Renderer
+    
+    /// Subscribe to plugin renderer events
+    public func setPluginEventDelegate(_ pluginEventDelegate: PluginEventDelegate) {
+        PrebidMobilePluginRegister.shared.registerEventDelegate(
+            pluginEventDelegate,
+            adUnitConfigFingerprint: adUnitConfig.fingerprint
+        )
     }
     
     // MARK: - Ext Data (imp[].ext.data)
@@ -264,7 +281,7 @@ public class BannerView: UIView,
     ///   - data: The data to add.
     ///   - key: The key associated with the data.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
-    @objc public func addContextData(_ data: String, forKey key: String) {
+    public func addContextData(_ data: String, forKey key: String) {
         addExtData(key: key, value: data)
     }
     
@@ -273,20 +290,20 @@ public class BannerView: UIView,
     ///   - data: A set of data to update.
     ///   - key: The key associated with the data.
     @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
-    @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
+    public func updateContextData(_ data: Set<String>, forKey key: String) {
         updateExtData(key: key, value: data)
     }
     
     /// Removes context data for a specified key.
     /// - Parameter key: The key associated with the data to remove.
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
-    @objc public func removeContextDate(forKey key: String) {
+    public func removeContextDate(forKey key: String) {
         removeExtData(forKey: key)
     }
     
     /// Clears all context data.
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
-    @objc public func clearContextData() {
+    public func clearContextData() {
         clearExtData()
     }
     
@@ -294,7 +311,7 @@ public class BannerView: UIView,
     /// - Parameters:
     ///   - key: The key for the data.
     ///   - value: The value for the data.
-    @objc public func addExtData(key: String, value: String) {
+    public func addExtData(key: String, value: String) {
         adUnitConfig.addExtData(key: key, value: value)
     }
     
@@ -302,19 +319,19 @@ public class BannerView: UIView,
     /// - Parameters:
     ///   - key: The key for the data.
     ///   - value: The value for the data.
-    @objc public func updateExtData(key: String, value: Set<String>) {
+    public func updateExtData(key: String, value: Set<String>) {
         adUnitConfig.updateExtData(key: key, value: value)
     }
     
     /// Removes ext data.
     /// - Parameters:
     ///   - key: The key for the data.
-    @objc public func removeExtData(forKey: String) {
+    public func removeExtData(forKey: String) {
         adUnitConfig.removeExtData(for: forKey)
     }
     
     /// Clears ext data.
-    @objc public func clearExtData() {
+    public func clearExtData() {
         adUnitConfig.clearExtData()
     }
     
@@ -323,50 +340,50 @@ public class BannerView: UIView,
     /// Adds a context keyword.
     /// - Parameter newElement: The keyword to add.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
-    @objc public func addContextKeyword(_ newElement: String) {
+    public func addContextKeyword(_ newElement: String) {
         addExtKeyword(newElement)
     }
     
     /// Adds a set of context keywords.
     /// - Parameter newElements: A set of keywords to add.
     @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
-    @objc public func addContextKeywords(_ newElements: Set<String>) {
+    public func addContextKeywords(_ newElements: Set<String>) {
         addExtKeywords(newElements)
     }
     
     /// Removes a context keyword.
     /// - Parameter element: The keyword to remove.
     @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
-    @objc public func removeContextKeyword(_ element: String) {
+    public func removeContextKeyword(_ element: String) {
         removeExtKeyword(element)
     }
 
     /// Clears all context keywords.
     @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
-    @objc public func clearContextKeywords() {
+    public func clearContextKeywords() {
         clearExtKeywords()
     }
     
     /// Adds an extended keyword.
     /// - Parameter newElement: The keyword to be added.
-    @objc public func addExtKeyword(_ newElement: String) {
+    public func addExtKeyword(_ newElement: String) {
         adUnitConfig.addExtKeyword(newElement)
     }
     
     /// Adds multiple extended keywords.
     /// - Parameter newElements: A set of keywords to be added.
-    @objc public func addExtKeywords(_ newElements: Set<String>) {
+    public func addExtKeywords(_ newElements: Set<String>) {
         adUnitConfig.addExtKeywords(newElements)
     }
     
     /// Removes an extended keyword.
     /// - Parameter element: The keyword to be removed.
-    @objc public func removeExtKeyword(_ element: String) {
+    public func removeExtKeyword(_ element: String) {
         adUnitConfig.removeExtKeyword(element)
     }
     
     /// Clears all extended keywords.
-    @objc public func clearExtKeywords() {
+    public func clearExtKeywords() {
         adUnitConfig.clearExtKeywords()
     }
     
@@ -374,29 +391,29 @@ public class BannerView: UIView,
     
     /// Sets the app content data.
     /// - Parameter appContent: The app content data.
-    @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
+    public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
     }
     
     /// Clears the app content data.
-    @objc public func clearAppContent() {
+    public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
     
     /// Adds app content data objects.
     /// - Parameter dataObjects: The data objects to be added.
-    @objc public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
+    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
     
     /// Removes an app content data object.
     /// - Parameter dataObject: The data object to be removed.
-    @objc public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
+    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
     /// Clears all app content data objects.
-    @objc public func clearAppContentDataObjects() {
+    public func clearAppContentDataObjects() {
         adUnitConfig.clearAppContentData()
     }
     
@@ -404,25 +421,25 @@ public class BannerView: UIView,
         
     /// Adds user data objects.
     /// - Parameter userDataObjects: The user data objects to be added.
-    @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
+    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
     
     /// Removes a user data object.
     /// - Parameter userDataObject: The user data object to be removed.
-    @objc public func removeUserData(_ userDataObject: PBMORTBContentData) {
+    public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
     /// Clears all user data objects.
-    @objc public func clearUserData() {
+    public func clearUserData() {
         adUnitConfig.clearUserData()
     }
     
     
     // MARK: - DisplayViewInteractionDelegate
     
-    public func trackImpression(forDisplayView: PBMDisplayView) {
+    public func trackImpression(forDisplayView: UIView) {
         guard let eventHandler = self.eventHandler,
               eventHandler.responds(to: #selector(BannerEventHandler.trackImpression)) else {
                   return
@@ -431,36 +448,41 @@ public class BannerView: UIView,
         eventHandler.trackImpression()
     }
     
-    public func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController? {
+    public func viewControllerForModalPresentation(
+        fromDisplayView: UIView
+    ) -> UIViewController? {
         return viewControllerForPresentingModal
     }
     
-    public func didLeaveApp(from displayView: PBMDisplayView) {
+    public func didLeaveApp(from displayView: UIView) {
         willLeaveApp()
     }
     
-    public func willPresentModal(from displayView: PBMDisplayView) {
+    public func willPresentModal(from displayView: UIView) {
         willPresentModal()
     }
     
-    public func didDismissModal(from displayView: PBMDisplayView) {
+    public func didDismissModal(from displayView: UIView) {
         didDismissModal()
     }
     
     // MARK: - BannerAdLoaderDelegate
     
-    public func bannerAdLoader(_ bannerAdLoader: PBMBannerAdLoader, loadedAdView adView: UIView, adSize: CGSize) {
+    public func bannerAdLoader(
+        _ bannerAdLoader: PBMBannerAdLoader,
+        loadedAdView adView: UIView,
+        adSize: CGSize
+    ) {
         deployView(adView)
         reportLoadingSuccess(with: adSize)
     }
     
-    public func bannerAdLoader(_ bannerAdLoader: PBMBannerAdLoader, createdDisplayView displayView: PBMDisplayView) {
-        displayView.interactionDelegate = self
-    }
-    
     // MARK: - PBMAdLoadFlowControllerDelegate
     
-    public func adLoadFlowController(_ adLoadFlowController: PBMAdLoadFlowController, failedWithError error: Error?) {
+    public func adLoadFlowController(
+        _ adLoadFlowController: PBMAdLoadFlowController,
+        failedWithError error: Error?
+    ) {
         reportLoadingFailed(with: error)
     }
     

@@ -34,45 +34,76 @@
 
 #import "PBMMacros.h"
 
-@interface PBMDisplayView () <PBMAdViewManagerDelegate, PBMModalManagerDelegate, PBMThirdPartyAdViewLoader>
+@interface PBMDisplayView () <PrebidMobileDisplayViewProtocol>
 
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 
+@property (nonatomic, strong, nullable) PBMTransactionFactory *transactionFactory;
 @property (nonatomic, strong, nullable) PBMAdViewManager *adViewManager;
 
 @property (nonatomic, strong, readonly, nonnull) PBMInterstitialDisplayProperties *interstitialDisplayProperties;
-
-@property (nonatomic, strong, nullable) id<PrebidMobilePluginRenderer> renderer;
 
 @end
 
 @implementation PBMDisplayView
 
 // MARK: - Public API
+
 - (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid configId:(NSString *)configId {
-    return self = [self initWithFrame:frame bid:bid adConfiguration:[[AdUnitConfig alloc] initWithConfigId:configId size:bid.size]];
+    return self = [self initWithFrame:frame
+                                  bid:bid
+                      adConfiguration:[[AdUnitConfig alloc] initWithConfigId:configId
+                                                                        size:bid.size]];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid adConfiguration:(AdUnitConfig *)adConfiguration {
+- (instancetype)initWithFrame:(CGRect)frame
+                          bid:(Bid *)bid
+              adConfiguration:(AdUnitConfig *)adConfiguration {
+    
     if (!(self = [super initWithFrame:frame])) {
         return nil;
     }
+    
     _bid = bid;
     _adConfiguration = adConfiguration;
     _interstitialDisplayProperties = [[PBMInterstitialDisplayProperties alloc] init];
+    
     return self;
 }
 
-- (void)displayAd {
-    self.renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:self.bid];
-
-    NSLog(@"Renderer: %@", self.renderer);
+- (void)loadAd {
+    if (self.transactionFactory) {
+        return;
+    }
+    
     self.adConfiguration.adConfiguration.winningBidAdFormat = self.bid.adFormat;
-    id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.renderer createBannerAdViewWith:self.frame bid:self.bid adConfiguration:self.adConfiguration connection:connection adViewDelegate:self];
-    });
+    self.adConfiguration.adConfiguration.rewardedConfig = [[PBMRewardedConfig alloc] initWithOrtbRewarded:self.bid.rewardedConfig];
+    
+    @weakify(self);
+    self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
+                                                         adConfiguration:self.adConfiguration
+                                                              connection:self.connection ?: PrebidServerConnection.shared
+                                                                callback:^(PBMTransaction * _Nullable transaction,
+                                                                           NSError * _Nullable error) {
+        @strongify(self);
+        if (!self) { return; }
+        
+        if (error) {
+            [self reportFailureWithError:error];
+        } else {
+            [self displayTransaction:transaction];
+        }
+    }];
+    
+    [PBMWinNotifier notifyThroughConnection:PrebidServerConnection.shared
+                                 winningBid:self.bid
+                                   callback:^(NSString *adMarkup) {
+        @strongify(self);
+        if (!self) { return; }
+        
+        [self.transactionFactory loadWithAdMarkup:adMarkup];
+    }];
 }
 
 - (BOOL)isCreativeOpened {
@@ -156,6 +187,17 @@
 
 - (void)reportSuccess {
     [self.loadingDelegate displayViewDidLoadAd:self];
+}
+
+- (void)displayTransaction:(PBMTransaction *)transaction {
+    id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
+    self.adViewManager = [[PBMAdViewManager alloc] initWithConnection:connection modalManagerDelegate:self];
+    self.adViewManager.adViewManagerDelegate = self;
+    self.adViewManager.adConfiguration = self.adConfiguration.adConfiguration;
+    if (self.adConfiguration.adConfiguration.winningBidAdFormat == AdFormat.video) {
+        self.adConfiguration.adConfiguration.isBuiltInVideo = YES;
+    }
+    [self.adViewManager handleExternalTransaction:transaction];
 }
 
 - (void)interactionDelegateWillPresentModal {

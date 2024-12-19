@@ -143,6 +143,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "In-App Display Banner Plugin Renderer 320x50",
+            integrationKind: .inApp,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                InAppDisplayBannerPluginRendererViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "In-App Video Banner 300x250",
             integrationKind: .inApp,
             adFormat: .videoBanner,
@@ -157,6 +166,15 @@ struct IntegrationCaseManager {
             adFormat: .displayInterstitial,
             configurationClosure: {
                 InAppDisplayInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "In-App Display Interstitial Plugin Renderer 320x480",
+            integrationKind: .inApp,
+            adFormat: .displayInterstitial,
+            configurationClosure: {
+                InAppDisplayInterstitialPluginRendererViewController()
             }
         ),
         

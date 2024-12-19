@@ -372,7 +372,7 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
     
     // MARK: - Internal methods
     
-    func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+    func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         baseAdUnit.interstitialControllerDidCloseAd(interstitialController)
     }
     
