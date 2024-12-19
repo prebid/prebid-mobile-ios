@@ -14,6 +14,7 @@
  */
 
 #import "PBMORTBAbstract.h"
+#import "PBMMacros.h"
 
 @class PBMORTBApp;
 @class PBMORTBBidRequestExtPrebid;
@@ -135,9 +136,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong) PBMORTBBidRequestExtPrebid *extPrebid;
 
-@property(nonatomic, strong, nullable) NSDictionary<NSString *, id> *arbitraryJsonConfig;
-
-@property(nonatomic, strong, nullable) NSDictionary<NSString *, id> *ortbObject;
+@property(nonatomic, strong, nullable) NSDictionary<NSString *, id> *arbitraryJsonConfig __deprecated__("This property is deprecated and will be removed in future versions");
+@property(nonatomic, strong, nullable) NSDictionary<NSString *, id> *ortbObject __deprecated__("This property is deprecated and will be removed in future versions");
 
 - (instancetype)init;
 

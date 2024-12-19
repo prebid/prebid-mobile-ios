@@ -81,9 +81,12 @@
         [[PBMGeoLocationParameterBuilder alloc] initWithLocationManager:pbmLocationManager],
         [[PBMAppInfoParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
         [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager],
-        [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo reachability:reachability],
+        [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo
+                                                              reachability:reachability],
         [[PBMUserConsentParameterBuilder alloc] init],
-        [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle targeting:targeting adConfiguration:adConfiguration],
+        [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle
+                                                      targeting:targeting
+                                                adConfiguration:adConfiguration],
     ]];
     
     if (extraParameterBuilders) {
@@ -94,14 +97,20 @@
         [builder buildBidRequest:bidRequest];
     }
     
-    return [PBMORTBParameterBuilder buildOpenRTBFor:bidRequest];
+    NSDictionary *ortb = [bidRequest toJsonDictionary];
+    
+    NSDictionary * arbitratyORTB = [PBMArbitraryORTBService mergeWithSdkORTB:ortb
+                                                                     impORTB:adConfiguration.impORTBConfig
+                                                                  globalORTB:[targeting getGlobalORTBConfig]];
+    
+    return [PBMORTBParameterBuilder buildOpenRTBFor:arbitratyORTB];
 }
 
 + (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
     NSNumber * yob = [targeting getYearOfBirth];
     
-    if (![yob isEqual: @0]) {
+    if (![yob isEqual:@0]) {
         bidRequest.user.yob = yob;
     }
     
@@ -144,6 +153,7 @@
         bidRequest.user.geo.lat = @(coord2d.latitude);
         bidRequest.user.geo.lon = @(coord2d.longitude);
     }
+    
     return bidRequest;
 }
 

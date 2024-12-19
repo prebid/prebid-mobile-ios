@@ -76,6 +76,7 @@ public class BannerView: UIView,
         set { adUnitConfig.adPosition = newValue }
     }
     
+    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) and getImpORTBConfig() for impression-level ORTB configuration.")
     @objc public var ortbConfig: String? {
         get { adUnitConfig.ortbConfig }
         set { adUnitConfig.ortbConfig = newValue }
@@ -233,6 +234,20 @@ public class BannerView: UIView,
     /// - Parameter storedAuction: The stored auction response string.
     @objc public func setStoredAuctionResponse(storedAuction:String){
         Prebid.shared.storedAuctionResponse = storedAuction
+    }
+    
+    // MARK: Arbitrary ORTB Configuration
+    
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    @objc public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
+    }
+    
+    /// Returns the impression-level OpenRTB configuration string.
+    @objc public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
     }
     
     /// Stops the auto-refresh of the ad.

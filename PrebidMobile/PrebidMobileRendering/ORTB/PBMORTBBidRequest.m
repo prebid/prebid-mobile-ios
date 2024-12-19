@@ -105,7 +105,7 @@
 }
 
 - (nonnull PBMMutableJsonDictionary *)mergeDictionaries:(NSMutableDictionary*)dictionary1 joiningArgument2:(NSMutableDictionary*)dictionary2
-                                       joiningArgument3:(Boolean)firstHasPriority{
+                                       joiningArgument3:(Boolean)firstHasPriority __deprecated__("This method is deprecated and will be removed in future versions") {
     PBMMutableJsonDictionary *ret = dictionary1;
 
     for (id key in dictionary2)
@@ -135,6 +135,7 @@
     if (!(self = [self init])) {
         return nil;
     }
+    
     _requestID = jsonDictionary[@"id"];
     
     NSMutableArray<PBMORTBImp *> *impressions = [NSMutableArray<PBMORTBImp *> new];

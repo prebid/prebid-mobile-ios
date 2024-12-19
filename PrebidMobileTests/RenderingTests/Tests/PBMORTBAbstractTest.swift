@@ -190,26 +190,6 @@ class PBMORTBAbstractTest : XCTestCase {
         codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"ext\":{\"prebid\":{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
     }
     
-    func testBidRequestWithOrtbObjectToJsonString() {
-        let pbmORTBBidRequest = PBMORTBBidRequest()
-        let uuid = UUID().uuidString
-        pbmORTBBidRequest.requestID = uuid
-        pbmORTBBidRequest.tmax = 2000
-        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000, "id": "1231234"]
-        
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"1231234\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":3000}")
-    }
-    
-    func testBidRequestWithOrtbObjectOverridingReservedToJsonString() {
-        let pbmORTBBidRequest = PBMORTBBidRequest()
-        let uuid = UUID().uuidString
-        pbmORTBBidRequest.requestID = uuid
-        pbmORTBBidRequest.tmax = 2000
-        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000, "id": "1231234", "device": "myTestDevice", "geo": "mylatlong", "regs": ["reg1":"reg2"]]
-        
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"1231234\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":3000}")
-    }
-    
     func testSourceToJsonString() {
         let pbmORTBSource = PBMORTBSource()
         
@@ -568,6 +548,28 @@ class PBMORTBAbstractTest : XCTestCase {
         user.appendEids([["key2": ["key2":"value2"]]])
         
         codeAndDecode(abstract:user, expectedString:"{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}},{\"key2\":{\"key2\":\"value2\"}}]},\"gender\":\"M\",\"yob\":1981}")
+    }
+    
+    // MARK: Arbitrary ORTB (Deprecated API)
+    
+    func testBidRequestWithOrtbObjectToJsonString() {
+        let pbmORTBBidRequest = PBMORTBBidRequest()
+        let uuid = UUID().uuidString
+        pbmORTBBidRequest.requestID = uuid
+        pbmORTBBidRequest.tmax = 2000
+        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000, "id": "1231234"]
+        
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"1231234\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":3000}")
+    }
+    
+    func testBidRequestWithOrtbObjectOverridingReservedToJsonString() {
+        let pbmORTBBidRequest = PBMORTBBidRequest()
+        let uuid = UUID().uuidString
+        pbmORTBBidRequest.requestID = uuid
+        pbmORTBBidRequest.tmax = 2000
+        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000, "id": "1231234", "device": "myTestDevice", "geo": "mylatlong", "regs": ["reg1":"reg2"]]
+        
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"1231234\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":3000}")
     }
     
     //MARK: - Utility

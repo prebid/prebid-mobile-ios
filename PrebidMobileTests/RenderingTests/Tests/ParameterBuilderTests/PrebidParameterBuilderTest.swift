@@ -801,6 +801,8 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
     }
     
+    // MARK: Arbitrary ORTB (Deprecated API)
+    
     func testArbitraryORTBParams() {
         let gpid = "/12345/home_screen#identifier"
         let ortb = "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"imp\":[{}]}"

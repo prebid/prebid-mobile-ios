@@ -415,23 +415,31 @@ public class AdUnit: NSObject, DispatcherDelegate {
         return adUnitConfig.gpid
     }
     
-    // MARK: Global ORTBObject
+    // MARK: Arbitrary ORTB Configuration
     
-    /// Sets the OpenRTB configuration string for the ad unit.
-    ///
-    /// - Parameter ortbObject: The OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) for impression-level ORTB configuration.")
     public func setOrtbConfig(_ ortbObject: String?) {
         adUnitConfig.ortbConfig = ortbObject
     }
     
-    /// Retrieves the current OpenRTB configuration string for the ad unit.
-    ///
-    /// - Returns: The OpenRTB configuration string, or `nil` if no configuration is set.
+    @available(*, deprecated, message: "Deprecated. Use getImpORTBConfig() for impression-level ORTB configuration.")
     public func getOrtbConfig() -> String? {
         return adUnitConfig.ortbConfig
     }
     
-    // MARK: - others
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
+    }
+    
+    /// Returns the impression-level OpenRTB configuration string.
+    public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
+    }
+    
+    // MARK: - Others
     
     
      /// This method allows to set the auto refresh period for the demand
