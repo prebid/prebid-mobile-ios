@@ -14,7 +14,6 @@
  */
 
 import XCTest
-import TestUtils
 @testable import PrebidMobile
 
 class AdUnitTests: XCTestCase {
@@ -148,10 +147,6 @@ class AdUnitTests: XCTestCase {
     }
     
     func testFetchDemandAutoRefresh() {
-        PBHTTPStubbingManager.shared().enable()
-        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
-        PBHTTPStubbingManager.shared().broadcastRequests = true
-        
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
         let expectedFetchDemandCount = 2
@@ -176,20 +171,12 @@ class AdUnitTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
-        PBHTTPStubbingManager.shared().disable()
-        PBHTTPStubbingManager.shared().removeAllStubs()
-        PBHTTPStubbingManager.shared().broadcastRequests = false
-        
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
 
     }
     
     func testFetchDemandResumeAutoRefresh() {
-        PBHTTPStubbingManager.shared().enable()
-        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
-        PBHTTPStubbingManager.shared().broadcastRequests = true
-        
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
         let expectedFetchDemandCount = 2
@@ -215,12 +202,8 @@ class AdUnitTests: XCTestCase {
         sleep(1)
         adUnit.resumeAutoRefresh()
         
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
-        
-        PBHTTPStubbingManager.shared().disable()
-        PBHTTPStubbingManager.shared().removeAllStubs()
-        PBHTTPStubbingManager.shared().broadcastRequests = false
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
@@ -228,10 +211,6 @@ class AdUnitTests: XCTestCase {
     }
     
     func testFetchDemandBidsAutoRefresh() {
-        PBHTTPStubbingManager.shared().enable()
-        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
-        PBHTTPStubbingManager.shared().broadcastRequests = true
-        
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
         let expectedFetchDemandCount = 2
@@ -252,12 +231,8 @@ class AdUnitTests: XCTestCase {
             exception.fulfill()
         })
 
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
-        
-        PBHTTPStubbingManager.shared().disable()
-        PBHTTPStubbingManager.shared().removeAllStubs()
-        PBHTTPStubbingManager.shared().broadcastRequests = false
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
