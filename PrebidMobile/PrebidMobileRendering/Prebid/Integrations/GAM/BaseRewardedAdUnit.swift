@@ -35,7 +35,10 @@ class BaseRewardedAdUnit: BaseInterstitialAdUnit, RewardedEventInteractionDelega
     
     // MARK: - InterstitialControllerInteractionDelegate
     
-    override func trackUserReward(_ interstitialController: InterstitialController, _ reward: PrebidReward) {
+    override func trackUserReward(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol,
+        _ reward: PrebidReward
+    ) {
         DispatchQueue.main.async {
             self.delegate?.callDelegate_rewardedAdUserDidEarnReward?(reward: reward)
         }

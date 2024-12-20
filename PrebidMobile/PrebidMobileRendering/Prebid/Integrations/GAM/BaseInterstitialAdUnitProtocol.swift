@@ -13,12 +13,12 @@
  limitations under the License.
  */
 
-import Foundation
 import UIKit
 
-@objc protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
+@objc
+protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
 
-    @objc func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController)
+    @objc func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol)
 
     @objc func callDelegate_didReceiveAd()
     @objc func callDelegate_didFailToReceiveAd(with error: Error?)
