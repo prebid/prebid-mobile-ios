@@ -17,7 +17,7 @@
     <a title="RewardedAdUnit Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.3.0 Docs</a> (92% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.3.1 Docs</a> (91% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,9 +54,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/BannerView.html">BannerView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/BaseInterstitialAdUnit.html">BaseInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/BidInfo.html">BidInfo</a>
@@ -176,7 +173,13 @@
                 <a href="../Classes/PrebidRequest.html">PrebidRequest</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/PrebidReward.html">PrebidReward</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/RewardedAdUnit.html">RewardedAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RewardedConfig.html">RewardedConfig</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/RewardedVideoAdUnit.html">RewardedVideoAdUnit</a>
@@ -316,8 +319,8 @@
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">RewardedAdUnit</span><span class="p">:</span> <span class="kt"><a href="../Classes/BaseInterstitialAdUnit.html">BaseInterstitialAdUnit</a></span><span class="p">,</span>
-                             <span class="kt">RewardedEventInteractionDelegate</span></code></pre>
+<span class="kd">@objcMembers</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">RewardedAdUnit</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">BaseInterstitialAdUnitProtocol</span></code></pre>
 
                 </div>
               </div>
@@ -330,9 +333,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)reward"></a>
-                    <a name="//apple_ref/swift/Property/reward" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)reward">reward</a>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)delegate"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)delegate">delegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -340,14 +343,177 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The reward object for the ad unit.</p>
+                        <p>A delegate for handling interactions with the ad unit.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">reward</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RewardedAdUnitDelegate.html">RewardedAdUnitDelegate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)isReady"></a>
+                    <a name="//apple_ref/swift/Property/isReady" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)isReady">isReady</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Boolean value indicating whether the ad unit is ready to be displayed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isReady</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)adFormats"></a>
+                    <a name="//apple_ref/swift/Property/adFormats" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)adFormats">adFormats</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The set of ad formats supported by this ad unit.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">adFormats</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AdFormat.html">AdFormat</a></span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)adPosition"></a>
+                    <a name="//apple_ref/swift/Property/adPosition" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)adPosition">adPosition</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The position of the ad on the screen.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">adPosition</span><span class="p">:</span> <span class="kt"><a href="../Enums/AdPosition.html">AdPosition</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)ortbConfig"></a>
+                    <a name="//apple_ref/swift/Property/ortbConfig" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)ortbConfig">ortbConfig</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The ORTB (OpenRTB) configuration string for the ad unit.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated. Use setImpORTBConfig(_:﹚ and getImpORTBConfig(﹚ for impression-level ORTB configuration."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">ortbConfig</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)bannerParameters"></a>
+                    <a name="//apple_ref/swift/Property/bannerParameters" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)bannerParameters">bannerParameters</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The banner parameters used for configuring ad unit.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">bannerParameters</span><span class="p">:</span> <span class="kt"><a href="../Classes/BannerParameters.html">BannerParameters</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)videoParameters"></a>
+                    <a name="//apple_ref/swift/Property/videoParameters" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)videoParameters">videoParameters</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The video parameters used for configuring ad unit.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">videoParameters</span><span class="p">:</span> <span class="kt"><a href="../Classes/VideoParameters.html">VideoParameters</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -358,11 +524,11 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Lifecycle"></a>
-                <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
+                <a name="/Video%20controls%20configuration"></a>
+                <a name="//apple_ref/swift/Section/Video controls configuration" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Lifecycle"></a>
-                  <h3 class="section-name"><span>Lifecycle</span>
+                  <a class="section-name-link" href="#/Video%20controls%20configuration"></a>
+                  <h3 class="section-name"><span>Video controls configuration</span>
 </h3>
                 </div>
               </div>
@@ -370,9 +536,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)initWithConfigID:eventHandler:"></a>
-                    <a name="//apple_ref/swift/Method/init(configID:eventHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)initWithConfigID:eventHandler:">init(configID:<wbr>eventHandler:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)closeButtonArea"></a>
+                    <a name="//apple_ref/swift/Property/closeButtonArea" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)closeButtonArea">closeButtonArea</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -380,52 +546,114 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes a <code>RewardedAdUnit</code> with the given configuration ID and event handler.</p>
+                        <p>The area of the close button in the video controls as a percentage.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">eventHandler</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">closeButtonArea</span><span class="p">:</span> <span class="kt">Double</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>configID</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The configuration ID for the ad unit.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>eventHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The event handler for the ad unit.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)closeButtonPosition"></a>
+                    <a name="//apple_ref/swift/Property/closeButtonPosition" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)closeButtonPosition">closeButtonPosition</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The position of the close button in the video controls.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">closeButtonPosition</span><span class="p">:</span> <span class="kt"><a href="../Enums/Position.html">Position</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)isMuted"></a>
+                    <a name="//apple_ref/swift/Property/isMuted" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)isMuted">isMuted</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Boolean value indicating whether the video controls are muted.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isMuted</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)isSoundButtonVisible"></a>
+                    <a name="//apple_ref/swift/Property/isSoundButtonVisible" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(py)isSoundButtonVisible">isSoundButtonVisible</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Boolean value indicating whether the sound button is visible in the video controls.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isSoundButtonVisible</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20properties"></a>
+                <a name="//apple_ref/swift/Section/Private properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Private%20properties"></a>
+                  <h3 class="section-name"><span>Private properties</span>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -439,15 +667,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes a <code>RewardedAdUnit</code> with the given configuration ID and a default event handler.</p>
+                        <p>Initializes a new <code>BaseInterstitialAdUnit</code> with the specified configuration ID.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -463,7 +690,197 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The configuration ID for the ad unit.</p>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)initWithConfigID:minSizePercentage:"></a>
+                    <a name="//apple_ref/swift/Method/init(configID:minSizePercentage:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)initWithConfigID:minSizePercentage:">init(configID:<wbr>minSizePercentage:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a new <code><a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a></code> with the specified configuration ID and minimum size percentage.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">minSizePercentage</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>minSizePercentage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The minimum size percentage for the ad unit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)initWithConfigID:eventHandler:"></a>
+                    <a name="//apple_ref/swift/Method/init(configID:eventHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)initWithConfigID:eventHandler:">init(configID:<wbr>eventHandler:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a new <code><a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a></code> with the specified configuration ID and event handler.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">eventHandler</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eventHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object for handling ad events.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)initWithConfigID:minSizePercentage:eventHandler:"></a>
+                    <a name="//apple_ref/swift/Method/init(configID:minSizePercentage:eventHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)initWithConfigID:minSizePercentage:eventHandler:">init(configID:<wbr>minSizePercentage:<wbr>eventHandler:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a new <code><a href="../Classes/InterstitialRenderingAdUnit.html">InterstitialRenderingAdUnit</a></code> with the specified configuration ID, minimum size percentage, and event handler.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">minSizePercentage</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">,</span>
+    <span class="nv">eventHandler</span><span class="p">:</span> <span class="kt">AnyObject</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier for the ad unit configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>minSizePercentage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The minimum size percentage for the ad unit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eventHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object for handling ad events.</p>
                                 </div>
                               </td>
                             </tr>
@@ -477,11 +894,11 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/PBMRewardedEventDelegate"></a>
-                <a name="//apple_ref/swift/Section/PBMRewardedEventDelegate" class="dashAnchor"></a>
+                <a name="/Public%20methods"></a>
+                <a name="//apple_ref/swift/Section/Public methods" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/PBMRewardedEventDelegate"></a>
-                  <h3 class="section-name"><span>PBMRewardedEventDelegate</span>
+                  <a class="section-name-link" href="#/Public%20methods"></a>
+                  <h3 class="section-name"><span>Public methods</span>
 </h3>
                 </div>
               </div>
@@ -489,9 +906,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)userDidEarnReward:"></a>
-                    <a name="//apple_ref/swift/Method/userDidEarnReward(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)userDidEarnReward:">userDidEarnReward(_:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)loadAd"></a>
+                    <a name="//apple_ref/swift/Method/loadAd()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)loadAd">loadAd()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -499,132 +916,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Called when the user earns a reward.</p>
+                        <p>Loads a new ad.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">userDidEarnReward</span><span class="p">(</span><span class="n">_</span> <span class="nv">reward</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>reward</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The reward object associated with the event.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/BaseInterstitialAdUnitProtocol%20protocol"></a>
-                <a name="//apple_ref/swift/Section/BaseInterstitialAdUnitProtocol protocol" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/BaseInterstitialAdUnitProtocol%20protocol"></a>
-                  <h3 class="section-name"><span>BaseInterstitialAdUnitProtocol protocol</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)interstitialControllerDidCloseAd:"></a>
-                    <a name="//apple_ref/swift/Method/interstitialControllerDidCloseAd(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)interstitialControllerDidCloseAd:">interstitialControllerDidCloseAd(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Called when the interstitial ad is closed.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">interstitialControllerDidCloseAd</span><span class="p">(</span><span class="n">_</span> <span class="nv">interstitialController</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>interstitialController</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The controller managing the interstitial ad.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Protected%20overrides"></a>
-                <a name="//apple_ref/swift/Section/Protected overrides" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Protected%20overrides"></a>
-                  <h3 class="section-name"><span>Protected overrides</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_didReceiveAd"></a>
-                    <a name="//apple_ref/swift/Method/callDelegate_didReceiveAd()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_didReceiveAd">callDelegate_didReceiveAd()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Called when the ad unit receives an ad.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callDelegate_didReceiveAd</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">loadAd</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -634,9 +933,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_didFailToReceiveAdWith:"></a>
-                    <a name="//apple_ref/swift/Method/callDelegate_didFailToReceiveAd(with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_didFailToReceiveAdWith:">callDelegate_didFailToReceiveAd(with:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)showFrom:"></a>
+                    <a name="//apple_ref/swift/Method/show(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)showFrom:">show(from:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -644,318 +943,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Called when the ad unit fails to receive an ad.</p>
+                        <p>Shows the ad from a specified view controller.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This method must be called on the main thread.
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callDelegate_didFailToReceiveAd</span><span class="p">(</span><span class="n">with</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>error</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The error describing the failure.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_willPresentAd"></a>
-                    <a name="//apple_ref/swift/Method/callDelegate_willPresentAd()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_willPresentAd">callDelegate_willPresentAd()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Called when the ad unit will present an ad.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callDelegate_willPresentAd</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_didDismissAd"></a>
-                    <a name="//apple_ref/swift/Method/callDelegate_didDismissAd()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_didDismissAd">callDelegate_didDismissAd()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Called when the ad unit dismisses an ad.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callDelegate_didDismissAd</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_willLeaveApplication"></a>
-                    <a name="//apple_ref/swift/Method/callDelegate_willLeaveApplication()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_willLeaveApplication">callDelegate_willLeaveApplication()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Called when the ad unit will leave the application.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callDelegate_willLeaveApplication</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_didClickAd"></a>
-                    <a name="//apple_ref/swift/Method/callDelegate_didClickAd()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callDelegate_didClickAd">callDelegate_didClickAd()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Called when the ad unit is clicked.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callDelegate_didClickAd</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_isReady"></a>
-                    <a name="//apple_ref/swift/Method/callEventHandler_isReady()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_isReady">callEventHandler_isReady()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns whether the event handler is ready.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callEventHandler_isReady</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A boolean indicating if the event handler is ready.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_setLoadingDelegate:"></a>
-                    <a name="//apple_ref/swift/Method/callEventHandler_setLoadingDelegate(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_setLoadingDelegate:">callEventHandler_setLoadingDelegate(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Sets the loading delegate for the event handler.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callEventHandler_setLoadingDelegate</span><span class="p">(</span><span class="n">_</span> <span class="nv">loadingDelegate</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>loadingDelegate</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The loading delegate to set.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_setInteractionDelegate"></a>
-                    <a name="//apple_ref/swift/Method/callEventHandler_setInteractionDelegate()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_setInteractionDelegate">callEventHandler_setInteractionDelegate()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Sets the interaction delegate for the event handler.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callEventHandler_setInteractionDelegate</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_requestAdWith:"></a>
-                    <a name="//apple_ref/swift/Method/callEventHandler_requestAd(with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_requestAdWith:">callEventHandler_requestAd(with:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Requests an ad with the given bid response.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callEventHandler_requestAd</span><span class="p">(</span><span class="n">with</span> <span class="nv">bidResponse</span><span class="p">:</span> <span class="kt">BidResponse</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>bidResponse</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The bid response to use for the ad request.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_showFrom:"></a>
-                    <a name="//apple_ref/swift/Method/callEventHandler_show(from:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_showFrom:">callEventHandler_show(from:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Shows the ad from the specified view controller.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callEventHandler_show</span><span class="p">(</span><span class="n">from</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">show</span><span class="p">(</span><span class="n">from</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -971,7 +971,66 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The view controller from which to present the ad.</p>
+                                  <p>The view controller from which the ad will be presented.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Arbitrary%20ORTB%20Configuration"></a>
+                <a name="//apple_ref/swift/Section/Arbitrary ORTB Configuration" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Arbitrary%20ORTB%20Configuration"></a>
+                  <h3 class="section-name"><span>Arbitrary ORTB Configuration</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)setImpORTBConfig:"></a>
+                    <a name="//apple_ref/swift/Method/setImpORTBConfig(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)setImpORTBConfig:">setImpORTBConfig(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the impression-level OpenRTB configuration string for the ad unit.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setImpORTBConfig</span><span class="p">(</span><span class="n">_</span> <span class="nv">ortbConfig</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ortbObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The impression-level OpenRTB configuration string to set. Can be <code>nil</code> to clear the configuration.</p>
                                 </div>
                               </td>
                             </tr>
@@ -984,9 +1043,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_trackImpression"></a>
-                    <a name="//apple_ref/swift/Method/callEventHandler_trackImpression()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)callEventHandler_trackImpression">callEventHandler_trackImpression()</a>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)getImpORTBConfig"></a>
+                    <a name="//apple_ref/swift/Method/getImpORTBConfig()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)getImpORTBConfig">getImpORTBConfig()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -994,14 +1053,1075 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Tracks the impression for the ad.</p>
+                        <p>Returns the impression-level OpenRTB configuration string.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">callEventHandler_trackImpression</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getImpORTBConfig</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Ext%20Data%20%28imp%5B%5D.ext.data%29"></a>
+                <a name="//apple_ref/swift/Section/Ext Data (imp[].ext.data)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Ext%20Data%20%28imp%5B%5D.ext.data%29"></a>
+                  <h3 class="section-name"><span>Ext Data (imp[].ext.data)</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addContextData:forKey:"></a>
+                    <a name="//apple_ref/swift/Method/addContextData(_:forKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addContextData:forKey:">addContextData(_:<wbr>forKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds context data for a specified key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addExtData method instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to add.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key associated with the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)updateContextData:forKey:"></a>
+                    <a name="//apple_ref/swift/Method/updateContextData(_:forKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)updateContextData:forKey:">updateContextData(_:<wbr>forKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates context data for a specified key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use updateExtData method instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateContextData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A set of data to update.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key associated with the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeContextDateForKey:"></a>
+                    <a name="//apple_ref/swift/Method/removeContextDate(forKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeContextDateForKey:">removeContextDate(forKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes context data for a specified key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use removeExtData method instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeContextDate</span><span class="p">(</span><span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key associated with the data to remove.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearContextData"></a>
+                    <a name="//apple_ref/swift/Method/clearContextData()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearContextData">clearContextData()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clears all context data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use clearExtData method instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearContextData</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addExtDataWithKey:value:"></a>
+                    <a name="//apple_ref/swift/Method/addExtData(key:value:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addExtDataWithKey:value:">addExtData(key:<wbr>value:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds ext data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addExtData</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)updateExtDataWithKey:value:"></a>
+                    <a name="//apple_ref/swift/Method/updateExtData(key:value:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)updateExtDataWithKey:value:">updateExtData(key:<wbr>value:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates ext data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateExtData</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeExtDataForKey:"></a>
+                    <a name="//apple_ref/swift/Method/removeExtData(forKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeExtDataForKey:">removeExtData(forKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes ext data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeExtData</span><span class="p">(</span><span class="nv">forKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearExtData"></a>
+                    <a name="//apple_ref/swift/Method/clearExtData()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearExtData">clearExtData()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clears ext data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearExtData</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Ext%20keywords%20%28imp%5B%5D.ext.keywords%29"></a>
+                <a name="//apple_ref/swift/Section/Ext keywords (imp[].ext.keywords)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Ext%20keywords%20%28imp%5B%5D.ext.keywords%29"></a>
+                  <h3 class="section-name"><span>Ext keywords (imp[].ext.keywords)</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addContextKeyword:"></a>
+                    <a name="//apple_ref/swift/Method/addContextKeyword(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addContextKeyword:">addContextKeyword(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds a context keyword.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addExtKeyword method instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElement</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newElement</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The keyword to add.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addContextKeywords:"></a>
+                    <a name="//apple_ref/swift/Method/addContextKeywords(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addContextKeywords:">addContextKeywords(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds a set of context keywords.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addExtKeywords method instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextKeywords</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newElements</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A set of keywords to add.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeContextKeyword:"></a>
+                    <a name="//apple_ref/swift/Method/removeContextKeyword(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeContextKeyword:">removeContextKeyword(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes a context keyword.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use removeExtKeyword method instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeContextKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>element</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The keyword to remove.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearContextKeywords"></a>
+                    <a name="//apple_ref/swift/Method/clearContextKeywords()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearContextKeywords">clearContextKeywords()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clears all context keywords.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use clearExtKeywords method instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearContextKeywords</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addExtKeyword:"></a>
+                    <a name="//apple_ref/swift/Method/addExtKeyword(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addExtKeyword:">addExtKeyword(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds an extended keyword.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addExtKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElement</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newElement</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The keyword to be added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addExtKeywords:"></a>
+                    <a name="//apple_ref/swift/Method/addExtKeywords(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addExtKeywords:">addExtKeywords(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds multiple extended keywords.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addExtKeywords</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newElements</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A set of keywords to be added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeExtKeyword:"></a>
+                    <a name="//apple_ref/swift/Method/removeExtKeyword(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeExtKeyword:">removeExtKeyword(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes an extended keyword.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeExtKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>element</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The keyword to be removed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearExtKeywords"></a>
+                    <a name="//apple_ref/swift/Method/clearExtKeywords()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearExtKeywords">clearExtKeywords()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clears all extended keywords.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearExtKeywords</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/App%20Content%20%28app.content.data%29"></a>
+                <a name="//apple_ref/swift/Section/App Content (app.content.data)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/App%20Content%20%28app.content.data%29"></a>
+                  <h3 class="section-name"><span>App Content (app.content.data)</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)setAppContent:"></a>
+                    <a name="//apple_ref/swift/Method/setAppContent(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)setAppContent:">setAppContent(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the app content data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setAppContent</span><span class="p">(</span><span class="n">_</span> <span class="nv">appContent</span><span class="p">:</span> <span class="kt">PBMORTBAppContent</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appContent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The app content data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearAppContent"></a>
+                    <a name="//apple_ref/swift/Method/clearAppContent()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearAppContent">clearAppContent()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clears the app content data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearAppContent</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addAppContentData:"></a>
+                    <a name="//apple_ref/swift/Method/addAppContentData(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addAppContentData:">addAppContentData(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds app content data objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addAppContentData</span><span class="p">(</span><span class="n">_</span> <span class="nv">dataObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt">PBMORTBContentData</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dataObjects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data objects to be added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeAppContentDataObject:"></a>
+                    <a name="//apple_ref/swift/Method/removeAppContentDataObject(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeAppContentDataObject:">removeAppContentDataObject(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes an app content data object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeAppContentDataObject</span><span class="p">(</span><span class="n">_</span> <span class="nv">dataObject</span><span class="p">:</span> <span class="kt">PBMORTBContentData</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dataObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data object to be removed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearAppContentDataObjects"></a>
+                    <a name="//apple_ref/swift/Method/clearAppContentDataObjects()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearAppContentDataObjects">clearAppContentDataObjects()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clears all app content data objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearAppContentDataObjects</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/User%20Data%20%28user.data%29"></a>
+                <a name="//apple_ref/swift/Section/User Data (user.data)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/User%20Data%20%28user.data%29"></a>
+                  <h3 class="section-name"><span>User Data (user.data)</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addUserData:"></a>
+                    <a name="//apple_ref/swift/Method/addUserData(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)addUserData:">addUserData(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds user data objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addUserData</span><span class="p">(</span><span class="n">_</span> <span class="nv">userDataObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt">PBMORTBContentData</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userDataObjects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The user data objects to be added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeUserData:"></a>
+                    <a name="//apple_ref/swift/Method/removeUserData(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)removeUserData:">removeUserData(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes a user data object.
+    - Parameter userDataObject: The user data object to be removed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeUserData</span><span class="p">(</span><span class="n">_</span> <span class="nv">userDataObject</span><span class="p">:</span> <span class="kt">PBMORTBContentData</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearUserData"></a>
+                    <a name="//apple_ref/swift/Method/clearUserData()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)RewardedAdUnit(im)clearUserData">clearUserData()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clears all user data objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearUserData</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -1013,8 +2133,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-09-26)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-12-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>

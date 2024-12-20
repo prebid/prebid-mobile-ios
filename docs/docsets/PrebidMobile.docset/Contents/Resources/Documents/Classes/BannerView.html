@@ -17,7 +17,7 @@
     <a title="BannerView Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.3.0 Docs</a> (92% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.3.1 Docs</a> (91% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,9 +54,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/BannerView.html">BannerView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/BaseInterstitialAdUnit.html">BaseInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/BidInfo.html">BidInfo</a>
@@ -176,7 +173,13 @@
                 <a href="../Classes/PrebidRequest.html">PrebidRequest</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/PrebidReward.html">PrebidReward</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/RewardedAdUnit.html">RewardedAdUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RewardedConfig.html">RewardedConfig</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/RewardedVideoAdUnit.html">RewardedVideoAdUnit</a>
@@ -332,9 +335,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)BannerView(py)adUnitConfig"></a>
+                    <a name="/s:12PrebidMobile10BannerViewC12adUnitConfigAA02AdfG0Cvp"></a>
                     <a name="//apple_ref/swift/Property/adUnitConfig" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)BannerView(py)adUnitConfig">adUnitConfig</a>
+                    <a class="token" href="#/s:12PrebidMobile10BannerViewC12adUnitConfigAA02AdfG0Cvp">adUnitConfig</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -824,7 +827,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+<span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
                         <span class="nv">eventHandler</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BannerEventHandler.html">BannerEventHandler</a></span><span class="p">)</span></code></pre>
 
                         </div>
@@ -884,7 +887,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">,</span>
+<span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">,</span>
                         <span class="nv">configID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
                         <span class="nv">adSize</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span></code></pre>
 
@@ -1011,6 +1014,94 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Arbitrary%20ORTB%20Configuration"></a>
+                <a name="//apple_ref/swift/Section/Arbitrary ORTB Configuration" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Arbitrary%20ORTB%20Configuration"></a>
+                  <h3 class="section-name"><span>Arbitrary ORTB Configuration</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)BannerView(im)setImpORTBConfig:"></a>
+                    <a name="//apple_ref/swift/Method/setImpORTBConfig(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)BannerView(im)setImpORTBConfig:">setImpORTBConfig(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the impression-level OpenRTB configuration string for the ad unit.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setImpORTBConfig</span><span class="p">(</span><span class="n">_</span> <span class="nv">ortbConfig</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ortbObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The  impression-level OpenRTB configuration string to set. Can be <code>nil</code> to clear the configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)BannerView(im)getImpORTBConfig"></a>
+                    <a name="//apple_ref/swift/Method/getImpORTBConfig()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)BannerView(im)getImpORTBConfig">getImpORTBConfig()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the impression-level OpenRTB configuration string.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getImpORTBConfig</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -1072,7 +1163,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addExtData method instead."</span><span class="p">)</span>
 <span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
@@ -1132,7 +1223,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use updateExtData method instead."</span><span class="p">)</span>
 <span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateContextData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
@@ -1192,7 +1283,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use removeExtData method instead."</span><span class="p">)</span>
 <span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeContextDate</span><span class="p">(</span><span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
@@ -1240,7 +1331,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use clearExtData method instead."</span><span class="p">)</span>
 <span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearContextData</span><span class="p">()</span></code></pre>
 
@@ -1475,7 +1566,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addExtKeyword method instead."</span><span class="p">)</span>
 <span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElement</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
@@ -1523,7 +1614,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addExtKeywords method instead."</span><span class="p">)</span>
 <span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextKeywords</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
@@ -1571,7 +1662,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use removeExtKeyword method instead."</span><span class="p">)</span>
 <span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeContextKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
@@ -1619,7 +1710,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use clearExtKeywords method instead."</span><span class="p">)</span>
 <span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearContextKeywords</span><span class="p">()</span></code></pre>
 
@@ -2604,8 +2695,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-09-26)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-12-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>
