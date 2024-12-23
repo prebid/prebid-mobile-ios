@@ -486,6 +486,11 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
+            TestCase(title: "Prebid Universal Creative (WebView)",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "PrebidUniversalCreativeTestingWebViewController",
+                     configurationClosure: { vc in }),
+            
             // MARK: ---- Native (Original API)
             
             TestCase(title: "Native Banner (GAM Original) [OK, PUC]",
