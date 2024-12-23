@@ -31,6 +31,8 @@
 		3CC4A3EA2C11F96800B97128 /* CustomRendererBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */; };
 		457FD34BA45C3840CC31A8F5 /* Pods_InternalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */; };
 		530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E722B292FACB20025B44D /* UIImageView+Extensions.swift */; };
+		535ADDFB2D19731000DB888F /* PrebidUniversalCreativeTestingGAMController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535ADDFA2D19731000DB888F /* PrebidUniversalCreativeTestingGAMController.swift */; };
+		535ADDFC2D19731000DB888F /* PrebidUniversalCreativeTestingGAMController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535ADDFA2D19731000DB888F /* PrebidUniversalCreativeTestingGAMController.swift */; };
 		5397BD142936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */; };
 		5397BD26293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */; };
 		5397BD2A29376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */; };
@@ -381,6 +383,7 @@
 		3C28C9D72C35713B00D0A7DB /* CustomRendererInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererInterstitialController.swift; sourceTree = "<group>"; };
 		3CC4A3E82C11F96800B97128 /* CustomRendererBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRendererBannerController.swift; sourceTree = "<group>"; };
 		530E722B292FACB20025B44D /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		535ADDFA2D19731000DB888F /* PrebidUniversalCreativeTestingGAMController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidUniversalCreativeTestingGAMController.swift; sourceTree = "<group>"; };
 		5397BD132936185400ABDA22 /* PrebidOriginalAPIDisplayBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayBannerController.swift; sourceTree = "<group>"; };
 		5397BD25293760F500ABDA22 /* PrebidOriginalAPIDisplayInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIDisplayInterstitialController.swift; sourceTree = "<group>"; };
 		5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIVideoRewardedController.swift; sourceTree = "<group>"; };
@@ -722,6 +725,7 @@
 				5397BD312937895700ABDA22 /* PrebidOriginalAPIVideoInstreamViewController.swift */,
 				539F961329DEF2670061E7A5 /* PrebidOriginalAPIVideoInterstitialController.swift */,
 				5397BD2929376C9700ABDA22 /* PrebidOriginalAPIVideoRewardedController.swift */,
+				535ADDFA2D19731000DB888F /* PrebidUniversalCreativeTestingGAMController.swift */,
 			);
 			path = OriginalAPI;
 			sourceTree = "<group>";
@@ -1610,6 +1614,7 @@
 				53ED300B29798104007D13EE /* PrebidMAXInterstitialController.swift in Sources */,
 				53ED300C29798104007D13EE /* DummyTableViewCell.swift in Sources */,
 				53ED300D29798104007D13EE /* AboutViewController.swift in Sources */,
+				535ADDFC2D19731000DB888F /* PrebidUniversalCreativeTestingGAMController.swift in Sources */,
 				53ED300E29798104007D13EE /* NativeAdViewBoxProtocol.swift in Sources */,
 				53ED300F29798104007D13EE /* FormViewController+RowBuildHelpers.swift in Sources */,
 				53ED301029798104007D13EE /* PrebidGAMBannerController.swift in Sources */,
@@ -1706,6 +1711,7 @@
 				92221CE12804AF5B005DF671 /* PrebidMAXInterstitialController.swift in Sources */,
 				5B8EB5EF22676914003CC15C /* DummyTableViewCell.swift in Sources */,
 				5B3EEDCB2101D1AF00BAA0C4 /* AboutViewController.swift in Sources */,
+				535ADDFB2D19731000DB888F /* PrebidUniversalCreativeTestingGAMController.swift in Sources */,
 				92F9A5D127A15BD1007B0B17 /* NativeAdViewBoxProtocol.swift in Sources */,
 				341CC3142562C9D000186F29 /* FormViewController+RowBuildHelpers.swift in Sources */,
 				3493021C2473F408004A6086 /* PrebidGAMBannerController.swift in Sources */,

@@ -35,8 +35,21 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<key>NSAppTransportSecurity</key>
+		<dict>
+		    <key>NSExceptionDomains</key>
+		    <dict>
+		        <key>192.168.0.102</key>
+		        <dict>
+		            <key>NSExceptionAllowsInsecureHTTPLoads</key>
+		            <true/>
+		        </dict>
+		    </dict>
+		</dict>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Access to GPS is needed for testing purposes.</string>
