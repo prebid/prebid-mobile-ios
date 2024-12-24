@@ -80,49 +80,7 @@ final class PrebidUniversalCreativeTestingGAMController:
         rootController.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = 300
         rootController.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = 500
         
-        let targetWebView = bannerView.allSubViewsOf(type: WKWebView.self).first
-        
-        if #available(iOS 14.0, *) {
-            targetWebView?.configuration.defaultWebpagePreferences.allowsContentJavaScript = true
-        } else {
-            targetWebView?.configuration.preferences.javaScriptEnabled = true
-        }
-        
-        targetWebView?.navigationDelegate = self
-        
-//        let js = """
-//        function loadNewIframe() {
-//             // The URL to load in the iframe
-//            const iframeUrl = "http://192.168.0.102:9876"; // You can change this dynamically
-//
-//            // Create the iframe element
-//            const iframe = document.createElement("iframe");
-//            iframe.src = iframeUrl;
-//
-//            // Optional: Set other attributes like width, height, and frameBorder
-//            iframe.width = "100%";
-//            iframe.height = "400px";
-//            iframe.frameBorder = "0"; // Removes the border of the iframe
-//
-//            // Append the iframe to the end of the body
-//            document.body.appendChild(iframe);
-//        }
-//
-//        // Call the function to load the iframe (you can bind this to a button or another event)
-//        loadNewIframe();
-//        """
-//        
-//        targetWebView?.evaluateJavaScript(js)
-        
+//        let targetWebView = bannerView.allSubViewsOf(type: WKWebView.self).first
 //        targetWebView?.load(URLRequest(url: URL(string: "http://192.168.0.102:9876")!))
     }
-    
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: any Error) {
-        print(error.localizedDescription)
-    }
-
-    
-    
-    
-    
 }
