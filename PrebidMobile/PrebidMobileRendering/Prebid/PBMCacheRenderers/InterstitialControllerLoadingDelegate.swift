@@ -15,9 +15,25 @@
 
 import Foundation
 
-@objc public protocol InterstitialControllerLoadingDelegate: NSObjectProtocol {
+/// A protocol that defines methods for receiving loading events related to interstitial ad controllers.
+@objc
+public protocol InterstitialControllerLoadingDelegate: NSObjectProtocol {
 
-    func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController)
-    func interstitialController(_ interstitialController: InterstitialController,
-                                didFailWithError error: Error)
+    /// Notifies the delegate that the interstitial ad has successfully loaded.
+    ///
+    /// - Parameters:
+    ///    - interstitialController: The interstitial ad controller that successfully loaded the ad.
+    @objc func interstitialControllerDidLoadAd(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    )
+    
+    /// Notifies the delegate that an error occurred during the interstitial ad loading process.
+    ///
+    /// - Parameters:
+    ///   - interstitialController: The interstitial ad controller that attempted to load the ad.
+    ///   - error: An `Error` instance describing the issue that occurred during the ad loading.
+    @objc func interstitialController(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol,
+        didFailWithError error: Error
+    )
 }

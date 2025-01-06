@@ -30,7 +30,7 @@
 
 @interface PBMInterstitialAdLoader () <InterstitialControllerLoadingDelegate, InterstitialEventLoadingDelegate>
 
-@property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate> delegate;
+@property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate, InterstitialControllerInteractionDelegate> delegate;
 @property (nonatomic, weak, nullable, readonly) id<PBMPrimaryAdRequesterProtocol> eventHandler;
 
 @end
@@ -41,9 +41,8 @@
 
 // MARK: - Lifecycle
 
-- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate>)delegate
-                    eventHandler:(nonnull id<PBMPrimaryAdRequesterProtocol>)eventHandler {
-    
+- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate, InterstitialControllerInteractionDelegate>)delegate
+                    eventHandler:(nonnull id<PBMPrimaryAdRequesterProtocol>)eventHandler  {
     if (!(self = [super init])) {
         return nil;
     }
@@ -63,25 +62,25 @@
 - (void)createPrebidAdWithBid:(Bid *)bid
                  adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
-            loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker
-{
-    InterstitialController * const controller = [[InterstitialController alloc] initWithBid:bid 
-                                                                            adConfiguration:adUnitConfig];
-    adObjectSaver(controller);
+            loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker {
     @weakify(self);
-    loadMethodInvoker(^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
         if (!self) { return; }
         
-        controller.loadingDelegate = self;
-        [self.delegate interstitialAdLoader:self createdInterstitialController:controller];
-        [controller loadAd];
+        id<PrebidMobileInterstitialControllerProtocol> controller = [self createInterstitialControllerWithBid:bid
+                                                                                                 adUnitConfig:adUnitConfig];
+        adObjectSaver(controller);
+        
+        loadMethodInvoker(^{
+            [controller loadAd];
+        });
     });
 }
 
 - (void)reportSuccessWithAdObject:(id)adObject adSize:(nullable NSValue *)adSize {
-    if ([adObject isKindOfClass:[InterstitialController class]]) {
-        InterstitialController * const controller = (InterstitialController *)adObject;
+    if ([adObject conformsToProtocol:@protocol(PrebidMobileInterstitialControllerProtocol)]) {
+        id<PrebidMobileInterstitialControllerProtocol> controller = (id<PrebidMobileInterstitialControllerProtocol>)adObject;
         [self.delegate interstitialAdLoader:self
                                    loadedAd:^(UIViewController *targetController) {
             [controller show];
@@ -110,11 +109,12 @@
 
 // MARK: - InterstitialControllerLoadingDelegate
 
-- (void)interstitialControllerDidLoadAd:(InterstitialController *)interstitialController {
+- (void)interstitialControllerDidLoadAd:(id<PrebidMobileInterstitialControllerProtocol>)interstitialController {
     [self.flowDelegate adLoaderLoadedPrebidAd:self];
 }
 
-- (void)interstitialController:(InterstitialController *)interstitialController didFailWithError:(NSError *)error {
+- (void)interstitialController:(id<PrebidMobileInterstitialControllerProtocol>)interstitialController
+              didFailWithError:(NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrebidError:error];
 }
 
@@ -130,6 +130,29 @@
 
 - (void)failedWithError:(nullable NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
+}
+
+- (id<PrebidMobileInterstitialControllerProtocol>)createInterstitialControllerWithBid:(Bid *)bid
+                                                                         adUnitConfig:(AdUnitConfig *)adUnitConfig {
+    id<PrebidMobilePluginRenderer> renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid];
+    PBMLogInfo(@"Renderer: %@", renderer);
+    
+    id<PrebidMobileInterstitialControllerProtocol> controller = [renderer createInterstitialControllerWithBid:bid
+                                                                                              adConfiguration:adUnitConfig
+                                                                                              loadingDelegate:self
+                                                                                          interactionDelegate:self.delegate];
+    
+    if (controller) {
+        return controller;
+    }
+    
+    PBMLogWarn(@"SDK couldn't retrieve an implementation of PrebidMobileInterstitialControllerProtocol. SDK will use the PrebidMobile SDK renderer.");
+    
+    id<PrebidMobilePluginRenderer> sdkRenderer = PrebidMobilePluginRegister.shared.sdkRenderer;
+    return [sdkRenderer createInterstitialControllerWithBid:bid
+                                            adConfiguration:adUnitConfig
+                                            loadingDelegate:self
+                                        interactionDelegate:self.delegate];
 }
 
 @end

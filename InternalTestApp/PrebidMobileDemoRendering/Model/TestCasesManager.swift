@@ -583,7 +583,7 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (CustomRenderer)",
+            TestCase(title: "Banner 320x50 (In-App, Custom Renderer)",
                      tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -593,9 +593,7 @@ struct TestCaseManager {
                 
                 let bannerController = CustomRendererBannerController(rootController: adapterVC)
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
-                        
-                bannerController.prebidConfigId = "prebid-ita-banner-320-50-meta-custom-renderer";
-                        
+                bannerController.prebidConfigId = "prebid-demo-display-banner-320-50-custom-ad-view-renderer"
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)
@@ -1024,6 +1022,23 @@ struct TestCaseManager {
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.banner]
                 interstitialController.prebidConfigId = "prebid-ita-display-interstitial-320-480"
+                 
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Display Interstitial 320x480 (In-App, Custom Renderer)",
+                     tags: [.interstitial, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = CustomRendererInterstitialController(rootController: adapterVC)
+                interstitialController.adFormats = [.banner]
+                interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-custom-interstitial-renderer"
                  
                 adapterVC.setup(adapter: interstitialController)
                         

@@ -189,36 +189,36 @@ class BaseInterstitialAdUnit:
     // MARK: - InterstitialControllerInteractionDelegate
     
     /// Tracks an impression for the given interstitial controller.
-    public func trackImpression(forInterstitialController: InterstitialController) {
+    public func trackImpression(forInterstitialController: PrebidMobileInterstitialControllerProtocol) {
         DispatchQueue.main.async {
             self.delegate?.callEventHandler_trackImpression()
         }
     }
     
     /// Called when the ad in the interstitial controller is clicked.
-    public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidClickAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         delegate?.callDelegate_didClickAd()
     }
     
     /// Called when the ad in the interstitial controller is closed.
-    public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         delegate?.callDelegate_didDismissAd()
     }
     
     /// Called when the ad in the interstitial controller causes the app to leave.
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         delegate?.callDelegate_willLeaveApplication()
     }
     
-    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {}
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {}
-    public func trackUserReward(_ interstitialController: InterstitialController, _ reward: PrebidReward) {}
+    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func trackUserReward(_ interstitialController: PrebidMobileInterstitialControllerProtocol, _ reward: PrebidReward) {}
     
     public func viewControllerForModalPresentation(
-        fromInterstitialController: InterstitialController
+        fromInterstitialController: PrebidMobileInterstitialControllerProtocol
     ) -> UIViewController? {
         return targetController
     }

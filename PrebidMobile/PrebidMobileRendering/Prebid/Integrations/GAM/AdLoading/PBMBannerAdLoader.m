@@ -30,12 +30,11 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-
 @interface PBMBannerAdLoader () <DisplayViewLoadingDelegate, BannerEventLoadingDelegate>
-@property (nonatomic, weak, nullable, readonly) id<BannerAdLoaderDelegate> delegate;
+
+@property (nonatomic, weak, nullable, readonly) id<BannerAdLoaderDelegate, DisplayViewInteractionDelegate> delegate;
+
 @end
-
-
 
 @implementation PBMBannerAdLoader
 
@@ -43,11 +42,13 @@
 
 // MARK: - Lifecycle
 
-- (instancetype)initWithDelegate:(id<BannerAdLoaderDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<BannerAdLoaderDelegate, DisplayViewInteractionDelegate>)delegate {
     if (!(self = [super init])) {
         return nil;
     }
+    
     _delegate = delegate;
+    
     return self;
 }
 
@@ -62,21 +63,20 @@
 - (void)createPrebidAdWithBid:(Bid *)bid
                  adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
-            loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker
-{
-    CGRect const displayFrame = CGRectMake(0, 0, bid.size.width, bid.size.height);
-    PBMDisplayView * const newDisplayView = [[PBMDisplayView alloc] initWithFrame:displayFrame
-                                                                              bid:bid
-                                                                  adConfiguration:adUnitConfig];
-    adObjectSaver(newDisplayView);
+            loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker {
     @weakify(self);
-    loadMethodInvoker(^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
         if (!self) { return; }
         
-        newDisplayView.loadingDelegate = self;
-        [self.delegate bannerAdLoader:self createdDisplayView:newDisplayView];
-        [newDisplayView displayAd];
+        UIView <PrebidMobileDisplayViewProtocol> * displayView = [self createBannerViewWithBid:bid
+                                                                                  adUnitConfig:adUnitConfig];
+        
+        adObjectSaver(displayView);
+        
+        loadMethodInvoker(^{
+            [displayView loadAd];
+        });
     });
 }
 
@@ -106,6 +106,32 @@
 
 - (void)failedWithError:(nullable NSError *)error {
     [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
+}
+
+- (UIView<PrebidMobileDisplayViewProtocol> *)createBannerViewWithBid:(Bid *)bid adUnitConfig:(AdUnitConfig *)adUnitConfig {
+    id<PrebidMobilePluginRenderer> renderer = [[PrebidMobilePluginRegister shared] getPluginForPreferredRendererWithBid:bid];
+    PBMLogInfo(@"Renderer: %@", renderer);
+    
+    CGRect const displayFrame = CGRectMake(0, 0, bid.size.width, bid.size.height);
+    
+    UIView <PrebidMobileDisplayViewProtocol> * displayView = [renderer createBannerViewWith:displayFrame
+                                                                                        bid:bid
+                                                                            adConfiguration:adUnitConfig
+                                                                            loadingDelegate:self
+                                                                        interactionDelegate:self.delegate];
+    
+    if (displayView) {
+        return displayView;
+    }
+    
+    PBMLogWarn(@"SDK couldn't retrieve an implementation of PrebidMobileDisplayViewManagerProtocol. SDK will use the PrebidMobile SDK renderer.");
+    
+    id<PrebidMobilePluginRenderer> sdkRenderer = PrebidMobilePluginRegister.shared.sdkRenderer;
+    return [sdkRenderer createBannerViewWith:displayFrame
+                                         bid:bid
+                             adConfiguration:adUnitConfig
+                             loadingDelegate:self
+                         interactionDelegate:self.delegate];
 }
 
 @end

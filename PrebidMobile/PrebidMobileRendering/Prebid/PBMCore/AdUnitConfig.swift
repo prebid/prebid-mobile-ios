@@ -309,6 +309,10 @@ public class AdUnitConfig: NSObject, NSCopying {
         
         clone.adFormats = self.adFormats
         clone.nativeAdConfiguration = self.nativeAdConfiguration
+        clone.adConfiguration.bannerParameters = self.adConfiguration.bannerParameters
+        clone.adConfiguration.videoParameters = self.adConfiguration.videoParameters
+        clone.adConfiguration.videoControlsConfig = self.adConfiguration.videoControlsConfig
+        clone.adConfiguration.winningBidAdFormat = self.adConfiguration.winningBidAdFormat
         clone.sizes = sizes
         clone.adSize = adSize
         clone.minSizePerc = self.minSizePerc
