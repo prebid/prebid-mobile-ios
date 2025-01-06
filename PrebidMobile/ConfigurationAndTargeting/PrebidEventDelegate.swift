@@ -17,5 +17,12 @@ import Foundation
 
 @objc
 public protocol PrebidEventDelegate {
+    /// Notifies the delegate when a Prebid bid request has finished.
+    ///
+    /// This method is called on a global background thread.
+    ///
+    /// - Parameters:
+    ///   - requestData: The Prebid Server request data that was sent.
+    ///   - responseData: The Prebid Server response data that was received.
     func prebidBidRequestDidFinish(requestData: Data?, responseData: Data?)
 }
