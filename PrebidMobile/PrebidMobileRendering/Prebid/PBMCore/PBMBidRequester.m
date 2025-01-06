@@ -159,7 +159,7 @@
         }
         
         completion(bidResponse, trasformationError);
-        [Prebid.shared callEventDelegate_prebidBidRequestDidFinishWithRequestData:rtbRequestData 
+        [Prebid.shared callEventDelegateAsync_prebidBidRequestDidFinishWithRequestData:rtbRequestData 
                                                                      responseData:serverResponse.rawData];
     }];
 }

@@ -31,20 +31,21 @@ class PrebidEventDelegateTests: XCTestCase {
         delegate = PrebidEventDelegateTestsMockDelegate(onRequestDidFinish: { requestData, responseData in
             XCTAssertEqual(requestData, self.mockRequestData)
             XCTAssertEqual(responseData, self.mockResponseData)
+            XCTAssertFalse(Thread.isMainThread)
             exp.fulfill()
         })
         
         Prebid.shared.eventDelegate = delegate
         
-        Prebid.shared.callEventDelegate_prebidBidRequestDidFinishWith(requestData: mockRequestData, responseData: mockResponseData)
+        Prebid.shared.callEventDelegateAsync_prebidBidRequestDidFinishWith(requestData: mockRequestData, responseData: mockResponseData)
         waitForExpectations(timeout: 1.0)
     }
     
-    func test_callEventDelegate_doesNothing_whenDelegateIsNil() {
+    func test_callEventDelegateAsync_doesNothing_whenDelegateIsNil() {
         /// This test aims to ensure that there is no nullpointer exception if the delegate is unset
-        /// and a call to `callEventDelegate_prebidBidRequestDidFinishWith(_:,:_)` is made
+        /// and a call to `callEventDelegateAsync_prebidBidRequestDidFinishWith(_:,:_)` is made
         Prebid.shared.eventDelegate = nil
-        Prebid.shared.callEventDelegate_prebidBidRequestDidFinishWith(requestData: mockRequestData, responseData: mockResponseData)
+        Prebid.shared.callEventDelegateAsync_prebidBidRequestDidFinishWith(requestData: mockRequestData, responseData: mockResponseData)
     }
 }
 
