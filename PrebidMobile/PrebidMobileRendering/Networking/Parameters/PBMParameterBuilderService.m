@@ -127,6 +127,11 @@
         [bidRequest.user appendEids:[targeting getExternalUserIds]];
     }
     
+    __auto_type sharedId = targeting.sharedId;
+    if (sharedId) {
+        [bidRequest.user appendEids:@[[sharedId toJSONDictionary]]];
+    }
+    
     if ([targeting getUserKeywords].count > 0) {
         bidRequest.user.keywords = [[targeting getUserKeywords] componentsJoinedByString:@","];
     }

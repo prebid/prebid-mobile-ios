@@ -13,6 +13,8 @@
   limitations under the License.
   */
 
+import AdSupport
+import AppTrackingTransparency
 import Foundation
 import CoreLocation
 import MapKit
@@ -253,6 +255,45 @@ public class Targeting: NSObject {
         }
         
         return transformedUserIdArray.isEmpty ? nil : transformedUserIdArray
+    }
+    
+    // MARK: - SharedId
+    
+    public var sharedId: ExternalUserId? {
+        guard let sharedId = StorageUtils.sharedId else {
+            return nil
+        }
+        
+        return ExternalUserId(source: "pubcid.org", identifier: sharedId, atype: 1)
+    }
+    
+    public func updateSharedId() {
+        let sharedIdAllowed: Bool = {
+            if #available(iOS 14.0, *) {
+                guard ATTrackingManager.trackingAuthorizationStatus == .authorized else {
+                    return false
+                }
+            } else {
+                guard ASIdentifierManager.shared().isAdvertisingTrackingEnabled else {
+                    return false
+                }
+            }
+            
+            guard isAllowedAccessDeviceData() else {
+                return false
+            }
+            
+            return true
+        }()
+        
+        if sharedIdAllowed {
+            if StorageUtils.sharedId == nil {
+                let sharedId = UUID().uuidString
+                StorageUtils.sharedId = sharedId
+            }
+        } else {
+            StorageUtils.sharedId = nil
+        }
     }
     
     // MARK: - Application Information
