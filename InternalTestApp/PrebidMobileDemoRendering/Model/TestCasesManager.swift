@@ -480,7 +480,7 @@ struct TestCaseManager {
                 
                 let bannerController = PrebidUniversalCreativeTestingGAMController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 300, height: 250)
-                bannerController.gamAdUnitID = "/21808260008/prebid_puc_testing"
+                bannerController.gamAdUnitID = "/21808260008/puc-testing-secure-banner-300x250"
                          
                 adapterVC.setup(adapter: bannerController)
                 setupCustomParams(for: bannerController.prebidConfigId)

@@ -18,8 +18,7 @@ import GoogleMobileAds
 final class PrebidUniversalCreativeTestingGAMController:
     NSObject,
     AdaptedController,
-    PrebidConfigurableBannerController,
-    GADBannerViewDelegate, WKNavigationDelegate {
+    PrebidConfigurableBannerController {
     
     var refreshInterval: TimeInterval = 0
     var prebidConfigId: String = ""
@@ -30,7 +29,15 @@ final class PrebidUniversalCreativeTestingGAMController:
     
     private var gamBanner: GAMBannerView!
     
-    private let configIdLabel = UILabel()
+    private let bannerViewDidReceiveAd = EventReportContainer()
+    private let bannerViewDidFailToReceiveAd = EventReportContainer()
+    
+    private let configIdLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+    
     private let reloadButton = ThreadCheckingButton()
     
     init(rootController: AdapterViewController) {
@@ -44,18 +51,9 @@ final class PrebidUniversalCreativeTestingGAMController:
         return PrebidBannerConfigurationController(controller: self)
     }
     
-    private func setupAdapterController() {
-        rootController.showButton.isHidden = true
-        
-        configIdLabel.isHidden = true
-        rootController.actionsView.addArrangedSubview(configIdLabel)
-        
-        reloadButton.addTarget(self, action: #selector(reload), for: .touchUpInside)
-    }
-    
     func loadAd() {
         configIdLabel.isHidden = false
-        configIdLabel.text = "GAM AdUnit ID: \(gamAdUnitID)"
+        configIdLabel.text = "AdUnit ID: \(gamAdUnitID)"
         
         gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
         gamBanner.adUnitID = gamAdUnitID
@@ -74,13 +72,66 @@ final class PrebidUniversalCreativeTestingGAMController:
         gamBanner.load(gamRequest)
     }
     
+    private func setupAdapterController() {
+        rootController.showButton.isHidden = true
+        
+        configIdLabel.isHidden = true
+        rootController.actionsView.addArrangedSubview(configIdLabel)
+        
+        reloadButton.addTarget(self, action: #selector(reload), for: .touchUpInside)
+        
+        setupActions()
+    }
+    
+    private func setupActions() {
+        rootController.setupAction(bannerViewDidReceiveAd, "bannerViewDidReceiveAd called", accessibilityLabel: "bannerViewDidReceiveAd called")
+        rootController.setupAction(bannerViewDidFailToReceiveAd, "bannerViewDidFailToReceiveAd called")
+        rootController.setupAction(reloadButton, "[Reload]")
+    }
+    
+    private func resetEvents() {
+        bannerViewDidReceiveAd.isEnabled = false
+        bannerViewDidFailToReceiveAd.isEnabled = false
+        reloadButton.isEnabled = true
+    }
+}
+
+// MARK: - GADBannerViewDelegate
+
+extension PrebidUniversalCreativeTestingGAMController: GADBannerViewDelegate {
+    
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         rootController.bannerView.backgroundColor = .clear
+        bannerViewDidReceiveAd.isEnabled = true
         reloadButton.isEnabled = true
         rootController.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = 300
-        rootController.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = 500
+        rootController.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = 250
         
-//        let targetWebView = bannerView.allSubViewsOf(type: WKWebView.self).first
-//        targetWebView?.load(URLRequest(url: URL(string: "http://192.168.0.102:9876")!))
+        let targetWebView = bannerView.allSubViewsOf(type: WKWebView.self).first
+        targetWebView?.navigationDelegate = self
+    }
+    
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: any Error) {
+        resetEvents()
+        bannerViewDidFailToReceiveAd.isEnabled = true
+        print(error.localizedDescription)
+    }
+}
+
+// MARK: - WKNavigationDelegate
+
+extension PrebidUniversalCreativeTestingGAMController: WKNavigationDelegate {
+    
+    func webView(
+        _ webView: WKWebView,
+        didReceive challenge: URLAuthenticationChallenge,
+        completionHandler: @MainActor @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+    ) {
+        if let serverTrust = challenge.protectionSpace.serverTrust {
+            let credential = URLCredential(trust: serverTrust)
+            completionHandler(.useCredential, credential)
+        } else {
+            print("Error: failed to get server trust.")
+        }
     }
 }

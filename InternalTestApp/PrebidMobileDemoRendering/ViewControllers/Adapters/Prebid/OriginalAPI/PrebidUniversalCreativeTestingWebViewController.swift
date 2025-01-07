@@ -21,12 +21,36 @@ final class PrebidUniversalCreativeTestingWebViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var textField: UITextField!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        webView.navigationDelegate = self
+    }
+    
     @IBAction func onOpenURLPressed(_ sender: Any) {
-        guard let urlString = textField.text, let url = URL(string: "http://\(urlString)") else {
+        guard let urlString = textField.text, let url = URL(string: "\(urlString)") else {
             return
         }
         
         let request = URLRequest(url: url)
         webView.load(request)
+    }
+}
+
+// MARK: - WKNavigationDelegate
+
+extension PrebidUniversalCreativeTestingWebViewController: WKNavigationDelegate {
+    
+    func webView(
+        _ webView: WKWebView,
+        didReceive challenge: URLAuthenticationChallenge,
+        completionHandler: @MainActor @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+    ) {
+        if let serverTrust = challenge.protectionSpace.serverTrust {
+            let credential = URLCredential(trust: serverTrust)
+            completionHandler(.useCredential, credential)
+        } else {
+            print("Error: failed to get server trust.")
+        }
     }
 }
