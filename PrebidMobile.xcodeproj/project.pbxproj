@@ -110,7 +110,7 @@
 		5355ACA929C454070014F16E /* VAST_with_empty_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */; };
 		5355ACAB29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */; };
 		535ADE0B2D2E970200DB888F /* SDKConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F0999C2C78CC8A007DB464 /* SDKConsoleLogger.swift */; };
-		536469C02D2FD78200F50B6D /* PluginEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536469BF2D2FD78200F50B6D /* PluginEventDelegate.swift */; };
+		535ADE102D2E987E00DB888F /* PluginEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535ADE0F2D2E987E00DB888F /* PluginEventDelegate.swift */; };
 		536A39262A84C50F00B1CCEA /* StringExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */; };
 		536A427F282D11DA0069E9B2 /* PrebidServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* PrebidServerConnection.swift */; };
 		536A4283282D12E80069E9B2 /* PrebidServerConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A4282282D12E80069E9B2 /* PrebidServerConnectionProtocol.swift */; };
@@ -1004,7 +1004,7 @@
 		53514CF12D0851DE00A480C0 /* InterstitialControllerInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialControllerInteractionDelegate.swift; sourceTree = "<group>"; };
 		5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_empty_companion.xml; sourceTree = "<group>"; };
 		5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModelCollectionMakerVASTTests.swift; sourceTree = "<group>"; };
-		536469BF2D2FD78200F50B6D /* PluginEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginEventDelegate.swift; sourceTree = "<group>"; };
+		535ADE0F2D2E987E00DB888F /* PluginEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginEventDelegate.swift; sourceTree = "<group>"; };
 		536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTest.swift; sourceTree = "<group>"; };
 		536A427E282D11DA0069E9B2 /* PrebidServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerConnection.swift; sourceTree = "<group>"; };
 		536A4282282D12E80069E9B2 /* PrebidServerConnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerConnectionProtocol.swift; sourceTree = "<group>"; };
@@ -3296,7 +3296,7 @@
 		A908694029E05E8D00B37479 /* PluginRenderer */ = {
 			isa = PBXGroup;
 			children = (
-				536469BF2D2FD78200F50B6D /* PluginEventDelegate.swift */,
+				535ADE0F2D2E987E00DB888F /* PluginEventDelegate.swift */,
 				A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */,
 				A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */,
 				53BFCD302CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift */,
@@ -4149,6 +4149,7 @@
 				5BC378CC271F1CFF00444D5E /* PBMWeakTimerTargetBox.m in Sources */,
 				5BC379AC271F1D0000444D5E /* PBMModalManager.m in Sources */,
 				FAEE4D1C262DC2B200AD9966 /* InstreamVideoAdUnit.swift in Sources */,
+				535ADE102D2E987E00DB888F /* PluginEventDelegate.swift in Sources */,
 				53B221D12A0E3D3D00C91CCB /* PrebidJSLibraryManager.swift in Sources */,
 				5BC37970271F1D0000444D5E /* PBMVastAbstractAd.m in Sources */,
 				53BDBF89293F5EFF004B6DE8 /* InternalUserConsentDataManager.m in Sources */,
