@@ -15,78 +15,90 @@
 
 import Foundation
 
+/// This class serves as the central point for all logging operations within the SDK.
+/// It allows for categorized logging based on severity levels (e.g., error, warning, debug) and offers options for both console and file-based logging.
+/// It also provides the ability to set third-party logger.
 @objc(PBMLog) @objcMembers
 public class Log: NSObject {
 
     // MARK: - Public properties
-    public static var logger: PrebidLogger? = SDKConsoleLogger()
-    public static var dateFormat = "yyyy-MM-dd hh:mm:ssSSS"
-    public static var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = dateFormat
-        formatter.locale = Locale.current
-        formatter.timeZone = TimeZone.current
-        return formatter
-    }
     
-    public static func setCustomLogger(customLogger: PrebidLogger?) {
-        logger = customLogger
-    }
-    
+    /// The current logging level. Only messages at this level or higher will be logged.
     public static var logLevel: LogLevel = .debug
+    
+    /// Indicates whether logs should also be saved to a file.
     public static var logToFile = false
+    
+    /// Sets a custom logger to handle log messages.
+    public static func setCustomLogger(_ logger: PrebidLogger) {
+        self.logger = logger
+    }
 
     public static func error(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        log(object, logLevel: .error, filename: filename, line: line, function: function)
-        logger?.error(object, filename: filename, line: line, function: function)
+        logger.error(object, filename: filename, line: line, function: function)
     }
 
     public static func info(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        log(object, logLevel: .info, filename: filename, line: line, function: function)
-        logger?.info(object, filename: filename, line: line, function: function)
+        logger.info(object, filename: filename, line: line, function: function)
     }
 
     public static func debug(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        log(object, logLevel: .debug, filename: filename, line: line, function: function)
-        logger?.debug(object, filename: filename, line: line, function: function)
+        logger.debug(object, filename: filename, line: line, function: function)
     }
 
     public static func verbose(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        log(object, logLevel: .verbose, filename: filename, line: line, function: function)
-        logger?.verbose(object, filename: filename, line: line, function: function)
+        logger.verbose(object, filename: filename, line: line, function: function)
     }
 
     public static func warn(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        log(object, logLevel: .warn, filename: filename, line: line, function: function)
-        logger?.warn(object, filename: filename, line: line, function: function)
+        logger.warn(object, filename: filename, line: line, function: function)
     }
 
     public static func severe(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
-        log(object, logLevel: .severe, filename: filename, line: line, function: function)
-        logger?.severe(object, filename: filename, line: line, function: function)
+        logger.severe(object, filename: filename, line: line, function: function)
     }
     
     public static func whereAmI(filename: String = #file, line: Int = #line, function: String = #function) {
-        log("", logLevel: .info, filename: filename, line: line, function: function)
-        logger?.whereAmI(filename: filename, line: line, function: function)
+        logger.whereAmI(filename: filename, line: line, function: function)
     }
     
-    static func log(_ object: Any, logLevel: LogLevel, filename: String, line: Int, function: String) {
-        if isLoggingEnabled(for: logLevel) {
-            let finalMessage = "\(sdkName): \(Date().toString()) \(logLevel.stringValue)[\(sourceFileName(filePath: filename))]:\(line) \(function) -> \(object)"
-            print(finalMessage)
-            serialWriteToLog(finalMessage)
-        }
-        logger?.log(object, logLevel: logLevel, filename: filename, line: line, function: function)
-    }
-    
+    /// Writes a log message to the log file asynchronously.
+    ///
+    /// - Parameter message: The log message to be written to the file.
     public static func serialWriteToLog(_ message: String) {
         loggingQueue.async {
             writeToLogFile(message)
         }
     }
     
-    public static func writeToLogFile(_ message: String) {
+    /// Reads the contents of the log file as a single string.
+    public static func getLogFileAsString() -> String? {
+        loggingQueue.sync {
+            if let logFileURL = logFileURL {
+                do {
+                    return try String(contentsOf: logFileURL, encoding: .utf8)
+                } catch {
+                    Log.error("\(PrebidConstants.SDK_NAME) Error getting log file: \(error.localizedDescription)")
+                }
+            }
+            return nil
+        }
+    }
+    
+    /// Clears the contents of the log file.
+    public static func clearLogFile() {
+        loggingQueue.sync {
+            do {
+                if let logFileURL = logFileURL {
+                    try "".data(using: .utf8)?.write(to: logFileURL)
+                }
+            } catch {
+                Log.error("\(PrebidConstants.SDK_NAME) Error clearing log file: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    static func writeToLogFile(_ message: String) {
         if !Log.logToFile {
             return
         }
@@ -105,7 +117,7 @@ public class Log: NSObject {
                         try fileHandle.write(contentsOf: data)
                         try fileHandle.close()
                     } catch {
-                        Log.error("\(sdkName) Couldn't write to log file: \(error.localizedDescription)")
+                        Log.error("\(PrebidConstants.SDK_NAME) Couldn't write to log file: \(error.localizedDescription)")
                     }
                 } else {
                     fileHandle.seekToEndOfFile()
@@ -118,103 +130,17 @@ public class Log: NSObject {
                 do {
                     try data.write(to: logFileURL)
                 } catch {
-                    Log.error("\(sdkName) Couldn't write to log file URL: \(error.localizedDescription)")
+                    Log.error("\(PrebidConstants.SDK_NAME) Couldn't write to log file URL: \(error.localizedDescription)")
                 }
             }
         }
     }
     
-    public static func getLogFileAsString() -> String? {
-        loggingQueue.sync {
-            if let logFileURL = logFileURL {
-                do {
-                    return try String(contentsOf: logFileURL, encoding: .utf8)
-                } catch {
-                    Log.error("\(sdkName) Error getting log file: \(error.localizedDescription)")
-                }
-            }
-            return nil
-        }
-    }
+    // MARK: - Private Properties
     
-    public static func clearLogFile() {
-        loggingQueue.sync {
-            do {
-                if let logFileURL = logFileURL {
-                    try "".data(using: .utf8)?.write(to: logFileURL)
-                }
-            } catch {
-                Log.error("\(sdkName) Error clearing log file: \(error.localizedDescription)")
-            }
-        }
-    }
-
-    // MARK: - Internal properties and methods
+    private static var logger: PrebidLogger = SDKConsoleLogger()
     
-    private static let sdkName = "prebid-mobile-sdk"
+    private static let loggingQueue = DispatchQueue(label: PrebidConstants.SDK_NAME)
     
-    private static let loggingQueue = DispatchQueue(label: sdkName)
-    
-    private static var logFileURL = getURLForDoc(sdkName + ".txt")
-    
-    private class func isLoggingEnabled(for currentLevel: LogLevel) -> Bool {
-        #if !(DEBUG)
-        return false
-        #endif
-        
-        if currentLevel.rawValue < Log.logLevel.rawValue {
-            return false
-        }
-        
-        return true
-    }
-    
-    private static func getURLForDoc(_ docName: String) -> URL? {
-        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
-        return temporaryDirectoryURL.appendingPathComponent(docName)
-    }
-    
-    private static func sourceFileName(filePath: String) -> String {
-        let components = filePath.components(separatedBy: "/")
-        return components.isEmpty ? "" : components.last!
-    }
-}
-
-extension Date {
-    func toString() -> String {
-        return Log.dateFormatter.string(from: self as Date)
-    }
-}
-
-/// Wrapping Swift.print() within DEBUG flag
-///
-/// - Note: *print()* might cause [security vulnerabilities](https://codifiedsecurity.com/mobile-app-security-testing-checklist-ios/)
-///
-/// - Parameter object: The object which is to be logged
-///
-func print(_ object: Any) {
-    // Only allowing in DEBUG mode
-    #if DEBUG
-    Swift.print(object)
-    #endif
-}
-
-public protocol PrebidLogger {
-
-    func error(_ object: Any, filename: String, line: Int, function: String)
-
-    func info(_ object: Any, filename: String, line: Int, function: String)
-
-    func debug(_ object: Any, filename: String, line: Int, function: String)
-
-    func verbose(_ object: Any, filename: String, line: Int, function: String)
-
-    func warn(_ object: Any, filename: String, line: Int, function: String)
-
-    func severe(_ object: Any, filename: String, line: Int, function: String)
-
-    func whereAmI(filename: String, line: Int, function: String)
-
-    func log(_ object: Any, logLevel: LogLevel, filename: String, line: Int, function: String)
-
+    private static let logFileURL = URL.temporaryURL(for: PrebidConstants.SDK_NAME + ".txt")
 }

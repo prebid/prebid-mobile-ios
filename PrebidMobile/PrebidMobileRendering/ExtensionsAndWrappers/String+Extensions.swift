@@ -44,4 +44,12 @@ extension String {
     func containsOnly(_ characterSet: CharacterSet) -> Bool {
         return self.trimmingCharacters(in: characterSet).count == 0
     }
+    
+    /// Returns the last component of a file path, typically the file name.
+    ///
+    /// - Returns: The file name as a `String`, or an empty string if the path is empty.
+    func sourceFileName() -> String {
+        let pathComponents = components(separatedBy: "/")
+        return pathComponents.last ?? ""
+    }
 }

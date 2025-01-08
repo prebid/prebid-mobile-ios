@@ -31,6 +31,8 @@ class LogTest: XCTestCase {
 
     override func tearDown() {
         logToFile = nil
+        Log.setCustomLogger(SDKConsoleLogger())
+        
         super.tearDown()
     }
     
@@ -85,7 +87,6 @@ class LogTest: XCTestCase {
     
     func testAllKinds() {
         // Test: default params
-
         logToFile = .init()
         
         Log.error(message)
@@ -109,31 +110,33 @@ class LogTest: XCTestCase {
     
     func testAllKindsWithCustom() {
         // Test: default params
-
         logToFile = .init()
         
-        Log.setCustomLogger(customLogger: CustomTestLogger())
+        Log.setCustomLogger(CustomTestLogger())
         
         Log.error(message)
-        let log = Log.getLogFileAsString() ?? ""
-        XCTAssert(log.contains("TESTLOG"))
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
         checkLogAndClean(level: .error)
         
         Log.info(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
         checkLogAndClean(level: .info)
         
         Log.debug(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
         checkLogAndClean(level: .debug)
         
         Log.verbose(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
         checkLogAndClean(level: .verbose)
         
         Log.warn(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
         checkLogAndClean(level: .warn)
         
         Log.severe(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
         checkLogAndClean(level: .severe)
-        Log.setCustomLogger(customLogger: nil)
     }
     
     func testWhereAmI() {
@@ -147,13 +150,12 @@ class LogTest: XCTestCase {
     
     func testWhereAmICustom() {
         logToFile = .init()
-        Log.setCustomLogger(customLogger: CustomTestLogger())
+        Log.setCustomLogger(CustomTestLogger())
 
         Log.whereAmI()
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains("WHEREAMI"))
-        Log.setCustomLogger(customLogger: nil)
     }
     
     func testLogLevel() {
@@ -226,6 +228,5 @@ class LogTest: XCTestCase {
             print(finalMessage)
             Log.serialWriteToLog(finalMessage)
         }
-        
     }
 }
