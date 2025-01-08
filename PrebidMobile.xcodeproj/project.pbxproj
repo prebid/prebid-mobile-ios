@@ -109,6 +109,7 @@
 		53514CF22D0851DE00A480C0 /* InterstitialControllerInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CF12D0851DE00A480C0 /* InterstitialControllerInteractionDelegate.swift */; };
 		5355ACA929C454070014F16E /* VAST_with_empty_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */; };
 		5355ACAB29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */; };
+		535ADE0B2D2E970200DB888F /* SDKConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F0999C2C78CC8A007DB464 /* SDKConsoleLogger.swift */; };
 		536469C02D2FD78200F50B6D /* PluginEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536469BF2D2FD78200F50B6D /* PluginEventDelegate.swift */; };
 		536A39262A84C50F00B1CCEA /* StringExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */; };
 		536A427F282D11DA0069E9B2 /* PrebidServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* PrebidServerConnection.swift */; };
@@ -3979,7 +3980,6 @@
 				925D5D702737B74E00A8A2B5 /* PBMTouchForwardingViewTest.swift in Sources */,
 				FAA299122434C769002ACBF2 /* UtilsObjCTests.m in Sources */,
 				925D5E7A2737F62500A8A2B5 /* VideoFileTypeTest.swift in Sources */,
-				F9F0999E2C78CC8A007DB464 /* SDKConsoleLogger.swift in Sources */,
 				925D5DB12737C54500A8A2B5 /* MockAdLoader.swift in Sources */,
 				925D5D742737B7FB00A8A2B5 /* UserConsentManagerTest.swift in Sources */,
 				922AFD2E2737260900732C53 /* PBMDeepLinkPlusHelperTest.swift in Sources */,
@@ -4113,6 +4113,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				535ADE0B2D2E970200DB888F /* SDKConsoleLogger.swift in Sources */,
 				5BC37AB1271F1D0000444D5E /* DemandResponseInfo.swift in Sources */,
 				5BC37AAE271F1D0000444D5E /* BannerEventHandlerStandalone.swift in Sources */,
 				5BC378DF271F1CFF00444D5E /* PBMORTBApp.m in Sources */,
@@ -4373,7 +4374,6 @@
 				53C925022990FB30009E6F94 /* String+Extensions.swift in Sources */,
 				53A368E92AB2E38200A03B3E /* BidInfo.swift in Sources */,
 				799109FB28F99C2B004837B4 /* PBMORTBAppExt.m in Sources */,
-				F9F0999D2C78CC8A007DB464 /* SDKConsoleLogger.swift in Sources */,
 				925A641627317A39009E72F9 /* HiddenWebViewManager.swift in Sources */,
 				5BC3796C271F1D0000444D5E /* PBMVastCreativeLinear.m in Sources */,
 				928E5A7027F0F743000ADA1A /* ContextSubType.swift in Sources */,
