@@ -259,15 +259,9 @@ public class Targeting: NSObject {
     
     // MARK: - SharedId
     
-    public var sharedId: ExternalUserId? {
-        guard let sharedId = StorageUtils.sharedId else {
-            return nil
-        }
-        
-        return ExternalUserId(source: "pubcid.org", identifier: sharedId, atype: 1)
-    }
+    public var sharedIdEnabled: Bool = false
     
-    public func updateSharedId() {
+    public var sharedId: ExternalUserId? {
         let sharedIdAllowed: Bool = {
             if #available(iOS 14.0, *) {
                 guard ATTrackingManager.trackingAuthorizationStatus == .authorized else {
@@ -286,14 +280,20 @@ public class Targeting: NSObject {
             return true
         }()
         
-        if sharedIdAllowed {
-            if StorageUtils.sharedId == nil {
-                let sharedId = UUID().uuidString
-                StorageUtils.sharedId = sharedId
-            }
-        } else {
+        guard sharedIdAllowed else {
             StorageUtils.sharedId = nil
+            return nil
         }
+        
+        let sharedId: String
+        if let id = StorageUtils.sharedId {
+            sharedId = id
+        } else {
+            sharedId = UUID().uuidString
+            StorageUtils.sharedId = sharedId
+        }
+        
+        return ExternalUserId(source: "pubcid.org", identifier: sharedId, atype: 1)
     }
     
     // MARK: - Application Information
