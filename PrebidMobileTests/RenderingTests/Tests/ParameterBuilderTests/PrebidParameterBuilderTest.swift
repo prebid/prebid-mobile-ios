@@ -111,6 +111,20 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(bidRequest.imp.first?.banner?.format[1].h, 90)
     }
     
+    func testInterstitialDeviceSizeNotSet() {
+        let adUnitConfig = AdUnitConfig(configId: "test-config-id", size: CGSize.zero)
+        adUnitConfig.adFormats = [.banner, .video]
+        adUnitConfig.adConfiguration.isInterstitialAd = true
+        
+        let bidRequest = buildBidRequest(with: adUnitConfig)
+        
+        // If no ad size is specified, the SDK should not assign a device size for interstitials
+        XCTAssertEqual(bidRequest.imp.first?.banner?.format.count, 0)
+        
+        XCTAssertNil(bidRequest.imp.first?.video?.w)
+        XCTAssertNil(bidRequest.imp.first?.video?.h)
+    }
+    
     func testVideo() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
@@ -862,17 +876,26 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func buildBidRequest(with adUnitConfig: AdUnitConfig) -> PBMORTBBidRequest {
         let bidRequest = PBMORTBBidRequest()
-        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
-                                 sdkConfiguration: sdkConfiguration,
-                                 sdkVersion: "MOCK_SDK_VERSION",
-                                 targeting: targeting)
-            .build(bidRequest)
-
-        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
-                                  sdkConfiguration: sdkConfiguration,
-                                  targeting: targeting,
-                                  userAgentService: MockUserAgentService())
-            .build(bidRequest)
+        PBMBasicParameterBuilder(
+            adConfiguration: adUnitConfig.adConfiguration,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting
+        )
+        .build(bidRequest)
+        
+        DeviceInfoParameterBuilder(
+            deviceAccessManager: MockDeviceAccessManager(rootViewController: nil)
+        )
+        .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(
+            adConfiguration: adUnitConfig,
+            sdkConfiguration: sdkConfiguration,
+            targeting: targeting,
+            userAgentService: MockUserAgentService()
+        )
+        .build(bidRequest)
         
         return bidRequest
     }

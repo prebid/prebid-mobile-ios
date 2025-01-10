@@ -152,14 +152,6 @@
         }
         formats = newFormats;
     } else if (isInterstitial) {
-        NSNumber * const w = bidRequest.device.w;
-        NSNumber * const h = bidRequest.device.h;
-        if (w && h) {
-            PBMORTBFormat * const newFormat = [[PBMORTBFormat alloc] init];
-            newFormat.w = w;
-            newFormat.h = h;
-            formats = @[newFormat];
-        }
         if (self.adConfiguration.minSizePerc && isHTML) {
             const CGSize minSizePerc = self.adConfiguration.minSizePerc.CGSizeValue;
             PBMORTBDeviceExtPrebidInterstitial * const interstitial = bidRequest.device.extPrebid.interstitial;
