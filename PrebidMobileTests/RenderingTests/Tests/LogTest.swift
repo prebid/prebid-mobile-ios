@@ -31,6 +31,8 @@ class LogTest: XCTestCase {
 
     override func tearDown() {
         logToFile = nil
+        Log.setCustomLogger(SDKConsoleLogger())
+        
         super.tearDown()
     }
     
@@ -85,7 +87,6 @@ class LogTest: XCTestCase {
     
     func testAllKinds() {
         // Test: default params
-
         logToFile = .init()
         
         Log.error(message)
@@ -107,6 +108,37 @@ class LogTest: XCTestCase {
         checkLogAndClean(level: .severe)
     }
     
+    func testAllKindsWithCustom() {
+        // Test: default params
+        logToFile = .init()
+        
+        Log.setCustomLogger(CustomTestLogger())
+        
+        Log.error(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
+        checkLogAndClean(level: .error)
+        
+        Log.info(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
+        checkLogAndClean(level: .info)
+        
+        Log.debug(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
+        checkLogAndClean(level: .debug)
+        
+        Log.verbose(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
+        checkLogAndClean(level: .verbose)
+        
+        Log.warn(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
+        checkLogAndClean(level: .warn)
+        
+        Log.severe(message)
+        XCTAssertTrue(Log.getLogFileAsString()?.contains("TESTLOG") ?? false)
+        checkLogAndClean(level: .severe)
+    }
+    
     func testWhereAmI() {
         logToFile = .init()
         
@@ -114,6 +146,16 @@ class LogTest: XCTestCase {
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains(LogLevel.info.stringValue))
+    }
+    
+    func testWhereAmICustom() {
+        logToFile = .init()
+        Log.setCustomLogger(CustomTestLogger())
+
+        Log.whereAmI()
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.contains("WHEREAMI"))
     }
     
     func testLogLevel() {
@@ -150,5 +192,41 @@ class LogTest: XCTestCase {
         
         logToFile = nil
         logToFile = .init()
+    }
+    
+    class CustomTestLogger: PrebidLogger {
+        func error(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .error, filename: filename, line: line, function: function)
+        }
+        
+        func info(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .info, filename: filename, line: line, function: function)
+        }
+        
+        func debug(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .debug, filename: filename, line: line, function: function)
+        }
+        
+        func verbose(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .verbose, filename: filename, line: line, function: function)
+        }
+        
+        func warn(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .warn, filename: filename, line: line, function: function)
+        }
+        
+        func severe(_ object: Any, filename: String, line: Int, function: String) {
+            log(object, logLevel: .severe, filename: filename, line: line, function: function)
+        }
+        
+        func whereAmI(filename: String, line: Int, function: String) {
+            log("WHEREAMI", logLevel: .info, filename: filename, line: line, function: function)
+        }
+        
+        func log(_ object: Any, logLevel: PrebidMobile.LogLevel, filename: String, line: Int, function: String) {
+            let finalMessage = "\(logLevel.stringValue) \(object): TESTLOG"
+            print(finalMessage)
+            Log.serialWriteToLog(finalMessage)
+        }
     }
 }

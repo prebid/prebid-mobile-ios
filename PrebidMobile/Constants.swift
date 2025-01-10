@@ -17,10 +17,6 @@ import UIKit
 
 public let PrebidLocalCacheIdKey = "hb_cache_id_local"
 
-@objc public class Constants: NSObject {
-    @objc public static let PREBID_VERSION = "2.3.1"
-}
-
 extension String {
 
     static let EMPTY_String = ""
@@ -117,4 +113,8 @@ public class PrebidConstants: NSObject {
         </html>
         """
     }
+    
+    public static let PREBID_VERSION = "2.3.1"
+    
+    public static let SDK_NAME = "prebid-mobile-sdk"
 }
