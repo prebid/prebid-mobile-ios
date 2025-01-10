@@ -23,7 +23,6 @@ class NativeAdTests: XCTestCase {
     }
     
     func testNativeAd() {
-       
         let cacheId = CacheManager.shared.save(content: nativeAdString)
         let nativeAd = NativeAd.create(cacheId: cacheId!)
         
@@ -36,6 +35,7 @@ class NativeAdTests: XCTestCase {
         XCTAssertEqual(nativeAd!.nativeAdMarkup!.link!.url, "https://www.testUrl.com/")
         XCTAssertEqual(nativeAd!.nativeAdMarkup!.link!.clicktrackers, ["https://testUrl.com/events/click/root/url"])
         XCTAssertEqual(nativeAd!.nativeAdMarkup!.eventtrackers!.first!.url, "https://testUrl.com/events/tracker/impression")
+        XCTAssertEqual(nativeAd!.clickURL, "https://www.testUrl.com/")
     }
     
     func testArrayGetters() {

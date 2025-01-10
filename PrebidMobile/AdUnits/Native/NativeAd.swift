@@ -112,6 +112,10 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         return dataObjects(of: .ctaText).first?.value
     }
     
+    /// Returns landing URL of the clickable link.
+    @objc public var clickURL: String? {
+        nativeAdMarkup?.link?.url
+    }
     /// Creates a `NativeAd` instance from the given cache ID.
     /// - Parameter cacheId: The cache ID to retrieve the bid response.
     /// - Returns: A `NativeAd` instance if successful, otherwise `nil`.
