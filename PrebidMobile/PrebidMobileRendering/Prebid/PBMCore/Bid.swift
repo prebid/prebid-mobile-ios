@@ -38,6 +38,13 @@ public class Bid: NSObject {
     /// Substitution macros (Section 4.4) may be included in both the URL and optionally returned markup.
     public private(set) var nurl: String?
     
+    /// Billing notice URL called by the exchange when a winning bid
+    /// becomes billable based on exchange-specific business policy
+    /// (e.g., typically delivered, viewed, etc.).
+    @objc public var burl: String? {
+        bid.burl
+    }
+    
     /// Optional means of conveying ad markup in case the bid wins; supersedes the win notice
     /// if markup is included in both.
     /// Substitution macros (Section 4.4) may be included.
