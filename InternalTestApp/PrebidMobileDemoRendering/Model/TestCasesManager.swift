@@ -467,6 +467,30 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            
+            // MARK: ---- Prebid Universal Creative Tests
+            
+            TestCase(title: "Prebid Universal Creative (GAM)",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidUniversalCreativeTestingGAMController(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 300, height: 250)
+                bannerController.gamAdUnitID = "/21808260008/puc-testing-secure-banner-300x250"
+                         
+                adapterVC.setup(adapter: bannerController)
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Prebid Universal Creative (WebView)",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "PrebidUniversalCreativeTestingWebViewController",
+                     configurationClosure: { vc in }),
+            
             // MARK: ---- Native (Original API)
             
             TestCase(title: "Native Banner (GAM Original) [OK, PUC]",
