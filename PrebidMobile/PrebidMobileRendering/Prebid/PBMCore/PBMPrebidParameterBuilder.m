@@ -153,7 +153,7 @@
         formats = newFormats;
     } else if (isInterstitial) {
         if (self.adConfiguration.minSizePerc && isHTML) {
-            const CGSize minSizePerc = self .adConfiguration.minSizePerc.CGSizeValue;
+            const CGSize minSizePerc = self.adConfiguration.minSizePerc.CGSizeValue;
             PBMORTBDeviceExtPrebidInterstitial * const interstitial = bidRequest.device.extPrebid.interstitial;
             interstitial.minwidthperc = @(minSizePerc.width);
             interstitial.minheightperc = @(minSizePerc.height);
