@@ -16,6 +16,7 @@
 import Foundation
 import UIKit
 import StoreKit
+import WebKit
 
 /// Represents a native ad and handles its various properties and functionalities.
 @objcMembers
@@ -347,40 +348,39 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     }
     
     @objc private func handleClick() {
-        self.delegate?.adWasClicked?(ad: self)
-        if let clickUrl = nativeAdMarkup?.link?.url,
-           let url = clickUrl.encodedURL(with: .urlQueryAllowed) {
-            if openURLWithExternalBrowser(url: url) {
-                if let clickTrackers = nativeAdMarkup?.link?.clicktrackers {
-                    fireClickTrackers(clickTrackersUrls: clickTrackers)
-                }
-                
-                // SKAdN
-                if let skadn = bid?.skadn,
-                    let productParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) {
-                    presentSKStoreProductViewController(with: productParameters)
-                }
-            } else {
-                Log.debug("Could not open click URL: \(clickUrl)")
-            }
+        delegate?.adWasClicked?(ad: self)
+        
+        guard let clickUrl = nativeAdMarkup?.link?.url,
+              let url = clickUrl.encodedURL(with: .urlQueryAllowed) else {
+            return
+        }
+        
+        // SKAdN
+        if let skadn = bid?.skadn,
+           let productParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) {
+            HiddenWebViewManager(
+                frame: .zero,
+                landingPageString: url
+            ).openHiddenWebView()
+            
+            presentSKStoreProductViewController(with: productParameters)
+            fireClickTrackers()
+        }
+        // Normal clickthrough
+        else if openURLWithExternalBrowser(url: url) {
+            fireClickTrackers()
+        } else {
+            Log.debug("Could not open click URL: \(clickUrl)")
         }
     }
     
-    
-    private func fireClickTrackers(clickTrackersUrls: [String]) {
-        if clickTrackersUrls.count > 0 {
-            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersUrls) {
+    private func fireClickTrackers() {
+        guard let clickTrackersURLs = nativeAdMarkup?.link?.clicktrackers else { return }
+        
+        if clickTrackersURLs.count > 0 {
+            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersURLs) {
                 _ in
             }
-        }
-    }
-    
-    private func openURLWithExternalBrowser(url: URL) -> Bool {
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            return true
-        } else {
-            return false
         }
     }
     
@@ -400,6 +400,15 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
                     Log.error("Error occurred during SKStoreProductViewController product loading: \(error.localizedDescription)")
                 }
             }
+        }
+    }
+    
+    private func openURLWithExternalBrowser(url: URL) -> Bool {
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            return true
+        } else {
+            return false
         }
     }
 }
