@@ -121,6 +121,8 @@
 		5355ACAB29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */; };
 		535ADE0B2D2E970200DB888F /* SDKConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F0999C2C78CC8A007DB464 /* SDKConsoleLogger.swift */; };
 		535ADE102D2E987E00DB888F /* PluginEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535ADE0F2D2E987E00DB888F /* PluginEventDelegate.swift */; };
+		536469C92D341A8100F50B6D /* PrebidSKAdNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536469C82D341A8100F50B6D /* PrebidSKAdNetworkHelper.swift */; };
+		53646A652D368DFB00F50B6D /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53646A642D368DFB00F50B6D /* UIApplication+Extensions.swift */; };
 		535ADE122D2EA2F500DB888F /* PrebidLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535ADE112D2EA2F500DB888F /* PrebidLogger.swift */; };
 		536A39262A84C50F00B1CCEA /* StringExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */; };
 		536A427F282D11DA0069E9B2 /* PrebidServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A427E282D11DA0069E9B2 /* PrebidServerConnection.swift */; };
@@ -1035,6 +1037,8 @@
 		5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_empty_companion.xml; sourceTree = "<group>"; };
 		5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModelCollectionMakerVASTTests.swift; sourceTree = "<group>"; };
 		535ADE0F2D2E987E00DB888F /* PluginEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginEventDelegate.swift; sourceTree = "<group>"; };
+		536469C82D341A8100F50B6D /* PrebidSKAdNetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidSKAdNetworkHelper.swift; sourceTree = "<group>"; };
+		53646A642D368DFB00F50B6D /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		535ADE112D2EA2F500DB888F /* PrebidLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidLogger.swift; sourceTree = "<group>"; };
 		536A39252A84C50F00B1CCEA /* StringExtensionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTest.swift; sourceTree = "<group>"; };
 		536A427E282D11DA0069E9B2 /* PrebidServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerConnection.swift; sourceTree = "<group>"; };
@@ -2001,6 +2005,7 @@
 				53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */,
 				53842BBB29E565030069A4B7 /* NSString+Extensions.swift */,
 				53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */,
+				53646A642D368DFB00F50B6D /* UIApplication+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3483,6 +3488,7 @@
 				FAEE4D00262DC2B200AD9966 /* PbWebViewSearchError.swift */,
 				FAEE4D01262DC2B200AD9966 /* AdViewUtils.swift */,
 				FAEE4D02262DC2B200AD9966 /* IMAUtils.swift */,
+				536469C82D341A8100F50B6D /* PrebidSKAdNetworkHelper.swift */,
 			);
 			path = Addendum;
 			sourceTree = "<group>";
@@ -4273,6 +4279,7 @@
 				FAEE4D16262DC2B200AD9966 /* NativeAdEventDelegate.swift in Sources */,
 				5BC379B2271F1D0000444D5E /* PBMCreativeModelCollectionMakerVAST.m in Sources */,
 				929638C727ABD66D00D30F3D /* JsonDecodable.swift in Sources */,
+				53646A652D368DFB00F50B6D /* UIApplication+Extensions.swift in Sources */,
 				5BC37A8E271F1D0000444D5E /* RewardedAdUnit.swift in Sources */,
 				5BC37A9A271F1D0000444D5E /* BannerAdLoaderDelegate.swift in Sources */,
 				5BC37AF9271F2D3500444D5E /* NativeDataAssetType.swift in Sources */,
@@ -4290,6 +4297,7 @@
 				5BC37AE2271F1D0100444D5E /* PBMInterstitialLayoutConfigurator.m in Sources */,
 				53A368EB2AB2E95E00A03B3E /* NativeParameters.swift in Sources */,
 				5388F32627F46A7F00319FE4 /* AdViewButtonDecorator.swift in Sources */,
+				536469C92D341A8100F50B6D /* PrebidSKAdNetworkHelper.swift in Sources */,
 				5BC37AB6271F1D0000444D5E /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m in Sources */,
 				FAEE4D2C262DC2B200AD9966 /* Host.swift in Sources */,
 				5BC37AC8271F1D0100444D5E /* PBMBasicParameterBuilder.m in Sources */,
