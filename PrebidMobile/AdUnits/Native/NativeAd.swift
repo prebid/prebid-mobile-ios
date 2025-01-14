@@ -15,6 +15,7 @@
 
 import Foundation
 import UIKit
+import StoreKit
 
 /// Represents a native ad and handles its various properties and functionalities.
 @objcMembers
@@ -29,6 +30,8 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     public weak var delegate: NativeAdEventDelegate?
     
     // MARK: - Internal properties
+    
+    var bid: Bid?
     
     private static let nativeAdIABShouldBeViewableForTrackingDuration = 1.0
     private static let nativeAdCheckViewabilityForTrackingFrequency = 0.25
@@ -141,9 +144,12 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             return nil
         }
         
-        let bid = Bid(bid: rawBid)
+        let macrosHelper = PBMORTBMacrosHelper(bid: rawBid)
+        rawBid.adm = macrosHelper.replaceMacros(in: rawBid.adm)
+        rawBid.nurl = macrosHelper.replaceMacros(in: rawBid.nurl)
         
         let ad = NativeAd()
+        ad.bid = bid
         
         let internalEventTracker = PrebidServerEventTracker()
         
@@ -169,6 +175,13 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         
         ad.eventManager.registerTracker(internalEventTracker)
         
+        if #available(iOS 14.5, *) {
+            if let skadn = bid.skadn, let imp = SkadnParametersManager.getSkadnImpression(for: skadn) {
+                let skadnEventTracker = SkadnEventTracker(with: imp)
+                ad.eventManager.registerTracker(skadnEventTracker)
+            }
+        }
+        
         // Track win event immediately
         ad.eventManager.trackEvent(.prebidWin)
         
@@ -190,18 +203,6 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     
     deinit {
         unregisterViewFromTracking()
-    }
-    
-    private func canOpenString(_ string: String?) -> Bool {
-        guard let string = string else {
-            return false
-        }
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        if let match = detector.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) {
-            return match.range.length == string.utf16.count
-        } else {
-            return false
-        }
     }
     
     /// Registers a view for tracking viewability and click events.
@@ -353,6 +354,12 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
                 if let clickTrackers = nativeAdMarkup?.link?.clicktrackers {
                     fireClickTrackers(clickTrackersUrls: clickTrackers)
                 }
+                
+                // SKAdN
+                if let skadn = bid?.skadn,
+                    let productParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) {
+                    presentSKStoreProductViewController(with: productParameters)
+                }
             } else {
                 Log.debug("Could not open click URL: \(clickUrl)")
             }
@@ -368,7 +375,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         }
     }
     
-    private func openURLWithExternalBrowser(url : URL) -> Bool {
+    private func openURLWithExternalBrowser(url: URL) -> Bool {
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return true
@@ -377,9 +384,27 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         }
     }
     
+    private func presentSKStoreProductViewController(with productParameters: [String: Any]) {
+        DispatchQueue.main.async {
+            let skadnController = SKStoreProductViewController()
+            var viewControllerForPresentingModals = UIApplication.topViewController()
+            
+            if let viewForTracking = self.viewForTracking,
+                let viewController = viewForTracking.parentViewController {
+                viewControllerForPresentingModals = viewController
+            }
+            
+            viewControllerForPresentingModals?.present(skadnController, animated: true)
+            skadnController.loadProduct(withParameters: productParameters) { _, error in
+                if let error {
+                    Log.error("Error occurred during SKStoreProductViewController product loading: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
 }
 
-private class NativeAdGestureRecognizerRecord : NSObject {
+class NativeAdGestureRecognizerRecord : NSObject {
     weak var viewWithTracking: UIView?
     weak var gestureRecognizer: UIGestureRecognizer?
     
