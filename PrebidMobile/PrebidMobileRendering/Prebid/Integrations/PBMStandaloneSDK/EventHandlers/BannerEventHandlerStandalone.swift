@@ -28,5 +28,6 @@ public class BannerEventHandlerStandalone: NSObject, BannerEventHandler {
     }
     
     public func trackImpression() {
+        
     }
 }

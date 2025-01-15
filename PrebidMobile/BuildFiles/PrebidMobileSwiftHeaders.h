@@ -27,6 +27,8 @@
 #import "PBMAdLoaderProtocol.h"
 #import "PBMBannerAdLoader.h"
 
+#import "PrebidMobileDisplayViewProtocol.h"
+
 // Bid
 #import "PBMORTBBid.h"
 #import "PBMORTBBidExt.h"

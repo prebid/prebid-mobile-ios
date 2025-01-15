@@ -356,7 +356,7 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     // MARK: - Internal methods
     
-    func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+    func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         baseAdUnit.interstitialControllerDidCloseAd(interstitialController)
     }
     

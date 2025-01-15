@@ -30,8 +30,10 @@
 #import "GAMOriginalAPIMultiformatNativeStylesViewController.h"
 
 #import "InAppDisplayBannerViewController.h"
+#import "InAppDisplayBannerPluginRendererViewController.h"
 #import "InAppVideoBannerViewController.h"
 #import "InAppDisplayInterstitialViewController.h"
+#import "InAppDisplayInterstitialPluginRendererViewController.h"
 #import "InAppVideoInterstitialViewController.h"
 #import "InAppVideoInterstitialVerticalViewController.h"
 #import "InAppVideoInterstitialLandscapeViewController.h"
@@ -202,6 +204,16 @@
         
         [
             [IntegrationCase alloc]
+            initWithTitle:@"In-App Display Banner Plugin Renderer 320x50"
+            integrationKind:IntegrationKindInApp
+            adFormat:AdFormatDisplayBanner
+            configurationClosure:^UIViewController *{
+                return [[InAppDisplayBannerPluginRendererViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
             initWithTitle:@"In-App Video Banner 300x250"
             integrationKind:IntegrationKindInApp
             adFormat:AdFormatVideoBanner
@@ -217,6 +229,16 @@
             adFormat:AdFormatDisplayInterstitial
             configurationClosure:^UIViewController *{
                 return [[InAppDisplayInterstitialViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
+            initWithTitle:@"In-App Display Interstitial Plugin Renderer 320x480"
+            integrationKind:IntegrationKindInApp
+            adFormat:AdFormatDisplayInterstitial
+            configurationClosure:^UIViewController *{
+                return [[InAppDisplayInterstitialPluginRendererViewController alloc] init];
             }
         ],
           

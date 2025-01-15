@@ -54,6 +54,9 @@ public class Prebid: NSObject {
     /// Stored bid responses identified by bidder names.
     public var storedBidResponses: [String: String] = [:]
     
+	/// Optional Delegate which returns Request and Response Data for further processing
+    public weak var eventDelegate: PrebidEventDelegate?
+
     /// This property is set by the developer when he is willing to assign the assetID for Native ad.
     public var shouldAssignNativeAssetID : Bool = false
     
@@ -258,15 +261,15 @@ public class Prebid: NSObject {
         timeoutMillis = defaultTimeoutMillis
     }
     
-    public static func registerPluginRenderer(_ prebidMobilePluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.registerPlugin(prebidMobilePluginRenderer);
+    public static func registerPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {
+        PrebidMobilePluginRegister.shared.registerPlugin(pluginRenderer)
     }
     
-    public static func unregisterPluginRenderer(_ prebidMobilePluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.unregisterPlugin(prebidMobilePluginRenderer);
+    public static func unregisterPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {
+        PrebidMobilePluginRegister.shared.unregisterPlugin(pluginRenderer)
     }
     
-    public static func containsPluginRenderer(_ prebidMobilePluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.containsPlugin(prebidMobilePluginRenderer);
+    public static func containsPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) -> Bool {
+        PrebidMobilePluginRegister.shared.containsPlugin(pluginRenderer)
     }
 }

@@ -18,6 +18,7 @@
 #import "PBMAdLoaderProtocol.h"
 
 @protocol PBMInterstitialAdLoaderDelegate;
+@protocol PrebidMobileInterstitialControllerProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 

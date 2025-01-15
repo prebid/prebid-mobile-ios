@@ -33,6 +33,7 @@ class PrebidTest: XCTestCase {
         sdkConfiguration = nil
         
         Prebid.reset()
+        PrebidMobilePluginRegister.shared.unregisterAllPlugins()
         
         super.tearDown()
     }
@@ -327,6 +328,15 @@ class PrebidTest: XCTestCase {
         
         XCTAssertEqual(Prebid.shared.creativeFactoryTimeout, creativeFactoryTimeout)
         XCTAssertEqual(Prebid.shared.creativeFactoryTimeoutPreRenderContent, creativeFactoryTimeoutPreRenderContent)
+    }
+    
+    func testRegisterSDKRenderer() {
+        XCTAssertTrue(PrebidMobilePluginRegister.shared.getAllPlugins().isEmpty)
+        
+        Prebid.initializeSDK()
+        
+        XCTAssertTrue(PrebidMobilePluginRegister.shared.getAllPlugins().count == 1)
+        XCTAssertTrue(PrebidMobilePluginRegister.shared.getAllPlugins().first?.name == PREBID_MOBILE_RENDERER_NAME)
     }
     
     // MARK: - Private Methods

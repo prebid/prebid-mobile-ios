@@ -16,7 +16,11 @@
 import UIKit
 import PrebidMobile
 
-class CustomRendererBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate {
+class CustomRendererBannerController:
+    NSObject,
+    AdaptedController,
+    PrebidConfigurableBannerController,
+    BannerViewDelegate {
     
     var refreshInterval: TimeInterval = 0
     
@@ -39,7 +43,7 @@ class CustomRendererBannerController: NSObject, AdaptedController, PrebidConfigu
     
     private let reloadButton = ThreadCheckingButton()
     private let stopRefreshButton = ThreadCheckingButton()
-    private let sampleCustomRenderer = SampleCustomRenderer()
+    private let sampleCustomRenderer = SampleRenderer()
     
     let lastLoadedAdSizeLabel = UILabel()
     private let configIdLabel = UILabel()
@@ -47,6 +51,7 @@ class CustomRendererBannerController: NSObject, AdaptedController, PrebidConfigu
     required init(rootController: AdapterViewController) {
         super.init()
         self.rootController = rootController
+        
         Prebid.registerPluginRenderer(sampleCustomRenderer)
         
         reloadButton.addTarget(self, action: #selector(reload), for: .touchUpInside)
@@ -70,9 +75,11 @@ class CustomRendererBannerController: NSObject, AdaptedController, PrebidConfigu
         
         let size = adSizes[0]
 
-        adBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
-                                  configID: prebidConfigId,
-                                  adSize: size)
+        adBannerView = BannerView(
+            frame: CGRect(origin: .zero, size: size),
+            configID: prebidConfigId,
+            adSize: size
+        )
         
         if (refreshInterval > 0) {
             adBannerView?.refreshInterval = refreshInterval

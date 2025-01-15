@@ -28,4 +28,10 @@ extension URL {
         
         return URL(string: str)
     }
+    
+    /// Returns a URL for a document stored in the temporary directory.
+    static func temporaryURL(for docName: String) -> URL? {
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        return temporaryDirectoryURL.appendingPathComponent(docName)
+    }
 }
