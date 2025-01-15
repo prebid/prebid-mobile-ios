@@ -259,41 +259,17 @@ public class Targeting: NSObject {
     
     // MARK: - SharedId
     
+    /// When true, the SharedID external user id is added to outgoing auction requests.  App developers are
+    /// encouraged to consult with their legal team before enabling this feature. See `Targeting.sharedId`.
     public var sharedIdEnabled: Bool = false
     
-    public var sharedId: ExternalUserId? {
-        let sharedIdAllowed: Bool = {
-            if #available(iOS 14.0, *) {
-                guard ATTrackingManager.trackingAuthorizationStatus == .authorized else {
-                    return false
-                }
-            } else {
-                guard ASIdentifierManager.shared().isAdvertisingTrackingEnabled else {
-                    return false
-                }
-            }
-            
-            guard isAllowedAccessDeviceData() else {
-                return false
-            }
-            
-            return true
-        }()
-        
-        guard sharedIdAllowed else {
-            StorageUtils.sharedId = nil
-            return nil
-        }
-        
-        let sharedId: String
-        if let id = StorageUtils.sharedId {
-            sharedId = id
-        } else {
-            sharedId = UUID().uuidString
-            StorageUtils.sharedId = sharedId
-        }
-        
-        return ExternalUserId(source: "pubcid.org", identifier: sharedId, atype: 1)
+    /// A Prebid-owned first party identifier
+    ///
+    /// The SharedID remains consistent throughout the current app session. The same id may also persist indefinitely across
+    /// multiple app sessions when it is determined that local storage access is allowed. SharedID values are NOT consistent
+    /// across different apps on the same device.
+    public var sharedId: ExternalUserId {
+        SharedId.sharedInstance.identifier
     }
     
     // MARK: - Application Information
