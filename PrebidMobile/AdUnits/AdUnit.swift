@@ -187,16 +187,17 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     private func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
+        
+        if Prebid.shared.forceTargetingInfo, let adObject {
+            Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
+        }
+        
         guard let winningBid = bidResponse.winningBid else {
             return .prebidDemandNoBids
         }
         
         if let cacheId = cacheBidIfNeeded(winningBid) {
             bidResponse.addTargetingInfoValue(key: PrebidLocalCacheIdKey, value: cacheId)
-        }
-        
-        if let adObject {
-            Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
         }
         
         return .prebidDemandFetchSuccess
