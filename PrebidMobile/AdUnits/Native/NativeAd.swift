@@ -50,6 +50,8 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     
     private let eventManager = EventManager()
     
+    private var viewControllerForPresentingModals: UIViewController?
+    
     // MARK: - Array getters
     
     /// Returns an array of titles from the native ad markup.
@@ -366,12 +368,15 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     private func presentSKStoreProductViewController(with productParameters: [String: Any]) {
         DispatchQueue.main.async {
             let skadnController = SKStoreProductViewController()
+            skadnController.delegate = self
             var viewControllerForPresentingModals = UIApplication.topViewController()
             
             if let viewForTracking = self.viewForTracking,
                 let viewController = viewForTracking.parentViewController {
                 viewControllerForPresentingModals = viewController
             }
+            
+            self.viewControllerForPresentingModals = viewControllerForPresentingModals
             
             viewControllerForPresentingModals?.present(skadnController, animated: true)
             skadnController.loadProduct(withParameters: productParameters) { _, error in
@@ -389,6 +394,13 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         } else {
             return false
         }
+    }
+}
+
+extension NativeAd: SKStoreProductViewControllerDelegate {
+    
+    public func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewControllerForPresentingModals?.dismiss(animated: true)
     }
 }
 
