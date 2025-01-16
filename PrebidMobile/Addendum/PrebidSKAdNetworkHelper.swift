@@ -23,7 +23,6 @@ public class PrebidSKAdNetworkHelper: NSObject {
     
     private weak var viewControllerForPresentingModals: UIViewController?
     
-    
     /// Subscribes to ad click events on the provided ad view and sets up the SKAdNetwork parameters.
     /// - Parameters:
     ///   - adView: The ad view where click events will be tracked.
