@@ -26,6 +26,7 @@ class GAMOriginalAPIVideoBannerViewController:
     
     // Prebid
     private var adUnit: BannerAdUnit!
+    private let skadnHelper = PrebidSKAdNetworkHelper()
     
     // GAM
     private var gamBanner: AdManagerBannerView!
@@ -79,6 +80,8 @@ class GAMOriginalAPIVideoBannerViewController:
         }, failure: { (error) in
             PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
         })
+        
+        skadnHelper.subscribeOnAdClicked(adView: bannerView, viewController: self)
     }
     
     func bannerView(

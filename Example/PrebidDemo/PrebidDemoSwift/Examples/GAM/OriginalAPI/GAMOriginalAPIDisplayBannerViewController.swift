@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50"
+fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50-skadn"
 fileprivate let gamAdUnitDisplayBannerOriginal = "/21808260008/prebid_demo_app_original_api_banner"
 
 class GAMOriginalAPIDisplayBannerViewController:
@@ -26,6 +26,8 @@ class GAMOriginalAPIDisplayBannerViewController:
     
     // Prebid
     private var adUnit: BannerAdUnit!
+    
+    private let skadnHelper = PrebidSKAdNetworkHelper()
     
     // GAM
     private var gamBanner: AdManagerBannerView!
@@ -96,6 +98,8 @@ class GAMOriginalAPIDisplayBannerViewController:
         }, failure: { (error) in
             PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
         })
+        
+        skadnHelper.subscribeOnAdClicked(adView: bannerView, viewController: self)
     }
     
     func bannerView(
