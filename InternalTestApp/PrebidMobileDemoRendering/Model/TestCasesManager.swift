@@ -269,7 +269,7 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (GAM Original) [NO SKAdN]",
+            TestCase(title: "Banner 320x50 (GAM Original) [SKAdN]",
                      tags: [.banner, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -281,9 +281,10 @@ struct TestCaseManager {
                 Targeting.shared.sourceapp = "InternalTestApp"
                 
                 let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
+                bannerController.activatePrebidSKAdNHelper = true
                 bannerController.adSize = CGSize(width: 320, height: 50)
                         
-                bannerController.prebidConfigId = "prebid-ita-banner-320-50";
+                bannerController.prebidConfigId = "prebid-demo-banner-320-50-skadn"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner"
                          
                 adapterVC.setup(adapter: bannerController)
@@ -526,6 +527,27 @@ struct TestCaseManager {
                          
                 nativeController.adUnitID = "/21808260008/apollo_custom_template_native_ad_unit"
                 nativeController.prebidConfigId = "prebid-ita-banner-native-styles"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Native In-App (GAM Original) [SKAdN]",
+                     tags: [.native, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let nativeController = PrebidOriginalAPINativeController(rootController: adapterVC)
+                nativeController.setupNativeAdView(NativeAdViewBox())
+                         
+                nativeController.adUnitID = "/21808260008/apollo_custom_template_native_ad_unit"
+                nativeController.prebidConfigId = "prebid-demo-banner-native-styles-skadn"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
