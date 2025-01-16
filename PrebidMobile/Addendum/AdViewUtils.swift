@@ -29,6 +29,10 @@ public final class AdViewUtils: NSObject {
     // hb_cache_id
     static let cacheIDValueRegexExpression = "[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"
     static let cacheIDObjectRegexExpression = "hb_cache_id\\W+\(cacheIDValueRegexExpression)"
+
+    // hb_cache_id_local
+    static let cacheIDLocalValueRegexExpression = "Prebid_[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}"
+    static let cacheIDLocalObjectRegexExpression = "hb_cache_id_local\\W+\(cacheIDLocalValueRegexExpression)"
     
     private override init() {}
     
@@ -72,6 +76,19 @@ public final class AdViewUtils: NSObject {
             adView,
             objectRegex: AdViewUtils.cacheIDObjectRegexExpression,
             valueRegex: AdViewUtils.cacheIDValueRegexExpression,
+            parseResult: { .success($0) },
+            completion: completion
+        )
+    }
+
+    static func findPrebidLocalCacheID(
+        _ adView: UIView,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        findValueInCreative(
+            adView,
+            objectRegex: cacheIDLocalObjectRegexExpression,
+            valueRegex: cacheIDLocalValueRegexExpression,
             parseResult: { .success($0) },
             completion: completion
         )
@@ -208,3 +225,4 @@ final class PbWebViewSearchErrorFactory {
         return PbWebViewSearchError(domain: "com.prebidmobile.ios", code: code, userInfo: [NSLocalizedDescriptionKey: description])
     }
 }
+

@@ -251,15 +251,24 @@ public class AdUnit: NSObject, DispatcherDelegate {
         return .prebidDemandFetchSuccess
     }
     
-    private func cacheBidIfNeeded(_ winningBid: Bid) -> String?  {
-        guard winningBid.adFormat == .native else {
+    private func cacheBidIfNeeded(_ winningBid: Bid) -> String? {
+        let isNative = winningBid.adFormat == .native
+        let isSkadnPresent = winningBid.skadn != nil && SkadnParametersManager
+            .getSkadnProductParameters(for: winningBid.skadn!) != nil
+        
+        guard isNative || isSkadnPresent else {
             return nil
         }
         
-        let expireInterval = TimeInterval(truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber)
+        let expireInterval = TimeInterval(
+            truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber
+        )
         
         do {
-            if let cacheId = CacheManager.shared.save(content: try winningBid.bid.toJsonString(), expireInterval: expireInterval), !cacheId.isEmpty {
+            if let cacheId = CacheManager.shared.save(
+                content: try winningBid.bid.toJsonString(),
+                expireInterval: expireInterval
+            ), !cacheId.isEmpty {
                 return cacheId
             }
         } catch {
