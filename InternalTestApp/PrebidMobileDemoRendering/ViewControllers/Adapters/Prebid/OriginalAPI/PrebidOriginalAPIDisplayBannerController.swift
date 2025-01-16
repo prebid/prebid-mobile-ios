@@ -32,7 +32,10 @@ class PrebidOriginalAPIDisplayBannerController:
     var gamSizes = [AdSize]()
     
     // Prebid
+    var activatePrebidSKAdNHelper = false
+    
     private var adUnit: BannerAdUnit!
+    private let skadnHelper = PrebidSKAdNetworkHelper()
     
     // GAM
     private var gamBanner: AdManagerBannerView!
@@ -59,6 +62,10 @@ class PrebidOriginalAPIDisplayBannerController:
         stopRefreshButton.addTarget(self, action: #selector(stopRefresh), for: .touchUpInside)
         
         setupAdapterController()
+    }
+    
+    deinit {
+        Targeting.shared.sourceapp = nil
     }
     
     func configurationController() -> BaseConfigurationController? {
@@ -191,6 +198,10 @@ class PrebidOriginalAPIDisplayBannerController:
         }, failure: { (error) in
             Log.error("Error occuring during searching for Prebid creative size: \(error)")
         })
+        
+        if let rootController, activatePrebidSKAdNHelper == true {
+            skadnHelper.subscribeOnAdClicked(adView: bannerView, viewController: rootController)
+        }
     }
     
     func bannerView(_ bannerView: GoogleMobileAds.BannerView, didFailToReceiveAdWithError error: Error) {
