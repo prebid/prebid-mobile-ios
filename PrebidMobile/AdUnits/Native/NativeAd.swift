@@ -404,7 +404,7 @@ extension NativeAd: SKStoreProductViewControllerDelegate {
     }
 }
 
-class NativeAdGestureRecognizerRecord : NSObject {
+private class NativeAdGestureRecognizerRecord : NSObject {
     weak var viewWithTracking: UIView?
     weak var gestureRecognizer: UIGestureRecognizer?
     
