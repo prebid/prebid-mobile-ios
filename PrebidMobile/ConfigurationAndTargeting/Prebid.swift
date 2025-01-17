@@ -60,9 +60,6 @@ public class Prebid: NSObject {
     /// This property is set by the developer when he is willing to assign the assetID for Native ad.
     public var shouldAssignNativeAssetID : Bool = false
     
-    /// This property is set by the developer when the ad should always include targeting info regardless of bid winning status
-    public var forceTargetingInfo : Bool = false
-    
     /// This property is set by the developer when he is willing to share the location for better ad targeting
     public var shareGeoLocation = false
     
