@@ -188,7 +188,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     private func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
         
-        if Prebid.shared.forceTargetingInfo, let adObject {
+        if let adObject {
             Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
         }
         
