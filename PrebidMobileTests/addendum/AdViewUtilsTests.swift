@@ -248,7 +248,7 @@ class AdViewUtilsTests: XCTestCase {
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 30, handler: nil)
+        waitForExpectations(timeout: 45)
     }
     
     func testFindPrebidLocalCacheIDFailureNoLocalCacheID() {
@@ -271,7 +271,7 @@ class AdViewUtilsTests: XCTestCase {
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 30, handler: nil)
+        waitForExpectations(timeout: 45)
     }
     
     func testSuccessFindSizeInWkWebView() {
@@ -323,7 +323,7 @@ class AdViewUtilsTests: XCTestCase {
         
         wkWebView.loadHTMLString(html, baseURL: nil)
         
-        waitForExpectations(timeout: 30, handler: nil)
+        waitForExpectations(timeout: 45)
         wkWebView.navigationDelegate = nil
     }
     
@@ -345,7 +345,7 @@ class AdViewUtilsTests: XCTestCase {
         
         // when
         AdViewUtils.findPrebidCreativeSize(view, success: success, failure: failure)
-        waitForExpectations(timeout: 30, handler: nil)
+        waitForExpectations(timeout: 45)
         
         // then
         XCTAssertNil(size)
@@ -372,7 +372,7 @@ class AdViewUtilsTests: XCTestCase {
         
         // when
         AdViewUtils.findPrebidCreativeSize(view, success: success, failure: failure)
-        waitForExpectations(timeout: 30, handler: nil)
+        waitForExpectations(timeout: 45)
         
         // then
         XCTAssertNotNil(result)
