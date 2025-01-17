@@ -48,6 +48,11 @@ class SharedId {
         return eid
     }
     
+    func resetIdentifier() {
+        sessionId = nil
+        StorageUtils.sharedId = nil
+    }
+    
     private func externalUserId(from identifier: String) -> ExternalUserId {
         ExternalUserId(source: "pubcid.org", identifier: identifier, atype: 1)
     }

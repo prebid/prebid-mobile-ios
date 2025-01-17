@@ -127,7 +127,7 @@
         [bidRequest.user appendEids:[targeting getExternalUserIds]];
     }
     
-    if (targeting.sharedIdEnabled) {
+    if (targeting.sendSharedId) {
         __auto_type sharedId = targeting.sharedId;
         if (sharedId) {
             [bidRequest.user appendEids:@[[sharedId toJSONDictionary]]];

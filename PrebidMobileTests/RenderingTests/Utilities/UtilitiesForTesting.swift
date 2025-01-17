@@ -303,6 +303,7 @@ typealias JsonDictionary = [String:Any]
         targeting.subjectToGDPR = nil
         targeting.gdprConsentString = nil
         targeting.purposeConsents = nil
+        targeting.sendSharedId = false
         
         targeting.clearAppExtData()
         targeting.clearAppKeywords()
@@ -310,6 +311,7 @@ typealias JsonDictionary = [String:Any]
         targeting.clearUserKeywords()
         targeting.clearYearOfBirth()
         targeting.clearAccessControlList()
+        targeting.resetSharedId()
         
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_ConsentString)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
@@ -345,6 +347,7 @@ typealias JsonDictionary = [String:Any]
         XCTAssertTrue(targeting.userDataDictionary.isEmpty)
         XCTAssertTrue(targeting.accessControlList.isEmpty)
         XCTAssert(targeting.yearOfBirth == 0)
+        XCTAssertFalse(targeting.sendSharedId)
         
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_ConsentString))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR))
