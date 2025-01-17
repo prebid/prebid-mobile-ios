@@ -17,8 +17,8 @@ import Foundation
 
 class StorageUtils {
     
-    //External UserIds
     static let PB_ExternalUserIdsKey = "kPBExternalUserIds"
+    static let PB_SharedIdKey = "kPBSharedId"
     
     //External User Ids
     static func getExternalUserIds() -> [ExternalUserId]? {
@@ -33,6 +33,21 @@ class StorageUtils {
         if let value = value {
             let encodeData = try? NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false)
             setUserDefaults(value: encodeData, forKey: StorageUtils.PB_ExternalUserIdsKey)
+        }
+    }
+    
+    // SharedId
+    static var sharedId: String? {
+        get {
+            UserDefaults.standard.string(forKey: PB_SharedIdKey)
+        }
+        
+        set {
+            if let newValue {
+                UserDefaults.standard.set(newValue, forKey: PB_SharedIdKey)
+            } else {
+                UserDefaults.standard.removeObject(forKey: PB_SharedIdKey)
+            }
         }
     }
     
