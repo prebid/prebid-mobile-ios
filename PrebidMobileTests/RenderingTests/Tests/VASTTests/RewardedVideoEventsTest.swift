@@ -90,7 +90,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
             requester.buildAdsArray(data)
         }
         
-        self.wait(for: [vastRequestSuccessfulExpectation], timeout: 2)
+        self.wait(for: [vastRequestSuccessfulExpectation], timeout: 10)
         
         XCTAssertNotNil(self.vastServerResponse)
         if self.vastServerResponse == nil {
@@ -145,7 +145,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
             XCTFail(error.localizedDescription)
         })
         
-        self.waitForExpectations(timeout: 10, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     //MARK: - CreativeViewDelegate

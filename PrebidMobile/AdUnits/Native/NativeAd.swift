@@ -15,6 +15,8 @@
 
 import Foundation
 import UIKit
+import StoreKit
+import WebKit
 
 /// Represents a native ad and handles its various properties and functionalities.
 @objcMembers
@@ -29,6 +31,8 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     public weak var delegate: NativeAdEventDelegate?
     
     // MARK: - Internal properties
+    
+    var bid: Bid?
     
     private static let nativeAdIABShouldBeViewableForTrackingDuration = 1.0
     private static let nativeAdCheckViewabilityForTrackingFrequency = 0.25
@@ -45,6 +49,8 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
     
     private let eventManager = EventManager()
+    
+    private var viewControllerForPresentingModals: UIViewController?
     
     // MARK: - Array getters
     
@@ -132,25 +138,31 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             return nil
         }
         
-        let macrosHelper = PBMORTBMacrosHelper(bid: rawBid)
-        rawBid.adm = macrosHelper.replaceMacros(in: rawBid.adm)
-        rawBid.nurl = macrosHelper.replaceMacros(in: rawBid.nurl)
+        let bid = Bid(bid: rawBid)
         
         let ad = NativeAd()
+        ad.bid = bid
         
         let internalEventTracker = PrebidServerEventTracker()
         
-        if let impURL = rawBid.ext.prebid?.events?.imp {
+        if let impURL = bid.events?.imp {
             let impEvent = ServerEvent(url: impURL, expectedEventType: .impression)
             internalEventTracker.addServerEvents([impEvent])
         }
         
-        if let winURL = rawBid.ext.prebid?.events?.win {
+        if let winURL = bid.events?.win {
             let winEvent = ServerEvent(url: winURL, expectedEventType: .prebidWin)
             internalEventTracker.addServerEvents([winEvent])
         }
         
         ad.eventManager.registerTracker(internalEventTracker)
+        
+        if #available(iOS 14.5, *) {
+            if let skadn = bid.skadn, let imp = SkadnParametersManager.getSkadnImpression(for: skadn) {
+                let skadnEventTracker = SkadnEventTracker(with: imp)
+                ad.eventManager.registerTracker(skadnEventTracker)
+            }
+        }
         
         // Track win event immediately
         ad.eventManager.trackEvent(.prebidWin)
@@ -173,18 +185,6 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     
     deinit {
         unregisterViewFromTracking()
-    }
-    
-    private func canOpenString(_ string: String?) -> Bool {
-        guard let string = string else {
-            return false
-        }
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        if let match = detector.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) {
-            return match.range.length == string.utf16.count
-        } else {
-            return false
-        }
     }
     
     /// Registers a view for tracking viewability and click events.
@@ -329,29 +329,65 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     }
     
     @objc private func handleClick() {
-        self.delegate?.adWasClicked?(ad: self)
-        if let clickUrl = nativeAdMarkup?.link?.url,
-           let url = clickUrl.encodedURL(with: .urlQueryAllowed) {
-            if openURLWithExternalBrowser(url: url) {
-                if let clickTrackers = nativeAdMarkup?.link?.clicktrackers {
-                    fireClickTrackers(clickTrackersUrls: clickTrackers)
-                }
-            } else {
-                Log.debug("Could not open click URL: \(clickUrl)")
-            }
+        delegate?.adWasClicked?(ad: self)
+        
+        guard let clickUrl = nativeAdMarkup?.link?.url,
+              let url = clickUrl.encodedURL(with: .urlQueryAllowed) else {
+            return
+        }
+        
+        // SKAdN
+        if let skadn = bid?.skadn,
+           let productParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) {
+            HiddenWebViewManager(
+                frame: .zero,
+                landingPageString: url
+            ).openHiddenWebView()
+            
+            presentSKStoreProductViewController(with: productParameters)
+            fireClickTrackers()
+        }
+        // Normal clickthrough
+        else if openURLWithExternalBrowser(url: url) {
+            fireClickTrackers()
+        } else {
+            Log.debug("Could not open click URL: \(clickUrl)")
         }
     }
     
-    
-    private func fireClickTrackers(clickTrackersUrls: [String]) {
-        if clickTrackersUrls.count > 0 {
-            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersUrls) {
+    private func fireClickTrackers() {
+        guard let clickTrackersURLs = nativeAdMarkup?.link?.clicktrackers else { return }
+        
+        if clickTrackersURLs.count > 0 {
+            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersURLs) {
                 _ in
             }
         }
     }
     
-    private func openURLWithExternalBrowser(url : URL) -> Bool {
+    private func presentSKStoreProductViewController(with productParameters: [String: Any]) {
+        DispatchQueue.main.async {
+            let skadnController = SKStoreProductViewController()
+            skadnController.delegate = self
+            var viewControllerForPresentingModals = UIApplication.topViewController()
+            
+            if let viewForTracking = self.viewForTracking,
+                let viewController = viewForTracking.parentViewController {
+                viewControllerForPresentingModals = viewController
+            }
+            
+            self.viewControllerForPresentingModals = viewControllerForPresentingModals
+            
+            viewControllerForPresentingModals?.present(skadnController, animated: true)
+            skadnController.loadProduct(withParameters: productParameters) { _, error in
+                if let error {
+                    Log.error("Error occurred during SKStoreProductViewController product loading: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    private func openURLWithExternalBrowser(url: URL) -> Bool {
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return true
@@ -359,7 +395,13 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             return false
         }
     }
+}
+
+extension NativeAd: SKStoreProductViewControllerDelegate {
     
+    public func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewControllerForPresentingModals?.dismiss(animated: true)
+    }
 }
 
 private class NativeAdGestureRecognizerRecord : NSObject {
