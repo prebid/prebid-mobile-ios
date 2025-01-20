@@ -41,15 +41,17 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     var pbmVideoCreative:PBMVideoCreative!
     
     override func setUp() {
+        super.setUp()
+        
         MockServer.shared.reset()
+        Prebid.reset()
     }
     
     override func tearDown() {
-        MockServer.shared.reset()
-        
-        Prebid.reset()
-        
         super.tearDown()
+        
+        MockServer.shared.reset()
+        Prebid.reset()
     }
     
     func testEvents() {
