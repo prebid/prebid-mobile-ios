@@ -21,52 +21,84 @@ import StoreKit
 @objcMembers
 public class PrebidSKAdNetworkHelper: NSObject {
     
+    private weak var adView: UIView?
     private weak var viewControllerForPresentingModals: UIViewController?
     
-    /// Subscribes to ad click events on the provided ad view and sets up the SKAdNetwork parameters.
+    /// Subscribes to ad click events on the provided ad view and configures it with SKAdN tracking..
     /// - Parameters:
     ///   - adView: The ad view where click events will be tracked.
     ///   - viewController: The view controller used to present modals, such as the SKStoreProductViewController.
     public func subscribeOnAdClicked(adView: UIView, viewController: UIViewController) {
+        self.adView = adView
         self.viewControllerForPresentingModals = viewController
         
-        AdViewUtils.findPrebidLocalCacheID(adView) { result in
+        AdViewUtils.findPrebidLocalCacheID(adView) { [weak self] result in
             guard case .success(let cacheID) = result else {
+                self?.attemptFindUUID()
                 return
             }
             
-            guard let bidString = CacheManager.shared.get(cacheId: cacheID),
-                  let bidDic = Utils.shared.getDictionaryFromString(bidString) else {
-                Log.error("No bid response for provided cache id.")
+            guard let bidString = CacheManager.shared.get(cacheId: cacheID) else {
+                Log.warn("SDK could not find the bid response for provided cache id.")
                 return
             }
             
-            guard let rawBid = PBMORTBBid<PBMORTBBidExt>(jsonDictionary: bidDic, extParser: { extDic in
-                return PBMORTBBidExt(jsonDictionary: extDic)
-            }) else {
+            self?.configureAdViewWithSkadn(using: bidString)
+        }
+    }
+    
+    /// Mainly used for video creatives. Searches for **hb_uuid** keys from saved bids in third-party web views.
+    private func attemptFindUUID() {
+        guard let adView = adView,
+              let webView = adView.allSubViewsOf(type: WKWebView.self).first else {
+            return
+        }
+        
+        webView.evaluateJavaScript("document.body.innerHTML", completionHandler: { html, error in
+            guard let html = html as? String else {
                 return
             }
             
-            let bid = Bid(bid: rawBid)
-            
-            guard let skadn = bid.skadn,
-                  let skadnParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) else {
-                return
-            }
-            
-            adView.subviews.forEach({
-                if $0 is TouchTrackingOverlayView {
-                    $0.removeFromSuperview()
+            CacheManager.shared
+                .savedValuesDict
+                .values
+                .forEach { [weak self] value in
+                    if let bid = Bid.bid(from: value),
+                       let hbUUID = bid.targetingInfo?["hb_uuid"],
+                       html.contains(hbUUID) {
+                        self?.configureAdViewWithSkadn(using: bid)
+                    }
                 }
-            })
-            
-            let overlayView = TouchTrackingOverlayView(frame: adView.frame)
-            overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-            adView.addSubview(overlayView)
-            
-            overlayView.onClick = { [weak self] in
-                self?.presentSKStoreProductViewController(with: skadnParameters)
-            }
+        })
+    }
+    
+    private func configureAdViewWithSkadn(using bidString: String) {
+        guard let bid = Bid.bid(from: bidString) else {
+            return
+        }
+        
+        configureAdViewWithSkadn(using: bid)
+    }
+    
+    private func configureAdViewWithSkadn(using bid: Bid) {
+        guard let adView = adView else {
+            return
+        }
+        
+        guard let skadn = bid.skadn,
+              let skadnParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) else {
+            return
+        }
+        
+        adView.subviews
+            .filter({ $0 is TouchTrackingOverlayView })
+            .forEach({ $0.removeFromSuperview()})
+        
+        let overlayView = TouchTrackingOverlayView(frame: adView.bounds)
+        adView.addSubview(overlayView)
+        
+        overlayView.onClick = { [weak self] in
+            self?.presentSKStoreProductViewController(with: skadnParameters)
         }
     }
     
