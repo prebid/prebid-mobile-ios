@@ -353,7 +353,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Video Outstream (GAM Original) [OK, PUC]",
-                     tags: [.banner, .originalAPI, .server],
+                     tags: [.video, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                          
@@ -362,9 +362,30 @@ struct TestCaseManager {
                 }
                 
                 let bannerController = PrebidOriginalAPIVideoBannerController(rootController: adapterVC)
+                bannerController.activatePrebidSKAdNHelper = true
                 bannerController.adSize = CGSize(width: 300, height: 250)
                 bannerController.prebidConfigId = "prebid-ita-video-outstream-original-api"
                 bannerController.adUnitID = "/21808260008/prebid-demo-original-api-video-banner"   
+                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Outstream (GAM Original) [SKAdN]",
+                     tags: [.video, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidOriginalAPIVideoBannerController(rootController: adapterVC)
+                bannerController.activatePrebidSKAdNHelper = true
+                bannerController.adSize = CGSize(width: 300, height: 250)
+                bannerController.prebidConfigId = "prebid-demo-video-outstream-original-api-skadn"
+                bannerController.adUnitID = "/21808260008/prebid-demo-original-api-video-banner"
                          
                 adapterVC.setup(adapter: bannerController)
                         
