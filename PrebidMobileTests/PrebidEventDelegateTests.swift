@@ -25,6 +25,13 @@ class PrebidEventDelegateTests: XCTestCase {
     
     var delegate: PrebidEventDelegate?
     
+    override func tearDown() {
+        super.tearDown()
+        
+        Prebid.reset()
+        delegate = nil
+    }
+    
     func test_eventDelegate_isCalled() {
         let exp = expectation(description: "Expect PrebidEventDelegate to be called")
 
