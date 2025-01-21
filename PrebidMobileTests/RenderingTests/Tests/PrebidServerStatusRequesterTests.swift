@@ -18,6 +18,12 @@ import XCTest
 
 class PrebidServerStatusRequesterTests: XCTestCase {
     
+    override func setUp() {
+        super.setUp()
+        
+        Prebid.reset()
+    }
+    
     override func tearDown() {
         super.tearDown()
         

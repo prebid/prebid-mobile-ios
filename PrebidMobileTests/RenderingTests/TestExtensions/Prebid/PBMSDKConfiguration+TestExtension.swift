@@ -45,6 +45,8 @@ extension Prebid {
         
         Prebid.shared.creativeFactoryTimeout = 6.0
         Prebid.shared.creativeFactoryTimeoutPreRenderContent = 30.0
+        
+        Prebid.shared.eventDelegate = nil
     }
     
     static var forcedIsViewable: Bool {
