@@ -186,16 +186,21 @@ public class AdUnit: NSObject, DispatcherDelegate {
         })
     }
     
-    private func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
+    func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
         
         if let adObject {
-            Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
+            //If Bid Present and the bid is winning
+            //OR
+            //If forceSdkChooseWinner == false : Any bid works -- winnning or loosing
+            if bidResponse.winningBid?.isWinning == true || !Targeting.shared.forceSdkToChooseWinner {
+                Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
+            }
         }
-        
+
         guard let winningBid = bidResponse.winningBid else {
             return .prebidDemandNoBids
         }
-        
+
         if let cacheId = cacheBidIfNeeded(winningBid) {
             bidResponse.addTargetingInfoValue(key: PrebidLocalCacheIdKey, value: cacheId)
         }

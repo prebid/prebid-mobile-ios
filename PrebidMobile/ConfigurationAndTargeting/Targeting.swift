@@ -189,6 +189,9 @@ public class Targeting: NSObject {
         UserConsentDataManager.shared.isAllowedAccessDeviceData()
     }
     
+    /// This value forces SDK to choose targeting info of the winning bid
+    public var forceSdkToChooseWinner : Bool = true
+    
     // MARK: - External User Ids
     
     /// Array of external user IDs.

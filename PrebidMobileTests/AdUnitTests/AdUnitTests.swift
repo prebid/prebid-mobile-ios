@@ -114,6 +114,98 @@ class AdUnitTests: XCTestCase {
         XCTAssertEqual(realBidInfo?.nativeAdCacheId, expectedCacheId)
     }
     
+    //forceSdkToChooseWinner + Winner = Contains Targeting Info
+    func testForcedWinnerAndWinningBid() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = true
+        
+        let expected = ResultCode.prebidDemandFetchSuccess
+        
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.75)
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(resultCode, expected)
+    }
+    
+    //forceSdkToChooseWinner + No Winner = Doesn't contain Targeting Info
+    func testForcedWinnerAndLoosingBid() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = true
+        let expected = ResultCode.prebidDemandNoBids
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertFalse((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(resultCode, expected)
+    }
+    
+    //Don't forceSdkToChooseWinner + Winner = Contains Targeting Info
+    func testNonForcedWinnerAndWinningBid() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = false
+        let expected = ResultCode.prebidDemandFetchSuccess
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.75)
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(resultCode, expected)
+    }
+    
+    //Don't forceSdkToChooseWinner + No Winner = Contains Targeting Info
+    func testNonForcedWinnerAndNonWinningBid() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = false
+        
+        let expected = ResultCode.prebidDemandNoBids
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(adObject["hb_bidder"] as? String, "Test-Bidder-1")
+        XCTAssertEqual(resultCode, expected)
+    }
+    
     func testBidInfoCompletion() {
         Prebid.shared.prebidServerAccountId = "test-account-id"
         

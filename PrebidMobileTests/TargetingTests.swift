@@ -122,6 +122,17 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(locationPrecision, Targeting.shared.locationPrecision)
     }
     
+    func testforceSdkToChooseWinner() {
+        //given
+        let forceSdkToChooseWinner = true
+        
+        //when
+        Targeting.shared.forceSdkToChooseWinner = forceSdkToChooseWinner
+        
+        //then
+        XCTAssertEqual(forceSdkToChooseWinner, Targeting.shared.forceSdkToChooseWinner)
+    }
+    
     // MARK: - Year Of Birth
     func testYearOfBirth() {
         //given
