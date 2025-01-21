@@ -19,7 +19,6 @@ import WebKit
 
 class AdViewUtilsTests: XCTestCase {
     
-    
     func testFindHbSizeValue() {
         let body = "{ \n adManagerResponse:\"hb_size\":[\"728x90\"],\"hb_size_rubicon\":[\"728x90\"],moPubResponse:\"hb_size:300x250\" \n }"
         
@@ -36,41 +35,6 @@ class AdViewUtilsTests: XCTestCase {
         case .failure(let error):
             XCTFail("AdViewUtils unexpectedly failed with error: \(error.localizedDescription)")
         }
-        let body = "{ \n adManagerResponse:\"hb_size\":[\"728x90\"],\"hb_size_rubicon\":[\"728x90\"],moPubResponse:\"hb_size:300x250\" \n }"
-        
-        let result = AdViewUtils.findValueInHtml(
-            body: body,
-            objectRegex: AdViewUtils.sizeObjectRegexExpression,
-            valueRegex: AdViewUtils.sizeValueRegexExpression,
-            parseResult: { .success($0) }
-        )
-        
-        switch result {
-        case .success(let size):
-            XCTAssert(size == "728x90")
-        case .failure(let error):
-            XCTFail("AdViewUtils unexpectedly failed with error: \(error.localizedDescription)")
-        }
-    }
-    
-    func testFailureFindASizeInNilHtmlCode() {
-        let exp = expectation(description: "findPrebidCreativeSize should fail")
-        
-        AdViewUtils.findPrebidCreativeSize(WKWebView()) { size in
-            XCTFail("Expected to fail but found creative size.")
-        } failure: { error in
-            exp.fulfill()
-            XCTAssert((error as NSError).code == PbWebViewSearchErrorFactory.noHtmlCode)
-        }
-        
-        waitForExpectations(timeout: 30)
-        let exp = expectation(description: "findPrebidCreativeSize should fail")
-        
-        result = AdViewUtils.stringToCGSize("ERROR")
-        XCTAssertNil(result)
-        
-        result = AdViewUtils.stringToCGSize("300x250ERROR")
-        XCTAssertNil(result)
     }
     
     func testFailureFindASizeInNilHtmlCode() {
@@ -91,17 +55,9 @@ class AdViewUtilsTests: XCTestCase {
             body: "<script> \n </script>",
             expectedErrorCode: PbWebViewSearchErrorFactory.noObjectCode
         )
-        findSizeInHtmlFailureHelper(
-            body: "<script> \n </script>",
-            expectedErrorCode: PbWebViewSearchErrorFactory.noObjectCode
-        )
     }
     
     func testFailureFindASizeIfItHasTheWrongType() {
-        findSizeInHtmlFailureHelper(
-            body: "<script> \n \"hb_size\":\"1ERROR1\" \n </script>",
-            expectedErrorCode: PbWebViewSearchErrorFactory.noObjectCode
-        )
         findSizeInHtmlFailureHelper(
             body: "<script> \n \"hb_size\":\"1ERROR1\" \n </script>",
             expectedErrorCode: PbWebViewSearchErrorFactory.noObjectCode
@@ -113,60 +69,6 @@ class AdViewUtilsTests: XCTestCase {
             body: "<script> \n \"hb_size\":[\"728x90\"] \n </script>",
             expectedSize: CGSize(width: 728, height: 90)
         )
-    }
-    
-    func findSizeInHtmlFailureHelper(body: String, expectedErrorCode: Int) {
-        // when
-        let result = AdViewUtils.findValueInHtml(
-            body: body,
-            objectRegex: AdViewUtils.sizeObjectRegexExpression,
-            valueRegex: AdViewUtils.sizeValueRegexExpression,
-            parseResult:  {
-                if let cgSize = $0.toCGSize() {
-                    return .success(cgSize)
-                } else {
-                    return .failure(NSError(
-                        domain: "com.prebid.tests",
-                        code: PbWebViewSearchErrorFactory.valueUnparsedCode
-                    ))
-                }
-            }
-        )
-        
-        // then
-        switch result {
-        case .success(_):
-            XCTFail("Expected failure")
-        case .failure(let error as NSError):
-            XCTAssertEqual(expectedErrorCode, error.code)
-        }
-    }
-    
-    func findSizeInHtmlSuccessHelper(body: String, expectedSize: CGSize) {
-        // when
-        let result = AdViewUtils.findValueInHtml(
-            body: body,
-            objectRegex: AdViewUtils.sizeObjectRegexExpression,
-            valueRegex: AdViewUtils.sizeValueRegexExpression,
-            parseResult:  {
-                if let cgSize = $0.toCGSize() {
-                    return .success(cgSize)
-                } else {
-                    return .failure(NSError(
-                        domain: "com.prebid.tests",
-                        code: PbWebViewSearchErrorFactory.valueUnparsedCode
-                    ))
-                }
-            }
-        )
-        
-        // then
-        switch result {
-        case .success(let size):
-            XCTAssert(expectedSize == size)
-        case .failure(_):
-            XCTFail("Expected success")
-        }
     }
     
     func testFailureFindSizeInViewIfThereIsNoWebView() {
@@ -183,7 +85,7 @@ class AdViewUtilsTests: XCTestCase {
         let uiView = UIView()
         findSizeInViewFailureHelper(uiView, expectedErrorCode: PbWebViewSearchErrorFactory.noWKWebViewCode)
     }
-
+    
     func testFindPrebidCacheIDSuccess() {
         let webView = WKWebView()
         setHtmlIntoWkWebView(successHtmlWithSize728x90, webView)
