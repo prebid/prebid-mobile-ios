@@ -86,4 +86,46 @@ final class SharedIdTests: XCTestCase {
         targeting.resetSharedId()
         XCTAssertNil(StorageUtils.sharedId)
     }
+    
+    func testSharedIdOnlySentWhenFeatureEnabled() {
+        let sdkConfiguration = Prebid.mock
+        
+        let mockBundle = MockBundle()
+        let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        let mockLocationManagerSuccessful = MockLocationManagerSuccessful.shared
+        let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
+        let mockReachability = MockReachability.shared
+        
+        func constructRequestEids() -> [String : Any]? {
+            let paramsDict = PBMParameterBuilderService.buildParamsDict(
+                with: AdConfiguration(),
+                bundle:mockBundle,
+                pbmLocationManager: mockLocationManagerSuccessful,
+                pbmDeviceAccessManager: mockDeviceAccessManager,
+                ctTelephonyNetworkInfo: mockCTTelephonyNetworkInfo,
+                reachability: mockReachability,
+                sdkConfiguration: sdkConfiguration,
+                sdkVersion: "MOCK_SDK_VERSION",
+                targeting: targeting,
+                extraParameterBuilders: nil
+            )
+            
+            let strORTB = paramsDict[PBMParameterKeys.OPEN_RTB.rawValue]!
+            let bidRequest = try! PBMORTBBidRequest.from(jsonString:strORTB)
+            
+            let eids = bidRequest.user.ext?["eids"] as? [[String : Any]]
+            let sharedId = eids?.first { $0["source"] as? String == "pubcid.org" }
+            return sharedId
+        }
+        
+        
+        targeting.sendSharedId = true
+        XCTAssertEqual(constructRequestEids() as NSDictionary?, targeting.sharedId.toJSONDictionary() as NSDictionary)
+        
+        targeting.sendSharedId = false
+        XCTAssertNil(constructRequestEids())
+    }
 }
