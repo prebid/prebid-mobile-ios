@@ -356,13 +356,12 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     }
     
     private func fireClickTrackers() {
-        guard let clickTrackersURLs = nativeAdMarkup?.link?.clicktrackers else { return }
-        
-        if clickTrackersURLs.count > 0 {
-            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersURLs) {
-                _ in
-            }
+        guard let clickTrackersURLs = nativeAdMarkup?.link?.clicktrackers,
+              clickTrackersURLs.count > 0 else {
+            return
         }
+        
+        TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersURLs) { _ in }
     }
     
     private func presentSKStoreProductViewController(with productParameters: [String: Any]) {
