@@ -362,7 +362,6 @@ struct TestCaseManager {
                 }
                 
                 let bannerController = PrebidOriginalAPIVideoBannerController(rootController: adapterVC)
-                bannerController.activatePrebidSKAdNHelper = true
                 bannerController.adSize = CGSize(width: 300, height: 250)
                 bannerController.prebidConfigId = "prebid-ita-video-outstream-original-api"
                 bannerController.adUnitID = "/21808260008/prebid-demo-original-api-video-banner"   
