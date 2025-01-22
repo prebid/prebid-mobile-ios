@@ -830,14 +830,12 @@
 		FAA299102434C141002ACBF2 /* AdViewUtilsObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA2990F2434C141002ACBF2 /* AdViewUtilsObjCTests.m */; };
 		FAA299122434C769002ACBF2 /* UtilsObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA299112434C769002ACBF2 /* UtilsObjCTests.m */; };
 		FAC837D82321583500565051 /* CollectionExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC837D72321583500565051 /* CollectionExtensionTest.swift */; };
-		FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */; };
 		FAEE4D08262DC2B200AD9966 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CDD262DC2B200AD9966 /* Constants.swift */; };
 		FAEE4D0A262DC2B200AD9966 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CDF262DC2B200AD9966 /* Global.swift */; };
 		FAEE4D0B262DC2B200AD9966 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE0262DC2B200AD9966 /* Dispatcher.swift */; };
 		FAEE4D0C262DC2B200AD9966 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE1262DC2B200AD9966 /* CollectionExtension.swift */; };
 		FAEE4D0D262DC2B200AD9966 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE2262DC2B200AD9966 /* Log.swift */; };
 		FAEE4D0E262DC2B200AD9966 /* TrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE3262DC2B200AD9966 /* TrackerManager.swift */; };
-		FAEE4D0F262DC2B200AD9966 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE4262DC2B200AD9966 /* StorageUtils.swift */; };
 		FAEE4D10262DC2B200AD9966 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE5262DC2B200AD9966 /* CacheManager.swift */; };
 		FAEE4D12262DC2B200AD9966 /* RewardedVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */; };
 		FAEE4D13262DC2B200AD9966 /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE9262DC2B200AD9966 /* AdUnit.swift */; };
@@ -1765,14 +1763,12 @@
 		FAA299112434C769002ACBF2 /* UtilsObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UtilsObjCTests.m; sourceTree = "<group>"; };
 		FAAA00BD2322733E009DC7D6 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC837D72321583500565051 /* CollectionExtensionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTest.swift; sourceTree = "<group>"; };
-		FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtilsTests.swift; sourceTree = "<group>"; };
 		FAEE4CDD262DC2B200AD9966 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAEE4CDF262DC2B200AD9966 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		FAEE4CE0262DC2B200AD9966 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		FAEE4CE1262DC2B200AD9966 /* CollectionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		FAEE4CE2262DC2B200AD9966 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		FAEE4CE3262DC2B200AD9966 /* TrackerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerManager.swift; sourceTree = "<group>"; };
-		FAEE4CE4262DC2B200AD9966 /* StorageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageUtils.swift; sourceTree = "<group>"; };
 		FAEE4CE5262DC2B200AD9966 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RewardedVideoAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CE9262DC2B200AD9966 /* AdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdUnit.swift; sourceTree = "<group>"; };
@@ -3331,7 +3327,6 @@
 			children = (
 				FAC837D72321583500565051 /* CollectionExtensionTest.swift */,
 				FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */,
-				FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -3367,7 +3362,6 @@
 				9298964A275FD3C300D3C174 /* JSONConvertible.swift */,
 				929638C627ABD66D00D30F3D /* JsonDecodable.swift */,
 				5BC377D2271F1CFF00444D5E /* ResultCode.swift */,
-				FAEE4CE4262DC2B200AD9966 /* StorageUtils.swift */,
 				FAEE4CFC262DC2B200AD9966 /* TrackerInfo.swift */,
 				FAEE4CE3262DC2B200AD9966 /* TrackerManager.swift */,
 				FAEE4CF9262DC2B200AD9966 /* UIViewExtension.swift */,
@@ -3991,7 +3985,6 @@
 				922AFD412737292E00732C53 /* PBMHTMLCreativeTest_MRAIDOpen.swift in Sources */,
 				606FAC4A2201F248008EAE5E /* AdUnitTests.swift in Sources */,
 				922AFD712737335C00732C53 /* PBMRewardedVideoCreativeTestCloseDelay.swift in Sources */,
-				FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */,
 				534C61442CB5619B0026119A /* MockVideoView.swift in Sources */,
 				922AFD65273730FB00732C53 /* PBMMRAIDControllerTest_Base.swift in Sources */,
 				922AFD1A27371BCF00732C53 /* PBMCircularProgressBarLayerTests.swift in Sources */,
@@ -4187,7 +4180,6 @@
 				5BC37A71271F1D0000444D5E /* PBMORTBSeatBid.m in Sources */,
 				FAEE4D08262DC2B200AD9966 /* Constants.swift in Sources */,
 				5BC3797B271F1D0000444D5E /* PBMVastInlineAd.m in Sources */,
-				FAEE4D0F262DC2B200AD9966 /* StorageUtils.swift in Sources */,
 				5BC37AC6271F1D0100444D5E /* PBMSKAdNetworksParameterBuilder.m in Sources */,
 				53CF5B3729DC690600613E84 /* VideoAdUnit.swift in Sources */,
 				5BC37A1C271F1D0000444D5E /* PBMErrorFamily.m in Sources */,

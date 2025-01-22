@@ -222,37 +222,36 @@ public class Targeting: NSObject {
         } else {
             externalUserIds.append(externalUserId)
         }
-        
-        StorageUtils.setExternalUserIds(value: externalUserIds)
     }
     
-    /// This method allows to get All External User Ids from User Defaults
-    public func fetchStoredExternalUserIds()->[ExternalUserId]? {
-        return StorageUtils.getExternalUserIds()
+    /// This method allows to get all External User Ids
+    @available(*, deprecated, message: "Deprecated. SDK doesn't support storing External User IDs in application storage. This method will be removed in future releases.")
+    public func fetchStoredExternalUserIds() -> [ExternalUserId]? {
+        externalUserIds
     }
     
-    /// This method allows to get External User Id from User Defaults by passing respective 'source' string as param
-    public func fetchStoredExternalUserId(_ source : String)->ExternalUserId? {
-        guard let array = StorageUtils.getExternalUserIds(), let externalUserId = array.first(where: {$0.source == source}) else{
+    /// This method allows to get External User Id by passing respective 'source' string as param
+    @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
+    public func fetchStoredExternalUserId(_ source : String) -> ExternalUserId? {
+        guard let externalUserId = externalUserIds.first(where: { $0.source == source }) else {
             return nil
         }
+        
         return externalUserId
     }
     
-    /// This method allows to remove specific External User Id from User Defaults by passing respective 'source' string as param
+    /// This method allows to remove specific External User Id by passing respective 'source' string as param
+    @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
     public func removeStoredExternalUserId(_ source : String) {
         if let index = externalUserIds.firstIndex(where: {$0.source == source}) {
             externalUserIds.remove(at: index)
-            StorageUtils.setExternalUserIds(value: externalUserIds)
         }
     }
     
-    /// This method allows to remove all the External User Ids from User Defaults
+    /// This method allows to remove all the External User Ids
+    @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
     public func removeStoredExternalUserIds() {
-        if var arrayExternalUserIds = StorageUtils.getExternalUserIds(){
-            arrayExternalUserIds.removeAll()
-            StorageUtils.setExternalUserIds(value: arrayExternalUserIds)
-        }
+        externalUserIds = []
     }
     
     public func getExternalUserIds() -> [[AnyHashable: Any]]? {
