@@ -254,4 +254,54 @@ public class Signals: NSObject {
             }
         }
     }
+    
+    /// # OpenRTB - Updated Video Placement Types #
+    /// ```
+    /// | Value | Description                  |
+    /// |-------|------------------------------|
+    /// | 1     | Instream                     |
+    /// | 2     | Accompanying Content         |
+    /// | 3     | Interstitial                 |
+    /// | 4     | No Content/Standalone        |
+    /// ```
+    @objc(PBPlcmnt)
+    public class Plcmnt: SingleContainerInt {
+        
+        /// Instream
+        @objc
+        public static let Instream = Plcmnt(1)
+        
+        /// AccompanyingContent
+        @objc
+        public static let AccompanyingContent = Plcmnt(2)
+        
+        /// Interstitial
+        @objc
+        public static let Interstitial = Plcmnt(3)
+        
+        /// NoContent
+        @objc
+        public static let NoContent = Plcmnt(4)
+        
+        /// Standalone
+        @objc
+        public static let Standalone = Plcmnt(4)
+        
+        /// Helper function
+        @objc public static func getPlacementByRawValue(_ value: Int) -> Signals.Plcmnt? {
+            switch value {
+            case 1:
+                return Signals.Plcmnt.Instream
+            case 2:
+                return Signals.Plcmnt.AccompanyingContent
+            case 3:
+                return Signals.Plcmnt.Interstitial
+            case 4:
+                // TODO: Multiple cases for one raw value. Probable solution - make one case for no content and standalone
+                return Signals.Plcmnt.NoContent
+            default:
+                return nil
+            }
+        }
+    }
 }

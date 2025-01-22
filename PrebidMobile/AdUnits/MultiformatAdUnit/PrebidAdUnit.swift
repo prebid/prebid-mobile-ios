@@ -132,6 +132,7 @@ public class PrebidAdUnit: NSObject {
         if request.isInterstitial || request.isRewarded {
             adUnit.adUnitConfig.adPosition = .fullScreen
             adUnit.adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
+            adUnit.adUnitConfig.adConfiguration.videoParameters.plcmnt = .Interstitial
         }
         
         if let minWidthPerc = request.bannerParameters?.interstitialMinWidthPerc,

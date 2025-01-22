@@ -41,6 +41,7 @@ public class RewardedVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
+        adUnitConfig.adConfiguration.videoParameters.plcmnt = .Interstitial
     }
     
     /// Initializes a `RewardedVideoAdUnit` with the given configuration ID and minimum size percentages.
