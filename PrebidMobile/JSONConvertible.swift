@@ -16,5 +16,5 @@
 import Foundation
 
 protocol JSONConvertible {
-    func toJSONDictionary() -> [AnyHashable: Any]
+    func toJSONDictionary() -> [String: Any]
 }
