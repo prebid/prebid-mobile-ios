@@ -130,6 +130,7 @@ public class Targeting: NSObject {
     
     /// Placeholder for User Identity Links.
     /// The data from this property will be added to usr.ext.eids
+    @available(*, deprecated, message: "Deprecated. This property will be removed in future releases. Please, use Targeting.externalUserIds instead.")
     public var eids: [[String : AnyHashable]]?
     
     /// Placeholder for exchange-specific extensions to OpenRTB.
@@ -256,15 +257,14 @@ public class Targeting: NSObject {
     
     public func getExternalUserIds() -> [[AnyHashable: Any]]? {
         var externalUserIdArray = [ExternalUserId]()
+        
         if Prebid.shared.externalUserIdArray.count != 0 {
             externalUserIdArray = Prebid.shared.externalUserIdArray
         } else {
             externalUserIdArray = externalUserIds
         }
-        var transformedUserIdArray = [[AnyHashable: Any]]()
-        for externalUserId in externalUserIdArray {
-            transformedUserIdArray.append(externalUserId.toJSONDictionary())
-        }
+        
+        var transformedUserIdArray = externalUserIdArray.map { $0.toJSONDictionary() }
         
         if let eids = eids {
             transformedUserIdArray.append(contentsOf: eids)
