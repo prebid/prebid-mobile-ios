@@ -188,7 +188,7 @@ class AdUnitTests: XCTestCase {
         //given
         Targeting.shared.forceSdkToChooseWinner = false
         
-        let expected = ResultCode.prebidDemandNoBids
+        let expected = ResultCode.prebidDemandFetchSuccess
         let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
         //This needs to after AdUnit init as the AdUnit enables this value.
         //We need to disabled to not look for cache id for winning bid
