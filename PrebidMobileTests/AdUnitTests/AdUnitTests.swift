@@ -21,6 +21,7 @@ class AdUnitTests: XCTestCase {
     override func tearDown() {
         Targeting.shared.clearUserKeywords()
         Prebid.shared.useExternalClickthroughBrowser = false
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
     }
 
     func testFetchDemand() {

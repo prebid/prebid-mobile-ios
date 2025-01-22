@@ -47,6 +47,7 @@ class TargetingTests: XCTestCase {
 
     override func tearDown() {
         UtilitiesForTesting.resetTargeting(.shared)
+        Targeting.shared.forceSdkToChooseWinner = true
     }
 
     func testDomain() {
