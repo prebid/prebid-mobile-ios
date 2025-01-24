@@ -230,6 +230,7 @@ class AdUnitTests: XCTestCase {
         
         //then
         XCTAssertNotNil(bidResponse.targetingInfo?[PrebidLocalCacheIdKey])
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains(PrebidLocalCacheIdKey) ?? false)
         XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
         XCTAssertEqual(resultCode, expected)
     }
@@ -255,6 +256,7 @@ class AdUnitTests: XCTestCase {
         
         //then
         XCTAssertNotNil(bidResponse.targetingInfo?[PrebidLocalCacheIdKey])
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains(PrebidLocalCacheIdKey) ?? false)
         XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
         XCTAssertEqual(resultCode, expected)
     }
