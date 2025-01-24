@@ -125,7 +125,7 @@ class TargetingTests: XCTestCase {
     
     func testforceSdkToChooseWinner() {
         //given
-        let forceSdkToChooseWinner = true
+        let forceSdkToChooseWinner = false
         
         //when
         Targeting.shared.forceSdkToChooseWinner = forceSdkToChooseWinner
