@@ -119,9 +119,10 @@
     bidRequest.user.customdata  = targeting.userCustomData;
     bidRequest.user.userid      = targeting.userID;
    
-    // TODO: bug, conflict with eids
     if (targeting.userExt) {
-        bidRequest.user.ext = [targeting.userExt mutableCopy];
+        NSMutableDictionary *existingUserExt = bidRequest.user.ext ?: [NSMutableDictionary dictionary];
+        [existingUserExt addEntriesFromDictionary:targeting.userExt];
+        bidRequest.user.ext = existingUserExt;
     }
     
     if ([targeting getExternalUserIds]) {

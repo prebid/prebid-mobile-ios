@@ -71,6 +71,8 @@
 		53138B2A2A71152200B18B5C /* PrebidSDKInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53138B292A71152200B18B5C /* PrebidSDKInitializer.swift */; };
 		53138B2C2A7132CD00B18B5C /* PrebidGAMVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53138B2B2A7132CD00B18B5C /* PrebidGAMVersionChecker.swift */; };
 		53138B2E2A713A7800B18B5C /* PrebidGAMVersionCheckerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53138B2D2A713A7800B18B5C /* PrebidGAMVersionCheckerTest.swift */; };
+		53169F1B2D424289007355E8 /* ExternalUserIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53169F1A2D424289007355E8 /* ExternalUserIdTests.swift */; };
+		53169F1D2D4243DE007355E8 /* UserUniqueIDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53169F1C2D4243DE007355E8 /* UserUniqueIDTests.swift */; };
 		531CF21927E8FC1B005E5ABE /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CF21827E8FC1B005E5ABE /* LogLevel.swift */; };
 		53269D55282E6D0F0098550D /* ServerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53269D54282E6D0F0098550D /* ServerEvent.swift */; };
 		532936792CEB887D0056FD8D /* ArbitraryORTBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532936782CEB887D0056FD8D /* ArbitraryORTBService.swift */; };
@@ -970,6 +972,8 @@
 		53138B292A71152200B18B5C /* PrebidSDKInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidSDKInitializer.swift; sourceTree = "<group>"; };
 		53138B2B2A7132CD00B18B5C /* PrebidGAMVersionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMVersionChecker.swift; sourceTree = "<group>"; };
 		53138B2D2A713A7800B18B5C /* PrebidGAMVersionCheckerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMVersionCheckerTest.swift; sourceTree = "<group>"; };
+		53169F1A2D424289007355E8 /* ExternalUserIdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalUserIdTests.swift; sourceTree = "<group>"; };
+		53169F1C2D4243DE007355E8 /* UserUniqueIDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUniqueIDTests.swift; sourceTree = "<group>"; };
 		531CF21827E8FC1B005E5ABE /* LogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
 		53269D54282E6D0F0098550D /* ServerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEvent.swift; sourceTree = "<group>"; };
 		532936782CEB887D0056FD8D /* ArbitraryORTBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryORTBService.swift; sourceTree = "<group>"; };
@@ -3002,6 +3006,8 @@
 				53B221D22A0E3DA900C91CCB /* PrebidJSLibraryManagerTests.swift */,
 				53138B2D2A713A7800B18B5C /* PrebidGAMVersionCheckerTest.swift */,
 				534C61452CB562E40026119A /* CloseActionManagerTests.swift */,
+				53169F1A2D424289007355E8 /* ExternalUserIdTests.swift */,
+				53169F1C2D4243DE007355E8 /* UserUniqueIDTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -3941,6 +3947,7 @@
 				92C85D9627A9DC9D0080BAC5 /* NativeAdTests.swift in Sources */,
 				922AFCE42735573900732C53 /* ServerConnectionTest.swift in Sources */,
 				925D5D9F2737C33800A8A2B5 /* NetworkParameterBuilderTest.swift in Sources */,
+				53169F1B2D424289007355E8 /* ExternalUserIdTests.swift in Sources */,
 				2A9DDDD82C63A88C000EA4A0 /* PrebidEventDelegateTests.swift in Sources */,
 				922AFD4B27372A0500732C53 /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
@@ -3969,6 +3976,7 @@
 				922AFD47273729B700732C53 /* PBMHTMLCreativeTest_MRAIDResize.swift in Sources */,
 				922AFCFD27370D8100732C53 /* PBMMRAIDControllerObjCTest.m in Sources */,
 				925D5E142737E74D00A8A2B5 /* PBMBidResponseTransformerTest.swift in Sources */,
+				53169F1D2D4243DE007355E8 /* UserUniqueIDTests.swift in Sources */,
 				920E8D6D28084BF200E6313B /* VideoControlsConfigTests.swift in Sources */,
 				FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */,
 				925D5DB32737C56000A8A2B5 /* MockBidRequester.swift in Sources */,
