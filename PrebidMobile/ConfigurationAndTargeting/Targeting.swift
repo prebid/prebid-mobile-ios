@@ -211,7 +211,7 @@ public class Targeting: NSObject {
     
     // MARK: - External User Ids
     
-    /// Sets the external user IDs to be used by the application.
+    /// Sets the external user ID.
     public func setExternalUserIds(_ externalUserIds: [ExternalUserId]) {
         self.externalUserIds = externalUserIds
     }
