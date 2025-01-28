@@ -47,6 +47,7 @@ class TargetingTests: XCTestCase {
 
     override func tearDown() {
         UtilitiesForTesting.resetTargeting(.shared)
+        Targeting.shared.forceSdkToChooseWinner = true
     }
 
     func testDomain() {
@@ -120,6 +121,17 @@ class TargetingTests: XCTestCase {
         
         //then
         XCTAssertEqual(locationPrecision, Targeting.shared.locationPrecision)
+    }
+    
+    func testforceSdkToChooseWinner() {
+        //given
+        let forceSdkToChooseWinner = false
+        
+        //when
+        Targeting.shared.forceSdkToChooseWinner = forceSdkToChooseWinner
+        
+        //then
+        XCTAssertEqual(forceSdkToChooseWinner, Targeting.shared.forceSdkToChooseWinner)
     }
     
     // MARK: - Year Of Birth

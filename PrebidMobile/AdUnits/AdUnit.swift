@@ -186,11 +186,28 @@ public class AdUnit: NSObject, DispatcherDelegate {
         })
     }
     
-    private func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
+    func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
+        
+        if Targeting.shared.forceSdkToChooseWinner {
+            Log.error("Breaking change: set Targeting.forceSdkToChooseWinner = false and test your behavior. In the upcoming major release, the SDK will send all targeting keywords to the AdSever, so you should prepare your setup.")
+        }
+
         guard let winningBid = bidResponse.winningBid else {
+            
+            //When the new behavior is active
+            if !Targeting.shared.forceSdkToChooseWinner {
+                
+                if let adObject {
+                    Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
+                }
+                //If there are no winning bids, but there are bids the SDK will send back prebidDemandFetchSuccess
+                if let bids = bidResponse.allBids, !bids.isEmpty {
+                    return .prebidDemandFetchSuccess
+                }
+            }
             return .prebidDemandNoBids
         }
-        
+
         if let cacheId = cacheBidIfNeeded(winningBid) {
             bidResponse.addTargetingInfoValue(key: PrebidLocalCacheIdKey, value: cacheId)
         }
