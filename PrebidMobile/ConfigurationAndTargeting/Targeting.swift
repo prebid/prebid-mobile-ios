@@ -130,7 +130,7 @@ public class Targeting: NSObject {
     
     /// Placeholder for User Identity Links.
     /// The data from this property will be added to usr.ext.eids
-    @available(*, deprecated, message: "Deprecated. This property will be removed in future releases. Please, use Targeting.externalUserIds instead.")
+    @available(*, deprecated, message: "Deprecated. This property will be removed in future releases. Please, use Targeting.setExternalUserIds(_:) instead.")
     public var eids: [[String : AnyHashable]]?
     
     /// Placeholder for exchange-specific extensions to OpenRTB.
@@ -211,10 +211,29 @@ public class Targeting: NSObject {
     
     // MARK: - External User Ids
     
-    /// Array of external user IDs.
-    ///
-    /// This property holds the external user IDs associated with the user.
-    public var externalUserIds = [ExternalUserId]()
+    /// Sets the external user IDs to be used by the application.
+    public func setExternalUserIds(_ externalUserIds: [ExternalUserId]) {
+        self.externalUserIds = externalUserIds
+    }
+    
+    /// Retrieves the external user IDs in a dictionary format suitable for use in JSON.
+    public func getExternalUserIds() -> [[String: Any]]? {
+        var externalUserIdArray = [ExternalUserId]()
+        
+        if Prebid.shared.externalUserIdArray.count != 0 {
+            externalUserIdArray = Prebid.shared.externalUserIdArray
+        } else {
+            externalUserIdArray = externalUserIds
+        }
+        
+        var transformedUserIdArray = externalUserIdArray.map { $0.toJSONDictionary() }
+        
+        if let eids = eids {
+            transformedUserIdArray.append(contentsOf: eids)
+        }
+        
+        return transformedUserIdArray.isEmpty ? nil : transformedUserIdArray
+    }
     
     /// This method allows to save External User Id
     @available(*, deprecated, message: "Deprecated. SDK doesn't support storing External User IDs in application storage. This method will be removed in future releases.")
@@ -254,24 +273,6 @@ public class Targeting: NSObject {
     @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
     public func removeStoredExternalUserIds() {
         externalUserIds = []
-    }
-    
-    public func getExternalUserIds() -> [[AnyHashable: Any]]? {
-        var externalUserIdArray = [ExternalUserId]()
-        
-        if Prebid.shared.externalUserIdArray.count != 0 {
-            externalUserIdArray = Prebid.shared.externalUserIdArray
-        } else {
-            externalUserIdArray = externalUserIds
-        }
-        
-        var transformedUserIdArray = externalUserIdArray.map { $0.toJSONDictionary() }
-        
-        if let eids = eids {
-            transformedUserIdArray.append(contentsOf: eids)
-        }
-        
-        return transformedUserIdArray.isEmpty ? nil : transformedUserIdArray
     }
     
     // MARK: - SharedId
@@ -713,6 +714,11 @@ public class Targeting: NSObject {
     private var yearofbirth = 0
     
     private var globalORTBConfig: String?
+    
+    /// Array of external user IDs.
+    ///
+    /// This property holds the external user IDs associated with the user.
+    private var externalUserIds = [ExternalUserId]()
     
     // MARK: - Internal Methods
     
