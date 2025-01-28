@@ -216,7 +216,8 @@ public class Targeting: NSObject {
     /// This property holds the external user IDs associated with the user.
     public var externalUserIds = [ExternalUserId]()
     
-    /// This method allows to save External User Id in the User Defaults
+    /// This method allows to save External User Id
+    @available(*, deprecated, message: "Deprecated. SDK doesn't support storing External User IDs in application storage. This method will be removed in future releases.")
     public func storeExternalUserId(_ externalUserId: ExternalUserId) {
         if let index = externalUserIds.firstIndex(where: {$0.source == externalUserId.source}) {
             externalUserIds[index] = externalUserId
