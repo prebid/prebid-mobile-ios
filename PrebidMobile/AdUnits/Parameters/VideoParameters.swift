@@ -54,7 +54,6 @@ public class VideoParameters: NSObject {
     public var startDelay: Signals.StartDelay?
     
     /// Placement type for the impression.
-    @available(*, deprecated, message: "This property is deprecated. Please, use plcmnt instead.")
     public var placement: Signals.Placement?
     
     /// Placement type for the impression.
