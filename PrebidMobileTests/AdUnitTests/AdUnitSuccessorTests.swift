@@ -22,6 +22,8 @@ class AdUnitSuccessorTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        
+        Prebid.shared.useExternalClickthroughBrowser = false
     }
     
     // MARK: - BannerAdUnit

@@ -34,6 +34,7 @@ AdUnit *adUnit;
     [adUnit clearAppContent];
     [adUnit clearUserData];
     
+    Prebid.shared.useExternalClickthroughBrowser = false;
 }
 
 - (void)testFetchDemand {
