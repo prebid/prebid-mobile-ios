@@ -103,6 +103,8 @@ public class Targeting: NSObject {
     }
     
     /// Buyer-specific ID for the user as mapped by the exchange for the buyer.
+    /// Deprecated.
+    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
     public var buyerUID: String?
     
     
