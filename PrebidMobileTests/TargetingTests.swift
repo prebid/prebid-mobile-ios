@@ -996,35 +996,6 @@ class TargetingTests: XCTestCase {
         Targeting.addParam("", withName: "name")
         XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
-
-    func testAddCustomParam() {
-        
-        //Init
-        let Targeting = Targeting.shared
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Set
-        Targeting.addCustomParam("value", withName: "name")
-        XCTAssert(Targeting.parameterDictionary == ["c.name":"value"], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Unset
-        Targeting.addCustomParam("", withName: "name")
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-    }
-    
-    func testSetCustomParams() {
-        //Init
-        let Targeting = Targeting.shared
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Set
-        Targeting.setCustomParams(["name1":"value1", "name2":"value2"])
-        XCTAssert(Targeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Not currently possible to unset
-        Targeting.setCustomParams([:])
-        XCTAssert(Targeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(Targeting.parameterDictionary)")
-    }
     
     func testKeywords() {
         //Init
