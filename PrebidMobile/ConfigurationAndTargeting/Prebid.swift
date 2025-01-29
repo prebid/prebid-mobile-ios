@@ -129,6 +129,8 @@ public class Prebid: NSObject {
     public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
     
     /// Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
+    // Deprecated.
+    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
     public var useExternalClickthroughBrowser = false
     
     /// Indicates the type of browser opened upon clicking the creative in an app, where embedded = 0, native = 1.
