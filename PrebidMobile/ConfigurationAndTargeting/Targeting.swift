@@ -284,6 +284,19 @@ public class Targeting: NSObject {
     /// The application location for targeting
     public var location: CLLocation?
     
+    /// The application location precision for targeting
+    public var locationPrecision: Int?
+    
+    /// Objective-C API
+    public func setLocationPrecision(_ newValue: NSNumber?) {
+        locationPrecision = newValue?.intValue
+    }
+    
+    /// Objective-C API
+    public func getLocationPrecision() -> NSNumber? {
+        return locationPrecision as NSNumber?
+    }
+    
     // MARK: - Location and connection information
     
     /// CLLocationCoordinate2D.

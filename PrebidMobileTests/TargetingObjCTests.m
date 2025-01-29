@@ -123,6 +123,34 @@ limitations under the License.
     
 }
 
+- (void)testLocationPrecision {
+    //given
+    NSNumber *locationPrecision1 = @1;
+    int locationPrecision2 = 2;
+    NSNumber *locationPrecision3 = @3;
+    NSNumber *locationPrecision4 = nil;
+    
+    //when
+    [Targeting.shared setLocationPrecision: locationPrecision1];
+    NSNumber *result1 = [Targeting.shared getLocationPrecision];
+    
+    [Targeting.shared setLocationPrecision: [NSNumber numberWithInt:locationPrecision2]];
+    int result2 = [[Targeting.shared getLocationPrecision] intValue];
+    
+    [Targeting.shared setLocationPrecision: locationPrecision3];
+    int result3 = [[Targeting.shared getLocationPrecision] intValue];
+    
+    [Targeting.shared setLocationPrecision: locationPrecision4];
+    NSNumber *result4 = [Targeting.shared getLocationPrecision];
+    
+    //then
+    XCTAssertEqualObjects(locationPrecision1, result1);
+    XCTAssertEqual(locationPrecision2, result2);
+    XCTAssertEqual(3, result3);
+    XCTAssertNil(result4);
+    
+}
+
 // MARK: - Year Of Birth
 - (void)testYearOfBirth {
     //given
