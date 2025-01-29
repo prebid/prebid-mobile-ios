@@ -115,6 +115,7 @@
     }
     
     bidRequest.user.gender      = targeting.userGenderDescription;
+    bidRequest.user.buyeruid    = targeting.buyerUID;
     bidRequest.user.customdata  = targeting.userCustomData;
     bidRequest.user.userid      = targeting.userID;
    

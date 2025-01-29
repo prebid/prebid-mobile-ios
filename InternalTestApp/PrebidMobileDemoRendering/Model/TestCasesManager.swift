@@ -213,6 +213,9 @@ struct TestCaseManager {
             targeting.userGender = TestCaseManager.strToGender(value)
         }
         
+        if let value = openRtb["buyerid"] as? String {
+            targeting.buyerUID = value
+        }
         if let value = openRtb["xid"] as? String {
             targeting.userID = value
         }

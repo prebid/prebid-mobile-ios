@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 //id not supported
 
 
+//Buyer-specific ID for the user as mapped by the exchange for the buyer. At least one of buyerid or id is recommended.
+@property (nonatomic, copy, nullable) NSString *buyeruid;
 
 //Year of birth as a 4-digit integer
 @property (nonatomic, strong, nullable) NSNumber *yob;

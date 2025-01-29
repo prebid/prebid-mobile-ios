@@ -283,6 +283,7 @@ typealias JsonDictionary = [String:Any]
         
         targeting.userGender = .unknown
         targeting.userID = nil
+        targeting.buyerUID = nil
         targeting.publisherName = nil
         targeting.storeURL = nil
         targeting.userCustomData = nil
@@ -323,6 +324,7 @@ typealias JsonDictionary = [String:Any]
     @objc public class func checkInitialValues(_ targeting: Targeting) {
         XCTAssertEqual(targeting.userGender, .unknown)
         XCTAssertNil(targeting.userID)
+        XCTAssertNil(targeting.buyerUID)
         XCTAssertNil(targeting.publisherName)
         XCTAssertNil(targeting.storeURL)
         XCTAssertNil(targeting.userCustomData)
