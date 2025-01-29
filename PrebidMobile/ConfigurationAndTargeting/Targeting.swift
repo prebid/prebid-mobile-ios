@@ -285,14 +285,21 @@ public class Targeting: NSObject {
     public var location: CLLocation?
     
     /// The application location precision for targeting
+    /// Deprecated.
+    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
     public var locationPrecision: Int?
     
     /// Objective-C API
+    /// Deprecated.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+
     public func setLocationPrecision(_ newValue: NSNumber?) {
         locationPrecision = newValue?.intValue
     }
     
     /// Objective-C API
+    /// Deprecated.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func getLocationPrecision() -> NSNumber? {
         return locationPrecision as NSNumber?
     }
