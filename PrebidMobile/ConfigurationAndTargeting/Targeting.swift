@@ -362,6 +362,8 @@ public class Targeting: NSObject {
     /// Sets custom parameters by adding each key-value pair to the parameter dictionary.
     ///
     /// - Parameter params: A dictionary of parameters to set. If `nil`, no parameters are added.
+    /// Deprecated.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func setCustomParams(_ params: [String : String]?) {
         guard let params = params else {
             return
@@ -379,6 +381,8 @@ public class Targeting: NSObject {
     /// - Parameters:
     ///   - value: The value of the custom parameter.
     ///   - withName: The name of the custom parameter. If `nil`, the parameter is not added.
+    /// Deprecated.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addCustomParam(_ value: String, withName: String?) {
         guard let name = withName else {
             return
