@@ -46,6 +46,15 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     
     private let eventManager = EventManager()
     
+    public var privacyUrl: String? {
+        set {
+            nativeAdMarkup?.privacy = newValue
+        }
+        get {
+            return nativeAdMarkup?.privacy
+        }
+    }
+    
     // MARK: - Array getters
     
     /// Returns an array of titles from the native ad markup.
