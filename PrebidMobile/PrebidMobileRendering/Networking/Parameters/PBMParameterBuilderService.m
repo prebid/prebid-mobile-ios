@@ -120,7 +120,9 @@
     bidRequest.user.userid      = targeting.userID;
    
     if (targeting.userExt) {
-        bidRequest.user.ext = [targeting.userExt mutableCopy];
+        NSMutableDictionary *existingUserExt = bidRequest.user.ext ?: [NSMutableDictionary dictionary];
+        [existingUserExt addEntriesFromDictionary:targeting.userExt];
+        bidRequest.user.ext = existingUserExt;
     }
     
     if ([targeting getExternalUserIds]) {

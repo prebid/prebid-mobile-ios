@@ -130,6 +130,7 @@ public class Targeting: NSObject {
     
     /// Placeholder for User Identity Links.
     /// The data from this property will be added to usr.ext.eids
+    @available(*, deprecated, message: "Deprecated. This property will be removed in future releases. Please, use Targeting.setExternalUserIds(_:) instead.")
     public var eids: [[String : AnyHashable]]?
     
     /// Placeholder for exchange-specific extensions to OpenRTB.
@@ -210,68 +211,68 @@ public class Targeting: NSObject {
     
     // MARK: - External User Ids
     
-    /// Array of external user IDs.
-    ///
-    /// This property holds the external user IDs associated with the user.
-    public var externalUserIds = [ExternalUserId]()
-    
-    /// This method allows to save External User Id in the User Defaults
-    public func storeExternalUserId(_ externalUserId: ExternalUserId) {
-        if let index = externalUserIds.firstIndex(where: {$0.source == externalUserId.source}) {
-            externalUserIds[index] = externalUserId
-        } else {
-            externalUserIds.append(externalUserId)
-        }
-        
-        StorageUtils.setExternalUserIds(value: externalUserIds)
+    /// Sets the external user ID.
+    public func setExternalUserIds(_ externalUserIds: [ExternalUserId]) {
+        self.externalUserIds = externalUserIds
     }
     
-    /// This method allows to get All External User Ids from User Defaults
-    public func fetchStoredExternalUserIds()->[ExternalUserId]? {
-        return StorageUtils.getExternalUserIds()
-    }
-    
-    /// This method allows to get External User Id from User Defaults by passing respective 'source' string as param
-    public func fetchStoredExternalUserId(_ source : String)->ExternalUserId? {
-        guard let array = StorageUtils.getExternalUserIds(), let externalUserId = array.first(where: {$0.source == source}) else{
-            return nil
-        }
-        return externalUserId
-    }
-    
-    /// This method allows to remove specific External User Id from User Defaults by passing respective 'source' string as param
-    public func removeStoredExternalUserId(_ source : String) {
-        if let index = externalUserIds.firstIndex(where: {$0.source == source}) {
-            externalUserIds.remove(at: index)
-            StorageUtils.setExternalUserIds(value: externalUserIds)
-        }
-    }
-    
-    /// This method allows to remove all the External User Ids from User Defaults
-    public func removeStoredExternalUserIds() {
-        if var arrayExternalUserIds = StorageUtils.getExternalUserIds(){
-            arrayExternalUserIds.removeAll()
-            StorageUtils.setExternalUserIds(value: arrayExternalUserIds)
-        }
-    }
-    
-    public func getExternalUserIds() -> [[AnyHashable: Any]]? {
+    /// Retrieves the external user IDs in a dictionary format suitable for use in JSON.
+    public func getExternalUserIds() -> [[String: Any]]? {
         var externalUserIdArray = [ExternalUserId]()
+        
         if Prebid.shared.externalUserIdArray.count != 0 {
             externalUserIdArray = Prebid.shared.externalUserIdArray
         } else {
             externalUserIdArray = externalUserIds
         }
-        var transformedUserIdArray = [[AnyHashable: Any]]()
-        for externalUserId in externalUserIdArray {
-            transformedUserIdArray.append(externalUserId.toJSONDictionary())
-        }
+        
+        var transformedUserIdArray = externalUserIdArray.map { $0.toJSONDictionary() }
         
         if let eids = eids {
             transformedUserIdArray.append(contentsOf: eids)
         }
         
         return transformedUserIdArray.isEmpty ? nil : transformedUserIdArray
+    }
+    
+    /// This method allows to save External User Id
+    @available(*, deprecated, message: "Deprecated. SDK doesn't support storing External User IDs in application storage. This method will be removed in future releases.")
+    public func storeExternalUserId(_ externalUserId: ExternalUserId) {
+        if let index = externalUserIds.firstIndex(where: {$0.source == externalUserId.source}) {
+            externalUserIds[index] = externalUserId
+        } else {
+            externalUserIds.append(externalUserId)
+        }
+    }
+    
+    /// This method allows to get all External User Ids
+    @available(*, deprecated, message: "Deprecated. SDK doesn't support storing External User IDs in application storage. This method will be removed in future releases.")
+    public func fetchStoredExternalUserIds() -> [ExternalUserId]? {
+        externalUserIds
+    }
+    
+    /// This method allows to get External User Id by passing respective 'source' string as param
+    @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
+    public func fetchStoredExternalUserId(_ source : String) -> ExternalUserId? {
+        guard let externalUserId = externalUserIds.first(where: { $0.source == source }) else {
+            return nil
+        }
+        
+        return externalUserId
+    }
+    
+    /// This method allows to remove specific External User Id by passing respective 'source' string as param
+    @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
+    public func removeStoredExternalUserId(_ source : String) {
+        if let index = externalUserIds.firstIndex(where: {$0.source == source}) {
+            externalUserIds.remove(at: index)
+        }
+    }
+    
+    /// This method allows to remove all the External User Ids
+    @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
+    public func removeStoredExternalUserIds() {
+        externalUserIds = []
     }
     
     // MARK: - SharedId
@@ -713,6 +714,11 @@ public class Targeting: NSObject {
     private var yearofbirth = 0
     
     private var globalORTBConfig: String?
+    
+    /// Array of external user IDs.
+    ///
+    /// This property holds the external user IDs associated with the user.
+    private var externalUserIds = [ExternalUserId]()
     
     // MARK: - Internal Methods
     
