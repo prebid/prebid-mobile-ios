@@ -51,6 +51,7 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
+        adUnitConfig.adConfiguration.videoParameters.plcmnt = .Interstitial
     }
     
     /// Initializes a new interstitial ad unit with a minimum width and height percentage.

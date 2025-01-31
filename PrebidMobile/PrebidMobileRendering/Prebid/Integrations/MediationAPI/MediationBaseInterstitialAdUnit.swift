@@ -88,6 +88,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         
         super.init()
         videoParameters.placement = .Interstitial
+        videoParameters.plcmnt = .Interstitial
     }
     
     /// Makes bid request and setups mediation parameters.

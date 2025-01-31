@@ -56,6 +56,9 @@ public class VideoParameters: NSObject {
     /// Placement type for the impression.
     public var placement: Signals.Placement?
     
+    /// Placement type for the impression.
+    public var plcmnt: Signals.Plcmnt?
+    
     /// Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed.
     public var linearity: SingleContainerInt?
     

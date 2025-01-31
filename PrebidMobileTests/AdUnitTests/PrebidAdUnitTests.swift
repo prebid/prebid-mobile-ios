@@ -175,6 +175,7 @@ class PrebidAdUnitTests: XCTestCase {
             XCTAssertTrue(config.adConfiguration.isInterstitialAd)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
+            XCTAssertEqual(config.adConfiguration.videoParameters.plcmnt, .Interstitial)
             XCTAssertEqual(config.minSizePerc, NSValue(cgSize: CGSize(width: 4, height: 4)))
             expectation.fulfill()
         }
@@ -187,6 +188,7 @@ class PrebidAdUnitTests: XCTestCase {
             XCTAssertTrue(config.adConfiguration.isInterstitialAd)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
+            XCTAssertEqual(config.adConfiguration.videoParameters.plcmnt, .Interstitial)
             XCTAssertEqual(config.minSizePerc, NSValue(cgSize: CGSize(width: 4, height: 4)))
             expectation.fulfill()
         }
@@ -213,6 +215,7 @@ class PrebidAdUnitTests: XCTestCase {
             XCTAssertTrue(config.adConfiguration.isRewarded)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
+            XCTAssertEqual(config.adConfiguration.videoParameters.plcmnt, .Interstitial)
 
             expectation.fulfill()
         }
@@ -226,6 +229,7 @@ class PrebidAdUnitTests: XCTestCase {
             XCTAssertTrue(config.adConfiguration.isRewarded)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
+            XCTAssertEqual(config.adConfiguration.videoParameters.plcmnt, .Interstitial)
 
             expectation.fulfill()
         }

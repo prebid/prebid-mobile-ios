@@ -274,6 +274,10 @@
                     nextVideo.placement = [NSNumber numberWithInteger:videoParameters.placement.value];
                 }
                 
+                if (videoParameters.plcmnt) {
+                    nextVideo.plcmt = [NSNumber numberWithInteger:videoParameters.plcmnt.value];
+                }
+                
                 if (videoParameters.linearity) {
                     nextVideo.linearity = [NSNumber numberWithInteger:videoParameters.linearity.value];
                 }

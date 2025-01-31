@@ -134,6 +134,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         let parameters = VideoParameters(mimes: [])
         parameters.linearity = 1
         parameters.placement = .Interstitial
+        parameters.plcmnt = .Interstitial
         parameters.api = [Signals.Api.MRAID_1]
         parameters.minDuration = 1
         parameters.maxDuration = 10
@@ -152,6 +153,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         PBMAssertEq(video.linearity, 1)
         PBMAssertEq(video.placement, 5)
+        PBMAssertEq(video.plcmt, 3)
         PBMAssertEq(video.w, 320)
         PBMAssertEq(video.h, 50)
         PBMAssertEq(video.api, [3])
@@ -498,6 +500,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.pos, nil)
         XCTAssertEqual(video.api, nil)
         XCTAssertEqual(video.placement, nil)
+        XCTAssertEqual(video.plcmt, nil)
         XCTAssertEqual(video.w, 300)
         XCTAssertEqual(video.h, 250)
     }
@@ -548,6 +551,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.delivery, [3])
         XCTAssertEqual(video.pos, 7)
         XCTAssertEqual(video.placement, 5)
+        XCTAssertEqual(video.plcmt, 3)
         XCTAssertEqual(video.api, nil)
     }
     
@@ -579,6 +583,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.delivery, [3])
         XCTAssertEqual(video.pos, 7)
         XCTAssertEqual(video.placement, 5)
+        XCTAssertEqual(video.plcmt, 3)
         XCTAssertEqual(video.api, nil)
     }
 
@@ -618,6 +623,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
         let parameters = VideoParameters(mimes: [])
         parameters.placement = .Interstitial
+        parameters.plcmnt = .Interstitial
         parameters.linearity = 1
         adConfiguration.videoParameters = parameters
 
@@ -669,6 +675,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
         PBMAssertEq(video.protocols, [2,5])
         XCTAssertNil(video.placement)
+        XCTAssertNil(video.plcmt)
 
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
@@ -723,6 +730,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         videoParamters.protocols = [.VAST_1_0, .VAST_2_0, .VAST_3_0]
         videoParamters.startDelay = .GenericMidRoll
         videoParamters.placement = .InBanner
+        videoParamters.plcmnt = .AccompanyingContent
         videoParamters.linearity = 1
 
         adUnit.adUnitConfig.adConfiguration.videoParameters = videoParamters
@@ -740,6 +748,7 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual($0.video?.protocols, [1, 2, 3])
             XCTAssertEqual($0.video?.startdelay, -1)
             XCTAssertEqual($0.video?.placement, 2)
+            XCTAssertEqual($0.video?.plcmt, 2)
             XCTAssertEqual($0.video?.linearity, 1)
         }
     }

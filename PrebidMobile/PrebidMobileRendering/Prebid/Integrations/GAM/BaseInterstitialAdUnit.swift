@@ -113,6 +113,7 @@ class BaseInterstitialAdUnit:
         adUnitConfig.adConfiguration.adFormats = [.banner, .video]
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
         videoParameters.placement = .Interstitial
+        videoParameters.plcmnt = .Interstitial
     }
     
     // MARK: - Public Methods
