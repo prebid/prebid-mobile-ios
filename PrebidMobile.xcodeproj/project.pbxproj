@@ -112,6 +112,8 @@
 		53514CC62D01B5B900A480C0 /* InterstitialRenderingAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CC52D01B5AF00A480C0 /* InterstitialRenderingAdUnitTest.swift */; };
 		53514CC82D01B5F900A480C0 /* RewardedAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CC72D01B5F200A480C0 /* RewardedAdUnitTest.swift */; };
 		53514CF22D0851DE00A480C0 /* InterstitialControllerInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CF12D0851DE00A480C0 /* InterstitialControllerInteractionDelegate.swift */; };
+		5351EECE2D4CC000007E5C6D /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5351EECD2D4CC000007E5C6D /* StorageUtils.swift */; };
+		5351EED02D4CC0DD007E5C6D /* StorageUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5351EECF2D4CC0DD007E5C6D /* StorageUtilsTests.swift */; };
 		5355ACA929C454070014F16E /* VAST_with_empty_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */; };
 		5355ACAB29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */; };
 		535ADE0B2D2E970200DB888F /* SDKConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F0999C2C78CC8A007DB464 /* SDKConsoleLogger.swift */; };
@@ -1012,6 +1014,8 @@
 		53514CC52D01B5AF00A480C0 /* InterstitialRenderingAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialRenderingAdUnitTest.swift; sourceTree = "<group>"; };
 		53514CC72D01B5F200A480C0 /* RewardedAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdUnitTest.swift; sourceTree = "<group>"; };
 		53514CF12D0851DE00A480C0 /* InterstitialControllerInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialControllerInteractionDelegate.swift; sourceTree = "<group>"; };
+		5351EECD2D4CC000007E5C6D /* StorageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtils.swift; sourceTree = "<group>"; };
+		5351EECF2D4CC0DD007E5C6D /* StorageUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtilsTests.swift; sourceTree = "<group>"; };
 		5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_empty_companion.xml; sourceTree = "<group>"; };
 		5355ACAA29C454770014F16E /* CreativeModelCollectionMakerVASTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModelCollectionMakerVASTTests.swift; sourceTree = "<group>"; };
 		535ADE0F2D2E987E00DB888F /* PluginEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginEventDelegate.swift; sourceTree = "<group>"; };
@@ -1961,6 +1965,7 @@
 		53019E6427E9E7FD00D509C1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5351EECD2D4CC000007E5C6D /* StorageUtils.swift */,
 				FAEE4CE1262DC2B200AD9966 /* CollectionExtension.swift */,
 				929865382806CCC3007A2F34 /* UIView+Extensions.swift */,
 				34C9CD5D2850CE6300FB5451 /* OMSDKVersionProvider.h */,
@@ -3447,6 +3452,7 @@
 				FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */,
 				FAA2990724322962002ACBF2 /* PrebidObjcTests.m */,
 				FA4A88432497A99D00FDCBB6 /* Swizzling.swift */,
+				5351EECF2D4CC0DD007E5C6D /* StorageUtilsTests.swift */,
 				606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */,
 				38F03B262576421400E026A2 /* CacheManagerTests.swift */,
 				38F03B322576624C00E026A2 /* TrackerManagerTests.swift */,
@@ -4074,6 +4080,7 @@
 				47D9A59A1013D9036158B7E3 /* MockModalManager.swift in Sources */,
 				925D5E122737E04B00A8A2B5 /* PBMBidRequesterTest.swift in Sources */,
 				925D5E332737EE1C00A8A2B5 /* PBMTransactionTests.swift in Sources */,
+				5351EED02D4CC0DD007E5C6D /* StorageUtilsTests.swift in Sources */,
 				925D5E722737F58200A8A2B5 /* PBMVastTrackingEventsTest.swift in Sources */,
 				922AFD3F2737290A00732C53 /* PBMHTMLCreativeTest_MRAIDExpand.swift in Sources */,
 				925D5E5E2737F3B100A8A2B5 /* VideoEventsTest.swift in Sources */,
@@ -4280,6 +4287,7 @@
 				534C613C2CB536F00026119A /* RewardedConfig.swift in Sources */,
 				5BC378B7271F1CFF00444D5E /* UIView+PBMViewExposure.m in Sources */,
 				53322AA8282E29910049229D /* EventManager.swift in Sources */,
+				5351EECE2D4CC000007E5C6D /* StorageUtils.swift in Sources */,
 				531CF21927E8FC1B005E5ABE /* LogLevel.swift in Sources */,
 				FAEE4D1E262DC2B200AD9966 /* VideoInterstitialAdUnit.swift in Sources */,
 				5BC378FF271F1CFF00444D5E /* PBMORTBImpExtPrebid.m in Sources */,
