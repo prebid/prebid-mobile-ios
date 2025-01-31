@@ -13,6 +13,8 @@
   limitations under the License.
   */
 
+import AdSupport
+import AppTrackingTransparency
 import Foundation
 import CoreLocation
 import MapKit
@@ -270,6 +272,31 @@ public class Targeting: NSObject {
         }
         
         return transformedUserIdArray.isEmpty ? nil : transformedUserIdArray
+    }
+    
+    // MARK: - SharedId
+    
+    /// When true, the SharedID external user id is added to outgoing auction requests.  App developers are
+    /// encouraged to consult with their legal team before enabling this feature.
+    ///
+    /// See `Targeting.sharedId` for details.
+    public var sendSharedId: Bool = false
+    
+    /// A randomly generated Prebid-owned first-party identifier
+    ///
+    /// Unless reset, SharedID remains consistent throughout the current app session. The same id may also persist
+    /// indefinitely across multiple app sessions if local storage access is allowed. SharedID values are NOT consistent
+    /// across different apps on the same device.
+    ///
+    /// - Note: SharedId is only sent with auction requests if `Targeting.sendSharedId` is set to true.
+    public var sharedId: ExternalUserId {
+        SharedId.sharedInstance.identifier
+    }
+    
+    /// Resets and clears out of local storage the existing SharedID value, after which `Targeting.sharedId` will
+    /// return a new randomized value.
+    public func resetSharedId() {
+        SharedId.sharedInstance.resetIdentifier()
     }
     
     // MARK: - Application Information
