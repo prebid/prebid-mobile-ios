@@ -157,7 +157,18 @@ public class AdUnit: NSObject, DispatcherDelegate {
         lastFetchDemandCompletion = completion
         adServerObject = adObject
         
+        
+        let timeoutHandler = DispatchWorkItem {
+            if (!self.didReceiveResponse) {
+                self.timeOutSignalSent = true
+                completion(BidInfo(resultCode: .prebidDemandTimedOut))
+                return
+            }
+        }
+        
         bidRequester.requestBids { [weak self] bidResponse, error in
+            timeoutHandler.cancel()
+
             guard let self = self else { return }
             self.didReceiveResponse = true
             
@@ -177,13 +188,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         }
         
         let timeout = Int(truncating: Prebid.shared.timeoutMillisDynamic ?? NSNumber(value: .PB_Request_Timeout))
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(timeout), execute: {
-            if (!self.didReceiveResponse) {
-                self.timeOutSignalSent = true
-                completion(BidInfo(resultCode: .prebidDemandTimedOut))
-                return
-            }
-        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(timeout), execute: timeoutHandler)
     }
     
     func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {

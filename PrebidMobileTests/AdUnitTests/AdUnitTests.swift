@@ -24,6 +24,7 @@ class AdUnitTests: XCTestCase {
         
         Prebid.shared.useExternalClickthroughBrowser = false
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        Prebid.shared.timeoutMillis = 2000
     }
 
     func testFetchDemand() {
@@ -384,6 +385,43 @@ class AdUnitTests: XCTestCase {
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
 
+    }
+    
+    func testFetchDemandBidsAutoRefreshWithSimilarGlobalTimeout() {
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        //given
+        let expectedFetchDemandCount = 2
+        let exception = expectation(description: "\(#function)")
+        exception.expectedFulfillmentCount = expectedFetchDemandCount
+        exception.assertForOverFulfill = false
+        
+        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") as PrebidMobile.JsonDictionary? else {
+            XCTFail("Couldn't load `sample_ortb_native_with_win_event.json` file.")
+            return
+        }
+        
+        Prebid.shared.timeoutMillis = 800
+        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        Prebid.shared.prebidServerAccountId = "1001"
+        
+        let bidRequester = MockPBMBidRequester(jsonDictionary: json)
+        let adUnit = AdUnit(bidRequester: bidRequester, configId: "1001-1", size: .zero, adFormats: [])
+        adUnit.setAutoRefreshMillis(time: 800)
+        
+        var fetchDemandCount = 0
+        
+        //when
+        adUnit.fetchDemand(completionBidInfo: { bid in
+            XCTAssertNotEqual(bid.resultCode, .prebidDemandTimedOut)
+            fetchDemandCount += 1
+            exception.fulfill()
+        })
+
+        waitForExpectations(timeout: 10, handler: nil)
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        
+        //then
+        XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
     }
 
     func testSetAutoRefreshMillis() {
