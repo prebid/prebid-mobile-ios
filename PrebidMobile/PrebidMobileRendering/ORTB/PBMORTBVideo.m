@@ -54,6 +54,7 @@
     ret[@"h"] = self.h;
     ret[@"startdelay"] = self.startdelay;
     ret[@"placement"] = self.placement;
+    ret[@"plcmt"] = self.plcmt;
     ret[@"linearity"] = self.linearity;
     ret[@"minbitrate"] = self.minbitrate;
     ret[@"maxbitrate"] = self.maxbitrate;
@@ -85,6 +86,7 @@
     _h = jsonDictionary[@"h"];
     _startdelay = jsonDictionary[@"startdelay"];
     _placement = jsonDictionary[@"placement"];
+    _plcmt = jsonDictionary[@"plcmt"];
     _linearity = jsonDictionary[@"linearity"];
     _minbitrate = jsonDictionary[@"minbitrate"];
     _maxbitrate = jsonDictionary[@"maxbitrate"];

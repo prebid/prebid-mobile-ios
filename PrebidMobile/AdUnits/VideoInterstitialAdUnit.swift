@@ -37,6 +37,7 @@ public class VideoInterstitialAdUnit: AdUnit {
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
+        adUnitConfig.adConfiguration.videoParameters.plcmnt = .Interstitial
     }
     
     /// Convenience initializer to create a video interstitial ad unit with specified minimum width and height percentages.
