@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>MediationRewardedAdUnit Class Reference</title>
+    <title>UserUniqueID Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/MediationRewardedAdUnit" class="dashAnchor"></a>
-    <a title="MediationRewardedAdUnit Class Reference"></a>
+    <a name="//apple_ref/swift/Class/UserUniqueID" class="dashAnchor"></a>
+    <a title="UserUniqueID Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">PrebidMobile 2.4.0 Docs</a> (92% documented)</p>
@@ -31,7 +31,7 @@
         <img id="carat" src="../img/carat.png" alt=""/>
         <a href="../Classes.html">Classes</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        MediationRewardedAdUnit Class Reference
+        UserUniqueID Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -314,37 +314,27 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>MediationRewardedAdUnit</h1>
+            <h1>UserUniqueID</h1>
               <div class="declaration">
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">@objcMembers</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">MediationRewardedAdUnit</span> <span class="p">:</span> <span class="kt"><a href="../Classes/MediationBaseInterstitialAdUnit.html">MediationBaseInterstitialAdUnit</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">UserUniqueID</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">JSONConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>This class is responsible for making bid request and providing the winning bid and targeting keywords to mediating SDKs.
-This class is a part of Mediation API.</p>
+            <p>Extended ID UID objects from the given source.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Public%20Methods"></a>
-                <a name="//apple_ref/swift/Section/Public Methods" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Public%20Methods"></a>
-                  <h3 class="section-name"><span>Public Methods</span>
-</h3>
-                </div>
-              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)MediationRewardedAdUnit(im)initWithConfigId:mediationDelegate:"></a>
-                    <a name="//apple_ref/swift/Method/init(configId:mediationDelegate:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)MediationRewardedAdUnit(im)initWithConfigId:mediationDelegate:">init(configId:<wbr>mediationDelegate:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@objc(cs)UserUniqueID(py)id"></a>
+                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)UserUniqueID(py)id">id</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -352,14 +342,95 @@ This class is a part of Mediation API.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes a new instance of the <code>MediationRewardedAdUnit</code> with the specified configuration ID and mediation delegate.</p>
+                        <p>Cookie or platform-native identifier.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">mediationDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PrebidMediationDelegate.html">PrebidMediationDelegate</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)UserUniqueID(py)aType"></a>
+                    <a name="//apple_ref/swift/Property/aType" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)UserUniqueID(py)aType">aType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Type of user agent the match is from. It is highly recommended to set this, as many DSPs separate app-native IDs from browser-based IDs and require a type value for ID resolution.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">aType</span><span class="p">:</span> <span class="kt">NSNumber</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)UserUniqueID(py)ext"></a>
+                    <a name="//apple_ref/swift/Property/ext" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)UserUniqueID(py)ext">ext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Optional vendor-specific extensions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">ext</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)UserUniqueID(im)initWithId:aType:ext:"></a>
+                    <a name="//apple_ref/swift/Method/init(id:aType:ext:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)UserUniqueID(im)initWithId:aType:ext:">init(id:<wbr>aType:<wbr>ext:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a new UserUniqueID object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">aType</span><span class="p">:</span> <span class="kt">NSNumber</span><span class="p">,</span> <span class="nv">ext</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -370,24 +441,36 @@ This class is a part of Mediation API.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>configId</em>
+                                <em>id</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The configuration ID for the ad unit.</p>
+                                  <p>Cookie or platform-native identifier.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>mediationDelegate</em>
+                                <em>aType</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The delegate for mediation-related tasks.</p>
+                                  <p>Type of user agent the match is from. Recommended for DSP ID resolution.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ext</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional vendor-specific extensions. Default is <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>

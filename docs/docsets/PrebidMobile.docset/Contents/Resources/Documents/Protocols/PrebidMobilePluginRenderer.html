@@ -17,7 +17,7 @@
     <a title="PrebidMobilePluginRenderer Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.3.1 Docs</a> (91% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.4.0 Docs</a> (92% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -185,9 +185,6 @@
                 <a href="../Classes/RewardedVideoAdUnit.html">RewardedVideoAdUnit</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/SampleCustomRenderer.html">SampleCustomRenderer</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/Signals.html">Signals</a>
               </li>
               <li class="nav-group-task">
@@ -206,10 +203,16 @@
                 <a href="../Classes/Signals/Placement.html">– Placement</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/Signals/Plcmnt.html">– Plcmnt</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/SingleContainerInt.html">SingleContainerInt</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Targeting.html">Targeting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserUniqueID.html">UserUniqueID</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Utils.html">Utils</a>
@@ -279,10 +282,10 @@
                 <a href="../Protocols/NativeAdEventDelegate.html">NativeAdEventDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols.html#/c:@M@PrebidMobile@objc(pl)PBMThirdPartyAdViewLoader">PBMThirdPartyAdViewLoader</a>
+                <a href="../Protocols/PluginEventDelegate.html">PluginEventDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/PluginEventDelegate.html">PluginEventDelegate</a>
+                <a href="../Protocols/PrebidEventDelegate.html">PrebidEventDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/PrebidMediationDelegate.html">PrebidMediationDelegate</a>
@@ -302,9 +305,6 @@
             <a href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Typealiases.html#/s:12PrebidMobile17PBMAdViewDelegatea">PBMAdViewDelegate</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a>
               </li>
             </ul>
@@ -323,7 +323,9 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A protocol for the plugin renderer, defining the basic interface that any renderer should implement.
+This protocol provides the ability to retrieve plugin details, support rendering formats, and manage event delegates and
+methods for creating custom banner view and insterstitial controller.</p>
 
           </section>
           <section class="section task-group-section">
@@ -342,7 +344,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The name of the plugin renderer. This is used to identify the plugin.</p>
 
                       </div>
                       <div class="declaration">
@@ -370,7 +372,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The version of the plugin renderer.</p>
 
                       </div>
                       <div class="declaration">
@@ -398,7 +400,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Custom data to be included in the ORTB request.</p>
 
                       </div>
                       <div class="declaration">
@@ -406,97 +408,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)createBannerAdViewWith:bid:adConfiguration:connection:adViewDelegate:"></a>
-                    <a name="//apple_ref/swift/Method/createBannerAdView(with:bid:adConfiguration:connection:adViewDelegate:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)createBannerAdViewWith:bid:adConfiguration:connection:adViewDelegate:">createBannerAdView(with:<wbr>bid:<wbr>adConfiguration:<wbr>connection:<wbr>adViewDelegate:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates and returns Banner View for a given Bid Response
-Returns nil in the case of an internal error</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">func</span> <span class="nf">createBannerAdView</span><span class="p">(</span><span class="n">with</span> <span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">,</span> <span class="nv">bid</span><span class="p">:</span> <span class="kt">Bid</span><span class="p">,</span> <span class="nv">adConfiguration</span><span class="p">:</span> <span class="kt">AdUnitConfig</span><span class="p">,</span>
-                        <span class="nv">connection</span><span class="p">:</span> <span class="kt">PrebidServerConnectionProtocol</span><span class="p">,</span> <span class="nv">adViewDelegate</span><span class="p">:</span> <span class="p">(</span><span class="n">any</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile17PBMAdViewDelegatea">PBMAdViewDelegate</a></span><span class="p">)?)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)createInterstitialControllerWithBid:adConfiguration:connection:adViewManagerDelegate:videoControlsConfig:"></a>
-                    <a name="//apple_ref/swift/Method/createInterstitialController(bid:adConfiguration:connection:adViewManagerDelegate:videoControlsConfig:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)createInterstitialControllerWithBid:adConfiguration:connection:adViewManagerDelegate:videoControlsConfig:">createInterstitialController(bid:<wbr>adConfiguration:<wbr>connection:<wbr>adViewManagerDelegate:<wbr>videoControlsConfig:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates and returns an implementation of PrebidMobileInterstitialControllerInterface for a given bid response
-Returns nil in the case of an internal error</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">optional</span> <span class="kd">func</span> <span class="nf">createInterstitialController</span><span class="p">(</span> <span class="nv">bid</span><span class="p">:</span> <span class="kt">Bid</span><span class="p">,</span> <span class="nv">adConfiguration</span><span class="p">:</span> <span class="kt">AdUnitConfig</span><span class="p">,</span>
-                                            <span class="nv">connection</span><span class="p">:</span> <span class="kt">PrebidServerConnectionProtocol</span><span class="p">,</span>
-                                            <span class="nv">adViewManagerDelegate</span><span class="p">:</span> <span class="kt">InterstitialController</span><span class="p">?,</span>
-                                            <span class="nv">videoControlsConfig</span><span class="p">:</span> <span class="kt"><a href="../Classes/VideoControlsConfiguration.html">VideoControlsConfiguration</a></span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)isSupportRenderingFor:"></a>
-                    <a name="//apple_ref/swift/Method/isSupportRendering(for:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)isSupportRenderingFor:">isSupportRendering(for:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns true only if the given ad unit could be renderer by the plugin</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">func</span> <span class="nf">isSupportRendering</span><span class="p">(</span><span class="k">for</span> <span class="nv">format</span><span class="p">:</span> <span class="kt"><a href="../Classes/AdFormat.html">AdFormat</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+<span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -516,7 +428,7 @@ Returns nil in the case of an internal error</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Register a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events</p>
+                        <p>Register a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events.</p>
 
                       </div>
                       <div class="declaration">
@@ -524,8 +436,10 @@ Returns nil in the case of an internal error</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">optional</span> <span class="kd">func</span> <span class="nf">registerEventDelegate</span><span class="p">(</span><span class="nv">pluginEventDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PluginEventDelegate.html">PluginEventDelegate</a></span><span class="p">,</span>
-                                    <span class="nv">adUnitConfigFingerprint</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+<span class="kd">optional</span> <span class="kd">func</span> <span class="nf">registerEventDelegate</span><span class="p">(</span>
+    <span class="nv">pluginEventDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PluginEventDelegate.html">PluginEventDelegate</a></span><span class="p">,</span>
+    <span class="nv">adUnitConfigFingerprint</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -545,7 +459,7 @@ Returns nil in the case of an internal error</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Unregister a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events</p>
+                        <p>Unregister a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events.</p>
 
                       </div>
                       <div class="declaration">
@@ -553,8 +467,10 @@ Returns nil in the case of an internal error</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">optional</span> <span class="kd">func</span> <span class="nf">unregisterEventDelegate</span><span class="p">(</span><span class="nv">pluginEventDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PluginEventDelegate.html">PluginEventDelegate</a></span><span class="p">,</span>
-                                      <span class="nv">adUnitConfigFingerprint</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+<span class="kd">optional</span> <span class="kd">func</span> <span class="nf">unregisterEventDelegate</span><span class="p">(</span>
+    <span class="nv">pluginEventDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PluginEventDelegate.html">PluginEventDelegate</a></span><span class="p">,</span>
+    <span class="nv">adUnitConfigFingerprint</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -564,9 +480,9 @@ Returns nil in the case of an internal error</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)setupBid:adConfiguration:connection:"></a>
-                    <a name="//apple_ref/swift/Method/setupBid(_:adConfiguration:connection:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)setupBid:adConfiguration:connection:">setupBid(_:<wbr>adConfiguration:<wbr>connection:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)createBannerViewWith:bid:adConfiguration:loadingDelegate:interactionDelegate:"></a>
+                    <a name="//apple_ref/swift/Method/createBannerView(with:bid:adConfiguration:loadingDelegate:interactionDelegate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)createBannerViewWith:bid:adConfiguration:loadingDelegate:interactionDelegate:">createBannerView(with:<wbr>bid:<wbr>adConfiguration:<wbr>loadingDelegate:<wbr>interactionDelegate:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -574,7 +490,8 @@ Returns nil in the case of an internal error</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Setup a bid for a given ad unit configuration</p>
+                        <p>Creates and returns an ad view conforming to <code>PrebidMobileDisplayViewManagerProtocol</code> for a given bid response.
+Returns nil in the case of an internal error or if no renderer is provided.</p>
 
                       </div>
                       <div class="declaration">
@@ -582,8 +499,199 @@ Returns nil in the case of an internal error</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">func</span> <span class="nf">setupBid</span><span class="p">(</span><span class="n">_</span> <span class="nv">bid</span><span class="p">:</span> <span class="kt">PrebidMobile</span><span class="o">.</span><span class="kt">Bid</span><span class="p">,</span> <span class="nv">adConfiguration</span><span class="p">:</span> <span class="kt">PrebidMobile</span><span class="o">.</span><span class="kt">AdUnitConfig</span><span class="p">,</span>
-              <span class="nv">connection</span><span class="p">:</span> <span class="kt">PrebidServerConnectionProtocol</span><span class="p">)</span></code></pre>
+<span class="kd">func</span> <span class="nf">createBannerView</span><span class="p">(</span>
+    <span class="n">with</span> <span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">,</span>
+    <span class="nv">bid</span><span class="p">:</span> <span class="kt">Bid</span><span class="p">,</span>
+    <span class="nv">adConfiguration</span><span class="p">:</span> <span class="kt">AdUnitConfig</span><span class="p">,</span>
+    <span class="nv">loadingDelegate</span><span class="p">:</span> <span class="kt">DisplayViewLoadingDelegate</span><span class="p">,</span>
+    <span class="nv">interactionDelegate</span><span class="p">:</span> <span class="kt">DisplayViewInteractionDelegate</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">UIView</span> <span class="o">&amp;</span> <span class="kt">PrebidMobileDisplayViewProtocol</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>frame</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The frame specifying the initial size and position of the ad view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bid</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>Bid</code> object containing the bid response used for rendering the ad.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>adConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>AdUnitConfig</code> instance providing configuration details for the ad unit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>loadingDelegate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The delegate conforming to <code>DisplayViewLoadingDelegate</code> for handling ad loading events.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>interactionDelegate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The  delegate conforming to <code>DisplayViewInteractionDelegate</code> for handling ad interaction events.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)createInterstitialControllerWithBid:adConfiguration:loadingDelegate:interactionDelegate:"></a>
+                    <a name="//apple_ref/swift/Method/createInterstitialController(bid:adConfiguration:loadingDelegate:interactionDelegate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)createInterstitialControllerWithBid:adConfiguration:loadingDelegate:interactionDelegate:">createInterstitialController(bid:<wbr>adConfiguration:<wbr>loadingDelegate:<wbr>interactionDelegate:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates and returns an implementation of <code>PrebidMobileInterstitialControllerProtocol</code> for a given bid response.
+Returns nil in the case of an internal error or if no renderer is provided.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">createInterstitialController</span><span class="p">(</span>
+    <span class="nv">bid</span><span class="p">:</span> <span class="kt">Bid</span><span class="p">,</span>
+    <span class="nv">adConfiguration</span><span class="p">:</span> <span class="kt">AdUnitConfig</span><span class="p">,</span>
+    <span class="nv">loadingDelegate</span><span class="p">:</span> <span class="kt">InterstitialControllerLoadingDelegate</span><span class="p">,</span>
+    <span class="nv">interactionDelegate</span><span class="p">:</span> <span class="kt">InterstitialControllerInteractionDelegate</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">PrebidMobileInterstitialControllerProtocol</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bid</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>Bid</code> object containing the bid response used for rendering the interstitial ad.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>adConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>AdUnitConfig</code> instance providing configuration details for the ad unit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>loadingDelegate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The delegate for handling interstitial ad loading events.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>interactionDelegate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The delegate for handling user interactions with the interstitial ad.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PrebidMobile0aB14PluginRendererPAAE14jsonDictionarySDySSypGyF"></a>
+                    <a name="//apple_ref/swift/Method/jsonDictionary()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PrebidMobile0aB14PluginRendererPAAE14jsonDictionarySDySSypGyF">jsonDictionary()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">jsonDictionary</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -595,7 +703,7 @@ Returns nil in the case of an internal error</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2024-12-20)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-02-04)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
