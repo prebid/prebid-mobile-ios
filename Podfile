@@ -8,7 +8,7 @@ project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
 project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
 
 def gma_pods
-  pod 'Google-Mobile-Ads-SDK'
+  pod 'Google-Mobile-Ads-SDK', '<= 11.13.0'
 end
 
 def applovin_pods

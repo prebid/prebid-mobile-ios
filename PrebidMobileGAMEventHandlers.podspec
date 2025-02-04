@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobileGAMEventHandlers"
-  s.version      = "2.3.1"
+  s.version      = "2.4.0"
   s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
 
   s.description  = "GAM Event Handlers manages rendering of Prebid or GAM ads respectively to the winning bid."
@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
   s.source_files = 'EventHandlers/PrebidMobileGAMEventHandlers/**/*.{h,m,swift}'
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '2.3.1'
-  s.dependency 'Google-Mobile-Ads-SDK'
+  s.dependency 'PrebidMobile', '2.4.0'
+  s.dependency 'Google-Mobile-Ads-SDK', '<= 11.13.0'
 
 end
