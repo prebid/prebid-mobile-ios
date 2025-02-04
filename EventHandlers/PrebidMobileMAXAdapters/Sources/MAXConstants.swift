@@ -17,5 +17,5 @@ import Foundation
 
 @objcMembers
 public class MAXConstants: NSObject {
-    public static let PrebidMAXAdapterVersion = "2.3.1"
+    public static let PrebidMAXAdapterVersion = "2.4.0"
 }
