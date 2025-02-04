@@ -62,12 +62,10 @@ NSString * const cellID = @"exampleCell";
 // MARK: - UITableViewDelegate & UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return self.displayedCases.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
     UIListContentConfiguration *configuration = cell.defaultContentConfiguration;

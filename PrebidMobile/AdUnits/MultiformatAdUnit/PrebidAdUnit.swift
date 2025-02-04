@@ -39,8 +39,11 @@ public class PrebidAdUnit: NSObject {
     ///   - adObject: The ad object to fetch demand for.
     ///   - request: The `PrebidRequest` containing the demand request parameters.
     ///   - completion: A closure to be called with the `BidInfo` result.
-    public func fetchDemand(adObject: AnyObject, request: PrebidRequest,
-                            completion: @escaping (BidInfo) -> Void) {
+    public func fetchDemand(
+        adObject: AnyObject,
+        request: PrebidRequest,        
+        completion: @escaping (BidInfo) -> Void
+    ) {
         guard requestHasParameters(request) else {
             completion(BidInfo(resultCode: .prebidInvalidRequest))
             return
