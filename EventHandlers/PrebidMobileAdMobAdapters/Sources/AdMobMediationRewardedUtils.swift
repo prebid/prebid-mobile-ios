@@ -20,19 +20,23 @@ import GoogleMobileAds
 @objcMembers
 public class AdMobMediationRewardedUtils: NSObject, PrebidMediationDelegate {
     
-    public let gadRequest: GADRequest
+    public let gadRequest: GoogleMobileAds.Request
     
-    public init(gadRequest: GADRequest) {
+    public init(gadRequest: GoogleMobileAds.Request) {
         self.gadRequest = gadRequest
         super.init()
     }
     
     public func setUpAdObject(with values: [String: Any]) -> Bool {  
-        let extras = GADCustomEventExtras()
+        let extras = GoogleMobileAds.CustomEventExtras()
         extras.setExtras(values, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+        
         gadRequest.register(extras)
-        gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords,
-                                                       targetingInfo: values[PBMMediationTargetingInfoKey] as? [String: String])
+        gadRequest.keywords = AdMobUtils.buildKeywords(
+            existingKeywords: gadRequest.keywords,
+            targetingInfo: values[PBMMediationTargetingInfoKey] as? [String: String]
+        )
+        
         return true
     }
     
@@ -41,12 +45,12 @@ public class AdMobMediationRewardedUtils: NSObject, PrebidMediationDelegate {
             gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
         }
         
-        let extras = GADCustomEventExtras()
+        let extras = GoogleMobileAds.CustomEventExtras()
         extras.setExtras(nil, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
         gadRequest.register(extras)
     }
     
     public func getAdView() -> UIView? {
-        return nil
+        nil
     }
 }

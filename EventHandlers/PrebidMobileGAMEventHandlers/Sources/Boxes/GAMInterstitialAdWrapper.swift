@@ -26,7 +26,7 @@ class GAMInterstitialAdWrapper {
     
     // MARK: Public Properties
     
-    var interstitialAd: GAMInterstitialAd?
+    var interstitialAd: AdManagerInterstitialAd?
 
     // MARK: Public Methods
     
@@ -41,65 +41,64 @@ class GAMInterstitialAdWrapper {
     
     // MARK: - Public Wrappers (Properties)
     
-    public var fullScreenContentDelegate: GADFullScreenContentDelegate? {
+    public var fullScreenContentDelegate: GoogleMobileAds.FullScreenContentDelegate? {
         get { interstitialAd?.fullScreenContentDelegate }
         set { interstitialAd?.fullScreenContentDelegate = newValue }
     }
     
-    public var appEventDelegate: GADAppEventDelegate? {
+    public var appEventDelegate: GoogleMobileAds.AppEventDelegate? {
         get { interstitialAd?.appEventDelegate }
         set { interstitialAd?.appEventDelegate = newValue }
     }
     
     // MARK: - Public Wrappers (Methods)
 
-    public func load(request: GAMRequestWrapper,
-                     completion: @escaping (GAMInterstitialAdWrapper, Error?) -> Void) {
-        
-        GAMInterstitialAd.load(withAdManagerAdUnitID: adUnitID,
-                               request: request.request,
-                               completionHandler: { [weak self] ad, error in
-            guard let self = self else {
-                return
-            }
-            
-            if let error = error {
-                completion(self, error)
-                return
-            }
-            
-            self.interstitialAd = ad
-            completion(self, nil)
-        })
+    public func load(
+        request: GAMRequestWrapper,
+        completion: @escaping (GAMInterstitialAdWrapper, Error?) -> Void
+    ) {
+        AdManagerInterstitialAd.load(
+            with: adUnitID,
+            request: request.request,
+            completionHandler: { [weak self] ad, error in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    completion(self, error)
+                    return
+                }
+                
+                self.interstitialAd = ad
+                completion(self, nil)
+            })
     }
     
     public func present(from rootViewController: UIViewController) {
-        interstitialAd?.present(fromRootViewController: rootViewController)
+        interstitialAd?.present(from: rootViewController)
     }
     
     // MARK: - Private Methods
     
     static func findClasses() -> Bool {
-        
         guard let _ = NSClassFromString("GAMInterstitialAd"),
               let _ = NSProtocolFromString("GADAppEventDelegate") else {
-            return false;
-        }
-        
-        let selector = NSSelectorFromString("loadWithAdManagerAdUnitID:request:completionHandler:")
-        if GAMInterstitialAd.responds(to: selector) == false {
             return false
         }
         
-        let testClass = GAMInterstitialAd.self
+        let selector = NSSelectorFromString("loadWithAdManagerAdUnitID:request:completionHandler:")
+        if AdManagerInterstitialAd.responds(to: selector) == false {
+            return false
+        }
+        
+        let testClass = AdManagerInterstitialAd.self
         
         let selectors = [
-            #selector(getter: GAMInterstitialAd.fullScreenContentDelegate),
-            #selector(setter: GAMInterstitialAd.fullScreenContentDelegate),
-            #selector(getter: GAMInterstitialAd.appEventDelegate),
-            #selector(setter: GAMInterstitialAd.appEventDelegate),
+            #selector(getter: AdManagerInterstitialAd.fullScreenContentDelegate),
+            #selector(setter: AdManagerInterstitialAd.fullScreenContentDelegate),
+            #selector(getter: AdManagerInterstitialAd.appEventDelegate),
+            #selector(setter: AdManagerInterstitialAd.appEventDelegate),
 
-            #selector(GAMInterstitialAd.present(fromRootViewController:)),
+            #selector(AdManagerInterstitialAd.present(from:)),
         ]
         
         for selector in selectors {

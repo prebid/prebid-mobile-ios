@@ -26,7 +26,7 @@ class GADRewardedAdWrapper {
 
     // MARK: Public Properties
     
-    var rewardedAd: GADRewardedAd?
+    var rewardedAd: GoogleMobileAds.RewardedAd?
     
     // MARK: Public Methods
     
@@ -45,68 +45,69 @@ class GADRewardedAdWrapper {
         rewardedAd?.adMetadata
     }
     
-    public var adMetadataDelegate: GADAdMetadataDelegate? {
+    public var adMetadataDelegate: GoogleMobileAds.AdMetadataDelegate? {
         get { rewardedAd?.adMetadataDelegate }
-        set {  rewardedAd?.adMetadataDelegate = newValue  }
+        set { rewardedAd?.adMetadataDelegate = newValue }
     }
     
-    public var reward: GADAdReward? {
+    public var reward: GoogleMobileAds.AdReward? {
         rewardedAd?.adReward
     }
     
     // MARK: - Public Wrappers (Methods)
 
-    public func load(request: GAMRequestWrapper,
-                     completion: @escaping (GADRewardedAdWrapper?, Error?) -> Void) {
-        GADRewardedAd.load(withAdUnitID: adUnitID,
-                           request:request.request,
-                           completionHandler: { [weak self] (ad, error)  in
-                            guard let self = self else {
-                                return
-                            }
-                            
-                            if let error = error {
-                                completion(nil, error)
-                                return
-                            }
-                            
-                            self.rewardedAd = ad
-                            completion(self, nil)
-                           })
-        
-        
+    public func load(
+        request: GAMRequestWrapper,
+        completion: @escaping (GADRewardedAdWrapper?, Error?) -> Void
+    ) {
+        GoogleMobileAds.RewardedAd.load(
+            with: adUnitID,
+            request: request.request,
+            completionHandler: { [weak self] (ad, error)  in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    completion(nil, error)
+                    return
+                }
+                
+                self.rewardedAd = ad
+                completion(self, nil)
+            })
     }
     
-    public func present(from rootViewController: UIViewController,
-                        userDidEarnRewardHandler: @escaping () -> Void) {
-        
-        rewardedAd?.present(fromRootViewController: rootViewController,
-                            userDidEarnRewardHandler: userDidEarnRewardHandler)
+    public func present(
+        from rootViewController: UIViewController,
+        userDidEarnRewardHandler: @escaping () -> Void
+    ) {
+        rewardedAd?.present(
+            from: rootViewController,
+            userDidEarnRewardHandler: userDidEarnRewardHandler
+        )
     }
     
     // MARK: - Private methods
     
     private static func findClasses() -> Bool {
-        
         guard let _ = NSClassFromString("GADRewardedAd"),
               let _ = NSClassFromString("GADAdReward"),
               let _ = NSProtocolFromString("GADAdMetadataDelegate") else {
-            return false;
-        }
-        
-        let selector = NSSelectorFromString("loadWithAdUnitID:request:completionHandler:")
-        if GADRewardedAd.responds(to: selector) == false {
             return false
         }
         
-        let testClass = GADRewardedAd.self
+        let selector = NSSelectorFromString("loadWithAdUnitID:request:completionHandler:")
+        if GoogleMobileAds.RewardedAd.responds(to: selector) == false {
+            return false
+        }
+        
+        let testClass = GoogleMobileAds.RewardedAd.self
         
         let selectors = [
-            #selector(getter: GADRewardedAd.adMetadataDelegate),
-            #selector(setter: GADRewardedAd.adMetadataDelegate),
-            #selector(getter: GADRewardedAd.adMetadata),
-            #selector(getter: GADRewardedAd.adReward),
-            #selector(GADRewardedAd.present(fromRootViewController:userDidEarnRewardHandler:)),
+            #selector(getter: GoogleMobileAds.RewardedAd.adMetadataDelegate),
+            #selector(setter: GoogleMobileAds.RewardedAd.adMetadataDelegate),
+            #selector(getter: GoogleMobileAds.RewardedAd.adMetadata),
+            #selector(getter: GoogleMobileAds.RewardedAd.adReward),
+            #selector(GoogleMobileAds.RewardedAd.present(from:userDidEarnRewardHandler:)),
         ]
         
         for selector in selectors {
@@ -117,5 +118,4 @@ class GADRewardedAdWrapper {
         
         return true
     }
-    
 }

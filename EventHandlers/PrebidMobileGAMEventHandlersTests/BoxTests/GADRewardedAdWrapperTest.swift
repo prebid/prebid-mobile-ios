@@ -19,16 +19,15 @@ import GoogleMobileAds
 
 class GADRewardedAdWrapperTest: XCTestCase {
     
-    private class DummyDelegate: NSObject, GADFullScreenContentDelegate {
-        func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
-        }
+    private class DummyDelegate: NSObject, GoogleMobileAds.FullScreenContentDelegate {
+        func rewardedAd(
+            _ rewardedAd: GoogleMobileAds.RewardedAd,
+            userDidEarn reward: GoogleMobileAds.AdReward
+        ) {}
     }
     
-    private class DummyMetadataDelegate: NSObject, GADAdMetadataDelegate {
-        func adMetadataDidChange(_ ad: GADAdMetadataProvider) {
-            
-        }
-        
+    private class DummyMetadataDelegate: NSObject, GoogleMobileAds.AdMetadataDelegate {
+        func adMetadataDidChange(_ ad: GoogleMobileAds.AdMetadataProvider) {}
     }
     
     func testProperties() {        
@@ -36,7 +35,9 @@ class GADRewardedAdWrapperTest: XCTestCase {
             RefProxyPropTest(keyPath: \.adMetadataDelegate, value: DummyMetadataDelegate()),
         ]
         
-        guard let rewardedAd = GADRewardedAdWrapper(adUnitID: "/21808260008/prebid_oxb_rewarded_video_test") else {
+        guard let rewardedAd = GADRewardedAdWrapper(
+            adUnitID: "/21808260008/prebid_oxb_rewarded_video_test"
+        ) else {
             XCTFail()
             return
         }

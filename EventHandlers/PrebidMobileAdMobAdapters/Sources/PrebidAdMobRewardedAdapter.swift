@@ -19,9 +19,9 @@ import GoogleMobileAds
 @objc(PrebidAdMobRewardedAdapter)
 public class PrebidAdMobRewardedAdapter:
     PrebidAdMobMediationBaseAdapter,
-    GADMediationRewardedAd,
+    GoogleMobileAds.MediationRewardedAd,
     InterstitialControllerLoadingDelegate,
-    InterstitialControllerInteractionDelegate  {
+    InterstitialControllerInteractionDelegate {
     
     // MARK: - Private Properties
     
@@ -29,13 +29,15 @@ public class PrebidAdMobRewardedAdapter:
     weak var rootViewController: UIViewController?
     var adAvailable = false
     
-    weak var delegate: GADMediationRewardedAdEventDelegate?
+    weak var delegate: GoogleMobileAds.MediationRewardedAdEventDelegate?
     var completionHandler: GADMediationRewardedLoadCompletionHandler?
     
     // MARK: - GADMediationAdapter
     
-    public func loadRewardedAd(for adConfiguration: GADMediationRewardedAdConfiguration,
-                               completionHandler: @escaping GADMediationRewardedLoadCompletionHandler) {
+    public func loadRewardedAd(
+        for adConfiguration: GoogleMobileAds.MediationRewardedAdConfiguration,
+        completionHandler: @escaping GADMediationRewardedLoadCompletionHandler
+    ) {
         self.completionHandler = completionHandler
         
         switch createInterstitialController(with: adConfiguration) {
@@ -50,14 +52,13 @@ public class PrebidAdMobRewardedAdapter:
     // MARK: - Helpers
     
     func createInterstitialController(
-        with adConfiguration: GADMediationRewardedAdConfiguration
+        with adConfiguration: GoogleMobileAds.MediationRewardedAdConfiguration
     ) -> Result<InterstitialController, Error> {
-        
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
             return .failure(AdMobAdaptersError.noServerParameter)
         }
         
-        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+        guard let eventExtras = adConfiguration.extras as? GoogleMobileAds.CustomEventExtras,
               let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
               !eventExtrasDictionary.isEmpty else {
             return .failure(AdMobAdaptersError.emptyCustomEventExtras)
@@ -113,7 +114,9 @@ public class PrebidAdMobRewardedAdapter:
     
     // MARK: - InterstitialControllerLoadingDelegate
     
-    public func interstitialControllerDidLoadAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+    public func interstitialControllerDidLoadAd(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {
         adAvailable = true
         
         if let handler = completionHandler {
@@ -121,46 +124,66 @@ public class PrebidAdMobRewardedAdapter:
         }
     }
     
-    public func interstitialController(_ interstitialController: PrebidMobileInterstitialControllerProtocol, didFailWithError error: Error) {
+    public func interstitialController(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol,
+        didFailWithError error: Error
+    ) {
         adAvailable = false
     }
     
     // MARK: - InterstitialControllerInteractionDelegate
     
-    public func trackImpression(forInterstitialController: PrebidMobileInterstitialControllerProtocol) {
+    public func trackImpression(
+        forInterstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {
         delegate?.reportImpression()
     }
     
-    public func trackUserReward(_ interstitialController: PrebidMobileInterstitialControllerProtocol, _ reward: PrebidReward) {
+    public func trackUserReward(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol,
+        _ reward: PrebidReward
+    ) {
         delegate?.didRewardUser()
     }
     
-    public func interstitialControllerDidClickAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+    public func interstitialControllerDidClickAd(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {
         delegate?.reportClick()
     }
     
-    public func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+    public func interstitialControllerDidCloseAd(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {
         adAvailable = false
         delegate?.willDismissFullScreenView()
         delegate?.didDismissFullScreenView()
     }
         
-    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+    public func interstitialControllerDidDisplay(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {
         delegate?.willPresentFullScreenView()
         delegate?.didStartVideo()
         delegate?.didEndVideo()
     }
     
-    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+    public func interstitialControllerDidComplete(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {
         adAvailable = false
         rootViewController = nil
         
         delegate?.didRewardUser()
     }
     
-    public func viewControllerForModalPresentation(fromInterstitialController: PrebidMobileInterstitialControllerProtocol) -> UIViewController? {
+    public func viewControllerForModalPresentation(
+        fromInterstitialController: PrebidMobileInterstitialControllerProtocol
+    ) -> UIViewController? {
         rootViewController
     }
     
-    public func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func interstitialControllerDidLeaveApp(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {}
 }

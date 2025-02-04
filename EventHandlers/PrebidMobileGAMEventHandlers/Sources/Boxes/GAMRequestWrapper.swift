@@ -24,7 +24,7 @@ class GAMRequestWrapper {
     
     // MARK: - Public Properties
     
-    let request: GAMRequest
+    let request: AdManagerRequest
     
     // MARK: - Public Methods
     
@@ -34,10 +34,10 @@ class GAMRequestWrapper {
             return nil
         }
         
-        request = GAMRequest()
+        request = AdManagerRequest()
     }
     
-    init?(request: GAMRequest) {
+    init?(request: AdManagerRequest) {
         if !Self.classesFound {
             GAMUtils.log(error: GAMEventHandlerError.gamClassesNotFound)
             return nil
@@ -48,8 +48,8 @@ class GAMRequestWrapper {
     
     // MARK: - Public Wrappers (Properties)
 
-    var customTargeting: [String : String]? {
-        get { request.customTargeting }
+    var customTargeting: [String: String]? {
+        get { request.customTargeting as? [String: String] }
         set { request.customTargeting = newValue }
     }
  
@@ -60,11 +60,11 @@ class GAMRequestWrapper {
             return false;
         }
         
-        let testClass = GAMRequest.self
+        let testClass = GoogleMobileAds.Request.self
         
         let selectors = [
-            #selector(getter: GAMRequest.customTargeting),
-            #selector(setter: GAMRequest.customTargeting),
+            #selector(getter: GoogleMobileAds.Request.customTargeting),
+            #selector(setter: GoogleMobileAds.Request.customTargeting),
         ]
         
         for selector in selectors {
