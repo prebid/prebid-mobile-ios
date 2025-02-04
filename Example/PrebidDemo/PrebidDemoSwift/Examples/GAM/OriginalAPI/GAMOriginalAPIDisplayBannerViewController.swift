@@ -20,13 +20,13 @@ import GoogleMobileAds
 fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50"
 fileprivate let gamAdUnitDisplayBannerOriginal = "/21808260008/prebid_demo_app_original_api_banner"
 
-class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
+class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var adUnit: BannerAdUnit!
     
     // GAM
-    private var gamBanner: GAMBannerView!
+    private var gamBanner: AdManagerBannerView!
     
     override func loadView() {
         super.loadView()

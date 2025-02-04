@@ -19,12 +19,12 @@ import GoogleMobileAds
 
 class GAMBannerViewWrapperTest: XCTestCase {
     
-    private class DummyDelegate: NSObject, GADBannerViewDelegate {
-    }
-    private class DummyEventDelegate: NSObject, GADAppEventDelegate {
-    }
-    private class DummySizeDelegate: NSObject, GADAdSizeDelegate {
-        func adView(_ bannerView: GADBannerView, willChangeAdSizeTo size: GADAdSize) {
+    private class DummyDelegate: NSObject, GoogleMobileAds.BannerViewDelegate {}
+    
+    private class DummyEventDelegate: NSObject, GoogleMobileAds.AppEventDelegate {}
+    
+    private class DummySizeDelegate: NSObject, GoogleMobileAds.AdSizeDelegate {
+        func adView(_ bannerView: GoogleMobileAds.BannerView, willChangeAdSizeTo size: GoogleMobileAds.AdSize) {
             // nop
         }
     }
@@ -32,13 +32,13 @@ class GAMBannerViewWrapperTest: XCTestCase {
     func testProperties() {        
         let propTests: [BasePropTest<GAMBannerViewWrapper>] = [
             PropTest(keyPath: \.adUnitID, value: "144"),
-            PropTest(keyPath: \.validAdSizes, value: [NSValueFromGADAdSize(GADAdSizeBanner)]),
+            PropTest(keyPath: \.validAdSizes, value: [GoogleMobileAds.nsValue(for: GoogleMobileAds.AdSizeBanner)]),
             PropTest(keyPath: \.rootViewController, value: UIViewController()),
             RefPropTest(keyPath: \.delegate, value: DummyDelegate()),
             RefPropTest(keyPath: \.appEventDelegate, value: DummyEventDelegate()),
             RefPropTest(keyPath: \.adSizeDelegate, value: DummySizeDelegate()),
             PropTest(keyPath: \.enableManualImpressions, value: true),
-            PropTest(keyPath: \.adSize, value: GADAdSizeBanner),
+            PropTest(keyPath: \.adSize, value: GoogleMobileAds.AdSizeBanner),
         ]
         
         guard let banner = GAMBannerViewWrapper() else {
@@ -50,5 +50,4 @@ class GAMBannerViewWrapperTest: XCTestCase {
             nextTest.run(object: banner)
         }
     }
-    
 }

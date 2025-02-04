@@ -16,7 +16,7 @@
 import GoogleMobileAds
 import PrebidMobile
 
-extension GADAdReward {
+extension GoogleMobileAds.AdReward {
     
     func toPrebidReward() -> PrebidReward {
         let reward = PrebidReward()

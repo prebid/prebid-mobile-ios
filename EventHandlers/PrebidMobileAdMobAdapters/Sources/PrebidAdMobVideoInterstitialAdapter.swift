@@ -20,7 +20,7 @@ import PrebidMobile
 @objc(PrebidAdMobVideoInterstitialAdapter)
 public class PrebidAdMobVideoInterstitialAdapter:
     PrebidAdMobMediationBaseAdapter,
-    GADMediationInterstitialAd,
+    GoogleMobileAds.MediationInterstitialAd,
     InterstitialControllerLoadingDelegate,
     InterstitialControllerInteractionDelegate {
     
@@ -30,11 +30,13 @@ public class PrebidAdMobVideoInterstitialAdapter:
     weak var rootViewController: UIViewController?
     var adAvailable = false
     
-    public weak var delegate: GADMediationInterstitialAdEventDelegate?
+    public weak var delegate: GoogleMobileAds.MediationInterstitialAdEventDelegate?
     var completionHandler: GADMediationInterstitialLoadCompletionHandler?
     
-    public func loadInterstitial(for adConfiguration: GADMediationInterstitialAdConfiguration,
-                                 completionHandler: @escaping GADMediationInterstitialLoadCompletionHandler) {
+    public func loadInterstitial(
+        for adConfiguration: GoogleMobileAds.MediationInterstitialAdConfiguration,
+        completionHandler: @escaping GADMediationInterstitialLoadCompletionHandler
+    ) {
         self.completionHandler = completionHandler
         
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
@@ -43,7 +45,7 @@ public class PrebidAdMobVideoInterstitialAdapter:
             return
         }
         
-        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+        guard let eventExtras = adConfiguration.extras as? GoogleMobileAds.CustomEventExtras,
               let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
               !eventExtrasDictionary.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
@@ -149,6 +151,11 @@ public class PrebidAdMobVideoInterstitialAdapter:
         delegate?.willPresentFullScreenView()
     }
     
-    public func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
-    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func interstitialControllerDidLeaveApp(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {}
+    
+    public func interstitialControllerDidComplete(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {}
 }

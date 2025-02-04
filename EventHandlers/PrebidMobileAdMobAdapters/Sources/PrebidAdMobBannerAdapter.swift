@@ -20,22 +20,24 @@ import GoogleMobileAds
 @objc(PrebidAdMobBannerAdapter)
 public class PrebidAdMobBannerAdapter:
     PrebidAdMobMediationBaseAdapter,
-    GADMediationBannerAd,
+    GoogleMobileAds.MediationBannerAd,
     DisplayViewLoadingDelegate,
     DisplayViewInteractionDelegate {
     
     public var view: UIView {
-        return displayView ?? UIView()
+        displayView ?? UIView()
     }
     
     var displayView: PBMDisplayView?
     
-    weak var delegate: GADMediationBannerAdEventDelegate?
-    var adConfiguration: GADMediationBannerAdConfiguration?
+    weak var delegate: GoogleMobileAds.MediationBannerAdEventDelegate?
+    var adConfiguration: GoogleMobileAds.MediationBannerAdConfiguration?
     var completionHandler: GADMediationBannerLoadCompletionHandler?
     
-    public func loadBanner(for adConfiguration: GADMediationBannerAdConfiguration,
-                           completionHandler: @escaping GADMediationBannerLoadCompletionHandler) {
+    public func loadBanner(
+        for adConfiguration: GoogleMobileAds.MediationBannerAdConfiguration,
+        completionHandler: @escaping GADMediationBannerLoadCompletionHandler
+    ) {
         self.adConfiguration = adConfiguration
         self.completionHandler = completionHandler
         
@@ -45,7 +47,7 @@ public class PrebidAdMobBannerAdapter:
             return
         }
         
-        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+        guard let eventExtras = adConfiguration.extras as? GoogleMobileAds.CustomEventExtras,
               let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
               !eventExtrasDictionary.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
@@ -107,7 +109,7 @@ public class PrebidAdMobBannerAdapter:
     }
     
     public func viewControllerForModalPresentation(fromDisplayView: UIView) -> UIViewController? {
-        return adConfiguration?.topViewController ?? UIApplication.shared.windows.first?.rootViewController
+        adConfiguration?.topViewController ?? UIApplication.shared.windows.first?.rootViewController
     }
     
     public func didLeaveApp(from displayView: UIView) {

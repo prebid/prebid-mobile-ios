@@ -20,20 +20,20 @@ import PrebidMobile
 @objc(PrebidAdMobNativeAdapter)
 public class PrebidAdMobNativeAdapter:
     PrebidAdMobMediationBaseAdapter,
-    GADMediationNativeAd,
+    GoogleMobileAds.MediationNativeAd,
     NativeAdEventDelegate {
     
     public var headline: String? {
         prebidNativeAd?.title
     }
     
-    public var images: [GADNativeAdImage]?
+    public var images: [GoogleMobileAds.NativeAdImage]?
     
     public var body: String? {
         prebidNativeAd?.text
     }
     
-    public var icon: GADNativeAdImage?
+    public var icon: GoogleMobileAds.NativeAdImage?
     
     public var callToAction: String? {
         prebidNativeAd?.callToAction
@@ -55,12 +55,15 @@ public class PrebidAdMobNativeAdapter:
     
     public var extraAssets: [String: Any]?
     
-    var prebidNativeAd: NativeAd?
+    var prebidNativeAd: PrebidMobile.NativeAd?
     
-    public weak var delegate: GADMediationNativeAdEventDelegate?
+    public weak var delegate: GoogleMobileAds.MediationNativeAdEventDelegate?
     var completionHandler: GADMediationNativeLoadCompletionHandler?
     
-    public func loadNativeAd(for adConfiguration: GADMediationNativeAdConfiguration, completionHandler: @escaping GADMediationNativeLoadCompletionHandler) {
+    public func loadNativeAd(
+        for adConfiguration: GoogleMobileAds.MediationNativeAdConfiguration,
+        completionHandler: @escaping GADMediationNativeLoadCompletionHandler
+    ) {
         self.completionHandler = completionHandler
         
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
@@ -69,7 +72,7 @@ public class PrebidAdMobNativeAdapter:
             return
         }
         
-        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+        guard let eventExtras = adConfiguration.extras as? GoogleMobileAds.CustomEventExtras,
               let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
               !eventExtrasDictionary.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
@@ -104,7 +107,12 @@ public class PrebidAdMobNativeAdapter:
         }
     }
     
-    public func didRender(in view: UIView, clickableAssetViews: [GADNativeAssetIdentifier : UIView], nonclickableAssetViews: [GADNativeAssetIdentifier : UIView], viewController: UIViewController) {
+    public func didRender(
+        in view: UIView,
+        clickableAssetViews: [GADNativeAssetIdentifier : UIView],
+        nonclickableAssetViews: [GADNativeAssetIdentifier : UIView],
+        viewController: UIViewController
+    ) {
         prebidNativeAd?.registerView(view: view, clickableViews: Array(clickableAssetViews.values))
     }
     
@@ -118,18 +126,18 @@ public class PrebidAdMobNativeAdapter:
     
     // MARK: - NativeAdEventDelegate
     
-    public func adDidExpire(ad: NativeAd) {
+    public func adDidExpire(ad: PrebidMobile.NativeAd) {
         let error = AdMobAdaptersError.adExpired
         if let handler = completionHandler {
            delegate = handler(nil, error)
         }
     }
     
-    public func adWasClicked(ad: NativeAd) {
+    public func adWasClicked(ad: PrebidMobile.NativeAd) {
         delegate?.reportClick()
     }
     
-    public func adDidLogImpression(ad: NativeAd) {
+    public func adDidLogImpression(ad: PrebidMobile.NativeAd) {
         delegate?.reportImpression()
     }
     
@@ -138,12 +146,12 @@ public class PrebidAdMobNativeAdapter:
         
         ImageHelper.downloadImageAsync(imageUrl) { [weak self] result in
             if case .success(let image) = result {
-                self?.images = [GADNativeAdImage(image: image)]
+                self?.images = [GoogleMobileAds.NativeAdImage(image: image)]
             }
             
             ImageHelper.downloadImageAsync(iconUrl) { [weak self] result in
                 if case .success(let image) = result {
-                    self?.icon = GADNativeAdImage(image: image)
+                    self?.icon = GoogleMobileAds.NativeAdImage(image: image)
                     completion()
                 }
             }
