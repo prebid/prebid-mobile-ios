@@ -199,6 +199,9 @@
     if ([self isInvalidID:self.sdkConfiguration.prebidServerAccountId]) {
         return [PBMError prebidInvalidAccountId];
     }
+    if (self.sdkConfiguration.auctionSettingsId && [self isInvalidID:self.sdkConfiguration.auctionSettingsId]) {
+        return [PBMError prebidInvalidAuctionSettingsId];
+    }
     return nil;
 }
 

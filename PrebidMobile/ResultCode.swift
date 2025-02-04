@@ -53,6 +53,9 @@ import Foundation
     /// An unknown error occurred within the Prebid SDK.
     case prebidUnknownError
     
+    /// The auction settings ID provided is not recognized by the Prebid server.
+    case prebidInvalidAuctionSettingsId
+    
     /// The structure of the response received is invalid.
     case prebidInvalidResponseStructure = 1000
     
@@ -99,6 +102,8 @@ import Foundation
             return "Prebid server url is invalid"
         case .prebidUnknownError:
             return "Prebid unknown error occurred"
+        case .prebidInvalidAuctionSettingsId:
+            return "Prebid server does not recognize auction settings id"
         case .prebidInvalidResponseStructure:
             return "Response structure is invalid"
         case .prebidInternalSDKError:

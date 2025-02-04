@@ -44,6 +44,9 @@ public class Prebid: NSObject {
     /// The Prebid Server account ID.
     public var prebidServerAccountId = ""
     
+    /// The Prebid auction settings ID.
+    public var auctionSettingsId: String?
+    
     /// Enables or disables debug mode.
     /// ORTB: bidRequest.test
     public var pbsDebug = false

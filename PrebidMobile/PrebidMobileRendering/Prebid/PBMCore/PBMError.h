@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, class, readonly) NSError *prebidInvalidAccountId;
 @property (nonatomic, class, readonly) NSError *prebidInvalidConfigId;
 @property (nonatomic, class, readonly) NSError *prebidInvalidSize;
+@property (nonatomic, class, readonly) NSError *prebidInvalidAuctionSettingsId;
 //@property (nonatomic, class, readonly) NSError *prebidDemandNoBids;
 
 + (NSError *)prebidServerURLInvalid:(NSString *)url;
