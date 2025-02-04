@@ -33,7 +33,6 @@
     Targeting.shared.sourceapp = @"PrebidDemoObjectiveC";
     
     // Initialize GoogleMobileAds SDK
-    GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[ GADSimulatorID ];
     [[GADMobileAds sharedInstance] startWithCompletionHandler:^(GADInitializationStatus * _Nonnull status) {}];
     
     [GAMUtils.shared initializeGAM];
