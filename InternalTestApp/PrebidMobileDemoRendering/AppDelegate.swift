@@ -31,10 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let consentHelper = IABConsentHelper()
 	
-	func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
-    {
-        
+	func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         let processArgumentsParser = ProcessArgumentsParser()
         
         consentHelper.eraseIrrelevantUserDefaults()
@@ -131,11 +131,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
        
         // AdMob
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [GADSimulatorID]
-        GADMobileAds.sharedInstance().start { (status) in
+        MobileAds.shared.start { (status) in
             //Registered so that DownloadHelper gets covered by this
             GlobalVars.reactiveGAMInitFlag.markSdkInitialized()
-        };
+        }
         
         GAMUtils.shared.initializeGAM()
         
@@ -183,6 +182,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
-    
-    
 }

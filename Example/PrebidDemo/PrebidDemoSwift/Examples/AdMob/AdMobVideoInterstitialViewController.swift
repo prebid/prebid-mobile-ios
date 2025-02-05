@@ -21,8 +21,9 @@ import PrebidMobileAdMobAdapters
 fileprivate let storedImpVideoInterstitial = "prebid-demo-video-interstitial-320-480"
 fileprivate let adMobAdUnitDisplayInterstitial = "ca-app-pub-5922967660082475/3383099861"
 
-class AdMobVideoInterstitialViewController: InterstitialBaseViewController,
-                                            FullScreenContentDelegate {
+class AdMobVideoInterstitialViewController:
+    InterstitialBaseViewController,
+    FullScreenContentDelegate {
     
     // Prebid
     private var admobAdUnit: MediationInterstitialAdUnit?

@@ -53,8 +53,10 @@ class GAMVideoInterstitialViewController: InterstitialBaseViewController, Inters
         interstitial.show(from: self)
     }
     
-    func interstitial(_ interstitial: InterstitialRenderingAdUnit, didFailToReceiveAdWithError error: Error?) {
+    func interstitial(
+        _ interstitial: InterstitialRenderingAdUnit,
+        didFailToReceiveAdWithError error: Error?
+    ) {
         PrebidDemoLogger.shared.error("Interstitial Rendering ad unit did fail to receive ad with error: \(error)")
     }
-
 }

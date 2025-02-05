@@ -29,13 +29,13 @@ class TestCaseManagerTest: XCTestCase {
         
         for testCase in manager.testCases {
             for testTag in tagMarkers {
-                XCTAssertEqual(testCase.title.contains(testTag.nameFragment),
-                               testCase.tags.contains { tag in
-                                    tag.rawValue == testTag.tag.rawValue
-                               },
-                               "\(testCase.title): \(testCase.tags.map { "\($0)" }.joined(separator: ", ")) ?")
+                XCTAssertEqual(
+                    testCase.title.contains(testTag.nameFragment),
+                    testCase.tags.contains { tag in
+                        tag.rawValue == testTag.tag.rawValue
+                    },
+                    "\(testCase.title): \(testCase.tags.map { "\($0)" }.joined(separator: ", ")) ?")
             }
         }
     }
-    
 }

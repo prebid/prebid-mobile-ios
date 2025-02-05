@@ -21,8 +21,9 @@ import PrebidMobileAdMobAdapters
 fileprivate let storedImpDisplayRewarded = "prebid-demo-banner-rewarded-time"
 fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/5628505938"
 
-class AdMobDisplayRewardedViewController: InterstitialBaseViewController,
-                                          FullScreenContentDelegate {
+class AdMobDisplayRewardedViewController:
+    InterstitialBaseViewController,
+    FullScreenContentDelegate {
     
     // Prebid
     private var mediationDelegate: AdMobMediationRewardedUtils!

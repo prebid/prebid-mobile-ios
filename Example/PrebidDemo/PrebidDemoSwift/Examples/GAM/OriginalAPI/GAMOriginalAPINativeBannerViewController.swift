@@ -19,8 +19,9 @@ import GoogleMobileAds
 
 fileprivate let nativeStoredImpression = "prebid-demo-banner-native-styles"
 
-class GAMOriginalAPINativeBannerViewController: BannerBaseViewController,
-                                                GoogleMobileAds.BannerViewDelegate {
+class GAMOriginalAPINativeBannerViewController:
+    BannerBaseViewController,
+    GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var nativeUnit: NativeRequest!
@@ -81,6 +82,8 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController,
             self?.gamBannerView.load(self?.gamRequest)
         }
     }
+    
+    // MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in

@@ -34,15 +34,15 @@ class PrebidSDKInitializer {
         Prebid.registerPluginRenderer(PrebidRenderer())
     }
     
-    // check for deprecated `GADMobileAds.sdkVersion`
+    // check for deprecated `MobileAds.sdkVersion`
     static func checkGMAVersion(gadObject: AnyObject?) {
         guard let gadObject = gadObject else {
-            Log.error("GADMobileAds object is not provided.")
+            Log.error("GoogleMobileAds object is not provided.")
             return
         }
         
         guard gadObject.responds(to: NSSelectorFromString("sdkVersion")) else {
-            Log.error("There is no sdkVersion property in GADMobileAds object.")
+            Log.error("There is no sdkVersion property in GoogleMobileAds object.")
             return
         }
         
@@ -53,7 +53,7 @@ class PrebidSDKInitializer {
         gamVersionChecker.checkGMAVersionDeprecated(sdkVersion)
     }
     
-    // check for `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)`
+    // check for `GADGetStringFromVersionNumber(MobileAds.shared.versionNumber)`
     static func checkGMAVersion(gadVersion: String?) {
         guard let gadVersion = gadVersion else {
             Log.error("GADMobileAds version string is not provided.")
