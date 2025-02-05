@@ -22,9 +22,9 @@ final class AdMobGMATests: XCTestCase {
     
     func testGMAVersion() {
         let latestTestedGMAVersion = PrebidAdMobMediationBaseAdapter.latestTestedGMAVersion()
-        let currentGMAVersion = GADMobileAds.sharedInstance().versionNumber
+        let currentGMAVersion = MobileAds.shared.versionNumber
         
-        if GADMobileAds.sharedInstance().isSDKVersionAtLeast(
+        if MobileAds.shared.isSDKVersionAtLeast(
             major: latestTestedGMAVersion.majorVersion,
             minor: latestTestedGMAVersion.minorVersion,
             patch: latestTestedGMAVersion.patchVersion
