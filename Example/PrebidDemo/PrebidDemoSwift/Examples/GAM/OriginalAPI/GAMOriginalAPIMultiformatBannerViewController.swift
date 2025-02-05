@@ -20,8 +20,9 @@ import GoogleMobileAds
 fileprivate let storedImpsBanner = ["prebid-demo-banner-300-250", "prebid-demo-video-outstream-original-api"]
 fileprivate let gamAdUnitMultiformatBannerOriginal = "/21808260008/prebid-demo-original-banner-multiformat"
 
-class GAMOriginalAPIMultiformatBannerViewController: BannerBaseViewController,
-                                                     GoogleMobileAds.BannerViewDelegate {
+class GAMOriginalAPIMultiformatBannerViewController:
+    BannerBaseViewController,
+    GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var adUnit: BannerAdUnit!

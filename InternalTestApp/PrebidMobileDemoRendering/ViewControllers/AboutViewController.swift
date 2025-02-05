@@ -24,7 +24,6 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
 
-
 class AboutViewController : FormViewController {
     
     private let info = [
@@ -33,7 +32,7 @@ class AboutViewController : FormViewController {
             "OMSDK_Prebidorg": Prebid.shared.omsdkVersion
         ]),
         ("Ad Server SDKs", [
-            "GoogleMobileAds SDK": "\(GADMobileAds.sharedInstance().versionNumber)",
+            "GoogleMobileAds SDK": "\(MobileAds.shared.versionNumber)",
         ]),
         ("Bridging SDKs", [
             "GAM Event Handlers": versionOfBundle(providing: GAMBannerEventHandler.self),

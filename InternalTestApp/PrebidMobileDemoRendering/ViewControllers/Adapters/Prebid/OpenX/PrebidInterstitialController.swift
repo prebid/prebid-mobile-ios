@@ -22,7 +22,7 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
     var prebidConfigId = ""
     var storedAuctionResponse: String?
 
-    var adFormats: Set<AdFormat>?
+    var adFormats: Set<PrebidMobile.AdFormat>?
     
     private var interstitialController : InterstitialRenderingAdUnit?
     

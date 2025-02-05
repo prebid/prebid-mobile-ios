@@ -18,17 +18,22 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
-class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate, PrebidConfigurableController {
+class PrebidGAMBannerController:
+        NSObject,
+        AdaptedController,
+        PrebidConfigurableBannerController,
+        PrebidMobile.BannerViewDelegate,
+        PrebidConfigurableController {
     
     var refreshInterval: TimeInterval = 0
     
     var prebidConfigId = ""
 
     var gamAdUnitId = ""
-    var validAdSizes = [GADAdSize]()
-    var adFormat: AdFormat?
+    var validAdSizes = [AdSize]()
+    var adFormat: PrebidMobile.AdFormat?
     
-    var adBannerView : BannerView?
+    var adBannerView: PrebidMobile.BannerView?
     
     weak var rootController: AdapterViewController?
     
@@ -62,7 +67,10 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        let adEventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: validAdSizes.map(NSValueFromGADAdSize))
+        let adEventHandler = GAMBannerEventHandler(
+            adUnitID: gamAdUnitId,
+            validGADAdSizes: validAdSizes.map(nsValue)
+        )
         
         adBannerView = BannerView(configID: prebidConfigId,  eventHandler: adEventHandler)
        
@@ -144,7 +152,7 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
         return rootController
     }
     
-    func bannerView(_ bannerView: BannerView, didReceiveAdWithAdSize adSize: CGSize) {
+    func bannerView(_ bannerView: PrebidMobile.BannerView, didReceiveAdWithAdSize adSize: CGSize) {
         resetEvents()
         reloadButton.isEnabled = true
         adViewDidReceiveAdButton.isEnabled = true
@@ -161,21 +169,21 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
         setBannerSize(adSize)
     }
     
-    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
+    func bannerView(_ bannerView: PrebidMobile.BannerView, didFailToReceiveAdWith error: Error) {
         resetEvents()
         reloadButton.isEnabled = true
         adViewDidFailToLoadAdButton.isEnabled = true
     }
     
-    func bannerViewWillPresentModal(_ bannerView: BannerView) {
+    func bannerViewWillPresentModal(_ bannerView: PrebidMobile.BannerView) {
         adViewWillPresentScreenButton.isEnabled = true
     }
     
-    func bannerViewDidDismissModal(_ bannerView: BannerView) {
+    func bannerViewDidDismissModal(_ bannerView: PrebidMobile.BannerView) {
         adViewDidDismissScreenButton.isEnabled = true
     }
     
-    func bannerViewWillLeaveApplication(_ bannerView: BannerView) {
+    func bannerViewWillLeaveApplication(_ bannerView: PrebidMobile.BannerView) {
         adViewWillLeaveApplicationButton.isEnabled = true
     }
     

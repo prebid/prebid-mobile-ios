@@ -20,8 +20,9 @@ import GoogleMobileAds
 fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480-original-api"
 fileprivate let gamAdUnitVideoRewardedOriginal = "/21808260008/prebid-demo-app-original-api-video-interstitial"
 
-class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
-                                                 FullScreenContentDelegate {
+class GAMOriginalAPIVideoRewardedViewController:
+    InterstitialBaseViewController,
+    FullScreenContentDelegate {
     
     // Prebid
     private var adUnit: RewardedVideoAdUnit!

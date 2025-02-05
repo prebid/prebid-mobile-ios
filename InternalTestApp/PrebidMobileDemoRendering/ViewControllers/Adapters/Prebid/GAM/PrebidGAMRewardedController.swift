@@ -100,8 +100,7 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
         rewardedAdController?.loadAd()
     }
     
-    // MARK: - GADRewardedDelegate
-    
+    // MARK: - RewardedDelegate
     
     func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit) {
         adapterViewController?.showButton.isEnabled = true

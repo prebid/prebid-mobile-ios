@@ -21,8 +21,9 @@ import PrebidMobileAdMobAdapters
 fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream"
 fileprivate let adMobAdUnitDisplayBannerRendering = "ca-app-pub-5922967660082475/9483570409"
 
-class AdMobVideoBannerViewController: BannerBaseViewController,
-                                      GoogleMobileAds.BannerViewDelegate {
+class AdMobVideoBannerViewController:
+    BannerBaseViewController,
+    GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var prebidAdMobMediaitonAdUnit: MediationBannerAdUnit!

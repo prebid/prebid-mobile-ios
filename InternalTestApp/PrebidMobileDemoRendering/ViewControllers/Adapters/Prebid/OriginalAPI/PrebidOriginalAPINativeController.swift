@@ -17,7 +17,11 @@ import UIKit
 import PrebidMobile
 import GoogleMobileAds
 
-class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoaderDelegate, GADCustomNativeAdLoaderDelegate {
+class PrebidOriginalAPINativeController:
+        NSObject,
+        AdaptedController,
+        AdLoaderDelegate,
+        CustomNativeAdLoaderDelegate {
     
     var prebidConfigId = ""
     var adUnitID = ""
@@ -30,9 +34,9 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
     private var nativeAdViewBox: NativeAdViewBoxProtocol?
     
     private var nativeUnit: NativeRequest!
-    private var nativeAd: NativeAd?
+    private var nativeAd: PrebidMobile.NativeAd?
     
-    private var adLoader: GADAdLoader!
+    private var adLoader: AdLoader!
     
     private let nativeAdLoadedButton = EventReportContainer()
     private let nativeAdNotFoundButton = EventReportContainer()
@@ -75,15 +79,19 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
         bannerView.removeConstraint(bannerConstraints.first { $0.firstAttribute == .width }!)
         bannerView.removeConstraint(bannerConstraints.first { $0.firstAttribute == .height }!)
         if let bannerParent = bannerView.superview {
-            bannerParent.addConstraints([
-                NSLayoutConstraint(item: bannerView,
-                                   attribute: .width,
-                                   relatedBy: .lessThanOrEqual,
-                                   toItem: bannerParent,
-                                   attribute: .width,
-                                   multiplier: 1,
-                                   constant: -10),
-            ])
+            bannerParent.addConstraints(
+                [
+                    NSLayoutConstraint(
+                        item: bannerView,
+                        attribute: .width,
+                        relatedBy: .lessThanOrEqual,
+                        toItem: bannerParent,
+                        attribute: .width,
+                        multiplier: 1,
+                        constant: -10
+                    ),
+                ]
+            )
         }
     }
     
@@ -149,12 +157,16 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
             nativeUnit?.addAppContentData([ortbAppContentData])
         }
         
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             guard let self = self else { return }
             
-            self.adLoader = GADAdLoader(adUnitID: self.adUnitID, rootViewController: self.rootController,
-                                        adTypes: [GADAdLoaderAdType.customNative], options: [])
+            self.adLoader = AdLoader(
+                adUnitID: self.adUnitID,
+                rootViewController: self.rootController,
+                adTypes: [AdLoaderAdType.customNative],
+                options: []
+            )
             self.adLoader.delegate = self
             self.adLoader.load(gamRequest)
         }
@@ -162,25 +174,26 @@ class PrebidOriginalAPINativeController: NSObject, AdaptedController, GADAdLoade
     
     // MARK: GADCustomNativeAdLoaderDelegate
     
-    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
+    func customNativeAdFormatIDs(for adLoader: AdLoader) -> [String] {
         ["11934135"]
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
+    func adLoader(_ adLoader: AdLoader, didReceive customNativeAd: CustomNativeAd) {
         Utils.shared.delegate = self
         Utils.shared.findNative(adObject: customNativeAd)
     }
     
     // MARK: GADAdLoaderDelegate
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+    func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
         Log.error("GAM did fail to receive ad with error: \(error)")
     }
 }
 
-extension PrebidOriginalAPINativeController: NativeAdDelegate, NativeAdEventDelegate {
+extension PrebidOriginalAPINativeController: PrebidMobile.NativeAdDelegate,
+                                                PrebidMobile.NativeAdEventDelegate {
     
-    func nativeAdLoaded(ad: NativeAd) {
+    func nativeAdLoaded(ad: PrebidMobile.NativeAd) {
         DispatchQueue.main.async {
             self.nativeAdLoadedButton.isEnabled = true
         }
@@ -202,19 +215,19 @@ extension PrebidOriginalAPINativeController: NativeAdDelegate, NativeAdEventDele
         }
     }
     
-    func adDidExpire(ad: NativeAd) {
+    func adDidExpire(ad: PrebidMobile.NativeAd) {
         DispatchQueue.main.async {
             self.adDidExpireButton.isEnabled = true
         }
     }
     
-    func adDidLogImpression(ad: NativeAd) {
+    func adDidLogImpression(ad: PrebidMobile.NativeAd) {
         DispatchQueue.main.async {
             self.adDidLogImpressionButton.isEnabled = true
         }
     }
     
-    func adWasClicked(ad: NativeAd) {
+    func adWasClicked(ad: PrebidMobile.NativeAd) {
         DispatchQueue.main.async {
             self.adWasClickedButton.isEnabled = true
         }

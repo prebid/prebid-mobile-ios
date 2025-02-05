@@ -21,8 +21,9 @@ import PrebidMobileAdMobAdapters
 fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50"
 fileprivate let adMobAdUnitDisplayBannerRendering = "ca-app-pub-5922967660082475/9483570409"
 
-class AdMobDisplayBannerViewController: BannerBaseViewController,
-                                        GoogleMobileAds.BannerViewDelegate {
+class AdMobDisplayBannerViewController:
+    BannerBaseViewController,
+    GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var prebidAdMobMediaitonAdUnit: MediationBannerAdUnit!
@@ -41,7 +42,7 @@ class AdMobDisplayBannerViewController: BannerBaseViewController,
         // 1. Create a GADRequest
         let gadRequest = Request()
         
-        // 2. Create a GADBannerView
+        // 2. Create a BannerView
         gadBanner = GoogleMobileAds.BannerView(adSize: adSizeFor(cgSize: adSize))
         gadBanner.adUnitID = adMobAdUnitDisplayBannerRendering
         gadBanner.delegate = self
@@ -69,7 +70,7 @@ class AdMobDisplayBannerViewController: BannerBaseViewController,
         }
     }
     
-    //MARK: - GADBannerViewDelegate
+    // MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
     

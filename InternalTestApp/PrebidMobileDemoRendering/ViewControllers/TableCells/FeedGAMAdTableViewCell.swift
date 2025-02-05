@@ -29,39 +29,44 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     public var eventTrackers: [NativeEventTracker]?
     
     private var adUnit: NativeRequest?
-    private var theNativeAd: NativeAd?
+    private var theNativeAd: PrebidMobile.NativeAd?
     
     private let nativeAdViewBox = NativeAdViewBox()
     
-    private var adLoader: GADAdLoader?
+    private var adLoader: AdLoader?
     
-    private var customTemplateAd: GADCustomNativeAd?
+    private var customTemplateAd: CustomNativeAd?
     
     private weak var rootController: UIViewController?
     
     func loadAd(configID: String,
                 GAMAdUnitID: String,
                 rootViewController: UIViewController,
-                adTypes: [GADAdLoaderAdType]) {
+                adTypes: [AdLoaderAdType]) {
         
         setupNativeAdUnit(configId: configID)
         self.rootController = rootViewController
         
-        adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
-            guard let self = self else {
-                return
-            }
-            
-            guard result == .prebidDemandFetchSuccess else {
-                return
-            }
-            
-            let dfpRequest = GAMRequest()
-            GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: kvResultDict ?? [:])
-            self.adLoader = GADAdLoader(adUnitID: GAMAdUnitID,
-                                        rootViewController: rootViewController,
-                                        adTypes: adTypes,
-                                        options: [])
+        adUnit?.fetchDemand(
+            completion: {
+                [weak self] result,
+                kvResultDict in
+                guard let self = self else {
+                    return
+                }
+                
+                guard result == .prebidDemandFetchSuccess else {
+                    return
+                }
+                
+                let dfpRequest = AdManagerRequest()
+                GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: kvResultDict ?? [:])
+                self.adLoader = AdLoader(
+                    adUnitID: GAMAdUnitID,
+                    rootViewController: rootViewController,
+                    adTypes: adTypes,
+                    options: []
+                )
             self.adLoader?.delegate = self
             self.adLoader?.load(dfpRequest)
         })
@@ -77,13 +82,16 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     }
 }
 
-extension FeedGAMAdTableViewCell: GADCustomNativeAdLoaderDelegate {
-    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
+extension FeedGAMAdTableViewCell: CustomNativeAdLoaderDelegate {
+    
+    func customNativeAdFormatIDs(for adLoader: AdLoader) -> [String] {
         return gamCustomTemplateIDs
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive
-                    nativeCustomTemplateAd: GADCustomNativeAd) {
+    func adLoader(
+        _ adLoader: AdLoader,
+        didReceive nativeCustomTemplateAd: CustomNativeAd
+    ) {
         customTemplateAd = nil
         
         let result = GAMUtils.shared.findCustomNativeAd(for: nativeCustomTemplateAd)
@@ -106,28 +114,31 @@ extension FeedGAMAdTableViewCell: GADCustomNativeAdLoaderDelegate {
         }
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
-    }
+    func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {}
     
     private func setupBanner() {
         guard let bannerView = self.bannerView else {
             return
         }
         
-        self.nativeAdViewBox.embedIntoView(self.bannerView)
+        nativeAdViewBox.embedIntoView(self.bannerView)
         let bannerConstraints = bannerView.constraints
         bannerView.removeConstraint(bannerConstraints.first { $0.firstAttribute == .width }!)
         bannerView.removeConstraint(bannerConstraints.first { $0.firstAttribute == .height }!)
         if let bannerParent = bannerView.superview {
-            bannerParent.addConstraints([
-                NSLayoutConstraint(item: bannerView,
-                                   attribute: .width,
-                                   relatedBy: .lessThanOrEqual,
-                                   toItem: bannerParent,
-                                   attribute: .width,
-                                   multiplier: 1,
-                                   constant: -10),
-            ])
+            bannerParent.addConstraints(
+                [
+                    NSLayoutConstraint(
+                        item: bannerView,
+                        attribute: .width,
+                        relatedBy: .lessThanOrEqual,
+                        toItem: bannerParent,
+                        attribute: .width,
+                        multiplier: 1,
+                        constant: -10
+                    ),
+                ]
+            )
         }
     }
 }

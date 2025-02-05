@@ -20,8 +20,9 @@ import GoogleMobileAds
 fileprivate let storedImpVideoInterstitial = "prebid-demo-video-interstitial-320-480-original-api"
 fileprivate let gamAdUnitVideoInterstitialOriginal = "/21808260008/prebid-demo-app-original-api-video-interstitial"
 
-class GAMOriginalAPIVideoInterstitialViewController: InterstitialBaseViewController,
-                                                     FullScreenContentDelegate {
+class GAMOriginalAPIVideoInterstitialViewController:
+    InterstitialBaseViewController,
+    FullScreenContentDelegate {
     
     // Prebid
     private var adUnit: InterstitialAdUnit!
