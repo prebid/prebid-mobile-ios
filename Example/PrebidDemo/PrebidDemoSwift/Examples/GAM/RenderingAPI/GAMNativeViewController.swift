@@ -21,11 +21,11 @@ import PrebidMobileGAMEventHandlers
 fileprivate let nativeStoredImpression = "prebid-demo-banner-native-styles"
 fileprivate let gamRenderingNativeAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
 
-class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoaderDelegate {
+class GAMNativeViewController: NativeBaseViewController, CustomNativeAdLoaderDelegate {
     
     // Prebid
     private var nativeUnit: NativeRequest!
-    private weak var nativeAd: NativeAd?
+    private weak var nativeAd: PrebidMobile.NativeAd?
     
     private var nativeRequestAssets: [NativeAsset] {
         let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
@@ -47,7 +47,7 @@ class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoader
     }
     
     // GAM
-    private var adLoader: GADAdLoader?
+    private var adLoader: AdLoader?
     
     override func loadView() {
         super.loadView()
@@ -68,12 +68,17 @@ class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoader
         // 3. Make a bid request to Prebid Server
         nativeUnit.fetchDemand { result, kvResultDict in
             // 4. Prepare GAM request
-            let gamRequest = GAMRequest()
+            let gamRequest = AdManagerRequest()
             GAMUtils.shared.prepareRequest(gamRequest, bidTargeting: kvResultDict ?? [:])
             
             // 5. Load the native ad
-            self.adLoader = GADAdLoader(adUnitID: gamRenderingNativeAdUnitId, rootViewController: self,
-                                        adTypes: [.customNative], options: []) 
+            self.adLoader = AdLoader(
+                adUnitID: gamRenderingNativeAdUnitId,
+                rootViewController: self,
+                adTypes: [.customNative],
+                options: []
+            )
+            
             self.adLoader?.delegate = self
             self.adLoader?.load(gamRequest)
         }
@@ -81,11 +86,11 @@ class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoader
     
     // MARK: - GADCustomNativeAdLoaderDelegate
     
-    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
+    func customNativeAdFormatIDs(for adLoader: AdLoader) -> [String] {
         return ["11934135"]
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
+    func adLoader(_ adLoader: AdLoader, didReceive customNativeAd: CustomNativeAd) {
         let result = GAMUtils.shared.findCustomNativeAd(for: customNativeAd)
         
         switch result {
@@ -147,7 +152,7 @@ class GAMNativeViewController: NativeBaseViewController, GADCustomNativeAdLoader
         }
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+    func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
         PrebidDemoLogger.shared.error("GAD ad loader did fail to receive ad with error: \(error.localizedDescription)")
     }
 }

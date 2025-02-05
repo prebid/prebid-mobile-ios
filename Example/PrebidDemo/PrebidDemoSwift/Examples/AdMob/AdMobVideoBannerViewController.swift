@@ -21,14 +21,15 @@ import PrebidMobileAdMobAdapters
 fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream"
 fileprivate let adMobAdUnitDisplayBannerRendering = "ca-app-pub-5922967660082475/9483570409"
 
-class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
+class AdMobVideoBannerViewController: BannerBaseViewController,
+                                      GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var prebidAdMobMediaitonAdUnit: MediationBannerAdUnit!
     private var mediationDelegate: AdMobMediationBannerUtils!
     
     // AdMob
-    private var gadBanner: GADBannerView!
+    private var gadBanner: GoogleMobileAds.BannerView!
     
     override func loadView() {
         super.loadView()
@@ -37,11 +38,11 @@ class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDel
     }
     
     func createAd() {
-        // 1. Create a GADRequest
-        let gadRequest = GADRequest()
+        // 1. Create a Request
+        let gadRequest = Request()
         
-        // 2. Create a GADBannerView
-        gadBanner = GADBannerView(adSize: GADAdSizeFromCGSize(adSize))
+        // 2. Create a BannerView
+        gadBanner = GoogleMobileAds.BannerView(adSize: adSizeFor(cgSize: adSize))
         gadBanner.adUnitID = adMobAdUnitDisplayBannerRendering
         gadBanner.delegate = self
         gadBanner.rootViewController = self
@@ -54,7 +55,11 @@ class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDel
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
         
         // 4. Create a MediationBannerAdUnit
-        prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: adSize, mediationDelegate: mediationDelegate)
+        prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(
+            configID: storedImpVideoBanner,
+            size: adSize,
+            mediationDelegate: mediationDelegate
+        )
         
         // 5. Set ad format
         prebidAdMobMediaitonAdUnit.adFormat = .video
@@ -69,16 +74,19 @@ class AdMobVideoBannerViewController: BannerBaseViewController, GADBannerViewDel
     
     // MARK: - GADBannerViewDelegate
     
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
-            guard let bannerView = bannerView as? GAMBannerView else { return }
-            bannerView.resize(GADAdSizeFromCGSize(size))
+            guard let bannerView = bannerView as? AdManagerBannerView else { return }
+            bannerView.resize(adSizeFor(cgSize: size))
         }, failure: { (error) in
             PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
         })
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(
+        _ bannerView: GoogleMobileAds.BannerView,
+        didFailToReceiveAdWithError error: Error
+    ) {
         PrebidDemoLogger.shared.error("AdMob did fail to receive ad with error: \(error.localizedDescription)")
     }
 }

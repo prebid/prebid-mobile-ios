@@ -20,13 +20,14 @@ import GoogleMobileAds
 fileprivate let storedImpDisplayInterstitial = "prebid-demo-display-interstitial-320-480"
 fileprivate let gamAdUnitDisplayInterstitialOriginal = "/21808260008/prebid-demo-app-original-api-display-interstitial"
 
-class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
+class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewController,
+                                                       FullScreenContentDelegate {
     
     // Prebid
     private var adUnit: InterstitialAdUnit!
     
     // GAM
-    private var gamInterstitial: GAMInterstitialAd!
+    private var gamInterstitial: AdManagerInterstitialAd!
     
     override func loadView() {
         super.loadView()
@@ -36,15 +37,22 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
     
     func createAd() {
         // 1. Create an InterstitialAdUnit
-        adUnit = InterstitialAdUnit(configId: storedImpDisplayInterstitial, minWidthPerc: 60, minHeightPerc: 70)
+        adUnit = InterstitialAdUnit(
+            configId: storedImpDisplayInterstitial,
+            minWidthPerc: 60,
+            minHeightPerc: 70
+        )
         
         // 2. Make a bid request to Prebid Server
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
             // 3. Load a GAM interstitial ad
-            GAMInterstitialAd.load(withAdManagerAdUnitID: gamAdUnitDisplayInterstitialOriginal, request: gamRequest) { ad, error in
+            AdManagerInterstitialAd.load(
+                with: gamAdUnitDisplayInterstitialOriginal,
+                request: gamRequest
+            ) { ad, error in
                 guard let self = self else { return }
                 
                 if let error = error {
@@ -52,7 +60,7 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
                 } else if let ad = ad {
                     // 4. Present the interstitial ad
                     ad.fullScreenContentDelegate = self
-                    ad.present(fromRootViewController: self)
+                    ad.present(from: self)
                 }
             }
         }
@@ -60,7 +68,7 @@ class GAMOriginalAPIDisplayInterstitialViewController: InterstitialBaseViewContr
     
     // MARK: - GADFullScreenContentDelegate
     
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         PrebidDemoLogger.shared.error("Failed to present interstitial ad with error: \(error.localizedDescription)")
     }
 }

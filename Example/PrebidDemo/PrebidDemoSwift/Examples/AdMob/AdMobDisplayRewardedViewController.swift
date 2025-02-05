@@ -21,14 +21,15 @@ import PrebidMobileAdMobAdapters
 fileprivate let storedImpDisplayRewarded = "prebid-demo-banner-rewarded-time"
 fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/5628505938"
 
-class AdMobDisplayRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
+class AdMobDisplayRewardedViewController: InterstitialBaseViewController,
+                                          FullScreenContentDelegate {
     
     // Prebid
     private var mediationDelegate: AdMobMediationRewardedUtils!
     private var admobRewardedAdUnit: MediationRewardedAdUnit!
     
     // AdMob
-    private var gadRewardedAd: GADRewardedAd?
+    private var gadRewardedAd: RewardedAd?
     
     override func loadView() {
         super.loadView()
@@ -37,8 +38,8 @@ class AdMobDisplayRewardedViewController: InterstitialBaseViewController, GADFul
     }
     
     func createAd() {
-        // 1. Create a GADRequest
-        let request = GADRequest()
+        // 1. Create a Request
+        let request = Request()
         
         // 2. Create an AdMobMediationRewardedUtils
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
@@ -55,7 +56,7 @@ class AdMobDisplayRewardedViewController: InterstitialBaseViewController, GADFul
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
             
             // 5. Load the rewarded ad
-            GADRewardedAd.load(withAdUnitID: adMobAdUnitRewardedId, request: request) { [weak self] ad, error in
+            RewardedAd.load(with: adMobAdUnitRewardedId, request: request) { [weak self] ad, error in
                 guard let self = self else { return }
                 
                 if let error = error {
@@ -67,7 +68,7 @@ class AdMobDisplayRewardedViewController: InterstitialBaseViewController, GADFul
                 self.gadRewardedAd = ad
                 self.gadRewardedAd?.fullScreenContentDelegate = self
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-                    self.gadRewardedAd?.present(fromRootViewController: self, userDidEarnRewardHandler: {
+                    self.gadRewardedAd?.present(from: self, userDidEarnRewardHandler: {
                         print("User did earn reward.")
                     })
                 }
@@ -77,7 +78,7 @@ class AdMobDisplayRewardedViewController: InterstitialBaseViewController, GADFul
     
     // MARK: - GADFullScreenContentDelegate
     
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         PrebidDemoLogger.shared.error("AdMob did fail to receive ad with error: \(error.localizedDescription)")
     }
 }

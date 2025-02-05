@@ -26,19 +26,24 @@ import PrebidMobileMAXAdapters
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         // ===== INIT: Prebid
         if CommandLine.arguments.contains("-uiTesting") {
             UIApplication.shared.getKeyWindow()?.layer.speed = 2
             UIView.setAnimationsEnabled(false)
         }
+        
         // Set account id and custom Prebid server URL
         Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
         
         // Initialize Prebid SDK
-        Prebid.initializeSDK(gadMobileAdsVersion: GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)) { status, error in
+        Prebid.initializeSDK(
+            gadMobileAdsVersion: string(for: MobileAds.shared.versionNumber)
+        ) { status, error in
             if let error = error {
                 print("Initialization Error: \(error.localizedDescription)")
                 return
@@ -52,8 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // ===== INIT: Ad Server SDK
         
         // Initialize GoogleMobileAds SDK
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ GADSimulatorID, "fa7ff8af558fb08a04c94453647e54a1"]
-        GADMobileAds.sharedInstance().start()
+        MobileAds.shared.start()
 
         AdMobUtils.initializeGAD()
         GAMUtils.shared.initializeGAM()
@@ -62,8 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ALSdk.shared().mediationProvider = ALMediationProviderMAX
         ALSdk.shared().userIdentifier = "USER_ID"
         ALSdk.shared().initializeSdk()
-        
-        
         
         return true
     }

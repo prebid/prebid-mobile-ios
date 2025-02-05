@@ -20,7 +20,8 @@ import GoogleMobileAds
 fileprivate let storedPrebidImpressions = ["prebid-demo-banner-300-250", "prebid-demo-video-outstream-original-api", "prebid-demo-banner-native-styles"]
 fileprivate let gamRenderingMultiformatAdUnitId = "/21808260008/prebid-demo-multiformat-native-styles"
 
-class GAMOriginalAPIMultiformatNativeStylesViewController: BannerBaseViewController, GADBannerViewDelegate {
+class GAMOriginalAPIMultiformatNativeStylesViewController: BannerBaseViewController,
+                                                           GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var adUnit: PrebidAdUnit!
@@ -46,7 +47,7 @@ class GAMOriginalAPIMultiformatNativeStylesViewController: BannerBaseViewControl
     }
     
     // GAM
-    private var gamBannerView: GAMBannerView!
+    private var gamBannerView: AdManagerBannerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,11 +80,15 @@ class GAMOriginalAPIMultiformatNativeStylesViewController: BannerBaseViewControl
         nativeParameters.eventtrackers = eventTrackers
         
         // 3. Configure the PrebidRequest
-        let prebidRequest = PrebidRequest(bannerParameters: bannerParameters, videoParameters: videoParameters, nativeParameters: nativeParameters)
+        let prebidRequest = PrebidRequest(
+            bannerParameters: bannerParameters,
+            videoParameters: videoParameters,
+            nativeParameters: nativeParameters
+        )
         
-        // 4. Create a GAMBannerView
-        gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
-        gamBannerView.validAdSizes = [NSValueFromGADAdSize(GADAdSizeFluid), NSValueFromGADAdSize(GADAdSizeBanner), NSValueFromGADAdSize(GADAdSizeMediumRectangle)]
+        // 4. Create a AdManagerBannerView
+        gamBannerView = AdManagerBannerView(adSize: AdSizeFluid)
+        gamBannerView.validAdSizes = [nsValue(for: AdSizeFluid), nsValue(for: AdSizeBanner), nsValue(for: AdSizeMediumRectangle)]
         gamBannerView.adUnitID = gamRenderingMultiformatAdUnitId
         gamBannerView.rootViewController = self
         gamBannerView.delegate = self
@@ -92,7 +97,7 @@ class GAMOriginalAPIMultiformatNativeStylesViewController: BannerBaseViewControl
         bannerView.addSubview(gamBannerView)
         
         // 5. Make a bid request
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         adUnit.fetchDemand(adObject: gamRequest, request: prebidRequest) { [weak self] _ in
             guard let self = self else { return }
             
@@ -103,23 +108,30 @@ class GAMOriginalAPIMultiformatNativeStylesViewController: BannerBaseViewControl
     
     // MARK: - GADBannerViewDelegate
     
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         self.bannerView.backgroundColor = .clear
         
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
-            guard let bannerView = bannerView as? GAMBannerView else { return }
-            bannerView.resize(GADAdSizeFromCGSize(size))
+            guard let bannerView = bannerView as? AdManagerBannerView else { return }
+            bannerView.resize(adSizeFor(cgSize: size))
         }, failure: { error in
             PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
         })
         
-        let centerConstraint = NSLayoutConstraint(item: bannerView, attribute: .centerX, relatedBy: .equal,
-                                                  toItem: self.bannerView, attribute: .centerX, multiplier: 1, constant: 0)
+        let centerConstraint = NSLayoutConstraint(
+            item: bannerView,
+            attribute: .centerX,
+            relatedBy: .equal,
+            toItem: self.bannerView,
+            attribute: .centerX,
+            multiplier: 1,
+            constant: 0
+        )
                                
         view.addConstraint(centerConstraint)
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(_ bannerView: GoogleMobileAds.BannerView, didFailToReceiveAdWithError error: Error) {
         PrebidDemoLogger.shared.error("GAM did fail to receive ad with error: \(error)")
     }
 }

@@ -21,13 +21,10 @@ import PrebidMobileGAMEventHandlers
 fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream"
 fileprivate let gamAdUnitVideoBannerRendering = "/21808260008/prebid_oxb_300x250_banner"
 
-class GAMVideoBannerViewController: BannerBaseViewController, BannerViewDelegate {
+class GAMVideoBannerViewController: BannerBaseViewController, PrebidMobile.BannerViewDelegate {
     
     // Prebid
-    private var prebidBannerView: BannerView!
-    
-    // GAM
-    private var gamBanner: GAMBannerView!
+    private var prebidBannerView: PrebidMobile.BannerView!
     
     override func loadView() {
         super.loadView()
@@ -37,9 +34,18 @@ class GAMVideoBannerViewController: BannerBaseViewController, BannerViewDelegate
     
     func createAd() {
         // 1. Create a GAMBannerEventHandler
-        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [GADAdSizeMediumRectangle].map(NSValueFromGADAdSize))
+        let eventHandler = GAMBannerEventHandler(
+            adUnitID: gamAdUnitVideoBannerRendering,
+            validGADAdSizes: [AdSizeMediumRectangle].map(nsValue)
+        )
+        
         // 2. Create a BannerView
-        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize), configID: storedImpVideoBanner, adSize: adSize, eventHandler: eventHandler)
+        prebidBannerView = BannerView(
+            frame: CGRect(origin: .zero, size: adSize),
+            configID: storedImpVideoBanner,
+            adSize: adSize,
+            eventHandler: eventHandler
+        )
         
         // 3. Configure the BannerView
         prebidBannerView.adFormat = .video
@@ -60,7 +66,7 @@ class GAMVideoBannerViewController: BannerBaseViewController, BannerViewDelegate
         self
     }
     
-    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
+    func bannerView(_ bannerView: PrebidMobile.BannerView, didFailToReceiveAdWith error: Error) {
         PrebidDemoLogger.shared.error("Banner view did fail to receive ad with error: \(error)")
     }
 }
