@@ -21,13 +21,10 @@ import PrebidMobileGAMEventHandlers
 fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50"
 fileprivate let gamAdUnitDisplayBannerRendering = "/21808260008/prebid_oxb_320x50_banner"
 
-class GAMDisplayBannerViewController: BannerBaseViewController, BannerViewDelegate {
+class GAMDisplayBannerViewController: BannerBaseViewController, PrebidMobile.BannerViewDelegate {
     
     // Prebid
-    private var prebidBannerView: BannerView!
-    
-    // GAM
-    private var gamBanner: GAMBannerView!
+    private var prebidBannerView: PrebidMobile.BannerView!
     
     override func loadView() {
         super.loadView()
@@ -37,10 +34,19 @@ class GAMDisplayBannerViewController: BannerBaseViewController, BannerViewDelega
     
     func createAd() {
         // 1. Create a GAMBannerEventHandler
-        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitDisplayBannerRendering, validGADAdSizes: [GADAdSizeBanner].map(NSValueFromGADAdSize))
+        let eventHandler = GAMBannerEventHandler(
+            adUnitID: gamAdUnitDisplayBannerRendering,
+            validGADAdSizes: [AdSizeBanner].map(nsValue)
+        )
         
         // 2. Create a BannerView
-        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize), configID: storedImpDisplayBanner, adSize: adSize, eventHandler: eventHandler)
+        prebidBannerView = BannerView(
+            frame: CGRect(origin: .zero, size: adSize),
+            configID: storedImpDisplayBanner,
+            adSize: adSize,
+            eventHandler: eventHandler
+        )
+        
         prebidBannerView.delegate = self
         
         // Add Prebid banner view to the app UI
@@ -56,7 +62,7 @@ class GAMDisplayBannerViewController: BannerBaseViewController, BannerViewDelega
         self
     }
     
-    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
+    func bannerView(_ bannerView: PrebidMobile.BannerView, didFailToReceiveAdWith error: Error) {
         PrebidDemoLogger.shared.error("Banner view did fail to receive ad with error: \(error)")
     }
 }
