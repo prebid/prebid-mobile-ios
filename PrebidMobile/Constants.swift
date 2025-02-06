@@ -35,6 +35,8 @@ extension String {
     static let GAD_N_Object_Name = "GADNRequest"
     
     static let GAM_Object_Name = "GAMRequest"
+    
+    static let GAD_Object_Custom_Native_Name = "GADCustomNativeAd"
 
     static let MoPub_Object_Name = "MPAdView"
 

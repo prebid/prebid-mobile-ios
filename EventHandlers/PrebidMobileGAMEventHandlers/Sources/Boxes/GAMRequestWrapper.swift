@@ -60,11 +60,11 @@ class GAMRequestWrapper {
             return false;
         }
         
-        let testClass = GoogleMobileAds.Request.self
+        let testClass = AdManagerRequest.self
         
         let selectors = [
-            #selector(getter: GoogleMobileAds.Request.customTargeting),
-            #selector(setter: GoogleMobileAds.Request.customTargeting),
+            #selector(getter: AdManagerRequest.customTargeting),
+            #selector(setter: AdManagerRequest.customTargeting),
         ]
         
         for selector in selectors {

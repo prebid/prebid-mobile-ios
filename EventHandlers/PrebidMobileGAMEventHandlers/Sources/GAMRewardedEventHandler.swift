@@ -47,7 +47,7 @@ public class GAMRewardedAdEventHandler :
     
     // MARK: - GADAdMetadataDelegate
     
-    public func adMetadataDidChange(_ ad: AdMetadataProvider) {
+    public func adMetadataDidChange(_ ad: GoogleMobileAds.AdMetadataProvider) {
         let metadata = ad.adMetadata?[GADAdMetadataKey(rawValue: "AdTitle")] as? String
         if requestRewarded?.rewardedAd === ad && metadata == Constants.appEventValue {
             appEventDetected()

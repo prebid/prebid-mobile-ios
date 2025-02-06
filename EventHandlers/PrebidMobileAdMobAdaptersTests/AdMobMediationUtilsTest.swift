@@ -23,13 +23,13 @@ import PrebidMobile
 class AdMobMediationUtilsTest: XCTestCase {
     
     func testCorrectBannerAdObjectSetUp() {
-        let gadRequest = Request()
+        let gadRequest = GoogleMobileAds.Request()
         let testInitialKeywords = ["existingKey:existingValue"]
         
         gadRequest.keywords = testInitialKeywords
         let mediationDelegate = AdMobMediationBannerUtils(
             gadRequest: gadRequest,
-            bannerView: BannerView()
+            bannerView: GoogleMobileAds.BannerView()
         )
         
         let mediationValues: [String: Any] = [
@@ -53,7 +53,7 @@ class AdMobMediationUtilsTest: XCTestCase {
     }
     
     func testCorrectInterstitialAdObjectSetUp() {
-        let gadRequest = Request()
+        let gadRequest = GoogleMobileAds.Request()
         let testInitialKeywords = ["existingKey:existingValue"]
         
         gadRequest.keywords = testInitialKeywords
@@ -80,7 +80,7 @@ class AdMobMediationUtilsTest: XCTestCase {
     }
     
     func testCorrectRewardedAdObjectSetUp() {
-        let gadRequest = Request()
+        let gadRequest = GoogleMobileAds.Request()
         let testInitialKeywords = ["existingKey:existingValue"]
         
         gadRequest.keywords = testInitialKeywords
@@ -106,7 +106,7 @@ class AdMobMediationUtilsTest: XCTestCase {
     }
     
     func testCorrectNativeAdObjectSetUp() {
-        let gadRequest = Request()
+        let gadRequest = GoogleMobileAds.Request()
         let testInitialKeywords = ["existingKey:existingValue"]
         
         gadRequest.keywords = testInitialKeywords
