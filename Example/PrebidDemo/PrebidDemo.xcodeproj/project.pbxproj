@@ -86,6 +86,7 @@
 		53514CB02CFFAB6700A480C0 /* SampleInterstitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CAF2CFFAB6700A480C0 /* SampleInterstitialController.m */; };
 		53514CB32CFFAD5E00A480C0 /* UIApplication+TopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CB22CFFAD5E00A480C0 /* UIApplication+TopViewController.m */; };
 		53514CB92CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53514CB82CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.m */; };
+		536937682D537A8F00AA6D08 /* GMAApiAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536937672D537A8F00AA6D08 /* GMAApiAvailabilityTests.swift */; };
 		539928BF292534EB0078053C /* IntegrationCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 539928BE292534EA0078053C /* IntegrationCase.m */; };
 		539928C2292535B70078053C /* AdFormatDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 539928C1292535B70078053C /* AdFormatDescriptor.m */; };
 		539928C92925379C0078053C /* IntegrationKindDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 539928C82925379C0078053C /* IntegrationKindDescriptor.m */; };
@@ -322,6 +323,7 @@
 		53514CB72CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InAppDisplayInterstitialPluginRendererViewController.h; sourceTree = "<group>"; };
 		53514CB82CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InAppDisplayInterstitialPluginRendererViewController.m; sourceTree = "<group>"; };
 		5354C0C62923E99800DB25EA /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		536937672D537A8F00AA6D08 /* GMAApiAvailabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMAApiAvailabilityTests.swift; sourceTree = "<group>"; };
 		539928BD292534BB0078053C /* IntegrationCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegrationCase.h; sourceTree = "<group>"; };
 		539928BE292534EA0078053C /* IntegrationCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegrationCase.m; sourceTree = "<group>"; };
 		539928C0292535100078053C /* AdFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdFormat.h; sourceTree = "<group>"; };
@@ -1226,6 +1228,7 @@
 				FA12E4EA231EB52D00CAA05B /* Info.plist */,
 				FA12E4E0231EB4BB00CAA05B /* Constants.swift */,
 				533E0FBD29111B36000CC24F /* PrebidGMASDKTests.swift */,
+				536937672D537A8F00AA6D08 /* GMAApiAvailabilityTests.swift */,
 				533E0FC129111B64000CC24F /* Helpers */,
 				533E0FC029111B46000CC24F /* Extensions */,
 			);
@@ -1708,6 +1711,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				536937682D537A8F00AA6D08 /* GMAApiAvailabilityTests.swift in Sources */,
 				533E0FBE29111B36000CC24F /* PrebidGMASDKTests.swift in Sources */,
 				FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */,
 				9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */,

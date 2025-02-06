@@ -135,7 +135,7 @@ public class GAMInterstitialEventHandler :
     }
     
     public func adView(
-        _ interstitialAd: InterstitialAd,
+        _ interstitialAd: GoogleMobileAds.InterstitialAd,
         didReceiveAppEvent name: String,
         with info: String?
     ) {
