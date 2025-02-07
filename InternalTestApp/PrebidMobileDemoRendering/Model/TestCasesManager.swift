@@ -867,6 +867,7 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
+                Targeting.shared.supportSKOverlay = true
                          
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "prebid-ita-banner-320-50-skadn-skoverlay"
@@ -1162,6 +1163,7 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
+                Targeting.shared.supportSKOverlay = true
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.banner]
@@ -1453,6 +1455,9 @@ struct TestCaseManager {
                     return
                 }
                          
+                Targeting.shared.sourceapp = "InternalTestApp"
+                Targeting.shared.supportSKOverlay = true
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "prebid-demo-video-interstitial-320-480-end-card-skadn-skoverlay"
                 interstitialController.adFormats = [.video]
@@ -1641,7 +1646,8 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
-                Targeting.shared.skOverlay = true
+                Targeting.shared.supportSKOverlay = true
+                         
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "prebid-demo-video-interstitial-320-480-skadn-skoverlay"
                 interstitialController.adFormats = [.video]
