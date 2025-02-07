@@ -91,7 +91,11 @@
         for (PBMORTBImp *imp in bidRequest.imp) {
             imp.extSkadn.sourceapp = [sourceapp copy];
             imp.extSkadn.skadnetids = skadnetids;
-            imp.extSkadn.skoverlay = [[NSNumber alloc] initWithBool: _targeting.skOverlay];
+            
+            BOOL supportSKOverlay = self.targeting.supportSKOverlay;
+            if (supportSKOverlay) {
+                imp.extSkadn.skoverlay = @1;
+            }
         }
     }
 }
