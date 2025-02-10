@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00334CA82D55EFED00770E4C /* PrebidMobilePRTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 00334CA72D55EFED00770E4C /* PrebidMobilePRTests.xctestplan */; };
 		2A9DDDCC2C5BE190000EA4A0 /* PrebidEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */; };
 		2A9DDDD42C63665A000EA4A0 /* PBMEventDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */; };
 		2A9DDDD82C63A88C000EA4A0 /* PrebidEventDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */; };
@@ -906,6 +907,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00334CA62D55EFB600770E4C /* PrebidMobileTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PrebidMobileTests.xctestplan; sourceTree = "<group>"; };
+		00334CA72D55EFED00770E4C /* PrebidMobilePRTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PrebidMobilePRTests.xctestplan; sourceTree = "<group>"; };
 		2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegate.swift; sourceTree = "<group>"; };
 		2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMEventDelegateHelper.swift; sourceTree = "<group>"; };
 		2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegateTests.swift; sourceTree = "<group>"; };
@@ -3440,6 +3443,8 @@
 		FAEE4D8C262DC8CD00AD9966 /* PrebidMobileTests */ = {
 			isa = PBXGroup;
 			children = (
+				00334CA72D55EFED00770E4C /* PrebidMobilePRTests.xctestplan */,
+				00334CA62D55EFB600770E4C /* PrebidMobileTests.xctestplan */,
 				60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */,
 				FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */,
 				9720387A235876F000F8025A /* NativeUnitTests */,
@@ -3838,6 +3843,7 @@
 				47D9AB0605423AD7ECF35D8F /* ACJEmptyChain.json in Resources */,
 				47D9AA4DBFA29A201C656487 /* 320x50.jpg in Resources */,
 				47D9AFCC0A845432C0CC1CD9 /* vast_om_verification_from_extension.xml in Resources */,
+				00334CA82D55EFED00770E4C /* PrebidMobilePRTests.xctestplan in Resources */,
 				47D9A9F4D3C7F1A2A1CA8315 /* vast_om_verification_one_inline_ad.xml in Resources */,
 				47D9A9AD524C2CDF5386FB65 /* VAST_Empty_Inline.xml in Resources */,
 				47D9A9E76C1B8F455B09F389 /* document_with_one_inline_ad.xml in Resources */,

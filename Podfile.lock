@@ -16,6 +16,7 @@ DEPENDENCIES:
   - AppLovinSDK
   - Eureka
   - Google-Mobile-Ads-SDK
+  - Google-Mobile-Ads-SDK (<= 11.13.0)
   - GoogleAds-IMA-iOS-SDK
   - RxSwift
   - SVProgressHUD
@@ -41,6 +42,6 @@ SPEC CHECKSUMS:
   RxSwift: 4e28be97cbcfeee614af26d83415febbf2bf6f45
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
 
-PODFILE CHECKSUM: bae4436ed691a1d2217fde386d8881d6e7e06963
+PODFILE CHECKSUM: df50580a1f6c422298edf0513ce00e759ea4668a
 
 COCOAPODS: 1.16.2
