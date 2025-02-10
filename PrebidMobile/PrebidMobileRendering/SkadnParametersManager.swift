@@ -99,12 +99,6 @@ public class SkadnParametersManager: NSObject {
                 productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
                 productParams[SKStoreProductParameterAdNetworkNonce] = nonce
                 productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
-                if let skoverlay = skadnInfo.skoverlay {
-                    productParams["skoverlay_delay"] = skoverlay.delay
-                    productParams["skoverlay_endcarddelay"] = skoverlay.endcarddelay
-                    productParams["skoverlay_dismissable"] = skoverlay.dismissable
-                    productParams["skoverlay_pos"] = skoverlay.pos
-                }
                 
                 return productParams
             }

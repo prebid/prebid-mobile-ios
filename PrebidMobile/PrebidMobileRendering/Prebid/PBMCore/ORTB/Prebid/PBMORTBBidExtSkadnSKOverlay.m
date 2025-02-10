@@ -24,9 +24,10 @@
     if (self = [super init]) {
         _delay = jsonDictionary[@"delay"];
         _endcarddelay = jsonDictionary[@"endcarddelay"];
-        _dismissable = jsonDictionary[@"dismissable"];
+        _dismissible = jsonDictionary[@"dismissible"];
         _pos = jsonDictionary[@"pos"];
     }
+    
     return self;
 }
 
@@ -35,7 +36,7 @@
     
     ret[@"delay"] = self.delay;
     ret[@"endcarddelay"] = self.endcarddelay;
-    ret[@"dismissable"] = self.dismissable;
+    ret[@"dismissible"] = self.dismissible;
     ret[@"pos"] = self.pos;
     
     [ret pbmRemoveEmptyVals];

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Delay before presenting SKOverlay on an endcard in seconds, required for overlay to be shown
 @property (nonatomic, copy, nullable) NSNumber *endcarddelay;
 // Whether overlay can be dismissed by user, 0 = no, 1 = yes
-@property (nonatomic, copy, nullable) NSNumber *dismissable;
+@property (nonatomic, copy, nullable) NSNumber *dismissible;
 // Position of the overlay, 0 = bottom, 1 = bottom raised
 @property (nonatomic, copy, nullable) NSNumber *pos;
 
