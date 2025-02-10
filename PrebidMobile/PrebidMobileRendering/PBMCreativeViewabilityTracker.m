@@ -52,7 +52,9 @@
 
 @implementation PBMCreativeViewabilityTracker
 
-- (instancetype)initWithView:(UIView *)view pollingTimeInterval:(NSTimeInterval)pollingTimeInterval onExposureChange:(PBMViewExposureChangeHandler)onExposureChange {
+- (instancetype)initWithView:(UIView *)view
+         pollingTimeInterval:(NSTimeInterval)pollingTimeInterval
+            onExposureChange:(PBMViewExposureChangeHandler)onExposureChange {
     self = [super init];
     if (self) {
         _checker = [[PBMViewExposureChecker alloc] initWithView:view];

@@ -60,7 +60,12 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
     /// - Parameter minHeightPerc: The minimum height percentage of the ad.
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
         self.init(configId: configId)
-        
         adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
+    }
+    
+    public func activatePrebidImpressionTracker() {
+        if let window = UIWindow.firstKeyWindow {
+            impressionTracker.start(in: window)
+        }
     }
 }

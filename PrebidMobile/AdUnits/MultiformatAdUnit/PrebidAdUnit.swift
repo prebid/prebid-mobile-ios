@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-import Foundation
+import UIKit
 
 /// Multiformat ad unit. Built for original API.
 @objcMembers
@@ -39,19 +39,16 @@ public class PrebidAdUnit: NSObject {
     ///   - adObject: The ad object to fetch demand for.
     ///   - request: The `PrebidRequest` containing the demand request parameters.
     ///   - completion: A closure to be called with the `BidInfo` result.
-    public func fetchDemand(adObject: AnyObject, request: PrebidRequest,
-                            completion: @escaping (BidInfo) -> Void) {
-        guard requestHasParameters(request) else {
-            completion(BidInfo(resultCode: .prebidInvalidRequest))
-            return
-        }
-        
-        config(with: request)
-        adUnit.baseFetchDemand(adObject: adObject) { bidInfo in
-            DispatchQueue.main.async {
-                completion(bidInfo)
-            }
-        }
+    public func fetchDemand(
+        adObject: AnyObject,
+        request: PrebidRequest,
+        completion: @escaping (BidInfo) -> Void
+    ) {
+        baseFetchDemand(
+            adObject: adObject,
+            request: request,
+            completion: completion
+        )
     }
     
     /// Makes bid request for the specified request config.
@@ -59,19 +56,47 @@ public class PrebidAdUnit: NSObject {
     ///   - request: The `PrebidRequest` containing the demand request parameters.
     ///   - completion: A closure to be called with the `BidInfo` result.
     public func fetchDemand(request: PrebidRequest, completion: @escaping (BidInfo) -> Void) {
+        baseFetchDemand(
+            adObject: nil,
+            request: request,
+            completion: completion
+        )
+    }
+    
+    private func baseFetchDemand(
+        adObject: AnyObject?,
+        request: PrebidRequest,
+        completion: @escaping (BidInfo) -> Void
+    ) {
         guard requestHasParameters(request) else {
             completion(BidInfo(resultCode: .prebidInvalidRequest))
             return
         }
         
         config(with: request)
-        adUnit.baseFetchDemand { bidInfo in
+        
+        adUnit.baseFetchDemand(adObject: adObject) { bidInfo in
             DispatchQueue.main.async {
                 completion(bidInfo)
             }
         }
     }
     
+    // MARK: Prebid Impression Tracking
+    
+    /// Sets the view in which Prebid will start tracking an impression and activates the impression tracker.
+    /// - Parameters:
+    ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView). This object will be used later for tracking `burl`.
+    public func activatePrebidAdViewImpressionTracker(adView: UIView) {
+        adUnit.impressionTracker.start(in: adView)
+    }
+    
+    /// Activates interstitial impression tracker.
+    public func activatePrebidInterstitialImpressionTracker() {
+        if let window = UIWindow.firstKeyWindow {
+            adUnit.impressionTracker.start(in: window)
+        }
+    }
     
     // MARK: - Auto refresh API
     

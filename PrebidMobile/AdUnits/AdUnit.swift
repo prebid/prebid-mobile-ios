@@ -45,6 +45,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     private var isInitialFetchDemandCallMade = false
     
     private var adServerObject: AnyObject?
+    
     private var lastFetchDemandCompletion: ((_ bidInfo: BidInfo) -> Void)?
     
     /// notification flag set to check if the prebid response is received within the specified time
@@ -53,6 +54,9 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     private var timeOutSignalSent = false
     
+    private(set) lazy var impressionTracker = PrebidImpressionTracker(
+        isInterstitial: adUnitConfig.adConfiguration.isInterstitialAd
+    )
     
     /// Initializes a new `AdUnit` instance with the specified configuration ID, size, and ad formats.
     ///
@@ -65,8 +69,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
         adUnitConfig.adConfiguration.isOriginalAPI = true
         adUnitConfig.adFormats = adFormats
         
-        bidRequester = PBMBidRequester(connection: PrebidServerConnection.shared, sdkConfiguration: Prebid.shared,
-                                       targeting: Targeting.shared, adUnitConfiguration: adUnitConfig)
+        bidRequester = PBMBidRequester(
+            connection: PrebidServerConnection.shared,
+            sdkConfiguration: Prebid.shared,
+            targeting: Targeting.shared,
+            adUnitConfiguration: adUnitConfig
+        )
         
         super.init()
         
@@ -75,13 +83,19 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     // Internal only!
-    convenience init(bidRequester: PBMBidRequesterProtocol, configId: String, size: CGSize?, adFormats: Set<AdFormat>) {
+    convenience init(
+        bidRequester: PBMBidRequesterProtocol,
+        configId: String,
+        size: CGSize?,
+        adFormats: Set<AdFormat>
+    ) {
         self.init(configId: configId, size: size, adFormats: adFormats)
         self.bidRequester = bidRequester
     }
     
     deinit {
         dispatcher?.invalidate()
+        impressionTracker.stop()
     }
     
     //TODO: dynamic is used by tests
@@ -116,7 +130,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// - Parameters:
     ///   - adObject: The ad object for which demand is being fetched.
     ///   - completion: A closure called with the result code indicating the outcome of the demand fetch.
-    dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
+    dynamic public func fetchDemand(
+        adObject: AnyObject,
+        completion: @escaping(_ result: ResultCode) -> Void
+    ) {
         baseFetchDemand(adObject: adObject) { bidInfo in
             DispatchQueue.main.async {
                 completion(bidInfo.resultCode)
@@ -125,7 +142,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     // SDK internal
-    func baseFetchDemand(adObject: AnyObject? = nil, completion: @escaping (_ bidInfo: BidInfo) -> Void) {
+    func baseFetchDemand(
+        adObject: AnyObject? = nil,
+        completion: @escaping (_ bidInfo: BidInfo) -> Void
+    ) {
         if !(self is NativeRequest) {
             if adSizes.contains(where: { $0.width < 0 || $0.height < 0 }) {
                 completion(BidInfo(resultCode: .prebidInvalidSize))
@@ -179,6 +199,13 @@ public class AdUnit: NSObject, DispatcherDelegate {
                 
                 return
             }
+            
+            let impressionTrackingPayload = PrebidImpressionTrackerPayload(
+                cacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"],
+                trackingURLs: bidResponse.winningBid?.impressionTrackingURLs ?? []
+            )
+            
+            self.impressionTracker.register(payload: impressionTrackingPayload)
             
             if (!self.timeOutSignalSent) {
                 let resultCode = self.setUp(adObject, with: bidResponse)
@@ -533,3 +560,4 @@ public class AdUnit: NSObject, DispatcherDelegate {
         dispatcher.stop()
     }
 }
+

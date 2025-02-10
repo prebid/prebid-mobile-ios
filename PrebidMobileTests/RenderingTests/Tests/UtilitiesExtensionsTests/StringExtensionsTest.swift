@@ -30,4 +30,38 @@ class StringExtensionsTest: XCTestCase {
         
         XCTAssertEqual(str2, encodedStr2)
     }
+    
+    func testRegexMatches() {
+        var result = "aaa aaa".matches(for: "^a")
+        XCTAssert(result.count == 1)
+        XCTAssert(result[0] == "a")
+        
+        result = "aaa aaa".matches(for: "^b")
+        XCTAssert(result.count == 0)
+        
+        result = "^a".matches(for: "aaa aaa")
+        XCTAssert(result.count == 0)
+        
+        result = "{ \n adManagerResponse:\"hb_size\":[\"728x90\"],\"hb_size_rubicon\":[\"1x1\"],moPubResponse:\"hb_size:300x250\" \n }".matches(for: "[0-9]+x[0-9]+")
+        XCTAssert(result.count == 3)
+        XCTAssert(result[0] == "728x90")
+        XCTAssert(result[1] == "1x1")
+        XCTAssert(result[2] == "300x250")
+        
+        result = "{ \n adManagerResponse:\"hb_size\":[\"728x90\"],\"hb_size_rubicon\":[\"1x1\"],moPubResponse:\"hb_size:300x250\" \n }".matches(for: "hb_size\\W+[0-9]+x[0-9]+")
+        
+        XCTAssert(result.count == 2)
+        XCTAssert(result[0] == "hb_size\":[\"728x90")
+        XCTAssert(result[1] == "hb_size:300x250")
+    }
+    
+    func testRegexMatchAndCheck() {
+        var result = "aaa aaa".matchAndCheck(regex: "^a")
+        
+        XCTAssertNotNil(result)
+        XCTAssert(result == "a")
+        
+        result = "aaa aaa".matchAndCheck(regex: "^b")
+        XCTAssertNil(result)
+    }
 }
