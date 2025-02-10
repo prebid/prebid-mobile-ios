@@ -169,11 +169,12 @@
     PBMORTBBidExtSkadn * skadnInfo = self.transaction.skadnInfo;
     
     BOOL showSKOverlay = !self.creativeModel.hasCompanionAd &&
+                         self.creativeModel.adConfiguration.isInterstitialAd &&
                          ((self.creativeModel.isCompanionAd && skadnInfo.skoverlay.endcarddelay != nil) ||
                          (!self.creativeModel.isCompanionAd && skadnInfo.skoverlay.delay != nil));
     
     if (showSKOverlay) {
-        self.skOverlayManager = [[PBMSKOverlayManager alloc] initWith:self.viewControllerForPresentingModals];
+        self.skOverlayManager = [[PBMSKOverlayManager alloc] initWithViewControllerForPresentation:self.viewControllerForPresentingModals];
         [self.skOverlayManager presentSKOverlayWith:skadnInfo isCompanionAd:self.creativeModel.isCompanionAd];
     }
 }

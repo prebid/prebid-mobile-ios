@@ -55,7 +55,6 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     
     deinit {
         Targeting.shared.sourceapp = nil
-        Targeting.shared.supportSKOverlay = false
     }
     
     func configurationController() -> BaseConfigurationController? {

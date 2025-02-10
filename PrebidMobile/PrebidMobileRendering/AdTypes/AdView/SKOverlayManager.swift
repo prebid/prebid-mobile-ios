@@ -22,7 +22,7 @@ public class SKOverlayManager: NSObject {
     private weak var viewControllerForPresentation: UIViewController?
     private weak var windowScene: NSObject?
     
-    public init(with viewControllerForPresentation: UIViewController) {
+    public init(viewControllerForPresentation: UIViewController) {
         self.viewControllerForPresentation = viewControllerForPresentation
         super.init()
     }
