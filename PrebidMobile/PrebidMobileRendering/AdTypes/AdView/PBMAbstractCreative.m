@@ -168,9 +168,9 @@
     
     PBMORTBBidExtSkadn * skadnInfo = self.transaction.skadnInfo;
     
-    BOOL showSKOverlay = skadnInfo.skoverlay.delay &&
-                         skadnInfo.skoverlay.endcarddelay &&
-                         !self.creativeModel.hasCompanionAd;
+    BOOL showSKOverlay = !self.creativeModel.hasCompanionAd &&
+                         ((self.creativeModel.isCompanionAd && skadnInfo.skoverlay.endcarddelay != nil) ||
+                         (!self.creativeModel.isCompanionAd && skadnInfo.skoverlay.delay != nil));
     
     if (showSKOverlay) {
         self.skOverlayManager = [[PBMSKOverlayManager alloc] initWith:self.viewControllerForPresentingModals];
