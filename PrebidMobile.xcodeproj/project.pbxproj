@@ -135,6 +135,8 @@
 		539B0D95282A675E00513501 /* PBMORTBExtPrebidEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 539B0D94282A675E00513501 /* PBMORTBExtPrebidEvents.m */; };
 		539D4C7029B5DDFD00B6B30E /* SafariOpenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539D4C6F29B5DDFD00B6B30E /* SafariOpenerTests.swift */; };
 		539D4C7229B5E23600B6B30E /* MockPBMAbstractCreative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539D4C7129B5E23600B6B30E /* MockPBMAbstractCreative.swift */; };
+		539FB1EA2D5B40D900AFC261 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539FB1E92D5B40D900AFC261 /* UIApplication+Extensions.swift */; };
+		539FB1EC2D5B40FA00AFC261 /* UIWindow+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539FB1EB2D5B40FA00AFC261 /* UIWindow+Extensions.swift */; };
 		53A368E42AB2E0AA00A03B3E /* PrebidAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A368E32AB2E0AA00A03B3E /* PrebidAdUnit.swift */; };
 		53A368E72AB2E31700A03B3E /* PrebidRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A368E62AB2E31700A03B3E /* PrebidRequest.swift */; };
 		53A368E92AB2E38200A03B3E /* BidInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A368E82AB2E38200A03B3E /* BidInfo.swift */; };
@@ -864,7 +866,7 @@
 		FAEE4D24262DC2B200AD9966 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEE4CFB262DC2B200AD9966 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAEE4D25262DC2B200AD9966 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CFC262DC2B200AD9966 /* TrackerInfo.swift */; };
 		FAEE4D26262DC2B200AD9966 /* ExternalUserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CFD262DC2B200AD9966 /* ExternalUserId.swift */; };
-		FAEE4D28262DC2B200AD9966 /* PbFindSizeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D00262DC2B200AD9966 /* PbFindSizeError.swift */; };
+		FAEE4D28262DC2B200AD9966 /* PbWebViewSearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D00262DC2B200AD9966 /* PbWebViewSearchError.swift */; };
 		FAEE4D29262DC2B200AD9966 /* AdViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D01262DC2B200AD9966 /* AdViewUtils.swift */; };
 		FAEE4D2A262DC2B200AD9966 /* IMAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D02262DC2B200AD9966 /* IMAUtils.swift */; };
 		FAEE4D2C262DC2B200AD9966 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D04262DC2B200AD9966 /* Host.swift */; };
@@ -1039,6 +1041,8 @@
 		539B0D94282A675E00513501 /* PBMORTBExtPrebidEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBExtPrebidEvents.m; sourceTree = "<group>"; };
 		539D4C6F29B5DDFD00B6B30E /* SafariOpenerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariOpenerTests.swift; sourceTree = "<group>"; };
 		539D4C7129B5E23600B6B30E /* MockPBMAbstractCreative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMAbstractCreative.swift; sourceTree = "<group>"; };
+		539FB1E92D5B40D900AFC261 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		539FB1EB2D5B40FA00AFC261 /* UIWindow+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extensions.swift"; sourceTree = "<group>"; };
 		53A368E32AB2E0AA00A03B3E /* PrebidAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdUnit.swift; sourceTree = "<group>"; };
 		53A368E62AB2E31700A03B3E /* PrebidRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRequest.swift; sourceTree = "<group>"; };
 		53A368E82AB2E38200A03B3E /* BidInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidInfo.swift; sourceTree = "<group>"; };
@@ -1804,7 +1808,7 @@
 		FAEE4CFB262DC2B200AD9966 /* PrebidMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		FAEE4CFC262DC2B200AD9966 /* TrackerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerInfo.swift; sourceTree = "<group>"; };
 		FAEE4CFD262DC2B200AD9966 /* ExternalUserId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalUserId.swift; sourceTree = "<group>"; };
-		FAEE4D00262DC2B200AD9966 /* PbFindSizeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PbFindSizeError.swift; sourceTree = "<group>"; };
+		FAEE4D00262DC2B200AD9966 /* PbWebViewSearchError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PbWebViewSearchError.swift; sourceTree = "<group>"; };
 		FAEE4D01262DC2B200AD9966 /* AdViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdViewUtils.swift; sourceTree = "<group>"; };
 		FAEE4D02262DC2B200AD9966 /* IMAUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMAUtils.swift; sourceTree = "<group>"; };
 		FAEE4D04262DC2B200AD9966 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
@@ -2101,6 +2105,8 @@
 				535145DE2CCB758800D40B19 /* NSObject+PBMExtensions.h */,
 				535145DF2CCB758800D40B19 /* NSObject+PBMExtensions.m */,
 				53C925012990FB30009E6F94 /* String+Extensions.swift */,
+				539FB1E92D5B40D900AFC261 /* UIApplication+Extensions.swift */,
+				539FB1EB2D5B40FA00AFC261 /* UIWindow+Extensions.swift */,
 			);
 			path = ExtensionsAndWrappers;
 			sourceTree = "<group>";
@@ -3439,7 +3445,7 @@
 		FAEE4CFF262DC2B200AD9966 /* Addendum */ = {
 			isa = PBXGroup;
 			children = (
-				FAEE4D00262DC2B200AD9966 /* PbFindSizeError.swift */,
+				FAEE4D00262DC2B200AD9966 /* PbWebViewSearchError.swift */,
 				FAEE4D01262DC2B200AD9966 /* AdViewUtils.swift */,
 				FAEE4D02262DC2B200AD9966 /* IMAUtils.swift */,
 			);
@@ -4209,7 +4215,7 @@
 				5BC37AC6271F1D0100444D5E /* PBMSKAdNetworksParameterBuilder.m in Sources */,
 				53CF5B3729DC690600613E84 /* VideoAdUnit.swift in Sources */,
 				5BC37A1C271F1D0000444D5E /* PBMErrorFamily.m in Sources */,
-				FAEE4D28262DC2B200AD9966 /* PbFindSizeError.swift in Sources */,
+				FAEE4D28262DC2B200AD9966 /* PbWebViewSearchError.swift in Sources */,
 				5BC37990271F1D0000444D5E /* PBMVideoCreative.m in Sources */,
 				FAEE4D2A262DC2B200AD9966 /* IMAUtils.swift in Sources */,
 				5BC379E0271F1D0000444D5E /* DisplayViewInteractionDelegate.swift in Sources */,
@@ -4218,6 +4224,7 @@
 				9236A64E272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift in Sources */,
 				FAEE4D26262DC2B200AD9966 /* ExternalUserId.swift in Sources */,
 				5BC379A0271F1D0000444D5E /* PBMTouchForwardingView.m in Sources */,
+				539FB1EA2D5B40D900AFC261 /* UIApplication+Extensions.swift in Sources */,
 				534C61202CB5252C0026119A /* PBMORTBRewardedConfiguration.m in Sources */,
 				5BC378D4271F1CFF00444D5E /* PBMORTBDeviceExtAtts.m in Sources */,
 				92C85D6E27A983150080BAC5 /* NativeAdMarkup.swift in Sources */,
@@ -4290,6 +4297,7 @@
 				F91B60AF2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m in Sources */,
 				A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */,
 				5BC37935271F1D0000444D5E /* PBMAdModelEventTracker.m in Sources */,
+				539FB1EC2D5B40FA00AFC261 /* UIWindow+Extensions.swift in Sources */,
 				536A427F282D11DA0069E9B2 /* PrebidServerConnection.swift in Sources */,
 				927ADB2428057B31006EB8D5 /* MediationUtils.swift in Sources */,
 				5BC3791B271F1CFF00444D5E /* PBMFunctions+Testing.m in Sources */,
