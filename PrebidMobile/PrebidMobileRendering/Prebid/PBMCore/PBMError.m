@@ -129,16 +129,6 @@
     }];
 }
 
-+ (NSError *)prebidInvalidAuctionSettingsId {
-    return [NSError errorWithDomain:PrebidRenderingErrorDomain
-                               code:[self errorCode:5
-                                          forFamily:kPBMErrorFamily_KnownServerErrors]
-                           userInfo:@{
-        NSLocalizedDescriptionKey: @"Prebid server does not recognize auction settings Id",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodePrebidInvalidAuctionSettingsId),
-    }];
-}
-
 // MARK: - Unknown server text errors
 
 + (NSError *)serverError:(NSString *)errorBody {

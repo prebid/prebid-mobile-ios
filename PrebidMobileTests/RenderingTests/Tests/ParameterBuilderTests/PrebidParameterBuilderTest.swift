@@ -363,6 +363,29 @@ class PrebidParameterBuilderTest: XCTestCase {
         let requestWithoutSettingsId = buildBidRequest(with: adUnitConfig)
         XCTAssertNil(Prebid.shared.auctionSettingsId)
         XCTAssertEqual(requestWithoutSettingsId.extPrebid.storedRequestID, Prebid.devintAccountID)
+        
+        Prebid.reset()
+        
+        Prebid.shared.prebidServerAccountId = Prebid.devintAccountID
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+        let request = buildBidRequest(with: adUnitConfig)
+        XCTAssertNotNil(Prebid.shared.auctionSettingsId)
+        XCTAssertNotNil(Prebid.shared.prebidServerAccountId)
+        XCTAssertEqual(request.extPrebid.storedRequestID, auctionSettingsId)
+    }
+    
+    func testInvalidAuctionSettingsId() {
+        let auctionSettingsId = ""
+        Prebid.shared.prebidServerAccountId = Prebid.devintAccountID
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: .zero)
+
+        let request = buildBidRequest(with: adUnitConfig)
+        XCTAssertNotNil(Prebid.shared.prebidServerAccountId)
+        XCTAssertNotNil(Prebid.shared.auctionSettingsId)
+        XCTAssertEqual(request.extPrebid.storedRequestID, Prebid.devintAccountID)
     }
     
     func testDefaultCaching() {

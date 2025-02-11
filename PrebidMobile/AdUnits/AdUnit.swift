@@ -147,12 +147,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
             return
         }
         
-        if let auctionSettingsId = Prebid.shared.auctionSettingsId,
-           auctionSettingsId.isEmpty || auctionSettingsId.containsOnly(.whitespaces) {
-            completion(BidInfo(resultCode: .prebidInvalidAuctionSettingsId))
-            return
-        }
-        
         if !isInitialFetchDemandCallMade {
             isInitialFetchDemandCallMade = true
             startDispatcher()
