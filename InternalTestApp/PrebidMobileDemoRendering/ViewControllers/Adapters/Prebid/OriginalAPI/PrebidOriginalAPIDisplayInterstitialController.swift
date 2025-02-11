@@ -29,6 +29,8 @@ class PrebidOriginalAPIDisplayInterstitialController:
     
     var refreshInterval: TimeInterval = 0
     
+    var supportSKOverlay = false
+    
     // Prebid
     private var adUnit: InterstitialAdUnit!
     
@@ -51,6 +53,10 @@ class PrebidOriginalAPIDisplayInterstitialController:
         setupAdapterController()
     }
     
+    deinit {
+        Targeting.shared.sourceapp = nil
+    }
+    
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -60,6 +66,7 @@ class PrebidOriginalAPIDisplayInterstitialController:
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         adUnit = InterstitialAdUnit(configId: prebidConfigId, minWidthPerc: 50, minHeightPerc: 70)
+        adUnit.supportSKOverlay = supportSKOverlay
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
@@ -147,6 +154,11 @@ class PrebidOriginalAPIDisplayInterstitialController:
     @IBAction func showButtonClicked() {
         if let gamInterstitial = gamInterstitial {
             rootController?.showButton.isEnabled = false
+            
+            if supportSKOverlay {
+                adUnit.activateSKOverlayIfAvailable()
+            }
+            
             gamInterstitial.present(fromRootViewController: rootController!)
         }
     }
@@ -175,5 +187,6 @@ class PrebidOriginalAPIDisplayInterstitialController:
     
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
         adDidDismissFullScreenContent.isEnabled = true
+        adUnit.dismissSKOverlayIfAvailable()
     }
 }
