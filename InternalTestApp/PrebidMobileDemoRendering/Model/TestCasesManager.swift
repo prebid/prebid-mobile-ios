@@ -1427,6 +1427,7 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            // NOTE: works only with InternalTestApp-Skadn target
             TestCase(title: "Video Interstitial 320x480 with End Card SKOverlay (In-App) [SKAdN]",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -2083,6 +2084,24 @@ struct TestCaseManager {
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Banner Rewarded Time SKOverlay 320x480 (In-App, SKAdN)",
+                     tags: [.interstitial, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                Targeting.shared.supportSKOverlay = true
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time-skadn-skoverlay"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
             TestCase(title: "Banner Rewarded Event 320x480 (In-App)",
                      tags: [.interstitial, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -2139,7 +2158,8 @@ struct TestCaseManager {
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded Time 320x480 (In-App) [SKAdN]",
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Video Rewarded Time 320x480 (In-App, SKAdN)",
                      tags: [.interstitial, .video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2148,8 +2168,27 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
+                
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-skadn"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Video Rewarded Time 320x480 SKOverlay (In-App, SKAdN)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                Targeting.shared.supportSKOverlay = true
+                
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-skadn-skoverlay"
                 adapterVC.setup(adapter: rewardedAdController)
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
@@ -2206,6 +2245,24 @@ struct TestCaseManager {
                          
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Video Rewarded Endcard Time SKOverlay 320x480 (In-App, SKAdN)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                Targeting.shared.supportSKOverlay = true
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time-skadn-skoverlay"
                 adapterVC.setup(adapter: rewardedAdController)
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),

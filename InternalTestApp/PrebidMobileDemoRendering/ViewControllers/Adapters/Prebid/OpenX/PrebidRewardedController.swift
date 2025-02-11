@@ -45,9 +45,11 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
     
     deinit {
         Targeting.shared.sourceapp = nil
+        Targeting.shared.supportSKOverlay = false
     }
     
     // MARK: - Public Methods
+    
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
