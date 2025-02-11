@@ -143,16 +143,14 @@ public class Bid: NSObject {
 }
 
 extension Bid {
-    
+
     static func bid(from bidString: String) -> Bid? {
         guard let bidDic = Utils.shared.getDictionaryFromString(bidString),
               let rawBid = PBMORTBBid<PBMORTBBidExt>(
                 jsonDictionary: bidDic,
                 extParser: { PBMORTBBidExt(jsonDictionary: $0)}
-              ) else {
-            return nil
-        }
-        
+              ) else { return nil }
+
         return Bid(bid: rawBid)
     }
 }

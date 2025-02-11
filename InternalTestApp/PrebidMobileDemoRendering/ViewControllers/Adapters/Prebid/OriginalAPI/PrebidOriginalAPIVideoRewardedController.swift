@@ -29,6 +29,8 @@ class PrebidOriginalAPIVideoRewardedController:
     
     var refreshInterval: TimeInterval = 0
     
+    var supportSKOverlay = false
+    
     // Prebid
     private var adUnit: RewardedVideoAdUnit!
     
@@ -60,6 +62,7 @@ class PrebidOriginalAPIVideoRewardedController:
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         adUnit = RewardedVideoAdUnit(configId: prebidConfigId)
+        adUnit.supportSKOverlay = supportSKOverlay
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
@@ -147,6 +150,10 @@ class PrebidOriginalAPIVideoRewardedController:
     @IBAction func showButtonClicked() {
         if let gamRewarded = gamRewarded {
             rootController?.showButton.isEnabled = false
+            if supportSKOverlay {
+                adUnit.activateSKOverlayIfAvailable()
+            }
+            
             gamRewarded.present(from: rootController!) {}
         }
     }
@@ -175,6 +182,6 @@ class PrebidOriginalAPIVideoRewardedController:
     
     func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         adDidDismissFullScreenContent.isEnabled = true
+        adUnit.dismissSKOverlayIfAvailable()
     }
 }
-

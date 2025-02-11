@@ -431,6 +431,27 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            TestCase(title: "Display Interstitial 320x480 SKOverlay (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
+                let interstitialController = PrebidOriginalAPIDisplayInterstitialController(rootController: adapterVC)
+                interstitialController.supportSKOverlay = true
+                interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-skadn-skoverlay"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-display-interstitial"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             TestCase(title: "Video Interstitial 320x480 (GAM Original) [OK, PUC]",
                      tags: [.interstitial, .originalAPI, .server, .video],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -466,6 +487,26 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
+            
+            TestCase(title: "Video Rewarded 320x480 SKOverlay (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server, .video],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIVideoRewardedController(rootController: adapterVC)
+                interstitialController.supportSKOverlay = true
+                interstitialController.prebidConfigId = "prebid-demo-video-rewarded-320-480-skoverlay-original-api"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             
             TestCase(title: "Multiformat Interstitial 320x480 (GAM Original) [OK, PUC]",
                      tags: [.multiformat, .originalAPI, .server],

@@ -146,6 +146,8 @@
 		53A0E7E42CDCAF74007887F5 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A0E7E32CDCAF74007887F5 /* UIApplication+Extensions.swift */; };
 		53A0E7E62CDCCB32007887F5 /* InterstitialObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A0E7E52CDCCB32007887F5 /* InterstitialObserver.swift */; };
 		53A0E7E92CDCD00F007887F5 /* UIWindow+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A0E7E82CDCD00F007887F5 /* UIWindow+Extensions.swift */; };
+		539FB1F02D5B4A1A00AFC261 /* SKOverlayInterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539FB1EF2D5B4A1A00AFC261 /* SKOverlayInterstitialManager.swift */; };
+		539FB1F22D5B560A00AFC261 /* InterstitialObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539FB1F12D5B560900AFC261 /* InterstitialObserverTests.swift */; };
 		53A0E7F12CDD40AD007887F5 /* InterstitialImpressionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A0E7F02CDD40AD007887F5 /* InterstitialImpressionTracker.swift */; };
 		53A368E42AB2E0AA00A03B3E /* PrebidAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A368E32AB2E0AA00A03B3E /* PrebidAdUnit.swift */; };
 		53A368E72AB2E31700A03B3E /* PrebidRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A368E62AB2E31700A03B3E /* PrebidRequest.swift */; };
@@ -1064,6 +1066,8 @@
 		53A0E7E32CDCAF74007887F5 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		53A0E7E52CDCCB32007887F5 /* InterstitialObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialObserver.swift; sourceTree = "<group>"; };
 		53A0E7E82CDCD00F007887F5 /* UIWindow+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extensions.swift"; sourceTree = "<group>"; };
+		539FB1EF2D5B4A1A00AFC261 /* SKOverlayInterstitialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKOverlayInterstitialManager.swift; sourceTree = "<group>"; };
+		539FB1F12D5B560900AFC261 /* InterstitialObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialObserverTests.swift; sourceTree = "<group>"; };
 		53A0E7F02CDD40AD007887F5 /* InterstitialImpressionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialImpressionTracker.swift; sourceTree = "<group>"; };
 		53A368E32AB2E0AA00A03B3E /* PrebidAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdUnit.swift; sourceTree = "<group>"; };
 		53A368E62AB2E31700A03B3E /* PrebidRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRequest.swift; sourceTree = "<group>"; };
@@ -2009,6 +2013,8 @@
 				53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */,
 				53842BBB29E565030069A4B7 /* NSString+Extensions.swift */,
 				53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */,
+				539FB1ED2D5B44D100AFC261 /* InterstitialObserver.swift */,
+				539FB1EF2D5B4A1A00AFC261 /* SKOverlayInterstitialManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -4067,6 +4073,7 @@
 				925D5DAD2737C51800A8A2B5 /* PBMAdLoadFlowControllerTest_CompositeMock.swift in Sources */,
 				53019E6127E9E40700D509C1 /* LogTest.swift in Sources */,
 				FAEE4DBA262DCBB800AD9966 /* Swizzling.swift in Sources */,
+				539FB1F22D5B560A00AFC261 /* InterstitialObserverTests.swift in Sources */,
 				922AFD412737292E00732C53 /* PBMHTMLCreativeTest_MRAIDOpen.swift in Sources */,
 				606FAC4A2201F248008EAE5E /* AdUnitTests.swift in Sources */,
 				922AFD712737335C00732C53 /* PBMRewardedVideoCreativeTestCloseDelay.swift in Sources */,
@@ -4421,6 +4428,7 @@
 				53A0E7E92CDCD00F007887F5 /* UIWindow+Extensions.swift in Sources */,
 				53C925052990FBFB009E6F94 /* PrebidServerStatusRequester.swift in Sources */,
 				5BC378DE271F1CFF00444D5E /* PBMORTBDeviceExtPrebidInterstitial.m in Sources */,
+				539FB1F02D5B4A1A00AFC261 /* SKOverlayInterstitialManager.swift in Sources */,
 				5BC37A5F271F1D0000444D5E /* PBMORTBBidExtSkadn.m in Sources */,
 				534C61282CB5279C0026119A /* PBMORTBRewardedCompletionBanner.m in Sources */,
 				5BC3793A271F1D0000444D5E /* PBMLocationManager.m in Sources */,
@@ -4544,6 +4552,7 @@
 				92989656275FEA3100D3C174 /* PBMORTBContentSegment.m in Sources */,
 				92C3A83827F98B9700DC05E9 /* AdConfiguration.swift in Sources */,
 				5BC37ABD271F1D0000444D5E /* PBMOpenMeasurementEventTracker.m in Sources */,
+				539FB1EE2D5B44D100AFC261 /* InterstitialObserver.swift in Sources */,
 				5BC37927271F1CFF00444D5E /* PBMFunctions.m in Sources */,
 				53842BB829E561750069A4B7 /* PrebidImagesRepository.swift in Sources */,
 				53BFCD312CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift in Sources */,
