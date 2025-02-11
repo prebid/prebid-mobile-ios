@@ -87,15 +87,13 @@
         PBMLogError(@"Info.plist contains SKAdNetwork but sourceapp is nil!");
     }
     
-    if (!self.adConfiguration.isOriginalAPI) {
-        for (PBMORTBImp *imp in bidRequest.imp) {
-            imp.extSkadn.sourceapp = [sourceapp copy];
-            imp.extSkadn.skadnetids = skadnetids;
-            
-            BOOL supportSKOverlay = self.targeting.supportSKOverlay;
-            if (supportSKOverlay) {
-                imp.extSkadn.skoverlay = @1;
-            }
+    for (PBMORTBImp *imp in bidRequest.imp) {
+        imp.extSkadn.sourceapp = [sourceapp copy];
+        imp.extSkadn.skadnetids = skadnetids;
+        
+        BOOL supportSKOverlay = self.targeting.supportSKOverlay;
+        if (supportSKOverlay) {
+            imp.extSkadn.skoverlay = @1;
         }
     }
 }

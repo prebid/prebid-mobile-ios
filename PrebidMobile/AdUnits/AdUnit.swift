@@ -225,7 +225,11 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     private func cacheBidIfNeeded(_ winningBid: Bid) -> String?  {
-        guard winningBid.adFormat == .native else {
+        let isNative = winningBid.adFormat == .native
+        let isSkadnPresent = winningBid.skadn != nil && SkadnParametersManager
+            .getSkadnProductParameters(for: winningBid.skadn!) != nil
+        
+        guard isNative || isSkadnPresent else {
             return nil
         }
         

@@ -32,6 +32,8 @@ public class RewardedVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
         get { adUnitConfig.adConfiguration.videoParameters }
         set { adUnitConfig.adConfiguration.videoParameters = newValue }
     }
+    
+    private var skOverlayManager: SKOverlayInterstitialManager?
 
     /// Initializes a `RewardedVideoAdUnit` with the given configuration ID.
     ///
@@ -44,6 +46,11 @@ public class RewardedVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
         adUnitConfig.adConfiguration.videoParameters.plcmnt = .Interstitial
     }
     
+    deinit {
+        skOverlayManager?.dismiss()
+        skOverlayManager = nil
+    }
+    
     /// Initializes a `RewardedVideoAdUnit` with the given configuration ID and minimum size percentages.
     ///
     /// - Parameter configId: The configuration ID for the ad unit.
@@ -52,5 +59,19 @@ public class RewardedVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
         self.init(configId: configId)
         adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
+    }
+    
+    // MARK: SKOverlay
+    
+    /// Attempts to display an `SKOverlay` if a valid configuration is available.
+    public func activateSKOverlayIfAvailable() {
+        skOverlayManager = SKOverlayInterstitialManager()
+        skOverlayManager?.tryToShow()
+    }
+    
+    /// Dismisses the SKOverlay if presented
+    public func dismissSKOverlayIfAvailable() {
+        skOverlayManager?.dismiss()
+        skOverlayManager = nil
     }
 }

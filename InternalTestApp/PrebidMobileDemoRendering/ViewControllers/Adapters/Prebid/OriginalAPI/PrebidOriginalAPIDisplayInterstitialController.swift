@@ -51,6 +51,11 @@ class PrebidOriginalAPIDisplayInterstitialController:
         setupAdapterController()
     }
     
+    deinit {
+        Targeting.shared.sourceapp = nil
+        Targeting.shared.supportSKOverlay = false
+    }
+    
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -147,6 +152,7 @@ class PrebidOriginalAPIDisplayInterstitialController:
     @IBAction func showButtonClicked() {
         if let gamInterstitial = gamInterstitial {
             rootController?.showButton.isEnabled = false
+            adUnit.activateSKOverlayIfAvailable()
             gamInterstitial.present(fromRootViewController: rootController!)
         }
     }
@@ -175,5 +181,6 @@ class PrebidOriginalAPIDisplayInterstitialController:
     
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
         adDidDismissFullScreenContent.isEnabled = true
+        adUnit.dismissSKOverlayIfAvailable()
     }
 }
