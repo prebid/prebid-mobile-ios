@@ -2156,6 +2156,8 @@
 				535145DE2CCB758800D40B19 /* NSObject+PBMExtensions.h */,
 				535145DF2CCB758800D40B19 /* NSObject+PBMExtensions.m */,
 				53C925012990FB30009E6F94 /* String+Extensions.swift */,
+				539FB1E92D5B40D900AFC261 /* UIApplication+Extensions.swift */,
+				539FB1EB2D5B40FA00AFC261 /* UIWindow+Extensions.swift */,
 			);
 			path = ExtensionsAndWrappers;
 			sourceTree = "<group>";
@@ -4280,6 +4282,7 @@
 				9236A64E272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift in Sources */,
 				FAEE4D26262DC2B200AD9966 /* ExternalUserId.swift in Sources */,
 				5BC379A0271F1D0000444D5E /* PBMTouchForwardingView.m in Sources */,
+				539FB1EA2D5B40D900AFC261 /* UIApplication+Extensions.swift in Sources */,
 				534C61202CB5252C0026119A /* PBMORTBRewardedConfiguration.m in Sources */,
 				5BC378D4271F1CFF00444D5E /* PBMORTBDeviceExtAtts.m in Sources */,
 				92C85D6E27A983150080BAC5 /* NativeAdMarkup.swift in Sources */,
@@ -4354,6 +4357,7 @@
 				F91B60AF2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m in Sources */,
 				A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */,
 				5BC37935271F1D0000444D5E /* PBMAdModelEventTracker.m in Sources */,
+				539FB1EC2D5B40FA00AFC261 /* UIWindow+Extensions.swift in Sources */,
 				536A427F282D11DA0069E9B2 /* PrebidServerConnection.swift in Sources */,
 				927ADB2428057B31006EB8D5 /* MediationUtils.swift in Sources */,
 				5BC3791B271F1CFF00444D5E /* PBMFunctions+Testing.m in Sources */,
