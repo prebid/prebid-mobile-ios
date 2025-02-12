@@ -29,7 +29,6 @@
         _itunesitem = jsonDictionary[@"itunesitem"];
         _sourceapp = jsonDictionary[@"sourceapp"];
         _sourceidentifier = jsonDictionary[@"sourceidentifier"];
-        _skoverlay = [[PBMORTBBidExtSkadnSKOverlay alloc] initWithJsonDictionary:jsonDictionary[@"skoverlay"]];
         
         NSMutableArray<PBMORTBSkadnFidelity *> *fidelities = [NSMutableArray<PBMORTBSkadnFidelity *> new];
         NSMutableArray<PBMJsonDictionary *> *fidelitiesData = jsonDictionary[@"fidelities"];
@@ -40,6 +39,11 @@
         }
         
         _fidelities = fidelities;
+        
+        PBMJsonDictionary * skoverlay = jsonDictionary[@"skoverlay"];
+        if(skoverlay) {
+            _skoverlay = [[PBMORTBBidExtSkadnSKOverlay alloc] initWithJsonDictionary:skoverlay];
+        }
     }
     return self;
 }
