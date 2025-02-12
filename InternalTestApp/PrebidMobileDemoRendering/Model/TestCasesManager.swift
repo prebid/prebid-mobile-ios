@@ -2097,6 +2097,7 @@ struct TestCaseManager {
                          
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time-skadn-skoverlay"
+                rewardedAdController.supportSKOverlay = true
                 adapterVC.setup(adapter: rewardedAdController)
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
@@ -2110,7 +2111,6 @@ struct TestCaseManager {
                 }
                          
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
-                rewardedAdController.supportSKOverlay = true
                 rewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-event"
                 adapterVC.setup(adapter: rewardedAdController)
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
