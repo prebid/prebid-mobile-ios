@@ -323,11 +323,6 @@ public class Targeting: NSObject {
     /// The itunes app id for targeting
     public var itunesID: String?
     
-    // MARK: - SKAdNetwork
-    
-    /// A flag that determines whether SKOverlay should be supported
-    public var supportSKOverlay = false
-    
     // MARK: - Location
     
     /// The application location for targeting

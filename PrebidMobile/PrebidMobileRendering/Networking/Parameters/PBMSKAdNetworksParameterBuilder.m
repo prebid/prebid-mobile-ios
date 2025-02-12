@@ -92,7 +92,7 @@
             imp.extSkadn.sourceapp = [sourceapp copy];
             imp.extSkadn.skadnetids = skadnetids;
             
-            BOOL supportSKOverlay = self.targeting.supportSKOverlay;
+            BOOL supportSKOverlay = self.adConfiguration.supportSKOverlay;
             if (supportSKOverlay) {
                 imp.extSkadn.skoverlay = @1;
             }

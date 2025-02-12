@@ -63,7 +63,7 @@ class SkadnParameterBuilderTest: XCTestCase {
         let mockTargeting = Targeting()
         
         mockTargeting.sourceapp = sourceappMock
-        mockTargeting.supportSKOverlay = true
+        adConfiguration.supportSKOverlay = true
         
         let basicBuilder = PBMBasicParameterBuilder(
             adConfiguration: adConfiguration,

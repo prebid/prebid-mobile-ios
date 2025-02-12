@@ -21,6 +21,9 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
     
     var prebidConfigId = ""
     
+    // SKAdNetwork
+    var supportSKOverlay = false
+    
     private var rewardedAdController : RewardedAdUnit?
     
     private weak var adapterViewController: AdapterViewController?
@@ -45,7 +48,6 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
     
     deinit {
         Targeting.shared.sourceapp = nil
-        Targeting.shared.supportSKOverlay = false
     }
     
     // MARK: - Public Methods
@@ -56,6 +58,8 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
 
         rewardedAdController = RewardedAdUnit(configID: prebidConfigId)
         rewardedAdController?.delegate = self
+        
+        rewardedAdController?.supportSKOverlay = supportSKOverlay
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

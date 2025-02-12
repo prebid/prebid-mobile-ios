@@ -1143,10 +1143,10 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
-                Targeting.shared.supportSKOverlay = true
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.banner]
+                interstitialController.supportSKOverlay = true
                 interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-skadn-skoverlay"
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1437,10 +1437,10 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
-                Targeting.shared.supportSKOverlay = true
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "prebid-demo-video-interstitial-320-480-end-card-skadn-skoverlay"
+                interstitialController.supportSKOverlay = true
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1627,10 +1627,10 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
-                Targeting.shared.supportSKOverlay = true
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "prebid-demo-video-interstitial-320-480-skadn-skoverlay"
+                interstitialController.supportSKOverlay = true
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -2094,7 +2094,6 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
-                Targeting.shared.supportSKOverlay = true
                          
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time-skadn-skoverlay"
@@ -2111,6 +2110,7 @@ struct TestCaseManager {
                 }
                          
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.supportSKOverlay = true
                 rewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-event"
                 adapterVC.setup(adapter: rewardedAdController)
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -2185,10 +2185,10 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
-                Targeting.shared.supportSKOverlay = true
                 
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-skadn-skoverlay"
+                rewardedAdController.supportSKOverlay = true
                 adapterVC.setup(adapter: rewardedAdController)
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
@@ -2259,10 +2259,10 @@ struct TestCaseManager {
                 }
                          
                 Targeting.shared.sourceapp = "InternalTestApp"
-                Targeting.shared.supportSKOverlay = true
                          
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time-skadn-skoverlay"
+                rewardedAdController.supportSKOverlay = true
                 adapterVC.setup(adapter: rewardedAdController)
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
