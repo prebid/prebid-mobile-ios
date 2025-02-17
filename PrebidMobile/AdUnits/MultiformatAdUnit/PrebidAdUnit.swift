@@ -27,6 +27,8 @@ public class PrebidAdUnit: NSObject {
     
     private let adUnit: AdUnit
     
+    private var skOverlayManager: SKOverlayInterstitialManager?
+    
     /// Initializes a new `PrebidAdUnit` with the given configuration ID.
     /// - Parameter configId: The configuration ID for the ad unit.
     public init(configId: String) {
@@ -39,8 +41,11 @@ public class PrebidAdUnit: NSObject {
     ///   - adObject: The ad object to fetch demand for.
     ///   - request: The `PrebidRequest` containing the demand request parameters.
     ///   - completion: A closure to be called with the `BidInfo` result.
-    public func fetchDemand(adObject: AnyObject, request: PrebidRequest,
-                            completion: @escaping (BidInfo) -> Void) {
+    public func fetchDemand(
+        adObject: AnyObject,
+        request: PrebidRequest,
+        completion: @escaping (BidInfo) -> Void
+    ) {
         guard requestHasParameters(request) else {
             completion(BidInfo(resultCode: .prebidInvalidRequest))
             return
@@ -72,9 +77,7 @@ public class PrebidAdUnit: NSObject {
         }
     }
     
-    
     // MARK: - Auto refresh API
-    
     
     /// This method allows to set the auto refresh period for the demand
     ///
@@ -91,6 +94,20 @@ public class PrebidAdUnit: NSObject {
     /// This method resumes the auto refresh of demand
     public func resumeAutoRefresh() {
         adUnit.resumeAutoRefresh()
+    }
+    
+    // MARK: SKOverlay
+    
+    /// Attempts to display an `SKOverlay` over interstitial if a valid configuration is available.
+    public func activateSKOverlayIfAvailable() {
+        skOverlayManager = SKOverlayInterstitialManager()
+        skOverlayManager?.tryToShow()
+    }
+    
+    /// Dismisses the SKOverlay if presented
+    public func dismissSKOverlayIfAvailable() {
+        skOverlayManager?.dismiss()
+        skOverlayManager = nil
     }
     
     // MARK: - Private zone
@@ -140,6 +157,8 @@ public class PrebidAdUnit: NSObject {
             let minSizePercCG = CGSize(width: minWidthPerc, height: minHeightPerc)
             adUnit.adUnitConfig.minSizePerc = NSValue(cgSize: minSizePercCG)
         }
+        
+        adUnit.adUnitConfig.adConfiguration.supportSKOverlay = request.supportSKOverlayForInterstitial
         
         adUnit.adUnitConfig.gpid = request.gpid
         

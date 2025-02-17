@@ -24,6 +24,11 @@ public class PrebidRequest: NSObject {
     /// The position of the ad on the screen.
     public var adPosition: AdPosition = .undefined
     
+    // MARK: - SKAdNetwork
+    
+    /// A flag that determines whether SKOverlay should be supported for interstitials
+    public var supportSKOverlayForInterstitial: Bool = false
+    
     // MARK: - Internal properties
     
     private(set) var bannerParameters: BannerParameters?

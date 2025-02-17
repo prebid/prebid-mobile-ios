@@ -13,28 +13,23 @@
  limitations under the License.
  */
 
-#import "PBMORTBAbstract.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
-//This object includes signals necessary for support SKAdNetwork
 //https://github.com/InteractiveAdvertisingBureau/openrtb/blob/master/extensions/community_extensions/skadnetwork.md
-@interface PBMORTBImpExtSkadn : PBMORTBAbstract
 
-// ID of publisher app in Apple’s App Store.
-@property (nonatomic, copy, nullable) NSString *sourceapp;
+@interface PBMORTBBidExtSkadnSKOverlay : PBMORTBAbstract
 
-//A subset of SKAdNetworkItem entries in the publisher app’s Info.plist that are relevant to the DSP.
-@property (nonatomic, copy, nullable) NSArray<NSString *> *skadnetids;
-
-//Shows if SKOverlay is supported
-@property (nonatomic, copy, nullable) NSNumber *skoverlay;
-
-//Placeholder for exchange-specific extensions to OpenRTB.
-//Note: ext object is not supported.
-
-- (instancetype )init;
+// Delay before presenting SKOverlay in seconds, required for overlay to be shown
+@property (nonatomic, copy, nullable) NSNumber *delay;
+// Delay before presenting SKOverlay on an endcard in seconds, required for overlay to be shown
+@property (nonatomic, copy, nullable) NSNumber *endcarddelay;
+// Whether overlay can be dismissed by user, 0 = no, 1 = yes
+@property (nonatomic, copy, nullable) NSNumber *dismissible;
+// Position of the overlay, 0 = bottom, 1 = bottom raised
+@property (nonatomic, copy, nullable) NSNumber *pos;
 
 @end
 
+
 NS_ASSUME_NONNULL_END
+
