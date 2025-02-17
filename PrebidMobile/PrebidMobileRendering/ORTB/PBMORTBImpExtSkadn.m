@@ -34,6 +34,7 @@
         ret[@"versions"] = PBMFunctions.supportedSKAdNetworkVersions;
         ret[@"sourceapp"] = self.sourceapp;
         ret[@"skadnetids"] = self.skadnetids;
+        ret[@"skoverlay"] = self.skoverlay;
     }
     
     [ret pbmRemoveEmptyVals];
@@ -44,6 +45,7 @@
     if (self = [self init]) {
         _sourceapp = jsonDictionary[@"sourceapp"];
         _skadnetids = jsonDictionary[@"skadnetids"];
+        _skoverlay = jsonDictionary[@"skoverlay"];
     }
 
     return self;
