@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "A47ED196-D324-4EB1-AD2C-C5227A028E02",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "skippedTests" : [
+        "AdUnitTests\/testFetchDemandAutoRefresh()",
+        "AdUnitTests\/testFetchDemandBidsAutoRefresh()",
+        "PBMAutoRefreshManagerTest\/testAllowRefreshOnSecondAtempt()",
+        "RequestBuilderTests\/testPostDataWithShareLocationOff()",
+        "RequestBuilderTests\/testPostDataWithShareLocationOn()"
+      ],
+      "target" : {
+        "containerPath" : "container:PrebidMobile.xcodeproj",
+        "identifier" : "60D792FA217E229B0080F428",
+        "name" : "PrebidMobileTests"
+      }
+    }
+  ],
+  "version" : 1
+}
