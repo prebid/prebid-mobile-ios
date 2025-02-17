@@ -67,8 +67,18 @@
     BOOL const isHTML = ([adFormats containsObject:AdFormat.banner]);
     BOOL const isInterstitial = self.adConfiguration.adConfiguration.isInterstitialAd;
     
+    NSString *requestID = self.sdkConfiguration.prebidServerAccountId;
+    NSString *settingsID = self.sdkConfiguration.auctionSettingsId;
+    if (settingsID) {
+        if ([[settingsID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) {
+            PBMLogWarn(@"Auction settings Id is invalid. Prebid Server Account Id will be used.");
+        } else {
+            requestID = settingsID;
+        }
+    }
+    
     bidRequest.requestID = [NSUUID UUID].UUIDString;
-    bidRequest.extPrebid.storedRequestID        = self.sdkConfiguration.prebidServerAccountId;
+    bidRequest.extPrebid.storedRequestID        = requestID;
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
