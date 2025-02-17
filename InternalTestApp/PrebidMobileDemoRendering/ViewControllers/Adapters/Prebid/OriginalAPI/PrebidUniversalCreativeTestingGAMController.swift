@@ -27,7 +27,7 @@ final class PrebidUniversalCreativeTestingGAMController:
     
     let rootController: AdapterViewController
     
-    private var gamBanner: GAMBannerView!
+    private var gamBanner: AdManagerBannerView!
     
     private let bannerViewDidReceiveAd = EventReportContainer()
     private let bannerViewDidFailToReceiveAd = EventReportContainer()
@@ -55,20 +55,20 @@ final class PrebidUniversalCreativeTestingGAMController:
         configIdLabel.isHidden = false
         configIdLabel.text = "AdUnit ID: \(gamAdUnitID)"
         
-        gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
+        gamBanner = AdManagerBannerView(adSize: adSizeFor(cgSize: adSize))
         gamBanner.adUnitID = gamAdUnitID
         gamBanner.rootViewController = rootController
         gamBanner.delegate = self
         
         rootController.bannerView?.addSubview(gamBanner)
         
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         gamBanner.load(gamRequest)
     }
     
     @objc private func reload() {
         reloadButton.isEnabled = false
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         gamBanner.load(gamRequest)
     }
     
@@ -98,9 +98,9 @@ final class PrebidUniversalCreativeTestingGAMController:
 
 // MARK: - GADBannerViewDelegate
 
-extension PrebidUniversalCreativeTestingGAMController: GADBannerViewDelegate {
+extension PrebidUniversalCreativeTestingGAMController: GoogleMobileAds.BannerViewDelegate {
     
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         rootController.bannerView.backgroundColor = .clear
         bannerViewDidReceiveAd.isEnabled = true
         reloadButton.isEnabled = true
@@ -111,7 +111,10 @@ extension PrebidUniversalCreativeTestingGAMController: GADBannerViewDelegate {
         targetWebView?.navigationDelegate = self
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: any Error) {
+    func bannerView(
+        _ bannerView: GoogleMobileAds.BannerView,
+        didFailToReceiveAdWithError error: any Error
+    ) {
         resetEvents()
         bannerViewDidFailToReceiveAd.isEnabled = true
         print(error.localizedDescription)

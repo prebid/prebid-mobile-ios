@@ -21,14 +21,16 @@ import PrebidMobileAdMobAdapters
 fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50"
 fileprivate let adMobAdUnitDisplayBannerRendering = "ca-app-pub-5922967660082475/9483570409"
 
-class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
+class AdMobDisplayBannerViewController:
+    BannerBaseViewController,
+    GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var prebidAdMobMediaitonAdUnit: MediationBannerAdUnit!
     private var mediationDelegate: AdMobMediationBannerUtils!
     
     // AdMob
-    private var gadBanner: GADBannerView!
+    private var gadBanner: GoogleMobileAds.BannerView!
     
     override func loadView() {
         super.loadView()
@@ -38,10 +40,10 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
     
     func createAd() {
         // 1. Create a GADRequest
-        let gadRequest = GADRequest()
+        let gadRequest = Request()
         
-        // 2. Create a GADBannerView
-        gadBanner = GADBannerView(adSize: GADAdSizeFromCGSize(adSize))
+        // 2. Create a BannerView
+        gadBanner = GoogleMobileAds.BannerView(adSize: adSizeFor(cgSize: adSize))
         gadBanner.adUnitID = adMobAdUnitDisplayBannerRendering
         gadBanner.delegate = self
         gadBanner.rootViewController = self
@@ -68,13 +70,16 @@ class AdMobDisplayBannerViewController: BannerBaseViewController, GADBannerViewD
         }
     }
     
-    //MARK: - GADBannerViewDelegate
+    // MARK: - GADBannerViewDelegate
     
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
     
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(
+        _ bannerView: GoogleMobileAds.BannerView,
+        didFailToReceiveAdWithError error: Error
+    ) {
         PrebidDemoLogger.shared.error("AdMob did fail to receive ad with error: \(error)")
         prebidAdMobMediaitonAdUnit?.adObjectDidFailToLoadAd(adObject: gadBanner, with: error)
     }

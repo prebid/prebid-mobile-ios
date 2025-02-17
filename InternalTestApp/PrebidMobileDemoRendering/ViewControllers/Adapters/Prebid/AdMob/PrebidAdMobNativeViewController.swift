@@ -18,7 +18,10 @@ import PrebidMobile
 import PrebidMobileAdMobAdapters
 import GoogleMobileAds
 
-class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdLoaderDelegate {
+class PrebidAdMobNativeViewController:
+        NSObject,
+        AdaptedController,
+        GoogleMobileAds.NativeAdLoaderDelegate {
     
     public let accountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
     public var prebidConfigId = "25e17008-5081-4676-94d5-923ced4359d3"
@@ -30,9 +33,9 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
     private weak var rootController: AdapterViewController?
     
     private var admobNativeAdView: AdMobNativeAdView?
-    private var thePrebidNativeAd: NativeAd?
-    private var adLoader: GADAdLoader?
-    private var gadRequest = GADRequest()
+    private var thePrebidNativeAd: PrebidMobile.NativeAd?
+    private var adLoader: AdLoader?
+    private var gadRequest = Request()
 
     private var nativeAdUnit: MediationNativeAdUnit!
     private var mediationDelegate: AdMobMediationNativeUtils?
@@ -100,12 +103,14 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         nativeAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
             
-            self.adLoader = GADAdLoader(adUnitID: self.adMobAdUnitId!,
-                                        rootViewController: self.rootController,
-                                        adTypes: [ .native ],
-                                        options: nil)
-            self.adLoader?.delegate = self
+            self.adLoader = AdLoader(
+                adUnitID: self.adMobAdUnitId!,
+                rootViewController: self.rootController,
+                adTypes: [ .native ],
+                options: nil
+            )
             
+            self.adLoader?.delegate = self
             self.adLoader?.load(self.gadRequest)
         }
     }
@@ -136,18 +141,22 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         if let bannerParent = bannerView.superview {
             let bannerHeightConstraint = bannerView.heightAnchor.constraint(equalToConstant: 200)
             bannerHeightConstraint.priority = .defaultLow
-            let bannerWidthConstraint = NSLayoutConstraint(item: bannerView,
-                                                       attribute: .width,
-                                                       relatedBy: .lessThanOrEqual,
-                                                       toItem: bannerParent,
-                                                       attribute: .width,
-                                                       multiplier: 1,
-                                                       constant: -10)
+            
+            let bannerWidthConstraint = NSLayoutConstraint(
+                item: bannerView,
+                attribute: .width,
+                relatedBy: .lessThanOrEqual,
+                toItem: bannerParent,
+                attribute: .width,
+                multiplier: 1,
+                constant: -10
+            )
+            
             NSLayoutConstraint.activate([bannerWidthConstraint, bannerHeightConstraint])
         }
     }
     
-    private func createNativeAdMobView(nativeAd: GADNativeAd) {
+    private func createNativeAdMobView(nativeAd: GoogleMobileAds.NativeAd) {
         guard let bannerView = rootController?.bannerView else {
             return
         }
@@ -163,7 +172,7 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         bannerView.rightAnchor.constraint(equalTo: admobNativeAdView!.rightAnchor).isActive = true
     }
     
-    private func renderNativeAd(ad: GADNativeAd) {
+    private func renderNativeAd(ad: GoogleMobileAds.NativeAd) {
         guard let admobNativeAdView = admobNativeAdView else { return }
         admobNativeAdView.admobNativeAd = ad
         admobNativeAdView.titleLabel.text = ad.headline
@@ -186,21 +195,21 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         rootController.setupAction(adLoaderDidFinishLoadingButton, "adLoaderDidFinishLoadingButton called")
     }
     
-    // MARK: - GADNativeAdLoaderDelegate
+    // MARK: - NativeAdLoaderDelegate
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADNativeAd) {
+    func adLoader(_ adLoader: AdLoader, didReceive nativeAd: GoogleMobileAds.NativeAd) {
         createNativeAdMobView(nativeAd: nativeAd)
         renderNativeAd(ad: nativeAd)
         adLoaderDidReceiveAdButton.isEnabled = true
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+    func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
         admobNativeAdView = nil
         Log.error(error.localizedDescription)
         adLoaderDidFailToReceiveAdWithErrorButton.isEnabled = true
     }
     
-    func adLoaderDidFinishLoading(_ adLoader: GADAdLoader) {
+    func adLoaderDidFinishLoading(_ adLoader: AdLoader) {
         Log.info("GAD ad loader did finished loading.")
         adLoaderDidFinishLoadingButton.isEnabled = true
     }

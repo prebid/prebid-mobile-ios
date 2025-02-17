@@ -15,17 +15,16 @@
 
 import Foundation
 import GoogleMobileAds
-
 import PrebidMobile
 
 @objcMembers
 public class GAMBannerEventHandler :
     NSObject,
     BannerEventHandler,
-    GADBannerViewDelegate,
-    GADAppEventDelegate,
-    GADAdSizeDelegate
-{
+    GoogleMobileAds.BannerViewDelegate,
+    GoogleMobileAds.AppEventDelegate,
+    GoogleMobileAds.AdSizeDelegate {
+    
     // MARK: - Internal Properties
     
     var requestBanner   : GAMBannerViewWrapper?
@@ -34,7 +33,7 @@ public class GAMBannerEventHandler :
     
     var validAdSizes: [NSValue]
     
-    var isExpectingAppEvent = false;
+    var isExpectingAppEvent = false
     var appEventTimer: Timer?
     
     var lastGADSize: CGSize?
@@ -63,10 +62,8 @@ public class GAMBannerEventHandler :
     }
     
     public func requestAd(with bidResponse: BidResponse?) {
-       
         guard let bannerViewWrapper = GAMBannerViewWrapper(),
               let request = GAMRequestWrapper() else {
-            
             let error = GAMEventHandlerError.gamClassesNotFound
             GAMUtils.log(error: error)
             loadingDelegate?.failedWithError(error)
@@ -75,7 +72,7 @@ public class GAMBannerEventHandler :
         
         if let _ = requestBanner {
             // request to primaryAdServer in progress
-            return;
+            return
         }
         
         requestBanner = bannerViewWrapper
@@ -106,21 +103,23 @@ public class GAMBannerEventHandler :
         requestBanner?.adSizeDelegate = self
         requestBanner?.enableManualImpressions = true
         
-        lastGADSize = nil;
+        lastGADSize = nil
         
         requestBanner?.load(request)
     }
     
     // MARK: - GADBannerViewDelegate
     
-    public func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    public func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         if requestBanner?.banner === bannerView {
             primaryAdReceived()
         }
     }
     
-    public func bannerView(_ bannerView: GADBannerView,
-                    didFailToReceiveAdWithError error: Error) {
+    public func bannerView(
+        _ bannerView: GoogleMobileAds.BannerView,
+        didFailToReceiveAdWithError error: Error
+    ) {
         if requestBanner?.banner == bannerView {
             requestBanner = nil
             recycleCurrentBanner()
@@ -128,41 +127,48 @@ public class GAMBannerEventHandler :
         }
     }
     
-    public func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+    public func bannerViewDidRecordImpression(_ bannerView: GoogleMobileAds.BannerView) {
         // TODO
     }
     
-    public func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+    public func bannerViewWillPresentScreen(_ bannerView: GoogleMobileAds.BannerView) {
         interactionDelegate?.willPresentModal()
     }
     
-    public func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+    public func bannerViewWillDismissScreen(_ bannerView: GoogleMobileAds.BannerView) {
         // TODO
     }
     
-    public func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+    public func bannerViewDidDismissScreen(_ bannerView: GoogleMobileAds.BannerView) {
         interactionDelegate?.didDismissModal()
     }
     
     // MARK: - GADAppEventDelegate
     
-    public func adView(_ banner: GADBannerView,
-                didReceiveAppEvent name: String, withInfo info: String?) {
+    public func adView(
+        _ banner: GoogleMobileAds.BannerView,
+        didReceiveAppEvent name: String,
+        with info: String?
+    ) {
         if requestBanner?.banner == banner && name == Constants.appEventValue {
             appEventDetected()
         }
     }
     
-    public func interstitialAd(_ interstitialAd: GADInterstitialAd,
-                               didReceiveAppEvent name: String,
-                               withInfo info: String?) {
+    public func adView(
+        _ interstitialAd: GoogleMobileAds.InterstitialAd,
+        didReceiveAppEvent name: String,
+        with info: String?
+    ) {
         // TODO
     }
     
     // MARK: - GADAdSizeDelegate
     
-    public func adView(_ bannerView: GADBannerView,
-                       willChangeAdSizeTo size: GADAdSize) {
+    public func adView(
+        _ bannerView: GoogleMobileAds.BannerView,
+        willChangeAdSizeTo size: GoogleMobileAds.AdSize
+    ) {
         lastGADSize = size.size
     }
     
@@ -184,11 +190,13 @@ public class GAMBannerEventHandler :
                 return
             }
             
-            appEventTimer = Timer.scheduledTimer(timeInterval: Constants.appEventTimeout,
-                                                 target: self,
-                                                 selector: #selector(appEventTimedOut),
-                                                 userInfo: nil,
-                                                 repeats: false)
+            appEventTimer = Timer.scheduledTimer(
+                timeInterval: Constants.appEventTimeout,
+                target: self,
+                selector: #selector(appEventTimedOut),
+                userInfo: nil,
+                repeats: false
+            )
         } else {
             let banner = requestBanner
             requestBanner = nil
@@ -196,8 +204,8 @@ public class GAMBannerEventHandler :
             recycleCurrentBanner()
             embeddedBanner = banner
             
-            if  let banner = banner,
-                let adSize = dfpAdSize {
+            if let banner = banner,
+               let adSize = dfpAdSize {
                 loadingDelegate?.adServerDidWin(banner.banner, adSize: adSize)
             }
         }
@@ -232,8 +240,8 @@ public class GAMBannerEventHandler :
         isExpectingAppEvent = false
         appEventTimer = nil
         
-        if  let banner = banner,
-            let adSize = dfpAdSize {
+        if let banner = banner,
+           let adSize = dfpAdSize {
             loadingDelegate?.adServerDidWin(banner.banner, adSize: adSize)
         }
     }
@@ -244,11 +252,6 @@ public class GAMBannerEventHandler :
     }
     
     class func convertGADSizes(_ inSizes: [NSValue]) -> [CGSize] {
-        inSizes.map {
-            CGSizeFromGADAdSize(GADAdSizeFromNSValue( $0 ))
-        }
+        inSizes.map { cgSize(for: GoogleMobileAds.adSizeFor(nsValue: $0)) }
     }
-    
 }
-
-

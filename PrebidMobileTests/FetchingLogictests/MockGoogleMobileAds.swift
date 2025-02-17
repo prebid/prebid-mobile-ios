@@ -15,7 +15,7 @@
 
 import Foundation
 
-class MockGADMobileAds: NSObject {
+class MockGoogleMobileAds: NSObject {
     
     @objc public let sdkVersion: NSString
     

@@ -14,15 +14,13 @@
  */
 
 import XCTest
-
 import GoogleMobileAds
 @testable import PrebidMobileGAMEventHandlers
 
 class GADNativeAdWrapperTest: XCTestCase {
 
     func testProperties() {
-        
-        guard let nativeAd = GADNativeAdWrapper(nativeAd: GADNativeAd()) else {
+        guard let nativeAd = GADNativeAdWrapper(nativeAd: GoogleMobileAds.NativeAd()) else {
             XCTFail()
             return
         }
@@ -35,5 +33,4 @@ class GADNativeAdWrapperTest: XCTestCase {
         XCTAssertNil(nativeAd.price)
         XCTAssertNil(nativeAd.advertiser)
     }
-
 }

@@ -24,11 +24,11 @@ class GADCustomNativeAdWrapper {
     
     // MARK: - Public Properties
     
-    let customNativeAd: GADCustomNativeAd
+    let customNativeAd: GoogleMobileAds.CustomNativeAd
     
     // MARK: - Public Methods
     
-    init?(customNativeAd: GADCustomNativeAd) {
+    init?(customNativeAd: GoogleMobileAds.CustomNativeAd) {
         if !Self.classesFound {
             GAMUtils.log(error: GAMEventHandlerError.gamClassesNotFound)
             return nil
@@ -50,10 +50,10 @@ class GADCustomNativeAdWrapper {
             return false;
         }
         
-        let testClass = GADCustomNativeAd.self
+        let testClass = GoogleMobileAds.CustomNativeAd.self
         
         let selectors = [
-            #selector(GADCustomNativeAd.string(forKey:)),
+            #selector(GoogleMobileAds.CustomNativeAd.string(forKey:)),
         ]
         
         for selector in selectors {
@@ -61,6 +61,7 @@ class GADCustomNativeAdWrapper {
                 return false
             }
         }
+        
         return true
     }
 }

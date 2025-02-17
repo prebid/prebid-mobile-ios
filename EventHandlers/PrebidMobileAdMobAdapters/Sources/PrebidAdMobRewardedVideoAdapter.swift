@@ -21,7 +21,7 @@ import GoogleMobileAds
 public class PrebidAdMobRewardedVideoAdapter: PrebidAdMobRewardedAdapter {
     
     override func createInterstitialController(
-        with adConfiguration: GADMediationRewardedAdConfiguration
+        with adConfiguration: GoogleMobileAds.MediationRewardedAdConfiguration
     ) -> Result<InterstitialController, any Error> {
         let result = super.createInterstitialController(with: adConfiguration)
         if case .success(let controller) = result {

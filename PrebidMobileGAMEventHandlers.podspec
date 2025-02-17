@@ -40,6 +40,6 @@ Pod::Spec.new do |s|
   s.static_framework = true
 
   s.dependency 'PrebidMobile', '2.4.0'
-  s.dependency 'Google-Mobile-Ads-SDK', '<= 11.13.0'
+  s.dependency 'Google-Mobile-Ads-SDK', '>= 12.0.0'
 
 end

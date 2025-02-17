@@ -26,7 +26,7 @@ class GAMBannerViewWrapper {
     
     // MARK: - Public Properties
     
-    let banner = GAMBannerView()
+    let banner = AdManagerBannerView()
     
     // MARK: - Public Methods
         
@@ -54,17 +54,17 @@ class GAMBannerViewWrapper {
         set { banner.rootViewController = newValue }
     }
     
-    public var delegate: GADBannerViewDelegate? {
+    public var delegate: GoogleMobileAds.BannerViewDelegate? {
         get { banner.delegate }
         set { banner.delegate = newValue }
     }
     
-    public var appEventDelegate: GADAppEventDelegate? {
+    public var appEventDelegate: GoogleMobileAds.AppEventDelegate? {
         get { banner.appEventDelegate }
         set { banner.appEventDelegate = newValue }
     }
     
-    public var adSizeDelegate: GADAdSizeDelegate? {
+    public var adSizeDelegate: GoogleMobileAds.AdSizeDelegate? {
         get { banner.adSizeDelegate }
         set { banner.adSizeDelegate = newValue }
     }
@@ -74,7 +74,7 @@ class GAMBannerViewWrapper {
         set { banner.enableManualImpressions = newValue }
     }
     
-    public var adSize : GADAdSize {
+    public var adSize: GoogleMobileAds.AdSize {
         get { banner.adSize }
         set { banner.adSize = newValue }
     }
@@ -96,38 +96,38 @@ class GAMBannerViewWrapper {
               let _ = NSProtocolFromString("GADBannerViewDelegate"),
               let _ = NSProtocolFromString("GADAppEventDelegate"),
               let _ = NSProtocolFromString("GADAdSizeDelegate") else {
-            return false;
+            return false
         }
         
-        let testClass = GAMBannerView.self
+        let testClass = AdManagerBannerView.self
         
         let selectors = [
-            #selector(getter: GAMBannerView.adUnitID),
-            #selector(setter: GAMBannerView.adUnitID),
+            #selector(getter: AdManagerBannerView.adUnitID),
+            #selector(setter: AdManagerBannerView.adUnitID),
             
-            #selector(getter: GAMBannerView.validAdSizes),
-            #selector(setter: GAMBannerView.validAdSizes),
+            #selector(getter: AdManagerBannerView.validAdSizes),
+            #selector(setter: AdManagerBannerView.validAdSizes),
             
-            #selector(getter: GAMBannerView.rootViewController),
-            #selector(setter: GAMBannerView.rootViewController),
+            #selector(getter: AdManagerBannerView.rootViewController),
+            #selector(setter: AdManagerBannerView.rootViewController),
             
-            #selector(getter: GAMBannerView.delegate),
-            #selector(setter: GAMBannerView.delegate),
+            #selector(getter: AdManagerBannerView.delegate),
+            #selector(setter: AdManagerBannerView.delegate),
             
-            #selector(getter: GAMBannerView.appEventDelegate),
-            #selector(setter: GAMBannerView.appEventDelegate),
+            #selector(getter: AdManagerBannerView.appEventDelegate),
+            #selector(setter: AdManagerBannerView.appEventDelegate),
             
-            #selector(getter: GAMBannerView.adSizeDelegate),
-            #selector(setter: GAMBannerView.adSizeDelegate),
+            #selector(getter: AdManagerBannerView.adSizeDelegate),
+            #selector(setter: AdManagerBannerView.adSizeDelegate),
             
-            #selector(getter: GAMBannerView.enableManualImpressions),
-            #selector(setter: GAMBannerView.enableManualImpressions),
+            #selector(getter: AdManagerBannerView.enableManualImpressions),
+            #selector(setter: AdManagerBannerView.enableManualImpressions),
             
-            #selector(getter: GAMBannerView.adSize),
-            #selector(setter: GAMBannerView.adSize),
+            #selector(getter: AdManagerBannerView.adSize),
+            #selector(setter: AdManagerBannerView.adSize),
             
-            #selector(GAMBannerView.load(_:)),
-            #selector(GAMBannerView.recordImpression),
+            #selector(AdManagerBannerView.load(_:)),
+            #selector(AdManagerBannerView.recordImpression),
         ]
         
         for selector in selectors {
@@ -138,5 +138,4 @@ class GAMBannerViewWrapper {
         
         return true
     }
-
 }

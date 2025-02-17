@@ -20,13 +20,15 @@ import GoogleMobileAds
 fileprivate let storedImpDisplayBanner = "prebid-demo-banner-320-50"
 fileprivate let gamAdUnitDisplayBannerOriginal = "/21808260008/prebid_demo_app_original_api_banner"
 
-class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
+class GAMOriginalAPIDisplayBannerViewController:
+    BannerBaseViewController,
+    GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var adUnit: BannerAdUnit!
     
     // GAM
-    private var gamBanner: GAMBannerView!
+    private var gamBanner: AdManagerBannerView!
     
     override func loadView() {
         super.loadView()
@@ -49,7 +51,7 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
             }
           },
           "displaymanager": "Google",
-          "displaymanagerver": "\(GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber))"
+          "displaymanagerver": "\(string(for: MobileAds.shared.versionNumber))"
         }
         """
         Targeting.shared.setGlobalORTBConfig(globalORTB)
@@ -67,7 +69,7 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
         adUnit.setImpORTBConfig("{\"bidfloor\":0.01,\"banner\":{\"battr\":[1,2,3,4]}}")
         
         // 5. Create a GAMBannerView
-        gamBanner = GAMBannerView(adSize: GADAdSizeFromCGSize(adSize))
+        gamBanner = AdManagerBannerView(adSize: adSizeFor(cgSize: adSize))
         gamBanner.adUnitID = gamAdUnitDisplayBannerOriginal
         gamBanner.rootViewController = self
         gamBanner.delegate = self
@@ -76,7 +78,7 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
         bannerView?.addSubview(gamBanner)
         
         // 6. Make a bid request to Prebid Server
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
@@ -87,16 +89,19 @@ class GAMOriginalAPIDisplayBannerViewController: BannerBaseViewController, GADBa
     
     // MARK: - GADBannerViewDelegate
     
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
-            guard let bannerView = bannerView as? GAMBannerView else { return }
-            bannerView.resize(GADAdSizeFromCGSize(size))
+            guard let bannerView = bannerView as? AdManagerBannerView else { return }
+            bannerView.resize(adSizeFor(cgSize: size))
         }, failure: { (error) in
             PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
         })
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(
+        _ bannerView: GoogleMobileAds.BannerView,
+        didFailToReceiveAdWithError error: Error
+    ) {
         PrebidDemoLogger.shared.error("GAM did fail to receive ad with error: \(error)")
     }
 }

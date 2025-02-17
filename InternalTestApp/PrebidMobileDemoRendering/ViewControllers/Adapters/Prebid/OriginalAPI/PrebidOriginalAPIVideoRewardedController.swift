@@ -21,7 +21,7 @@ class PrebidOriginalAPIVideoRewardedController:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
-    GADFullScreenContentDelegate {
+    FullScreenContentDelegate {
     
     weak var rootController: AdapterViewController?
     var prebidConfigId = ""
@@ -33,7 +33,7 @@ class PrebidOriginalAPIVideoRewardedController:
     private var adUnit: RewardedVideoAdUnit!
     
     // GAM
-    private var gamRewarded: GADRewardedAd!
+    private var gamRewarded: RewardedAd!
     
     private let adDidFailToPresentFullScreenContentWithError = EventReportContainer()
     private let adDidRecordClick = EventReportContainer()
@@ -99,11 +99,11 @@ class PrebidOriginalAPIVideoRewardedController:
             adUnit?.addAppContentData([ortbAppContentData])
         }
          
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             Log.info("Prebid demand fetch for GAM \(resultCode.name())")
             guard let self = self else { return }
-            GADRewardedAd.load(withAdUnitID: self.adUnitID, request: gamRequest) { [weak self] ad, error in
+            RewardedAd.load(with: self.adUnitID, request: gamRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 
                 if let error = error {
@@ -147,33 +147,33 @@ class PrebidOriginalAPIVideoRewardedController:
     @IBAction func showButtonClicked() {
         if let gamRewarded = gamRewarded {
             rootController?.showButton.isEnabled = false
-            gamRewarded.present(fromRootViewController: rootController!) {}
+            gamRewarded.present(from: rootController!) {}
         }
     }
     
-    // MARK: - GADFullScreenContentDelegate
+    // MARK: - FullScreenContentDelegate
     
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         adDidFailToPresentFullScreenContentWithError.isEnabled = true
     }
     
-    func adDidRecordClick(_ ad: GADFullScreenPresentingAd) {
+    func adDidRecordClick(_ ad: FullScreenPresentingAd) {
         adDidRecordClick.isEnabled = true
     }
     
-    func adDidRecordImpression(_ ad: GADFullScreenPresentingAd) {
+    func adDidRecordImpression(_ ad: FullScreenPresentingAd) {
         adDidRecordImpression.isEnabled = true
     }
     
-    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adWillPresentFullScreenContent(_ ad: FullScreenPresentingAd) {
         adWillPresentFullScreenContent.isEnabled = true
     }
     
-    func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adWillDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         adWillDismissFullScreenContent.isEnabled = true
     }
     
-    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         adDidDismissFullScreenContent.isEnabled = true
     }
 }

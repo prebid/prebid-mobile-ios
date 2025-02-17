@@ -19,11 +19,9 @@ import GoogleMobileAds
 
 class GAMInterstitialAdWrapperTest: XCTestCase {
     
-    private class DummyDelegate: NSObject, GADFullScreenContentDelegate {
-    }
+    private class DummyDelegate: NSObject, GoogleMobileAds.FullScreenContentDelegate {}
     
-    private class DummyEventDelegate: NSObject, GADAppEventDelegate {
-    }
+    private class DummyEventDelegate: NSObject, GoogleMobileAds.AppEventDelegate {}
     
     func testProperties() {
         let propTests: [BasePropTest<GAMInterstitialAdWrapper>] = [
@@ -31,7 +29,9 @@ class GAMInterstitialAdWrapperTest: XCTestCase {
             RefProxyPropTest(keyPath: \.appEventDelegate, value: DummyEventDelegate()),
         ]
         
-        guard let interstitial = GAMInterstitialAdWrapper(adUnitID: "/21808260008/prebid_oxb_html_interstitial") else {
+        guard let interstitial = GAMInterstitialAdWrapper(
+            adUnitID: "/21808260008/prebid_oxb_html_interstitial"
+        ) else {
             XCTFail()
             return
         }

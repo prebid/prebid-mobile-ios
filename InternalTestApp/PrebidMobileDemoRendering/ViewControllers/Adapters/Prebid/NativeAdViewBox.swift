@@ -121,7 +121,8 @@ extension NativeAdViewBox {
 }
 
 extension NativeAdViewBox {
-    func renderNativeAd(_ nativeAd: NativeAd) {
+    
+    func renderNativeAd(_ nativeAd: PrebidMobile.NativeAd) {
         textLabel.text = nativeAd.text
         ctaButton.setTitle(nativeAd.callToAction, for: .normal)
         brandLabel.text = nativeAd.sponsoredBy
@@ -137,13 +138,14 @@ extension NativeAdViewBox {
         textLabel.numberOfLines = 0
     }
     
-    func registerViews(_ nativeAd: NativeAd) {
+    func registerViews(_ nativeAd: PrebidMobile.NativeAd) {
         nativeAd.registerView(view: contentView, clickableViews: [ctaButton, iconImage, brandLabel])
     }
 }
 
 extension NativeAdViewBox {
-    func renderCustomTemplateAd(_ customTemplateAd: GADCustomNativeAd) {
+    
+    func renderCustomTemplateAd(_ customTemplateAd: CustomNativeAd) {
         textLabel.text = customTemplateAd.string(forKey: "text")
         ctaButton.setTitle(customTemplateAd.string(forKey: "cta"), for: .normal)
         brandLabel.text = customTemplateAd.string(forKey: "sponsoredBy")

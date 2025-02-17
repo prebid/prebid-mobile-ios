@@ -20,7 +20,7 @@ import PrebidMobile
 @objc(PrebidAdMobInterstitialAdapter)
 public class PrebidAdMobInterstitialAdapter:
     PrebidAdMobMediationBaseAdapter,
-    GADMediationInterstitialAd,
+    GoogleMobileAds.MediationInterstitialAd,
     InterstitialControllerLoadingDelegate,
     InterstitialControllerInteractionDelegate {
     
@@ -30,12 +30,13 @@ public class PrebidAdMobInterstitialAdapter:
     weak var rootViewController: UIViewController?
     var adAvailable = false
     
-    public weak var delegate: GADMediationInterstitialAdEventDelegate?
+    public weak var delegate: GoogleMobileAds.MediationInterstitialAdEventDelegate?
     var completionHandler: GADMediationInterstitialLoadCompletionHandler?
     
-    public func loadInterstitial(for adConfiguration: GADMediationInterstitialAdConfiguration,
-                                 completionHandler: @escaping GADMediationInterstitialLoadCompletionHandler) {
-        
+    public func loadInterstitial(
+        for adConfiguration: GoogleMobileAds.MediationInterstitialAdConfiguration,
+        completionHandler: @escaping GADMediationInterstitialLoadCompletionHandler
+    ) {
         self.completionHandler = completionHandler
         
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
@@ -44,7 +45,7 @@ public class PrebidAdMobInterstitialAdapter:
             return
         }
         
-        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+        guard let eventExtras = adConfiguration.extras as? GoogleMobileAds.CustomEventExtras,
               let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
               !eventExtrasDictionary.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
@@ -95,7 +96,9 @@ public class PrebidAdMobInterstitialAdapter:
     
     // MARK: - InterstitialControllerLoadingDelegate
     
-    public func interstitialControllerDidLoadAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+    public func interstitialControllerDidLoadAd(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {
         adAvailable = true
         
         if let handler = completionHandler {
@@ -139,6 +142,11 @@ public class PrebidAdMobInterstitialAdapter:
         delegate?.willPresentFullScreenView()
     }
     
-    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
-    public func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func interstitialControllerDidComplete(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {}
+    
+    public func interstitialControllerDidLeaveApp(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {}
 }

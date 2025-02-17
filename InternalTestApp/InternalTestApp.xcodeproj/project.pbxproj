@@ -265,7 +265,6 @@
 		ACC36671253068600051D8E8 /* PrebidPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC366702530685F0051D8E8 /* PrebidPresentationViewController.swift */; };
 		ACC41ACA2444E50B00B9A3A7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC41AC92444E50B00B9A3A7 /* SettingsViewController.swift */; };
 		ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC41ACC2444EADB00B9A3A7 /* AppSettingsKeys.swift */; };
-		ACF7155725B08A80008A0186 /* TestCaseManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF7155625B08A80008A0186 /* TestCaseManagerTest.swift */; };
 		D08680742398088A00E70E60 /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
 		D086807B2398088A00E70E60 /* OpenXMockServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086807A2398088A00E70E60 /* OpenXMockServerTests.swift */; };
 		D086807D2398088A00E70E60 /* OpenXMockServer.h in Headers */ = {isa = PBXBuildFile; fileRef = D086806D2398088A00E70E60 /* OpenXMockServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -520,7 +519,6 @@
 		ACC41ACC2444EADB00B9A3A7 /* AppSettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsKeys.swift; sourceTree = "<group>"; };
 		ACE6E80C264D121A009324AC /* NativeAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeAsset+Extensions.swift"; sourceTree = "<group>"; };
 		ACF3557F25CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdFeedController.swift; sourceTree = "<group>"; };
-		ACF7155625B08A80008A0186 /* TestCaseManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseManagerTest.swift; sourceTree = "<group>"; };
 		D086806B2398088A00E70E60 /* OpenXMockServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenXMockServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D086806D2398088A00E70E60 /* OpenXMockServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenXMockServer.h; sourceTree = "<group>"; };
 		D086806E2398088A00E70E60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -895,7 +893,6 @@
 				5B6EB0132122CAA400C5B072 /* Info.plist */,
 				5B3621E42122CC4F0030F196 /* TestCaseTagTest.swift */,
 				5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */,
-				ACF7155625B08A80008A0186 /* TestCaseManagerTest.swift */,
 			);
 			path = PrebidMobileDemoRenderingTests;
 			sourceTree = "<group>";
@@ -1671,7 +1668,6 @@
 				5BCBEBAD27FB1BAC00EE1B06 /* TestCaseTagTest.swift in Sources */,
 				5BCBEBAE27FB1BB200EE1B06 /* TestCase.swift in Sources */,
 				5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */,
-				ACF7155725B08A80008A0186 /* TestCaseManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
