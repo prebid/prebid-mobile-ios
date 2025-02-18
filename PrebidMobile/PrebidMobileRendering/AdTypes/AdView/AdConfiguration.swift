@@ -82,6 +82,11 @@ public class AdConfiguration: AutoRefreshCountConfig {
      */
     public var isBuiltInVideo = false
     
+    // MARK: - SKAdNetwork
+    
+    /// A flag that determines whether SKOverlay should be supported
+    public var supportSKOverlay = false
+    
     // MARK: - Response
     
     /**

@@ -323,6 +323,8 @@ public class Targeting: NSObject {
     /// The itunes app id for targeting
     public var itunesID: String?
     
+    // MARK: - Location
+    
     /// The application location for targeting
     public var location: CLLocation?
     
@@ -334,7 +336,6 @@ public class Targeting: NSObject {
     /// Objective-C API
     /// Deprecated.
     @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
-
     public func setLocationPrecision(_ newValue: NSNumber?) {
         locationPrecision = newValue?.intValue
     }

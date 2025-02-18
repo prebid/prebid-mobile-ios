@@ -21,6 +21,7 @@
 @implementation PBMORTBBidExtSkadn
 
 - (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
+    
     if (self = [super init]) {
         _version = jsonDictionary[@"version"];
         _network = jsonDictionary[@"network"];
@@ -38,6 +39,11 @@
         }
         
         _fidelities = fidelities;
+        
+        PBMJsonDictionary * skoverlay = jsonDictionary[@"skoverlay"];
+        if(skoverlay) {
+            _skoverlay = [[PBMORTBBidExtSkadnSKOverlay alloc] initWithJsonDictionary:skoverlay];
+        }
     }
     return self;
 }
@@ -59,6 +65,8 @@
     }
     
     ret[@"fidelities"] = jsonFidelities;
+    ret[@"skoverlay"] = [self.skoverlay toJsonDictionary];
+    
     [ret pbmRemoveEmptyVals];
     
     return ret;
