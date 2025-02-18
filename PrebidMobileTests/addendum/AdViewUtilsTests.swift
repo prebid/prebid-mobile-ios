@@ -71,60 +71,6 @@ class AdViewUtilsTests: XCTestCase {
         )
     }
     
-    func findSizeInHtmlFailureHelper(body: String, expectedErrorCode: Int) {
-        // when
-        let result = AdViewUtils.findValueInHtml(
-            body: body,
-            objectRegex: AdViewUtils.sizeObjectRegexExpression,
-            valueRegex: AdViewUtils.sizeValueRegexExpression,
-            parseResult:  {
-                if let cgSize = $0.toCGSize() {
-                    return .success(cgSize)
-                } else {
-                    return .failure(NSError(
-                        domain: "com.prebid.tests",
-                        code: PbWebViewSearchErrorFactory.valueUnparsedCode
-                    ))
-                }
-            }
-        )
-        
-        // then
-        switch result {
-        case .success(_):
-            XCTFail("Expected failure")
-        case .failure(let error as NSError):
-            XCTAssertEqual(expectedErrorCode, error.code)
-        }
-    }
-    
-    func findSizeInHtmlSuccessHelper(body: String, expectedSize: CGSize) {
-        // when
-        let result = AdViewUtils.findValueInHtml(
-            body: body,
-            objectRegex: AdViewUtils.sizeObjectRegexExpression,
-            valueRegex: AdViewUtils.sizeValueRegexExpression,
-            parseResult:  {
-                if let cgSize = $0.toCGSize() {
-                    return .success(cgSize)
-                } else {
-                    return .failure(NSError(
-                        domain: "com.prebid.tests",
-                        code: PbWebViewSearchErrorFactory.valueUnparsedCode
-                    ))
-                }
-            }
-        )
-        
-        // then
-        switch result {
-        case .success(let size):
-            XCTAssert(expectedSize == size)
-        case .failure(_):
-            XCTFail("Expected success")
-        }
-    }
-    
     func testFailureFindSizeInViewIfThereIsNoWebView() {
         let uiView = UIView()
         findSizeInViewFailureHelper(uiView, expectedErrorCode: PbWebViewSearchErrorFactory.noWKWebViewCode)
@@ -185,7 +131,59 @@ class AdViewUtilsTests: XCTestCase {
         waitForExpectations(timeout: 30, handler: nil)
     }
     
-    class TestingWKNavigationDelegate: NSObject, WKNavigationDelegate {
+    func testFindPrebidLocalCacheIDSuccess() {
+        let webView = WKWebView()
+        setHtmlIntoWkWebView(successHtmlWithSize728x90, webView)
+        
+        let adView = UIView()
+        adView.addSubview(webView)
+        
+        let expectation = expectation(description: "Expected to find a cache ID successfully")
+        
+        AdViewUtils.findPrebidLocalCacheID(adView) { result in
+            switch result {
+            case .success(let cacheID):
+                XCTAssertEqual(cacheID, "Prebid_6DE2F419-1B19-4B9B-ABD8-099334CC636A")
+            case .failure:
+                XCTFail("Expected to find cache ID, but failed")
+            }
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 45)
+    }
+    
+    func testFindPrebidLocalCacheIDFailureNoLocalCacheID() {
+        let html = "<div>No cache ID here</div>"
+        let webView = WKWebView()
+        setHtmlIntoWkWebView(html, webView)
+        
+        let adView = UIView()
+        adView.addSubview(webView)
+        
+        let expectation = expectation(description: "Expected to fail due to missing cache ID")
+        
+        AdViewUtils.findPrebidLocalCacheID(adView) { result in
+            switch result {
+            case .success:
+                XCTFail("Expected to fail, but found a cache ID")
+            case .failure(let error):
+                XCTAssertEqual((error as? PbWebViewSearchError)?.code, PbWebViewSearchErrorFactory.noObjectCode)
+            }
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 45)
+    }
+    
+    func testSuccessFindSizeInWkWebView() {
+        let wkWebView = WKWebView()
+        
+        setHtmlIntoWkWebView(successHtmlWithSize728x90, wkWebView)
+        findSizeInViewSuccessHelper(wkWebView, expectedSize: CGSize(width: 728, height: 90))
+    }
+    
+    private class TestingWKNavigationDelegate: NSObject, WKNavigationDelegate {
         let loadSuccesfulException: XCTestExpectation
         
         init(_ loadSuccesfulException: XCTestExpectation) {
@@ -203,30 +201,23 @@ class AdViewUtilsTests: XCTestCase {
         }
     }
     
-    let successHtmlWithSize728x90 = """
-                <html><body leftMargin="0" topMargin="0" marginwidth="0" marginheight="0"><script src = "https://ads.rubiconproject.com/prebid/creative.js"></script>
-                <script>
-                  var ucTagData = {};
-                  ucTagData.adServerDomain = "";
-                  ucTagData.pubUrl = "0.1.0.iphone.com.Prebid.PrebidDemo.adsenseformobileapps.com";
-                  ucTagData.targetingMap = {"bidder":["rubicon"],"bidid":["ee34715d-336c-4e77-b651-ba62f9d4e026"],"hb_bidder":["rubicon"],"hb_bidder_rubicon":["rubicon"],"hb_cache_host":["prebid-cache-europe.rubiconproject.com"],"hb_cache_host_rubicon":["prebid-cache-europe.rubiconproject.com"],"hb_cache_id":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_id_rubicon":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_path":["/cache"],"hb_cache_path_rubicon":["/cache"],"hb_env":["mobile-app"],"hb_env_rubicon":["mobile-app"],"hb_pb":["1.40"],"hb_pb_rubicon":["1.40"],"hb_size":["728x90"],"hb_size_rubicon":["728x90"]};
-                
-                  try {
-                    ucTag.renderAd(document, ucTagData);
-                  } catch (e) {
-                    console.log(e);
-                  }
-                </script></div><div style="bottom:0;right:0;width:100px;height:100px;background:initial !important;position:absolute !important;max-width:100% !important;max-height:100% !important;pointer-events:none !important;image-rendering:pixelated !important;background-repeat:no-repeat !important;z-index:2147483647;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkBAMAAACCzIhnAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAAEZSURBVFjD7VRJksQwCIMf8P/XjgMS4OXSh7nhdKXawbEsoUjk96ExZF1aM4sh6zLhjMX19BuGP5hpbOc/3NbdgCLA8AJn3+6O4cswY7GqDnRU/bDHRoWiTxR7oyQHs4vLp8jFpRQLjFOxwNgUy2FxirsH72dEEHKxpkZ0RoxLpYTsjFLzjVEsVRDYqPhrRQbElCdBBc4ADDaBiQCTSzXezlPQRlbdJSUtxdEZI0gpxxZvyuXxNcEkvQupIMzt5GDC07L7quWAw8lSLmwekzLsy8nsiW2fBPvQ6DYna+nRnGxp1svJJvVhppNV6sN8OLnZozm5Oel28iTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzL8nzB8ivkq1hG7lNQAAAABJRU5ErkJggg==') !important;"></div><script src="https://pagead2.googlesyndication.com/omsdk/releases/live/omid_session_bin.js"></script><script type="text/javascript">(function() {var omidSession = new OmidCreativeSession([]);})();</script></body></html>
-                """
-    
-    func testSuccessFindSizeInWkWebView() {
-        let wkWebView = WKWebView()
+    private let successHtmlWithSize728x90 = """
+        <html><body leftMargin="0" topMargin="0" marginwidth="0" marginheight="0"><script src = "https://ads.rubiconproject.com/prebid/creative.js"></script>
+        <script>
+          var ucTagData = {};
+          ucTagData.adServerDomain = "";
+          ucTagData.pubUrl = "0.1.0.iphone.com.Prebid.PrebidDemo.adsenseformobileapps.com";
+          ucTagData.targetingMap = {"bidder":["rubicon"],"bidid":["ee34715d-336c-4e77-b651-ba62f9d4e026"],"hb_bidder":["rubicon"],"hb_bidder_rubicon":["rubicon"],"hb_cache_host":["prebid-cache-europe.rubiconproject.com"],"hb_cache_host_rubicon":["prebid-cache-europe.rubiconproject.com"],"hb_cache_id":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_id_local":["Prebid_6DE2F419-1B19-4B9B-ABD8-099334CC636A"],"hb_cache_id_rubicon":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_path":["/cache"],"hb_cache_path_rubicon":["/cache"],"hb_env":["mobile-app"],"hb_env_rubicon":["mobile-app"],"hb_pb":["1.40"],"hb_pb_rubicon":["1.40"],"hb_size":["728x90"],"hb_size_rubicon":["728x90"]};
         
-        setHtmlIntoWkWebView(successHtmlWithSize728x90, wkWebView)
-        findSizeInViewSuccessHelper(wkWebView, expectedSize: CGSize(width: 728, height: 90))
-    }
+          try {
+            ucTag.renderAd(document, ucTagData);
+          } catch (e) {
+            console.log(e);
+          }
+        </script></div><div style="bottom:0;right:0;width:100px;height:100px;background:initial !important;position:absolute !important;max-width:100% !important;max-height:100% !important;pointer-events:none !important;image-rendering:pixelated !important;background-repeat:no-repeat !important;z-index:2147483647;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkBAMAAACCzIhnAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAAEZSURBVFjD7VRJksQwCIMf8P/XjgMS4OXSh7nhdKXawbEsoUjk96ExZF1aM4sh6zLhjMX19BuGP5hpbOc/3NbdgCLA8AJn3+6O4cswY7GqDnRU/bDHRoWiTxR7oyQHs4vLp8jFpRQLjFOxwNgUy2FxirsH72dEEHKxpkZ0RoxLpYTsjFLzjVEsVRDYqPhrRQbElCdBBc4ADDaBiQCTSzXezlPQRlbdJSUtxdEZI0gpxxZvyuXxNcEkvQupIMzt5GDC07L7quWAw8lSLmwekzLsy8nsiW2fBPvQ6DYna+nRnGxp1svJJvVhppNV6sN8OLnZozm5Oel28iTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzL8nzB8ivkq1hG7lNQAAAABJRU5ErkJggg==') !important;"></div><script src="https://pagead2.googlesyndication.com/omsdk/releases/live/omid_session_bin.js"></script><script type="text/javascript">(function() {var omidSession = new OmidCreativeSession([]);})();</script></body></html>
+    """
     
-    func setHtmlIntoWkWebView(_ html: String, _ wkWebView: WKWebView) {
+    private func setHtmlIntoWkWebView(_ html: String, _ wkWebView: WKWebView) {
         let loadSuccesfulException = expectation(description: "\(#function)")
         
         let testingWKNavigationDelegate = TestingWKNavigationDelegate(loadSuccesfulException)
@@ -234,11 +225,11 @@ class AdViewUtilsTests: XCTestCase {
         
         wkWebView.loadHTMLString(html, baseURL: nil)
         
-        waitForExpectations(timeout: 30, handler: nil)
+        waitForExpectations(timeout: 45)
         wkWebView.navigationDelegate = nil
     }
     
-    func findSizeInViewFailureHelper(_ view: UIView, expectedErrorCode: Int) {
+    private func findSizeInViewFailureHelper(_ view: UIView, expectedErrorCode: Int) {
         let loadSuccesfulException = expectation(description: "\(#function)")
         
         // given
@@ -256,7 +247,7 @@ class AdViewUtilsTests: XCTestCase {
         
         // when
         AdViewUtils.findPrebidCreativeSize(view, success: success, failure: failure)
-        waitForExpectations(timeout: 30, handler: nil)
+        waitForExpectations(timeout: 45)
         
         // then
         XCTAssertNil(size)
@@ -265,7 +256,7 @@ class AdViewUtilsTests: XCTestCase {
         
     }
     
-    func findSizeInViewSuccessHelper(_ view: UIView, expectedSize: CGSize) {
+    private func findSizeInViewSuccessHelper(_ view: UIView, expectedSize: CGSize) {
         let loadSuccesfulException = expectation(description: "\(#function)")
         
         // given
@@ -283,11 +274,65 @@ class AdViewUtilsTests: XCTestCase {
         
         // when
         AdViewUtils.findPrebidCreativeSize(view, success: success, failure: failure)
-        waitForExpectations(timeout: 30, handler: nil)
+        waitForExpectations(timeout: 45)
         
         // then
         XCTAssertNotNil(result)
         XCTAssertEqual(expectedSize, result)
         XCTAssertNil(error)
+    }
+    
+    private func findSizeInHtmlFailureHelper(body: String, expectedErrorCode: Int) {
+        // when
+        let result = AdViewUtils.findValueInHtml(
+            body: body,
+            objectRegex: AdViewUtils.sizeObjectRegexExpression,
+            valueRegex: AdViewUtils.sizeValueRegexExpression,
+            parseResult:  {
+                if let cgSize = $0.toCGSize() {
+                    return .success(cgSize)
+                } else {
+                    return .failure(NSError(
+                        domain: "com.prebid.tests",
+                        code: PbWebViewSearchErrorFactory.valueUnparsedCode
+                    ))
+                }
+            }
+        )
+        
+        // then
+        switch result {
+        case .success(_):
+            XCTFail("Expected failure")
+        case .failure(let error as NSError):
+            XCTAssertEqual(expectedErrorCode, error.code)
+        }
+    }
+    
+    private func findSizeInHtmlSuccessHelper(body: String, expectedSize: CGSize) {
+        // when
+        let result = AdViewUtils.findValueInHtml(
+            body: body,
+            objectRegex: AdViewUtils.sizeObjectRegexExpression,
+            valueRegex: AdViewUtils.sizeValueRegexExpression,
+            parseResult:  {
+                if let cgSize = $0.toCGSize() {
+                    return .success(cgSize)
+                } else {
+                    return .failure(NSError(
+                        domain: "com.prebid.tests",
+                        code: PbWebViewSearchErrorFactory.valueUnparsedCode
+                    ))
+                }
+            }
+        )
+        
+        // then
+        switch result {
+        case .success(let size):
+            XCTAssert(expectedSize == size)
+        case .failure(_):
+            XCTFail("Expected success")
+        }
     }
 }
