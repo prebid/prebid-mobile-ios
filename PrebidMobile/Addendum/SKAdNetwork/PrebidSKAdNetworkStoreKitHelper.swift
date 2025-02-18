@@ -17,9 +17,9 @@ import UIKit
 import WebKit
 import StoreKit
 
-/// This class provides utilities for tracking ad clicks and presenting the SKStoreProductViewController
+/// Helper class that invokes SKStoreProductViewController on ad click.
 @objcMembers
-class PrebidSKAdNetworkStoreKitHelper: NSObject {
+class PrebidSKAdNetworkStoreKitAdsHelper: NSObject {
     
     private weak var adView: UIView?
     private weak var viewControllerForPresentingModals: UIViewController?
@@ -93,40 +93,10 @@ class PrebidSKAdNetworkStoreKitHelper: NSObject {
             return
         }
         
-        adView.subviews
-            .filter({ $0 is TouchTrackingOverlayView })
-            .forEach({ $0.removeFromSuperview()})
-        
-        let overlayView = TouchTrackingOverlayView(frame: adView.bounds)
-        adView.addSubview(overlayView)
-        
-        overlayView.onClick = { [weak self] in
-            self?.productControllerPresenter = SKStoreProductViewControllerPresenter()
-            self?.productControllerPresenter?.present(
-                from: viewControllerForPresentingModals,
-                using: productParameters
-            )
-        }
-    }
-}
-
-/// A custom overlay view for tracking touch interactions.
-private class TouchTrackingOverlayView: UIView {
-    
-    var onClick: (() -> Void)?
-    
-    private var lastTimestamp: TimeInterval?
-    
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        if self.point(inside: point, with: event) {
-            if event?.timestamp != lastTimestamp {
-                onClick?()
-            }
-            
-            lastTimestamp = event?.timestamp
-            return nil
-        }
-        
-        return super.hitTest(point, with: event)
+        productControllerPresenter = SKStoreProductViewControllerPresenter()
+        productControllerPresenter?.present(
+            from: viewControllerForPresentingModals,
+            using: productParameters
+        )
     }
 }

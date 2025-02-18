@@ -31,11 +31,7 @@ class PrebidOriginalAPIVideoBannerController:
     var adSize = CGSize.zero
     var gamSizes = [AdSize]()
     
-    // Prebid
-    var activatePrebidSKAdNHelper = false
-    
     private var adUnit: VideoAdUnit!
-    private let skadnHelper = PrebidSKAdNetworkHelper()
     
     // GAM
     private var gamBanner: AdManagerBannerView!
@@ -193,10 +189,6 @@ class PrebidOriginalAPIVideoBannerController:
         }, failure: { (error) in
             Log.error("Error occuring during searching for Prebid creative size: \(error)")
         })
-        
-        if let rootController, activatePrebidSKAdNHelper == true {
-            skadnHelper.subscribeOnAdClicked(adView: bannerView, viewController: rootController)
-        }
     }
     
     func bannerView(_ bannerView: GoogleMobileAds.BannerView, didFailToReceiveAdWithError error: Error) {

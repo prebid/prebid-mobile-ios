@@ -24,9 +24,7 @@ class SKStoreProductViewControllerPresenter: NSObject {
         self.presentingViewController = viewController
         
         DispatchQueue.main.async {
-            let skadnController = SKStoreProductViewController()
-            skadnController.delegate = self
-            
+            let skadnController = SKStoreProductViewController() 
             self.presentingViewController?.present(skadnController, animated: true)
             skadnController.loadProduct(withParameters: productParameters) { _, error in
                 if let error {
@@ -34,14 +32,5 @@ class SKStoreProductViewControllerPresenter: NSObject {
                 }
             }
         }
-    }
-}
-
-// MARK: - SKStoreProductViewControllerDelegate
-
-extension SKStoreProductViewControllerPresenter: SKStoreProductViewControllerDelegate {
-    
-    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
-        presentingViewController?.dismiss(animated: true)
     }
 }
