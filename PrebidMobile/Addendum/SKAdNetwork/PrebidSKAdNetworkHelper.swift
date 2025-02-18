@@ -24,6 +24,8 @@ public class PrebidSKAdNetworkHelper: NSObject {
     private weak var adView: UIView?
     private weak var viewControllerForPresentingModals: UIViewController?
     
+    private var productControllerPresenter: SKStoreProductViewControllerPresenter?
+    
     /// Subscribes to ad click events on the provided ad view and configures it with SKAdN tracking..
     /// - Parameters:
     ///   - adView: The ad view where click events will be tracked.
@@ -81,12 +83,13 @@ public class PrebidSKAdNetworkHelper: NSObject {
     }
     
     private func configureAdViewWithSkadn(using bid: Bid) {
-        guard let adView = adView else {
+        guard let adView = adView, let viewControllerForPresentingModals = viewControllerForPresentingModals else {
             return
         }
         
         guard let skadn = bid.skadn,
-              let skadnParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) else {
+              let productParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) else {
+            Log.error("SDK couldn't retrieve SKAdN product parameters from bid response.")
             return
         }
         
@@ -98,31 +101,12 @@ public class PrebidSKAdNetworkHelper: NSObject {
         adView.addSubview(overlayView)
         
         overlayView.onClick = { [weak self] in
-            self?.presentSKStoreProductViewController(with: skadnParameters)
+            self?.productControllerPresenter = SKStoreProductViewControllerPresenter()
+            self?.productControllerPresenter?.present(
+                from: viewControllerForPresentingModals,
+                using: productParameters
+            )
         }
-    }
-    
-    private func presentSKStoreProductViewController(with productParameters: [String: Any]) {
-        DispatchQueue.main.async {
-            let skadnController = SKStoreProductViewController()
-            skadnController.delegate = self
-            
-            self.viewControllerForPresentingModals?.present(skadnController, animated: true)
-            skadnController.loadProduct(withParameters: productParameters) { _, error in
-                if let error {
-                    Log.error("Error occurred during SKStoreProductViewController product loading: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-}
-
-// MARK: - SKStoreProductViewControllerDelegate
-
-extension PrebidSKAdNetworkHelper: SKStoreProductViewControllerDelegate {
-    
-    public func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
-        viewControllerForPresentingModals?.dismiss(animated: true)
     }
 }
 

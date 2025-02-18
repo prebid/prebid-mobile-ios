@@ -130,6 +130,7 @@
 		537B651E2833A3DA008AE9D1 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B651D2833A3DA008AE9D1 /* Reachability.swift */; };
 		537B65402833C091008AE9D1 /* NetworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B653F2833C091008AE9D1 /* NetworkType.swift */; };
 		537B6581283524BB008AE9D1 /* PrebidInitializationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B6580283524BB008AE9D1 /* PrebidInitializationStatus.swift */; };
+		537F3F9C2D648A3000584F9C /* SKStoreProductViewControllerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F3F9B2D648A3000584F9C /* SKStoreProductViewControllerPresenter.swift */; };
 		53842BB829E561750069A4B7 /* PrebidImagesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53842BB729E561750069A4B7 /* PrebidImagesRepository.swift */; };
 		53842BBC29E565030069A4B7 /* NSString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53842BBB29E565030069A4B7 /* NSString+Extensions.swift */; };
 		5388F32627F46A7F00319FE4 /* AdViewButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */; };
@@ -1044,6 +1045,7 @@
 		537B651D2833A3DA008AE9D1 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		537B653F2833C091008AE9D1 /* NetworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkType.swift; sourceTree = "<group>"; };
 		537B6580283524BB008AE9D1 /* PrebidInitializationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidInitializationStatus.swift; sourceTree = "<group>"; };
+		537F3F9B2D648A3000584F9C /* SKStoreProductViewControllerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStoreProductViewControllerPresenter.swift; sourceTree = "<group>"; };
 		53842BB729E561750069A4B7 /* PrebidImagesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidImagesRepository.swift; sourceTree = "<group>"; };
 		53842BBB29E565030069A4B7 /* NSString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+Extensions.swift"; sourceTree = "<group>"; };
 		5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewButtonDecorator.swift; sourceTree = "<group>"; };
@@ -2027,6 +2029,15 @@
 				53A8CBDA2C64D12A008ABEA7 /* SingleContainerInt.swift */,
 			);
 			path = Parameters;
+			sourceTree = "<group>";
+		};
+		537F3F9A2D6489C800584F9C /* SKAdNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				536469C82D341A8100F50B6D /* PrebidSKAdNetworkHelper.swift */,
+				537F3F9B2D648A3000584F9C /* SKStoreProductViewControllerPresenter.swift */,
+			);
+			path = SKAdNetwork;
 			sourceTree = "<group>";
 		};
 		53A0E7E72CDCCBAB007887F5 /* ImpressionTracking */ = {
@@ -3476,10 +3487,10 @@
 		FAEE4CFF262DC2B200AD9966 /* Addendum */ = {
 			isa = PBXGroup;
 			children = (
+				537F3F9A2D6489C800584F9C /* SKAdNetwork */,
 				FAEE4D00262DC2B200AD9966 /* PbWebViewSearchError.swift */,
 				FAEE4D01262DC2B200AD9966 /* AdViewUtils.swift */,
 				FAEE4D02262DC2B200AD9966 /* IMAUtils.swift */,
-				536469C82D341A8100F50B6D /* PrebidSKAdNetworkHelper.swift */,
 			);
 			path = Addendum;
 			sourceTree = "<group>";
@@ -4452,6 +4463,7 @@
 				5BC3799E271F1D0000444D5E /* PBMModalPresentationController.m in Sources */,
 				5BC37A6D271F1D0000444D5E /* PBMORTBBid.m in Sources */,
 				5BC37A8B271F1D0000444D5E /* BannerEventInteractionDelegate.swift in Sources */,
+				537F3F9C2D648A3000584F9C /* SKStoreProductViewControllerPresenter.swift in Sources */,
 				FAEE4D0B262DC2B200AD9966 /* Dispatcher.swift in Sources */,
 				5BC37A10271F1D0000444D5E /* AdUnitConfig.swift in Sources */,
 				A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */,
