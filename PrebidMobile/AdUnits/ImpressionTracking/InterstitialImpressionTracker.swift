@@ -21,7 +21,8 @@ class InterstitialImpressionTracker: PrebidImpressionTrackerProtocol {
     private var interstitialObserver: InterstitialObserver?
     private var viewabilityTracker: PBMCreativeViewabilityTracker?
     
-    private var payload: PrebidImpressionTrackerPayload?
+    private var eventManager: EventManager?
+    private var payload: PrebidImpressionTracker.Payload?
     
     private var pollingInterval: TimeInterval {
         0.2
@@ -38,6 +39,8 @@ class InterstitialImpressionTracker: PrebidImpressionTrackerProtocol {
     func stop() {
         interstitialObserver?.stop()
         viewabilityTracker?.stop()
+        payload = nil
+        eventManager = nil
     }
     
     private func attachViewabilityTracker(to view: UIView) {
@@ -51,15 +54,13 @@ class InterstitialImpressionTracker: PrebidImpressionTrackerProtocol {
                     self.stop()
                     
                     // Ensure that we found Prebid creative
-                    AdViewUtils.findPrebidCacheID(view) { result in
+                    AdViewUtils.findPrebidCacheID(view) { [weak self] result in
+                        guard let self = self, let eventManager = self.eventManager else { return }
+                        
                         switch result {
                         case .success(let foundCacheID):
-                            if let trackingURLs = self.payload?.trackingURLs,
-                               let creativeCacheID = self.payload?.cacheID,
-                               foundCacheID == creativeCacheID {
-                                for trackingURL in trackingURLs {
-                                    PrebidServerConnection.shared.fireAndForget(trackingURL)
-                                }
+                            if let creativeCacheID = self.payload?.cacheID, foundCacheID == creativeCacheID {
+                                eventManager.trackEvent(.impression)
                             }
                         case .failure(let error):
                             Log.warn(error.localizedDescription)
@@ -72,7 +73,11 @@ class InterstitialImpressionTracker: PrebidImpressionTrackerProtocol {
         viewabilityTracker?.start()
     }
     
-    func register(payload: PrebidImpressionTrackerPayload) {
+    func register(payload: PrebidImpressionTracker.Payload) {
         self.payload = payload
+    }
+    
+    func register(eventManager: EventManager) {
+        self.eventManager = eventManager
     }
 }

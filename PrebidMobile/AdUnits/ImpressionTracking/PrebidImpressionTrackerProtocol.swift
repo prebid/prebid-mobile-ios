@@ -18,5 +18,7 @@ import UIKit
 protocol PrebidImpressionTrackerProtocol {
     func start(in view: UIView)
     func stop()
-    func register(payload: PrebidImpressionTrackerPayload)
+    
+    func register(payload: PrebidImpressionTracker.Payload)
+    func register(eventManager: EventManager)
 }
