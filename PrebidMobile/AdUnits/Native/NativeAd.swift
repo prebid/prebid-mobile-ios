@@ -50,16 +50,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     
     private let eventManager = EventManager()
     
-    private var viewControllerForPresentingModals: UIViewController?
-    
-    public var privacyUrl: String? {
-        set {
-            nativeAdMarkup?.privacy = newValue
-        }
-        get {
-            return nativeAdMarkup?.privacy
-        }
-    }
+    private var productControllerPresenter: SKStoreProductViewControllerPresenter?
     
     // MARK: - Array getters
     
@@ -81,6 +72,11 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     /// Returns an array of event trackers from the native ad markup.
     @objc public var eventTrackers: [NativeEventTrackerResponse]? {
         return nativeAdMarkup?.eventtrackers
+    }
+    
+    public var privacyUrl: String? {
+        set { nativeAdMarkup?.privacy = newValue }
+        get { nativeAdMarkup?.privacy }
     }
     
     // MARK: - Filtered array getters
@@ -363,11 +359,20 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
                 landingPageString: url
             ).openHiddenWebView()
             
-            presentSKStoreProductViewController(with: productParameters)
+            if let viewControllerForPresentingModals = viewForTracking?.parentViewController ?? UIApplication.topViewController() {
+                productControllerPresenter = SKStoreProductViewControllerPresenter()
+                productControllerPresenter?.present(
+                    from: viewControllerForPresentingModals,
+                    using: productParameters
+                )
+            } else {
+                Log.error("SDK couldn't find a view controller to present the SKStoreProductViewController from.")
+            }
+            
             fireClickTrackers()
         }
         // Normal clickthrough
-        else if openURLWithExternalBrowser(url: url) {
+        else if UIApplication.shared.openExternalURL(url) {
             fireClickTrackers()
         } else {
             Log.debug("Could not open click URL: \(clickUrl)")
@@ -381,44 +386,6 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         }
         
         TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersURLs) { _ in }
-    }
-    
-    private func presentSKStoreProductViewController(with productParameters: [String: Any]) {
-        DispatchQueue.main.async {
-            let skadnController = SKStoreProductViewController()
-            skadnController.delegate = self
-            var viewControllerForPresentingModals = UIApplication.topViewController()
-            
-            if let viewForTracking = self.viewForTracking,
-                let viewController = viewForTracking.parentViewController {
-                viewControllerForPresentingModals = viewController
-            }
-            
-            self.viewControllerForPresentingModals = viewControllerForPresentingModals
-            
-            viewControllerForPresentingModals?.present(skadnController, animated: true)
-            skadnController.loadProduct(withParameters: productParameters) { _, error in
-                if let error {
-                    Log.error("Error occurred during SKStoreProductViewController product loading: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-    
-    private func openURLWithExternalBrowser(url: URL) -> Bool {
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
-extension NativeAd: SKStoreProductViewControllerDelegate {
-    
-    public func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
-        viewControllerForPresentingModals?.dismiss(animated: true)
     }
 }
 

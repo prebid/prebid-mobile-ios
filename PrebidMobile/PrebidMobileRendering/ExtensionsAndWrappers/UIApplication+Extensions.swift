@@ -42,4 +42,11 @@ extension UIApplication {
         
         return topController
     }
+    
+    func openExternalURL(_ url: URL) -> Bool {
+        guard canOpenURL(url) else { return false }
+        
+        open(url, options: [:], completionHandler: nil)
+        return true
+    }
 }
