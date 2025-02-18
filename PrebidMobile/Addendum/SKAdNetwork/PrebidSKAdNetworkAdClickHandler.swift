@@ -17,9 +17,9 @@ import UIKit
 import WebKit
 import StoreKit
 
-/// This class provides utilities for tracking ad clicks and presenting the SKStoreProductViewController
+/// Helper class that invokes SKStoreProductViewController on ad click.
 @objcMembers
-class PrebidSKAdNetworkStoreKitHelper: NSObject {
+class PrebidSKAdNetworkAdClickHandler: NSObject {
     
     private weak var adView: UIView?
     private weak var viewControllerForPresentingModals: UIViewController?
@@ -47,6 +47,12 @@ class PrebidSKAdNetworkStoreKitHelper: NSObject {
             
             self?.configureAdViewWithSkadn(using: bidString)
         }
+    }
+    
+    func stop() {
+        adView = nil
+        viewControllerForPresentingModals = nil
+        productControllerPresenter = nil
     }
     
     /// Mainly used for video creatives. Searches for **hb_uuid** keys from saved bids in third-party web views.

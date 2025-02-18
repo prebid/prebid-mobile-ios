@@ -29,6 +29,8 @@ class PrebidOriginalAPIDisplayInterstitialController:
     
     var refreshInterval: TimeInterval = 0
     
+    var activatePrebidSKAdN = false
+    
     // Prebid
     private var adUnit: InterstitialAdUnit!
     
@@ -158,6 +160,11 @@ class PrebidOriginalAPIDisplayInterstitialController:
     @IBAction func showButtonClicked() {
         if let gamInterstitial = gamInterstitial {
             rootController?.showButton.isEnabled = false
+            
+            if activatePrebidSKAdN {
+                adUnit.activatePrebidSKAdNetworkStoreKitAdsFlow()
+            }
+            
             gamInterstitial.present(from: rootController!)
         }
     }

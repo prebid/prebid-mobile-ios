@@ -58,6 +58,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
         isInterstitial: adUnitConfig.adConfiguration.isInterstitialAd
     )
     
+    private(set) lazy var skadnStoreKitAdsHelper = PrebidStoreKitAdsHelper(
+        isInterstitial: adUnitConfig.adConfiguration.isInterstitialAd
+    )
+    
     private let eventManager = EventManager()
     
     /// Initializes a new `AdUnit` instance with the specified configuration ID, size, and ad formats.
