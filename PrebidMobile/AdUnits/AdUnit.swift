@@ -58,6 +58,8 @@ public class AdUnit: NSObject, DispatcherDelegate {
         isInterstitial: adUnitConfig.adConfiguration.isInterstitialAd
     )
     
+    private let eventManager = EventManager()
+    
     /// Initializes a new `AdUnit` instance with the specified configuration ID, size, and ad formats.
     ///
     /// - Parameters:
@@ -200,12 +202,30 @@ public class AdUnit: NSObject, DispatcherDelegate {
                 return
             }
             
-            let impressionTrackingPayload = PrebidImpressionTrackerPayload(
-                cacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"],
-                trackingURLs: bidResponse.winningBid?.impressionTrackingURLs ?? []
+            // Create a tracker for server event, f.e. firing `burl`
+            let serverEventTracker = PrebidServerEventTracker()
+            eventManager.registerTracker(serverEventTracker)
+            
+            // Register impression URLs
+            let impServerEvents = bidResponse.winningBid?
+                .impressionTrackingURLs
+                .map { ServerEvent(url: $0, expectedEventType: .impression) } ?? []
+            serverEventTracker.addServerEvents(impServerEvents)
+            
+            if #available(iOS 14.5, *) {
+                if let skadn = bidResponse.winningBid?.skadn,
+                   let imp = SkadnParametersManager.getSkadnImpression(for: skadn) {
+                    let skadnEventTracker = SkadnEventTracker(with: imp)
+                    eventManager.registerTracker(skadnEventTracker)
+                }
+            }
+            
+            let impressionTrackingPayload = PrebidImpressionTracker.Payload(
+                cacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"]
             )
             
             self.impressionTracker.register(payload: impressionTrackingPayload)
+            self.impressionTracker.register(eventManager: eventManager)
             
             if (!self.timeOutSignalSent) {
                 let resultCode = self.setUp(adObject, with: bidResponse)
