@@ -16,6 +16,9 @@ gem install cocoapods
 pod deintegrate
 pod install --repo-update
 pod update
+
+brew install xcbeautify
+
 if [ "$1" == "-ui" ]; then
     echo -e "\n${GREEN}Running UI tests${NC} \n"
     SCHEME="PrebidDemoSwiftUITests"
@@ -25,7 +28,7 @@ else
     SCHEME="PrebidDemoTests"
     TEST="Integration"
 fi
-xcodebuild test -workspace PrebidMobile.xcworkspace -scheme $SCHEME -test-iterations 2 -retry-tests-on-failure  -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+xcodebuild test -workspace PrebidMobile.xcworkspace -scheme $SCHEME -test-iterations 2 -retry-tests-on-failure  -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' | xcbeautify
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ ${TEST} Tests Passed"
