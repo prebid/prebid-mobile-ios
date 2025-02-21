@@ -24,15 +24,23 @@ class PrebidSKAdNetworkAdClickHandler: NSObject {
     private weak var adView: UIView?
     private weak var viewControllerForPresentingModals: UIViewController?
     
+    private var displayDelay = 0
+    
     private var productControllerPresenter: SKStoreProductViewControllerPresenter?
     
-    /// Configures the provided ad view with SKAdN on click event..
+    /// Presents `SKStoreProductViewController` on click event..
     /// - Parameters:
     ///   - adView: The ad view where click events is tracked.
-    ///   - viewController: The view controller used to present modals, such as the SKStoreProductViewController.
-    func start(in adView: UIView, viewController: UIViewController) {
+    ///   - viewController: The view controller used to present modals, such as the `SKStoreProductViewController`.
+    ///   - displayDelay: Delay for displaying `SKStoreProductViewController`.
+    func start(
+        in adView: UIView,
+        viewController: UIViewController,
+        displayDelay: Int = 0
+    ) {
         self.adView = adView
         self.viewControllerForPresentingModals = viewController
+        self.displayDelay = displayDelay
         
         AdViewUtils.findPrebidLocalCacheID(adView) { [weak self] result in
             guard case .success(let cacheID) = result else {
@@ -107,11 +115,16 @@ class PrebidSKAdNetworkAdClickHandler: NSObject {
         adView.addSubview(overlayView)
         
         overlayView.onClick = { [weak self] in
-            self?.productControllerPresenter = SKStoreProductViewControllerPresenter()
-            self?.productControllerPresenter?.present(
-                from: viewControllerForPresentingModals,
-                using: productParameters
-            )
+            guard let self else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(self.displayDelay)) {
+                if self.adView != nil {
+                    self.productControllerPresenter = SKStoreProductViewControllerPresenter()
+                    self.productControllerPresenter?.present(
+                        from: viewControllerForPresentingModals,
+                        using: productParameters
+                    )
+                }
+            }
         }
     }
 }
