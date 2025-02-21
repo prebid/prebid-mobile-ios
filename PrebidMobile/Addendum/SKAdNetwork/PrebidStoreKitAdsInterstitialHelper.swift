@@ -24,7 +24,11 @@ class PrebidStoreKitAdsInterstitialHelper: PrebidSKAdNetworkStoreKitAdsHelperPro
         interstitialObserver = InterstitialObserver(window: adView as? UIWindow) { [weak self] foundView in
             if let presentingViewController = adView.parentViewController ?? UIApplication.topViewController() {
                 self?.skadnClickHandler = PrebidSKAdNetworkAdClickHandler()
-                self?.skadnClickHandler?.start(in: foundView, viewController: presentingViewController)
+                self?.skadnClickHandler?.start(
+                    in: foundView,
+                    viewController: presentingViewController,
+                    displayDelay: 1
+                )
             } else {
                 Log.error("SDK couldn't find a view controller to present the SKStoreProductViewController from.")
             }
