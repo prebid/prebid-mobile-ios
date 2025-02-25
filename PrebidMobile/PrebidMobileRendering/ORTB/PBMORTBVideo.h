@@ -179,6 +179,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext is not supported.
+
+//Blocked creative attributes. Refer to List 5.3:
+// Int. Array of list of creative attributes that can describe an actual ad or restrictions relative to a given placement.
+// 1   Audio Ad (Autoplay)
+// 2   Audio Ad (User Initiated)
+// 3   Expandable (Automatic)
+// 4   Expandable (User Initiated - Click)
+// 5   Expandable (User Initiated - Rollover)
+// 6   In-Banner Video Ad (Autoplay)
+// 7   In-Banner Video Ad (User Initiated)
+// 8   Pop (e.g., Over, Under, or Upon Exit)
+// 9   Provocative or Suggestive Imagery
+// 10   Shaky, Flashing, Flickering, Extreme Animation, Smileys
+// 11   Surveys
+// 12   Text Only
+// 13   User Interactive (e.g., Embedded Games)
+// 14   Windows Dialog or Alert Style
+// 15   Has Audio On/Off Button
+// 16   Ad Provides Skip Button (e.g. VPAID-rendered skip button on pre-roll video)
+// 17   Adobe Flash
+@property (nonatomic, strong, nullable) NSArray<NSNumber *> *battr;
     
 - (instancetype)init;
 

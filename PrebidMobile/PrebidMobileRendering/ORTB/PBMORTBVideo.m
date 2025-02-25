@@ -43,6 +43,10 @@
     _api = api ? [NSArray arrayWithArray:api] : nil;
 }
 
+- (void)setBattr:(NSArray<NSNumber *> *)battr {
+    _battr = battr ? [NSArray arrayWithArray:battr] : nil;
+}
+
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
     
@@ -63,6 +67,9 @@
     ret[@"pos"] = self.pos;
     if (self.api.count > 0) {
         ret[@"api"] = self.api;
+    }
+    if (self.battr.count > 0) {
+        ret[@"battr"] = self.battr;
     }
     
     if (self.playbackmethod > 0) {
@@ -94,6 +101,7 @@
     _delivery = jsonDictionary[@"delivery"];
     _pos = jsonDictionary[@"pos"];
     _api = jsonDictionary[@"api"];
+    _battr = jsonDictionary[@"battr"];
     
     return self;
 }

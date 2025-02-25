@@ -64,6 +64,9 @@ public class VideoParameters: NSObject {
     
     public var adSize: CGSize?
     
+    /// List of blocked creative attributes.
+    public var battr: [Signals.CreativeAttribute]?
+    
     // MARK: - Helpers
     
     /// Helper property
@@ -84,6 +87,13 @@ public class VideoParameters: NSObject {
     public var rawProtocols: [Int]? {
         get {
             protocols?.toIntArray()
+        }
+    }
+    
+    /// Helper property
+    public var rawBattrs: [Int]? {
+        get {
+            battr?.removingDuplicates().toIntArray()
         }
     }
     

@@ -282,6 +282,10 @@
                     nextVideo.linearity = [NSNumber numberWithInteger:videoParameters.linearity.value];
                 }
                 
+                if (videoParameters.battr && videoParameters.battr.count > 0) {
+                    nextVideo.battr = videoParameters.rawBattrs;
+                }
+                
                 if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);
                 }

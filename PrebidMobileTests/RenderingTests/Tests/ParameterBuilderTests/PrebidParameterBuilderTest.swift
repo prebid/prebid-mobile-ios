@@ -141,6 +141,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         parameters.minBitrate = 1
         parameters.maxBitrate = 10
         parameters.startDelay = Signals.StartDelay.GenericMidRoll
+        parameters.battr = [.AudioButton, .SkipButton]
         
         adUnitConfig.adConfiguration.videoParameters = parameters
         
@@ -166,6 +167,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
         PBMAssertEq(video.playbackend, 2)
         PBMAssertEq(video.delivery, [3])
+        PBMAssertEq(video.battr, [15, 16])
         XCTAssertEqual(video.pos.intValue, AdPosition.header.rawValue)
         XCTAssertEqual(video.pos.intValue, 4)
     }
@@ -503,6 +505,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.plcmt, nil)
         XCTAssertEqual(video.w, 300)
         XCTAssertEqual(video.h, 250)
+        XCTAssertEqual(video.battr, nil)
     }
     
     func testDefaultBannerParameters_DisplayInterstitial_OriginalAPI() {
@@ -553,6 +556,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.placement, 5)
         XCTAssertEqual(video.plcmt, 3)
         XCTAssertEqual(video.api, nil)
+        XCTAssertEqual(video.battr, nil)
     }
     
     func testDefaultVideoParameters_VideoRewarded_OriginalAPI() {
@@ -585,6 +589,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.placement, 5)
         XCTAssertEqual(video.plcmt, 3)
         XCTAssertEqual(video.api, nil)
+        XCTAssertEqual(video.battr, nil)
     }
 
     func testDefaultVideoParameters_RenderingAPI() {
@@ -625,6 +630,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         parameters.placement = .Interstitial
         parameters.plcmnt = .Interstitial
         parameters.linearity = 1
+        parameters.battr = [.InBanner_Autoplay, .InBanner_UserInitiated]
         adConfiguration.videoParameters = parameters
 
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
@@ -647,6 +653,8 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.protocols, [2,5])
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
+        PBMAssertEq(video.battr, [6, 7])
+
     }
 
     func testParameterBuilderOutstream() {
@@ -732,6 +740,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         videoParamters.placement = .InBanner
         videoParamters.plcmnt = .AccompanyingContent
         videoParamters.linearity = 1
+        videoParamters.battr = [.AudioButton, .InBanner_Autoplay, .Shaky, .Flashing, .Smileys]
 
         adUnit.adUnitConfig.adConfiguration.videoParameters = videoParamters
 
@@ -750,6 +759,7 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual($0.video?.placement, 2)
             XCTAssertEqual($0.video?.plcmt, 2)
             XCTAssertEqual($0.video?.linearity, 1)
+            XCTAssertEqual($0.video?.battr, [15, 6, 10])
         }
     }
     
