@@ -86,16 +86,14 @@ public class Bid: NSObject {
         bid.ext.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
     }
     
-    /// Preffered plugin renderer name
+       /// Preffered plugin renderer name
     public var pluginRendererName: String? {
-        guard let rendererName = meta?[Bid.KEY_RENDERER_NAME] as? String else { return nil }
-        return rendererName
+        meta?[Bid.KEY_RENDERER_NAME] as? String
     }
     
     /// Preffered plugin renderer version
     public var pluginRendererVersion: String? {
-        guard let rendererVersion = meta?[Bid.KEY_RENDERER_VERSION] as? String else { return nil }
-        return rendererVersion
+        meta?[Bid.KEY_RENDERER_VERSION] as? String
     }
     
     // This part is dedicating to test server-side ad configurations.
