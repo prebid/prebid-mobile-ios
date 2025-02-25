@@ -229,6 +229,7 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     /// - Parameters:
     ///   - key: The key for the data.
     ///   - value: The value for the data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addExtData(key: String, value: String) {
         adUnitConfig.addExtData(key: key, value: value)
     }
@@ -237,6 +238,7 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     /// - Parameters:
     ///   - key: The key for the data.
     ///   - value: The value for the data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func updateExtData(key: String, value: Set<String>) {
         adUnitConfig.updateExtData(key: key, value: value)
     }
@@ -244,11 +246,13 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     /// Removes ext data.
     /// - Parameters:
     ///   - key: The key for the data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func removeExtData(forKey: String) {
         adUnitConfig.removeExtData(for: forKey)
     }
     
     /// Clears ext data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearExtData() {
         adUnitConfig.clearExtData()
     }
@@ -309,28 +313,33 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     /// Sets the app content data.
     /// - Parameter appContent: The app content data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
     }
     
     /// Clears the app content data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
     
     /// Adds app content data objects.
     /// - Parameter dataObjects: The data objects to be added.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
     
     /// Removes an app content data object.
     /// - Parameter dataObject: The data object to be removed.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
     /// Clears all app content data objects.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearAppContentDataObjects() {
         adUnitConfig.clearAppContentData()
     }
@@ -339,17 +348,20 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     /// Adds user data objects.
     /// - Parameter userDataObjects: The user data objects to be added.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
     
     /// Removes a user data object.
         /// - Parameter userDataObject: The user data object to be removed.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
     /// Clears all user data objects.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearUserData() {
         adUnitConfig.clearUserData()
     }

@@ -467,6 +467,7 @@ public class Targeting: NSObject {
     /// - Parameters:
     ///   - key: The key for the user data.
     ///   - value: The value to add for the specified key.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addUserData(key: String, value: String) {
         var values = rawUserDataDictionary[key] ?? Set<String>()
         values.insert(value)
@@ -479,6 +480,7 @@ public class Targeting: NSObject {
     /// - Parameters:
     ///   - key: The key for the user data.
     ///   - value: The set of values to update for the specified key.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func updateUserData(key: String, value: Set<String>) {
         rawUserDataDictionary[key] = value
     }
@@ -486,11 +488,13 @@ public class Targeting: NSObject {
     /// Removes user data for a specified key.
     ///
     /// - Parameter key: The key for the user data to remove.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func removeUserData(for key: String) {
         rawUserDataDictionary.removeValue(forKey: key)
     }
     
     /// Clears all user data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearUserData() {
         rawUserDataDictionary.removeAll()
     }
@@ -498,6 +502,7 @@ public class Targeting: NSObject {
     /// Retrieves all user data.
     ///
     /// - Returns: A dictionary mapping keys to arrays of values.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func getUserData() -> [String: [String]] {
         rawUserDataDictionary.mapValues { Array($0) }
     }
@@ -505,6 +510,7 @@ public class Targeting: NSObject {
     /// User data dictionary for external use.
     ///
     /// - Returns: A dictionary mapping keys to arrays of values.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public var userDataDictionary: [String : [String]] {
         rawUserDataDictionary.mapValues { Array($0) }
     }

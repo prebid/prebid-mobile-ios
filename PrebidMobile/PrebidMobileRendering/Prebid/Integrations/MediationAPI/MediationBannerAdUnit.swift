@@ -131,22 +131,26 @@ public class MediationBannerAdUnit : NSObject {
     
     /// This method obtains the ext data keyword & value for adunit targeting.
     /// If the key already exists the value will be appended to the list. No duplicates will be added
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addExtData(key: String, value: String) {
         adUnitConfig.addExtData(key: key, value: value)
     }
     
     /// This method obtains the ext data keyword & values for adunit targeting.
     /// The values if the key already exist will be replaced with the new set of values
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func updateExtData(key: String, value: Set<String>) {
         adUnitConfig.updateExtData(key: key, value: value)
     }
     
     /// This method allows to remove specific ext data keyword & values set from adunit targeting
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func removeExtData(forKey: String) {
         adUnitConfig.removeExtData(for: forKey)
     }
     
     /// This method allows to remove all ext data set from adunit targeting
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearExtData() {
         adUnitConfig.clearExtData()
     }
@@ -181,22 +185,26 @@ public class MediationBannerAdUnit : NSObject {
     
     /// This method obtains the keyword for adunit targeting
     /// Inserts the given element in the set if it is not already present.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addExtKeyword(_ newElement: String) {
         adUnitConfig.addExtKeyword(newElement)
     }
     
     /// This method obtains the keyword set for adunit targeting
     /// Adds the elements of the given set to the set.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addExtKeywords(_ newElements: Set<String>) {
         adUnitConfig.addExtKeywords(newElements)
     }
     
     /// This method allows to remove specific keyword from adunit targeting
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func removeExtKeyword(_ element: String) {
         adUnitConfig.removeExtKeyword(element)
     }
     
     /// This method allows to remove all keywords from the set of adunit targeting
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearExtKeywords() {
         adUnitConfig.clearExtKeywords()
     }
@@ -206,6 +214,7 @@ public class MediationBannerAdUnit : NSObject {
     /// Sets the app content object, replacing any existing content.
     ///
     /// - Parameter appContentObject: The `PBMORTBAppContent` object representing the app's content.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func setAppContent(_ appContentObject: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContentObject)
     }
@@ -213,11 +222,13 @@ public class MediationBannerAdUnit : NSObject {
     /// Retrieves the current app content object.
     ///
     /// - Returns: The current `PBMORTBAppContent` object, or `nil` if no content is set.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func getAppContent() -> PBMORTBAppContent? {
         return adUnitConfig.getAppContent()
     }
     
     /// Clears the current app content object.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
@@ -225,6 +236,7 @@ public class MediationBannerAdUnit : NSObject {
     /// Adds an array of content data objects to the app content.
     ///
     /// - Parameter dataObjects: An array of `PBMORTBContentData` objects to add.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
@@ -232,11 +244,13 @@ public class MediationBannerAdUnit : NSObject {
     /// Removes a specific content data object from the app content.
     ///
     /// - Parameter dataObject: The `PBMORTBContentData` object to remove.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func removeAppContentData(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
     /// Clears all content data objects from the app content.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearAppContentData() {
         adUnitConfig.clearAppContentData()
     }
@@ -246,6 +260,7 @@ public class MediationBannerAdUnit : NSObject {
     /// Adds an array of user data objects.
     ///
     /// - Parameter userDataObjects: An array of `PBMORTBContentData` objects to add to the user data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
@@ -253,11 +268,13 @@ public class MediationBannerAdUnit : NSObject {
     /// Removes a specific user data object.
     ///
     /// - Parameter userDataObject: The `PBMORTBContentData` object to remove from the user data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
     /// Clears all user data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
     public func clearUserData() {
         adUnitConfig.clearUserData()
     }
