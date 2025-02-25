@@ -20,6 +20,16 @@ jobs:
       - run:
           name: Run Unit Tests for Frameworks
           command: scripts/testPrebidMobile.sh -l
+
+  unit-test-pr:
+    macos:
+      xcode: 15.4.0
+    resource_class: macos.m1.medium.gen1
+    steps:
+      - checkout
+      - run:
+          name: Run Quick Unit Tests for Frameworks
+          command: scripts/testPrebidMobile.sh -l -q
           
   run-swift-demo-integration-tests:
     macos:
@@ -46,9 +56,12 @@ workflows:
     jobs: 
       - build:
          name: Build PrebidMobile Frameworks
-      - unit-test:
-         name: Run Unit Tests for PrebidMobile Frameworks
+      - unit-test-pr:
+         name: Run Quick Unit Tests for PrebidMobile Frameworks
       - run-swift-demo-integration-tests:
          name: Run Intgration Tests - Swift Demo App
       - run-swift-demo-ui-tests:
          name: Run Smoke UI Tests - Swift Demo App
+      - unit-test:
+         name: Run All Unit Tests for PrebidMobile Frameworks
+         type: approval

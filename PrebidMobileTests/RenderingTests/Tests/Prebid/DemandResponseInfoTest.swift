@@ -53,7 +53,7 @@ class DemandResponseInfoTest: XCTestCase {
             let noCallCheck = expectation(description: "no call")
             noCallCheck.isInverted = true
             
-            waitForExpectations(timeout: 1)
+            waitForExpectations(timeout: 0.1)
         }
     }
     
@@ -74,7 +74,7 @@ class DemandResponseInfoTest: XCTestCase {
             $1(adMarkupString)
         }, bidResponse: nil)
         
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 0.1)
         
         for i in 0..<3 {
             let winNotifierCalled = expectation(description: "win notifier called \(i)")
@@ -86,7 +86,7 @@ class DemandResponseInfoTest: XCTestCase {
                 XCTAssertEqual(markupString, adMarkupString)
             }
             
-            waitForExpectations(timeout: 1)
+            waitForExpectations(timeout: 0.1)
         }
     }
     
@@ -97,13 +97,13 @@ class DemandResponseInfoTest: XCTestCase {
         
         let noWinNotifierCall = expectation(description: "win notifier not called")
         noWinNotifierCall.isInverted = true
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 0.1)
         
         let adMarkupStringReturned = expectation(description: "ad markup string returned")
         responseInfo.getAdMarkupString { markupString in
             adMarkupStringReturned.fulfill()
             XCTAssertNil(markupString)
         }
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 0.1)
     }
 }
