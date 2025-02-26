@@ -53,14 +53,4 @@ public class RewardedVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
         self.init(configId: configId)
         adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
     }
-    
-    // MARK: SKAdNetwork
-    
-    /// Activates Prebid's SKAdNetwork StoreKit ads flow.
-    /// Note: Ensure this method is called before presenting interstitials.
-    public func activatePrebidSKAdNetworkStoreKitAdsFlow() {
-        if let window = UIWindow.firstKeyWindow {
-            skadnStoreKitAdsHelper.start(in: window)
-        }
-    }
 }

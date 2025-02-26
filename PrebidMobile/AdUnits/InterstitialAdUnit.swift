@@ -75,8 +75,16 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
     // MARK: SKAdNetwork
     
     /// Activates Prebid's SKAdNetwork StoreKit ads flow.
-    /// Note: Ensure this method is called before presenting interstitials.
+    ///
+    /// Ensure this method is called before presenting interstitials.
+    ///
+    /// This feature is not available for video ads.
     public func activatePrebidSKAdNetworkStoreKitAdsFlow() {
+        guard !adFormats.contains(.video) else {
+            Log.warn("SKAdNetwork StoreKit ads flow is not supported for video ads.")
+            return
+        }
+        
         if let window = UIWindow.firstKeyWindow {
             skadnStoreKitAdsHelper.start(in: window)
         }
