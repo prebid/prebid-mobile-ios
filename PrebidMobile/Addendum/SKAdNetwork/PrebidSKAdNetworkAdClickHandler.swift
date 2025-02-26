@@ -26,7 +26,7 @@ class PrebidSKAdNetworkAdClickHandler: NSObject {
     
     private var productControllerPresenter: SKStoreProductViewControllerPresenter?
     
-    /// Configures the provided ad view with SKAdN on click event..
+    /// Presents `SKStoreProductViewController` on click event.
     /// - Parameters:
     ///   - adView: The ad view where click events is tracked.
     ///   - viewController: The view controller used to present modals, such as the SKStoreProductViewController.
