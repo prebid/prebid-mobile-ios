@@ -467,25 +467,6 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded SKAdN 320x480 (GAM Original) [OK, PUC]",
-                     tags: [.interstitial, .originalAPI, .server, .video],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                         
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let interstitialController = PrebidOriginalAPIVideoRewardedController(rootController: adapterVC)
-                interstitialController.activatePrebidSKAdN = true
-                interstitialController.prebidConfigId = "prebid-ita-video-rewarded-320-480-original-api-skadn"
-                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
-                         
-                adapterVC.setup(adapter: interstitialController)
-                        
-                setupCustomParams(for: interstitialController.prebidConfigId)
-            }),
-            
             TestCase(title: "Multiformat Interstitial 320x480 (GAM Original) [OK, PUC]",
                      tags: [.multiformat, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",

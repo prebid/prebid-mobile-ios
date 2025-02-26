@@ -27,8 +27,6 @@ class PrebidOriginalAPIVideoRewardedController:
     var prebidConfigId = ""
     var adUnitID = ""
     
-    var activatePrebidSKAdN = false
-    
     var refreshInterval: TimeInterval = 0
     
     // Prebid
@@ -149,11 +147,6 @@ class PrebidOriginalAPIVideoRewardedController:
     @IBAction func showButtonClicked() {
         if let gamRewarded = gamRewarded {
             rootController?.showButton.isEnabled = false
-            
-            if activatePrebidSKAdN {
-                adUnit.activatePrebidSKAdNetworkStoreKitAdsFlow()
-            }
-            
             gamRewarded.present(from: rootController!) {}
         }
     }
