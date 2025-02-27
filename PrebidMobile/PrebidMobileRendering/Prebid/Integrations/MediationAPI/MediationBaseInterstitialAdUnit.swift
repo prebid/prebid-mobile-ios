@@ -145,26 +145,26 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     /// This method obtains the ext data keyword & value for adunit targeting.
     /// If the key already exists the value will be appended to the list. No duplicates will be added
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.addAppExtData method instead.")
     public func addExtData(key: String, value: String) {
         adUnitConfig.addExtData(key: key, value: value)
     }
     
     /// This method obtains the ext data keyword & values for adunit targeting.
     /// The values if the key already exist will be replaced with the new set of values
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.updateAppExtData method instead.")
     public func updateExtData(key: String, value: Set<String>) {
         adUnitConfig.updateExtData(key: key, value: value)
     }
     
     /// This method allows to remove specific ext data keyword & values set from adunit targeting
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.removeAppExtData method instead.")
     public func removeExtData(forKey: String) {
         adUnitConfig.removeExtData(for: forKey)
     }
     
     /// This method allows to remove all ext data set from adunit targeting
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.clearAppExtData method instead.")
     public func clearExtData() {
         adUnitConfig.clearExtData()
     }
@@ -224,13 +224,13 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     /// Sets the app content object, replacing any existing content.
     ///
     /// - Parameter appContentObject: The `PBMORTBAppContent` object representing the app's content.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func setAppContent(_ appContentObject: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContentObject)
     }
     
     /// Clears the current app content object.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
@@ -238,7 +238,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     /// Adds an array of content data objects to the app content.
     ///
     /// - Parameter dataObjects: An array of `PBMORTBContentData` objects to add.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
@@ -246,13 +246,13 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     /// Removes a specific content data object from the app content.
     ///
     /// - Parameter dataObject: The `PBMORTBContentData` object to remove.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func removeAppContentData(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
     /// Clears all content data objects from the app content.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearAppContentData() {
         adUnitConfig.clearAppContentData()
     }
