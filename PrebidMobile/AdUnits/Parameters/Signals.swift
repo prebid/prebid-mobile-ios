@@ -421,47 +421,5 @@ public class Signals: NSObject {
         /// Adobe Flash
         @objc
         public static let AdobeFlash = CreativeAttribute(17)
-        
-        /// Helper function
-        @objc public static func getCreativeAttributeByRawValue(_ value: Int) -> Signals.CreativeAttribute? {
-            switch value {
-            case 1:
-                return Signals.CreativeAttribute.AudioAd_Autoplay
-            case 2:
-                return Signals.CreativeAttribute.AudioAd_UserInitiated
-            case 3:
-                return Signals.CreativeAttribute.Expandable_Automatic
-            case 4:
-                return Signals.CreativeAttribute.Expandable_Click
-            case 5:
-                return Signals.CreativeAttribute.Expandable_Rollover
-            case 6:
-                return Signals.CreativeAttribute.InBanner_Autoplay
-            case 7:
-                return Signals.CreativeAttribute.InBanner_UserInitiated
-            case 8:
-                return Signals.CreativeAttribute.Pop
-            case 9:
-                return Signals.CreativeAttribute.Provocative
-            case 10:
-                return Signals.CreativeAttribute.Shaky
-            case 11:
-                return Signals.CreativeAttribute.Surveys
-            case 12:
-                return Signals.CreativeAttribute.TextOnly
-            case 13:
-                return Signals.CreativeAttribute.UserInteractive
-            case 14:
-                return Signals.CreativeAttribute.AlertStyle
-            case 15:
-                return Signals.CreativeAttribute.AudioButton
-            case 16:
-                return Signals.CreativeAttribute.SkipButton
-            case 17:
-                return Signals.CreativeAttribute.AdobeFlash
-            default:
-                return nil
-            }
-        }
     }
 }
