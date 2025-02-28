@@ -54,7 +54,7 @@ public class PrebidAdMobMediationBaseAdapter: NSObject, GoogleMobileAds.Mediatio
     static func latestTestedGMAVersion() -> GoogleMobileAds.VersionNumber {
         GoogleMobileAds.VersionNumber(
             majorVersion: 12,
-            minorVersion: 0,
+            minorVersion: 1,
             patchVersion: 0
         )
     }
