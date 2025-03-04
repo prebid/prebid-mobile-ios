@@ -16,14 +16,13 @@
 import UIKit
 
 /// `PrebidHost` represents various Prebid server hosts used for ad bidding.
+@available(*, deprecated, message: "This enum is deprecated. In the upcoming major release, the enum will be removed.")
 @objc public enum PrebidHost: Int {
     
     /// URL [https://ib.adnxs.com/openrtb2/prebid](URL)
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
     case Appnexus
     
     /// URL [https://prebid-server.rubiconproject.com/openrtb2/auction](URL)
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
     case Rubicon
     
     /// Custom Prebid server URL. The URL for this case should be set separately.

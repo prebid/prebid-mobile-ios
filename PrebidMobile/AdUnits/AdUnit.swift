@@ -305,26 +305,22 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     /// This method obtains the ext data keyword & value for adunit targeting.
     /// If the key already exists the value will be appended to the list. No duplicates will be added
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.addAppExtData method instead.")
     public func addExtData(key: String, value: String) {
         adUnitConfig.addExtData(key: key, value: value)
     }
     
     /// This method obtains the ext data keyword & values for adunit targeting
     /// The values if the key already exist will be replaced with the new set of values
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.updateAppExtData method instead.")
     public func updateExtData(key: String, value: Set<String>) {
         adUnitConfig.updateExtData(key: key, value: value)
     }
     
     /// This method allows to remove specific ext data keyword & values set from adunit targeting
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.removeAppExtData method instead.")
     public func removeExtData(forKey: String) {
         adUnitConfig.removeExtData(for: forKey)
     }
     
     /// This method allows to remove all ext data set from adunit targeting
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.clearAppExtData method instead.")
     public func clearExtData() {
         adUnitConfig.clearExtData()
     }
@@ -435,7 +431,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// Retrieves the current user data.
     ///
     /// - Returns: An array of `PBMORTBContentData` objects representing the user data, or `nil` if no data is available.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.getGlobalORTBConfig method instead.")
     public func getUserData() -> [PBMORTBContentData]? {
         return adUnitConfig.getUserData()
     }
@@ -443,7 +439,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// Adds an array of user data objects.
     ///
     /// - Parameter userDataObjects: An array of `PBMORTBContentData` objects to add to the user data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
@@ -451,13 +447,13 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// Removes a specific user data object.
     ///
     /// - Parameter userDataObject: The `PBMORTBContentData` object to remove from the user data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
     /// Clears all user data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearUserData() {
         adUnitConfig.clearUserData()
     }

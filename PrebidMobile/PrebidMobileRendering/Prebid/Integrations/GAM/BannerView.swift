@@ -311,7 +311,6 @@ public class BannerView:
     /// - Parameters:
     ///   - key: The key for the data.
     ///   - value: The value for the data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.addAppExtData method instead.")
     public func addExtData(key: String, value: String) {
         adUnitConfig.addExtData(key: key, value: value)
     }
@@ -320,7 +319,6 @@ public class BannerView:
     /// - Parameters:
     ///   - key: The key for the data.
     ///   - value: The value for the data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.updateAppExtData method instead.")
     public func updateExtData(key: String, value: Set<String>) {
         adUnitConfig.updateExtData(key: key, value: value)
     }
@@ -328,13 +326,11 @@ public class BannerView:
     /// Removes ext data.
     /// - Parameters:
     ///   - key: The key for the data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.removeAppExtData method instead.")
     public func removeExtData(forKey: String) {
         adUnitConfig.removeExtData(for: forKey)
     }
     
     /// Clears ext data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.clearAppExtData method instead.")
     public func clearExtData() {
         adUnitConfig.clearExtData()
     }
@@ -430,20 +426,20 @@ public class BannerView:
         
     /// Adds user data objects.
     /// - Parameter userDataObjects: The user data objects to be added.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
     
     /// Removes a user data object.
     /// - Parameter userDataObject: The user data object to be removed.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
     /// Clears all user data objects.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearUserData() {
         adUnitConfig.clearUserData()
     }

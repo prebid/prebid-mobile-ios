@@ -89,6 +89,7 @@ public class Prebid: NSObject {
     // MARK: - Public Properties (Prebid)
     
     /// The host for the Prebid Server.
+    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
     public var prebidServerHost: PrebidHost = .Custom {
         didSet {
             timeoutMillisDynamic = NSNumber(value: timeoutMillis)
