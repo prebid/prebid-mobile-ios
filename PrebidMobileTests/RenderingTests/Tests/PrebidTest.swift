@@ -34,6 +34,7 @@ class PrebidTest: XCTestCase {
         
         Prebid.reset()
         PrebidMobilePluginRegister.shared.unregisterAllPlugins()
+        MockDeviceAccessManager.reset()
         
         super.tearDown()
     }
@@ -161,6 +162,45 @@ class PrebidTest: XCTestCase {
         XCTAssertEqual(PrebidHost.Custom, Prebid.shared.prebidServerHost)
         let getHostURLResult = try Host.shared.getHostURL(host: .Custom)
         XCTAssertEqual(customHost, getHostURLResult)
+    }
+    
+    func testServerHostCustomOnAuthorizedTrackingStatus() throws {
+        //given
+        let customTrackingHost = "https://prebid-server.tracking.com/openrtb2/auction"
+        let customNonTrackingHost = "https://prebid-server.nontracking.com/openrtb2/auction"
+        
+        MockDeviceAccessManager.mockAdvertisingTrackingEnabled = true
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        let host = Host(deviceManager: MockDeviceAccessManager(rootViewController: nil))
+        
+        //when
+        try host.setHostURL(customTrackingHost, nonTrackingURLString: customNonTrackingHost)
+        
+        //then
+        XCTAssertEqual(PrebidHost.Custom, Prebid.shared.prebidServerHost)
+        let getHostURLResult = try host.getHostURL()
+        XCTAssertEqual(customTrackingHost, getHostURLResult)
+    }
+    
+    func testServerHostCustomOnNonAuthorizedTrackingStatus() throws {
+        //given
+        let customTrackingHost = "https://prebid-server.tracking.com/openrtb2/auction"
+        let customNonTrackingHost = "https://prebid-server.nontracking.com/openrtb2/auction"
+        
+        MockDeviceAccessManager.mockAdvertisingTrackingEnabled = false
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .denied
+        }
+        let host = Host(deviceManager: MockDeviceAccessManager(rootViewController: nil))
+        
+        //when
+        try host.setHostURL(customTrackingHost, nonTrackingURLString: customNonTrackingHost)
+        
+        //then
+        let getHostURLResult = try host.getHostURL()
+        XCTAssertEqual(customNonTrackingHost, getHostURLResult)
     }
     
     func testAccountId() {
