@@ -17,39 +17,54 @@ import Foundation
 import PrebidMobile
 import GoogleMobileAds
 
-public class PrebidAdMobMediationBaseAdapter: NSObject, GADMediationAdapter {
+public class PrebidAdMobMediationBaseAdapter: NSObject, GoogleMobileAds.MediationAdapter {
     
-    public static func adapterVersion() -> GADVersionNumber {
-        let adapterVersionComponents = AdMobConstants.PrebidAdMobRewardedAdapterVersion.components(separatedBy: ".").map( { Int($0) ?? 0})
+    public static func adapterVersion() -> GoogleMobileAds.VersionNumber {
+        let adapterVersionComponents = AdMobConstants
+            .PrebidAdMobRewardedAdapterVersion
+            .components(separatedBy: ".")
+            .map( { Int($0) ?? 0})
         
-        return adapterVersionComponents.count == 3 ? GADVersionNumber(majorVersion: adapterVersionComponents[0],
-                                                                      minorVersion: adapterVersionComponents[1],
-                                                                      patchVersion: adapterVersionComponents[2]): GADVersionNumber()
+        return adapterVersionComponents.count == 3 ? GoogleMobileAds.VersionNumber(
+            majorVersion: adapterVersionComponents[0],
+            minorVersion: adapterVersionComponents[1],
+            patchVersion: adapterVersionComponents[2]
+        ) : GoogleMobileAds.VersionNumber()
     }
     
-    public static func adSDKVersion() -> GADVersionNumber {
-        let sdkVersionComponents = Prebid.shared.version.components(separatedBy: ".").map( { Int($0) ?? 0})
+    public static func adSDKVersion() -> GoogleMobileAds.VersionNumber {
+        let sdkVersionComponents = Prebid
+            .shared
+            .version
+            .components(separatedBy: ".")
+            .map( { Int($0) ?? 0})
         
-        return sdkVersionComponents.count == 3 ? GADVersionNumber(majorVersion: sdkVersionComponents[0],
-                                                                  minorVersion: sdkVersionComponents[1],
-                                                                  patchVersion: sdkVersionComponents[2]): GADVersionNumber()
+        return sdkVersionComponents.count == 3 ? GoogleMobileAds.VersionNumber(
+            majorVersion: sdkVersionComponents[0],
+            minorVersion: sdkVersionComponents[1],
+            patchVersion: sdkVersionComponents[2]
+        ) : GoogleMobileAds.VersionNumber()
     }
     
-    public static func networkExtrasClass() -> GADAdNetworkExtras.Type? {
-        return GADCustomEventExtras.self
+    public static func networkExtrasClass() -> GoogleMobileAds.AdNetworkExtras.Type? {
+        GoogleMobileAds.CustomEventExtras.self
     }
         
     // Added for tests
-    static func latestTestedGMAVersion() -> GADVersionNumber {
-        return GADVersionNumber(majorVersion: 11, minorVersion: 13, patchVersion: 0)
+    static func latestTestedGMAVersion() -> GoogleMobileAds.VersionNumber {
+        GoogleMobileAds.VersionNumber(
+            majorVersion: 12,
+            minorVersion: 1,
+            patchVersion: 0
+        )
     }
     
     required public override init() {
         super.init()
     }
     
-    public static func setUpWith(
-        _ configuration: GADMediationServerConfiguration,
+    public static func setUp(
+        with configuration: GoogleMobileAds.MediationServerConfiguration,
         completionHandler: @escaping GADMediationAdapterSetUpCompletionBlock
     ) {
         // TODO: Add Prebid SDK initialization logic

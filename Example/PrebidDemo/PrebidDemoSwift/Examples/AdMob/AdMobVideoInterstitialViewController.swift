@@ -21,14 +21,16 @@ import PrebidMobileAdMobAdapters
 fileprivate let storedImpVideoInterstitial = "prebid-demo-video-interstitial-320-480"
 fileprivate let adMobAdUnitDisplayInterstitial = "ca-app-pub-5922967660082475/3383099861"
 
-class AdMobVideoInterstitialViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
+class AdMobVideoInterstitialViewController:
+    InterstitialBaseViewController,
+    FullScreenContentDelegate {
     
     // Prebid
     private var admobAdUnit: MediationInterstitialAdUnit?
     private var mediationDelegate: AdMobMediationInterstitialUtils?
     
     // AdMob
-    private var interstitial: GADInterstitialAd?
+    private var interstitial: InterstitialAd?
     
     override func loadView() {
         super.loadView()
@@ -37,8 +39,8 @@ class AdMobVideoInterstitialViewController: InterstitialBaseViewController, GADF
     }
     
     func createAd() {
-        // 1. Create a GADRequest
-        let gadRequest = GADRequest()
+        // 1. Create a Request
+        let gadRequest = Request()
         
         // 2. Create an AdMobMediationInterstitialUtils
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: gadRequest)
@@ -54,7 +56,10 @@ class AdMobVideoInterstitialViewController: InterstitialBaseViewController, GADF
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
             
             // 6. Load the interstitial ad
-            GADInterstitialAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: gadRequest) { [weak self] ad, error in
+            InterstitialAd.load(
+                with: adMobAdUnitDisplayInterstitial,
+                request: gadRequest
+            ) { [weak self] ad, error in
                 guard let self = self else { return }
                 
                 if let error = error {
@@ -65,14 +70,17 @@ class AdMobVideoInterstitialViewController: InterstitialBaseViewController, GADF
                 // 7. Present the interstitial ad
                 self.interstitial = ad
                 self.interstitial?.fullScreenContentDelegate = self
-                self.interstitial?.present(fromRootViewController: self)
+                self.interstitial?.present(from: self)
             }
         })
     }
     
     // MARK: - GADFullScreenContentDelegate
     
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    func ad(
+        _ ad: FullScreenPresentingAd,
+        didFailToPresentFullScreenContentWithError error: Error
+    ) {
         PrebidDemoLogger.shared.error("AdMob did fail to receive ad with error: \(error.localizedDescription)")
     }
 }

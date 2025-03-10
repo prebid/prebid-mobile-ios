@@ -21,15 +21,22 @@ import PrebidMobile
 @testable import PrebidMobileAdMobAdapters
 
 class AdMobMediationUtilsTest: XCTestCase {
+    
     func testCorrectBannerAdObjectSetUp() {
-        let gadRequest = GADRequest()
+        let gadRequest = GoogleMobileAds.Request()
         let testInitialKeywords = ["existingKey:existingValue"]
         
         gadRequest.keywords = testInitialKeywords
-        let mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: GADBannerView())
-        let mediationValues: [String: Any] = [PBMMediationConfigIdKey: "testConfigId",
-                                         PBMMediationTargetingInfoKey: ["test":"test"],
-                                             PBMMediationAdUnitBidKey: "testExtrasObjectKey"]
+        let mediationDelegate = AdMobMediationBannerUtils(
+            gadRequest: gadRequest,
+            bannerView: GoogleMobileAds.BannerView()
+        )
+        
+        let mediationValues: [String: Any] = [
+            PBMMediationConfigIdKey: "testConfigId",
+            PBMMediationTargetingInfoKey: ["test":"test"],
+            PBMMediationAdUnitBidKey: "testExtrasObjectKey"
+        ]
         
         guard mediationDelegate.setUpAdObject(with: mediationValues) else {
             XCTFail()
@@ -46,14 +53,18 @@ class AdMobMediationUtilsTest: XCTestCase {
     }
     
     func testCorrectInterstitialAdObjectSetUp() {
-        let gadRequest = GADRequest()
+        let gadRequest = GoogleMobileAds.Request()
         let testInitialKeywords = ["existingKey:existingValue"]
         
         gadRequest.keywords = testInitialKeywords
+        
         let mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: gadRequest)
-        let mediationValues: [String: Any] = [PBMMediationConfigIdKey: "testConfigId",
-                                         PBMMediationTargetingInfoKey: ["test":"test"],
-                                             PBMMediationAdUnitBidKey: "testExtrasObjectKey"]
+        let mediationValues: [String: Any] = [
+            PBMMediationConfigIdKey: "testConfigId",
+            PBMMediationTargetingInfoKey: ["test":"test"],
+            PBMMediationAdUnitBidKey: "testExtrasObjectKey"
+        ]
+        
         guard mediationDelegate.setUpAdObject(with: mediationValues) else {
             XCTFail()
             return
@@ -69,14 +80,16 @@ class AdMobMediationUtilsTest: XCTestCase {
     }
     
     func testCorrectRewardedAdObjectSetUp() {
-        let gadRequest = GADRequest()
+        let gadRequest = GoogleMobileAds.Request()
         let testInitialKeywords = ["existingKey:existingValue"]
         
         gadRequest.keywords = testInitialKeywords
         let mediationDelegate = AdMobMediationRewardedUtils(gadRequest: gadRequest)
-        let mediationValues: [String: Any] = [PBMMediationConfigIdKey: "testConfigId",
-                                         PBMMediationTargetingInfoKey: ["test":"test"],
-                                             PBMMediationAdUnitBidKey: "testExtrasObjectKey"]
+        let mediationValues: [String: Any] = [
+            PBMMediationConfigIdKey: "testConfigId",
+            PBMMediationTargetingInfoKey: ["test":"test"],
+            PBMMediationAdUnitBidKey: "testExtrasObjectKey"
+        ]
         
         guard mediationDelegate.setUpAdObject(with: mediationValues) else {
             XCTFail()
@@ -93,14 +106,16 @@ class AdMobMediationUtilsTest: XCTestCase {
     }
     
     func testCorrectNativeAdObjectSetUp() {
-        let gadRequest = GADRequest()
+        let gadRequest = GoogleMobileAds.Request()
         let testInitialKeywords = ["existingKey:existingValue"]
         
         gadRequest.keywords = testInitialKeywords
         let mediationDelegate = AdMobMediationNativeUtils(gadRequest: gadRequest)
-        let mediationValues: [String: Any] = [PBMMediationConfigIdKey: "testConfigId",
-                                         PBMMediationTargetingInfoKey: ["test": "test"],
-                                      PBMMediationAdNativeResponseKey: "testExtrasObjectKey"]
+        let mediationValues: [String: Any] = [
+            PBMMediationConfigIdKey: "testConfigId",
+            PBMMediationTargetingInfoKey: ["test": "test"],
+            PBMMediationAdNativeResponseKey: "testExtrasObjectKey"
+        ]
         
         guard mediationDelegate.setUpAdObject(with: mediationValues) else {
             XCTFail()

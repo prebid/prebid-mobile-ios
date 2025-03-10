@@ -2,11 +2,11 @@ PODS:
   - Alamofire (4.9.1)
   - AppLovinSDK (13.1.0)
   - Eureka (5.5.0)
-  - Google-Mobile-Ads-SDK (11.13.0):
+  - Google-Mobile-Ads-SDK (12.1.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleAds-IMA-iOS-SDK (3.24.0)
   - GoogleUserMessagingPlatform (2.7.0)
-  - RxSwift (6.8.0)
+  - RxSwift (6.9.0)
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
@@ -16,7 +16,6 @@ DEPENDENCIES:
   - AppLovinSDK
   - Eureka
   - Google-Mobile-Ads-SDK
-  - Google-Mobile-Ads-SDK (<= 11.13.0)
   - GoogleAds-IMA-iOS-SDK
   - RxSwift
   - SVProgressHUD
@@ -36,12 +35,12 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppLovinSDK: 539a0178d8bef4d68b2551a93526e0c1bba06cb2
   Eureka: 1c18c7fcd8f772cc2ca42d6be36292dffa77eecb
-  Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
+  Google-Mobile-Ads-SDK: c9e5722cac79b39241d13b911f9f1eb21bdd0802
   GoogleAds-IMA-iOS-SDK: bf4dc86b31a1d1b27021008200bbeb6faa689901
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
-  RxSwift: 4e28be97cbcfeee614af26d83415febbf2bf6f45
+  RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
 
-PODFILE CHECKSUM: df50580a1f6c422298edf0513ce00e759ea4668a
+PODFILE CHECKSUM: bae4436ed691a1d2217fde386d8881d6e7e06963
 
 COCOAPODS: 1.16.2

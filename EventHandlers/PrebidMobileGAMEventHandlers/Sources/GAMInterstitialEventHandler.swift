@@ -15,15 +15,14 @@
 
 import Foundation
 import GoogleMobileAds
-
 import PrebidMobile
 
 @objcMembers
 public class GAMInterstitialEventHandler :
     NSObject,
     InterstitialEventHandlerProtocol,
-    GADFullScreenContentDelegate,
-    GADAppEventDelegate {
+    GoogleMobileAds.FullScreenContentDelegate,
+    GoogleMobileAds.AppEventDelegate {
     
     // MARK: - Internal Properties
     
@@ -134,11 +133,12 @@ public class GAMInterstitialEventHandler :
             loadingDelegate?.failedWithError(error)
         }
     }
-
     
-    public func interstitialAd(_ interstitialAd: GADInterstitialAd,
-                               didReceiveAppEvent name: String,
-                               withInfo info: String?) {
+    public func adView(
+        _ interstitialAd: GoogleMobileAds.InterstitialAd,
+        didReceiveAppEvent name: String,
+        with info: String?
+    ) {
         if requestInterstitial?.interstitialAd === interstitialAd &&
             name == Constants.appEventValue {
             appEventDetected()

@@ -24,7 +24,7 @@ class GADNativeAdWrapper {
 
     // MARK: - Public Properties
     
-    let nativeAd: GADNativeAd
+    let nativeAd: GoogleMobileAds.NativeAd
            
     // MARK: - Public Wrappers (Properties)
 
@@ -58,7 +58,7 @@ class GADNativeAdWrapper {
     
     // MARK: - Public Wrappers (Methods)
 
-    init?(nativeAd: GADNativeAd) {
+    init?(nativeAd: GoogleMobileAds.NativeAd) {
         if !Self.classesFound {
             GAMUtils.log(error: GAMEventHandlerError.gamClassesNotFound)
             return nil
@@ -71,19 +71,19 @@ class GADNativeAdWrapper {
     
     static func findClasses() -> Bool {
         guard let _ = NSClassFromString("GADNativeAd") else {
-            return false;
+            return false
         }
         
-        let testClass = GADNativeAd.self
+        let testClass = GoogleMobileAds.NativeAd.self
         
         let selectors = [
-            #selector(getter: GADNativeAd.headline),
-            #selector(getter: GADNativeAd.callToAction),
-            #selector(getter: GADNativeAd.body),
-            #selector(getter: GADNativeAd.starRating),
-            #selector(getter: GADNativeAd.store),
-            #selector(getter: GADNativeAd.price),
-            #selector(getter: GADNativeAd.advertiser)
+            #selector(getter: GoogleMobileAds.NativeAd.headline),
+            #selector(getter: GoogleMobileAds.NativeAd.callToAction),
+            #selector(getter: GoogleMobileAds.NativeAd.body),
+            #selector(getter: GoogleMobileAds.NativeAd.starRating),
+            #selector(getter: GoogleMobileAds.NativeAd.store),
+            #selector(getter: GoogleMobileAds.NativeAd.price),
+            #selector(getter: GoogleMobileAds.NativeAd.advertiser)
         ]
         
         for selector in selectors {

@@ -21,10 +21,10 @@ import PrebidMobileAdMobAdapters
 fileprivate let nativeStoredImpression = "prebid-demo-banner-native-styles"
 fileprivate let admobRenderingNativeAdUnitId = "ca-app-pub-5922967660082475/8634069303"
 
-class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDelegate {
+class AdMobNativeViewController: NativeBaseViewController, NativeAdLoaderDelegate {
     
     // Prebid
-    private var nativeAd: NativeAd?
+    private var nativeAd: PrebidMobile.NativeAd?
     private var mediationDelegate: AdMobMediationNativeUtils!
     private var admobMediationNativeAdUnit: MediationNativeAdUnit!
     
@@ -48,7 +48,7 @@ class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDele
     }
     
     // AdMob
-    private var adLoader: GADAdLoader?
+    private var adLoader: AdLoader?
     
     override func loadView() {
         super.loadView()
@@ -57,14 +57,17 @@ class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDele
     }
     
     func createAd() {
-        // 1. Create a GADRequest
-        let gadRequest = GADRequest()
+        // 1. Create a Request
+        let gadRequest = Request()
         
         // 2. Create an AdMobMediationNativeUtils
         mediationDelegate = AdMobMediationNativeUtils(gadRequest: gadRequest)
         
         // 3. Create a MediationNativeAdUnit
-        admobMediationNativeAdUnit = MediationNativeAdUnit(configId: nativeStoredImpression, mediationDelegate: mediationDelegate)
+        admobMediationNativeAdUnit = MediationNativeAdUnit(
+            configId: nativeStoredImpression,
+            mediationDelegate: mediationDelegate
+        )
         
         // 4. Configure MediationNativeAdUnit
         admobMediationNativeAdUnit.addNativeAssets(nativeRequestAssets)
@@ -79,8 +82,13 @@ class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDele
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
             
             // 6. Load the native ad
-            self.adLoader = GADAdLoader(adUnitID: admobRenderingNativeAdUnitId, rootViewController: self,
-                                        adTypes: [ .native ], options: nil)
+            self.adLoader = AdLoader(
+                adUnitID: admobRenderingNativeAdUnitId,
+                rootViewController: self,
+                adTypes: [ .native ],
+                options: nil
+            )
+            
             self.adLoader?.delegate = self
             
             self.adLoader?.load(gadRequest)
@@ -89,7 +97,7 @@ class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDele
     
     // MARK: - GADNativeAdLoaderDelegate
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADNativeAd) {
+    func adLoader(_ adLoader: AdLoader, didReceive nativeAd: GoogleMobileAds.NativeAd) {
         titleLabel.text = nativeAd.headline
         bodyLabel.text = nativeAd.body
         callToActionButton.setTitle(nativeAd.callToAction, for: .normal)
@@ -105,7 +113,7 @@ class AdMobNativeViewController: NativeBaseViewController, GADNativeAdLoaderDele
         //        }
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+    func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
         PrebidDemoLogger.shared.error("GAD ad loader did fail to receive ad with error: \(error.localizedDescription)")
     }
 }

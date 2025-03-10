@@ -17,7 +17,8 @@ import Foundation
 import GoogleMobileAds
 @testable import PrebidMobileGAMEventHandlers
 
-extension GADAdSize: Equatable {
+extension GoogleMobileAds.AdSize: @retroactive Equatable {
+    
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.size == rhs.size
     }

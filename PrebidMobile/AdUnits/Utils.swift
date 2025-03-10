@@ -36,7 +36,6 @@ public class Utils: NSObject {
     private let DFP_WEBADVIEW_CLASSNAME = "GADWebAdView"
     private let MOPUB_NATIVE_AD_CLASSNAME = "MPNativeAd"
     private let DFP_CUSTOM_TEMPLATE_AD_CLASSNAME = "GADNativeCustomTemplateAd"
-    private let GAD_CUSTOM_NATIVE_AD = "GADCustomNativeAd"
     private let INNNER_HTML_SCRIPT = "document.body.innerHTML"
 
     /// Deprecated. MoPub is not available anymore. Use Prebid MAX adapters instead.
@@ -251,7 +250,7 @@ public class Utils: NSObject {
             findNativeForDFPBannerAdView(dfpBannerView)
         } else if (self.isObjectFromClass(adObject, MOPUB_NATIVE_AD_CLASSNAME)) {
             findNativeForMoPubNativeAd(adObject)
-        } else if (self.isObjectFromClass(adObject, DFP_CUSTOM_TEMPLATE_AD_CLASSNAME) || self.isObjectFromClass(adObject, GAD_CUSTOM_NATIVE_AD)) {
+        } else if (self.isObjectFromClass(adObject, DFP_CUSTOM_TEMPLATE_AD_CLASSNAME) || self.isObjectFromClass(adObject, .GAD_Object_Custom_Native_Name)) {
             findNativeForDFPCustomTemplateAd(adObject)
         } else {
             delegate?.nativeAdNotFound()

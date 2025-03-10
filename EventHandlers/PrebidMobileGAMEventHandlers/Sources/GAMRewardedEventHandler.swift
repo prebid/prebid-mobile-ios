@@ -22,8 +22,8 @@ import PrebidMobile
 public class GAMRewardedAdEventHandler :
     NSObject,
     RewardedEventHandlerProtocol,
-    GADFullScreenContentDelegate,
-    GADAdMetadataDelegate {
+    GoogleMobileAds.FullScreenContentDelegate,
+    GoogleMobileAds.AdMetadataDelegate {
     
     // MARK: - Internal Properties
     
@@ -47,7 +47,7 @@ public class GAMRewardedAdEventHandler :
     
     // MARK: - GADAdMetadataDelegate
     
-    public func adMetadataDidChange(_ ad: GADAdMetadataProvider) {
+    public func adMetadataDidChange(_ ad: GoogleMobileAds.AdMetadataProvider) {
         let metadata = ad.adMetadata?[GADAdMetadataKey(rawValue: "AdTitle")] as? String
         if requestRewarded?.rewardedAd === ad && metadata == Constants.appEventValue {
             appEventDetected()

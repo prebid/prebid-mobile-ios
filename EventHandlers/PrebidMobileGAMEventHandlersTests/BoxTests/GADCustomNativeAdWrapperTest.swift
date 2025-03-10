@@ -15,18 +15,18 @@
 
 import XCTest
 import GoogleMobileAds
-
 @testable import PrebidMobileGAMEventHandlers
 
 class GADCustomNativeAdWrapperTest: XCTestCase {
 
     func testProperties() {
-        
-        guard let customNativeAd = GADCustomNativeAdWrapper(customNativeAd: GADCustomNativeAd()) else {
+        guard let customNativeAd = GADCustomNativeAdWrapper(
+            customNativeAd: GoogleMobileAds.CustomNativeAd()
+        ) else {
             XCTFail()
             return
         }
         
-        XCTAssertNil(customNativeAd.string(forKey:"test"))
+        XCTAssertNil(customNativeAd.string(forKey: "test"))
     }
 }

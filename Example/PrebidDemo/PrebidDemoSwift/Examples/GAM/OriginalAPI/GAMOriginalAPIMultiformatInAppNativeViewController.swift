@@ -22,15 +22,15 @@ fileprivate let gamRenderingMultiformatAdUnitId = "/21808260008/prebid-demo-mult
 
 class GAMOriginalAPIMultiformatInAppNativeViewController:
     MultiformatBaseViewController,
-    GAMBannerAdLoaderDelegate,
-    GADCustomNativeAdLoaderDelegate,
-    NativeAdDelegate {
+    AdManagerBannerAdLoaderDelegate,
+    GoogleMobileAds.CustomNativeAdLoaderDelegate,
+    PrebidMobile.NativeAdDelegate {
     
     // Prebid
     private var adUnit: PrebidAdUnit!
     private var configId = ""
     
-    private var nativeAd: NativeAd!
+    private var nativeAd: PrebidMobile.NativeAd!
     
     private var nativeAssets: [NativeAsset] {
         let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
@@ -52,7 +52,7 @@ class GAMOriginalAPIMultiformatInAppNativeViewController:
     }
     
     // GAM
-    private var adLoader: GADAdLoader!
+    private var adLoader: AdLoader!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,16 +86,25 @@ class GAMOriginalAPIMultiformatInAppNativeViewController:
         nativeParameters.eventtrackers = eventTrackers
         
         // 3. Configure the PrebidRequest
-        let prebidRequest = PrebidRequest(bannerParameters: bannerParameters, videoParameters: videoParameters, nativeParameters: nativeParameters)
+        let prebidRequest = PrebidRequest(
+            bannerParameters: bannerParameters,
+            videoParameters: videoParameters,
+            nativeParameters: nativeParameters
+        )
         
         // 4. Make a bid request
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         adUnit.fetchDemand(adObject: gamRequest, request: prebidRequest) { [weak self] _ in
             guard let self = self else { return }
             
             // 5. Configure and make a GAM ad request
-            self.adLoader = GADAdLoader(adUnitID: gamRenderingMultiformatAdUnitId, rootViewController: self,
-                                        adTypes: [GADAdLoaderAdType.customNative, GADAdLoaderAdType.gamBanner], options: [])
+            self.adLoader = AdLoader(
+                adUnitID: gamRenderingMultiformatAdUnitId,
+                rootViewController: self,
+                adTypes: [AdLoaderAdType.customNative, AdLoaderAdType.adManagerBanner],
+                options: []
+            )
+            
             self.adLoader.delegate = self
             self.adLoader.load(gamRequest)
         }
@@ -103,22 +112,22 @@ class GAMOriginalAPIMultiformatInAppNativeViewController:
     
     // MARK: - GAMBannerAdLoaderDelegate
     
-    func validBannerSizes(for adLoader: GADAdLoader) -> [NSValue] {
-        return [NSValueFromGADAdSize(GADAdSizeFromCGSize(adSize))]
+    func validBannerSizes(for adLoader: AdLoader) -> [NSValue] {
+        return [nsValue(for: adSizeFor(cgSize: adSize))]
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+    func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
         PrebidDemoLogger.shared.error("GAM did fail to receive ad with error: \(error)")
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive bannerView: GAMBannerView) {
+    func adLoader(_ adLoader: AdLoader, didReceive bannerView: AdManagerBannerView) {
         self.bannerView.isHidden = false
         self.nativeView.isHidden = true
         self.bannerView.backgroundColor = .clear
         self.bannerView.addSubview(bannerView)
         
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { [weak self] size in
-            bannerView.resize(GADAdSizeFromCGSize(size))
+            bannerView.resize(adSizeFor(cgSize: size))
             
             self?.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = size.width
             self?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = size.height
@@ -127,18 +136,18 @@ class GAMOriginalAPIMultiformatInAppNativeViewController:
         })
     }
     
-    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
+    func customNativeAdFormatIDs(for adLoader: AdLoader) -> [String] {
         ["12304464"]
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
+    func adLoader(_ adLoader: AdLoader, didReceive customNativeAd: CustomNativeAd) {
         Utils.shared.delegate = self
         Utils.shared.findNative(adObject: customNativeAd)
     }
     
     // MARK: - NativeAdDelegate
     
-    func nativeAdLoaded(ad: NativeAd) {
+    func nativeAdLoaded(ad: PrebidMobile.NativeAd) {
         nativeView.isHidden = false
         bannerView.isHidden = true
         

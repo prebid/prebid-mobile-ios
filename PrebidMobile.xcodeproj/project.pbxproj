@@ -86,7 +86,7 @@
 		53322AA8282E29910049229D /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53322AA7282E29910049229D /* EventManager.swift */; };
 		5335762129C45A300097242D /* VAST_with_companion.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5335762029C45A300097242D /* VAST_with_companion.xml */; };
 		533E0FB7290FFEB9000CC24F /* PBMORTBAppExt.h in Headers */ = {isa = PBXBuildFile; fileRef = 799109FC28F99C7D004837B4 /* PBMORTBAppExt.h */; };
-		533E0FB929100076000CC24F /* MockGADMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FB829100076000CC24F /* MockGADMobileAds.swift */; };
+		533E0FB929100076000CC24F /* MockGoogleMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FB829100076000CC24F /* MockGoogleMobileAds.swift */; };
 		533FDF852A12030C0066ED5A /* MockPrebidJSLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */; };
 		5347473B2BFB4D3D00966658 /* UserAgentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5347473A2BFB4D3D00966658 /* UserAgentService.swift */; };
 		534C611F2CB5252C0026119A /* PBMORTBRewardedConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 534C611D2CB5252C0026119A /* PBMORTBRewardedConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -998,7 +998,7 @@
 		53322AA2282D45EE0049229D /* PrebidServerEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerEventTracker.swift; sourceTree = "<group>"; };
 		53322AA7282E29910049229D /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		5335762029C45A300097242D /* VAST_with_companion.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VAST_with_companion.xml; sourceTree = "<group>"; };
-		533E0FB829100076000CC24F /* MockGADMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGADMobileAds.swift; sourceTree = "<group>"; };
+		533E0FB829100076000CC24F /* MockGoogleMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleMobileAds.swift; sourceTree = "<group>"; };
 		533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPrebidJSLibraryManager.swift; sourceTree = "<group>"; };
 		5347473A2BFB4D3D00966658 /* UserAgentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentService.swift; sourceTree = "<group>"; };
 		534C611D2CB5252C0026119A /* PBMORTBRewardedConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRewardedConfiguration.h; sourceTree = "<group>"; };
@@ -3350,7 +3350,7 @@
 				FAA299112434C769002ACBF2 /* UtilsObjCTests.m */,
 				6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */,
 				6013E3F92215C92C00FEE2B1 /* MockCLLocationManager.swift */,
-				533E0FB829100076000CC24F /* MockGADMobileAds.swift */,
+				533E0FB829100076000CC24F /* MockGoogleMobileAds.swift */,
 			);
 			path = FetchingLogictests;
 			sourceTree = "<group>";
@@ -4106,7 +4106,7 @@
 				922AFD452737298200732C53 /* PBMHTMLCreativeTest_MRAIDPlayVideo.swift in Sources */,
 				47D9AD2385D2A68745D1AD77 /* MockLocationManager.swift in Sources */,
 				925D5E4D2737F1DA00A8A2B5 /* DateFormatServiceTest.swift in Sources */,
-				533E0FB929100076000CC24F /* MockGADMobileAds.swift in Sources */,
+				533E0FB929100076000CC24F /* MockGoogleMobileAds.swift in Sources */,
 				922AFD5227372B3700732C53 /* PBMInterstitialDisplayPropertiesTests.swift in Sources */,
 				47D9A173B721CE2B39D98A82 /* MockMeasurementSession.swift in Sources */,
 				53BDBF8C293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift in Sources */,
