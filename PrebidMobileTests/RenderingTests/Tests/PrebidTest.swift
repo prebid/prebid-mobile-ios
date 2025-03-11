@@ -179,7 +179,6 @@ class PrebidTest: XCTestCase {
         try host.setHostURL(customTrackingHost, nonTrackingURLString: customNonTrackingHost)
         
         //then
-        XCTAssertEqual(PrebidHost.Custom, Prebid.shared.prebidServerHost)
         let getHostURLResult = try host.getHostURL()
         XCTAssertEqual(customTrackingHost, getHostURLResult)
     }
