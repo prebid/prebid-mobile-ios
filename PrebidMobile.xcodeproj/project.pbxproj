@@ -285,7 +285,7 @@
 		5BC37908271F1CFF00444D5E /* PBMFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AA271F1CFE00444D5E /* PBMFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37909271F1CFF00444D5E /* PBMDeepLinkPlusHelper+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AB271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.h */; };
 		5BC3790B271F1CFF00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AD271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h */; };
-		5BC3790F271F1CFF00444D5E /* PBMDeviceAccessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B1271F1CFE00444D5E /* PBMDeviceAccessManager.h */; };
+		5BC3790F271F1CFF00444D5E /* PBMDeviceAccessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B1271F1CFE00444D5E /* PBMDeviceAccessManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37910271F1CFF00444D5E /* PBMWindowLocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */; };
 		5BC37911271F1CFF00444D5E /* PBMDeepLinkPlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B3271F1CFE00444D5E /* PBMDeepLinkPlus.m */; };
 		5BC37912271F1CFF00444D5E /* PBMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B4271F1CFE00444D5E /* PBMConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };

@@ -317,28 +317,33 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     /// Sets the app content data.
     /// - Parameter appContent: The app content data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
     }
     
     /// Clears the app content data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
     
     /// Adds app content data objects.
     /// - Parameter dataObjects: The data objects to be added.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
     
     /// Removes an app content data object.
     /// - Parameter dataObject: The data object to be removed.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
     /// Clears all app content data objects.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearAppContentDataObjects() {
         adUnitConfig.clearAppContentData()
     }
@@ -347,17 +352,20 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     /// Adds user data objects.
     /// - Parameter userDataObjects: The user data objects to be added.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
     
     /// Removes a user data object.
         /// - Parameter userDataObject: The user data object to be removed.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
     /// Clears all user data objects.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearUserData() {
         adUnitConfig.clearUserData()
     }

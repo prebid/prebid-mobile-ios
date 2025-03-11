@@ -14,8 +14,10 @@
  */
 
 import UIKit
+import AppTrackingTransparency
 
 /// `PrebidHost` represents various Prebid server hosts used for ad bidding.
+@available(*, deprecated, message: "This enum is deprecated. In the upcoming major release, the enum will be removed.")
 @objc public enum PrebidHost: Int {
     
     /// URL [https://ib.adnxs.com/openrtb2/prebid](URL)
@@ -41,22 +43,58 @@ import UIKit
 @objcMembers
 public class Host: NSObject {
 
-    private var customHostURL: URL?
+    private var customHostURL: URL? {
+        get {
+            guard nonTrackingURL != nil else {
+                return trackingURL
+            }
+            
+            guard #available(iOS 14.0, *) else {
+                return deviceManager.advertisingTrackingEnabled() ? trackingURL : nonTrackingURL
+            }
+            let isAutorized = deviceManager.appTrackingTransparencyStatus() == ATTrackingManager.AuthorizationStatus.authorized.rawValue
+            return isAutorized ? trackingURL : nonTrackingURL
+        }
+    }
+    
+    private var trackingURL: URL?
+    private var nonTrackingURL: URL?
+    
+    private var deviceManager = PBMDeviceAccessManager(rootViewController: nil)
 
     /// The class is created as a singleton object & used
     public static let shared = Host()
 
     override init() {}
+    
+    convenience init(deviceManager: PBMDeviceAccessManager) {
+        self.init()
+        self.deviceManager = deviceManager
+    }
 
     /// The CustomHost property holds the URL for the custom prebid adaptor
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use setHostURL instead.")
     @objc public func setCustomHostURL(_ urlString: String?) throws {
-        guard let url = URL.urlWithoutEncoding(from: urlString) else {
+        try setHostURL(urlString, nonTrackingURLString: nil)
+    }
+    
+    @objc public func setHostURL(_ urlString: String?, nonTrackingURLString: String?) throws {
+        guard let trackingURL = URL.urlWithoutEncoding(from: urlString) else {
             throw ErrorCode.prebidServerURLInvalid(urlString ?? "")
         }
-        customHostURL = url
+        
+        if let nonTrackingURLString {
+            guard let nonTrackingURL = URL.urlWithoutEncoding(from: nonTrackingURLString) else {
+                throw ErrorCode.prebidServerURLInvalid(nonTrackingURLString)
+            }
+            self.nonTrackingURL = nonTrackingURL
+        }
+        
+        self.trackingURL = trackingURL
     }
 
     /// This function retrieves the prebid server URL for the selected host
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use getHostURL instead.")
     public func getHostURL(host: PrebidHost) throws -> String {
         if (host == PrebidHost.Custom) {
 
@@ -68,6 +106,13 @@ public class Host: NSObject {
         }
 
         return host.name()
+    }
+    
+    public func getHostURL() throws -> String {
+        guard let customHostURL = customHostURL else {
+            throw ErrorCode.prebidServerURLInvalid("")
+        }
+        return customHostURL.absoluteString
     }
 
     /// This function verifies if the prebid server URL is in the url format
@@ -87,6 +132,7 @@ public class Host: NSObject {
     /// This function used for unit testing to reset `customHostURL`.
     /// nternal only.
     func reset() {
-        customHostURL = nil
+        trackingURL = nil
+        nonTrackingURL = nil
     }
 }

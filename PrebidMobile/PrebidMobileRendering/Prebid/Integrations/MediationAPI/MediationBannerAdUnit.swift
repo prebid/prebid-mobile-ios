@@ -206,6 +206,7 @@ public class MediationBannerAdUnit : NSObject {
     /// Sets the app content object, replacing any existing content.
     ///
     /// - Parameter appContentObject: The `PBMORTBAppContent` object representing the app's content.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func setAppContent(_ appContentObject: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContentObject)
     }
@@ -213,11 +214,13 @@ public class MediationBannerAdUnit : NSObject {
     /// Retrieves the current app content object.
     ///
     /// - Returns: The current `PBMORTBAppContent` object, or `nil` if no content is set.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.getGlobalORTBConfig method instead.")
     public func getAppContent() -> PBMORTBAppContent? {
         return adUnitConfig.getAppContent()
     }
     
     /// Clears the current app content object.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
@@ -225,6 +228,7 @@ public class MediationBannerAdUnit : NSObject {
     /// Adds an array of content data objects to the app content.
     ///
     /// - Parameter dataObjects: An array of `PBMORTBContentData` objects to add.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
@@ -232,11 +236,13 @@ public class MediationBannerAdUnit : NSObject {
     /// Removes a specific content data object from the app content.
     ///
     /// - Parameter dataObject: The `PBMORTBContentData` object to remove.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func removeAppContentData(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
     /// Clears all content data objects from the app content.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearAppContentData() {
         adUnitConfig.clearAppContentData()
     }
@@ -246,6 +252,7 @@ public class MediationBannerAdUnit : NSObject {
     /// Adds an array of user data objects.
     ///
     /// - Parameter userDataObjects: An array of `PBMORTBContentData` objects to add to the user data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
@@ -253,11 +260,13 @@ public class MediationBannerAdUnit : NSObject {
     /// Removes a specific user data object.
     ///
     /// - Parameter userDataObject: The `PBMORTBContentData` object to remove from the user data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
     /// Clears all user data.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
     public func clearUserData() {
         adUnitConfig.clearUserData()
     }

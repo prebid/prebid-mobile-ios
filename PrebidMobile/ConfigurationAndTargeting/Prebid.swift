@@ -92,6 +92,7 @@ public class Prebid: NSObject {
     // MARK: - Public Properties (Prebid)
     
     /// The host for the Prebid Server.
+    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed. Please, use initializeSDK(serverURL:) instead.")
     public var prebidServerHost: PrebidHost = .Custom {
         didSet {
             timeoutMillisDynamic = NSNumber(value: timeoutMillis)
@@ -166,6 +167,7 @@ public class Prebid: NSObject {
     /// Sets a custom Prebid Server URL.
     /// - Parameter url: The custom Prebid Server URL.
     /// - Throws: An error if setting the custom host URL fails.
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:) instead.")
     public func setCustomPrebidServer(url: String) throws {
         prebidServerHost = .Custom
         try Host.shared.setCustomHostURL(url)
@@ -227,6 +229,7 @@ public class Prebid: NSObject {
     /// - Parameters:
     ///   - gadMobileAdsObject: GADMobileAds object
     ///   - completion: returns initialization status and optional error
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:_:_) instead.")
     public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: PrebidInitializationCallback? = nil) {
         PrebidSDKInitializer.initializeSDK(completion)
         PrebidSDKInitializer.checkGMAVersion(gadObject: gadMobileAdsObject)
@@ -245,6 +248,7 @@ public class Prebid: NSObject {
     /// - Parameters:
     ///   - gadMobileAdsVersion: GADMobileAds version string, use `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)` to get it
     ///   - completion: returns initialization status and optional error
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:gadMobileAdsVersion:_:) instead.")
     public static func initializeSDK(gadMobileAdsVersion: String? = nil, _ completion: PrebidInitializationCallback? = nil) {
         PrebidSDKInitializer.initializeSDK(completion)
         PrebidSDKInitializer.checkGMAVersion(gadVersion: gadMobileAdsVersion)
@@ -259,8 +263,129 @@ public class Prebid: NSObject {
     /// Use this SDK initializer if you're using PrebidMobile without GMA SDK.
     /// - Parameters:
     ///   - completion: returns initialization status and optional error
+    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:_:) instead.")
     public static func initializeSDK(_ completion: PrebidInitializationCallback? = nil) {
         PrebidSDKInitializer.initializeSDK(completion)
+    }
+    
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    ///
+    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
+    /// - Parameters:
+    ///   - serverURL: The custom Prebid Server URL, used when a user allowed the app to track
+    ///   - gadMobileAdsObject: GADMobileAds object
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(
+        serverURL: String,
+        _ gadMobileAdsObject: AnyObject? = nil,
+        _ completion: PrebidInitializationCallback? = nil) throws {
+            try Host.shared.setHostURL(serverURL, nonTrackingURLString: nil)
+            PrebidSDKInitializer.initializeSDK(completion)
+            PrebidSDKInitializer.checkGMAVersion(gadObject: gadMobileAdsObject)
+            PrebidSDKInitializer.logInitializerWarningIfNeeded()
+    }
+    
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    ///
+    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
+    /// - Parameters:
+    ///   - serverURL: The custom Prebid Server URL, used when a user allowed the app to track
+    ///   - nonTrackingURL: The custom Prebid Server URL, used when a user rejected the app to track
+    ///   - gadMobileAdsObject: GADMobileAds object
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(
+        serverURL: String,
+        nonTrackingURLString: String,
+        _ gadMobileAdsObject: AnyObject? = nil,
+        _ completion: PrebidInitializationCallback? = nil) throws {
+            try Host.shared.setHostURL(serverURL, nonTrackingURLString: nonTrackingURLString)
+            PrebidSDKInitializer.initializeSDK(completion)
+            PrebidSDKInitializer.checkGMAVersion(gadObject: gadMobileAdsObject)
+            PrebidSDKInitializer.logInitializerWarningIfNeeded()
+    }
+    
+    /// Initializes PrebidMobile SDK.
+    ///
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    ///
+    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
+    /// - Parameters:
+    ///   - serverURL: The custom Prebid Server URL, used when a user allowed the app to track
+    ///   - gadMobileAdsVersion: GADMobileAds version string, use `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)` to get it
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(
+        serverURL: String,
+        gadMobileAdsVersion: String? = nil,
+        _ completion: PrebidInitializationCallback? = nil) throws {
+            try Host.shared.setHostURL(serverURL, nonTrackingURLString: nil)
+            PrebidSDKInitializer.initializeSDK(completion)
+            PrebidSDKInitializer.checkGMAVersion(gadVersion: gadMobileAdsVersion)
+    }
+    
+    /// Initializes PrebidMobile SDK.
+    ///
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    ///
+    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
+    /// - Parameters:
+    ///   - serverURL: The custom Prebid Server URL, used when a user allowed the app to track
+    ///   - nonTrackingURL: The custom Prebid Server URL, used when a user rejected the app to track
+    ///   - gadMobileAdsVersion: GADMobileAds version string, use `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)` to get it
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(
+        serverURL: String,
+        nonTrackingURLString: String,
+        gadMobileAdsVersion: String? = nil,
+        _ completion: PrebidInitializationCallback? = nil) throws {
+            try Host.shared.setHostURL(serverURL, nonTrackingURLString: nonTrackingURLString)
+            PrebidSDKInitializer.initializeSDK(completion)
+            PrebidSDKInitializer.checkGMAVersion(gadVersion: gadMobileAdsVersion)
+    }
+    
+    /// Initializes PrebidMobile SDK.
+    ///
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile without GMA SDK.
+    /// - Parameters:
+    ///   - serverURL: The custom Prebid Server URL, used when a user allowed the app to track
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(
+        serverURL: String,
+        _ completion: PrebidInitializationCallback? = nil) throws {
+            try Host.shared.setHostURL(serverURL, nonTrackingURLString: nil)
+            PrebidSDKInitializer.initializeSDK(completion)
+    }
+    
+    /// Initializes PrebidMobile SDK.
+    ///
+    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
+    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
+    ///
+    /// Use this SDK initializer if you're using PrebidMobile without GMA SDK.
+    /// - Parameters:
+    ///   - serverURL: The custom Prebid Server URL, used when a user allowed the app to track
+    ///   - nonTrackingURL: The custom Prebid Server URL, used when a user rejected the app to track
+    ///   - completion: returns initialization status and optional error
+    public static func initializeSDK(
+        serverURL: String,
+        nonTrackingURLString: String,
+        _ completion: PrebidInitializationCallback? = nil) throws {
+            try Host.shared.setHostURL(serverURL, nonTrackingURLString: nonTrackingURLString)
+            PrebidSDKInitializer.initializeSDK(completion)
     }
     
     // MARK: - Private Methods
