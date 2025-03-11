@@ -204,6 +204,7 @@ class PrebidAdUnitTests: XCTestCase {
         var adUnit = PrebidAdUnit(configId: "test-config-id")
 
         let videoParameters = VideoParameters(mimes: ["video/mp4"])
+        videoParameters.battr = [.SkipButton, .AudioButton]
 
         let request = PrebidRequest(videoParameters: videoParameters, isInterstitial: true, isRewarded: true)
         
@@ -216,7 +217,8 @@ class PrebidAdUnitTests: XCTestCase {
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
             XCTAssertEqual(config.adConfiguration.videoParameters.plcmnt, .Interstitial)
-
+            XCTAssertEqual(config.adConfiguration.videoParameters.battr,
+                           [.SkipButton, .AudioButton])
             expectation.fulfill()
         }
 

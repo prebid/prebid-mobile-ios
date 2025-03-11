@@ -304,4 +304,122 @@ public class Signals: NSObject {
             }
         }
     }
+    
+    ///# OpenRTB - Creative Attributes #
+    /// ```
+    /// | Value | Description                                                                |
+    /// |-------|----------------------------------------------------------------------------|
+    /// | 1     | Audio Ad (Autoplay)                                                        |
+    /// | 2     | Audio Ad (User Initiated)                                                  |
+    /// | 3     | Expandable (Automatic)                                                     |
+    /// | 4     | Expandable (User Initiated - Click)                                        |
+    /// | 5     | Expandable (User Initiated - Rollover)                                     |
+    /// | 6     | In-Banner Video Ad (Autoplay)                                              |
+    /// | 7     | In-Banner Video Ad (User Initiated)                                        |
+    /// | 8     | Pop (e.g., Over, Under, or Upon Exit)                                      |
+    /// | 9     | Provocative or Suggestive Imagery                                          |
+    /// | 10    | Shaky, Flashing, Flickering, Extreme Animation, Smileys                    |
+    /// | 11    | Surveys                                                                    |
+    /// | 12    | Text Only                                                                  |
+    /// | 13    | User Interactive (e.g., Embedded Games)                                    |
+    /// | 14    | Windows Dialog or Alert Style                                              |
+    /// | 15    | Has Audio On/Off Button                                                    |
+    /// | 16    | Ad Provides Skip Button (e.g. VPAID-rendered skip button on pre-roll video)|
+    /// | 17    | Adobe Flash                                                                |
+    /// ```
+    @objc(PBCreativeAttribute)
+    public class CreativeAttribute: SingleContainerInt {
+        
+        /// Audio Ad (Autoplay)
+        @objc
+        public static let AudioAd_Autoplay = CreativeAttribute(1)
+        
+        /// Audio Ad (User Initiated)
+        @objc
+        public static let AudioAd_UserInitiated = CreativeAttribute(2)
+        
+        /// Expandable (Automatic)
+        @objc
+        public static let Expandable_Automatic = CreativeAttribute(3)
+        
+        /// Expandable (User Initiated - Click)
+        @objc
+        public static let Expandable_Click = CreativeAttribute(4)
+        
+        /// Expandable (User Initiated - Rollover)
+        @objc
+        public static let Expandable_Rollover = CreativeAttribute(5)
+        
+        /// In-Banner Video Ad (Autoplay)
+        @objc
+        public static let InBanner_Autoplay = CreativeAttribute(6)
+        
+        /// In-Banner Video Ad (User Initiated)
+        @objc
+        public static let InBanner_UserInitiated = CreativeAttribute(7)
+        
+        /// Pop (e.g., Over, Under, or Upon Exit)
+        @objc
+        public static let Pop = CreativeAttribute(8)
+        
+        /// Provocative
+        @objc
+        public static let Provocative = CreativeAttribute(9)
+        
+        /// Suggestive Imagery
+        @objc
+        public static let SuggestiveImagery = CreativeAttribute(9)
+        
+        /// Shaky
+        @objc
+        public static let Shaky = CreativeAttribute(10)
+
+        /// Flashing
+        @objc
+        public static let Flashing = CreativeAttribute(10)
+
+        /// Flickering
+        @objc
+        public static let Flickering = CreativeAttribute(10)
+
+        /// Extreme Animation
+        @objc
+        public static let ExtremeAnimation = CreativeAttribute(10)
+
+        /// Smileys
+        @objc
+        public static let Smileys = CreativeAttribute(10)
+
+        /// Surveys
+        @objc
+        public static let Surveys = CreativeAttribute(11)
+        
+        /// Text Only
+        @objc
+        public static let TextOnly = CreativeAttribute(12)
+        
+        /// User Interactive (e.g., Embedded Games)
+        @objc
+        public static let UserInteractive = CreativeAttribute(13)
+        
+        /// Windows Dialog
+        @objc
+        public static let WindowsDialog = CreativeAttribute(14)
+        
+        /// Alert Style
+        @objc
+        public static let AlertStyle = CreativeAttribute(14)
+        
+        /// Has Audio On/Off Button
+        @objc
+        public static let AudioButton = CreativeAttribute(15)
+        
+        /// Ad Provides Skip Button (e.g. VPAID-rendered skip button on pre-roll video)
+        @objc
+        public static let SkipButton = CreativeAttribute(16)
+        
+        /// Adobe Flash
+        @objc
+        public static let AdobeFlash = CreativeAttribute(17)
+    }
 }
