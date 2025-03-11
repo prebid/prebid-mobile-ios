@@ -96,7 +96,7 @@ else
 fi
 
 echo -e "\n${GREEN}Running PrebidMobileMAXAdapters unit tests${NC} \n"
-xcodebuild test
+xcodebuild test \
     -workspace PrebidMobile.xcworkspace \
     -scheme "PrebidMobileMAXAdaptersTests" \
     -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
