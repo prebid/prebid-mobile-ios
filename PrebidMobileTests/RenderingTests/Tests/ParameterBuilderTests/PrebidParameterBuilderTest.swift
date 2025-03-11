@@ -346,6 +346,48 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(bidRequest.extPrebid.storedBidResponses, resultStoredBidResponses)
     }
     
+    func testAuctionSettingsId() {
+        let auctionSettingsId = "test-auction-settings-id"
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+
+        let requestWithSettingsId = buildBidRequest(with: adUnitConfig)
+        XCTAssertNotNil(Prebid.shared.auctionSettingsId)
+        XCTAssertEqual(requestWithSettingsId.extPrebid.storedRequestID, auctionSettingsId)
+        
+        Prebid.reset()
+        
+        Prebid.shared.prebidServerAccountId = Prebid.devintAccountID
+        let requestWithoutSettingsId = buildBidRequest(with: adUnitConfig)
+        XCTAssertNil(Prebid.shared.auctionSettingsId)
+        XCTAssertEqual(requestWithoutSettingsId.extPrebid.storedRequestID, Prebid.devintAccountID)
+        
+        Prebid.reset()
+        
+        Prebid.shared.prebidServerAccountId = Prebid.devintAccountID
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+        let request = buildBidRequest(with: adUnitConfig)
+        XCTAssertNotNil(Prebid.shared.auctionSettingsId)
+        XCTAssertNotNil(Prebid.shared.prebidServerAccountId)
+        XCTAssertEqual(request.extPrebid.storedRequestID, auctionSettingsId)
+    }
+    
+    func testInvalidAuctionSettingsId() {
+        let auctionSettingsId = ""
+        Prebid.shared.prebidServerAccountId = Prebid.devintAccountID
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: .zero)
+
+        let request = buildBidRequest(with: adUnitConfig)
+        XCTAssertNotNil(Prebid.shared.prebidServerAccountId)
+        XCTAssertNotNil(Prebid.shared.auctionSettingsId)
+        XCTAssertEqual(request.extPrebid.storedRequestID, Prebid.devintAccountID)
+    }
+    
     func testDefaultCaching() {
         XCTAssertFalse(sdkConfiguration.useCacheForReportingWithRenderingAPI)
 

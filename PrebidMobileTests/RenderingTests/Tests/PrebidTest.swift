@@ -185,6 +185,17 @@ class PrebidTest: XCTestCase {
         XCTAssertEqual(storedAuctionResponse, Prebid.shared.storedAuctionResponse)
     }
     
+    func testAuctionSettingsId() {
+        //given
+        let auctionSettingsId = "789"
+        
+        //when
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+        
+        //then
+        XCTAssertEqual(auctionSettingsId, Prebid.shared.auctionSettingsId)
+    }
+    
     func testAddStoredBidResponse() {
         
         //given
@@ -353,5 +364,6 @@ class PrebidTest: XCTestCase {
         
         XCTAssertEqual(sdkConfiguration.prebidServerAccountId, "")
         XCTAssertEqual(sdkConfiguration.prebidServerHost, .Custom)
+        XCTAssertNil(sdkConfiguration.auctionSettingsId)
     }
 }
