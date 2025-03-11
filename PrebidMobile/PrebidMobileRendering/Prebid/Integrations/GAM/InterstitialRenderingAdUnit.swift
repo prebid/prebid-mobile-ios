@@ -56,6 +56,14 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
+    // MARK: - SKAdNetwork
+    
+    /// A flag that determines whether SKOverlay should be supported
+    public var supportSKOverlay: Bool {
+        get { adUnitConfig.adConfiguration.supportSKOverlay }
+        set { adUnitConfig.adConfiguration.supportSKOverlay = newValue }
+    }
+    
     // MARK: - Video controls configuration
     
     /// The area of the close button in the video controls as a percentage.

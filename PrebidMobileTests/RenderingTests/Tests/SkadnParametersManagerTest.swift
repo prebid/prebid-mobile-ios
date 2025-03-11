@@ -80,6 +80,7 @@ class SkadnParametersManagerTest: XCTestCase {
 }
 
 class SkadnUtilities {
+    
     class func createSkadnExtWithFidelities() -> PBMORTBBidExtSkadn {
         let skadn = PBMORTBBidExtSkadn()
         
@@ -124,6 +125,37 @@ class SkadnUtilities {
         fidelity1.timestamp = 1594406341
         
         skadn.fidelities = [fidelity0, fidelity1]
+        return skadn
+    }
+    
+    class func createSkadnExtWithFidelities_version_4_0_SKOverlay() -> PBMORTBBidExtSkadn {
+        let skadn = PBMORTBBidExtSkadn()
+        
+        skadn.version = "4.0"
+        skadn.network = "cDkw7geQsH.skadnetwork"
+        skadn.sourceidentifier = "1234"
+        skadn.itunesitem = 123456789
+        skadn.sourceapp = 880047117
+        
+        let fidelity0 = PBMORTBSkadnFidelity()
+        fidelity0.fidelity = 0
+        fidelity0.signature = "MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg=="
+        fidelity0.nonce = UUID()
+        fidelity0.timestamp = 1594406342
+        let fidelity1 = PBMORTBSkadnFidelity()
+        fidelity1.fidelity = 1
+        fidelity1.signature = "MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg=="
+        fidelity1.nonce = UUID()
+        fidelity1.timestamp = 1594406341
+        
+        skadn.fidelities = [fidelity0, fidelity1]
+        
+        skadn.skoverlay = PBMORTBBidExtSkadnSKOverlay()
+        skadn.skoverlay?.delay = 10
+        skadn.skoverlay?.endcarddelay = 20
+        skadn.skoverlay?.dismissible = 1
+        skadn.skoverlay?.pos = 1
+        
         return skadn
     }
     

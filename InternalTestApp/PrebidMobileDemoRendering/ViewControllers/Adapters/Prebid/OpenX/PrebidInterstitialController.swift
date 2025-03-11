@@ -17,7 +17,11 @@ import UIKit
 import GoogleMobileAds
 import PrebidMobile
 
-class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, InterstitialAdUnitDelegate {
+class PrebidInterstitialController:
+    NSObject,
+    AdaptedController,
+    PrebidConfigurableController,
+    InterstitialAdUnitDelegate {
     
     var prebidConfigId = ""
     var storedAuctionResponse: String?
@@ -44,6 +48,9 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
     var skipButtonArea: Double?
     var skipButtonPosition: Position?
     var skipDelay: Double?
+    
+    // SKAdNetwork
+    var supportSKOverlay = false
     
     // MARK: - AdaptedController
     required init(rootController: AdapterViewController) {
@@ -76,6 +83,8 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         )
         
         interstitialController?.delegate = self
+        
+        interstitialController?.supportSKOverlay = supportSKOverlay
         
         // Custom video configuarion
         if let maxDuration = maxDuration {

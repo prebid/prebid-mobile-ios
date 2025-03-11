@@ -73,7 +73,6 @@
         self.creativeModel = creativeModel;
         self.transaction = transaction;
         self.dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
-
         self.eventManager = [PBMEventManager new];
         if (creativeModel.eventTracker) {
             [self.eventManager registerTracker: (id<PBMEventTrackerProtocol>)creativeModel.eventTracker];
@@ -127,6 +126,12 @@
 
 - (void)dealloc {
     [self.viewabilityTracker stop];
+    
+    if (self.skOverlayManager) {
+        [self.skOverlayManager dismissSKOverlay];
+        self.skOverlayManager = nil;
+    }
+    
     self.viewabilityTracker = NULL;
     PBMLogWhereAmI();
 }
@@ -158,12 +163,26 @@
         PBMLogError(@"viewController is nil");
         return;
     }
+    
     self.viewControllerForPresentingModals = viewController;
     if (self.creativeModel.adConfiguration.isInterstitialAd) { // raw value access intended
         self.adWasShown = NO;
     }
+    
     if (!self.adWasShown) {
         self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc] initWithCreative:self];
+    }
+    
+    PBMORTBBidExtSkadn * skadnInfo = self.transaction.skadnInfo;
+    
+    BOOL showSKOverlay = !self.creativeModel.hasCompanionAd &&
+                         self.creativeModel.adConfiguration.isInterstitialAd &&
+                         ((self.creativeModel.isCompanionAd && skadnInfo.skoverlay.endcarddelay != nil) ||
+                         (!self.creativeModel.isCompanionAd && skadnInfo.skoverlay.delay != nil));
+    
+    if (showSKOverlay) {
+        self.skOverlayManager = [[PBMSKOverlayManager alloc] initWithViewControllerForPresentation:self.viewControllerForPresentingModals];
+        [self.skOverlayManager presentSKOverlayWith:skadnInfo isCompanionAd:self.creativeModel.isCompanionAd];
     }
 }
 
@@ -237,9 +256,9 @@
     PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.bid.skadn];
     
     if (skadnetProductParameters) {
-        clickthroughOpened = [self handleProductClickthrough:url
-                                               productParams:skadnetProductParameters
-                                                      onExit:onClickthroughExitBlock];
+            clickthroughOpened = [self handleProductClickthrough:url
+                                                   productParams:skadnetProductParameters
+                                                          onExit:onClickthroughExitBlock];
     } else {
         
         if ([self handleDeepLinkIfNeeded:url
@@ -469,7 +488,6 @@
     if (self.transaction.measurementSession.eventTracker) {
         [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
     }
-
     [self.creativeViewDelegate creativeDidDisplay:self];
     [self onWillTrackImpression];
     [self.eventManager trackEvent:PBMTrackingEventImpression];

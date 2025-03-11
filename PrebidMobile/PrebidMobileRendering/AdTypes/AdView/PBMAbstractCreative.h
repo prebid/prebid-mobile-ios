@@ -35,6 +35,7 @@
 @class PBMDownloadDataHelper;
 @class PBMCreativeViewabilityTracker;
 @class PBMViewExposure;
+@class PBMSKOverlayManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly, nullable) PBMTransaction *transaction;
 @property (nonatomic, strong, nullable) PBMCreativeModel *creativeModel;
 @property (nonatomic, readonly, nonnull) PBMEventManager *eventManager;
+@property (nonatomic, strong, nullable) PBMSKOverlayManager * skOverlayManager;
 @property (nonatomic, strong, nullable) UIView *view;
 @property (nonatomic, assign) BOOL clickthroughVisible;
 @property (nonatomic, strong, nullable) PBMModalManager *modalManager;

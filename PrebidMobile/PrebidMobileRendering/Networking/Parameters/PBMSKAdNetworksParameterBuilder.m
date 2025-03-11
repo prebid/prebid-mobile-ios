@@ -91,6 +91,11 @@
         for (PBMORTBImp *imp in bidRequest.imp) {
             imp.extSkadn.sourceapp = [sourceapp copy];
             imp.extSkadn.skadnetids = skadnetids;
+            
+            BOOL supportSKOverlay = self.adConfiguration.supportSKOverlay;
+            if (supportSKOverlay) {
+                imp.extSkadn.skoverlay = @1;
+            }
         }
     }
 }

@@ -223,6 +223,14 @@ class PBMORTBTest: XCTestCase {
         codeAndDecode(abstract: skadn, expectedString:  "{\"campaign\":45,\"fidelities\":[{\"fidelity\":0,\"nonce\":\"\(nonce0)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406342},{\"fidelity\":1,\"nonce\":\"\(nonce1)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406341}],\"itunesitem\":123456789,\"network\":\"cDkw7geQsH.skadnetwork\",\"sourceapp\":880047117,\"version\":\"2.2\"}")
     }
     
+    func testExtSkadnSKOverlay_v4_0() {
+        let skadn = SkadnUtilities.createSkadnExtWithFidelities_version_4_0_SKOverlay()
+        let nonce0 = skadn.fidelities!.filter({ $0.fidelity == 0 }).first!.nonce!.uuidString
+        let nonce1 = skadn.fidelities!.filter({ $0.fidelity == 1 }).first!.nonce!.uuidString
+        
+        codeAndDecode(abstract: skadn, expectedString:  "{\"fidelities\":[{\"fidelity\":0,\"nonce\":\"\(nonce0)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406342},{\"fidelity\":1,\"nonce\":\"\(nonce1)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406341}],\"itunesitem\":123456789,\"network\":\"cDkw7geQsH.skadnetwork\",\"skoverlay\":{\"delay\":10,\"dismissible\":1,\"endcarddelay\":20,\"pos\":1},\"sourceapp\":880047117,\"sourceidentifier\":\"1234\",\"version\":\"4.0\"}")
+    }
+    
     // MARK: - Prebid response
     
     func testPrebidResponse() {

@@ -15,6 +15,7 @@
 
 #import "PBMORTBAbstract.h"
 #import "PBMORTBSkadnFidelity.h"
+#import "PBMORTBBidExtSkadnSKOverlay.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,7 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSNumber *sourceapp;
 // Supports multiple fidelity types introduced in SKAdNetwork v2.2
 @property (nonatomic, copy, nullable) NSArray<PBMORTBSkadnFidelity *>  *fidelities;
-
+// SKOverlay Support
+@property (nonatomic, copy, nullable) PBMORTBBidExtSkadnSKOverlay  *skoverlay;
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext object not supported.
 
