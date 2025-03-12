@@ -109,7 +109,7 @@ public class Host: NSObject {
     }
     
     public func getHostURL() throws -> String {
-        guard let customHostURL = customHostURL else {
+        guard let customHostURL else {
             throw ErrorCode.prebidServerURLInvalid("")
         }
         return customHostURL.absoluteString
