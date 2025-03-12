@@ -173,7 +173,7 @@
         self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc] initWithCreative:self];
     }
     
-    PBMORTBBidExtSkadn * skadnInfo = self.transaction.skadnInfo;
+    PBMORTBBidExtSkadn * skadnInfo = self.transaction.bid.skadn;
     
     BOOL showSKOverlay = !self.creativeModel.hasCompanionAd &&
                          self.creativeModel.adConfiguration.isInterstitialAd &&
