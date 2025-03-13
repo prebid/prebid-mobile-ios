@@ -31,7 +31,6 @@ class PrebidOriginalAPIVideoBannerController:
     var adSize = CGSize.zero
     var gamSizes = [AdSize]()
     
-    // Prebid
     private var adUnit: VideoAdUnit!
     
     // GAM

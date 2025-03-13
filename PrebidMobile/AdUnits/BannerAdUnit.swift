@@ -69,4 +69,24 @@ public class BannerAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitPr
     public func activatePrebidImpressionTracker(adView: UIView) {
         impressionTracker.start(in: adView)
     }
+    
+    // MARK: SKAdNetwork
+    
+    /// Activates Prebid's SKAdNetwork StoreKit ads flow for the provided ad view.
+    ///
+    /// Ensure this method is called within the Google Mobile Ads ad received method
+    /// (e.g., in the GADBannerViewDelegate's `bannerViewDidReceiveAd` or similar callbacks).
+    ///
+    /// This feature is not available for video ads.
+    ///
+    /// - Parameters:
+    ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView).
+    public func activatePrebidSKAdNetworkStoreKitAdsFlow(adView: UIView) {
+        guard !adFormats.contains(.video) else {
+            Log.warn("SKAdNetwork StoreKit ads flow is not supported for video ads.")
+            return
+        }
+        
+        skadnStoreKitAdsHelper.start(in: adView)
+    }
 }
