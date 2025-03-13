@@ -17,7 +17,7 @@
     <a title="Prebid Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.4.0 Docs</a> (92% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.5.0 Docs</a> (91% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -185,6 +185,9 @@
                 <a href="../Classes/RewardedVideoAdUnit.html">RewardedVideoAdUnit</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/SKOverlayManager.html">SKOverlayManager</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Signals.html">Signals</a>
               </li>
               <li class="nav-group-task">
@@ -204,6 +207,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Signals/Plcmnt.html">– Plcmnt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/CreativeAttribute.html">– CreativeAttribute</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/SingleContainerInt.html">SingleContainerInt</a>
@@ -440,6 +446,33 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">prebidServerAccountId</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(py)auctionSettingsId"></a>
+                    <a name="//apple_ref/swift/Property/auctionSettingsId" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(py)auctionSettingsId">auctionSettingsId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Prebid auction settings ID.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">auctionSettingsId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -778,7 +811,8 @@ ORTB: bidRequest.test</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">prebidServerHost</span><span class="p">:</span> <span class="kt"><a href="../Enums/PrebidHost.html">PrebidHost</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This property is deprecated. In the upcoming major release, the property will be removed. Please, use initializeSDK(serverURL:﹚ instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">prebidServerHost</span><span class="p">:</span> <span class="kt"><a href="../Enums/PrebidHost.html">PrebidHost</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1193,7 +1227,8 @@ Deprecated.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setCustomPrebidServer</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:﹚ instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setCustomPrebidServer</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -1474,7 +1509,8 @@ The <code>host</code> value is obtained from <code>Prebid.shared.prebidServerHos
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span><span class="n">_</span> <span class="nv">gadMobileAdsObject</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:_:_﹚ instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span><span class="n">_</span> <span class="nv">gadMobileAdsObject</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1540,7 +1576,8 @@ The <code>host</code> value is obtained from <code>Prebid.shared.prebidServerHos
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span><span class="nv">gadMobileAdsVersion</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:gadMobileAdsVersion:_:﹚ instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span><span class="nv">gadMobileAdsVersion</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1604,7 +1641,8 @@ The <code>host</code> value is obtained from <code>Prebid.shared.prebidServerHos
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:_:﹚ instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1612,6 +1650,491 @@ The <code>host</code> value is obtained from <code>Prebid.shared.prebidServerHos
                         <h4>Parameters</h4>
                         <table class="graybox">
                           <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>returns initialization status and optional error</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL::error::"></a>
+                    <a name="//apple_ref/swift/Method/initializeSDK(serverURL:_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL::error::">initializeSDK(serverURL:<wbr>_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks the status of Prebid Server. The <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is used as server status endpoint.
+If <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is not provided, the SDK will use default endpoint - <code>host</code> + <code>/status</code>.</p>
+
+<p>Checks the version of GMA SDK. If the version is not supported - logs warning.</p>
+
+<p>Use this SDK initializer if you&rsquo;re using PrebidMobile with GMA SDK.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span>
+    <span class="nv">serverURL</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">gadMobileAdsObject</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>serverURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom Prebid Server URL, used when a user allowed the app to track</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>gadMobileAdsObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>GADMobileAds object</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>returns initialization status and optional error</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:nonTrackingURLString::error::"></a>
+                    <a name="//apple_ref/swift/Method/initializeSDK(serverURL:nonTrackingURLString:_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:nonTrackingURLString::error::">initializeSDK(serverURL:<wbr>nonTrackingURLString:<wbr>_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks the status of Prebid Server. The <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is used as server status endpoint.
+If <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is not provided, the SDK will use default endpoint - <code>host</code> + <code>/status</code>.</p>
+
+<p>Checks the version of GMA SDK. If the version is not supported - logs warning.</p>
+
+<p>Use this SDK initializer if you&rsquo;re using PrebidMobile with GMA SDK.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span>
+    <span class="nv">serverURL</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">nonTrackingURLString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">gadMobileAdsObject</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>serverURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom Prebid Server URL, used when a user allowed the app to track</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nonTrackingURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom Prebid Server URL, used when a user rejected the app to track</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>gadMobileAdsObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>GADMobileAds object</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>returns initialization status and optional error</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:gadMobileAdsVersion:error::"></a>
+                    <a name="//apple_ref/swift/Method/initializeSDK(serverURL:gadMobileAdsVersion:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:gadMobileAdsVersion:error::">initializeSDK(serverURL:<wbr>gadMobileAdsVersion:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes PrebidMobile SDK.</p>
+
+<p>Checks the status of Prebid Server. The <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is used as server status endpoint.
+If <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is not provided, the SDK will use default endpoint - <code>host</code> + <code>/status</code>.</p>
+
+<p>Checks the version of GMA SDK. If the version is not supported - logs warning.</p>
+
+<p>Use this SDK initializer if you&rsquo;re using PrebidMobile with GMA SDK.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span>
+    <span class="nv">serverURL</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">gadMobileAdsVersion</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>serverURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom Prebid Server URL, used when a user allowed the app to track</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>gadMobileAdsVersion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>GADMobileAds version string, use <code>GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)</code> to get it</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>returns initialization status and optional error</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:nonTrackingURLString:gadMobileAdsVersion:error::"></a>
+                    <a name="//apple_ref/swift/Method/initializeSDK(serverURL:nonTrackingURLString:gadMobileAdsVersion:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:nonTrackingURLString:gadMobileAdsVersion:error::">initializeSDK(serverURL:<wbr>nonTrackingURLString:<wbr>gadMobileAdsVersion:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes PrebidMobile SDK.</p>
+
+<p>Checks the status of Prebid Server. The <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is used as server status endpoint.
+If <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is not provided, the SDK will use default endpoint - <code>host</code> + <code>/status</code>.</p>
+
+<p>Checks the version of GMA SDK. If the version is not supported - logs warning.</p>
+
+<p>Use this SDK initializer if you&rsquo;re using PrebidMobile with GMA SDK.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span>
+    <span class="nv">serverURL</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">nonTrackingURLString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">gadMobileAdsVersion</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>serverURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom Prebid Server URL, used when a user allowed the app to track</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nonTrackingURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom Prebid Server URL, used when a user rejected the app to track</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>gadMobileAdsVersion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>GADMobileAds version string, use <code>GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)</code> to get it</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>returns initialization status and optional error</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:error::"></a>
+                    <a name="//apple_ref/swift/Method/initializeSDK(serverURL:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:error::">initializeSDK(serverURL:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes PrebidMobile SDK.</p>
+
+<p>Checks the status of Prebid Server. The <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is used as server status endpoint.
+If <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is not provided, the SDK will use default endpoint - <code>host</code> + <code>/status</code>.</p>
+
+<p>Use this SDK initializer if you&rsquo;re using PrebidMobile without GMA SDK.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span>
+    <span class="nv">serverURL</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>serverURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom Prebid Server URL, used when a user allowed the app to track</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>returns initialization status and optional error</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:nonTrackingURLString:error::"></a>
+                    <a name="//apple_ref/swift/Method/initializeSDK(serverURL:nonTrackingURLString:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(cm)initializeSDKWithServerURL:nonTrackingURLString:error::">initializeSDK(serverURL:<wbr>nonTrackingURLString:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes PrebidMobile SDK.</p>
+
+<p>Checks the status of Prebid Server. The <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is used as server status endpoint.
+If <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)customStatusEndpoint">customStatusEndpoint</a></code> property is not provided, the SDK will use default endpoint - <code>host</code> + <code>/status</code>.</p>
+
+<p>Use this SDK initializer if you&rsquo;re using PrebidMobile without GMA SDK.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">initializeSDK</span><span class="p">(</span>
+    <span class="nv">serverURL</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">nonTrackingURLString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:12PrebidMobile0A22InitializationCallbacka">PrebidInitializationCallback</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>serverURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom Prebid Server URL, used when a user allowed the app to track</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nonTrackingURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom Prebid Server URL, used when a user rejected the app to track</p>
+                                </div>
+                              </td>
+                            </tr>
                             <tr>
                               <td>
                                 <code>
@@ -1729,7 +2252,7 @@ The <code>host</code> value is obtained from <code>Prebid.shared.prebidServerHos
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-02-04)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-03-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

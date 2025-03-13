@@ -17,7 +17,7 @@
     <a title="Signals Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.4.0 Docs</a> (92% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.5.0 Docs</a> (91% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -185,6 +185,9 @@
                 <a href="../Classes/RewardedVideoAdUnit.html">RewardedVideoAdUnit</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/SKOverlayManager.html">SKOverlayManager</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Signals.html">Signals</a>
               </li>
               <li class="nav-group-task">
@@ -204,6 +207,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Signals/Plcmnt.html">– Plcmnt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Signals/CreativeAttribute.html">– CreativeAttribute</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/SingleContainerInt.html">SingleContainerInt</a>
@@ -560,12 +566,61 @@ placement types as defined in the OpenRTB specification.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PrebidMobile7SignalsC17CreativeAttributeC"></a>
+                    <a name="//apple_ref/swift/Class/CreativeAttribute" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PrebidMobile7SignalsC17CreativeAttributeC">CreativeAttribute</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='openrtb-creative-attributes' class='heading'>OpenRTB - Creative Attributes</h1>
+<pre class="highlight swift"><code> <span class="o">|</span> <span class="kt">Value</span> <span class="o">|</span> <span class="kt">Description</span>                                                                <span class="o">|</span>
+ <span class="o">|-------|----------------------------------------------------------------------------|</span>
+ <span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span> <span class="kt">Audio</span> <span class="kt">Ad</span> <span class="p">(</span><span class="kt">Autoplay</span><span class="p">)</span>                                                        <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">2</span>     <span class="o">|</span> <span class="kt">Audio</span> <span class="kt">Ad</span> <span class="p">(</span><span class="kt">User</span> <span class="kt">Initiated</span><span class="p">)</span>                                                  <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">3</span>     <span class="o">|</span> <span class="kt">Expandable</span> <span class="p">(</span><span class="kt">Automatic</span><span class="p">)</span>                                                     <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span> <span class="kt">Expandable</span> <span class="p">(</span><span class="kt">User</span> <span class="kt">Initiated</span> <span class="o">-</span> <span class="kt">Click</span><span class="p">)</span>                                        <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">5</span>     <span class="o">|</span> <span class="kt">Expandable</span> <span class="p">(</span><span class="kt">User</span> <span class="kt">Initiated</span> <span class="o">-</span> <span class="kt">Rollover</span><span class="p">)</span>                                     <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">6</span>     <span class="o">|</span> <span class="kt">In</span><span class="o">-</span><span class="kt">Banner</span> <span class="kt">Video</span> <span class="kt">Ad</span> <span class="p">(</span><span class="kt">Autoplay</span><span class="p">)</span>                                              <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">7</span>     <span class="o">|</span> <span class="kt">In</span><span class="o">-</span><span class="kt">Banner</span> <span class="kt">Video</span> <span class="kt">Ad</span> <span class="p">(</span><span class="kt">User</span> <span class="kt">Initiated</span><span class="p">)</span>                                        <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">8</span>     <span class="o">|</span> <span class="kt">Pop</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="kt">Over</span><span class="p">,</span> <span class="kt">Under</span><span class="p">,</span> <span class="n">or</span> <span class="kt">Upon</span> <span class="kt">Exit</span><span class="p">)</span>                                      <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">9</span>     <span class="o">|</span> <span class="kt">Provocative</span> <span class="n">or</span> <span class="kt">Suggestive</span> <span class="kt">Imagery</span>                                          <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span> <span class="kt">Shaky</span><span class="p">,</span> <span class="kt">Flashing</span><span class="p">,</span> <span class="kt">Flickering</span><span class="p">,</span> <span class="kt">Extreme</span> <span class="kt">Animation</span><span class="p">,</span> <span class="kt">Smileys</span>                    <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">11</span>    <span class="o">|</span> <span class="kt">Surveys</span>                                                                    <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">12</span>    <span class="o">|</span> <span class="kt">Text</span> <span class="kt">Only</span>                                                                  <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">13</span>    <span class="o">|</span> <span class="kt">User</span> <span class="kt">Interactive</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="kt">Embedded</span> <span class="kt">Games</span><span class="p">)</span>                                    <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">14</span>    <span class="o">|</span> <span class="kt">Windows</span> <span class="kt">Dialog</span> <span class="n">or</span> <span class="kt">Alert</span> <span class="kt">Style</span>                                              <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">15</span>    <span class="o">|</span> <span class="kt">Has</span> <span class="kt">Audio</span> <span class="kt">On</span><span class="o">/</span><span class="kt">Off</span> <span class="kt">Button</span>                                                    <span class="o">|</span>
+ <span class="o">|</span> <span class="mi">16</span>    <span class="o">|</span> <span class="kt">Ad</span> <span class="kt">Provides</span> <span class="kt">Skip</span> <span class="kt">Button</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="kt">VPAID</span><span class="o">-</span><span class="n">rendered</span> <span class="n">skip</span> <span class="n">button</span> <span class="n">on</span> <span class="n">pre</span><span class="o">-</span><span class="n">roll</span> <span class="n">video</span><span class="p">)</span><span class="o">|</span>
+ <span class="o">|</span> <span class="mi">17</span>    <span class="o">|</span> <span class="kt">Adobe</span> <span class="kt">Flash</span>                                                                <span class="o">|</span>
+</code></pre>
+
+                        <a href="../Classes/Signals/CreativeAttribute.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span><span class="p">(</span><span class="kt">PBCreativeAttribute</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">CreativeAttribute</span> <span class="p">:</span> <span class="kt"><a href="../Classes/SingleContainerInt.html">SingleContainerInt</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-02-04)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-03-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
