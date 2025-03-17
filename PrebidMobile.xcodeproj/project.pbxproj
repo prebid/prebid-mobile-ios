@@ -194,6 +194,7 @@
 		53F096CA27E917D40058C94C /* Log+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 53F096C927E917D40058C94C /* Log+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53F35F6D292B9F2F001C1183 /* UserConsentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */; };
 		53F35F6F292BAE9B001C1183 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */; };
+		5A197FC12D810CC3002A51F2 /* ResponseParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A197FC02D810CC3002A51F2 /* ResponseParsingTests.swift */; };
 		5ABAA1702D384AE400FDD38A /* SharedId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABAA16F2D384ADC00FDD38A /* SharedId.swift */; };
 		5ABAA1732D3ADE0000FDD38A /* SharedIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABAA1722D3ADE0000FDD38A /* SharedIdTests.swift */; };
 		5BC378AC271F1CFF00444D5E /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37649271F1CFD00444D5E /* Gender.swift */; };
@@ -1109,6 +1110,8 @@
 		53F096C927E917D40058C94C /* Log+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Log+Extensions.h"; sourceTree = "<group>"; };
 		53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConsentDataManager.swift; sourceTree = "<group>"; };
 		53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		5A197FC02D810CC3002A51F2 /* ResponseParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseParsingTests.swift; sourceTree = "<group>"; };
+		5A197FC72D825B52002A51F2 /* IDETemplateMacros.plist */ = {isa = PBXFileReference; explicitFileType = text.xml; name = IDETemplateMacros.plist; path = PrebidMobile.xcodeproj/xcshareddata/IDETemplateMacros.plist; sourceTree = SOURCE_ROOT; };
 		5ABAA16F2D384ADC00FDD38A /* SharedId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedId.swift; sourceTree = "<group>"; };
 		5ABAA1722D3ADE0000FDD38A /* SharedIdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedIdTests.swift; sourceTree = "<group>"; };
 		5BC37649271F1CFD00444D5E /* Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
@@ -3413,6 +3416,7 @@
 			children = (
 				FAEE4CFB262DC2B200AD9966 /* PrebidMobile.h */,
 				FAEE4D06262DC2B200AD9966 /* Info.plist */,
+				5A197FC72D825B52002A51F2 /* IDETemplateMacros.plist */,
 				FAEE4CDD262DC2B200AD9966 /* Constants.swift */,
 				FAEE4CE0262DC2B200AD9966 /* Dispatcher.swift */,
 				FAEE4CFD262DC2B200AD9966 /* ExternalUserId.swift */,
@@ -3508,6 +3512,7 @@
 				38F03B322576624C00E026A2 /* TrackerManagerTests.swift */,
 				2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */,
 				5ABAA1722D3ADE0000FDD38A /* SharedIdTests.swift */,
+				5A197FC02D810CC3002A51F2 /* ResponseParsingTests.swift */,
 				47D9A35B40BBC16996BC05A9 /* RenderingTests */,
 			);
 			path = PrebidMobileTests;
@@ -4010,6 +4015,7 @@
 				922AFD4B27372A0500732C53 /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
 				5ABAA1732D3ADE0000FDD38A /* SharedIdTests.swift in Sources */,
+				5A197FC12D810CC3002A51F2 /* ResponseParsingTests.swift in Sources */,
 				922AFCE12735424F00732C53 /* PBMAssert.swift in Sources */,
 				532936932CEF1FFE0056FD8D /* ArbitraryORTBHelperTests.swift in Sources */,
 				925D5E362737EE8600A8A2B5 /* PBMAdRequestResponseVASTTests.swift in Sources */,
