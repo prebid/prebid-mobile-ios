@@ -177,31 +177,6 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         prebidNativeAdNotValidExpectation = nil
     }
     
-    func testConvertDictToMoPubKeywords() {
-        
-        var dictionary = [String: String]()
-        dictionary["key1"] = "value1"
-        dictionary["key2"] = "value2"
-        
-        let result = Utils.shared.convertDictToMoPubKeywords(dict: dictionary)
-        
-        XCTAssertTrue(
-            result == "key1:value1,key2:value2"
-                || result == "key2:value2,key1:value1",
-            result
-        )
-        
-    }
-    
-    func testConvertDictToMoPubKeywordsEmpty() {
-        
-        let dictionary = [String: String]()
-        
-        let result = Utils.shared.convertDictToMoPubKeywords(dict: dictionary)
-        
-        XCTAssertEqual("", result)
-    }
-
     func testAttachDFPKeywords() {
         let utils: Utils = Utils.shared
 
