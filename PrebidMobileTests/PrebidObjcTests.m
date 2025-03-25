@@ -22,16 +22,6 @@ limitations under the License.
 
 @implementation PrebidObjcTests
 
-- (void)testServerHostCustomInvalid {
-    //given
-    NSError *error = nil;
-    
-    //when
-    [Prebid.shared setCustomPrebidServerWithUrl:@"wrong url" error:&error];
-    
-    //then
-    XCTAssertNotNil(error);
-}
 
 - (void)testAccountId {
     //given

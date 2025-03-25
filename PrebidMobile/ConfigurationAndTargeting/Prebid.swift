@@ -144,14 +144,6 @@ public class Prebid: NSObject {
     
     // MARK: - Public Methods
     
-    /// Sets a custom Prebid Server URL.
-    /// - Parameter url: The custom Prebid Server URL.
-    /// - Throws: An error if setting the custom host URL fails.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:) instead.")
-    public func setCustomPrebidServer(url: String) throws {
-        try Host.shared.setHostURL(url, nonTrackingURLString: nil)
-    }
-    
     // MARK: - Stored Bid Response
     
     /// Adds a stored bid response.

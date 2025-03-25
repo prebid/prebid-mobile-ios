@@ -20,8 +20,7 @@ import XCTest
 class MediationInterstitialAdUnitTest: XCTestCase {
     private let sdkConfiguration: Prebid = {
         let config = Prebid.mock
-        //        config.serverURL = Prebid.devintServerURL
-        try! config.setCustomPrebidServer(url: Prebid.devintServerURL)
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
         config.prebidServerAccountId = Prebid.devintAccountID
         return config
     }()
