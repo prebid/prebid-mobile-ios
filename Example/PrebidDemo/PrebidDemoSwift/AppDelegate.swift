@@ -38,10 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set account id and custom Prebid server URL
         Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
         
         // Initialize Prebid SDK
-        Prebid.initializeSDK(
+        try! Prebid.initializeSDK(
+            serverURL: "https://prebid-server-test-j.prebid.org/openrtb2/auction",
             gadMobileAdsVersion: string(for: MobileAds.shared.versionNumber)
         ) { status, error in
             if let error = error {

@@ -45,25 +45,28 @@ class PrebidTest: XCTestCase {
         checkInitialValue(sdkConfiguration: sdkConfiguration)
     }
     
-    func testInitializeSDK_OptionalCallback() {
+    func testInitializeSDK_OptionalCallback() throws {
         // init callback should be optional
-        Prebid.initializeSDK()
+        let serverURL = "https://prebid-server-test-j.prebid.org/openrtb2/auction"
+        try XCTUnwrap(Prebid.initializeSDK(serverURL: serverURL))
     }
     
-    func testInitializeSDK() {
-        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+    func testInitializeSDK() throws {
         
+        let serverURL = "https://prebid-server-test-j.prebid.org/openrtb2/auction"
         let expectation = expectation(description: "Expected successful initialization")
         
-        Prebid.initializeSDK { status, error in
-            if case .succeeded = status {
-                expectation.fulfill()
-            }
+        try XCTUnwrap(
+            Prebid.initializeSDK(serverURL: serverURL) { status, error in
+                if case .succeeded = status {
+                    expectation.fulfill()
+                }
             
-            if let error = error {
-                XCTFail("Failed with error: \(error.localizedDescription)")
+                if let error = error {
+                    XCTFail("Failed with error: \(error.localizedDescription)")
+                }
             }
-        }
+        )
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -335,10 +338,11 @@ class PrebidTest: XCTestCase {
         XCTAssertEqual(Prebid.shared.creativeFactoryTimeoutPreRenderContent, creativeFactoryTimeoutPreRenderContent)
     }
     
-    func testRegisterSDKRenderer() {
+    func testRegisterSDKRenderer() throws {
         XCTAssertTrue(PrebidMobilePluginRegister.shared.getAllPlugins().isEmpty)
         
-        Prebid.initializeSDK()
+        let serverURL = "https://prebid-server-test-j.prebid.org/openrtb2/auction"
+        try XCTUnwrap(Prebid.initializeSDK(serverURL: serverURL))
         
         XCTAssertTrue(PrebidMobilePluginRegister.shared.getAllPlugins().count == 1)
         XCTAssertTrue(PrebidMobilePluginRegister.shared.getAllPlugins().first?.name == PREBID_MOBILE_RENDERER_NAME)

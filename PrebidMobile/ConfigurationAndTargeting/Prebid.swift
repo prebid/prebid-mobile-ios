@@ -196,57 +196,6 @@ public class Prebid: NSObject {
         customHeaders.removeAll()
     }
     
-    /// Initializes PrebidMobile SDK.
-    ///
-    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
-    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
-    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
-    ///
-    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
-    ///
-    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
-    /// - Parameters:
-    ///   - gadMobileAdsObject: GADMobileAds object
-    ///   - completion: returns initialization status and optional error
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:_:_) instead.")
-    public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: PrebidInitializationCallback? = nil) {
-        PrebidSDKInitializer.initializeSDK(completion)
-        PrebidSDKInitializer.checkGMAVersion(gadObject: gadMobileAdsObject)
-        PrebidSDKInitializer.logInitializerWarningIfNeeded()
-    }
-    
-    /// Initializes PrebidMobile SDK.
-    ///
-    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
-    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
-    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
-    ///
-    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
-    ///
-    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
-    /// - Parameters:
-    ///   - gadMobileAdsVersion: GADMobileAds version string, use `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)` to get it
-    ///   - completion: returns initialization status and optional error
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:gadMobileAdsVersion:_:) instead.")
-    public static func initializeSDK(gadMobileAdsVersion: String? = nil, _ completion: PrebidInitializationCallback? = nil) {
-        PrebidSDKInitializer.initializeSDK(completion)
-        PrebidSDKInitializer.checkGMAVersion(gadVersion: gadMobileAdsVersion)
-    }
-    
-    /// Initializes PrebidMobile SDK.
-    ///
-    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
-    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
-    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
-    ///
-    /// Use this SDK initializer if you're using PrebidMobile without GMA SDK.
-    /// - Parameters:
-    ///   - completion: returns initialization status and optional error
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:_:) instead.")
-    public static func initializeSDK(_ completion: PrebidInitializationCallback? = nil) {
-        PrebidSDKInitializer.initializeSDK(completion)
-    }
-    
     /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
     /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
     ///
