@@ -110,9 +110,9 @@
         
         if([adServerName isEqualToString:kDFPString]){
                 if ([host isEqualToString:kAppNexusString]) {
-                    [Prebid.shared setCustomPrebidServerWithUrl:kAppNexusPrebidServerEndpoint error:nil];
+                    [Host.shared setHostURL:kAppNexusPrebidServerEndpoint nonTrackingURLString:NULL error:NULL];
                 } else if ([host isEqualToString:kRubiconString]) {
-                    [Prebid.shared setCustomPrebidServerWithUrl:kRubiconPrebidServerEndpoint error:nil];
+                    [Host.shared setHostURL:kRubiconPrebidServerEndpoint nonTrackingURLString:NULL error:NULL];
                 }
         }
         [self.delegate adUnitRegistered];

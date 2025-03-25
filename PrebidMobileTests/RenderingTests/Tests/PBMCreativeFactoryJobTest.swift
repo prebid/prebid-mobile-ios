@@ -203,7 +203,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let creativeFactoryTimeoutPreRenderContent = 22.2
         
         // CTF values are provided by PBS
-        try! sdkConfiguration.setCustomPrebidServer(url: Prebid.devintServerURL)
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
         sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"

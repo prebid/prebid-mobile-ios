@@ -118,10 +118,6 @@ class PrebidTest: XCTestCase {
         checkInitialValue(sdkConfiguration: firstConfig)
     }
     
-    func testServerHostCustomInvalid() throws {
-        XCTAssertThrowsError(try Prebid.shared.setCustomPrebidServer(url: "wrong url"))
-    }
-    
     func testServerHostCustomOnAuthorizedTrackingStatus() throws {
         //given
         let customTrackingHost = "https://prebid-server.tracking.com/openrtb2/auction"
@@ -306,7 +302,7 @@ class PrebidTest: XCTestCase {
     }
     
     func testPBSCreativeFactoryTimeout() {
-        try! sdkConfiguration.setCustomPrebidServer(url: Prebid.devintServerURL)
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
         sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
         
         let creativeFactoryTimeout = 11.1
