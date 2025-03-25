@@ -39,13 +39,6 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         set { adUnitConfig.adPosition = newValue }
     }
     
-    /// The ORTB (OpenRTB) configuration string for the ad unit.
-    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) and getImpORTBConfig() for impression-level ORTB configuration.")
-    public var ortbConfig: String? {
-        get { adUnitConfig.ortbConfig }
-        set { adUnitConfig.ortbConfig = newValue }
-    }
-    
     /// The banner parameters used for configuring ad unit.
     public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
@@ -202,37 +195,6 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     // MARK: - Ext Data (imp[].ext.data)
     
-    /// Adds context data for a specified key.
-    /// - Parameters:
-    ///   - data: The data to add.
-    ///   - key: The key associated with the data.
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
-    public func addContextData(_ data: String, forKey key: String) {
-        addExtData(key: key, value: data)
-    }
-    
-    /// Updates context data for a specified key.
-    /// - Parameters:
-    ///   - data: A set of data to update.
-    ///   - key: The key associated with the data.
-    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
-    public func updateContextData(_ data: Set<String>, forKey key: String) {
-        updateExtData(key: key, value: data)
-    }
-    
-    /// Removes context data for a specified key.
-    /// - Parameter key: The key associated with the data to remove.
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
-    public func removeContextDate(forKey key: String) {
-        removeExtData(forKey: key)
-    }
-    
-    /// Clears all context data.
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
-    public func clearContextData() {
-        clearExtData()
-    }
-    
     /// Adds ext data.
     /// - Parameters:
     ///   - key: The key for the data.
@@ -263,33 +225,6 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
     // MARK: - Ext keywords (imp[].ext.keywords)
     
-    /// Adds a context keyword.
-    /// - Parameter newElement: The keyword to add.
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
-    public func addContextKeyword(_ newElement: String) {
-        addExtKeyword(newElement)
-    }
-    
-    /// Adds a set of context keywords.
-    /// - Parameter newElements: A set of keywords to add.
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
-    public func addContextKeywords(_ newElements: Set<String>) {
-        addExtKeywords(newElements)
-    }
-    
-    /// Removes a context keyword.
-    /// - Parameter element: The keyword to remove.
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
-    public func removeContextKeyword(_ element: String) {
-        removeExtKeyword(element)
-    }
-    
-    /// Clears all context keywords.
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
-    public func clearContextKeywords() {
-        clearExtKeywords()
-    }
-    
     /// Adds an extended keyword.
     /// - Parameter newElement: The keyword to be added.
     public func addExtKeyword(_ newElement: String) {
@@ -311,63 +246,6 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     /// Clears all extended keywords.
     public func clearExtKeywords() {
         adUnitConfig.clearExtKeywords()
-    }
-    
-    // MARK: - App Content (app.content.data)
-    
-    /// Sets the app content data.
-    /// - Parameter appContent: The app content data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func setAppContent(_ appContent: PBMORTBAppContent) {
-        adUnitConfig.setAppContent(appContent)
-    }
-    
-    /// Clears the app content data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func clearAppContent() {
-        adUnitConfig.clearAppContent()
-    }
-    
-    /// Adds app content data objects.
-    /// - Parameter dataObjects: The data objects to be added.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addAppContentData(dataObjects)
-    }
-    
-    /// Removes an app content data object.
-    /// - Parameter dataObject: The data object to be removed.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
-        adUnitConfig.removeAppContentData(dataObject)
-    }
-    
-    /// Clears all app content data objects.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func clearAppContentDataObjects() {
-        adUnitConfig.clearAppContentData()
-    }
-    
-    // MARK: - User Data (user.data)
-    
-    /// Adds user data objects.
-    /// - Parameter userDataObjects: The user data objects to be added.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addUserData(userDataObjects)
-    }
-    
-    /// Removes a user data object.
-        /// - Parameter userDataObject: The user data object to be removed.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        adUnitConfig.removeUserData(userDataObject)
-    }
-    
-    /// Clears all user data objects.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func clearUserData() {
-        adUnitConfig.clearUserData()
     }
     
     // MARK: - Internal methods

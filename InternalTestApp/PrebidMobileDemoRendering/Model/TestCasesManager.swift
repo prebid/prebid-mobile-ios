@@ -1962,7 +1962,7 @@ struct TestCaseManager {
                         
                         if let adUnitContext = AppConfiguration.shared.adUnitContext {
                             for dataPair in adUnitContext {
-                                adBannerView.addContextData(dataPair.value, forKey: dataPair.key)
+                                adBannerView.addExtData(key: dataPair.key, value: dataPair.value)
                             }
                         }
                         
@@ -2118,7 +2118,7 @@ struct TestCaseManager {
                                 
                                 if let adUnitContext = AppConfiguration.shared.adUnitContext {
                                     for dataPair in adUnitContext {
-                                        adBannerView.addContextData(dataPair.value, forKey: dataPair.key)
+                                        adBannerView.addExtData(key: dataPair.key, value: dataPair.value)
                                     }
                                 }
                                 
