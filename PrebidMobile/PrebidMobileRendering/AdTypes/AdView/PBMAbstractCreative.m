@@ -52,8 +52,6 @@
 
 @property (nonatomic, assign) BOOL adWasShown;
 
-@property (nonatomic, nonnull) WKWebView *hiddenWebView;
-
 @property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
 
 @end
@@ -370,9 +368,8 @@
 - (BOOL)handleProductClickthrough:(NSURL*)url
                     productParams:(NSDictionary<NSString *, id> *)productParams
                            onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock {
-    self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
-    PBMHiddenWebViewManager *webViewManager = [[PBMHiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
-    [self.hiddenWebView setHidden:YES];
+    PBMHiddenWebViewManager *webViewManager = [[PBMHiddenWebViewManager alloc] initWithFrame:self.view.frame
+                                                                           landingPageString:url];
     [webViewManager openHiddenWebView];
     
     if (!self.viewControllerForPresentingModals) {

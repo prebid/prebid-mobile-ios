@@ -98,6 +98,26 @@ public class PrebidAdUnit: NSObject {
         }
     }
     
+    // MARK: SKAdNetwork
+    
+    /// Activates Prebid's SKAdNetwork StoreKit ads flow for the provided ad view.
+    /// Note: Ensure this method is called within the Google Mobile Ads ad received method
+    /// (e.g., in the GADBannerViewDelegate's bannerViewDidReceiveAd or similar callbacks).
+    ///
+    /// - Parameters:
+    ///   - adView: The ad view that contains ad creative(f.e. GAMBannerView).
+    public func activatePrebidBannerSKAdNetworkStoreKitAdsFlow(adView: UIView) {
+        adUnit.skadnStoreKitAdsHelper.start(in: adView)
+    }
+    
+    /// Activates Prebid's SKAdNetwork StoreKit ads flow.
+    /// Note: Ensure this method is called before presenting interstitials.
+    public func activatePrebidInterstitialSKAdNetworkStoreKitAdsFlow() {
+        if let window = UIWindow.firstKeyWindow {
+            adUnit.skadnStoreKitAdsHelper.start(in: window)
+        }
+    }
+    
     // MARK: - Auto refresh API
     
     

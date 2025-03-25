@@ -58,6 +58,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
         isInterstitial: adUnitConfig.adConfiguration.isInterstitialAd
     )
     
+    private(set) lazy var skadnStoreKitAdsHelper = PrebidStoreKitAdsHelper(
+        isInterstitial: adUnitConfig.adConfiguration.isInterstitialAd
+    )
+    
+    private let eventManager = EventManager()
+    
     /// Initializes a new `AdUnit` instance with the specified configuration ID, size, and ad formats.
     ///
     /// - Parameters:
@@ -200,12 +206,30 @@ public class AdUnit: NSObject, DispatcherDelegate {
                 return
             }
             
-            let impressionTrackingPayload = PrebidImpressionTrackerPayload(
-                cacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"],
-                trackingURLs: bidResponse.winningBid?.impressionTrackingURLs ?? []
+            // Create a tracker for server event, f.e. firing `burl`
+            let serverEventTracker = PrebidServerEventTracker()
+            eventManager.registerTracker(serverEventTracker)
+            
+            // Register impression URLs
+            let impServerEvents = bidResponse.winningBid?
+                .impressionTrackingURLs
+                .map { ServerEvent(url: $0, expectedEventType: .impression) } ?? []
+            serverEventTracker.addServerEvents(impServerEvents)
+            
+            if #available(iOS 14.5, *) {
+                if let skadn = bidResponse.winningBid?.skadn,
+                   let imp = SkadnParametersManager.getSkadnImpression(for: skadn) {
+                    let skadnEventTracker = SkadnEventTracker(with: imp)
+                    eventManager.registerTracker(skadnEventTracker)
+                }
+            }
+            
+            let impressionTrackingPayload = PrebidImpressionTracker.Payload(
+                cacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"]
             )
             
             self.impressionTracker.register(payload: impressionTrackingPayload)
+            self.impressionTracker.register(eventManager: eventManager)
             
             if (!self.timeOutSignalSent) {
                 let resultCode = self.setUp(adObject, with: bidResponse)
@@ -251,15 +275,24 @@ public class AdUnit: NSObject, DispatcherDelegate {
         return .prebidDemandFetchSuccess
     }
     
-    private func cacheBidIfNeeded(_ winningBid: Bid) -> String?  {
-        guard winningBid.adFormat == .native else {
+    private func cacheBidIfNeeded(_ winningBid: Bid) -> String? {
+        let isNative = winningBid.adFormat == .native
+        let isSkadnPresent = winningBid.skadn != nil && SkadnParametersManager
+            .getSkadnProductParameters(for: winningBid.skadn!) != nil
+        
+        guard isNative || isSkadnPresent else {
             return nil
         }
         
-        let expireInterval = TimeInterval(truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber)
+        let expireInterval = TimeInterval(
+            truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber
+        )
         
         do {
-            if let cacheId = CacheManager.shared.save(content: try winningBid.bid.toJsonString(), expireInterval: expireInterval), !cacheId.isEmpty {
+            if let cacheId = CacheManager.shared.save(
+                content: try winningBid.bid.toJsonString(),
+                expireInterval: expireInterval
+            ), !cacheId.isEmpty {
                 return cacheId
             }
         } catch {

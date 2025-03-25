@@ -32,6 +32,8 @@ class PrebidOriginalAPIDisplayBannerController:
     var gamSizes = [AdSize]()
     
     // Prebid
+    var activatePrebidSKAdN = false
+    
     private var adUnit: BannerAdUnit!
     
     // GAM
@@ -59,6 +61,10 @@ class PrebidOriginalAPIDisplayBannerController:
         stopRefreshButton.addTarget(self, action: #selector(stopRefresh), for: .touchUpInside)
         
         setupAdapterController()
+    }
+    
+    deinit {
+        Targeting.shared.sourceapp = nil
     }
     
     func configurationController() -> BaseConfigurationController? {
@@ -184,6 +190,10 @@ class PrebidOriginalAPIDisplayBannerController:
         reloadButton.isEnabled = true
         rootController?.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = bannerView.adSize.size.width
         rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height
+        
+        if activatePrebidSKAdN {
+            adUnit.activatePrebidSKAdNetworkStoreKitAdsFlow(adView: gamBanner)
+        }
         
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
             guard let bannerView = bannerView as? AdManagerBannerView else { return }

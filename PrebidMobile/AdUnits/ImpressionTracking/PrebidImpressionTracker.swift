@@ -15,18 +15,15 @@
 
 import UIKit
 
-/// Payload for impression trackers.
-struct PrebidImpressionTrackerPayload {
-    
-    /// seatbid.bid.ext.prebid.targeting.hb_cache_id.
-    /// Used to identify if SDK found Prebid creative.
-    let cacheID: String?
-    
-    /// URL strings to track when impression conditions are met.
-    let trackingURLs: [String]
-}
-
 class PrebidImpressionTracker {
+    
+    /// Payload for impression trackers.
+    struct Payload {
+        
+        /// seatbid.bid.ext.prebid.targeting.hb_cache_id.
+        /// Used to identify if SDK found Prebid creative.
+        let cacheID: String?
+    }
     
     private let tracker: PrebidImpressionTrackerProtocol
     
@@ -38,8 +35,12 @@ class PrebidImpressionTracker {
         }
     }
     
-    func register(payload: PrebidImpressionTrackerPayload) {
+    func register(payload: PrebidImpressionTracker.Payload) {
         tracker.register(payload: payload)
+    }
+    
+    func register(eventManager: EventManager) {
+        tracker.register(eventManager: eventManager)
     }
   
     func start(in adView: UIView) {

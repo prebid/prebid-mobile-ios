@@ -24,9 +24,12 @@ public class HiddenWebViewManager: NSObject {
     
     private let landingPageURL: URL?
     
-    public init(webView: WKWebView, landingPageString: String) {
-        hiddenWebView = webView
-        landingPageURL = URL(string: landingPageString)
+    public init(frame: CGRect, landingPageString: URL) {
+        hiddenWebView = WKWebView(frame: frame)
+        hiddenWebView.isHidden = true
+        
+        self.landingPageURL = landingPageString
+        
         super.init()
     }
     
@@ -35,6 +38,7 @@ public class HiddenWebViewManager: NSObject {
             Log.error("landingPageURL is not valid.")
             return
         }
+        
         let request = URLRequest(url: landingPageURL)
         hiddenWebView.load(request)
     }

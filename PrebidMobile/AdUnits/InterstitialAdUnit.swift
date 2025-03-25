@@ -63,9 +63,30 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
         adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
     }
     
+    // MARK: Prebid Impression Tracking
+    
+    /// Sets the view in which Prebid will start tracking an impression.
     public func activatePrebidImpressionTracker() {
         if let window = UIWindow.firstKeyWindow {
             impressionTracker.start(in: window)
+        }
+    }
+    
+    // MARK: SKAdNetwork
+    
+    /// Activates Prebid's SKAdNetwork StoreKit ads flow.
+    ///
+    /// Ensure this method is called before presenting interstitials.
+    ///
+    /// This feature is not available for video ads.
+    public func activatePrebidSKAdNetworkStoreKitAdsFlow() {
+        guard !adFormats.contains(.video) else {
+            Log.warn("SKAdNetwork StoreKit ads flow is not supported for video ads.")
+            return
+        }
+        
+        if let window = UIWindow.firstKeyWindow {
+            skadnStoreKitAdsHelper.start(in: window)
         }
     }
 }
