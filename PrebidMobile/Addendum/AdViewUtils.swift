@@ -108,10 +108,6 @@ public final class AdViewUtils: NSObject {
             return
         }
         
-        webView.evaluateJavaScript(innerHtmlScript) { res, _ in
-            print("LOG: \(res)")
-        }
-        
         getInnerHTML(from: webView) { result in
             switch result {
             case .success(let innerHTML):
