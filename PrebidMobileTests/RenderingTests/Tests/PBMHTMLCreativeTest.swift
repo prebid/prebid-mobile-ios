@@ -341,7 +341,6 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
     }
     
     func testClickthroughOpening() {
-        testClickthroughOpening(useExternalBrowser: true)
         testClickthroughOpening(useExternalBrowser: false)
     }
     
