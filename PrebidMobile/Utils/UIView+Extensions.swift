@@ -16,6 +16,18 @@
 import UIKit
 
 extension UIView {
+    
+    /// A computed property to find the nearest parent view controller in the responder chain.
+    var parentViewController: UIViewController? {
+        if let nextResponder = next as? UIViewController {
+            return nextResponder
+        } else if let nextResponder = next as? UIView {
+            return nextResponder.parentViewController
+        } else {
+            return nil
+        }
+    }
+    
     /**
      This is a function to get subviews of a particular type from view recursively.
      It would look recursively in all subviews and return back the subviews of the type T
@@ -33,16 +45,5 @@ extension UIView {
         
         getSubview(view: self)
         return all
-    }
-    
-    var parentViewController: UIViewController? {
-        var responder = self.next
-        while responder != nil {
-            if let viewController = responder as? UIViewController {
-                return viewController
-            }
-            responder = responder?.next
-        }
-        return nil
     }
 }

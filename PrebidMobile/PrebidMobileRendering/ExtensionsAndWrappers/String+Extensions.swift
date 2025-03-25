@@ -28,7 +28,7 @@ extension String {
         return false
     }
     
-    func encodedURL(with characterSet: CharacterSet) -> URL? { 
+    func encodedURL(with characterSet: CharacterSet) -> URL? {
         if let url = URL(string: self) {
             return url
         }
