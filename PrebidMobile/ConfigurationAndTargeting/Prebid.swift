@@ -91,15 +91,6 @@ public class Prebid: NSObject {
     
     // MARK: - Public Properties (Prebid)
     
-    /// The host for the Prebid Server.
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed. Please, use initializeSDK(serverURL:) instead.")
-    public var prebidServerHost: PrebidHost = .Custom {
-        didSet {
-            timeoutMillisDynamic = NSNumber(value: timeoutMillis)
-            timeoutUpdated = false
-        }
-    }
-    
     /// Custom status endpoint for the Prebid Server.
     public var customStatusEndpoint: String? {
         didSet {
@@ -158,8 +149,7 @@ public class Prebid: NSObject {
     /// - Throws: An error if setting the custom host URL fails.
     @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:) instead.")
     public func setCustomPrebidServer(url: String) throws {
-        prebidServerHost = .Custom
-        try Host.shared.setCustomHostURL(url)
+        try Host.shared.setHostURL(url, nonTrackingURLString: nil)
     }
     
     // MARK: - Stored Bid Response

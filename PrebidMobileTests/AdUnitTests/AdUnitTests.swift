@@ -301,7 +301,6 @@ class AdUnitTests: XCTestCase {
         exception.expectedFulfillmentCount = expectedFetchDemandCount
         exception.assertForOverFulfill = false
         
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
         Prebid.shared.prebidServerAccountId = "1001"
         let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         adUnit.setAutoRefreshMillis(time: 800.0)
@@ -331,7 +330,6 @@ class AdUnitTests: XCTestCase {
         exception.expectedFulfillmentCount = expectedFetchDemandCount
         exception.assertForOverFulfill = false
         
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
         Prebid.shared.prebidServerAccountId = "1001"
         let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         adUnit.setAutoRefreshMillis(time: 800.0)
@@ -364,7 +362,6 @@ class AdUnitTests: XCTestCase {
         exception.expectedFulfillmentCount = expectedFetchDemandCount
         exception.assertForOverFulfill = false
         
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
         Prebid.shared.prebidServerAccountId = "1001"
         let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         adUnit.setAutoRefreshMillis(time: 800.0)
@@ -399,7 +396,6 @@ class AdUnitTests: XCTestCase {
         }
         
         Prebid.shared.timeoutMillis = 800
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
         Prebid.shared.prebidServerAccountId = "1001"
         
         let bidRequester = MockPBMBidRequester(jsonDictionary: json)

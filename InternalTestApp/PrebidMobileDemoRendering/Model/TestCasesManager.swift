@@ -223,9 +223,6 @@ struct TestCaseManager {
         if let value = openRtb["keywords"] as? String {
             Targeting.shared.addUserKeyword(value)
         }
-        if let value = openRtb["customdata"] as? String {
-            targeting.userCustomData = value
-        }
         
         if let geo = openRtb["geo"] as? [String: Double] {
             if let lat = geo["lat"], let lon = geo["lon"] {

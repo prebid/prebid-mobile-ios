@@ -45,7 +45,6 @@ class ParameterBuilderServiceTest : XCTestCase {
         targeting.coppa = 1
         targeting.userGender = .male
         targeting.storeURL = url
-        targeting.userCustomData = "customDataString"
         targeting.publisherName = publisherName
         targeting.addUserKeyword("keyword1,keyword2")
         targeting.addAppKeyword("appKeyword1,appKeyword2")

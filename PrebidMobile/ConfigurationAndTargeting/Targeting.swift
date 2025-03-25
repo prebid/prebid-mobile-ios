@@ -114,15 +114,6 @@ public class Targeting: NSObject {
         set { parameterDictionary[PrebidTargetingKey_USER_ID] = newValue }
     }
     
-    /**
-     Optional feature to pass bidder data that was set in the
-     exchange’s cookie. The string must be in base85 cookie safe
-     characters and be in any format. Proper JSON encoding must
-     be used to include “escaped” quotation marks.
-     */
-    @available(*, deprecated, message: "This property is deprecated.  This is an exchange-specific property.")
-    public var userCustomData: String?
-    
     /// Placeholder for User Identity Links.
     /// The data from this property will be added to usr.ext.eids
     @available(*, deprecated, message: "Deprecated. This property will be removed in future releases. Please, use Targeting.setExternalUserIds(_:) instead.")
@@ -404,61 +395,6 @@ public class Targeting: NSObject {
         Array(rawAccessControlList)
     }
     
-    // MARK: - Global User Data (user.ext.data)
-    
-    /// Adds user data for a specified key.
-    ///
-    /// - Parameters:
-    ///   - key: The key for the user data.
-    ///   - value: The value to add for the specified key.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
-    public func addUserData(key: String, value: String) {
-        var values = rawUserDataDictionary[key] ?? Set<String>()
-        values.insert(value)
-        
-        rawUserDataDictionary[key] = values
-    }
-    
-    /// Updates user data for a specified key with a new set of values.
-    ///
-    /// - Parameters:
-    ///   - key: The key for the user data.
-    ///   - value: The set of values to update for the specified key.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
-    public func updateUserData(key: String, value: Set<String>) {
-        rawUserDataDictionary[key] = value
-    }
-    
-    /// Removes user data for a specified key.
-    ///
-    /// - Parameter key: The key for the user data to remove.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
-    public func removeUserData(for key: String) {
-        rawUserDataDictionary.removeValue(forKey: key)
-    }
-    
-    /// Clears all user data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
-    public func clearUserData() {
-        rawUserDataDictionary.removeAll()
-    }
-    
-    /// Retrieves all user data.
-    ///
-    /// - Returns: A dictionary mapping keys to arrays of values.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
-    public func getUserData() -> [String: [String]] {
-        rawUserDataDictionary.mapValues { Array($0) }
-    }
-    
-    /// User data dictionary for external use.
-    ///
-    /// - Returns: A dictionary mapping keys to arrays of values.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
-    public var userDataDictionary: [String : [String]] {
-        rawUserDataDictionary.mapValues { Array($0) }
-    }
-    
     // MARK: - Global User Keywords (user.keywords)
     
     /// Adds a user keyword.
@@ -494,49 +430,7 @@ public class Targeting: NSObject {
         return Array(userKeywordsSet)
     }
     
-    /// Deprecated. Use `getUserKeywords` method instead.
-    @available(*, deprecated, message: "This property is deprecated. Please, use getUserKeywords method instead.")
-    public var userKeywords: [String] {
-        Array(userKeywordsSet)
-    }
-    
     // MARK: - Global Data (app.ext.data)
-    
-    /// Deprecated. Use `addAppExtData` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use addAppExtData method instead.")
-    public func addContextData(key: String, value: String) {
-        addAppExtData(key: key, value: value)
-    }
-    
-    /// Deprecated. Use `updateAppExtData` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use updateAppExtData method instead.")
-    public func updateContextData(key: String, value: Set<String>) {
-        updateAppExtData(key: key, value: value)
-    }
-    
-    /// Deprecated. Use `removeAppExtData` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeAppExtData method instead.")
-    public func removeContextData(for key: String) {
-        removeAppExtData(for: key)
-    }
-    
-    /// Deprecated. Use `clearAppExtData` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearAppExtData method instead.")
-    public func clearContextData() {
-        clearAppExtData()
-    }
-    
-    /// Deprecated. Use `getAppExtData` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use getAppExtData method instead.")
-    public func getContextData() -> [String: [String]] {
-        getAppExtData()
-    }
-    
-    /// Deprecated. Use `getAppExtData` method instead.
-    @available(*, deprecated, message: "This property is deprecated. Please, use getAppExtData method instead.")
-    public var contextDataDictionary: [String: [String]] {
-        getAppExtData()
-    }
     
     /// Adds application-specific data for a specified key.
     ///
@@ -580,42 +474,6 @@ public class Targeting: NSObject {
     
     // MARK: - Global Keywords (app.keywords)
     
-    /// Deprecated. Use `addAppKeyword` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use addAppKeyword method instead.")
-    public func addContextKeyword(_ newElement: String) {
-        addAppKeyword(newElement)
-    }
-    
-    /// Deprecated. Use `addAppKeywords` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use addAppKeywords method instead.")
-    public func addContextKeywords(_ newElements: Set<String>) {
-        addAppKeywords(newElements)
-    }
-    
-    /// Deprecated. Use `removeAppKeyword` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeAppKeyword method instead.")
-    public func removeContextKeyword(_ element: String) {
-        removeAppKeyword(element)
-    }
-    
-    /// Deprecated. Use `clearAppKeywords` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearAppKeywords method instead.")
-    public func clearContextKeywords() {
-        clearAppKeywords()
-    }
-    
-    /// Deprecated. Use `getAppKeywords` method instead.
-    @available(*, deprecated, message: "This method is deprecated. Please, use getAppKeywords method instead.")
-    public func getContextKeywords() -> [String] {
-        getAppKeywords()
-    }
-    
-    /// Deprecated. Use `getAppKeywords` method instead.
-    @available(*, deprecated, message: "This property is deprecated. Please, use getAppKeywords method instead.")
-    public var contextKeywords: [String] {
-        getAppKeywords()
-    }
-    
     /// Adds an application keyword.
     ///
     /// - Parameter newElement: The keyword to add.
@@ -658,11 +516,9 @@ public class Targeting: NSObject {
     private var appKeywordsSet = Set<String>()
     
     private var rawAccessControlList = Set<String>()
-    private var rawUserDataDictionary = [String : Set<String>]()
     private var rawAppExtDataDictionary = [String : Set<String>]()
-    
     private var yearofbirth = 0
-    
+        
     private var globalORTBConfig: String?
     
     /// Array of external user IDs.
