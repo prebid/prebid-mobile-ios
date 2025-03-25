@@ -41,11 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         processArgumentsParser.addOption("IABConsent_Settings", paramsCount: 1, fireOnce: true) { [consentHelper] params in
             consentHelper.parseAndApply(consentSettingsString: params[0])
         }
-        
-        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
-        
+                
         //Set up SDK.
-        Prebid.initializeSDK { status, error in
+        try? Prebid.initializeSDK(serverURL: "https://prebid-server-test-j.prebid.org/openrtb2/auction") { status, error in
             switch status {
             case .succeeded:
                 print("Prebid successfully initialized")
