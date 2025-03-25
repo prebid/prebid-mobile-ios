@@ -46,15 +46,4 @@ extension UIView {
         getSubview(view: self)
         return all
     }
-    
-    var parentViewController: UIViewController? {
-        var responder = self.next
-        while responder != nil {
-            if let viewController = responder as? UIViewController {
-                return viewController
-            }
-            responder = responder?.next
-        }
-        return nil
-    }
 }
