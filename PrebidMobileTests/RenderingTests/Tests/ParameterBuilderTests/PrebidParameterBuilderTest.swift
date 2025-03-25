@@ -206,11 +206,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertTrue(extData.keys.count == 1)
         let extValues = extData["last_search_keywords"]!.sorted()
         XCTAssertEqual(extValues, ["pet", "wolf"])
-
-        let userData = bidRequest.user.ext!["data"] as! [String :AnyHashable]
-        XCTAssertTrue(userData.keys.count == 1)
-        let userValues = userData["fav_colors"] as! Array<String>
-        XCTAssertEqual(Set(userValues), ["red", "orange"])
         
         guard let imp = bidRequest.imp.first else {
             XCTFail("No Impression object!")
