@@ -110,9 +110,9 @@
         
         if([adServerName isEqualToString:kDFPString]){
                 if ([host isEqualToString:kAppNexusString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostAppnexus;
+                    [Prebid.shared setCustomPrebidServerWithUrl:kAppNexusPrebidServerEndpoint error:nil];
                 } else if ([host isEqualToString:kRubiconString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostRubicon;
+                    [Prebid.shared setCustomPrebidServerWithUrl:kRubiconPrebidServerEndpoint error:nil];
                 }
         }
         [self.delegate adUnitRegistered];
@@ -124,7 +124,7 @@
 }
 
 - (void)setPrebidTargetingParams {
-    Targeting.shared.userGender = GenderFemale;
+    Targeting.shared.userGender = PBMGenderFemale;
     Prebid.shared.shareGeoLocation = TRUE;
     
 }
@@ -179,7 +179,7 @@
                 }];
             }];
         } else if ([adFormatName isEqualToString:kNativeString]) {
-            self.dfpView = [[GAMBannerView alloc] initWithAdSize:kGADAdSizeFluid];
+            self.dfpView = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFluid];
             self.dfpView.adUnitID = adUnitID;
             self.dfpView.delegate = self;
             self.dfpView.rootViewController = (UIViewController *)_delegate;

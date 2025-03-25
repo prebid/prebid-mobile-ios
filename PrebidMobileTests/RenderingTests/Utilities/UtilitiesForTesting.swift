@@ -285,7 +285,6 @@ typealias JsonDictionary = [String:Any]
         targeting.userID = nil
         targeting.publisherName = nil
         targeting.storeURL = nil
-        targeting.userCustomData = nil
         targeting.userExt = nil
         targeting.eids = nil
         targeting.location = nil
@@ -305,7 +304,6 @@ typealias JsonDictionary = [String:Any]
         
         targeting.clearAppExtData()
         targeting.clearAppKeywords()
-        targeting.clearUserData()
         targeting.clearUserKeywords()
         targeting.clearYearOfBirth()
         targeting.clearAccessControlList()
@@ -326,7 +324,6 @@ typealias JsonDictionary = [String:Any]
         XCTAssertNil(targeting.userID)
         XCTAssertNil(targeting.publisherName)
         XCTAssertNil(targeting.storeURL)
-        XCTAssertNil(targeting.userCustomData)
         XCTAssertNil(targeting.userExt)
         XCTAssertNil(targeting.eids)
         XCTAssertNil(targeting.location)
@@ -340,7 +337,6 @@ typealias JsonDictionary = [String:Any]
         XCTAssertTrue(targeting.getAppKeywords().isEmpty)
         XCTAssertTrue(targeting.getAppExtData().isEmpty)
         XCTAssertTrue(targeting.getUserKeywords().isEmpty)
-        XCTAssertTrue(targeting.userDataDictionary.isEmpty)
         XCTAssertTrue(targeting.accessControlList.isEmpty)
         XCTAssert(targeting.yearOfBirth == 0)
         XCTAssertFalse(targeting.sendSharedId)

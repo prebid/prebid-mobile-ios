@@ -27,7 +27,6 @@ extension Prebid {
     }
     
     static func reset() {
-        Prebid.shared.prebidServerHost = PrebidHost.Custom
         Prebid.shared.prebidServerAccountId = ""
         Prebid.shared.auctionSettingsId = nil
 

@@ -43,8 +43,6 @@ limitations under the License.
     
     [Targeting.shared clearAppExtData];
     [Targeting.shared clearAppKeywords];
-    [Targeting.shared clearUserData];
-    [Targeting.shared clearUserKeywords];
     [Targeting.shared clearYearOfBirth];
     [Targeting.shared clearAccessControlList];
 }
@@ -250,35 +248,6 @@ limitations under the License.
 
 }
 
-- (void)testUserData {
-     //given
-     NSString *key = @"key1";
-     NSString *value = @"value10";
-     NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-
-     //when
-     [Targeting.shared addUserDataWithKey:key value:value];
-     [Targeting.shared updateUserDataWithKey:key value:set];
-     [Targeting.shared removeUserDataFor:key];
-     [Targeting.shared clearUserData];
-
- }
-
-// MARK: - [DEPRECATED API] app.ext.data
-
-- (void)testContextData {
-     //given
-     NSString *key = @"key1";
-     NSString *value = @"value10";
-     NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-
-     //when
-     [Targeting.shared addContextDataWithKey:key value:value];
-     [Targeting.shared updateContextDataWithKey:key value:set];
-     [Targeting.shared removeContextDataFor:key];
-     [Targeting.shared clearContextData];
- }
-
 // MARK: - app.ext.data
 
 - (void)testExtData {
@@ -304,20 +273,6 @@ limitations under the License.
     [Targeting.shared addUserKeywords:set];
     [Targeting.shared removeUserKeyword:keyword];
     [Targeting.shared clearUserKeywords];
-}
-
-// MARK: - [DEPRECATED API] app.keywords
-
-- (void)testContextKeyword {
-    //given
-    NSString *keyword = @"keyword";
-    NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-    
-    //when
-    [Targeting.shared addContextKeyword:keyword];
-    [Targeting.shared addContextKeywords:set];
-    [Targeting.shared removeContextKeyword:keyword];
-    [Targeting.shared clearContextKeywords];
 }
 
 // MARK: - app.keywords

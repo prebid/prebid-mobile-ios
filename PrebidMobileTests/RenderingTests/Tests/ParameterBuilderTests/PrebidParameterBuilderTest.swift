@@ -180,7 +180,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         
         targeting.addBidderToAccessControlList("prebid-mobile")
-        targeting.updateUserData(key: "fav_colors", value: Set(["red", "orange"]))
         targeting.addAppExtData(key: "last_search_keywords", value: "wolf")
         targeting.addAppExtData(key: "last_search_keywords", value: "pet")
         

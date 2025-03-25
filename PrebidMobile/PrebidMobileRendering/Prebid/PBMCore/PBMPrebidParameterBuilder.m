@@ -123,10 +123,6 @@
     
     bidRequest.app.content = [self.adConfiguration getAppContent];
     
-    if (self.targeting.userDataDictionary.count > 0) {
-        bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
-    }
-    
     if (self.targeting.gdprConsentString && self.targeting.gdprConsentString.length > 0) {
         bidRequest.user.ext[@"consent"] = self.targeting.gdprConsentString;
     }

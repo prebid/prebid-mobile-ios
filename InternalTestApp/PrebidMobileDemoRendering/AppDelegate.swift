@@ -94,18 +94,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appConfig.adUnitContextKeywords.append(params[0])
         }
         
-        processArgumentsParser.addOption("ADD_USER_EXT_DATA", paramsCount: 2) { params in
-            Targeting.shared.addUserData(key: params[0], value: params[1])
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_EXT", paramsCount: 2) { params in
-            Targeting.shared.addContextData(key: params[0], value: params[1])
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_KEYWORD", paramsCount: 1) { params in
-            Targeting.shared.addContextKeyword(params[0])
-        }
-        
         processArgumentsParser.addOption("ADD_USER_DATA_EXT", paramsCount: 2) { params in
             let appConfig = AppConfiguration.shared
             appConfig.userData = (appConfig.userData ?? []) + [(key: params[0], value: params[1])]
