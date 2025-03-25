@@ -38,14 +38,6 @@ public class Utils: NSObject {
     private let DFP_CUSTOM_TEMPLATE_AD_CLASSNAME = "GADNativeCustomTemplateAd"
     private let INNNER_HTML_SCRIPT = "document.body.innerHTML"
 
-    /// Deprecated. MoPub is not available anymore. Use Prebid MAX adapters instead.
-    @available(*, deprecated, message: "MoPub is not available anymore. Use Prebid MAX adapters instead.")
-    @objc
-    public func convertDictToMoPubKeywords(dict: Dictionary<String, String>) -> String {
-        return dict.toString(entrySeparator: ",", keyValueSeparator: ":")
-        
-    }
-
     func removeHBKeywords (adObject: AnyObject) {
 
         let adServerObject: String = String(describing: type(of: adObject))
