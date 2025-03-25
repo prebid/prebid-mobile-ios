@@ -142,6 +142,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         parameters.maxBitrate = 10
         parameters.startDelay = Signals.StartDelay.GenericMidRoll
         parameters.battr = [.AudioButton, .SkipButton]
+        parameters.isSkippable = false
         
         adUnitConfig.adConfiguration.videoParameters = parameters
         
@@ -168,6 +169,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.playbackend, 2)
         PBMAssertEq(video.delivery, [3])
         PBMAssertEq(video.battr, [15, 16])
+        PBMAssertEq(video.skip, 0)
         XCTAssertEqual(video.pos.intValue, AdPosition.header.rawValue)
         XCTAssertEqual(video.pos.intValue, 4)
     }
@@ -673,6 +675,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         parameters.plcmnt = .Interstitial
         parameters.linearity = 1
         parameters.battr = [.InBanner_Autoplay, .InBanner_UserInitiated]
+        parameters.isSkippable = true
         adConfiguration.videoParameters = parameters
 
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
@@ -696,7 +699,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
         PBMAssertEq(video.battr, [6, 7])
-
+        PBMAssertEq(video.skip, 1)
     }
 
     func testParameterBuilderOutstream() {

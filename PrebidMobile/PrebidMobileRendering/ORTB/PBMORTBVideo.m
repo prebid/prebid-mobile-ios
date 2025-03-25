@@ -65,6 +65,7 @@
     ret[@"playbackend"] = self.playbackend;
     ret[@"delivery"] = self.delivery;
     ret[@"pos"] = self.pos;
+    ret[@"skip"] = self.skip;
     if (self.api.count > 0) {
         ret[@"api"] = self.api;
     }
@@ -102,6 +103,7 @@
     _pos = jsonDictionary[@"pos"];
     _api = jsonDictionary[@"api"];
     _battr = jsonDictionary[@"battr"];
+    _skip = jsonDictionary[@"skip"];
     
     return self;
 }

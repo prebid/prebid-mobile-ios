@@ -67,6 +67,8 @@ public class VideoParameters: NSObject {
     /// List of blocked creative attributes.
     public var battr: [Signals.CreativeAttribute]?
     
+    public var isSkippable: Bool?
+    
     // MARK: - Helpers
     
     /// Helper property
@@ -94,6 +96,13 @@ public class VideoParameters: NSObject {
     public var rawBattrs: [Int]? {
         get {
             battr?.removingDuplicates().toIntArray()
+        }
+    }
+
+    public var rawSkippable: NSNumber? {
+        get {
+            guard let isSkippable else { return nil }
+            return NSNumber(value: isSkippable)
         }
     }
     
