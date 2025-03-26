@@ -110,7 +110,11 @@ public class AdUnit: NSObject, DispatcherDelegate {
     ///
     /// - Parameter completionBidInfo: A closure called with a `BidInfo` object representing the fetched demand.
     dynamic public func fetchDemand(completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void) {
-        baseFetchDemand(completion: completionBidInfo)
+        baseFetchDemand { bidInfo in
+            DispatchQueue.main.async {
+                completionBidInfo(bidInfo)
+            }
+        }
     }
     
     /// Makes bid request for a specific ad object and provides the result code. Setups targeting keywords into the adObject.
@@ -164,7 +168,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
         timeOutSignalSent = false
         lastFetchDemandCompletion = completion
         adServerObject = adObject
-        
         
         let timeoutHandler = DispatchWorkItem {
             if (!self.didReceiveResponse) {

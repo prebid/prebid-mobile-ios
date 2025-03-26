@@ -102,17 +102,30 @@ class GAMOriginalAPIVideoInstreamViewController:
         adsLoader.delegate = self
         
         // 4. Make a bid request
-        adUnit.fetchDemand { [weak self] (resultCode, prebidKeys: [String: String]?) in
+        adUnit.fetchDemand { [weak self] bidInfo in
             guard let self = self else { return }
-            if resultCode == .prebidDemandFetchSuccess {
+            
+            if bidInfo.resultCode == .prebidDemandFetchSuccess {
                 do {
-                    
                     // 5. Generate GAM Instream URI
-                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: gamAdUnitVideo, adSlotSizes: [.Size640x480], customKeywords: prebidKeys!)
-                    
+                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(
+                        adUnitID: gamAdUnitVideo,
+                        adSlotSizes: [.Size640x480],
+                        customKeywords: bidInfo.targetingKeywords ?? [:]
+                    )
                     // 6. Load IMA ad request
-                    let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.instreamView, viewController: self)
-                    let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
+                    let adDisplayContainer = IMAAdDisplayContainer(
+                        adContainer: self.instreamView,
+                        viewController: self
+                    )
+                    
+                    let request = IMAAdsRequest(
+                        adTagUrl: adServerTag,
+                        adDisplayContainer: adDisplayContainer,
+                        contentPlayhead: nil,
+                        userContext: nil
+                    )
+                    
                     self.adsLoader.requestAds(with: request)
                 } catch {
                     PrebidDemoLogger.shared.error("\(error.localizedDescription)")

@@ -104,22 +104,31 @@ NSString * const gamAdUnitVideo = @"/21808260008/prebid_demo_app_instream";
     
     // 4. Make a bid request
     @weakify(self);
-    [self.adUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable prebidKeys) {
+    [self.adUnit fetchDemandWithCompletionBidInfo:^(PBMBidInfo * _Nonnull bidInfo) {
         @strongify(self);
         if (!self) { return; }
         
-        if (resultCode == ResultCodePrebidDemandFetchSuccess) {
-            @try
-            {
+        if (bidInfo.resultCode == ResultCodePrebidDemandFetchSuccess) {
+            @try {
                 // 5. Generate GAM Instream URI
-                NSString * adServerTag = [IMAUtils.shared generateInstreamUriForGAMWithAdUnitID:gamAdUnitVideo adSlotSizes:@[IMAAdSlotSize.Size640x480] customKeywords:prebidKeys error:nil];
+                NSString * adServerTag = [IMAUtils.shared
+                                          generateInstreamUriForGAMWithAdUnitID:gamAdUnitVideo
+                                          adSlotSizes:@[IMAAdSlotSize.Size640x480]
+                                          customKeywords:bidInfo.targetingKeywords ?: @{}
+                                          error:nil];
                 
                 // 6. Load IMA ad request
-                IMAAdDisplayContainer * adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.instreamView viewController:self];
-                IMAAdsRequest * request = [[IMAAdsRequest alloc] initWithAdTagUrl:adServerTag adDisplayContainer:adDisplayContainer contentPlayhead:nil userContext:nil];
+                IMAAdDisplayContainer * adDisplayContainer = [[IMAAdDisplayContainer alloc]
+                                                              initWithAdContainer:self.instreamView
+                                                              viewController:self];
+                
+                IMAAdsRequest * request = [[IMAAdsRequest alloc] initWithAdTagUrl:adServerTag
+                                                               adDisplayContainer:adDisplayContainer
+                                                                  contentPlayhead:nil
+                                                                      userContext:nil];
+                
                 [self.adsLoader requestAdsWithRequest:request];
-            }
-            @catch(id anException) {
+            } @catch(id anException) {
                 [self.contentPlayer play];
             }
         } else {

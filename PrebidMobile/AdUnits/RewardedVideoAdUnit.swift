@@ -18,15 +18,6 @@ import UIKit
 /// Represents an rewarded ad unit for original type of integration.
 public class RewardedVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
     
-    /// Deprecated property for video parameters.
-    ///
-    /// - Note: This property is deprecated. Please use `videoParameters` instead.
-    @available(*, deprecated, message: "This property is deprecated. Please, use videoParameters instead.")
-    public var parameters: VideoParameters {
-        get { adUnitConfig.adConfiguration.videoParameters }
-        set { adUnitConfig.adConfiguration.videoParameters = newValue }
-    }
-    
     /// Property for video parameters.
     public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
