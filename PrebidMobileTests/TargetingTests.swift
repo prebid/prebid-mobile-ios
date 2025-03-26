@@ -353,7 +353,7 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(0, dictionary.count)
     }
         
-    // MARK: - [DEPRECATED API] global app keywords (app.keywords)
+    // MARK: - Global app keywords (app.keywords)
     
     func testAddExtKeyword() {
         //given

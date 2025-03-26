@@ -282,28 +282,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         }
     }
     
-    func testParameterBuilderDeprecatedProperties() {
-        
-        //Create Builder
-        let adConfiguration = AdConfiguration()
-        
-        targeting.addParam("rab", withName: "foo")
-        adConfiguration.isInterstitialAd = false
-        
-        let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
-                                               sdkConfiguration:sdkConfiguration,
-                                               sdkVersion:"MOCK_SDK_VERSION",
-                                               targeting: targeting)
-        
-        //Run Builder
-        let bidRequest = PBMORTBBidRequest()
-        builder.build(bidRequest)
-        
-        //Check Regs
-        XCTAssertNil(bidRequest.regs.coppa)
-    }
-    
     func testParameterBuilderRegs() {
         // Set Regs
         let gppString = "gppString"

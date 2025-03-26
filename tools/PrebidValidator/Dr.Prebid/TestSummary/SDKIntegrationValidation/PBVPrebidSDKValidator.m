@@ -124,9 +124,7 @@
 }
 
 - (void)setPrebidTargetingParams {
-    Targeting.shared.userGender = PBMGenderFemale;
     Prebid.shared.shareGeoLocation = TRUE;
-    
 }
 
 #pragma mark - PBVPrebidSDKValidator APIs
