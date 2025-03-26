@@ -31,11 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 //Exchange-specific ID for the user. At least one of id or buyerid is recommended
 //id not supported
 
-
-
-//Year of birth as a 4-digit integer
-@property (nonatomic, strong, nullable) NSNumber *yob;
-
 //Gender, where “M” = male, “F” = female, “O” = known to be other (i.e., omitted is unknown)
 @property (nonatomic, copy, nullable) NSString *gender;
 

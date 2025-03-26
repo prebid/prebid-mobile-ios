@@ -120,36 +120,6 @@ class TargetingTests: XCTestCase {
         //then
         XCTAssertEqual(forceSdkToChooseWinner, Targeting.shared.forceSdkToChooseWinner)
     }
-    
-    // MARK: - Year Of Birth
-    func testYearOfBirth() {
-        //given
-        let yearOfBirth = 1985
-        Targeting.shared.setYearOfBirth(yob: yearOfBirth)
-        //when
-        XCTAssertTrue(Targeting.shared.yearOfBirth != 0)
-        let result = Targeting.shared.yearOfBirth
-        
-        //then
-        XCTAssertEqual(yearOfBirth, result)
-    }
-
-    func testYearOfBirthInvalid() {
-        Targeting.shared.setYearOfBirth(yob: -1)
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
-        Targeting.shared.setYearOfBirth(yob: 999)
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
-        Targeting.shared.setYearOfBirth(yob: 10000)
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
-    }
-    
-    func testClearYearOfBirth() {
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
-        Targeting.shared.setYearOfBirth(yob: 1985)
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 1985)
-        Targeting.shared.clearYearOfBirth()
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
-    }
 
     //MARK: - COPPA
     func testSubjectToCOPPA() {
@@ -162,7 +132,6 @@ class TargetingTests: XCTestCase {
 
         //then
         XCTAssertEqual(subjectToCOPPA, result);
-        
     }
     
     //MARK: - GDPR Subject

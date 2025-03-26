@@ -190,7 +190,6 @@
 		53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */; };
 		53D3C38D2C2BEF9B0074D99B /* NSURL+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */; };
 		53D3C38E2C2BEF9B0074D99B /* NSURL+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */; };
-		53D934FF282CE62E0092E243 /* AgeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D934FE282CE62E0092E243 /* AgeUtils.swift */; };
 		53D93505282CEA900092E243 /* DateFormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D93504282CEA900092E243 /* DateFormatService.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
 		53E45A0327FCD09C0095C0B2 /* BannerParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */; };
@@ -1110,7 +1109,6 @@
 		53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+PBMExtensions.h"; sourceTree = "<group>"; };
 		53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+PBMExtensions.m"; sourceTree = "<group>"; };
-		53D934FE282CE62E0092E243 /* AgeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeUtils.swift; sourceTree = "<group>"; };
 		53D93504282CEA900092E243 /* DateFormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatService.swift; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
 		53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerParameters.swift; sourceTree = "<group>"; };
@@ -2122,7 +2120,6 @@
 				5BC37649271F1CFD00444D5E /* Gender.swift */,
 				5BC3764A271F1CFD00444D5E /* Targeting.swift */,
 				5BC377CF271F1CFF00444D5E /* Prebid.swift */,
-				53D934FE282CE62E0092E243 /* AgeUtils.swift */,
 				537B6580283524BB008AE9D1 /* PrebidInitializationStatus.swift */,
 				53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */,
 				53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */,
@@ -4264,7 +4261,6 @@
 				53BDBF89293F5EFF004B6DE8 /* InternalUserConsentDataManager.m in Sources */,
 				92C85D5E27A96DBB0080BAC5 /* NativeData.swift in Sources */,
 				53760E0A2D64BA05008B9DFD /* PrebidStoreKitAdsInterstitialHelper.swift in Sources */,
-				53D934FF282CE62E0092E243 /* AgeUtils.swift in Sources */,
 				5BC378E4271F1CFF00444D5E /* PBMORTBImpExtSkadn.m in Sources */,
 				53138B2A2A71152200B18B5C /* PrebidSDKInitializer.swift in Sources */,
 				5BC37AD0271F1D0100444D5E /* PBMDeviceInfoParameterBuilder.m in Sources */,

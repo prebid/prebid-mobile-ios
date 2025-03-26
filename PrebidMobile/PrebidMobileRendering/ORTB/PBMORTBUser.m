@@ -34,7 +34,6 @@
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary *ret = [[PBMMutableJsonDictionary alloc] init];
     
-    ret[@"yob"] = self.yob;
     ret[@"gender"] = self.gender;
     ret[@"keywords"] = self.keywords;
     ret[@"customdata"] = self.customdata;
@@ -66,7 +65,7 @@
     if (!(self = [self init])) {
         return nil;
     }
-    _yob         = jsonDictionary[@"yob"];
+    
     _gender      = jsonDictionary[@"gender"];
     _keywords    = jsonDictionary[@"keywords"];
     _customdata  = jsonDictionary[@"customdata"];

@@ -217,11 +217,6 @@ static NSString *const kPrebidMobileVersion = @"0.5.3";
 - (NSDictionary *)openrtbUser {
     NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
     
-    NSInteger ageValue = Targeting.shared.yearOfBirth;
-    if (ageValue > 0) {
-        userDict[@"yob"] = @(ageValue);
-    }
-    
     NSString *gender;
     switch ([[Targeting shared] userGender]) {
         case PBMGenderMale:

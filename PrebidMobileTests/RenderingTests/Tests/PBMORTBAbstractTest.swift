@@ -502,7 +502,6 @@ class PBMORTBAbstractTest : XCTestCase {
     func testUserToJsonString() {
         let pbmORTBUser = PBMORTBUser()
         
-        pbmORTBUser.yob = 1981
         pbmORTBUser.gender = "M"
         pbmORTBUser.keywords = "key1,key2,key3"
         pbmORTBUser.geo.lat = 34.1477849
@@ -510,45 +509,47 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBUser.ext!["data"] = ["registration_date": "31.02.2021"]
         pbmORTBUser.userid = "userid"
         
-        codeAndDecode(abstract:pbmORTBUser, expectedString:"{\"ext\":{\"data\":{\"registration_date\":\"31.02.2021\"}},\"gender\":\"M\",\"geo\":{\"lat\":34.1477849,\"lon\":-118.1445155},\"id\":\"userid\",\"keywords\":\"key1,key2,key3\",\"yob\":1981}")
+        codeAndDecode(
+            abstract: pbmORTBUser,
+            expectedString: "{\"ext\":{\"data\":{\"registration_date\":\"31.02.2021\"}},\"gender\":\"M\",\"geo\":{\"lat\":34.1477849,\"lon\":-118.1445155},\"id\":\"userid\",\"keywords\":\"key1,key2,key3\"}"
+        )
     }
     
     func testUserEidsToJsonString() {
-        
         let user = PBMORTBUser()
         
-        user.yob = 1981
         user.gender = "M"
-        
         user.appendEids([["key": ["key":"value"]]])
         
-        codeAndDecode(abstract:user, expectedString:"{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]},\"gender\":\"M\",\"yob\":1981}")
+        codeAndDecode(
+            abstract: user,
+            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]},\"gender\":\"M\"}"
+        )
     }
     
     func testUserEidsInExtToJsonString() {
-        
         let user = PBMORTBUser()
         
-        user.yob = 1981
         user.gender = "M"
-        
         user.ext = ["eids":[["key": ["key":"value"]]]]
         
-        codeAndDecode(abstract:user, expectedString:"{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]},\"gender\":\"M\",\"yob\":1981}")
+        codeAndDecode(
+            abstract: user,
+            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]},\"gender\":\"M\"}"
+        )
     }
     
     func testUserEidsAndExtToJsonString() {
-        
         let user = PBMORTBUser()
         
-        user.yob = 1981
         user.gender = "M"
-        
         user.ext = ["eids":[["key": ["key":"value"]]]]
-        
         user.appendEids([["key2": ["key2":"value2"]]])
         
-        codeAndDecode(abstract:user, expectedString:"{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}},{\"key2\":{\"key2\":\"value2\"}}]},\"gender\":\"M\",\"yob\":1981}")
+        codeAndDecode(
+            abstract: user,
+            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}},{\"key2\":{\"key2\":\"value2\"}}]},\"gender\":\"M\"}"
+        )
     }
     
     // MARK: Arbitrary ORTB (Deprecated API)

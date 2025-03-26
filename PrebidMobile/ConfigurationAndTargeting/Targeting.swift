@@ -49,38 +49,6 @@ public class Targeting: NSObject {
     // MARK: - User Information
     
     /**
-     Indicates user birth year.
-     */
-    @available(*, deprecated, message: "Deprecated by ORTB")
-    public var yearOfBirth: Int {
-        get { yearofbirth }
-        set { setYearOfBirth(yob: newValue) }
-    }
-    
-    /**
-     * This method set the year of birth value
-     */
-    @available(*, deprecated, message: "Deprecated by ORTB")
-    public func setYearOfBirth(yob: Int) {
-        if AgeUtils.isYOBValid(yob) {
-            yearofbirth = yob
-        } else {
-            Log.error("Incorrect birth year. It will be ignored.")
-        }
-    }
-    
-    // Objective C API
-    @available(*, deprecated, message: "Deprecated by ORTB")
-    public func getYearOfBirth() -> NSNumber {
-        NSNumber(value: yearOfBirth)
-    }
-    
-    /// This method clears year of birth value set by the application developer
-    public func clearYearOfBirth() {
-        yearofbirth = 0
-    }
-    
-    /**
      Indicates the end-user's gender.
      */
     @available(*, deprecated, message: "Deprecated by ORTB")
@@ -517,7 +485,6 @@ public class Targeting: NSObject {
     
     private var rawAccessControlList = Set<String>()
     private var rawAppExtDataDictionary = [String : Set<String>]()
-    private var yearofbirth = 0
         
     private var globalORTBConfig: String?
     
