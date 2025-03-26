@@ -241,11 +241,11 @@ class TargetingTests: XCTestCase {
     //MARK: - External UserIds
     func testPbExternalUserIds() {
         //given
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", uids: [UserUniqueID(id: "111111111111", aType: 1)], ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", uids: [UserUniqueID(id: "999888777", aType: 1)]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", uids: [UserUniqueID(id: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", aType: 1)]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", uids: [UserUniqueID(id: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", aType: 1)]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", uids: [UserUniqueID(id: "111111111111", aType: 1)], ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         
         defer {
             Targeting.shared.removeStoredExternalUserIds()
@@ -260,29 +260,29 @@ class TargetingTests: XCTestCase {
 
         //then
         XCTAssertEqual("adserver.org", externalUserIdAdserver!.source)
-        XCTAssertEqual("111111111111", externalUserIdAdserver!.identifier)
+        XCTAssertEqual("111111111111", externalUserIdAdserver!.uids.first?.id)
         XCTAssertEqual(["rtiPartner" : "TDID"], externalUserIdAdserver!.ext as! [String : String])
         
         XCTAssertEqual("netid.de", externalUserIdNetID!.source)
-        XCTAssertEqual("999888777", externalUserIdNetID!.identifier)
+        XCTAssertEqual("999888777", externalUserIdNetID!.uids.first?.id)
 
         XCTAssertEqual("criteo.com", externalUserIdCriteo!.source)
-        XCTAssertEqual("_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", externalUserIdCriteo!.identifier)
+        XCTAssertEqual("_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", externalUserIdCriteo!.uids.first?.id)
 
         XCTAssertEqual("liveramp.com", externalUserIdLiveRamp!.source)
-        XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", externalUserIdLiveRamp!.identifier)
+        XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", externalUserIdLiveRamp!.uids.first?.id)
 
         XCTAssertEqual("sharedid.org", externalUserIdSharedId!.source)
-        XCTAssertEqual("111111111111", externalUserIdSharedId!.identifier)
-        XCTAssertEqual(1, externalUserIdSharedId!.atype)
+        XCTAssertEqual("111111111111", externalUserIdSharedId!.uids.first?.id)
+        XCTAssertEqual(1, externalUserIdSharedId!.uids.first?.aType)
         XCTAssertEqual(["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"], externalUserIdSharedId!.ext as! [String : String])
 
     }
     
     func testPbExternalUserIdsOverRiding() {
         //given
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "222222222222", ext: ["rtiPartner" : "LFTD"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", uids: [UserUniqueID(id: "111111111111", aType: 1)], ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", uids: [UserUniqueID(id: "222222222222", aType: 1)], ext: ["rtiPartner" : "LFTD"]))
         
         defer {
             Targeting.shared.removeStoredExternalUserIds()
@@ -293,7 +293,7 @@ class TargetingTests: XCTestCase {
 
         //then
         XCTAssertEqual("adserver.org", externalUserIdAdserver!.source)
-        XCTAssertEqual("222222222222", externalUserIdAdserver!.identifier)
+        XCTAssertEqual("222222222222", externalUserIdAdserver!.uids.first?.id)
         XCTAssertEqual(["rtiPartner" : "LFTD"], externalUserIdAdserver!.ext as! [String : String])
 
 
@@ -301,7 +301,7 @@ class TargetingTests: XCTestCase {
 
     func testPbExternalUserIdsRemoveSpecificID() {
         //given
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", uids: [UserUniqueID(id: "111111111111", aType: 1)], ext: ["rtiPartner" : "TDID"]))
 
         //when
         Targeting.shared.removeStoredExternalUserId("adserver.org")
@@ -309,16 +309,15 @@ class TargetingTests: XCTestCase {
         //then
         let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
         XCTAssertNil(externalUserIdAdserver)
-
     }
     
     func testPbExternalUserIdsGetAllExternalUserIDs() {
         //given
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", uids: [UserUniqueID(id: "111111111111", aType: 1)], ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", uids: [UserUniqueID(id: "999888777", aType: 1)]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", uids: [UserUniqueID(id: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", aType: 1)]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", uids: [UserUniqueID(id: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", aType: 1)]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", uids: [UserUniqueID(id: "111111111111", aType: 1)], ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         
         defer {
             Targeting.shared.removeStoredExternalUserIds()
@@ -334,21 +333,21 @@ class TargetingTests: XCTestCase {
 
         //then
         XCTAssertEqual("adserver.org", externalUserIdAdserver.source)
-        XCTAssertEqual("111111111111", externalUserIdAdserver.identifier)
+        XCTAssertEqual("111111111111", externalUserIdAdserver.uids.first?.id)
         XCTAssertEqual(["rtiPartner" : "TDID"], externalUserIdAdserver.ext as! [String : String])
         
         XCTAssertEqual("netid.de", externalUserIdNetID.source)
-        XCTAssertEqual("999888777", externalUserIdNetID.identifier)
+        XCTAssertEqual("999888777", externalUserIdNetID.uids.first?.id)
 
         XCTAssertEqual("criteo.com", externalUserIdCriteo.source)
-        XCTAssertEqual("_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", externalUserIdCriteo.identifier)
+        XCTAssertEqual("_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", externalUserIdCriteo.uids.first?.id)
 
         XCTAssertEqual("liveramp.com", externalUserIdLiveRamp.source)
-        XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", externalUserIdLiveRamp.identifier)
+        XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", externalUserIdLiveRamp.uids.first?.id)
 
         XCTAssertEqual("sharedid.org", externalUserIdSharedId.source)
-        XCTAssertEqual("111111111111", externalUserIdSharedId.identifier)
-        XCTAssertEqual(1, externalUserIdSharedId.atype)
+        XCTAssertEqual("111111111111", externalUserIdSharedId.uids.first?.id)
+        XCTAssertEqual(1, externalUserIdSharedId.uids.first?.aType)
         XCTAssertEqual(["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"], externalUserIdSharedId.ext as! [String : String])
 
     }

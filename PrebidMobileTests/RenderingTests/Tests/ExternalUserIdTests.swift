@@ -41,15 +41,4 @@ class ExternalUserIdTests: XCTestCase {
         XCTAssertEqual(json["uids"] as? [NSDictionary], [["id": "uid1", "atype": 1]] as [NSDictionary])
         XCTAssertEqual((json["ext"] as? [String: Any])?["key"] as? String, "value")
     }
-    
-    func testDeprecatedInitializer() {
-        let uids = [UserUniqueID(id: "uid1", aType: 1)]
-        let ext: [String: Any] = ["key": "value"]
-        let externalUserId = ExternalUserId(source: "source1", identifier: "id123", atype: 2, ext: ext)
-        
-        XCTAssertEqual(externalUserId.source, "source1")
-        XCTAssertEqual(externalUserId.identifier, "id123")
-        XCTAssertEqual(externalUserId.atype, 2)
-        XCTAssertEqual(externalUserId.ext as? NSDictionary, ext as NSDictionary)
-    }
 }
