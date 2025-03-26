@@ -53,7 +53,7 @@ public class AdFormat: NSObject, OptionSet {
     /// Represents a native ad format.
     public static let native = AdFormat(rawValue: 1 << 2, stringEquivalent: "native")
     
-    /// An array containing all cases of ad formats, excluding deprecated ones.
+    /// An array containing all cases of ad formats.
     public static var allCases: [AdFormat] {
         [.banner, .video, .native]
     }
