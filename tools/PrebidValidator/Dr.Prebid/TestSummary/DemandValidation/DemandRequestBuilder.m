@@ -217,20 +217,6 @@ static NSString *const kPrebidMobileVersion = @"0.5.3";
 - (NSDictionary *)openrtbUser {
     NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
     
-    NSString *gender;
-    switch ([[Targeting shared] userGender]) {
-        case PBMGenderMale:
-            gender = @"M";
-            break;
-        case PBMGenderFemale:
-            gender = @"F";
-            break;
-        default:
-            gender = @"O";
-            break;
-    }
-    userDict[@"gender"] = gender;
-    
     if([[Targeting shared] getSubjectToGDPR]){
         
         NSString *consentString = [[Targeting shared] gdprConsentString];

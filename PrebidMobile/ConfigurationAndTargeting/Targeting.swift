@@ -19,8 +19,6 @@ import Foundation
 import CoreLocation
 import MapKit
 
-fileprivate let PrebidTargetingKey_AGE = "age"
-fileprivate let PrebidTargetingKey_GENDER = "gen"
 fileprivate let PrebidTargetingKey_USER_ID = "xid"
 fileprivate let PrebidTargetingKey_PUB_PROVIDED_PREFIX = "c."
 
@@ -28,7 +26,7 @@ fileprivate let PrebidTargetingKey_PUB_PROVIDED_PREFIX = "c."
 /// A class that manages targeting information for ads.
 ///
 /// This class provides properties and methods for setting and retrieving
-/// user-specific targeting information, such as user ID, gender, and custom
+/// user-specific targeting information, such as user ID, and custom
 /// data. It also includes details for OMID (Open Measurement Interface Definition)
 /// partner and supports managing user identity links and custom extensions.
 ///
@@ -47,34 +45,6 @@ public class Targeting: NSObject {
     public var omidPartnerVersion: String?
     
     // MARK: - User Information
-    
-    /**
-     Indicates the end-user's gender.
-     */
-    @available(*, deprecated, message: "Deprecated by ORTB")
-    public var userGender: Gender {
-        get {
-            guard let currentValue = parameterDictionary[PrebidTargetingKey_GENDER] else {
-                return .unknown
-            }
-            
-            return GenderFromDescription(currentValue)
-        }
-        
-        set {
-            parameterDictionary[PrebidTargetingKey_GENDER] = DescriptionOfGender(newValue)
-        }
-    }
-    
-    /// String representation of the users gender,
-    /// where “M” = male, “F” = female, “O” = known to be other (i.e., omitted is unknown)
-    public func userGenderDescription() -> String? {
-        guard let currentValue = parameterDictionary[PrebidTargetingKey_GENDER] else {
-            return nil
-        }
-        
-        return GenderDescription(rawValue: currentValue)?.rawValue
-    }
     
     /// Indicates the customer-provided user ID, if different from the Device ID.
     public var userID: String? {

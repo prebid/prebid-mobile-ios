@@ -109,7 +109,6 @@
 + (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
     
-    bidRequest.user.gender      = targeting.userGenderDescription;
     bidRequest.user.userid      = targeting.userID;
    
     if (targeting.userExt) {

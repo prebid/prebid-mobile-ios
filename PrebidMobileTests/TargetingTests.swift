@@ -17,27 +17,6 @@ import XCTest
 import CoreLocation
 @testable import PrebidMobile
 
-extension Gender: CaseIterable {
-    public static let allCases: [Self] = [
-        .unknown,
-        .male,
-        .female,
-        .other,
-    ]
-    
-    fileprivate var paramsDicLetter: String? {
-        switch self {
-        case .unknown: return nil
-        case .male:    return "M"
-        case .female:  return "F"
-        case .other:   return "O"
-        @unknown default:
-            XCTFail("Unexpected value: \(self)")
-            return nil
-        }
-    }
-}
-
 class TargetingTests: XCTestCase {
 
     override func setUp() {
@@ -60,17 +39,6 @@ class TargetingTests: XCTestCase {
 
         //then
         XCTAssertEqual(domain, result)
-    }
-    
-    func testGender() {
-        //given
-        let female = Gender.female
-        
-        //when
-        Targeting.shared.userGender = female
-        
-        //then
-        XCTAssertEqual(female, Targeting.shared.userGender)
     }
 
     func testItunesID() {
@@ -611,32 +579,6 @@ class TargetingTests: XCTestCase {
 
     func testShared() {
         UtilitiesForTesting.checkInitialValues(.shared)
-    }
-
-    func testUserGender() {
-        
-        //Init
-        let targeting = Targeting.shared
-        XCTAssert(targeting.userGender == .unknown)
-        
-        //Set
-        for gender in Gender.allCases {
-            targeting.userGender = gender
-            XCTAssertEqual(targeting.userGender, gender)
-            
-            let expectedDic: [String: String]
-            if let letter = gender.paramsDicLetter {
-                expectedDic = ["gen": letter]
-            } else {
-                expectedDic = [:]
-            }
-            XCTAssertEqual(targeting.parameterDictionary, expectedDic, "Dict is \(targeting.parameterDictionary)")
-        }
-        
-        //Unset
-        targeting.userGender = .unknown
-        XCTAssert(targeting.userGender == .unknown)
-        XCTAssert(targeting.parameterDictionary == [:], "Dict is \(targeting.parameterDictionary)")
     }
 
     func testUserID() {

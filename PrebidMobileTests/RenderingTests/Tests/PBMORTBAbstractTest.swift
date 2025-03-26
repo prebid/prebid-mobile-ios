@@ -502,7 +502,6 @@ class PBMORTBAbstractTest : XCTestCase {
     func testUserToJsonString() {
         let pbmORTBUser = PBMORTBUser()
         
-        pbmORTBUser.gender = "M"
         pbmORTBUser.keywords = "key1,key2,key3"
         pbmORTBUser.geo.lat = 34.1477849
         pbmORTBUser.geo.lon = -118.1445155
@@ -511,44 +510,41 @@ class PBMORTBAbstractTest : XCTestCase {
         
         codeAndDecode(
             abstract: pbmORTBUser,
-            expectedString: "{\"ext\":{\"data\":{\"registration_date\":\"31.02.2021\"}},\"gender\":\"M\",\"geo\":{\"lat\":34.1477849,\"lon\":-118.1445155},\"id\":\"userid\",\"keywords\":\"key1,key2,key3\"}"
+            expectedString: "{\"ext\":{\"data\":{\"registration_date\":\"31.02.2021\"}},\"geo\":{\"lat\":34.1477849,\"lon\":-118.1445155},\"id\":\"userid\",\"keywords\":\"key1,key2,key3\"}"
         )
     }
     
     func testUserEidsToJsonString() {
         let user = PBMORTBUser()
         
-        user.gender = "M"
         user.appendEids([["key": ["key":"value"]]])
         
         codeAndDecode(
             abstract: user,
-            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]},\"gender\":\"M\"}"
+            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]}}"
         )
     }
     
     func testUserEidsInExtToJsonString() {
         let user = PBMORTBUser()
         
-        user.gender = "M"
         user.ext = ["eids":[["key": ["key":"value"]]]]
         
         codeAndDecode(
             abstract: user,
-            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]},\"gender\":\"M\"}"
+            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]}}"
         )
     }
     
     func testUserEidsAndExtToJsonString() {
         let user = PBMORTBUser()
         
-        user.gender = "M"
         user.ext = ["eids":[["key": ["key":"value"]]]]
         user.appendEids([["key2": ["key2":"value2"]]])
         
         codeAndDecode(
             abstract: user,
-            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}},{\"key2\":{\"key2\":\"value2\"}}]},\"gender\":\"M\"}"
+            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}},{\"key2\":{\"key2\":\"value2\"}}]}}"
         )
     }
     

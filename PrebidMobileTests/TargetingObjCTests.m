@@ -43,7 +43,6 @@ limitations under the License.
     
     [Targeting.shared clearAppExtData];
     [Targeting.shared clearAppKeywords];
-    [Targeting.shared clearYearOfBirth];
     [Targeting.shared clearAccessControlList];
 }
 
@@ -71,18 +70,7 @@ limitations under the License.
     XCTAssertEqualObjects(domain, result);
 }
 
-- (void)testGender {
-    //given
-    int genderFemale = PBMGenderFemale;
-    
-    //when
-    Targeting.shared.userGender = genderFemale;
-    
-    //then
-    XCTAssertEqual(genderFemale, Targeting.shared.userGender);
-}
-
-- (void)testitunesID {
+- (void)testItunesID {
     //given
     NSString *itunesID = @"54673893";
     
@@ -121,35 +109,6 @@ limitations under the License.
     
 }
 
-// MARK: - Year Of Birth
-- (void)testYearOfBirth {
-    //given
-    NSError *error = nil;
-    int yearOfBirth = 1985;
-    
-    //when
-    [Targeting.shared setYearOfBirthWithYob:yearOfBirth];
-    long value1 = Targeting.shared.yearOfBirth;
-    
-    [Targeting.shared clearYearOfBirth];
-    long value2 = Targeting.shared.yearOfBirth;
-    
-    //then
-    XCTAssertNil(error);
-    XCTAssertEqual(yearOfBirth, value1);
-    XCTAssertEqual(0, value2);
-}
-
-- (void)testYearOfBirthInvalid {
-    
-    [Targeting.shared setYearOfBirthWithYob:-1];
-    XCTAssertTrue(Targeting.shared.yearOfBirth == 0);
-    [Targeting.shared setYearOfBirthWithYob:999];
-    XCTAssertTrue(Targeting.shared.yearOfBirth == 0);
-    [Targeting.shared setYearOfBirthWithYob:10000];
-    XCTAssertTrue(Targeting.shared.yearOfBirth == 0);
-}
-
 //MARK: - COPPA
 - (void)testSubjectToCOPPA {
     //given
@@ -163,7 +122,8 @@ limitations under the License.
 }
 
 //MARK: - GDPR Subject
-- (void)testsubjectToGDPR_PB {
+
+- (void)testSubjectToGDPR_PB {
     //given
     NSNumber *subjectToGDPR1 = @YES;
     BOOL subjectToGDPR2 = YES;

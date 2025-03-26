@@ -280,8 +280,6 @@ typealias JsonDictionary = [String:Any]
     }
     
     @objc public class func resetTargeting(_ targeting: Targeting)  {
-        
-        targeting.userGender = .unknown
         targeting.userID = nil
         targeting.publisherName = nil
         targeting.storeURL = nil
@@ -305,7 +303,6 @@ typealias JsonDictionary = [String:Any]
         targeting.clearAppExtData()
         targeting.clearAppKeywords()
         targeting.clearUserKeywords()
-        targeting.clearYearOfBirth()
         targeting.clearAccessControlList()
         targeting.resetSharedId()
         
@@ -320,7 +317,6 @@ typealias JsonDictionary = [String:Any]
     }
     
     @objc public class func checkInitialValues(_ targeting: Targeting) {
-        XCTAssertEqual(targeting.userGender, .unknown)
         XCTAssertNil(targeting.userID)
         XCTAssertNil(targeting.publisherName)
         XCTAssertNil(targeting.storeURL)
@@ -338,7 +334,6 @@ typealias JsonDictionary = [String:Any]
         XCTAssertTrue(targeting.getAppExtData().isEmpty)
         XCTAssertTrue(targeting.getUserKeywords().isEmpty)
         XCTAssertTrue(targeting.accessControlList.isEmpty)
-        XCTAssert(targeting.yearOfBirth == 0)
         XCTAssertFalse(targeting.sendSharedId)
         
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_ConsentString))

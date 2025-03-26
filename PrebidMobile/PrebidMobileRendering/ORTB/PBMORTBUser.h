@@ -31,9 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 //Exchange-specific ID for the user. At least one of id or buyerid is recommended
 //id not supported
 
-//Gender, where “M” = male, “F” = female, “O” = known to be other (i.e., omitted is unknown)
-@property (nonatomic, copy, nullable) NSString *gender;
-
 //Comma separated list of keywords, interests, or intent
 @property (nonatomic, copy, nullable) NSString *keywords;
 

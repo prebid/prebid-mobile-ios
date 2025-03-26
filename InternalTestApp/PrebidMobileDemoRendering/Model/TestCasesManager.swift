@@ -201,16 +201,8 @@ struct TestCaseManager {
     static func updateUserData(_ openRtb: [String: Any]) {
         let targeting = Targeting.shared
         
-        if let age = openRtb["age"] as? Int {
-            targeting.yearOfBirth = age
-        }
-        
         if let value = openRtb["url"] as? String {
             targeting.storeURL = value
-        }
-        
-        if let value = openRtb["gen"] as? String {
-            targeting.userGender = TestCaseManager.strToGender(value)
         }
         
         if let value = openRtb["xid"] as? String {
@@ -3936,19 +3928,5 @@ struct TestCaseManager {
         return TestCaseForTableCell(configurationClosureForTableCell: { cell in
             cell = tableView.dequeueReusableCell(withIdentifier: "DummyTableViewCell")
         });
-    }
-    
-    // MALE, FEMALE, OTHER to PBMGender {
-    private static func strToGender(_ gender: String) -> Gender {
-        switch gender {
-            case "MALE":
-                return .male
-            case "FEMALE":
-                return .female
-            case "OTHER":
-                return .female
-            default:
-                return .unknown
-        }
     }
 }
