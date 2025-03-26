@@ -69,13 +69,6 @@ NSString * const configId = @"1001-1";
     XCTAssertNotNil(adunit);
 }
 
-//MARK: - VideoInterstitialAdUnit
-- (void)testVideoInterstitialAdUnitCreation {
-    //when
-    AdUnit *adunit = [[VideoInterstitialAdUnit alloc] initWithConfigId:configId];
-    XCTAssertNotNil(adunit);
-}
-
 //MARK: - RewardedVideoAdUnit
 - (void)testRewardedVideoAdUnitCreation {
     //when

@@ -868,7 +868,6 @@
 		FAEE4D1B262DC2B200AD9966 /* InterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */; };
 		FAEE4D1C262DC2B200AD9966 /* InstreamVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF3262DC2B200AD9966 /* InstreamVideoAdUnit.swift */; };
 		FAEE4D1D262DC2B200AD9966 /* BannerAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF4262DC2B200AD9966 /* BannerAdUnit.swift */; };
-		FAEE4D1E262DC2B200AD9966 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */; };
 		FAEE4D1F262DC2B200AD9966 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF6262DC2B200AD9966 /* Utils.swift */; };
 		FAEE4D20262DC2B200AD9966 /* Signals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF7262DC2B200AD9966 /* Signals.swift */; };
 		FAEE4D21262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CF8262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift */; };
@@ -1821,7 +1820,6 @@
 		FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CF3262DC2B200AD9966 /* InstreamVideoAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstreamVideoAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CF4262DC2B200AD9966 /* BannerAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAdUnit.swift; sourceTree = "<group>"; };
-		FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoInterstitialAdUnit.swift; sourceTree = "<group>"; };
 		FAEE4CF6262DC2B200AD9966 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		FAEE4CF7262DC2B200AD9966 /* Signals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signals.swift; sourceTree = "<group>"; };
 		FAEE4CF8262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoBasedAdUnitProtocol.swift; sourceTree = "<group>"; };
@@ -3460,7 +3458,6 @@
 				FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */,
 				FAEE4CF6262DC2B200AD9966 /* Utils.swift */,
 				FAEE4CF8262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift */,
-				FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */,
 				53A368E52AB2E2D100A03B3E /* MultiformatAdUnit */,
 				FAEE4CEB262DC2B200AD9966 /* Native */,
 				5378542A29DAB4B200B0C70B /* Parameters */,
@@ -4358,7 +4355,6 @@
 				53322AA8282E29910049229D /* EventManager.swift in Sources */,
 				5351EECE2D4CC000007E5C6D /* StorageUtils.swift in Sources */,
 				531CF21927E8FC1B005E5ABE /* LogLevel.swift in Sources */,
-				FAEE4D1E262DC2B200AD9966 /* VideoInterstitialAdUnit.swift in Sources */,
 				5BC378FF271F1CFF00444D5E /* PBMORTBImpExtPrebid.m in Sources */,
 				534C612E2CB527F80026119A /* PBMORTBRewardedCompletionVideo.m in Sources */,
 				5BC37A14271F1D0000444D5E /* PBMError_Extension.swift in Sources */,

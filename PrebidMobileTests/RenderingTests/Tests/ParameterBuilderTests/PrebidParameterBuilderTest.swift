@@ -565,7 +565,9 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testDefaultVideoParameters_VideoInterstitial_OriginalAPI() {
-        let adUnit = VideoInterstitialAdUnit(configId: "test")
+        let adUnit = InterstitialAdUnit(configId: "test")
+        adUnit.adFormats = [.video]
+        
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
         guard let imp = bidRequest.imp.first else {

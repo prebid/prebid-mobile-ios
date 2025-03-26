@@ -30,7 +30,7 @@ class PrebidOriginalAPIVideoInterstitialController:
     var refreshInterval: TimeInterval = 0
     
     // Prebid
-    private var adUnit: VideoInterstitialAdUnit!
+    private var adUnit: InterstitialAdUnit!
     
     // GAM
     private var gamInterstitial: AdManagerInterstitialAd!
@@ -59,7 +59,8 @@ class PrebidOriginalAPIVideoInterstitialController:
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        adUnit = VideoInterstitialAdUnit(configId: prebidConfigId)
+        adUnit = InterstitialAdUnit(configId: prebidConfigId)
+        adUnit.adFormats = [.video]
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
