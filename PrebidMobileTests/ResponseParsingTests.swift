@@ -434,16 +434,4 @@ class ResponseParsingTests: XCTestCase {
         return entities.map { $0.toJsonDictionary() as NSDictionary } == array.map { $0 as NSDictionary }
     }
     
-//    func compareJson(lhs: [String : Any], rhs: [String : Any]) {
-//        // We serialize to JSON and back to an object to normalize any differences in the
-//        // underlying representation of equivilent 
-//    }
 }
-
-//fileprivate extension [String : Any] {
-//    func fromData() {
-//        // Here we serialize to data and back to a dictionary
-//        let data = try! JSONSerialization.data(withJSONObject: self)
-//        return try! JSONSerialization.jsonObject(with: data)
-//    }
-//}
