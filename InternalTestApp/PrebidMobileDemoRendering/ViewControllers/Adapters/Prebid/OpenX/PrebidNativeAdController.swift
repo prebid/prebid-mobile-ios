@@ -111,19 +111,17 @@ class PrebidNativeAdController: NSObject, AdaptedController {
             }
         }
         
-        adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
-            guard let self = self else {
-                return
-            }
+        adUnit?.fetchDemand { [weak self] bidInfo in
+            guard let self = self else { return }
             
-            guard result == .prebidDemandFetchSuccess else {
+            guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
                 self.fetchDemandFailedButton.isEnabled = true
                 return
             }
             
             self.fetchDemandSuccessButton.isEnabled = true
             
-            guard let kvResultDict = kvResultDict, let cacheId = kvResultDict[PrebidLocalCacheIdKey] else {
+            guard let cacheId = bidInfo.targetingKeywords?[PrebidLocalCacheIdKey] else {
                 self.getNativeAdFailedButton.isEnabled = true
                 return
             }
@@ -139,7 +137,7 @@ class PrebidNativeAdController: NSObject, AdaptedController {
             self.nativeAdViewBox?.registerViews(nativeAd)
             self.theNativeAd = nativeAd // Note: RETAIN! or the tracking will not occur!
             self.theNativeAd?.delegate = self
-        })
+        }
     }
     
     // MARK: - Helpers

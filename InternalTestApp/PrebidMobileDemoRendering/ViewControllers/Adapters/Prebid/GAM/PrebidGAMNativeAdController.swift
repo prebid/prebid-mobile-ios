@@ -120,34 +120,32 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
             }
         }
         
-        adUnit?.fetchDemand(
-            completion: {
-                [weak self] result,
-                kvResultDict in
-                guard let self = self else {
-                    return
-                }
-                
-                if result == .prebidDemandFetchSuccess {
+        adUnit?.fetchDemand { [weak self] bidInfo in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                if bidInfo.resultCode == .prebidDemandFetchSuccess {
                     self.fetchDemandSuccessButton.isEnabled = true
                 } else {
                     self.fetchDemandFailedButton.isEnabled = true
                 }
-                
-                let dfpRequest = AdManagerRequest()
-                GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: kvResultDict ?? [:])
-                
-                print(">>> \(String(describing: dfpRequest.customTargeting))")
-                
-                self.adLoader = AdLoader(
-                    adUnitID: self.gamAdUnitId,
-                    rootViewController: self.rootController,
-                    adTypes: self.adTypes,
-                    options: []
-                )
+            }
+            
+            let dfpRequest = AdManagerRequest()
+            GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: bidInfo.targetingKeywords ?? [:])
+            
+            print(">>> \(String(describing: dfpRequest.customTargeting))")
+            
+            self.adLoader = AdLoader(
+                adUnitID: self.gamAdUnitId,
+                rootViewController: self.rootController,
+                adTypes: self.adTypes,
+                options: []
+            )
+            
             self.adLoader?.delegate = self
             self.adLoader?.load(dfpRequest)
-        })
+        }
     }
     
     // MARK: - Helpers

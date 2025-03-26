@@ -130,21 +130,36 @@ class PrebidOriginalAPIVideoInstreamViewController:
         adsLoader = IMAAdsLoader(settings: nil)
         adsLoader.delegate = self
         
-        adUnit.fetchDemand { [weak self] (resultCode, prebidKeys: [String: String]?) in
+        adUnit.fetchDemand { [weak self] bidInfo in
             guard let self = self else { return }
-            if resultCode == .prebidDemandFetchSuccess {
-                do {
-                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: self.gamAdUnitVideo, adSlotSizes: [.Size640x480], customKeywords: prebidKeys!)
-                    
-                    let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.rootController.bannerView, viewController: self.rootController)
-                    let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
-                    self.adsLoader.requestAds(with: request)
-                } catch {
-                    Log.error("\(error.localizedDescription)")
-                    self.contentPlayer?.play()
-                }
-            } else {
+            
+            guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
                 Log.error("Error constructing IMA Tag")
+                self.contentPlayer?.play()
+                return
+            }
+            
+            do {
+                let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(
+                    adUnitID: self.gamAdUnitVideo,
+                    adSlotSizes: [.Size640x480], customKeywords: bidInfo.targetingKeywords ?? [:]
+                )
+                
+                let adDisplayContainer = IMAAdDisplayContainer(
+                    adContainer: self.rootController.bannerView,
+                    viewController: self.rootController
+                )
+                
+                let request = IMAAdsRequest(
+                    adTagUrl: adServerTag,
+                    adDisplayContainer: adDisplayContainer,
+                    contentPlayhead: nil,
+                    userContext: nil
+                )
+                
+                self.adsLoader.requestAds(with: request)
+            } catch {
+                Log.error("\(error.localizedDescription)")
                 self.contentPlayer?.play()
             }
         }

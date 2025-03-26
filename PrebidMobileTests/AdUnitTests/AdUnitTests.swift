@@ -66,9 +66,9 @@ class AdUnitTests: XCTestCase {
         AdUnitSwizzleHelper.toggleFetchDemand()
         
         //when
-        adUnit.fetchDemand() { (code: ResultCode, kvDict: [String:String]?) in
-            codeResult = code
-            kvDictResult = kvDict
+        adUnit.fetchDemand { bidInfo in
+            codeResult = bidInfo.resultCode
+            kvDictResult = bidInfo.targetingKeywords
             expectation.fulfill()
         }
         
@@ -368,18 +368,16 @@ class AdUnitTests: XCTestCase {
         
         var fetchDemandCount = 0
         
-        //when
-        adUnit.fetchDemand(completion: { (code: ResultCode, kvDict: [String:String]?) in
+        adUnit.fetchDemand { _ in
             fetchDemandCount += 1
             exception.fulfill()
-        })
+        }
 
         waitForExpectations(timeout: 10, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
-
     }
     
     func testFetchDemandBidsAutoRefreshWithSimilarGlobalTimeout() {

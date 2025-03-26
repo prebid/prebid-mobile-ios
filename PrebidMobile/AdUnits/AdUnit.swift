@@ -104,25 +104,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         impressionTracker.stop()
     }
     
-    //TODO: dynamic is used by tests
-    
-    /// Makes bid request and provides the result as a dictionary of key-value pairs.
-    ///
-    /// - Parameter completion: A closure called with the result code and an optional dictionary of targeting keywords.
-    ///   - result: The result code indicating the outcome of the demand fetch.
-    ///   - kvResultDict: A dictionary containing key-value pairs, or `nil` if no demand was fetched.
-    @available(*, deprecated, message: "Deprecated. Use fetchDemand(completion: @escaping (_ bidInfo: BidInfo) -> Void) instead.")
-    dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
-        let dictContainer = DictionaryContainer<String, String>()
-        
-        fetchDemand(adObject: dictContainer) { resultCode in
-            let dict = dictContainer.dict
-            
-            DispatchQueue.main.async {
-                completion(resultCode, dict.count > 0 ? dict : nil)
-            }
-        }
-    }
+    // TODO: dynamic is used by tests
     
     /// Makes bid request  and provides the result as a `BidInfo` object.
     ///

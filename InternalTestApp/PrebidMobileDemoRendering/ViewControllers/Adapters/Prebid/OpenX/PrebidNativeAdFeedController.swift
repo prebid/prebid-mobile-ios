@@ -83,21 +83,17 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableController {
     }
     
     private func loadAd(for cell: FeedAdTableViewCell) {
-        
-        self.cleanUp(cell: cell) 
-
+        cleanUp(cell: cell)
         setupNativeAdUnit(configId: prebidConfigId)
         
-        adUnit?.fetchDemand(completion: { [weak self, weak cell] result, kvResultDict in
-            guard let self = self else {
+        adUnit?.fetchDemand { [weak self, weak cell] bidInfo in
+            guard let self = self else { return }
+            
+            guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
                 return
             }
             
-            guard result == .prebidDemandFetchSuccess else {
-                return
-            }
-            
-            guard let kvResultDict = kvResultDict, let cacheId = kvResultDict[PrebidLocalCacheIdKey] else {
+            guard let cacheId = bidInfo.targetingKeywords?[PrebidLocalCacheIdKey] else {
                 return
             }
             
@@ -116,7 +112,7 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableController {
             nativeAdViewBox.registerViews(nativeAd)
             
             self.fillBannerArea(bannerView: cell.bannerView, nativeAdViewBox: nativeAdViewBox)
-        })
+        }
     }
     
     private func fillBannerArea(bannerView: UIView, nativeAdViewBox: NativeAdViewBox) {

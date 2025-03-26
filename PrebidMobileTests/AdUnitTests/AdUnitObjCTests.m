@@ -65,9 +65,9 @@ AdUnit *adUnit;
     AdUnitSwizzleHelper.targetingKeywords = @{@"key1" : @"value1"};
     
     //when
-    [adUnit fetchDemandWithCompletion:^(enum ResultCode code, NSDictionary<NSString *,NSString *> * _Nullable kvDict) {
-        resultCode = code;
-        kvDictResult = kvDict;
+    [adUnit fetchDemandWithCompletionBidInfo:^(PBMBidInfo * _Nonnull bidInfo) {
+        resultCode = bidInfo.resultCode;
+        kvDictResult = bidInfo.targetingKeywords;
         [expectation fulfill];
     }];
 

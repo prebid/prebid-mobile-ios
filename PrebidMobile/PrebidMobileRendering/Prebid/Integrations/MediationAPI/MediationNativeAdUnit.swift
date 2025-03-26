@@ -178,17 +178,15 @@ public class MediationNativeAdUnit : NSObject {
         
         mediationDelegate.cleanUpAdObject()
         
-        nativeAdUnit.fetchDemand { [weak self] result, kvResultDict in
-            guard let self = self else {
+        nativeAdUnit.fetchDemand { [weak self] bidInfo in
+            guard let self = self else { return }
+            
+            guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
+                self.completeWithResult(bidInfo.resultCode)
                 return
             }
             
-            guard result == .prebidDemandFetchSuccess else {
-                self.completeWithResult(result)
-                return
-            }
-            
-            guard let kvResultDict = kvResultDict,
+            guard let kvResultDict = bidInfo.targetingKeywords,
                   let cacheId = kvResultDict[PrebidLocalCacheIdKey],
                   CacheManager.shared.isValid(cacheId: cacheId) else {
                       Log.error("\(String(describing: self)): no cache in kvResultDict.")
