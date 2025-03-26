@@ -142,46 +142,6 @@ public class Targeting: NSObject {
         return transformedUserIdArray.isEmpty ? nil : transformedUserIdArray
     }
     
-    /// This method allows to save External User Id
-    @available(*, deprecated, message: "Deprecated. SDK doesn't support storing External User IDs in application storage. This method will be removed in future releases.")
-    public func storeExternalUserId(_ externalUserId: ExternalUserId) {
-        if let index = externalUserIds.firstIndex(where: {$0.source == externalUserId.source}) {
-            externalUserIds[index] = externalUserId
-        } else {
-            externalUserIds.append(externalUserId)
-        }
-    }
-    
-    /// This method allows to get all External User Ids
-    @available(*, deprecated, message: "Deprecated. SDK doesn't support storing External User IDs in application storage. This method will be removed in future releases.")
-    public func fetchStoredExternalUserIds() -> [ExternalUserId]? {
-        externalUserIds
-    }
-    
-    /// This method allows to get External User Id by passing respective 'source' string as param
-    @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
-    public func fetchStoredExternalUserId(_ source : String) -> ExternalUserId? {
-        guard let externalUserId = externalUserIds.first(where: { $0.source == source }) else {
-            return nil
-        }
-        
-        return externalUserId
-    }
-    
-    /// This method allows to remove specific External User Id by passing respective 'source' string as param
-    @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
-    public func removeStoredExternalUserId(_ source : String) {
-        if let index = externalUserIds.firstIndex(where: {$0.source == source}) {
-            externalUserIds.remove(at: index)
-        }
-    }
-    
-    /// This method allows to remove all the External User Ids
-    @available(*, deprecated, message: "Deprecated. This method will be removed in future releases.")
-    public func removeStoredExternalUserIds() {
-        externalUserIds = []
-    }
-    
     // MARK: - SharedId
     
     /// When true, the SharedID external user id is added to outgoing auction requests.  App developers are
