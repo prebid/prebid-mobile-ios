@@ -16,7 +16,6 @@
 import Foundation
 
 /// `AdFormat` is a class that represents different types of ad formats using an OptionSet.
-/// The class also includes a deprecated display format for backward compatibility, marked with a deprecation message.
 @objcMembers
 public class AdFormat: NSObject, OptionSet {
     
@@ -53,10 +52,6 @@ public class AdFormat: NSObject, OptionSet {
     
     /// Represents a native ad format.
     public static let native = AdFormat(rawValue: 1 << 2, stringEquivalent: "native")
-    
-    /// Represents a deprecated display ad format.
-    @available(*, deprecated, message: "Display ad format is deprecated. Please, use banner ad format instead.")
-    public static let display = AdFormat(rawValue: 1 << 3, stringEquivalent: "banner")
     
     /// An array containing all cases of ad formats, excluding deprecated ones.
     public static var allCases: [AdFormat] {

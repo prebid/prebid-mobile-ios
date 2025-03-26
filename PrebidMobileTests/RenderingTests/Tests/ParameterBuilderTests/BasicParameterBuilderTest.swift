@@ -304,24 +304,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         XCTAssertNil(bidRequest.regs.coppa)
     }
     
-    func testParametersBuilder_deprecatedDisplayFormat() {
-        //Create Builder
-        let adConfiguration = AdConfiguration()
-        adConfiguration.adFormats = [.display]
-        
-        let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
-                                               sdkConfiguration:sdkConfiguration,
-                                               sdkVersion:"MOCK_SDK_VERSION",
-                                               targeting: targeting)
-        
-        //Run Builder
-        let bidRequest = PBMORTBBidRequest()
-        builder.build(bidRequest)
-        
-        XCTAssertNotNil(bidRequest.imp.first?.banner)
-    }
-    
     func testParameterBuilderRegs() {
         // Set Regs
         let gppString = "gppString"

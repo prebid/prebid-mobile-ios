@@ -204,7 +204,7 @@
         nextImp.extData[@"pbadslot"] = pbAdSlot;
         
         for (AdFormat* adFormat in adFormats) {
-            if (adFormat == AdFormat.banner || adFormat == AdFormat.display) {
+            if (adFormat == AdFormat.banner) {
                 PBMORTBBanner * const nextBanner = nextImp.banner;
                 if (formats) {
                     nextBanner.format = formats;
