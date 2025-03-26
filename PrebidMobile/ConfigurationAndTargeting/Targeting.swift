@@ -127,16 +127,7 @@ public class Targeting: NSObject {
     
     /// Retrieves the external user IDs in a dictionary format suitable for use in JSON.
     public func getExternalUserIds() -> [[String: Any]]? {
-        var externalUserIdArray = [ExternalUserId]()
-        
-        if Prebid.shared.externalUserIdArray.count != 0 {
-            externalUserIdArray = Prebid.shared.externalUserIdArray
-        } else {
-            externalUserIdArray = externalUserIds
-        }
-        
-        let transformedUserIdArray = externalUserIdArray.map { $0.toJSONDictionary() } 
-        return transformedUserIdArray.isEmpty ? nil : transformedUserIdArray
+        externalUserIds.isEmpty ? nil : externalUserIds.map { $0.toJSONDictionary() }
     }
     
     // MARK: - SharedId

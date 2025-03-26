@@ -72,10 +72,6 @@ public class Prebid: NSObject {
         set { Log.logLevel = newValue }
     }
     
-    /// Array  containing objects that hold External UserId parameters.
-    @available(*, deprecated, message: "Deprecated. This property will be removed in future releases. Please, use Targeting.setExternalUserIds(_:) instead.")
-    public var externalUserIdArray = [ExternalUserId]()
-    
     /// The singleton instance of the `Prebid` class.
     public static let shared = Prebid()
     

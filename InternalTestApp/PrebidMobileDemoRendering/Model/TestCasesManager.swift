@@ -205,9 +205,6 @@ struct TestCaseManager {
             targeting.storeURL = value
         }
         
-        if let value = openRtb["xid"] as? String {
-            targeting.userID = value
-        }
         if let value = openRtb["publisherName"] as? String {
             targeting.publisherName = value
         }
@@ -884,19 +881,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                        
-                       
-                                       
-                Targeting.shared.eids = [
-                    [
-                        "source" : "liveramp.com",
-                        "uids" : [
-                            [
-                                "id": "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM"
-                            ]
-                        ]
+                
+                let eid = ExternalUserId(
+                    source: "liveramp.com",
+                    uids: [
+                        UserUniqueID(
+                            id: "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM",
+                            aType: 1
+                        )
                     ]
-                ]
+                )
+               
+                Targeting.shared.setExternalUserIds([eid])
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "prebid-ita-banner-320-50"
