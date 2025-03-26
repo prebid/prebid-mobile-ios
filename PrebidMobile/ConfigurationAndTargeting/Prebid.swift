@@ -308,6 +308,7 @@ public class Prebid: NSObject {
     
     override init() {
         timeoutMillis = defaultTimeoutMillis
+        timeoutMillisDynamic = NSNumber(value: timeoutMillis)
     }
     
     public static func registerPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {
