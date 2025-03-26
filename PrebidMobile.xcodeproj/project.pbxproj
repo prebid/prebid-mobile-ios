@@ -186,7 +186,6 @@
 		53CDA4912D11AFD5004766F8 /* MediationRewardedAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CDA4892D11AFD5004766F8 /* MediationRewardedAdUnitTest.swift */; };
 		53CE09012AD673020018CB75 /* sample_ortb_native_with_win_event.json in Resources */ = {isa = PBXBuildFile; fileRef = 53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */; };
 		53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */; };
-		53CF5B3729DC690600613E84 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF5B3629DC690600613E84 /* VideoAdUnit.swift */; };
 		53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */; };
 		53D3C38D2C2BEF9B0074D99B /* NSURL+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */; };
 		53D3C38E2C2BEF9B0074D99B /* NSURL+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */; };
@@ -1103,7 +1102,6 @@
 		53CDA48B2D11AFD5004766F8 /* MockMediationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMediationUtils.swift; sourceTree = "<group>"; };
 		53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_ortb_native_with_win_event.json; sourceTree = "<group>"; };
 		53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMBidRequester.swift; sourceTree = "<group>"; };
-		53CF5B3629DC690600613E84 /* VideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAdUnit.swift; sourceTree = "<group>"; };
 		53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		53D3C38B2C2BEF9B0074D99B /* NSURL+PBMExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+PBMExtensions.h"; sourceTree = "<group>"; };
 		53D3C38C2C2BEF9B0074D99B /* NSURL+PBMExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+PBMExtensions.m"; sourceTree = "<group>"; };
@@ -3461,7 +3459,6 @@
 				FAEE4CF2262DC2B200AD9966 /* InterstitialAdUnit.swift */,
 				FAEE4CE8262DC2B200AD9966 /* RewardedVideoAdUnit.swift */,
 				FAEE4CF6262DC2B200AD9966 /* Utils.swift */,
-				53CF5B3629DC690600613E84 /* VideoAdUnit.swift */,
 				FAEE4CF8262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift */,
 				FAEE4CF5262DC2B200AD9966 /* VideoInterstitialAdUnit.swift */,
 				53A368E52AB2E2D100A03B3E /* MultiformatAdUnit */,
@@ -4267,7 +4264,6 @@
 				FAEE4D08262DC2B200AD9966 /* Constants.swift in Sources */,
 				5BC3797B271F1D0000444D5E /* PBMVastInlineAd.m in Sources */,
 				5BC37AC6271F1D0100444D5E /* PBMSKAdNetworksParameterBuilder.m in Sources */,
-				53CF5B3729DC690600613E84 /* VideoAdUnit.swift in Sources */,
 				5BC37A1C271F1D0000444D5E /* PBMErrorFamily.m in Sources */,
 				FAEE4D28262DC2B200AD9966 /* PbWebViewSearchError.swift in Sources */,
 				5BC37990271F1D0000444D5E /* PBMVideoCreative.m in Sources */,

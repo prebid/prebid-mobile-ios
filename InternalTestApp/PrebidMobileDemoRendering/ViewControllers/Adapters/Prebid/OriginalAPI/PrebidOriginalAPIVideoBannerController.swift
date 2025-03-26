@@ -31,7 +31,7 @@ class PrebidOriginalAPIVideoBannerController:
     var adSize = CGSize.zero
     var gamSizes = [AdSize]()
     
-    private var adUnit: VideoAdUnit!
+    private var adUnit: BannerAdUnit!
     
     // GAM
     private var gamBanner: AdManagerBannerView!
@@ -68,7 +68,8 @@ class PrebidOriginalAPIVideoBannerController:
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        adUnit = VideoAdUnit(configId: prebidConfigId, size: adSize)
+        adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
+        adUnit.adFormats = [.video]
         adUnit.setAutoRefreshMillis(time: refreshInterval)
         
         // imp[].ext.data

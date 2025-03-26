@@ -84,16 +84,6 @@ class AdUnitSuccessorTests: XCTestCase {
         checkDefault(adUnit: adUnit)
     }
     
-    //MARK: - VideoAdUnit
-    
-    func testVideoAdUnitCreation() {
-        //when
-        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
-        
-        //then
-        checkDefault(adUnit: adUnit)
-    }
-    
     //MARK: - VideoInterstitialAdUnit
     
     func testVideoInterstitialAdUnitCreation() {

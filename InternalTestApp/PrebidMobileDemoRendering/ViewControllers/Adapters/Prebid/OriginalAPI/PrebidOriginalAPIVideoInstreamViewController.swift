@@ -30,7 +30,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
     var gamAdUnitVideo = ""
     
     // Prebid
-    private var adUnit: VideoAdUnit!
+    private var adUnit: InstreamVideoAdUnit!
     
     // IMA
     var adsLoader: IMAAdsLoader!
@@ -101,7 +101,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
             name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
             object: contentPlayer?.currentItem)
         
-        adUnit = VideoAdUnit(configId: prebidConfigId, size: CGSize(width: 640, height: 480))
+        adUnit = InstreamVideoAdUnit(configId: prebidConfigId, size: CGSize(width: 640, height: 480))
         
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
@@ -125,7 +125,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
         parameters.minBitrate = 300
         parameters.maxDuration = 30
         parameters.minDuration = 5
-        adUnit.parameters = parameters
+        adUnit.videoParameters = parameters
         
         adsLoader = IMAAdsLoader(settings: nil)
         adsLoader.delegate = self
