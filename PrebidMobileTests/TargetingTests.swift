@@ -594,18 +594,6 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(Targeting.userExt?.count, 1)
     }
     
-    func testUserEids() {
-        //Init
-        //Note: on init, and it never sends a value via an odinary ad request params.
-        let Targeting = Targeting.shared
-        XCTAssertNil(Targeting.eids)
-
-        //Set
-        let eids: [[String: AnyHashable]] = [["key" : "value"], ["key" : "value"]]
-        Targeting.eids = eids
-        XCTAssertEqual(Targeting.eids?.count, 2)
-    }
-    
     func testPublisherName() {
         //Init
         //Note: on init, and it never doesn't send a value via an ad request params.
