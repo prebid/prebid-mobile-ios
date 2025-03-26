@@ -82,11 +82,6 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var gpid: String?
     
-    public var ortbConfig: String? {
-        get {adConfiguration.ortbConfig}
-        set {adConfiguration.ortbConfig = newValue}
-    }
-    
     public var impORTBConfig: String? {
         get { adConfiguration.impORTBConfig }
         set { adConfiguration.impORTBConfig = newValue }
@@ -297,7 +292,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.pollFrequency = self.adConfiguration.pollFrequency
         clone.adConfiguration.viewableArea = self.adConfiguration.viewableArea
         clone.adConfiguration.viewableDuration = self.adConfiguration.viewableDuration
-        clone.adConfiguration.ortbConfig = self.adConfiguration.ortbConfig
         
         return clone
     }
