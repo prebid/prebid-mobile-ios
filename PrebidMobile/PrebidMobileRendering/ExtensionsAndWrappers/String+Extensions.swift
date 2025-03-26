@@ -28,7 +28,7 @@ extension String {
         return false
     }
     
-    func encodedURL(with characterSet: CharacterSet) -> URL? { 
+    func encodedURL(with characterSet: CharacterSet) -> URL? {
         if let url = URL(string: self) {
             return url
         }
@@ -79,12 +79,12 @@ extension String {
 // MARK: - Regex Extensions
 
 extension String {
-    
+
     func matchAndCheck(regex: String) -> String? {
         let matched = self.matches(for: regex)
         return matched.isEmpty ? nil : matched[0]
     }
-    
+
     func matches(for regex: String) -> [String] {
         do {
             let regex = try NSRegularExpression(pattern: regex)

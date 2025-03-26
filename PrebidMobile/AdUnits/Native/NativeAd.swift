@@ -15,6 +15,8 @@
 
 import Foundation
 import UIKit
+import StoreKit
+import WebKit
 
 /// Represents a native ad and handles its various properties and functionalities.
 @objcMembers
@@ -29,6 +31,8 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     public weak var delegate: NativeAdEventDelegate?
     
     // MARK: - Internal properties
+    
+    var bid: Bid?
     
     private static let nativeAdIABShouldBeViewableForTrackingDuration = 1.0
     private static let nativeAdCheckViewabilityForTrackingFrequency = 0.25
@@ -46,14 +50,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     
     private let eventManager = EventManager()
     
-    public var privacyUrl: String? {
-        set {
-            nativeAdMarkup?.privacy = newValue
-        }
-        get {
-            return nativeAdMarkup?.privacy
-        }
-    }
+    private var productControllerPresenter: SKStoreProductViewControllerPresenter?
     
     // MARK: - Array getters
     
@@ -75,6 +72,11 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     /// Returns an array of event trackers from the native ad markup.
     @objc public var eventTrackers: [NativeEventTrackerResponse]? {
         return nativeAdMarkup?.eventtrackers
+    }
+    
+    public var privacyUrl: String? {
+        set { nativeAdMarkup?.privacy = newValue }
+        get { nativeAdMarkup?.privacy }
     }
     
     // MARK: - Filtered array getters
@@ -144,6 +146,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         let bid = Bid(bid: rawBid)
         
         let ad = NativeAd()
+        ad.bid = bid
         
         let internalEventTracker = PrebidServerEventTracker()
         
@@ -169,6 +172,13 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         
         ad.eventManager.registerTracker(internalEventTracker)
         
+        if #available(iOS 14.5, *) {
+            if let skadn = bid.skadn, let imp = SkadnParametersManager.getSkadnImpression(for: skadn) {
+                let skadnEventTracker = SkadnEventTracker(with: imp)
+                ad.eventManager.registerTracker(skadnEventTracker)
+            }
+        }
+        
         // Track win event immediately
         ad.eventManager.trackEvent(.prebidWin)
         
@@ -190,18 +200,6 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     
     deinit {
         unregisterViewFromTracking()
-    }
-    
-    private func canOpenString(_ string: String?) -> Bool {
-        guard let string = string else {
-            return false
-        }
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        if let match = detector.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) {
-            return match.range.length == string.utf16.count
-        } else {
-            return false
-        }
     }
     
     /// Registers a view for tracking viewability and click events.
@@ -346,37 +344,49 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     }
     
     @objc private func handleClick() {
-        self.delegate?.adWasClicked?(ad: self)
-        if let clickUrl = nativeAdMarkup?.link?.url,
-           let url = clickUrl.encodedURL(with: .urlQueryAllowed) {
-            if openURLWithExternalBrowser(url: url) {
-                if let clickTrackers = nativeAdMarkup?.link?.clicktrackers {
-                    fireClickTrackers(clickTrackersUrls: clickTrackers)
-                }
+        delegate?.adWasClicked?(ad: self)
+        
+        guard let clickUrl = nativeAdMarkup?.link?.url,
+              let url = clickUrl.encodedURL(with: .urlQueryAllowed) else {
+            return
+        }
+        
+        // SKAdN
+        if let skadn = bid?.skadn,
+           let productParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) {
+            HiddenWebViewManager(
+                frame: .zero,
+                landingPageString: url
+            ).openHiddenWebView()
+            
+            if let viewControllerForPresentingModals = viewForTracking?.parentViewController ?? UIApplication.topViewController() {
+                productControllerPresenter = SKStoreProductViewControllerPresenter()
+                productControllerPresenter?.present(
+                    from: viewControllerForPresentingModals,
+                    using: productParameters
+                )
             } else {
-                Log.debug("Could not open click URL: \(clickUrl)")
+                Log.error("SDK couldn't find a view controller to present the SKStoreProductViewController from.")
             }
+            
+            fireClickTrackers()
         }
-    }
-    
-    
-    private func fireClickTrackers(clickTrackersUrls: [String]) {
-        if clickTrackersUrls.count > 0 {
-            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersUrls) {
-                _ in
-            }
-        }
-    }
-    
-    private func openURLWithExternalBrowser(url : URL) -> Bool {
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            return true
+        // Normal clickthrough
+        else if UIApplication.shared.openExternalURL(url) {
+            fireClickTrackers()
         } else {
-            return false
+            Log.debug("Could not open click URL: \(clickUrl)")
         }
     }
     
+    private func fireClickTrackers() {
+        guard let clickTrackersURLs = nativeAdMarkup?.link?.clicktrackers,
+              clickTrackersURLs.count > 0 else {
+            return
+        }
+        
+        TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersURLs) { _ in }
+    }
 }
 
 private class NativeAdGestureRecognizerRecord : NSObject {

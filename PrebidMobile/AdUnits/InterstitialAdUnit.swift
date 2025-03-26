@@ -43,6 +43,16 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
         set { adUnitConfig.adFormats = newValue }
     }
     
+    // MARK: - SKAdNetwork
+    
+    /// A flag that determines whether SKOverlay should be supported
+    public var supportSKOverlay: Bool {
+        get { adUnitConfig.adConfiguration.supportSKOverlay }
+        set { adUnitConfig.adConfiguration.supportSKOverlay = newValue }
+    }
+    
+    private var skOverlayManager: SKOverlayInterstitialManager?
+    
     /// Initializes a new interstitial ad unit with a unique configuration identifier.
     /// - Parameter configId: The unique identifier for the ad unit configuration.
     public init(configId: String) {
@@ -54,6 +64,10 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
         adUnitConfig.adConfiguration.videoParameters.plcmnt = .Interstitial
     }
     
+    deinit {
+        dismissSKOverlayIfAvailable()
+    }
+    
     /// Initializes a new interstitial ad unit with a minimum width and height percentage.
     /// - Parameter configId: The unique identifier for the ad unit configuration.
     /// - Parameter minWidthPerc: The minimum width percentage of the ad.
@@ -63,9 +77,44 @@ public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAd
         adUnitConfig.minSizePerc = NSValue(cgSize: CGSize(width: minWidthPerc, height: minHeightPerc))
     }
     
+    // MARK: Prebid Impression Tracking
+    
+    /// Sets the view in which Prebid will start tracking an impression.
     public func activatePrebidImpressionTracker() {
         if let window = UIWindow.firstKeyWindow {
             impressionTracker.start(in: window)
         }
+    }
+    
+    // MARK: SKAdNetwork
+    
+    /// Activates Prebid's SKAdNetwork StoreKit ads flow.
+    ///
+    /// Ensure this method is called before presenting interstitials.
+    ///
+    /// This feature is not available for video ads.
+    public func activatePrebidSKAdNetworkStoreKitAdsFlow() {
+        guard !adFormats.contains(.video) else {
+            Log.warn("SKAdNetwork StoreKit ads flow is not supported for video ads.")
+            return
+        }
+        
+        if let window = UIWindow.firstKeyWindow {
+            skadnStoreKitAdsHelper.start(in: window)
+        }
+    }
+    
+    // MARK: SKOverlay
+    
+    /// Attempts to display an `SKOverlay` if a valid configuration is available.
+    public func activateSKOverlayIfAvailable() {
+        skOverlayManager = SKOverlayInterstitialManager()
+        skOverlayManager?.tryToShow()
+    }
+    
+    /// Dismisses the SKOverlay if presented.
+    public func dismissSKOverlayIfAvailable() {
+        skOverlayManager?.dismiss()
+        skOverlayManager = nil
     }
 }
