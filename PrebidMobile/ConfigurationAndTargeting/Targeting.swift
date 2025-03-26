@@ -19,7 +19,6 @@ import Foundation
 import CoreLocation
 import MapKit
 
-fileprivate let PrebidTargetingKey_USER_ID = "xid"
 fileprivate let PrebidTargetingKey_PUB_PROVIDED_PREFIX = "c."
 
 
@@ -45,12 +44,6 @@ public class Targeting: NSObject {
     public var omidPartnerVersion: String?
     
     // MARK: - User Information
-    
-    /// Indicates the customer-provided user ID, if different from the Device ID.
-    public var userID: String? {
-        get { parameterDictionary[PrebidTargetingKey_USER_ID] }
-        set { parameterDictionary[PrebidTargetingKey_USER_ID] = newValue }
-    }
     
     /// Placeholder for User Identity Links.
     /// The data from this property will be added to usr.ext.eids

@@ -280,7 +280,6 @@ typealias JsonDictionary = [String:Any]
     }
     
     @objc public class func resetTargeting(_ targeting: Targeting)  {
-        targeting.userID = nil
         targeting.publisherName = nil
         targeting.storeURL = nil
         targeting.userExt = nil
@@ -317,7 +316,6 @@ typealias JsonDictionary = [String:Any]
     }
     
     @objc public class func checkInitialValues(_ targeting: Targeting) {
-        XCTAssertNil(targeting.userID)
         XCTAssertNil(targeting.publisherName)
         XCTAssertNil(targeting.storeURL)
         XCTAssertNil(targeting.userExt)

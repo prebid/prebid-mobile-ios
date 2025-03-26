@@ -580,23 +580,6 @@ class TargetingTests: XCTestCase {
     func testShared() {
         UtilitiesForTesting.checkInitialValues(.shared)
     }
-
-    func testUserID() {
-
-        //Init
-        //Note: on init, the default is nil but it doesn't send a value.
-        let Targeting = Targeting.shared
-        XCTAssert(Targeting.userID == nil)
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Set
-        Targeting.userID = "abc123"
-        XCTAssert(Targeting.parameterDictionary == ["xid":"abc123"], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Unset
-        Targeting.userID = nil
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-    }
     
     func testUserExt() {
         //Init
