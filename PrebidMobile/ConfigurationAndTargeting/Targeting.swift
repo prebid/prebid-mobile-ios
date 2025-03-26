@@ -19,9 +19,6 @@ import Foundation
 import CoreLocation
 import MapKit
 
-fileprivate let PrebidTargetingKey_PUB_PROVIDED_PREFIX = "c."
-
-
 /// A class that manages targeting information for ads.
 ///
 /// This class provides properties and methods for setting and retrieving
@@ -405,14 +402,4 @@ public class Targeting: NSObject {
     ///
     /// This property holds the external user IDs associated with the user.
     private var externalUserIds = [ExternalUserId]()
-    
-    // MARK: - Internal Methods
-    
-    func makeCustomParamFromName(_ name: String) -> String {
-        if name.hasPrefix(PrebidTargetingKey_PUB_PROVIDED_PREFIX) {
-            return name
-        }
-        
-        return PrebidTargetingKey_PUB_PROVIDED_PREFIX + name
-    }
 }
