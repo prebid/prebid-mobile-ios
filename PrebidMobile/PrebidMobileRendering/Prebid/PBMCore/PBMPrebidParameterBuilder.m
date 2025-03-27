@@ -295,6 +295,10 @@
                 if (videoParameters.battr && videoParameters.battr.count > 0) {
                     nextVideo.battr = videoParameters.rawBattrs;
                 }
+
+                if (videoParameters.rawSkippable) {
+                    nextVideo.skip = videoParameters.rawSkippable;
+                }
                 
                 if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);

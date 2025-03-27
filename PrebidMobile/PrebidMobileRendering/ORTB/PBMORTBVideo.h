@@ -200,7 +200,10 @@ NS_ASSUME_NONNULL_BEGIN
 // 16   Ad Provides Skip Button (e.g. VPAID-rendered skip button on pre-roll video)
 // 17   Adobe Flash
 @property (nonatomic, strong, nullable) NSArray<NSNumber *> *battr;
-    
+
+// Indicates if the player will allow the video to be skipped, where 0 = no, 1 = yes.
+@property (nonatomic, copy, nullable) NSNumber *skip;
+
 - (instancetype)init;
 
 @end
