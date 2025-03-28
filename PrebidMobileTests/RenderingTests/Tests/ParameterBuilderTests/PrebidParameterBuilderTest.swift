@@ -180,7 +180,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         
         targeting.addBidderToAccessControlList("prebid-mobile")
-        targeting.updateUserData(key: "fav_colors", value: Set(["red", "orange"]))
         targeting.addAppExtData(key: "last_search_keywords", value: "wolf")
         targeting.addAppExtData(key: "last_search_keywords", value: "pet")
         
@@ -207,11 +206,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertTrue(extData.keys.count == 1)
         let extValues = extData["last_search_keywords"]!.sorted()
         XCTAssertEqual(extValues, ["pet", "wolf"])
-
-        let userData = bidRequest.user.ext!["data"] as! [String :AnyHashable]
-        XCTAssertTrue(userData.keys.count == 1)
-        let userValues = userData["fav_colors"] as! Array<String>
-        XCTAssertEqual(Set(userValues), ["red", "orange"])
         
         guard let imp = bidRequest.imp.first else {
             XCTFail("No Impression object!")
@@ -877,32 +871,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         for imp in bidRequest.imp {
             XCTAssertEqual(imp.extGPID, gpid)
         }
-    }
-    
-    // MARK: Arbitrary ORTB (Deprecated API)
-    
-    func testArbitraryORTBParams() {
-        let gpid = "/12345/home_screen#identifier"
-        let ortb = "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"imp\":[{}]}"
-        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
-        adUnit.setGPID(gpid)
-        adUnit.setOrtbConfig(ortb)
-
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
-        XCTAssertEqual(bidRequest.ortbObject?["arbitraryparamkey1"] as? String, "arbitraryparamvalue1")
-    }
-    
-    func testArbitraryORTBParamsIncorrectJSON() {
-        let gpid = "/12345/home_screen#identifier"
-        let ortb = "{{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"imp\":[{}]}"
-        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
-        adUnit.setGPID(gpid)
-        adUnit.setOrtbConfig(ortb)
-
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
-        XCTAssert(bidRequest.ortbObject?.isEmpty == true)
     }
     
     func testExtPrebidSDKRenderers() {

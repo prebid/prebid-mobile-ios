@@ -36,9 +36,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_GppSID)
-        
-        Prebid.shared.useExternalClickthroughBrowser = false
-        
+                
         UserConsentDataManager.shared.subjectToCOPPA = nil
         super.tearDown()
     }
@@ -68,7 +66,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         PBMAssertEq(imp.instl, 0)
         PBMAssertEq(imp.secure, 1)
-        PBMAssertEq(imp.clickbrowser, 1)
+        PBMAssertEq(imp.clickbrowser, 0)
         
         //Check banner
         guard let banner = imp.banner else {
@@ -80,27 +78,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         //Check Regs
         XCTAssertNil(bidRequest.regs.coppa)
-    }
-    
-    func testParameterBuilderExternalBrowser() {
-        let adConfiguration = AdConfiguration()
-        
-        let sdkConfiguration = Prebid.mock
-        sdkConfiguration.useExternalClickthroughBrowser = true
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
-                                               sdkConfiguration:sdkConfiguration,
-                                               sdkVersion:"MOCK_SDK_VERSION",
-                                               targeting: targeting)
-        
-        let bidRequest = PBMORTBBidRequest()
-        builder.build(bidRequest)
-        
-        guard let imp = bidRequest.imp.first else {
-            XCTFail("No imp object")
-            return
-        }
-        
-        PBMAssertEq(imp.clickbrowser, 1)
     }
     
     func testDisplayManager_OriginalAPI() {

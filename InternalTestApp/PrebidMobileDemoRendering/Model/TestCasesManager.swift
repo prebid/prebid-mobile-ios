@@ -213,9 +213,6 @@ struct TestCaseManager {
             targeting.userGender = TestCaseManager.strToGender(value)
         }
         
-        if let value = openRtb["buyerid"] as? String {
-            targeting.buyerUID = value
-        }
         if let value = openRtb["xid"] as? String {
             targeting.userID = value
         }
@@ -225,9 +222,6 @@ struct TestCaseManager {
         
         if let value = openRtb["keywords"] as? String {
             Targeting.shared.addUserKeyword(value)
-        }
-        if let value = openRtb["customdata"] as? String {
-            targeting.userCustomData = value
         }
         
         if let geo = openRtb["geo"] as? [String: Double] {
@@ -1968,7 +1962,7 @@ struct TestCaseManager {
                         
                         if let adUnitContext = AppConfiguration.shared.adUnitContext {
                             for dataPair in adUnitContext {
-                                adBannerView.addContextData(dataPair.value, forKey: dataPair.key)
+                                adBannerView.addExtData(key: dataPair.key, value: dataPair.value)
                             }
                         }
                         
@@ -2124,7 +2118,7 @@ struct TestCaseManager {
                                 
                                 if let adUnitContext = AppConfiguration.shared.adUnitContext {
                                     for dataPair in adUnitContext {
-                                        adBannerView.addContextData(dataPair.value, forKey: dataPair.key)
+                                        adBannerView.addExtData(key: dataPair.key, value: dataPair.value)
                                     }
                                 }
                                 

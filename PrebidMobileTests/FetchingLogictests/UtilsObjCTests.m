@@ -30,17 +30,4 @@ limitations under the License.
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
-- (void)testConvertDictToMoPubKeywords{
-        
-    //given
-    NSDictionary *dictionary = @{ @"key1" : @"value1", @"key2" : @"value2"};
-    
-    //when
-    NSString *result = [Utils.shared convertDictToMoPubKeywordsWithDict:dictionary];
-    
-    //then
-    XCTAssertTrue([result isEqualToString:@"key1:value1,key2:value2"] || [result isEqualToString:@"key2:value2,key1:value1"]);
-
-}
-
 @end

@@ -78,39 +78,15 @@ class PrebidOriginalAPIMultiformatBannerController:
         // imp[].ext.data
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
-                adUnit?.addContextData(key: dataPair.key, value: dataPair.value)
+                adUnit?.addExtData(key: dataPair.key, value: dataPair.value)
             }
         }
         
         // imp[].ext.keywords
         if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
             for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addContextKeyword(keyword)
+                adUnit?.addExtKeyword(keyword)
             }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addAppContentData([ortbAppContentData])
         }
         
         gamBanner = AdManagerBannerView(adSize: gamSizes.first ?? adSizeFor(cgSize: adSize))

@@ -283,14 +283,11 @@ typealias JsonDictionary = [String:Any]
         
         targeting.userGender = .unknown
         targeting.userID = nil
-        targeting.buyerUID = nil
         targeting.publisherName = nil
         targeting.storeURL = nil
-        targeting.userCustomData = nil
         targeting.userExt = nil
         targeting.eids = nil
         targeting.location = nil
-        targeting.locationPrecision = nil
         targeting.sourceapp = nil
         targeting.storeURL = nil
         targeting.domain = nil
@@ -307,7 +304,6 @@ typealias JsonDictionary = [String:Any]
         
         targeting.clearAppExtData()
         targeting.clearAppKeywords()
-        targeting.clearUserData()
         targeting.clearUserKeywords()
         targeting.clearYearOfBirth()
         targeting.clearAccessControlList()
@@ -326,14 +322,11 @@ typealias JsonDictionary = [String:Any]
     @objc public class func checkInitialValues(_ targeting: Targeting) {
         XCTAssertEqual(targeting.userGender, .unknown)
         XCTAssertNil(targeting.userID)
-        XCTAssertNil(targeting.buyerUID)
         XCTAssertNil(targeting.publisherName)
         XCTAssertNil(targeting.storeURL)
-        XCTAssertNil(targeting.userCustomData)
         XCTAssertNil(targeting.userExt)
         XCTAssertNil(targeting.eids)
         XCTAssertNil(targeting.location)
-        XCTAssertNil(targeting.locationPrecision)
         XCTAssertNil(targeting.sourceapp)
         XCTAssertNil(targeting.storeURL)
         XCTAssertNil(targeting.domain)
@@ -344,7 +337,6 @@ typealias JsonDictionary = [String:Any]
         XCTAssertTrue(targeting.getAppKeywords().isEmpty)
         XCTAssertTrue(targeting.getAppExtData().isEmpty)
         XCTAssertTrue(targeting.getUserKeywords().isEmpty)
-        XCTAssertTrue(targeting.userDataDictionary.isEmpty)
         XCTAssertTrue(targeting.accessControlList.isEmpty)
         XCTAssert(targeting.yearOfBirth == 0)
         XCTAssertFalse(targeting.sendSharedId)
