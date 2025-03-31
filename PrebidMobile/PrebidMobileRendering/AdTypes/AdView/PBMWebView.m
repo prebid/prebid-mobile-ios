@@ -487,7 +487,7 @@ static PBMError *extracted(NSString *errorMessage) {
     
     //Execute mraid.js
     @weakify(self);
-    WKUserScript *script = [[WKUserScript alloc] initWithSource:mraidScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    WKUserScript *script = [[WKUserScript alloc] initWithSource:mraidScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
     [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:mraidScript completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         @strongify(self);
