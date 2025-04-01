@@ -28,75 +28,7 @@ final class PrebidRequestTests: XCTestCase {
         XCTAssertFalse(request.isInterstitial)
         XCTAssertFalse(request.isRewarded)
         
-        XCTAssertTrue(request.getExtData().isEmpty)
         XCTAssertTrue(request.getExtKeywords().isEmpty)
-    }
-    
-    // MARK: - adunit ext data aka inventory data (imp[].ext.data)
-    
-    func testAddExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        
-        let request = PrebidRequest()
-        
-        //when
-        request.addExtData(key: key1, value: value1)
-        let dictionary = request.getExtData()
-        
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testUpdateExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let set: Set = [value1]
-        
-        let request = PrebidRequest()
-        request.updateExtData(key: key1, value: set)
-        
-        //when
-        let dictionary = request.getExtData()
-        
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testRemoveExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        
-        let request = PrebidRequest()
-        request.addExtData(key: key1, value: value1)
-        
-        //when
-        request.removeExtData(forKey: key1)
-        let dictionary = request.getExtData()
-        
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-    
-    func testClearExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        
-        let request = PrebidRequest()
-        request.addExtData(key: key1, value: value1)
-        
-        //when
-        request.clearExtData()
-        let dictionary = request.getExtData()
-        
-        //then
-        XCTAssertEqual(0, dictionary.count)
     }
     
     // MARK: - adunit ext keywords (imp[].ext.keywords)

@@ -94,16 +94,6 @@ AdUnit *adUnit;
     [adUnit stopAutoRefresh];
 }
 
-// MARK: adunit ext data aka inventory data (imp[].ext.data)
-
-- (void)testExtData {
-    NSSet *set = [NSSet setWithArray:@[@"value2"]];
-    [adUnit addExtDataWithKey:@"key1" value:@"value1"];
-    [adUnit updateExtDataWithKey:@"key12" value:set];
-    [adUnit removeExtDataForKey:@"key1"];
-    [adUnit clearExtData];
-}
-
 // MARK: adunit ext keywords (imp[].ext.keywords)
 
 - (void)testExtKeywords {

@@ -181,10 +181,6 @@
             nextImp.rewarded = @(1);
         }
         
-        if ([self.adConfiguration getExtData].count > 0) {
-            nextImp.extData = [self.adConfiguration getExtData].mutableCopy;
-        }
-        
         if ([self.adConfiguration getExtKeywords].count > 0) {
             NSMutableArray * extKeywords = [NSMutableArray arrayWithArray:[[self.adConfiguration getExtKeywords] allObjects]];
             nextImp.extKeywords = [extKeywords componentsJoinedByString:@","];

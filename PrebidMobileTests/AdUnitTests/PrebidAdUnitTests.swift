@@ -239,37 +239,6 @@ class PrebidAdUnitTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
-    func testAdUnitConfiguration_extData() {
-        var adUnit = PrebidAdUnit(configId: "test-config-id")
-
-        let request = PrebidRequest(bannerParameters: BannerParameters())
-        request.addExtData(key: "key1", value: "value1")
-
-        let testObject: AnyObject = () as AnyObject
-
-        let expectation = expectation(description: "\(#function)")
-        expectation.expectedFulfillmentCount = 2
-
-        var config = adUnit.getConfiguration()
-        
-        // fetchDemand(request:completion)
-        adUnit.fetchDemand(request: request) { _ in
-            XCTAssertEqual(config.getExtData(), ["key1": ["value1"]])
-            expectation.fulfill()
-        }
-
-        adUnit = PrebidAdUnit(configId: "test-config-id")
-        config = adUnit.getConfiguration()
-
-        // fetchDemand(adObject:request:completion)
-        adUnit.fetchDemand(adObject: testObject, request: request) { _ in
-            XCTAssertEqual(config.getExtData(), ["key1": ["value1"]])
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 5, handler: nil)
-    }
-    
     func testAdUnitConfiguration_extKeywords() {
         var adUnit = PrebidAdUnit(configId: "test-config-id")
 

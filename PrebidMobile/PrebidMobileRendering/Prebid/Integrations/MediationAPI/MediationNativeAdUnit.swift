@@ -121,30 +121,6 @@ public class MediationNativeAdUnit : NSObject {
     public func getImpORTBConfig() -> String? {
         nativeAdUnit.adUnitConfig.impORTBConfig
     }
-        
-    // MARK: - Ext Data (imp[].ext.data)
-    
-    /// This method obtains the ext data keyword & value for adunit targeting.
-    /// If the key already exists the value will be appended to the list. No duplicates will be added
-    public func addExtData(key: String, value: String) {
-        nativeAdUnit.addExtData(key: key, value: value)
-    }
-    
-    /// This method obtains the ext data keyword & values for adunit targeting.
-    /// The values if the key already exist will be replaced with the new set of values
-    public func updateExtData(key: String, value: Set<String>) {
-        nativeAdUnit.updateExtData(key: key, value: value)
-    }
-    
-    /// This method allows to remove specific ext data keyword & values set from adunit targeting
-    public func removeExtData(forKey: String) {
-        nativeAdUnit.removeExtData(forKey: forKey)
-    }
-    
-    /// This method allows to remove all ext data set from adunit targeting
-    public func clearExtData() {
-        nativeAdUnit.clearExtData()
-    }
     
     // MARK: - Ext keywords (imp[].ext.keywords)
     

@@ -449,69 +449,6 @@ class AdUnitTests: XCTestCase {
         //then
         XCTAssertNil(adUnit.dispatcher?.timer)
     }
-        
-    // MARK: - adunit ext data aka inventory data (imp[].ext.data)
-    
-    func testAddExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        
-        //when
-        adUnit.addExtData(key: key1, value: value1)
-        let dictionary = adUnit.getExtDataDictionary()
-        
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testUpdateExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let set: Set = [value1]
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.updateExtData(key: key1, value: set)
-        
-        //when
-        let dictionary = adUnit.getExtDataDictionary()
-        
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testRemoveExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addExtData(key: key1, value: value1)
-        
-        //when
-        adUnit.removeExtData(forKey: key1)
-        let dictionary = adUnit.getExtDataDictionary()
-        
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-    
-    func testClearExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addExtData(key: key1, value: value1)
-        
-        //when
-        adUnit.clearExtData()
-        let dictionary = adUnit.getExtDataDictionary()
-        
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
     
     // MARK: - adunit ext keywords (imp[].ext.keywords)
     

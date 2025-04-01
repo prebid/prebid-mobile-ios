@@ -193,36 +193,6 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         adUnitConfig.impORTBConfig
     }
     
-    // MARK: - Ext Data (imp[].ext.data)
-    
-    /// Adds ext data.
-    /// - Parameters:
-    ///   - key: The key for the data.
-    ///   - value: The value for the data.
-    public func addExtData(key: String, value: String) {
-        adUnitConfig.addExtData(key: key, value: value)
-    }
-    
-    /// Updates ext data.
-    /// - Parameters:
-    ///   - key: The key for the data.
-    ///   - value: The value for the data.
-    public func updateExtData(key: String, value: Set<String>) {
-        adUnitConfig.updateExtData(key: key, value: value)
-    }
-    
-    /// Removes ext data.
-    /// - Parameters:
-    ///   - key: The key for the data.
-    public func removeExtData(forKey: String) {
-        adUnitConfig.removeExtData(for: forKey)
-    }
-    
-    /// Clears ext data.
-    public func clearExtData() {
-        adUnitConfig.clearExtData()
-    }
-    
     // MARK: - Ext keywords (imp[].ext.keywords)
     
     /// Adds an extended keyword.

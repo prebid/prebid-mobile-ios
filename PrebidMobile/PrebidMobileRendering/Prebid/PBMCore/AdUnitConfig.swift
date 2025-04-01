@@ -41,10 +41,6 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var adPosition = AdPosition.undefined
 
-    public var extDataDictionary: [String : [String]] {
-        extensionData.mapValues { Array($0) }
-    }
-
     public var nativeAdConfiguration: NativeAdConfiguration?
 
     // MARK: - Computed Properties
@@ -102,36 +98,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         adConfiguration.autoRefreshDelay = 0
         adConfiguration.size = adSize
     }
-    
-    // MARK: - Ext Data (imp[].ext.data)
-    
-    func setExtData(_ extData: [String: Set<String>]) {
-        extensionData = extData
-    }
-
-    public func addExtData(key: String, value: String) {
-        if extensionData[key] == nil {
-            extensionData[key] = Set<String>()
-        }
-        
-        extensionData[key]?.insert(value)
-    }
-    
-    public func updateExtData(key: String, value: Set<String>) {
-        extensionData[key] = value
-    }
-    
-    public func removeExtData(for key: String) {
-        extensionData.removeValue(forKey: key)
-    }
-    
-    public func clearExtData() {
-        extensionData.removeAll()
-    }
-    
-    public func getExtData() -> [String: [String]] {
-        extDataDictionary
-    }
 
     // MARK: - Ext keywords (imp[].ext.keywords)
         
@@ -171,12 +137,6 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
 
     // MARK: - Private Properties
-    
-    private var extensionData = [String : Set<String>]()
-
-    private var appContent: PBMORTBAppContent?
-
-    private var userData: [PBMORTBContentData]?
 
     private var extKeywords = Set<String>()
     
@@ -202,10 +162,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.additionalSizes = self.additionalSizes
         clone.refreshInterval = self.refreshInterval
         clone.gpid = self.gpid
-        clone.extensionData = self.extensionData.merging(clone.extensionData) { $1 }
-        clone.appContent = self.appContent
         clone.extKeywords = self.extKeywords
-        clone.userData = self.userData
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot
         

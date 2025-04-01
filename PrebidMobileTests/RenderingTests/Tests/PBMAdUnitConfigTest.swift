@@ -30,55 +30,7 @@ class PBMAdUnitConfigTest: XCTestCase {
         adUnitConfig.refreshInterval = 1000   // greater than the max value
         XCTAssertEqual(adUnitConfig.refreshInterval, 120)
     }
-        
-    // MARK: - Ext Data aka inventory data (imp[].ext.data)
     
-    func testAddExtData() {
-        let key1 = "key1"
-        let value1 = "value1"
-        
-        adUnitConfig.addExtData(key: key1, value: value1)
-        let dictionary = adUnitConfig.getExtData()
-        
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testUpdateExtData() {
-        let key1 = "key1"
-        let value1 = "value1"
-        let set: Set = [value1]
-        
-        adUnitConfig.updateExtData(key: key1, value: set)
-        
-        let dictionary = adUnitConfig.getExtData()
-        
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testRemoveExtData() {
-        let key1 = "key1"
-        let value1 = "value1"
-        adUnitConfig.addExtData(key: key1, value: value1)
-        
-        adUnitConfig.removeExtData(for: key1)
-        let dictionary = adUnitConfig.getExtData()
-        
-        XCTAssertEqual(0, dictionary.count)
-    }
-    
-    func testClearExtData() {
-        let key1 = "key1"
-        let value1 = "value1"
-        adUnitConfig.addExtData(key: key1, value: value1)
-        
-        adUnitConfig.clearExtData()
-        let dictionary = adUnitConfig.getExtData()
-        
-        XCTAssertEqual(0, dictionary.count)
-    }
-        
     // MARK: - Ext keywords (imp[].ext.keywords)
     
     func testAddExtKeyword() {

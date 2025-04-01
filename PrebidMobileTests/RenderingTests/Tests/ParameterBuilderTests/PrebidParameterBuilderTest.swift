@@ -175,15 +175,12 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testFirstPartyData() {
-        
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         
         targeting.addBidderToAccessControlList("prebid-mobile")
         targeting.addAppExtData(key: "last_search_keywords", value: "wolf")
         targeting.addAppExtData(key: "last_search_keywords", value: "pet")
-        
-        adUnitConfig.addExtData(key: "buy", value: "mushrooms")
         
         let bidRequest = buildBidRequest(with: adUnitConfig)
         
@@ -193,13 +190,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertTrue(extData.keys.count == 1)
         let extValues = extData["last_search_keywords"]!.sorted()
         XCTAssertEqual(extValues, ["pet", "wolf"])
-        
-        guard let imp = bidRequest.imp.first else {
-            XCTFail("No Impression object!")
-            return
-        }
-        
-        XCTAssertEqual(imp.extData, ["buy": ["mushrooms"]])
     }
     
     func testAdUnitSpecificKeywords() {
@@ -217,25 +207,21 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
     }
 
-    func testPbAdSlotWithContextDataDictionary() {
+    func testPbAdSlot() {
         let testAdSlot = "test ad slot"
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
 
         adUnitConfig.setPbAdSlot(testAdSlot)
 
-        adUnitConfig.addExtData(key: "key", value: "value1")
-        adUnitConfig.addExtData(key: "key", value: "value2")
-
         let bidRequest = buildBidRequest(with: adUnitConfig)
 
         bidRequest.imp.forEach { imp in
-            guard let extData = imp.extData as? [String: Any], let result = extData["key"] as? [String] else {
-                XCTFail()
+            guard let extData = imp.extData as? [String: Any] else {
+                XCTFail("ext.data dictionary is nil.")
                 return
             }
 
-            XCTAssertEqual(Set(result), Set(["value1", "value2"]))
             XCTAssertEqual(extData["adslot"] as? String, testAdSlot)
             XCTAssertEqual(extData["pbadslot"] as? String, testAdSlot)
         }

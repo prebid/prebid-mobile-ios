@@ -43,7 +43,6 @@ public class PrebidRequest: NSObject {
     
     // MARK: - Private properties
     
-    private var extData = [String: Set<String>]()
     private var extKeywords = Set<String>()
     
     /// Initializes a new `PrebidRequest` with the given parameters.
@@ -89,40 +88,6 @@ public class PrebidRequest: NSObject {
     /// Returns the impression-level OpenRTB configuration string.
     public func getImpORTBConfig() -> String? {
         impORTBConfig
-    }
-    
-    // MARK: - adunit ext data aka inventory data (imp[].ext.data)
-    
-    
-    /// This method obtains the ext data keyword & value for adunit targeting
-    /// if the key already exists the value will be appended to the list. No duplicates will be added
-    public func addExtData(key: String, value: String) {
-        if extData[key] == nil {
-            extData[key] = Set<String>()
-        }
-        
-        extData[key]?.insert(value)
-    }
-    
-    
-    /// This method obtains the ext data keyword & values for adunit targeting
-    /// the values if the key already exist will be replaced with the new set of values
-    public func updateExtData(key: String, value: Set<String>) {
-        extData[key] = value
-    }
-    
-    /// This method allows to remove specific ext data keyword & values set from adunit targeting
-    public func removeExtData(forKey: String) {
-        extData.removeValue(forKey: forKey)
-    }
-    
-    /// This method allows to remove all ext data set from adunit targeting
-    public func clearExtData() {
-        extData.removeAll()
-    }
-    
-    func getExtData() -> [String: Set<String>] {
-        extData
     }
     
     // MARK: - adunit ext keywords (imp[].ext.keywords)
