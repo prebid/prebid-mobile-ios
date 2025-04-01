@@ -31,49 +31,6 @@ class PBMAdUnitConfigTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.refreshInterval, 120)
     }
     
-    // MARK: - Ext keywords (imp[].ext.keywords)
-    
-    func testAddExtKeyword() {
-        let element1 = "element1"
-        
-        adUnitConfig.addExtKeyword(element1)
-        let set = adUnitConfig.getExtKeywords()
-        
-        XCTAssertEqual(1, set.count)
-        XCTAssertTrue(set.contains(element1))
-    }
-    
-    func testAddExtKeywords() {
-        let element1 = "element1"
-        let inputSet: Set = [element1]
-        
-        adUnitConfig.addExtKeywords(inputSet)
-        let set = adUnitConfig.getExtKeywords()
-        
-        XCTAssertEqual(1, set.count)
-        XCTAssertTrue(set.contains(element1))
-    }
-    
-    func testRemoveExtKeyword() {
-        let element1 = "element1"
-        adUnitConfig.addExtKeyword(element1)
-        
-        adUnitConfig.removeExtKeyword(element1)
-        let set = adUnitConfig.getExtKeywords()
-        
-        XCTAssertEqual(0, set.count)
-    }
-    
-    func testClearExtKeywords() {
-        let element1 = "element1"
-        adUnitConfig.addExtKeyword(element1)
-        
-        adUnitConfig.clearExtKeywords()
-        let set = adUnitConfig.getExtKeywords()
-        
-        XCTAssertEqual(0, set.count)
-    }
-    
     // MARK: - The Prebid Ad Slot
     
     func testSetPbAdSlot() {        

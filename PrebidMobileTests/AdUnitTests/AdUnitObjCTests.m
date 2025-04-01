@@ -94,13 +94,4 @@ AdUnit *adUnit;
     [adUnit stopAutoRefresh];
 }
 
-// MARK: adunit ext keywords (imp[].ext.keywords)
-
-- (void)testExtKeywords {
-    NSSet *set = [NSSet setWithArray:@[@"value2"]];
-    [adUnit addExtKeywords:set];
-    [adUnit removeExtKeyword:@"value2"];
-    [adUnit clearExtKeywords];
-}
-
 @end

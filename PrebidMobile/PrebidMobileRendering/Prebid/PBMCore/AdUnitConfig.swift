@@ -98,32 +98,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         adConfiguration.autoRefreshDelay = 0
         adConfiguration.size = adSize
     }
-
-    // MARK: - Ext keywords (imp[].ext.keywords)
-        
-    func setExtKeywords(_ keywords: Set<String>) {
-        extKeywords = keywords
-    }
-
-    public func addExtKeyword(_ newElement: String) {
-        extKeywords.insert(newElement)
-    }
-
-    public func addExtKeywords(_ newElements: Set<String>) {
-        extKeywords.formUnion(newElements)
-    }
-    
-    public func removeExtKeyword(_ element: String) {
-        extKeywords.remove(element)
-    }
-
-    public func clearExtKeywords() {
-        extKeywords.removeAll()
-    }
-
-    public func getExtKeywords() -> Set<String> {
-        extKeywords
-    }
     
     // MARK: - The Prebid Ad Slot
 
@@ -137,8 +111,6 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
 
     // MARK: - Private Properties
-
-    private var extKeywords = Set<String>()
     
     private var sizes: [CGSize]?
 
@@ -162,7 +134,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.additionalSizes = self.additionalSizes
         clone.refreshInterval = self.refreshInterval
         clone.gpid = self.gpid
-        clone.extKeywords = self.extKeywords
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot
         

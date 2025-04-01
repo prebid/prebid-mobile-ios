@@ -449,65 +449,6 @@ class AdUnitTests: XCTestCase {
         //then
         XCTAssertNil(adUnit.dispatcher?.timer)
     }
-    
-    // MARK: - adunit ext keywords (imp[].ext.keywords)
-    
-    func testAddExtKeyword() {
-        //given
-        let element1 = "element1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        
-        //when
-        adUnit.addExtKeyword(element1)
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(1, set.count)
-        XCTAssertTrue(set.contains(element1))
-    }
-    
-    func testAddExtKeywords() {
-        //given
-        let element1 = "element1"
-        let inputSet: Set = [element1]
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        
-        //when
-        adUnit.addExtKeywords(inputSet)
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(1, set.count)
-        XCTAssertTrue(set.contains(element1))
-    }
-    
-    func testRemoveExtKeyword() {
-        //given
-        let element1 = "element1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addExtKeyword(element1)
-        
-        //when
-        adUnit.removeExtKeyword(element1)
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(0, set.count)
-    }
-    
-    func testClearExtKeywords() {
-        //given
-        let element1 = "element1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addExtKeyword(element1)
-        
-        //when
-        adUnit.clearExtKeywords()
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(0, set.count)
-    }
         
     func testAdUnitSetAdPosition() {
         let adUnit = AdUnit(

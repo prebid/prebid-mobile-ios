@@ -286,35 +286,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
         
         return nil
     }
-    
-    // MARK: - adunit ext keywords (imp[].ext.keywords)
-    
-    /// This method obtains the keyword for adunit targeting
-    /// Inserts the given element in the set if it is not already present.
-    public func addExtKeyword(_ newElement: String) {
-        adUnitConfig.addExtKeyword(newElement)
-    }
-    
-    /// This method obtains the keyword set for adunit targeting
-    /// Adds the elements of the given set to the set.
-    public func addExtKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addExtKeywords(newElements)
-    }
-    
-    /// This method allows to remove specific keyword from adunit targeting
-    public func removeExtKeyword(_ element: String) {
-        adUnitConfig.removeExtKeyword(element)
-    }
-    
-    /// This method allows to remove all keywords from the set of adunit targeting
-    public func clearExtKeywords() {
-        adUnitConfig.clearExtKeywords()
-    }
-    
-    // Used for tests
-    func getExtKeywordsSet() -> Set<String> {
-        adUnitConfig.getExtKeywords()
-    }
         
     // MARK: GPID
     

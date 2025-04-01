@@ -191,21 +191,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         let extValues = extData["last_search_keywords"]!.sorted()
         XCTAssertEqual(extValues, ["pet", "wolf"])
     }
-    
-    func testAdUnitSpecificKeywords() {
-        let adUnit = AdUnit(configId: "config_id", size: nil, adFormats: [.banner])
-        
-        let expectedKeywords = Set<String>(["keyword1", "keyword2", "keyword3"])
-        
-        adUnit.addExtKeywords(expectedKeywords)
-        
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
-        bidRequest.imp.forEach { imp in
-            let resultKeywords = Set<String>((imp.extKeywords?.components(separatedBy: ",")) ?? [])
-            XCTAssertEqual(resultKeywords, expectedKeywords)
-        }
-    }
 
     func testPbAdSlot() {
         let testAdSlot = "test ad slot"

@@ -41,10 +41,6 @@ public class PrebidRequest: NSObject {
     private(set) var gpid: String?
     private var impORTBConfig: String?
     
-    // MARK: - Private properties
-    
-    private var extKeywords = Set<String>()
-    
     /// Initializes a new `PrebidRequest` with the given parameters.
     /// - Parameters:
     ///   - bannerParameters: The banner parameters for the ad request.
@@ -88,33 +84,5 @@ public class PrebidRequest: NSObject {
     /// Returns the impression-level OpenRTB configuration string.
     public func getImpORTBConfig() -> String? {
         impORTBConfig
-    }
-    
-    // MARK: - adunit ext keywords (imp[].ext.keywords)
-    
-    /// This method obtains the keyword for adunit targeting
-    /// Inserts the given element in the set if it is not already present.
-    public func addExtKeyword(_ newElement: String) {
-        extKeywords.insert(newElement)
-    }
-    
-    /// This method obtains the keyword set for adunit targeting
-    /// Adds the elements of the given set to the set.
-    public func addExtKeywords(_ newElements: Set<String>) {
-        extKeywords.formUnion(newElements)
-    }
-    
-    /// This method allows to remove specific keyword from adunit targeting
-    public func removeExtKeyword(_ element: String) {
-        extKeywords.remove(element)
-    }
-    
-    /// This method allows to remove all keywords from the set of adunit targeting
-    public func clearExtKeywords() {
-        extKeywords.removeAll()
-    }
-    
-    func getExtKeywords() -> Set<String> {
-        extKeywords
     }
 }

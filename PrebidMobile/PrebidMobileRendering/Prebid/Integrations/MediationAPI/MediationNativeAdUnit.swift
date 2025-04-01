@@ -122,30 +122,6 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.adUnitConfig.impORTBConfig
     }
     
-    // MARK: - Ext keywords (imp[].ext.keywords)
-    
-    /// This method obtains the keyword for adunit targeting
-    /// Inserts the given element in the set if it is not already present.
-    public func addExtKeyword(_ newElement: String) {
-        nativeAdUnit.addExtKeyword(newElement)
-    }
-    
-    /// This method obtains the keyword set for adunit targeting
-    /// Adds the elements of the given set to the set.
-    public func addExtKeywords(_ newElements: Set<String>) {
-        nativeAdUnit.addExtKeywords(newElements)
-    }
-    
-    /// This method allows to remove specific keyword from adunit targeting
-    public func removeExtKeyword(_ element: String) {
-        nativeAdUnit.removeExtKeyword(element)
-    }
-    
-    /// This method allows to remove all keywords from the set of adunit targeting
-    public func clearExtKeywords() {
-        nativeAdUnit.clearExtKeywords()
-    }
-    
     /// Makes bid request for the native ad unit and setups mediation parameters.
     /// - Parameter completion: The completion handler to call with the result code.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

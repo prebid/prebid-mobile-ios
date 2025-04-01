@@ -193,31 +193,6 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         adUnitConfig.impORTBConfig
     }
     
-    // MARK: - Ext keywords (imp[].ext.keywords)
-    
-    /// Adds an extended keyword.
-    /// - Parameter newElement: The keyword to be added.
-    public func addExtKeyword(_ newElement: String) {
-        adUnitConfig.addExtKeyword(newElement)
-    }
-    
-    /// Adds multiple extended keywords.
-    /// - Parameter newElements: A set of keywords to be added.
-    public func addExtKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addExtKeywords(newElements)
-    }
-    
-    /// Removes an extended keyword.
-    /// - Parameter element: The keyword to be removed.
-    public func removeExtKeyword(_ element: String) {
-        adUnitConfig.removeExtKeyword(element)
-    }
-    
-    /// Clears all extended keywords.
-    public func clearExtKeywords() {
-        adUnitConfig.clearExtKeywords()
-    }
-    
     // MARK: - Internal methods
     
     func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {

@@ -181,11 +181,6 @@
             nextImp.rewarded = @(1);
         }
         
-        if ([self.adConfiguration getExtKeywords].count > 0) {
-            NSMutableArray * extKeywords = [NSMutableArray arrayWithArray:[[self.adConfiguration getExtKeywords] allObjects]];
-            nextImp.extKeywords = [extKeywords componentsJoinedByString:@","];
-        }
-        
         NSString * pbAdSlot = [self.adConfiguration getPbAdSlot];
         
         // NOTE: `adslot` will be removed in future versions of Prebid SDK.
