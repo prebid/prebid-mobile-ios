@@ -63,9 +63,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GAMUtils.shared.initializeGAM()
         
         // Initialize AppLovin MAX SDK
-        ALSdk.shared().mediationProvider = ALMediationProviderMAX
-        ALSdk.shared().userIdentifier = "USER_ID"
-        ALSdk.shared().initializeSdk()
+        let config = ALSdkInitializationConfiguration(
+            sdkKey: "1tLUnP4cVQqpHuHH2yMtfdESvvUhTB05NdbCoDTceDDNVnhd_T8kwIzXDN9iwbdULTboByF-TtNaiTmsoVbxZw"
+        ) { builder in
+            builder.mediationProvider = ALMediationProviderMAX
+        }
+        
+        ALSdk.shared().initialize(with: config)
         
         return true
     }
