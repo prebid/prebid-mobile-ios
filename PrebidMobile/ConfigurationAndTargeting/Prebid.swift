@@ -32,12 +32,6 @@ public class Prebid: NSObject {
     
     // MARK: - Public Properties (SDK)
     
-    /// The name of the bidder for AppNexus.
-    public static let bidderNameAppNexus = "appnexus"
-    
-    /// The name of the bidder for Rubicon Project.
-    public static let bidderNameRubiconProject = "rubicon"
-    
     /// Indicates whether the timeout value has been updated.
     public var timeoutUpdated: Bool = false
     

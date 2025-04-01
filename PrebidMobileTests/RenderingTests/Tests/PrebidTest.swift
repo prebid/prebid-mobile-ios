@@ -285,11 +285,6 @@ class PrebidTest: XCTestCase {
         XCTAssertEqual(timeoutMillis, Prebid.shared.timeoutMillis)
     }
     
-    func testBidderName() {
-        XCTAssertEqual("appnexus", Prebid.bidderNameAppNexus)
-        XCTAssertEqual("rubicon", Prebid.bidderNameRubiconProject)
-    }
-    
     func testPbsDebug() {
         //given
         let pbsDebug = true

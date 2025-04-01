@@ -253,24 +253,24 @@ class TargetingTests: XCTestCase {
     // MARK: - access control list (ext.prebid.data)
     func testAddBidderToAccessControlList() {
         //given
-        let bidderNameRubicon = Prebid.bidderNameRubiconProject
+        let bidderName = "test-bidder"
         
         //when
-        Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
+        Targeting.shared.addBidderToAccessControlList(bidderName)
         let set = Targeting.shared.getAccessControlList()
 
         //then
         XCTAssertEqual(1, set.count)
-        XCTAssert(set.contains(bidderNameRubicon))
+        XCTAssert(set.contains(bidderName))
     }
     
     func testRemoveBidderFromAccessControlList() {
         //given
-        let bidderNameRubicon = Prebid.bidderNameRubiconProject
-        Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
+        let bidderName = "test-bidder"
+        Targeting.shared.addBidderToAccessControlList(bidderName)
         
         //when
-        Targeting.shared.removeBidderFromAccessControlList(bidderNameRubicon)
+        Targeting.shared.removeBidderFromAccessControlList(bidderName)
         let set = Targeting.shared.getAccessControlList()
 
         //then
@@ -279,8 +279,8 @@ class TargetingTests: XCTestCase {
     
     func testClearAccessControlList() {
         //given
-        let bidderNameRubicon = Prebid.bidderNameRubiconProject
-        Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
+        let bidderName = "test-bidder"
+        Targeting.shared.addBidderToAccessControlList(bidderName)
         
         //when
         Targeting.shared.clearAccessControlList()

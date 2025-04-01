@@ -85,11 +85,6 @@ limitations under the License.
     [Prebid.shared setLogLevel:PBMLogLevel.debug];
 }
 
-- (void)testBidderName {
-    XCTAssertEqualObjects(@"appnexus", Prebid.bidderNameAppNexus);
-    XCTAssertEqualObjects(@"rubicon", Prebid.bidderNameRubiconProject);
-}
-
 - (void)testPbsDebug {
     //given
     BOOL pbsDebug = true;
