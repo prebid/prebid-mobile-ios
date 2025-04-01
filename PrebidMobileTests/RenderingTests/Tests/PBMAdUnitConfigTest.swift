@@ -122,60 +122,6 @@ class PBMAdUnitConfigTest: XCTestCase {
         XCTAssertEqual(0, set.count)
     }
     
-    // MARK: - User Data (user.data)
-
-    func testAddUserDataObjects() {
-        //given
-        let userDataObject1 = PBMORTBContentData()
-        userDataObject1.id = "data id"
-        userDataObject1.name = "test name"
-        let userDataObject2 = PBMORTBContentData()
-        userDataObject2.id = "data id"
-        userDataObject2.name = "test name"
-
-        //when
-        adUnitConfig.addUserData([userDataObject1, userDataObject2])
-        let objects = adUnitConfig.getUserData()!
-
-        //then
-        XCTAssertEqual(2, objects.count)
-        XCTAssertEqual(objects.first, userDataObject1)
-    }
-    
-    func testRemoveUserDataObjects() {
-        let userDataObject = PBMORTBContentData()
-        userDataObject.id = "data id"
-        userDataObject.name = "test name"
-
-        adUnitConfig.addUserData([userDataObject])
-        let objects1 = adUnitConfig.getUserData()!
-
-        XCTAssertEqual(1, objects1.count)
-
-        adUnitConfig.removeUserData(userDataObject)
-        let objects2 = adUnitConfig.getUserData()!
-
-        XCTAssertEqual(0, objects2.count)
-    }
-
-    func testClearUserDataObjects() {
-        let userDataObject1 = PBMORTBContentData()
-        userDataObject1.id = "data id"
-        userDataObject1.name = "test name"
-        let userDataObject2 = PBMORTBContentData()
-        userDataObject2.id = "data id"
-        userDataObject2.name = "test name"
-
-        adUnitConfig.addUserData([userDataObject1, userDataObject2])
-        let objects1 = adUnitConfig.getUserData()!
-
-        XCTAssertEqual(2, objects1.count)
-
-        adUnitConfig.clearUserData()
-        let objects2 = adUnitConfig.getUserData()!
-        XCTAssertEqual(0, objects2.count)
-    }
-    
     // MARK: - The Prebid Ad Slot
     
     func testSetPbAdSlot() {        

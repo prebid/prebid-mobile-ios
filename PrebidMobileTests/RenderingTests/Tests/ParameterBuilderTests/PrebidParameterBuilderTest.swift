@@ -183,24 +183,11 @@ class PrebidParameterBuilderTest: XCTestCase {
         targeting.addAppExtData(key: "last_search_keywords", value: "wolf")
         targeting.addAppExtData(key: "last_search_keywords", value: "pet")
         
-        let userDataObject1 = PBMORTBContentData()
-        userDataObject1.id = "data id"
-        userDataObject1.name = "test name"
-        let userDataObject2 = PBMORTBContentData()
-        userDataObject2.id = "data id"
-        userDataObject2.name = "test name"
-        
-        adUnitConfig.addUserData([userDataObject1, userDataObject2])
-        let objects = adUnitConfig.getUserData()!
-        
         adUnitConfig.addExtData(key: "buy", value: "mushrooms")
         
         let bidRequest = buildBidRequest(with: adUnitConfig)
         
         XCTAssertEqual(bidRequest.extPrebid.dataBidders, ["prebid-mobile"])
-        
-        XCTAssertEqual(2, objects.count)
-        XCTAssertEqual(objects.first, userDataObject1)
         
         let extData = bidRequest.app.ext.data!
         XCTAssertTrue(extData.keys.count == 1)

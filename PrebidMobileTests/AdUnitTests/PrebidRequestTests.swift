@@ -28,7 +28,6 @@ final class PrebidRequestTests: XCTestCase {
         XCTAssertFalse(request.isInterstitial)
         XCTAssertFalse(request.isRewarded)
         
-        XCTAssertNil(request.getUserData())
         XCTAssertTrue(request.getExtData().isEmpty)
         XCTAssertTrue(request.getExtKeywords().isEmpty)
     }
@@ -157,65 +156,5 @@ final class PrebidRequestTests: XCTestCase {
         
         //then
         XCTAssertEqual(0, set.count)
-    }
-    
-    // MARK: - global user data aka visitor data (user.data)
-
-    func testAddUserDataObjects() {
-        //given
-        let request = PrebidRequest()
-        
-        let userDataObject1 = PBMORTBContentData()
-        userDataObject1.id = "data id"
-        userDataObject1.name = "test name"
-        let userDataObject2 = PBMORTBContentData()
-        userDataObject2.id = "data id"
-        userDataObject2.name = "test name"
-
-        //when
-        request.addUserData([userDataObject1, userDataObject2])
-        let objects = request.getUserData()!
-
-        //then
-        XCTAssertEqual(2, objects.count)
-        XCTAssertEqual(objects.first, userDataObject1)
-    }
-    
-    func testRemoveUserDataObjects() {
-        let request = PrebidRequest()
-        
-        let userDataObject = PBMORTBContentData()
-        userDataObject.id = "data id"
-        userDataObject.name = "test name"
-
-        request.addUserData([userDataObject])
-        let objects1 = request.getUserData()!
-
-        XCTAssertEqual(1, objects1.count)
-
-        request.removeUserData(userDataObject)
-        let objects2 = request.getUserData()!
-
-        XCTAssertEqual(0, objects2.count)
-    }
-
-    func testClearUserDataObjects() {
-        let request = PrebidRequest()
-        
-        let userDataObject1 = PBMORTBContentData()
-        userDataObject1.id = "data id"
-        userDataObject1.name = "test name"
-        let userDataObject2 = PBMORTBContentData()
-        userDataObject2.id = "data id"
-        userDataObject2.name = "test name"
-
-        request.addUserData([userDataObject1, userDataObject2])
-        let objects1 = request.getUserData()!
-
-        XCTAssertEqual(2, objects1.count)
-
-        request.clearUserData()
-        let objects2 = request.getUserData()!
-        XCTAssertEqual(0, objects2.count)
     }
 }

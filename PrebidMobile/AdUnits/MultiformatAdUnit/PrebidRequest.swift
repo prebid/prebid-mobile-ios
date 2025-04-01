@@ -44,8 +44,6 @@ public class PrebidRequest: NSObject {
     // MARK: - Private properties
     
     private var extData = [String: Set<String>]()
-    private var appContent: PBMORTBAppContent?
-    private var userData: [PBMORTBContentData]?
     private var extKeywords = Set<String>()
     
     /// Initializes a new `PrebidRequest` with the given parameters.
@@ -153,34 +151,5 @@ public class PrebidRequest: NSObject {
     
     func getExtKeywords() -> Set<String> {
         extKeywords
-    }
-    
-    // MARK: - User Data (user.data)
-    
-    /// Adds user data to the ad request.
-    /// - Parameter userDataObjects: The array of `PBMORTBContentData` to add.
-    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        if userData == nil {
-            userData = [PBMORTBContentData]()
-        }
-        
-        userData?.append(contentsOf: userDataObjects)
-    }
-    
-    /// Removes specific user data from the ad request.
-    /// - Parameter userDataObject: The `PBMORTBContentData` to remove.
-    public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        if let userData = userData, userData.contains(userDataObject) {
-            self.userData?.removeAll { $0 == userDataObject }
-        }
-    }
-    
-    /// Clears all user data from the ad request.
-    public func clearUserData() {
-        userData?.removeAll()
-    }
-    
-    func getUserData() -> [PBMORTBContentData]? {
-        userData
     }
 }

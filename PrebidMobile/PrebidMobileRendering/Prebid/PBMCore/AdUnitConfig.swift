@@ -159,33 +159,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         extKeywords
     }
     
-    // MARK: - User Data (user.data)
-    
-    func setUserData(_ userData: [PBMORTBContentData]?) {
-        self.userData = userData
-    }
-        
-    public func getUserData() -> [PBMORTBContentData]? {
-        return userData
-    }
-    
-    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        if userData == nil {
-            userData = [PBMORTBContentData]()
-        }
-        userData?.append(contentsOf: userDataObjects)
-    }
-    
-    public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        if let userData = userData, userData.contains(userDataObject) {
-            self.userData?.removeAll { $0 == userDataObject }
-        }
-    }
-    
-    public func clearUserData() {
-        userData?.removeAll()
-    }
-    
     // MARK: - The Prebid Ad Slot
 
     public func setPbAdSlot(_ newElement: String?) {

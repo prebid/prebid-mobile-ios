@@ -163,11 +163,6 @@
         }
     }
     
-    NSArray<PBMORTBContentData *> *userData = [self.adConfiguration getUserData];
-    if (userData) {
-        bidRequest.user.data = userData;
-    }
-    
     PBMORTBAppExt * const appExt = bidRequest.app.ext;
     PBMORTBAppExtPrebid * const appExtPrebid = appExt.prebid;
     
