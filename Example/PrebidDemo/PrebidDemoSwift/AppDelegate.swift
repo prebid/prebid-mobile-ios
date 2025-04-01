@@ -46,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ) { status, error in
             if let error = error {
                 print("Initialization Error: \(error.localizedDescription)")
-                return
             }
         }
         
