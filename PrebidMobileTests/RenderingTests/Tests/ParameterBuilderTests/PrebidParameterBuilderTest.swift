@@ -207,7 +207,6 @@ class PrebidParameterBuilderTest: XCTestCase {
                 return
             }
 
-            XCTAssertEqual(extData["adslot"] as? String, testAdSlot)
             XCTAssertEqual(extData["pbadslot"] as? String, testAdSlot)
         }
     }

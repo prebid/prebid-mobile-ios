@@ -17,7 +17,7 @@ import ObjectiveC.runtime
 @objcMembers
 public class AdUnit: NSObject, DispatcherDelegate {
     
-    /// ORTB: imp[].ext.data.adslot
+    /// ORTB: imp[].ext.data.pbadslot
     public var pbAdSlot: String? {
         get { adUnitConfig.getPbAdSlot()}
         set { adUnitConfig.setPbAdSlot(newValue) }

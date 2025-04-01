@@ -183,8 +183,6 @@
         
         NSString * pbAdSlot = [self.adConfiguration getPbAdSlot];
         
-        // NOTE: `adslot` will be removed in future versions of Prebid SDK.
-        nextImp.extData[@"adslot"] = pbAdSlot;
         nextImp.extData[@"pbadslot"] = pbAdSlot;
         
         for (AdFormat* adFormat in adFormats) {
