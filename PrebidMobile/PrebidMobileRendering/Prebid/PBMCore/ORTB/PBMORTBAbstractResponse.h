@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMORTBAbstractResponse<__covariant ExtType> : PBMORTBAbstract
 
-@property (nonatomic, strong) ExtType ext;
+@property (nonatomic, strong, nullable) ExtType ext;
 
 @end
 

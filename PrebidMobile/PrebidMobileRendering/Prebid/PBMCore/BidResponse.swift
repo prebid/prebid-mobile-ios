@@ -86,7 +86,7 @@ public class BidResponse: NSObject {
         self.winningBid = winningBid
         self.allBids = allBids
         self.targetingInfo = targetingInfo.count > 0 ? targetingInfo : nil
-        tmaxrequest = rawBidResponse.ext.tmaxrequest
+        tmaxrequest = rawBidResponse.ext?.tmaxrequest
         self.ext = rawBidResponse.ext
     }
     
