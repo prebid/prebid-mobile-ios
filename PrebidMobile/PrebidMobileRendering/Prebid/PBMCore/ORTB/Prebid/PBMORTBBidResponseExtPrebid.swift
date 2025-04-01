@@ -20,21 +20,27 @@ import Foundation
 public class PBMORTBBidResponseExtPrebid: PBMORTBAbstract {
     public var passthrough: [PBMORTBExtPrebidPassthrough]?
     
+    private enum KeySet: String {
+        case passthrough
+    }
+    
     override init() {
         super.init()
     }
     
     override public init(jsonDictionary: [String : Any]) {
-        passthrough = jsonDictionary.passthroughObjects(key: "passthrough")
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        passthrough = json.backwardsCompatiblePassthrough(key: .passthrough)
         
         super.init()
     }
     
     override public func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["passthrough"] = passthrough?.compactMap { $0.toJsonDictionary().nilIfEmpty }.nilIfEmpty
+        json[.passthrough] = passthrough
         
-        return ret
+        return json.dict
     }
 }

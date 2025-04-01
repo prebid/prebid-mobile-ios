@@ -22,23 +22,30 @@ public class PBMORTBRewardedCompletion: PBMORTBAbstract {
     public var banner: PBMORTBRewardedCompletionBanner?
     public var video: PBMORTBRewardedCompletionVideo?
     
+    private enum KeySet: String {
+        case banner
+        case video
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        banner = jsonDictionary.entity(key: "banner")
-        video = jsonDictionary.entity(key: "video")
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        banner = json[.banner]
+        video = json[.video]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["banner"] = banner?.toJsonDictionary().nilIfEmpty
-        ret["video"] = video?.toJsonDictionary().nilIfEmpty
+        json[.banner] = banner
+        json[.video] = video
         
-        return ret
+        return json.dict
     }
 }

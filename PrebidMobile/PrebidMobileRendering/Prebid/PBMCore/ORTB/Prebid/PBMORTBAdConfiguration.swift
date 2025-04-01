@@ -26,33 +26,45 @@ public class PBMORTBAdConfiguration: PBMORTBAbstract {
     public var skipButtonPosition: String?
     public var skipDelay: NSNumber?
     
+    private enum KeySet: String {
+        case maxvideoduration
+        case ismuted
+        case closebuttonarea
+        case closebuttonposition
+        case skipbuttonarea
+        case skipbuttonposition
+        case skipdelay
+    }
+    
     override init() {
         super.init()
     }
     
     override public init(jsonDictionary: [String : Any]) {
-        maxVideoDuration = jsonDictionary[key: "maxvideoduration"]
-        isMuted = jsonDictionary[key: "ismuted"]
-        closeButtonArea = jsonDictionary[key: "closebuttonarea"]
-        closeButtonPosition = jsonDictionary[key: "closebuttonposition"]
-        skipButtonArea = jsonDictionary[key: "skipbuttonarea"]
-        skipButtonPosition = jsonDictionary[key: "skipbuttonposition"]
-        skipDelay = jsonDictionary[key: "skipdelay"]
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        maxVideoDuration = json[.maxvideoduration]
+        isMuted = json[.ismuted]
+        closeButtonArea = json[.closebuttonarea]
+        closeButtonPosition = json[.closebuttonposition]
+        skipButtonArea = json[.skipbuttonarea]
+        skipButtonPosition = json[.skipbuttonposition]
+        skipDelay = json[.skipdelay]
         
         super.init()
     }
     
     override public func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["maxvideoduration"] = maxVideoDuration
-        ret["ismuted"] = isMuted
-        ret["closebuttonarea"] = closeButtonArea
-        ret["closebuttonposition"] = closeButtonPosition
-        ret["skipbuttonarea"] = skipButtonArea
-        ret["skipbuttonposition"] = skipButtonPosition
-        ret["skipdelay"] = skipDelay
+        json[.maxvideoduration] = maxVideoDuration
+        json[.ismuted] = isMuted
+        json[.closebuttonarea] = closeButtonArea
+        json[.closebuttonposition] = closeButtonPosition
+        json[.skipbuttonarea] = skipButtonArea
+        json[.skipbuttonposition] = skipButtonPosition
+        json[.skipdelay] = skipDelay
         
-        return ret
+        return json.dict
     }
 }

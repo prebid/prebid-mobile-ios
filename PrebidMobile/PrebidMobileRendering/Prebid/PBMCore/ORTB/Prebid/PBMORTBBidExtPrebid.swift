@@ -25,31 +25,42 @@ public class PBMORTBBidExtPrebid: PBMORTBAbstract {
     public var passthrough: [PBMORTBExtPrebidPassthrough]?
     public var events: PBMORTBExtPrebidEvents?
     
+    private enum KeySet: String {
+        case cache
+        case targeting
+        case meta
+        case type
+        case passthrough
+        case events
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        cache = jsonDictionary.entity(key: "cache")
-        targeting = jsonDictionary[key: "targeting"]
-        meta = jsonDictionary[key: "meta"]
-        type = jsonDictionary[key: "type"]
-        passthrough = jsonDictionary.passthroughObjects(key: "passthrough")
-        events = jsonDictionary.entity(key: "events")
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        cache = json[.cache]
+        targeting = json[.targeting]
+        meta = json[.meta]
+        type = json[.type]
+        passthrough = json.backwardsCompatiblePassthrough(key: .passthrough)
+        events = json[.events]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["cache"] = cache?.toJsonDictionary().nilIfEmpty
-        ret["targeting"] = targeting?.nilIfEmpty
-        ret["meta"] = meta?.nilIfEmpty
-        ret["type"] = type
-        ret["passthrough"] = passthrough?.compactMap { $0.toJsonDictionary().nilIfEmpty }.nilIfEmpty
-        ret["events"] = events?.toJsonDictionary()
+        json[.cache] = cache
+        json[.targeting] = targeting
+        json[.meta] = meta
+        json[.type] = type
+        json[.passthrough] = passthrough
+        json[.events] = events
         
-        return ret
+        return json.dict
     }
 }

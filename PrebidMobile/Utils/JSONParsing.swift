@@ -16,45 +16,103 @@
 
 import Foundation
 
-extension [String : Any] {
+struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
+    private(set) var dict: [String : Any]
     
-    subscript<T>(key key: String) -> T? {
-        self[key] as? T
+    init() {
+        dict = [:]
     }
     
-    subscript<T>(key key: String, as type: T.Type) -> T? {
-        self[key] as? T
+    init(_ dict: [String : Any]) {
+        self.dict = dict
     }
     
-    func entity<T: PBMORTBAbstract>(key: String) -> T? {
-        (self[key] as? [String : Any]).flatMap { T(jsonDictionary: $0) }
-    }
+    // MARK: Single Value
     
-    func array<T>(key: String, of type: T.Type) -> [T]? {
-        (self[key] as? [Any])?.compactMap { $0 as? T }
-    }
-    
-    func array<T: PBMORTBAbstract>(key: String, ofEntity: T.Type) -> [T]? {
-        (self[key] as? [Any])?.compactMap {
-            if let dict = $0 as? [String : Any],
-               let entity = T(jsonDictionary: dict) {
-                return entity
-            }
-            return nil
+    subscript(_ key: Key) -> NSNumber? {
+        get {
+            dict[key.rawValue] as? NSNumber
+        }
+        
+        set {
+            dict[key.rawValue] = newValue
         }
     }
     
-    func dictionary<T>(key: String, of type: T.Type) -> [String : T]? {
-        (self[key] as? [String : Any])?.compactMapValues { $0 as? T }
+    subscript(_ key: Key) -> String? {
+        get {
+            dict[key.rawValue] as? String
+        }
+        
+        set {
+            dict[key.rawValue] = newValue
+        }
     }
     
-    func passthroughObjects(key: String) -> [PBMORTBExtPrebidPassthrough]? {
+    subscript(_ key: Key) -> UUID? {
+        get {
+            (dict[key.rawValue] as? String).flatMap { UUID(uuidString: $0) }
+        }
+        
+        set {
+            dict[key.rawValue] = newValue?.uuidString
+        }
+    }
+    
+    subscript<T: PBMORTBAbstract>(_ key: Key) -> T? {
+        get {
+            (dict[key.rawValue] as? [String : Any]).flatMap { T(jsonDictionary: $0) }
+        }
+        
+        set {
+            dict[key.rawValue] = newValue?.toJsonDictionary()
+        }
+    }
+    
+    // MARK: Array
+    
+    @_disfavoredOverload
+    subscript<T>(_ key: Key) -> [T]? {
+        get {
+            (dict[key.rawValue] as? [Any])?.compactMap { $0 as? T }
+        }
+        
+        set {
+            dict[key.rawValue] = newValue
+        }
+    }
+    
+    subscript<T: PBMORTBAbstract>(_ key: Key) -> [T]? {
+        get {
+            (dict[key.rawValue] as? [Any])?.compactMap {
+                ($0 as? [String : Any]).flatMap { T(jsonDictionary: $0) }
+            }
+        }
+        
+        set {
+            dict[key.rawValue] = newValue?.compactMap { $0.toJsonDictionary() }
+        }
+    }
+    
+    // MARK: Object
+    
+    subscript<T>(_ key: Key) -> [String : T]? {
+        get {
+            (dict[key.rawValue] as? [String : Any])?.compactMapValues { $0 as? T }
+        }
+        
+        set {
+            dict[key.rawValue] = newValue
+        }
+    }
+    
+    func backwardsCompatiblePassthrough(key: Key) -> [PBMORTBExtPrebidPassthrough]? {
         // The prebid spec defines in various parts of the schema the "passthrough" key
         // which is supposed to map to a JSON object. However it was mistakenly implemented
         // as an array of objects in this SDK. To maintain backwards compatibility we still
         // check for the array of objects.
         let dictionaries: [[String : Any]]?
-        switch self[key] {
+        switch dict[key.rawValue] {
             case let value as [String : Any]:
                 dictionaries = [value]
             case let value as [Any]:
@@ -63,19 +121,6 @@ extension [String : Any] {
                 dictionaries = nil
         }
         
-        return dictionaries?.map { PBMORTBExtPrebidPassthrough(jsonDictionary: $0) }.nilIfEmpty
+        return dictionaries?.map { PBMORTBExtPrebidPassthrough(jsonDictionary: $0) }
     }
 }
-
-extension Array {
-    var nilIfEmpty: Self? {
-        isEmpty ? nil : self
-    }
-}
-
-extension Dictionary {
-    var nilIfEmpty: Self? {
-        isEmpty ? nil : self
-    }
-}
-

@@ -21,23 +21,30 @@ public class PBMORTBSDKConfiguration: PBMORTBAbstract {
     public var cftBanner: NSNumber?
     public var cftPreRender: NSNumber?
     
+    private enum KeySet: String {
+        case cftbanner
+        case cftprerender
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        cftBanner = jsonDictionary[key: "cftbanner"]
-        cftPreRender = jsonDictionary[key: "cftprerender"]
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        cftBanner = json[.cftbanner]
+        cftPreRender = json[.cftprerender]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["cftbanner"] = cftBanner
-        ret["cftprerender"] = cftPreRender
+        json[.cftbanner] = cftBanner
+        json[.cftprerender] = cftPreRender
         
-        return ret
+        return json.dict
     }
 }

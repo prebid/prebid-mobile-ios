@@ -29,23 +29,30 @@ public class PBMORTBRewardedClose: PBMORTBAbstract {
     /// - closebutton - show the close button.
     public var action: String?
     
+    private enum KeySet: String {
+        case postrewardtime
+        case action
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        postrewardtime = jsonDictionary[key: "postrewardtime"]
-        action = jsonDictionary[key: "action"]
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        postrewardtime = json[.postrewardtime]
+        action = json[.action]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["postrewardtime"] = postrewardtime
-        ret["action"] = action
+        json[.postrewardtime] = postrewardtime
+        json[.action] = action
         
-        return ret
+        return json.dict
     }
 }

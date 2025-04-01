@@ -22,25 +22,33 @@ public class PBMORTBBidExtPrebidCache: PBMORTBAbstract {
     public var url: String?
     public var bids: PBMORTBBidExtPrebidCacheBids?
     
+    private enum KeySet: String {
+        case url
+        case key
+        case bids
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        url = jsonDictionary[key: "url"]
-        key = jsonDictionary[key: "key"]
-        bids = jsonDictionary.entity(key: "bids")
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        url = json[.url]
+        key = json[.key]
+        bids = json[.bids]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["key"] = key
-        ret["url"] = url
-        ret["bids"] = bids?.toJsonDictionary().nilIfEmpty
+        json[.key] = key
+        json[.url] = url
+        json[.bids] = bids
         
-        return ret
+        return json.dict
     }
 }

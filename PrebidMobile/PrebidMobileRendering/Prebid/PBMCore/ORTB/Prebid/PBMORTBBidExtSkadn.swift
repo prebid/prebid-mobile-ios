@@ -48,35 +48,48 @@ public class PBMORTBBidExtSkadn: PBMORTBAbstract {
     //Placeholder for exchange-specific extensions to OpenRTB.
     //Note: ext object not supported.
     
+    private enum KeySet: String {
+        case version
+        case network
+        case campaign
+        case itunesitem
+        case sourceapp
+        case sourceidentifier
+        case fidelities
+        case skoverlay
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        version = jsonDictionary[key: "version"]
-        network = jsonDictionary[key: "network"]
-        campaign = jsonDictionary[key: "campaign"]
-        itunesitem = jsonDictionary[key: "itunesitem"]
-        sourceapp = jsonDictionary[key: "sourceapp"]
-        sourceidentifier = jsonDictionary[key: "sourceidentifier"]
-        fidelities = jsonDictionary.array(key: "fidelities", ofEntity: PBMORTBSkadnFidelity.self)
-        skoverlay = jsonDictionary.entity(key: "skoverlay")
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        version = json[.version]
+        network = json[.network]
+        campaign = json[.campaign]
+        itunesitem = json[.itunesitem]
+        sourceapp = json[.sourceapp]
+        sourceidentifier = json[.sourceidentifier]
+        fidelities = json[.fidelities]
+        skoverlay = json[.skoverlay]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["version"] = version
-        ret["network"] = network
-        ret["campaign"] = campaign
-        ret["itunesitem"] = itunesitem
-        ret["sourceapp"] = sourceapp
-        ret["sourceidentifier"] = sourceidentifier
-        ret["fidelities"] = fidelities?.compactMap { $0.toJsonDictionary().nilIfEmpty }.nilIfEmpty
-        ret["skoverlay"] = skoverlay?.toJsonDictionary().nilIfEmpty
+        json[.version] = version
+        json[.network] = network
+        json[.campaign] = campaign
+        json[.itunesitem] = itunesitem
+        json[.sourceapp] = sourceapp
+        json[.sourceidentifier] = sourceidentifier
+        json[.fidelities] = fidelities
+        json[.skoverlay] = skoverlay
         
-        return ret
+        return json.dict
     }
 }

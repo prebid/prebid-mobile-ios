@@ -28,25 +28,33 @@ public class PBMORTBRewardedReward: PBMORTBAbstract {
     /// For the future extensions
     public var ext: [String : Any]?
     
+    private enum KeySet: String {
+        case type
+        case count
+        case ext
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        type = jsonDictionary[key: "type"]
-        count = jsonDictionary[key: "count"]
-        ext = jsonDictionary[key: "ext"]
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        type = json[.type]
+        count = json[.count]
+        ext = json[.ext]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["type"] = type
-        ret["count"] = count
-        ret["ext"] = ext?.nilIfEmpty
+        json[.type] = type
+        json[.count] = count
+        json[.ext] = ext
         
-        return ret
+        return json.dict
     }
 }

@@ -30,27 +30,36 @@ public class PBMORTBSkadnFidelity: PBMORTBAbstract {
     /// Unix time in millis string used at the time of signature
     public var timestamp: NSNumber?
     
+    private enum KeySet: String {
+        case fidelity
+        case nonce
+        case timestamp
+        case signature
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        fidelity = jsonDictionary[key: "fidelity"]
-        nonce = jsonDictionary[key: "nonce", as: String.self].flatMap { UUID(uuidString: $0) }
-        timestamp = jsonDictionary[key: "timestamp"]
-        signature = jsonDictionary[key: "signature"]
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        fidelity = json[.fidelity]
+        nonce = json[.nonce]
+        timestamp = json[.timestamp]
+        signature = json[.signature]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["fidelity"] = fidelity
-        ret["nonce"] = nonce?.uuidString
-        ret["timestamp"] = timestamp
-        ret["signature"] = signature
+        json[.fidelity] = fidelity
+        json[.nonce] = nonce
+        json[.timestamp] = timestamp
+        json[.signature] = signature
         
-        return ret
+        return json.dict
     }
 }

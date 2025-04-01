@@ -311,7 +311,7 @@ class ResponseParsingTests: XCTestCase {
         var modifiedJson = json
         modifiedJson["passthrough"] = JSON.extPrebidPassthrough()
         
-        let entity = PBMORTBBidExtPrebid(jsonDictionary: modifiedJson)
+        let entity = PBMORTBBidResponseExtPrebid(jsonDictionary: modifiedJson)
         XCTAssertTrue(compare(entity.passthrough, [JSON.extPrebidPassthrough()]))
         
         XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)

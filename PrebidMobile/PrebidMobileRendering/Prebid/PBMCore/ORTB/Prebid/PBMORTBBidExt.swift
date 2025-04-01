@@ -28,31 +28,40 @@ public class PBMORTBBidExt: PBMORTBAbstract {
     public var passthrough: [PBMORTBExtPrebidPassthrough]?
 #endif
     
+    private enum KeySet: String {
+        case bidder
+        case prebid
+        case skadn
+        case passthrough
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        bidder = jsonDictionary[key: "bidder"]
-        prebid = jsonDictionary.entity(key: "prebid")
-        skadn = jsonDictionary.entity(key: "skadn")
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        bidder = json[.bidder]
+        prebid = json[.prebid]
+        skadn = json[.skadn]
 #if DEBUG
-        passthrough = jsonDictionary.passthroughObjects(key: "passthrough")
+        passthrough = json.backwardsCompatiblePassthrough(key: .passthrough)
 #endif
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["bidder"] = bidder
-        ret["prebid"] = prebid?.toJsonDictionary().nilIfEmpty
-        ret["skadn"] = skadn?.toJsonDictionary().nilIfEmpty
+        json[.bidder] = bidder
+        json[.prebid] = prebid
+        json[.skadn] = skadn
 #if DEBUG
-        ret["passthrough"] = passthrough?.compactMap { $0.toJsonDictionary() }.nilIfEmpty
+        json[.passthrough] = passthrough
 #endif
         
-        return ret
+        return json.dict
     }
 }

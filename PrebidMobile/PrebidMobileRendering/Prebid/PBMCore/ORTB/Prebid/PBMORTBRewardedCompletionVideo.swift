@@ -27,25 +27,33 @@ public class PBMORTBRewardedCompletionVideo: PBMORTBAbstract {
     /// Endcard completion criteria
     public var endcard: PBMORTBRewardedCompletionVideoEndcard?
     
+    private enum KeySet: String {
+        case time
+        case playbackevent
+        case endcard
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        time = jsonDictionary[key: "time"]
-        playbackevent = jsonDictionary[key: "playbackevent"]
-        endcard = jsonDictionary.entity(key: "endcard")
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        time = json[.time]
+        playbackevent = json[.playbackevent]
+        endcard = json[.endcard]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["time"] = time
-        ret["playbackevent"] = playbackevent
-        ret["endcard"] = endcard?.toJsonDictionary().nilIfEmpty
+        json[.time] = time
+        json[.playbackevent] = playbackevent
+        json[.endcard] = endcard
         
-        return ret
+        return json.dict
     }
 }

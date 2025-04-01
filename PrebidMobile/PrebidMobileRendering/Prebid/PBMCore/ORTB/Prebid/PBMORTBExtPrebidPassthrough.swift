@@ -23,28 +23,36 @@ public class PBMORTBExtPrebidPassthrough: PBMORTBAbstract {
     public var sdkConfiguration: PBMORTBSDKConfiguration?
     public var rewardedConfiguration: PBMORTBRewardedConfiguration?
     
+    private enum KeySet: String {
+        case type
+        case adconfiguration
+        case sdkconfiguration
+        case rwdd
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
+        let json = JSONObject<KeySet>(jsonDictionary)
         
-        type = jsonDictionary[key: "type"]
-        adConfiguration = jsonDictionary.entity(key: "adconfiguration")
-        sdkConfiguration = jsonDictionary.entity(key: "sdkconfiguration")
-        rewardedConfiguration = jsonDictionary.entity(key: "rwdd")
+        type = json[.type]
+        adConfiguration = json[.adconfiguration]
+        sdkConfiguration = json[.sdkconfiguration]
+        rewardedConfiguration = json[.rwdd]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["type"] = type
-        ret["adconfiguration"] = adConfiguration?.toJsonDictionary().nilIfEmpty
-        ret["sdkconfiguration"] = sdkConfiguration?.toJsonDictionary().nilIfEmpty
-        ret["rwdd"] = rewardedConfiguration?.toJsonDictionary().nilIfEmpty
+        json[.type] = type
+        json[.adconfiguration] = adConfiguration
+        json[.sdkconfiguration] = sdkConfiguration
+        json[.rwdd] = rewardedConfiguration
         
-        return ret
+        return json.dict
     }
 }

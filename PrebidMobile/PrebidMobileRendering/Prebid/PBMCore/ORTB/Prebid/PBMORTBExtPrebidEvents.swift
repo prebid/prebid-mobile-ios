@@ -21,23 +21,30 @@ public class PBMORTBExtPrebidEvents: PBMORTBAbstract {
     public var win: String?
     public var imp: String?
     
+    private enum KeySet: String {
+        case win
+        case imp
+    }
+    
     override init() {
         super.init()
     }
     
     override public init(jsonDictionary: [String : Any]) {
-        win = jsonDictionary[key: "win"]
-        imp = jsonDictionary[key: "imp"]
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        win = json[.win]
+        imp = json[.imp]
         
         super.init()
     }
     
     override public func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["win"] = win
-        ret["imp"] = imp
+        json[.win] = win
+        json[.imp] = imp
         
-        return ret
+        return json.dict
     }
 }

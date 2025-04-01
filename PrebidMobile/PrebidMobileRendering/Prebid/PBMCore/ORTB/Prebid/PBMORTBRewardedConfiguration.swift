@@ -27,25 +27,33 @@ public class PBMORTBRewardedConfiguration: PBMORTBAbstract {
     /// Describes the close behavior. How should the SDK manage the ad when it is encountered as viewed.
     public var close: PBMORTBRewardedClose?
     
+    private enum KeySet: String {
+        case reward
+        case completion
+        case close
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        reward = jsonDictionary.entity(key: "reward")
-        completion = jsonDictionary.entity(key: "completion")
-        close = jsonDictionary.entity(key: "close")
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        reward = json[.reward]
+        completion = json[.completion]
+        close = json[.close]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["reward"] = reward?.toJsonDictionary().nilIfEmpty
-        ret["completion"] = completion?.toJsonDictionary().nilIfEmpty
-        ret["close"] = close?.toJsonDictionary().nilIfEmpty
+        json[.reward] = reward
+        json[.completion] = completion
+        json[.close] = close
         
-        return ret
+        return json.dict
     }
 }

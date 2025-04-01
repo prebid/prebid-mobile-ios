@@ -32,27 +32,36 @@ public class PBMORTBBidExtSkadnSKOverlay: PBMORTBAbstract {
     /// Position of the overlay, 0 = bottom, 1 = bottom raised
     public var pos: NSNumber?
     
+    private enum KeySet: String {
+        case delay
+        case endcarddelay
+        case dismissible
+        case pos
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        delay = jsonDictionary[key: "delay"]
-        endcarddelay = jsonDictionary[key: "endcarddelay"]
-        dismissible = jsonDictionary[key: "dismissible"]
-        pos = jsonDictionary[key: "pos"]
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        delay = json[.delay]
+        endcarddelay = json[.endcarddelay]
+        dismissible = json[.dismissible]
+        pos = json[.pos]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["delay"] = delay
-        ret["endcarddelay"] = endcarddelay
-        ret["dismissible"] = dismissible
-        ret["pos"] = pos
+        json[.delay] = delay
+        json[.endcarddelay] = endcarddelay
+        json[.dismissible] = dismissible
+        json[.pos] = pos
         
-        return ret
+        return json.dict
     }
 }

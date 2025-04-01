@@ -24,23 +24,30 @@ public class PBMORTBRewardedCompletionBanner: PBMORTBAbstract {
     /// The URL with a custom schema that will be sent by the creative and should be caught by the SDK
     public var event: String?
     
+    private enum KeySet: String {
+        case time
+        case event
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        time = jsonDictionary[key: "time"]
-        event = jsonDictionary[key: "event"]
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        time = json[.time]
+        event = json[.event]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["time"] = time
-        ret["event"] = event
+        json[.time] = time
+        json[.event] = event
         
-        return ret
+        return json.dict
     }
 }

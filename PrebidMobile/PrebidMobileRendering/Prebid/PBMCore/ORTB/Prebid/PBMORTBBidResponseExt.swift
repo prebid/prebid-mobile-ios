@@ -26,25 +26,33 @@ public class PBMORTBBidResponseExt: PBMORTBAbstract {
 
     public var extPrebid: PBMORTBBidResponseExtPrebid?
     
+    private enum KeySet: String {
+        case responsetimemillis
+        case tmaxrequest
+        case prebid
+    }
+    
     public override init() {
         super.init()
     }
     
     public override init(jsonDictionary: [String : Any]) {
-        responsetimemillis = jsonDictionary.dictionary(key: "responsetimemillis", of: NSNumber.self)
-        tmaxrequest = jsonDictionary[key: "tmaxrequest"]
-        extPrebid = jsonDictionary.entity(key: "prebid")
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        responsetimemillis = json[.responsetimemillis]
+        tmaxrequest = json[.tmaxrequest]
+        extPrebid = json[.prebid]
         
         super.init()
     }
     
     public override func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["responsetimemillis"] = responsetimemillis?.nilIfEmpty
-        ret["tmaxrequest"] = tmaxrequest
-        ret["prebid"] = extPrebid?.toJsonDictionary().nilIfEmpty
+        json[.responsetimemillis] = responsetimemillis
+        json[.tmaxrequest] = tmaxrequest
+        json[.prebid] = extPrebid
         
-        return ret
+        return json.dict
     }
 }

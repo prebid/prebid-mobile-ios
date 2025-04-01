@@ -21,23 +21,30 @@ public class PBMORTBBidExtPrebidCacheBids: PBMORTBAbstract {
     public var url: String?
     public var cacheId: String?
     
+    private enum KeySet: String {
+        case url
+        case cacheId
+    }
+    
     override init() {
         super.init()
     }
     
     override public init(jsonDictionary: [String : Any]) {
-        url = jsonDictionary[key: "url"]
-        cacheId = jsonDictionary[key: "cacheId"]
+        let json = JSONObject<KeySet>(jsonDictionary)
+        
+        url = json[.url]
+        cacheId = json[.cacheId]
         
         super.init()
     }
     
     override public func toJsonDictionary() -> [String : Any] {
-        var ret = [String : Any]()
+        var json = JSONObject<KeySet>()
         
-        ret["url"] = url
-        ret["cacheId"] = cacheId
+        json[.url] = url
+        json[.cacheId] = cacheId
         
-        return ret
+        return json.dict
     }
 }
