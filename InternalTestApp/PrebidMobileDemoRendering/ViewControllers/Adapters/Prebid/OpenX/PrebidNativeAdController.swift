@@ -96,20 +96,6 @@ class PrebidNativeAdController: NSObject, AdaptedController {
     
     func loadAd() {
         setupNativeAdUnit(configId: prebidConfigId)
-
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addExtData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addExtKeyword(keyword)
-            }
-        }
         
         adUnit?.fetchDemand { [weak self] bidInfo in
             guard let self = self else { return }

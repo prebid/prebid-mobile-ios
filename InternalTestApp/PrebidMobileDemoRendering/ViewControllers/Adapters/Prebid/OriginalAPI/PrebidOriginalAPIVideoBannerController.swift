@@ -71,20 +71,6 @@ class PrebidOriginalAPIVideoBannerController:
         adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
         adUnit.adFormats = [.video]
         adUnit.setAutoRefreshMillis(time: refreshInterval)
-        
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addExtData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addExtKeyword(keyword)
-            }
-        }
             
         gamBanner = AdManagerBannerView(adSize: gamSizes.first ?? adSizeFor(cgSize: adSize))
         gamBanner.validAdSizes = gamSizes.map(nsValue)

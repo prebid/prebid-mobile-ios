@@ -61,20 +61,6 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
         
         rewardedAdController?.supportSKOverlay = supportSKOverlay
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                rewardedAdController?.addExtData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                rewardedAdController?.addExtKeyword(keyword)
-            }
-        }
-        
         rewardedAdController?.loadAd()
     }
     

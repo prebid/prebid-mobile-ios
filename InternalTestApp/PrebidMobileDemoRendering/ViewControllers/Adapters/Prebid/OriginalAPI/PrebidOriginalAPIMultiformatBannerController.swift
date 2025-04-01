@@ -72,22 +72,7 @@ class PrebidOriginalAPIMultiformatBannerController:
         adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
         adUnit.setAutoRefreshMillis(time: refreshInterval)
         adUnit.adFormats = [.banner, .video]
-        
         adUnit.videoParameters.mimes = ["video/mp4"]
-        
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addExtData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addExtKeyword(keyword)
-            }
-        }
         
         gamBanner = AdManagerBannerView(adSize: gamSizes.first ?? adSizeFor(cgSize: adSize))
         gamBanner.validAdSizes = gamSizes.map(nsValue)

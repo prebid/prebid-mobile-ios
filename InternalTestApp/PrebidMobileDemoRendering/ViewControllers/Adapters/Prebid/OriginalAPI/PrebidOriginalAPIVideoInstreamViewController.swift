@@ -103,21 +103,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
         
         adUnit = InstreamVideoAdUnit(configId: prebidConfigId, size: CGSize(width: 640, height: 480))
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addExtData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addExtKeyword(keyword)
-            }
-        }
-        
-        let parameters = VideoParameters(mimes: ["video/mp4"]) 
+        let parameters = VideoParameters(mimes: ["video/mp4"])
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn]
         parameters.protocols = [Signals.Protocols.VAST_2_0,Signals.Protocols.VAST_3_0,Signals.Protocols.VAST_4_0]
         parameters.api = [1,2]            // or alternative enum values [Api.VPAID_1, Api.VPAID_2]

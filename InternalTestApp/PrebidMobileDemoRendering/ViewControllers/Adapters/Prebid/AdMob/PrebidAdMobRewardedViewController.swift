@@ -63,20 +63,6 @@ class PrebidAdMobRewardedViewController:
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addExtData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addExtKeyword(keyword)
-            }
-        }
-        
         adUnit?.fetchDemand { [weak self] result in
             guard let self = self else { return }
             RewardedAd.load(with: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in

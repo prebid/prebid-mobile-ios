@@ -88,21 +88,6 @@ class PrebidGAMBannerController:
        
         adBannerView?.delegate = self
         adBannerView?.accessibilityIdentifier = "BannerView"
-        
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adBannerView?.addExtData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adBannerView?.addExtKeyword(keyword)
-            }
-        }
-        
         adBannerView?.loadAd()
 
         rootController?.bannerView.addSubview(self.adBannerView!)

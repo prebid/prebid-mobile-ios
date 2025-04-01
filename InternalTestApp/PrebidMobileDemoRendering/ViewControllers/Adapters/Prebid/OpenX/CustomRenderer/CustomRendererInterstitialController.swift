@@ -113,20 +113,6 @@ class CustomRendererInterstitialController:
             interstitialController?.adFormats = adFormats
         }
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                interstitialController?.addExtData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                interstitialController?.addExtKeyword(keyword)
-            }
-        }
-        
         interstitialController?.loadAd()
     }
     

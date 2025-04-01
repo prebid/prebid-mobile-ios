@@ -1948,12 +1948,6 @@ struct TestCaseManager {
                         adBannerView.delegate = feedVC
                         adBannerView.accessibilityIdentifier = "PrebidBannerView"
                         
-                        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-                            for dataPair in adUnitContext {
-                                adBannerView.addExtData(key: dataPair.key, value: dataPair.value)
-                            }
-                        }
-                        
                         setupCustomParams(for: prebidConfigId)
                         adBannerView.loadAd()
                         
@@ -2103,12 +2097,6 @@ struct TestCaseManager {
                                 adBannerView.videoParameters.placement = .InFeed
                                 adBannerView.delegate = feedVC
                                 adBannerView.accessibilityIdentifier = "PrebidBannerView"
-                                
-                                if let adUnitContext = AppConfiguration.shared.adUnitContext {
-                                    for dataPair in adUnitContext {
-                                        adBannerView.addExtData(key: dataPair.key, value: dataPair.value)
-                                    }
-                                }
                                 
                                 setupCustomParams(for: prebidConfigId)
                                 adBannerView.loadAd()
