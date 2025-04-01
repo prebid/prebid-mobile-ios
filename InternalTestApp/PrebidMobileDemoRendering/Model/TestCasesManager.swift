@@ -201,33 +201,16 @@ struct TestCaseManager {
     static func updateUserData(_ openRtb: [String: Any]) {
         let targeting = Targeting.shared
         
-        if let age = openRtb["age"] as? Int {
-            targeting.yearOfBirth = age
-        }
-        
         if let value = openRtb["url"] as? String {
             targeting.storeURL = value
         }
         
-        if let value = openRtb["gen"] as? String {
-            targeting.userGender = TestCaseManager.strToGender(value)
-        }
-        
-        if let value = openRtb["buyerid"] as? String {
-            targeting.buyerUID = value
-        }
-        if let value = openRtb["xid"] as? String {
-            targeting.userID = value
-        }
         if let value = openRtb["publisherName"] as? String {
             targeting.publisherName = value
         }
         
         if let value = openRtb["keywords"] as? String {
             Targeting.shared.addUserKeyword(value)
-        }
-        if let value = openRtb["customdata"] as? String {
-            targeting.userCustomData = value
         }
         
         if let geo = openRtb["geo"] as? [String: Double] {
@@ -898,19 +881,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                        
-                       
-                                       
-                Targeting.shared.eids = [
-                    [
-                        "source" : "liveramp.com",
-                        "uids" : [
-                            [
-                                "id": "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM"
-                            ]
-                        ]
+                
+                let eid = ExternalUserId(
+                    source: "liveramp.com",
+                    uids: [
+                        UserUniqueID(
+                            id: "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM",
+                            aType: 1
+                        )
                     ]
-                ]
+                )
+               
+                Targeting.shared.setExternalUserIds([eid])
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "prebid-ita-banner-320-50"
@@ -1966,12 +1948,6 @@ struct TestCaseManager {
                         adBannerView.delegate = feedVC
                         adBannerView.accessibilityIdentifier = "PrebidBannerView"
                         
-                        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-                            for dataPair in adUnitContext {
-                                adBannerView.addContextData(dataPair.value, forKey: dataPair.key)
-                            }
-                        }
-                        
                         setupCustomParams(for: prebidConfigId)
                         adBannerView.loadAd()
                         
@@ -2121,12 +2097,6 @@ struct TestCaseManager {
                                 adBannerView.videoParameters.placement = .InFeed
                                 adBannerView.delegate = feedVC
                                 adBannerView.accessibilityIdentifier = "PrebidBannerView"
-                                
-                                if let adUnitContext = AppConfiguration.shared.adUnitContext {
-                                    for dataPair in adUnitContext {
-                                        adBannerView.addContextData(dataPair.value, forKey: dataPair.key)
-                                    }
-                                }
                                 
                                 setupCustomParams(for: prebidConfigId)
                                 adBannerView.loadAd()
@@ -3942,19 +3912,5 @@ struct TestCaseManager {
         return TestCaseForTableCell(configurationClosureForTableCell: { cell in
             cell = tableView.dequeueReusableCell(withIdentifier: "DummyTableViewCell")
         });
-    }
-    
-    // MALE, FEMALE, OTHER to PBMGender {
-    private static func strToGender(_ gender: String) -> Gender {
-        switch gender {
-            case "MALE":
-                return .male
-            case "FEMALE":
-                return .female
-            case "OTHER":
-                return .female
-            default:
-                return .unknown
-        }
     }
 }

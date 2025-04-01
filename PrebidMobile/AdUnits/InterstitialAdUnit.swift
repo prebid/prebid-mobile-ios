@@ -18,13 +18,6 @@ import UIKit
 /// Represents an interstitial ad unit built for original type of integration.
 public class InterstitialAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitProtocol {
     
-    /// The deprecated banner parameters for this ad unit.
-    @available(*, deprecated, message: "This property is deprecated. Please, use bannerParameters instead.")
-    public var parameters: BannerParameters {
-        get { adUnitConfig.adConfiguration.bannerParameters }
-        set { adUnitConfig.adConfiguration.bannerParameters = newValue }
-    }
-    
     /// The banner parameters for this ad unit.
     public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }

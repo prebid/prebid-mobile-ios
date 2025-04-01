@@ -82,7 +82,6 @@
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
-    bidRequest.ortbObject = [self.adConfiguration.adConfiguration getCheckedOrtbConfig];
 
     if (!self.adConfiguration.adConfiguration.isOriginalAPI) {
         bidRequest.extPrebid.sdkRenderers = [PrebidMobilePluginRegister.shared getAllPluginsJSONRepresentation];
@@ -120,12 +119,6 @@
     bidRequest.device.pxratio   = @([UIScreen mainScreen].scale);
     bidRequest.source.tid       = [NSUUID UUID].UUIDString;
     bidRequest.device.ua        = self.userAgentService.userAgent;
-    
-    bidRequest.app.content = [self.adConfiguration getAppContent];
-    
-    if (self.targeting.userDataDictionary.count > 0) {
-        bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
-    }
     
     if (self.targeting.gdprConsentString && self.targeting.gdprConsentString.length > 0) {
         bidRequest.user.ext[@"consent"] = self.targeting.gdprConsentString;
@@ -170,11 +163,6 @@
         }
     }
     
-    NSArray<PBMORTBContentData *> *userData = [self.adConfiguration getUserData];
-    if (userData) {
-        bidRequest.user.data = userData;
-    }
-    
     PBMORTBAppExt * const appExt = bidRequest.app.ext;
     PBMORTBAppExtPrebid * const appExtPrebid = appExt.prebid;
     
@@ -193,23 +181,12 @@
             nextImp.rewarded = @(1);
         }
         
-        if ([self.adConfiguration getExtData].count > 0) {
-            nextImp.extData = [self.adConfiguration getExtData].mutableCopy;
-        }
-        
-        if ([self.adConfiguration getExtKeywords].count > 0) {
-            NSMutableArray * extKeywords = [NSMutableArray arrayWithArray:[[self.adConfiguration getExtKeywords] allObjects]];
-            nextImp.extKeywords = [extKeywords componentsJoinedByString:@","];
-        }
-        
         NSString * pbAdSlot = [self.adConfiguration getPbAdSlot];
         
-        // NOTE: `adslot` will be removed in future versions of Prebid SDK.
-        nextImp.extData[@"adslot"] = pbAdSlot;
         nextImp.extData[@"pbadslot"] = pbAdSlot;
         
         for (AdFormat* adFormat in adFormats) {
-            if (adFormat == AdFormat.banner || adFormat == AdFormat.display) {
+            if (adFormat == AdFormat.banner) {
                 PBMORTBBanner * const nextBanner = nextImp.banner;
                 if (formats) {
                     nextBanner.format = formats;

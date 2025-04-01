@@ -29,7 +29,6 @@ public class AdUnitSwizzleHelper: NSObject {
     class func toggleFetchDemand() {
         
         Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(adObject:completion:)), cls2: AdUnitSwizzleHelper.self, sel2: #selector(AdUnitSwizzleHelper.swizzledFetchDemand(adObject:completion:)))
-        Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(completion:)), cls2: AdUnitSwizzleHelper.self, sel2: #selector(AdUnitSwizzleHelper.swizzledFetchDemand(completion:)))
         Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(completionBidInfo:)), cls2: AdUnitSwizzleHelper.self, sel2: #selector(AdUnitSwizzleHelper.swizzledFetchDemand(completionBidInfo:)))
     }
     
@@ -39,10 +38,6 @@ public class AdUnitSwizzleHelper: NSObject {
 
     func swizzledFetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         completion(AdUnitSwizzleHelper.testScenario)
-    }
-    
-    func swizzledFetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
-        completion(AdUnitSwizzleHelper.testScenario, AdUnitSwizzleHelper.targetingKeywords)
     }
     
     func swizzledFetchDemand(completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void) {

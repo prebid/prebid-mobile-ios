@@ -30,14 +30,6 @@ public class ExternalUserId: NSObject, JSONConvertible {
     
     /// Additional attributes related to the external user ID, represented as an optional dictionary.
     public var ext: [String: Any]?
-    
-    /// The identifier of the external user ID.
-    @available(*, deprecated, message: "Deprecated. This property will be removed in future releases.")
-    public var identifier: String?
-    
-    /// The type of the external user ID, represented as an optional `NSNumber`.
-    @available(*, deprecated, message: "Deprecated. This property will be removed in future releases.")
-    public var atype: NSNumber?
 
     // MARK: - Initialization
     
@@ -55,21 +47,6 @@ public class ExternalUserId: NSObject, JSONConvertible {
         super.init()
     }
     
-    /// Initialize ExternalUserId Class
-    /// - Parameter source: Source of the External User Id String.
-    /// - Parameter identifier: String of the External User Id.
-    /// - Parameter atype: (Optional) Int of the External User Id.
-    /// - Parameter ext: (Optional) Dictionary of the External User Id.
-    @available(*, deprecated, message: "Deprecated. This initializer will be removed in future releases.")
-    public init(source: String, identifier: String, atype: NSNumber? = nil, ext: [String: Any]? = nil) {
-        self.source = source
-        self.identifier = identifier
-        self.atype = atype
-        self.ext = ext
-        
-        super.init()
-    }
-    
     /// Converts the `ExternalUserId` instance to a JSON dictionary.
     public func toJSONDictionary() -> [String: Any] {
         guard source.count != 0 else {
@@ -81,16 +58,8 @@ public class ExternalUserId: NSObject, JSONConvertible {
         transformedEUIdDic["source"] = source
         transformedEUIdDic["ext"] = ext
         
-        var uniqueUserIdArray = uids.map { $0.toJSONDictionary() }
-        
-        // Support deprecated functionality
-        if let identifier, let atype {
-            let userUniqueID = UserUniqueID(id: identifier, aType: atype)
-            uniqueUserIdArray.append(userUniqueID.toJSONDictionary())
-        }
-        
+        let uniqueUserIdArray = uids.map { $0.toJSONDictionary() }
         transformedEUIdDic["uids"] = uniqueUserIdArray
-        
         return transformedEUIdDic
     }
 }

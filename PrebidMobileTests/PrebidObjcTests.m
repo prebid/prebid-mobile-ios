@@ -22,32 +22,6 @@ limitations under the License.
 
 @implementation PrebidObjcTests
 
-- (void)testServerHost {
-    //given
-    PrebidHost case1 = PrebidHostAppnexus;
-    PrebidHost case2 = PrebidHostRubicon;
-    
-    //when
-    Prebid.shared.prebidServerHost = case1;
-    PrebidHost result1 = Prebid.shared.prebidServerHost;
-    Prebid.shared.prebidServerHost = case2;
-    PrebidHost result2 = Prebid.shared.prebidServerHost;
-    
-    //then
-    XCTAssertEqual(case1, result1);
-    XCTAssertEqual(case2, result2);
-}
-
-- (void)testServerHostCustomInvalid {
-    //given
-    NSError *error = nil;
-    
-    //when
-    [Prebid.shared setCustomPrebidServerWithUrl:@"wrong url" error:&error];
-    
-    //then
-    XCTAssertNotNil(error);
-}
 
 - (void)testAccountId {
     //given
@@ -109,11 +83,6 @@ limitations under the License.
 
 - (void)testLogLevel {
     [Prebid.shared setLogLevel:PBMLogLevel.debug];
-}
-
-- (void)testBidderName {
-    XCTAssertEqualObjects(@"appnexus", Prebid.bidderNameAppNexus);
-    XCTAssertEqualObjects(@"rubicon", Prebid.bidderNameRubiconProject);
 }
 
 - (void)testPbsDebug {

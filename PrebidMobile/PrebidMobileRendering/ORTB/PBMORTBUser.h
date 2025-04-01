@@ -31,16 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 //Exchange-specific ID for the user. At least one of id or buyerid is recommended
 //id not supported
 
-
-//Buyer-specific ID for the user as mapped by the exchange for the buyer. At least one of buyerid or id is recommended.
-@property (nonatomic, copy, nullable) NSString *buyeruid;
-
-//Year of birth as a 4-digit integer
-@property (nonatomic, strong, nullable) NSNumber *yob;
-
-//Gender, where “M” = male, “F” = female, “O” = known to be other (i.e., omitted is unknown)
-@property (nonatomic, copy, nullable) NSString *gender;
-
 //Comma separated list of keywords, interests, or intent
 @property (nonatomic, copy, nullable) NSString *keywords;
 

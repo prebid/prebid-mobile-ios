@@ -32,12 +32,6 @@ public class Prebid: NSObject {
     
     // MARK: - Public Properties (SDK)
     
-    /// The name of the bidder for AppNexus.
-    public static let bidderNameAppNexus = "appnexus"
-    
-    /// The name of the bidder for Rubicon Project.
-    public static let bidderNameRubiconProject = "rubicon"
-    
     /// Indicates whether the timeout value has been updated.
     public var timeoutUpdated: Bool = false
     
@@ -72,10 +66,6 @@ public class Prebid: NSObject {
         set { Log.logLevel = newValue }
     }
     
-    /// Array  containing objects that hold External UserId parameters.
-    @available(*, deprecated, message: "Deprecated. This property will be removed in future releases. Please, use Targeting.setExternalUserIds(_:) instead.")
-    public var externalUserIdArray = [ExternalUserId]()
-    
     /// The singleton instance of the `Prebid` class.
     public static let shared = Prebid()
     
@@ -90,15 +80,6 @@ public class Prebid: NSObject {
     }
     
     // MARK: - Public Properties (Prebid)
-    
-    /// The host for the Prebid Server.
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed. Please, use initializeSDK(serverURL:) instead.")
-    public var prebidServerHost: PrebidHost = .Custom {
-        didSet {
-            timeoutMillisDynamic = NSNumber(value: timeoutMillis)
-            timeoutUpdated = false
-        }
-    }
     
     /// Custom status endpoint for the Prebid Server.
     public var customStatusEndpoint: String? {
@@ -133,17 +114,6 @@ public class Prebid: NSObject {
     /// Controls how long video and interstitial creatives have to load before it is considered a failure.
     public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
     
-    /// Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
-    // Deprecated.
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
-    public var useExternalClickthroughBrowser = false
-    
-    /// Indicates the type of browser opened upon clicking the creative in an app, where embedded = 0, native = 1.
-    /// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) imp.clickbrowser attribute.
-    /// Deprecated.
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
-    public var impClickbrowserType: ClickbrowserType = .native
-    
     /// If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
     public var debugLogFileEnabled: Bool {
         get { Log.logToFile }
@@ -163,15 +133,6 @@ public class Prebid: NSObject {
     public var includeBidderKeys = false
     
     // MARK: - Public Methods
-    
-    /// Sets a custom Prebid Server URL.
-    /// - Parameter url: The custom Prebid Server URL.
-    /// - Throws: An error if setting the custom host URL fails.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:) instead.")
-    public func setCustomPrebidServer(url: String) throws {
-        prebidServerHost = .Custom
-        try Host.shared.setCustomHostURL(url)
-    }
     
     // MARK: - Stored Bid Response
     
@@ -215,57 +176,6 @@ public class Prebid: NSObject {
     /// Clears all custom HTTP headers.
     public func clearCustomHeaders() {
         customHeaders.removeAll()
-    }
-    
-    /// Initializes PrebidMobile SDK.
-    ///
-    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
-    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
-    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
-    ///
-    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
-    ///
-    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
-    /// - Parameters:
-    ///   - gadMobileAdsObject: GADMobileAds object
-    ///   - completion: returns initialization status and optional error
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:_:_) instead.")
-    public static func initializeSDK(_ gadMobileAdsObject: AnyObject? = nil, _ completion: PrebidInitializationCallback? = nil) {
-        PrebidSDKInitializer.initializeSDK(completion)
-        PrebidSDKInitializer.checkGMAVersion(gadObject: gadMobileAdsObject)
-        PrebidSDKInitializer.logInitializerWarningIfNeeded()
-    }
-    
-    /// Initializes PrebidMobile SDK.
-    ///
-    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
-    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
-    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
-    ///
-    /// Checks the version of GMA SDK. If the version is not supported - logs warning.
-    ///
-    /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
-    /// - Parameters:
-    ///   - gadMobileAdsVersion: GADMobileAds version string, use `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)` to get it
-    ///   - completion: returns initialization status and optional error
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:gadMobileAdsVersion:_:) instead.")
-    public static func initializeSDK(gadMobileAdsVersion: String? = nil, _ completion: PrebidInitializationCallback? = nil) {
-        PrebidSDKInitializer.initializeSDK(completion)
-        PrebidSDKInitializer.checkGMAVersion(gadVersion: gadMobileAdsVersion)
-    }
-    
-    /// Initializes PrebidMobile SDK.
-    ///
-    /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
-    /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
-    /// The `host` value is obtained from `Prebid.shared.prebidServerHost`.
-    ///
-    /// Use this SDK initializer if you're using PrebidMobile without GMA SDK.
-    /// - Parameters:
-    ///   - completion: returns initialization status and optional error
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use initializeSDK(serverURL:_:) instead.")
-    public static func initializeSDK(_ completion: PrebidInitializationCallback? = nil) {
-        PrebidSDKInitializer.initializeSDK(completion)
     }
     
     /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
@@ -392,6 +302,7 @@ public class Prebid: NSObject {
     
     override init() {
         timeoutMillis = defaultTimeoutMillis
+        timeoutMillisDynamic = NSNumber(value: timeoutMillis)
     }
     
     public static func registerPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {

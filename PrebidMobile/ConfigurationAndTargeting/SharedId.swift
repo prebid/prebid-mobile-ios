@@ -27,7 +27,7 @@ class SharedId {
         // If sharedId was used previously in this session, then use that id
         if let sessionId {
             if persistentStorageAllowed {
-                StorageUtils.sharedId = sessionId.identifier
+                StorageUtils.sharedId = sessionId.uids.first?.id
             }
             return sessionId
         }
@@ -43,7 +43,7 @@ class SharedId {
         let eid = externalUserId(from: UUID().uuidString)
         sessionId = eid
         if persistentStorageAllowed {
-            StorageUtils.sharedId = eid.identifier
+            StorageUtils.sharedId = eid.uids.first?.id
         }
         return eid
     }
@@ -54,6 +54,6 @@ class SharedId {
     }
     
     private func externalUserId(from identifier: String) -> ExternalUserId {
-        ExternalUserId(source: "pubcid.org", identifier: identifier, atype: 1)
+        ExternalUserId(source: "pubcid.org", uids: [UserUniqueID(id: identifier, aType: 1)])
     }
 }

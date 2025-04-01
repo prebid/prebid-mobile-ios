@@ -39,37 +39,35 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     
     private weak var rootController: UIViewController?
     
-    func loadAd(configID: String,
-                GAMAdUnitID: String,
-                rootViewController: UIViewController,
-                adTypes: [AdLoaderAdType]) {
-        
+    func loadAd(
+        configID: String,
+        GAMAdUnitID: String,
+        rootViewController: UIViewController,
+        adTypes: [AdLoaderAdType]
+    ) {
         setupNativeAdUnit(configId: configID)
         self.rootController = rootViewController
         
-        adUnit?.fetchDemand(
-            completion: {
-                [weak self] result,
-                kvResultDict in
-                guard let self = self else {
-                    return
-                }
-                
-                guard result == .prebidDemandFetchSuccess else {
-                    return
-                }
-                
-                let dfpRequest = AdManagerRequest()
-                GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: kvResultDict ?? [:])
-                self.adLoader = AdLoader(
-                    adUnitID: GAMAdUnitID,
-                    rootViewController: rootViewController,
-                    adTypes: adTypes,
-                    options: []
-                )
+        adUnit?.fetchDemand { [weak self] bidInfo in
+            guard let self = self else { return }
+            
+            guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
+                return
+            }
+            
+            let dfpRequest = AdManagerRequest()
+            GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: bidInfo.targetingKeywords ?? [:])
+            
+            self.adLoader = AdLoader(
+                adUnitID: GAMAdUnitID,
+                rootViewController: rootViewController,
+                adTypes: adTypes,
+                options: []
+            )
+            
             self.adLoader?.delegate = self
             self.adLoader?.load(dfpRequest)
-        })
+        }
     }
     
     // MARK: - Helpers

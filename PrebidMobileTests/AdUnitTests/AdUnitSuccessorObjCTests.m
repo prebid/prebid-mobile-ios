@@ -25,10 +25,6 @@ limitations under the License.
 NSString * const configId = @"1001-1";
 
 
-- (void)tearDown {
-    Prebid.shared.useExternalClickthroughBrowser = false;
-}
-
 //MARK: - BannerAdUnit
 - (void)testBannerAdUnitCreation {
     AdUnit *adunit = [[BannerAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250)];
@@ -67,23 +63,9 @@ NSString * const configId = @"1001-1";
     XCTAssertNotNil(adunit);
 }
 
-//MARK: - VideoAdUnit
-- (void)testVideoAdUnitCreation {
-    //when
-    AdUnit *adunit = [[VideoAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250)];
-    XCTAssertNotNil(adunit);
-}
-
 - (void)testInstreamVideoAdUnitCreation {
     //when
-    AdUnit *adunit = [[VideoAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250)];
-    XCTAssertNotNil(adunit);
-}
-
-//MARK: - VideoInterstitialAdUnit
-- (void)testVideoInterstitialAdUnitCreation {
-    //when
-    AdUnit *adunit = [[VideoInterstitialAdUnit alloc] initWithConfigId:configId];
+    AdUnit *adunit = [[InstreamVideoAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250)];
     XCTAssertNotNil(adunit);
 }
 

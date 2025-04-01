@@ -106,72 +106,32 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
     func loadAd() {
         setupNativeAdUnit()
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(key: dataPair.value, value: dataPair.key)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
+        adUnit?.fetchDemand { [weak self] bidInfo in
+            guard let self = self else { return }
             
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addAppContentData([ortbAppContentData])
-        }
-        
-        adUnit?.fetchDemand(
-            completion: {
-                [weak self] result,
-                kvResultDict in
-                guard let self = self else {
-                    return
-                }
-                
-                if result == .prebidDemandFetchSuccess {
+            DispatchQueue.main.async {
+                if bidInfo.resultCode == .prebidDemandFetchSuccess {
                     self.fetchDemandSuccessButton.isEnabled = true
                 } else {
                     self.fetchDemandFailedButton.isEnabled = true
                 }
-                
-                let dfpRequest = AdManagerRequest()
-                GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: kvResultDict ?? [:])
-                
-                print(">>> \(String(describing: dfpRequest.customTargeting))")
-                
-                self.adLoader = AdLoader(
-                    adUnitID: self.gamAdUnitId,
-                    rootViewController: self.rootController,
-                    adTypes: self.adTypes,
-                    options: []
-                )
+            }
+            
+            let dfpRequest = AdManagerRequest()
+            GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: bidInfo.targetingKeywords ?? [:])
+            
+            print(">>> \(String(describing: dfpRequest.customTargeting))")
+            
+            self.adLoader = AdLoader(
+                adUnitID: self.gamAdUnitId,
+                rootViewController: self.rootController,
+                adTypes: self.adTypes,
+                options: []
+            )
+            
             self.adLoader?.delegate = self
             self.adLoader?.load(dfpRequest)
-        })
+        }
     }
     
     // MARK: - Helpers

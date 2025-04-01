@@ -60,15 +60,15 @@ class InAppNativeViewController: NativeBaseViewController {
         nativeUnit.eventtrackers = eventTrackers
         
         // 3. Make a bid request to Prebid Server
-        nativeUnit.fetchDemand { [weak self] result, kvResultDict in
-            PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")
+        nativeUnit.fetchDemand { [weak self] bidInfo in
+            PrebidDemoLogger.shared.info("Prebid demand fetch result \(bidInfo.resultCode.name())")
             
             guard let self = self else {
                 return
             }
             
             // 4. Find cached native ad
-            guard let kvResultDict = kvResultDict, let cacheId = kvResultDict[PrebidLocalCacheIdKey] else {
+            guard let cacheId = bidInfo.targetingKeywords?[PrebidLocalCacheIdKey] else {
                 return
             }
             

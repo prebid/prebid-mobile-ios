@@ -72,11 +72,8 @@
     
     if (@available(iOS 16.0, *)) {
         // do nothing - CTCarrier is deprecated with no replacement
-    } else if (@available(iOS 12.0, *)) {
-        carrier = [[self.ctTelephonyNetworkInfo.serviceSubscriberCellularProviders allValues] firstObject];
     } else {
-        // Fallback on earlier versions
-        carrier = self.ctTelephonyNetworkInfo.subscriberCellularProvider;
+        carrier = [[self.ctTelephonyNetworkInfo.serviceSubscriberCellularProviders allValues] firstObject];
     }
     
     if (!carrier) {

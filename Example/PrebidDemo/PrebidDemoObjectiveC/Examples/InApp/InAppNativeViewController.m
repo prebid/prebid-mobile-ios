@@ -61,12 +61,13 @@ NSString * const nativeStoredImpressionInApp = @"prebid-demo-banner-native-style
     
     // 3. Make a bid request to Prebid Server
     @weakify(self);
-    [self.nativeUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable kvResultDict) {
+    [self.nativeUnit fetchDemandWithCompletionBidInfo:^(PBMBidInfo * _Nonnull bidInfo) {
         @strongify(self);
         if (!self) { return; }
         
         // 4. Find cached native ad
-        NSString * cacheId = [kvResultDict valueForKey:@"hb_cache_id_local"];
+        NSDictionary * targetingKeywords = bidInfo.targetingKeywords ?: @{};
+        NSString * cacheId = [targetingKeywords valueForKey:@"hb_cache_id_local"];
         
         // 5. Create a NativeAd
         NativeAd * nativeAd = [NativeAd createWithCacheId:cacheId];

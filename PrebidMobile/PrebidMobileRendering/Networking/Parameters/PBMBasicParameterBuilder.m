@@ -121,14 +121,11 @@
         
         //set secure=1 for https or secure=0 for http
         rtbImp.secure = @1;
-        
-        rtbImp.clickbrowser = @(self.sdkConfiguration.impClickbrowserType);
     }
     
     bidRequest.regs.coppa = self.targeting.coppa;
     bidRequest.regs.ext[@"gdpr"] = [self.targeting getSubjectToGDPR];
     bidRequest.regs.gpp = InternalUserConsentDataManager.gppHDRString;
-    bidRequest.ortbObject = [self.adConfiguration getCheckedOrtbConfig];
     
     if (InternalUserConsentDataManager.gppSID.count > 0) {
         bidRequest.regs.gppSID = InternalUserConsentDataManager.gppSID;
@@ -138,7 +135,7 @@
 }
 
 - (void)appendFormatSpecificParametersForRequest:(PBMORTBBidRequest *)bidRequest {
-    if ([self.adConfiguration.adFormats containsObject:AdFormat.banner] || [self.adConfiguration.adFormats containsObject:AdFormat.display]) {
+    if ([self.adConfiguration.adFormats containsObject:AdFormat.banner]) {
         [self appendDisplayParametersForRequest:bidRequest];
     }
     
