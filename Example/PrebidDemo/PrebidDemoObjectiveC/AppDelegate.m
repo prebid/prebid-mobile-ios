@@ -39,9 +39,13 @@
     [AdMobUtils initializeGAD];
     
     // Initialize AppLovin MAX SDK
-    [ALSdk shared].mediationProvider = ALMediationProviderMAX;
-    [ALSdk shared].userIdentifier = @"USER_ID";
-    [[ALSdk shared] initializeSdkWithCompletionHandler:^(ALSdkConfiguration *configuration) {}];
+    ALSdkInitializationConfiguration *config = [ALSdkInitializationConfiguration
+                                                    configurationWithSdkKey: @"1tLUnP4cVQqpHuHH2yMtfdESvvUhTB05NdbCoDTceDDNVnhd_T8kwIzXDN9iwbdULTboByF-TtNaiTmsoVbxZw"
+                                                    builderBlock:^(ALSdkInitializationConfigurationBuilder *builder) {
+        builder.mediationProvider = ALMediationProviderMAX;
+    }];
+    
+    [[ALSdk shared] initializeWithConfiguration:config completionHandler:^(ALSdkConfiguration * _Nonnull configuration) {}];
     
     return YES;
 }
