@@ -155,50 +155,6 @@ public class PrebidRequest: NSObject {
         extKeywords
     }
     
-    // MARK: - App Content (app.content.data)
-    
-    /// Sets the app content for the ad request.
-    /// - Parameter appContentObject: The `PBMORTBAppContent` to set.
-    public func setAppContent(_ appContentObject: PBMORTBAppContent) {
-        self.appContent = appContentObject
-    }
-    
-    /// Clears the app content for the ad request.
-    public func clearAppContent() {
-        appContent = nil
-    }
-    
-    /// Adds data to the app content.
-    /// - Parameter dataObjects: The array of `PBMORTBContentData` to add.
-    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        if appContent == nil {
-            appContent = PBMORTBAppContent()
-        }
-        
-        if appContent?.data == nil {
-            appContent?.data = [PBMORTBContentData]()
-        }
-        
-        appContent?.data?.append(contentsOf: dataObjects)
-    }
-    
-    /// Removes specific data from the app content.
-    /// - Parameter dataObject: The `PBMORTBContentData` to remove.
-    public func removeAppContentData(_ dataObject: PBMORTBContentData) {
-        if let appContentData = appContent?.data, appContentData.contains(dataObject) {
-            appContent?.data?.removeAll(where: { $0 == dataObject })
-        }
-    }
-    
-    /// Clears all data from the app content.
-    public func clearAppContentData() {
-        appContent?.data?.removeAll()
-    }
-    
-    func getAppContent() -> PBMORTBAppContent? {
-        appContent
-    }
-    
     // MARK: - User Data (user.data)
     
     /// Adds user data to the ad request.

@@ -28,7 +28,6 @@ final class PrebidRequestTests: XCTestCase {
         XCTAssertFalse(request.isInterstitial)
         XCTAssertFalse(request.isRewarded)
         
-        XCTAssertNil(request.getAppContent())
         XCTAssertNil(request.getUserData())
         XCTAssertTrue(request.getExtData().isEmpty)
         XCTAssertTrue(request.getExtKeywords().isEmpty)
@@ -158,116 +157,6 @@ final class PrebidRequestTests: XCTestCase {
         
         //then
         XCTAssertEqual(0, set.count)
-    }
-    
-    // MARK: - global context data aka inventory data (app.content.data)
-    
-    func testSetAppContent() {
-        //given
-        let request = PrebidRequest()
-        
-        let appDataObject1 = PBMORTBContentData()
-        appDataObject1.id = "data id"
-        appDataObject1.name = "test name"
-        let appDataObject2 = PBMORTBContentData()
-        appDataObject2.id = "data id"
-        appDataObject2.name = "test name"
-        
-        let appContent = PBMORTBAppContent()
-        appContent.album = "test album"
-        appContent.embeddable = 1
-        appContent.data = [appDataObject1, appDataObject2]
-        //when
-        request.setAppContent(appContent)
-        let resultAppContent = request.getAppContent()!
-
-        //then
-        XCTAssertEqual(2, resultAppContent.data!.count)
-        XCTAssertEqual(resultAppContent.data!.first, appDataObject1)
-        XCTAssertEqual(appContent, resultAppContent)
-    }
-    
-    func testClearAppContent() {
-        //given
-        let request = PrebidRequest()
-        
-        let appDataObject1 = PBMORTBContentData()
-        appDataObject1.id = "data id"
-        appDataObject1.name = "test name"
-        let appDataObject2 = PBMORTBContentData()
-        appDataObject2.id = "data id"
-        appDataObject2.name = "test name"
-        
-        let appContent = PBMORTBAppContent()
-        appContent.album = "test album"
-        appContent.embeddable = 1
-        appContent.data = [appDataObject1, appDataObject2]
-        //when
-        request.setAppContent(appContent)
-        
-        let resultAppContent1 = request.getAppContent()
-        XCTAssertNotNil(resultAppContent1)
-        request.clearAppContent()
-        let resultAppContent2 = request.getAppContent()
-        XCTAssertNil(resultAppContent2)
-    }
-    
-    func testAddAppContentDataObject() {
-        //given
-        let request = PrebidRequest()
-        
-        let appDataObject1 = PBMORTBContentData()
-        appDataObject1.id = "data id"
-        appDataObject1.name = "test name"
-        let appDataObject2 = PBMORTBContentData()
-        appDataObject2.id = "data id"
-        appDataObject2.name = "test name"
-
-        //when
-        request.addAppContentData([appDataObject1, appDataObject2])
-        let objects = request.getAppContent()!.data!
-
-        //then
-        XCTAssertEqual(2, objects.count)
-        XCTAssertEqual(objects.first, appDataObject1)
-    }
-
-    func testRemoveAppContentDataObjects() {
-        let request = PrebidRequest()
-        
-        let appDataObject = PBMORTBContentData()
-        appDataObject.id = "data id"
-        appDataObject.name = "test name"
-
-        request.addAppContentData([appDataObject])
-        let objects1 = request.getAppContent()!.data!
-
-        XCTAssertEqual(1, objects1.count)
-
-        request.removeAppContentData(appDataObject)
-        let objects2 = request.getAppContent()!.data!
-
-        XCTAssertEqual(0, objects2.count)
-    }
-    
-    func testClearAppContentDataObjects() {
-        let request = PrebidRequest()
-        
-        let appDataObject1 = PBMORTBContentData()
-        appDataObject1.id = "data id"
-        appDataObject1.name = "test name"
-        let appDataObject2 = PBMORTBContentData()
-        appDataObject2.id = "data id"
-        appDataObject2.name = "test name"
-
-        request.addAppContentData([appDataObject1, appDataObject2])
-        let objects1 = request.getAppContent()!.data!
-        
-        XCTAssertEqual(2, objects1.count)
-        request.clearAppContentData()
-        
-        let objects2 = request.getAppContent()!.data!
-        XCTAssertEqual(0, objects2.count)
     }
     
     // MARK: - global user data aka visitor data (user.data)

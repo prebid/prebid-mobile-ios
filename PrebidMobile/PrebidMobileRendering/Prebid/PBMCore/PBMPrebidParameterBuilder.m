@@ -120,8 +120,6 @@
     bidRequest.source.tid       = [NSUUID UUID].UUIDString;
     bidRequest.device.ua        = self.userAgentService.userAgent;
     
-    bidRequest.app.content = [self.adConfiguration getAppContent];
-    
     if (self.targeting.gdprConsentString && self.targeting.gdprConsentString.length > 0) {
         bidRequest.user.ext[@"consent"] = self.targeting.gdprConsentString;
     }

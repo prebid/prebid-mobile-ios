@@ -270,47 +270,6 @@ class PrebidAdUnitTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
-    func testAdUnitConfiguration_appContent() {
-        var adUnit = PrebidAdUnit(configId: "test-config-id")
-
-        let request = PrebidRequest(bannerParameters: BannerParameters())
-
-        let appContent = PBMORTBAppContent()
-        let contentData = PBMORTBContentData()
-        contentData.name = "test"
-        appContent.data = [contentData]
-
-        request.setAppContent(appContent)
-
-        let testObject: AnyObject = () as AnyObject
-
-        let expectation = expectation(description: "\(#function)")
-        expectation.expectedFulfillmentCount = 2
-        
-        var config = adUnit.getConfiguration()
-
-        // fetchDemand(request:completion)
-        adUnit.fetchDemand(request: request) { _ in
-            let realAppContent = config.getAppContent()
-            XCTAssertEqual(realAppContent?.data?.count, 1)
-            XCTAssertEqual(realAppContent?.data?.first?.name, "test")
-            expectation.fulfill()
-        }
-
-        adUnit = PrebidAdUnit(configId: "test-config-id")
-        config = adUnit.getConfiguration()
-
-        // fetchDemand(adObject:request:completion)
-        adUnit.fetchDemand(adObject: testObject, request: request) { _ in
-            let realAppContent = config.getAppContent()
-            XCTAssertEqual(realAppContent?.data?.count, 1)
-            XCTAssertEqual(realAppContent?.data?.first?.name, "test")
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 5, handler: nil)
-    }
-    
     func testAdUnitConfiguration_userData() {
         var adUnit = PrebidAdUnit(configId: "test-config-id")
 

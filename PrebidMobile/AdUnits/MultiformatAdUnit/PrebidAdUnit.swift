@@ -207,7 +207,6 @@ public class PrebidAdUnit: NSObject {
         
         adUnit.adUnitConfig.setExtData(request.getExtData())
         adUnit.adUnitConfig.setExtKeywords(request.getExtKeywords())
-        adUnit.adUnitConfig.setAppContent(request.getAppContent())
         adUnit.adUnitConfig.setUserData(request.getUserData())
     }
     

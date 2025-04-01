@@ -158,42 +158,6 @@ public class AdUnitConfig: NSObject, NSCopying {
     public func getExtKeywords() -> Set<String> {
         extKeywords
     }
-
-    // MARK: - App Content (app.content.data)
-
-    public func setAppContent(_ appContent: PBMORTBAppContent?) {
-        self.appContent = appContent
-    }
-    
-    public func getAppContent() -> PBMORTBAppContent? {
-        return appContent
-    }
-    
-    public func clearAppContent() {
-        appContent = nil
-    }
-    
-    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        if appContent == nil {
-            appContent = PBMORTBAppContent()
-        }
-        
-        if appContent?.data == nil {
-            appContent?.data = [PBMORTBContentData]()
-        }
-        
-        appContent?.data?.append(contentsOf: dataObjects)
-    }
-
-    public func removeAppContentData(_ dataObject: PBMORTBContentData) {
-        if let appContentData = appContent?.data, appContentData.contains(dataObject) {
-            appContent?.data?.removeAll(where: { $0 == dataObject })
-        }
-    }
-    
-    public func clearAppContentData() {
-        appContent?.data?.removeAll()
-    }
     
     // MARK: - User Data (user.data)
     
