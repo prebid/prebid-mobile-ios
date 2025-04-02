@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBBidExtPrebid: PBMORTBAbstract {
+open class PBMORTBBidExtPrebid: PBMORTBAbstract {
     public var cache: PBMORTBBidExtPrebidCache?
     public var targeting: [String : Any]?
     public var meta: [String : Any]?
@@ -51,7 +51,7 @@ public class PBMORTBBidExtPrebid: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.cache] = cache

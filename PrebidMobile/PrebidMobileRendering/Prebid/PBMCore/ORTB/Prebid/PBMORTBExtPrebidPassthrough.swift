@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBExtPrebidPassthrough: PBMORTBAbstract {
+open class PBMORTBExtPrebidPassthrough: PBMORTBAbstract {
     public var type: String?
     public var adConfiguration: PBMORTBAdConfiguration?
     public var sdkConfiguration: PBMORTBSDKConfiguration?
@@ -45,7 +45,7 @@ public class PBMORTBExtPrebidPassthrough: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.type] = type

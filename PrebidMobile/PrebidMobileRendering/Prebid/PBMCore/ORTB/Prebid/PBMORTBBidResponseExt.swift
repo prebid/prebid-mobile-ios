@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBBidResponseExt: PBMORTBAbstract {
+open class PBMORTBBidResponseExt: PBMORTBAbstract {
     /// [ (bidder: String) -> (millis: Integer) ]
     public var responsetimemillis: [String : NSNumber]?
 
@@ -46,7 +46,7 @@ public class PBMORTBBidResponseExt: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.responsetimemillis] = responsetimemillis

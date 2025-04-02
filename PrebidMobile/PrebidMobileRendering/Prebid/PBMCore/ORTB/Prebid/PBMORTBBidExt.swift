@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBBidExt: PBMORTBAbstract {
+open class PBMORTBBidExt: PBMORTBAbstract {
     public var prebid: PBMORTBBidExtPrebid?
     public var bidder: [String : Any]?
     public var skadn: PBMORTBBidExtSkadn?
@@ -52,7 +52,7 @@ public class PBMORTBBidExt: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.bidder] = bidder

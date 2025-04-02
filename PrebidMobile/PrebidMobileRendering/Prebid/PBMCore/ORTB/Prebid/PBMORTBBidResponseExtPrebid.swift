@@ -17,18 +17,18 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBBidResponseExtPrebid: PBMORTBAbstract {
+open class PBMORTBBidResponseExtPrebid: PBMORTBAbstract {
     public var passthrough: [PBMORTBExtPrebidPassthrough]?
     
     private enum KeySet: String {
         case passthrough
     }
     
-    override init() {
+    public override init() {
         super.init()
     }
     
-    override public init(jsonDictionary: [String : Any]) {
+    public override init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
         passthrough = json.backwardsCompatiblePassthrough(key: .passthrough)
@@ -36,7 +36,7 @@ public class PBMORTBBidResponseExtPrebid: PBMORTBAbstract {
         super.init()
     }
     
-    override public func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.passthrough] = passthrough

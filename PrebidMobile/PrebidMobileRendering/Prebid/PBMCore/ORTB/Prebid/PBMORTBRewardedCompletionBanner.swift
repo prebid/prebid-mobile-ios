@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBRewardedCompletionBanner: PBMORTBAbstract {
+open class PBMORTBRewardedCompletionBanner: PBMORTBAbstract {
     /// The period of time that the ad is on the screen and the user earns a reward
     public var time: NSNumber?
 
@@ -42,7 +42,7 @@ public class PBMORTBRewardedCompletionBanner: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.time] = time

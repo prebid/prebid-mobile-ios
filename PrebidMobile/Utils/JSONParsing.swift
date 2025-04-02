@@ -61,7 +61,7 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
     
     subscript<T: PBMORTBAbstract>(_ key: Key) -> T? {
         get {
-            (dict[key.rawValue] as? [String : Any]).flatMap { T(jsonDictionary: $0) }
+            (dict[key.rawValue] as? [String : Any]).flatMap { PBMCustomModelObjects.instantiate(json: $0) }
         }
         
         set {
@@ -85,7 +85,7 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
     subscript<T: PBMORTBAbstract>(_ key: Key) -> [T]? {
         get {
             (dict[key.rawValue] as? [Any])?.compactMap {
-                ($0 as? [String : Any]).flatMap { T(jsonDictionary: $0) }
+                ($0 as? [String : Any]).flatMap { PBMCustomModelObjects.instantiate(json: $0) }
             }
         }
         
@@ -121,6 +121,6 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
                 dictionaries = nil
         }
         
-        return dictionaries?.map { PBMORTBExtPrebidPassthrough(jsonDictionary: $0) }
+        return dictionaries?.compactMap { PBMCustomModelObjects.instantiate(json: $0) }
     }
 }

@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBAdConfiguration: PBMORTBAbstract {
+open class PBMORTBAdConfiguration: PBMORTBAbstract {
     public var maxVideoDuration: NSNumber?
     public var isMuted: NSNumber?
     public var closeButtonArea: NSNumber?
@@ -36,11 +36,11 @@ public class PBMORTBAdConfiguration: PBMORTBAbstract {
         case skipdelay
     }
     
-    override init() {
+    public override init() {
         super.init()
     }
     
-    override public init(jsonDictionary: [String : Any]) {
+    public override init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
         maxVideoDuration = json[.maxvideoduration]
@@ -54,7 +54,7 @@ public class PBMORTBAdConfiguration: PBMORTBAbstract {
         super.init()
     }
     
-    override public func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.maxvideoduration] = maxVideoDuration

@@ -18,7 +18,7 @@ import Foundation
 
 /// Metadata provided by the publisher to describe the reward
 @objcMembers
-public class PBMORTBRewardedReward: PBMORTBAbstract {
+open class PBMORTBRewardedReward: PBMORTBAbstract {
     /// Type of the reward
     public var type: String?
 
@@ -48,7 +48,7 @@ public class PBMORTBRewardedReward: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.type] = type

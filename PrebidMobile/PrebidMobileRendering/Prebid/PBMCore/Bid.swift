@@ -148,7 +148,7 @@ extension Bid {
         guard let bidDic = Utils.shared.getDictionaryFromString(bidString),
               let rawBid = PBMORTBBid<PBMORTBBidExt>(
                 jsonDictionary: bidDic,
-                extParser: { PBMORTBBidExt(jsonDictionary: $0)}
+                extParser: { PBMCustomModelObjects.instantiate(json: $0) }
               ) else { return nil }
 
         return Bid(bid: rawBid)

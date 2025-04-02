@@ -200,6 +200,8 @@
 		5AE9670E2D9B25C100211DD2 /* PBMORTBBidResponseExtPrebid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE9670D2D9B25C100211DD2 /* PBMORTBBidResponseExtPrebid.swift */; };
 		5AE967102D9B274800211DD2 /* PBMORTBBidResponseExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE9670F2D9B274800211DD2 /* PBMORTBBidResponseExt.swift */; };
 		5AE967122D9B2AC600211DD2 /* PBMORTBBidExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE967112D9B2AC600211DD2 /* PBMORTBBidExt.swift */; };
+		5AF2CC942D9DAFCD003441E3 /* PBMCustomModelObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF2CC932D9DAFCD003441E3 /* PBMCustomModelObjects.swift */; };
+		5AF2CC9A2D9DDA52003441E3 /* CustomModelObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF2CC992D9DDA52003441E3 /* CustomModelObjects.swift */; };
 		5AF98DD02D9AFD3C00EE59D1 /* PBMORTBBidExtPrebidCacheBids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF98DCF2D9AFD3C00EE59D1 /* PBMORTBBidExtPrebidCacheBids.swift */; };
 		5AF98DD92D9AFE1200EE59D1 /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF98DD82D9AFE1100EE59D1 /* JSONParsing.swift */; };
 		5AF98DDC2D9B013600EE59D1 /* PBMORTBBidExtPrebidCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF98DDB2D9B013600EE59D1 /* PBMORTBBidExtPrebidCache.swift */; };
@@ -1103,6 +1105,8 @@
 		5AE9670D2D9B25C100211DD2 /* PBMORTBBidResponseExtPrebid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMORTBBidResponseExtPrebid.swift; sourceTree = "<group>"; };
 		5AE9670F2D9B274800211DD2 /* PBMORTBBidResponseExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMORTBBidResponseExt.swift; sourceTree = "<group>"; };
 		5AE967112D9B2AC600211DD2 /* PBMORTBBidExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMORTBBidExt.swift; sourceTree = "<group>"; };
+		5AF2CC932D9DAFCD003441E3 /* PBMCustomModelObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMCustomModelObjects.swift; sourceTree = "<group>"; };
+		5AF2CC992D9DDA52003441E3 /* CustomModelObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModelObjects.swift; sourceTree = "<group>"; };
 		5AF98DCF2D9AFD3C00EE59D1 /* PBMORTBBidExtPrebidCacheBids.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMORTBBidExtPrebidCacheBids.swift; sourceTree = "<group>"; };
 		5AF98DD82D9AFE1100EE59D1 /* JSONParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParsing.swift; sourceTree = "<group>"; };
 		5AF98DDB2D9B013600EE59D1 /* PBMORTBBidExtPrebidCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMORTBBidExtPrebidCache.swift; sourceTree = "<group>"; };
@@ -2606,6 +2610,7 @@
 				5BC37813271F1CFF00444D5E /* PBMORTBAbstractResponse.h */,
 				5BC37829271F1CFF00444D5E /* PBMORTBAbstractResponse+Protected.h */,
 				5BC37828271F1CFF00444D5E /* PBMORTBAbstractResponse.m */,
+				5AF2CC932D9DAFCD003441E3 /* PBMCustomModelObjects.swift */,
 				5BC37812271F1CFF00444D5E /* PBMORTBBid.h */,
 				5BC37826271F1CFF00444D5E /* PBMORTBBid.m */,
 				5BC37811271F1CFF00444D5E /* PBMORTBBidResponse.h */,
@@ -3476,6 +3481,7 @@
 				2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */,
 				5ABAA1722D3ADE0000FDD38A /* SharedIdTests.swift */,
 				5A197FC02D810CC3002A51F2 /* ResponseParsingTests.swift */,
+				5AF2CC992D9DDA52003441E3 /* CustomModelObjects.swift */,
 				47D9A35B40BBC16996BC05A9 /* RenderingTests */,
 			);
 			path = PrebidMobileTests;
@@ -4088,6 +4094,7 @@
 				922AFD322737267F00732C53 /* PBMDeviceAccessManagerTests.swift in Sources */,
 				925D5E642737F45600A8A2B5 /* PBMVastCreativeNonLinearAdsTest.swift in Sources */,
 				922AFD0E273715F600732C53 /* PBMAbstractCreativeTest.swift in Sources */,
+				5AF2CC9A2D9DDA52003441E3 /* CustomModelObjects.swift in Sources */,
 				925D5E092737DF5F00A8A2B5 /* PBMBannerViewTest.swift in Sources */,
 				47D9AE45E21A81900408A396 /* MockNSThread.swift in Sources */,
 				47D9AE6C09857CB297B6D8EA /* MockPBMAdLoadManagerVAST.swift in Sources */,
@@ -4359,6 +4366,7 @@
 				5BC37A85271F1D0000444D5E /* BannerEventLoadingDelegate.swift in Sources */,
 				5BC37A8D271F1D0000444D5E /* InterstitialRenderingAdUnit.swift in Sources */,
 				5BC379C0271F1D0000444D5E /* PBMInterstitialDisplayProperties.m in Sources */,
+				5AF2CC942D9DAFCD003441E3 /* PBMCustomModelObjects.swift in Sources */,
 				53D93505282CEA900092E243 /* DateFormatService.swift in Sources */,
 				532936792CEB887D0056FD8D /* ArbitraryORTBService.swift in Sources */,
 				5BC37A51271F1D0000444D5E /* PBMPrebidParameterBuilder.m in Sources */,

@@ -19,7 +19,7 @@ import Foundation
 //https://github.com/InteractiveAdvertisingBureau/openrtb/blob/master/extensions/community_extensions/skadnetwork.md
 
 @objcMembers
-public class PBMORTBBidExtSkadn: PBMORTBAbstract {
+open class PBMORTBBidExtSkadn: PBMORTBAbstract {
     /// Version of SKAdNetwork desired. Must be 2.0 or above
     public var version: String?
     
@@ -78,7 +78,7 @@ public class PBMORTBBidExtSkadn: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.version] = version

@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBExtPrebidEvents: PBMORTBAbstract {
+open class PBMORTBExtPrebidEvents: PBMORTBAbstract {
     public var win: String?
     public var imp: String?
     
@@ -26,11 +26,11 @@ public class PBMORTBExtPrebidEvents: PBMORTBAbstract {
         case imp
     }
     
-    override init() {
+    public override init() {
         super.init()
     }
     
-    override public init(jsonDictionary: [String : Any]) {
+    public override init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
         win = json[.win]
@@ -39,7 +39,7 @@ public class PBMORTBExtPrebidEvents: PBMORTBAbstract {
         super.init()
     }
     
-    override public func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.win] = win

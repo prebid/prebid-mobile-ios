@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBBidExtPrebidCacheBids: PBMORTBAbstract {
+open class PBMORTBBidExtPrebidCacheBids: PBMORTBAbstract {
     public var url: String?
     public var cacheId: String?
     
@@ -26,11 +26,11 @@ public class PBMORTBBidExtPrebidCacheBids: PBMORTBAbstract {
         case cacheId
     }
     
-    override init() {
+    public override init() {
         super.init()
     }
     
-    override public init(jsonDictionary: [String : Any]) {
+    public override init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
         url = json[.url]
@@ -39,7 +39,7 @@ public class PBMORTBBidExtPrebidCacheBids: PBMORTBAbstract {
         super.init()
     }
     
-    override public func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.url] = url

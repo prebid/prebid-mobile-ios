@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBSkadnFidelity: PBMORTBAbstract {
+open class PBMORTBSkadnFidelity: PBMORTBAbstract {
     /// The fidelity-type of the attribution to track
     public var fidelity: NSNumber?
 
@@ -52,7 +52,7 @@ public class PBMORTBSkadnFidelity: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.fidelity] = fidelity

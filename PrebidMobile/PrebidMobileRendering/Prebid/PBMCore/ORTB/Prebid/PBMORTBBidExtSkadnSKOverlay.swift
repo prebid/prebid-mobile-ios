@@ -19,7 +19,7 @@ import Foundation
 //https://github.com/InteractiveAdvertisingBureau/openrtb/blob/master/extensions/community_extensions/skadnetwork.md
 
 @objcMembers
-public class PBMORTBBidExtSkadnSKOverlay: PBMORTBAbstract {
+open class PBMORTBBidExtSkadnSKOverlay: PBMORTBAbstract {
     /// Delay before presenting SKOverlay in seconds, required for overlay to be shown
     public var delay: NSNumber?
     
@@ -54,7 +54,7 @@ public class PBMORTBBidExtSkadnSKOverlay: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.delay] = delay

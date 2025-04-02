@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBRewardedConfiguration: PBMORTBAbstract {
+open class PBMORTBRewardedConfiguration: PBMORTBAbstract {
     /// Metadata provided by the publisher to describe the reward.
     public var reward: PBMORTBRewardedReward?
 
@@ -47,7 +47,7 @@ public class PBMORTBRewardedConfiguration: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.reward] = reward

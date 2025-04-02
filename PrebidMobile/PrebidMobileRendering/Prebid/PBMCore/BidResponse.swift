@@ -40,13 +40,13 @@ public class BidResponse: NSObject {
         let rawResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>(
             jsonDictionary: jsonDictionary as! [String : Any],
             extParser: { extDic in
-                return PBMORTBBidResponseExt(jsonDictionary: extDic)
+                return PBMCustomModelObjects.instantiate(json: extDic)
             },
             seatBidExtParser: { extDic in
                 return extDic as NSDictionary
             },
             bidExtParser: { extDic in
-                return PBMORTBBidExt(jsonDictionary: extDic)
+                return PBMCustomModelObjects.instantiate(json: extDic)
             })
 
         self.init(rawBidResponse: rawResponse)

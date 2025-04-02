@@ -18,7 +18,7 @@ import Foundation
 
 /// Describes the close behavior. How should the SDK manage the ad when it is encountered as viewed
 @objcMembers
-public class PBMORTBRewardedClose: PBMORTBAbstract {
+open class PBMORTBRewardedClose: PBMORTBAbstract {
     /// The time interval in seconds passed after the reward event when SDK should close the interstitial
     public var postrewardtime: NSNumber?
 
@@ -47,7 +47,7 @@ public class PBMORTBRewardedClose: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.postrewardtime] = postrewardtime

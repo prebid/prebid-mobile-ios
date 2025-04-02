@@ -18,7 +18,7 @@ import Foundation
 
 /// Describes the condition when the SDK should send a signal to the application that the user has earned the reward.
 @objcMembers
-public class PBMORTBRewardedCompletion: PBMORTBAbstract {
+open class PBMORTBRewardedCompletion: PBMORTBAbstract {
     public var banner: PBMORTBRewardedCompletionBanner?
     public var video: PBMORTBRewardedCompletionVideo?
     
@@ -40,7 +40,7 @@ public class PBMORTBRewardedCompletion: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.banner] = banner

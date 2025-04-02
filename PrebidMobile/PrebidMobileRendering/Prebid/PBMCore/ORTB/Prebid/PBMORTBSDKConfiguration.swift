@@ -17,7 +17,7 @@
 import Foundation
 
 @objcMembers
-public class PBMORTBSDKConfiguration: PBMORTBAbstract {
+open class PBMORTBSDKConfiguration: PBMORTBAbstract {
     public var cftBanner: NSNumber?
     public var cftPreRender: NSNumber?
     
@@ -39,7 +39,7 @@ public class PBMORTBSDKConfiguration: PBMORTBAbstract {
         super.init()
     }
     
-    public override func toJsonDictionary() -> [String : Any] {
+    open override func toJsonDictionary() -> [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.cftbanner] = cftBanner
