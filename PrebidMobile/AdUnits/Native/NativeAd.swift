@@ -138,7 +138,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         }
         
         guard let rawBid = PBMORTBBid<PBMORTBBidExt>(jsonDictionary: bidDic, extParser: { extDic in
-            return PBMORTBBidExt.init(jsonDictionary: extDic)
+            return PBMCustomModelObjects.instantiate(json: extDic)
         }) else {
             return nil
         }

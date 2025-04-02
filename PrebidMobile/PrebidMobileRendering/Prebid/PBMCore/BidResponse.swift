@@ -40,13 +40,13 @@ public class BidResponse: NSObject {
         let rawResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>(
             jsonDictionary: jsonDictionary as! [String : Any],
             extParser: { extDic in
-                return PBMORTBBidResponseExt(jsonDictionary: extDic)
+                return PBMCustomModelObjects.instantiate(json: extDic)
             },
             seatBidExtParser: { extDic in
                 return extDic as NSDictionary
             },
             bidExtParser: { extDic in
-                return PBMORTBBidExt(jsonDictionary: extDic)
+                return PBMCustomModelObjects.instantiate(json: extDic)
             })
 
         self.init(rawBidResponse: rawResponse)
@@ -86,7 +86,7 @@ public class BidResponse: NSObject {
         self.winningBid = winningBid
         self.allBids = allBids
         self.targetingInfo = targetingInfo.count > 0 ? targetingInfo : nil
-        tmaxrequest = rawBidResponse.ext.tmaxrequest
+        tmaxrequest = rawBidResponse.ext?.tmaxrequest
         self.ext = rawBidResponse.ext
     }
     

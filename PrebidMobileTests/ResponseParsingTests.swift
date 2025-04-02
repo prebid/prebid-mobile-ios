@@ -21,6 +21,58 @@ class ResponseParsingTests: XCTestCase {
     
     struct JSON {
         
+        static func bidResponse() -> [String : Any] {
+            [
+                "id" : "_id",
+                "seatbid" : [seatBid()],
+                "bidid" : "_bidid",
+                "cur" : "_cur",
+                "customdata" : "_customdata",
+                "nbr" : 1,
+                "ext" : bidResponseExt(),
+            ]
+        }
+        
+        static func seatBid() -> [String : Any] {
+            [
+                "bid" : [bid()],
+                "seat" : "_seat",
+                "group" : 1,
+            ]
+        }
+        
+        static func bid() -> [String : Any] {
+            [
+                "ext" : bidExt(),
+                "id" : "_id",
+                "impid" : "_impid",
+                "price" : 1,
+                "nurl" : "_nurl",
+                "burl" : "_burl",
+                "lurl" : "_lurl",
+                "adm" : "_adm",
+                "adid" : "_adid",
+                "adomain" : "_adomain",
+                "bundle" : "_bundle",
+                "iurl" : "_iurl",
+                "cid" : "_cid",
+                "crid" : "_crid",
+                "tactic" : "_tactic",
+                "cat" : ["cat_str", 1],
+                "attr" : ["attr_str", 1],
+                "api" : 2,
+                "protocol" : 3,
+                "qagmediarating" : 4,
+                "language" : "_language",
+                "dealid" : "_dealid",
+                "w" : 5,
+                "h" : 6,
+                "wratio" : 7,
+                "hratio" : 8,
+                "exp" : 9,
+            ]
+        }
+        
         static func adConfiguration() -> [String : Any] {
             [
                 "maxvideoduration" : 1,
@@ -190,7 +242,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testAdConfiguration() {
         let json = JSON.adConfiguration()
-        let entity = PBMORTBAdConfiguration(jsonDictionary: json)!
+        let entity = PBMORTBAdConfiguration(jsonDictionary: json)
         XCTAssertEqual(entity.maxVideoDuration, 1)
         XCTAssertEqual(entity.isMuted, 2)
         XCTAssertEqual(entity.closeButtonArea, 3)
@@ -203,7 +255,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidExt() {
         let json = JSON.bidExt()
-        let entity = PBMORTBBidExt(jsonDictionary: json)!
+        let entity = PBMORTBBidExt(jsonDictionary: json)
         XCTAssertEqual(entity.bidder as NSDictionary?,
                        ["bidder_k1" : "bidder_str", "bidder_k2" : 1] as NSDictionary)
         XCTAssertTrue(compare(entity.prebid, JSON.bidExtPrebid()))
@@ -214,7 +266,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidExtPrebid() {
         let json = JSON.bidExtPrebid()
-        let entity = PBMORTBBidExtPrebid(jsonDictionary: json)!
+        let entity = PBMORTBBidExtPrebid(jsonDictionary: json)
         XCTAssertNotNil(entity.cache)
         XCTAssertEqual(entity.targeting as NSDictionary?,
                        ["targeting_k1" : "targeting_str"] as NSDictionary)
@@ -234,7 +286,7 @@ class ResponseParsingTests: XCTestCase {
         var modifiedJson = json
         modifiedJson["passthrough"] = JSON.extPrebidPassthrough()
         
-        let entity = PBMORTBBidExtPrebid(jsonDictionary: modifiedJson)!
+        let entity = PBMORTBBidExtPrebid(jsonDictionary: modifiedJson)
         XCTAssertTrue(compare(entity.passthrough, [JSON.extPrebidPassthrough()]))
         
         XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
@@ -242,7 +294,7 @@ class ResponseParsingTests: XCTestCase {
 
     func testBidExtPrebidCache() {
         let json = JSON.bidExtPrebidCache()
-        let entity = PBMORTBBidExtPrebidCache(jsonDictionary: json)!
+        let entity = PBMORTBBidExtPrebidCache(jsonDictionary: json)
         XCTAssertEqual(entity.key, "_key")
         XCTAssertEqual(entity.url, "_url")
         XCTAssertTrue(compare(entity.bids, JSON.bidExtPrebidCacheBids()))
@@ -252,7 +304,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidExtPrebidCacheBids() {
         let json = JSON.bidExtPrebidCacheBids()
-        let entity = PBMORTBBidExtPrebidCacheBids(jsonDictionary: json)!
+        let entity = PBMORTBBidExtPrebidCacheBids(jsonDictionary: json)
         XCTAssertEqual(entity.url, "_url")
         XCTAssertEqual(entity.cacheId, "_cacheId")
         
@@ -261,7 +313,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidExtSkadn() {
         let json = JSON.bidExtSkadn()
-        let entity = PBMORTBBidExtSkadn(jsonDictionary: json)!
+        let entity = PBMORTBBidExtSkadn(jsonDictionary: json)
         XCTAssertEqual(entity.version, "_version")
         XCTAssertEqual(entity.network, "_network")
         XCTAssertEqual(entity.campaign, 1)
@@ -276,7 +328,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidExtSkadnSKOverlay() {
         let json = JSON.bidExtSkadnSKOverlay()
-        let entity = PBMORTBBidExtSkadnSKOverlay(jsonDictionary: json)!
+        let entity = PBMORTBBidExtSkadnSKOverlay(jsonDictionary: json)
         XCTAssertEqual(entity.delay, 1)
         XCTAssertEqual(entity.endcarddelay, 2)
         XCTAssertEqual(entity.dismissible, 3)
@@ -287,10 +339,18 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidResponseExt() {
         let json = JSON.bidResponseExt()
-        let entity = PBMORTBBidResponseExt(jsonDictionary: json)!
+        let entity = PBMORTBBidResponseExt(jsonDictionary: json)
         XCTAssertEqual(entity.responsetimemillis, ["responsetimemillis_k1" : 1])
         XCTAssertEqual(entity.tmaxrequest, 1)
         XCTAssertTrue(compare(entity.extPrebid, JSON.bidResponseExtPrebid()))
+        
+        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+    }
+    
+    func testBidResponseExtPrebid() {
+        let json = JSON.bidResponseExtPrebid()
+        let entity = PBMORTBBidResponseExtPrebid(jsonDictionary: json)
+        XCTAssertTrue(compare(entity.passthrough, [JSON.extPrebidPassthrough()]))
         
         XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
     }
@@ -303,7 +363,7 @@ class ResponseParsingTests: XCTestCase {
         var modifiedJson = json
         modifiedJson["passthrough"] = JSON.extPrebidPassthrough()
         
-        let entity = PBMORTBBidExtPrebid(jsonDictionary: modifiedJson)!
+        let entity = PBMORTBBidResponseExtPrebid(jsonDictionary: modifiedJson)
         XCTAssertTrue(compare(entity.passthrough, [JSON.extPrebidPassthrough()]))
         
         XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
@@ -311,7 +371,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testExtPrebidEvents() {
         let json = JSON.extPrebidEvents()
-        let entity = PBMORTBExtPrebidEvents(jsonDictionary: json)!
+        let entity = PBMORTBExtPrebidEvents(jsonDictionary: json)
         XCTAssertEqual(entity.win, "_win")
         XCTAssertEqual(entity.imp, "_imp")
         
@@ -320,7 +380,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testExtPrebidPassthrough() {
         let json = JSON.extPrebidPassthrough()
-        let entity = PBMORTBExtPrebidPassthrough(jsonDictionary: json)!
+        let entity = PBMORTBExtPrebidPassthrough(jsonDictionary: json)
         XCTAssertEqual(entity.type, "_type")
         XCTAssertTrue(compare(entity.adConfiguration, JSON.adConfiguration()))
         XCTAssertTrue(compare(entity.sdkConfiguration, JSON.sdkConfiguration()))
@@ -331,7 +391,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testRewardedClose() {
         let json = JSON.rewardedClose()
-        let entity = PBMORTBRewardedClose(jsonDictionary: json)!
+        let entity = PBMORTBRewardedClose(jsonDictionary: json)
         XCTAssertEqual(entity.postrewardtime, 1)
         XCTAssertEqual(entity.action, "_action")
         
@@ -340,7 +400,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testRewardedCompletion() {
         let json = JSON.rewardedCompletion()
-        let entity = PBMORTBRewardedCompletion(jsonDictionary: json)!
+        let entity = PBMORTBRewardedCompletion(jsonDictionary: json)
         XCTAssertTrue(compare(entity.banner, JSON.rewardedCompletionBanner()))
         XCTAssertTrue(compare(entity.video, JSON.rewardedCompletionVideo()))
         
@@ -349,7 +409,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testRewardedCompletionBanner() {
         let json = JSON.rewardedCompletionBanner()
-        let entity = PBMORTBRewardedCompletionBanner(jsonDictionary: json)!
+        let entity = PBMORTBRewardedCompletionBanner(jsonDictionary: json)
         XCTAssertEqual(entity.time, 1)
         XCTAssertEqual(entity.event, "_event")
         
@@ -358,7 +418,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testRewardedCompletionVideo() {
         let json = JSON.rewardedCompletionVideo()
-        let entity = PBMORTBRewardedCompletionVideo(jsonDictionary: json)!
+        let entity = PBMORTBRewardedCompletionVideo(jsonDictionary: json)
         XCTAssertEqual(entity.time, 1)
         XCTAssertEqual(entity.playbackevent, "_playbackevent")
         XCTAssertTrue(compare(entity.endcard, JSON.rewardedCompletionVideoEndcard()))
@@ -368,7 +428,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testRewardedCompletionVideoEndcard() {
         let json = JSON.rewardedCompletionVideoEndcard()
-        let entity = PBMORTBRewardedCompletionVideoEndcard(jsonDictionary: json)!
+        let entity = PBMORTBRewardedCompletionVideoEndcard(jsonDictionary: json)
         XCTAssertEqual(entity.time, 1)
         XCTAssertEqual(entity.event, "_event")
         
@@ -377,7 +437,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testRewardedConfiguration() {
         let json = JSON.rewardedConfiguration()
-        let entity = PBMORTBRewardedConfiguration(jsonDictionary: json)!
+        let entity = PBMORTBRewardedConfiguration(jsonDictionary: json)
         XCTAssertTrue(compare(entity.reward, JSON.rewardedReward()))
         XCTAssertTrue(compare(entity.completion, JSON.rewardedCompletion()))
         XCTAssertTrue(compare(entity.close, JSON.rewardedClose()))
@@ -387,7 +447,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testRewardedReward() {
         let json = JSON.rewardedReward()
-        let entity = PBMORTBRewardedReward(jsonDictionary: json)!
+        let entity = PBMORTBRewardedReward(jsonDictionary: json)
         XCTAssertEqual(entity.type, "_type")
         XCTAssertEqual(entity.count, 1)
         XCTAssertEqual(entity.ext as NSDictionary?,
@@ -398,7 +458,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testSDKConfiguration() {
         let json = JSON.sdkConfiguration()
-        let entity = PBMORTBSDKConfiguration(jsonDictionary: json)!
+        let entity = PBMORTBSDKConfiguration(jsonDictionary: json)
         XCTAssertEqual(entity.cftBanner, 1)
         XCTAssertEqual(entity.cftPreRender, 2)
         
@@ -408,13 +468,47 @@ class ResponseParsingTests: XCTestCase {
     
     func testSkadnFidelity() {
         let json = JSON.skadnFidelity()
-        let entity = PBMORTBSkadnFidelity(jsonDictionary: json)!
+        let entity = PBMORTBSkadnFidelity(jsonDictionary: json)
         XCTAssertEqual(entity.fidelity, 1)
         XCTAssertEqual(entity.nonce, UUID(uuidString: "12345678-ABCD-1234-ABCD-1234567890AB"))
         XCTAssertEqual(entity.timestamp, 2)
         XCTAssertEqual(entity.signature, "_signature")
         
         XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+    }
+    
+    func testInstantiatesCustomModelObjects() {
+        registerCustomClasses()
+        
+        defer {
+            unregisterCustomClasses()
+        }
+        
+        let bidResponse = BidResponse(jsonDictionary: JSON.bidResponse() as NSDictionary)
+        let bidExt = bidResponse.allBids![0].bid.ext!
+        let bidResponseExt = bidResponse.ext!
+        let passthrough = bidExt.prebid!.passthrough![0]
+        
+        XCTAssertTrue(passthrough.adConfiguration is CustomAdConfiguration)
+        XCTAssertTrue(bidExt is CustomBidExt)
+        XCTAssertTrue(bidExt.prebid is CustomBidExtPrebid)
+        XCTAssertTrue(bidExt.prebid!.cache is CustomBidExtPrebidCache)
+        XCTAssertTrue(bidExt.prebid!.cache!.bids is CustomBidExtPrebidCacheBids)
+        XCTAssertTrue(bidExt.skadn is CustomBidExtSkadn)
+        XCTAssertTrue(bidExt.skadn!.skoverlay is CustomBidExtSkadnSKOverlay)
+        XCTAssertTrue(bidResponseExt is CustomBidResponseExt)
+        XCTAssertTrue(bidResponseExt.extPrebid is CustomBidResponseExtPrebid)
+        XCTAssertTrue(bidExt.prebid?.events is CustomExtPrebidEvents)
+        XCTAssertTrue(passthrough is CustomExtPrebidPassthrough)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.close is CustomRewardedClose)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.completion is CustomRewardedCompletion)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.completion!.banner is CustomRewardedCompletionBanner)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.completion!.video is CustomRewardedCompletionVideo)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.completion!.video?.endcard is CustomRewardedCompletionVideoEndcard)
+        XCTAssertTrue(passthrough.rewardedConfiguration is CustomRewardedConfiguration)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.reward is CustomRewardedReward)
+        XCTAssertTrue(passthrough.sdkConfiguration is CustomSDKConfiguration)
+        XCTAssertTrue(bidExt.skadn!.fidelities![0] is CustomSkadnFidelity)
     }
     
     @objc(compareObj::)
