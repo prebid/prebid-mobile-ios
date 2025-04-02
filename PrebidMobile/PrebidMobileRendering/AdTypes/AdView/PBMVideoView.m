@@ -364,7 +364,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         [self.progressBar removeFromSuperview];
     }
     
-    if (!self.creative.creativeModel.adConfiguration.isRewarded) {
+    PBMAdConfiguration *adConfiguration = self.creative.creativeModel.adConfiguration;
+    if (!(adConfiguration.isRewarded || adConfiguration.isInterstitialAd)) {
         return;
     }
     
@@ -650,7 +651,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         }];
     }
     
-    if (self.adConfiguration.isRewarded) {
+    if (self.adConfiguration.isRewarded || self.adConfiguration.isInterstitialAd) {
         self.progressBar.duration = [self.progressBarDuration doubleValue];
     }
 }
@@ -771,7 +772,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     
     [self.videoViewDelegate videoViewCompletedDisplay];
     
-    if (self.adConfiguration.isRewarded) {
+    if (self.adConfiguration.isRewarded || self.adConfiguration.isInterstitialAd) {
         self.progressBar.hidden = YES;
     }
     
@@ -841,7 +842,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     CGFloat playingTime = CMTimeGetSeconds(currentTime);
     CGFloat remainingTime = [self.progressBarDuration doubleValue] - playingTime;
 
-    if (self.creative.creativeModel.adConfiguration.isRewarded) {
+    PBMAdConfiguration *adConfiguration = self.creative.creativeModel.adConfiguration;
+    if (adConfiguration.isRewarded || adConfiguration.isInterstitialAd) {
         
         // Update progress bar
         if(remainingTime >= 0) {
