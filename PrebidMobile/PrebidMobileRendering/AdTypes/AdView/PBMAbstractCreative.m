@@ -251,9 +251,12 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.bid.skadn];
     
-    if (skadnetProductParameters) {
+    __auto_type skadn = self.transaction.bid.skadn;
+    PBMJsonDictionary * skadnetProductParameters;
+    if (skadn &&
+        (skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:skadn]) &&
+        skadnetProductParameters) {
             clickthroughOpened = [self handleProductClickthrough:url
                                                    productParams:skadnetProductParameters
                                                           onExit:onClickthroughExitBlock];

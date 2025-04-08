@@ -19,18 +19,18 @@ public class RawWinningBidFabricator {
     static func makeRawWinningBid(price: Double?, bidder: String?, cacheID: String?) -> PBMORTBBid<PBMORTBBidExt> {
         let rawBid = PBMORTBBid<PBMORTBBidExt>()
         rawBid.ext = .init()
-        rawBid.ext.prebid = .init()
+        rawBid.ext?.prebid = .init()
       
         if let price = price {
             rawBid.price = NSNumber(value: price)
             
-            rawBid.ext.prebid?.targeting = [
+            rawBid.ext?.prebid?.targeting = [
                 "hb_pb": "\(NSString(format: "%4.2f", price))"
             ]
         }
         
-        rawBid.ext.prebid?.targeting?["hb_bidder"] = bidder
-        rawBid.ext.prebid?.targeting?["hb_cache_id"] = cacheID
+        rawBid.ext?.prebid?.targeting?["hb_bidder"] = bidder
+        rawBid.ext?.prebid?.targeting?["hb_cache_id"] = cacheID
         return rawBid
     }
     

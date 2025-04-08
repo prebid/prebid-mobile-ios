@@ -60,12 +60,12 @@ public class Bid: NSObject {
     
     /// Targeting information that needs to be passed to the ad server SDK.
     public var targetingInfo: [String : String]? {
-        bid.ext.prebid?.targeting
+        bid.ext?.prebid?.targeting?.compactMapValues { $0 as? String }
     }
     
   /// Targeting information that needs to be passed to the ad server SDK.
     public var meta: [String : Any]? {
-        bid.ext.prebid?.meta
+        bid.ext?.prebid?.meta
     }
     
     /**
@@ -73,17 +73,17 @@ public class Bid: NSObject {
      Used in the StoreKit
      */
     public var skadn: PBMORTBBidExtSkadn? {
-        return bid.ext.skadn
+        return bid.ext?.skadn
     }
     
     /// Prebid ad format
     public var adFormat: AdFormat? {
-        AdFormat.allCases.filter { $0.stringEquivalent == bid.ext.prebid?.type }.first
+        AdFormat.allCases.filter { $0.stringEquivalent == bid.ext?.prebid?.type }.first
     }
     
     /// Prebid video ad configuration
     public var videoAdConfiguration: PBMORTBAdConfiguration? {
-        bid.ext.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
+        bid.ext?.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
     }
     
        /// Preffered plugin renderer name
@@ -100,12 +100,12 @@ public class Bid: NSObject {
     // Need to be removed when ext.prebid.passthrough will be available.
     #if DEBUG
     public var testVideoAdConfiguration: PBMORTBAdConfiguration? {
-        bid.ext.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
+        bid.ext?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
     }
     #endif
     
     public var rewardedConfig: PBMORTBRewardedConfiguration? {
-        bid.ext.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.rewardedConfiguration
+        bid.ext?.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.rewardedConfiguration
     }
     
     /// Returns YES if this bid is intented for display.
@@ -129,7 +129,7 @@ public class Bid: NSObject {
     }
     
     public var events: PBMORTBExtPrebidEvents? {
-        bid.ext.prebid?.events
+        bid.ext?.prebid?.events
     }
     
     public private(set) var bid: PBMORTBBid<PBMORTBBidExt>
@@ -148,7 +148,7 @@ extension Bid {
         guard let bidDic = Utils.shared.getDictionaryFromString(bidString),
               let rawBid = PBMORTBBid<PBMORTBBidExt>(
                 jsonDictionary: bidDic,
-                extParser: { PBMORTBBidExt(jsonDictionary: $0)}
+                extParser: { PBMCustomModelObjects.instantiate(json: $0) }
               ) else { return nil }
 
         return Bid(bid: rawBid)

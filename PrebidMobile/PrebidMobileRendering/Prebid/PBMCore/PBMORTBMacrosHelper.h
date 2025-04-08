@@ -14,7 +14,8 @@
  */
 
 #import "PBMORTBBid.h"
-#import "PBMORTBBidExt.h"
+
+@class PBMORTBBidExt;
 
 NS_ASSUME_NONNULL_BEGIN
 
