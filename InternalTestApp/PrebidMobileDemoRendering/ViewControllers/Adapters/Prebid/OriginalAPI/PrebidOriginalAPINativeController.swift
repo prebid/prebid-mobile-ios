@@ -119,44 +119,6 @@ class PrebidOriginalAPINativeController:
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                nativeUnit?.addContextData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                nativeUnit?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            nativeUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            nativeUnit?.addAppContentData([ortbAppContentData])
-        }
-        
         let gamRequest = AdManagerRequest()
         nativeUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             guard let self = self else { return }

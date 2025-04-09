@@ -25,10 +25,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     // Initialize Prebid SDK
-    [Prebid initializeSDKWithGadMobileAdsVersion:GADGetStringFromVersionNumber(GADMobileAds.sharedInstance.versionNumber) :nil];
+    [Prebid initializeSDKWithServerURL:@"https://prebid-server-test-j.prebid.org/openrtb2/auction"
+                   gadMobileAdsVersion:GADGetStringFromVersionNumber(GADMobileAds.sharedInstance.versionNumber)
+                                 error:nil
+                                      :^(enum PrebidInitializationStatus status, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"Initialization Error: %@", error.localizedDescription);
+        }
+    }];
     
     Prebid.shared.prebidServerAccountId = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
-    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid-server-test-j.prebid.org/openrtb2/auction" error:nil];
+
     // Set sourceapp
     Targeting.shared.sourceapp = @"PrebidDemoObjectiveC";
     

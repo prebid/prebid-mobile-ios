@@ -502,78 +502,53 @@ class PBMORTBAbstractTest : XCTestCase {
     func testUserToJsonString() {
         let pbmORTBUser = PBMORTBUser()
         
-        pbmORTBUser.yob = 1981
-        pbmORTBUser.gender = "M"
         pbmORTBUser.keywords = "key1,key2,key3"
         pbmORTBUser.geo.lat = 34.1477849
         pbmORTBUser.geo.lon = -118.1445155
         pbmORTBUser.ext!["data"] = ["registration_date": "31.02.2021"]
         pbmORTBUser.userid = "userid"
         
-        codeAndDecode(abstract:pbmORTBUser, expectedString:"{\"ext\":{\"data\":{\"registration_date\":\"31.02.2021\"}},\"gender\":\"M\",\"geo\":{\"lat\":34.1477849,\"lon\":-118.1445155},\"id\":\"userid\",\"keywords\":\"key1,key2,key3\",\"yob\":1981}")
+        codeAndDecode(
+            abstract: pbmORTBUser,
+            expectedString: "{\"ext\":{\"data\":{\"registration_date\":\"31.02.2021\"}},\"geo\":{\"lat\":34.1477849,\"lon\":-118.1445155},\"id\":\"userid\",\"keywords\":\"key1,key2,key3\"}"
+        )
     }
     
     func testUserEidsToJsonString() {
-        
         let user = PBMORTBUser()
-        
-        user.yob = 1981
-        user.gender = "M"
         
         user.appendEids([["key": ["key":"value"]]])
         
-        codeAndDecode(abstract:user, expectedString:"{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]},\"gender\":\"M\",\"yob\":1981}")
+        codeAndDecode(
+            abstract: user,
+            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]}}"
+        )
     }
     
     func testUserEidsInExtToJsonString() {
-        
         let user = PBMORTBUser()
-        
-        user.yob = 1981
-        user.gender = "M"
         
         user.ext = ["eids":[["key": ["key":"value"]]]]
         
-        codeAndDecode(abstract:user, expectedString:"{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]},\"gender\":\"M\",\"yob\":1981}")
+        codeAndDecode(
+            abstract: user,
+            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}}]}}"
+        )
     }
     
     func testUserEidsAndExtToJsonString() {
-        
         let user = PBMORTBUser()
         
-        user.yob = 1981
-        user.gender = "M"
-        
         user.ext = ["eids":[["key": ["key":"value"]]]]
-        
         user.appendEids([["key2": ["key2":"value2"]]])
         
-        codeAndDecode(abstract:user, expectedString:"{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}},{\"key2\":{\"key2\":\"value2\"}}]},\"gender\":\"M\",\"yob\":1981}")
+        codeAndDecode(
+            abstract: user,
+            expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}},{\"key2\":{\"key2\":\"value2\"}}]}}"
+        )
     }
     
-    // MARK: Arbitrary ORTB (Deprecated API)
-    
-    func testBidRequestWithOrtbObjectToJsonString() {
-        let pbmORTBBidRequest = PBMORTBBidRequest()
-        let uuid = UUID().uuidString
-        pbmORTBBidRequest.requestID = uuid
-        pbmORTBBidRequest.tmax = 2000
-        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000, "id": "1231234"]
-        
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"1231234\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":3000}")
-    }
-    
-    func testBidRequestWithOrtbObjectOverridingReservedToJsonString() {
-        let pbmORTBBidRequest = PBMORTBBidRequest()
-        let uuid = UUID().uuidString
-        pbmORTBBidRequest.requestID = uuid
-        pbmORTBBidRequest.tmax = 2000
-        pbmORTBBidRequest.ortbObject = ["arbitraryparamkey1": "arbitraryparamvalue1", "tmax": 3000, "id": "1231234", "device": "myTestDevice", "geo": "mylatlong", "regs": ["reg1":"reg2"]]
-        
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"id\":\"1231234\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":3000}")
-    }
-    
-    //MARK: - Utility
+    // MARK: - Utility
     
     func initORTBDevice(ifa: String?) -> PBMORTBDevice {
         let pbmORTBPDevice = PBMORTBDevice()

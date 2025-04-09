@@ -18,13 +18,6 @@ import UIKit
 /// A class representing a banner ad unit for original type of integration.
 public class BannerAdUnit: AdUnit, BannerBasedAdUnitProtocol, VideoBasedAdUnitProtocol {
     
-    /// A deprecated property for banner ad parameters.
-    @available(*, deprecated, message: "This property is deprecated. Please, use bannerParameters instead.")
-    public var parameters: BannerParameters {
-        get { adUnitConfig.adConfiguration.bannerParameters }
-        set { adUnitConfig.adConfiguration.bannerParameters = newValue }
-    }
-    
     /// The banner ad parameters used to configure the ad unit.
     public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }

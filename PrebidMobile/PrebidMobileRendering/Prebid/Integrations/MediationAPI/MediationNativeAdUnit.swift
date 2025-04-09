@@ -109,17 +109,7 @@ public class MediationNativeAdUnit : NSObject {
     }
     
     // MARK: Arbitrary ORTB Configuration
-    
-    @available(*, deprecated, message: "Deprecated. Use setImpORTBConfig(_:) for impression-level ORTB configuration.")
-    public func setOrtbConfig(_ ortbConfig: String?) {
-        nativeAdUnit.setOrtbConfig(ortbConfig)
-    }
-    
-    @available(*, deprecated, message: "Deprecated. Use getImpORTBConfig() for impression-level ORTB configuration.")
-    public func getOrtbConfig() -> String? {
-        return nativeAdUnit.getOrtbConfig()
-    }
-    
+        
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
     ///
     /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
@@ -132,157 +122,6 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.adUnitConfig.impORTBConfig
     }
     
-    // MARK: - App Content (app.content.data)
-    
-    /// Sets the app content object, replacing any existing content.
-    /// - Parameter appContent: The `PBMORTBAppContent` object representing the app's content.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func setAppContent(_ appContent: PBMORTBAppContent) {
-        nativeAdUnit.setAppContent(appContent)
-    }
-    
-    /// Clears the current app content object.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func clearAppContent() {
-        nativeAdUnit.clearAppContent()
-    }
-    
-    /// Adds an array of content data objects to the app content.
-    /// - Parameter dataObjects: An array of `PBMORTBContentData` objects to add.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        nativeAdUnit.addAppContentData(dataObjects)
-    }
-
-    /// Removes a specific content data object from the app content.
-    /// - Parameter dataObject: The `PBMORTBContentData` object to remove.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func removeAppContent(_ dataObject: PBMORTBContentData) {
-        nativeAdUnit.removeAppContentData(dataObject)
-    }
-    
-    // MARK: - User Data (user.data)
-    
-    /// Adds an array of user data objects.
-    /// - Parameter userDataObjects: An array of `PBMORTBContentData` objects to add to the user data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        nativeAdUnit.addUserData(userDataObjects)
-    }
-    
-    /// Removes a specific user data object.
-    /// - Parameter userDataObject: The `PBMORTBContentData` object to remove from the user data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        nativeAdUnit.removeUserData(userDataObject)
-    }
-    
-    /// Clears all user data.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use Targeting.setGlobalORTBConfig method instead.")
-    public func clearUserData() {
-        nativeAdUnit.clearUserData()
-    }
-    
-    // MARK: - Ext Data (imp[].ext.data)
-    
-    /// This method obtains the context data keyword & value for adunit context targeting
-    /// if the key already exists the value will be appended to the list. No duplicates will be added
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
-    public func addContextData(key: String, value: String) {
-        addExtData(key: key, value: value)
-    }
-
-    /// This method obtains the context data keyword & values for adunit context targeting
-    /// the values if the key already exist will be replaced with the new set of values
-    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
-    public func updateContextData(key: String, value: Set<String>) {
-        updateExtData(key: key, value: value)
-    }
-    
-    /// This method allows to remove specific context data keyword & values set from adunit context targeting
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
-    public func removeContextData(forKey: String) {
-        removeExtData(forKey: forKey)
-    }
-    
-    /// This method allows to remove all context data set from adunit context targeting
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
-    public func clearContextData() {
-        clearExtData()
-    }
-    
-    /// This method obtains the ext data keyword & value for adunit targeting.
-    /// If the key already exists the value will be appended to the list. No duplicates will be added
-    public func addExtData(key: String, value: String) {
-        nativeAdUnit.addExtData(key: key, value: value)
-    }
-    
-    /// This method obtains the ext data keyword & values for adunit targeting.
-    /// The values if the key already exist will be replaced with the new set of values
-    public func updateExtData(key: String, value: Set<String>) {
-        nativeAdUnit.updateExtData(key: key, value: value)
-    }
-    
-    /// This method allows to remove specific ext data keyword & values set from adunit targeting
-    public func removeExtData(forKey: String) {
-        nativeAdUnit.removeExtData(forKey: forKey)
-    }
-    
-    /// This method allows to remove all ext data set from adunit targeting
-    public func clearExtData() {
-        nativeAdUnit.clearExtData()
-    }
-    
-    // MARK: - Ext keywords (imp[].ext.keywords)
-    
-    /// This method obtains the context keyword for adunit context targeting
-    /// Inserts the given element in the set if it is not already present.
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
-    public func addContextKeyword(_ newElement: String) {
-        addExtKeyword(newElement)
-    }
-    
-    /// This method obtains the context keyword set for adunit context targeting
-    /// Adds the elements of the given set to the set.
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
-    public func addContextKeywords(_ newElements: Set<String>) {
-        addExtKeywords(newElements)
-    }
-    
-    /// This method allows to remove specific context keyword from adunit context targeting
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
-    public func removeContextKeyword(_ element: String) {
-        removeExtKeyword(element)
-    }
-    
-    /// This method allows to remove all keywords from the set of adunit context targeting
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
-    public func clearContextKeywords() {
-        clearExtKeywords()
-    }
-    
-    /// This method obtains the keyword for adunit targeting
-    /// Inserts the given element in the set if it is not already present.
-    public func addExtKeyword(_ newElement: String) {
-        nativeAdUnit.addExtKeyword(newElement)
-    }
-    
-    /// This method obtains the keyword set for adunit targeting
-    /// Adds the elements of the given set to the set.
-    public func addExtKeywords(_ newElements: Set<String>) {
-        nativeAdUnit.addExtKeywords(newElements)
-    }
-    
-    /// This method allows to remove specific keyword from adunit targeting
-    public func removeExtKeyword(_ element: String) {
-        nativeAdUnit.removeExtKeyword(element)
-    }
-    
-    /// This method allows to remove all keywords from the set of adunit targeting
-    public func clearExtKeywords() {
-        nativeAdUnit.clearExtKeywords()
-    }
-    
     /// Makes bid request for the native ad unit and setups mediation parameters.
     /// - Parameter completion: The completion handler to call with the result code.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
@@ -291,17 +130,15 @@ public class MediationNativeAdUnit : NSObject {
         
         mediationDelegate.cleanUpAdObject()
         
-        nativeAdUnit.fetchDemand { [weak self] result, kvResultDict in
-            guard let self = self else {
+        nativeAdUnit.fetchDemand { [weak self] bidInfo in
+            guard let self = self else { return }
+            
+            guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
+                self.completeWithResult(bidInfo.resultCode)
                 return
             }
             
-            guard result == .prebidDemandFetchSuccess else {
-                self.completeWithResult(result)
-                return
-            }
-            
-            guard let kvResultDict = kvResultDict,
+            guard let kvResultDict = bidInfo.targetingKeywords,
                   let cacheId = kvResultDict[PrebidLocalCacheIdKey],
                   CacheManager.shared.isValid(cacheId: cacheId) else {
                       Log.error("\(String(describing: self)): no cache in kvResultDict.")

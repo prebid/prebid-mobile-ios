@@ -102,44 +102,6 @@ class CustomRendererBannerController:
         adBannerView?.delegate = self
         adBannerView?.accessibilityIdentifier = "PrebidBannerView"
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adBannerView?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adBannerView?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adBannerView?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adBannerView?.addAppContentData([ortbAppContentData])
-        }
-        
         adBannerView?.loadAd()
 
         rootController?.bannerView.addSubview(self.adBannerView!)

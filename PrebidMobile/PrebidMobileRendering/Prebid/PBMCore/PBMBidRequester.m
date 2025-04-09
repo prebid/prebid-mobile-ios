@@ -82,7 +82,7 @@
     NSString * const requestString = [self getRTBRequest];
     
     NSError * hostURLError = nil;
-    NSString * const requestServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:&hostURLError];
+    NSString * const requestServerURL = [Host.shared getHostURLAndReturnError:&hostURLError];
     
     if (hostURLError) {
         completion(nil, hostURLError);
@@ -133,7 +133,7 @@
                 const NSTimeInterval remoteTimeout = ([responseDate timeIntervalSinceDate:requestDate]
                                                       + bidResponseTimeout
                                                       + 0.2);
-                NSString * const currentServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:nil];
+                NSString * const currentServerURL = [Host.shared getHostURLAndReturnError:nil];
                 if (self.sdkConfiguration.timeoutMillisDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
                     const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.timeoutMillis;
                     const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;

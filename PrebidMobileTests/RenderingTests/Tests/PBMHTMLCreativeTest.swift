@@ -341,13 +341,11 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
     }
     
     func testClickthroughOpening() {
-        testClickthroughOpening(useExternalBrowser: true)
         testClickthroughOpening(useExternalBrowser: false)
     }
     
     func testClickthroughOpening(useExternalBrowser: Bool) {
         let sdkConfiguration = Prebid.mock
-        sdkConfiguration.useExternalClickthroughBrowser = useExternalBrowser
         
         let attemptedToOpenBrowser = expectation(description: "attemptedToOpenBrowser")
         attemptedToOpenBrowser.isInverted = !useExternalBrowser

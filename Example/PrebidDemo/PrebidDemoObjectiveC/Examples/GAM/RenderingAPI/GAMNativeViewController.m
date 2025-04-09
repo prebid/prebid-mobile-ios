@@ -65,18 +65,20 @@ NSString * const gamRenderingNativeAdUnitId = @"/21808260008/apollo_custom_templ
     
     // 3. Make a bid request to Prebid Server
     @weakify(self);
-    [self.nativeUnit fetchDemandWithCompletion:^(enum ResultCode resultCode, NSDictionary<NSString *,NSString *> * _Nullable kvResultDict) {
+    [self.nativeUnit fetchDemandWithCompletionBidInfo:^(PBMBidInfo * _Nonnull bidInfo) {
         @strongify(self);
         if (!self) { return; }
         
         // 4. Prepare GAM request
         GAMRequest * gamRequest = [GAMRequest new];
-        [GAMUtils.shared prepareRequest:gamRequest bidTargeting:kvResultDict ?: @{}];
+        NSDictionary * targetingKeywords = bidInfo.targetingKeywords ?: @{};
+        [GAMUtils.shared prepareRequest:gamRequest bidTargeting:targetingKeywords];
         
         // 5. Load the native ad
         self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:gamRenderingNativeAdUnitId
                                            rootViewController:self
-                                                      adTypes:@[GADAdLoaderAdTypeCustomNative] options:@[]];
+                                                      adTypes:@[GADAdLoaderAdTypeCustomNative]
+                                                      options:@[]];
         self.adLoader.delegate = self;
         [self.adLoader loadRequest:gamRequest];
     }];

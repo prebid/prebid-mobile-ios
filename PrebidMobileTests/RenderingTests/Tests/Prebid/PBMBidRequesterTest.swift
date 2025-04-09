@@ -24,7 +24,7 @@ class PBMBidRequesterTest: XCTestCase {
     override func setUp() {
         super.setUp()
         sdkConfiguration = Prebid.mock
-        try! sdkConfiguration.setCustomPrebidServer(url: Prebid.devintServerURL)
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
         sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
     }
     

@@ -66,10 +66,10 @@ class GAMNativeViewController: NativeBaseViewController, CustomNativeAdLoaderDel
         nativeUnit.eventtrackers = eventTrackers
         
         // 3. Make a bid request to Prebid Server
-        nativeUnit.fetchDemand { result, kvResultDict in
+        nativeUnit.fetchDemand { bidInfo in 
             // 4. Prepare GAM request
             let gamRequest = AdManagerRequest()
-            GAMUtils.shared.prepareRequest(gamRequest, bidTargeting: kvResultDict ?? [:])
+            GAMUtils.shared.prepareRequest(gamRequest, bidTargeting: bidInfo.targetingKeywords ?? [:])
             
             // 5. Load the native ad
             self.adLoader = AdLoader(

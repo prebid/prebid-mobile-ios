@@ -202,13 +202,7 @@ public class PrebidAdUnit: NSObject {
         }
         
         adUnit.adUnitConfig.adConfiguration.supportSKOverlay = request.supportSKOverlayForInterstitial
-        
         adUnit.adUnitConfig.gpid = request.gpid
-        
-        adUnit.adUnitConfig.setExtData(request.getExtData())
-        adUnit.adUnitConfig.setExtKeywords(request.getExtKeywords())
-        adUnit.adUnitConfig.setAppContent(request.getAppContent())
-        adUnit.adUnitConfig.setUserData(request.getUserData())
     }
     
     // For tests, SDK internal

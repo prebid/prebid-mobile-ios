@@ -30,7 +30,7 @@ class PrebidOriginalAPIVideoInstreamViewController:
     var gamAdUnitVideo = ""
     
     // Prebid
-    private var adUnit: VideoAdUnit!
+    private var adUnit: InstreamVideoAdUnit!
     
     // IMA
     var adsLoader: IMAAdsLoader!
@@ -101,47 +101,9 @@ class PrebidOriginalAPIVideoInstreamViewController:
             name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
             object: contentPlayer?.currentItem)
         
-        adUnit = VideoAdUnit(configId: prebidConfigId, size: CGSize(width: 640, height: 480))
+        adUnit = InstreamVideoAdUnit(configId: prebidConfigId, size: CGSize(width: 640, height: 480))
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addAppContentData([ortbAppContentData])
-        }
-        
-        let parameters = VideoParameters(mimes: ["video/mp4"]) 
+        let parameters = VideoParameters(mimes: ["video/mp4"])
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn]
         parameters.protocols = [Signals.Protocols.VAST_2_0,Signals.Protocols.VAST_3_0,Signals.Protocols.VAST_4_0]
         parameters.api = [1,2]            // or alternative enum values [Api.VPAID_1, Api.VPAID_2]
@@ -149,26 +111,41 @@ class PrebidOriginalAPIVideoInstreamViewController:
         parameters.minBitrate = 300
         parameters.maxDuration = 30
         parameters.minDuration = 5
-        adUnit.parameters = parameters
+        adUnit.videoParameters = parameters
         
         adsLoader = IMAAdsLoader(settings: nil)
         adsLoader.delegate = self
         
-        adUnit.fetchDemand { [weak self] (resultCode, prebidKeys: [String: String]?) in
+        adUnit.fetchDemand { [weak self] bidInfo in
             guard let self = self else { return }
-            if resultCode == .prebidDemandFetchSuccess {
-                do {
-                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: self.gamAdUnitVideo, adSlotSizes: [.Size640x480], customKeywords: prebidKeys!)
-                    
-                    let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.rootController.bannerView, viewController: self.rootController)
-                    let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
-                    self.adsLoader.requestAds(with: request)
-                } catch {
-                    Log.error("\(error.localizedDescription)")
-                    self.contentPlayer?.play()
-                }
-            } else {
+            
+            guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
                 Log.error("Error constructing IMA Tag")
+                self.contentPlayer?.play()
+                return
+            }
+            
+            do {
+                let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(
+                    adUnitID: self.gamAdUnitVideo,
+                    adSlotSizes: [.Size640x480], customKeywords: bidInfo.targetingKeywords ?? [:]
+                )
+                
+                let adDisplayContainer = IMAAdDisplayContainer(
+                    adContainer: self.rootController.bannerView,
+                    viewController: self.rootController
+                )
+                
+                let request = IMAAdsRequest(
+                    adTagUrl: adServerTag,
+                    adDisplayContainer: adDisplayContainer,
+                    contentPlayhead: nil,
+                    userContext: nil
+                )
+                
+                self.adsLoader.requestAds(with: request)
+            } catch {
+                Log.error("\(error.localizedDescription)")
                 self.contentPlayer?.play()
             }
         }

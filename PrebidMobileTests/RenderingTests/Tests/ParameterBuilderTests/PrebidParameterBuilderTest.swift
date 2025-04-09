@@ -175,87 +175,38 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testFirstPartyData() {
-        
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         
         targeting.addBidderToAccessControlList("prebid-mobile")
-        targeting.updateUserData(key: "fav_colors", value: Set(["red", "orange"]))
         targeting.addAppExtData(key: "last_search_keywords", value: "wolf")
         targeting.addAppExtData(key: "last_search_keywords", value: "pet")
-        
-        let userDataObject1 = PBMORTBContentData()
-        userDataObject1.id = "data id"
-        userDataObject1.name = "test name"
-        let userDataObject2 = PBMORTBContentData()
-        userDataObject2.id = "data id"
-        userDataObject2.name = "test name"
-        
-        adUnitConfig.addUserData([userDataObject1, userDataObject2])
-        let objects = adUnitConfig.getUserData()!
-        
-        adUnitConfig.addExtData(key: "buy", value: "mushrooms")
         
         let bidRequest = buildBidRequest(with: adUnitConfig)
         
         XCTAssertEqual(bidRequest.extPrebid.dataBidders, ["prebid-mobile"])
         
-        XCTAssertEqual(2, objects.count)
-        XCTAssertEqual(objects.first, userDataObject1)
-        
         let extData = bidRequest.app.ext.data!
         XCTAssertTrue(extData.keys.count == 1)
         let extValues = extData["last_search_keywords"]!.sorted()
         XCTAssertEqual(extValues, ["pet", "wolf"])
-
-        let userData = bidRequest.user.ext!["data"] as! [String :AnyHashable]
-        XCTAssertTrue(userData.keys.count == 1)
-        let userValues = userData["fav_colors"] as! Array<String>
-        XCTAssertEqual(Set(userValues), ["red", "orange"])
-        
-        guard let imp = bidRequest.imp.first else {
-            XCTFail("No Impression object!")
-            return
-        }
-        
-        XCTAssertEqual(imp.extData, ["buy": ["mushrooms"]])
-    }
-    
-    func testAdUnitSpecificKeywords() {
-        let adUnit = AdUnit(configId: "config_id", size: nil, adFormats: [.banner])
-        
-        let expectedKeywords = Set<String>(["keyword1", "keyword2", "keyword3"])
-        
-        adUnit.addExtKeywords(expectedKeywords)
-        
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
-        bidRequest.imp.forEach { imp in
-            let resultKeywords = Set<String>((imp.extKeywords?.components(separatedBy: ",")) ?? [])
-            XCTAssertEqual(resultKeywords, expectedKeywords)
-        }
     }
 
-    func testPbAdSlotWithContextDataDictionary() {
+    func testPbAdSlot() {
         let testAdSlot = "test ad slot"
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
 
         adUnitConfig.setPbAdSlot(testAdSlot)
 
-        adUnitConfig.addExtData(key: "key", value: "value1")
-        adUnitConfig.addExtData(key: "key", value: "value2")
-
         let bidRequest = buildBidRequest(with: adUnitConfig)
 
         bidRequest.imp.forEach { imp in
-            guard let extData = imp.extData as? [String: Any], let result = extData["key"] as? [String] else {
-                XCTFail()
+            guard let extData = imp.extData as? [String: Any] else {
+                XCTFail("ext.data dictionary is nil.")
                 return
             }
 
-            XCTAssertEqual(Set(result), Set(["value1", "value2"]))
-            XCTAssertEqual(extData["adslot"] as? String, testAdSlot)
             XCTAssertEqual(extData["pbadslot"] as? String, testAdSlot)
         }
     }
@@ -571,7 +522,9 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testDefaultVideoParameters_VideoInterstitial_OriginalAPI() {
-        let adUnit = VideoInterstitialAdUnit(configId: "test")
+        let adUnit = InterstitialAdUnit(configId: "test")
+        adUnit.adFormats = [.video]
+        
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
         guard let imp = bidRequest.imp.first else {
@@ -750,26 +703,15 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual($0.banner?.api, [3, 5, 6, 7, 4, 1, 2, 4])
         }
     }
-    
-    func testBannerParameters_deprecatedDisplayFormat() {
-        // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
-
-        let bannerParameters = BannerParameters()
-        bannerParameters.api = [.MRAID_1, .MRAID_2, .MRAID_3, .OMID_1, .ORMMA, .VPAID_1, .VPAID_2, .ORMMA]
-
-        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
-
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-
-        bidRequest.imp.forEach {
-            XCTAssertEqual($0.banner?.api, [3, 5, 6, 7, 4, 1, 2, 4])
-        }
-    }
 
     func testVideoParameters() {
         // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        let adUnit = AdUnit(
+            configId: "test",
+            size: CGSize(width: 300, height: 250),
+            adFormats: [.banner]
+        )
+        
         adUnit.adUnitConfig.adFormats = [.video]
 
         let videoParamters = VideoParameters(mimes: [])
@@ -877,32 +819,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         for imp in bidRequest.imp {
             XCTAssertEqual(imp.extGPID, gpid)
         }
-    }
-    
-    // MARK: Arbitrary ORTB (Deprecated API)
-    
-    func testArbitraryORTBParams() {
-        let gpid = "/12345/home_screen#identifier"
-        let ortb = "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"imp\":[{}]}"
-        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
-        adUnit.setGPID(gpid)
-        adUnit.setOrtbConfig(ortb)
-
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
-        XCTAssertEqual(bidRequest.ortbObject?["arbitraryparamkey1"] as? String, "arbitraryparamvalue1")
-    }
-    
-    func testArbitraryORTBParamsIncorrectJSON() {
-        let gpid = "/12345/home_screen#identifier"
-        let ortb = "{{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"imp\":[{}]}"
-        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
-        adUnit.setGPID(gpid)
-        adUnit.setOrtbConfig(ortb)
-
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
-        XCTAssert(bidRequest.ortbObject?.isEmpty == true)
     }
     
     func testExtPrebidSDKRenderers() {

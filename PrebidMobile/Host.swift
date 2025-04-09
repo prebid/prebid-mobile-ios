@@ -16,29 +16,6 @@
 import UIKit
 import AppTrackingTransparency
 
-/// `PrebidHost` represents various Prebid server hosts used for ad bidding.
-@available(*, deprecated, message: "This enum is deprecated. In the upcoming major release, the enum will be removed.")
-@objc public enum PrebidHost: Int {
-    
-    /// URL [https://ib.adnxs.com/openrtb2/prebid](URL)
-    case Appnexus
-    
-    /// URL [https://prebid-server.rubiconproject.com/openrtb2/auction](URL)
-    case Rubicon
-    
-    /// Custom Prebid server URL. The URL for this case should be set separately.
-    case Custom
-
-    /// Returns the URL associated with the `PrebidHost` enum case.
-    func name () -> String {
-        switch self {
-        case .Appnexus: return "https://ib.adnxs.com/openrtb2/prebid"
-        case .Rubicon: return "https://prebid-server.rubiconproject.com/openrtb2/auction"
-        case .Custom: return ""
-        }
-    }
-}
-
 /// A singleton class that manages the Prebid server URL, including a custom URL.
 @objcMembers
 public class Host: NSObject {
@@ -72,12 +49,6 @@ public class Host: NSObject {
         self.deviceManager = deviceManager
     }
 
-    /// The CustomHost property holds the URL for the custom prebid adaptor
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use setHostURL instead.")
-    @objc public func setCustomHostURL(_ urlString: String?) throws {
-        try setHostURL(urlString, nonTrackingURLString: nil)
-    }
-    
     @objc public func setHostURL(_ urlString: String?, nonTrackingURLString: String?) throws {
         guard let trackingURL = URL.urlWithoutEncoding(from: urlString) else {
             throw ErrorCode.prebidServerURLInvalid(urlString ?? "")
@@ -91,21 +62,6 @@ public class Host: NSObject {
         }
         
         self.trackingURL = trackingURL
-    }
-
-    /// This function retrieves the prebid server URL for the selected host
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed. Please, use getHostURL instead.")
-    public func getHostURL(host: PrebidHost) throws -> String {
-        if (host == PrebidHost.Custom) {
-
-            if let customHostURL = customHostURL {
-                return customHostURL.absoluteString
-            } else {
-                throw ErrorCode.prebidServerURLInvalid("")
-            }
-        }
-
-        return host.name()
     }
     
     public func getHostURL() throws -> String {

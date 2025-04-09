@@ -71,7 +71,6 @@
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders{
   
     PBMORTBBidRequest *bidRequest = [PBMParameterBuilderService createORTBBidRequestWithTargeting:targeting];
-    bidRequest.ortbObject = [adConfiguration getCheckedOrtbConfig];
     NSMutableArray<id<PBMParameterBuilder> > * const parameterBuilders = [[NSMutableArray alloc] init];
     [parameterBuilders addObjectsFromArray:@[
         [[PBMBasicParameterBuilder alloc] initWithAdConfiguration:adConfiguration
@@ -108,16 +107,6 @@
 
 + (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
-    NSNumber * yob = [targeting getYearOfBirth];
-    
-    if (![yob isEqual:@0]) {
-        bidRequest.user.yob = yob;
-    }
-    
-    bidRequest.user.gender      = targeting.userGenderDescription;
-    bidRequest.user.buyeruid    = targeting.buyerUID;
-    bidRequest.user.customdata  = targeting.userCustomData;
-    bidRequest.user.userid      = targeting.userID;
    
     if (targeting.userExt) {
         NSMutableDictionary *existingUserExt = bidRequest.user.ext ?: [NSMutableDictionary dictionary];
