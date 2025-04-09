@@ -116,7 +116,7 @@ public class PrebidConstants: NSObject {
         """
     }
     
-    public static let PREBID_VERSION = "2.5.0"
+    public static let PREBID_VERSION = "3.0.0"
     
     public static let SDK_NAME = "prebid-mobile-sdk"
 }
