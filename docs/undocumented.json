@@ -1,29 +1,8 @@
 {
   "warnings": [
     {
-      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/AdUnits/AdUnit.swift",
-      "line": 480,
-      "symbol": "AdUnit.setOrtbConfig(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/AdUnits/AdUnit.swift",
-      "line": 485,
-      "symbol": "AdUnit.getOrtbConfig()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/AdUnits/InterstitialAdUnit.swift",
-      "line": 66,
-      "symbol": "InterstitialAdUnit.activatePrebidImpressionTracker()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/AdUnits/Native/NativeAd.swift",
-      "line": 49,
+      "line": 77,
       "symbol": "NativeAd.privacyUrl",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -204,22 +183,36 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/AdUnits/Parameters/VideoParameters.swift",
+      "line": 70,
+      "symbol": "VideoParameters.isSkippable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/AdUnits/Parameters/VideoParameters.swift",
+      "line": 102,
+      "symbol": "VideoParameters.rawSkippable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/ConfigurationAndTargeting/Prebid.swift",
-      "line": 397,
+      "line": 308,
       "symbol": "Prebid.registerPluginRenderer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/ConfigurationAndTargeting/Prebid.swift",
-      "line": 401,
+      "line": 312,
       "symbol": "Prebid.unregisterPluginRenderer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/ConfigurationAndTargeting/Prebid.swift",
-      "line": 405,
+      "line": 316,
       "symbol": "Prebid.containsPluginRenderer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -232,22 +225,15 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/ConfigurationAndTargeting/Targeting.swift",
-      "line": 74,
-      "symbol": "Targeting.getYearOfBirth()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Host.swift",
-      "line": 81,
+      "line": 52,
       "symbol": "Host.setHostURL(_:nonTrackingURLString:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Host.swift",
-      "line": 111,
+      "line": 67,
       "symbol": "Host.getHostURL()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -415,70 +401,63 @@
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 82,
-      "symbol": "BannerView.ortbConfig",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 479,
+      "line": 302,
       "symbol": "BannerView.bannerAdLoader(_:loadedAdView:adSize:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 490,
+      "line": 313,
       "symbol": "BannerView.adLoadFlowController(_:failedWithError:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 497,
+      "line": 320,
       "symbol": "BannerView.adLoadFlowControllerWillSendBidRequest(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 502,
+      "line": 325,
       "symbol": "BannerView.adLoadFlowControllerWillRequestPrimaryAd(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 507,
+      "line": 330,
       "symbol": "BannerView.adLoadFlowControllerShouldContinue(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 513,
+      "line": 336,
       "symbol": "BannerView.willPresentModal()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 520,
+      "line": 343,
       "symbol": "BannerView.didDismissModal()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 527,
+      "line": 350,
       "symbol": "BannerView.willLeaveApp()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 533,
+      "line": 356,
       "symbol": "BannerView.viewControllerForPresentingModal",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -585,20 +564,6 @@
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/RewardedConfig.swift",
       "line": 78,
       "symbol": "RewardedConfig.init(ortbRewarded:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationNativeAdUnit.swift",
-      "line": 114,
-      "symbol": "MediationNativeAdUnit.setOrtbConfig(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/MediationAPI/MediationNativeAdUnit.swift",
-      "line": 119,
-      "symbol": "MediationNativeAdUnit.getOrtbConfig()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
