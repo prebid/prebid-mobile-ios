@@ -4,7 +4,7 @@ PODS:
   - Eureka (5.5.0)
   - Google-Mobile-Ads-SDK (12.2.0):
     - GoogleUserMessagingPlatform (>= 1.1)
-  - GoogleAds-IMA-iOS-SDK (3.24.0)
+  - GoogleAds-IMA-iOS-SDK (3.26.1)
   - GoogleUserMessagingPlatform (3.0.0)
   - RxSwift (6.9.0)
   - SVProgressHUD (2.3.1):
@@ -36,7 +36,7 @@ SPEC CHECKSUMS:
   AppLovinSDK: 1eb88a82b4feea9f3696ce9cc1e3343c4997ee12
   Eureka: 1c18c7fcd8f772cc2ca42d6be36292dffa77eecb
   Google-Mobile-Ads-SDK: 1dfb0c3cb46c7e2b00b0f4de74a1e06d9ea25d67
-  GoogleAds-IMA-iOS-SDK: bf4dc86b31a1d1b27021008200bbeb6faa689901
+  GoogleAds-IMA-iOS-SDK: 10b8f194e7cd2714d4de9a0587c46c8aaf06c620
   GoogleUserMessagingPlatform: f8d0cdad3ca835406755d0a69aa634f00e76d576
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
