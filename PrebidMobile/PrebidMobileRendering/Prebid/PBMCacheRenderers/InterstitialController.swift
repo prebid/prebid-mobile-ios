@@ -95,9 +95,9 @@ public class InterstitialController:
                 }
             })
         
-        PBMWinNotifier.notifyThroughConnection(
+        Factory.WinNotifierType.notifyThroughConnection(
             PrebidServerConnection.shared,
-            winning: bid,
+            winningBid: bid,
             callback: { [weak self] adMarkup in
                 if let adMarkup = adMarkup {
                     self?.transactionFactory?.load(withAdMarkup: adMarkup)

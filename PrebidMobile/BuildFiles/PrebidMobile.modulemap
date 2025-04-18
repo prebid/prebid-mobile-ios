@@ -93,8 +93,6 @@ framework module PrebidMobile {
     header "PBMWinNotifierBlock.h"
     header "PBMAdMarkupStringHandler.h"
     header "PBMBidRequesterFactory.h"
-    header "PBMWinNotifier.h"
-    header "PBMWinNotifierFactoryBlock.h"
     
     // OM tracking
     header "PBMOpenMeasurementWrapper.h"
