@@ -39,7 +39,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     private(set) var adUnitConfig: AdUnitConfig
     
-    private var bidRequester: PBMBidRequesterProtocol
+    private var bidRequester: BidRequesterProtocol
     
     /// This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
     private var isInitialFetchDemandCallMade = false
@@ -90,7 +90,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     // Internal only!
     convenience init(
-        bidRequester: PBMBidRequesterProtocol,
+        bidRequester: BidRequesterProtocol,
         configId: String,
         size: CGSize?,
         adFormats: Set<AdFormat>

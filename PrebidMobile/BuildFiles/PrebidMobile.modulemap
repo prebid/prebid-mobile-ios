@@ -24,7 +24,6 @@ framework module PrebidMobile {
     
     // PBMCore
     header "PBMBidRequester.h"
-    header "PBMBidRequesterProtocol.h"
     
     // PBMCacheRenderers
     header "PBMDisplayView.h"

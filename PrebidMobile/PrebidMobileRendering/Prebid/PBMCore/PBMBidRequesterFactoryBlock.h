@@ -13,8 +13,9 @@
  limitations under the License.
  */
 
-#import "PBMBidRequesterProtocol.h"
+@import Foundation;
 
 @class AdUnitConfig;
+@protocol PBMBidRequesterProtocol;
 
 typedef id<PBMBidRequesterProtocol> _Nonnull (^PBMBidRequesterFactoryBlock)(AdUnitConfig * _Nonnull adUnitConfig);
