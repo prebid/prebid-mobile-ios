@@ -65,7 +65,6 @@ framework module PrebidMobile {
     header "PBMVastTransactionFactory.h"
     header "PBMTransactionFactoryCallback.h"
     
-    header "PBMError.h"
     header "PBMModalManagerDelegate.h"
     header "PBMAdLoadManagerDelegate.h"
     header "PBMCreativeViewDelegate.h"

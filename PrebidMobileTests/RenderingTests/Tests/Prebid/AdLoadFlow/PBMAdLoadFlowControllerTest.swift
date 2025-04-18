@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMAdLoadFlowControllerTest: XCTestCase {
     private typealias CompositeMock = PBMAdLoadFlowControllerTest_CompositeMock
@@ -744,7 +744,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
             }),
             .flowControllerDelegate(call: .failedWithError(handler: { (loader, error) in
                 XCTAssertEqual(loader, flowController())
-                XCTAssertEqual(error as NSError?, PBMError.noWinningBid as NSError)
+                XCTAssertEqual(error as NSError?, PBMError.noWinningBid())
                 failureReported.fulfill()
             })),
         ])

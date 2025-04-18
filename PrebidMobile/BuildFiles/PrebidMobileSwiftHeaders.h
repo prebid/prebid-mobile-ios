@@ -12,7 +12,9 @@
 
 #import "PBMInterstitialEventHandler.h"
 
-#import "PBMError.h"
+#import "PBMErrorCode.h"
+#import "PBMErrorFamily.h"
+#import "PBMErrorType.h"
 #import "PBMModalManagerDelegate.h"
 #import "PBMAdLoadManagerDelegate.h"
 #import "PBMCreativeViewDelegate.h"

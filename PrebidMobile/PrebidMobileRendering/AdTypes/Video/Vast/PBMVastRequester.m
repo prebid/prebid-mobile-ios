@@ -17,7 +17,6 @@
 
 #import "PBMConstants.h"
 #import "PBMURLComponents.h"
-#import "PBMError.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

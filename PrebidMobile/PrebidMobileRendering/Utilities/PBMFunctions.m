@@ -17,8 +17,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMFunctions+Testing.h"
 
-#import "PBMError.h"
-
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
 #import "PrebidMobile-Swift.h"

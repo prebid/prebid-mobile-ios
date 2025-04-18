@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMCreativeFactoryJobTest: XCTestCase {
     

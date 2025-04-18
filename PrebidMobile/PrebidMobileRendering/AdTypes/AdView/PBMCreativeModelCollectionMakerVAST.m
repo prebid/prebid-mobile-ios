@@ -24,7 +24,6 @@
 #import "PBMAdRequestResponseVAST.h"
 #import "PBMVastCreativeCompanionAds.h"
 #import "PBMFunctions+Private.h"
-#import "PBMError.h"
 #import "PBMAdModelEventTracker.h"
 
 #import "PrebidMobileSwiftHeaders.h"

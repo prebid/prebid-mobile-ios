@@ -15,7 +15,6 @@
 
 #import "PBMBidRequester.h"
 #import "PBMBidResponseTransformer.h"
-#import "PBMError.h"
 #import "PBMORTBPrebid.h"
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMParameterBuilderService.h"

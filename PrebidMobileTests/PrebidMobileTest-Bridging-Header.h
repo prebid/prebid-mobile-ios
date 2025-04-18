@@ -46,7 +46,7 @@
 #import "PBMDeviceAccessManagerKeys.h"
 #import "PBMDeviceInfoParameterBuilder.h"
 #import "PBMDownloadDataHelper.h"
-#import "PBMError.h"
+#import "PBMErrorType.h"
 #import "PBMAdModelEventTracker.h"
 #import "PBMFunctions.h"
 #import "PBMFunctions+Private.h"
@@ -158,7 +158,6 @@
 // Prebid
 #import "PBMAdLoadFlowController+PrivateState.h"
 #import "PBMBidResponseTransformer.h"
-#import "PBMError.h"
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMWinNotifier+Private.h"
 

@@ -14,7 +14,7 @@
  */
 
 #import "NSException+PBMExtensions.h"
-#import "PBMError.h"
+#import "PBMErrorType.h"
 
 @implementation NSException (PBMExtensions)
 
