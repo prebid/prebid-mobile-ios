@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMBidRequester.h"
 #import "PBMBidResponseTransformer.h"
 #import "PBMORTBPrebid.h"
 #import "PBMPrebidParameterBuilder.h"
@@ -29,7 +28,7 @@
 
 #import "PBMMacros.h"
 
-@interface PBMBidRequester ()
+@interface PBMBidRequester_Objc: NSObject <PBMBidRequester>
 
 @property (nonatomic, strong, nonnull, readonly) id<PrebidServerConnectionProtocol> connection;
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
@@ -40,7 +39,7 @@
 
 @end
 
-@implementation PBMBidRequester
+@implementation PBMBidRequester_Objc
 
 - (instancetype)initWithConnection:(id<PrebidServerConnectionProtocol>)connection
                   sdkConfiguration:(Prebid *)sdkConfiguration

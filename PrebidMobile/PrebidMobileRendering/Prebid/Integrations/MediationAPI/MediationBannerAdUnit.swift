@@ -21,7 +21,7 @@ import UIKit
 @objcMembers
 public class MediationBannerAdUnit : NSObject {
     
-    var bidRequester: PBMBidRequester?
+    var bidRequester: BidRequester?
     // The view in which ad is displayed
     weak var adView: UIView?
     var completion: ((ResultCode) -> Void)?
@@ -182,10 +182,10 @@ public class MediationBannerAdUnit : NSObject {
         
         mediationDelegate.cleanUpAdObject()
         
-        bidRequester = PBMBidRequester(connection: connection,
-                                       sdkConfiguration: sdkConfiguration,
-                                       targeting: targeting,
-                                       adUnitConfiguration: adUnitConfig)
+        bidRequester = Factory.BidRequester(connection: connection,
+                                            sdkConfiguration: sdkConfiguration,
+                                            targeting: targeting,
+                                            adUnitConfiguration: adUnitConfig)
         
         bidRequester?.requestBids(completion: { bidResponse, error in
             // Note: we have to run the completion on the main thread since

@@ -15,8 +15,6 @@
 
 #import "PBMBidRequesterFactory.h"
 
-#import "PBMBidRequester.h"
-
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
 #import "PrebidMobile-Swift.h"
@@ -37,10 +35,10 @@
                                                     targeting:(Targeting *)targeting
 {
     return ^id<PBMBidRequesterProtocol> (AdUnitConfig * adUnitConfig) {
-        return [[PBMBidRequester alloc] initWithConnection:connection
-                                          sdkConfiguration:sdkConfiguration
-                                                 targeting:targeting
-                                       adUnitConfiguration:adUnitConfig];
+        return [PBMFactory BidRequesterWithConnection:connection
+                                     sdkConfiguration:sdkConfiguration
+                                            targeting:targeting
+                                  adUnitConfiguration:adUnitConfig];
     };
 }
 

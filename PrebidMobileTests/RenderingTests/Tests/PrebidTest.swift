@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PrebidTest: XCTestCase {
     
@@ -309,10 +309,10 @@ class PrebidTest: XCTestCase {
             callback(PBMBidResponseTransformer.makeValidResponseWithCTF(bidPrice: 0.5, ctfBanner: creativeFactoryTimeout, ctfPreRender: creativeFactoryTimeoutPreRenderContent))
         }])
         
-        let requester = PBMBidRequester(connection: connection,
-                                        sdkConfiguration: sdkConfiguration,
-                                        targeting: targeting,
-                                        adUnitConfiguration: adUnitConfig)
+        let requester = Factory.BidRequester(connection: connection,
+                                             sdkConfiguration: sdkConfiguration,
+                                             targeting: targeting,
+                                             adUnitConfiguration: adUnitConfig)
         
         let exp = expectation(description: "exp")
         requester.requestBids { (bidResponse, error) in

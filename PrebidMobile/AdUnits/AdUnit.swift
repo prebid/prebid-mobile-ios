@@ -75,7 +75,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         adUnitConfig.adConfiguration.isOriginalAPI = true
         adUnitConfig.adFormats = adFormats
         
-        bidRequester = PBMBidRequester(
+        bidRequester = Factory.BidRequester(
             connection: PrebidServerConnection.shared,
             sdkConfiguration: Prebid.shared,
             targeting: Targeting.shared,

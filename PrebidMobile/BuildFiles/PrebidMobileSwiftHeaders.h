@@ -4,7 +4,6 @@
 
 #import "PBMPrimaryAdRequesterProtocol.h"
 
-#import "PBMBidRequester.h"
 #import "PBMBidRequesterFactory.h"
 #import "PBMConstants.h"
 #import "PBMMacros.h"
