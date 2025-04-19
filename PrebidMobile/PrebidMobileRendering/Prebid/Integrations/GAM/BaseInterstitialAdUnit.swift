@@ -26,7 +26,7 @@ class BaseInterstitialAdUnit:
     // MARK: - Internal Properties
     
     let adUnitConfig: AdUnitConfig
-    let eventHandler: PBMPrimaryAdRequesterProtocol
+    let eventHandler: PrimaryAdRequesterProtocol
     
     weak var delegate: BaseInterstitialAdUnitProtocol? {
         didSet {
@@ -75,7 +75,7 @@ class BaseInterstitialAdUnit:
     init(
         configID: String,
         minSizePerc: NSValue?,
-        eventHandler: PBMPrimaryAdRequesterProtocol
+        eventHandler: PrimaryAdRequesterProtocol
     ) {
         adUnitConfig = AdUnitConfig(configId: configID)
         blocksLockToken = NSObject()

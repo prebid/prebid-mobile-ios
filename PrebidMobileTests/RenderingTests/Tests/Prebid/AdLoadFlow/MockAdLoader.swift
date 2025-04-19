@@ -22,7 +22,7 @@ class MockAdLoader: NSObject, PBMAdLoaderProtocol {
     enum ExpectedCall {
         case getFlowDelegate(provider: ()->PBMAdLoaderFlowDelegate?)
         case setFlowDelegate(handler: (PBMAdLoaderFlowDelegate?)->())
-        case primaryAdRequester(provider: ()->PBMPrimaryAdRequesterProtocol)
+        case primaryAdRequester(provider: ()->PrimaryAdRequesterProtocol)
         case createPrebidAd(handler: (Bid, AdUnitConfig, (Any)->(), (@escaping ()->())->())->())
         case reportSuccess(handler: (Any, NSValue?)->())
     }
@@ -83,8 +83,8 @@ class MockAdLoader: NSObject, PBMAdLoaderProtocol {
         }
     }
     
-    var primaryAdRequester: PBMPrimaryAdRequesterProtocol {
-        let provider: (()->PBMPrimaryAdRequesterProtocol)? = syncQueue.sync {
+    var primaryAdRequester: PrimaryAdRequesterProtocol {
+        let provider: (()->PrimaryAdRequesterProtocol)? = syncQueue.sync {
             guard nextCallIndex < expectedCalls.count else {
                 XCTFail("[MockAdLoader] Call index out of bounds: \(nextCallIndex) < \(expectedCalls.count)",
                         file: file, line: line)

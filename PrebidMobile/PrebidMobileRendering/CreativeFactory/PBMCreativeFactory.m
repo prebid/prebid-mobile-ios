@@ -59,7 +59,8 @@
     self.jobs = [self convertCreativeModels];
     
     if (self.jobs.count < 1) {
-        NSError *error = [PBMError errorWithMessage:@"PBMCreativeFactory: There were no jobs for processing" type:PBMErrorTypeInternalError];
+        NSError *error = [PBMError errorWithMessage:@"PBMCreativeFactory: There were no jobs for processing"
+                                               type:PBMErrorType.internalError];
         self.finishedCallback(NULL, error);
         return;
     }

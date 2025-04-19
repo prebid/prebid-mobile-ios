@@ -80,7 +80,7 @@ class PBMErrorTest: XCTestCase {
         let error = PBMError.error(description: "MyErrorDescription")
         
         // Verify default values
-        XCTAssert(error.domain == PrebidRenderingErrorDomain)
+        XCTAssert(error.domain == PBMError.errorDomain)
         XCTAssert(error.code == 700)
         XCTAssert(error.userInfo["NSLocalizedDescription"] as! String == "MyErrorDescription")
     }

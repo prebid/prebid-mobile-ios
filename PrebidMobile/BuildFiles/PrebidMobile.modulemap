@@ -19,19 +19,11 @@ framework module PrebidMobile {
     header "PrebidMobile.h"
     
     // Enums
-    header "PBMErrorCode.h"
-    header "PBMErrorType.h"
     
     // PBMCore
     
     // PBMCacheRenderers
     header "PBMDisplayView.h"
-    
-    // Integration GAM
-    
-    header "PBMPrimaryAdRequesterProtocol.h"
-    
-    header "PBMInterstitialEventHandler.h"
     
     // ===
     //Temp. for converting
@@ -43,9 +35,7 @@ framework module PrebidMobile {
 
     header "PBMViewControllerProvider.h"
     header "PBMVoidBlock.h"
-    
-    header "PBMErrorFamily.h"
-    
+        
     header "PBMJsonDecodable.h"
     header "PBMConstants.h"
     
