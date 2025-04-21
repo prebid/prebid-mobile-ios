@@ -74,7 +74,7 @@ class PBMVastLoaderTestOMVerificationInExtension: XCTestCase {
         XCTAssertNotNil(ad.verificationParameters)
         XCTAssertEqual(ad.verificationParameters.verificationResources.count, 1)
         
-        let resource1 = ad.verificationParameters.verificationResources[0] as! PBMVideoVerificationResource
+        let resource1 = ad.verificationParameters.verificationResources[0]
         PBMAssertEq(resource1.url, "https://company.com/omid.js")
         PBMAssertEq(resource1.vendorKey, "company.com-omid")
         PBMAssertEq(resource1.params, "parameter1=value1&parameter2=value2&parameter3=value3")

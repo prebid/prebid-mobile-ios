@@ -16,9 +16,8 @@
 
 import Foundation
 
-
-@objc(PBMVastTrackingEvents) @_spi(PBMInternal) public
-class VastTrackingEvents: NSObject {
+@objc(PBMVastTrackingEvents)
+public class VastTrackingEvents: NSObject {
     
     @objc public internal(set) var trackingEvents = [String : [String]]()
     @objc public internal(set) var progressOffsets = [NSNumber]()

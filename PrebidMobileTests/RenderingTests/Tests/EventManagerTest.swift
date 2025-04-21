@@ -76,7 +76,7 @@ class EventManagerTest: XCTestCase {
             exp.fulfill()
         }
         
-        let testParams = PBMVideoVerificationParameters()
+        let testParams = VideoVerificationParameters()
         eventTracker.mock_trackVideoAdLoaded = { params in
             XCTAssertTrue(testParams === params)
             exp.fulfill()

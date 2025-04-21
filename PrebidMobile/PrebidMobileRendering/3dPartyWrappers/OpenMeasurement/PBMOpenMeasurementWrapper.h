@@ -15,7 +15,6 @@
 
 #import <Foundation/Foundation.h>
 #import "PBMOpenMeasurementSession.h"
-#import "PBMVideoVerificationParameters.h"
 #import "PBMVoidBlock.h"
 
 @class WKWebView;

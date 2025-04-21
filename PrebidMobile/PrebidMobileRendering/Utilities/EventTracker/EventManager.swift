@@ -50,7 +50,7 @@ public class EventManager: NSObject, PBMEventTrackerProtocol {
         trackers.forEach { $0.trackEvent(event) }
     }
     
-    public func trackVideoAdLoaded(_ parameters: PBMVideoVerificationParameters!) {
+    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters!) {
         trackers.forEach { $0.trackVideoAdLoaded(parameters) }
     }
     

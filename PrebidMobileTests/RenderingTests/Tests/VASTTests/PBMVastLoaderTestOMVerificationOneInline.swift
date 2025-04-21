@@ -75,13 +75,13 @@ class PBMVastLoaderTestOMVerificationOneInline: XCTestCase {
         XCTAssertNotNil(ad.verificationParameters)
         XCTAssertEqual(ad.verificationParameters.verificationResources.count, 2)
         
-        let resource1 = ad.verificationParameters.verificationResources[0] as! PBMVideoVerificationResource
+        let resource1 = ad.verificationParameters.verificationResources[0]
         PBMAssertEq(resource1.url, "https://measurement.domain.com/tag.js")
         PBMAssertEq(resource1.vendorKey, "OpenX1")
         PBMAssertEq(resource1.params, "{1}")
         PBMAssertEq(resource1.apiFramework, "omidOpenx1")
         
-        let resource2 = ad.verificationParameters.verificationResources[1] as! PBMVideoVerificationResource
+        let resource2 = ad.verificationParameters.verificationResources[1]
         PBMAssertEq(resource2.url, "https://measurement.domain.com/tag2.js")
         PBMAssertEq(resource2.vendorKey, "OpenX2")
         PBMAssertEq(resource2.params, "{2}")

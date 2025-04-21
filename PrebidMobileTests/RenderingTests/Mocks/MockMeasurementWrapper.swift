@@ -38,7 +38,7 @@ class MockMeasurementWrapper : PBMOpenMeasurementWrapper {
         return session
     }
     
-    override func initializeNativeVideoSession(_ videoView: UIView, verificationParameters:PBMVideoVerificationParameters?) -> PBMOpenMeasurementSession? {
+    override func initializeNativeVideoSession(_ videoView: UIView, verificationParameters: VideoVerificationParameters?) -> PBMOpenMeasurementSession? {
         // TODO: The same for tests?
         let session = MockMeasurementSession()
         initializeSessionClosure?(session)
