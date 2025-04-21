@@ -14,8 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBMVastTrackingEvents.h"
 #import "PBMVastResourceContainerProtocol.h"
+
+@class PBMVastTrackingEvents;
 
 @interface PBMVastCreativeNonLinearAdsNonLinear : NSObject <PBMVastResourceContainerProtocol>
 
