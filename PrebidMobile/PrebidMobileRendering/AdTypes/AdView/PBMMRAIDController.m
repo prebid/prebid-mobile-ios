@@ -34,7 +34,6 @@
 #import "PBMModalState.h"
 #import "PBMModalViewController.h"
 #import "PBMOpenMeasurementSession.h"
-#import "PBMTransaction.h"
 #import "PBMVideoView.h"
 #import "PBMWebView.h"
 #import "PBMWebViewDelegate.h"

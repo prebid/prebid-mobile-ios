@@ -18,7 +18,7 @@
 
 @class PBMCreativeModel;
 @class PBMAbstractCreative;
-@class PBMTransaction;
+@protocol PBMTransaction;
 @class PBMCreativeFactoryJob;
 
 @protocol PrebidServerConnectionProtocol;
@@ -40,7 +40,7 @@ typedef void(^PBMCreativeFactoryJobFinishedCallback)(PBMCreativeFactoryJob * _No
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 - (nonnull instancetype)initFromCreativeModel:(nonnull PBMCreativeModel *)creativeModel
-                                  transaction:(nonnull PBMTransaction *)transaction
+                                  transaction:(nonnull id<PBMTransaction>)transaction
                                   serverConnection:(nonnull id<PrebidServerConnectionProtocol>)serverConnection
                               finishedCallback:(nonnull PBMCreativeFactoryJobFinishedCallback)finishedCallback
                               NS_DESIGNATED_INITIALIZER;

@@ -188,7 +188,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
         
         self.htmlCreative.setupView()
         self.htmlCreative.display(withRootViewController:mockViewController)
-        transaction.creatives.add(self.htmlCreative!)
+        transaction.creatives.append(self.htmlCreative!)
         self.htmlCreative.createOpenMeasurementSession();
         
         wait(for: measurementExpectations, timeout: 5, enforceOrder: true);
@@ -243,7 +243,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
     
     // test objects
     var htmlCreative: MockPBMHTMLCreative!
-    var transaction: PBMTransaction!
+    var transaction: Transaction!
     let mockViewController = MockViewController()
     
     let clickThroughURL = URL(string:"http://www.openx.com")!

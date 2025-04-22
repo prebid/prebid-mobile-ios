@@ -14,14 +14,14 @@
  */
 
 @protocol PBMAdLoadManagerProtocol;
-@class PBMTransaction;
+@protocol PBMTransaction;
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol PBMAdLoadManagerDelegate
 
-- (void)loadManager:(id<PBMAdLoadManagerProtocol>)loadManager didLoadTransaction:(PBMTransaction *)transaction;
+- (void)loadManager:(id<PBMAdLoadManagerProtocol>)loadManager didLoadTransaction:(id<PBMTransaction>)transaction;
 
-- (void)loadManager:(id<PBMAdLoadManagerProtocol>)loadManager failedToLoadTransaction:(nullable PBMTransaction *)transaction error:(NSError *)error;
+- (void)loadManager:(id<PBMAdLoadManagerProtocol>)loadManager failedToLoadTransaction:(nullable id<PBMTransaction>)transaction error:(NSError *)error;
 
 @end
 NS_ASSUME_NONNULL_END

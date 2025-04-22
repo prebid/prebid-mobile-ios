@@ -112,7 +112,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         let transaction = UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true)
         adViewManager.handleExternalTransaction(transaction)
         
-        XCTAssertEqual(adViewManager.externalTransaction, transaction)
+        XCTAssertIdentical(adViewManager.externalTransaction, transaction)
         waitForExpectations(timeout: 3, handler: nil)
     }
     
@@ -171,7 +171,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         
         adDidCompleteExpectation = expectation(description: "adDidCompleteExpectation")
 
-        guard let testCreative = adViewManager.externalTransaction?.creatives.firstObject as? PBMHTMLCreative else {
+        guard let testCreative = adViewManager.externalTransaction?.creatives.first as? PBMHTMLCreative else {
             XCTFail("Could not get PBMHTMLCreative")
             return
         }
@@ -198,7 +198,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         // setup expectations
         displayViewExpectation = expectation(description: "displayViewExpectation #2")
         
-        guard let testCreative = adViewManager.externalTransaction?.creatives.firstObject as? PBMHTMLCreative else {
+        guard let testCreative = adViewManager.externalTransaction?.creatives.first as? PBMHTMLCreative else {
             XCTFail("Could not get PBMHTMLCreative")
             return
         }

@@ -279,7 +279,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
             expectationSessionStart,
             ]
         
-        var transaction: PBMTransaction? = UtilitiesForTesting.createEmptyTransaction()
+        var transaction: Transaction? = UtilitiesForTesting.createEmptyTransaction()
         transaction?.measurementWrapper = measurement
         
         self.videoCreative = PBMVideoCreative(
@@ -296,7 +296,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         
         self.videoCreative.display(withRootViewController:mockViewController)
         
-        transaction?.creatives.add(self.videoCreative!)
+        transaction?.creatives.append(self.videoCreative!)
         self.videoCreative.createOpenMeasurementSession();
         
         wait(for: measurementExpectations, timeout: 5, enforceOrder: true);

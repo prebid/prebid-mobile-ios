@@ -13,8 +13,6 @@
   limitations under the License.
   */
 
-#import "PBMTransaction.h"
-
 @protocol PBMThreadProtocol;
 
 @interface PBMAbstractCreative ()

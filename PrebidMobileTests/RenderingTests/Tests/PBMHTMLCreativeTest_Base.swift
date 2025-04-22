@@ -23,7 +23,7 @@ class PBMHTMLCreativeTest_Base: XCTestCase, CreativeViewDelegate {
     
     let timeout: TimeInterval = 1
     var htmlCreative: MockPBMHTMLCreative!
-    var transaction: PBMTransaction!
+    var transaction: Transaction!
     
     var mockCreativeModel: MockPBMCreativeModel!
     var mockEventTracker: MockPBMAdModelEventTracker!

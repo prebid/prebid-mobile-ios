@@ -29,7 +29,7 @@
 @class PBMInterstitialDisplayProperties;
 @class PBMModalManager;
 @class PBMModalState;
-@class PBMTransaction;
+@protocol PBMTransaction;
 @class PBMEventManager;
 @class PBMOpenMeasurementSession;
 @class PBMDownloadDataHelper;
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface PBMAbstractCreative : NSObject
 
-@property (nonatomic, weak, readonly, nullable) PBMTransaction *transaction;
+@property (nonatomic, weak, readonly, nullable) id<PBMTransaction> transaction;
 @property (nonatomic, strong, nullable) PBMCreativeModel *creativeModel;
 @property (nonatomic, readonly, nonnull) PBMEventManager *eventManager;
 @property (nonatomic, strong, nullable) PBMSKOverlayManager * skOverlayManager;
@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                                  transaction:(PBMTransaction *)transaction NS_DESIGNATED_INITIALIZER;
+                          transaction:(id<PBMTransaction>)transaction NS_DESIGNATED_INITIALIZER;
 
 - (void)setupView;
 - (void)displayWithRootViewController:(UIViewController *)viewController;

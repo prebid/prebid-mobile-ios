@@ -35,7 +35,6 @@
 #import "PBMModalViewController.h"
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"
-#import "PBMTransaction.h"
 #import "PBMVideoView.h"
 #import "PBMWebView.h"
 #import "PBMWebViewDelegate.h"
@@ -73,7 +72,7 @@
 #pragma mark - Initialization
 
 - (nonnull instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                                  transaction:(PBMTransaction *)transaction {
+                                  transaction:(id<PBMTransaction>)transaction {
     self = [self initWithCreativeModel:creativeModel
                            transaction:transaction
                                webView:nil
@@ -83,7 +82,7 @@
 }
 
 - (nonnull instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                                  transaction:(PBMTransaction *)transaction
+                                  transaction:(id<PBMTransaction>)transaction
                                       webView:(PBMWebView *)webView
                              sdkConfiguration:(Prebid *)sdkConfiguration {
     self = [super initWithCreativeModel:creativeModel transaction:transaction];

@@ -18,7 +18,6 @@
 #import "PBMAdRequesterVAST.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMMacros.h"
-#import "PBMTransaction.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -31,7 +30,7 @@
 
 @interface PBMAdLoadManagerBase ()
 
-@property (nonatomic, strong) PBMTransaction *currentTransaction;
+@property (nonatomic, strong) id<PBMTransaction> currentTransaction;
 
 @end
 
@@ -56,9 +55,9 @@
 - (void)makeCreativesWithCreativeModels:(NSArray<PBMCreativeModel *> *)creativeModels {
     // Create the transaction(s)
     // Currently, we only handle one transaction.
-    self.currentTransaction = [[PBMTransaction alloc] initWithServerConnection:self.connection
-                                                               adConfiguration:self.adConfiguration
-                                                                        models:creativeModels];
+    self.currentTransaction = [PBMFactory createTransactionWithServerConnection:self.connection
+                                                                adConfiguration:self.adConfiguration
+                                                                         models:creativeModels];
     
     self.currentTransaction.bid = self.bid;
 
@@ -75,7 +74,7 @@
 
 #pragma mark - PBMTransactionDelegate
 
-- (void)transactionReadyForDisplay:(PBMTransaction *) transaction {
+- (void)transactionReadyForDisplay:(id<PBMTransaction>)transaction {
     [self.adLoadManagerDelegate loadManager:self didLoadTransaction:transaction];
         
     // When transaction is ready we should pass it to the receiver and release the property in this class.
@@ -83,7 +82,7 @@
     self.currentTransaction = nil;
 }
 
-- (void)transactionFailedToLoad:(PBMTransaction *) transaction error:(NSError *) error {
+- (void)transactionFailedToLoad:(id<PBMTransaction>)transaction error:(NSError *) error {
     [self.adLoadManagerDelegate loadManager:self failedToLoadTransaction :transaction error:error];
 }
 

@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) PBMMRAIDController *MRAIDController;
 
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                          transaction:(PBMTransaction *)transaction
+                          transaction:(id<PBMTransaction>)transaction
                               webView:(nullable PBMWebView *)webView
                      sdkConfiguration:(Prebid *)sdkConfiguration;
 

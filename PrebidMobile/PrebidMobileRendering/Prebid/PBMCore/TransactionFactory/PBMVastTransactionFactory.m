@@ -63,11 +63,11 @@
 
 // MARK: - PBMAdLoadManagerDelegate protocol
 
-- (void)loadManager:(id<PBMAdLoadManagerProtocol>)loadManager didLoadTransaction:(PBMTransaction *)transaction {
+- (void)loadManager:(id<PBMAdLoadManagerProtocol>)loadManager didLoadTransaction:(id<PBMTransaction>)transaction {
     [self onFinishedWithTransaction:transaction error:nil];
 }
 
-- (void)loadManager:(id<PBMAdLoadManagerProtocol>)loadManager failedToLoadTransaction:(PBMTransaction *)transaction
+- (void)loadManager:(id<PBMAdLoadManagerProtocol>)loadManager failedToLoadTransaction:(id<PBMTransaction>)transaction
               error:(NSError *)error
 {
     [self onFinishedWithTransaction:nil error:error];
@@ -88,7 +88,7 @@
     return YES;
 }
 
-- (void)onFinishedWithTransaction:(PBMTransaction *)transaction error:(NSError *)error {
+- (void)onFinishedWithTransaction:(id<PBMTransaction>)transaction error:(NSError *)error {
     self.vastLoadManager = nil;
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{

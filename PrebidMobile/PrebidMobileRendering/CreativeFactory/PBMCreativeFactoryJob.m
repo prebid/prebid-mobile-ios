@@ -18,7 +18,6 @@
 #import "PBMVideoCreative.h"
 #import "PBMAbstractCreative.h"
 #import "PBMDownloadDataHelper.h"
-#import "PBMTransaction.h"
 #import "PBMMacros.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -33,7 +32,7 @@
 @property (nonatomic, strong) PBMCreativeModel *creativeModel;
 @property (nonatomic, copy) PBMCreativeFactoryJobFinishedCallback finishedCallback;
 @property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
-@property (nonatomic, strong) PBMTransaction *transaction;
+@property (nonatomic, strong) id<PBMTransaction>transaction;
 
 @end
 
@@ -42,7 +41,7 @@
 }
 
 - (nonnull instancetype)initFromCreativeModel:(nonnull PBMCreativeModel *)creativeModel
-                                  transaction:(PBMTransaction *)transaction
+                                  transaction:(id<PBMTransaction>)transaction
                              serverConnection:(nonnull id<PrebidServerConnectionProtocol>)serverConnection
                               finishedCallback:(PBMCreativeFactoryJobFinishedCallback)finishedCallback {
     self = [super init];

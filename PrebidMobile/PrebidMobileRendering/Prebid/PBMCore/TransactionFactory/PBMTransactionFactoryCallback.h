@@ -15,6 +15,6 @@
 
 @import Foundation;
 
-@class PBMTransaction;
+@protocol PBMTransaction;
 
-typedef void (^PBMTransactionFactoryCallback)(PBMTransaction * _Nullable, NSError * _Nullable);
+typedef void (^PBMTransactionFactoryCallback)(id<PBMTransaction> _Nullable, NSError * _Nullable);
