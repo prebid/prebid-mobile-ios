@@ -442,7 +442,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         
         htmlCreative.onViewabilityChanged(
             true,
-            viewExposure: PBMViewExposure(
+            viewExposure: Factory.createViewExposure(
                 exposureFactor: 5,
                 visibleRectangle: CGRect(origin: .zero, size: CGSize(width: 300, height: 250))
             )
@@ -480,7 +480,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         
         htmlCreative.onViewabilityChanged(
             true,
-            viewExposure: PBMViewExposure(
+            viewExposure: Factory.createViewExposure(
                 exposureFactor: 5,
                 visibleRectangle: CGRect(origin: .zero, size: CGSize(width: 300, height: 250))
             )
@@ -519,7 +519,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         
         htmlCreative.onViewabilityChanged(
             true,
-            viewExposure: PBMViewExposure(
+            viewExposure: Factory.createViewExposure(
                 exposureFactor: 5,
                 visibleRectangle: CGRect(origin: .zero, size: CGSize(width: 300, height: 250))
             )
@@ -560,7 +560,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         
         htmlCreative.onViewabilityChanged(
             true,
-            viewExposure: PBMViewExposure(
+            viewExposure: Factory.createViewExposure(
                 exposureFactor: 5,
                 visibleRectangle: CGRect(origin: .zero, size: CGSize(width: 300, height: 250))
             )

@@ -17,8 +17,6 @@
 #import "PBMMRAIDJavascriptCommands.h"
 #import "PBMFunctions+Private.h"
 
-#import "PBMViewExposure.h"
-
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
 #import "PrebidMobile-Swift.h"
@@ -67,7 +65,7 @@ static NSString * const PBMMRAIDCommandFormatSize = @"%@:%@";
     return [NSString stringWithFormat:@"mraid.onViewableChange(%@);", strIsViewable];
 }
 
-+ (NSString *)onExposureChange:(PBMViewExposure *)viewExposure {
++ (NSString *)onExposureChange:(id<PBMViewExposure>)viewExposure {
     return [NSString stringWithFormat:@"mraid.onExposureChange(\"%@\");", [viewExposure serializeWithFormatter:[PBMMRAIDJavascriptCommands floatFormatter]]];
 }
 

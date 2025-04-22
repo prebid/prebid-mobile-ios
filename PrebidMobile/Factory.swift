@@ -58,5 +58,17 @@ class Factory: NSObject {
                                                models: [CreativeModel]) -> Transaction {
         TransactionType.init(serverConnection: serverConnection, adConfiguration: adConfiguration, models: models)
     }
+    
+    @objc public static let ViewExposureType: ViewExposure.Type = {
+        NSClassFromString("PBMViewExposure_Objc") as! ViewExposure.Type
+    }()
+    
+    @objc public static func createViewExposure(exposureFactor: Float,
+                                                visibleRectangle: CGRect,
+                                                occlusionRectangles: [NSValue]?) -> ViewExposure {
+        ViewExposureType.init(exposureFactor: exposureFactor,
+                              visibleRectangle: visibleRectangle,
+                              occlusionRectangles: occlusionRectangles)
+    }
 }
 

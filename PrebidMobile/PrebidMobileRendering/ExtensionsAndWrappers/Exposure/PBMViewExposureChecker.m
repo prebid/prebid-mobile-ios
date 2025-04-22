@@ -37,7 +37,7 @@
 
 // MARK: - Public API
 
-+ (PBMViewExposure *)exposureOfView:(UIView *)view {
++ (id<PBMViewExposure>)exposureOfView:(UIView *)view {
     return [[[PBMViewExposureChecker alloc] initWithView:view] exposure];
 }
 
@@ -50,23 +50,23 @@
     return self;
 }
 
-- (PBMViewExposure *)exposure {
+- (id<PBMViewExposure>)exposure {
     self.clippedRect = self.testedView.bounds;
     [self.obstructions removeAllObjects];
         
 #   ifdef DEBUG
     if (Prebid.shared.forcedIsViewable) {
-        return [[PBMViewExposure alloc] initWithExposureFactor:1 visibleRectangle:self.testedView.bounds occlusionRectangles:nil];
+        return [PBMFactory createViewExposureWithExposureFactor:1 visibleRectangle:self.testedView.bounds occlusionRectangles:nil];
     }
 #   endif
     
     if (!self.testedView || self.testedView.isHidden || self.testedView.superview == nil || ![self isOnForeground]) {
-        return [PBMViewExposure zeroExposure];
+        return [PBMFactory.ViewExposureType zeroExposure];
     }
     
     BOOL potentiallyExposed = [self visitParent:self.testedView.superview fromChild:self.testedView] && [self collapseBoundingBox];
     if (!potentiallyExposed) {
-        return [PBMViewExposure zeroExposure];
+        return [PBMFactory.ViewExposureType zeroExposure];
     }
     
     NSArray<NSValue *> * const obstructions = [self buildObstructionRects];
@@ -79,9 +79,9 @@
         obstructedArea += nextSize.width * nextSize.height;
     }
     
-    return [[PBMViewExposure alloc] initWithExposureFactor:(clipArea - obstructedArea)/fullArea
-                                             visibleRectangle:self.clippedRect
-                                          occlusionRectangles:obstructions];
+    return [PBMFactory createViewExposureWithExposureFactor:(clipArea - obstructedArea)/fullArea
+                                           visibleRectangle:self.clippedRect
+                                        occlusionRectangles:obstructions];
 }
 
 // MARK: - Private API

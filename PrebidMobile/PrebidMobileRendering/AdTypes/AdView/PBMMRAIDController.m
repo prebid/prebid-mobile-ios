@@ -222,7 +222,7 @@
     return ![self.delayedMraidState isEqualToString:PBMMRAIDStateNotEnabled];
 }
 
-- (void)webView:(PBMWebView *)webView exposureChange:(PBMViewExposure *)viewExposure {
+- (void)webView:(PBMWebView *)webView exposureChange:(id<PBMViewExposure>)viewExposure {
     if (![self.delayedMraidState isEqualToString:PBMMRAIDStateNotEnabled]) {
         [self.prebidWebView changeToMRAIDState:self.delayedMraidState];
         self.delayedMraidState = PBMMRAIDStateNotEnabled;

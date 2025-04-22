@@ -15,13 +15,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PBMViewExposure.h"
+@protocol PBMViewExposure;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (PBMViewExposure)
 
-@property (nonatomic, readonly) PBMViewExposure *viewExposure;
+@property (nonatomic, readonly) id<PBMViewExposure> viewExposure;
 
 @end
 

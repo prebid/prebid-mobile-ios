@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 // This test case was created during porting SDK to Objective-C.
 // The purpose of these tests is to be sure that methods' parameters are converted to the output strings properly.
@@ -32,17 +32,19 @@ class MRAIDJavascriptCommandsTests: XCTestCase {
         XCTAssertEqual(PBMMRAIDJavascriptCommands.nativeCallComplete(), "mraid.nativeCallComplete();");
         
         // onExposureChange
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onExposureChange(PBMViewExposure(exposureFactor: 1,
-                                                                                   visibleRectangle: CGRect(x: 0, y: 0, width: 100, height: 100))),
+        XCTAssertEqual(PBMMRAIDJavascriptCommands.onExposureChange(
+            Factory.createViewExposure(exposureFactor: 1,
+                                       visibleRectangle: CGRect(x: 0, y: 0, width: 100, height: 100))),
                        "mraid.onExposureChange(\"{\\\"exposedPercentage\\\": 100.0, \\\"visibleRectangle\\\": {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"width\\\": 100.0, \\\"height\\\": 100.0}, \\\"occlusionRectangles\\\": null}\");")
         
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onExposureChange(PBMViewExposure(exposureFactor: 1,
-                                                                                   visibleRectangle: CGRect(x: 0, y: 0, width: 100, height: 100),
-                                                                                   occlusionRectangles: [CGRect(x: 70, y: 80, width: 30, height: 20), CGRect(x: 0, y: 0, width: 10, height: 10)])),
+        XCTAssertEqual(PBMMRAIDJavascriptCommands.onExposureChange(
+            Factory.createViewExposure(exposureFactor: 1,
+                                       visibleRectangle: CGRect(x: 0, y: 0, width: 100, height: 100),
+                                       occlusionRectangles: [CGRect(x: 70, y: 80, width: 30, height: 20), CGRect(x: 0, y: 0, width: 10, height: 10)])),
                        "mraid.onExposureChange(\"{\\\"exposedPercentage\\\": 100.0, \\\"visibleRectangle\\\": {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"width\\\": 100.0, \\\"height\\\": 100.0}, \\\"occlusionRectangles\\\": [{\\\"x\\\": 70.0, \\\"y\\\": 80.0, \\\"width\\\": 30.0, \\\"height\\\": 20.0}, {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"width\\\": 10.0, \\\"height\\\": 10.0}]}\");")
         
         
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onExposureChange(.zero),
+        XCTAssertEqual(PBMMRAIDJavascriptCommands.onExposureChange(Factory.ViewExposureType.zero),
                        "mraid.onExposureChange(\"{\\\"exposedPercentage\\\": 0.0, \\\"visibleRectangle\\\": {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"width\\\": 0.0, \\\"height\\\": 0.0}, \\\"occlusionRectangles\\\": null}\");")
         
         // onSizeChange
