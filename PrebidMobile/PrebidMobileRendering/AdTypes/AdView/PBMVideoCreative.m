@@ -29,7 +29,6 @@
 #import "PBMModalState.h"
 #import "PBMMacros.h"
 #import "PBMCreativeResolutionDelegate.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMCreativeViewabilityTracker.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -278,7 +277,7 @@
 
 #pragma mark - PBMModalManagerDelegate
 
-- (void)modalManagerDidFinishPop:(PBMModalState*)state {
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state {
     
     //Clickthrough
     if (self.clickthroughVisible) {
@@ -299,7 +298,7 @@
     [self.creativeViewDelegate creativeInterstitialDidClose:self];
 }
 
-- (void)modalManagerDidLeaveApp:(PBMModalState*)state {
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state {
     [self.creativeViewDelegate creativeInterstitialDidLeaveApp:self];
 }
 

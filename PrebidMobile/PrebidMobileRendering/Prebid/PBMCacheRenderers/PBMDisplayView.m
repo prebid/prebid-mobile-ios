@@ -20,7 +20,6 @@
 
 #import "PBMTransactionFactory.h"
 #import "PBMAdViewManagerDelegate.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMModalManagerDelegate.h"
 
 #import "PrebidMobileSwiftHeaders.h"

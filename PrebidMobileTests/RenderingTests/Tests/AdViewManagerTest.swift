@@ -326,9 +326,9 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         return UIView();
     }
     
-    func interstitialDisplayProperties() -> PBMInterstitialDisplayProperties {
+    func interstitialDisplayProperties() -> InterstitialDisplayProperties {
         fulfillOrFail(interstitialDisplayPropertiesExpectation, "interstitialDisplayPropertiesExpectation")
-        return PBMInterstitialDisplayProperties()
+        return InterstitialDisplayProperties()
     }
     
     func adLoaded(_ pbmAdDetails:PBMAdDetails) {

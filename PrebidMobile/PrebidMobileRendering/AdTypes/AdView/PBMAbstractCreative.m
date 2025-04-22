@@ -25,7 +25,6 @@
 #import "PBMDeferredModalState.h"
 #import "PBMFunctions+Private.h"
 #import "PBMFunctions.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMModalState.h"
@@ -192,20 +191,20 @@
     //Create ModalState and push
 
     @weakify(self);
-    PBMModalState *state = [PBMModalState modalStateWithView:containerView
-                                             adConfiguration:self.creativeModel.adConfiguration
-                                           displayProperties:displayProperties
-                                          onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
+    id<PBMModalState> state = [PBMFactory createModalStateWithView:containerView
+                                                   adConfiguration:self.creativeModel.adConfiguration
+                                                 displayProperties:displayProperties
+                                                onStatePopFinished:^(id<PBMModalState> _Nonnull poppedState) {
         @strongify(self);
         if (!self) { return; }
         
         [self modalManagerDidFinishPop:poppedState];
-    } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
+    } onStateHasLeftApp:^(id<PBMModalState> _Nonnull leavingState) {
         @strongify(self);
         if (!self) { return; }
         
         [self modalManagerDidLeaveApp:leavingState];
-    }];
+    } nextOnStatePopFinished:nil nextOnStateHasLeftApp:nil onModalPushedBlock:nil];
     
     self.dismissInterstitialModalState = [self.modalManager pushModal:state fromRootViewController:uiViewController animated:YES shouldReplace:NO completionHandler:^{
         [self displayWithRootViewController:uiViewController];
@@ -348,12 +347,12 @@
         if (!self) { return; }
         
         [self.creativeViewDelegate creativeInterstitialDidLeaveApp:self];
-    } onClickthroughPoppedBlock:^(PBMModalState * poppedState) {
+    } onClickthroughPoppedBlock:^(id<PBMModalState> poppedState) {
         @strongify(self);
         if (!self) { return; }
         
         [self modalManagerDidFinishPop:poppedState];
-    } onDidLeaveAppBlock:^(PBMModalState * leavingState) {
+    } onDidLeaveAppBlock:^(id<PBMModalState> leavingState) {
         @strongify(self);
         if (!self) { return; }
         
@@ -465,11 +464,11 @@
 
 #pragma mark - PBMModalManagerDelegate
 
-- (void)modalManagerDidFinishPop:(PBMModalState*)state {
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state {
     PBMLogError(@"Abstract function called");
 }
 
-- (void)modalManagerDidLeaveApp:(PBMModalState*)state {
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state {
     PBMLogError(@"Abstract function called");
 }
 

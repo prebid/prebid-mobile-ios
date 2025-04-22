@@ -19,11 +19,11 @@
 #import "PBMModalViewControllerDelegate.h"
 #import "PBMVoidBlock.h"
 
-@class PBMModalState;
+@protocol PBMModalState;
 @class PBMDeferredModalState;
 @class PBMAbstractCreative;
 @class PBMModalViewController;
-@class PBMModalState;
+@protocol PBMModalState;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init;
 - (instancetype)initWithDelegate:(nullable id<PBMModalManagerDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
-- (nullable PBMVoidBlock)pushModal:(PBMModalState *)state
+- (nullable PBMVoidBlock)pushModal:(id<PBMModalState>)state
             fromRootViewController:(UIViewController *)fromRootViewController
                           animated:(BOOL)animated
                      shouldReplace:(BOOL)shouldReplace

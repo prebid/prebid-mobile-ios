@@ -65,7 +65,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     /**
      Interstitial layout
      */
-    public var interstitialLayout = PBMInterstitialLayout.undefined
+    public var interstitialLayout = InterstitialLayout.undefined
     
     /**
      Size for the ad.
@@ -128,7 +128,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     // MARK: - Other
     
-    public var clickHandlerOverride: ((PBMVoidBlock) -> Void)?
+    public var clickHandlerOverride: ((VoidBlock) -> Void)?
     
     // MARK: Private properties
     

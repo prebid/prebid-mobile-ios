@@ -19,7 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class UIViewController;
-@class PBMModalState;
+@protocol PBMModalState;
 @class PBMModalManager;
 
 typedef void (^PBMDeferredModalStateResolutionHandler)(BOOL success);
@@ -29,9 +29,9 @@ typedef void (^PBMDeferredModalStatePushStartHandler)(PBMVoidBlock stateRemovalB
 
 @interface PBMDeferredModalState : NSObject
 
-@property (nonatomic, strong, readonly) PBMModalState * modalState;
+@property (nonatomic, strong, readonly) id<PBMModalState> modalState;
 
-- (instancetype)initWithModalState:(PBMModalState *)modalState
+- (instancetype)initWithModalState:(id<PBMModalState>)modalState
             fromRootViewController:(UIViewController *)rootViewController
                           animated:(BOOL)animated
                      shouldReplace:(BOOL)shouldReplace

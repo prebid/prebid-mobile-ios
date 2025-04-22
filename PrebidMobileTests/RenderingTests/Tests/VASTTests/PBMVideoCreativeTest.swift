@@ -117,7 +117,9 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         self.videoCreative.creativeResolutionDelegate = self
         self.videoCreative.creativeViewDelegate = self
         
-        let state = PBMModalState(view: PBMVideoView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = Factory.createModalState(view: PBMVideoView(),
+                                             adConfiguration:AdConfiguration(),
+                                             displayProperties:InterstitialDisplayProperties())
         self.videoCreative.modalManagerDidLeaveApp(state)
         
         waitForExpectations(timeout: 1)
@@ -211,7 +213,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         }
         
         let rootVC = UIViewController()
-        let displayProperties = PBMInterstitialDisplayProperties()
+        let displayProperties = InterstitialDisplayProperties()
         self.videoCreative.showAsInterstitial(fromRootViewController: rootVC, displayProperties: displayProperties)
         
         waitForExpectations(timeout: 1, handler: nil)
@@ -240,7 +242,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         }
         
         let rootVC = UIViewController()
-        let displayProperties = PBMInterstitialDisplayProperties()
+        let displayProperties = InterstitialDisplayProperties()
         self.videoCreative.showAsInterstitial(fromRootViewController: rootVC, displayProperties: displayProperties)
         
         waitForExpectations(timeout: 1, handler: nil)

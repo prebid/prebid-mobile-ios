@@ -62,7 +62,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
         let mockVC = MockViewController()
         
         htmlCreative.setupView()
-        htmlCreative.showAsInterstitial(fromRootViewController: mockVC, displayProperties: PBMInterstitialDisplayProperties())
+        htmlCreative.showAsInterstitial(fromRootViewController: mockVC, displayProperties: InterstitialDisplayProperties())
 
         // RUN TEST
         
@@ -92,7 +92,9 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
         htmlCreative.creativeViewDelegate = self
         
         let mockVC = MockViewController()
-        let state = PBMModalState(view: mockWebView, adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = Factory.createModalState(view: mockWebView,
+                                             adConfiguration:AdConfiguration(),
+                                             displayProperties:InterstitialDisplayProperties())
         htmlCreative.modalManager!.pushModal(state, fromRootViewController:mockVC, animated:true, shouldReplace:false, completionHandler:nil)
         
         htmlCreative.setupView()

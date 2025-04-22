@@ -19,7 +19,6 @@
 #import "PBMDownloadDataHelper.h"
 #import "PBMAbstractCreative.h"
 #import "PBMFunctions+Private.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMModalPresentationController.h"
 #import "PBMModalViewController.h"
 #import "PBMNonModalViewController.h"
@@ -50,7 +49,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
 @property (nonatomic,strong,nullable) PBMDeferredModalState *deferredModalState;
 
 //The last item in this stack represents the view & display properties currently being displayed.
-@property (nonatomic, strong, nonnull) NSMutableArray<PBMModalState *> *modalStateStack;
+@property (nonatomic, strong, nonnull) NSMutableArray<id<PBMModalState>> *modalStateStack;
 
 @end
 
@@ -110,7 +109,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
 
 #pragma mark - External API
 
-- (PBMVoidBlock)pushModal:(PBMModalState *)state
+- (PBMVoidBlock)pushModal:(id<PBMModalState>)state
    fromRootViewController:(UIViewController *)fromRootViewController
                  animated:(BOOL)animated
             shouldReplace:(BOOL)shouldReplace
@@ -159,22 +158,22 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     }
 }
 
-- (nonnull PBMVoidBlock)removeStateBlock:(PBMModalState *)modalState {
-    PBMModalState * __weak weakModalState = modalState;
+- (nonnull PBMVoidBlock)removeStateBlock:(id<PBMModalState>)modalState {
+    id<PBMModalState> __weak weakModalState = modalState;
     @weakify(self);
     return ^{
         @strongify(self);
         if (!self) { return; }
         
-        PBMModalState * const removedState = weakModalState;
+        id<PBMModalState> const removedState = weakModalState;
         if (removedState) {
             [self removeModal:removedState];
         }
     };
 }
 
-- (void)removeModal:(nonnull PBMModalState *)modalState {
-    PBMModalState *activeState = [self.modalStateStack lastObject];
+- (void)removeModal:(nonnull id<PBMModalState>)modalState {
+    id<PBMModalState> activeState = [self.modalStateStack lastObject];
     if (activeState == modalState) {
         [self popModal];
     } else {
@@ -189,7 +188,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
         @strongify(self);
         
         //Is the stack empty?
-        PBMModalState *poppedModalState = [self.modalStateStack lastObject];
+        id<PBMModalState> poppedModalState = [self.modalStateStack lastObject];
         if (!poppedModalState) {
             PBMLogError(@"popModal called on empty modalStateStack!");
             return;
@@ -198,7 +197,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
         [self.modalStateStack removeLastObject];
 
         //Was that the last modal in the stack?
-        PBMModalState *state = [self.modalStateStack lastObject];
+        id<PBMModalState> state = [self.modalStateStack lastObject];
         if (state) {
             //There's still at least one left.
             //We need force orientation once again
@@ -225,13 +224,13 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
         @strongify(self);
         if (!self) { return; }
         
-        PBMModalState *poppedModalState = [self.modalStateStack lastObject];
+        id<PBMModalState> poppedModalState = [self.modalStateStack lastObject];
         [self.modalStateStack removeAllObjects];
         [self dismissModalViewControllerWithLastState:poppedModalState];
     });
 }
 
-- (void)dismissModalViewControllerWithLastState:(PBMModalState *)lastModalState {
+- (void)dismissModalViewControllerWithLastState:(id<PBMModalState>)lastModalState {
     @weakify(self);
     [self dismissModalOnceAnimated:YES completionHandler:^{
         @strongify(self);
@@ -244,7 +243,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     }];
 }
 
-- (void)display:(PBMModalState *)state fromRootViewController:(UIViewController *)fromRootViewController animated:(BOOL)animated completionHandler:(nullable PBMVoidBlock)completionHandler {
+- (void)display:(id<PBMModalState>)state fromRootViewController:(UIViewController *)fromRootViewController animated:(BOOL)animated completionHandler:(nullable PBMVoidBlock)completionHandler {
     
     if (!state) {
         PBMLogError(@"Undefined state");
@@ -381,7 +380,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
 
         if (!self) { return; }
         
-        for (PBMModalState *state in [[self.modalStateStack reverseObjectEnumerator] allObjects]) {
+        for (id<PBMModalState> state in [[self.modalStateStack reverseObjectEnumerator] allObjects]) {
             if (state.onStateHasLeftApp != nil) {
                 state.onStateHasLeftApp(state);
             }
@@ -394,7 +393,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
 
 #pragma mark - Helper Methods
 
-- (void)createModalViewControllerWithState:(PBMModalState *)state {
+- (void)createModalViewControllerWithState:(id<PBMModalState>)state {
     
     if (self.modalViewControllerClass) {
         self.modalViewController = [self.modalViewControllerClass new];
@@ -407,7 +406,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
         self.modalViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
     }
     
-    self.modalViewController.rotationEnabled = state.rotationEnabled;
+    self.modalViewController.rotationEnabled = state.isRotationEnabled;
     self.modalViewController.modalManager = self;
     self.modalViewController.modalViewControllerDelegate = self;
 }

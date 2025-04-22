@@ -19,7 +19,6 @@
 #import "PBMDeferredModalState.h"
 #import "PBMFunctions.h"
 #import "PBMFunctions+Private.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMModalViewController.h"
 #import "PBMWindowLocker.h"
 

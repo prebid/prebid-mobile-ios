@@ -41,7 +41,6 @@ framework module PrebidMobile {
     
     header "PBMAdViewManagerDelegate.h"
     header "PBMAdDetails.h"
-    header "PBMInterstitialLayout.h"
     
     header "PBMScheduledTimerFactory.h"
     header "NSTimer+PBMScheduledTimerFactory.h"
@@ -104,7 +103,6 @@ framework module PrebidMobile {
     header "PBMModalViewControllerDelegate.h"
     
     // Interstitial
-    header "PBMInterstitialDisplayProperties.h"
     header "PBMWeakTimerTargetBox.h"
     
     // Bid

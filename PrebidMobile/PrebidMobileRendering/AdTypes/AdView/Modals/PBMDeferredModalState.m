@@ -40,7 +40,7 @@
 
 @implementation PBMDeferredModalState
 
-- (instancetype)initWithModalState:(PBMModalState *)modalState
+- (instancetype)initWithModalState:(id<PBMModalState>)modalState
             fromRootViewController:(UIViewController *)rootViewController
                           animated:(BOOL)animated
                      shouldReplace:(BOOL)shouldReplace

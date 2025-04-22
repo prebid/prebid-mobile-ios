@@ -47,7 +47,7 @@ public class InterstitialController:
     
     var bid: Bid
     var adConfiguration: AdUnitConfig
-    var displayProperties: PBMInterstitialDisplayProperties
+    var displayProperties: InterstitialDisplayProperties
     
     var transactionFactory: PBMTransactionFactory?
     var adViewManager: AdViewManager?
@@ -57,7 +57,7 @@ public class InterstitialController:
     public init(bid: Bid, adConfiguration: AdUnitConfig) {
         self.bid = bid
         self.adConfiguration = adConfiguration
-        displayProperties = PBMInterstitialDisplayProperties()
+        displayProperties = InterstitialDisplayProperties()
     }
     
     public convenience init(bid: Bid, configId: String) {
@@ -170,7 +170,7 @@ public class InterstitialController:
         }
     }
     
-    @objc public func interstitialDisplayProperties() -> PBMInterstitialDisplayProperties {
+    @objc public func interstitialDisplayProperties() -> InterstitialDisplayProperties {
         displayProperties
     }
     
