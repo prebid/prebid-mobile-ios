@@ -75,7 +75,7 @@ class VideoEventsTest : XCTestCase, CreativeViewDelegate, PBMVideoViewDelegate {
         //        adConfiguration.domain = "foo.com/inline"
         
         //Create CreativeModel
-        let creativeModel = PBMCreativeModel(adConfiguration:adConfiguration)
+        let creativeModel = CreativeModel(adConfiguration:adConfiguration)
         creativeModel.videoFileURL = "http://get_video_file"
         
         let eventTracker = MockPBMAdModelEventTracker(creativeModel: creativeModel, serverConnection: connection)

@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 typealias JsonDictionary = [String:Any]
 
@@ -91,13 +91,13 @@ typealias JsonDictionary = [String:Any]
         return transaction;
     }
     
-    class func createHTMLCreative(with model: PBMCreativeModel) -> PBMAbstractCreative {
+    class func createHTMLCreative(with model: CreativeModel) -> PBMAbstractCreative {
         return PBMHTMLCreative(creativeModel: model,
                                transaction:UtilitiesForTesting.createEmptyTransaction())
     }
     
     class func createHTMLCreative(withView: Bool = true) -> PBMAbstractCreative {
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
         
         let creative = UtilitiesForTesting.createHTMLCreative(with: model)
@@ -112,7 +112,7 @@ typealias JsonDictionary = [String:Any]
         return creative
     }
     
-    class func createHTMLCreative(withModel model: PBMCreativeModel, withView:Bool = true) -> PBMHTMLCreative {
+    class func createHTMLCreative(withModel model: CreativeModel, withView:Bool = true) -> PBMHTMLCreative {
         let creative = PBMHTMLCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction())
         
         if withView {
@@ -129,7 +129,7 @@ typealias JsonDictionary = [String:Any]
         adConfiguration.winningBidAdFormat = .banner
         adConfiguration.isInterstitialAd = isInterstitial
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         model.html = "<html>test html</html>"
         model.revenue = "1234"
         let creative = UtilitiesForTesting.createHTMLCreative(withModel: model, withView: withView)
@@ -146,7 +146,7 @@ typealias JsonDictionary = [String:Any]
     class func createTransactionWithHTMLCreativeWithParams(
         connection: PrebidServerConnectionProtocol,
         configuration: AdConfiguration) -> PBMTransaction {
-            let model = PBMCreativeModel(adConfiguration:configuration)
+            let model = CreativeModel(adConfiguration:configuration)
             
             model.html = "<html>test html</html>"
             model.revenue = "1234"
@@ -164,7 +164,7 @@ typealias JsonDictionary = [String:Any]
     
     class func createDummyTransaction(for adConfiguration: AdConfiguration) -> PBMTransaction {
         let connection = getMockedServerConnection()
-        let model = PBMCreativeModel(adConfiguration: adConfiguration)
+        let model = CreativeModel(adConfiguration: adConfiguration)
         
         let transaction = PBMTransaction(serverConnection:connection,
                                          adConfiguration:adConfiguration,

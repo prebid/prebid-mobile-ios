@@ -285,7 +285,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             Log.debug("Firing impression trackers")
             fireEventTrackers()
             viewabilityTimer?.invalidate()
-            eventManager.trackEvent(PBMTrackingEvent.impression)
+            eventManager.trackEvent(.impression)
             impressionHasBeenTracked = true
         }
     }

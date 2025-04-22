@@ -22,12 +22,12 @@
 #import "PBMExposureChangeDelegate.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMMRAIDConstants.h"
-#import "PBMCreativeModel.h"
 
 @class Targeting;
 @class PBMAbstractCreative;
 @class PBMTouchDownRecognizer;
 @class PBMViewExposure;
+@class PBMCreativeModel;
 
 NS_ASSUME_NONNULL_BEGIN
 

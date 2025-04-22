@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 //TODO: Refactor to use MockServer
 
@@ -38,11 +38,11 @@ class CreativeModelTest: XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Track an event
-        let creativeModel = PBMCreativeModel(adConfiguration:AdConfiguration())
-        creativeModel.trackingURLs[PBMTrackingEventDescription.getDescription(PBMTrackingEvent.impression)] = ["foo://bar.com"]
+        let creativeModel = CreativeModel(adConfiguration:AdConfiguration())
+        creativeModel.trackingURLs[TrackingEvent.impression.description] = ["foo://bar.com"]
         
-        let eventTracker = PBMAdModelEventTracker(creativeModel: creativeModel, serverConnection: connection)
-        eventTracker.trackEvent(PBMTrackingEvent.impression)
+        let eventTracker = AdModelEventTracker(creativeModel: creativeModel, serverConnection: connection)
+        eventTracker.trackEvent(.impression)
         //Wait up to 5 seconds for mockTrackingManager to call fireEventTrackingURL
         self.waitForExpectations(timeout: 5, handler:nil)
     }

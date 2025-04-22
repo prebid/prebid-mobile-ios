@@ -18,21 +18,21 @@ import UIKit
 /**
     This class is a proxy container for event trackers.
     You can add (and remove) any quantity of trackers.
-    Each tracker must correspond to PBMEventTrackerProtocol the PBMEventTracker Protocol.
+    Each tracker must correspond to EventTrackerProtocol the EventTracker Protocol.
  
-    EventManager implements PBMEventTrackerProtocol.
+    EventManager implements EventTrackerProtocol.
     It broadcasts protocol calls to the all registered trackers.
  */
 @objc(PBMEventManager) @objcMembers
-public class EventManager: NSObject, PBMEventTrackerProtocol {
+public class EventManager: NSObject, EventTrackerProtocol {
     
     // MARK: - Internal properties
     
-    private var trackers = [PBMEventTrackerProtocol]()
+    private var trackers = [EventTrackerProtocol]()
     
     // MARK: - Public Methods
     
-    public func registerTracker(_ tracker: PBMEventTrackerProtocol) {
+    public func registerTracker(_ tracker: EventTrackerProtocol) {
         if trackers.contains(where: { $0 === tracker }) {
             return
         }
@@ -40,25 +40,25 @@ public class EventManager: NSObject, PBMEventTrackerProtocol {
         trackers.append(tracker)
     }
     
-    public func unregisterTracker(_ tracker: PBMEventTrackerProtocol) {
+    public func unregisterTracker(_ tracker: EventTrackerProtocol) {
         trackers = trackers.filter({ $0 !== tracker })
     }
     
-    // MARK: - PBMEventTrackerProtocol
+    // MARK: - EventTrackerProtocol
     
-    public func trackEvent(_ event: PBMTrackingEvent) {
+    public func trackEvent(_ event: TrackingEvent) {
         trackers.forEach { $0.trackEvent(event) }
     }
     
-    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters!) {
+    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters) {
         trackers.forEach { $0.trackVideoAdLoaded(parameters) }
     }
     
-    public func trackStartVideo(withDuration duration: CGFloat, volume: CGFloat) {
-        trackers.forEach { $0.trackStartVideo(withDuration: duration, volume: volume) }
+    public func trackStartVideo(duration: TimeInterval, volume: Double) {
+        trackers.forEach { $0.trackStartVideo(duration: duration, volume: volume) }
     }
     
-    public func trackVolumeChanged(_ playerVolume: CGFloat, deviceVolume: CGFloat) {
-        trackers.forEach { $0.trackVolumeChanged(playerVolume, deviceVolume: deviceVolume) }
+    public func trackVolumeChanged(playerVolume: Double, deviceVolume: Double) {
+        trackers.forEach { $0.trackVolumeChanged(playerVolume: playerVolume, deviceVolume: deviceVolume) }
     }
 }

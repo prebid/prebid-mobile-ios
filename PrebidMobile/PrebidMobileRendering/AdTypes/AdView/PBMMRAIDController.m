@@ -23,7 +23,6 @@
 #import "NSURL+PBMExtensions.h"
 
 #import "PBMAbstractCreative.h"
-#import "PBMCreativeModel.h"
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMDeviceAccessManager.h"
 #import "PBMFunctions+Private.h"

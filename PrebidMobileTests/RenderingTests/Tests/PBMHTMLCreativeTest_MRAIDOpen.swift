@@ -144,7 +144,7 @@ class PBMHTMLCreativeTest_MRAIDOpen: PBMHTMLCreativeTest_Base {
         
         let clickTrackingExpectation = self.expectation(description: "Should have triggered click tracking url")
         self.mockEventTracker.mock_trackEvent = { (event) in
-            PBMAssertEq(event, PBMTrackingEvent.click)
+            PBMAssertEq(event, .click)
             clickTrackingExpectation.fulfill()
         }
         

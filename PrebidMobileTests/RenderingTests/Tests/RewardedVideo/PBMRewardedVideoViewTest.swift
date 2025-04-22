@@ -131,7 +131,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, Creat
         self.expectationClickthroughBrowserClosed?.fulfill()
     }
     
-    func trackEvent(_ trackingEvent: PBMTrackingEvent) {}
+    func trackEvent(_ trackingEvent: TrackingEvent) {}
     
     // MARK: - CreativeViewDelegate
     
@@ -161,7 +161,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, Creat
         MockServer.shared.resetRules([rule])
         
         //Create model
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = videoFileURL
         model.displayDurationInSeconds = 6
         model.adConfiguration?.isRewarded = true

@@ -14,7 +14,6 @@
  */
 
 #import "PBMCreativeFactoryJob.h"
-#import "PBMCreativeModel.h"
 #import "PBMHTMLCreative.h"
 #import "PBMVideoCreative.h"
 #import "PBMAbstractCreative.h"

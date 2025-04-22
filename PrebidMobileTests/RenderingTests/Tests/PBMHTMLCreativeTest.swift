@@ -94,7 +94,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
         defer { Prebid.reset() }
         
         let impressionExpectation = self.expectation(description: "Should have triggered an impression")
-        var expectedEvents = [PBMTrackingEvent.loaded, .impression]
+        var expectedEvents = [TrackingEvent.loaded, .impression]
         self.mockEventTracker.mock_trackEvent = { (event) in
             let nextEvent = expectedEvents.first
             PBMAssertEq(nextEvent == nil, false)
@@ -119,7 +119,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
     func testCompanionClickthrough() {
         let companionTrackingClickExpectation = self.expectation(description: "companionTrackingClickExpectation")
         self.mockEventTracker.mock_trackEvent = { (event) in
-            if (event == PBMTrackingEvent.companionClick) {
+            if (event == .companionClick) {
                 companionTrackingClickExpectation.fulfill()
             }
         }
@@ -172,7 +172,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
             expectationSessionStart,
         ]
         
-        let pbmCreativeModel = PBMCreativeModel(adConfiguration: AdConfiguration())
+        let pbmCreativeModel = CreativeModel(adConfiguration: AdConfiguration())
         pbmCreativeModel.displayDurationInSeconds = 30
         pbmCreativeModel.html = "<html>test html</html>"
         
@@ -201,11 +201,11 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
     
     func testEventClick() {
         
-        let expectation = self.expectation(description: "PBMTrackingEventClick Expectation")
+        let expectation = self.expectation(description: "TrackingEventClick Expectation")
         expectation.expectedFulfillmentCount = 2
         
         self.mockEventTracker.mock_trackEvent = { (event) in
-            if (event == PBMTrackingEvent.click) {
+            if (event == .click) {
                 expectation.fulfill()
             }
         }
@@ -265,7 +265,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         //Test
-        let pbmCreativeModel = PBMCreativeModel(adConfiguration: AdConfiguration())
+        let pbmCreativeModel = CreativeModel(adConfiguration: AdConfiguration())
         pbmCreativeModel.displayDurationInSeconds = 30
         pbmCreativeModel.html = "<html>test html</html>"
         
@@ -357,7 +357,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
             return true
         }
         
-        let pbmCreativeModel = PBMCreativeModel(adConfiguration: AdConfiguration())
+        let pbmCreativeModel = CreativeModel(adConfiguration: AdConfiguration())
         let mockWebView = MockPBMWebView()
         htmlCreative = MockPBMHTMLCreative(
             creativeModel: pbmCreativeModel,
@@ -374,7 +374,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
     
     func testHasVastTag() {
         let adConfiguration = AdConfiguration()
-        let pbmCreativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
+        let pbmCreativeModel = CreativeModel(adConfiguration: adConfiguration)
         self.htmlCreative = MockPBMHTMLCreative(creativeModel: pbmCreativeModel, transaction: UtilitiesForTesting.createEmptyTransaction())
         
         let validXML1 = "<VAST version=\"123\""
@@ -434,7 +434,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         let adConfiguration = AdConfiguration()
         adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
         adConfiguration.isRewarded = true
-        let creativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
         self.htmlCreative = MockPBMHTMLCreative(
             creativeModel: creativeModel,
             transaction: UtilitiesForTesting.createEmptyTransaction()
@@ -470,7 +470,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         let adConfiguration = AdConfiguration()
         adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
         adConfiguration.isRewarded = true
-        let creativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
         self.htmlCreative = MockPBMHTMLCreative(
             creativeModel: creativeModel,
             transaction: UtilitiesForTesting.createEmptyTransaction()
@@ -511,7 +511,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         let adConfiguration = AdConfiguration()
         adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
         adConfiguration.isRewarded = true
-        let creativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
         self.htmlCreative = MockPBMHTMLCreative(
             creativeModel: creativeModel,
             transaction: UtilitiesForTesting.createEmptyTransaction()
@@ -550,7 +550,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         let adConfiguration = AdConfiguration()
         adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
         adConfiguration.isRewarded = true
-        let creativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
         self.htmlCreative = MockPBMHTMLCreative(
             creativeModel: creativeModel,
             transaction: UtilitiesForTesting.createEmptyTransaction()

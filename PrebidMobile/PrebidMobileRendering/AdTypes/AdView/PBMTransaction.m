@@ -17,7 +17,6 @@
 
 #import "PBMAbstractCreative.h"
 #import "PBMCreativeFactory.h"
-#import "PBMCreativeModel.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMTransactionDelegate.h"

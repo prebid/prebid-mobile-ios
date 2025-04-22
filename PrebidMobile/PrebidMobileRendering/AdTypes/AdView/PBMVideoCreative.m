@@ -20,7 +20,6 @@
 #import "UIView+PBMExtensions.h"
 
 #import "PBMConstants.h"
-#import "PBMCreativeModel.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMFunctions.h"
 #import "PBMOpenMeasurementWrapper.h"

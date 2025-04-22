@@ -15,7 +15,7 @@
 
 import Foundation
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMRewardedVideoCreativeTestCloseDelay : XCTestCase {
     
@@ -23,7 +23,7 @@ class PBMRewardedVideoCreativeTestCloseDelay : XCTestCase {
         let expected: TimeInterval = 10
         var actual: TimeInterval
         
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.adConfiguration?.isRewarded = true
         model.displayDurationInSeconds = 10
         
@@ -35,7 +35,7 @@ class PBMRewardedVideoCreativeTestCloseDelay : XCTestCase {
         PBMAssertEq(actual, expected)
     }
     
-    private func calculateCloseDelay(with model: PBMCreativeModel, pubCloseDelay:TimeInterval) -> TimeInterval {
+    private func calculateCloseDelay(with model: CreativeModel, pubCloseDelay:TimeInterval) -> TimeInterval {
         
         let creative = PBMVideoCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData:Data())
         return creative.calculateCloseDelay(forPubCloseDelay:pubCloseDelay)

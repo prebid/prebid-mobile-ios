@@ -83,7 +83,7 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
         logToFile = nil
         logToFile = .init()
         
-        pbmTracker.trackEvent(PBMTrackingEvent.request)
+        pbmTracker.trackEvent(.request)
         UtilitiesForTesting.checkLogContains("Measurement Session is missed")
     }
 }

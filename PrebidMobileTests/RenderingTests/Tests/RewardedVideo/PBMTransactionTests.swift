@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMTransactionTests: XCTestCase {
     
@@ -82,7 +82,7 @@ class PBMTransactionTests: XCTestCase {
         
         XCTAssertEqual(transaction.adConfiguration.size, CGSize(width: 0, height: 0))
 
-        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
+        let model = CreativeModel(adConfiguration: AdConfiguration())
         model.width = 42
         model.height = 42
         
@@ -96,7 +96,7 @@ class PBMTransactionTests: XCTestCase {
     // MARK: - Helper Methods
     
     func createTransactionWithHTMLModel() -> PBMTransaction {
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         model.html = "<html>test html</html>"
         model.revenue = "1234"
         

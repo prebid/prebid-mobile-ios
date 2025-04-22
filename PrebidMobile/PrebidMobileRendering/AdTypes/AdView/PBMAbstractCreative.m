@@ -19,7 +19,6 @@
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
 #import "PBMSafariVCOpener.h"
-#import "PBMCreativeModel.h"
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMDeepLinkPlusHelper.h"

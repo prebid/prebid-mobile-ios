@@ -37,7 +37,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
         let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = true
         
-        let model = PBMCreativeModel(adConfiguration: adConfiguration)
+        let model = CreativeModel(adConfiguration: adConfiguration)
         model.html = "<html>test html</html>"
         
         let transaction = UtilitiesForTesting.createEmptyTransaction()
@@ -78,7 +78,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
         let mockWebView = MockPBMWebView();
         mockWebView.isViewable = true
         
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
 
         let htmlCreative =  PBMHTMLCreative(
