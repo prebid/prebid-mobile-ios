@@ -37,7 +37,7 @@ protocol ModalState {
     var nextOnStatePopFinished: ModalStatePopHandler? { get }
     var nextOnStateHasLeftApp: ModalStateAppLeavingHandler? { get }
     
-    var onModalPushedBlock: PBMVoidBlock? { get set }
+    var onModalPushedBlock: VoidBlock? { get set }
     
     var isRotationEnabled: Bool { get }
     
@@ -48,5 +48,5 @@ protocol ModalState {
          onStateHasLeftApp: ModalStateAppLeavingHandler?,
          nextOnStatePopFinished: ModalStatePopHandler?,
          nextOnStateHasLeftApp: ModalStateAppLeavingHandler?,
-         onModalPushedBlock: PBMVoidBlock?)
+         onModalPushedBlock: VoidBlock?)
 }

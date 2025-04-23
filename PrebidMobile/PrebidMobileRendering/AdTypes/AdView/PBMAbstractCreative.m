@@ -22,7 +22,6 @@
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMDeepLinkPlusHelper.h"
-#import "PBMDeferredModalState.h"
 #import "PBMFunctions+Private.h"
 #import "PBMFunctions.h"
 #import "PBMMacros.h"

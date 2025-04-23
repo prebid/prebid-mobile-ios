@@ -24,7 +24,6 @@
 #import "PBMNonModalViewController.h"
 #import "PBMModalViewControllerDelegate.h"
 #import "PBMModalState.h"
-#import "PBMDeferredModalState.h"
 #import "PBMMacros.h"
 #import "Log+Extensions.h"
 #import "PBMModalAnimator.h"
@@ -47,7 +46,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
 @property (nonatomic,weak,nullable) id<PBMModalManagerDelegate> delegate;
 
 @property (nonatomic,assign,readwrite) BOOL isModalDismissing;
-@property (nonatomic,strong,nullable) PBMDeferredModalState *deferredModalState;
+@property (nonatomic,strong,nullable) id<PBMDeferredModalState> deferredModalState;
 
 //The last item in this stack represents the view & display properties currently being displayed.
 @property (nonatomic, strong, nonnull) NSMutableArray<id<PBMModalState>> *modalStateStack;
@@ -143,11 +142,11 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     return [self removeStateBlock:state];
 }
 
-- (void)pushDeferredModal:(nonnull PBMDeferredModalState *)deferredModalState {
+- (void)pushDeferredModal:(nonnull id<PBMDeferredModalState>)deferredModalState {
     if (self.deferredModalState == nil && !self.isModalDismissing) {
         self.deferredModalState = deferredModalState;
         @weakify(self);
-        __weak PBMDeferredModalState *weakDeferredState = deferredModalState;
+        __weak id<PBMDeferredModalState> weakDeferredState = deferredModalState;
         [deferredModalState prepareAndPushWithModalManager:self discardBlock:^{
             @strongify(self);
             if (!self) { return; }

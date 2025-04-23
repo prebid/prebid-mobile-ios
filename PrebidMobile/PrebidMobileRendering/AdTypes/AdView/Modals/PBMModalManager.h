@@ -20,7 +20,7 @@
 #import "PBMVoidBlock.h"
 
 @protocol PBMModalState;
-@class PBMDeferredModalState;
+@protocol PBMDeferredModalState;
 @class PBMAbstractCreative;
 @class PBMModalViewController;
 @protocol PBMModalState;
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
                      shouldReplace:(BOOL)shouldReplace
                  completionHandler:(nullable PBMVoidBlock)completionHandler;
 
-- (void)pushDeferredModal:(PBMDeferredModalState *)deferredModalState;
+- (void)pushDeferredModal:(id<PBMDeferredModalState>)deferredModalState;
 
 - (void)dismissAllInterstitialsIfAny;
 - (void)creativeDisplayCompleted:(PBMAbstractCreative *)creative;
