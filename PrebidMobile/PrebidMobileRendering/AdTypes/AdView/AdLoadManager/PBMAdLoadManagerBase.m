@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMAdDetails.h"
 #import "PBMAdLoadManagerBase.h"
 #import "PBMAdRequesterVAST.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"

@@ -15,7 +15,6 @@
 
 #import "PBMVastAdsBuilder.h"
 
-#import "PBMAdDetails.h"
 #import "PBMConstants.h"
 #import "PBMVastParser.h"
 #import "PBMVastInlineAd.h"

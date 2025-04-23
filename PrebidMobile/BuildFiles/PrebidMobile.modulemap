@@ -40,7 +40,6 @@ framework module PrebidMobile {
     header "PBMConstants.h"
     
     header "PBMAdViewManagerDelegate.h"
-    header "PBMAdDetails.h"
     
     header "PBMScheduledTimerFactory.h"
     header "NSTimer+PBMScheduledTimerFactory.h"
