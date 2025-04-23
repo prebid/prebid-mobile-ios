@@ -179,7 +179,6 @@
 		53BDBF8A293F605B004B6DE8 /* InternalUserConsentDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 53BDBF87293F5EF6004B6DE8 /* InternalUserConsentDataManager.h */; };
 		53BDBF8C293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */; };
 		53BFCD112CF9156000A3287A /* PrebidMobileInterstitialControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD102CF9155E00A3287A /* PrebidMobileInterstitialControllerProtocol.swift */; };
-		53BFCD1F2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 53BFCD1E2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53BFCD312CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD302CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift */; };
 		53BFCD332CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFCD322CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift */; };
 		53C8FE1729C0851300ED9230 /* ClickbrowserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */; };
@@ -211,6 +210,7 @@
 		5A663B552DB26890005DF07F /* BidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B542DB26890005DF07F /* BidRequester.swift */; };
 		5A663B582DB30DA6005DF07F /* WinNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B572DB30DA6005DF07F /* WinNotifier.swift */; };
 		5A663B5C2DB31790005DF07F /* AdMarkupStringHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B5B2DB31790005DF07F /* AdMarkupStringHandler.swift */; };
+		5A51D94B2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */; };
 		5A663B5E2DB31917005DF07F /* PBMWinNotifierFactoryBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A663B5D2DB31917005DF07F /* PBMWinNotifierFactoryBlock.h */; };
 		5A663B642DB31E41005DF07F /* PrimaryAdRequesterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B632DB31E41005DF07F /* PrimaryAdRequesterProtocol.swift */; };
 		5A663B662DB32010005DF07F /* InterstitialAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B652DB32010005DF07F /* InterstitialAd.swift */; };
@@ -1076,7 +1076,6 @@
 		53BDBF88293F5EFF004B6DE8 /* InternalUserConsentDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InternalUserConsentDataManager.m; sourceTree = "<group>"; };
 		53BDBF8B293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUserConsentDataManagerTests.swift; sourceTree = "<group>"; };
 		53BFCD102CF9155E00A3287A /* PrebidMobileInterstitialControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileInterstitialControllerProtocol.swift; sourceTree = "<group>"; };
-		53BFCD1E2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileDisplayViewProtocol.h; sourceTree = "<group>"; };
 		53BFCD302CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrebidMobilePluginRenderer+Extensions.swift"; sourceTree = "<group>"; };
 		53BFCD322CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPrebidMobilePluginRenderer.swift; sourceTree = "<group>"; };
 		53C8FE1629C0851300ED9230 /* ClickbrowserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickbrowserType.swift; sourceTree = "<group>"; };
@@ -1110,6 +1109,7 @@
 		5A663B542DB26890005DF07F /* BidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidRequester.swift; sourceTree = "<group>"; };
 		5A663B572DB30DA6005DF07F /* WinNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinNotifier.swift; sourceTree = "<group>"; };
 		5A663B5B2DB31790005DF07F /* AdMarkupStringHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMarkupStringHandler.swift; sourceTree = "<group>"; };
+		5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileDisplayViewProtocol.swift; sourceTree = "<group>"; };
 		5A663B5D2DB31917005DF07F /* PBMWinNotifierFactoryBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMWinNotifierFactoryBlock.h; sourceTree = "<group>"; };
 		5A663B632DB31E41005DF07F /* PrimaryAdRequesterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryAdRequesterProtocol.swift; sourceTree = "<group>"; };
 		5A663B652DB32010005DF07F /* InterstitialAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAd.swift; sourceTree = "<group>"; };
@@ -2491,7 +2491,7 @@
 			isa = PBXGroup;
 			children = (
 				A908694529E05F7900B37479 /* PrebidRenderer.swift */,
-				53BFCD1E2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h */,
+				5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */,
 				5BC3778C271F1CFE00444D5E /* PBMDisplayView.h */,
 				5BC37787271F1CFE00444D5E /* PBMDisplayView.m */,
 				5BC37788271F1CFE00444D5E /* PBMDisplayView+InternalState.h */,
@@ -3593,7 +3593,6 @@
 				5BC378CB271F1CFF00444D5E /* PBMTimerInterface.h in Headers */,
 				5BC37A9E271F1D0000444D5E /* PBMAdLoadFlowState.h in Headers */,
 				5BC379BD271F1D0000444D5E /* PBMAdRefreshOptions.h in Headers */,
-				53BFCD1F2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h in Headers */,
 				5BC378F8271F1CFF00444D5E /* PBMORTBPmp.h in Headers */,
 				534C612D2CB527F80026119A /* PBMORTBRewardedCompletionVideo.h in Headers */,
 				92664565272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h in Headers */,
@@ -4328,6 +4327,7 @@
 				53A368E72AB2E31700A03B3E /* PrebidRequest.swift in Sources */,
 				5BC37A85271F1D0000444D5E /* BannerEventLoadingDelegate.swift in Sources */,
 				5BC37A8D271F1D0000444D5E /* InterstitialRenderingAdUnit.swift in Sources */,
+				5A51D94B2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift in Sources */,
 				53D93505282CEA900092E243 /* DateFormatService.swift in Sources */,
 				532936792CEB887D0056FD8D /* ArbitraryORTBService.swift in Sources */,
 				924F661E27FDBC3100C8DAF7 /* PBMORTBExtPrebidPassthrough.m in Sources */,
