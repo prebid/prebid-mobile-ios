@@ -26,6 +26,7 @@
 #import "PBMModalState.h"
 #import "PBMDeferredModalState.h"
 #import "PBMMacros.h"
+#import "Log+Extensions.h"
 #import "PBMModalAnimator.h"
 
 #import "PrebidMobileSwiftHeaders.h"

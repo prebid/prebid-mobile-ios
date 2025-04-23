@@ -27,8 +27,6 @@
 #import "PBMORTBRewardedConfiguration.h"
 #import "PBMORTBRewardedReward.h"
 
-#import "Log+Extensions.h"
-
 #import "PBMInterstitialAdLoaderDelegate.h"
 
 #import "PBMCreativeViewabilityTracker.h"
