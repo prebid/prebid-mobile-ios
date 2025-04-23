@@ -23,7 +23,7 @@ import CoreFoundation
 class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
   
     let vc = UIViewController()
-    let modalManager = PBMModalManager()
+    let modalManager = ModalManager()
     
     var creativeFactory: PBMCreativeFactory?
     
@@ -72,7 +72,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
         self.wait(for: self.expectations, timeout: 15, enforceOrder: false)
     }
 
-    private func loadAndRun(connection: PrebidServerConnectionProtocol, adConfiguration: AdConfiguration, modalManager: PBMModalManager) {
+    private func loadAndRun(connection: PrebidServerConnectionProtocol, adConfiguration: AdConfiguration, modalManager: ModalManager) {
        
         self.vastRequestSuccessfulExpectation = self.expectation(description: "Expected VAST Load to be successful")
         

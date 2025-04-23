@@ -50,7 +50,6 @@ framework module PrebidMobile {
     header "PBMVastTransactionFactory.h"
     header "PBMTransactionFactoryCallback.h"
     
-    header "PBMModalManagerDelegate.h"
     header "PBMAdLoadManagerDelegate.h"
     header "PBMAbstractCreative.h"
     header "PBMDeviceAccessManager.h"
@@ -97,9 +96,7 @@ framework module PrebidMobile {
     header "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"
     
     // ModalManager
-    header "PBMModalManager.h"
     header "PBMModalState.h"
-    header "PBMModalViewControllerDelegate.h"
     
     // Interstitial
     header "PBMWeakTimerTargetBox.h"

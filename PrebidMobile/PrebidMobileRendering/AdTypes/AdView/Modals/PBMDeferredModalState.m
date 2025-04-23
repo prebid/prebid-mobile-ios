@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMModalManager.h"
 #import "PBMMacros.h"
 
 #import "PrebidMobileSwiftHeaders.h"

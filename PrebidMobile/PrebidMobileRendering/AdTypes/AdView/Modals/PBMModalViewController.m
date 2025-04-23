@@ -19,7 +19,6 @@
 #import "PBMOpenMeasurementSession.h"
 #import "PBMFunctions+Private.h"
 #import "UIView+PBMExtensions.h"
-#import "PBMModalManager.h"
 #import "PBMWebView.h"
 #import "PBMCloseActionManager.h"
 #import "Log+Extensions.h"
@@ -33,12 +32,8 @@
 
 #pragma mark - Private Extension
 
-@interface PBMModalViewController ()
-
-@property (nonatomic, strong) PBMVoidBlock showCloseButtonBlock;
-@property (nonatomic, strong) NSDate *startCloseDelay;
-
-@property (nonatomic, assign) BOOL preferAppStatusBarHidden;
+@interface PBMModalViewController_Objc ()
+@property (nonatomic, copy, readwrite) NSDate *startCloseDelay;
 
 @property (nonatomic, strong) PBMAdViewButtonDecorator *closeButtonDecorator;
 @property (nonatomic, assign) PBMInterstitialLayout interstitialLayout;
@@ -47,7 +42,14 @@
 
 #pragma mark - Implementation
 
-@implementation PBMModalViewController
+@implementation PBMModalViewController_Objc
+@synthesize contentView = _contentView;
+@synthesize isRotationEnabled = _isRotationEnabled;
+@synthesize modalManager = _modalManager;
+@synthesize modalState = _modalState;
+@synthesize modalViewControllerDelegate = _modalViewControllerDelegate;
+@synthesize preferAppStatusBarHidden = _preferAppStatusBarHidden;
+@synthesize showCloseButtonBlock = _showCloseButtonBlock;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,17 +74,17 @@
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     UIInterfaceOrientationMask orientationMask = (self.interstitialLayout == PBMInterstitialLayoutLandscape) ? UIInterfaceOrientationMaskLandscape : UIInterfaceOrientationMaskPortrait;
-    return self.rotationEnabled ? UIInterfaceOrientationMaskAll : orientationMask;
+    return self.isRotationEnabled ? UIInterfaceOrientationMaskAll : orientationMask;
 }
 
 - (BOOL)shouldAutorotate {
-    return self.rotationEnabled;
+    return self.isRotationEnabled;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.rotationEnabled = YES;
+        self.isRotationEnabled = YES;
         self.view.backgroundColor = [UIColor blackColor];
     }
     return self;
@@ -120,9 +122,9 @@
     self.interstitialLayout = modalState.displayProperties.interstitialLayout;
     self.modalState = modalState;
     if (modalState.displayProperties.interstitialLayout == PBMInterstitialLayoutUndefined) {
-        self.rotationEnabled = modalState.isRotationEnabled;
+        self.isRotationEnabled = modalState.isRotationEnabled;
     } else {
-        self.rotationEnabled = modalState.displayProperties.rotationEnabled;
+        self.isRotationEnabled = modalState.displayProperties.rotationEnabled;
     }
 
     [self configureSubView];

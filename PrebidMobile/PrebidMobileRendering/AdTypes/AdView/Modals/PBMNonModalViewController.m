@@ -14,7 +14,7 @@
  */
 
 #import "PBMFunctions+Private.h"
-#import "PBMNonModalViewController.h"
+#import "PBMModalViewController.h"
 #import "UIView+PBMExtensions.h"
 #import "PBMModalAnimator.h"
 
@@ -26,13 +26,13 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@interface PBMNonModalViewController ()
+@interface PBMNonModalViewController_Objc : PBMModalViewController_Objc <PBMNonModalViewController_Protocol>
 
 @property (nonatomic, strong) PBMModalAnimator *modalAnimator;
 
 @end
 
-@implementation PBMNonModalViewController
+@implementation PBMNonModalViewController_Objc
 
 - (instancetype)initWithFrameOfPresentedView:(CGRect)frameOfPresentedView {
     self = [super init];

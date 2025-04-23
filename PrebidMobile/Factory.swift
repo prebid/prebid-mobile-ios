@@ -53,7 +53,7 @@ class Factory: NSObject {
     }()
     
     @objc public static func createAdViewManager(connection: PrebidServerConnectionProtocol,
-                                                 modalManagerDelegate: PBMModalManagerDelegate?) -> AdViewManager {
+                                                 modalManagerDelegate: ModalManagerDelegate?) -> AdViewManager {
         AdViewManagerType.init(connection: connection, modalManagerDelegate: modalManagerDelegate)
     }
     
@@ -106,7 +106,7 @@ class Factory: NSObject {
                             nextOnStateHasLeftApp: nextOnStateHasLeftApp,
                             onModalPushedBlock: onModalPushedBlock)
     }
-
+    
     // MARK: PBMInterstitialAdLoader
     
     @objc public static let PBMInterstitialAdLoaderType: PBMInterstitialAdLoader.Type = {

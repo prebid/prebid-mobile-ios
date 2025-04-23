@@ -25,7 +25,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMFunctions.h"
 #import "PBMMacros.h"
-#import "PBMModalManager.h"
 #import "PBMModalState.h"
 #import "PBMModalViewController.h"
 #import "PBMOpenMeasurementSession.h"

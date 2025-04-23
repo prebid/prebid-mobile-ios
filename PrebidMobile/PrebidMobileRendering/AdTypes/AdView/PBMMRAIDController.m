@@ -29,7 +29,6 @@
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"
 #import "PBMMacros.h"
-#import "PBMModalManager.h"
 #import "PBMModalState.h"
 #import "PBMModalViewController.h"
 #import "PBMOpenMeasurementSession.h"

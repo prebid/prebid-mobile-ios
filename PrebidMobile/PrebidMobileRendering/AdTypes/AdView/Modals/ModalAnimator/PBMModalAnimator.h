@@ -15,8 +15,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PBMTouchForwardingView.h"
-
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMModalAnimator : NSObject <UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate>
 

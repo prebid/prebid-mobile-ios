@@ -16,8 +16,9 @@
 import Foundation
 import UIKit
 import XCTest
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class MockPBMModalViewController : PBMModalViewController {
+class MockPBMModalViewController : PBMModalViewController_Objc {
     
     override func dismiss(animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
         if flag {

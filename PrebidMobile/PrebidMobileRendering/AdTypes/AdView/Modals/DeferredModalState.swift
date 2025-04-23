@@ -41,5 +41,5 @@ protocol DeferredModalState {
          onPushCompleted: VoidBlock?,
          onPushCancelled: VoidBlock?)
     
-    func prepareAndPush(modalManager: PBMModalManager, discardBlock: @escaping VoidBlock)
+    func prepareAndPush(modalManager: ModalManager, discardBlock: @escaping VoidBlock)
 }

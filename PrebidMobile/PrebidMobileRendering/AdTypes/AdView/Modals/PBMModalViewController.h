@@ -13,34 +13,9 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-#import "PBMModalViewControllerDelegate.h"
+@protocol PBMModalViewController_Protocol;
 
-@class PBMAbstractCreative;
-@protocol PBMModalState;
-@class PBMModalManager;
-@class PBMOpenMeasurementSession;
-@class PBMInterstitialDisplayProperties;
-@class PBMCloseActionManager;
-
-@interface PBMModalViewController : UIViewController
-
-@property (nonatomic, weak, nullable) id<PBMModalViewControllerDelegate> modalViewControllerDelegate;
-@property (nonatomic, weak, nullable) PBMModalManager *modalManager;
-
-@property (nonatomic, strong, nullable) id<PBMModalState> modalState;
-
-@property (nonatomic, strong, nullable) UIView *contentView;
-@property (nonatomic, readonly, nullable) UIView *displayView;
-@property (nonatomic, readonly, nullable) PBMInterstitialDisplayProperties *displayProperties;
-@property (nonatomic, assign, getter=isRotationEnabled) BOOL rotationEnabled;
-
-- (void)setupState:(nonnull id<PBMModalState>)modalState;
-- (void)creativeDisplayCompleted:(nonnull PBMAbstractCreative *)creative;
-
-- (void)addFriendlyObstructionsToMeasurementSession:(nonnull PBMOpenMeasurementSession *)session;
-
-- (void)configureDisplayView;
-
+@interface PBMModalViewController_Objc : UIViewController <PBMModalViewController_Protocol>
 @end
