@@ -35,10 +35,10 @@
                                                     targeting:(Targeting *)targeting
 {
     return ^id<PBMBidRequesterProtocol> (AdUnitConfig * adUnitConfig) {
-        return [PBMFactory BidRequesterWithConnection:connection
-                                     sdkConfiguration:sdkConfiguration
-                                            targeting:targeting
-                                  adUnitConfiguration:adUnitConfig];
+        return [PBMFactory createBidRequesterWithConnection:connection
+                                           sdkConfiguration:sdkConfiguration
+                                                  targeting:targeting
+                                        adUnitConfiguration:adUnitConfig];
     };
 }
 

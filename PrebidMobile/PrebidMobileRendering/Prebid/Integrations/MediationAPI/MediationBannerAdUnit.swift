@@ -182,10 +182,10 @@ public class MediationBannerAdUnit : NSObject {
         
         mediationDelegate.cleanUpAdObject()
         
-        bidRequester = Factory.BidRequester(connection: connection,
-                                            sdkConfiguration: sdkConfiguration,
-                                            targeting: targeting,
-                                            adUnitConfiguration: adUnitConfig)
+        bidRequester = Factory.createBidRequester(connection: connection,
+                                                  sdkConfiguration: sdkConfiguration,
+                                                  targeting: targeting,
+                                                  adUnitConfiguration: adUnitConfig)
         
         bidRequester?.requestBids(completion: { bidResponse, error in
             // Note: we have to run the completion on the main thread since

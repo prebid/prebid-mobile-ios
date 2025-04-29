@@ -22,10 +22,10 @@ class Factory: NSObject {
         NSClassFromString("PBMBidRequester_Objc") as! BidRequester.Type
     }()
     
-    @objc public static func BidRequester(connection: PrebidServerConnectionProtocol,
-                                          sdkConfiguration: Prebid,
-                                          targeting: Targeting,
-                                          adUnitConfiguration: AdUnitConfig) -> BidRequester {
+    @objc public static func createBidRequester(connection: PrebidServerConnectionProtocol,
+                                                sdkConfiguration: Prebid,
+                                                targeting: Targeting,
+                                                adUnitConfiguration: AdUnitConfig) -> BidRequester {
         bidRequesterType.init(connection: connection,
                               sdkConfiguration: sdkConfiguration,
                               targeting: targeting,

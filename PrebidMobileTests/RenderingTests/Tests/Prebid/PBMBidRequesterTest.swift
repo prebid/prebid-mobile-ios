@@ -39,10 +39,10 @@ class PBMBidRequesterTest: XCTestCase {
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(PBMBidResponseTransformer.someValidResponse)
         }])
-        let requester = Factory.BidRequester(connection: connection,
-                                             sdkConfiguration: sdkConfiguration,
-                                             targeting: targeting,
-                                             adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         let exp = expectation(description: "exp")
         requester.requestBids { (bidResponse, error) in
@@ -61,10 +61,10 @@ class PBMBidRequesterTest: XCTestCase {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection()
-        let requester = Factory.BidRequester(connection: connection,
-                                             sdkConfiguration: sdkConfiguration,
-                                             targeting: targeting,
-                                             adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         sdkConfiguration.prebidServerAccountId = " \t \t  "
         
@@ -85,10 +85,10 @@ class PBMBidRequesterTest: XCTestCase {
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(PBMBidResponseTransformer.invalidAccountIDResponse(accountID: accountID))
         }])
-        let requester = Factory.BidRequester(connection: connection,
-                                             sdkConfiguration: sdkConfiguration,
-                                             targeting: targeting,
-                                             adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         sdkConfiguration.prebidServerAccountId = accountID
         
@@ -105,10 +105,10 @@ class PBMBidRequesterTest: XCTestCase {
     func testBanner_invalidConfigID_noRequest() {
         let adUnitConfig = AdUnitConfig(configId: " \t \t  ", size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection()
-        let requester = Factory.BidRequester(connection: connection,
-                                             sdkConfiguration: sdkConfiguration,
-                                             targeting: targeting,
-                                             adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         let exp = expectation(description: "exp")
         
@@ -126,10 +126,10 @@ class PBMBidRequesterTest: XCTestCase {
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(PBMBidResponseTransformer.invalidConfigIdResponse(configId: configId))
         }])
-        let requester = Factory.BidRequester(connection: connection,
-                                             sdkConfiguration: sdkConfiguration,
-                                             targeting: targeting,
-                                             adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         let exp = expectation(description: "exp")
         
@@ -144,10 +144,10 @@ class PBMBidRequesterTest: XCTestCase {
     func testBanner_invalidSize() {
         let adUnitConfig = AdUnitConfig(configId: "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4", size: CGSize(width: -300, height: 250))
         let connection = MockServerConnection()
-        let requester = Factory.BidRequester(connection: connection,
-                                             sdkConfiguration: sdkConfiguration,
-                                             targeting: targeting,
-                                             adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         let exp = expectation(description: "exp")
         
@@ -164,10 +164,10 @@ class PBMBidRequesterTest: XCTestCase {
         adUnitConfig.additionalSizes = [CGSize(width: -320, height: 50)]
         
         let connection = MockServerConnection()
-        let requester = Factory.BidRequester(connection: connection,
-                                             sdkConfiguration: sdkConfiguration,
-                                             targeting: targeting,
-                                             adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         let exp = expectation(description: "exp")
         
@@ -187,10 +187,10 @@ class PBMBidRequesterTest: XCTestCase {
                 callback(PBMBidResponseTransformer.someValidResponse)
             }
         }])
-        let requester = Factory.BidRequester(connection: connection,
-                                             sdkConfiguration: sdkConfiguration,
-                                             targeting: targeting,
-                                             adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         let exp_ok = expectation(description: "exp_ok")
         let exp_fail = expectation(description: "exp_fail")
