@@ -13,8 +13,7 @@
  limitations under the License.
  */
 
-#import "PBMWinNotifier.h"
-#import "PBMWinNotifier+Private.h"
+#import "PBMWinNotifierFactoryBlock.h"
 
 #import "PBMORTBMacrosHelper.h"
 #import "PBMFunctions+Private.h"
@@ -26,7 +25,10 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@implementation PBMWinNotifier
+@interface PBMWinNotifier_Objc: NSObject <PBMWinNotifier>
+@end
+
+@implementation PBMWinNotifier_Objc
 
 + (void)notifyThroughConnection:(id<PrebidServerConnectionProtocol>)connection
                      winningBid:(Bid *)bid
@@ -52,7 +54,7 @@
                         NSString * const rawResponseString = [[NSString alloc] initWithData:response.rawData
                                                                                    encoding:NSUTF8StringEncoding];
 
-                        NSString * const rawAdMarkupString = [PBMWinNotifier adMarkupStringFromResponse:rawResponseString];
+                        NSString * const rawAdMarkupString = [self.class adMarkupStringFromResponse:rawResponseString];
                         // replace macros in received markup
                         adMarkupFromResponse = [macrosHelper replaceMacrosInString:rawAdMarkupString];
                     }
@@ -63,8 +65,8 @@
         };
     };
     
-    NSString * const uuidUrl = [PBMWinNotifier cacheUrlFromTargeting:bid.targetingInfo idKey:@"hb_uuid"];
-    NSString * const cacheUrl = [PBMWinNotifier cacheUrlFromTargeting:bid.targetingInfo idKey:@"hb_cache_id"];
+    NSString * const uuidUrl = [self.class cacheUrlFromTargeting:bid.targetingInfo idKey:@"hb_uuid"];
+    NSString * const cacheUrl = [self.class cacheUrlFromTargeting:bid.targetingInfo idKey:@"hb_cache_id"];
     
     PBMAdMarkupStringHandler chainedNotifications = adMarkupConsumer;
     chainedNotifications = chainNotificationAction(bid.nurl, chainedNotifications);
@@ -75,13 +77,13 @@
 
 + (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<PrebidServerConnectionProtocol>)connection {
     return ^(Bid *bid, PBMAdMarkupStringHandler adMarkupConsumer) {
-        [PBMWinNotifier notifyThroughConnection:connection winningBid:bid callback:adMarkupConsumer];
+        [self.class notifyThroughConnection:connection winningBid:bid callback:adMarkupConsumer];
     };
 }
 
 + (PBMWinNotifierFactoryBlock)factoryBlock {
     return ^PBMWinNotifierBlock (id<PrebidServerConnectionProtocol> connection) {
-        return [PBMWinNotifier winNotifierBlockWithConnection:connection];
+        return [self.class winNotifierBlockWithConnection:connection];
     };
 }
 

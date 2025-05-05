@@ -396,7 +396,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 }
 
 static PBMError *extracted(NSString *errorMessage) {
-    return [PBMError errorWithMessage:PBMErrorTypeInternalError type:errorMessage];
+    return [PBMError errorWithMessage:errorMessage type:PBMErrorType.internalError];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
@@ -480,7 +480,7 @@ static PBMError *extracted(NSString *errorMessage) {
 - (BOOL)injectMRAIDForExpandContent:(BOOL)isForExpandContent error:(NSError **)error {
     NSString *mraidScript = [self.libraryManager getMRAIDLibrary];
     if (!mraidScript) {
-        [PBMError createError:error message:@"Could not load mraid.js from library manager" type:PBMErrorTypeInternalError];
+        [PBMError createError:error message:@"Could not load mraid.js from library manager" type:PBMErrorType.internalError];
         return false;
     }
     

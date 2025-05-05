@@ -31,4 +31,13 @@ class Factory: NSObject {
                               targeting: targeting,
                               adUnitConfiguration: adUnitConfiguration)
     }
+    
+    @objc public static let WinNotifierType: WinNotifier.Type = {
+        NSClassFromString("PBMWinNotifier_Objc") as! WinNotifier.Type
+    }()
+    
+    @objc public static func createWinNotifier() -> WinNotifier {
+        WinNotifierType.init()
+    }
 }
+

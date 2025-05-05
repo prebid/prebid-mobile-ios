@@ -19,7 +19,6 @@
 #import "PBMDisplayView+InternalState.h"
 
 #import "PBMTransactionFactory.h"
-#import "PBMWinNotifier.h"
 #import "PBMAdViewManager.h"
 #import "PBMAdViewManagerDelegate.h"
 #import "PBMInterstitialDisplayProperties.h"
@@ -96,9 +95,9 @@
         }
     }];
     
-    [PBMWinNotifier notifyThroughConnection:PrebidServerConnection.shared
-                                 winningBid:self.bid
-                                   callback:^(NSString *adMarkup) {
+    [PBMFactory.WinNotifierType notifyThroughConnection:PrebidServerConnection.shared
+                                             winningBid:self.bid
+                                               callback:^(NSString *adMarkup) {
         @strongify(self);
         if (!self) { return; }
         

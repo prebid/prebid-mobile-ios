@@ -62,7 +62,8 @@ static NSString *vastContentType = @"application/x-www-form-urlencoded";
         
         NSData *vastData = serverResponse.rawData;
         if (!vastData) {
-            completion(nil, [PBMError errorWithDescription:@"No Data From Server" statusCode:PBMErrorCodeFileNotFound]);
+            completion(nil, [PBMError errorWithDescription:@"No Data From Server"
+                                                statusCode:PBMErrorCodeFileNotFound]);
             return;
         }
         

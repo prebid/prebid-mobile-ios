@@ -21,7 +21,7 @@ class BaseRewardedAdUnit: BaseInterstitialAdUnit, RewardedEventInteractionDelega
     override init(
         configID: String,
         minSizePerc: NSValue?,
-        eventHandler: PBMPrimaryAdRequesterProtocol
+        eventHandler: PrimaryAdRequesterProtocol
     ) {
         super.init(
             configID: configID,

@@ -30,7 +30,7 @@ class AdMobVideoInterstitialViewController:
     private var mediationDelegate: AdMobMediationInterstitialUtils?
     
     // AdMob
-    private var interstitial: InterstitialAd?
+    private var interstitial: GoogleMobileAds.InterstitialAd?
     
     override func loadView() {
         super.loadView()

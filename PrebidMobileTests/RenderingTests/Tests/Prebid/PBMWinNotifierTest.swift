@@ -15,7 +15,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMWinNotifierTest: XCTestCase {
     private let normalTargeting = [
@@ -51,12 +51,12 @@ class PBMWinNotifierTest: XCTestCase {
     // MARK: -
     
     func testCacheUrlFromTargeting() {
-        XCTAssertEqual(PBMWinNotifier.cacheUrl(fromTargeting: normalTargeting, idKey: "hb_uuid"), cacheUrl)
-        XCTAssertEqual(PBMWinNotifier.cacheUrl(fromTargeting: normalTargetingWithCachedId, idKey: "hb_cache_id"), cacheUrl)
+        XCTAssertEqual(Factory.WinNotifierType.cacheUrl(fromTargeting: normalTargeting, idKey: "hb_uuid"), cacheUrl)
+        XCTAssertEqual(Factory.WinNotifierType.cacheUrl(fromTargeting: normalTargetingWithCachedId, idKey: "hb_cache_id"), cacheUrl)
         for key in normalTargeting.keys {
             var incompleteTargeting = normalTargeting
             incompleteTargeting[key] = nil
-            XCTAssertNil(PBMWinNotifier.cacheUrl(fromTargeting: incompleteTargeting, idKey: "hb_uuid"))
+            XCTAssertNil(Factory.WinNotifierType.cacheUrl(fromTargeting: incompleteTargeting, idKey: "hb_uuid"))
         }
     }
     
@@ -335,7 +335,7 @@ class PBMWinNotifierTest: XCTestCase {
         }})
         
         let callbackCalled = expectation(description: "callback called")
-        PBMWinNotifier.notifyThroughConnection(connection, winning: bid) { resultMarkup in
+        Factory.WinNotifierType.notifyThroughConnection(connection, winningBid: bid) { resultMarkup in
             let callbackIndex = (nextCallbackIndexBox[0] as! NSNumber).intValue;
             XCTAssertEqual(callbackIndex, markupCallbackIndex)
             nextCallbackIndexBox[0] = NSNumber(value: callbackIndex + 1)

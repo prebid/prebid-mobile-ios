@@ -199,7 +199,7 @@
     const BOOL configIsValid = self.configValidationBlock(self.savedAdUnitConfig, NO);
     if (!configIsValid) {
         [self reportLoadingFailedWithError:[PBMError errorWithMessage:@"AdUnitConfig is not valid."
-                                                                 type:PBMErrorTypeInternalError]];
+                                                                 type:PBMErrorType.internalError]];
         return;
     }
     
@@ -262,7 +262,7 @@
     const BOOL configIsValid = self.configValidationBlock(self.savedAdUnitConfig, YES);
     if (!configIsValid) {
         [self reportLoadingFailedWithError:[PBMError errorWithMessage:@"AdUnitConfig is not valid."
-                                                                 type:PBMErrorTypeInternalError]];
+                                                                 type:PBMErrorType.internalError]];
         return;
     }
     
