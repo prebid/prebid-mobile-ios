@@ -16,7 +16,7 @@
 import XCTest
 import UIKit
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
     

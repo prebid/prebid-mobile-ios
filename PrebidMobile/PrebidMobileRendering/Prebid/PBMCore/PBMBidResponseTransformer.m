@@ -14,7 +14,6 @@
  */
 
 #import "PBMBidResponseTransformer.h"
-#import "PBMError.h"
 #import "PBMORTBAbstract+Protected.h"
 
 #import "PrebidMobileSwiftHeaders.h"

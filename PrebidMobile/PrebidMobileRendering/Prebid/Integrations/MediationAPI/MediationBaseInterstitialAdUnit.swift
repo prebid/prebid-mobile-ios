@@ -65,7 +65,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     let adUnitConfig: AdUnitConfig
     
-    var bidRequester: PBMBidRequester?
+    var bidRequester: BidRequester?
     
     var completion: ((ResultCode) -> Void)?
     
@@ -124,10 +124,10 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         
         mediationDelegate.cleanUpAdObject()
         
-        bidRequester = PBMBidRequester(connection: connection,
-                                       sdkConfiguration: sdkConfiguration,
-                                       targeting: targeting,
-                                       adUnitConfiguration: adUnitConfig)
+        bidRequester = Factory.createBidRequester(connection: connection,
+                                                  sdkConfiguration: sdkConfiguration,
+                                                  targeting: targeting,
+                                                  adUnitConfiguration: adUnitConfig)
         
         bidRequester?.requestBids(completion: { [weak self] (bidResponse, error) in
             if let response = bidResponse {

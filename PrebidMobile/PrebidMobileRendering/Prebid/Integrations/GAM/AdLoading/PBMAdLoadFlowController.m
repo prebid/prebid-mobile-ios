@@ -18,7 +18,6 @@
 
 #import "PBMDisplayView.h"
 #import "PBMDisplayView+InternalState.h"
-#import "PBMError.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

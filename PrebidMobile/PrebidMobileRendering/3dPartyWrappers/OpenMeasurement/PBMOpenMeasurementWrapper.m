@@ -13,7 +13,6 @@
   limitations under the License.
   */
 
-#import "PBMError.h"
 #import "PBMFunctions.h"
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"

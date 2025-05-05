@@ -23,8 +23,6 @@ framework module PrebidMobile {
     header "PBMErrorType.h"
     
     // PBMCore
-    header "PBMBidRequester.h"
-    header "PBMBidRequesterProtocol.h"
     
     // PBMCacheRenderers
     header "PBMDisplayView.h"
@@ -65,7 +63,6 @@ framework module PrebidMobile {
     header "PBMVastTransactionFactory.h"
     header "PBMTransactionFactoryCallback.h"
     
-    header "PBMError.h"
     header "PBMModalManagerDelegate.h"
     header "PBMAdLoadManagerDelegate.h"
     header "PBMCreativeViewDelegate.h"
@@ -74,7 +71,6 @@ framework module PrebidMobile {
     header "PBMViewExposure.h"
     header "PBMDeviceAccessManager.h"
     
-    header "PBMBidRequester.h"
     header "Log+Extensions.h"
     header "PBMAutoRefreshManager.h"
     

@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     override func tearDown() {
@@ -67,7 +67,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
             XCTAssertEqual(selector, "interstitial:didFailToReceiveAdWithError:")
             XCTAssertEqual(args.count, 2)
             XCTAssertEqual(args[0] as? InterstitialRenderingAdUnit, interstitial)
-            XCTAssertEqual(args[1] as? NSError, PBMError.prebidInvalidAccountId as NSError?)
+            XCTAssertEqual(args[1] as? NSError, PBMError.prebidInvalidAccountId() as NSError?)
             exp.fulfill()
         }
         
@@ -89,7 +89,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
             XCTAssertEqual(selector, "rewardedAd:didFailToReceiveAdWithError:")
             XCTAssertEqual(args.count, 2)
             XCTAssertEqual(args[0] as? RewardedAdUnit, rewarded)
-            XCTAssertEqual(args[1] as? NSError, PBMError.prebidInvalidAccountId as NSError?)
+            XCTAssertEqual(args[1] as? NSError, PBMError.prebidInvalidAccountId() as NSError?)
             exp.fulfill()
         }
         

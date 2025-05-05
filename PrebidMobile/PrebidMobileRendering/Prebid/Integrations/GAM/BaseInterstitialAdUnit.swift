@@ -93,7 +93,7 @@ class BaseInterstitialAdUnit:
         
         adLoadFlowController = PBMAdLoadFlowController(
             bidRequesterFactory: { adUnitConfig in
-                return PBMBidRequester(
+                Factory.createBidRequester(
                     connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
                     targeting: Targeting.shared,

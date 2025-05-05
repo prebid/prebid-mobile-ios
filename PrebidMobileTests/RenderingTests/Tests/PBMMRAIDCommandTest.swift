@@ -18,7 +18,7 @@ import Foundation
 import XCTest
 
 import UIKit
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMMRAIDCommandTest : XCTestCase {
     

@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class MockBannerView: BannerView {
     override var lastBidResponse: BidResponse? {
@@ -87,7 +87,7 @@ class PBMBannerViewTest: XCTestCase {
         }
         
         func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
-            XCTAssertEqual(error as NSError?, PBMError.prebidInvalidAccountId as NSError?)
+            XCTAssertEqual(error as NSError?, PBMError.prebidInvalidAccountId() as NSError?)
             XCTAssertNotNil(bannerView.lastBidResponse)
             exp.fulfill()
         }

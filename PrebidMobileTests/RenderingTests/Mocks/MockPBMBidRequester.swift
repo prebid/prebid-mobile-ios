@@ -16,7 +16,7 @@
 import Foundation
 @testable import PrebidMobile
 
-class MockPBMBidRequester: NSObject, PBMBidRequesterProtocol {
+class MockPBMBidRequester: NSObject, BidRequesterProtocol {
     
     let jsonDictionary: PrebidMobile.JsonDictionary
     

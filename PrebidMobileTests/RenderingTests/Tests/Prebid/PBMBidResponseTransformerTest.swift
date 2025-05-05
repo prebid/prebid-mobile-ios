@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMBidResponseTransformerTest: XCTestCase {
     
@@ -26,7 +26,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
             let _ = try PBMBidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
-            XCTAssertEqual(error as NSError, PBMError.prebidInvalidAccountId as NSError)
+            XCTAssertEqual(error as NSError, PBMError.prebidInvalidAccountId() as NSError)
         }
     }
     
@@ -37,7 +37,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
             let _ = try PBMBidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
-            XCTAssertEqual(error as NSError, PBMError.prebidInvalidConfigId as NSError)
+            XCTAssertEqual(error as NSError, PBMError.prebidInvalidConfigId() as NSError)
         }
     }
     
@@ -48,7 +48,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
             let _ = try PBMBidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
-            XCTAssertEqual(error as NSError, PBMError.prebidInvalidSize as NSError)
+            XCTAssertEqual(error as NSError, PBMError.prebidInvalidSize() as NSError)
         }
     }
     
@@ -71,7 +71,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
             let _ = try PBMBidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
-            XCTAssertEqual(error as NSError, PBMError.jsonDictNotFound as NSError)
+            XCTAssertEqual(error as NSError, PBMError.jsonDictNotFound() as NSError)
         }
     }
     
