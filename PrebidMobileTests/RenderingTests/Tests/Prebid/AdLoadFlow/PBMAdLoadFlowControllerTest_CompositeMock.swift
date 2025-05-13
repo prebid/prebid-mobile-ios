@@ -32,7 +32,7 @@ class PBMAdLoadFlowControllerTest_CompositeMock {
     
     let mockFlowControllerDelegate: AdLoadFlowControllerDelegate
     let mockAdLoader: PBMAdLoaderProtocol
-    let mockPrimaryAdRequester: PBMPrimaryAdRequesterProtocol
+    let mockPrimaryAdRequester: PrimaryAdRequesterProtocol
     let mockRequesterFactory: (AdUnitConfig)->BidRequesterProtocol
     let mockConfigValidator: PBMAdUnitConfigValidationBlock
     

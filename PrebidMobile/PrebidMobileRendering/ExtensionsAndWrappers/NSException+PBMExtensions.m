@@ -14,12 +14,19 @@
  */
 
 #import "NSException+PBMExtensions.h"
-#import "PBMErrorType.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 @implementation NSException (PBMExtensions)
 
 + (nonnull NSException *)pbmException:(nonnull NSString*)message {
-    NSString *desc = [NSString stringWithFormat:@"%@: %@", PBMErrorTypeInternalError, message];
+    NSString *desc = [NSString stringWithFormat:@"%@: %@", PBMErrorType.internalError, message];
     NSDictionary *userInfo = @{NSLocalizedDescriptionKey:desc};
     return [NSException exceptionWithName:@"com.prebid" reason:message userInfo:userInfo];
 }

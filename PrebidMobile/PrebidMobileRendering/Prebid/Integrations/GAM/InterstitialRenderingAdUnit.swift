@@ -110,7 +110,7 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         baseAdUnit.adUnitConfig
     }
     
-    private var eventHandler: PBMPrimaryAdRequesterProtocol {
+    private var eventHandler: PrimaryAdRequesterProtocol {
         baseAdUnit.eventHandler
     }
     
@@ -144,7 +144,7 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         self.init(
             configID: configID,
             minSizePerc: nil,
-            primaryAdRequester: (eventHandler as? PBMPrimaryAdRequesterProtocol) ?? InterstitialEventHandlerStandalone()
+            primaryAdRequester: (eventHandler as? PrimaryAdRequesterProtocol) ?? InterstitialEventHandlerStandalone()
         )
     }
     
@@ -161,14 +161,14 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         self.init(
             configID: configID,
             minSizePerc: NSValue(cgSize: minSizePercentage),
-            primaryAdRequester: (eventHandler as? PBMPrimaryAdRequesterProtocol) ?? InterstitialEventHandlerStandalone()
+            primaryAdRequester: (eventHandler as? PrimaryAdRequesterProtocol) ?? InterstitialEventHandlerStandalone()
         )
     }
     
     required init(
         configID: String,
         minSizePerc: NSValue?,
-        primaryAdRequester: PBMPrimaryAdRequesterProtocol
+        primaryAdRequester: PrimaryAdRequesterProtocol
     ) {
         baseAdUnit = BaseInterstitialAdUnit(
             configID: configID,

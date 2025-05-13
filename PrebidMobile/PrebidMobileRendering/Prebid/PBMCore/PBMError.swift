@@ -16,8 +16,43 @@
 import Foundation
 
 @objc @_spi(PBMInternal) public
+enum PBMErrorCode: Int {
+    case generalLinear = 400
+    case fileNotFound = 401
+    case generalNonLinearAds = 500
+    case general = 700
+    case undefined = 900
+}
+
+enum PBMErrorFamily: Int {
+    case setupErrors
+    //case transportError
+    case knownServerErrors
+    case unknownServerErrors
+    case responseProcessingErrors
+    case integrationLayerErrors
+    case incompatibleNativeAdMarkupAsset
+    case SDKMisuseErrors
+}
+
+@objc @_spi(PBMInternal) public
+class PBMErrorType: NSObject, RawRepresentable {
+    public typealias RawValue = String
+    @objc public let rawValue: String
+    
+    required public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+    
+    @objc public static let invalidRequest   = PBMErrorType(rawValue: "Invalid request")
+    @objc public static let internalError    = PBMErrorType(rawValue: "SDK internal error")
+    @objc public static let initError        = PBMErrorType(rawValue: "Initialization error")
+    @objc public static let serverError      = PBMErrorType(rawValue: "Server error")
+}
+
+@objc @_spi(PBMInternal) public
 class PBMError: NSError, @unchecked Sendable {
-    static let errorDomain: String = PrebidRenderingErrorDomain
+    static let errorDomain: String = "org.prebid.mobile"
     
     @objc public var message: String? {
         userInfo[NSLocalizedDescriptionKey] as? String
@@ -102,7 +137,7 @@ class PBMError: NSError, @unchecked Sendable {
     }
     
     private static func errorCode(_ subCode: Int, forFamily family: PBMErrorFamily) -> Int {
-        pbmErrorCode(family, subCode)
+        -(family.rawValue * 100 + subCode)
     }
     
     @objc public static func requestInProgress() -> NSError {
@@ -221,7 +256,7 @@ class PBMError: NSError, @unchecked Sendable {
             return .prebidDemandFetchSuccess
         }
         
-        if error.domain == PrebidRenderingErrorDomain {
+        if error.domain == PBMError.errorDomain {
             if let demandCode = error.userInfo[PBM_FETCH_DEMAND_RESULT_KEY] as? NSNumber,
                let res = ResultCode(rawValue: demandCode.intValue)  {
                 return res

@@ -22,14 +22,14 @@ public class DemandResponseInfo: NSObject {
     private(set) var configId: String?
     @objc public private(set) var bid: Bid?
     
-    var winNotifierBlock: PBMWinNotifierBlock
+    var winNotifierBlock: WinNotifierBlock
     
     private(set) var bidResponse: BidResponse?
 
     @objc public required init(fetchDemandResult: ResultCode,
                                bid: Bid?,
                                configId: String?,
-                               winNotifierBlock: @escaping PBMWinNotifierBlock,
+                               winNotifierBlock: @escaping WinNotifierBlock,
                                bidResponse: BidResponse?
     ) {
         self.bidResponse = bidResponse
@@ -41,7 +41,7 @@ public class DemandResponseInfo: NSObject {
     
     // MARK: - Private Methods
     
-    func getAdMarkupString(withCompletion completion: @escaping PBMAdMarkupStringHandler) {
+    func getAdMarkupString(withCompletion completion: @escaping AdMarkupStringHandler) {
         guard let bid = bid else {
             completion(nil)
             return
