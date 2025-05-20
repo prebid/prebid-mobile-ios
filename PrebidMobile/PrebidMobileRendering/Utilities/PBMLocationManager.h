@@ -18,7 +18,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @protocol PBMLocationManagerProtocol;
-@protocol PBMNSThreadProtocol;
+@protocol PBMThreadProtocol;
 
 @interface PBMLocationManager : NSObject
 
@@ -32,7 +32,7 @@
 
 #pragma mark - DI
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithThread:(nonnull id<PBMNSThreadProtocol>)thread;
+- (nonnull instancetype)initWithThread:(nonnull id<PBMThreadProtocol>)thread;
 - (nonnull instancetype)initWithLocationManager:(nonnull id<PBMLocationManagerProtocol>)locationManager;
 
 @end

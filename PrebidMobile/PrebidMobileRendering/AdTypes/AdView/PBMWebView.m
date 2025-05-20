@@ -26,7 +26,6 @@
 #import "PBMMRAIDController.h"
 #import "PBMMRAIDJavascriptCommands.h"
 #import "PBMMacros.h"
-#import "PBMNSThreadProtocol.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMORTB.h"
 #import "PBMTouchDownRecognizer.h"
@@ -203,7 +202,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 - (void)loadHTML:(nonnull NSString *)html
          baseURL:(nullable NSURL *)baseURL
          injectMraidJs:(BOOL)injectMraidJs
-   currentThread:(id<PBMNSThreadProtocol>)currentThread {
+   currentThread:(id<PBMThreadProtocol>)currentThread {
     if (!html) {
         PBMLogError(@"Input HTML is nil");
         return;
@@ -238,7 +237,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     [self expand:url currentThread:NSThread.currentThread];
 }
 
-- (void)expand:(nonnull NSURL *)url currentThread:(id<PBMNSThreadProtocol>)currentThread {
+- (void)expand:(nonnull NSURL *)url currentThread:(id<PBMThreadProtocol>)currentThread {
     if (!url) {
         PBMLogError(@"Could not expand with nil url");
         return;

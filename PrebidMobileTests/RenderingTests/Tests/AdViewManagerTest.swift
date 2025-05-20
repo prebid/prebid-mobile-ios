@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     
@@ -35,7 +35,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     weak var adDidExpandExpectation: XCTestExpectation?
     weak var adDidLeaveAppExpectation: XCTestExpectation?
 
-    var adViewManager:PBMAdViewManager!
+    var adViewManager:AdViewManager!
     var adLoadManager:PBMAdLoadManagerBase!
     
     var currentlyDisplaying = false
@@ -46,7 +46,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     override func setUp() {
         super.setUp()
         
-        adViewManager = PBMAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
+        adViewManager = Factory.createAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
         
         adViewManager.adViewManagerDelegate = self
         Prebid.forcedIsViewable = false
@@ -88,7 +88,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     }
     
     func testInitDefaults() {
-        let adViewManager = PBMAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
+        let adViewManager = Factory.createAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
         XCTAssertNil(adViewManager.externalTransaction)
         XCTAssert(adViewManager.autoDisplayOnLoad == true)
     }
@@ -202,7 +202,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
             XCTFail("Could not get PBMHTMLCreative")
             return
         }
-        adViewManager.creativeReady(toReimplant: testCreative)
+        adViewManager.creativeReadyToReimplant(_: testCreative)
         
         waitForExpectations(timeout: 3, handler: nil)
     }

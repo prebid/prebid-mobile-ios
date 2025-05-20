@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 
 // DESCRIPTION
@@ -23,7 +23,7 @@ import XCTest
 // Using it from unit tests does not allow to call modalManagerDidFinishPop from the completion of dismissViewControllerAnimated. So this test case is divided into two parts:
 // - tests the MRAID.close() leads to popModal (withMocked modal manager)
 // - tests that modalManagerDidFinishPop leads to creativeReadyToReimplant and default MRAID state (with non mocked modal manager)
-class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
+class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
   
     var creativeReadyToReimplantExpectation: XCTestExpectation!
 
@@ -115,7 +115,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    // MARK: = PBMCreativeViewDelegate
+    // MARK: CreativeViewDelegate
     
     func creativeDidComplete(_ creative: PBMAbstractCreative) {}
     func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
@@ -125,7 +125,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
     func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {}
     
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {
         creativeReadyToReimplantExpectation.fulfill()
     }
     

@@ -17,7 +17,6 @@
 #import <Foundation/Foundation.h>
 
 //Protocols
-#import "PBMCreativeViewDelegate.h"
 #import "PBMVoidBlock.h"
 
 //Classes
@@ -25,6 +24,7 @@
 @class UIViewController;
 
 @protocol PBMCreativeResolutionDelegate;
+@protocol PBMCreativeViewDelegate;
 @class PBMCreativeModel;
 @class PBMInterstitialDisplayProperties;
 @class PBMModalManager;

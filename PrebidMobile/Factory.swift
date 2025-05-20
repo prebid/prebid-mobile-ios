@@ -39,5 +39,14 @@ class Factory: NSObject {
     @objc public static func createWinNotifier() -> WinNotifier {
         WinNotifierType.init()
     }
+    
+    @objc public static let AdViewManagerType: AdViewManager.Type = {
+        NSClassFromString("PBMAdViewManager_Objc") as! AdViewManager.Type
+    }()
+    
+    @objc public static func createAdViewManager(connection: PrebidServerConnectionProtocol,
+                                                 modalManagerDelegate: PBMModalManagerDelegate?) -> AdViewManager {
+        AdViewManagerType.init(connection: connection, modalManagerDelegate: modalManagerDelegate)
+    }
 }
 

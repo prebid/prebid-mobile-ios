@@ -31,7 +31,6 @@
 #import "PBMModalManager.h"
 #import "PBMModalState.h"
 #import "PBMModalViewController.h"
-#import "PBMNSThreadProtocol.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMTransaction.h"
@@ -150,7 +149,7 @@
     [self setupViewWithThread:NSThread.currentThread];
 }
 
-- (void)setupViewWithThread:(id<PBMNSThreadProtocol>)thread {
+- (void)setupViewWithThread:(id<PBMThreadProtocol>)thread {
     if (!thread.isMainThread) {
         PBMLogError(@"Attempting to set up view on background thread");
     }

@@ -50,7 +50,7 @@ public class InterstitialController:
     var displayProperties: PBMInterstitialDisplayProperties
     
     var transactionFactory: PBMTransactionFactory?
-    var adViewManager: PBMAdViewManager?
+    var adViewManager: AdViewManager?
     
     // MARK: - Life cycle
     
@@ -199,7 +199,7 @@ public class InterstitialController:
     }
     
     private func display(transaction: PBMTransaction) {
-        adViewManager = PBMAdViewManager(
+        adViewManager = Factory.createAdViewManager(
             connection: PrebidServerConnection.shared,
             modalManagerDelegate: nil
         )

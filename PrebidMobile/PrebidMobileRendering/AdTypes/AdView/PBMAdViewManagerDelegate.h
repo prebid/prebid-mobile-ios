@@ -20,7 +20,6 @@
 
 @class PBMAbstractCreative;
 @class PBMAdDetails;
-@class PBMAdViewManager;
 @class PBMInterstitialDisplayProperties;
 
 // This protocol defines the communication from the PBMAdViewManager to the PBMAdView

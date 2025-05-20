@@ -55,9 +55,7 @@ framework module PrebidMobile {
     
     header "PBMModalManagerDelegate.h"
     header "PBMAdLoadManagerDelegate.h"
-    header "PBMCreativeViewDelegate.h"
     header "PBMAbstractCreative.h"
-    header "PBMAdViewManager.h"
     header "PBMViewExposure.h"
     header "PBMDeviceAccessManager.h"
     

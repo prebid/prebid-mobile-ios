@@ -18,9 +18,9 @@ import Foundation
 import XCTest
 import CoreFoundation
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
+class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
     
     let vc = UIViewController()
     
@@ -161,7 +161,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     func creativeDidComplete(_ creative:PBMAbstractCreative) {}
     func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidClose(_ creative:PBMAbstractCreative) {}
-    func creativeReady(toReimplant creative:PBMAbstractCreative) {}
+    func creativeReadyToReimplant(_ creative:PBMAbstractCreative) {}
     func creativeMraidDidCollapse(_ creative:PBMAbstractCreative) {}
     func creativeMraidDidExpand(_ creative:PBMAbstractCreative) {}
     func creativeInterstitialDidLeaveApp(_ creative:PBMAbstractCreative) {}

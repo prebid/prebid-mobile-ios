@@ -231,7 +231,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
     }
 }
 
-class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeViewDelegate {
+class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeViewDelegate {
     
     // expectations
     var expectationDownloadCompleted: XCTestExpectation?
@@ -595,7 +595,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
     func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {}
     
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {
         XCTAssert(false)
     }
     
