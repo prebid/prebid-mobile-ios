@@ -15,13 +15,13 @@
 
 #import "PBMTransaction.h"
 
-@protocol PBMNSThreadProtocol;
+@protocol PBMThreadProtocol;
 
 @interface PBMAbstractCreative ()
 
 @property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
 
-- (void)setupViewWithThread:(nonnull id<PBMNSThreadProtocol>)thread;
+- (void)setupViewWithThread:(nonnull id<PBMThreadProtocol>)thread;
 
 - (BOOL)handleNormalClickthrough:(NSURL *_Nonnull)url
                 sdkConfiguration:(Prebid *_Nonnull)sdkConfiguration

@@ -14,9 +14,9 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMMRAIDControllerTest_Base: XCTestCase, PBMCreativeViewDelegate {
+class PBMMRAIDControllerTest_Base: XCTestCase, CreativeViewDelegate {
     
     let timeout: TimeInterval = 1
     
@@ -88,37 +88,37 @@ class PBMMRAIDControllerTest_Base: XCTestCase, PBMCreativeViewDelegate {
     }
     
     // MARK: - CreativeViewDelegate
-    var creativeInterstitialDidLeaveAppHandler: PBMCreativeViewDelegateHandler?
+    var creativeInterstitialDidLeaveAppHandler: CreativeViewDelegateHandler?
     func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {
         self.creativeInterstitialDidLeaveAppHandler?(creative)
     }
     
-    var creativeInterstitialDidCloseHandler: PBMCreativeViewDelegateHandler?
+    var creativeInterstitialDidCloseHandler: CreativeViewDelegateHandler?
     func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {
         self.creativeInterstitialDidCloseHandler?(creative)
     }
     
-    var creativeClickthroughDidCloseHandler: PBMCreativeViewDelegateHandler?
+    var creativeClickthroughDidCloseHandler: CreativeViewDelegateHandler?
     func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {
         self.creativeClickthroughDidCloseHandler?(creative)
     }
     
-    var creativeReadyToReimplantHandler: PBMCreativeViewDelegateHandler?
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {
+    var creativeReadyToReimplantHandler: CreativeViewDelegateHandler?
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {
         self.creativeReadyToReimplantHandler?(creative)
     }
     
-    var creativeMraidDidCollapseHandler: PBMCreativeViewDelegateHandler?
+    var creativeMraidDidCollapseHandler: CreativeViewDelegateHandler?
     func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {
         self.creativeMraidDidCollapseHandler?(creative)
     }
     
-    var creativeMraidDidExpandHandler: PBMCreativeViewDelegateHandler?
+    var creativeMraidDidExpandHandler: CreativeViewDelegateHandler?
     func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {
         self.creativeMraidDidExpandHandler?(creative)
     }
     
-    var creativeDidCompleteHandler: PBMCreativeViewDelegateHandler?
+    var creativeDidCompleteHandler: CreativeViewDelegateHandler?
     func creativeDidComplete(_ creative: PBMAbstractCreative) {
         self.creativeDidCompleteHandler?(creative)
     }

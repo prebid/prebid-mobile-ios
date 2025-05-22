@@ -19,7 +19,6 @@
 #import "PBMDisplayView+InternalState.h"
 
 #import "PBMTransactionFactory.h"
-#import "PBMAdViewManager.h"
 #import "PBMAdViewManagerDelegate.h"
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMModalManagerDelegate.h"
@@ -39,7 +38,7 @@
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 
 @property (nonatomic, strong, nullable) PBMTransactionFactory *transactionFactory;
-@property (nonatomic, strong, nullable) PBMAdViewManager *adViewManager;
+@property (nonatomic, strong, nullable) id<PBMAdViewManager> adViewManager;
 
 @property (nonatomic, strong, readonly, nonnull) PBMInterstitialDisplayProperties *interstitialDisplayProperties;
 
@@ -190,7 +189,7 @@
 
 - (void)displayTransaction:(PBMTransaction *)transaction {
     id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
-    self.adViewManager = [[PBMAdViewManager alloc] initWithConnection:connection modalManagerDelegate:self];
+    self.adViewManager = [PBMFactory createAdViewManagerWithConnection:connection modalManagerDelegate:self];
     self.adViewManager.adViewManagerDelegate = self;
     self.adViewManager.adConfiguration = self.adConfiguration.adConfiguration;
     if (self.adConfiguration.adConfiguration.winningBidAdFormat == AdFormat.video) {

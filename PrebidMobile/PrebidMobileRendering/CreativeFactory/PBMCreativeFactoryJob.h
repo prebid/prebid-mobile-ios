@@ -22,6 +22,7 @@
 @class PBMCreativeFactoryJob;
 
 @protocol PrebidServerConnectionProtocol;
+@protocol PBMCreativeResolutionDelegate;
 
 typedef enum PBMCreativeFactoryJobState : NSUInteger {
     PBMCreativeFactoryJobStateInitialized,

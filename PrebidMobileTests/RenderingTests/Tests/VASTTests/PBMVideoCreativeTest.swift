@@ -17,9 +17,9 @@ import UIKit
 import XCTest
 import AVFoundation
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeViewDelegate, PBMVideoViewDelegate {
+class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewDelegate, PBMVideoViewDelegate {
    
     var videoCreative:PBMVideoCreative!
     let connection = UtilitiesForTesting.createConnectionForMockedTest()
@@ -410,7 +410,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     func creativeWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeClickthroughDidClose(_ creative:PBMAbstractCreative) {}
     func creativeInterstitialDidClose(_ creative:PBMAbstractCreative) {}
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {}
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidCollapse(_ creative:PBMAbstractCreative) {}
     func creativeMraidDidExpand(_ creative:PBMAbstractCreative) {}
     

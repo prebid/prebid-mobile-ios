@@ -13,8 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMAdViewManager.h"
-
 #import "PBMAbstractCreative.h"
 #import "PBMAdLoadManagerProtocol.h"
 #import "PBMAutoRefreshManager.h"
@@ -22,7 +20,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialLayoutConfigurator.h"
 #import "PBMModalManager.h"
-#import "PBMNSThreadProtocol.h"
 #import "PBMTransaction.h"
 #import "PBMVideoCreative.h"
 #import "UIView+PBMExtensions.h"
@@ -36,17 +33,21 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@interface PBMAdViewManager ()
+@interface PBMAdViewManager_Objc: NSObject <PBMAdViewManager>
 
 @property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
-@property (weak, nullable) PBMAbstractCreative *currentCreative;
+@property (nonatomic, weak, nullable) PBMAbstractCreative *currentCreative;
 @property (nonatomic, strong, nullable) PBMTransaction *externalTransaction;
 @property (nonatomic, nullable, readonly) PBMTransaction *currentTransaction; // computed
 @property (nonatomic, assign) BOOL videoInterstitialDidClose;
 
 @end
 
-@implementation PBMAdViewManager
+@implementation PBMAdViewManager_Objc
+@synthesize adConfiguration = _adConfiguration;
+@synthesize adViewManagerDelegate = _adViewManagerDelegate;
+@synthesize autoDisplayOnLoad = _autoDisplayOnLoad;
+@synthesize modalManager = _modalManager;
 
 - (instancetype)initWithConnection:(id<PrebidServerConnectionProtocol>)connection
               modalManagerDelegate:(nullable id<PBMModalManagerDelegate>)modalManagerDelegate
@@ -320,7 +321,7 @@
     [self setupCreative:creative withThread:NSThread.currentThread];
 }
 
-- (void)setupCreative:(PBMAbstractCreative *)creative withThread:(id<PBMNSThreadProtocol>)thread {
+- (void)setupCreative:(PBMAbstractCreative *)creative withThread:(id<PBMThreadProtocol>)thread {
     if (!thread.isMainThread) {
         PBMLogError(@"setupCreative must be called on the main thread");
         return;

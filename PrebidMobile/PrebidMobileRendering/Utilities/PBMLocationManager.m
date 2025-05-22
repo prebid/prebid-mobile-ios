@@ -15,11 +15,17 @@
 
 #import "PBMLocationManager.h"
 #import "PBMConstants.h"
-#import "PBMNSThreadProtocol.h"
 #import "PBMMacros.h"
 
 #import "PBMLocationManagerProtocol.h"
-#import "PBMNSThreadProtocol.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 @interface PBMLocationManager () <CLLocationManagerDelegate>
 @property (strong, nullable) CLLocation *location;
@@ -37,7 +43,7 @@
     return shared;
 }
 
-- (nonnull instancetype)initWithThread:(nonnull id<PBMNSThreadProtocol>)thread {
+- (nonnull instancetype)initWithThread:(nonnull id<PBMThreadProtocol>)thread {
     self = [super init];
     if (!self) {
         return nil;
@@ -131,7 +137,7 @@
     [self initializeInternalLocationManagerInThread:[NSThread currentThread]];
 }
 
-- (void)initializeInternalLocationManagerInThread:(id<PBMNSThreadProtocol>)thread {
+- (void)initializeInternalLocationManagerInThread:(id<PBMThreadProtocol>)thread {
     // CLLocationManager must be initialized on the main thread
     if (!thread.isMainThread) {
         @weakify(self);

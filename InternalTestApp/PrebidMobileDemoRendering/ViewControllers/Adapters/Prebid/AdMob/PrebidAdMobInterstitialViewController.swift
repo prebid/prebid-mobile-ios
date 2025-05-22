@@ -33,7 +33,7 @@ class PrebidAdMobInterstitialViewController:
     
     private weak var adapterViewController: AdapterViewController?
     
-    private var interstitial: InterstitialAd?
+    private var interstitial: GoogleMobileAds.InterstitialAd?
     
     private let adDidReceiveButton = EventReportContainer()
     private let adDidFailToReceiveButton = EventReportContainer()

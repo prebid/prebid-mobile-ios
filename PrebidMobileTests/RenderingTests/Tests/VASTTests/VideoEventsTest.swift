@@ -16,9 +16,9 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegate {
+class VideoEventsTest : XCTestCase, CreativeViewDelegate, PBMVideoViewDelegate {
     
     let viewController = MockViewController()
     let modalManager = PBMModalManager()
@@ -154,7 +154,7 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
     func creativeWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {}
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {}
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {}
