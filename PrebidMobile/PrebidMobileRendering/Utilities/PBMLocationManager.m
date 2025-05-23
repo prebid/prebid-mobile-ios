@@ -168,9 +168,9 @@
         return;
     }
     
-    if (![self isAuthorizedStatus:[[self.locationManager class] authorizationStatus]]) {
-        return;
-    }
+//    if (![self isAuthorizedStatus:[[self.locationManager class] authorizationStatus]]) {
+//        return;
+//    }
     
     [self.locationManager startUpdatingLocation];
 }

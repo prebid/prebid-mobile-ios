@@ -136,6 +136,9 @@
 		537F3F9C2D648A3000584F9C /* SKStoreProductViewControllerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F3F9B2D648A3000584F9C /* SKStoreProductViewControllerPresenter.swift */; };
 		53842BB829E561750069A4B7 /* PrebidImagesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53842BB729E561750069A4B7 /* PrebidImagesRepository.swift */; };
 		53842BBC29E565030069A4B7 /* NSString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53842BBB29E565030069A4B7 /* NSString+Extensions.swift */; };
+		538704232DE05847006EA150 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538704222DE05847006EA150 /* LocationManager.swift */; };
+		538704252DE06FB9006EA150 /* CLAuthorizationStatus+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538704242DE06FB9006EA150 /* CLAuthorizationStatus+Extensions.swift */; };
+		538704272DE06FF4006EA150 /* CLLocation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538704262DE06FF4006EA150 /* CLLocation+Extensions.swift */; };
 		5388F32627F46A7F00319FE4 /* AdViewButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */; };
 		5398979E2CE495E90075234B /* BannerViewReloadTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5398979D2CE495E90075234B /* BannerViewReloadTrackerTests.swift */; };
 		539897A12CE498A20075234B /* InterstitialObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539897A02CE498A20075234B /* InterstitialObserverTests.swift */; };
@@ -1042,6 +1045,9 @@
 		537F3F9B2D648A3000584F9C /* SKStoreProductViewControllerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStoreProductViewControllerPresenter.swift; sourceTree = "<group>"; };
 		53842BB729E561750069A4B7 /* PrebidImagesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidImagesRepository.swift; sourceTree = "<group>"; };
 		53842BBB29E565030069A4B7 /* NSString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+Extensions.swift"; sourceTree = "<group>"; };
+		538704222DE05847006EA150 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		538704242DE06FB9006EA150 /* CLAuthorizationStatus+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLAuthorizationStatus+Extensions.swift"; sourceTree = "<group>"; };
+		538704262DE06FF4006EA150 /* CLLocation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extensions.swift"; sourceTree = "<group>"; };
 		5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewButtonDecorator.swift; sourceTree = "<group>"; };
 		5398979D2CE495E90075234B /* BannerViewReloadTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewReloadTrackerTests.swift; sourceTree = "<group>"; };
 		539897A02CE498A20075234B /* InterstitialObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialObserverTests.swift; sourceTree = "<group>"; };
@@ -2130,6 +2136,8 @@
 				535145DE2CCB758800D40B19 /* NSObject+PBMExtensions.h */,
 				535145DF2CCB758800D40B19 /* NSObject+PBMExtensions.m */,
 				53C925012990FB30009E6F94 /* String+Extensions.swift */,
+				538704242DE06FB9006EA150 /* CLAuthorizationStatus+Extensions.swift */,
+				538704262DE06FF4006EA150 /* CLLocation+Extensions.swift */,
 			);
 			path = ExtensionsAndWrappers;
 			sourceTree = "<group>";
@@ -2277,6 +2285,7 @@
 				537B653F2833C091008AE9D1 /* NetworkType.swift */,
 				5347473A2BFB4D3D00966658 /* UserAgentService.swift */,
 				534C61412CB55D980026119A /* BackgroundAwareTimer.swift */,
+				538704222DE05847006EA150 /* LocationManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -4180,6 +4189,7 @@
 				9236A650272FEC5A00ABBEF4 /* ImpressionTask.swift in Sources */,
 				5BC37A97271F1D0000444D5E /* InterstitialEventHandlerProtocol.swift in Sources */,
 				53A0E7F12CDD40AD007887F5 /* InterstitialImpressionTracker.swift in Sources */,
+				538704252DE06FB9006EA150 /* CLAuthorizationStatus+Extensions.swift in Sources */,
 				5BC379F3271F1D0000444D5E /* PBMExternalLinkHandler.m in Sources */,
 				53D3C38D2C2BEF9B0074D99B /* NSURL+PBMExtensions.m in Sources */,
 				5BC379AD271F1D0000444D5E /* PBMTransaction.m in Sources */,
@@ -4312,6 +4322,7 @@
 				53A434762CDA602D00CB381B /* BannerViewReloadTracker.swift in Sources */,
 				5BC378B3271F1CFF00444D5E /* NSException+PBMExtensions.m in Sources */,
 				5BC379DF271F1D0000444D5E /* DisplayViewLoadingDelegate.swift in Sources */,
+				538704232DE05847006EA150 /* LocationManager.swift in Sources */,
 				5BC3793F271F1D0000444D5E /* PBMCircularProgressBarLayer.m in Sources */,
 				92028EA627F0D89E00783470 /* NativeAdConfiguration.swift in Sources */,
 				5BC379C5271F1D0000444D5E /* PBMAdRequesterVAST.m in Sources */,
@@ -4455,6 +4466,7 @@
 				5A068F1E2DB6FB8500DA62F3 /* VideoVerificationParameters.swift in Sources */,
 				5BC37AAC271F1D0000444D5E /* InterstitialEventHandlerStandalone.swift in Sources */,
 				5BC37954271F1D0000444D5E /* PBMCreativeViewabilityTracker.m in Sources */,
+				538704272DE06FF4006EA150 /* CLLocation+Extensions.swift in Sources */,
 				53B221CF2A0E3D2800C91CCB /* PrebidJSLibrary.swift in Sources */,
 				5BC37A89271F1D0000444D5E /* RewardedEventInteractionDelegate.swift in Sources */,
 				9290549227A417F00091D10D /* ImageHelper.swift in Sources */,
