@@ -15,25 +15,23 @@
 
 import Foundation
 import XCTest
+@testable @_spi(PBMInternal) import PrebidMobile
 
 // MARK: - Extensions
 
-extension PBMViewExposure {
-    convenience init(exposureFactor: Float, visibleRectangle: CGRect) {
-        self.init(exposureFactor: exposureFactor,
-                  visibleRectangle: visibleRectangle,
-                  occlusionRectangles: nil as [NSValue]?)
-    }
-    convenience init(exposureFactor: Float, visibleRectangle: CGRect, occlusionRectangles: [CGRect]) {
-        self.init(exposureFactor: exposureFactor,
-                  visibleRectangle: visibleRectangle,
-                  occlusionRectangles: occlusionRectangles.map(NSValue.init(cgRect:)))
+extension Factory {
+    static func createViewExposure(exposureFactor: Float,
+                                   visibleRectangle: CGRect,
+                                   occlusionRectangles: [CGRect]? = nil) -> ViewExposure {
+        createViewExposure(exposureFactor: exposureFactor,
+                           visibleRectangle: visibleRectangle,
+                           occlusionRectangles: occlusionRectangles?.map(NSValue.init(cgRect:)))
     }
 }
 
 // MARK: - TestCase
 
-class PBMViewExposureTest: XCTestCase {
+class ViewExposureTest: XCTestCase {
     
     // MARK: - Single obstruction
     //
@@ -78,7 +76,7 @@ class PBMViewExposureTest: XCTestCase {
     //
     // XCTAssertEqual(1 - 24/161.0, 137/161.0) // <--- XCTAssertEqual failed: ("0.8509316770186335") is not equal to ("0.8509316770186336")
     //
-    // => use exact values from 'exposed' to build PBMViewExposure, otherwise 'isEqual' might fail due to rounding errors
+    // => use exact values from 'exposed' to build ViewExposure, otherwise 'isEqual' might fail due to rounding errors
     //
     // root.clipToBounds = true
     //   => parent -- clipped out
@@ -120,36 +118,43 @@ class PBMViewExposureTest: XCTestCase {
         
         window.isHidden = false
         
-        XCTAssertEqual(root.viewExposure, PBMViewExposure(exposureFactor: 33/40.0,
-                                                          visibleRectangle: CGRect(x: 0, y: 0, width: 240, height: 400),
-                                                          occlusionRectangles: [CGRect(x: 120, y: 140, width: 120, height: 140)]));
-        XCTAssertEqual(grandparent.viewExposure, PBMViewExposure(exposureFactor: 137/161.0,
-                                                                 visibleRectangle: CGRect(x: 0, y: 0, width: 460, height: 140),
-                                                                 occlusionRectangles: [CGRect(x: 40, y: 100, width: 240, height: 40)]));
-        XCTAssertEqual(parent.viewExposure, PBMViewExposure(exposureFactor: 6/7.0,
-                                                            visibleRectangle: CGRect(x: 0, y: 0, width: 140, height: 280),
-                                                            occlusionRectangles: [CGRect(x: 0, y: 60, width: 40, height: 140)]));
-        XCTAssertEqual(view.viewExposure, PBMViewExposure(exposureFactor: 3/5.0,
-                                                          visibleRectangle: CGRect(x: 0, y: 0, width: 200, height: 80),
-                                                          occlusionRectangles: [CGRect(x: 0, y: 0, width: 160, height: 40)]));
+        XCTAssertEqual(root.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 33/40.0,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 240, height: 400),
+                                                  occlusionRectangles: [CGRect(x: 120, y: 140, width: 120, height: 140)]));
+        XCTAssertEqual(grandparent.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 137/161.0,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 460, height: 140),
+                                                  occlusionRectangles: [CGRect(x: 40, y: 100, width: 240, height: 40)]));
+        XCTAssertEqual(parent.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 6/7.0,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 140, height: 280),
+                                                  occlusionRectangles: [CGRect(x: 0, y: 60, width: 40, height: 140)]));
+        XCTAssertEqual(view.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 3/5.0,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 200, height: 80),
+                                                  occlusionRectangles: [CGRect(x: 0, y: 0, width: 160, height: 40)]));
         
         root.clipsToBounds = true
         // table 2
         
-        XCTAssertEqual(grandparent.viewExposure, PBMViewExposure(exposureFactor: 44/161.0,
-                                                                 visibleRectangle: CGRect(x: 0, y: 0, width: 160, height: 140),
-                                                                 occlusionRectangles: [CGRect(x: 40, y: 100, width: 120, height: 40)]));
-        XCTAssertEqual(parent.viewExposure, .zero);
-        XCTAssertEqual(view.viewExposure, PBMViewExposure(exposureFactor: 1/10.0,
-                                                          visibleRectangle: CGRect(x: 0, y: 40, width: 40, height: 40)));
+        XCTAssertEqual(grandparent.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 44/161.0,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 160, height: 140),
+                                                  occlusionRectangles: [CGRect(x: 40, y: 100, width: 120, height: 40)]));
+        XCTAssertEqual(parent.viewExposure, Factory.ViewExposureType.zero);
+        XCTAssertEqual(view.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 1/10.0,
+                                                  visibleRectangle: CGRect(x: 0, y: 40, width: 40, height: 40)));
         
         root.clipsToBounds = false
         parent.clipsToBounds = true
         // table 3
         
-        XCTAssertEqual(view.viewExposure, PBMViewExposure(exposureFactor: 3/10.0,
-                                                          visibleRectangle: CGRect(x: 120, y: 0, width: 80, height: 80),
-                                                          occlusionRectangles: [CGRect(x: 120, y: 0, width: 40, height: 40)]));
+        XCTAssertEqual(view.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 3/10.0,
+                                                  visibleRectangle: CGRect(x: 120, y: 0, width: 80, height: 80),
+                                                  occlusionRectangles: [CGRect(x: 120, y: 0, width: 40, height: 40)]));
         
         obstruction.removeFromSuperview()
         window.insertSubview(obstruction, belowSubview: root)
@@ -157,8 +162,9 @@ class PBMViewExposureTest: XCTestCase {
         parent.clipsToBounds = false
         // table 4
         
-        XCTAssertEqual(obstruction.viewExposure, PBMViewExposure(exposureFactor: 1/7.0,
-                                                                 visibleRectangle: CGRect(x: 120, y: 40, width: 80, height: 60)));
+        XCTAssertEqual(obstruction.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 1/7.0,
+                                                  visibleRectangle: CGRect(x: 120, y: 40, width: 80, height: 60)));
     }
     
     // MARK: - Composite hierarchy
@@ -222,30 +228,37 @@ class PBMViewExposureTest: XCTestCase {
         
         window.isHidden = false
         
-        XCTAssertEqual(parent.viewExposure, PBMViewExposure(exposureFactor: 1668/2400.0,
-                                                            visibleRectangle: CGRect(x: 0, y: 0, width: 600, height: 400),
-                                                            occlusionRectangles: [CGRect(x: 20, y: 280, width: 540, height: 100),
-                                                                                  CGRect(x: 280, y: 160, width: 240, height: 80)]));
+        XCTAssertEqual(parent.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 1668/2400.0,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 600, height: 400),
+                                                  occlusionRectangles: [CGRect(x: 20, y: 280, width: 540, height: 100),
+                                                                        CGRect(x: 280, y: 160, width: 240, height: 80)]));
         
-        XCTAssertEqual(adView.viewExposure, PBMViewExposure(exposureFactor: 604/1176.0,
-                                                            visibleRectangle: CGRect(x: 0, y: 0, width: 420, height: 220),
-                                                            occlusionRectangles: [CGRect(x: 220, y: 100, width: 200, height: 80),
-                                                                                  CGRect(x: 140, y: 0, width: 280, height: 40),
-                                                                                  CGRect(x: 40, y: 60, width: 120, height: 40)]));
+        XCTAssertEqual(adView.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 604/1176.0,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 420, height: 220),
+                                                  occlusionRectangles: [CGRect(x: 220, y: 100, width: 200, height: 80),
+                                                                        CGRect(x: 140, y: 0, width: 280, height: 40),
+                                                                        CGRect(x: 40, y: 60, width: 120, height: 40)]));
         
-        XCTAssertEqual(brother.viewExposure, PBMViewExposure(exposureFactor: 1,
-                                                             visibleRectangle: CGRect(x: 0, y: 0, width: 360, height: 80)));
+        XCTAssertEqual(brother.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 360, height: 80)));
         
-        XCTAssertEqual(xBtn.viewExposure, PBMViewExposure(exposureFactor: 1,
-                                                          visibleRectangle: CGRect(x: 0, y: 0, width: 120, height: 40)));
+        XCTAssertEqual(xBtn.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 120, height: 40)));
         
-        XCTAssertEqual(uncle.viewExposure, PBMViewExposure(exposureFactor: 1,
-                                                           visibleRectangle: CGRect(x: 0, y: 0, width: 240, height: 80)));
+        XCTAssertEqual(uncle.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 240, height: 80)));
         
-        XCTAssertEqual(aunt.viewExposure, PBMViewExposure(exposureFactor: 1,
-                                                          visibleRectangle: CGRect(x: 0, y: 0, width: 540, height: 100)));
+        XCTAssertEqual(aunt.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 540, height: 100)));
         
-        XCTAssertEqual(cousin.viewExposure, PBMViewExposure(exposureFactor: 1,
-                                                            visibleRectangle: CGRect(x: 0, y: 0, width: 200, height: 60)));
+        XCTAssertEqual(cousin.viewExposure,
+                       Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect(x: 0, y: 0, width: 200, height: 60)));
     }
 }

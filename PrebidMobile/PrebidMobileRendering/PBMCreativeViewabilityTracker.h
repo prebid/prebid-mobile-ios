@@ -19,10 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class UIView;
 @class PBMAbstractCreative;
-@class PBMViewExposure;
+@protocol PBMViewExposure;
 @class PBMCreativeViewabilityTracker;
 
-typedef void(^PBMViewExposureChangeHandler)(PBMCreativeViewabilityTracker *tracker, PBMViewExposure *viewExposure);
+typedef void(^PBMViewExposureChangeHandler)(PBMCreativeViewabilityTracker *tracker, id<PBMViewExposure> viewExposure);
 
 @interface PBMCreativeViewabilityTracker : NSObject
 

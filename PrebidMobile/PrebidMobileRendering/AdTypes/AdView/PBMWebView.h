@@ -26,7 +26,7 @@
 @class Targeting;
 @class PBMAbstractCreative;
 @class PBMTouchDownRecognizer;
-@class PBMViewExposure;
+@protocol PBMViewExposure;
 @class PBMCreativeModel;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 - (void)MRAID_error:(NSString *)message action:(PBMMRAIDAction)action
     NS_SWIFT_NAME(MRAID_error(_:action:));
 
-- (void)MRAID_onExposureChange:(PBMViewExposure *)viewExposure
+- (void)MRAID_onExposureChange:(id<PBMViewExposure>)viewExposure
     NS_SWIFT_NAME(MRAID_onExposureChange(_:));
 
 - (void)MRAID_updatePlacementType:(PBMMRAIDPlacementType)type

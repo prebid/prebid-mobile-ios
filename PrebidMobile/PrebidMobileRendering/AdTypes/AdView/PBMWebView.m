@@ -28,7 +28,6 @@
 #import "PBMOpenMeasurementSession.h"
 #import "PBMORTB.h"
 #import "PBMTouchDownRecognizer.h"
-#import "PBMViewExposure.h"
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMWKScriptMessageHandlerLeakAvoider.h"
 #import "UIView+PBMExtensions.h"
@@ -694,7 +693,7 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 // updates the viewable flag in mraid.js
-- (void)MRAID_onExposureChange:(PBMViewExposure *)viewExposure {
+- (void)MRAID_onExposureChange:(id<PBMViewExposure>)viewExposure {
     BOOL const newViewable = viewExposure.exposureFactor > 0;
     if (self.isViewable != newViewable) {
         self.viewable = newViewable;
@@ -848,7 +847,7 @@ static PBMError *extracted(NSString *errorMessage) {
 //TODO: There is almost certainly a way to do this that is more industry-standard and less processor-intensive.
 - (void)pollForViewability {
     @weakify(self);
-    self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc]initWithView:self pollingTimeInterval:0.2f onExposureChange:^(PBMCreativeViewabilityTracker *tracker, PBMViewExposure * _Nonnull viewExposure) {
+    self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc]initWithView:self pollingTimeInterval:0.2f onExposureChange:^(PBMCreativeViewabilityTracker *tracker, id<PBMViewExposure> _Nonnull viewExposure) {
         @strongify(self);
         if (!self) { return; }
 

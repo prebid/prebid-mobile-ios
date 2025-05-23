@@ -34,7 +34,7 @@
 @class PBMOpenMeasurementSession;
 @class PBMDownloadDataHelper;
 @class PBMCreativeViewabilityTracker;
-@class PBMViewExposure;
+@protocol PBMViewExposure;
 @class PBMSKOverlayManager;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)modalManagerDidFinishPop:(PBMModalState *)state;
 - (void)modalManagerDidLeaveApp:(PBMModalState *)state;
 
-- (void)onViewabilityChanged:(BOOL)viewable viewExposure:(PBMViewExposure *)viewExposure;
+- (void)onViewabilityChanged:(BOOL)viewable viewExposure:(id<PBMViewExposure>)viewExposure;
 
 @end
 

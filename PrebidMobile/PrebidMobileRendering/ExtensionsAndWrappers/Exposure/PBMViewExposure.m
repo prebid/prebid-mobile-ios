@@ -13,10 +13,20 @@
  limitations under the License.
  */
 
-#import "PBMViewExposure.h"
 #import <UIKit/UIKit.h>
 
-@implementation PBMViewExposure
+#import "PrebidMobileSwiftHeaders.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
+
+@interface PBMViewExposure_Objc : NSObject <PBMViewExposure>
+@end
+
+@implementation PBMViewExposure_Objc
 
 @synthesize exposureFactor = _exposureFactor;
 @synthesize visibleRectangle = _visibleRectangle;
@@ -37,9 +47,9 @@
 
 + (instancetype)zeroExposure {
     static dispatch_once_t onceToken;
-    static PBMViewExposure *zeroViewExposure;
+    static id <PBMViewExposure> zeroViewExposure;
     dispatch_once(&onceToken, ^{
-        zeroViewExposure = [[PBMViewExposure alloc] initWithExposureFactor:0 visibleRectangle:CGRectZero occlusionRectangles:nil];
+        zeroViewExposure = [PBMFactory createViewExposureWithExposureFactor:0 visibleRectangle:CGRectZero occlusionRectangles:nil];
     });
     return zeroViewExposure;
 }
@@ -53,7 +63,7 @@
         return NO;
     }
 
-    PBMViewExposure *other = object;
+    PBMViewExposure_Objc *other = object;
     return ((self == other)
             || (self.exposureFactor == other.exposureFactor
                 && CGRectEqualToRect(self.visibleRectangle, other.visibleRectangle)

@@ -432,7 +432,7 @@
     });
 }
 
-- (void)onViewabilityChanged:(BOOL)viewable viewExposure:(PBMViewExposure *)viewExposure {
+- (void)onViewabilityChanged:(BOOL)viewable viewExposure:(id<PBMViewExposure>)viewExposure {
     if (viewable && !self.adWasShown) {
         [self onAdDisplayed];
         self.adWasShown = YES;

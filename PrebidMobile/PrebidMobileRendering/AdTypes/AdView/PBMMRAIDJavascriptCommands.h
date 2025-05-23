@@ -21,7 +21,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class PBMViewExposure;
+@protocol PBMViewExposure;
 
 @interface PBMMRAIDJavascriptCommands : NSObject
 
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)onReady;
 + (NSString *)onReadyExpanded;
 + (NSString *)onViewableChange:(BOOL)isViewable;
-+ (NSString *)onExposureChange:(PBMViewExposure *)viewExposure;
++ (NSString *)onExposureChange:(id<PBMViewExposure>)viewExposure;
 + (NSString *)onSizeChange:(CGSize)newSize;
 + (NSString *)onStateChange:(PBMMRAIDState)newState;
 + (NSString *)onAudioVolumeChange:(nullable NSNumber *)volumePercentage;
