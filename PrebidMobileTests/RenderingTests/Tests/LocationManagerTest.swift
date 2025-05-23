@@ -43,153 +43,132 @@ class LocationManagerTest: XCTestCase {
     }
 
     func testRegisterWithLocationServicesDisabled() {
-        DispatchQueue.main.async {
-            let startUpdatingExpectation = self.expectation(description: "Should not have called `startUpdatingLocation` with location services disabled")
-            startUpdatingExpectation.isInverted = true
+        let startUpdatingExpectation = self.expectation(description: "Should not have called `startUpdatingLocation` with location services disabled")
+        startUpdatingExpectation.isInverted = true
 
-            let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: false)
-            mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
-                startUpdatingExpectation.fulfill()
-            }
-
-            let locationManager = LocationManager(locationManager: mockCLLocationManager)
-            locationManager.locationUpdatesEnabled = true
-
-            self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
+        let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: false)
+        mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
+            startUpdatingExpectation.fulfill()
         }
+
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
+        locationManager.locationUpdatesEnabled = true
+
+        self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
     }
 
     func testRegisterWithLocationServicesEnabled() {
-        DispatchQueue.main.async {
-            let startUpdatingExpectation = self.expectation(description: "Should have called `startUpdatingLocation` with location sevices enabled")
+        let startUpdatingExpectation = self.expectation(description: "Should have called `startUpdatingLocation` with location sevices enabled")
 
-            let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
-            mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
-                startUpdatingExpectation.fulfill()
-            }
-
-            let locationManager = LocationManager(locationManager: mockCLLocationManager)
-            locationManager.latestAuthorizationStatus = .authorizedAlways
-            locationManager.locationUpdatesEnabled = true
-
-            self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
+        let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
+        mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
+            startUpdatingExpectation.fulfill()
         }
+
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
+        locationManager.latestAuthorizationStatus = .authorizedAlways
+        locationManager.locationUpdatesEnabled = true
+
+        self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
     }
 
     func testRegisterWithUnsupportedAuthorizationStatus() {
-        DispatchQueue.main.async {
-            let startUpdatingExpectation = self.expectation(description: "Should not have called `startUpdatingLocation` with unsupported authorization status")
-            startUpdatingExpectation.isInverted = true
+        let startUpdatingExpectation = self.expectation(description: "Should not have called `startUpdatingLocation` with unsupported authorization status")
+        startUpdatingExpectation.isInverted = true
 
-            let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true)
-            mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
-                let status = MockCLLocationManagerRendering.authorizationStatusString()
-                XCTFail("Should not have called `startUpdatingLocation` with status of '\(status)'")
-                startUpdatingExpectation.fulfill()
-            }
-
-            let locationManager = LocationManager(locationManager: mockCLLocationManager)
-
-            MockCLLocationManagerRendering.mock_authorizationStatus = .notDetermined
-            locationManager.latestAuthorizationStatus = .notDetermined
-            locationManager.locationUpdatesEnabled = true
-
-            MockCLLocationManagerRendering.mock_authorizationStatus = .restricted
-            locationManager.latestAuthorizationStatus = .restricted
-            locationManager.locationUpdatesEnabled = true
-
-            MockCLLocationManagerRendering.mock_authorizationStatus = .denied
-            locationManager.latestAuthorizationStatus = .denied
-            locationManager.locationUpdatesEnabled = true
-
-            self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
+        let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true)
+        mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
+            let status = MockCLLocationManagerRendering.authorizationStatusString()
+            XCTFail("Should not have called `startUpdatingLocation` with status of '\(status)'")
+            startUpdatingExpectation.fulfill()
         }
+
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
+
+        MockCLLocationManagerRendering.mock_authorizationStatus = .notDetermined
+        locationManager.latestAuthorizationStatus = .notDetermined
+        locationManager.locationUpdatesEnabled = true
+
+        MockCLLocationManagerRendering.mock_authorizationStatus = .restricted
+        locationManager.latestAuthorizationStatus = .restricted
+        locationManager.locationUpdatesEnabled = true
+
+        MockCLLocationManagerRendering.mock_authorizationStatus = .denied
+        locationManager.latestAuthorizationStatus = .denied
+        locationManager.locationUpdatesEnabled = true
+
+        self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
     }
 
     func testRegisterWithSupportedAuthorizationStatus() {
-        DispatchQueue.main.async {
-            let startUpdatingExpectation = self.expectation(description: "Should have called `startUpdatingLocation` with supported authorization statuses")
-
-            let expectedStatuses: [CLAuthorizationStatus] = [.authorizedAlways, .authorizedWhenInUse]
-            var actualStatuses = [CLAuthorizationStatus]()
-            
-            let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true)
-            mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
-                actualStatuses.append(MockCLLocationManagerRendering.authorizationStatus())
-                if actualStatuses.count >= expectedStatuses.count {
-                    startUpdatingExpectation.fulfill()
-                }
-            }
-            
-            MockCLLocationManagerRendering.mock_authorizationStatus = .authorizedAlways
-            let locationManagerAuthorizedAlways = LocationManager(locationManager: mockCLLocationManager)
-            locationManagerAuthorizedAlways.latestAuthorizationStatus = .authorizedAlways
-            locationManagerAuthorizedAlways.locationUpdatesEnabled = true
-
-            MockCLLocationManagerRendering.mock_authorizationStatus = .authorizedWhenInUse
-            let locationManagerAuthorizedWhenInUse = LocationManager(locationManager: mockCLLocationManager)
-            locationManagerAuthorizedWhenInUse.latestAuthorizationStatus = .authorizedWhenInUse
-            locationManagerAuthorizedWhenInUse.locationUpdatesEnabled = true
-            
-            self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
-            PBMAssertEq(actualStatuses, expectedStatuses)
+        let startUpdatingExpectation = self.expectation(description: "Should have called `startUpdatingLocation` with supported authorization statuses")
+        startUpdatingExpectation.expectedFulfillmentCount = 2
+        
+        let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true)
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
+       
+        locationManager.latestAuthorizationStatus = .authorizedAlways
+        mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
+            XCTAssert(locationManager.latestAuthorizationStatus == .authorizedAlways)
+            startUpdatingExpectation.fulfill()
         }
+        locationManager.locationUpdatesEnabled = true
+        
+        locationManager.locationUpdatesEnabled = false
+        
+        locationManager.latestAuthorizationStatus = .authorizedWhenInUse
+        mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
+            XCTAssert(locationManager.latestAuthorizationStatus == .authorizedWhenInUse)
+            startUpdatingExpectation.fulfill()
+        }
+        locationManager.locationUpdatesEnabled = true
+       
+        self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
     }
 
     func testRegisterStartsUpdatingLocationOnce() {
-        DispatchQueue.main.async {
-            let startUpdatingExpectation = self.expectation(description: "Should have called `startUpdatingLocation` once")
-            startUpdatingExpectation.isInverted = true
+        let startUpdatingExpectation = self.expectation(description: "Should have called `startUpdatingLocation` once")
+        startUpdatingExpectation.isInverted = true
 
-            var startUpdatingCallCount = 0
+        var startUpdatingCallCount = 0
 
-            let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
-            mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
-                startUpdatingCallCount += 1
-                if startUpdatingCallCount > 1 {
-                    startUpdatingExpectation.fulfill()
-                }
+        let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
+        mockCLLocationManager.startUpdatingLocationHandler = { () -> Void in
+            startUpdatingCallCount += 1
+            if startUpdatingCallCount > 1 {
+                startUpdatingExpectation.fulfill()
             }
-
-            let locationManager = LocationManager(locationManager: mockCLLocationManager)
-            locationManager.latestAuthorizationStatus = .authorizedAlways
-            locationManager.locationUpdatesEnabled = true
-            locationManager.locationUpdatesEnabled = true
-
-            self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
-            PBMAssertEq(startUpdatingCallCount, 1)
         }
+
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
+        locationManager.latestAuthorizationStatus = .authorizedAlways
+        locationManager.locationUpdatesEnabled = true
+        locationManager.locationUpdatesEnabled = true
+
+        self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
+        PBMAssertEq(startUpdatingCallCount, 1)
     }
 
     func testUnregisterStopsUpdatingLocation() {
-        DispatchQueue.main.async {
-            let stopUpdatingExpection = self.expectation(description: "Should have called `stopUpdatingLocation` once")
-            stopUpdatingExpection.isInverted = true
+        let stopUpdatingExpection = self.expectation(description: "Should have called `stopUpdatingLocation` once")
+        stopUpdatingExpection.expectedFulfillmentCount = 1
 
-            let expectedCallCount = 1
-            var actualCallCount = 0
-
-            let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
-            mockCLLocationManager.stopUpdatingLocationHandler = { () -> Void in
-                actualCallCount += 1
-                if actualCallCount > expectedCallCount {
-                    stopUpdatingExpection.fulfill()
-                }
-            }
-
-            let locationManager = LocationManager(locationManager: mockCLLocationManager)
-            locationManager.locationUpdatesEnabled = true
-            locationManager.locationUpdatesEnabled = true
-
-            locationManager.locationUpdatesEnabled = false
-            PBMAssertEq(actualCallCount, expectedCallCount)
-
-            locationManager.locationUpdatesEnabled = false
-            locationManager.locationUpdatesEnabled = false
-            PBMAssertEq(actualCallCount, expectedCallCount)
-
-            self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
+        let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
+        mockCLLocationManager.stopUpdatingLocationHandler = { () -> Void in
+            stopUpdatingExpection.fulfill()
         }
+
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
+        locationManager.latestAuthorizationStatus = .authorizedAlways
+        locationManager.locationUpdatesEnabled = true
+        locationManager.locationUpdatesEnabled = true
+
+        locationManager.locationUpdatesEnabled = false
+
+        locationManager.locationUpdatesEnabled = false
+        locationManager.locationUpdatesEnabled = false
+
+        self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
     }
 
     func testCoordinatesAreInitiallyInvalid() {
@@ -202,67 +181,62 @@ class LocationManagerTest: XCTestCase {
     }
 
     func testCoordinatesAreValid() {
-        DispatchQueue.main.async {
-            let mockCLLocationManager = MockCLLocationManagerRendering(
-                enableLocationServices: true,
-                authorizationStatus: .authorizedAlways
-            )
+        let mockCLLocationManager = MockCLLocationManagerRendering(
+            enableLocationServices: true,
+            authorizationStatus: .authorizedAlways
+        )
 
-            let locationManager = LocationManager(locationManager: mockCLLocationManager)
-            locationManager.latestAuthorizationStatus = .authorizedAlways
-            locationManager.locationUpdatesEnabled = true
-            mockCLLocationManager.delegate?.locationManager?(CLLocationManager(), didUpdateLocations: [self.location])
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
+        locationManager.latestAuthorizationStatus = .authorizedAlways
+        locationManager.locationUpdatesEnabled = true
+        
+        mockCLLocationManager.delegate?.locationManager?(CLLocationManager(), didUpdateLocations: [self.location])
 
-            XCTAssert(locationManager.coordinatesAreValid)
-            PBMAssertEq(locationManager.coordinates.latitude, self.location.coordinate.latitude)
-            PBMAssertEq(locationManager.coordinates.longitude, self.location.coordinate.longitude)
-            PBMAssertEq(locationManager.horizontalAccuracy, self.location.horizontalAccuracy)
-            PBMAssertEq(locationManager.timestamp, self.location.timestamp)
-        }
+        XCTAssert(locationManager.coordinatesAreValid)
+        PBMAssertEq(locationManager.coordinates.latitude, self.location.coordinate.latitude)
+        PBMAssertEq(locationManager.coordinates.longitude, self.location.coordinate.longitude)
+        PBMAssertEq(locationManager.horizontalAccuracy, self.location.horizontalAccuracy)
+        PBMAssertEq(locationManager.timestamp, self.location.timestamp)
     }
 
     func testInternalLocationManagerFailure() {
-        DispatchQueue.main.async {
-            let stopUpdatingExpection = self.expectation(description: "Should have called `stopUpdatingLocation` internal location manager failed")
+        let stopUpdatingExpection = self.expectation(description: "Should have called `stopUpdatingLocation` internal location manager failed")
 
-            let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
-            mockCLLocationManager.stopUpdatingLocationHandler = { () -> Void in
-                stopUpdatingExpection.fulfill()
-            }
-
-            let locationManager = LocationManager(locationManager: mockCLLocationManager)
-            locationManager.latestAuthorizationStatus = .authorizedAlways
-            locationManager.locationUpdatesEnabled = true
-
-            enum ErrorError: Error { case Error }
-            mockCLLocationManager.delegate?.locationManager?(CLLocationManager(), didFailWithError: ErrorError.Error)
-
-            self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
-            XCTAssertFalse(locationManager.coordinatesAreValid)
-            PBMAssertEq(locationManager.coordinates.latitude, kCLLocationCoordinate2DInvalid.latitude)
-            PBMAssertEq(locationManager.coordinates.longitude, kCLLocationCoordinate2DInvalid.longitude)
+        let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
+        mockCLLocationManager.stopUpdatingLocationHandler = { () -> Void in
+            stopUpdatingExpection.fulfill()
         }
+
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
+        locationManager.latestAuthorizationStatus = .authorizedAlways
+        locationManager.locationUpdatesEnabled = true
+
+        enum ErrorError: Error { case Error }
+        mockCLLocationManager.delegate?.locationManager?(CLLocationManager(), didFailWithError: ErrorError.Error)
+
+        self.waitForExpectations(timeout: self.expectationTimeout, handler: nil)
+        XCTAssertFalse(locationManager.coordinatesAreValid)
+        PBMAssertEq(locationManager.coordinates.latitude, kCLLocationCoordinate2DInvalid.latitude)
+        PBMAssertEq(locationManager.coordinates.longitude, kCLLocationCoordinate2DInvalid.longitude)
     }
 
     func testInternalLocationManagerFailureRetainsPreviousLocationData() {
-        DispatchQueue.main.async {
-            let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
-            let locationManager = LocationManager(locationManager: mockCLLocationManager)
-            locationManager.locationUpdatesEnabled = true
+        let mockCLLocationManager = MockCLLocationManagerRendering(enableLocationServices: true, authorizationStatus: .authorizedAlways)
+        let locationManager = LocationManager(locationManager: mockCLLocationManager)
+        locationManager.locationUpdatesEnabled = true
 
-            mockCLLocationManager.delegate?.locationManager?(CLLocationManager(), didUpdateLocations: [self.location])
+        mockCLLocationManager.delegate?.locationManager?(CLLocationManager(), didUpdateLocations: [self.location])
 
-            XCTAssert(locationManager.coordinatesAreValid)
-            PBMAssertEq(locationManager.coordinates.latitude, self.location.coordinate.latitude)
-            PBMAssertEq(locationManager.coordinates.longitude, self.location.coordinate.longitude)
+        XCTAssert(locationManager.coordinatesAreValid)
+        PBMAssertEq(locationManager.coordinates.latitude, self.location.coordinate.latitude)
+        PBMAssertEq(locationManager.coordinates.longitude, self.location.coordinate.longitude)
 
-            enum ErrorError: Error { case Error }
-            mockCLLocationManager.delegate?.locationManager?(CLLocationManager(), didFailWithError: ErrorError.Error)
+        enum ErrorError: Error { case Error }
+        mockCLLocationManager.delegate?.locationManager?(CLLocationManager(), didFailWithError: ErrorError.Error)
 
-            XCTAssert(locationManager.coordinatesAreValid)
-            PBMAssertEq(locationManager.coordinates.latitude, self.location.coordinate.latitude)
-            PBMAssertEq(locationManager.coordinates.longitude, self.location.coordinate.longitude)
-        }
+        XCTAssert(locationManager.coordinatesAreValid)
+        PBMAssertEq(locationManager.coordinates.latitude, self.location.coordinate.latitude)
+        PBMAssertEq(locationManager.coordinates.longitude, self.location.coordinate.longitude)
     }
     
     func testValidLocation() {
