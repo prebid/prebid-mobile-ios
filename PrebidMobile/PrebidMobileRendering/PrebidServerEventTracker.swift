@@ -32,7 +32,7 @@ public class PrebidServerEventTracker: NSObject, PBMEventTrackerProtocol {
         }
     }
     
-    public func trackVideoAdLoaded(_ parameters: PBMVideoVerificationParameters!) {}
+    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters!) {}
     
     public func trackStartVideo(withDuration duration: CGFloat, volume: CGFloat) {}
     

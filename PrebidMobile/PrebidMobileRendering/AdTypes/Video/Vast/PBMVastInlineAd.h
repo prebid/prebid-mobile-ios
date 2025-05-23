@@ -14,7 +14,8 @@
  */
 
 #import "PBMVastAbstractAd.h"
-#import "PBMVideoVerificationParameters.h"
+
+@class PBMVideoVerificationParameters;
 
 //See PBMVastAbstractAd for VAST structure details
 

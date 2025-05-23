@@ -60,7 +60,7 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
         ImpressionTasksExecutor.shared.add(tasks: arrayOfTasks)
     }
     
-    public func trackVideoAdLoaded(_ parameters: PBMVideoVerificationParameters!) {
+    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters!) {
         
     }
     

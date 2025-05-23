@@ -24,8 +24,8 @@ class MockPBMAdModelEventTracker: PBMAdModelEventTracker {
         mock_trackEvent?(event)
     }
     
-    var mock_trackVideoAdLoaded: ((PBMVideoVerificationParameters) -> Void)?
-    override func trackVideoAdLoaded(_ parameters: PBMVideoVerificationParameters)  {
+    var mock_trackVideoAdLoaded: ((VideoVerificationParameters) -> Void)?
+    override func trackVideoAdLoaded(_ parameters: VideoVerificationParameters)  {
         mock_trackVideoAdLoaded?(parameters)
     }
     

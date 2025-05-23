@@ -14,9 +14,9 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMVastTrackingEventsTest: XCTestCase {
+class VastTrackingEventsTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -29,14 +29,14 @@ class PBMVastTrackingEventsTest: XCTestCase {
     }
     
     func testInit() {
-        let trackEvents1 = PBMVastTrackingEvents()
+        let trackEvents1 = VastTrackingEvents()
         XCTAssert(trackEvents1.trackingEvents.count == 0)
         XCTAssert(trackEvents1.progressOffsets.count == 0)
         
     }
     
     func testAddTrackingURL() {
-        let trackEvents1 = PBMVastTrackingEvents()
+        let trackEvents1 = VastTrackingEvents()
         
         trackEvents1.addTrackingURL(nil, event: "event", attributes: nil)
         XCTAssert(trackEvents1.trackingEvents.count == 0, "Incorrect number of trackingEvents found.")
@@ -66,7 +66,7 @@ class PBMVastTrackingEventsTest: XCTestCase {
     }
     
     func testTrackingURLsForEvent () {
-        let trackEvents1 = PBMVastTrackingEvents()
+        let trackEvents1 = VastTrackingEvents()
         
         // precondition
         XCTAssert(trackEvents1.trackingEvents.count == 0)
@@ -74,7 +74,7 @@ class PBMVastTrackingEventsTest: XCTestCase {
         var events = trackEvents1.trackingURLs(forEvent: "event1")
         XCTAssert((events == nil),"Unexpected return value")
         
-        let trackEvents2 = PBMVastTrackingEvents()
+        let trackEvents2 = VastTrackingEvents()
         // precondition
         XCTAssert(trackEvents2.trackingEvents.count == 0)
         let attrArry = [String:String]()

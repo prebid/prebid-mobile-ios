@@ -28,8 +28,6 @@
 #import "PBMVastCreativeCompanionAdsCompanion.h"
 #import "PBMVastCreativeNonLinearAdsNonLinear.h"
 
-#import "PBMVideoVerificationParameters.h"
-
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
 #import "PrebidMobile-Swift.h"
@@ -438,7 +436,10 @@
         self.verificationParameter = nil;
     }
     else if ([elementName isEqualToString: @"Verification"]) {
-        [self.verificationParameter.verificationResources addObject:self.verificationResource];
+        __auto_type verificationResources = self.verificationParameter.verificationResources;
+        verificationResources = [verificationResources arrayByAddingObject:self.verificationResource];
+        self.verificationParameter.verificationResources = verificationResources;
+        
         self.verificationResource = nil;
     }
     else if ([elementName isEqualToString: @"JavaScriptResource"]) {

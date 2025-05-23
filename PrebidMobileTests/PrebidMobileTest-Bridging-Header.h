@@ -117,7 +117,6 @@
 #import "PBMVastParser+Private.h"
 #import "PBMVastResourceContainerProtocol.h"
 #import "PBMVastResponse.h"
-#import "PBMVastTrackingEvents.h"
 #import "PBMVastWrapperAd.h"
 
 // 3dPartyWrappers

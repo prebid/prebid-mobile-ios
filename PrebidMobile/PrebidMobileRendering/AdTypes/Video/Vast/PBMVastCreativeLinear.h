@@ -14,9 +14,10 @@
  */
 
 #import "PBMVastCreativeAbstract.h"
-#import "PBMVastTrackingEvents.h"
 #import "PBMVastMediaFile.h"
 #import "PBMVastIcon.h"
+
+@class PBMVastTrackingEvents;
 
 //TODO: describe Vast XML structure
 
