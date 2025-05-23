@@ -18,8 +18,7 @@ import CoreLocation
 
 extension CLLocationManager: LocationManagerProtocol {}
 
-//@objc(PBMLocationManager)
-@objcMembers
+@objc(PBMLocationManager) @objcMembers
 public class LocationManager: NSObject {
     
     public static let shared = LocationManager()
@@ -35,12 +34,18 @@ public class LocationManager: NSObject {
         }
     }
     
-    public var coordinates: CLLocationCoordinate2D? {
-        coordinatesAreValid ? location?.coordinate : kCLLocationCoordinate2DInvalid
+    public var coordinates: CLLocationCoordinate2D {
+        guard let location else { return kCLLocationCoordinate2DInvalid }
+        return coordinatesAreValid ? location.coordinate : kCLLocationCoordinate2DInvalid
     }
     
     public var coordinatesAreValid: Bool {
-        location?.isValid ?? false
+        return location?.isValid ?? false
+    }
+    
+    public var horizontalAccuracy: CLLocationAccuracy {
+        guard let location else { return -1 }
+        return coordinatesAreValid ? location.horizontalAccuracy : -1
     }
     
     public var timestamp: Date? {
@@ -49,22 +54,8 @@ public class LocationManager: NSObject {
     
     private var internalLocationManager: LocationManagerProtocol?
     
-    private var _location: CLLocation?
-    private var location: CLLocation? {
-        get {
-            queue.sync {
-                _location
-            }
-        }
-        set {
-            queue.async(flags: .barrier) {
-                self._location = newValue
-            }
-        }
-    }
-    
     private var _authorizationStatus: CLAuthorizationStatus = .notDetermined
-    private var latestAuthorizationStatus: CLAuthorizationStatus {
+    var latestAuthorizationStatus: CLAuthorizationStatus {
         get {
             queue.sync {
                 _authorizationStatus
@@ -77,16 +68,52 @@ public class LocationManager: NSObject {
         }
     }
     
+    private var _location: CLLocation?
+    var location: CLLocation? {
+        get {
+            queue.sync {
+                _location
+            }
+        }
+        set {
+            queue.async(flags: .barrier) {
+                self._location = newValue
+            }
+        }
+    }
+    
+    private var _isLocationUpdating = false
+    private var isLocationUpdating: Bool {
+        get {
+            queue.sync {
+                _isLocationUpdating
+            }
+        }
+        set {
+            queue.async(flags: .barrier) {
+                self._isLocationUpdating = newValue
+            }
+        }
+    }
+    
     private let queue = DispatchQueue(label: "PBMLocationManager", attributes: .concurrent)
     
     override init() {
         super.init()
-        self.setup(with: CLLocationManager())
+        
+        DispatchQueue.main.async {
+            self.setup(with: CLLocationManager())
+        }
     }
     
+    // NOTE: Used for tests only
+    // `locationManager` should be initialized from main thread only.
     init(locationManager: LocationManagerProtocol) {
         super.init()
-        self.setup(with: locationManager)
+        
+        DispatchQueue.main.async {
+            self.setup(with: locationManager)
+        }
     }
     
     deinit {
@@ -103,7 +130,11 @@ public class LocationManager: NSObject {
         )
     }
     
-    @objc private func startLocationUpdates() {
+    @objc func startLocationUpdates() {
+        guard !isLocationUpdating else {
+            return
+        }
+        
         guard locationUpdatesEnabled else {
             return
         }
@@ -112,48 +143,54 @@ public class LocationManager: NSObject {
             return
         }
         
+        isLocationUpdating = true
+        
         DispatchQueue.main.async {
             self.internalLocationManager?.startUpdatingLocation()
         }
     }
     
-    @objc private func stopLocationUpdates() {
+    @objc func stopLocationUpdates() {
+        guard isLocationUpdating else {
+            return
+        }
+        
+        isLocationUpdating = false
+        
         DispatchQueue.main.async {
             self.internalLocationManager?.stopUpdatingLocation()
         }
     }
     
     private func setup(with locationManager: LocationManagerProtocol) {
-        DispatchQueue.main.async {
-            self.internalLocationManager = locationManager
-            self.internalLocationManager?.distanceFilter = GeoLocationConstants.DISTANCE_FILTER
-            self.internalLocationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
-            self.internalLocationManager?.delegate = self
-            
-            self.startLocationUpdates()
-            
-            // CLLocationManager's `location` property may already contain location data upon
-            // initialization (for example, if the application uses significant location updates).
-            if let existingLocation = self.internalLocationManager?.location, existingLocation.isValid {
-                self.location = existingLocation
-            }
-            
-            NotificationCenter.default.addObserver(
-                forName: UIApplication.didEnterBackgroundNotification,
-                object: UIApplication.shared,
-                queue: .main
-            ) { [weak self] _ in
-                self?.stopLocationUpdates()
-            }
-            
-            // Re-activate location updates when the application comes back to the foreground.
-            NotificationCenter.default.addObserver(
-                forName: UIApplication.willEnterForegroundNotification,
-                object: UIApplication.shared,
-                queue: .main
-            ) { [weak self] _ in
-                self?.startLocationUpdates()
-            }
+        internalLocationManager = locationManager
+        internalLocationManager?.distanceFilter = GeoLocationConstants.DISTANCE_FILTER
+        internalLocationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        internalLocationManager?.delegate = self
+        
+        startLocationUpdates()
+        
+        // CLLocationManager's `location` property may already contain location data upon
+        // initialization (for example, if the application uses significant location updates).
+        if let existingLocation = internalLocationManager?.location, existingLocation.isValid {
+            location = existingLocation
+        }
+        
+        NotificationCenter.default.addObserver(
+            forName: UIApplication.didEnterBackgroundNotification,
+            object: UIApplication.shared,
+            queue: .main
+        ) { [weak self] _ in
+            self?.stopLocationUpdates()
+        }
+        
+        // Re-activate location updates when the application comes back to the foreground.
+        NotificationCenter.default.addObserver(
+            forName: UIApplication.willEnterForegroundNotification,
+            object: UIApplication.shared,
+            queue: .main
+        ) { [weak self] _ in
+            self?.startLocationUpdates()
         }
     }
 }

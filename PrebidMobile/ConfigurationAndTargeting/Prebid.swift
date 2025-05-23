@@ -122,8 +122,8 @@ public class Prebid: NSObject {
     
     /// If true, the SDK will periodically try to listen for location updates in order to request location-based ads.
     public var locationUpdatesEnabled: Bool {
-        get { PBMLocationManager.shared.locationUpdatesEnabled }
-        set { PBMLocationManager.shared.locationUpdatesEnabled = newValue }
+        get { LocationManager.shared.locationUpdatesEnabled }
+        set { LocationManager.shared.locationUpdatesEnabled = newValue }
     }
 
     /// If true, the sdk will add `includewinners` flag inside the targeting object described in [PBS Documentation](https://docs.prebid.org/prebid-server/endpoints/openrtb2/pbs-endpoint-auction.html#targeting)

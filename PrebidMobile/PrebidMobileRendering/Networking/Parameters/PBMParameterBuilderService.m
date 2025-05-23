@@ -21,7 +21,6 @@
 #import "PBMDeviceInfoParameterBuilder.h"
 #import "PBMFunctions.h"
 #import "PBMGeoLocationParameterBuilder.h"
-#import "PBMLocationManager.h"
 #import "PBMNetworkParameterBuilder.h"
 #import "PBMORTBParameterBuilder.h"
 #import "PBMParameterBuilderProtocol.h"

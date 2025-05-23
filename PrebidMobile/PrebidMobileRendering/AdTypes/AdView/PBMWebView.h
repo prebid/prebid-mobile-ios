@@ -28,6 +28,7 @@
 @class PBMAbstractCreative;
 @class PBMTouchDownRecognizer;
 @class PBMViewExposure;
+@class PBMLocationManager;
 
 NS_ASSUME_NONNULL_BEGIN
 

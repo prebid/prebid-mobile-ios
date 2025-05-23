@@ -52,7 +52,6 @@
 #import "PBMHTMLCreative.h"
 #import "PBMHTMLFormatter.h"
 #import "PBMInterstitialDisplayProperties.h"
-#import "PBMLocationManager.h"
 #import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMModalState.h"
@@ -134,7 +133,6 @@
 #import "PBMAutoRefreshManager+PBMTestExtension.h"
 #import "PBMCreativeFactoryJob+PBMTestExtension.h"
 #import "PBMHTMLCreative+PBMTestExtension.h"
-#import "PBMLocationManager+PBMTestExtension.h"
 #import "PBMModalManager+PBMTestExtension.h"
 #import "PBMModalViewController+PBMTestExtension.h"
 #import "PBMOpenMeasurementWrapper+PBMTestExtension.h"
@@ -165,7 +163,6 @@
 
 #import "MediationInterstitialAdUnit+TestExtension.h"
 #import "MediationBannerAdUnit+TestExtension.h"
-#import "PBMLocationManagerProtocol.h"
 
 #import "InternalUserConsentDataManager.h"
 

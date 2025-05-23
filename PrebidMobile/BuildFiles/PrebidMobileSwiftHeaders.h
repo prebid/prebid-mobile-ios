@@ -28,7 +28,6 @@
 #import "PBMORTBRewardedConfiguration.h"
 #import "PBMORTBRewardedReward.h"
 
-#import "PBMLocationManager.h"
 #import "Log+Extensions.h"
 
 #import "PBMInterstitialAdLoaderDelegate.h"
