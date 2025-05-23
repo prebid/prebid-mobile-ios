@@ -139,6 +139,7 @@
 		538704232DE05847006EA150 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538704222DE05847006EA150 /* LocationManager.swift */; };
 		538704252DE06FB9006EA150 /* CLAuthorizationStatus+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538704242DE06FB9006EA150 /* CLAuthorizationStatus+Extensions.swift */; };
 		538704272DE06FF4006EA150 /* CLLocation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538704262DE06FF4006EA150 /* CLLocation+Extensions.swift */; };
+		5387042A2DE0848D006EA150 /* LocationManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538704292DE0848D006EA150 /* LocationManagerProtocol.swift */; };
 		5388F32627F46A7F00319FE4 /* AdViewButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */; };
 		5398979E2CE495E90075234B /* BannerViewReloadTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5398979D2CE495E90075234B /* BannerViewReloadTrackerTests.swift */; };
 		539897A12CE498A20075234B /* InterstitialObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539897A02CE498A20075234B /* InterstitialObserverTests.swift */; };
@@ -328,7 +329,6 @@
 		5BC37926271F1CFF00444D5E /* PBMDeepLinkPlusHelper+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376C8271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.m */; };
 		5BC37927271F1CFF00444D5E /* PBMFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376C9271F1CFE00444D5E /* PBMFunctions.m */; };
 		5BC37928271F1CFF00444D5E /* PBMDownloadDataHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376CA271F1CFE00444D5E /* PBMDownloadDataHelper.h */; };
-		5BC37929271F1CFF00444D5E /* PBMLocationManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376CB271F1CFE00444D5E /* PBMLocationManagerProtocol.h */; };
 		5BC3792A271F1CFF00444D5E /* PBMDeepLinkPlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376CC271F1CFE00444D5E /* PBMDeepLinkPlus.h */; };
 		5BC3792B271F1D0000444D5E /* PBMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376CD271F1CFE00444D5E /* PBMConstants.m */; };
 		5BC3792C271F1D0000444D5E /* PBMWindowLocker.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376CE271F1CFE00444D5E /* PBMWindowLocker.h */; };
@@ -336,7 +336,6 @@
 		5BC3792F271F1D0000444D5E /* PBMDeviceAccessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376D1271F1CFE00444D5E /* PBMDeviceAccessManager.m */; };
 		5BC37938271F1D0000444D5E /* PBMMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DB271F1CFE00444D5E /* PBMMacros.h */; };
 		5BC37939271F1D0000444D5E /* PBMFunctions+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC3793A271F1D0000444D5E /* PBMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */; };
 		5BC3793B271F1D0000444D5E /* PBMVoidBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3793F271F1D0000444D5E /* PBMCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E2271F1CFE00444D5E /* PBMCircularProgressBarLayer.m */; };
 		5BC37940271F1D0000444D5E /* PBMCircularProgressBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E3271F1CFE00444D5E /* PBMCircularProgressBarView.h */; };
@@ -619,7 +618,6 @@
 		799109FB28F99C2B004837B4 /* PBMORTBAppExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 799109FA28F99C2B004837B4 /* PBMORTBAppExt.m */; };
 		92028EA627F0D89E00783470 /* NativeAdConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92028EA527F0D89E00783470 /* NativeAdConfiguration.swift */; };
 		920E8D6D28084BF200E6313B /* VideoControlsConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920E8D6C28084BF200E6313B /* VideoControlsConfigTests.swift */; };
-		922AFC61273491F000732C53 /* PBMLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376BC271F1CFE00444D5E /* PBMLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		922AFC8827352B0100732C53 /* MockUserAgentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFC8727352B0100732C53 /* MockUserAgentService.swift */; };
 		922AFC8D27352BE900732C53 /* MockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFC8C27352BE900732C53 /* MockViewController.swift */; };
 		922AFC8F27352C0100732C53 /* MockServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFC8E27352C0100732C53 /* MockServerConnection.swift */; };
@@ -643,7 +641,6 @@
 		922AFCEE2736FC8600732C53 /* XCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCED2736FC8600732C53 /* XCTest.swift */; };
 		922AFCF02736FD7A00732C53 /* NSMutableDictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCEF2736FD7A00732C53 /* NSMutableDictionaryTests.m */; };
 		922AFCF42736FDD500732C53 /* PBMFunctionsObjCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCF32736FDD500732C53 /* PBMFunctionsObjCTest.m */; };
-		922AFCF627370B1200732C53 /* PBMLocationManagerObjCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCF527370B1100732C53 /* PBMLocationManagerObjCTest.m */; };
 		922AFCF927370B9800732C53 /* LogObjCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCF827370B9800732C53 /* LogObjCTest.m */; };
 		922AFCFD27370D8100732C53 /* PBMMRAIDControllerObjCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCFC27370D8100732C53 /* PBMMRAIDControllerObjCTest.m */; };
 		922AFD002737103200732C53 /* PBMWebViewObjCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCFF2737103200732C53 /* PBMWebViewObjCTest.m */; };
@@ -681,7 +678,7 @@
 		922AFD5027372AD900732C53 /* PBMHTMLFormatterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD4F27372AD900732C53 /* PBMHTMLFormatterTest.swift */; };
 		922AFD5227372B3700732C53 /* PBMInterstitialDisplayPropertiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD5127372B3700732C53 /* PBMInterstitialDisplayPropertiesTests.swift */; };
 		922AFD5427372B6900732C53 /* PBMInterstitialLayoutConfiguratorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD5327372B6900732C53 /* PBMInterstitialLayoutConfiguratorTest.swift */; };
-		922AFD5827372BE500732C53 /* PBMLocationManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD5727372BE500732C53 /* PBMLocationManagerTest.swift */; };
+		922AFD5827372BE500732C53 /* LocationManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD5727372BE500732C53 /* LocationManagerTest.swift */; };
 		922AFD5C27372F7A00732C53 /* PBMModalAnimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD5B27372F7A00732C53 /* PBMModalAnimatorTest.swift */; };
 		922AFD5F2737304100732C53 /* PBMModalPresentationControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD5E2737304100732C53 /* PBMModalPresentationControllerTest.swift */; };
 		922AFD612737306900732C53 /* PBMModalViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD602737306900732C53 /* PBMModalViewControllerTest.swift */; };
@@ -1048,6 +1045,7 @@
 		538704222DE05847006EA150 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		538704242DE06FB9006EA150 /* CLAuthorizationStatus+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLAuthorizationStatus+Extensions.swift"; sourceTree = "<group>"; };
 		538704262DE06FF4006EA150 /* CLLocation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extensions.swift"; sourceTree = "<group>"; };
+		538704292DE0848D006EA150 /* LocationManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerProtocol.swift; sourceTree = "<group>"; };
 		5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewButtonDecorator.swift; sourceTree = "<group>"; };
 		5398979D2CE495E90075234B /* BannerViewReloadTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewReloadTrackerTests.swift; sourceTree = "<group>"; };
 		539897A02CE498A20075234B /* InterstitialObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialObserverTests.swift; sourceTree = "<group>"; };
@@ -1230,7 +1228,6 @@
 		5BC376B6271F1CFE00444D5E /* PBMCircularProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMCircularProgressBarView.m; sourceTree = "<group>"; };
 		5BC376B7271F1CFE00444D5E /* PBMCircularProgressBarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCircularProgressBarLayer.h; sourceTree = "<group>"; };
 		5BC376B9271F1CFE00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"; sourceTree = "<group>"; };
-		5BC376BC271F1CFE00444D5E /* PBMLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMLocationManager.h; sourceTree = "<group>"; };
 		5BC376BD271F1CFE00444D5E /* PBMFunctions+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBMFunctions+Testing.m"; sourceTree = "<group>"; };
 		5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMMRAIDConstants.m; sourceTree = "<group>"; };
 		5BC376C1271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDeviceAccessManagerKeys.h; sourceTree = "<group>"; };
@@ -1240,7 +1237,6 @@
 		5BC376C8271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBMDeepLinkPlusHelper+Testing.m"; sourceTree = "<group>"; };
 		5BC376C9271F1CFE00444D5E /* PBMFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMFunctions.m; sourceTree = "<group>"; };
 		5BC376CA271F1CFE00444D5E /* PBMDownloadDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDownloadDataHelper.h; sourceTree = "<group>"; };
-		5BC376CB271F1CFE00444D5E /* PBMLocationManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMLocationManagerProtocol.h; sourceTree = "<group>"; };
 		5BC376CC271F1CFE00444D5E /* PBMDeepLinkPlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDeepLinkPlus.h; sourceTree = "<group>"; };
 		5BC376CD271F1CFE00444D5E /* PBMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMConstants.m; sourceTree = "<group>"; };
 		5BC376CE271F1CFE00444D5E /* PBMWindowLocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMWindowLocker.h; sourceTree = "<group>"; };
@@ -1248,7 +1244,6 @@
 		5BC376D1271F1CFE00444D5E /* PBMDeviceAccessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeviceAccessManager.m; sourceTree = "<group>"; };
 		5BC376DB271F1CFE00444D5E /* PBMMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMMacros.h; sourceTree = "<group>"; };
 		5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMFunctions+Testing.h"; sourceTree = "<group>"; };
-		5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMLocationManager.m; sourceTree = "<group>"; };
 		5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMVoidBlock.h; sourceTree = "<group>"; };
 		5BC376E2271F1CFE00444D5E /* PBMCircularProgressBarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMCircularProgressBarLayer.m; sourceTree = "<group>"; };
 		5BC376E3271F1CFE00444D5E /* PBMCircularProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCircularProgressBarView.h; sourceTree = "<group>"; };
@@ -1564,8 +1559,6 @@
 		922AFCED2736FC8600732C53 /* XCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTest.swift; sourceTree = "<group>"; };
 		922AFCEF2736FD7A00732C53 /* NSMutableDictionaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSMutableDictionaryTests.m; sourceTree = "<group>"; };
 		922AFCF32736FDD500732C53 /* PBMFunctionsObjCTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMFunctionsObjCTest.m; sourceTree = "<group>"; };
-		922AFCF527370B1100732C53 /* PBMLocationManagerObjCTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMLocationManagerObjCTest.m; sourceTree = "<group>"; };
-		922AFCF727370B5400732C53 /* PBMLocationManager+PBMTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMLocationManager+PBMTestExtension.h"; sourceTree = "<group>"; };
 		922AFCF827370B9800732C53 /* LogObjCTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogObjCTest.m; sourceTree = "<group>"; };
 		922AFCFC27370D8100732C53 /* PBMMRAIDControllerObjCTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMMRAIDControllerObjCTest.m; sourceTree = "<group>"; };
 		922AFCFE27370ED800732C53 /* PBMMRAIDController+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMMRAIDController+pbmTestExtension.h"; sourceTree = "<group>"; };
@@ -1608,7 +1601,7 @@
 		922AFD4F27372AD900732C53 /* PBMHTMLFormatterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMHTMLFormatterTest.swift; sourceTree = "<group>"; };
 		922AFD5127372B3700732C53 /* PBMInterstitialDisplayPropertiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMInterstitialDisplayPropertiesTests.swift; sourceTree = "<group>"; };
 		922AFD5327372B6900732C53 /* PBMInterstitialLayoutConfiguratorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMInterstitialLayoutConfiguratorTest.swift; sourceTree = "<group>"; };
-		922AFD5727372BE500732C53 /* PBMLocationManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMLocationManagerTest.swift; sourceTree = "<group>"; };
+		922AFD5727372BE500732C53 /* LocationManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerTest.swift; sourceTree = "<group>"; };
 		922AFD5B27372F7A00732C53 /* PBMModalAnimatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMModalAnimatorTest.swift; sourceTree = "<group>"; };
 		922AFD5D27372FBD00732C53 /* PBMModalAnimator+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMModalAnimator+pbmTestExtension.h"; sourceTree = "<group>"; };
 		922AFD5E2737304100732C53 /* PBMModalPresentationControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMModalPresentationControllerTest.swift; sourceTree = "<group>"; };
@@ -2267,9 +2260,6 @@
 				5BC376D0271F1CFE00444D5E /* PBMFunctions+Private.h */,
 				5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */,
 				5BC376BD271F1CFE00444D5E /* PBMFunctions+Testing.m */,
-				5BC376BC271F1CFE00444D5E /* PBMLocationManager.h */,
-				5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */,
-				5BC376CB271F1CFE00444D5E /* PBMLocationManagerProtocol.h */,
 				5BC376DB271F1CFE00444D5E /* PBMMacros.h */,
 				5BC376E8271F1CFE00444D5E /* PBMMRAIDConstants.h */,
 				5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */,
@@ -2286,6 +2276,7 @@
 				5347473A2BFB4D3D00966658 /* UserAgentService.swift */,
 				534C61412CB55D980026119A /* BackgroundAwareTimer.swift */,
 				538704222DE05847006EA150 /* LocationManager.swift */,
+				538704292DE0848D006EA150 /* LocationManagerProtocol.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2975,7 +2966,6 @@
 				925D5D7F2737B9FB00A8A2B5 /* 3dPartyWrappers */,
 				922AFCEF2736FD7A00732C53 /* NSMutableDictionaryTests.m */,
 				922AFCF32736FDD500732C53 /* PBMFunctionsObjCTest.m */,
-				922AFCF527370B1100732C53 /* PBMLocationManagerObjCTest.m */,
 				922AFCF827370B9800732C53 /* LogObjCTest.m */,
 				922AFCFC27370D8100732C53 /* PBMMRAIDControllerObjCTest.m */,
 				922AFCFF2737103200732C53 /* PBMWebViewObjCTest.m */,
@@ -3012,7 +3002,7 @@
 				922AFD4F27372AD900732C53 /* PBMHTMLFormatterTest.swift */,
 				922AFD5127372B3700732C53 /* PBMInterstitialDisplayPropertiesTests.swift */,
 				922AFD5327372B6900732C53 /* PBMInterstitialLayoutConfiguratorTest.swift */,
-				922AFD5727372BE500732C53 /* PBMLocationManagerTest.swift */,
+				922AFD5727372BE500732C53 /* LocationManagerTest.swift */,
 				922AFD5B27372F7A00732C53 /* PBMModalAnimatorTest.swift */,
 				922AFD5E2737304100732C53 /* PBMModalPresentationControllerTest.swift */,
 				922AFD602737306900732C53 /* PBMModalViewControllerTest.swift */,
@@ -3061,7 +3051,6 @@
 				922AFD27273724F400732C53 /* PBMCreativeFactoryJob+PBMTestExtension.h */,
 				922AFD2C273725CD00732C53 /* PBMCreativeViewabilityTracker+PBMTestExtension.h */,
 				47D9A5D297D587D9AD24E7FA /* PBMHTMLCreative+pbmTestExtension.h */,
-				922AFCF727370B5400732C53 /* PBMLocationManager+PBMTestExtension.h */,
 				922AFD5D27372FBD00732C53 /* PBMModalAnimator+pbmTestExtension.h */,
 				47D9A2BA567D98CC0515A2BF /* PBMModalManager+pbmTestExtension.h */,
 				47D9A8F0A4979A3D95BFFF07 /* PBMModalViewController+pbmTestExtension.h */,
@@ -3637,7 +3626,6 @@
 				5BC3795C271F1D0000444D5E /* PBMVastWrapperAd.h in Headers */,
 				5BC37AE1271F1D0100444D5E /* PBMInterstitialLayoutConfigurator.h in Headers */,
 				5BC378CB271F1CFF00444D5E /* PBMTimerInterface.h in Headers */,
-				5BC37929271F1CFF00444D5E /* PBMLocationManagerProtocol.h in Headers */,
 				5BC37A9E271F1D0000444D5E /* PBMAdLoadFlowState.h in Headers */,
 				5BC379BD271F1D0000444D5E /* PBMAdRefreshOptions.h in Headers */,
 				53BFCD1F2CFDC60100A3287A /* PrebidMobileDisplayViewProtocol.h in Headers */,
@@ -3647,7 +3635,6 @@
 				53F096CA27E917D40058C94C /* Log+Extensions.h in Headers */,
 				5BC3797F271F1D0000444D5E /* PBMMRAIDCommand.h in Headers */,
 				5BC37ADD271F1D0100444D5E /* PBMTrackingRecord.h in Headers */,
-				922AFC61273491F000732C53 /* PBMLocationManager.h in Headers */,
 				5BC3792A271F1CFF00444D5E /* PBMDeepLinkPlus.h in Headers */,
 				5BC37A80271F1D0000444D5E /* PBMORTBMacrosHelper.h in Headers */,
 				5BC37A5B271F1D0000444D5E /* PBMORTBAbstractResponse.h in Headers */,
@@ -4115,11 +4102,10 @@
 				47D9A3EF88B06B204F40463E /* MockPBMCreativeModel.swift in Sources */,
 				922AFD5027372AD900732C53 /* PBMHTMLFormatterTest.swift in Sources */,
 				53B221D32A0E3DA900C91CCB /* PrebidJSLibraryManagerTests.swift in Sources */,
-				922AFD5827372BE500732C53 /* PBMLocationManagerTest.swift in Sources */,
+				922AFD5827372BE500732C53 /* LocationManagerTest.swift in Sources */,
 				922AFD5F2737304100732C53 /* PBMModalPresentationControllerTest.swift in Sources */,
 				922AFD6D2737331500732C53 /* PBMORTBBidRequestTest.swift in Sources */,
 				925D5D822737BA4000A8A2B5 /* PBMOpenMeasurementSessionObjcTest.m in Sources */,
-				922AFCF627370B1200732C53 /* PBMLocationManagerObjCTest.m in Sources */,
 				925D5E4F2737F22200A8A2B5 /* DownloadSizeHelperTest.swift in Sources */,
 				925D5E682737F49700A8A2B5 /* PBMVastLoaderMultiWrapperTest.swift in Sources */,
 				925D5E1E2737E8BF00A8A2B5 /* PBMBaseInterstitialAdUnit_DelegationTest.swift in Sources */,
@@ -4193,6 +4179,7 @@
 				5BC379F3271F1D0000444D5E /* PBMExternalLinkHandler.m in Sources */,
 				53D3C38D2C2BEF9B0074D99B /* NSURL+PBMExtensions.m in Sources */,
 				5BC379AD271F1D0000444D5E /* PBMTransaction.m in Sources */,
+				5387042A2DE0848D006EA150 /* LocationManagerProtocol.swift in Sources */,
 				53269D55282E6D0F0098550D /* ServerEvent.swift in Sources */,
 				5BC37A5E271F1D0000444D5E /* PBMORTBBidResponseExt.m in Sources */,
 				5BC378D7271F1CFF00444D5E /* PBMORTBUser.m in Sources */,
@@ -4370,7 +4357,6 @@
 				539FB1F02D5B4A1A00AFC261 /* SKOverlayInterstitialManager.swift in Sources */,
 				5BC37A5F271F1D0000444D5E /* PBMORTBBidExtSkadn.m in Sources */,
 				534C61282CB5279C0026119A /* PBMORTBRewardedCompletionBanner.m in Sources */,
-				5BC3793A271F1D0000444D5E /* PBMLocationManager.m in Sources */,
 				5BC37AB5271F1D0000444D5E /* PBMOpenMeasurementSession.m in Sources */,
 				534C613A2CB52A4E0026119A /* PBMORTBRewardedCompletion.m in Sources */,
 				9298964B275FD3C300D3C174 /* JSONConvertible.swift in Sources */,
