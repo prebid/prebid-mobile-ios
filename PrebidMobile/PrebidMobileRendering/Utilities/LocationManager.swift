@@ -69,7 +69,7 @@ public class LocationManager: NSObject {
     }
     
     private var _location: CLLocation?
-    var location: CLLocation? {
+    private var location: CLLocation? {
         get {
             queue.sync {
                 _location
@@ -110,10 +110,7 @@ public class LocationManager: NSObject {
     // `locationManager` should be initialized from main thread only.
     init(locationManager: LocationManagerProtocol) {
         super.init()
-        
-        DispatchQueue.main.async {
-            self.setup(with: locationManager)
-        }
+        setup(with: locationManager)
     }
     
     deinit {
