@@ -43,12 +43,12 @@ protocol AdViewManager: CreativeViewDelegate {
     func mute()
     func unmute()
     
-    func handleExternalTransaction(_ transaction: PBMTransaction)
+    func handleExternalTransaction(_ transaction: Transaction)
     
     // Exposed for tests
 #if DEBUG
     weak var currentCreative: PBMAbstractCreative? { get set }
-    var externalTransaction: PBMTransaction? { get set }
+    var externalTransaction: Transaction? { get set }
     
     func setupCreative(_ creative: PBMAbstractCreative)
     func setupCreative(_ creative: PBMAbstractCreative, withThread thread: ThreadProtocol)

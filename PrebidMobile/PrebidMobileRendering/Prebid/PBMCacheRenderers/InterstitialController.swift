@@ -198,7 +198,7 @@ public class InterstitialController:
         }
     }
     
-    private func display(transaction: PBMTransaction) {
+    private func display(transaction: Transaction) {
         adViewManager = Factory.createAdViewManager(
             connection: PrebidServerConnection.shared,
             modalManagerDelegate: nil

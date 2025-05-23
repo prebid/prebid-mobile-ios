@@ -17,7 +17,6 @@
 
 #import "PBMDisplayTransactionFactory.h"
 #import "PBMVastTransactionFactory.h"
-#import "PBMTransaction.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -105,7 +104,7 @@
 
 - (PBMTransactionFactoryCallback)callbackForProperFactory {
     @weakify(self);
-    return ^(PBMTransaction * _Nullable transaction, NSError * _Nullable error) {
+    return ^(id<PBMTransaction> _Nullable transaction, NSError * _Nullable error) {
         @strongify(self);
         if (!self) { return; }
         
@@ -113,7 +112,7 @@
     };
 }
 
-- (void)onFinishedWithTransaction:(PBMTransaction *)transaction error:(NSError *)error {
+- (void)onFinishedWithTransaction:(id<PBMTransaction>)transaction error:(NSError *)error {
     self.currentFactory = nil;
     self.callback(transaction, error);
 }

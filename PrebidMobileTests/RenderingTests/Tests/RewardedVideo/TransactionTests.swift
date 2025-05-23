@@ -17,7 +17,7 @@ import XCTest
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMTransactionTests: XCTestCase {
+class TransactionTests: XCTestCase {
     
     let connection = PrebidServerConnection()
     let adConfiguration = AdConfiguration()
@@ -33,7 +33,7 @@ class PBMTransactionTests: XCTestCase {
         
         let model = transaction.creativeModels.first!
         let creative = UtilitiesForTesting.createHTMLCreative(withModel: model, withView: true)
-        let nextCreative = transaction.getCreativeAfter(creative)
+        let nextCreative = transaction.getCreative(after: creative)
         XCTAssertNil(nextCreative)
 
         let revenue = transaction.revenueForCreative(after: creative)
@@ -46,7 +46,7 @@ class PBMTransactionTests: XCTestCase {
         let transaction = createTransactionWithHTMLModel()
         let model = transaction.creativeModels.first!
         let creative = UtilitiesForTesting.createHTMLCreative(withModel: model, withView: true)
-        transaction.creatives.add(creative)
+        transaction.creatives.append(creative)
         
         let details = transaction.getAdDetails()
         XCTAssertNil(details)
@@ -54,11 +54,11 @@ class PBMTransactionTests: XCTestCase {
         let firstCreative = transaction.getFirstCreative()!
         XCTAssertNotNil(firstCreative)
         
-        var nextCreative = transaction.getCreativeAfter(firstCreative)
+        var nextCreative = transaction.getCreative(after: firstCreative)
         XCTAssertNil(nextCreative)
         
-        transaction.creatives.add(UtilitiesForTesting.createHTMLCreative(withModel: model, withView: true))
-        nextCreative = transaction.getCreativeAfter(firstCreative)
+        transaction.creatives.append(UtilitiesForTesting.createHTMLCreative(withModel: model, withView: true))
+        nextCreative = transaction.getCreative(after: firstCreative)
         XCTAssertNotNil(nextCreative)
         
         let revenue = transaction.revenueForCreative(after: creative)
@@ -95,14 +95,14 @@ class PBMTransactionTests: XCTestCase {
     
     // MARK: - Helper Methods
     
-    func createTransactionWithHTMLModel() -> PBMTransaction {
+    func createTransactionWithHTMLModel() -> Transaction {
         let model = CreativeModel(adConfiguration:adConfiguration)
         model.html = "<html>test html</html>"
         model.revenue = "1234"
         
-        let transaction = PBMTransaction(serverConnection:connection,
-                                         adConfiguration:adConfiguration,
-                                         models:[model])
+        let transaction = Factory.createTransaction(serverConnection:connection,
+                                                    adConfiguration:adConfiguration,
+                                                    models:[model])
         return transaction;
     }
 }

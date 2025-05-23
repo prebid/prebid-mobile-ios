@@ -80,13 +80,13 @@ typealias JsonDictionary = [String:Any]
         return connection
     }
     
-    class func createEmptyTransaction() -> PBMTransaction {
+    class func createEmptyTransaction() -> Transaction {
         let connection = PrebidServerConnection()
         let adConfiguration = AdConfiguration()
         
-        let transaction = PBMTransaction(serverConnection:connection,
-                                         adConfiguration:adConfiguration,
-                                         models:[])
+        let transaction = Factory.createTransaction(serverConnection:connection,
+                                                    adConfiguration:adConfiguration,
+                                                    models:[])
         
         return transaction;
     }
@@ -123,7 +123,7 @@ typealias JsonDictionary = [String:Any]
         return creative
     }
     
-    class func createTransactionWithHTMLCreative(withView:Bool = false, isInterstitial: Bool = false) -> PBMTransaction {
+    class func createTransactionWithHTMLCreative(withView:Bool = false, isInterstitial: Bool = false) -> Transaction {
         let connection = PrebidServerConnection()
         let adConfiguration = AdConfiguration()
         adConfiguration.winningBidAdFormat = .banner
@@ -134,18 +134,18 @@ typealias JsonDictionary = [String:Any]
         model.revenue = "1234"
         let creative = UtilitiesForTesting.createHTMLCreative(withModel: model, withView: withView)
         
-        let transaction = PBMTransaction(serverConnection:connection,
-                                         adConfiguration:adConfiguration,
-                                         models:[model])
+        let transaction = Factory.createTransaction(serverConnection:connection,
+                                                    adConfiguration:adConfiguration,
+                                                    models:[model])
         
-        transaction.creatives.add(creative)
+        transaction.creatives.append(creative)
         
         return transaction;
     }
     
     class func createTransactionWithHTMLCreativeWithParams(
         connection: PrebidServerConnectionProtocol,
-        configuration: AdConfiguration) -> PBMTransaction {
+        configuration: AdConfiguration) -> Transaction {
             let model = CreativeModel(adConfiguration:configuration)
             
             model.html = "<html>test html</html>"
@@ -153,26 +153,26 @@ typealias JsonDictionary = [String:Any]
             
             let creative = PBMHTMLCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction())
             
-            let transaction = PBMTransaction(serverConnection:connection,
-                                             adConfiguration:configuration,
-                                             models:[model])
+            let transaction = Factory.createTransaction(serverConnection:connection,
+                                                        adConfiguration:configuration,
+                                                        models:[model])
             
-            transaction.creatives.add(creative)
+            transaction.creatives.append(creative)
             
             return transaction;
         }
     
-    class func createDummyTransaction(for adConfiguration: AdConfiguration) -> PBMTransaction {
+    class func createDummyTransaction(for adConfiguration: AdConfiguration) -> Transaction {
         let connection = getMockedServerConnection()
         let model = CreativeModel(adConfiguration: adConfiguration)
         
-        let transaction = PBMTransaction(serverConnection:connection,
-                                         adConfiguration:adConfiguration,
-                                         models:[model])
+        let transaction = Factory.createTransaction(serverConnection:connection,
+                                                    adConfiguration:adConfiguration,
+                                                    models:[model])
         
         let creative = PBMHTMLCreative(creativeModel: model, transaction: transaction)
         
-        transaction.creatives.add(creative)
+        transaction.creatives.append(creative)
         
         return transaction;
         

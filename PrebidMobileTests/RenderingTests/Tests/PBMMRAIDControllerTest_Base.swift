@@ -21,7 +21,7 @@ class PBMMRAIDControllerTest_Base: XCTestCase, CreativeViewDelegate {
     let timeout: TimeInterval = 1
     
     var serverConnection: PrebidServerConnection!
-    var transaction: PBMTransaction!
+    var transaction: Transaction!
     var mockHtmlCreative: MockPBMHTMLCreative!
     var mockCreativeModel: MockPBMCreativeModel!
     var mockEventTracker: MockPBMAdModelEventTracker!

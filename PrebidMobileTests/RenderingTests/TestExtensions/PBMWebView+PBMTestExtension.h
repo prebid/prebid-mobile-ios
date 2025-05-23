@@ -14,7 +14,6 @@
   */
 
 #import "PBMWebView.h"
-#import "PBMTransaction.h"
 
 @protocol PBMThreadProtocol;
 

@@ -70,14 +70,12 @@
 #import "PBMParameterBuilderProtocol.h"
 #import "PBMParameterBuilderService.h"
 #import "PBMTrackingRecord.h"
-#import "PBMTransaction.h"
 #import "PBMUIApplicationProtocol.h"
 #import "PBMURLComponents.h"
 #import "PBMUserConsentParameterBuilder.h"
 #import "PBMDeviceAccessManagerKeys.h"
 #import "PBMAdRequesterVAST.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
-#import "PBMTransaction.h"
 #import "PBMVideoCreative.h"
 #import "PBMVideoView.h"
 #import "PBMVideoViewDelegate.h"
@@ -123,7 +121,6 @@
 #import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
 
 // Tests
-#import "PBMTransaction+PBMTestExtension.h"
 #import "PBMCreativeFactoryJob+PBMTestExtension.h"
 #import "PBMAbstractCreative+PBMTestExtension.h"
 #import "PBMAdLoadManager+PBMTestExtension.h"

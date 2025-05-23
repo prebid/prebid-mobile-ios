@@ -19,7 +19,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialLayoutConfigurator.h"
 #import "PBMModalManager.h"
-#import "PBMTransaction.h"
 #import "PBMVideoCreative.h"
 #import "UIView+PBMExtensions.h"
 
@@ -36,8 +35,8 @@
 
 @property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 @property (nonatomic, weak, nullable) PBMAbstractCreative *currentCreative;
-@property (nonatomic, strong, nullable) PBMTransaction *externalTransaction;
-@property (nonatomic, nullable, readonly) PBMTransaction *currentTransaction; // computed
+@property (nonatomic, strong, nullable) id<PBMTransaction> externalTransaction;
+@property (nonatomic, nullable, readonly) id<PBMTransaction> currentTransaction; // computed
 @property (nonatomic, assign) BOOL videoInterstitialDidClose;
 
 @end
@@ -149,7 +148,7 @@
     return [self.currentCreative isMuted];
 }
 
-- (void)handleExternalTransaction:(PBMTransaction *)transaction {
+- (void)handleExternalTransaction:(id<PBMTransaction>)transaction {
     self.externalTransaction = transaction;
     [self onTransactionIsReady:transaction];
 }
@@ -182,7 +181,7 @@
     }
     
     //When a creative completes, show the next one in the transaction
-    PBMTransaction * const transaction = self.currentTransaction;
+    id<PBMTransaction> const transaction = self.currentTransaction;
     PBMAbstractCreative *nextCreative = [transaction getCreativeAfter:self.currentCreative];
     if (nextCreative && !self.videoInterstitialDidClose) {
         [self setupCreative:nextCreative];
@@ -285,7 +284,7 @@
 
 #pragma mark - Utility Functions
 
-- (PBMTransaction *)currentTransaction {
+- (id<PBMTransaction>)currentTransaction {
     return self.externalTransaction;
 }
 
@@ -301,7 +300,7 @@
 //Is the current creative an PBMHTMLCreative? If so, is a clickthrough browser visible/MRAID in Expanded mode?
 - (BOOL)isCreativeOpened {
     
-    PBMTransaction * const transaction = self.currentTransaction;
+    id<PBMTransaction> const transaction = self.currentTransaction;
     if (transaction == nil) {
         return NO;
     }
@@ -326,7 +325,7 @@
         return;
     }
     
-    PBMTransaction * const transaction = self.currentTransaction;
+    id<PBMTransaction> const transaction = self.currentTransaction;
     self.currentCreative.view.hidden = YES;
     self.currentCreative = creative;
     self.adConfiguration = creative.creativeModel.adConfiguration;
@@ -338,7 +337,7 @@
 
 #pragma mark - Internal Methods
 
-- (void)onTransactionIsReady:(PBMTransaction *)transaction {
+- (void)onTransactionIsReady:(id<PBMTransaction>)transaction {
     for (PBMAbstractCreative *creative in transaction.creatives) {
         creative.modalManager = self.modalManager;
     }

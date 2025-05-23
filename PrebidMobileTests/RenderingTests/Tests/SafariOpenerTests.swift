@@ -21,7 +21,9 @@ final class SafariOpenerTests: XCTestCase {
         
         let adConfig = AdConfiguration()
         let creativeModel = CreativeModel(adConfiguration: adConfig)
-        let transaction = PBMTransaction(serverConnection: MockServerConnection(), adConfiguration: adConfig, models: [creativeModel])
+        let transaction = Factory.createTransaction(serverConnection: MockServerConnection(),
+                                                    adConfiguration: adConfig,
+                                                    models: [creativeModel])
         
         creative = MockPBMAbstractCreative(creativeModel: creativeModel, transaction: transaction)
         creative?.modalManager = PBMModalManager()

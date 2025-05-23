@@ -54,11 +54,11 @@ class PBMVASTFailToLoadTest: XCTestCase, PBMAdLoadManagerDelegate {
     
     //MARK: PBMAdLoadManagerDelegate
     
-    func loadManager(_ loadManager: PBMAdLoadManagerProtocol, didLoad transaction: PBMTransaction) {
+    func loadManager(_ loadManager: PBMAdLoadManagerProtocol, didLoad transaction: Transaction) {
         XCTFail()
     }
     
-    func loadManager(_ loadManager: PBMAdLoadManagerProtocol, failedToLoad transaction: PBMTransaction?, error: Error) {
+    func loadManager(_ loadManager: PBMAdLoadManagerProtocol, failedToLoad transaction: Transaction?, error: Error) {
         failedToLoadAdExpectation?.fulfill()
     }
 }

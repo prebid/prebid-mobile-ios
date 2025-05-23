@@ -32,7 +32,7 @@
 #import "PBMModalViewController.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMTransaction.h"
+#import "PBMORTBBidExtSkadn.h"
 #import "PBMWindowLocker.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -44,7 +44,7 @@
 
 @interface PBMAbstractCreative() <SKStoreProductViewControllerDelegate>
 
-@property (nonatomic, weak, readwrite) PBMTransaction *transaction;
+@property (nonatomic, weak, readwrite) id<PBMTransaction> transaction;
 @property (nonatomic, strong, readwrite) PBMEventManager *eventManager;
 @property (nonatomic, copy, nullable, readwrite) PBMVoidBlock dismissInterstitialModalState;
 
@@ -59,7 +59,7 @@
 #pragma mark - Init
 
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                          transaction:(PBMTransaction *)transaction {
+                          transaction:(id<PBMTransaction>)transaction {
     self = [super init];
     if (self) {
         PBMAssert(creativeModel);

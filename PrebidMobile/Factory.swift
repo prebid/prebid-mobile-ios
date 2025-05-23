@@ -48,5 +48,15 @@ class Factory: NSObject {
                                                  modalManagerDelegate: PBMModalManagerDelegate?) -> AdViewManager {
         AdViewManagerType.init(connection: connection, modalManagerDelegate: modalManagerDelegate)
     }
+    
+    @objc public static let TransactionType: Transaction.Type = {
+        NSClassFromString("PBMTransaction_Objc") as! Transaction.Type
+    }()
+    
+    @objc public static func createTransaction(serverConnection: PrebidServerConnectionProtocol,
+                                               adConfiguration: AdConfiguration,
+                                               models: [CreativeModel]) -> Transaction {
+        TransactionType.init(serverConnection: serverConnection, adConfiguration: adConfiguration, models: models)
+    }
 }
 

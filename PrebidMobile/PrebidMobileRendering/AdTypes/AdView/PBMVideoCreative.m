@@ -28,7 +28,6 @@
 #import "PBMVideoView.h"
 #import "PBMModalState.h"
 #import "PBMMacros.h"
-#import "PBMTransaction.h"
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMCreativeViewabilityTracker.h"
@@ -64,7 +63,7 @@
 #pragma mark - PBMAbstractCreative
 
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                          transaction:(PBMTransaction *)transaction
+                          transaction:(id<PBMTransaction>)transaction
                             videoData:(NSData *)data {
     self = [super initWithCreativeModel:creativeModel transaction:transaction];
     if (self) {

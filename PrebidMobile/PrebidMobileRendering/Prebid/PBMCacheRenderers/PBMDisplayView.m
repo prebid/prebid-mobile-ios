@@ -82,7 +82,7 @@
     self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
                                                          adConfiguration:self.adConfiguration
                                                               connection:self.connection ?: PrebidServerConnection.shared
-                                                                callback:^(PBMTransaction * _Nullable transaction,
+                                                                callback:^(id<PBMTransaction> _Nullable transaction,
                                                                            NSError * _Nullable error) {
         @strongify(self);
         if (!self) { return; }
@@ -187,7 +187,7 @@
     [self.loadingDelegate displayViewDidLoadAd:self];
 }
 
-- (void)displayTransaction:(PBMTransaction *)transaction {
+- (void)displayTransaction:(id<PBMTransaction>)transaction {
     id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
     self.adViewManager = [PBMFactory createAdViewManagerWithConnection:connection modalManagerDelegate:self];
     self.adViewManager.adViewManagerDelegate = self;
