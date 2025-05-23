@@ -85,9 +85,7 @@ framework module PrebidMobile {
     // OM tracking
     header "PBMOpenMeasurementWrapper.h"
     header "PBMOpenMeasurementSession.h"
-    header "PBMEventTrackerProtocol.h"
     header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
-    header "PBMTrackingEvent.h"
     
     // Urls openers
     header "PBMExternalURLOpeners.h"

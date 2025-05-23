@@ -14,7 +14,6 @@
  */
 
 #import "PBMOpenMeasurementEventTracker.h"
-#import "PBMEventTrackerProtocol.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

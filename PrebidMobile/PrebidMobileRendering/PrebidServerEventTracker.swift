@@ -16,7 +16,7 @@
 import UIKit
 
 @objcMembers
-public class PrebidServerEventTracker: NSObject, PBMEventTrackerProtocol {
+public class PrebidServerEventTracker: NSObject, EventTrackerProtocol {
     
     public private(set) var serverEvents = [ServerEvent]()
     
@@ -24,7 +24,7 @@ public class PrebidServerEventTracker: NSObject, PBMEventTrackerProtocol {
         self.serverEvents = serverEvents
     }
     
-    public func trackEvent(_ event: PBMTrackingEvent) {
+    public func trackEvent(_ event: TrackingEvent) {
         for serverEvent in serverEvents {
             if serverEvent.expectedEventType == event {
                 PrebidServerConnection.shared.fireAndForget(serverEvent.url)
@@ -32,11 +32,11 @@ public class PrebidServerEventTracker: NSObject, PBMEventTrackerProtocol {
         }
     }
     
-    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters!) {}
+    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters) {}
     
-    public func trackStartVideo(withDuration duration: CGFloat, volume: CGFloat) {}
+    public func trackStartVideo(duration: TimeInterval, volume: Double) {}
     
-    public func trackVolumeChanged(_ playerVolume: CGFloat, deviceVolume: CGFloat) {}
+    public func trackVolumeChanged(playerVolume: Double, deviceVolume: Double) {}
     
     public func addServerEvents(_ serverEvents: [ServerEvent]) {
         self.serverEvents.append(contentsOf: serverEvents)

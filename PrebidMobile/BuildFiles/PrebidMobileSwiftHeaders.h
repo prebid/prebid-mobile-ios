@@ -33,7 +33,6 @@
 
 #import "PBMInterstitialAdLoaderDelegate.h"
 
-#import "PBMEventTrackerProtocol.h"
 #import "PBMInterstitialDisplayProperties.h"
 
 #import "PBMCreativeViewabilityTracker.h"

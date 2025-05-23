@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class RewardedVideo_CompanionTest: XCTestCase  {
     
@@ -90,14 +90,14 @@ class RewardedVideo_CompanionTest: XCTestCase  {
             // count should include 1 video creative and 1 html creative (end card) for a total of 2.
             XCTAssertEqual(models.count, 2)
             
-            guard let _:PBMCreativeModel = models.first else {
+            guard let _:CreativeModel = models.first else {
                 XCTFail("Models is empty")
                 return
             }
             
             // Verify that the 2nd item is a Companion Model
             if models.count == 2 {
-                let companionModel:PBMCreativeModel = models[1]
+                let companionModel:CreativeModel = models[1]
                 XCTAssertTrue(companionModel.isCompanionAd)
                 XCTAssertFalse(companionModel.hasCompanionAd)
                 
@@ -115,15 +115,15 @@ class RewardedVideo_CompanionTest: XCTestCase  {
                 XCTAssertEqual(actual, expected, "Invalid tracking url")
                 
                 // Generate a tracking event.
-                let eventTracker = PBMAdModelEventTracker(creativeModel: companionModel, serverConnection: connection)
-                eventTracker.trackEvent(PBMTrackingEvent.creativeView)
+                let eventTracker = AdModelEventTracker(creativeModel: companionModel, serverConnection: connection)
+                eventTracker.trackEvent(.creativeView)
                 
                 // Companion ClickTracking
                 expected = self.trackingUrlCompanionClickTracking
                 actual = companionModel.trackingURLs["creativeModelTrackingKey_CompanionClick"]?[0]
                 XCTAssertEqual(actual, expected, "Invalid companion click tracking url")
                 // Generate companion click tracking
-                eventTracker.trackEvent(PBMTrackingEvent.companionClick)
+                eventTracker.trackEvent(.companionClick)
             }
             else {
                 XCTFail("Unexpected number of models.");

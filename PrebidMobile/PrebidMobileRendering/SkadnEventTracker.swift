@@ -18,7 +18,7 @@ import StoreKit
 
 @available(iOS 14.5, *)
 @objc(PBMSkadnEventTracker) @objcMembers
-public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
+public class SkadnEventTracker: NSObject, EventTrackerProtocol {
     
     let imp: SKAdImpression
     
@@ -26,9 +26,9 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
         self.imp = imp
     }
     
-    // MARK: - PBMEventTrackerProtocol
+    // MARK: - EventTrackerProtocol
     
-    public func trackEvent(_ event: PBMTrackingEvent) {
+    public func trackEvent(_ event: TrackingEvent) {
         switch event {
         case .impression:
             executeImpressionTask()
@@ -60,15 +60,15 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
         ImpressionTasksExecutor.shared.add(tasks: arrayOfTasks)
     }
     
-    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters!) {
+    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters) {
         
     }
     
-    public func trackStartVideo(withDuration duration: CGFloat, volume: CGFloat) {
+    public func trackStartVideo(duration: TimeInterval, volume: Double) {
         
     }
     
-    public func trackVolumeChanged(_ playerVolume: CGFloat, deviceVolume: CGFloat) {
+    public func trackVolumeChanged(playerVolume: Double, deviceVolume: Double) {
         
     }
 }

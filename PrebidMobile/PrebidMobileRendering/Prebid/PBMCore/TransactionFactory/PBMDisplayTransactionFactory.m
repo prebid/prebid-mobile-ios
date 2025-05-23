@@ -15,7 +15,6 @@
 
 #import "PBMDisplayTransactionFactory.h"
 
-#import "PBMCreativeModel.h"
 #import "PBMTransaction.h"
 #import "PBMTransactionDelegate.h"
 
@@ -112,12 +111,11 @@
 - (PBMCreativeModel *)htmlCreativeModelFromBid:(Bid *)bid
                                       adMarkup:(NSString *)adMarkup
                                adConfiguration:(AdUnitConfig *)adConfiguration {
-    PBMCreativeModel * const model = [[PBMCreativeModel alloc] init];
+    PBMCreativeModel * const model = [[PBMCreativeModel alloc] initWithAdConfiguration:adConfiguration.adConfiguration];
     
     model.html = adMarkup;
     model.width = bid.size.width;
     model.height = bid.size.height;
-    model.adConfiguration = adConfiguration.adConfiguration;
     return model;
 }
 

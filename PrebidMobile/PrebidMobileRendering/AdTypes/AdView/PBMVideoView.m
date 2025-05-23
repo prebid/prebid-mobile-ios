@@ -16,7 +16,6 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#import "PBMCreativeModel.h"
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 #import "PBMModalManager.h"

@@ -16,7 +16,6 @@
 #import "PBMAbstractCreative.h"
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMViewExposureChecker.h"
-#import "PBMCreativeModel.h"
 #import "PBMMacros.h"
 
 #import "NSTimer+PBMScheduledTimerFactory.h"

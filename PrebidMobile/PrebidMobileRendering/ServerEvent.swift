@@ -19,9 +19,9 @@ import Foundation
 public class ServerEvent: NSObject {
     
     var url: String
-    var expectedEventType: PBMTrackingEvent
+    var expectedEventType: TrackingEvent
     
-    public init(url: String, expectedEventType: PBMTrackingEvent) {
+    public init(url: String, expectedEventType: TrackingEvent) {
         self.url = url
         self.expectedEventType = expectedEventType
     }

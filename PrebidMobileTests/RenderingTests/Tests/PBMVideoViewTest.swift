@@ -223,7 +223,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         // Expected duration of video small.mp4 is 6 sec
         let expectedVideoDuration = 6.0
         let expectedStoppedDely = 1.0
-        let event = PBMTrackingEvent.closeLinear
+        let event = TrackingEvent.closeLinear
         
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
         self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
@@ -300,7 +300,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
             return
         }
         
-        self.videoCreative.creativeModel = PBMCreativeModel()
+        self.videoCreative.creativeModel = CreativeModel()
         self.videoCreative.creativeModel?.adConfiguration = AdConfiguration()
         self.videoCreative.creativeModel?.adConfiguration?.videoControlsConfig.skipDelay = 1
         self.videoCreative.creativeModel?.displayDurationInSeconds = 10
@@ -321,7 +321,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         let adConfiguration = AdConfiguration()
         adConfiguration.isRewarded = true
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:model,
@@ -345,7 +345,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         adConfiguration.isRewarded = true
         adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "start")
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:model,
@@ -369,7 +369,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         adConfiguration.isRewarded = true
         adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "firstquartile")
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:model,
@@ -392,7 +392,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         adConfiguration.isRewarded = true
         adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "midpoint")
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:model,
@@ -414,7 +414,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         adConfiguration.isRewarded = true
         adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "thirdquartile")
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:model,
@@ -437,7 +437,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         adConfiguration.isRewarded = true
         adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, playbackevent: "complete")
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:model,
@@ -461,7 +461,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         adConfiguration.isRewarded = true
         adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, time: rewardTime)
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:model,
@@ -485,7 +485,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         adConfiguration.isRewarded = true
         adConfiguration.rewardedConfig = createRewardedConfig(postRewardTime: postRewardTime, time: rewardTime)
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:model,
@@ -506,7 +506,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         adConfiguration.isRewarded = true
         adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: PBMORTBRewardedConfiguration())
         
-        let model = PBMCreativeModel(adConfiguration: adConfiguration)
+        let model = CreativeModel(adConfiguration: adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:model,
@@ -548,7 +548,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         self.expectationClickthroughBrowserClosed?.fulfill()
     }
     
-    func trackEvent(_ trackingEvent: PBMTrackingEvent) {}
+    func trackEvent(_ trackingEvent: TrackingEvent) {}
     
     // MARK: - CreativeViewDelegate
     
@@ -581,7 +581,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         MockServer.shared.resetRules([rule])
         
         //Create model
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         model.videoFileURL = videoFileURL
         
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadCompleted")

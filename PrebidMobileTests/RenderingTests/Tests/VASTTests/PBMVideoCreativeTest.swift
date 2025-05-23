@@ -47,7 +47,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
     }
     
     func testInit() {
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
         
         XCTAssertNotNil(self.videoCreative)
@@ -57,7 +57,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
     /*
     func testButtonTouchUpInsideBlock() {
         let vc = UIViewController()
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
         self.videoCreative.viewControllerForPresentingModals = vc
 
@@ -104,12 +104,12 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         self.expectationDownloadFailed = self.expectation(description: "Expected downloadFailed to be called")
         self.expectationDidLeaveApp = self.expectation(description: "expectationDidLeaveApp")
         
-        self.videoCreative = PBMVideoCreative(creativeModel:PBMCreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
+        self.videoCreative = PBMVideoCreative(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
         self.videoCreative.creativeResolutionDelegate = self
         self.videoCreative.videoViewFailedWithError(NSError(domain: "PrebidMobile", code: 123, userInfo: [:]))
 
         //Create model
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = "http://get_video/small.mp4"
         
         //Create PBMVideoCreative and start
@@ -196,7 +196,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
     func testShowAsInterstitial() {
         let expectation = self.expectation(description: "Should push Modal")
         
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.displayDurationInSeconds = 5
 
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
@@ -220,7 +220,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
     func testSkipOffset() {
         let expectation = self.expectation(description: "Should push Modal")
         
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.displayDurationInSeconds = 10
         model.skipOffset = 10
         
@@ -337,7 +337,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
         adConfiguration.isRewarded = true
         
-        let creativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:creativeModel,
@@ -372,7 +372,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
         adConfiguration.isRewarded = true
         
-        let creativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
         
         self.videoCreative = PBMVideoCreative(
             creativeModel:creativeModel,
@@ -451,7 +451,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         MockServer.shared.resetRules([rule])
         
         //Create model
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = videoFileURL
         
         //Create and start creative

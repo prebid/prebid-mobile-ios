@@ -14,10 +14,10 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBMEventTrackerProtocol.h"
 
 @class OMIDPrebidorgAdSession;
 @class OMIDPrebidorgVASTProperties;
+@protocol PBMEventTrackerProtocol;
 
 /**
     Implements PBMEventTrackerProtocol according to the OM specification.
@@ -26,6 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMOpenMeasurementEventTracker : NSObject <PBMEventTrackerProtocol>
 
 - (instancetype)initWithSession:(OMIDPrebidorgAdSession *)session;
+
+#if DEBUG
+// This method declared in PBMEventTrackerProtocol is not visible in Swift
+// tests because the protocol is a forward declaration in this header.
+typedef NS_ENUM(NSInteger, PBMTrackingEvent);
+- (void)trackEvent:(PBMTrackingEvent)event;
+#endif
 
 @end
 NS_ASSUME_NONNULL_END

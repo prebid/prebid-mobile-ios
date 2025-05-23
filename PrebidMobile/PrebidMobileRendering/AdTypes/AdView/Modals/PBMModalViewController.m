@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMCreativeModel.h"
 #import "PBMMacros.h"
 #import "PBMModalState.h"
 #import "PBMModalViewController.h"

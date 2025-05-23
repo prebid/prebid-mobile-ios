@@ -18,13 +18,13 @@
 
 #import "PBMVideoViewDelegate.h"
 #import "PBMCircularProgressBarView.h"
-#import "PBMTrackingEvent.h"
 
 @class PBMEventManager;
 @class PBMVideoModel;
 @class PBMCreativeModel;
 @class PBMVideoCreative;
 @class PBMOpenMeasurementSession;
+typedef NS_ENUM(NSInteger, PBMTrackingEvent); // Forward declaration of Swift-defined enum
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMVideoView : UIView <AVAssetResourceLoaderDelegate>

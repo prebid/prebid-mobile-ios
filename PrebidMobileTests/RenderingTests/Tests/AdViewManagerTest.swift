@@ -307,7 +307,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     func testSetupCreativeNotMainThread() {
         logToFile = .init()
         
-        let creative = PBMAbstractCreative(creativeModel:PBMCreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
+        let creative = PBMAbstractCreative(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
         let thread = MockNSThread(mockIsMainThread: false)
         
         adViewManager.setupCreative(creative, withThread: thread)
@@ -381,7 +381,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     //MARK: Utility methods
     @discardableResult private func setUpDelegateTests () -> PBMHTMLCreative {
         // create an ad with one creative
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
         let testCreative = PBMHTMLCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction())
         testCreative.view = PBMWebView()

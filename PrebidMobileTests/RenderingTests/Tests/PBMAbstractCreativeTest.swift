@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
     
@@ -27,7 +27,7 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
     
     override func setUp() {
         super.setUp()
-        self.pbmAbstractCreative = PBMAbstractCreative(creativeModel:PBMCreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
+        self.pbmAbstractCreative = PBMAbstractCreative(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
         self.pbmAbstractCreative.creativeResolutionDelegate = self
     }
     

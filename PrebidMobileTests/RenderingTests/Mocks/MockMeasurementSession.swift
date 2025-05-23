@@ -24,7 +24,7 @@ class MockMeasurementSession: PBMOpenMeasurementSession {
     var stopClosure: (() -> Void)?
     var notifyImpressionOccurredClosure: (() -> Void)?
     
-    override var eventTracker: PBMEventTrackerProtocol {
+    override var eventTracker: EventTrackerProtocol {
         return PBMOpenMeasurementEventTracker()
     }
     

@@ -220,7 +220,7 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
      - shouldFulfill: Whether or not the expecation is expected to fulfill
      - expectedEvent: If `shouldFulfill`, the tracking event to compare
      */
-    func clickTrackingExpectation(shouldFulfill: Bool, expectedEvent: PBMTrackingEvent? = nil) {
+    func clickTrackingExpectation(shouldFulfill: Bool, expectedEvent: TrackingEvent? = nil) {
         let exp = expectation(description: "Should \(shouldFulfill ? "" : "not ")trigger a click event")
         exp.isInverted = !shouldFulfill
         mockEventTracker.mock_trackEvent = { (actualEvent) in

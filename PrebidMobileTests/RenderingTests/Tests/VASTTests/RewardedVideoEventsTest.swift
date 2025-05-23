@@ -107,7 +107,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
             // count should include 1 video creative and 1 html creative (end card) for a total of 2.
             XCTAssertEqual(models.count, 2)
             
-            guard let creativeModel: PBMCreativeModel = models.first else {
+            guard let creativeModel: CreativeModel = models.first else {
                 XCTFail("Models is empty")
                 return
             }

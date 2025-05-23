@@ -19,7 +19,6 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 #import "PBMAbstractCreative.h"
-#import "PBMCreativeModel.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMLocationManager.h"

@@ -70,7 +70,7 @@ class EventManagerTest: XCTestCase {
         
         let eventTracker = MockPBMAdModelEventTracker(creativeModel: MockPBMCreativeModel(adConfiguration: AdConfiguration()), serverConnection: PrebidServerConnection())
         
-        let testTrackEvent: PBMTrackingEvent = .impression
+        let testTrackEvent: TrackingEvent = .impression
         eventTracker.mock_trackEvent = { event in
             XCTAssertEqual(testTrackEvent, event)
             exp.fulfill()
@@ -103,8 +103,8 @@ class EventManagerTest: XCTestCase {
         
         creativeTracker.trackEvent(.impression)
         creativeTracker.trackVideoAdLoaded(testParams)
-        creativeTracker.trackStartVideo(withDuration: testDuration, volume:testVolume)
-        creativeTracker.trackVolumeChanged(testVolume, deviceVolume: testDeviceVolume)
+        creativeTracker.trackStartVideo(duration: testDuration, volume:testVolume)
+        creativeTracker.trackVolumeChanged(playerVolume: testVolume, deviceVolume: testDeviceVolume)
         
         waitForExpectations(timeout: 0.1)
     }
@@ -130,7 +130,7 @@ extension EventManager {
         Mirror(reflecting: self)
     }
     
-    var trackers: [PBMEventTrackerProtocol]? {
-        mirror.descendant("trackers") as? [PBMEventTrackerProtocol]
+    var trackers: [EventTrackerProtocol]? {
+        mirror.descendant("trackers") as? [EventTrackerProtocol]
     }
 }
