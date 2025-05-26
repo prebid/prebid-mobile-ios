@@ -41,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         processArgumentsParser.addOption("IABConsent_Settings", paramsCount: 1, fireOnce: true) { [consentHelper] params in
             consentHelper.parseAndApply(consentSettingsString: params[0])
         }
+        
+        Prebid.shared.shouldDisableStatusCheck = true
                 
         //Set up SDK.
         try? Prebid.initializeSDK(serverURL: "https://prebid-server-test-j.prebid.org/openrtb2/auction") { status, error in
@@ -55,6 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let error = error {
                     print("Prebid Server status checking failed: \(error.localizedDescription)")
                 }
+            case .serverStatusSkipped:
+                print("Prebid status check skipped")
             default:
                 break
             }            

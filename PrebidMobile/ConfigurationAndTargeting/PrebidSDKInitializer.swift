@@ -29,9 +29,9 @@ class PrebidSDKInitializer {
         
         PrebidJSLibraryManager.shared.downloadLibraries()
         
-        serverStatusRequester.requestStatus { completion?($0, $1) }
-        
         Prebid.registerPluginRenderer(PrebidRenderer())
+
+        serverStatusRequester.requestStatus { completion?($0, $1) }
     }
     
     // check for deprecated `MobileAds.sdkVersion`

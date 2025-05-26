@@ -25,4 +25,6 @@ import Foundation
     case failed
     /// Something went wrong during PBS status checking.
     case serverStatusWarning
+    /// Prebid SDK skipped status checking.
+    case serverStatusSkipped
 }
