@@ -24,7 +24,7 @@ class PrebidSDKInitializer {
     static func initializeSDK(_ completion: PrebidInitializationCallback? = nil) {
         let _ = UserAgentService.shared
         let _ = PrebidServerConnection.shared
-        let _ = PBMLocationManager.shared
+        let _ = LocationManager.shared
         let _ = UserConsentDataManager.shared
         
         PrebidJSLibraryManager.shared.downloadLibraries()

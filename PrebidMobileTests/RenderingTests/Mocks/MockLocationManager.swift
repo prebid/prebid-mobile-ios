@@ -17,7 +17,7 @@ import CoreLocation
 
 @testable import PrebidMobile
 
-class MockLocationManagerSuccessful: PBMLocationManager {
+class MockLocationManagerSuccessful: LocationManager {
 
     static let testCoord = CLLocationCoordinate2D(latitude: 34.149335, longitude: -118.1328249)
     static let testCoordsAreValid = true
@@ -25,10 +25,8 @@ class MockLocationManagerSuccessful: PBMLocationManager {
     static let testCountry = "USA"
     static let testState = "CA"
     static let testZipCode = "91601"
-
-    override class var shared: MockLocationManagerSuccessful {
-        return MockLocationManagerSuccessful(thread: Thread.current)
-    }
+    
+    static let sharedMock = MockLocationManagerSuccessful()
 
     override var coordinatesAreValid:Bool {
         get {
@@ -43,4 +41,4 @@ class MockLocationManagerSuccessful: PBMLocationManager {
     }
 }
 
-class MockLocationManagerUnSuccessful : PBMLocationManager {}
+class MockLocationManagerUnSuccessful : LocationManager {}
