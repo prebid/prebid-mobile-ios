@@ -25,6 +25,8 @@ class MockLocationManagerSuccessful: LocationManager {
     static let testCountry = "USA"
     static let testState = "CA"
     static let testZipCode = "91601"
+    
+    static let sharedMock = MockLocationManagerSuccessful()
 
     override var coordinatesAreValid:Bool {
         get {
