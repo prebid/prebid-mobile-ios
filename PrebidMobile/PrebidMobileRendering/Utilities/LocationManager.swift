@@ -69,7 +69,7 @@ public class LocationManager: NSObject {
     }
     
     private var _location: CLLocation?
-    private var location: CLLocation? {
+    var location: CLLocation? {
         get {
             queue.sync {
                 _location

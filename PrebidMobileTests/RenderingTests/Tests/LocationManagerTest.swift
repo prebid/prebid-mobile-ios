@@ -245,6 +245,34 @@ class LocationManagerTest: XCTestCase {
         let invalidLocation = CLLocation(latitude: 0, longitude: 0)
         XCTAssertFalse(invalidLocation.isValid)
     }
+    
+    func testConcurrentLocationPropertyAccessDoesNotCrash() {
+        let locationManager = LocationManager()
+        locationManager.latestAuthorizationStatus = .authorizedAlways
+        locationManager.locationUpdatesEnabled = true
+        
+        let exp = expectation(description: "Concurrent location property access completes without crashes")
+        
+        let group = DispatchGroup()
+        
+        for _ in 0...1000 {
+            group.enter()
+            locationManager.location = self.location
+            DispatchQueue.global(qos: .background).async {
+                _ = locationManager.coordinates
+                _ = locationManager.coordinatesAreValid
+                _ = locationManager.horizontalAccuracy
+                _ = locationManager.timestamp
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) {
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 3.0)
+    }
 }
 
 
