@@ -55,7 +55,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         if #available(iOS 14, *) {
             MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
         }
-        let mockLocationManagerSuccessful = MockLocationManagerSuccessful.shared
+        let mockLocationManagerSuccessful = MockLocationManagerSuccessful.sharedMock
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
