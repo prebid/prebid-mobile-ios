@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
     
@@ -121,9 +121,8 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
         htmlCreative.webView(mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("expand/notreallyaurl"))
         
         //A new state must be set *ONLY* after the exposureChange event
-        let exposure = PBMViewExposure(exposureFactor: 1,
-                                       visibleRectangle: CGRect(),
-                                       occlusionRectangles: nil)
+        let exposure = Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect())
         mockWebView.exposureDelegate?.webView(mockWebView, exposureChange:exposure)
         
         
@@ -176,9 +175,8 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
         XCTAssertFalse(htmlCreative.isOpened)
         htmlCreative.webView(mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("expand"))
         
-        let exposure = PBMViewExposure(exposureFactor: 1,
-                                       visibleRectangle: CGRect(),
-                                       occlusionRectangles: nil)
+        let exposure = Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect())
         mockWebView.exposureDelegate?.webView(mockWebView, exposureChange:exposure)
         
         waitForExpectations(timeout: 1)

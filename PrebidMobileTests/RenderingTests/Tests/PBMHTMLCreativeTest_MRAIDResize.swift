@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
 
@@ -102,9 +102,8 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
         self.htmlCreative.setupView()
         self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("resize"))
         
-        let exposure = PBMViewExposure(exposureFactor: 1,
-                                       visibleRectangle: CGRect(),
-                                    occlusionRectangles: nil)
+        let exposure = Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect())
         self.mockWebView.exposureDelegate?.webView(self.mockWebView, exposureChange:exposure)
 
         self.waitForExpectations(timeout: 1)
@@ -124,9 +123,8 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
             self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("resize"))
         }, checkLogFor:["MRAID ad attempted to resize to an invalid size"])
         
-        let exposure = PBMViewExposure(exposureFactor: 1,
-                                       visibleRectangle: CGRect(),
-                                    occlusionRectangles: nil)
+        let exposure = Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect())
         self.mockWebView.exposureDelegate?.webView(self.mockWebView, exposureChange:exposure)
 
         self.waitForExpectations(timeout: 1)
@@ -153,9 +151,8 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
         self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:url)
         
         //A new state must be set *ONLY* after the exposureChange event
-        let exposure = PBMViewExposure(exposureFactor: 1,
-                                       visibleRectangle: CGRect(),
-                                    occlusionRectangles: nil)
+        let exposure = Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect())
         self.mockWebView.exposureDelegate?.webView(self.mockWebView, exposureChange:exposure)
 
         self.waitForExpectations(timeout: 1)
@@ -208,9 +205,8 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
         self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("resize"))
         
         //A new state must be set *ONLY* after the exposureChange event
-        let exposure = PBMViewExposure(exposureFactor: 1,
-                                       visibleRectangle: CGRect(),
-                                    occlusionRectangles: nil)
+        let exposure = Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect())
         self.mockWebView.exposureDelegate?.webView(self.mockWebView, exposureChange:exposure)
 
         self.waitForExpectations(timeout: 1)

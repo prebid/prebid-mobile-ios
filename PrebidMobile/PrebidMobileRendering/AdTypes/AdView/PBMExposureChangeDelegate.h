@@ -16,13 +16,13 @@
 #import <Foundation/Foundation.h>
 
 @class PBMWebView;
-@class PBMViewExposure;
+@protocol PBMViewExposure;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PBMExposureChangeDelegate <NSObject>
 
-- (void)webView:(PBMWebView *)webView exposureChange:(PBMViewExposure *)viewExposure;
+- (void)webView:(PBMWebView *)webView exposureChange:(id<PBMViewExposure>)viewExposure;
 - (BOOL)shouldCheckExposure;
 
 @end

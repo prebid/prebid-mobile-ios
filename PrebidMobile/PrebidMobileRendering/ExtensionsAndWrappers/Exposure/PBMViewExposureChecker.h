@@ -16,18 +16,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "PBMViewExposure.h"
+@protocol PBMViewExposure;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMViewExposureChecker : NSObject
 
-+ (PBMViewExposure *)exposureOfView:(UIView *)view;
++ (id<PBMViewExposure>)exposureOfView:(UIView *)view;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithView:(UIView *)view NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, nonnull, readonly) PBMViewExposure *exposure; // calculated
+@property (nonatomic, nonnull, readonly) id<PBMViewExposure> exposure; // calculated
 
 @end
 
