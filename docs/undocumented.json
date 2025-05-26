@@ -330,6 +330,265 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 20,
+      "symbol": "TrackingEvent",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 21,
+      "symbol": "TrackingEvent.request",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 22,
+      "symbol": "TrackingEvent.impression",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 23,
+      "symbol": "TrackingEvent.click",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 24,
+      "symbol": "TrackingEvent.overlayClick",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 25,
+      "symbol": "TrackingEvent.companionClick",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 27,
+      "symbol": "TrackingEvent.play",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 28,
+      "symbol": "TrackingEvent.pause",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 29,
+      "symbol": "TrackingEvent.resume",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 30,
+      "symbol": "TrackingEvent.rewind",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 31,
+      "symbol": "TrackingEvent.skip",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 33,
+      "symbol": "TrackingEvent.creativeView",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 34,
+      "symbol": "TrackingEvent.start",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 35,
+      "symbol": "TrackingEvent.firstQuartile",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 36,
+      "symbol": "TrackingEvent.midpoint",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 37,
+      "symbol": "TrackingEvent.thirdQuartile",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 38,
+      "symbol": "TrackingEvent.complete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 40,
+      "symbol": "TrackingEvent.mute",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 41,
+      "symbol": "TrackingEvent.unmute",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 43,
+      "symbol": "TrackingEvent.fullscreen",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 44,
+      "symbol": "TrackingEvent.exitFullscreen",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 45,
+      "symbol": "TrackingEvent.normal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 46,
+      "symbol": "TrackingEvent.expand",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 47,
+      "symbol": "TrackingEvent.collapse",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 49,
+      "symbol": "TrackingEvent.closeLinear",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 50,
+      "symbol": "TrackingEvent.closeOverlay",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 52,
+      "symbol": "TrackingEvent.acceptInvitation",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 54,
+      "symbol": "TrackingEvent.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 56,
+      "symbol": "TrackingEvent.loaded",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 58,
+      "symbol": "TrackingEvent.prebidWin",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/AdView/TrackingEvent.swift",
+      "line": 60,
+      "symbol": "TrackingEvent.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/Video/Vast/VastTrackingEvents.swift",
+      "line": 20,
+      "symbol": "VastTrackingEvents",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/Video/Vast/VastTrackingEvents.swift",
+      "line": 22,
+      "symbol": "VastTrackingEvents.trackingEvents",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/Video/Vast/VastTrackingEvents.swift",
+      "line": 23,
+      "symbol": "VastTrackingEvents.progressOffsets",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/Video/Vast/VastTrackingEvents.swift",
+      "line": 25,
+      "symbol": "VastTrackingEvents.addTrackingURL(_:event:attributes:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/Video/Vast/VastTrackingEvents.swift",
+      "line": 43,
+      "symbol": "VastTrackingEvents.trackingURLs(forEvent:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/AdTypes/Video/Vast/VastTrackingEvents.swift",
+      "line": 48,
+      "symbol": "VastTrackingEvents.addTrackingEvents(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/PluginRenderer/PluginEventDelegate.swift",
       "line": 18,
       "symbol": "PluginEventDelegate",
@@ -463,6 +722,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/InterstitialAd.swift",
+      "line": 19,
+      "symbol": "InterstitialAd",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/PrebidReward.swift",
       "line": 19,
       "symbol": "PrebidReward",
@@ -488,6 +754,13 @@
       "line": 23,
       "symbol": "PrebidReward.ext",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/PrebidMobileRendering/Prebid/Integrations/GAM/PrimaryAdRequesterProtocol.swift",
+      "line": 19,
+      "symbol": "PrimaryAdRequesterProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
