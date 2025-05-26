@@ -38,6 +38,12 @@ public class InterstitialDisplayProperties: NSObject, Copyable {
         closeButtonImage = UIImage()
     }
     
+    public override init() {
+        super.init()
+        
+        setupCloseButtonAccessibility()
+    }
+    
     var _closeButtonImage: UIImage? = PrebidImagesRepository.closeButton.base64DecodedImage
     var closeButtonImage: UIImage? {
         get { _closeButtonImage }
@@ -45,14 +51,16 @@ public class InterstitialDisplayProperties: NSObject, Copyable {
             guard let newValue else {
                 return
             }
-            
-            //Explicitly set the accessibility identifier every time the close button image is set.
-            //This prevents the file name from informing the identifier.
-            newValue.accessibilityIdentifier = PBMAccesibility.closeButtonIdentifier
-            newValue.accessibilityLabel = PBMAccesibility.closeButtonLabel
-            
             _closeButtonImage = newValue
+            setupCloseButtonAccessibility()
         }
+    }
+    
+    private func setupCloseButtonAccessibility() {
+        //Explicitly set the accessibility identifier every time the close button image is set.
+        //This prevents the file name from informing the identifier.
+        _closeButtonImage?.accessibilityIdentifier = PBMAccesibility.closeButtonIdentifier
+        _closeButtonImage?.accessibilityLabel = PBMAccesibility.closeButtonLabel
     }
     
     @objc public func getCloseButtonImage() -> UIImage? {
