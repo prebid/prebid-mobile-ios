@@ -16,20 +16,20 @@
 import XCTest
 @testable import PrebidMobile
 
-class PBMInterstitialDisplayPropertiesTests: XCTestCase {
+class InterstitialDisplayPropertiesTests: XCTestCase {
         
     func testCopy() {
-        let displayProps = PBMInterstitialDisplayProperties()
+        let displayProps = InterstitialDisplayProperties()
         
         let displayProps2 = displayProps
         XCTAssertEqual(displayProps, displayProps2)
         
-        let copiedProps = displayProps.copy() as! PBMInterstitialDisplayProperties
+        let copiedProps = displayProps.copy() as! InterstitialDisplayProperties
         XCTAssertNotEqual(copiedProps, displayProps)
     }
     
     func testSetCloseButtonImage() {
-        let displayProps = PBMInterstitialDisplayProperties()
+        let displayProps = InterstitialDisplayProperties()
         //the default button
         var closeButtonImage = displayProps.getCloseButtonImage();
         XCTAssertNotNil(closeButtonImage)

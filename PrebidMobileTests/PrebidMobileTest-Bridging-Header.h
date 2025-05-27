@@ -49,7 +49,6 @@
 #import "PBMGeoLocationParameterBuilder.h"
 #import "PBMHTMLCreative.h"
 #import "PBMHTMLFormatter.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMModalState.h"

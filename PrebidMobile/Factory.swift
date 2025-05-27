@@ -15,9 +15,13 @@
     
 
 import Foundation
+import UIKit
 
 @objc(PBMFactory) @_spi(PBMInternal) public
 class Factory: NSObject {
+    
+    // MARK: BidRequester
+    
     static let bidRequesterType: BidRequester.Type = {
         NSClassFromString("PBMBidRequester_Objc") as! BidRequester.Type
     }()
@@ -32,6 +36,8 @@ class Factory: NSObject {
                               adUnitConfiguration: adUnitConfiguration)
     }
     
+    // MARK: WinNotifier
+    
     @objc public static let WinNotifierType: WinNotifier.Type = {
         NSClassFromString("PBMWinNotifier_Objc") as! WinNotifier.Type
     }()
@@ -39,6 +45,8 @@ class Factory: NSObject {
     @objc public static func createWinNotifier() -> WinNotifier {
         WinNotifierType.init()
     }
+    
+    // MARK: AdViewManager
     
     @objc public static let AdViewManagerType: AdViewManager.Type = {
         NSClassFromString("PBMAdViewManager_Objc") as! AdViewManager.Type
@@ -48,6 +56,8 @@ class Factory: NSObject {
                                                  modalManagerDelegate: PBMModalManagerDelegate?) -> AdViewManager {
         AdViewManagerType.init(connection: connection, modalManagerDelegate: modalManagerDelegate)
     }
+    
+    // MARK: Transaction
     
     @objc public static let TransactionType: Transaction.Type = {
         NSClassFromString("PBMTransaction_Objc") as! Transaction.Type
@@ -59,6 +69,8 @@ class Factory: NSObject {
         TransactionType.init(serverConnection: serverConnection, adConfiguration: adConfiguration, models: models)
     }
     
+    // MARK: ViewExposure
+    
     @objc public static let ViewExposureType: ViewExposure.Type = {
         NSClassFromString("PBMViewExposure_Objc") as! ViewExposure.Type
     }()
@@ -69,6 +81,30 @@ class Factory: NSObject {
         ViewExposureType.init(exposureFactor: exposureFactor,
                               visibleRectangle: visibleRectangle,
                               occlusionRectangles: occlusionRectangles)
+    }
+    
+    // MARK: ModalState
+    
+    @objc public static let ModalStateType: ModalState.Type = {
+        NSClassFromString("PBMModalState_Objc") as! ModalState.Type
+    }()
+    
+    @objc public static func createModalState(view: UIView,
+                                              adConfiguration: AdConfiguration?,
+                                              displayProperties: InterstitialDisplayProperties?,
+                                              onStatePopFinished: ModalStatePopHandler? = nil,
+                                              onStateHasLeftApp: ModalStateAppLeavingHandler? = nil,
+                                              nextOnStatePopFinished: ModalStatePopHandler? = nil,
+                                              nextOnStateHasLeftApp: ModalStateAppLeavingHandler? = nil,
+                                              onModalPushedBlock: VoidBlock? = nil) -> ModalState {
+        ModalStateType.init(view: view,
+                            adConfiguration: adConfiguration,
+                            displayProperties: displayProperties,
+                            onStatePopFinished: onStatePopFinished,
+                            onStateHasLeftApp: onStateHasLeftApp,
+                            nextOnStatePopFinished: nextOnStatePopFinished,
+                            nextOnStateHasLeftApp: nextOnStateHasLeftApp,
+                            onModalPushedBlock: onModalPushedBlock)
     }
 }
 

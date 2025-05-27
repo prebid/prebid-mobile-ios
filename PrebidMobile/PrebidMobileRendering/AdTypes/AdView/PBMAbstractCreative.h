@@ -28,7 +28,7 @@
 @class PBMCreativeModel;
 @class PBMInterstitialDisplayProperties;
 @class PBMModalManager;
-@class PBMModalState;
+@protocol PBMModalState;
 @protocol PBMTransaction;
 @class PBMEventManager;
 @class PBMOpenMeasurementSession;
@@ -96,8 +96,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)unmute;
 
 //Modal Manager Events
-- (void)modalManagerDidFinishPop:(PBMModalState *)state;
-- (void)modalManagerDidLeaveApp:(PBMModalState *)state;
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state;
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state;
 
 - (void)onViewabilityChanged:(BOOL)viewable viewExposure:(id<PBMViewExposure>)viewExposure;
 

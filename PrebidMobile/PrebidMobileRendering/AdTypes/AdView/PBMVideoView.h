@@ -68,8 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleDidPlayToEndTime;
 - (CGFloat)handlePeriodicTimeEvent;
 
-- (void)modalManagerDidFinishPop:(PBMModalState*)state;
-- (void)modalManagerDidLeaveApp:(PBMModalState*)state;
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state;
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state;
 
 @end
 NS_ASSUME_NONNULL_END

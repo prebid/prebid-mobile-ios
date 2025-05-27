@@ -14,9 +14,10 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBMInterstitialDisplayProperties.h"
 
 @class PBMAdConfiguration;
+@class PBMInterstitialDisplayProperties;
+typedef NS_ENUM(NSInteger, PBMInterstitialLayout); // Forward declaration
 
 NS_ASSUME_NONNULL_BEGIN
 

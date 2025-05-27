@@ -24,99 +24,44 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@interface PBMModalState ()
-
-@property (nonatomic, strong, nullable, readwrite) PBMAdConfiguration *adConfiguration;
-@property (nonatomic, strong, nullable, readwrite) PBMInterstitialDisplayProperties *displayProperties;
-@property (nonatomic, strong, nullable, readwrite) UIView *view;
-@property (nonatomic, copy, nullable, readwrite) PBMModalStatePopHandler onStatePopFinished;
-@property (nonatomic, copy, nullable, readwrite) PBMModalStateAppLeavingHandler onStateHasLeftApp;
-@property (nonatomic, copy, nullable, readwrite) PBMModalStatePopHandler nextOnStatePopFinished;
-@property (nonatomic, copy, nullable, readwrite) PBMModalStateAppLeavingHandler nextOnStateHasLeftApp;
-
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
-
+@interface PBMModalState_Objc : NSObject <PBMModalState>
 @end
 
 // MARK: -
 
-@implementation PBMModalState
-
+@implementation PBMModalState_Objc
+@synthesize adConfiguration = _adConfiguration;
+@synthesize displayProperties = _displayProperties;
 @synthesize mraidState = _mraidState;
+@synthesize nextOnStateHasLeftApp = _nextOnStateHasLeftApp;
+@synthesize nextOnStatePopFinished = _nextOnStatePopFinished;
+@synthesize onModalPushedBlock = _onModalPushedBlock;
+@synthesize onStateHasLeftApp = _onStateHasLeftApp;
+@synthesize onStatePopFinished = _onStatePopFinished;
+@synthesize view = _view;
 
 #pragma mark - Initialization
 
-+ (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
-                         displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
-                        onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
-                         onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
+- (instancetype)initWithView:(nonnull UIView *)view
+             adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
+           displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
+          onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
+           onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
+      nextOnStatePopFinished:(nullable PBMModalStatePopHandler)nextOnStatePopFinished
+       nextOnStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)nextOnStateHasLeftApp
+          onModalPushedBlock:(nullable PBMVoidBlock)onModalPushedBlock
 {
-    return [self modalStateWithView:view
-                    adConfiguration:adConfiguration
-                  displayProperties:displayProperties
-                 onStatePopFinished:onStatePopFinished
-                  onStateHasLeftApp:onStateHasLeftApp
-             nextOnStatePopFinished:nil
-              nextOnStateHasLeftApp:nil
-                 onModalPushedBlock:nil];
-}
-
-+ (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
-                         displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
-                        onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
-                         onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
-                        onModalPushedBlock:(nullable PBMVoidBlock)onModalPushedBlock
-{
-    return [self modalStateWithView:view
-                    adConfiguration:adConfiguration
-                  displayProperties:displayProperties
-                 onStatePopFinished:onStatePopFinished
-                  onStateHasLeftApp:onStateHasLeftApp
-             nextOnStatePopFinished:nil
-              nextOnStateHasLeftApp:nil
-                 onModalPushedBlock:onModalPushedBlock];
-}
-
-+ (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
-                         displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
-                        onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
-                         onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
-                    nextOnStatePopFinished:(nullable PBMModalStatePopHandler)nextOnStatePopFinished
-                     nextOnStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)nextOnStateHasLeftApp
-{
-    return [self modalStateWithView:view
-                    adConfiguration:adConfiguration
-                  displayProperties:displayProperties
-                 onStatePopFinished:onStatePopFinished
-                  onStateHasLeftApp:onStateHasLeftApp
-             nextOnStatePopFinished:nextOnStatePopFinished
-              nextOnStateHasLeftApp:nextOnStateHasLeftApp
-                 onModalPushedBlock:nil];
-}
-
-+ (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
-                         displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
-                        onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
-                         onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
-                    nextOnStatePopFinished:(nullable PBMModalStatePopHandler)nextOnStatePopFinished
-                     nextOnStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)nextOnStateHasLeftApp
-                        onModalPushedBlock:(nullable PBMVoidBlock)onModalPushedBlock
-{
-    PBMModalState * state = [[PBMModalState alloc] init];
-    state.view = view;
-    state.adConfiguration = adConfiguration;
-    state.displayProperties = displayProperties;
-    state.onStatePopFinished = [onStatePopFinished copy];
-    state.onStateHasLeftApp = [onStateHasLeftApp copy];
-    state.nextOnStatePopFinished = [nextOnStatePopFinished copy];
-    state.nextOnStateHasLeftApp = [nextOnStateHasLeftApp copy];
-    state.onModalPushedBlock = [onModalPushedBlock copy];
-    state.mraidState = [PBMMRAIDStateNotEnabled copy];
-    return state;
+    _view = view;
+    _adConfiguration = adConfiguration;
+    _displayProperties = displayProperties;
+    _onStatePopFinished = [onStatePopFinished copy];
+    _onStateHasLeftApp = [onStateHasLeftApp copy];
+    _nextOnStatePopFinished = [nextOnStatePopFinished copy];
+    _nextOnStateHasLeftApp = [nextOnStateHasLeftApp copy];
+    _onModalPushedBlock = [onModalPushedBlock copy];
+    _mraidState = [PBMMRAIDStateNotEnabled copy];
+    
+    return self;
 }
 
 - (BOOL)isRotationEnabled {

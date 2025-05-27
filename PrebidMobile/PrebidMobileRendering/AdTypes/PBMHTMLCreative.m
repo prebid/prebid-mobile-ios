@@ -379,7 +379,7 @@
 
 #pragma mark - PBMModalManagerDelegate
 
-- (void)modalManagerDidFinishPop:(PBMModalState *)state {
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state {
     
     // TODO: Refactor
     // This method illustrates very precisely that we should have different creatives
@@ -416,7 +416,7 @@
     [self.creativeViewDelegate creativeInterstitialDidClose:self];
 }
 
-- (void)modalManagerDidLeaveApp:(PBMModalState*) state {
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>) state {
     [self.creativeViewDelegate creativeInterstitialDidLeaveApp:self];
 }
 

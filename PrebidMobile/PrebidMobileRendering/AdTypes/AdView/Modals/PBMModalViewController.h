@@ -18,7 +18,7 @@
 #import "PBMModalViewControllerDelegate.h"
 
 @class PBMAbstractCreative;
-@class PBMModalState;
+@protocol PBMModalState;
 @class PBMModalManager;
 @class PBMOpenMeasurementSession;
 @class PBMInterstitialDisplayProperties;
@@ -29,14 +29,14 @@
 @property (nonatomic, weak, nullable) id<PBMModalViewControllerDelegate> modalViewControllerDelegate;
 @property (nonatomic, weak, nullable) PBMModalManager *modalManager;
 
-@property (nonatomic, strong, nullable) PBMModalState *modalState;
+@property (nonatomic, strong, nullable) id<PBMModalState> modalState;
 
 @property (nonatomic, strong, nullable) UIView *contentView;
 @property (nonatomic, readonly, nullable) UIView *displayView;
 @property (nonatomic, readonly, nullable) PBMInterstitialDisplayProperties *displayProperties;
 @property (nonatomic, assign, getter=isRotationEnabled) BOOL rotationEnabled;
 
-- (void)setupState:(nonnull PBMModalState *)modalState;
+- (void)setupState:(nonnull id<PBMModalState>)modalState;
 - (void)creativeDisplayCompleted:(nonnull PBMAbstractCreative *)creative;
 
 - (void)addFriendlyObstructionsToMeasurementSession:(nonnull PBMOpenMeasurementSession *)session;

@@ -11,14 +11,14 @@ import Foundation
 
 class MockPBMAbstractCreative: PBMAbstractCreative {
  
-    var modalManagerDidFinishPopCallback: PBMVoidBlock?
-    var modalManagerDidLeaveAppCallback: PBMVoidBlock?
+    var modalManagerDidFinishPopCallback: VoidBlock?
+    var modalManagerDidLeaveAppCallback: VoidBlock?
     
-    override func modalManagerDidFinishPop(_ state: PBMModalState) {
+    override func modalManagerDidFinishPop(_ state: ModalState) {
         modalManagerDidFinishPopCallback?()
     }
     
-    override func modalManagerDidLeaveApp(_ state: PBMModalState) {
+    override func modalManagerDidLeaveApp(_ state: ModalState) {
         modalManagerDidLeaveAppCallback?()
     }
 }

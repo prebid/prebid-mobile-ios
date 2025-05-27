@@ -105,7 +105,7 @@
 
 #pragma mark - Public Methods
 
-- (void)setupState:(nonnull PBMModalState *)modalState {
+- (void)setupState:(nonnull id<PBMModalState>)modalState {
     // STEP 1: Remove the old view
     if (self.displayView && self.displayView.superview && self.displayView.superview == self.contentView) {
         [self.displayView removeFromSuperview];
@@ -119,7 +119,7 @@
     self.interstitialLayout = modalState.displayProperties.interstitialLayout;
     self.modalState = modalState;
     if (modalState.displayProperties.interstitialLayout == PBMInterstitialLayoutUndefined) {
-        self.rotationEnabled = modalState.rotationEnabled;
+        self.rotationEnabled = modalState.isRotationEnabled;
     } else {
         self.rotationEnabled = modalState.displayProperties.rotationEnabled;
     }

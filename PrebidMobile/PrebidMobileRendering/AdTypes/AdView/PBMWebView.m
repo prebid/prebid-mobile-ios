@@ -20,7 +20,6 @@
 
 #import "PBMAbstractCreative.h"
 #import "PBMFunctions+Private.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMMRAIDController.h"
 #import "PBMMRAIDJavascriptCommands.h"
 #import "PBMMacros.h"

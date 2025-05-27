@@ -328,7 +328,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 #pragma mark - PBMModalManagerDelegate
 
-- (void)modalManagerDidFinishPop:(PBMModalState*)state {
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state {
     if (self.creative != nil) {
         [self.creative resume];
     } else {
@@ -336,7 +336,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
 }
 
-- (void)modalManagerDidLeaveApp:(PBMModalState*)state {
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state {
     [self.creative modalManagerDidLeaveApp:state];
 }
 

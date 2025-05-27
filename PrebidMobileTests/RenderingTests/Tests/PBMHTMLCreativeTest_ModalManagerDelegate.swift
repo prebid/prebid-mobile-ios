@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
     
@@ -26,7 +26,10 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
             called = true
         }
         
-        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
+        let state = Factory.createModalState(view: PBMWebView(),
+                                             adConfiguration:AdConfiguration(),
+                                             displayProperties:InterstitialDisplayProperties(),
+                                             onStatePopFinished: { [weak self] poppedState in
             self?.htmlCreative.modalManagerDidFinishPop(poppedState!)
         }, onStateHasLeftApp: { [weak self] leavingState in
             self?.htmlCreative.modalManagerDidLeaveApp(leavingState!)
@@ -46,7 +49,10 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
         
         htmlCreative.setupView()
         
-        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
+        let state = Factory.createModalState(view: PBMWebView(),
+                                             adConfiguration:AdConfiguration(),
+                                             displayProperties:InterstitialDisplayProperties(),
+                                             onStatePopFinished: { [weak self] poppedState in
             self?.htmlCreative.modalManagerDidFinishPop(poppedState!)
         }, onStateHasLeftApp: { [weak self] leavingState in
             self?.htmlCreative.modalManagerDidLeaveApp(leavingState!)
@@ -68,7 +74,10 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
         htmlCreative.clickthroughVisible = true
         htmlCreative.setupView()
         
-        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
+        let state = Factory.createModalState(view: PBMWebView(),
+                                             adConfiguration:AdConfiguration(),
+                                             displayProperties:InterstitialDisplayProperties(),
+                                             onStatePopFinished: { [weak self] poppedState in
             self?.htmlCreative.modalManagerDidFinishPop(poppedState!)
         }, onStateHasLeftApp: { [weak self] leavingState in
             self?.htmlCreative.modalManagerDidLeaveApp(leavingState!)

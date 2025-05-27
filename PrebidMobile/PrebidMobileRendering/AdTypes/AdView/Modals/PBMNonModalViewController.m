@@ -14,10 +14,17 @@
  */
 
 #import "PBMFunctions+Private.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMNonModalViewController.h"
 #import "UIView+PBMExtensions.h"
 #import "PBMModalAnimator.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 @interface PBMNonModalViewController ()
 
