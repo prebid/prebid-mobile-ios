@@ -32,8 +32,6 @@ protocol ModalState {
     var onStatePopFinished: ModalStatePopHandler? { get }
     var onStateHasLeftApp: ModalStateAppLeavingHandler? { get }
     
-    // Used to transfer delegate function to another object, rather then current delegate for next states pushed on top
-    // ref: MOBILE-5849
     var nextOnStatePopFinished: ModalStatePopHandler? { get }
     var nextOnStateHasLeftApp: ModalStateAppLeavingHandler? { get }
     
