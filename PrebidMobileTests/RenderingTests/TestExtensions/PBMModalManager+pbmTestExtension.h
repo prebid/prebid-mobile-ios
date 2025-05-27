@@ -18,9 +18,9 @@
 @interface PBMModalManager ()
 
 //The last item in this stack represents the view & display properties currently being displayed.
-@property (nonatomic, strong, nonnull, readonly) NSMutableArray<PBMModalState *> *modalStateStack;
+@property (nonatomic, strong, nonnull, readonly) NSMutableArray<id<PBMModalState>> *modalStateStack;
 
 - (void)popModal;
-- (void)removeModal:(nonnull PBMModalState *)modalState;
+- (void)removeModal:(nonnull id<PBMModalState>)modalState;
 
 @end

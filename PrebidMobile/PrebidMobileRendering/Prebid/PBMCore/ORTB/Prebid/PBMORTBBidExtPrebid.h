@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) PBMORTBBidExtPrebidCache *cache;
 @property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *targeting;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, id> *meta;
 @property (nonatomic, copy, nullable) NSString *type;
 @property (nonatomic, copy, nullable) NSArray<PBMORTBExtPrebidPassthrough *> *passthrough;
 @property (nonatomic, strong, nullable) PBMORTBExtPrebidEvents *events;

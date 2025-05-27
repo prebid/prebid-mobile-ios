@@ -13,9 +13,7 @@
  limitations under the License.
  */
 
-#import "PBMBidRequester.h"
 #import "PBMBidResponseTransformer.h"
-#import "PBMError.h"
 #import "PBMORTBPrebid.h"
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMParameterBuilderService.h"
@@ -30,7 +28,7 @@
 
 #import "PBMMacros.h"
 
-@interface PBMBidRequester ()
+@interface PBMBidRequester_Objc: NSObject <PBMBidRequester>
 
 @property (nonatomic, strong, nonnull, readonly) id<PrebidServerConnectionProtocol> connection;
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
@@ -41,7 +39,7 @@
 
 @end
 
-@implementation PBMBidRequester
+@implementation PBMBidRequester_Objc
 
 - (instancetype)initWithConnection:(id<PrebidServerConnectionProtocol>)connection
                   sdkConfiguration:(Prebid *)sdkConfiguration
@@ -82,7 +80,7 @@
     NSString * const requestString = [self getRTBRequest];
     
     NSError * hostURLError = nil;
-    NSString * const requestServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:&hostURLError];
+    NSString * const requestServerURL = [Host.shared getHostURLAndReturnError:&hostURLError];
     
     if (hostURLError) {
         completion(nil, hostURLError);
@@ -94,10 +92,12 @@
     
     const NSTimeInterval postTimeout = (dynamicTimeout_onRead ? dynamicTimeout_onRead.doubleValue : (rawTimeoutMS_onRead / 1000.0));
     
+    NSData *rtbRequestData = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
     @weakify(self);
     NSDate * const requestDate = [NSDate date];
     [self.connection post:requestServerURL
-                     data:[requestString dataUsingEncoding:NSUTF8StringEncoding]
+                     data:rtbRequestData
                   timeout:postTimeout
                  callback:^(PrebidServerResponse * _Nonnull serverResponse) {
         @strongify(self);
@@ -131,7 +131,7 @@
                 const NSTimeInterval remoteTimeout = ([responseDate timeIntervalSinceDate:requestDate]
                                                       + bidResponseTimeout
                                                       + 0.2);
-                NSString * const currentServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:nil];
+                NSString * const currentServerURL = [Host.shared getHostURLAndReturnError:nil];
                 if (self.sdkConfiguration.timeoutMillisDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
                     const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.timeoutMillis;
                     const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;
@@ -157,6 +157,8 @@
         }
         
         completion(bidResponse, trasformationError);
+        [Prebid.shared callEventDelegateAsync_prebidBidRequestDidFinishWithRequestData:rtbRequestData 
+                                                                     responseData:serverResponse.rawData];
     }];
 }
 

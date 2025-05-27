@@ -223,6 +223,14 @@ class PBMORTBTest: XCTestCase {
         codeAndDecode(abstract: skadn, expectedString:  "{\"campaign\":45,\"fidelities\":[{\"fidelity\":0,\"nonce\":\"\(nonce0)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406342},{\"fidelity\":1,\"nonce\":\"\(nonce1)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406341}],\"itunesitem\":123456789,\"network\":\"cDkw7geQsH.skadnetwork\",\"sourceapp\":880047117,\"version\":\"2.2\"}")
     }
     
+    func testExtSkadnSKOverlay_v4_0() {
+        let skadn = SkadnUtilities.createSkadnExtWithFidelities_version_4_0_SKOverlay()
+        let nonce0 = skadn.fidelities!.filter({ $0.fidelity == 0 }).first!.nonce!.uuidString
+        let nonce1 = skadn.fidelities!.filter({ $0.fidelity == 1 }).first!.nonce!.uuidString
+        
+        codeAndDecode(abstract: skadn, expectedString:  "{\"fidelities\":[{\"fidelity\":0,\"nonce\":\"\(nonce0)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406342},{\"fidelity\":1,\"nonce\":\"\(nonce1)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406341}],\"itunesitem\":123456789,\"network\":\"cDkw7geQsH.skadnetwork\",\"skoverlay\":{\"delay\":10,\"dismissible\":1,\"endcarddelay\":20,\"pos\":1},\"sourceapp\":880047117,\"sourceidentifier\":\"1234\",\"version\":\"4.0\"}")
+    }
+    
     // MARK: - Prebid response
     
     func testPrebidResponse() {
@@ -310,6 +318,35 @@ class PBMORTBTest: XCTestCase {
             PBMORTBBidResponse(jsonDictionary: dic, extParser: PBMORTBBidResponseExt.init(jsonDictionary:), seatBidExtParser: { $0 as NSDictionary }, bidExtParser: PBMORTBBidExt.init(jsonDictionary:))
         }
     }
+    
+    func testRewardedResponse() {
+        let rewarded = PBMORTBRewardedConfiguration()
+        
+        rewarded.completion = PBMORTBRewardedCompletion()
+        
+        rewarded.completion?.banner = PBMORTBRewardedCompletionBanner()
+        rewarded.completion?.banner?.time = 5
+        rewarded.completion?.banner?.event = "rwdd"
+        
+        rewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        rewarded.completion?.video?.time = 5
+        rewarded.completion?.video?.playbackevent = "complete"
+        
+        rewarded.completion?.video?.endcard = PBMORTBRewardedCompletionVideoEndcard()
+        rewarded.completion?.video?.endcard?.time = 5
+        rewarded.completion?.video?.endcard?.event = "rwdd"
+        
+        rewarded.close = PBMORTBRewardedClose()
+        rewarded.close?.action = "closebutton"
+        rewarded.close?.postrewardtime = 5
+        
+        rewarded.reward = PBMORTBRewardedReward()
+        rewarded.reward?.type = "coins"
+        rewarded.reward?.count = 5
+        
+        codeAndDecode(abstract: rewarded, expectedString:  "{\"close\":{\"action\":\"closebutton\",\"postrewardtime\":5},\"completion\":{\"banner\":{\"event\":\"rwdd\",\"time\":5},\"video\":{\"endcard\":{\"event\":\"rwdd\",\"time\":5},\"playbackevent\":\"complete\",\"time\":5}},\"reward\":{\"count\":5,\"type\":\"coins\"}}")
+    }
+
     
     // MARK: - Private helpers
     

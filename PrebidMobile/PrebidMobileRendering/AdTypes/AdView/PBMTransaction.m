@@ -13,15 +13,10 @@
  limitations under the License.
  */
 
-#import "PBMTransaction.h"
-
 #import "PBMAbstractCreative.h"
 #import "PBMCreativeFactory.h"
-#import "PBMCreativeModel.h"
-#import "PBMError.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMTransactionDelegate.h"
 
 #import "PBMMacros.h"
 
@@ -32,7 +27,7 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@interface PBMTransaction()
+@interface PBMTransaction_Objc: NSObject <PBMTransaction>
 
 @property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
 @property (nonatomic, strong) PBMAdConfiguration *adConfiguration;
@@ -40,7 +35,13 @@
 
 @end
 
-@implementation PBMTransaction
+@implementation PBMTransaction_Objc
+@synthesize bid = _bid;
+@synthesize creativeModels = _creativeModels;
+@synthesize creatives = _creatives;
+@synthesize delegate = _delegate;
+@synthesize measurementSession = _measurementSession;
+@synthesize measurementWrapper = _measurementWrapper;
 
 - (instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)connection
                          adConfiguration:(PBMAdConfiguration*)adConfiguration
@@ -61,8 +62,6 @@
     @weakify(self);
     PBMCreativeFactoryFinishedCallback finishedCallback = ^(NSArray<PBMAbstractCreative *> *creatives, NSError *error) {
         @strongify(self);
-        if (!self) { return; }
-        
         self.creativeFactory = NULL;
         if (error) {
             [self.delegate transactionFailedToLoad:self error:error];

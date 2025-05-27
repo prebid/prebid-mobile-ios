@@ -13,15 +13,15 @@
  limitations under the License.
  */
 
-
 import GoogleMobileAds
 import PrebidMobile
 
-class UnifiedNativeAdView: GADNativeAdView {
+class UnifiedNativeAdView: GoogleMobileAds.NativeAdView {
+    
     /// The height constraint applied to the ad view, where necessary.
     private var heightConstraint: NSLayoutConstraint?
     
-    func renderUnifiedNativeAd(_ unifiedNativeAd: GADNativeAd) {
+    func renderUnifiedNativeAd(_ unifiedNativeAd: GoogleMobileAds.NativeAd) {
         // Deactivate the height constraint that was set when the previous video ad loaded.
         heightConstraint?.isActive = false
         

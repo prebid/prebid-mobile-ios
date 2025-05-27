@@ -18,7 +18,7 @@ import PrebidMobile
 
 fileprivate let storedImpVideoInterstitialVertical = "prebid-demo-video-interstitial-vertical"
 
-class InAppVideoInterstitialVerticalViewController: UIViewController {
+class InAppVideoInterstitialVerticalViewController: UIViewController, InterstitialAdUnitDelegate {
 
     // Prebid
     private var renderingInterstitial: InterstitialRenderingAdUnit!

@@ -16,8 +16,6 @@
 #import "PBMAbstractCreative.h"
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMViewExposureChecker.h"
-#import "PBMCreativeModel.h"
-#import "PBMError.h"
 #import "PBMMacros.h"
 
 #import "NSTimer+PBMScheduledTimerFactory.h"
@@ -43,7 +41,7 @@
 @property (nonatomic, strong, nonnull, readonly) PBMViewExposureChecker *checker;
 
 @property (nonatomic, strong, nullable) id<PBMTimerInterface> timer;
-@property (nonatomic, strong, nonnull) PBMViewExposure *lastExposure;
+@property (nonatomic, strong, nonnull) id<PBMViewExposure> lastExposure;
 
 @property (nonatomic, nullable, weak, readonly) UIView *testedView;
 @property (nonatomic, assign) BOOL isViewabilityMode;
@@ -52,12 +50,14 @@
 
 @implementation PBMCreativeViewabilityTracker
 
-- (instancetype)initWithView:(UIView *)view pollingTimeInterval:(NSTimeInterval)pollingTimeInterval onExposureChange:(PBMViewExposureChangeHandler)onExposureChange {
+- (instancetype)initWithView:(UIView *)view
+         pollingTimeInterval:(NSTimeInterval)pollingTimeInterval
+            onExposureChange:(PBMViewExposureChangeHandler)onExposureChange {
     self = [super init];
     if (self) {
         _checker = [[PBMViewExposureChecker alloc] initWithView:view];
         _pollingTimeInterval = pollingTimeInterval;
-        _lastExposure = [PBMViewExposure zeroExposure];
+        _lastExposure = [PBMFactory.ViewExposureType zeroExposure];
         _onExposureChange = onExposureChange;
         
         _testedView = view;
@@ -71,10 +71,9 @@
     @weakify(creative);
     if (self = [self initWithView:creative.view
           pollingTimeInterval:creative.creativeModel.adConfiguration.pollFrequency
-             onExposureChange:^(PBMCreativeViewabilityTracker *tracker, PBMViewExposure *viewExposure)
+             onExposureChange:^(PBMCreativeViewabilityTracker *tracker, id<PBMViewExposure> viewExposure)
     {
         @strongify(creative);
-//        BOOL const isVisible = viewExposure.exposureFactor > 0;
         BOOL isVisible = [tracker isVisibleView:tracker.testedView];
         [creative onViewabilityChanged:isVisible viewExposure:viewExposure];
     }]) {
@@ -109,7 +108,7 @@
 }
 
 - (void)checkExposureWithForce:(BOOL)isForce {
-    PBMViewExposure * const newExposure = self.checker.exposure;
+    id<PBMViewExposure> const newExposure = self.checker.exposure;
     
     if (isForce || ![newExposure isEqual:self.lastExposure]) {
         self.lastExposure = newExposure;

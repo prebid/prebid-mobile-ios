@@ -15,16 +15,24 @@
 
 import Foundation
 import UIKit
+import StoreKit
+import WebKit
 
+/// Represents a native ad and handles its various properties and functionalities.
 @objcMembers
 public class NativeAd: NSObject, CacheExpiryDelegate {
     
     // MARK: - Public properties
     
+    /// The native ad markup containing the ad assets.
     public var nativeAdMarkup: NativeAdMarkup?
+    
+    /// The delegate to receive native ad events.
     public weak var delegate: NativeAdEventDelegate?
     
     // MARK: - Internal properties
+    
+    var bid: Bid?
     
     private static let nativeAdIABShouldBeViewableForTrackingDuration = 1.0
     private static let nativeAdCheckViewabilityForTrackingFrequency = 0.25
@@ -42,60 +50,86 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     
     private let eventManager = EventManager()
     
+    private var productControllerPresenter: SKStoreProductViewControllerPresenter?
+    
     // MARK: - Array getters
     
+    /// Returns an array of titles from the native ad markup.
     @objc public var titles: [NativeTitle] {
         nativeAdMarkup?.assets?.compactMap { return $0.title } ?? []
     }
     
+    /// Returns an array of data objects from the native ad markup.
     @objc public var dataObjects: [NativeData] {
         nativeAdMarkup?.assets?.compactMap { return $0.data } ?? []
     }
     
+    /// Returns an array of images from the native ad markup.
     @objc public var images: [NativeImage] {
         nativeAdMarkup?.assets?.compactMap { return $0.img } ?? []
     }
     
+    /// Returns an array of event trackers from the native ad markup.
     @objc public var eventTrackers: [NativeEventTrackerResponse]? {
         return nativeAdMarkup?.eventtrackers
     }
     
+    public var privacyUrl: String? {
+        set { nativeAdMarkup?.privacy = newValue }
+        get { nativeAdMarkup?.privacy }
+    }
+    
     // MARK: - Filtered array getters
     
+    /// Returns an array of data objects filtered by the specified data type.
     @objc public func dataObjects(of dataType: NativeDataAssetType) -> [NativeData] {
         dataObjects.filter { $0.type == dataType.rawValue }
     }
 
+    /// Returns an array of images filtered by the specified image type.
     @objc public func images(of imageType: NativeImageAssetType) -> [NativeImage] {
         images.filter { $0.type == imageType.rawValue }
     }
     
     // MARK: - Property getters
     
+    /// Returns the first title text from the native ad markup.
     @objc public var title: String? {
         return titles.first?.text
     }
     
+    /// Returns the URL of the main image from the native ad markup.
     @objc public var imageUrl: String? {
         return images(of: .main).first?.url
     }
     
+    /// Returns the URL of the icon image from the native ad markup.
     @objc public var iconUrl: String? {
         return images(of: .icon).first?.url
     }
     
+    /// Returns the sponsored by text from the native ad markup.
     @objc public var sponsoredBy: String? {
         return dataObjects(of: .sponsored).first?.value
     }
     
+    /// Returns the description text from the native ad markup.
     @objc public var text: String? {
         return dataObjects(of: .desc).first?.value
     }
     
+    /// Returns the call-to-action text from the native ad markup.
     @objc public var callToAction: String? {
         return dataObjects(of: .ctaText).first?.value
     }
     
+    /// Returns landing URL of the clickable link.
+    @objc public var clickURL: String? {
+        nativeAdMarkup?.link?.url
+    }
+    /// Creates a `NativeAd` instance from the given cache ID.
+    /// - Parameter cacheId: The cache ID to retrieve the bid response.
+    /// - Returns: A `NativeAd` instance if successful, otherwise `nil`.
     public static func create(cacheId: String) -> NativeAd? {
         guard let bidString = CacheManager.shared.get(cacheId: cacheId),
               let bidDic = Utils.shared.getDictionaryFromString(bidString) else {
@@ -109,31 +143,47 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             return nil
         }
         
-        let macrosHelper = PBMORTBMacrosHelper(bid: rawBid)
-        rawBid.adm = macrosHelper.replaceMacros(in: rawBid.adm)
-        rawBid.nurl = macrosHelper.replaceMacros(in: rawBid.nurl)
+        let bid = Bid(bid: rawBid)
         
         let ad = NativeAd()
+        ad.bid = bid
         
         let internalEventTracker = PrebidServerEventTracker()
         
-        if let impURL = rawBid.ext.prebid?.events?.imp {
+        if let impURL = bid.events?.imp {
             let impEvent = ServerEvent(url: impURL, expectedEventType: .impression)
             internalEventTracker.addServerEvents([impEvent])
         }
         
-        if let winURL = rawBid.ext.prebid?.events?.win {
+        if let burl = bid.burl {
+            let billingEvent = ServerEvent(url: burl, expectedEventType: .impression)
+            internalEventTracker.addServerEvents([billingEvent])
+        }
+        
+        if let winURL = bid.events?.win {
             let winEvent = ServerEvent(url: winURL, expectedEventType: .prebidWin)
             internalEventTracker.addServerEvents([winEvent])
         }
         
+        if let nurl = bid.nurl {
+            let noticeEvent = ServerEvent(url: nurl, expectedEventType: .prebidWin)
+            internalEventTracker.addServerEvents([noticeEvent])
+        }
+        
         ad.eventManager.registerTracker(internalEventTracker)
+        
+        if #available(iOS 14.5, *) {
+            if let skadn = bid.skadn, let imp = SkadnParametersManager.getSkadnImpression(for: skadn) {
+                let skadnEventTracker = SkadnEventTracker(with: imp)
+                ad.eventManager.registerTracker(skadnEventTracker)
+            }
+        }
         
         // Track win event immediately
         ad.eventManager.trackEvent(.prebidWin)
         
         guard let nativeAdMarkup = NativeAdMarkup(jsonString: rawBid.adm) else {
-            Log.warn("Can't retrieve native ad markup from bid response.")
+            Log.error("SDK couldn't retrieve native ad markup from bid response.")
             return nil
         }
         
@@ -152,19 +202,11 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         unregisterViewFromTracking()
     }
     
-    private func canOpenString(_ string: String?) -> Bool {
-        guard let string = string else {
-            return false
-        }
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        if let match = detector.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) {
-            return match.range.length == string.utf16.count
-        } else {
-            return false
-        }
-    }
-    
-    //MARK: registerView function
+    /// Registers a view for tracking viewability and click events.
+    /// - Parameters:
+    ///   - view: The view to register.
+    ///   - clickableViews: An array of views that should be clickable.
+    /// - Returns: `true` if the view was successfully registered, otherwise `false`.
     @discardableResult
     public func registerView(view: UIView?, clickableViews: [UIView]? ) -> Bool {
         guard let view = view else {
@@ -243,7 +285,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
             Log.debug("Firing impression trackers")
             fireEventTrackers()
             viewabilityTimer?.invalidate()
-            eventManager.trackEvent(PBMTrackingEvent.impression)
+            eventManager.trackEvent(.impression)
             impressionHasBeenTracked = true
         }
     }
@@ -302,37 +344,49 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
     }
     
     @objc private func handleClick() {
-        self.delegate?.adWasClicked?(ad: self)
-        if let clickUrl = nativeAdMarkup?.link?.url,
-           let url = clickUrl.encodedURL(with: .urlQueryAllowed) {
-            if openURLWithExternalBrowser(url: url) {
-                if let clickTrackers = nativeAdMarkup?.link?.clicktrackers {
-                    fireClickTrackers(clickTrackersUrls: clickTrackers)
-                }
+        delegate?.adWasClicked?(ad: self)
+        
+        guard let clickUrl = nativeAdMarkup?.link?.url,
+              let url = clickUrl.encodedURL(with: .urlQueryAllowed) else {
+            return
+        }
+        
+        // SKAdN
+        if let skadn = bid?.skadn,
+           let productParameters = SkadnParametersManager.getSkadnProductParameters(for: skadn) {
+            HiddenWebViewManager(
+                frame: .zero,
+                landingPageString: url
+            ).openHiddenWebView()
+            
+            if let viewControllerForPresentingModals = viewForTracking?.parentViewController ?? UIApplication.topViewController() {
+                productControllerPresenter = SKStoreProductViewControllerPresenter()
+                productControllerPresenter?.present(
+                    from: viewControllerForPresentingModals,
+                    using: productParameters
+                )
             } else {
-                Log.debug("Could not open click URL: \(clickUrl)")
+                Log.error("SDK couldn't find a view controller to present the SKStoreProductViewController from.")
             }
+            
+            fireClickTrackers()
         }
-    }
-    
-    
-    private func fireClickTrackers(clickTrackersUrls: [String]) {
-        if clickTrackersUrls.count > 0 {
-            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersUrls) {
-                _ in
-            }
-        }
-    }
-    
-    private func openURLWithExternalBrowser(url : URL) -> Bool {
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            return true
+        // Normal clickthrough
+        else if UIApplication.shared.openExternalURL(url) {
+            fireClickTrackers()
         } else {
-            return false
+            Log.debug("Could not open click URL: \(clickUrl)")
         }
     }
     
+    private func fireClickTrackers() {
+        guard let clickTrackersURLs = nativeAdMarkup?.link?.clicktrackers,
+              clickTrackersURLs.count > 0 else {
+            return
+        }
+        
+        TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: clickTrackersURLs) { _ in }
+    }
 }
 
 private class NativeAdGestureRecognizerRecord : NSObject {

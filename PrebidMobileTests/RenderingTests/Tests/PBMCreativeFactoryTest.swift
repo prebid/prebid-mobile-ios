@@ -66,6 +66,6 @@ class PBMCreativeFactoryTest: XCTestCase {
         
         creativeFactory.start()
         
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: 10)
     }
 }

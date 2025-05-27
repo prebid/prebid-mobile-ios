@@ -63,7 +63,11 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testAdPositionFullScreen() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let interstitialAdUnit = InterstitialRenderingAdUnit(configID: configId)
+        let interstitialAdUnit = BaseInterstitialAdUnit(
+            configID: configId,
+            minSizePerc: nil,
+            eventHandler: InterstitialEventHandlerStandalone()
+        )
         
         let bidRequest = buildBidRequest(with: interstitialAdUnit.adUnitConfig)
         
@@ -107,6 +111,20 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(bidRequest.imp.first?.banner?.format[1].h, 90)
     }
     
+    func testInterstitialDeviceSizeNotSet() {
+        let adUnitConfig = AdUnitConfig(configId: "test-config-id", size: CGSize.zero)
+        adUnitConfig.adFormats = [.banner, .video]
+        adUnitConfig.adConfiguration.isInterstitialAd = true
+        
+        let bidRequest = buildBidRequest(with: adUnitConfig)
+        
+        // If no ad size is specified, the SDK should not assign a device size for interstitials
+        XCTAssertEqual(bidRequest.imp.first?.banner?.format.count, 0)
+        
+        XCTAssertNil(bidRequest.imp.first?.video?.w)
+        XCTAssertNil(bidRequest.imp.first?.video?.h)
+    }
+    
     func testVideo() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
@@ -116,12 +134,15 @@ class PrebidParameterBuilderTest: XCTestCase {
         let parameters = VideoParameters(mimes: [])
         parameters.linearity = 1
         parameters.placement = .Interstitial
+        parameters.plcmnt = .Interstitial
         parameters.api = [Signals.Api.MRAID_1]
         parameters.minDuration = 1
         parameters.maxDuration = 10
         parameters.minBitrate = 1
         parameters.maxBitrate = 10
         parameters.startDelay = Signals.StartDelay.GenericMidRoll
+        parameters.battr = [.AudioButton, .SkipButton]
+        parameters.isSkippable = false
         
         adUnitConfig.adConfiguration.videoParameters = parameters
         
@@ -134,6 +155,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         PBMAssertEq(video.linearity, 1)
         PBMAssertEq(video.placement, 5)
+        PBMAssertEq(video.plcmt, 3)
         PBMAssertEq(video.w, 320)
         PBMAssertEq(video.h, 50)
         PBMAssertEq(video.api, [3])
@@ -146,92 +168,46 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
         PBMAssertEq(video.playbackend, 2)
         PBMAssertEq(video.delivery, [3])
+        PBMAssertEq(video.battr, [15, 16])
+        PBMAssertEq(video.skip, 0)
         XCTAssertEqual(video.pos.intValue, AdPosition.header.rawValue)
         XCTAssertEqual(video.pos.intValue, 4)
     }
     
     func testFirstPartyData() {
-        
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         
         targeting.addBidderToAccessControlList("prebid-mobile")
-        targeting.updateUserData(key: "fav_colors", value: Set(["red", "orange"]))
         targeting.addAppExtData(key: "last_search_keywords", value: "wolf")
         targeting.addAppExtData(key: "last_search_keywords", value: "pet")
-        
-        let userDataObject1 = PBMORTBContentData()
-        userDataObject1.id = "data id"
-        userDataObject1.name = "test name"
-        let userDataObject2 = PBMORTBContentData()
-        userDataObject2.id = "data id"
-        userDataObject2.name = "test name"
-        
-        adUnitConfig.addUserData([userDataObject1, userDataObject2])
-        let objects = adUnitConfig.getUserData()!
-        
-        adUnitConfig.addExtData(key: "buy", value: "mushrooms")
         
         let bidRequest = buildBidRequest(with: adUnitConfig)
         
         XCTAssertEqual(bidRequest.extPrebid.dataBidders, ["prebid-mobile"])
         
-        XCTAssertEqual(2, objects.count)
-        XCTAssertEqual(objects.first, userDataObject1)
-        
         let extData = bidRequest.app.ext.data!
         XCTAssertTrue(extData.keys.count == 1)
         let extValues = extData["last_search_keywords"]!.sorted()
         XCTAssertEqual(extValues, ["pet", "wolf"])
-
-        let userData = bidRequest.user.ext!["data"] as! [String :AnyHashable]
-        XCTAssertTrue(userData.keys.count == 1)
-        let userValues = userData["fav_colors"] as! Array<String>
-        XCTAssertEqual(Set(userValues), ["red", "orange"])
-        
-        guard let imp = bidRequest.imp.first else {
-            XCTFail("No Impression object!")
-            return
-        }
-        
-        XCTAssertEqual(imp.extData, ["buy": ["mushrooms"]])
-    }
-    
-    func testAdUnitSpecificKeywords() {
-        let adUnit = AdUnit(configId: "config_id", size: nil, adFormats: [.banner])
-        
-        let expectedKeywords = Set<String>(["keyword1", "keyword2", "keyword3"])
-        
-        adUnit.addExtKeywords(expectedKeywords)
-        
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-        
-        bidRequest.imp.forEach { imp in
-            let resultKeywords = Set<String>((imp.extKeywords?.components(separatedBy: ",")) ?? [])
-            XCTAssertEqual(resultKeywords, expectedKeywords)
-        }
     }
 
-    func testPbAdSlotWithContextDataDictionary() {
+    func testPbAdSlot() {
         let testAdSlot = "test ad slot"
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
 
         adUnitConfig.setPbAdSlot(testAdSlot)
 
-        adUnitConfig.addExtData(key: "key", value: "value1")
-        adUnitConfig.addExtData(key: "key", value: "value2")
-
         let bidRequest = buildBidRequest(with: adUnitConfig)
 
         bidRequest.imp.forEach { imp in
-            guard let extData = imp.extData as? [String: Any], let result = extData["key"] as? [String] else {
-                XCTFail()
+            guard let extData = imp.extData as? [String: Any] else {
+                XCTFail("ext.data dictionary is nil.")
                 return
             }
 
-            XCTAssertEqual(Set(result), Set(["value1", "value2"]))
-            XCTAssertEqual(extData["adslot"] as? String, testAdSlot)
+            XCTAssertEqual(extData["pbadslot"] as? String, testAdSlot)
         }
     }
 
@@ -325,6 +301,48 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(bidRequest.extPrebid.storedBidResponses, resultStoredBidResponses)
     }
     
+    func testAuctionSettingsId() {
+        let auctionSettingsId = "test-auction-settings-id"
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+
+        let requestWithSettingsId = buildBidRequest(with: adUnitConfig)
+        XCTAssertNotNil(Prebid.shared.auctionSettingsId)
+        XCTAssertEqual(requestWithSettingsId.extPrebid.storedRequestID, auctionSettingsId)
+        
+        Prebid.reset()
+        
+        Prebid.shared.prebidServerAccountId = Prebid.devintAccountID
+        let requestWithoutSettingsId = buildBidRequest(with: adUnitConfig)
+        XCTAssertNil(Prebid.shared.auctionSettingsId)
+        XCTAssertEqual(requestWithoutSettingsId.extPrebid.storedRequestID, Prebid.devintAccountID)
+        
+        Prebid.reset()
+        
+        Prebid.shared.prebidServerAccountId = Prebid.devintAccountID
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+        let request = buildBidRequest(with: adUnitConfig)
+        XCTAssertNotNil(Prebid.shared.auctionSettingsId)
+        XCTAssertNotNil(Prebid.shared.prebidServerAccountId)
+        XCTAssertEqual(request.extPrebid.storedRequestID, auctionSettingsId)
+    }
+    
+    func testInvalidAuctionSettingsId() {
+        let auctionSettingsId = ""
+        Prebid.shared.prebidServerAccountId = Prebid.devintAccountID
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: .zero)
+
+        let request = buildBidRequest(with: adUnitConfig)
+        XCTAssertNotNil(Prebid.shared.prebidServerAccountId)
+        XCTAssertNotNil(Prebid.shared.auctionSettingsId)
+        XCTAssertEqual(request.extPrebid.storedRequestID, Prebid.devintAccountID)
+    }
+    
     func testDefaultCaching() {
         XCTAssertFalse(sdkConfiguration.useCacheForReportingWithRenderingAPI)
 
@@ -396,7 +414,12 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual(imp.banner?.api, apiSignalsAsNumbers)
         }
         
-        let redenderingInterstitialAdUnit = BaseInterstitialAdUnit(configID: "configID")
+        let redenderingInterstitialAdUnit = BaseInterstitialAdUnit(
+            configID: "configID",
+            minSizePerc: nil,
+            eventHandler: InterstitialEventHandlerStandalone()
+        )
+        
         bidRequest = buildBidRequest(with: redenderingInterstitialAdUnit.adUnitConfig)
         
         bidRequest.imp.forEach {
@@ -474,8 +497,10 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.pos, nil)
         XCTAssertEqual(video.api, nil)
         XCTAssertEqual(video.placement, nil)
+        XCTAssertEqual(video.plcmt, nil)
         XCTAssertEqual(video.w, 300)
         XCTAssertEqual(video.h, 250)
+        XCTAssertEqual(video.battr, nil)
     }
     
     func testDefaultBannerParameters_DisplayInterstitial_OriginalAPI() {
@@ -497,7 +522,9 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testDefaultVideoParameters_VideoInterstitial_OriginalAPI() {
-        let adUnit = VideoInterstitialAdUnit(configId: "test")
+        let adUnit = InterstitialAdUnit(configId: "test")
+        adUnit.adFormats = [.video]
+        
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
         guard let imp = bidRequest.imp.first else {
@@ -524,7 +551,9 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.delivery, [3])
         XCTAssertEqual(video.pos, 7)
         XCTAssertEqual(video.placement, 5)
+        XCTAssertEqual(video.plcmt, 3)
         XCTAssertEqual(video.api, nil)
+        XCTAssertEqual(video.battr, nil)
     }
     
     func testDefaultVideoParameters_VideoRewarded_OriginalAPI() {
@@ -555,7 +584,9 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.delivery, [3])
         XCTAssertEqual(video.pos, 7)
         XCTAssertEqual(video.placement, 5)
+        XCTAssertEqual(video.plcmt, 3)
         XCTAssertEqual(video.api, nil)
+        XCTAssertEqual(video.battr, nil)
     }
 
     func testDefaultVideoParameters_RenderingAPI() {
@@ -583,12 +614,21 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
 
     func testParameterBuilderInterstitialVAST() {
-        let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
-        adUnit.adFormats = [.video]
+        let adUnit = BaseInterstitialAdUnit(
+            configID: "configID",
+            minSizePerc: nil,
+            eventHandler: InterstitialEventHandlerStandalone()
+        )
+        
+        adUnit.adUnitConfig.adFormats = [.video]
+        
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
         let parameters = VideoParameters(mimes: [])
         parameters.placement = .Interstitial
+        parameters.plcmnt = .Interstitial
         parameters.linearity = 1
+        parameters.battr = [.InBanner_Autoplay, .InBanner_UserInitiated]
+        parameters.isSkippable = true
         adConfiguration.videoParameters = parameters
 
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
@@ -611,6 +651,8 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.protocols, [2,5])
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
+        PBMAssertEq(video.battr, [6, 7])
+        PBMAssertEq(video.skip, 1)
     }
 
     func testParameterBuilderOutstream() {
@@ -639,6 +681,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
         PBMAssertEq(video.protocols, [2,5])
         XCTAssertNil(video.placement)
+        XCTAssertNil(video.plcmt)
 
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
@@ -660,26 +703,15 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual($0.banner?.api, [3, 5, 6, 7, 4, 1, 2, 4])
         }
     }
-    
-    func testBannerParameters_deprecatedDisplayFormat() {
-        // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50), adFormats: [.display])
-
-        let bannerParameters = BannerParameters()
-        bannerParameters.api = [.MRAID_1, .MRAID_2, .MRAID_3, .OMID_1, .ORMMA, .VPAID_1, .VPAID_2, .ORMMA]
-
-        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
-
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
-
-        bidRequest.imp.forEach {
-            XCTAssertEqual($0.banner?.api, [3, 5, 6, 7, 4, 1, 2, 4])
-        }
-    }
 
     func testVideoParameters() {
         // Original API
-        let adUnit = AdUnit(configId: "test", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        let adUnit = AdUnit(
+            configId: "test",
+            size: CGSize(width: 300, height: 250),
+            adFormats: [.banner]
+        )
+        
         adUnit.adUnitConfig.adFormats = [.video]
 
         let videoParamters = VideoParameters(mimes: [])
@@ -693,7 +725,9 @@ class PrebidParameterBuilderTest: XCTestCase {
         videoParamters.protocols = [.VAST_1_0, .VAST_2_0, .VAST_3_0]
         videoParamters.startDelay = .GenericMidRoll
         videoParamters.placement = .InBanner
+        videoParamters.plcmnt = .AccompanyingContent
         videoParamters.linearity = 1
+        videoParamters.battr = [.AudioButton, .InBanner_Autoplay, .Shaky, .Flashing, .Smileys]
 
         adUnit.adUnitConfig.adConfiguration.videoParameters = videoParamters
 
@@ -710,7 +744,9 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual($0.video?.protocols, [1, 2, 3])
             XCTAssertEqual($0.video?.startdelay, -1)
             XCTAssertEqual($0.video?.placement, 2)
+            XCTAssertEqual($0.video?.plcmt, 2)
             XCTAssertEqual($0.video?.linearity, 1)
+            XCTAssertEqual($0.video?.battr, [15, 6, 10])
         }
     }
     
@@ -785,45 +821,61 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
     }
     
-    func testArbitraryORTBParams() {
-        let gpid = "/12345/home_screen#identifier"
-        let ortb = "{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"imp\":[{}]}"
-        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
-        adUnit.setGPID(gpid)
-        adUnit.setOrtbConfig(ortb)
-
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+    func testExtPrebidSDKRenderers() {
+        let mockRenderer1 = MockPrebidMobilePluginRenderer(name: "MockRenderer1", version: "0.0.1")
+        let mockRenderer2 = MockPrebidMobilePluginRenderer(name: "MockRenderer2", version: "0.0.2")
+        let mockRenderer3 = MockPrebidMobilePluginRenderer(name: "MockRenderer3", version: "0.0.3")
         
-        XCTAssertEqual(bidRequest.ortbObject?["arbitraryparamkey1"] as? String, "arbitraryparamvalue1")
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer1)
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer2)
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer3)
+        
+        let adUnitConfig = AdUnitConfig(configId: "test")
+        let bidRequest = buildBidRequest(with: adUnitConfig)
+        let realResult = bidRequest.extPrebid.sdkRenderers
+        
+        XCTAssert(realResult?.count == 3)
     }
     
-    func testArbitraryORTBParamsIncorrectJSON() {
-        let gpid = "/12345/home_screen#identifier"
-        let ortb = "{{\"arbitraryparamkey1\":\"arbitraryparamvalue1\",\"imp\":[{}]}"
-        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
-        adUnit.setGPID(gpid)
-        adUnit.setOrtbConfig(ortb)
-
-        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+    func testExtPrebidSDKRenderers_OriginalAPI() {
+        let mockRenderer1 = MockPrebidMobilePluginRenderer(name: "MockRenderer1", version: "0.0.1")
+        let mockRenderer2 = MockPrebidMobilePluginRenderer(name: "MockRenderer2", version: "0.0.2")
+        let mockRenderer3 = MockPrebidMobilePluginRenderer(name: "MockRenderer3", version: "0.0.3")
         
-        XCTAssert(bidRequest.ortbObject?.isEmpty == true)
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer1)
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer2)
+        PrebidMobilePluginRegister.shared.registerPlugin(mockRenderer3)
+        
+        let adUnit = AdUnit(configId: "test", size: CGSize.zero, adFormats: [.banner])
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        XCTAssertNil(bidRequest.extPrebid.sdkRenderers)
     }
 
     // MARK: - Helpers
     
     func buildBidRequest(with adUnitConfig: AdUnitConfig) -> PBMORTBBidRequest {
         let bidRequest = PBMORTBBidRequest()
-        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
-                                 sdkConfiguration: sdkConfiguration,
-                                 sdkVersion: "MOCK_SDK_VERSION",
-                                 targeting: targeting)
-            .build(bidRequest)
-
-        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
-                                  sdkConfiguration: sdkConfiguration,
-                                  targeting: targeting,
-                                  userAgentService: MockUserAgentService())
-            .build(bidRequest)
+        PBMBasicParameterBuilder(
+            adConfiguration: adUnitConfig.adConfiguration,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting
+        )
+        .build(bidRequest)
+        
+        DeviceInfoParameterBuilder(
+            deviceAccessManager: MockDeviceAccessManager(rootViewController: nil)
+        )
+        .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(
+            adConfiguration: adUnitConfig,
+            sdkConfiguration: sdkConfiguration,
+            targeting: targeting,
+            userAgentService: MockUserAgentService()
+        )
+        .build(bidRequest)
         
         return bidRequest
     }

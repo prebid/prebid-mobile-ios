@@ -143,6 +143,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "In-App Display Banner Plugin Renderer 320x50",
+            integrationKind: .inApp,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                InAppDisplayBannerPluginRendererViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "In-App Video Banner 300x250",
             integrationKind: .inApp,
             adFormat: .videoBanner,
@@ -157,6 +166,15 @@ struct IntegrationCaseManager {
             adFormat: .displayInterstitial,
             configurationClosure: {
                 InAppDisplayInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "In-App Display Interstitial Plugin Renderer 320x480",
+            integrationKind: .inApp,
+            adFormat: .displayInterstitial,
+            configurationClosure: {
+                InAppDisplayInterstitialPluginRendererViewController()
             }
         ),
         
@@ -184,6 +202,15 @@ struct IntegrationCaseManager {
             adFormat: .videoInterstitial,
             configurationClosure: {
                 InAppVideoInterstitialLandscapeViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "In-App Display Rewarded 320x480",
+            integrationKind: .inApp,
+            adFormat: .displayRewarded,
+            configurationClosure: {
+                InAppDisplayRewardedViewController()
             }
         ),
         
@@ -242,6 +269,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM Display Rewarded 320x480",
+            integrationKind: .gam,
+            adFormat: .displayRewarded,
+            configurationClosure: {
+                GAMDisplayRewardedViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "GAM Video Rewarded 320x480",
             integrationKind: .gam,
             adFormat: .videoRewarded,
@@ -292,6 +328,15 @@ struct IntegrationCaseManager {
             adFormat: .videoInterstitial,
             configurationClosure: {
                 AdMobVideoInterstitialViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "AdMob Display Rewarded 320x480",
+            integrationKind: .adMob,
+            adFormat: .displayRewarded,
+            configurationClosure: {
+                AdMobDisplayRewardedViewController()
             }
         ),
         
@@ -350,9 +395,18 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
-            title: "MAX Rewarded 320x480",
+            title: "MAX Display Rewarded 320x480",
             integrationKind: .max,
-            adFormat: .videoInterstitial,
+            adFormat: .videoRewarded,
+            configurationClosure: {
+                MAXDisplayRewardedViewController()
+            }
+        ),
+        
+        IntegrationCase(
+            title: "MAX Video Rewarded 320x480",
+            integrationKind: .max,
+            adFormat: .videoRewarded,
             configurationClosure: {
                 MAXVideoRewardedViewController()
             }

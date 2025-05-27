@@ -20,7 +20,6 @@
 #import "PBMMacros.h"
 #import "PBMMacros.h"
 #import "PBMAdDetails.h"
-#import "PBMTransaction.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

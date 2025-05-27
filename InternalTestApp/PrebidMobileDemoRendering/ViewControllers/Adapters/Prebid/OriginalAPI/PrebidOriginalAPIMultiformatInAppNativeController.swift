@@ -25,10 +25,10 @@ class PrebidOriginalAPIMultiformatInAppNativeController:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
-    GAMBannerAdLoaderDelegate,
-    GADCustomNativeAdLoaderDelegate,
-    NativeAdDelegate,
-    NativeAdEventDelegate {
+    AdManagerBannerAdLoaderDelegate,
+    CustomNativeAdLoaderDelegate,
+    PrebidMobile.NativeAdDelegate,
+    PrebidMobile.NativeAdEventDelegate {
     
     var refreshInterval: TimeInterval = 30000
     var prebidConfigId = ""
@@ -50,7 +50,7 @@ class PrebidOriginalAPIMultiformatInAppNativeController:
     
     // Prebid
     private var adUnit: PrebidAdUnit!
-    private var nativeAd: NativeAd?
+    private var nativeAd: PrebidMobile.NativeAd?
     
     private var nativeAssets: [NativeAsset] {
         let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
@@ -72,8 +72,8 @@ class PrebidOriginalAPIMultiformatInAppNativeController:
     }
     
     // GAM
-    private var adLoader: GADAdLoader!
-    private var gamBanner: GAMBannerView?
+    private var adLoader: AdLoader!
+    private var gamBanner: AdManagerBannerView?
     
     func configurationController() -> BaseConfigurationController? {
         return configVC
@@ -126,16 +126,23 @@ class PrebidOriginalAPIMultiformatInAppNativeController:
         adUnit = PrebidAdUnit(configId: prebidConfigId)
         adUnit.setAutoRefreshMillis(time: refreshInterval)
         
-        let prebidRequest = PrebidRequest(bannerParameters: bannerParameters, videoParameters: videoParameters, nativeParameters: nativeParameters)
-        addData(to: prebidRequest)
+        let prebidRequest = PrebidRequest(
+            bannerParameters: bannerParameters,
+            videoParameters: videoParameters,
+            nativeParameters: nativeParameters
+        )
         
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         adUnit.fetchDemand(adObject: gamRequest, request: prebidRequest) { [weak self] _ in
             guard let self = self else { return }
             
             // 5. Configure and make a GAM ad request
-            self.adLoader = GADAdLoader(adUnitID: self.adUnitID, rootViewController: self.rootController,
-                                        adTypes: [GADAdLoaderAdType.customNative, GADAdLoaderAdType.gamBanner], options: [])
+            self.adLoader = AdLoader(
+                adUnitID: self.adUnitID,
+                rootViewController: self.rootController,
+                adTypes: [AdLoaderAdType.customNative, AdLoaderAdType.adManagerBanner],
+                options: []
+            )
             self.adLoader.delegate = self
             self.adLoader.load(gamRequest)
         }
@@ -143,18 +150,18 @@ class PrebidOriginalAPIMultiformatInAppNativeController:
     
     // MARK: - GAMBannerAdLoaderDelegate
     
-    func validBannerSizes(for adLoader: GADAdLoader) -> [NSValue] {
-        return [NSValueFromGADAdSize(GADAdSizeFromCGSize(bannerAdSize))]
+    func validBannerSizes(for adLoader: AdLoader) -> [NSValue] {
+        return [nsValue(for: adSizeFor(cgSize: bannerAdSize))]
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+    func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
         resetEvents()
         reloadButton.isEnabled = true
         adLoaderDidFailToReceiveAd.isEnabled = true
         Log.error("GAM did fail to receive ad with error: \(error)")
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive bannerView: GAMBannerView) {
+    func adLoader(_ adLoader: AdLoader, didReceive bannerView: AdManagerBannerView) {
         bannerViewDidReceiveAd.isEnabled = true
         reloadButton.isEnabled = true
         
@@ -167,7 +174,7 @@ class PrebidOriginalAPIMultiformatInAppNativeController:
         bannerView.centerXAnchor.constraint(equalTo: rootController!.bannerView.centerXAnchor).isActive = true
         
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
-            bannerView.resize(GADAdSizeFromCGSize(size))
+            bannerView.resize(adSizeFor(cgSize: size))
         }, failure: { (error) in
             Log.error("Error occuring during searching for Prebid creative size: \(error)")
         })
@@ -176,11 +183,11 @@ class PrebidOriginalAPIMultiformatInAppNativeController:
         rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height
     }
     
-    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
+    func customNativeAdFormatIDs(for adLoader: AdLoader) -> [String] {
         ["12304464"]
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
+    func adLoader(_ adLoader: AdLoader, didReceive customNativeAd: CustomNativeAd) {
         reloadButton.isEnabled = true
         adLoaderDidReceiveCustomNativeAd.isEnabled = true
         
@@ -195,7 +202,7 @@ class PrebidOriginalAPIMultiformatInAppNativeController:
     
     // MARK: - NativeAdDelegate
     
-    func nativeAdLoaded(ad: NativeAd) {
+    func nativeAdLoaded(ad: PrebidMobile.NativeAd) {
         nativeAd = ad
         nativeAd?.delegate = self
         nativeAdViewBox?.renderNativeAd(ad)
@@ -211,46 +218,6 @@ class PrebidOriginalAPIMultiformatInAppNativeController:
     }
     
     // MARK: - Private zone
-    
-    private func addData(to prebidRequest: PrebidRequest) {
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                prebidRequest.addExtData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                prebidRequest.addExtKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            prebidRequest.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            prebidRequest.addAppContentData([ortbAppContentData])
-        }
-    }
     
     private func setupNativeAdView(_ nativeAdViewBox: NativeAdViewBoxProtocol) {
         self.nativeAdViewBox = nativeAdViewBox

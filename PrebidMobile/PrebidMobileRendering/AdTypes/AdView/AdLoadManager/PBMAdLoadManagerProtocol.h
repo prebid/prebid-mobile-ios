@@ -16,10 +16,10 @@
 #import <Foundation/Foundation.h>
 
 #import "PBMAdLoadManagerDelegate.h"
-#import "PBMTransactionDelegate.h"
 
 @class PBMAdConfiguration;
 @protocol PrebidServerConnectionProtocol;
+@protocol PBMTransactionDelegate;
 @class Bid;
 
 NS_ASSUME_NONNULL_BEGIN

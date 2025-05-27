@@ -13,14 +13,13 @@
   limitations under the License.
   */
 
-import Foundation
 import UIKit
 import XCTest
 import AVFoundation
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeViewDelegate, PBMVideoViewDelegate {
+class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewDelegate, PBMVideoViewDelegate {
    
     var videoCreative:PBMVideoCreative!
     let connection = UtilitiesForTesting.createConnectionForMockedTest()
@@ -31,6 +30,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     var expectationDownloadFailed:XCTestExpectation!
     var expectationDidLeaveApp:XCTestExpectation!
     var expectationVideoViewCompletedDisplay:XCTestExpectation?
+    var expectationCreativeDidSendRewardedEvent:XCTestExpectation?
     var isVideoViewCompletedDisplay = false;
     
     private var logToFile: LogToFileLock?
@@ -47,7 +47,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     }
     
     func testInit() {
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
         
         XCTAssertNotNil(self.videoCreative)
@@ -57,7 +57,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     /*
     func testButtonTouchUpInsideBlock() {
         let vc = UIViewController()
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
         self.videoCreative.viewControllerForPresentingModals = vc
 
@@ -104,12 +104,12 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         self.expectationDownloadFailed = self.expectation(description: "Expected downloadFailed to be called")
         self.expectationDidLeaveApp = self.expectation(description: "expectationDidLeaveApp")
         
-        self.videoCreative = PBMVideoCreative(creativeModel:PBMCreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
+        self.videoCreative = PBMVideoCreative(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
         self.videoCreative.creativeResolutionDelegate = self
         self.videoCreative.videoViewFailedWithError(NSError(domain: "PrebidMobile", code: 123, userInfo: [:]))
 
         //Create model
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = "http://get_video/small.mp4"
         
         //Create PBMVideoCreative and start
@@ -117,7 +117,9 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         self.videoCreative.creativeResolutionDelegate = self
         self.videoCreative.creativeViewDelegate = self
         
-        let state = PBMModalState(view: PBMVideoView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = Factory.createModalState(view: PBMVideoView(),
+                                             adConfiguration:AdConfiguration(),
+                                             displayProperties:InterstitialDisplayProperties())
         self.videoCreative.modalManagerDidLeaveApp(state)
         
         waitForExpectations(timeout: 1)
@@ -196,7 +198,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     func testShowAsInterstitial() {
         let expectation = self.expectation(description: "Should push Modal")
         
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.displayDurationInSeconds = 5
 
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
@@ -211,7 +213,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         }
         
         let rootVC = UIViewController()
-        let displayProperties = PBMInterstitialDisplayProperties()
+        let displayProperties = InterstitialDisplayProperties()
         self.videoCreative.showAsInterstitial(fromRootViewController: rootVC, displayProperties: displayProperties)
         
         waitForExpectations(timeout: 1, handler: nil)
@@ -220,7 +222,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     func testSkipOffset() {
         let expectation = self.expectation(description: "Should push Modal")
         
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.displayDurationInSeconds = 10
         model.skipOffset = 10
         
@@ -231,7 +233,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         let mockModalManager = MockModalManager()
         self.videoCreative.modalManager = mockModalManager
         self.videoCreative.creativeModel?.hasCompanionAd = false
-        self.videoCreative.creativeModel?.adConfiguration?.isOptIn = false
+        self.videoCreative.creativeModel?.adConfiguration?.isRewarded = false
         self.videoCreative.creativeModel?.adConfiguration?.videoControlsConfig.skipDelay = 1000
         mockModalManager.mock_pushModalClosure = { (modalState, _, _, _, completionHandler) in
             expectation.fulfill()
@@ -240,7 +242,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         }
         
         let rootVC = UIViewController()
-        let displayProperties = PBMInterstitialDisplayProperties()
+        let displayProperties = InterstitialDisplayProperties()
         self.videoCreative.showAsInterstitial(fromRootViewController: rootVC, displayProperties: displayProperties)
         
         waitForExpectations(timeout: 1, handler: nil)
@@ -279,7 +281,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
             expectationSessionStart,
             ]
         
-        var transaction: PBMTransaction? = UtilitiesForTesting.createEmptyTransaction()
+        var transaction: Transaction? = UtilitiesForTesting.createEmptyTransaction()
         transaction?.measurementWrapper = measurement
         
         self.videoCreative = PBMVideoCreative(
@@ -296,7 +298,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         
         self.videoCreative.display(withRootViewController:mockViewController)
         
-        transaction?.creatives.add(self.videoCreative!)
+        transaction?.creatives.append(self.videoCreative!)
         self.videoCreative.createOpenMeasurementSession();
         
         wait(for: measurementExpectations, timeout: 5, enforceOrder: true);
@@ -324,7 +326,75 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         waitForExpectations(timeout: 1)
     }
     
-    //MARK: - PBMCreativeResolutionDelegate
+    func testRewardEvent() {
+        let time: NSNumber = 5
+        expectationCreativeDidSendRewardedEvent = expectation(description: "Reward event - creativeDidSendRewardedEvent called")
+        
+        let ortbRewarded = PBMORTBRewardedConfiguration()
+        ortbRewarded.completion = PBMORTBRewardedCompletion()
+        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        ortbRewarded.completion?.video?.time = time
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
+        adConfiguration.isRewarded = true
+        
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:creativeModel,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        self.videoCreative.creativeResolutionDelegate = self
+        self.videoCreative.creativeViewDelegate = self
+        
+        self.videoCreative.videoViewCurrentPlayingTime(time)
+        
+        waitForExpectations(timeout: 1)
+        
+        // If video without endcard - we should show learn more button when reward completion is fired
+        XCTAssertTrue(videoCreative.videoView.showLearnMore)
+    }
+    
+    func testPostRewardEvent() {
+        let rewardTime: NSNumber = 5
+        let postRewardTime: NSNumber = 2
+        expectationCreativeDidSendRewardedEvent = expectation(description: "Reward event - creativeDidSendRewardedEvent called")
+        
+        let ortbRewarded = PBMORTBRewardedConfiguration()
+        ortbRewarded.completion = PBMORTBRewardedCompletion()
+        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        ortbRewarded.completion?.video?.time = rewardTime
+        ortbRewarded.close = PBMORTBRewardedClose()
+        ortbRewarded.close?.postrewardtime = postRewardTime
+        
+        let adConfiguration = AdConfiguration()
+        adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ortbRewarded)
+        adConfiguration.isRewarded = true
+        
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
+        
+        self.videoCreative = PBMVideoCreative(
+            creativeModel:creativeModel,
+            transaction:UtilitiesForTesting.createEmptyTransaction(),
+            videoData:Data()
+        )
+        
+        self.videoCreative.creativeResolutionDelegate = self
+        self.videoCreative.creativeViewDelegate = self
+        
+        self.videoCreative.videoViewCurrentPlayingTime(rewardTime)
+        self.videoCreative.videoViewCurrentPlayingTime(postRewardTime)
+        
+        XCTAssertTrue(videoCreative.creativeModel!.userPostRewardEventSent)
+        
+        waitForExpectations(timeout: 1)
+    }
+
+    
+    // MARK: - PBMCreativeResolutionDelegate
     func creativeReady(_ creative:PBMAbstractCreative) {
         self.expectationDownloadCompleted.fulfill()
         self.videoCreative.display(withRootViewController: UIViewController())
@@ -342,7 +412,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     func creativeWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeClickthroughDidClose(_ creative:PBMAbstractCreative) {}
     func creativeInterstitialDidClose(_ creative:PBMAbstractCreative) {}
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {}
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidCollapse(_ creative:PBMAbstractCreative) {}
     func creativeMraidDidExpand(_ creative:PBMAbstractCreative) {}
     
@@ -364,6 +434,12 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func videoViewReadyToDisplay() {}
     
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {
+        expectationCreativeDidSendRewardedEvent?.fulfill()
+    }
+    
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
+    
     func videoViewCompletedDisplay() {
         isVideoViewCompletedDisplay = true
         self.expectationVideoViewCompletedDisplay?.fulfill()
@@ -377,7 +453,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         MockServer.shared.resetRules([rule])
         
         //Create model
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = videoFileURL
         
         //Create and start creative

@@ -26,20 +26,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 
-@property (nonatomic, strong, nullable, readonly) id eventHandler;
-
 // Loading callbacks
 - (void)interstitialAdLoader:(PBMInterstitialAdLoader *)interstitialAdLoader
                     loadedAd:(void (^)(UIViewController * _Nullable))showBlock
                 isReadyBlock:(BOOL (^)(void))isReadyBlock;
 
 // Hook to insert interaction delegate
-- (void) interstitialAdLoader:(PBMInterstitialAdLoader *)interstitialAdLoader
+- (void)interstitialAdLoader:(PBMInterstitialAdLoader *)interstitialAdLoader
 createdInterstitialController:(InterstitialController *)interstitialController;
-
-@optional
-
-@property (nonatomic, strong, nullable) NSObject *reward;
 
 @end
 

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobile"
-  s.version      = "2.2.2"
+  s.version      = "3.0.1"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
     }
 
   s.author                 = { "Prebid.org, Inc." => "info@prebid.org" }
-  s.platform     	   = :ios, "11.0"
+  s.platform     	   = :ios, "12.0"
   s.swift_version 	   = '5.0'
   s.source      	   = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
   s.xcconfig 		   = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
@@ -68,4 +68,8 @@ Pod::Spec.new do |s|
     ]
     core.vendored_frameworks = 'Frameworks/OMSDK-Static_Prebidorg.xcframework'
   end
+
+  s.pod_target_xcconfig = {
+    'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
+  }
 end

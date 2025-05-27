@@ -21,7 +21,6 @@
 #import "PBMDeviceInfoParameterBuilder.h"
 #import "PBMFunctions.h"
 #import "PBMGeoLocationParameterBuilder.h"
-#import "PBMLocationManager.h"
 #import "PBMNetworkParameterBuilder.h"
 #import "PBMORTBParameterBuilder.h"
 #import "PBMParameterBuilderProtocol.h"
@@ -71,7 +70,6 @@
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders{
   
     PBMORTBBidRequest *bidRequest = [PBMParameterBuilderService createORTBBidRequestWithTargeting:targeting];
-    bidRequest.ortbObject = [adConfiguration getCheckedOrtbConfig];
     NSMutableArray<id<PBMParameterBuilder> > * const parameterBuilders = [[NSMutableArray alloc] init];
     [parameterBuilders addObjectsFromArray:@[
         [[PBMBasicParameterBuilder alloc] initWithAdConfiguration:adConfiguration
@@ -81,9 +79,12 @@
         [[PBMGeoLocationParameterBuilder alloc] initWithLocationManager:pbmLocationManager],
         [[PBMAppInfoParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
         [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager],
-        [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo reachability:reachability],
+        [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo
+                                                              reachability:reachability],
         [[PBMUserConsentParameterBuilder alloc] init],
-        [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle targeting:targeting adConfiguration:adConfiguration],
+        [[PBMSKAdNetworksParameterBuilder alloc] initWithBundle:bundle
+                                                      targeting:targeting
+                                                adConfiguration:adConfiguration],
     ]];
     
     if (extraParameterBuilders) {
@@ -94,28 +95,33 @@
         [builder buildBidRequest:bidRequest];
     }
     
-    return [PBMORTBParameterBuilder buildOpenRTBFor:bidRequest];
+    NSDictionary *ortb = [bidRequest toJsonDictionary];
+    
+    NSDictionary * arbitratyORTB = [PBMArbitraryORTBService mergeWithSdkORTB:ortb
+                                                                     impORTB:adConfiguration.impORTBConfig
+                                                                  globalORTB:[targeting getGlobalORTBConfig]];
+    
+    return [PBMORTBParameterBuilder buildOpenRTBFor:arbitratyORTB];
 }
 
 + (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
-    NSNumber * yob = [targeting getYearOfBirth];
-    
-    if (![yob isEqual: @0]) {
-        bidRequest.user.yob = yob;
-    }
-    
-    bidRequest.user.gender      = targeting.userGenderDescription;
-    bidRequest.user.buyeruid    = targeting.buyerUID;
-    bidRequest.user.customdata  = targeting.userCustomData;
-    bidRequest.user.userid      = targeting.userID;
    
     if (targeting.userExt) {
-        bidRequest.user.ext = [targeting.userExt mutableCopy];
+        NSMutableDictionary *existingUserExt = bidRequest.user.ext ?: [NSMutableDictionary dictionary];
+        [existingUserExt addEntriesFromDictionary:targeting.userExt];
+        bidRequest.user.ext = existingUserExt;
     }
     
     if ([targeting getExternalUserIds]) {
         [bidRequest.user appendEids:[targeting getExternalUserIds]];
+    }
+    
+    if (targeting.sendSharedId) {
+        __auto_type sharedId = targeting.sharedId;
+        if (sharedId) {
+            [bidRequest.user appendEids:@[[sharedId toJSONDictionary]]];
+        }
     }
     
     if ([targeting getUserKeywords].count > 0) {
@@ -144,6 +150,7 @@
         bidRequest.user.geo.lat = @(coord2d.latitude);
         bidRequest.user.geo.lon = @(coord2d.longitude);
     }
+    
     return bidRequest;
 }
 

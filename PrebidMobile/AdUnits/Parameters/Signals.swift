@@ -15,56 +15,26 @@ limitations under the License.
 
 import Foundation
 
-public class SingleContainerInt: NSObject, ExpressibleByIntegerLiteral {
-
-    public typealias IntegerLiteralType = Int
-    
-    @objc
-    public let value: Int
-    
-    @objc
-    public required init(integerLiteral value: Int) {
-        self.value = value
-    }
-    
-    static func == (lhs: SingleContainerInt, rhs: SingleContainerInt) -> Bool {
-        return lhs.value == rhs.value
-    }
-
-    override public func isEqual(_ object: Any?) -> Bool {
-
-        if let other = object as? SingleContainerInt {
-            if self === other {
-                return true
-            } else {
-                return self.value == other.value
-            }
-        }
-
-        return false
-
-    }
-
-    override public var hash : Int {
-        return value.hashValue
-    }
-}
-
+/// A class containing constants related to OpenRTB signals.
+///
+/// This class provides static constants and values representing different
+/// API frameworks, playback methods, protocols, start delays, and video
+/// placement types as defined in the OpenRTB specification.
+///
 public class Signals: NSObject {
-    /**
-     # OpenRTB - API Frameworks #
-     ```
-     | Value | Description |
-     |-------|-------------|
-     | 1     | VPAID 1.0   |
-     | 2     | VPAID 2.0   |
-     | 3     | MRAID-1     |
-     | 4     | ORMMA       |
-     | 5     | MRAID-2     |
-     | 6     | MRAID-3     |
-     | 7     | OMID-1      |
-     ```
-     */
+    
+     ///# OpenRTB - API Frameworks #
+     /// ```
+     /// | Value | Description |
+     /// |-------|-------------|
+     /// | 1     | VPAID 1.0   |
+     /// | 2     | VPAID 2.0   |
+     /// | 3     | MRAID-1     |
+     /// | 4     | ORMMA       |
+     /// | 5     | MRAID-2     |
+     /// | 6     | MRAID-3     |
+     /// | 7     | OMID-1      |
+     /// ```
     @objc(PBApi)
     public class Api: SingleContainerInt {
         
@@ -97,19 +67,18 @@ public class Signals: NSObject {
         public static let OMID_1 = Api(7)
     }
 
-    /**
-    # OpenRTB - Playback Methods #
-    ```
-    | Value | Description                                              |
-    |-------|----------------------------------------------------------|
-    | 1     | Initiates on Page Load with Sound On                     |
-    | 2     | Initiates on Page Load with Sound Off by Default         |
-    | 3     | Initiates on Click with Sound On                         |
-    | 4     | Initiates on Mouse-Over with Sound On                    |
-    | 5     | Initiates on Entering Viewport with Sound On             |
-    | 6     | Initiates on Entering Viewport with Sound Off by Default |
-    ```
-    */
+    
+    /// # OpenRTB - Playback Methods #
+    /// ```
+    /// | Value | Description                                              |
+    /// |-------|----------------------------------------------------------|
+    /// | 1     | Initiates on Page Load with Sound On                     |
+    /// | 2     | Initiates on Page Load with Sound Off by Default         |
+    /// | 3     | Initiates on Click with Sound On                         |
+    /// | 4     | Initiates on Mouse-Over with Sound On                    |
+    /// | 5     | Initiates on Entering Viewport with Sound On             |
+    /// | 6     | Initiates on Entering Viewport with Sound Off by Default |
+    /// ```
     @objc(PBPlaybackMethod)
     public class PlaybackMethod: SingleContainerInt {
 
@@ -139,23 +108,21 @@ public class Signals: NSObject {
 
     }
 
-    /**
-    # OpenRTB - Protocols #
-    ```
-    | Value | Description       |
-    |-------|-------------------|
-    | 1     | VAST 1.0          |
-    | 2     | VAST 2.0          |
-    | 3     | VAST 3.0          |
-    | 4     | VAST 1.0 Wrapper  |
-    | 5     | VAST 2.0 Wrapper  |
-    | 6     | VAST 3.0 Wrapper  |
-    | 7     | VAST 4.0          |
-    | 8     | VAST 4.0 Wrapper  |
-    | 9     | DAAST 1.0         |
-    | 10    | DAAST 1.0 Wrapper |
-    ```
-    */
+    /// # OpenRTB - Protocols #
+    /// ```
+    /// | Value | Description       |
+    /// |-------|-------------------|
+    /// | 1     | VAST 1.0          |
+    /// | 2     | VAST 2.0          |
+    /// | 3     | VAST 3.0          |
+    /// | 4     | VAST 1.0 Wrapper  |
+    /// | 5     | VAST 2.0 Wrapper  |
+    /// | 6     | VAST 3.0 Wrapper  |
+    /// | 7     | VAST 4.0          |
+    /// | 8     | VAST 4.0 Wrapper  |
+    /// | 9     | DAAST 1.0         |
+    /// | 10    | DAAST 1.0 Wrapper |
+    /// ```
     @objc(PBProtocols)
     public class Protocols: SingleContainerInt {
         
@@ -201,17 +168,15 @@ public class Signals: NSObject {
         
     }
 
-    /**
-    # OpenRTB - Start Delay #
-    ```
-    | Value | Description                                      |
-    |-------|--------------------------------------------------|
-    | > 0   | Mid-Roll (value indicates start delay in second) |
-    | 0     | Pre-Roll                                         |
-    | -1    | Generic Mid-Roll                                 |
-    | -2    | Generic Post-Roll                                |
-    ```
-    */
+    /// # OpenRTB - Start Delay #
+    /// ```
+    /// | Value | Description                                      |
+    /// |-------|--------------------------------------------------|
+    /// | > 0   | Mid-Roll (value indicates start delay in second) |
+    /// | 0     | Pre-Roll                                         |
+    /// | -1    | Generic Mid-Roll                                 |
+    /// | -2    | Generic Post-Roll                                |
+    /// ```
     @objc(PBStartDelay)
     public class StartDelay: SingleContainerInt {
         
@@ -229,18 +194,16 @@ public class Signals: NSObject {
         
     }
 
-    /**
-    # OpenRTB - Video Placement Types #
-    ```
-    | Value | Description                  |
-    |-------|------------------------------|
-    | 1     | In-Stream                    |
-    | 2     | In-Banner                    |
-    | 3     | In-Article                   |
-    | 4     | In-Feed                      |
-    | 5     | Interstitial/Slider/Floating |
-    ```
-    */
+    /// # OpenRTB - Video Placement Types #
+    /// ```
+    /// | Value | Description                  |
+    /// |-------|------------------------------|
+    /// | 1     | In-Stream                    |
+    /// | 2     | In-Banner                    |
+    /// | 3     | In-Article                   |
+    /// | 4     | In-Feed                      |
+    /// | 5     | Interstitial/Slider/Floating |
+    /// ```
     @objc(PBPlacement)
     public class Placement: SingleContainerInt {
         
@@ -272,6 +235,7 @@ public class Signals: NSObject {
         @objc
         public static let Floating = Placement(5)
         
+        /// Helper function
         @objc public static func getPlacementByRawValue(_ value: Int) -> Signals.Placement? {
             switch value {
             case 1:
@@ -289,5 +253,173 @@ public class Signals: NSObject {
                 return nil
             }
         }
+    }
+    
+    /// # OpenRTB - Updated Video Placement Types #
+    /// ```
+    /// | Value | Description                  |
+    /// |-------|------------------------------|
+    /// | 1     | Instream                     |
+    /// | 2     | Accompanying Content         |
+    /// | 3     | Interstitial                 |
+    /// | 4     | No Content/Standalone        |
+    /// ```
+    @objc(PBPlcmnt)
+    public class Plcmnt: SingleContainerInt {
+        
+        /// Instream
+        @objc
+        public static let Instream = Plcmnt(1)
+        
+        /// AccompanyingContent
+        @objc
+        public static let AccompanyingContent = Plcmnt(2)
+        
+        /// Interstitial
+        @objc
+        public static let Interstitial = Plcmnt(3)
+        
+        /// NoContent
+        @objc
+        public static let NoContent = Plcmnt(4)
+        
+        /// Standalone
+        @objc
+        public static let Standalone = Plcmnt(4)
+        
+        /// Helper function
+        @objc public static func getPlacementByRawValue(_ value: Int) -> Signals.Plcmnt? {
+            switch value {
+            case 1:
+                return Signals.Plcmnt.Instream
+            case 2:
+                return Signals.Plcmnt.AccompanyingContent
+            case 3:
+                return Signals.Plcmnt.Interstitial
+            case 4:
+                // TODO: Multiple cases for one raw value. Probable solution - make one case for no content and standalone
+                return Signals.Plcmnt.NoContent
+            default:
+                return nil
+            }
+        }
+    }
+    
+    ///# OpenRTB - Creative Attributes #
+    /// ```
+    /// | Value | Description                                                                |
+    /// |-------|----------------------------------------------------------------------------|
+    /// | 1     | Audio Ad (Autoplay)                                                        |
+    /// | 2     | Audio Ad (User Initiated)                                                  |
+    /// | 3     | Expandable (Automatic)                                                     |
+    /// | 4     | Expandable (User Initiated - Click)                                        |
+    /// | 5     | Expandable (User Initiated - Rollover)                                     |
+    /// | 6     | In-Banner Video Ad (Autoplay)                                              |
+    /// | 7     | In-Banner Video Ad (User Initiated)                                        |
+    /// | 8     | Pop (e.g., Over, Under, or Upon Exit)                                      |
+    /// | 9     | Provocative or Suggestive Imagery                                          |
+    /// | 10    | Shaky, Flashing, Flickering, Extreme Animation, Smileys                    |
+    /// | 11    | Surveys                                                                    |
+    /// | 12    | Text Only                                                                  |
+    /// | 13    | User Interactive (e.g., Embedded Games)                                    |
+    /// | 14    | Windows Dialog or Alert Style                                              |
+    /// | 15    | Has Audio On/Off Button                                                    |
+    /// | 16    | Ad Provides Skip Button (e.g. VPAID-rendered skip button on pre-roll video)|
+    /// | 17    | Adobe Flash                                                                |
+    /// ```
+    @objc(PBCreativeAttribute)
+    public class CreativeAttribute: SingleContainerInt {
+        
+        /// Audio Ad (Autoplay)
+        @objc
+        public static let AudioAd_Autoplay = CreativeAttribute(1)
+        
+        /// Audio Ad (User Initiated)
+        @objc
+        public static let AudioAd_UserInitiated = CreativeAttribute(2)
+        
+        /// Expandable (Automatic)
+        @objc
+        public static let Expandable_Automatic = CreativeAttribute(3)
+        
+        /// Expandable (User Initiated - Click)
+        @objc
+        public static let Expandable_Click = CreativeAttribute(4)
+        
+        /// Expandable (User Initiated - Rollover)
+        @objc
+        public static let Expandable_Rollover = CreativeAttribute(5)
+        
+        /// In-Banner Video Ad (Autoplay)
+        @objc
+        public static let InBanner_Autoplay = CreativeAttribute(6)
+        
+        /// In-Banner Video Ad (User Initiated)
+        @objc
+        public static let InBanner_UserInitiated = CreativeAttribute(7)
+        
+        /// Pop (e.g., Over, Under, or Upon Exit)
+        @objc
+        public static let Pop = CreativeAttribute(8)
+        
+        /// Provocative
+        @objc
+        public static let Provocative = CreativeAttribute(9)
+        
+        /// Suggestive Imagery
+        @objc
+        public static let SuggestiveImagery = CreativeAttribute(9)
+        
+        /// Shaky
+        @objc
+        public static let Shaky = CreativeAttribute(10)
+
+        /// Flashing
+        @objc
+        public static let Flashing = CreativeAttribute(10)
+
+        /// Flickering
+        @objc
+        public static let Flickering = CreativeAttribute(10)
+
+        /// Extreme Animation
+        @objc
+        public static let ExtremeAnimation = CreativeAttribute(10)
+
+        /// Smileys
+        @objc
+        public static let Smileys = CreativeAttribute(10)
+
+        /// Surveys
+        @objc
+        public static let Surveys = CreativeAttribute(11)
+        
+        /// Text Only
+        @objc
+        public static let TextOnly = CreativeAttribute(12)
+        
+        /// User Interactive (e.g., Embedded Games)
+        @objc
+        public static let UserInteractive = CreativeAttribute(13)
+        
+        /// Windows Dialog
+        @objc
+        public static let WindowsDialog = CreativeAttribute(14)
+        
+        /// Alert Style
+        @objc
+        public static let AlertStyle = CreativeAttribute(14)
+        
+        /// Has Audio On/Off Button
+        @objc
+        public static let AudioButton = CreativeAttribute(15)
+        
+        /// Ad Provides Skip Button (e.g. VPAID-rendered skip button on pre-roll video)
+        @objc
+        public static let SkipButton = CreativeAttribute(16)
+        
+        /// Adobe Flash
+        @objc
+        public static let AdobeFlash = CreativeAttribute(17)
     }
 }

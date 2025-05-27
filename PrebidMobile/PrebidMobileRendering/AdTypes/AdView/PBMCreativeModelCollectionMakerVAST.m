@@ -15,8 +15,6 @@
 
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMVastCreativeCompanionAdsCompanion.h"
-#import "PBMCreativeModel.h"
-#import "PBMTrackingEvent.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMVastInlineAd.h"
 #import "PBMVastParser.h"
@@ -24,8 +22,6 @@
 #import "PBMAdRequestResponseVAST.h"
 #import "PBMVastCreativeCompanionAds.h"
 #import "PBMFunctions+Private.h"
-#import "PBMError.h"
-#import "PBMAdModelEventTracker.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

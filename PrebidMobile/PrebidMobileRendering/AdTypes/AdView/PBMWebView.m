@@ -19,19 +19,13 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 #import "PBMAbstractCreative.h"
-#import "PBMCreativeModel.h"
-#import "PBMError.h"
 #import "PBMFunctions+Private.h"
-#import "PBMInterstitialDisplayProperties.h"
-#import "PBMLocationManager.h"
 #import "PBMMRAIDController.h"
 #import "PBMMRAIDJavascriptCommands.h"
 #import "PBMMacros.h"
-#import "PBMNSThreadProtocol.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMORTB.h"
 #import "PBMTouchDownRecognizer.h"
-#import "PBMViewExposure.h"
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMWKScriptMessageHandlerLeakAvoider.h"
 #import "UIView+PBMExtensions.h"
@@ -204,7 +198,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 - (void)loadHTML:(nonnull NSString *)html
          baseURL:(nullable NSURL *)baseURL
          injectMraidJs:(BOOL)injectMraidJs
-   currentThread:(id<PBMNSThreadProtocol>)currentThread {
+   currentThread:(id<PBMThreadProtocol>)currentThread {
     if (!html) {
         PBMLogError(@"Input HTML is nil");
         return;
@@ -239,7 +233,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     [self expand:url currentThread:NSThread.currentThread];
 }
 
-- (void)expand:(nonnull NSURL *)url currentThread:(id<PBMNSThreadProtocol>)currentThread {
+- (void)expand:(nonnull NSURL *)url currentThread:(id<PBMThreadProtocol>)currentThread {
     if (!url) {
         PBMLogError(@"Could not expand with nil url");
         return;
@@ -287,7 +281,8 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 
 #pragma mark - WKNavigationDelegate
 
-- (void) webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                                                     decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     
     //If there's no URL, bail
     NSURL *url = navigationAction.request.URL;
@@ -308,6 +303,21 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
         });
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
+    }
+    
+    // Identify and process rewarded events
+    if (self.rewardedAdURL) {
+        if ([url.absoluteString isEqualToString:self.rewardedAdURL]) {
+            @weakify(self);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (!self) { return; }
+                [self.delegate webView:self receivedRewardedEventLink:url];
+            });
+            
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
     }
 
     //If this is the first URL, allow it.
@@ -381,7 +391,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 }
 
 static PBMError *extracted(NSString *errorMessage) {
-    return [PBMError errorWithMessage:PBMErrorTypeInternalError type:errorMessage];
+    return [PBMError errorWithMessage:errorMessage type:PBMErrorType.internalError];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
@@ -465,13 +475,13 @@ static PBMError *extracted(NSString *errorMessage) {
 - (BOOL)injectMRAIDForExpandContent:(BOOL)isForExpandContent error:(NSError **)error {
     NSString *mraidScript = [self.libraryManager getMRAIDLibrary];
     if (!mraidScript) {
-        [PBMError createError:error message:@"Could not load mraid.js from library manager" type:PBMErrorTypeInternalError];
+        [PBMError createError:error message:@"Could not load mraid.js from library manager" type:PBMErrorType.internalError];
         return false;
     }
     
     //Execute mraid.js
     @weakify(self);
-    WKUserScript *script = [[WKUserScript alloc] initWithSource:mraidScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    WKUserScript *script = [[WKUserScript alloc] initWithSource:mraidScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
     [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:mraidScript completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         @strongify(self);
@@ -681,7 +691,7 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 // updates the viewable flag in mraid.js
-- (void)MRAID_onExposureChange:(PBMViewExposure *)viewExposure {
+- (void)MRAID_onExposureChange:(id<PBMViewExposure>)viewExposure {
     BOOL const newViewable = viewExposure.exposureFactor > 0;
     if (self.isViewable != newViewable) {
         self.viewable = newViewable;
@@ -835,7 +845,7 @@ static PBMError *extracted(NSString *errorMessage) {
 //TODO: There is almost certainly a way to do this that is more industry-standard and less processor-intensive.
 - (void)pollForViewability {
     @weakify(self);
-    self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc]initWithView:self pollingTimeInterval:0.2f onExposureChange:^(PBMCreativeViewabilityTracker *tracker, PBMViewExposure * _Nonnull viewExposure) {
+    self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc]initWithView:self pollingTimeInterval:0.2f onExposureChange:^(PBMCreativeViewabilityTracker *tracker, id<PBMViewExposure> _Nonnull viewExposure) {
         @strongify(self);
         if (!self) { return; }
 

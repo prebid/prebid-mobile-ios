@@ -18,7 +18,7 @@
 
 @implementation UIView (PBMViewExposure)
 
-- (PBMViewExposure *)viewExposure {
+- (id<PBMViewExposure>)viewExposure {
     return [PBMViewExposureChecker exposureOfView:self];
 }
 

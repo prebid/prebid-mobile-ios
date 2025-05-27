@@ -14,49 +14,58 @@
   */
 import Foundation
 
+/// Base class for interstitial ads in Mediation API.
 @objcMembers
 public class MediationBaseInterstitialAdUnit : NSObject {
     
+    /// Parameters for configuring banner ads.
     public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
     }
     
+    /// Parameters for configuring video ads.
     public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
+    /// The position of the ad on the screen.
+    public var adPosition: AdPosition {
+        get { adUnitConfig.adPosition }
+        set { adUnitConfig.adPosition = newValue }
+    }
+    
+    /// Indicates whether the video ad is muted.
     public var isMuted: Bool {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
     }
 
+    /// Indicates whether the sound button is visible in the video ad.
     public var isSoundButtonVisible: Bool {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
-
+    
+    /// The area for the close button in the video ad.
     public var closeButtonArea: Double {
         get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea }
         set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea = newValue }
     }
-
+    
+    /// The position of the close button in the video ad.
     public var closeButtonPosition: Position {
         get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition }
         set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition = newValue }
     }
     
-    public var ortbConfig: String? {
-        get { adUnitConfig.ortbConfig }
-        set { adUnitConfig.ortbConfig = newValue }
-    }
-
-    let adUnitConfig: AdUnitConfig
-    
+    /// The configuration ID for the ad unit.
     public var configId: String {
         adUnitConfig.configId
     }
     
-    var bidRequester: PBMBidRequester?
+    let adUnitConfig: AdUnitConfig
+    
+    var bidRequester: BidRequester?
     
     var completion: ((ResultCode) -> Void)?
     
@@ -72,8 +81,12 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         
         super.init()
         videoParameters.placement = .Interstitial
+        videoParameters.plcmnt = .Interstitial
     }
     
+    /// Makes bid request and setups mediation parameters.
+    /// - Parameters:
+    ///   - completion: A closure called with the result code indicating the outcome of the demand fetch.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         fetchDemand(connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
@@ -81,118 +94,20 @@ public class MediationBaseInterstitialAdUnit : NSObject {
                     completion: completion)
     }
     
-    // MARK: - Ext Data (imp[].ext.data)
+    // MARK: Arbitrary ORTB Configuration
     
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
-    public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addExtData(key: key, value: data)
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
     }
     
-    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
-    public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateExtData(key: key, value: data)
+    /// Returns the impression-level OpenRTB configuration string.
+    public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
     }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
-    public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeExtData(for: key)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
-    public func clearContextData() {
-        adUnitConfig.clearExtData()
-    }
-    
-    public func addExtData(key: String, value: String) {
-        adUnitConfig.addExtData(key: key, value: value)
-    }
-    
-    public func updateExtData(key: String, value: Set<String>) {
-        adUnitConfig.updateExtData(key: key, value: value)
-    }
-    
-    public func removeExtData(forKey: String) {
-        adUnitConfig.removeExtData(for: forKey)
-    }
-    
-    public func clearExtData() {
-        adUnitConfig.clearExtData()
-    }
-    
-    // MARK: - Ext keywords (imp[].ext.keywords)
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
-    @objc public func addContextKeyword(_ newElement: String) {
-        adUnitConfig.addExtKeyword(newElement)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
-    @objc public func addContextKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addExtKeywords(newElements)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
-    @objc public func removeContextKeyword(_ element: String) {
-        adUnitConfig.removeExtKeyword(element)
-    }
-
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
-    @objc public func clearContextKeywords() {
-        adUnitConfig.clearExtKeywords()
-    }
-    
-    public func addExtKeyword(_ newElement: String) {
-        adUnitConfig.addExtKeyword(newElement)
-    }
-    
-    public func addExtKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addExtKeywords(newElements)
-    }
-    
-    public func removeExtKeyword(_ element: String) {
-        adUnitConfig.removeExtKeyword(element)
-    }
-    
-    public func clearExtKeywords() {
-        adUnitConfig.clearExtKeywords()
-    }
-    
-    // MARK: - App Content (app.content.data)
-    
-    public func setAppContent(_ appContent: PBMORTBAppContent) {
-        adUnitConfig.setAppContent(appContent)
-    }
-    
-    public func clearAppContent() {
-        adUnitConfig.clearAppContent()
-    }
-    
-    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addAppContentData(dataObjects)
-    }
-
-    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
-        adUnitConfig.removeAppContentData(dataObject)
-    }
-    
-    public func clearAppContentDataObjects() {
-        adUnitConfig.clearAppContentData()
-    }
-    
-    // MARK: - User Data (user.data)
-    
-    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addUserData(userDataObjects)
-    }
-    
-    public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        adUnitConfig.removeUserData(userDataObject)
-    }
-    
-    public func clearUserData() {
-        adUnitConfig.clearUserData()
-    }
-    
+        
     // MARK: - Internal Methods
     
     // NOTE: do not use `private` to expose this method to unit tests
@@ -209,10 +124,10 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         
         mediationDelegate.cleanUpAdObject()
         
-        bidRequester = PBMBidRequester(connection: connection,
-                                       sdkConfiguration: sdkConfiguration,
-                                       targeting: targeting,
-                                       adUnitConfiguration: adUnitConfig)
+        bidRequester = Factory.createBidRequester(connection: connection,
+                                                  sdkConfiguration: sdkConfiguration,
+                                                  targeting: targeting,
+                                                  adUnitConfiguration: adUnitConfig)
         
         bidRequester?.requestBids(completion: { [weak self] (bidResponse, error) in
             if let response = bidResponse {

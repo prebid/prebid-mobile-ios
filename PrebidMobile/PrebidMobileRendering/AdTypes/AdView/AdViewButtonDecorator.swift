@@ -27,7 +27,7 @@ public class AdViewButtonDecorator: NSObject {
     
     public var isMRAID: Bool
     
-    public var buttonTouchUpInsideBlock: PBMVoidBlock?
+    public var buttonTouchUpInsideBlock: VoidBlock?
     
     public override init() {
         button = UIButton()

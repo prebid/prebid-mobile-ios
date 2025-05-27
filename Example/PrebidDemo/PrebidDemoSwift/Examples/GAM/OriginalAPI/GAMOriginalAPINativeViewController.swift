@@ -22,13 +22,13 @@ fileprivate let gamRenderingNativeAdUnitId = "/21808260008/apollo_custom_templat
 
 class GAMOriginalAPINativeViewController:
     NativeBaseViewController,
-    GADAdLoaderDelegate,
-    GADCustomNativeAdLoaderDelegate,
-    NativeAdDelegate {
+    AdLoaderDelegate,
+    CustomNativeAdLoaderDelegate,
+    PrebidMobile.NativeAdDelegate {
     
     // Prebid
     private var nativeUnit: NativeRequest!
-    private var nativeAd: NativeAd!
+    private var nativeAd: PrebidMobile.NativeAd!
     
     private var nativeRequestAssets: [NativeAsset] {
         let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
@@ -50,8 +50,8 @@ class GAMOriginalAPINativeViewController:
     }
     
     // GAM
-    private let gamRequest = GAMRequest()
-    private var adLoader: GADAdLoader!
+    private let gamRequest = AdManagerRequest()
+    private var adLoader: AdLoader!
     
     override func loadView() {
         super.loadView()
@@ -74,8 +74,12 @@ class GAMOriginalAPINativeViewController:
             guard let self = self else { return }
             
             //4. Configure and make a GAM ad request
-            self.adLoader = GADAdLoader(adUnitID: gamRenderingNativeAdUnitId,rootViewController: self,
-                                        adTypes: [GADAdLoaderAdType.customNative], options: [])
+            self.adLoader = AdLoader(
+                adUnitID: gamRenderingNativeAdUnitId,
+                rootViewController: self,
+                adTypes: [AdLoaderAdType.customNative],
+                options: []
+            )
             self.adLoader.delegate = self
             self.adLoader.load(self.gamRequest)
         }
@@ -84,24 +88,24 @@ class GAMOriginalAPINativeViewController:
     
     // MARK: GADCustomNativeAdLoaderDelegate
     
-    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
+    func customNativeAdFormatIDs(for adLoader: AdLoader) -> [String] {
         ["11934135"]
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
+    func adLoader(_ adLoader: AdLoader, didReceive customNativeAd: CustomNativeAd) {
         Utils.shared.delegate = self
         Utils.shared.findNative(adObject: customNativeAd)
     }
     
     // MARK: GADAdLoaderDelegate
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+    func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
         PrebidDemoLogger.shared.error("GAM did fail to receive ad with error: \(error)")
     }
     
     // MARK: - NativeAdDelegate
     
-    func nativeAdLoaded(ad: NativeAd) {
+    func nativeAdLoaded(ad: PrebidMobile.NativeAd) {
         nativeAd = ad
         titleLabel.text = ad.title
         bodyLabel.text = ad.text

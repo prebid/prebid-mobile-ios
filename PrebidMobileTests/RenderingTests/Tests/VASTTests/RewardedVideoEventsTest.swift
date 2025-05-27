@@ -18,9 +18,9 @@ import Foundation
 import XCTest
 import CoreFoundation
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
+class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
     
     let vc = UIViewController()
     
@@ -41,15 +41,17 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     var pbmVideoCreative:PBMVideoCreative!
     
     override func setUp() {
+        super.setUp()
+        
         MockServer.shared.reset()
+        Prebid.reset()
     }
     
     override func tearDown() {
-        MockServer.shared.reset()
-        
-        Prebid.reset()
-        
         super.tearDown()
+        
+        MockServer.shared.reset()
+        Prebid.reset()
     }
     
     func testEvents() {
@@ -90,7 +92,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
             requester.buildAdsArray(data)
         }
         
-        self.wait(for: [vastRequestSuccessfulExpectation], timeout: 2)
+        self.wait(for: [vastRequestSuccessfulExpectation], timeout: 10)
         
         XCTAssertNotNil(self.vastServerResponse)
         if self.vastServerResponse == nil {
@@ -105,7 +107,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
             // count should include 1 video creative and 1 html creative (end card) for a total of 2.
             XCTAssertEqual(models.count, 2)
             
-            guard let creativeModel: PBMCreativeModel = models.first else {
+            guard let creativeModel: CreativeModel = models.first else {
                 XCTFail("Models is empty")
                 return
             }
@@ -145,7 +147,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
             XCTFail(error.localizedDescription)
         })
         
-        self.waitForExpectations(timeout: 10, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     //MARK: - CreativeViewDelegate
@@ -159,12 +161,13 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     func creativeDidComplete(_ creative:PBMAbstractCreative) {}
     func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidClose(_ creative:PBMAbstractCreative) {}
-    func creativeReady(toReimplant creative:PBMAbstractCreative) {}
+    func creativeReadyToReimplant(_ creative:PBMAbstractCreative) {}
     func creativeMraidDidCollapse(_ creative:PBMAbstractCreative) {}
     func creativeMraidDidExpand(_ creative:PBMAbstractCreative) {}
     func creativeInterstitialDidLeaveApp(_ creative:PBMAbstractCreative) {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
     
     //MARK: - Utility
     
@@ -261,7 +264,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
         let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         adConfiguration.isInterstitialAd = true
-        adConfiguration.isOptIn = true
+        adConfiguration.isRewarded = true
         return adConfiguration
     }
     

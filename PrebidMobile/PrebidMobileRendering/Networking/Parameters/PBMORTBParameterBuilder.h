@@ -15,9 +15,10 @@
 
 #import <Foundation/Foundation.h>
 #import "PBMParameterBuilderProtocol.h"
+#import "PrebidMobileSwiftHeaders.h"
 
 @interface PBMORTBParameterBuilder : NSObject
 
-+ (NSDictionary<NSString *, NSString *> *)buildOpenRTBFor:(PBMORTBBidRequest *)bidRequest;
++ (NSDictionary<NSString *, NSString *> *)buildOpenRTBFor:(PBMJsonDictionary *)ortbJsonDictionary;
 
 @end

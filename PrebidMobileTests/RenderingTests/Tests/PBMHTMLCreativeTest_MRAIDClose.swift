@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 
 // DESCRIPTION
@@ -23,7 +23,7 @@ import XCTest
 // Using it from unit tests does not allow to call modalManagerDidFinishPop from the completion of dismissViewControllerAnimated. So this test case is divided into two parts:
 // - tests the MRAID.close() leads to popModal (withMocked modal manager)
 // - tests that modalManagerDidFinishPop leads to creativeReadyToReimplant and default MRAID state (with non mocked modal manager)
-class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
+class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
   
     var creativeReadyToReimplantExpectation: XCTestExpectation!
 
@@ -37,7 +37,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
         let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = true
         
-        let model = PBMCreativeModel(adConfiguration: adConfiguration)
+        let model = CreativeModel(adConfiguration: adConfiguration)
         model.html = "<html>test html</html>"
         
         let transaction = UtilitiesForTesting.createEmptyTransaction()
@@ -62,7 +62,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
         let mockVC = MockViewController()
         
         htmlCreative.setupView()
-        htmlCreative.showAsInterstitial(fromRootViewController: mockVC, displayProperties: PBMInterstitialDisplayProperties())
+        htmlCreative.showAsInterstitial(fromRootViewController: mockVC, displayProperties: InterstitialDisplayProperties())
 
         // RUN TEST
         
@@ -78,7 +78,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
         let mockWebView = MockPBMWebView();
         mockWebView.isViewable = true
         
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
 
         let htmlCreative =  PBMHTMLCreative(
@@ -92,7 +92,9 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
         htmlCreative.creativeViewDelegate = self
         
         let mockVC = MockViewController()
-        let state = PBMModalState(view: mockWebView, adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = Factory.createModalState(view: mockWebView,
+                                             adConfiguration:AdConfiguration(),
+                                             displayProperties:InterstitialDisplayProperties())
         htmlCreative.modalManager!.pushModal(state, fromRootViewController:mockVC, animated:true, shouldReplace:false, completionHandler:nil)
         
         htmlCreative.setupView()
@@ -115,7 +117,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    // MARK: = PBMCreativeViewDelegate
+    // MARK: CreativeViewDelegate
     
     func creativeDidComplete(_ creative: PBMAbstractCreative) {}
     func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
@@ -125,7 +127,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
     func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {}
     
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {
         creativeReadyToReimplantExpectation.fulfill()
     }
     
@@ -133,4 +135,5 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
     func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
 }

@@ -34,14 +34,14 @@ public class VideoParameters: NSObject {
     /// Minimum video ad duration in seconds.
     public var minDuration: SingleContainerInt?
     
-    /**
-     Content MIME types supported.
-     Prebid Server required property.   
+    
+    /// Content MIME types supported.
+    /// Prebid Server required property.
      
-     # Example #
-     * "video/mp4"
-     * "video/x-ms-wmv"
-     */
+    /// # Example #
+    /// "video/mp4"
+    /// "video/x-ms-wmv"
+    ///
     public var mimes: [String]
     
     /// Allowed playback methods. If none specified, assume all are allowed.
@@ -56,28 +56,53 @@ public class VideoParameters: NSObject {
     /// Placement type for the impression.
     public var placement: Signals.Placement?
     
+    /// Placement type for the impression.
+    public var plcmnt: Signals.Plcmnt?
+    
     /// Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed.
     public var linearity: SingleContainerInt?
     
     public var adSize: CGSize?
     
+    /// List of blocked creative attributes.
+    public var battr: [Signals.CreativeAttribute]?
+    
+    public var isSkippable: Bool?
+    
     // MARK: - Helpers
     
+    /// Helper property
     public var rawAPI: [Int]? {
         get {
             api?.toIntArray()
         }
     }
     
+    /// Helper property
     public var rawPlaybackMethod: [Int]? {
         get {
             playbackMethod?.toIntArray()
         }
     }
     
+    /// Helper property
     public var rawProtocols: [Int]? {
         get {
             protocols?.toIntArray()
+        }
+    }
+    
+    /// Helper property
+    public var rawBattrs: [Int]? {
+        get {
+            battr?.removingDuplicates().toIntArray()
+        }
+    }
+
+    public var rawSkippable: NSNumber? {
+        get {
+            guard let isSkippable else { return nil }
+            return NSNumber(value: isSkippable)
         }
     }
     
@@ -86,7 +111,7 @@ public class VideoParameters: NSObject {
         self.mimes = mimes
     }
     
-    // Objective-C API
+    ///  Objective-C API
     public func setSize(_ size: NSValue) {
         adSize = size.cgSizeValue
     }

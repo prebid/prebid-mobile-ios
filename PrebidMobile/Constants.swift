@@ -17,10 +17,6 @@ import UIKit
 
 public let PrebidLocalCacheIdKey = "hb_cache_id_local"
 
-@objc public class Constants: NSObject {
-    @objc public static let PREBID_VERSION = "2.2.2"
-}
-
 extension String {
 
     static let EMPTY_String = ""
@@ -39,6 +35,8 @@ extension String {
     static let GAD_N_Object_Name = "GADNRequest"
     
     static let GAM_Object_Name = "GAMRequest"
+    
+    static let GAD_Object_Custom_Native_Name = "GADCustomNativeAd"
 
     static let MoPub_Object_Name = "MPAdView"
 
@@ -117,4 +115,8 @@ public class PrebidConstants: NSObject {
         </html>
         """
     }
+    
+    public static let PREBID_VERSION = "3.0.1"
+    
+    public static let SDK_NAME = "prebid-mobile-sdk"
 }

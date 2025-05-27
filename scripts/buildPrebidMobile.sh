@@ -19,18 +19,17 @@ echo -e "\n\n${GREEN}PREPARE BUILD ENVIRONMENT${NC}\n\n"
 
 GENERATED_DIR_NAME="generated"
 
-	LOG_DIR="$GENERATED_DIR_NAME/log"
-	LOG_FILE_FRAMEWORK="$LOG_DIR/prebid_mobile_build.log"
-	LOG_FILE_FRAMEWORK_ABSOLUTE="$PWD/$LOG_FILE_FRAMEWORK"
+LOG_DIR="$GENERATED_DIR_NAME/log"
+LOG_FILE_FRAMEWORK="$LOG_DIR/prebid_mobile_build.log"
+LOG_FILE_FRAMEWORK_ABSOLUTE="$PWD/$LOG_FILE_FRAMEWORK"
 
-	XCODE_BUILD_DIR="$GENERATED_DIR_NAME/xcodebuild"
+XCODE_BUILD_DIR="$GENERATED_DIR_NAME/xcodebuild"
 
-	XCODE_ARCHIVE_DIR="$GENERATED_DIR_NAME/archive"
-	XCODE_ARCHIVE_DIR_ABSOLUTE="$PWD/$GENERATED_DIR_NAME/archive"
+XCODE_ARCHIVE_DIR="$GENERATED_DIR_NAME/archive"
+XCODE_ARCHIVE_DIR_ABSOLUTE="$PWD/$GENERATED_DIR_NAME/archive"
 
-	OUTPUT_DIR="$GENERATED_DIR_NAME/output"
-	OUTPUT_DIR_ABSOLUTE="$PWD/$OUTPUT_DIR"
-
+OUTPUT_DIR="$GENERATED_DIR_NAME/output"
+OUTPUT_DIR_ABSOLUTE="$PWD/$OUTPUT_DIR"
 
 # If remnants from a previous build exist, delete them.
 if [ -d "$GENERATED_DIR_NAME" ]; then
@@ -60,6 +59,7 @@ do
 	only_active_arch=NO \
 	defines_module=YES \
 	SKIP_INSTALL=NO \
+	BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
 	-workspace PrebidMobile.xcworkspace \
 	-scheme "${schemes[$n]}" \
 	-configuration Release \
@@ -75,10 +75,10 @@ do
 	only_active_arch=NO \
 	defines_module=YES \
 	SKIP_INSTALL=NO \
+	BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
 	-workspace PrebidMobile.xcworkspace \
 	-scheme "${schemes[$n]}" \
 	-configuration Release \
-	-arch x86_64 \
 	-sdk "iphonesimulator" \
 	-derivedDataPath $XCODE_BUILD_DIR \
 	-archivePath "$XCODE_ARCHIVE_DIR/${schemes[$n]}$POSTFIX_SIMULATOR.xcarchive" \

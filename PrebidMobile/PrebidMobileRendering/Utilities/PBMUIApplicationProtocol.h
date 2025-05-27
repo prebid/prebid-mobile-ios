@@ -25,7 +25,8 @@
 @property (nonatomic, assign) UIInterfaceOrientation statusBarOrientation;
 @property (nonatomic, assign, readonly) CGRect statusBarFrame;
 
-- (BOOL)openURL:(nonnull NSURL*)url NS_DEPRECATED_IOS(2_0, 10_0, "Please use openURL:options:completionHandler: instead") NS_EXTENSION_UNAVAILABLE_IOS("");
+- (BOOL)openURL:(nonnull NSURL*)url NS_SWIFT_NAME(openURL(url:)) NS_DEPRECATED_IOS(2_0, 10_0, "Please use openURL:options:completionHandler: instead") NS_EXTENSION_UNAVAILABLE_IOS("");
+
 - (void)openURL:(nonnull NSURL*)url options:(nullable NSDictionary<NSString *, id> *)options completionHandler:(void (^ __nullable)(BOOL success))completion NS_AVAILABLE_IOS(10_0) NS_EXTENSION_UNAVAILABLE_IOS("");
 
 @end

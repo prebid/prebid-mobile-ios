@@ -18,17 +18,19 @@ import PrebidMobile
 import GoogleMobileAds
 import PrebidMobileAdMobAdapters
 
-fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480"
-fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/7397370641"
+fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
+fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/5628505938"
 
-class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
+class AdMobVideoRewardedViewController:
+    InterstitialBaseViewController,
+    FullScreenContentDelegate {
     
     // Prebid
     private var mediationDelegate: AdMobMediationRewardedUtils!
     private var admobRewardedAdUnit: MediationRewardedAdUnit!
     
     // AdMob
-    private var gadRewardedAd: GADRewardedAd?
+    private var gadRewardedAd: RewardedAd?
     
     override func loadView() {
         super.loadView()
@@ -37,14 +39,17 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
     }
     
     func createAd() {
-        // 1. Create a GADRequest
-        let request = GADRequest()
+        // 1. Create a Request
+        let request = Request()
         
         // 2. Create an AdMobMediationRewardedUtils
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
         
         // 3. Create a MediationRewardedAdUnit
-        admobRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
+        admobRewardedAdUnit = MediationRewardedAdUnit(
+            configId: storedImpVideoRewarded,
+            mediationDelegate: mediationDelegate
+        )
         
         // 4. Make a bid request to Prebid Server
         admobRewardedAdUnit.fetchDemand { [weak self] result in
@@ -52,7 +57,7 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
             
             // 5. Load the rewarded ad
-            GADRewardedAd.load(withAdUnitID: adMobAdUnitRewardedId, request: request) { [weak self] ad, error in
+            RewardedAd.load(with: adMobAdUnitRewardedId, request: request) { [weak self] ad, error in
                 guard let self = self else { return }
                 
                 if let error = error {
@@ -64,7 +69,12 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
                 self.gadRewardedAd = ad
                 self.gadRewardedAd?.fullScreenContentDelegate = self
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-                    self.gadRewardedAd?.present(fromRootViewController: self, userDidEarnRewardHandler: {})
+                    self.gadRewardedAd?.present(
+                        from: self,
+                        userDidEarnRewardHandler: {
+                            print("User did earn reward.")
+                        }
+                    )
                 }
             }
         }
@@ -72,7 +82,7 @@ class AdMobVideoRewardedViewController: InterstitialBaseViewController, GADFullS
     
     // MARK: - GADFullScreenContentDelegate
     
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         PrebidDemoLogger.shared.error("AdMob did fail to receive ad with error: \(error.localizedDescription)")
     }
 }

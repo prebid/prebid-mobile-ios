@@ -15,134 +15,249 @@
 
 import UIKit
 
-@objc
-public class RewardedAdUnit: BaseInterstitialAdUnit,
-                             RewardedEventInteractionDelegate {
-   
-    @objc public private(set) var reward: NSObject?
+/// Represents an rewarded ad unit. Built for rendering type of integration.
+@objc @objcMembers
+public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     
-    // MARK: - Lifecycle
+    /// A delegate for handling interactions with the ad unit.
+    public weak var delegate: RewardedAdUnitDelegate?
     
-    @objc public convenience init(configID: String, eventHandler: AnyObject) {
+    /// A Boolean value indicating whether the ad unit is ready to be displayed.
+    public var isReady: Bool {
+        baseAdUnit.isReady
+    }
+    
+    /// The set of ad formats supported by this ad unit.
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
+    }
+    
+    /// The position of the ad on the screen.
+    public var adPosition: AdPosition {
+        get { adUnitConfig.adPosition }
+        set { adUnitConfig.adPosition = newValue }
+    }
+    
+    /// The banner parameters used for configuring ad unit.
+    public var bannerParameters: BannerParameters {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+    }
+    
+    /// The video parameters used for configuring ad unit.
+    public var videoParameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+    }
+    
+    // MARK: - SKAdNetwork
+    
+    /// A flag that determines whether SKOverlay should be supported
+    public var supportSKOverlay: Bool {
+        get { adUnitConfig.adConfiguration.supportSKOverlay }
+        set { adUnitConfig.adConfiguration.supportSKOverlay = newValue }
+    }
+    
+    // MARK: - Video controls configuration
+    
+    /// The area of the close button in the video controls as a percentage.
+    public var closeButtonArea: Double {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea = newValue }
+    }
+    
+    /// The position of the close button in the video controls.
+    public var closeButtonPosition: Position {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition = newValue }
+    }
+    
+    /// A Boolean value indicating whether the video controls are muted.
+    public var isMuted: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
+    }
+    
+    /// A Boolean value indicating whether the sound button is visible in the video controls.
+    public var isSoundButtonVisible: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
+    }
+    
+    // MARK: Internal Properties
+    
+    // Note: exposed for tests
+    var adUnitConfig: AdUnitConfig {
+        baseAdUnit.adUnitConfig
+    }
+    
+    // MARK: Private properties
+    
+    private let baseAdUnit: BaseRewardedAdUnit
+    
+    private var eventHandler: PrimaryAdRequesterProtocol {
+        baseAdUnit.eventHandler
+    }
+    
+    /// Initializes a new `BaseInterstitialAdUnit` with the specified configuration ID.
+    /// - Parameter configID: The unique identifier for the ad unit configuration.
+    public convenience init(configID: String) {
         self.init(
             configID: configID,
             minSizePerc: nil,
-            eventHandler: eventHandler)
+            primaryAdRequester: RewardedEventHandlerStandalone()
+        )
     }
-
-    @objc public convenience init(configID: String) {
+    
+    /// Initializes a new `InterstitialRenderingAdUnit` with the specified configuration ID and minimum size percentage.
+    /// - Parameters:
+    ///   - configID: The unique identifier for the ad unit configuration.
+    ///   - minSizePercentage: The minimum size percentage for the ad unit.
+    public convenience init(configID: String, minSizePercentage: CGSize) {
+        self.init(
+            configID: configID,
+            minSizePerc: NSValue(cgSize: minSizePercentage),
+            primaryAdRequester: RewardedEventHandlerStandalone()
+        )
+    }
+    
+    /// Initializes a new `InterstitialRenderingAdUnit` with the specified configuration ID and event handler.
+    /// - Parameters:
+    ///   - configID: The unique identifier for the ad unit configuration.
+    ///   - eventHandler: An object for handling ad events.
+    public convenience init(configID: String, eventHandler: AnyObject?) {
         self.init(
             configID: configID,
             minSizePerc: nil,
-            eventHandler: RewardedEventHandlerStandalone())
+            primaryAdRequester: (eventHandler as? PrimaryAdRequesterProtocol) ?? RewardedEventHandlerStandalone()
+        )
     }
     
-    @objc required init(configID:String, minSizePerc: NSValue?, eventHandler: AnyObject?) {
-        super.init(
+    /// Initializes a new `InterstitialRenderingAdUnit` with the specified configuration ID, minimum size percentage, and event handler.
+    /// - Parameters:
+    ///   - configID: The unique identifier for the ad unit configuration.
+    ///   - minSizePercentage: The minimum size percentage for the ad unit.
+    ///   - eventHandler: An object for handling ad events.
+    public convenience init(
+        configID: String,
+        minSizePercentage: CGSize,
+        eventHandler: AnyObject
+    ) {
+        self.init(
+            configID: configID,
+            minSizePerc: NSValue(cgSize: minSizePercentage),
+            primaryAdRequester: (eventHandler as? PrimaryAdRequesterProtocol) ?? RewardedEventHandlerStandalone()
+        )
+    }
+    
+    required init(
+        configID: String,
+        minSizePerc: NSValue?,
+        primaryAdRequester: PrimaryAdRequesterProtocol
+    ) {
+        baseAdUnit = BaseRewardedAdUnit(
             configID: configID,
             minSizePerc: minSizePerc,
-            eventHandler: eventHandler)
+            eventHandler: primaryAdRequester
+        )
         
-        adUnitConfig.adConfiguration.isOptIn = true
-        adFormats = [.video]
+        super.init()
+        
+        baseAdUnit.delegate = self
     }
     
-    // MARK: - PBMRewardedEventDelegate
-    @objc public func userDidEarnReward(_ reward: NSObject?) {
-        DispatchQueue.main.async(execute: { [weak self] in
-            self?.reward = reward
-            self?.callDelegate_rewardedAdUserDidEarnReward()
-        })
+    // MARK: - Public methods
+    
+    /// Loads a new ad.
+    public func loadAd() {
+        baseAdUnit.loadAd()
     }
     
-    // MARK: - BaseInterstitialAdUnitProtocol protocol
-    
-    @objc public override func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
-        callDelegate_rewardedAdUserDidEarnReward()
-        super.interstitialControllerDidCloseAd(interstitialController)
-    }
-
-    // MARK: - Protected overrides
-    
-    @objc public override func callDelegate_didReceiveAd() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdDidReceiveAd?(self)
-        }
-    }
-
-    @objc public override func callDelegate_didFailToReceiveAd(with error: Error?) {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAd?(self, didFailToReceiveAdWithError: error)
-        }
+    /// Shows the ad from a specified view controller.
+    /// - Parameter controller: The view controller from which the ad will be presented.
+    /// - Note: This method must be called on the main thread.
+    public func show(from controller: UIViewController) {
+        baseAdUnit.show(from: controller)
     }
     
-    @objc public override func callDelegate_willPresentAd() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdWillPresentAd?(self)
-        }
+    // MARK: Arbitrary ORTB Configuration
+    
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
     }
-
-    @objc public override func callDelegate_didDismissAd() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdDidDismissAd?(self)
-        }
+    
+    /// Returns the impression-level OpenRTB configuration string.
+    public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
     }
-
-    @objc public override func callDelegate_willLeaveApplication() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdWillLeaveApplication?(self)
-        }
+    
+    // MARK: - Internal methods
+    
+    func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+        baseAdUnit.interstitialControllerDidCloseAd(interstitialController)
     }
-
-    @objc public override func callDelegate_didClickAd() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdDidClickAd?(self)
+    
+    func callDelegate_didReceiveAd() {
+        delegate?.rewardedAdDidReceiveAd?(self)
+    }
+    
+    func callDelegate_didFailToReceiveAd(with error: Error?) {
+        delegate?.rewardedAd?(self, didFailToReceiveAdWithError: error)
+    }
+    
+    func callDelegate_willPresentAd() {
+        delegate?.rewardedAdWillPresentAd?(self)
+    }
+    
+    func callDelegate_didDismissAd() {
+        delegate?.rewardedAdDidDismissAd?(self)
+    }
+    
+    func callDelegate_willLeaveApplication() {
+        delegate?.rewardedAdWillLeaveApplication?(self)
+    }
+    
+    func callDelegate_didClickAd() {
+        delegate?.rewardedAdDidClickAd?(self)
+    }
+    
+    func callEventHandler_isReady() -> Bool {
+        (eventHandler as? RewardedEventHandlerProtocol)?.isReady ?? false
+    }
+    
+    func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
+            eventHandler.loadingDelegate = loadingDelegate as? InterstitialEventLoadingDelegate
         }
     }
     
-    @objc public override func callEventHandler_isReady() -> Bool {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
-            return eventHandler.isReady
-        } else {
-            return false
+    func callEventHandler_setInteractionDelegate() {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
+            eventHandler.interactionDelegate = baseAdUnit
         }
     }
-
-    @objc public override func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
-            eventHandler.loadingDelegate = loadingDelegate as? RewardedEventLoadingDelegate
-        }
-    }
-
-    @objc public override func callEventHandler_setInteractionDelegate() {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
-            eventHandler.interactionDelegate = self
-        }
-    }
-
-    @objc public override func callEventHandler_requestAd(with bidResponse: BidResponse?) {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
+    
+    func callEventHandler_requestAd(with bidResponse: BidResponse?) {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.requestAd(with: bidResponse)
         }
     }
-
-    @objc public override func callEventHandler_show(from controller: UIViewController?) {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
+    
+    func callEventHandler_show(from controller: UIViewController?) {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.show(from: controller)
         }
     }
-
-    @objc public override func callEventHandler_trackImpression() {
-        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
+    
+    func callEventHandler_trackImpression() {
+        if let eventHandler = eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.trackImpression?()
         }
     }
     
-    // MARK: - Private helpers
-    
-    func callDelegate_rewardedAdUserDidEarnReward() {
-        if let delegate = self.delegate as? RewardedAdUnitDelegate {
-            delegate.rewardedAdUserDidEarnReward?(self)
-        }
+    func callDelegate_rewardedAdUserDidEarnReward(reward: PrebidReward) {
+        delegate?.rewardedAdUserDidEarnReward?(self, reward: reward)
     }
 }

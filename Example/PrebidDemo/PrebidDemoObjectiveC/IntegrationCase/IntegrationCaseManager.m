@@ -30,11 +30,14 @@
 #import "GAMOriginalAPIMultiformatNativeStylesViewController.h"
 
 #import "InAppDisplayBannerViewController.h"
+#import "InAppDisplayBannerPluginRendererViewController.h"
 #import "InAppVideoBannerViewController.h"
 #import "InAppDisplayInterstitialViewController.h"
+#import "InAppDisplayInterstitialPluginRendererViewController.h"
 #import "InAppVideoInterstitialViewController.h"
 #import "InAppVideoInterstitialVerticalViewController.h"
 #import "InAppVideoInterstitialLandscapeViewController.h"
+#import "InAppDisplayRewardedViewController.h"
 #import "InAppVideoRewardedViewController.h"
 #import "InAppNativeViewController.h"
 
@@ -42,6 +45,7 @@
 #import "GAMVideoBannerViewController.h"
 #import "GAMDisplayInterstitialViewController.h"
 #import "GAMVideoInterstitialViewController.h"
+#import "GAMDisplayRewardedViewController.h"
 #import "GAMVideoRewardedViewController.h"
 #import "GAMNativeViewController.h"
 
@@ -49,6 +53,7 @@
 #import "AdMobVideoBannerViewController.h"
 #import "AdMobDisplayInterstitialViewController.h"
 #import "AdMobVideoInterstitialViewController.h"
+#import "AdMobDisplayRewardedViewController.h"
 #import "AdMobVideoRewardedViewController.h"
 #import "AdMobNativeViewController.h"
 
@@ -56,6 +61,7 @@
 #import "MAXVideoBannerViewController.h"
 #import "MAXDisplayInterstitialViewController.h"
 #import "MAXVideoInterstitialViewController.h"
+#import "MAXDisplayRewardedViewController.h"
 #import "MAXVideoRewardedViewController.h"
 #import "MAXNativeViewController.h"
 
@@ -198,6 +204,16 @@
         
         [
             [IntegrationCase alloc]
+            initWithTitle:@"In-App Display Banner Plugin Renderer 320x50"
+            integrationKind:IntegrationKindInApp
+            adFormat:AdFormatDisplayBanner
+            configurationClosure:^UIViewController *{
+                return [[InAppDisplayBannerPluginRendererViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
             initWithTitle:@"In-App Video Banner 300x250"
             integrationKind:IntegrationKindInApp
             adFormat:AdFormatVideoBanner
@@ -213,6 +229,16 @@
             adFormat:AdFormatDisplayInterstitial
             configurationClosure:^UIViewController *{
                 return [[InAppDisplayInterstitialViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
+            initWithTitle:@"In-App Display Interstitial Plugin Renderer 320x480"
+            integrationKind:IntegrationKindInApp
+            adFormat:AdFormatDisplayInterstitial
+            configurationClosure:^UIViewController *{
+                return [[InAppDisplayInterstitialPluginRendererViewController alloc] init];
             }
         ],
           
@@ -243,6 +269,16 @@
             adFormat:AdFormatVideoInterstitial
             configurationClosure:^UIViewController *{
                 return [[InAppVideoInterstitialLandscapeViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
+            initWithTitle:@"In-App Banner Rewarded 320x480"
+            integrationKind:IntegrationKindInApp
+            adFormat:AdFormatVideoRewarded
+            configurationClosure:^UIViewController *{
+                return [[InAppDisplayRewardedViewController alloc] init];
             }
         ],
         
@@ -308,6 +344,16 @@
         
         [
             [IntegrationCase alloc]
+            initWithTitle:@"GAM Display Rewarded 320x480"
+            integrationKind:IntegrationKindGAM
+            adFormat:AdFormatDisplayRewarded
+            configurationClosure:^UIViewController *{
+                return [[GAMDisplayRewardedViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
             initWithTitle:@"GAM Video Rewarded 320x480"
             integrationKind:IntegrationKindGAM
             adFormat:AdFormatVideoRewarded
@@ -368,6 +414,16 @@
         
         [
             [IntegrationCase alloc]
+            initWithTitle:@"AdMob Display Rewarded 320x480"
+            integrationKind:IntegrationKindAdMob
+            adFormat:AdFormatDisplayRewarded
+            configurationClosure:^UIViewController *{
+                return [[AdMobDisplayRewardedViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
             initWithTitle:@"AdMob Video Rewarded 320x480"
             integrationKind:IntegrationKindAdMob
             adFormat:AdFormatVideoRewarded
@@ -423,6 +479,16 @@
             adFormat:AdFormatVideoInterstitial
             configurationClosure:^UIViewController *{
                 return [[MAXVideoInterstitialViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
+            initWithTitle:@"MAX Display Rewarded 320x480"
+            integrationKind:IntegrationKindMAX
+            adFormat:AdFormatDisplayRewarded
+            configurationClosure:^UIViewController *{
+                return [[MAXDisplayRewardedViewController alloc] init];
             }
         ],
         

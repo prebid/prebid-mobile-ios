@@ -15,6 +15,13 @@
 
 #import "PBMORTBBidRequestExtPrebid.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
+
 @implementation PBMORTBBidRequestExtPrebid : PBMORTBAbstract
 
 - (instancetype)init {
@@ -41,6 +48,11 @@
     PBMMutableJsonDictionary * const storedRequest = [PBMMutableJsonDictionary new];
     ret[@"storedrequest"] = storedRequest;
     storedRequest[@"id"] = self.storedRequestID;
+    
+    if (self.sdkRenderers != nil && self.sdkRenderers.count > 0) {
+        NSDictionary * sdk = @{ @"renderers" : self.sdkRenderers };
+        ret[@"sdk"] = sdk;
+    }
     
     ret[@"targeting"] = self.targeting;
     

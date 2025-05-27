@@ -20,13 +20,15 @@ import GoogleMobileAds
 fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480-original-api"
 fileprivate let gamAdUnitVideoRewardedOriginal = "/21808260008/prebid-demo-app-original-api-video-interstitial"
 
-class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController, GADFullScreenContentDelegate {
+class GAMOriginalAPIVideoRewardedViewController:
+    InterstitialBaseViewController,
+    FullScreenContentDelegate {
     
     // Prebid
     private var adUnit: RewardedVideoAdUnit!
     
     // GAM
-    private let gamRequest = GAMRequest()
+    private let gamRequest = AdManagerRequest()
     
     override func loadView() {
         super.loadView()
@@ -49,14 +51,14 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
             PrebidDemoLogger.shared.info("Prebid demand fetch for GAM \(resultCode.name())")
             
             // 4. Load the GAM rewarded ad
-            GADRewardedAd.load(withAdUnitID: gamAdUnitVideoRewardedOriginal, request: self?.gamRequest) { [weak self] ad, error in
+            RewardedAd.load(with: gamAdUnitVideoRewardedOriginal, request: self?.gamRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     PrebidDemoLogger.shared.error("Failed to load rewarded ad with error: \(error.localizedDescription)")
                 } else if let ad = ad {
                     // 5. Present the interstitial ad
                     ad.fullScreenContentDelegate = self
-                    ad.present(fromRootViewController: self, userDidEarnRewardHandler: {
+                    ad.present(from: self, userDidEarnRewardHandler: {
                         _ = ad.adReward
                     })
                 }
@@ -66,7 +68,7 @@ class GAMOriginalAPIVideoRewardedViewController: InterstitialBaseViewController,
     
     // MARK: - GADFullScreenContentDelegate
     
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         PrebidDemoLogger.shared.error("Failed to present rewarded ad with error: \(error.localizedDescription)")
     }
 }

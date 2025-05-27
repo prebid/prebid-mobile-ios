@@ -15,12 +15,12 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "PBMEventTrackerProtocol.h"
 #import "PBMOpenMeasurementFriendlyObstructionPurpose.h"
 
 @class OMIDPrebidorgAdSessionContext;
 @class OMIDPrebidorgAdSessionConfiguration;
 @class PBMVideoVerificationParameters;
+@protocol PBMEventTrackerProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMOpenMeasurementSession : NSObject

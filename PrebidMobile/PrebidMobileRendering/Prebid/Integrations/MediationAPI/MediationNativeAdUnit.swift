@@ -15,6 +15,8 @@
 
 import Foundation
 
+/// This class is responsible for making bid request and providing the winning bid and targeting keywords to mediating SDKs.
+/// This class is a part of Mediation API.
 @objcMembers
 public class MediationNativeAdUnit : NSObject {
     
@@ -23,195 +25,120 @@ public class MediationNativeAdUnit : NSObject {
     
     // MARK: - Public Properties
     
+    /// The native ad unit that makes native request.
     public var nativeAdUnit: NativeRequest
     
     var configID: String
     
     // MARK: - Public Methods
     
+    /// Initializes a new instance of the `MediationNativeAdUnit` with the specified configuration ID and mediation delegate.
+    /// - Parameters:
+    ///   - configId: The configuration ID for the ad unit.
+    ///   - mediationDelegate: The delegate for mediation-related tasks.
     public init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         self.configID = configId
         self.mediationDelegate = mediationDelegate
         self.nativeAdUnit = NativeRequest(configId: configId)
     }
     
+    /// Adds event trackers to the native ad unit.
+    /// - Parameter eventTrackers: An array of `NativeEventTracker` objects to add.
     public func addEventTracker(_ eventTrackers: [NativeEventTracker]) {
         nativeAdUnit.addNativeEventTracker(eventTrackers)
     }
     
+    /// Adds native assets to the native ad unit.
+    /// - Parameter assets: An array of `NativeAsset` objects to add.
     public func addNativeAssets(_ assets: [NativeAsset]) {
         nativeAdUnit.addNativeAssets(assets)
     }
     
+    /// Sets the context type for the native ad unit.
+    /// - Parameter contextType: The context type to set.
     public func setContextType(_ contextType: ContextType) {
         nativeAdUnit.context = contextType
     }
     
+    /// Sets the placement type for the native ad unit.
+    /// - Parameter placementType: The placement type to set.
     public func setPlacementType(_ placementType: PlacementType) {
         nativeAdUnit.placementType = placementType
     }
     
+    /// Sets the placement count for the native ad unit.
+    /// - Parameter placementCount: The placement count to set.
     public func setPlacementCount(_ placementCount: Int) {
         nativeAdUnit.placementCount = placementCount
     }
     
+    /// Sets the context subtype for the native ad unit.
+    /// - Parameter contextSubType: The context subtype to set.
     public func setContextSubType(_ contextSubType: ContextSubType) {
         nativeAdUnit.contextSubType = contextSubType
     }
     
+    /// Sets the sequence for the native ad unit.
+    /// - Parameter sequence: The sequence to set.
     public func setSequence(_ sequence: Int) {
         nativeAdUnit.sequence = sequence
     }
     
+    /// Sets the asset URL support for the native ad unit.
+    /// - Parameter assetURLSupport: The asset URL support value to set.
     public func setAssetURLSupport(_ assetURLSupport: Int) {
         nativeAdUnit.asseturlsupport = assetURLSupport
     }
     
+    /// Sets the DURL support for the native ad unit.
+    /// - Parameter dURLSupport: The DURL support value to set.
     public func setDURLSupport(_ dURLSupport: Int) {
         nativeAdUnit.durlsupport = dURLSupport
     }
     
+    /// Sets the privacy value for the native ad unit.
+    /// - Parameter privacy: The privacy value to set.
     public func setPrivacy(_ privacy: Int) {
         nativeAdUnit.privacy = privacy
     }
     
+    /// Sets the extended data for the native ad unit.
+    /// - Parameter ext: A dictionary containing the extended data to set.
     public func setExt(_ ext: [String: Any]) {
         nativeAdUnit.ext = ext
     }
-
-    public func getOrtbConfig() -> String? {
-        return nativeAdUnit.getOrtbConfig()
+    
+    // MARK: Arbitrary ORTB Configuration
+        
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        nativeAdUnit.adUnitConfig.impORTBConfig = ortbConfig
     }
     
-    public func setOrtbConfig(_ ortbConfig: String?) {
-        nativeAdUnit.setOrtbConfig(ortbConfig)
+    /// Returns the impression-level OpenRTB configuration string.
+    public func getImpORTBConfig() -> String? {
+        nativeAdUnit.adUnitConfig.impORTBConfig
     }
     
-    // MARK: - App Content (app.content.data)
-    
-    public func setAppContent(_ appContent: PBMORTBAppContent) {
-        nativeAdUnit.setAppContent(appContent)
-    }
-    
-    public func clearAppContent() {
-        nativeAdUnit.clearAppContent()
-    }
-    
-    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        nativeAdUnit.addAppContentData(dataObjects)
-    }
-
-    public func removeAppContent(_ dataObject: PBMORTBContentData) {
-        nativeAdUnit.removeAppContentData(dataObject)
-    }
-    
-    // MARK: - User Data (user.data)
-    
-    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        nativeAdUnit.addUserData(userDataObjects)
-    }
-    
-    public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        nativeAdUnit.removeUserData(userDataObject)
-    }
-    
-    public func clearUserData() {
-        nativeAdUnit.clearUserData()
-    }
-    
-    // MARK: - Ext Data (imp[].ext.data)
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
-    public func addContextData(_ data: String, forKey key: String) {
-        addExtData(key: key, value: data)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
-    public func updateContextData(_ data: Set<String>, forKey key: String) {
-        updateExtData(key: key, value: data)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
-    public func removeContextDate(forKey key: String) {
-        removeExtData(forKey: key)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
-    public func clearContextData() {
-        clearExtData()
-    }
-    
-    public func addExtData(key: String, value: String) {
-        nativeAdUnit.addExtData(key: key, value: value)
-    }
-    
-    public func updateExtData(key: String, value: Set<String>) {
-        nativeAdUnit.updateExtData(key: key, value: value)
-    }
-    
-    public func removeExtData(forKey: String) {
-        nativeAdUnit.removeExtData(forKey: forKey)
-    }
-    
-    public func clearExtData() {
-        nativeAdUnit.clearExtData()
-    }
-    
-    // MARK: - Ext keywords (imp[].ext.keywords)
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
-    @objc public func addContextKeyword(_ newElement: String) {
-        addExtKeyword(newElement)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
-    @objc public func addContextKeywords(_ newElements: Set<String>) {
-        addExtKeywords(newElements)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
-    @objc public func removeContextKeyword(_ element: String) {
-        removeExtKeyword(element)
-    }
-
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
-    @objc public func clearContextKeywords() {
-        clearExtKeywords()
-    }
-    
-    public func addExtKeyword(_ newElement: String) {
-        nativeAdUnit.addExtKeyword(newElement)
-    }
-    
-    public func addExtKeywords(_ newElements: Set<String>) {
-        nativeAdUnit.addExtKeywords(newElements)
-    }
-    
-    public func removeExtKeyword(_ element: String) {
-        nativeAdUnit.removeExtKeyword(element)
-    }
-    
-    public func clearExtKeywords() {
-        nativeAdUnit.clearExtKeywords()
-    }
-    
+    /// Makes bid request for the native ad unit and setups mediation parameters.
+    /// - Parameter completion: The completion handler to call with the result code.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
         self.completion = completion
         
         mediationDelegate.cleanUpAdObject()
         
-        nativeAdUnit.fetchDemand { [weak self] result, kvResultDict in
-            guard let self = self else {
+        nativeAdUnit.fetchDemand { [weak self] bidInfo in
+            guard let self = self else { return }
+            
+            guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
+                self.completeWithResult(bidInfo.resultCode)
                 return
             }
             
-            guard result == .prebidDemandFetchSuccess else {
-                self.completeWithResult(result)
-                return
-            }
-            
-            guard let kvResultDict = kvResultDict,
+            guard let kvResultDict = bidInfo.targetingKeywords,
                   let cacheId = kvResultDict[PrebidLocalCacheIdKey],
                   CacheManager.shared.isValid(cacheId: cacheId) else {
                       Log.error("\(String(describing: self)): no cache in kvResultDict.")

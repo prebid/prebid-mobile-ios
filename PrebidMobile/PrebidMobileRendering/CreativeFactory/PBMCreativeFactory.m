@@ -16,8 +16,6 @@
 #import "PBMCreativeFactory.h"
 #import "PBMCreativeFactoryJob.h"
 #import "PBMMacros.h"
-#import "PBMError.h"
-#import "PBMTransaction.h"
 #import "PBMAbstractCreative.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -30,7 +28,7 @@
 @interface PBMCreativeFactory ()
 
 @property (strong, nonatomic) id<PrebidServerConnectionProtocol> serverConnection;
-@property (strong, nonatomic) PBMTransaction *transaction;
+@property (strong, nonatomic) id<PBMTransaction> transaction;
 @property (strong, nonatomic) NSArray<PBMCreativeFactoryJob *> *jobs;
 @property (copy, nonatomic) PBMCreativeFactoryFinishedCallback finishedCallback;
 
@@ -41,7 +39,7 @@
 }
 
 - (nonnull instancetype)initWithServerConnection:(id<PrebidServerConnectionProtocol>)serverConnection
-                                     transaction:(PBMTransaction *)transaction
+                                     transaction:(id<PBMTransaction>)transaction
                                      finishedCallback:( PBMCreativeFactoryFinishedCallback)finishedCallback {
     self = [super init];
     if (self) {
@@ -60,7 +58,8 @@
     self.jobs = [self convertCreativeModels];
     
     if (self.jobs.count < 1) {
-        NSError *error = [PBMError errorWithMessage:@"PBMCreativeFactory: There were no jobs for processing" type:PBMErrorTypeInternalError];
+        NSError *error = [PBMError errorWithMessage:@"PBMCreativeFactory: There were no jobs for processing"
+                                               type:PBMErrorType.internalError];
         self.finishedCallback(NULL, error);
         return;
     }

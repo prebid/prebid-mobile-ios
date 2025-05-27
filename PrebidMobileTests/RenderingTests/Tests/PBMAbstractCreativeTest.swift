@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
     
@@ -27,7 +27,7 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
     
     override func setUp() {
         super.setUp()
-        self.pbmAbstractCreative = PBMAbstractCreative(creativeModel:PBMCreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
+        self.pbmAbstractCreative = PBMAbstractCreative(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
         self.pbmAbstractCreative.creativeResolutionDelegate = self
     }
     
@@ -52,7 +52,9 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
     
     func testModalManagerDidFinishPop() {
         logToFile = .init()
-        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = Factory.createModalState(view: PBMWebView(),
+                                             adConfiguration:AdConfiguration(),
+                                             displayProperties:InterstitialDisplayProperties())
         self.pbmAbstractCreative.modalManagerDidFinishPop(state)
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains(msgAbstractFunctionCalled))
@@ -60,7 +62,9 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
 
     func testModalManagerDidLeaveApp() {
         logToFile = .init()
-        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = Factory.createModalState(view: PBMWebView(),
+                                             adConfiguration:AdConfiguration(),
+                                             displayProperties:InterstitialDisplayProperties())
         pbmAbstractCreative.modalManagerDidLeaveApp(state)
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains(msgAbstractFunctionCalled))

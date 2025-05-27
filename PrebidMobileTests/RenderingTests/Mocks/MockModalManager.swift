@@ -19,8 +19,8 @@ import Foundation
 
 class MockModalManager: PBMModalManager {
     
-    var mock_pushModalClosure: ((PBMModalState, UIViewController, Bool, Bool, PBMVoidBlock?) -> Void)?
-    override func pushModal(_ state:PBMModalState, fromRootViewController:UIViewController, animated:Bool, shouldReplace:Bool, completionHandler:PBMVoidBlock?) -> PBMVoidBlock? {
+    var mock_pushModalClosure: ((ModalState, UIViewController, Bool, Bool, VoidBlock?) -> Void)?
+    override func pushModal(_ state:ModalState, fromRootViewController:UIViewController, animated:Bool, shouldReplace:Bool, completionHandler:VoidBlock?) -> VoidBlock? {
         modalStateStack.add(state)
         
         mock_pushModalClosure?(state, fromRootViewController, animated, shouldReplace, completionHandler)

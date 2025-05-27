@@ -17,7 +17,7 @@ import Foundation
 import XCTest
 
 // Use this class when need to test behavior in the global thread from the main thread.
-final class MockNSThread : PBMNSThreadProtocol {
+final class MockNSThread : ThreadProtocol {
     
     var mockIsMainThread: Bool
     
@@ -25,7 +25,7 @@ final class MockNSThread : PBMNSThreadProtocol {
         self.mockIsMainThread = mockIsMainThread
     }
     
-    // MARK: - PBMNSThreadProtocol
+    // MARK: - ThreadProtocol
     
     var isMainThread: Bool {
         return mockIsMainThread
@@ -33,7 +33,7 @@ final class MockNSThread : PBMNSThreadProtocol {
 }
 
 // Use this class when need to test switching the execution from the global thread to the main thread.
-final class PBMThread : PBMNSThreadProtocol {
+final class PBMThread : ThreadProtocol {
     
     var checkThreadCallback:((Bool) -> Void)
     
@@ -41,7 +41,7 @@ final class PBMThread : PBMNSThreadProtocol {
         self.checkThreadCallback = checkThreadCallback
     }
     
-    // MARK: - PBMNSThreadProtocol
+    // MARK: - ThreadProtocol
     
     var isMainThread: Bool {
         let isMainThread = Thread.isMainThread

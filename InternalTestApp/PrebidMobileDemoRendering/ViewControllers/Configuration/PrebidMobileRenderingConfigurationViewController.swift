@@ -36,7 +36,6 @@ final class PrebidMobileXSDKConfigurationController : FormViewController {
         
         form
             +++ sectionTimeouts
-            +++ sectionMisc
             +++ sectionAppConfig
     }
     
@@ -58,18 +57,6 @@ final class PrebidMobileXSDKConfigurationController : FormViewController {
                 .onChange { row in
                     self.sdkConfig.creativeFactoryTimeoutPreRenderContent = row.value.pbm_toTimeInterval()
             }
-    }
-    
-    var sectionMisc: Section {
-        return Section("Misc")
-            <<< SwitchRow() { row in
-                    row.title = "Use External Clickthrough Browser"
-                    row.value = self.sdkConfig.useExternalClickthroughBrowser
-                    row.cell.switchControl.accessibilityIdentifier = "useExternalClickthroughBrowserSwitch"
-                }
-                .onChange { row in
-                    self.sdkConfig.useExternalClickthroughBrowser = row.value ?? false
-                }
     }
     
     var sectionAppConfig: Section {

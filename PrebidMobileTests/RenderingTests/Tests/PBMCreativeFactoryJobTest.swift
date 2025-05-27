@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMCreativeFactoryJobTest: XCTestCase {
     
@@ -38,7 +38,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         let connection = PrebidServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
+        let model = CreativeModel(adConfiguration: AdConfiguration())
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
             if error != nil {
@@ -81,7 +81,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         let connection = PrebidServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
+        let model = CreativeModel(adConfiguration: AdConfiguration())
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
             if error != nil {
@@ -103,7 +103,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         let connection = PrebidServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
+        let model = CreativeModel(adConfiguration: AdConfiguration())
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
             if job.state == PBMCreativeFactoryJobStateSuccess && error == nil {
@@ -127,7 +127,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         let connection = PrebidServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
+        let model = CreativeModel(adConfiguration: AdConfiguration())
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
             if (error != nil) {
@@ -150,7 +150,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let connection = PrebidServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let adConfig = AdConfiguration()
-        let model = PBMCreativeModel(adConfiguration: adConfig)
+        let model = CreativeModel(adConfiguration: adConfig)
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
         
@@ -181,7 +181,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let connection = PrebidServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let adConfig = AdConfiguration()
-        let model = PBMCreativeModel(adConfiguration: adConfig)
+        let model = CreativeModel(adConfiguration: adConfig)
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
         
@@ -203,7 +203,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let creativeFactoryTimeoutPreRenderContent = 22.2
         
         // CTF values are provided by PBS
-        try! sdkConfiguration.setCustomPrebidServer(url: Prebid.devintServerURL)
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
         sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
@@ -212,10 +212,10 @@ class PBMCreativeFactoryJobTest: XCTestCase {
             callback(PBMBidResponseTransformer.makeValidResponseWithCTF(bidPrice: 0.5, ctfBanner: creativeFactoryTimeout, ctfPreRender: creativeFactoryTimeoutPreRenderContent))
         }])
         
-        let requester = PBMBidRequester(connection: connection,
-                                        sdkConfiguration: sdkConfiguration,
-                                        targeting: targeting,
-                                        adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         let exp = expectation(description: "exp")
         requester.requestBids { (bidResponse, error) in
@@ -230,8 +230,8 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         // banner display
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        var adConfig = AdConfiguration()
-        var model = PBMCreativeModel(adConfiguration: adConfig)
+        let adConfig = AdConfiguration()
+        let model = CreativeModel(adConfiguration: adConfig)
 
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
 

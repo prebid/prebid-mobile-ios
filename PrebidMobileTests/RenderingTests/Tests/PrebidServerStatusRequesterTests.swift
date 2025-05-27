@@ -18,6 +18,12 @@ import XCTest
 
 class PrebidServerStatusRequesterTests: XCTestCase {
     
+    override func setUp() {
+        super.setUp()
+        
+        Prebid.reset()
+    }
+    
     override func tearDown() {
         super.tearDown()
         
@@ -38,7 +44,7 @@ class PrebidServerStatusRequesterTests: XCTestCase {
     
     func testStatusEndpoint_Default() {
         let testHost = "https://unique-prebid-server-host.org"
-        try? Prebid.shared.setCustomPrebidServer(url: "\(testHost)/openrtb2/auction")
+        try? Host.shared.setHostURL("\(testHost)/openrtb2/auction", nonTrackingURLString: nil)
         let requester = PrebidServerStatusRequester()
         
         let expectedStatusEndpoint = "\(testHost)/status/"
@@ -74,7 +80,7 @@ class PrebidServerStatusRequesterTests: XCTestCase {
     }
     
     func testRequestStatus_Success() {
-        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+        try? Host.shared.setHostURL("https://prebid-server-test-j.prebid.org/openrtb2/auction", nonTrackingURLString: nil)
         
         let expectation = expectation(description: "Expected successful status response.")
         

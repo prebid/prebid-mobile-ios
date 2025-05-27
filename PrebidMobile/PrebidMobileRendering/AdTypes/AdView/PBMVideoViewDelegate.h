@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)videoViewCompletedDisplay;
 - (void)videoViewWasTapped;
 
+- (void)videoViewCurrentPlayingTime:(NSNumber *)currentPlayingTime;
+
 - (void)learnMoreWasClicked;
 
 @end

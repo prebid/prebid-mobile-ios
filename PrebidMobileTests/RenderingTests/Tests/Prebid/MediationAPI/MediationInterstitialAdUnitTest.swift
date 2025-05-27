@@ -20,8 +20,7 @@ import XCTest
 class MediationInterstitialAdUnitTest: XCTestCase {
     private let sdkConfiguration: Prebid = {
         let config = Prebid.mock
-        //        config.serverURL = Prebid.devintServerURL
-        try! config.setCustomPrebidServer(url: Prebid.devintServerURL)
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
         config.prebidServerAccountId = Prebid.devintAccountID
         return config
     }()
@@ -101,4 +100,22 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         waitForExpectations(timeout: 0.1)
     }
     
+    func testSetAdPosition() {
+        let adUnit = MediationBaseInterstitialAdUnit(
+            configId: "test",
+            mediationDelegate: MockEmptyPrebidMediationDelegate()
+        )
+        
+        let adUnitConfig = adUnit.adUnitConfig
+        
+        adUnit.adPosition = .header
+        
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .header)
+        
+        adUnit.adPosition = .footer
+        
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .footer)
+    }
 }

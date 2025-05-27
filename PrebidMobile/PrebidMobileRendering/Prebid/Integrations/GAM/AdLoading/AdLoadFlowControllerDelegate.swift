@@ -17,8 +17,6 @@ import Foundation
 
 @objc public protocol AdLoadFlowControllerDelegate: NSObjectProtocol {
 
-    var adUnitConfig:AdUnitConfig { get }
-
     // Loading callbacks
     @objc func adLoadFlowController(_ adLoadFlowController: PBMAdLoadFlowController,
                                     failedWithError error: Error?)

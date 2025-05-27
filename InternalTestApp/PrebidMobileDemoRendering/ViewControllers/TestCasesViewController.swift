@@ -110,7 +110,6 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
         //Set up the default account id here
         //as it can be changed in any test cases
         Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
         
         example.configurationClosure?(vc)
         

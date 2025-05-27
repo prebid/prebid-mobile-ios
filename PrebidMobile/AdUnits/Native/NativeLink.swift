@@ -15,6 +15,7 @@
 
 import Foundation
 
+/// Class representing a  link in a native ad.
 @objcMembers
 public class NativeLink: NSObject, JsonDecodable {
     
@@ -31,6 +32,9 @@ public class NativeLink: NSObject, JsonDecodable {
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
+    /// Initializes a `NativeLink` object from a JSON dictionary.
+    ///
+    /// - Parameter jsonDictionary: A dictionary containing the JSON data to initialize the object.
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native link json dicitonary is empty")
@@ -47,6 +51,7 @@ public class NativeLink: NSObject, JsonDecodable {
         }
     }
 
+    /// Initializes with default values
     public override init() {
         super.init()
     }

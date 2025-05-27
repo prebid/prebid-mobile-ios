@@ -20,14 +20,12 @@
 #import "NSException+PBMExtensions.h"
 #import "NSString+PBMExtensions.h"
 #import "UIView+PBMExtensions.h"
+#import "NSURL+PBMExtensions.h"
 
 #import "PBMAbstractCreative.h"
-#import "PBMCreativeModel.h"
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMDeviceAccessManager.h"
-#import "PBMError.h"
 #import "PBMFunctions+Private.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"
 #import "PBMMacros.h"
@@ -35,7 +33,6 @@
 #import "PBMModalState.h"
 #import "PBMModalViewController.h"
 #import "PBMOpenMeasurementSession.h"
-#import "PBMTransaction.h"
 #import "PBMVideoView.h"
 #import "PBMWebView.h"
 #import "PBMWebViewDelegate.h"
@@ -172,7 +169,7 @@
     }
 }
 
-- (void)modalManagerDidFinishPop:(PBMModalState*)state {
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state {
     
     //MRAID Video
     if (self.playingMRAIDVideo) {
@@ -214,7 +211,7 @@
     });
 }
 
-- (void)modalManagerDidLeaveApp:(PBMModalState*)state {
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state {
     [self.creative modalManagerDidLeaveApp:state];
 }
 
@@ -224,7 +221,7 @@
     return ![self.delayedMraidState isEqualToString:PBMMRAIDStateNotEnabled];
 }
 
-- (void)webView:(PBMWebView *)webView exposureChange:(PBMViewExposure *)viewExposure {
+- (void)webView:(PBMWebView *)webView exposureChange:(id<PBMViewExposure>)viewExposure {
     if (![self.delayedMraidState isEqualToString:PBMMRAIDStateNotEnabled]) {
         [self.prebidWebView changeToMRAIDState:self.delayedMraidState];
         self.delayedMraidState = PBMMRAIDStateNotEnabled;
@@ -277,7 +274,7 @@
         @throw [NSException pbmException:@"No arguments to MRAID.open()"];
     }
     
-    NSURL *url = [NSURL URLWithString:strURL];
+    NSURL *url = [NSURL PBMURLWithoutEncodingFromString:strURL];
     if (!url) {
         @throw [NSException pbmException:[NSString stringWithFormat:@"Could not create URL from string: %@", strURL]];
     }
@@ -323,7 +320,7 @@
         NSString *strExpandURL = [[command.arguments firstObject] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
         if (strExpandURL && ![strExpandURL isEqualToString:@""]) {
             //Epanding to a URL
-            NSURL *expandURL = [NSURL URLWithString:strExpandURL];
+            NSURL *expandURL = [NSURL PBMURLWithoutEncodingFromString:strExpandURL];
             if (!expandURL) {
                 PBMLogError(@"Could not create expand url to: %@", strExpandURL);
                 return;
@@ -334,20 +331,21 @@
             [newWebView expand:expandURL];
             
             @weakify(self);
-            PBMModalState* pbmModalState = [PBMModalState modalStateWithView:newWebView
-                                                             adConfiguration:self.creative.creativeModel.adConfiguration
-                                                           displayProperties:displayProperties
-                                                          onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
+            
+            id<PBMModalState> pbmModalState = [PBMFactory createModalStateWithView:newWebView
+                                                                   adConfiguration:self.creative.creativeModel.adConfiguration
+                                                                 displayProperties:displayProperties
+                                                                onStatePopFinished:^(id<PBMModalState> _Nonnull poppedState) {
                 @strongify(self);
                 if (!self) { return; }
                 
                 [self modalManagerDidFinishPop:poppedState];
-            } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
+            } onStateHasLeftApp:^(id<PBMModalState> _Nonnull leavingState) {
                 @strongify(self);
                 if (!self) { return; }
                 
                 [self modalManagerDidLeaveApp:leavingState];
-            }];
+            } nextOnStatePopFinished:nil nextOnStateHasLeftApp:nil onModalPushedBlock:nil];
             
             self.dismissExpandedModalState = [self.creative.modalManager pushModal:pbmModalState fromRootViewController:self.viewControllerForPresentingModals animated:YES shouldReplace:shouldReplace completionHandler:^{
                 @strongify(self);
@@ -363,20 +361,20 @@
         else {
             //Expand existing content.
             @weakify(self);
-            PBMModalState* pbmModalState = [PBMModalState modalStateWithView:webView
-                                                             adConfiguration:self.creative.creativeModel.adConfiguration
-                                                           displayProperties:displayProperties
-                                                          onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
+            id<PBMModalState> pbmModalState = [PBMFactory createModalStateWithView:webView
+                                                                   adConfiguration:self.creative.creativeModel.adConfiguration
+                                                                 displayProperties:displayProperties
+                                                                onStatePopFinished:^(id<PBMModalState> _Nonnull poppedState) {
                 @strongify(self);
                 if (!self) { return; }
                 
                 [self modalManagerDidFinishPop:poppedState];
-            } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
+            } onStateHasLeftApp:^(id<PBMModalState> _Nonnull leavingState) {
                 @strongify(self);
                 if (!self) { return; }
                 
                 [self modalManagerDidLeaveApp:leavingState];
-            }];
+            } nextOnStatePopFinished:nil nextOnStateHasLeftApp:nil onModalPushedBlock:nil];
             
             self.dismissExpandedModalState = [self.creative.modalManager pushModal:pbmModalState fromRootViewController:self.viewControllerForPresentingModals animated:YES shouldReplace:shouldReplace completionHandler:^{
                 @strongify(self);
@@ -449,20 +447,20 @@
         BOOL shouldReplace = [mraidState isEqualToString:PBMMRAIDStateResized];
         
         @weakify(self);
-        PBMModalState* pbmModalState = [PBMModalState modalStateWithView:webView
-                                                         adConfiguration:self.creative.creativeModel.adConfiguration
-                                                       displayProperties:displayProperties
-                                                      onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
+        id<PBMModalState> pbmModalState = [PBMFactory createModalStateWithView:webView
+                                                               adConfiguration:self.creative.creativeModel.adConfiguration
+                                                             displayProperties:displayProperties
+                                                            onStatePopFinished:^(id<PBMModalState> _Nonnull poppedState) {
             @strongify(self);
             if (!self) { return; }
             
             [self modalManagerDidFinishPop:poppedState];
-        } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
+        } onStateHasLeftApp:^(id<PBMModalState> _Nonnull leavingState) {
             @strongify(self);
             if (!self) { return;  }
             
             [self modalManagerDidLeaveApp:leavingState];
-        }];
+        } nextOnStatePopFinished:nil nextOnStateHasLeftApp:nil onModalPushedBlock:nil];
         pbmModalState.mraidState = PBMMRAIDStateResized;
         
         self.dismissResizedModalState = [self.creative.modalManager pushModal:pbmModalState
@@ -532,7 +530,7 @@
         @throw [NSException pbmException:@"Insufficient arguments for MRAIDAction.playVideo"];
     }
     
-    NSURL *url = [NSURL URLWithString:strURL];
+    NSURL *url = [NSURL PBMURLWithoutEncodingFromString:strURL];
     if (!url) {
         NSString *message = [NSString stringWithFormat:@"MRAID attempted to load an invalid URL: %@", strURL];
         @throw [NSException pbmException:message];
@@ -605,21 +603,21 @@
             @weakify(self);
             __weak PBMVideoView * weakVideoView = videoView;
             
-            PBMModalState* state = [PBMModalState modalStateWithView:containerView
-                                                     adConfiguration:self.creative.creativeModel.adConfiguration
-                                                   displayProperties:[PBMInterstitialDisplayProperties new]
-                                                  onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
+            id<PBMModalState> state = [PBMFactory createModalStateWithView:containerView
+                                                           adConfiguration:self.creative.creativeModel.adConfiguration
+                                                         displayProperties:[PBMInterstitialDisplayProperties new]
+                                                        onStatePopFinished:^(id<PBMModalState> _Nonnull poppedState) {
                 @strongify(self);
                 if (!self) { return; }
                 [self modalManagerDidFinishPop:poppedState];
-            } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
+            } onStateHasLeftApp:^(id<PBMModalState> _Nonnull leavingState) {
                 @strongify(self);
                 if (!self) { return; }
                 
                 [self modalManagerDidLeaveApp:leavingState];
-            } nextOnStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
+            } nextOnStatePopFinished:^(id<PBMModalState> _Nonnull poppedState) {
                 [weakVideoView modalManagerDidFinishPop:poppedState];
-            } nextOnStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
+            } nextOnStateHasLeftApp:^(id<PBMModalState> _Nonnull leavingState) {
                 [weakVideoView modalManagerDidLeaveApp:leavingState];
             } onModalPushedBlock:^{
                 [videoView pause];

@@ -15,8 +15,19 @@
 
 import Foundation
 
+/// Class that contains properties and methods to configure Prebid request.
 @objcMembers
 public class PrebidRequest: NSObject {
+    
+    // MARK: - Public properties
+    
+    /// The position of the ad on the screen.
+    public var adPosition: AdPosition = .undefined
+    
+    // MARK: - SKAdNetwork
+    
+    /// A flag that determines whether SKOverlay should be supported for interstitials
+    public var supportSKOverlayForInterstitial: Bool = false
     
     // MARK: - Internal properties
     
@@ -28,17 +39,22 @@ public class PrebidRequest: NSObject {
     private(set) var isRewarded = false
     
     private(set) var gpid: String?
-    private(set) var ortbConfig: String?
+    private var impORTBConfig: String?
     
-    // MARK: - Private properties
-    
-    private var extData = [String: Set<String>]()
-    private var appContent: PBMORTBAppContent?
-    private var userData: [PBMORTBContentData]?
-    private var extKeywords = Set<String>()
-    
-    public init(bannerParameters: BannerParameters? = nil, videoParameters: VideoParameters? = nil,
-                nativeParameters: NativeParameters? = nil, isInterstitial: Bool = false, isRewarded: Bool = false) {
+    /// Initializes a new `PrebidRequest` with the given parameters.
+    /// - Parameters:
+    ///   - bannerParameters: The banner parameters for the ad request.
+    ///   - videoParameters: The video parameters for the ad request.
+    ///   - nativeParameters: The native parameters for the ad request.
+    ///   - isInterstitial: Indicates if the request is for an interstitial ad.
+    ///   - isRewarded: Indicates if the request is for a rewarded ad.
+    public init(
+        bannerParameters: BannerParameters? = nil,
+        videoParameters: VideoParameters? = nil,
+        nativeParameters: NativeParameters? = nil,
+        isInterstitial: Bool = false,
+        isRewarded: Bool = false
+    ) {
         self.bannerParameters = bannerParameters
         self.videoParameters = videoParameters
         self.nativeParameters = nativeParameters
@@ -50,143 +66,23 @@ public class PrebidRequest: NSObject {
     
     // MARK: GPID
     
+    /// Sets the GPID for the ad request.
+    /// - Parameter gpid: The GPID to set.
     public func setGPID(_ gpid: String?) {
         self.gpid = gpid
     }
     
-    // MARK: - adunit ext data aka inventory data (imp[].ext.data)
+    // MARK: Arbitrary ORTB Configuration
     
-    /**
-     * This method obtains the ext data keyword & value for adunit targeting
-     * if the key already exists the value will be appended to the list. No duplicates will be added
-     */
-    public func addExtData(key: String, value: String) {
-        if extData[key] == nil {
-            extData[key] = Set<String>()
-        }
-        
-        extData[key]?.insert(value)
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        self.impORTBConfig = ortbConfig
     }
     
-    /**
-     * This method obtains the ext data keyword & values for adunit targeting
-     * the values if the key already exist will be replaced with the new set of values
-     */
-    public func updateExtData(key: String, value: Set<String>) {
-        extData[key] = value
-    }
-    
-    /**
-     * This method allows to remove specific ext data keyword & values set from adunit targeting
-     */
-    public func removeExtData(forKey: String) {
-        extData.removeValue(forKey: forKey)
-    }
-    
-    /**
-     * This method allows to remove all ext data set from adunit targeting
-     */
-    public func clearExtData() {
-        extData.removeAll()
-    }
-    
-    func getExtData() -> [String: Set<String>] {
-        extData
-    }
-    
-    // MARK: - adunit ext keywords (imp[].ext.keywords)
-    
-    /**
-     * This method obtains the keyword for adunit targeting
-     * Inserts the given element in the set if it is not already present.
-     */
-    public func addExtKeyword(_ newElement: String) {
-        extKeywords.insert(newElement)
-    }
-    
-    /**
-     * This method obtains the keyword set for adunit targeting
-     * Adds the elements of the given set to the set.
-     */
-    public func addExtKeywords(_ newElements: Set<String>) {
-        extKeywords.formUnion(newElements)
-    }
-    
-    /**
-     * This method allows to remove specific keyword from adunit targeting
-     */
-    public func removeExtKeyword(_ element: String) {
-        extKeywords.remove(element)
-    }
-    
-    /**
-     * This method allows to remove all keywords from the set of adunit targeting
-     */
-    public func clearExtKeywords() {
-        extKeywords.removeAll()
-    }
-    
-    func getExtKeywords() -> Set<String> {
-        extKeywords
-    }
-    
-    // MARK: - App Content (app.content.data)
-    
-    public func setAppContent(_ appContentObject: PBMORTBAppContent) {
-        self.appContent = appContentObject
-    }
-    
-    public func clearAppContent() {
-        appContent = nil
-    }
-    
-    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        if appContent == nil {
-            appContent = PBMORTBAppContent()
-        }
-        
-        if appContent?.data == nil {
-            appContent?.data = [PBMORTBContentData]()
-        }
-        
-        appContent?.data?.append(contentsOf: dataObjects)
-    }
-    
-    public func removeAppContentData(_ dataObject: PBMORTBContentData) {
-        if let appContentData = appContent?.data, appContentData.contains(dataObject) {
-            appContent?.data?.removeAll(where: { $0 == dataObject })
-        }
-    }
-    
-    public func clearAppContentData() {
-        appContent?.data?.removeAll()
-    }
-    
-    func getAppContent() -> PBMORTBAppContent? {
-        appContent
-    }
-    
-    // MARK: - User Data (user.data)
-    
-    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        if userData == nil {
-            userData = [PBMORTBContentData]()
-        }
-        
-        userData?.append(contentsOf: userDataObjects)
-    }
-    
-    public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        if let userData = userData, userData.contains(userDataObject) {
-            self.userData?.removeAll { $0 == userDataObject }
-        }
-    }
-    
-    public func clearUserData() {
-        userData?.removeAll()
-    }
-    
-    func getUserData() -> [PBMORTBContentData]? {
-        userData
+    /// Returns the impression-level OpenRTB configuration string.
+    public func getImpORTBConfig() -> String? {
+        impORTBConfig
     }
 }

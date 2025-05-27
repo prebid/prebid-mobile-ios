@@ -18,7 +18,7 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
-fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480"
+fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
 fileprivate let gamAdUnitVideoRewardedRendering = "/21808260008/prebid_oxb_rewarded_video_test"
 
 class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAdUnitDelegate {
@@ -37,7 +37,11 @@ class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAd
         let eventHandler = GAMRewardedAdEventHandler(adUnitID: gamAdUnitVideoRewardedRendering)
         
         // 2. Create a RewardedAdUnit
-        rewardedAdUnit = RewardedAdUnit(configID: storedImpVideoRewarded, eventHandler: eventHandler)
+        rewardedAdUnit = RewardedAdUnit(
+            configID: storedImpVideoRewarded,
+            eventHandler: eventHandler
+        )
+        
         rewardedAdUnit.delegate = self
         
         // 3. Load the rewarded ad
@@ -47,10 +51,16 @@ class GAMVideoRewardedViewController: InterstitialBaseViewController, RewardedAd
     // MARK: - RewardedAdUnitDelegate
     
     func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit) {
-        rewardedAdUnit.show(from: self)
+        if rewardedAd.isReady {
+            rewardedAd.show(from: self)
+        }
     }
     
     func rewardedAd(_ rewardedAd: RewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
         PrebidDemoLogger.shared.error("Rewarded ad unit failed to receive ad with error: \(error?.localizedDescription ?? "")")
+    }
+    
+    func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit, reward: PrebidReward) {
+        PrebidDemoLogger.shared.info("User did earn reward: type - \(reward.type ?? ""), count - \(reward.count ?? 0)")
     }
 }

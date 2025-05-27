@@ -17,59 +17,69 @@ import UIKit
 
 fileprivate let assertionMessageMainThread = "Expected to only be called on the main thread"
 
-public class BannerView: UIView,
-                         BannerAdLoaderDelegate,
-                         AdLoadFlowControllerDelegate,
-                         BannerEventInteractionDelegate,
-                         DisplayViewInteractionDelegate {
+/// The view that will display the particular banner ad. Built for rendering type of integration.
+@objcMembers
+public class BannerView:
+    UIView,
+    BannerAdLoaderDelegate,
+    AdLoadFlowControllerDelegate,
+    BannerEventInteractionDelegate,
+    DisplayViewInteractionDelegate {
     
+    /// The ad unit configuration.
     public let adUnitConfig: AdUnitConfig
+    
+    /// The event handler for banner view events.
     public let eventHandler: BannerEventHandler?
     
     // MARK: - Public Properties
     
-    @objc public var bannerParameters: BannerParameters {
+    /// Banner-specific parameters.
+    public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
     }
     
-    @objc public var videoParameters: VideoParameters {
+    /// Video-specific parameters.
+    public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
-    @objc public var lastBidResponse: BidResponse? {
+    /// The last bid response received.
+    public var lastBidResponse: BidResponse? {
         adLoadFlowController?.bidResponse
     }
     
-    @objc public var configID: String {
+    /// ID of Stored Impression on the Prebid server
+    public var configID: String {
         adUnitConfig.configId
     }
     
-    @objc public var refreshInterval: TimeInterval {
+    /// The interval for refreshing the ad.
+    public var refreshInterval: TimeInterval {
         get { adUnitConfig.refreshInterval }
         set { adUnitConfig.refreshInterval = newValue }
     }
     
-    @objc public var additionalSizes: [CGSize]? {
+    /// Additional sizes for the ad.
+    public var additionalSizes: [CGSize]? {
         get { adUnitConfig.additionalSizes }
         set { adUnitConfig.additionalSizes = newValue }
     }
     
-    @objc public var adFormat: AdFormat {
+    /// The ad format (e.g., banner, video).
+    public var adFormat: AdFormat {
         get { adUnitConfig.adFormats.first ?? .banner }
         set { adUnitConfig.adFormats = [newValue] }
     }
     
-    @objc public var adPosition: AdPosition {
+    /// The position of the ad on the screen.
+    public var adPosition: AdPosition {
         get { adUnitConfig.adPosition }
         set { adUnitConfig.adPosition = newValue }
     }
-    
-    @objc public var ortbConfig: String? {
-        get { adUnitConfig.ortbConfig }
-        set { adUnitConfig.ortbConfig = newValue }
-    }
 
-    @objc public weak var delegate: BannerViewDelegate?
+    /// ORTB configuration string.
+    public weak var delegate: BannerViewDelegate?
     
     // MARK: Readonly storage
     
@@ -110,11 +120,18 @@ public class BannerView: UIView,
     
     // MARK: - Public Methods
     
-    @objc public init(frame: CGRect,
-                      configID: String,
-                      adSize: CGSize,
-                      eventHandler: BannerEventHandler) {
-        
+    /// Initializes a new `BannerView`.
+    /// - Parameters:
+    ///   - frame: The frame rectangle for the view.
+    ///   - configID: The configuration ID for the ad unit.
+    ///   - adSize: The size of the ad.
+    ///   - eventHandler: The event handler for the banner view.
+    public init(
+        frame: CGRect,
+        configID: String,
+        adSize: CGSize,
+        eventHandler: BannerEventHandler
+    ) {
         adUnitConfig = AdUnitConfig(configId: configID, size: adSize)
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
 
@@ -126,12 +143,15 @@ public class BannerView: UIView,
         
         adLoadFlowController = PBMAdLoadFlowController(
             bidRequesterFactory: { [adUnitConfig] config in
-                PBMBidRequester(connection: PrebidServerConnection.shared,
-                                sdkConfiguration: Prebid.shared,
-                                targeting: Targeting.shared,
-                                adUnitConfiguration: adUnitConfig)
+                Factory.createBidRequester(
+                    connection: PrebidServerConnection.shared,
+                    sdkConfiguration: Prebid.shared,
+                    targeting: Targeting.shared,
+                    adUnitConfiguration: adUnitConfig
+                )
             },
             adLoader: bannerAdLoader,
+            adUnitConfig: adUnitConfig,
             delegate: self,
             configValidationBlock: { adUnitConfig, renderWithPrebid in
                 true
@@ -157,30 +177,45 @@ public class BannerView: UIView,
             })
     }
     
-    
-    @objc public convenience init(configID: String,
-                                  eventHandler: BannerEventHandler) {
-        
+    /// Convenience initializer for creating a `BannerView` with a configuration ID and event handler.
+    /// - Parameters:
+    ///   - configID: The configuration ID for the ad unit.
+    ///   - eventHandler: The event handler for the banner view.
+    public convenience init(
+        configID: String,
+        eventHandler: BannerEventHandler
+    ) {
         let size = eventHandler.adSizes.first ?? CGSize()
         let frame = CGRect(origin: CGPoint.zero, size: size)
         
-        self.init(frame: frame,
-                  configID: configID,
-                  adSize: size,
-                  eventHandler: eventHandler)
+        self.init(
+            frame: frame,
+            configID: configID,
+            adSize: size,
+            eventHandler: eventHandler
+        )
         
         if eventHandler.adSizes.count > 1 {
             self.additionalSizes = Array(eventHandler.adSizes.suffix(from: 1))
         }
     }
     
-    @objc public convenience init(frame: CGRect,
-                                  configID: String,
-                                  adSize: CGSize) {
-        self.init(frame: frame,
-                  configID: configID,
-                  adSize: adSize,
-                  eventHandler: BannerEventHandlerStandalone())
+    /// Convenience initializer for creating a `BannerView` with a frame, configuration ID, and ad size.
+    /// - Parameters:
+    ///   - frame: The frame rectangle for the view.
+    ///   - configID: The configuration ID for the ad unit.
+    ///   - adSize: The size of the ad.
+    public convenience init(
+        frame: CGRect,
+        configID: String,
+        adSize: CGSize
+    ) {
+        self.init(
+            frame: frame,
+            configID: configID,
+            adSize: adSize,
+            eventHandler: BannerEventHandlerStandalone()
+        )
     }
     
     deinit {
@@ -191,136 +226,51 @@ public class BannerView: UIView,
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc public func loadAd() {
+    /// Loads the ad for the banner view.
+    public func loadAd() {
         adLoadFlowController?.refresh()
     }
     
-    @objc public func setStoredAuctionResponse(storedAuction:String){
+    /// Sets the stored auction response.
+    /// - Parameter storedAuction: The stored auction response string.
+    public func setStoredAuctionResponse(storedAuction:String){
         Prebid.shared.storedAuctionResponse = storedAuction
     }
     
-    @objc public func stopRefresh() {
+    // MARK: Arbitrary ORTB Configuration
+    
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    @objc public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
+    }
+    
+    /// Returns the impression-level OpenRTB configuration string.
+    @objc public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
+    }
+    
+    /// Stops the auto-refresh of the ad.
+    public func stopRefresh() {
         adLoadFlowController?.enqueueGatedBlock { [weak self] in
             self?.isRefreshStopped = true
         }
     }
     
-    // MARK: - Ext Data (imp[].ext.data)
+    // MARK: Custom Renderer
     
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
-    @objc public func addContextData(_ data: String, forKey key: String) {
-        addExtData(key: key, value: data)
+    /// Subscribe to plugin renderer events
+    public func setPluginEventDelegate(_ pluginEventDelegate: PluginEventDelegate) {
+        PrebidMobilePluginRegister.shared.registerEventDelegate(
+            pluginEventDelegate,
+            adUnitConfigFingerprint: adUnitConfig.fingerprint
+        )
     }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
-    @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
-        updateExtData(key: key, value: data)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
-    @objc public func removeContextDate(forKey key: String) {
-        removeExtData(forKey: key)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
-    @objc public func clearContextData() {
-        clearExtData()
-    }
-    
-    @objc public func addExtData(key: String, value: String) {
-        adUnitConfig.addExtData(key: key, value: value)
-    }
-    
-    @objc public func updateExtData(key: String, value: Set<String>) {
-        adUnitConfig.updateExtData(key: key, value: value)
-    }
-    
-    @objc public func removeExtData(forKey: String) {
-        adUnitConfig.removeExtData(for: forKey)
-    }
-    
-    @objc public func clearExtData() {
-        adUnitConfig.clearExtData()
-    }
-    
-    // MARK: - Ext keywords (imp[].ext.keywords)
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
-    @objc public func addContextKeyword(_ newElement: String) {
-        addExtKeyword(newElement)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
-    @objc public func addContextKeywords(_ newElements: Set<String>) {
-        addExtKeywords(newElements)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
-    @objc public func removeContextKeyword(_ element: String) {
-        removeExtKeyword(element)
-    }
-
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
-    @objc public func clearContextKeywords() {
-        clearExtKeywords()
-    }
-    
-    @objc public func addExtKeyword(_ newElement: String) {
-        adUnitConfig.addExtKeyword(newElement)
-    }
-    
-    @objc public func addExtKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addExtKeywords(newElements)
-    }
-    
-    @objc public func removeExtKeyword(_ element: String) {
-        adUnitConfig.removeExtKeyword(element)
-    }
-    
-    @objc public func clearExtKeywords() {
-        adUnitConfig.clearExtKeywords()
-    }
-    
-    // MARK: - App Content (app.content.data)
-    
-    @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
-        adUnitConfig.setAppContent(appContent)
-    }
-    
-    @objc public func clearAppContent() {
-        adUnitConfig.clearAppContent()
-    }
-    
-    @objc public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addAppContentData(dataObjects)
-    }
-
-    @objc public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
-        adUnitConfig.removeAppContentData(dataObject)
-    }
-    
-    @objc public func clearAppContentDataObjects() {
-        adUnitConfig.clearAppContentData()
-    }
-    
-    // MARK: - User Data (user.data)
-        
-    @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addUserData(userDataObjects)
-    }
-    
-    @objc public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        adUnitConfig.removeUserData(userDataObject)
-    }
-    
-    @objc public func clearUserData() {
-        adUnitConfig.clearUserData()
-    }
-    
     
     // MARK: - DisplayViewInteractionDelegate
     
-    public func trackImpression(forDisplayView: PBMDisplayView) {
+    public func trackImpression(forDisplayView: UIView) {
         guard let eventHandler = self.eventHandler,
               eventHandler.responds(to: #selector(BannerEventHandler.trackImpression)) else {
                   return
@@ -329,36 +279,41 @@ public class BannerView: UIView,
         eventHandler.trackImpression()
     }
     
-    public func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController? {
+    public func viewControllerForModalPresentation(
+        fromDisplayView: UIView
+    ) -> UIViewController? {
         return viewControllerForPresentingModal
     }
     
-    public func didLeaveApp(from displayView: PBMDisplayView) {
+    public func didLeaveApp(from displayView: UIView) {
         willLeaveApp()
     }
     
-    public func willPresentModal(from displayView: PBMDisplayView) {
+    public func willPresentModal(from displayView: UIView) {
         willPresentModal()
     }
     
-    public func didDismissModal(from displayView: PBMDisplayView) {
+    public func didDismissModal(from displayView: UIView) {
         didDismissModal()
     }
     
     // MARK: - BannerAdLoaderDelegate
     
-    public func bannerAdLoader(_ bannerAdLoader: PBMBannerAdLoader, loadedAdView adView: UIView, adSize: CGSize) {
+    public func bannerAdLoader(
+        _ bannerAdLoader: PBMBannerAdLoader,
+        loadedAdView adView: UIView,
+        adSize: CGSize
+    ) {
         deployView(adView)
         reportLoadingSuccess(with: adSize)
     }
     
-    public func bannerAdLoader(_ bannerAdLoader: PBMBannerAdLoader, createdDisplayView displayView: PBMDisplayView) {
-        displayView.interactionDelegate = self
-    }
-    
     // MARK: - PBMAdLoadFlowControllerDelegate
     
-    public func adLoadFlowController(_ adLoadFlowController: PBMAdLoadFlowController, failedWithError error: Error?) {
+    public func adLoadFlowController(
+        _ adLoadFlowController: PBMAdLoadFlowController,
+        failedWithError error: Error?
+    ) {
         reportLoadingFailed(with: error)
     }
     

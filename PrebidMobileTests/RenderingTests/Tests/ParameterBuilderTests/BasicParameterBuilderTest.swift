@@ -36,9 +36,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_GppSID)
-        
-        Prebid.shared.useExternalClickthroughBrowser = false
-        
+                
         UserConsentDataManager.shared.subjectToCOPPA = nil
         super.tearDown()
     }
@@ -68,7 +66,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         PBMAssertEq(imp.instl, 0)
         PBMAssertEq(imp.secure, 1)
-        PBMAssertEq(imp.clickbrowser, 1)
+        PBMAssertEq(imp.clickbrowser, 0)
         
         //Check banner
         guard let banner = imp.banner else {
@@ -80,27 +78,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         //Check Regs
         XCTAssertNil(bidRequest.regs.coppa)
-    }
-    
-    func testParameterBuilderExternalBrowser() {
-        let adConfiguration = AdConfiguration()
-        
-        let sdkConfiguration = Prebid.mock
-        sdkConfiguration.useExternalClickthroughBrowser = true
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
-                                               sdkConfiguration:sdkConfiguration,
-                                               sdkVersion:"MOCK_SDK_VERSION",
-                                               targeting: targeting)
-        
-        let bidRequest = PBMORTBBidRequest()
-        builder.build(bidRequest)
-        
-        guard let imp = bidRequest.imp.first else {
-            XCTFail("No imp object")
-            return
-        }
-        
-        PBMAssertEq(imp.clickbrowser, 1)
     }
     
     func testDisplayManager_OriginalAPI() {
@@ -148,23 +125,22 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderDefaultInterstitialConfig() {
-        var adUnit = BaseInterstitialAdUnit.init(configID: "configId")
+        var adUnit = InterstitialRenderingAdUnit(configID: "configId")
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        adUnit = BaseInterstitialAdUnit.init(configID: "configId", minSizePerc: 0.2 as NSValue, eventHandler: InterstitialEventHandlerStandalone())
+        adUnit = InterstitialRenderingAdUnit(configID: "configId", minSizePerc: 0.2 as NSValue, primaryAdRequester: InterstitialEventHandlerStandalone())
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        adUnit = BaseInterstitialAdUnit.init(configID: "configId", minSizePercentage: CGSize.zero)
+        adUnit = InterstitialRenderingAdUnit(configID: "configId", minSizePercentage: CGSize.zero)
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        adUnit = BaseInterstitialAdUnit.init(configID: "configId", minSizePercentage: CGSize.zero, eventHandler: InterstitialEventHandlerStandalone())
+        adUnit = InterstitialRenderingAdUnit(configID: "configId", minSizePercentage: CGSize.zero, eventHandler: InterstitialEventHandlerStandalone())
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        adUnit = BaseInterstitialAdUnit.init(configID: "configId", eventHandler: InterstitialEventHandlerStandalone())
+        adUnit = InterstitialRenderingAdUnit(configID: "configId", eventHandler: InterstitialEventHandlerStandalone())
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
         
-        let mediationAdUnit = MediationBaseInterstitialAdUnit.init(configId: "configId", mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
-        
+        let mediationAdUnit = MediationBaseInterstitialAdUnit(configId: "configId", mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
         checkDefaultParametersForAdUnit(adConfiguration: mediationAdUnit.adUnitConfig.adConfiguration)
     }
     
@@ -304,46 +280,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         } else {
             PBMAssertEq(video.placement?.intValue, expectedPlacement)
         }
-    }
-    
-    func testParameterBuilderDeprecatedProperties() {
-        
-        //Create Builder
-        let adConfiguration = AdConfiguration()
-        
-        targeting.addParam("rab", withName: "foo")
-        adConfiguration.isInterstitialAd = false
-        
-        let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
-                                               sdkConfiguration:sdkConfiguration,
-                                               sdkVersion:"MOCK_SDK_VERSION",
-                                               targeting: targeting)
-        
-        //Run Builder
-        let bidRequest = PBMORTBBidRequest()
-        builder.build(bidRequest)
-        
-        //Check Regs
-        XCTAssertNil(bidRequest.regs.coppa)
-    }
-    
-    func testParametersBuilder_deprecatedDisplayFormat() {
-        //Create Builder
-        let adConfiguration = AdConfiguration()
-        adConfiguration.adFormats = [.display]
-        
-        let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
-                                               sdkConfiguration:sdkConfiguration,
-                                               sdkVersion:"MOCK_SDK_VERSION",
-                                               targeting: targeting)
-        
-        //Run Builder
-        let bidRequest = PBMORTBBidRequest()
-        builder.build(bidRequest)
-        
-        XCTAssertNotNil(bidRequest.imp.first?.banner)
     }
     
     func testParameterBuilderRegs() {

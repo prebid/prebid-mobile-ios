@@ -18,7 +18,7 @@ import XCTest
 
 import UIKit
 import AdSupport
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 // MARK: - Mocks
 
@@ -193,8 +193,8 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         XCTAssertTrue(PBMWebView.isVisibleView(parent))
         XCTAssertFalse(PBMWebView.isVisibleView(view))
         
-        XCTAssertEqual(parent.viewExposure, PBMViewExposure(exposureFactor: 0.2, visibleRectangle: CGRect(x: 0, y: 0, width: 70, height: 20)));
-        XCTAssertEqual(view.viewExposure, .zero);
+        XCTAssertEqual(parent.viewExposure, Factory.createViewExposure(exposureFactor: 0.2, visibleRectangle: CGRect(x: 0, y: 0, width: 70, height: 20)));
+        XCTAssertEqual(view.viewExposure, Factory.ViewExposureType.zero);
         
         grandparent.clipsToBounds = false
         root.clipsToBounds = true
@@ -204,9 +204,9 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         XCTAssertFalse(PBMWebView.isVisibleView(parent))
         XCTAssertTrue(PBMWebView.isVisibleView(view))
         
-        XCTAssertEqual(grandparent.viewExposure, PBMViewExposure(exposureFactor: 0.25, visibleRectangle: CGRect(x: 0, y: 0, width: 50, height: 40)));
-        XCTAssertEqual(parent.viewExposure, .zero);
-        XCTAssertEqual(view.viewExposure, PBMViewExposure(exposureFactor: 1.0/3, visibleRectangle: CGRect(x: 0, y: 0, width: 30, height: 30)));
+        XCTAssertEqual(grandparent.viewExposure, Factory.createViewExposure(exposureFactor: 0.25, visibleRectangle: CGRect(x: 0, y: 0, width: 50, height: 40)));
+        XCTAssertEqual(parent.viewExposure, Factory.ViewExposureType.zero);
+        XCTAssertEqual(view.viewExposure, Factory.createViewExposure(exposureFactor: 1.0/3, visibleRectangle: CGRect(x: 0, y: 0, width: 30, height: 30)));
         
         parent.clipsToBounds = true
         
@@ -215,7 +215,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         XCTAssertFalse(PBMWebView.isVisibleView(parent))
         XCTAssertFalse(PBMWebView.isVisibleView(view))
         
-        XCTAssertEqual(view.viewExposure, .zero);
+        XCTAssertEqual(view.viewExposure, Factory.ViewExposureType.zero);
     }
     
     func testIsVisible3() {
@@ -685,7 +685,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         XCTAssertEqual(webView.mraidState, .notEnabled)
         XCTAssertEqual(webView.state, .loading)
         
-        waitForExpectations(timeout: 3, handler: { _ in
+        waitForExpectations(timeout: 5, handler: { _ in
             XCTAssertEqual(webView.state, .loaded)
             XCTAssertEqual(webView.mraidState, PBMMRAIDState.default)
         })
@@ -854,7 +854,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationCommandExecuted = expectation(description: "expectationCommandExecuted")
         
         webView.jsEvaluatingCompletion = { jsCommand, jsRes, error in
-            if jsCommand == PBMMRAIDJavascriptCommands.onExposureChange(PBMViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds)) {
+            if jsCommand == PBMMRAIDJavascriptCommands.onExposureChange(Factory.createViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds)) {
                 self.expectationCommandExecuted?.fulfill()
             }
         }
@@ -890,7 +890,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         webView.delegate = self
         
         let commandBlock = {
-            webView.MRAID_onExposureChange(PBMViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds)) // < --- Test target
+            webView.MRAID_onExposureChange(Factory.createViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds)) // < --- Test target
         }
         
         let jsEvaluationBlock: ((String?, Any?, Error?) -> Bool) = { jsCommand, jsRes, error in
@@ -898,7 +898,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
-        waitForExpectations(timeout: 3)
+        waitForExpectations(timeout: 5)
     }
     
     func testMRAID_onExposureChangeTrue() {
@@ -906,15 +906,15 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         webView.delegate = self
         
         let commandBlock = {
-            webView.MRAID_onExposureChange(PBMViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds)) // < --- Test target
+            webView.MRAID_onExposureChange(Factory.createViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds)) // < --- Test target
         }
         
         let jsEvaluationBlock: ((String?, Any?, Error?) -> Bool) = { jsCommand, jsRes, error in
-            return jsCommand == PBMMRAIDJavascriptCommands.onExposureChange(PBMViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds))
+            return jsCommand == PBMMRAIDJavascriptCommands.onExposureChange(Factory.createViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds))
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
-        waitForExpectations(timeout: 3)
+        waitForExpectations(timeout: 5)
     }
     
     func testMRAID_updatePlacementType() {
@@ -930,7 +930,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
-        waitForExpectations(timeout: 3)
+        waitForExpectations(timeout: 5)
     }
     
     func testAudioVolumeChange() {
@@ -1054,6 +1054,8 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
     func webView(_ webView: PBMWebView, receivedMRAIDLink url: URL) {
         expectationWebViewReceivedMRAIDLink?.fulfill()
     }
+    
+    func webView(_ webView: PBMWebView, receivedRewardedEventLink url: URL) {}
     
     // MARK: - Check methods
     

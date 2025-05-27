@@ -15,6 +15,7 @@ limitations under the License.
 
 import Foundation
 
+/// Contains information about bid.
 @objcMembers
 @objc(PBMBidInfo)
 public class BidInfo: NSObject {
@@ -25,13 +26,29 @@ public class BidInfo: NSObject {
     /// Key to get Prebid imp event from `events`
     public static let EVENT_IMP = "ext.prebid.events.imp"
   
+    /// The result code of the bid request
     public private(set) var resultCode: ResultCode
+    
+    /// Targeting keywords associated with the bid
     public private(set) var targetingKeywords: [String: String]?
+    
+    /// The expiration time of the bid
     public private(set) var exp: Double?
+    
+    /// The cache ID for native ads
     public private(set) var nativeAdCacheId: String?
+    
+    /// Events related to the bid
     public private(set) var events: [String: String]
     
-    public init(resultCode: ResultCode, targetingKeywords: [String : String]? = nil, exp: Double? = nil, 
+    /// Initializes a new `BidInfo` instance with the specified parameters.
+    /// - Parameters:
+    ///   - resultCode: The result code of the bid request.
+    ///   - targetingKeywords: Optional targeting keywords associated with the bid.
+    ///   - exp: Optional expiration time of the bid.
+    ///   - nativeAdCacheId: Optional cache ID for native ads.
+    ///   - events: Optional dictionary of events related to the bid.
+    public init(resultCode: ResultCode, targetingKeywords: [String : String]? = nil, exp: Double? = nil,
                 nativeAdCacheId: String? = nil, events: [String: String] = [:]) {
         self.resultCode = resultCode
         self.targetingKeywords = targetingKeywords
@@ -43,6 +60,7 @@ public class BidInfo: NSObject {
     }
     
     // Obj-C API
+    /// Retrieves the expiration time of the bid as an `NSNumber`.
     public func getExp() -> NSNumber? {
         if let exp {
             return NSNumber(value: exp)

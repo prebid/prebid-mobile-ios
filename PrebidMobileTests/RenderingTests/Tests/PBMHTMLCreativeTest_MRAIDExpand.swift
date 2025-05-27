@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
     
@@ -121,9 +121,8 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
         htmlCreative.webView(mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("expand/notreallyaurl"))
         
         //A new state must be set *ONLY* after the exposureChange event
-        let exposure = PBMViewExposure(exposureFactor: 1,
-                                       visibleRectangle: CGRect(),
-                                       occlusionRectangles: nil)
+        let exposure = Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect())
         mockWebView.exposureDelegate?.webView(mockWebView, exposureChange:exposure)
         
         
@@ -176,9 +175,8 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
         XCTAssertFalse(htmlCreative.isOpened)
         htmlCreative.webView(mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("expand"))
         
-        let exposure = PBMViewExposure(exposureFactor: 1,
-                                       visibleRectangle: CGRect(),
-                                       occlusionRectangles: nil)
+        let exposure = Factory.createViewExposure(exposureFactor: 1,
+                                                  visibleRectangle: CGRect())
         mockWebView.exposureDelegate?.webView(mockWebView, exposureChange:exposure)
         
         waitForExpectations(timeout: 1)
@@ -220,7 +218,7 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
      - shouldFulfill: Whether or not the expecation is expected to fulfill
      - expectedEvent: If `shouldFulfill`, the tracking event to compare
      */
-    func clickTrackingExpectation(shouldFulfill: Bool, expectedEvent: PBMTrackingEvent? = nil) {
+    func clickTrackingExpectation(shouldFulfill: Bool, expectedEvent: TrackingEvent? = nil) {
         let exp = expectation(description: "Should \(shouldFulfill ? "" : "not ")trigger a click event")
         exp.isInverted = !shouldFulfill
         mockEventTracker.mock_trackEvent = { (actualEvent) in

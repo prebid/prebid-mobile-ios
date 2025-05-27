@@ -14,9 +14,9 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeViewDelegate, PBMVideoViewDelegate {
+class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewDelegate, PBMVideoViewDelegate {
     
     var vc = UIViewController()
     var videoCreative:PBMVideoCreative!
@@ -121,6 +121,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
     
     // MARK: - PBMVideoViewDelegate
     
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
     func videoViewFailedWithError(_ error: Error) {}
     func videoViewReadyToDisplay() {}
     func videoViewCompletedDisplay() {}
@@ -130,7 +131,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
         self.expectationClickthroughBrowserClosed?.fulfill()
     }
     
-    func trackEvent(_ trackingEvent: PBMTrackingEvent) {}
+    func trackEvent(_ trackingEvent: TrackingEvent) {}
     
     // MARK: - CreativeViewDelegate
     
@@ -145,13 +146,14 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
     func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {}
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {}
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {}
     func videoViewWasTapped() {}
     func learnMoreWasClicked() {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
     
     // MARK: - Helper Methods
     private func setupVideoCreative(videoFileURL:String = "http://get_video/small.mp4", localVideoFileName:String = "small.mp4") {
@@ -159,10 +161,10 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
         MockServer.shared.resetRules([rule])
         
         //Create model
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = videoFileURL
         model.displayDurationInSeconds = 6
-        model.adConfiguration?.isOptIn = true
+        model.adConfiguration?.isRewarded = true
         
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadVideoData")
         

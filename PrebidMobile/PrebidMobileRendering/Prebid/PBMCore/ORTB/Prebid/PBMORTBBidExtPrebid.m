@@ -33,9 +33,10 @@
     }
     
     _targeting = jsonDictionary[@"targeting"];
+    _meta = jsonDictionary[@"meta"];
     _type = jsonDictionary[@"type"];
     
-    NSArray * const passthroughDics = jsonDictionary[@"passthrough"];
+    NSArray<PBMJsonDictionary *> *const passthroughDics = [PBMFunctions dictionariesForPassthrough:jsonDictionary[@"passthrough"]];
     _passthrough = nil;
     if (passthroughDics) {
         NSMutableArray * const newPassthrough = [[NSMutableArray alloc] initWithCapacity:passthroughDics.count];
@@ -64,6 +65,7 @@
     
     ret[@"cache"] = [[self.cache toJsonDictionary] nullIfEmpty];
     ret[@"targeting"] = self.targeting;
+    ret[@"meta"] = self.meta;
     ret[@"type"] = self.type;
     
     NSMutableArray * const passthroughDicArr = [[NSMutableArray alloc] initWithCapacity:self.passthrough.count];

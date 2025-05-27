@@ -17,7 +17,6 @@
 
 #import "PBMConstants.h"
 #import "PBMURLComponents.h"
-#import "PBMError.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -63,7 +62,8 @@ static NSString *vastContentType = @"application/x-www-form-urlencoded";
         
         NSData *vastData = serverResponse.rawData;
         if (!vastData) {
-            completion(nil, [PBMError errorWithDescription:@"No Data From Server" statusCode:PBMErrorCodeFileNotFound]);
+            completion(nil, [PBMError errorWithDescription:@"No Data From Server"
+                                                statusCode:PBMErrorCodeFileNotFound]);
             return;
         }
         

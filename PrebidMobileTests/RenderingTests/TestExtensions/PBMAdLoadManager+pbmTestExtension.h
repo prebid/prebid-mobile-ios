@@ -17,6 +17,6 @@
 
 @interface PBMAdLoadManagerBase ()
 
-@property (nonatomic, assign) PBMTransaction* currentTransaction;
+@property (nonatomic, assign) id<PBMTransaction> currentTransaction;
 
 @end

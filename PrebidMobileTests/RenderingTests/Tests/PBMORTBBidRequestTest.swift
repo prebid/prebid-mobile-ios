@@ -62,9 +62,6 @@ class PBMORTBBidRequestTest: XCTestCase {
         checkInt(PBMORTBGeo(), property: "accuracy")
         checkInt(PBMORTBGeo(), property: "lastfix")
         checkInt(PBMORTBGeo(), property: "utcoffset")
-        
-        // PBMORTBUser
-        checkInt(PBMORTBUser(), property: "yob")
     }
     
     // MARK: Test Function

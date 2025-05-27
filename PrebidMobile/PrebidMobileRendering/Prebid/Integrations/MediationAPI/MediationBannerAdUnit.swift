@@ -16,10 +16,12 @@
 import Foundation
 import UIKit
 
+/// This class is responsible for making bid request and providing the winning bid and targeting keywords to mediating SDKs.
+/// This class is a part of Mediation API.
 @objcMembers
 public class MediationBannerAdUnit : NSObject {
     
-    var bidRequester: PBMBidRequester?
+    var bidRequester: BidRequester?
     // The view in which ad is displayed
     weak var adView: UIView?
     var completion: ((ResultCode) -> Void)?
@@ -34,161 +36,70 @@ public class MediationBannerAdUnit : NSObject {
     
     var adUnitConfig: AdUnitConfig
     
+    /// Property that performs certain utilty work for the `MediationBannerAdUnit`
     public let mediationDelegate: PrebidMediationDelegate
     
     // MARK: - Computed properties
     
+    /// The configuration ID for an ad unit
     public var configID: String {
         adUnitConfig.configId
     }
     
+    /// The ad format for the ad unit.
     public var adFormat: AdFormat {
         get { adUnitConfig.adFormats.first ?? .banner }
         set { adUnitConfig.adFormats = [newValue] }
     }
     
+    /// The position of the ad on the screen.
     public var adPosition: AdPosition {
         get { adUnitConfig.adPosition }
         set { adUnitConfig.adPosition = newValue }
     }
     
+    /// Parameters for configuring banner ads.
     public var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
     }
     
+    /// Parameters for configuring video ads.
     public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
+    /// The refresh interval for the ad.
     public var refreshInterval: TimeInterval {
         get { adUnitConfig.refreshInterval }
         set { adUnitConfig.refreshInterval = newValue }
     }
     
+    /// Additional sizes for the ad unit.
     public var additionalSizes: [CGSize]? {
         get { adUnitConfig.additionalSizes }
         set { adUnitConfig.additionalSizes = newValue }
     }
     
-    public var ortbConfig: String? {
-        get { adUnitConfig.ortbConfig }
-        set { adUnitConfig.ortbConfig = newValue }
-    }
-
-    // MARK: - Ext Data (imp[].ext.data)
+    // MARK: Arbitrary ORTB Configuration
     
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
-    public func addContextData(_ data: String, forKey key: String) {
-        addExtData(key: key, value: data)
+    /// Sets the impression-level OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setImpORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.impORTBConfig = ortbConfig
     }
     
-    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
-    public func updateContextData(_ data: Set<String>, forKey key: String) {
-        updateExtData(key: key, value: data)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
-    public func removeContextDate(forKey key: String) {
-        removeExtData(forKey: key)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
-    public func clearContextData() {
-        clearExtData()
-    }
-    
-    public func addExtData(key: String, value: String) {
-        adUnitConfig.addExtData(key: key, value: value)
-    }
-    
-    public func updateExtData(key: String, value: Set<String>) {
-        adUnitConfig.updateExtData(key: key, value: value)
-    }
-    
-    public func removeExtData(forKey: String) {
-        adUnitConfig.removeExtData(for: forKey)
-    }
-    
-    public func clearExtData() {
-        adUnitConfig.clearExtData()
-    }
-    
-    // MARK: - Ext keywords (imp[].ext.keywords)
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
-    @objc public func addContextKeyword(_ newElement: String) {
-        addExtKeyword(newElement)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
-    @objc public func addContextKeywords(_ newElements: Set<String>) {
-        addExtKeywords(newElements)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
-    @objc public func removeContextKeyword(_ element: String) {
-        removeExtKeyword(element)
-    }
-
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
-    @objc public func clearContextKeywords() {
-        clearExtKeywords()
-    }
-    
-    public func addExtKeyword(_ newElement: String) {
-        adUnitConfig.addExtKeyword(newElement)
-    }
-    
-    public func addExtKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addExtKeywords(newElements)
-    }
-    
-    public func removeExtKeyword(_ element: String) {
-        adUnitConfig.removeExtKeyword(element)
-    }
-    
-    public func clearExtKeywords() {
-        adUnitConfig.clearExtKeywords()
-    }
-    
-    // MARK: - App Content (app.content.data)
-    
-    public func setAppContent(_ appContent: PBMORTBAppContent) {
-        adUnitConfig.setAppContent(appContent)
-    }
-    
-    public func clearAppContent() {
-        adUnitConfig.clearAppContent()
-    }
-    
-    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addAppContentData(dataObjects)
-    }
-    
-    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
-        adUnitConfig.removeAppContentData(dataObject)
-    }
-    
-    public func clearAppContentDataObjects() {
-        adUnitConfig.clearAppContentData()
-    }
-    
-    // MARK: - User Data (user.data)
-    
-    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addUserData(userDataObjects)
-    }
-    
-    public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        adUnitConfig.removeUserData(userDataObject)
-    }
-    
-    public func clearUserData() {
-        adUnitConfig.clearUserData()
+    /// Returns the impression-level OpenRTB configuration string.
+    public func getImpORTBConfig() -> String? {
+        adUnitConfig.impORTBConfig
     }
     
     // MARK: - Public Methods
     
+    /// Initializes a new mediation banner ad unit with the specified configuration ID, size, and mediation delegate.
+    /// - Parameter configID: The unique identifier for the ad unit configuration.
+    /// - Parameter size: The size of the ad.
+    /// - Parameter mediationDelegate: The delegate for handling mediation.
     public init(configID: String, size: CGSize, mediationDelegate: PrebidMediationDelegate) {
         adUnitConfig = AdUnitConfig(configId: configID, size: size)
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
@@ -219,6 +130,8 @@ public class MediationBannerAdUnit : NSObject {
         })
     }
     
+    /// Makes bid request and setups mediation parameters.
+    /// - Parameter completion: The completion handler to call when the demand fetch is complete.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
         fetchDemand(connection: PrebidServerConnection.shared,
@@ -227,10 +140,14 @@ public class MediationBannerAdUnit : NSObject {
                     completion: completion)
     }
     
+    /// Stops the auto-refresh for the ad unit.
     public func stopRefresh() {
         isRefreshStopped = true
     }
     
+    /// Handles the event when the ad object fails to load an ad.
+    /// - Parameter adObject: The ad object that failed to load the ad.
+    /// - Parameter error: The error that occurred during the ad load.
     public func adObjectDidFailToLoadAd(adObject: UIView,
                                         with error: Error) {
         if adObject === self.adView || adObject === self.lastAdView {
@@ -265,10 +182,10 @@ public class MediationBannerAdUnit : NSObject {
         
         mediationDelegate.cleanUpAdObject()
         
-        bidRequester = PBMBidRequester(connection: connection,
-                                       sdkConfiguration: sdkConfiguration,
-                                       targeting: targeting,
-                                       adUnitConfiguration: adUnitConfig)
+        bidRequester = Factory.createBidRequester(connection: connection,
+                                                  sdkConfiguration: sdkConfiguration,
+                                                  targeting: targeting,
+                                                  adUnitConfiguration: adUnitConfig)
         
         bidRequester?.requestBids(completion: { bidResponse, error in
             // Note: we have to run the completion on the main thread since

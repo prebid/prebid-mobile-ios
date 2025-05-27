@@ -21,7 +21,7 @@ class PrebidOriginalAPIMultiformatBannerController:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
-    GADBannerViewDelegate {
+    GoogleMobileAds.BannerViewDelegate {
     
     weak var rootController: AdapterViewController?
     var prebidConfigId = ""
@@ -29,13 +29,13 @@ class PrebidOriginalAPIMultiformatBannerController:
     
     var refreshInterval: TimeInterval = 0
     var adSize = CGSize.zero
-    var gamSizes = [GADAdSize]()
+    var gamSizes = [AdSize]()
     
     // Prebid
     private var adUnit: BannerAdUnit!
     
     // GAM
-    private var gamBanner: GAMBannerView!
+    private var gamBanner: AdManagerBannerView!
     
     private let bannerViewDidReceiveAd = EventReportContainer()
     private let bannerViewDidFailToReceiveAd = EventReportContainer()
@@ -72,49 +72,10 @@ class PrebidOriginalAPIMultiformatBannerController:
         adUnit = BannerAdUnit(configId: prebidConfigId, size: adSize)
         adUnit.setAutoRefreshMillis(time: refreshInterval)
         adUnit.adFormats = [.banner, .video]
-        
         adUnit.videoParameters.mimes = ["video/mp4"]
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addAppContentData([ortbAppContentData])
-        }
-        
-        gamBanner = GAMBannerView(adSize: gamSizes.first ?? GADAdSizeFromCGSize(adSize))
-        gamBanner.validAdSizes = gamSizes.map(NSValueFromGADAdSize)
+        gamBanner = AdManagerBannerView(adSize: gamSizes.first ?? adSizeFor(cgSize: adSize))
+        gamBanner.validAdSizes = gamSizes.map(nsValue)
         gamBanner.adUnitID = adUnitID
         gamBanner.rootViewController = rootController
         gamBanner.delegate = self
@@ -122,7 +83,7 @@ class PrebidOriginalAPIMultiformatBannerController:
         rootController?.bannerView?.addSubview(gamBanner)
         rootController?.bannerView.backgroundColor = .clear
         
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             Log.info("Prebid demand fetch for GAM \(resultCode.name())")
             self?.gamBanner.load(gamRequest)
@@ -167,7 +128,7 @@ class PrebidOriginalAPIMultiformatBannerController:
         
         resetEvents()
         
-        let gamRequest = GAMRequest()
+        let gamRequest = AdManagerRequest()
         adUnit.fetchDemand(adObject: gamRequest) { [weak self] resultCode in
             Log.info("Prebid demand fetch for GAM \(resultCode.name())")
             self?.gamBanner.load(gamRequest)
@@ -181,21 +142,24 @@ class PrebidOriginalAPIMultiformatBannerController:
     
     // MARK: - GADBannerViewDelegate
     
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewDidReceiveAd.isEnabled = true
         reloadButton.isEnabled = true
         rootController?.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = bannerView.adSize.size.width
         rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height
         
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
-            guard let bannerView = bannerView as? GAMBannerView else { return }
-            bannerView.resize(GADAdSizeFromCGSize(size))
+            guard let bannerView = bannerView as? AdManagerBannerView else { return }
+            bannerView.resize(adSizeFor(cgSize: size))
         }, failure: { (error) in
             Log.error("Error occuring during searching for Prebid creative size: \(error)")
         })
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(
+        _ bannerView: GoogleMobileAds.BannerView,
+        didFailToReceiveAdWithError error: Error
+    ) {
         resetEvents()
         bannerViewDidFailToReceiveAd.isEnabled = true
         Log.error(error.localizedDescription)
@@ -203,23 +167,23 @@ class PrebidOriginalAPIMultiformatBannerController:
         reloadButton.isEnabled = true
     }
     
-    func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+    func bannerViewDidRecordImpression(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewDidRecordImpression.isEnabled = true
     }
     
-    func bannerViewDidRecordClick(_ bannerView: GADBannerView) {
+    func bannerViewDidRecordClick(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewDidRecordClick.isEnabled = true
     }
     
-    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillPresentScreen(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewWillPresentScreen.isEnabled = true
     }
     
-    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillDismissScreen(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewWillDismissScreen.isEnabled = true
     }
     
-    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewDidDismissScreen(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewDidDismissScreen.isEnabled = true
     }
 }

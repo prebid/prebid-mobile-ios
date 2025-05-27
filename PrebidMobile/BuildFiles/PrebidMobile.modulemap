@@ -19,21 +19,11 @@ framework module PrebidMobile {
     header "PrebidMobile.h"
     
     // Enums
-    header "PBMErrorCode.h"
-    header "PBMErrorType.h"
     
     // PBMCore
-    header "PBMBidRequester.h"
-    header "PBMBidRequesterProtocol.h"
     
     // PBMCacheRenderers
     header "PBMDisplayView.h"
-    
-    // Integration GAM
-    
-    header "PBMPrimaryAdRequesterProtocol.h"
-    
-    header "PBMInterstitialEventHandler.h"
     
     // ===
     //Temp. for converting
@@ -45,16 +35,12 @@ framework module PrebidMobile {
 
     header "PBMViewControllerProvider.h"
     header "PBMVoidBlock.h"
-    
-    header "PBMErrorFamily.h"
-    
+        
     header "PBMJsonDecodable.h"
     header "PBMConstants.h"
     
     header "PBMAdViewManagerDelegate.h"
     header "PBMAdDetails.h"
-    header "PBMTransaction.h"
-    header "PBMInterstitialLayout.h"
     
     header "PBMScheduledTimerFactory.h"
     header "NSTimer+PBMScheduledTimerFactory.h"
@@ -65,15 +51,11 @@ framework module PrebidMobile {
     header "PBMVastTransactionFactory.h"
     header "PBMTransactionFactoryCallback.h"
     
-    header "PBMError.h"
     header "PBMModalManagerDelegate.h"
     header "PBMAdLoadManagerDelegate.h"
-    header "PBMCreativeViewDelegate.h"
     header "PBMAbstractCreative.h"
-    header "PBMAdViewManager.h"
-    header "PBMViewExposure.h"
+    header "PBMDeviceAccessManager.h"
     
-    header "PBMBidRequester.h"
     header "Log+Extensions.h"
     header "PBMAutoRefreshManager.h"
     
@@ -96,16 +78,11 @@ framework module PrebidMobile {
     header "PBMWinNotifierBlock.h"
     header "PBMAdMarkupStringHandler.h"
     header "PBMBidRequesterFactory.h"
-    header "PBMWinNotifier.h"
-    header "PBMWinNotifierFactoryBlock.h"
     
     // OM tracking
     header "PBMOpenMeasurementWrapper.h"
     header "PBMOpenMeasurementSession.h"
-    header "PBMVideoVerificationParameters.h"
-    header "PBMEventTrackerProtocol.h"
     header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
-    header "PBMTrackingEvent.h"
     
     // Urls openers
     header "PBMExternalURLOpeners.h"
@@ -126,7 +103,6 @@ framework module PrebidMobile {
     header "PBMModalViewControllerDelegate.h"
     
     // Interstitial
-    header "PBMInterstitialDisplayProperties.h"
     header "PBMWeakTimerTargetBox.h"
     
     // Bid
@@ -147,6 +123,7 @@ framework module PrebidMobile {
     header "PBMORTBAdConfiguration.h"
     header "PBMORTBSDKConfiguration.h"
     header "PBMORTBBidExtSkadn.h"
+    header "PBMORTBBidExtSkadnSKOverlay.h"
     header "PBMORTBSkadnFidelity.h"
     header "PBMORTBExtPrebidEvents.h"
     header "PBMORTBMacrosHelper.h"
@@ -157,12 +134,24 @@ framework module PrebidMobile {
     header "PBMORTBContentSegment.h"
     header "PBMORTBNative.h"
     
+    // Rewarded
+    header "PBMORTBRewardedClose.h"
+    header "PBMORTBRewardedCompletion.h"
+    header "PBMORTBRewardedCompletionBanner.h"
+    header "PBMORTBRewardedCompletionVideo.h"
+    header "PBMORTBRewardedCompletionVideoEndcard.h"
+    header "PBMORTBRewardedConfiguration.h"
+    header "PBMORTBRewardedReward.h"
+    
     header "NSDictionary+PBMExtensions.h"
     header "NSMutableDictionary+PBMExtensions.h"
-    header "PBMLocationManager.h"
     
     header "PBMInterstitialAdLoader.h"
     header "PBMInterstitialAdLoaderDelegate.h"
     
+    header "PrebidMobileDisplayViewProtocol.h"
+    
     header "OMSDKVersionProvider.h"
+    header "NSObject+PBMExtensions.h"
+    header "PBMCreativeViewabilityTracker.h"
 }

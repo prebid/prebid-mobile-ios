@@ -20,9 +20,7 @@
 #import "UIView+PBMExtensions.h"
 
 #import "PBMConstants.h"
-#import "PBMCreativeModel.h"
 #import "PBMDownloadDataHelper.h"
-#import "PBMError.h"
 #import "PBMFunctions.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMOpenMeasurementSession.h"
@@ -30,9 +28,7 @@
 #import "PBMVideoView.h"
 #import "PBMModalState.h"
 #import "PBMMacros.h"
-#import "PBMTransaction.h"
 #import "PBMCreativeResolutionDelegate.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMCreativeViewabilityTracker.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -48,6 +44,7 @@
 
 @property (nonatomic, strong) PBMVideoView *videoView;
 @property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong) PBMRewardedConfig *rewardedConfig;
 
 @end
 
@@ -65,7 +62,7 @@
 #pragma mark - PBMAbstractCreative
 
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                          transaction:(PBMTransaction *)transaction
+                          transaction:(id<PBMTransaction>)transaction
                             videoData:(NSData *)data {
     self = [super initWithCreativeModel:creativeModel transaction:transaction];
     if (self) {
@@ -76,6 +73,10 @@
         self.videoView = [[PBMVideoView alloc] initWithCreative:self];
         self.videoView.videoViewDelegate = self;
         self.view = self.videoView;
+        
+        self.rewardedConfig = self.creativeModel.adConfiguration.rewardedConfig;
+        self.creativeModel.rewardTime = [self calculateRewardTime];
+        self.creativeModel.postRewardTime = [self calculatePostRewardTimeWith:self.creativeModel.rewardTime];
     }
     
     return self;
@@ -220,6 +221,42 @@
     }];
 }
 
+- (void)videoViewCurrentPlayingTime:(NSNumber *)currentPlayingTime {
+    // NOTE: Rewarded API only
+    // Signal to the application that the user has earned the reward after
+    // the certain period of time that the ad is on the screen.
+    if (!self.creativeModel.adConfiguration.isRewarded) {
+        return;
+    }
+    
+    // NOTE: This logic apllicable only to the creatives without endcard.
+    if (self.creativeModel.hasCompanionAd) {
+        return;
+    }
+    
+    // Try track reward event
+    if (!self.creativeModel.userHasEarnedReward &&
+        [self.creativeModel.rewardTime doubleValue] >= 0 &&
+        [currentPlayingTime doubleValue] >= [self.creativeModel.rewardTime doubleValue]) {
+        
+        self.creativeModel.userHasEarnedReward = YES;
+        [self.creativeViewDelegate creativeDidSendRewardedEvent:self];
+        
+        // The SDK shows the Learn More button only when the reward clause is met.
+        self.videoView.showLearnMore = YES;
+        [self.videoView updateLearnMoreButton];
+    }
+    
+    // Try track post-reward event
+    if(!self.creativeModel.userPostRewardEventSent &&
+       [self.creativeModel.postRewardTime doubleValue] >= 0 &&
+       [currentPlayingTime doubleValue] >= [self.creativeModel.postRewardTime doubleValue]) {
+        
+        self.creativeModel.userPostRewardEventSent = YES;
+        [self.modalManager creativeDisplayCompleted:self];
+    }
+}
+
 - (void)videoViewWasTapped {
     if (self.creativeModel.adConfiguration.clickHandlerOverride != nil) {
         [self.eventManager trackEvent:PBMTrackingEventClick];
@@ -240,7 +277,7 @@
 
 #pragma mark - PBMModalManagerDelegate
 
-- (void)modalManagerDidFinishPop:(PBMModalState*)state {
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state {
     
     //Clickthrough
     if (self.clickthroughVisible) {
@@ -261,7 +298,7 @@
     [self.creativeViewDelegate creativeInterstitialDidClose:self];
 }
 
-- (void)modalManagerDidLeaveApp:(PBMModalState*)state {
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state {
     [self.creativeViewDelegate creativeInterstitialDidLeaveApp:self];
 }
 
@@ -288,7 +325,7 @@
 
 // TODO: - Clarify the requirements and fix calculation logic
 - (NSTimeInterval)calculateCloseDelayForPubCloseDelay:(NSTimeInterval)pubCloseDelay {
-    if (self.creativeModel.adConfiguration.isOptIn || self.creativeModel.hasCompanionAd) {
+    if (self.creativeModel.hasCompanionAd) {
         return [self.creativeModel.displayDurationInSeconds doubleValue];
     } else if (self.creativeModel.adConfiguration.videoControlsConfig.skipDelay && self.creativeModel.adConfiguration.videoControlsConfig.skipDelay <= self.creativeModel.displayDurationInSeconds.doubleValue) {
         return self.creativeModel.adConfiguration.videoControlsConfig.skipDelay;
@@ -306,6 +343,65 @@
         
         return ret;
     }
+}
+
+- (NSNumber *)calculateRewardTime {
+    if (!self.creativeModel.adConfiguration.isRewarded) {
+        return @-1;
+    }
+    
+    NSString * ortbPlaybackevent = self.rewardedConfig.videoPlaybackevent;
+    NSNumber * ortbVideoTime = self.rewardedConfig.videoTime;
+    
+    // If both complition criteria are missing (playbackevent and time) - use default configuration
+    if (!ortbPlaybackevent && !ortbVideoTime) {
+        ortbPlaybackevent = self.rewardedConfig.defaultVideoPlaybackEvent;
+    }
+    
+    CGFloat videoDuration = [self.creativeModel.displayDurationInSeconds doubleValue];
+    
+    // If completion criteria is playback event
+    if (ortbPlaybackevent) {
+        PBMTrackingEvent event = [PBMTrackingEventDescription getEventWith:ortbPlaybackevent];
+        
+        switch(event) {
+            case PBMTrackingEventStart:
+                return @0;
+            case PBMTrackingEventFirstQuartile:
+                return @(0.25 * videoDuration);
+            case PBMTrackingEventMidpoint:
+                return @(0.5 * videoDuration);
+            case PBMTrackingEventThirdQuartile:
+                return @(0.75 * videoDuration);
+            case PBMTrackingEventComplete:
+                return @(videoDuration);
+            default:
+                return @(videoDuration);
+        }
+    }
+    
+    // If completion criteria is time and if 0 <= completion.video.time <= videoDuration
+    if (ortbVideoTime && [ortbVideoTime doubleValue] >= 0 && [ortbVideoTime doubleValue] <= videoDuration) {
+        double rewardTime = [ortbVideoTime doubleValue];
+        return [NSNumber numberWithDouble:rewardTime];
+    }
+    
+    // Return video duration by default
+    return @(videoDuration);
+}
+
+- (NSNumber *)calculatePostRewardTimeWith:(NSNumber *)calculatedRewardTime {
+    NSNumber * checkedRewardTime = (!calculatedRewardTime || [calculatedRewardTime doubleValue] < 0.0)
+    ? @0.0 : calculatedRewardTime;
+    
+    NSNumber * ortbPostrewardedTime = self.rewardedConfig.postRewardTime;
+    NSNumber * checkedPostrewardedTime = (!ortbPostrewardedTime || [ortbPostrewardedTime doubleValue] < 0.0)
+    ? @0.0 : ortbPostrewardedTime;
+    
+    NSNumber * postRewardTime = [NSNumber numberWithDouble:
+                                 [checkedRewardTime doubleValue] + [checkedPostrewardedTime doubleValue]];
+    
+    return postRewardTime;
 }
 
 @end

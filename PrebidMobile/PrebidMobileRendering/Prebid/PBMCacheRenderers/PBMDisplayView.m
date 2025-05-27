@@ -19,10 +19,7 @@
 #import "PBMDisplayView+InternalState.h"
 
 #import "PBMTransactionFactory.h"
-#import "PBMWinNotifier.h"
-#import "PBMAdViewManager.h"
 #import "PBMAdViewManagerDelegate.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMModalManagerDelegate.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -34,49 +31,57 @@
 
 #import "PBMMacros.h"
 
-@interface PBMDisplayView () <PBMAdViewManagerDelegate, PBMModalManagerDelegate>
+@interface PBMDisplayView () <PrebidMobileDisplayViewProtocol>
 
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 
 @property (nonatomic, strong, nullable) PBMTransactionFactory *transactionFactory;
-@property (nonatomic, strong, nullable) PBMAdViewManager *adViewManager;
+@property (nonatomic, strong, nullable) id<PBMAdViewManager> adViewManager;
 
 @property (nonatomic, strong, readonly, nonnull) PBMInterstitialDisplayProperties *interstitialDisplayProperties;
 
 @end
 
-
-
 @implementation PBMDisplayView
 
 // MARK: - Public API
+
 - (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid configId:(NSString *)configId {
-    return self = [self initWithFrame:frame bid:bid adConfiguration:[[AdUnitConfig alloc] initWithConfigId:configId size:bid.size]];
+    return self = [self initWithFrame:frame
+                                  bid:bid
+                      adConfiguration:[[AdUnitConfig alloc] initWithConfigId:configId
+                                                                        size:bid.size]];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid adConfiguration:(AdUnitConfig *)adConfiguration {
+- (instancetype)initWithFrame:(CGRect)frame
+                          bid:(Bid *)bid
+              adConfiguration:(AdUnitConfig *)adConfiguration {
+    
     if (!(self = [super initWithFrame:frame])) {
         return nil;
     }
+    
     _bid = bid;
     _adConfiguration = adConfiguration;
     _interstitialDisplayProperties = [[PBMInterstitialDisplayProperties alloc] init];
+    
     return self;
 }
 
-- (void)displayAd {
+- (void)loadAd {
     if (self.transactionFactory) {
         return;
     }
     
     self.adConfiguration.adConfiguration.winningBidAdFormat = self.bid.adFormat;
+    self.adConfiguration.adConfiguration.rewardedConfig = [[PBMRewardedConfig alloc] initWithOrtbRewarded:self.bid.rewardedConfig];
     
     @weakify(self);
     self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
                                                          adConfiguration:self.adConfiguration
                                                               connection:self.connection ?: PrebidServerConnection.shared
-                                                                callback:^(PBMTransaction * _Nullable transaction,
+                                                                callback:^(id<PBMTransaction> _Nullable transaction,
                                                                            NSError * _Nullable error) {
         @strongify(self);
         if (!self) { return; }
@@ -88,9 +93,9 @@
         }
     }];
     
-    [PBMWinNotifier notifyThroughConnection:PrebidServerConnection.shared
-                                 winningBid:self.bid
-                                   callback:^(NSString *adMarkup) {
+    [PBMFactory.WinNotifierType notifyThroughConnection:PrebidServerConnection.shared
+                                             winningBid:self.bid
+                                               callback:^(NSString *adMarkup) {
         @strongify(self);
         if (!self) { return; }
         
@@ -174,18 +179,16 @@
 // MARK: - Private Helpers
 
 - (void)reportFailureWithError:(NSError *)error {
-    self.transactionFactory = nil;
     [self.loadingDelegate displayView:self didFailWithError:error];
 }
 
 - (void)reportSuccess {
-    self.transactionFactory = nil;
     [self.loadingDelegate displayViewDidLoadAd:self];
 }
 
-- (void)displayTransaction:(PBMTransaction *)transaction {
+- (void)displayTransaction:(id<PBMTransaction>)transaction {
     id<PrebidServerConnectionProtocol> const connection = self.connection ?: PrebidServerConnection.shared;
-    self.adViewManager = [[PBMAdViewManager alloc] initWithConnection:connection modalManagerDelegate:self];
+    self.adViewManager = [PBMFactory createAdViewManagerWithConnection:connection modalManagerDelegate:self];
     self.adViewManager.adViewManagerDelegate = self;
     self.adViewManager.adConfiguration = self.adConfiguration.adConfiguration;
     if (self.adConfiguration.adConfiguration.winningBidAdFormat == AdFormat.video) {

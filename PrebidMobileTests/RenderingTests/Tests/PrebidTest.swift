@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PrebidTest: XCTestCase {
     
@@ -33,6 +33,8 @@ class PrebidTest: XCTestCase {
         sdkConfiguration = nil
         
         Prebid.reset()
+        PrebidMobilePluginRegister.shared.unregisterAllPlugins()
+        MockDeviceAccessManager.reset()
         
         super.tearDown()
     }
@@ -43,25 +45,28 @@ class PrebidTest: XCTestCase {
         checkInitialValue(sdkConfiguration: sdkConfiguration)
     }
     
-    func testInitializeSDK_OptionalCallback() {
+    func testInitializeSDK_OptionalCallback() throws {
         // init callback should be optional
-        Prebid.initializeSDK()
+        let serverURL = "https://prebid-server-test-j.prebid.org/openrtb2/auction"
+        try XCTUnwrap(Prebid.initializeSDK(serverURL: serverURL))
     }
     
-    func testInitializeSDK() {
-        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+    func testInitializeSDK() throws {
         
+        let serverURL = "https://prebid-server-test-j.prebid.org/openrtb2/auction"
         let expectation = expectation(description: "Expected successful initialization")
         
-        Prebid.initializeSDK { status, error in
-            if case .succeeded = status {
-                expectation.fulfill()
-            }
+        try XCTUnwrap(
+            Prebid.initializeSDK(serverURL: serverURL) { status, error in
+                if case .succeeded = status {
+                    expectation.fulfill()
+                }
             
-            if let error = error {
-                XCTFail("Failed with error: \(error.localizedDescription)")
+                if let error = error {
+                    XCTFail("Failed with error: \(error.localizedDescription)")
+                }
             }
-        }
+        )
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -113,53 +118,42 @@ class PrebidTest: XCTestCase {
         checkInitialValue(sdkConfiguration: firstConfig)
     }
     
-    func testPrebidHost() {
-        let sdkConfig = Prebid.shared
-        XCTAssertEqual(sdkConfig.prebidServerHost, .Custom)
-        
-        sdkConfig.prebidServerHost = .Appnexus
-        XCTAssertEqual(try! Host.shared.getHostURL(host:sdkConfig.prebidServerHost), "https://ib.adnxs.com/openrtb2/prebid")
-        
-        let _ = try! Prebid.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
-        XCTAssertEqual(sdkConfig.prebidServerHost, .Custom)
-    }
-    
-    func testServerHostCustomInvalid() throws {
-        XCTAssertThrowsError(try Prebid.shared.setCustomPrebidServer(url: "wrong url"))
-    }
-    
-    func testServerHost() {
+    func testServerHostCustomOnAuthorizedTrackingStatus() throws {
         //given
-        let case1 = PrebidHost.Appnexus
-        let case2 = PrebidHost.Rubicon
+        let customTrackingHost = "https://prebid-server.tracking.com/openrtb2/auction"
+        let customNonTrackingHost = "https://prebid-server.nontracking.com/openrtb2/auction"
+        
+        MockDeviceAccessManager.mockAdvertisingTrackingEnabled = true
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        let host = Host(deviceManager: MockDeviceAccessManager(rootViewController: nil))
         
         //when
-        Prebid.shared.prebidServerHost = case1
-        let result1 = Prebid.shared.prebidServerHost
-        
-        Prebid.shared.prebidServerHost = case2
-        let result2 = Prebid.shared.prebidServerHost
+        try host.setHostURL(customTrackingHost, nonTrackingURLString: customNonTrackingHost)
         
         //then
-        XCTAssertEqual(case1, result1)
-        XCTAssertEqual(case2, result2)
+        let getHostURLResult = try host.getHostURL()
+        XCTAssertEqual(customTrackingHost, getHostURLResult)
     }
     
-    func testServerHostCustom() throws {
+    func testServerHostCustomOnNonAuthorizedTrackingStatus() throws {
         //given
-        let customHost = "https://prebid-server.rubiconproject.com/openrtb2/auction"
+        let customTrackingHost = "https://prebid-server.tracking.com/openrtb2/auction"
+        let customNonTrackingHost = "https://prebid-server.nontracking.com/openrtb2/auction"
+        
+        MockDeviceAccessManager.mockAdvertisingTrackingEnabled = false
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .denied
+        }
+        let host = Host(deviceManager: MockDeviceAccessManager(rootViewController: nil))
         
         //when
-        //We can not use setCustomPrebidServer() because it uses UIApplication.shared.canOpenURL
-//        try! Prebid.shared.setCustomPrebidServer(url: customHost)
-        
-        Prebid.shared.prebidServerHost = PrebidHost.Custom
-        try Host.shared.setCustomHostURL(customHost)
+        try host.setHostURL(customTrackingHost, nonTrackingURLString: customNonTrackingHost)
         
         //then
-        XCTAssertEqual(PrebidHost.Custom, Prebid.shared.prebidServerHost)
-        let getHostURLResult = try Host.shared.getHostURL(host: .Custom)
-        XCTAssertEqual(customHost, getHostURLResult)
+        let getHostURLResult = try host.getHostURL()
+        XCTAssertEqual(customNonTrackingHost, getHostURLResult)
     }
     
     func testAccountId() {
@@ -182,6 +176,17 @@ class PrebidTest: XCTestCase {
         
         //then
         XCTAssertEqual(storedAuctionResponse, Prebid.shared.storedAuctionResponse)
+    }
+    
+    func testAuctionSettingsId() {
+        //given
+        let auctionSettingsId = "789"
+        
+        //when
+        Prebid.shared.auctionSettingsId = auctionSettingsId
+        
+        //then
+        XCTAssertEqual(auctionSettingsId, Prebid.shared.auctionSettingsId)
     }
     
     func testAddStoredBidResponse() {
@@ -280,11 +285,6 @@ class PrebidTest: XCTestCase {
         XCTAssertEqual(timeoutMillis, Prebid.shared.timeoutMillis)
     }
     
-    func testBidderName() {
-        XCTAssertEqual("appnexus", Prebid.bidderNameAppNexus)
-        XCTAssertEqual("rubicon", Prebid.bidderNameRubiconProject)
-    }
-    
     func testPbsDebug() {
         //given
         let pbsDebug = true
@@ -297,7 +297,7 @@ class PrebidTest: XCTestCase {
     }
     
     func testPBSCreativeFactoryTimeout() {
-        try! sdkConfiguration.setCustomPrebidServer(url: Prebid.devintServerURL)
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
         sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
         
         let creativeFactoryTimeout = 11.1
@@ -309,10 +309,10 @@ class PrebidTest: XCTestCase {
             callback(PBMBidResponseTransformer.makeValidResponseWithCTF(bidPrice: 0.5, ctfBanner: creativeFactoryTimeout, ctfPreRender: creativeFactoryTimeoutPreRenderContent))
         }])
         
-        let requester = PBMBidRequester(connection: connection,
-                                        sdkConfiguration: sdkConfiguration,
-                                        targeting: targeting,
-                                        adUnitConfiguration: adUnitConfig)
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
         
         let exp = expectation(description: "exp")
         requester.requestBids { (bidResponse, error) in
@@ -329,6 +329,16 @@ class PrebidTest: XCTestCase {
         XCTAssertEqual(Prebid.shared.creativeFactoryTimeoutPreRenderContent, creativeFactoryTimeoutPreRenderContent)
     }
     
+    func testRegisterSDKRenderer() throws {
+        XCTAssertTrue(PrebidMobilePluginRegister.shared.getAllPlugins().isEmpty)
+        
+        let serverURL = "https://prebid-server-test-j.prebid.org/openrtb2/auction"
+        try XCTUnwrap(Prebid.initializeSDK(serverURL: serverURL))
+        
+        XCTAssertTrue(PrebidMobilePluginRegister.shared.getAllPlugins().count == 1)
+        XCTAssertTrue(PrebidMobilePluginRegister.shared.getAllPlugins().first?.name == PREBID_MOBILE_RENDERER_NAME)
+    }
+    
     // MARK: - Private Methods
     
     private func checkInitialValue(sdkConfiguration: Prebid, file: StaticString = #file, line: UInt = #line) {
@@ -336,12 +346,10 @@ class PrebidTest: XCTestCase {
         
         XCTAssertEqual(sdkConfiguration.creativeFactoryTimeout, 6.0)
         XCTAssertEqual(sdkConfiguration.creativeFactoryTimeoutPreRenderContent, 30.0)
-        
-        XCTAssertFalse(sdkConfiguration.useExternalClickthroughBrowser)
-        
+                
         // Prebid-specific
         
         XCTAssertEqual(sdkConfiguration.prebidServerAccountId, "")
-        XCTAssertEqual(sdkConfiguration.prebidServerHost, .Custom)
+        XCTAssertNil(sdkConfiguration.auctionSettingsId)
     }
 }

@@ -17,7 +17,7 @@
 #import "PBMDownloadDataHelper.h"
 
 @protocol PrebidServerConnectionProtocol;
-@class PBMTransaction;
+@protocol PBMTransaction;
 @class PBMAbstractCreative;
 
 typedef void(^PBMCreativeFactoryFinishedCallback)(NSArray<PBMAbstractCreative *> * _Nullable, NSError * _Nullable);
@@ -27,7 +27,7 @@ typedef void(^PBMCreativeFactoryDownloadDataCompletionClosure)(NSURL* _Nonnull, 
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 - (nonnull instancetype)initWithServerConnection:(nonnull id<PrebidServerConnectionProtocol>)serverConnection
-                                     transaction:(nonnull PBMTransaction *)transaction
+                                     transaction:(nonnull id<PBMTransaction>)transaction
                                 finishedCallback:(nonnull PBMCreativeFactoryFinishedCallback)finishedCallback
 NS_DESIGNATED_INITIALIZER;
 

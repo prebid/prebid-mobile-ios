@@ -18,18 +18,22 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileAdMobAdapters
 
-class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, PrebidConfigurableController, GADFullScreenContentDelegate {
+class PrebidAdMobInterstitialViewController:
+        NSObject,
+        AdaptedController,
+        PrebidConfigurableController,
+        FullScreenContentDelegate {
     
     var prebidConfigId = ""
     var storedAuctionResponse: String?
 
     var adMobAdUnitId = ""
     
-    var adFormats: Set<AdFormat>?
+    var adFormats: Set<PrebidMobile.AdFormat>?
     
     private weak var adapterViewController: AdapterViewController?
     
-    private var interstitial: GADInterstitialAd?
+    private var interstitial: GoogleMobileAds.InterstitialAd?
     
     private let adDidReceiveButton = EventReportContainer()
     private let adDidFailToReceiveButton = EventReportContainer()
@@ -43,7 +47,7 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
     private var adUnit: MediationInterstitialAdUnit?
     private var mediationDelegate: AdMobMediationInterstitialUtils?
     
-    var request = GADRequest()
+    var request = Request()
     
     // Custom video configuarion
     var maxDuration: Int?
@@ -73,9 +77,11 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         }
         
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: request)
-        adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
-                                             minSizePercentage: CGSize(width: 30, height: 30),
-                                             mediationDelegate: mediationDelegate!)
+        adUnit = MediationInterstitialAdUnit(
+            configId: prebidConfigId,
+            minSizePercentage: CGSize(width: 30, height: 30),
+            mediationDelegate: mediationDelegate!
+        )
         
         // Custom video configuarion
         if let maxDuration = maxDuration {
@@ -106,47 +112,9 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
             adUnit?.adFormats = adFormats
         }
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addAppContentData([ortbAppContentData])
-        }
-        
         adUnit?.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            GADInterstitialAd.load(withAdUnitID: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
+            InterstitialAd.load(with: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     Log.error(error.localizedDescription)
@@ -162,23 +130,24 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         }
     }
     
-    // MARK: - GADFullScreenContentDelegate
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    // MARK: - FullScreenContentDelegate
+    
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         Log.error(error.localizedDescription)
         resetEvents()
         adDidFailToPresentFullScreenContentWithErrorButton.isEnabled = true
     }
     
-    func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adWillDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         adWillDismissFullScreenContentButton.isEnabled = true
     }
     
-    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         adDidDismissFullScreenContentButton.isEnabled = true
         interstitial = nil
     }
     
-    func adDidRecordImpression(_ ad: GADFullScreenPresentingAd) {
+    func adDidRecordImpression(_ ad: FullScreenPresentingAd) {
         adDidRecordImpressionButton.isEnabled = true
     }
     
@@ -218,9 +187,10 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
     
     @IBAction func showButtonClicked() {
         guard let adapterViewController = adapterViewController else { return }
+        
         if interstitial != nil {
             adapterViewController.showButton.isEnabled = false
-            interstitial?.present(fromRootViewController: adapterViewController)
+            interstitial?.present(from: adapterViewController)
         }
     }
 }

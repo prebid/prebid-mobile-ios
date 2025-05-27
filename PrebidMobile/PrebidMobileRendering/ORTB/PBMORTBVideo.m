@@ -43,6 +43,10 @@
     _api = api ? [NSArray arrayWithArray:api] : nil;
 }
 
+- (void)setBattr:(NSArray<NSNumber *> *)battr {
+    _battr = battr ? [NSArray arrayWithArray:battr] : nil;
+}
+
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
     
@@ -54,14 +58,19 @@
     ret[@"h"] = self.h;
     ret[@"startdelay"] = self.startdelay;
     ret[@"placement"] = self.placement;
+    ret[@"plcmt"] = self.plcmt;
     ret[@"linearity"] = self.linearity;
     ret[@"minbitrate"] = self.minbitrate;
     ret[@"maxbitrate"] = self.maxbitrate;
     ret[@"playbackend"] = self.playbackend;
     ret[@"delivery"] = self.delivery;
     ret[@"pos"] = self.pos;
+    ret[@"skip"] = self.skip;
     if (self.api.count > 0) {
         ret[@"api"] = self.api;
+    }
+    if (self.battr.count > 0) {
+        ret[@"battr"] = self.battr;
     }
     
     if (self.playbackmethod > 0) {
@@ -85,6 +94,7 @@
     _h = jsonDictionary[@"h"];
     _startdelay = jsonDictionary[@"startdelay"];
     _placement = jsonDictionary[@"placement"];
+    _plcmt = jsonDictionary[@"plcmt"];
     _linearity = jsonDictionary[@"linearity"];
     _minbitrate = jsonDictionary[@"minbitrate"];
     _maxbitrate = jsonDictionary[@"maxbitrate"];
@@ -92,6 +102,8 @@
     _delivery = jsonDictionary[@"delivery"];
     _pos = jsonDictionary[@"pos"];
     _api = jsonDictionary[@"api"];
+    _battr = jsonDictionary[@"battr"];
+    _skip = jsonDictionary[@"skip"];
     
     return self;
 }

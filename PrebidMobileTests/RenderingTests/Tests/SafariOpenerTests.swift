@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 final class SafariOpenerTests: XCTestCase {
 
@@ -20,8 +20,10 @@ final class SafariOpenerTests: XCTestCase {
         super.setUp()
         
         let adConfig = AdConfiguration()
-        let creativeModel = PBMCreativeModel(adConfiguration: adConfig)
-        let transaction = PBMTransaction(serverConnection: MockServerConnection(), adConfiguration: adConfig, models: [creativeModel])
+        let creativeModel = CreativeModel(adConfiguration: adConfig)
+        let transaction = Factory.createTransaction(serverConnection: MockServerConnection(),
+                                                    adConfiguration: adConfig,
+                                                    models: [creativeModel])
         
         creative = MockPBMAbstractCreative(creativeModel: creativeModel, transaction: transaction)
         creative?.modalManager = PBMModalManager()

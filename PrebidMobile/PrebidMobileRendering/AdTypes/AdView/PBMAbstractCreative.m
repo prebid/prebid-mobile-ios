@@ -19,22 +19,19 @@
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
 #import "PBMSafariVCOpener.h"
-#import "PBMCreativeModel.h"
 #import "PBMCreativeResolutionDelegate.h"
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMDeferredModalState.h"
 #import "PBMFunctions+Private.h"
 #import "PBMFunctions.h"
-#import "PBMInterstitialDisplayProperties.h"
 #import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMModalState.h"
 #import "PBMModalViewController.h"
-#import "PBMNSThreadProtocol.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMTransaction.h"
+#import "PBMORTBBidExtSkadn.h"
 #import "PBMWindowLocker.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -46,13 +43,11 @@
 
 @interface PBMAbstractCreative() <SKStoreProductViewControllerDelegate>
 
-@property (nonatomic, weak, readwrite) PBMTransaction *transaction;
+@property (nonatomic, weak, readwrite) id<PBMTransaction> transaction;
 @property (nonatomic, strong, readwrite) PBMEventManager *eventManager;
 @property (nonatomic, copy, nullable, readwrite) PBMVoidBlock dismissInterstitialModalState;
 
 @property (nonatomic, assign) BOOL adWasShown;
-
-@property (nonatomic, nonnull) WKWebView *hiddenWebView;
 
 @property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
 
@@ -63,7 +58,7 @@
 #pragma mark - Init
 
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                          transaction:(PBMTransaction *)transaction {
+                          transaction:(id<PBMTransaction>)transaction {
     self = [super init];
     if (self) {
         PBMAssert(creativeModel);
@@ -73,7 +68,6 @@
         self.creativeModel = creativeModel;
         self.transaction = transaction;
         self.dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
-
         self.eventManager = [PBMEventManager new];
         if (creativeModel.eventTracker) {
             [self.eventManager registerTracker: (id<PBMEventTrackerProtocol>)creativeModel.eventTracker];
@@ -82,8 +76,8 @@
         }
         
         if(@available(iOS 14.5, *)) {
-            if (self.transaction.skadnInfo) {
-                SKAdImpression *imp = [PBMSkadnParametersManager getSkadnImpressionFor:self.transaction.skadnInfo];
+            if (self.transaction.bid.skadn) {
+                SKAdImpression *imp = [PBMSkadnParametersManager getSkadnImpressionFor:self.transaction.bid.skadn];
                 if (imp) {
                     PBMSkadnEventTracker *skadnTracker = [[PBMSkadnEventTracker alloc] initWith:imp];
                     [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
@@ -93,18 +87,25 @@
         
         PrebidServerEventTracker *internalEventTracker = [[PrebidServerEventTracker alloc] initWithServerEvents:@[]];
         
-        NSString *impURL = self.transaction.impURL;
+        NSString *impURL = self.transaction.bid.events.imp;
         
         if (impURL) {
             PBMServerEvent *impEvent = [[PBMServerEvent alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
             [internalEventTracker addServerEvents:@[impEvent]];
         }
         
-        NSString *winURL = self.transaction.winURL;
+        NSString *winURL = self.transaction.bid.events.win;
         
         if (winURL) {
             PBMServerEvent *winEvent = [[PBMServerEvent alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
             [internalEventTracker addServerEvents:@[winEvent]];
+        }
+        
+        NSString * burl = self.transaction.bid.burl;
+        
+        if (burl) {
+            PBMServerEvent *billingEvent = [[PBMServerEvent alloc] initWithUrl:burl expectedEventType:PBMTrackingEventImpression];
+            [internalEventTracker addServerEvents:@[billingEvent]];
         }
         
         if (internalEventTracker.serverEvents.count > 0) {
@@ -120,6 +121,12 @@
 
 - (void)dealloc {
     [self.viewabilityTracker stop];
+    
+    if (self.skOverlayManager) {
+        [self.skOverlayManager dismissSKOverlay];
+        self.skOverlayManager = nil;
+    }
+    
     self.viewabilityTracker = NULL;
     PBMLogWhereAmI();
 }
@@ -140,7 +147,7 @@
     [self setupViewWithThread:NSThread.currentThread];
 }
 
-- (void)setupViewWithThread:(id<PBMNSThreadProtocol>)thread {
+- (void)setupViewWithThread:(id<PBMThreadProtocol>)thread {
     if (!thread.isMainThread) {
         PBMLogError(@"Attempting to set up view on background thread");
     }
@@ -151,12 +158,26 @@
         PBMLogError(@"viewController is nil");
         return;
     }
+    
     self.viewControllerForPresentingModals = viewController;
     if (self.creativeModel.adConfiguration.isInterstitialAd) { // raw value access intended
         self.adWasShown = NO;
     }
+    
     if (!self.adWasShown) {
         self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc] initWithCreative:self];
+    }
+    
+    PBMORTBBidExtSkadn * skadnInfo = self.transaction.bid.skadn;
+    
+    BOOL showSKOverlay = !self.creativeModel.hasCompanionAd &&
+                         self.creativeModel.adConfiguration.isInterstitialAd &&
+                         ((self.creativeModel.isCompanionAd && skadnInfo.skoverlay.endcarddelay != nil) ||
+                         (!self.creativeModel.isCompanionAd && skadnInfo.skoverlay.delay != nil));
+    
+    if (showSKOverlay) {
+        self.skOverlayManager = [[PBMSKOverlayManager alloc] initWithViewControllerForPresentation:self.viewControllerForPresentingModals];
+        [self.skOverlayManager presentSKOverlayWith:skadnInfo isCompanionAd:self.creativeModel.isCompanionAd];
     }
 }
 
@@ -170,20 +191,20 @@
     //Create ModalState and push
 
     @weakify(self);
-    PBMModalState *state = [PBMModalState modalStateWithView:containerView
-                                             adConfiguration:self.creativeModel.adConfiguration
-                                           displayProperties:displayProperties
-                                          onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
+    id<PBMModalState> state = [PBMFactory createModalStateWithView:containerView
+                                                   adConfiguration:self.creativeModel.adConfiguration
+                                                 displayProperties:displayProperties
+                                                onStatePopFinished:^(id<PBMModalState> _Nonnull poppedState) {
         @strongify(self);
         if (!self) { return; }
         
         [self modalManagerDidFinishPop:poppedState];
-    } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
+    } onStateHasLeftApp:^(id<PBMModalState> _Nonnull leavingState) {
         @strongify(self);
         if (!self) { return; }
         
         [self modalManagerDidLeaveApp:leavingState];
-    }];
+    } nextOnStatePopFinished:nil nextOnStateHasLeftApp:nil onModalPushedBlock:nil];
     
     self.dismissInterstitialModalState = [self.modalManager pushModal:state fromRootViewController:uiViewController animated:YES shouldReplace:NO completionHandler:^{
         [self displayWithRootViewController:uiViewController];
@@ -227,12 +248,12 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
+    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.bid.skadn];
     
     if (skadnetProductParameters) {
-        clickthroughOpened = [self handleProductClickthrough:url
-                                               productParams:skadnetProductParameters
-                                                      onExit:onClickthroughExitBlock];
+            clickthroughOpened = [self handleProductClickthrough:url
+                                                   productParams:skadnetProductParameters
+                                                          onExit:onClickthroughExitBlock];
     } else {
         
         if ([self handleDeepLinkIfNeeded:url
@@ -326,12 +347,12 @@
         if (!self) { return; }
         
         [self.creativeViewDelegate creativeInterstitialDidLeaveApp:self];
-    } onClickthroughPoppedBlock:^(PBMModalState * poppedState) {
+    } onClickthroughPoppedBlock:^(id<PBMModalState> poppedState) {
         @strongify(self);
         if (!self) { return; }
         
         [self modalManagerDidFinishPop:poppedState];
-    } onDidLeaveAppBlock:^(PBMModalState * leavingState) {
+    } onDidLeaveAppBlock:^(id<PBMModalState> leavingState) {
         @strongify(self);
         if (!self) { return; }
         
@@ -344,9 +365,8 @@
 - (BOOL)handleProductClickthrough:(NSURL*)url
                     productParams:(NSDictionary<NSString *, id> *)productParams
                            onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock {
-    self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
-    PBMHiddenWebViewManager *webViewManager = [[PBMHiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
-    [self.hiddenWebView setHidden:YES];
+    PBMHiddenWebViewManager *webViewManager = [[PBMHiddenWebViewManager alloc] initWithFrame:self.view.frame
+                                                                           landingPageString:url];
     [webViewManager openHiddenWebView];
     
     if (!self.viewControllerForPresentingModals) {
@@ -411,7 +431,7 @@
     });
 }
 
-- (void)onViewabilityChanged:(BOOL)viewable viewExposure:(PBMViewExposure *)viewExposure {
+- (void)onViewabilityChanged:(BOOL)viewable viewExposure:(id<PBMViewExposure>)viewExposure {
     if (viewable && !self.adWasShown) {
         [self onAdDisplayed];
         self.adWasShown = YES;
@@ -444,11 +464,11 @@
 
 #pragma mark - PBMModalManagerDelegate
 
-- (void)modalManagerDidFinishPop:(PBMModalState*)state {
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state {
     PBMLogError(@"Abstract function called");
 }
 
-- (void)modalManagerDidLeaveApp:(PBMModalState*)state {
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state {
     PBMLogError(@"Abstract function called");
 }
 
@@ -462,7 +482,6 @@
     if (self.transaction.measurementSession.eventTracker) {
         [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
     }
-
     [self.creativeViewDelegate creativeDidDisplay:self];
     [self onWillTrackImpression];
     [self.eventManager trackEvent:PBMTrackingEventImpression];

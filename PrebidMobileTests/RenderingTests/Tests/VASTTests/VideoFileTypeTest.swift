@@ -16,9 +16,9 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegate {
+class VideoFileTypeTest : XCTestCase, CreativeViewDelegate, PBMVideoViewDelegate {
     
     let viewController = MockViewController()
     var pbmVideoCreative:PBMVideoCreative!
@@ -86,7 +86,7 @@ class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDeleg
 //            adConfiguration.domain = "foo.com/inline"
             
             //Create CreativeModel
-            let creativeModel = PBMCreativeModel(adConfiguration:adConfiguration)
+            let creativeModel = CreativeModel(adConfiguration:adConfiguration)
             creativeModel.videoFileURL = "http://get_video_file"
             
             let transaction = UtilitiesForTesting.createEmptyTransaction()
@@ -131,7 +131,7 @@ class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDeleg
     func creativeWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {}
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {}
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {}
     func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {}
@@ -145,6 +145,8 @@ class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDeleg
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
     
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
+    
     // MARK: - PBMVideoViewDelegate
     
     func videoViewFailedWithError(_ error: Error) {}
@@ -155,4 +157,5 @@ class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDeleg
     }
     
     func videoWasClicked() {}
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
 }

@@ -16,20 +16,19 @@
 import Foundation
 import WebKit
 
+/// A utility class for handling various ad-related operations and conversions.
 public class Utils: NSObject {
 
-    /**
-     * The class is created as a singleton object & used
-     */
+    /// The class is created as a singleton object & used
     @objc
     public static let shared = Utils()
 
-    /**
-     * The initializer that needs to be created only once
-     */
+    /// The initializer that needs to be created only once
     private override init() {
         super.init()
     }
+    
+    /// A delegate to handle native ad events.
     @objc
     public weak var delegate: NativeAdDelegate?
 
@@ -37,15 +36,7 @@ public class Utils: NSObject {
     private let DFP_WEBADVIEW_CLASSNAME = "GADWebAdView"
     private let MOPUB_NATIVE_AD_CLASSNAME = "MPNativeAd"
     private let DFP_CUSTOM_TEMPLATE_AD_CLASSNAME = "GADNativeCustomTemplateAd"
-    private let GAD_CUSTOM_NATIVE_AD = "GADCustomNativeAd"
     private let INNNER_HTML_SCRIPT = "document.body.innerHTML"
-
-    @available(*, deprecated, message: "MoPub is not available anymore. Use Prebid MAX adapters instead.")
-    @objc
-    public func convertDictToMoPubKeywords(dict: Dictionary<String, String>) -> String {
-        return dict.toString(entrySeparator: ",", keyValueSeparator: ":")
-        
-    }
 
     func removeHBKeywords (adObject: AnyObject) {
 
@@ -241,6 +232,9 @@ public class Utils: NSObject {
         }
     }
 
+    /// Finds a native ad object within a given object.
+    ///
+    /// - Parameter adObject: The object to search within.
     @objc
     public func findNative(adObject: AnyObject){
         if (self.isObjectFromClass(adObject, DFP_BANNER_VIEW_CLASSNAME)) {
@@ -248,7 +242,7 @@ public class Utils: NSObject {
             findNativeForDFPBannerAdView(dfpBannerView)
         } else if (self.isObjectFromClass(adObject, MOPUB_NATIVE_AD_CLASSNAME)) {
             findNativeForMoPubNativeAd(adObject)
-        } else if (self.isObjectFromClass(adObject, DFP_CUSTOM_TEMPLATE_AD_CLASSNAME) || self.isObjectFromClass(adObject, GAD_CUSTOM_NATIVE_AD)) {
+        } else if (self.isObjectFromClass(adObject, DFP_CUSTOM_TEMPLATE_AD_CLASSNAME) || self.isObjectFromClass(adObject, .GAD_Object_Custom_Native_Name)) {
             findNativeForDFPCustomTemplateAd(adObject)
         } else {
             delegate?.nativeAdNotFound()
@@ -425,10 +419,9 @@ public class Utils: NSObject {
       }
 }
 
-/**
- 1. It is a class that allow use it as AnyObject and passs to - func fetchDemand(adObject: AnyObject, ...)
- 2. It is not a public class as a result client can not directly pass it to - func fetchDemand(adObject: AnyObject, ...)
- */
+
+/// 1. It is a class that allow use it as AnyObject and passs to - func fetchDemand(adObject: AnyObject, ...)
+/// 2. It is not a public class as a result client can not directly pass it to - func fetchDemand(adObject: AnyObject, ...)
 class DictionaryContainer<T1: Hashable, T2: Hashable> {
     var dict = [T1 : T2]()
 }

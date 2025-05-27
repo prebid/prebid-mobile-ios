@@ -21,6 +21,9 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
     
     var prebidConfigId = ""
     
+    // SKAdNetwork
+    var supportSKOverlay = false
+    
     private var rewardedAdController : RewardedAdUnit?
     
     private weak var adapterViewController: AdapterViewController?
@@ -48,6 +51,7 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
     }
     
     // MARK: - Public Methods
+    
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
@@ -55,43 +59,7 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
         rewardedAdController = RewardedAdUnit(configID: prebidConfigId)
         rewardedAdController?.delegate = self
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                rewardedAdController?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                rewardedAdController?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            rewardedAdController?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            rewardedAdController?.addAppContentData([ortbAppContentData])
-        }
+        rewardedAdController?.supportSKOverlay = supportSKOverlay
         
         rewardedAdController?.loadAd()
     }
@@ -124,8 +92,9 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
         rewardedAdDidClickAdButton.isEnabled = true
     }
     
-    func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit) {
+    func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit, reward: PrebidReward) {
         rewardedAdUserDidEarnRewardButton.isEnabled = true
+        print("Did receive reward: type - \(reward.type ?? ""), count - \(reward.count ?? 0)")
     }
     
     // MARK: - Private Methods

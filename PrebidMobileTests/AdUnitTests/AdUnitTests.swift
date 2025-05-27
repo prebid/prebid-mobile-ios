@@ -14,14 +14,16 @@
  */
 
 import XCTest
-import TestUtils
 @testable import PrebidMobile
 
 class AdUnitTests: XCTestCase {
 
     override func tearDown() {
         Targeting.shared.clearUserKeywords()
-        Prebid.shared.useExternalClickthroughBrowser = false
+        Targeting.shared.forceSdkToChooseWinner = true
+        
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        Prebid.shared.timeoutMillis = 2000
     }
 
     func testFetchDemand() {
@@ -64,9 +66,9 @@ class AdUnitTests: XCTestCase {
         AdUnitSwizzleHelper.toggleFetchDemand()
         
         //when
-        adUnit.fetchDemand() { (code: ResultCode, kvDict: [String:String]?) in
-            codeResult = code
-            kvDictResult = kvDict
+        adUnit.fetchDemand { bidInfo in
+            codeResult = bidInfo.resultCode
+            kvDictResult = bidInfo.targetingKeywords
             expectation.fulfill()
         }
         
@@ -115,6 +117,150 @@ class AdUnitTests: XCTestCase {
         XCTAssertEqual(realBidInfo?.nativeAdCacheId, expectedCacheId)
     }
     
+    //forceSdkToChooseWinner + Winner = Contains Targeting Info
+    func testForcedWinnerAndWinningBid() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = true
+        
+        let expected = ResultCode.prebidDemandFetchSuccess
+        
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.75)
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(resultCode, expected)
+    }
+    
+    //forceSdkToChooseWinner + No Winner = Doesn't contain Targeting Info
+    func testForcedWinnerAndLoosingBid() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = true
+        let expected = ResultCode.prebidDemandNoBids
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertFalse((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(resultCode, expected)
+    }
+    
+    //Don't forceSdkToChooseWinner + Winner = Contains Targeting Info
+    func testNonForcedWinnerAndWinningBid() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = false
+        let expected = ResultCode.prebidDemandFetchSuccess
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.75)
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(resultCode, expected)
+    }
+    
+    //Don't forceSdkToChooseWinner + No Winner = Contains Targeting Info
+    func testNonForcedWinnerAndNonWinningBid() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = false
+        
+        let expected = ResultCode.prebidDemandFetchSuccess
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(adObject["hb_bidder"] as? String, "Test-Bidder-1")
+        XCTAssertEqual(resultCode, expected)
+    }
+    
+    //forceSdkToChooseWinner + Native Format Winner = Contains Targeting Info
+    func testForcedWinnerAndWinningBidNativeFormat() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = true
+        
+        let expected = ResultCode.prebidDemandFetchSuccess
+        
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.native])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeNativeValidResponse(bidPrice: 0.75)
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertNotNil(bidResponse.targetingInfo?[PrebidLocalCacheIdKey])
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains(PrebidLocalCacheIdKey) ?? false)
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(resultCode, expected)
+    }
+    
+    //Don't forceSdkToChooseWinner + Native Format Winner = Contains Targeting Info
+    func testNonForcedWinnerAndWinningBidNativeFormat() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = false
+        
+        let expected = ResultCode.prebidDemandFetchSuccess
+        
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.native])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        //We need to disabled to not look for cache id for winning bid
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeNativeValidResponse(bidPrice: 0.75)
+        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+        
+        //then
+        XCTAssertNotNil(bidResponse.targetingInfo?[PrebidLocalCacheIdKey])
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains(PrebidLocalCacheIdKey) ?? false)
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(resultCode, expected)
+    }
+    
     func testBidInfoCompletion() {
         Prebid.shared.prebidServerAccountId = "test-account-id"
         
@@ -148,10 +294,6 @@ class AdUnitTests: XCTestCase {
     }
     
     func testFetchDemandAutoRefresh() {
-        PBHTTPStubbingManager.shared().enable()
-        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
-        PBHTTPStubbingManager.shared().broadcastRequests = true
-        
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
         let expectedFetchDemandCount = 2
@@ -159,7 +301,6 @@ class AdUnitTests: XCTestCase {
         exception.expectedFulfillmentCount = expectedFetchDemandCount
         exception.assertForOverFulfill = false
         
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
         Prebid.shared.prebidServerAccountId = "1001"
         let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         adUnit.setAutoRefreshMillis(time: 800.0)
@@ -173,12 +314,8 @@ class AdUnitTests: XCTestCase {
             exception.fulfill()
         }
         
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
-        
-        PBHTTPStubbingManager.shared().disable()
-        PBHTTPStubbingManager.shared().removeAllStubs()
-        PBHTTPStubbingManager.shared().broadcastRequests = false
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
@@ -186,10 +323,6 @@ class AdUnitTests: XCTestCase {
     }
     
     func testFetchDemandResumeAutoRefresh() {
-        PBHTTPStubbingManager.shared().enable()
-        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
-        PBHTTPStubbingManager.shared().broadcastRequests = true
-        
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
         let expectedFetchDemandCount = 2
@@ -197,7 +330,6 @@ class AdUnitTests: XCTestCase {
         exception.expectedFulfillmentCount = expectedFetchDemandCount
         exception.assertForOverFulfill = false
         
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
         Prebid.shared.prebidServerAccountId = "1001"
         let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         adUnit.setAutoRefreshMillis(time: 800.0)
@@ -215,23 +347,14 @@ class AdUnitTests: XCTestCase {
         sleep(1)
         adUnit.resumeAutoRefresh()
         
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
-        
-        PBHTTPStubbingManager.shared().disable()
-        PBHTTPStubbingManager.shared().removeAllStubs()
-        PBHTTPStubbingManager.shared().broadcastRequests = false
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
-
     }
     
     func testFetchDemandBidsAutoRefresh() {
-        PBHTTPStubbingManager.shared().enable()
-        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
-        PBHTTPStubbingManager.shared().broadcastRequests = true
-        
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
         let expectedFetchDemandCount = 2
@@ -239,29 +362,58 @@ class AdUnitTests: XCTestCase {
         exception.expectedFulfillmentCount = expectedFetchDemandCount
         exception.assertForOverFulfill = false
         
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
         Prebid.shared.prebidServerAccountId = "1001"
         let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         adUnit.setAutoRefreshMillis(time: 800.0)
         
         var fetchDemandCount = 0
         
+        adUnit.fetchDemand { _ in
+            fetchDemandCount += 1
+            exception.fulfill()
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        
+        //then
+        XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
+    }
+    
+    func testFetchDemandBidsAutoRefreshWithSimilarGlobalTimeout() {
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        //given
+        let expectedFetchDemandCount = 2
+        let exception = expectation(description: "\(#function)")
+        exception.expectedFulfillmentCount = expectedFetchDemandCount
+        exception.assertForOverFulfill = false
+        
+        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") as PrebidMobile.JsonDictionary? else {
+            XCTFail("Couldn't load `sample_ortb_native_with_win_event.json` file.")
+            return
+        }
+        
+        Prebid.shared.timeoutMillis = 800
+        Prebid.shared.prebidServerAccountId = "1001"
+        
+        let bidRequester = MockPBMBidRequester(jsonDictionary: json)
+        let adUnit = AdUnit(bidRequester: bidRequester, configId: "1001-1", size: .zero, adFormats: [])
+        adUnit.setAutoRefreshMillis(time: 800)
+        
+        var fetchDemandCount = 0
+        
         //when
-        adUnit.fetchDemand(completion: { (code: ResultCode, kvDict: [String:String]?) in
+        adUnit.fetchDemand(completionBidInfo: { bid in
+            XCTAssertNotEqual(bid.resultCode, .prebidDemandTimedOut)
             fetchDemandCount += 1
             exception.fulfill()
         })
 
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
-        
-        PBHTTPStubbingManager.shared().disable()
-        PBHTTPStubbingManager.shared().removeAllStubs()
-        PBHTTPStubbingManager.shared().broadcastRequests = false
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
-
     }
 
     func testSetAutoRefreshMillis() {
@@ -297,409 +449,24 @@ class AdUnitTests: XCTestCase {
         //then
         XCTAssertNil(adUnit.dispatcher?.timer)
     }
-    
-    // MARK: - [DEPRECATED API] adunit context data aka inventory data (imp[].ext.context.data)
-    
-    func testAddContextData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         
-        //when
-        adUnit.addContextData(key: key1, value: value1)
-        let dictionary = adUnit.getExtDataDictionary()
+    func testAdUnitSetAdPosition() {
+        let adUnit = AdUnit(
+            configId: "test",
+            size: CGSize(width: 300, height: 250),
+            adFormats: [.banner, .video]
+        )
         
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testUpdateContextData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let set: Set = [value1]
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.updateContextData(key: key1, value: set)
+        let adUnitConfig = adUnit.adUnitConfig
         
-        //when
-        let dictionary = adUnit.getExtDataDictionary()
+        adUnit.adPosition = .header
         
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testRemoveContextData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addContextData(key: key1, value: value1)
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .header)
         
-        //when
-        adUnit.removeContextData(forKey: key1)
-        let dictionary = adUnit.getExtDataDictionary()
+        adUnit.adPosition = .footer
         
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-    
-    func testClearContextData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addContextData(key: key1, value: value1)
-        
-        //when
-        adUnit.clearContextData()
-        let dictionary = adUnit.getExtDataDictionary()
-        
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-    
-    // MARK: - [DEPRECATED API] adunit context keywords (imp[].ext.context.keywords)
-    
-    func testAddContextKeyword() {
-        //given
-        let element1 = "element1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        
-        //when
-        adUnit.addContextKeyword(element1)
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(1, set.count)
-        XCTAssertTrue(set.contains(element1))
-    }
-    
-    func testAddContextKeywords() {
-        //given
-        let element1 = "element1"
-        let inputSet: Set = [element1]
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        
-        //when
-        adUnit.addContextKeywords(inputSet)
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(1, set.count)
-        XCTAssertTrue(set.contains(element1))
-    }
-    
-    func testRemoveContextKeyword() {
-        //given
-        let element1 = "element1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addContextKeyword(element1)
-        
-        //when
-        adUnit.removeContextKeyword(element1)
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(0, set.count)
-    }
-    
-    func testClearContextKeywords() {
-        //given
-        let element1 = "element1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addContextKeyword(element1)
-        
-        //when
-        adUnit.clearContextKeywords()
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(0, set.count)
-    }
-    
-    // MARK: - adunit ext data aka inventory data (imp[].ext.data)
-    
-    func testAddExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        
-        //when
-        adUnit.addExtData(key: key1, value: value1)
-        let dictionary = adUnit.getExtDataDictionary()
-        
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testUpdateExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let set: Set = [value1]
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.updateExtData(key: key1, value: set)
-        
-        //when
-        let dictionary = adUnit.getExtDataDictionary()
-        
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
-    }
-    
-    func testRemoveExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addExtData(key: key1, value: value1)
-        
-        //when
-        adUnit.removeExtData(forKey: key1)
-        let dictionary = adUnit.getExtDataDictionary()
-        
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-    
-    func testClearExtData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addExtData(key: key1, value: value1)
-        
-        //when
-        adUnit.clearExtData()
-        let dictionary = adUnit.getExtDataDictionary()
-        
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-    
-    // MARK: - adunit ext keywords (imp[].ext.keywords)
-    
-    func testAddExtKeyword() {
-        //given
-        let element1 = "element1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        
-        //when
-        adUnit.addExtKeyword(element1)
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(1, set.count)
-        XCTAssertTrue(set.contains(element1))
-    }
-    
-    func testAddExtKeywords() {
-        //given
-        let element1 = "element1"
-        let inputSet: Set = [element1]
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        
-        //when
-        adUnit.addExtKeywords(inputSet)
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(1, set.count)
-        XCTAssertTrue(set.contains(element1))
-    }
-    
-    func testRemoveExtKeyword() {
-        //given
-        let element1 = "element1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addExtKeyword(element1)
-        
-        //when
-        adUnit.removeExtKeyword(element1)
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(0, set.count)
-    }
-    
-    func testClearExtKeywords() {
-        //given
-        let element1 = "element1"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addExtKeyword(element1)
-        
-        //when
-        adUnit.clearExtKeywords()
-        let set = adUnit.getExtKeywordsSet()
-        
-        //then
-        XCTAssertEqual(0, set.count)
-    }
-    
-    // MARK: - global context data aka inventory data (app.content.data)
-    
-    func testSetAppContent() {
-        //given
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        let appDataObject1 = PBMORTBContentData()
-        appDataObject1.id = "data id"
-        appDataObject1.name = "test name"
-        let appDataObject2 = PBMORTBContentData()
-        appDataObject2.id = "data id"
-        appDataObject2.name = "test name"
-        
-        let appContent = PBMORTBAppContent()
-        appContent.album = "test album"
-        appContent.embeddable = 1
-        appContent.data = [appDataObject1, appDataObject2]
-        //when
-        adUnit.setAppContent(appContent)
-        let resultAppContent = adUnit.getAppContent()!
-
-        //then
-        XCTAssertEqual(2, resultAppContent.data!.count)
-        XCTAssertEqual(resultAppContent.data!.first, appDataObject1)
-        XCTAssertEqual(appContent, resultAppContent)
-    }
-    
-    func testClearAppContent() {
-        //given
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        let appDataObject1 = PBMORTBContentData()
-        appDataObject1.id = "data id"
-        appDataObject1.name = "test name"
-        let appDataObject2 = PBMORTBContentData()
-        appDataObject2.id = "data id"
-        appDataObject2.name = "test name"
-        
-        let appContent = PBMORTBAppContent()
-        appContent.album = "test album"
-        appContent.embeddable = 1
-        appContent.data = [appDataObject1, appDataObject2]
-        //when
-        adUnit.setAppContent(appContent)
-        
-        let resultAppContent1 = adUnit.getAppContent()
-        XCTAssertNotNil(resultAppContent1)
-        adUnit.clearAppContent()
-        let resultAppContent2 = adUnit.getAppContent()
-        XCTAssertNil(resultAppContent2)
-    }
-    
-    func testAddAppContentDataObject() {
-        //given
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        let appDataObject1 = PBMORTBContentData()
-        appDataObject1.id = "data id"
-        appDataObject1.name = "test name"
-        let appDataObject2 = PBMORTBContentData()
-        appDataObject2.id = "data id"
-        appDataObject2.name = "test name"
-
-        //when
-        adUnit.addAppContentData([appDataObject1, appDataObject2])
-        let objects = adUnit.getAppContent()!.data!
-
-        //then
-        XCTAssertEqual(2, objects.count)
-        XCTAssertEqual(objects.first, appDataObject1)
-    }
-
-    func testRemoveAppContentDataObjects() {
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        let appDataObject = PBMORTBContentData()
-        appDataObject.id = "data id"
-        appDataObject.name = "test name"
-
-        adUnit.addAppContentData([appDataObject])
-        let objects1 = adUnit.getAppContent()!.data!
-
-        XCTAssertEqual(1, objects1.count)
-
-        adUnit.removeAppContentData(appDataObject)
-        let objects2 = adUnit.getAppContent()!.data!
-
-        XCTAssertEqual(0, objects2.count)
-    }
-    
-    func testClearAppContentDataObjects() {
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        let appDataObject1 = PBMORTBContentData()
-        appDataObject1.id = "data id"
-        appDataObject1.name = "test name"
-        let appDataObject2 = PBMORTBContentData()
-        appDataObject2.id = "data id"
-        appDataObject2.name = "test name"
-
-        adUnit.addAppContentData([appDataObject1, appDataObject2])
-        let objects1 = adUnit.getAppContent()!.data!
-        
-        XCTAssertEqual(2, objects1.count)
-        adUnit.clearAppContentData()
-        let objects2 = adUnit.getAppContent()!.data!
-        XCTAssertEqual(0, objects2.count)
-    }
-    
-    // MARK: - global user data aka visitor data (user.data)
-
-    func testAddUserDataObjects() {
-        //given
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        let userDataObject1 = PBMORTBContentData()
-        userDataObject1.id = "data id"
-        userDataObject1.name = "test name"
-        let userDataObject2 = PBMORTBContentData()
-        userDataObject2.id = "data id"
-        userDataObject2.name = "test name"
-
-        //when
-        adUnit.addUserData([userDataObject1, userDataObject2])
-        let objects = adUnit.getUserData()!
-
-        //then
-        XCTAssertEqual(2, objects.count)
-        XCTAssertEqual(objects.first, userDataObject1)
-    }
-    
-    func testRemoveUserDataObjects() {
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        let userDataObject = PBMORTBContentData()
-        userDataObject.id = "data id"
-        userDataObject.name = "test name"
-
-        adUnit.addUserData([userDataObject])
-        let objects1 = adUnit.getUserData()!
-
-        XCTAssertEqual(1, objects1.count)
-
-        adUnit.removeUserData(userDataObject)
-        let objects2 = adUnit.getUserData()!
-
-        XCTAssertEqual(0, objects2.count)
-    }
-
-    func testClearUserDataObjects() {
-        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        let userDataObject1 = PBMORTBContentData()
-        userDataObject1.id = "data id"
-        userDataObject1.name = "test name"
-        let userDataObject2 = PBMORTBContentData()
-        userDataObject2.id = "data id"
-        userDataObject2.name = "test name"
-
-        adUnit.addUserData([userDataObject1, userDataObject2])
-        let objects1 = adUnit.getUserData()!
-
-        XCTAssertEqual(2, objects1.count)
-
-        adUnit.clearUserData()
-        let objects2 = adUnit.getUserData()!
-        XCTAssertEqual(0, objects2.count)
+        XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
+        XCTAssertEqual(adUnitConfig.adPosition, .footer)
     }
 }

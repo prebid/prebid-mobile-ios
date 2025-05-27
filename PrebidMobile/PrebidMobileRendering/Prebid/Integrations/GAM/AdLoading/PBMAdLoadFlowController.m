@@ -18,7 +18,6 @@
 
 #import "PBMDisplayView.h"
 #import "PBMDisplayView+InternalState.h"
-#import "PBMError.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -38,6 +37,7 @@
 
 - (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
+                               adUnitConfig:(AdUnitConfig *)adUnitConfig
                                    delegate:(id<AdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock
 {
@@ -49,6 +49,7 @@
     _adLoader = adLoader;
     _delegate = delegate;
     _configValidationBlock = [configValidationBlock copy];
+    _savedAdUnitConfig = adUnitConfig;
     
     NSString * const uuid = [[NSUUID UUID] UUIDString];
     const char * const queueName = [[NSString stringWithFormat:@"PBMAdLoadFlowController_%@", uuid] UTF8String];
@@ -195,14 +196,13 @@
 }
 
 - (void)tryLaunchingAdRequestFlow {
-    AdUnitConfig * const configClone = [self.delegate.adUnitConfig copy];
-    const BOOL configIsValid = self.configValidationBlock(configClone, NO);
+    const BOOL configIsValid = self.configValidationBlock(self.savedAdUnitConfig, NO);
     if (!configIsValid) {
-        [self reportLoadingFailedWithError:[PBMError errorWithMessage:@"AdUnitConfig is not valid." type:PBMErrorTypeInternalError]];
+        [self reportLoadingFailedWithError:[PBMError errorWithMessage:@"AdUnitConfig is not valid."
+                                                                 type:PBMErrorType.internalError]];
         return;
     }
     
-    self.savedAdUnitConfig = configClone;
     [self.delegate adLoadFlowControllerWillSendBidRequest:self];
     
     [self sendBidRequest];
@@ -261,7 +261,8 @@
     
     const BOOL configIsValid = self.configValidationBlock(self.savedAdUnitConfig, YES);
     if (!configIsValid) {
-        [self reportLoadingFailedWithError:[PBMError errorWithMessage:@"AdUnitConfig is not valid." type:PBMErrorTypeInternalError]];
+        [self reportLoadingFailedWithError:[PBMError errorWithMessage:@"AdUnitConfig is not valid."
+                                                                 type:PBMErrorType.internalError]];
         return;
     }
     

@@ -18,26 +18,39 @@ import Foundation
 import StoreKit
 import UIKit
 
+@objcMembers
 public class Bid: NSObject {
+    
+    public static let KEY_RENDERER_NAME = "rendererName";
+    
+    public static let KEY_RENDERER_VERSION = "rendererVersion";
+    
     /// Bid price expressed as CPM although the actual transaction is for a unit impression only.
     /// Note that while the type indicates float, integer math is highly recommended
     /// when handling currencies (e.g., BigDecimal in Java).
-    @objc public var price: Float {
+    public var price: Float {
         bid.price.floatValue
+    }
+    
+    /// Billing notice URL called by the exchange when a winning bid
+    /// becomes billable based on exchange-specific business policy
+    /// (e.g., typically delivered, viewed, etc.). 
+    @objc public var burl: String? {
+        bid.burl
     }
     
     /// Win notice URL called by the exchange if the bid wins (not necessarily indicative of a delivered,
     /// viewed, or billable ad); optional means of serving ad markup.
     /// Substitution macros (Section 4.4) may be included in both the URL and optionally returned markup.
-    @objc public private(set) var nurl: String?
+    public private(set) var nurl: String?
     
     /// Optional means of conveying ad markup in case the bid wins; supersedes the win notice
     /// if markup is included in both.
     /// Substitution macros (Section 4.4) may be included.
-    @objc public private(set) var adm: String?
+    public private(set) var adm: String?
     
     /// Ad size
-    @objc public var size: CGSize {
+    public var size: CGSize {
         guard let w = bid.w, let h = bid.h else {
             return CGSize.zero
         }
@@ -46,38 +59,57 @@ public class Bid: NSObject {
     }
     
     /// Targeting information that needs to be passed to the ad server SDK.
-    @objc public var targetingInfo: [String : String]? {
+    public var targetingInfo: [String : String]? {
         bid.ext.prebid?.targeting
+    }
+    
+  /// Targeting information that needs to be passed to the ad server SDK.
+    public var meta: [String : Any]? {
+        bid.ext.prebid?.meta
     }
     
     /**
      SKAdNetwork parameters about an App Store product.
      Used in the StoreKit
      */
-    @objc public var skadn: PBMORTBBidExtSkadn? {
+    public var skadn: PBMORTBBidExtSkadn? {
         return bid.ext.skadn
     }
     
     /// Prebid ad format
-    @objc public var adFormat: AdFormat? {
+    public var adFormat: AdFormat? {
         AdFormat.allCases.filter { $0.stringEquivalent == bid.ext.prebid?.type }.first
     }
     
     /// Prebid video ad configuration
-    @objc public var videoAdConfiguration: PBMORTBAdConfiguration? {
+    public var videoAdConfiguration: PBMORTBAdConfiguration? {
         bid.ext.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
+    }
+    
+       /// Preffered plugin renderer name
+    public var pluginRendererName: String? {
+        meta?[Bid.KEY_RENDERER_NAME] as? String
+    }
+    
+    /// Preffered plugin renderer version
+    public var pluginRendererVersion: String? {
+        meta?[Bid.KEY_RENDERER_VERSION] as? String
     }
     
     // This part is dedicating to test server-side ad configurations.
     // Need to be removed when ext.prebid.passthrough will be available.
     #if DEBUG
-    @objc public var testVideoAdConfiguration: PBMORTBAdConfiguration? {
+    public var testVideoAdConfiguration: PBMORTBAdConfiguration? {
         bid.ext.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
     }
     #endif
     
+    public var rewardedConfig: PBMORTBRewardedConfiguration? {
+        bid.ext.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.rewardedConfiguration
+    }
+    
     /// Returns YES if this bid is intented for display.
-    @objc public var isWinning: Bool {
+    public var isWinning: Bool {
         guard let targetingInfo = self.targetingInfo else {
             return false
         }
@@ -96,16 +128,44 @@ public class Bid: NSObject {
         return true
     }
     
-    @objc public var events: PBMORTBExtPrebidEvents? {
+    public var events: PBMORTBExtPrebidEvents? {
         bid.ext.prebid?.events
     }
     
-    @objc public private(set) var bid: PBMORTBBid<PBMORTBBidExt>
+    public private(set) var bid: PBMORTBBid<PBMORTBBidExt>
 
-    @objc public init(bid: PBMORTBBid<PBMORTBBidExt>) {
+    public init(bid: PBMORTBBid<PBMORTBBidExt>) {
         self.bid = bid
         let macrosHelper = PBMORTBMacrosHelper(bid: bid)
         adm = macrosHelper.replaceMacros(in: bid.adm)
         nurl = macrosHelper.replaceMacros(in: bid.nurl)
+    }
+}
+
+extension Bid {
+
+    static func bid(from bidString: String) -> Bid? {
+        guard let bidDic = Utils.shared.getDictionaryFromString(bidString),
+              let rawBid = PBMORTBBid<PBMORTBBidExt>(
+                jsonDictionary: bidDic,
+                extParser: { PBMORTBBidExt(jsonDictionary: $0)}
+              ) else { return nil }
+
+        return Bid(bid: rawBid)
+    }
+}
+
+// MARK: Impression Tracking Helpers
+
+@objc public extension Bid {
+    
+     var impressionTrackingURLs: [String] {
+        var urls = [String]()
+        
+        if let burl {
+            urls.append(burl)
+        }
+        
+        return urls
     }
 }

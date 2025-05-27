@@ -17,12 +17,14 @@
 #import "PBMAbstractCreative.h"
 #import "PBMVideoViewDelegate.h"
 
+@class PBMRewardedConfig;
+
 @interface PBMVideoCreative : PBMAbstractCreative <PBMVideoViewDelegate>
 
 @property (class, readonly) NSInteger maxSizeForPreRenderContent;
 
 - (nonnull instancetype)initWithCreativeModel:(nonnull PBMCreativeModel *)creativeModel
-                                  transaction:(nonnull PBMTransaction *)transaction
+                                  transaction:(nonnull id<PBMTransaction>)transaction
                                     videoData:(nonnull NSData *)data;
 
 - (void)close;

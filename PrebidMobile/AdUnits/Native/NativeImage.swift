@@ -15,8 +15,10 @@
 
 import Foundation
 
+/// Class representing an image asset in a native ad.
 @objcMembers
 public class NativeImage: NSObject, JsonDecodable {
+    
     /// The type of image element being submitted from the Image Asset Types table.
     /// Required for assetsurl or dcourl responses, not required for embedded asset responses.
     public var type: Int?
@@ -38,6 +40,9 @@ public class NativeImage: NSObject, JsonDecodable {
     /// flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
+    /// Initializes a `NativeImage` object from a JSON dictionary.
+    ///
+    /// - Parameter jsonDictionary: A dictionary containing the JSON data to initialize the object.
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native image json dicitonary is empty")
@@ -55,6 +60,7 @@ public class NativeImage: NSObject, JsonDecodable {
         }
     }
     
+    /// Initializes with default values
     public override init() {
         super.init()
     }

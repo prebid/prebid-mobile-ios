@@ -18,8 +18,6 @@
 #import "PBMConstants.h"
 #import "PBMCreativeFactory.h"
 
-#import "PBMCreativeViewDelegate.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @class PBMAbstractCreative;

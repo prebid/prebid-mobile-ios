@@ -15,18 +15,15 @@
 
 import Foundation
 
-/*!
- * Protocol for interaction with the PBMRewardedAdUnit .
- *
- * All messages will be invoked on the main thread.
- */
+/// Protocol for interaction with the RewardedAdUnit
+/// All messages will be invoked on the main thread.
 @objc public protocol RewardedAdUnitDelegate: NSObjectProtocol {
 
     /// Called when an ad is loaded and ready for display
     @objc optional func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit)
 
     /// Called when user is able to receive a reward from the app
-    @objc optional func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit)
+    @objc optional func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit, reward: PrebidReward)
     
     /// Called when the load process fails to produce a viable ad
     @objc optional func rewardedAd(_ rewardedAd: RewardedAdUnit,

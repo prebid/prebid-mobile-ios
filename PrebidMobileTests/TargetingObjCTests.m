@@ -43,9 +43,6 @@ limitations under the License.
     
     [Targeting.shared clearAppExtData];
     [Targeting.shared clearAppKeywords];
-    [Targeting.shared clearUserData];
-    [Targeting.shared clearUserKeywords];
-    [Targeting.shared clearYearOfBirth];
     [Targeting.shared clearAccessControlList];
 }
 
@@ -73,18 +70,7 @@ limitations under the License.
     XCTAssertEqualObjects(domain, result);
 }
 
-- (void)testGender {
-    //given
-    int genderFemale = PBMGenderFemale;
-    
-    //when
-    Targeting.shared.userGender = genderFemale;
-    
-    //then
-    XCTAssertEqual(genderFemale, Targeting.shared.userGender);
-}
-
-- (void)testitunesID {
+- (void)testItunesID {
     //given
     NSString *itunesID = @"54673893";
     
@@ -123,63 +109,6 @@ limitations under the License.
     
 }
 
-- (void)testLocationPrecision {
-    //given
-    NSNumber *locationPrecision1 = @1;
-    int locationPrecision2 = 2;
-    NSNumber *locationPrecision3 = @3;
-    NSNumber *locationPrecision4 = nil;
-    
-    //when
-    [Targeting.shared setLocationPrecision: locationPrecision1];
-    NSNumber *result1 = [Targeting.shared getLocationPrecision];
-    
-    [Targeting.shared setLocationPrecision: [NSNumber numberWithInt:locationPrecision2]];
-    int result2 = [[Targeting.shared getLocationPrecision] intValue];
-    
-    [Targeting.shared setLocationPrecision: locationPrecision3];
-    int result3 = [[Targeting.shared getLocationPrecision] intValue];
-    
-    [Targeting.shared setLocationPrecision: locationPrecision4];
-    NSNumber *result4 = [Targeting.shared getLocationPrecision];
-    
-    //then
-    XCTAssertEqualObjects(locationPrecision1, result1);
-    XCTAssertEqual(locationPrecision2, result2);
-    XCTAssertEqual(3, result3);
-    XCTAssertNil(result4);
-    
-}
-
-// MARK: - Year Of Birth
-- (void)testYearOfBirth {
-    //given
-    NSError *error = nil;
-    int yearOfBirth = 1985;
-    
-    //when
-    [Targeting.shared setYearOfBirthWithYob:yearOfBirth];
-    long value1 = Targeting.shared.yearOfBirth;
-    
-    [Targeting.shared clearYearOfBirth];
-    long value2 = Targeting.shared.yearOfBirth;
-    
-    //then
-    XCTAssertNil(error);
-    XCTAssertEqual(yearOfBirth, value1);
-    XCTAssertEqual(0, value2);
-}
-
-- (void)testYearOfBirthInvalid {
-    
-    [Targeting.shared setYearOfBirthWithYob:-1];
-    XCTAssertTrue(Targeting.shared.yearOfBirth == 0);
-    [Targeting.shared setYearOfBirthWithYob:999];
-    XCTAssertTrue(Targeting.shared.yearOfBirth == 0);
-    [Targeting.shared setYearOfBirthWithYob:10000];
-    XCTAssertTrue(Targeting.shared.yearOfBirth == 0);
-}
-
 //MARK: - COPPA
 - (void)testSubjectToCOPPA {
     //given
@@ -193,7 +122,8 @@ limitations under the License.
 }
 
 //MARK: - GDPR Subject
-- (void)testsubjectToGDPR_PB {
+
+- (void)testSubjectToGDPR_PB {
     //given
     NSNumber *subjectToGDPR1 = @YES;
     BOOL subjectToGDPR2 = YES;
@@ -268,44 +198,13 @@ limitations under the License.
 
 - (void)testAccessControlList {
     //given
-    NSString *bidderNameRubicon = Prebid.bidderNameRubiconProject;
-    NSString *bidderNameAppNexus = Prebid.bidderNameAppNexus;
+    NSString *bidderName = @"test-bidder";
     
     //when
-    [Targeting.shared addBidderToAccessControlList:bidderNameRubicon];
-    [Targeting.shared removeBidderFromAccessControlList:bidderNameAppNexus];
+    [Targeting.shared addBidderToAccessControlList:bidderName];
+    [Targeting.shared removeBidderFromAccessControlList:bidderName];
     [Targeting.shared clearAccessControlList];
-
 }
-
-- (void)testUserData {
-     //given
-     NSString *key = @"key1";
-     NSString *value = @"value10";
-     NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-
-     //when
-     [Targeting.shared addUserDataWithKey:key value:value];
-     [Targeting.shared updateUserDataWithKey:key value:set];
-     [Targeting.shared removeUserDataFor:key];
-     [Targeting.shared clearUserData];
-
- }
-
-// MARK: - [DEPRECATED API] app.ext.data
-
-- (void)testContextData {
-     //given
-     NSString *key = @"key1";
-     NSString *value = @"value10";
-     NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-
-     //when
-     [Targeting.shared addContextDataWithKey:key value:value];
-     [Targeting.shared updateContextDataWithKey:key value:set];
-     [Targeting.shared removeContextDataFor:key];
-     [Targeting.shared clearContextData];
- }
 
 // MARK: - app.ext.data
 
@@ -332,20 +231,6 @@ limitations under the License.
     [Targeting.shared addUserKeywords:set];
     [Targeting.shared removeUserKeyword:keyword];
     [Targeting.shared clearUserKeywords];
-}
-
-// MARK: - [DEPRECATED API] app.keywords
-
-- (void)testContextKeyword {
-    //given
-    NSString *keyword = @"keyword";
-    NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-    
-    //when
-    [Targeting.shared addContextKeyword:keyword];
-    [Targeting.shared addContextKeywords:set];
-    [Targeting.shared removeContextKeyword:keyword];
-    [Targeting.shared clearContextKeywords];
 }
 
 // MARK: - app.keywords

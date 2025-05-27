@@ -26,31 +26,6 @@ class PBMHTMLCreativeTest_MRAIDOpen: PBMHTMLCreativeTest_Base {
     
     // MARK: Tests
     
-    func testNonClickThroughBrowser() {
-        
-        let clickHandlerExpectation = self.expectation(description: "Should have triggered click")
-        self.creativeWasClickedHandler = { (creative) in
-            PBMAssertEq(creative, self.htmlCreative)
-            clickHandlerExpectation.fulfill()
-        }
-        
-        let clickTrackingExpectation = self.expectation(description: "Should have triggered click tracking url")
-        self.mockEventTracker.mock_trackEvent = { (event) in
-            PBMAssertEq(event, PBMTrackingEvent.click)
-            clickTrackingExpectation.fulfill()
-        }
-        
-        //Why is it being set up twice?
-        self.htmlCreative.setupView()
-        
-        // NOTE: can't test other links on simulator: @"tel", @"itms", @"itms-apps"
-        // They will be processed with @nonSimulatorSchemes
-        self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("open/sms%3A%2F%2F12123804700"))
-        
-        self.waitForExpectations(timeout: 1, handler: nil)
-        XCTAssertFalse(self.htmlCreative.clickthroughVisible)
-    }
-    
     func testSimulator() {
         
         self.continueAfterFailure = true
@@ -169,7 +144,7 @@ class PBMHTMLCreativeTest_MRAIDOpen: PBMHTMLCreativeTest_Base {
         
         let clickTrackingExpectation = self.expectation(description: "Should have triggered click tracking url")
         self.mockEventTracker.mock_trackEvent = { (event) in
-            PBMAssertEq(event, PBMTrackingEvent.click)
+            PBMAssertEq(event, .click)
             clickTrackingExpectation.fulfill()
         }
         

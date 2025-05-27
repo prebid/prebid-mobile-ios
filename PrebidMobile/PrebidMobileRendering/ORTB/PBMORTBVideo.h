@@ -71,6 +71,13 @@ NS_ASSUME_NONNULL_BEGIN
 //Note: PrebidMobile supports only Interstitial right now
 @property (nonatomic, strong, nullable) NSNumber *placement;
 
+//Placement type for the impression in accordance with updated IAB Digital Video Guidelines:
+//1) Instream: Pre-roll, mid-roll, and post-roll ads that are played before, during or after the streaming video content that the consumer has requested. Instream video must be set to “sound on” by default at player start, or have explicitly clear user intent to watch the video content. While there may be other content surrounding the player, the video content must be the focus of the user’s visit. It should remain the primary content on the page and the only video player in-view capable of audio when playing. If the player converts to floating/sticky subsequent ad calls should accurately convey the updated player size.
+//2) Accompanying Content: Pre-roll, mid-roll, and post-roll ads that are played before, during, or after streaming video content. The video player loads and plays before, between, or after paragraphs of text or graphical content, and starts playing only when it enters the viewport. Accompanying content should only start playback upon entering the viewport. It may convert to a floating/sticky player as it scrolls off the page.
+//3) Interstitial:Video ads that are played without video content. During playback, it must be the primary focus of the page and take up the majority of the viewport and cannot be scrolled out of view. This can be in placements like in-app video or slideshows.
+//4) No Content/Standalone: Video ads that are played without streaming video content. This can be in placements like slideshows, native feeds, in-content or sticky/floating.
+@property (nonatomic, strong, nullable) NSNumber *plcmt;
+
 //Int. Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed.
 //See table 5.7:
 //Value Description
@@ -172,7 +179,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext is not supported.
-    
+
+//Blocked creative attributes. Refer to List 5.3:
+// Int. Array of list of creative attributes that can describe an actual ad or restrictions relative to a given placement.
+// 1   Audio Ad (Autoplay)
+// 2   Audio Ad (User Initiated)
+// 3   Expandable (Automatic)
+// 4   Expandable (User Initiated - Click)
+// 5   Expandable (User Initiated - Rollover)
+// 6   In-Banner Video Ad (Autoplay)
+// 7   In-Banner Video Ad (User Initiated)
+// 8   Pop (e.g., Over, Under, or Upon Exit)
+// 9   Provocative or Suggestive Imagery
+// 10   Shaky, Flashing, Flickering, Extreme Animation, Smileys
+// 11   Surveys
+// 12   Text Only
+// 13   User Interactive (e.g., Embedded Games)
+// 14   Windows Dialog or Alert Style
+// 15   Has Audio On/Off Button
+// 16   Ad Provides Skip Button (e.g. VPAID-rendered skip button on pre-roll video)
+// 17   Adobe Flash
+@property (nonatomic, strong, nullable) NSArray<NSNumber *> *battr;
+
+// Indicates if the player will allow the video to be skipped, where 0 = no, 1 = yes.
+@property (nonatomic, copy, nullable) NSNumber *skip;
+
 - (instancetype)init;
 
 @end

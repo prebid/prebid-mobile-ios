@@ -20,7 +20,6 @@
 
 @class PBMAbstractCreative;
 @class PBMAdDetails;
-@class PBMAdViewManager;
 @class PBMInterstitialDisplayProperties;
 
 // This protocol defines the communication from the PBMAdViewManager to the PBMAdView
@@ -61,6 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)videoAdDidFinish;
 - (void)videoAdWasMuted;
 - (void)videoAdWasUnmuted;
+
+// Used only for rewarded API
+- (void)adDidSendRewardedEvent;
 
 @end
 NS_ASSUME_NONNULL_END

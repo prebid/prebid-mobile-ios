@@ -17,7 +17,6 @@
 #import <Foundation/Foundation.h>
 
 //Protocols
-#import "PBMCreativeViewDelegate.h"
 #import "PBMVoidBlock.h"
 
 //Classes
@@ -25,16 +24,18 @@
 @class UIViewController;
 
 @protocol PBMCreativeResolutionDelegate;
+@protocol PBMCreativeViewDelegate;
 @class PBMCreativeModel;
 @class PBMInterstitialDisplayProperties;
 @class PBMModalManager;
-@class PBMModalState;
-@class PBMTransaction;
+@protocol PBMModalState;
+@protocol PBMTransaction;
 @class PBMEventManager;
 @class PBMOpenMeasurementSession;
 @class PBMDownloadDataHelper;
 @class PBMCreativeViewabilityTracker;
-@class PBMViewExposure;
+@protocol PBMViewExposure;
+@class PBMSKOverlayManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,9 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface PBMAbstractCreative : NSObject
 
-@property (nonatomic, weak, readonly, nullable) PBMTransaction *transaction;
+@property (nonatomic, weak, readonly, nullable) id<PBMTransaction> transaction;
 @property (nonatomic, strong, nullable) PBMCreativeModel *creativeModel;
 @property (nonatomic, readonly, nonnull) PBMEventManager *eventManager;
+@property (nonatomic, strong, nullable) PBMSKOverlayManager * skOverlayManager;
 @property (nonatomic, strong, nullable) UIView *view;
 @property (nonatomic, assign) BOOL clickthroughVisible;
 @property (nonatomic, strong, nullable) PBMModalManager *modalManager;
@@ -74,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                                  transaction:(PBMTransaction *)transaction NS_DESIGNATED_INITIALIZER;
+                          transaction:(id<PBMTransaction>)transaction NS_DESIGNATED_INITIALIZER;
 
 - (void)setupView;
 - (void)displayWithRootViewController:(UIViewController *)viewController;
@@ -94,10 +96,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)unmute;
 
 //Modal Manager Events
-- (void)modalManagerDidFinishPop:(PBMModalState *)state;
-- (void)modalManagerDidLeaveApp:(PBMModalState *)state;
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state;
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state;
 
-- (void)onViewabilityChanged:(BOOL)viewable viewExposure:(PBMViewExposure *)viewExposure;
+- (void)onViewabilityChanged:(BOOL)viewable viewExposure:(id<PBMViewExposure>)viewExposure;
 
 @end
 

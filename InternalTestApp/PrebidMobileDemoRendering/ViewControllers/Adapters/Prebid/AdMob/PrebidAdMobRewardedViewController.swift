@@ -18,7 +18,11 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileAdMobAdapters
 
-class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConfigurableController, GADFullScreenContentDelegate {
+class PrebidAdMobRewardedViewController:
+        NSObject,
+        AdaptedController,
+        PrebidConfigurableController,
+        FullScreenContentDelegate {
     
     var prebidConfigId = ""
 
@@ -26,7 +30,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     
     private weak var adapterViewController: AdapterViewController?
     
-    private var rewardedAd: GADRewardedAd?
+    private var rewardedAd: RewardedAd?
     
     private let adDidReceiveButton = EventReportContainer()
     private let adDidFailToReceiveButton = EventReportContainer()
@@ -40,7 +44,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     private var adUnit: MediationRewardedAdUnit?
     private var mediationDelegate: AdMobMediationRewardedUtils?
     
-    var request = GADRequest()
+    var request = Request()
     
     required init(rootController: AdapterViewController) {
         self.adapterViewController = rootController
@@ -59,47 +63,9 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addAppContentData([ortbAppContentData])
-        }
-        
         adUnit?.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            GADRewardedAd.load(withAdUnitID: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
+            RewardedAd.load(with: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     Log.error(error.localizedDescription)
@@ -115,23 +81,24 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         }
     }
     
-    // MARK: - GADFullScreenContentDelegate
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    // MARK: - FullScreenContentDelegate
+    
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         Log.error(error.localizedDescription)
         resetEvents()
         adDidFailToPresentFullScreenContentWithErrorButton.isEnabled = true
     }
     
-    func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adWillDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         adWillDismissFullScreenContentButton.isEnabled = true
     }
     
-    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         adDidDismissFullScreenContentButton.isEnabled = true
         rewardedAd = nil
     }
     
-    func adDidRecordImpression(_ ad: GADFullScreenPresentingAd) {
+    func adDidRecordImpression(_ ad: FullScreenPresentingAd) {
         adDidRecordImpressionButton.isEnabled = true
     }
     
@@ -148,7 +115,11 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     
     private func setupShowButton() {
         adapterViewController?.showButton.isEnabled = false
-        adapterViewController?.showButton.addTarget(self, action:#selector(self.showButtonClicked), for: .touchUpInside)
+        adapterViewController?.showButton.addTarget(
+            self,
+            action:#selector(self.showButtonClicked),
+            for: .touchUpInside
+        )
     }
     
     private func setupActions() {
@@ -171,9 +142,10 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     
     @IBAction func showButtonClicked() {
         guard let adapterViewController = adapterViewController else { return }
+        
         if rewardedAd != nil {
             adapterViewController.showButton.isEnabled = false
-            rewardedAd?.present(fromRootViewController: adapterViewController, userDidEarnRewardHandler: {
+            rewardedAd?.present(from: adapterViewController, userDidEarnRewardHandler: {
                 print("User rewarded")
             })
         }

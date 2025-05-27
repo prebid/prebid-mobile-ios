@@ -18,9 +18,9 @@ import Foundation
 import XCTest
 import CoreFoundation
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
+class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
   
     let vc = UIViewController()
     let modalManager = PBMModalManager()
@@ -151,19 +151,21 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
         self.wait(for: [inlineVastRequestSuccessfulExpectation], timeout: 1)
     }
     
-    //MARK: - CreativeViewDelegate
+    // MARK: - CreativeViewDelegate
+    
     func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
     func creativeDidComplete(_ creative:PBMAbstractCreative) {}
     func creativeWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeClickthroughDidClose(_ creative:PBMAbstractCreative) {}
     func creativeInterstitialDidClose(_ creative:PBMAbstractCreative) {}
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {}
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {}
     func creativeMraidDidCollapse(_ creative:PBMAbstractCreative) {}
     func creativeMraidDidExpand(_ creative:PBMAbstractCreative) {}
     func creativeInterstitialDidLeaveApp(_ creative:PBMAbstractCreative) {}
     func creativeDidDisplay(_ creative: PBMAbstractCreative) {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
     
     //MARK: - Utility
     

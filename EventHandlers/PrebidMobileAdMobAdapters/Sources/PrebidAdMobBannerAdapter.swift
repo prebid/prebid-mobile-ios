@@ -20,22 +20,24 @@ import GoogleMobileAds
 @objc(PrebidAdMobBannerAdapter)
 public class PrebidAdMobBannerAdapter:
     PrebidAdMobMediationBaseAdapter,
-    GADMediationBannerAd,
+    GoogleMobileAds.MediationBannerAd,
     DisplayViewLoadingDelegate,
     DisplayViewInteractionDelegate {
     
     public var view: UIView {
-        return displayView ?? UIView()
+        displayView ?? UIView()
     }
     
     var displayView: PBMDisplayView?
     
-    weak var delegate: GADMediationBannerAdEventDelegate?
-    var adConfiguration: GADMediationBannerAdConfiguration?
+    weak var delegate: GoogleMobileAds.MediationBannerAdEventDelegate?
+    var adConfiguration: GoogleMobileAds.MediationBannerAdConfiguration?
     var completionHandler: GADMediationBannerLoadCompletionHandler?
     
-    public func loadBanner(for adConfiguration: GADMediationBannerAdConfiguration,
-                           completionHandler: @escaping GADMediationBannerLoadCompletionHandler) {
+    public func loadBanner(
+        for adConfiguration: GoogleMobileAds.MediationBannerAdConfiguration,
+        completionHandler: @escaping GADMediationBannerLoadCompletionHandler
+    ) {
         self.adConfiguration = adConfiguration
         self.completionHandler = completionHandler
         
@@ -45,7 +47,7 @@ public class PrebidAdMobBannerAdapter:
             return
         }
         
-        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+        guard let eventExtras = adConfiguration.extras as? GoogleMobileAds.CustomEventExtras,
               let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
               !eventExtrasDictionary.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
@@ -83,18 +85,18 @@ public class PrebidAdMobBannerAdapter:
         displayView?.interactionDelegate = self
         displayView?.loadingDelegate = self
         
-        displayView?.displayAd()
+        displayView?.loadAd()
     }
     
     // MARK: - DisplayViewLoadingDelegate
     
-    public func displayViewDidLoadAd(_ displayView: PBMDisplayView) {
+    public func displayViewDidLoadAd(_ displayViewManager: UIView) {
         if let handler = completionHandler {
             delegate = handler(self, nil)
         }
     }
     
-    public func displayView(_ displayView: PBMDisplayView, didFailWithError error: Error) {
+    public func displayView(_ displayViewManager: UIView, didFailWithError error: Error) {
         if let handler = completionHandler {
             delegate = handler(nil, error)
         }
@@ -102,23 +104,23 @@ public class PrebidAdMobBannerAdapter:
     
     // MARK: - PBMDisplayViewInteractionDelegate
     
-    public func trackImpression(forDisplayView: PBMDisplayView) {
+    public func trackImpression(forDisplayView: UIView) {
         delegate?.reportImpression()
     }
     
-    public func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController? {
-        return adConfiguration?.topViewController ?? UIApplication.shared.windows.first?.rootViewController
+    public func viewControllerForModalPresentation(fromDisplayView: UIView) -> UIViewController? {
+        adConfiguration?.topViewController ?? UIApplication.shared.windows.first?.rootViewController
     }
     
-    public func didLeaveApp(from displayView: PBMDisplayView) {
+    public func didLeaveApp(from displayView: UIView) {
         delegate?.reportClick()
     }
     
-    public func willPresentModal(from displayView: PBMDisplayView) {
+    public func willPresentModal(from displayView: UIView) {
         delegate?.willPresentFullScreenView()
     }
     
-    public func didDismissModal(from displayView: PBMDisplayView) {
+    public func didDismissModal(from displayView: UIView) {
         delegate?.willDismissFullScreenView()
         delegate?.didDismissFullScreenView()
     }

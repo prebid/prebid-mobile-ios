@@ -201,33 +201,16 @@ struct TestCaseManager {
     static func updateUserData(_ openRtb: [String: Any]) {
         let targeting = Targeting.shared
         
-        if let age = openRtb["age"] as? Int {
-            targeting.yearOfBirth = age
-        }
-        
         if let value = openRtb["url"] as? String {
             targeting.storeURL = value
         }
         
-        if let value = openRtb["gen"] as? String {
-            targeting.userGender = TestCaseManager.strToGender(value)
-        }
-        
-        if let value = openRtb["buyerid"] as? String {
-            targeting.buyerUID = value
-        }
-        if let value = openRtb["xid"] as? String {
-            targeting.userID = value
-        }
         if let value = openRtb["publisherName"] as? String {
             targeting.publisherName = value
         }
         
         if let value = openRtb["keywords"] as? String {
             Targeting.shared.addUserKeyword(value)
-        }
-        if let value = openRtb["customdata"] as? String {
-            targeting.userCustomData = value
         }
         
         if let geo = openRtb["geo"] as? [String: Double] {
@@ -261,7 +244,7 @@ struct TestCaseManager {
                 let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 320, height: 50)
                         
-                bannerController.prebidConfigId = "prebid-ita-banner-320-50";
+                bannerController.prebidConfigId = "prebid-ita-banner-320-50"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner"
                          
                 adapterVC.setup(adapter: bannerController)
@@ -269,7 +252,7 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (GAM Original) [NO SKAdN]",
+            TestCase(title: "Banner 320x50 SKAdN (GAM Original) [OK, PUC]",
                      tags: [.banner, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -281,9 +264,10 @@ struct TestCaseManager {
                 Targeting.shared.sourceapp = "InternalTestApp"
                 
                 let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
+                bannerController.activatePrebidSKAdN = true
                 bannerController.adSize = CGSize(width: 320, height: 50)
                         
-                bannerController.prebidConfigId = "prebid-ita-banner-320-50";
+                bannerController.prebidConfigId = "prebid-demo-banner-320-50-skadn"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner"
                          
                 adapterVC.setup(adapter: bannerController)
@@ -322,7 +306,7 @@ struct TestCaseManager {
                 
                 let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 728, height: 90)
-                bannerController.gamSizes = [GADAdSizeLeaderboard]
+                         bannerController.gamSizes = [AdSizeLeaderboard]
                 bannerController.prebidConfigId = "prebid-demo-banner-728-90"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner_728x90"
                          
@@ -342,7 +326,7 @@ struct TestCaseManager {
                 
                 let bannerController = PrebidOriginalAPIDisplayBannerController(rootController: adapterVC)
                 bannerController.adSize = CGSize(width: 728, height: 90)
-                bannerController.gamSizes = [GADAdSizeLeaderboard, GADAdSizeBanner]
+                bannerController.gamSizes = [AdSizeLeaderboard, AdSizeBanner]
                 bannerController.prebidConfigId = "prebid-demo-banner-multisize"
                 bannerController.adUnitID = "/21808260008/prebid_demo_app_original_api_banner_multisize"
                          
@@ -352,7 +336,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Video Outstream (GAM Original) [OK, PUC]",
-                     tags: [.banner, .originalAPI, .server],
+                     tags: [.video, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                          
@@ -411,6 +395,46 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            TestCase(title: "Display Interstitial 320x480 SKAdN (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIDisplayInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-skadn"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-display-interstitial"
+                interstitialController.activatePrebidSKAdN = true
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Display Interstitial 320x480 SKOverlay (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
+                let interstitialController = PrebidOriginalAPIDisplayInterstitialController(rootController: adapterVC)
+                interstitialController.supportSKOverlay = true
+                interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-skadn-skoverlay"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-display-interstitial"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             TestCase(title: "Video Interstitial 320x480 (GAM Original) [OK, PUC]",
                      tags: [.interstitial, .originalAPI, .server, .video],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -447,6 +471,26 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            TestCase(title: "Video Rewarded 320x480 SKOverlay (GAM Original) [OK, PUC]",
+                     tags: [.interstitial, .originalAPI, .server, .video],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = PrebidOriginalAPIVideoRewardedController(rootController: adapterVC)
+                interstitialController.supportSKOverlay = true
+                interstitialController.prebidConfigId = "prebid-demo-video-rewarded-320-480-skoverlay-original-api"
+                interstitialController.adUnitID = "/21808260008/prebid-demo-app-original-api-video-interstitial"
+                         
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            
             TestCase(title: "Multiformat Interstitial 320x480 (GAM Original) [OK, PUC]",
                      tags: [.multiformat, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -466,6 +510,30 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
+            
+            
+            // MARK: ---- Prebid Universal Creative Tests
+            
+            TestCase(title: "Prebid Universal Creative (GAM)",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidUniversalCreativeTestingGAMController(rootController: adapterVC)
+                bannerController.adSize = CGSize(width: 300, height: 250)
+                bannerController.gamAdUnitID = "/21808260008/puc-testing-secure-banner-300x250"
+                         
+                adapterVC.setup(adapter: bannerController)
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Prebid Universal Creative (WebView)",
+                     tags: [.banner, .originalAPI, .server],
+                     exampleVCStoryboardID: "PrebidUniversalCreativeTestingWebViewController",
+                     configurationClosure: { vc in }),
             
             // MARK: ---- Native (Original API)
             
@@ -488,7 +556,7 @@ struct TestCaseManager {
                 setupCustomParams(for: nativeController.prebidConfigId)
             }),
             
-            TestCase(title: "Native In-App (GAM Original) [OK, PUC]",
+            TestCase(title: "Native In-App (GAM Original) [OK]",
                      tags: [.native, .originalAPI, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -502,6 +570,27 @@ struct TestCaseManager {
                          
                 nativeController.adUnitID = "/21808260008/apollo_custom_template_native_ad_unit"
                 nativeController.prebidConfigId = "prebid-ita-banner-native-styles"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Native In-App SKAdN (GAM Original) [OK]",
+                     tags: [.native, .originalAPI, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let nativeController = PrebidOriginalAPINativeController(rootController: adapterVC)
+                nativeController.setupNativeAdView(NativeAdViewBox())
+                         
+                nativeController.adUnitID = "/21808260008/apollo_custom_template_native_ad_unit"
+                nativeController.prebidConfigId = "prebid-demo-banner-native-styles-skadn"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -559,7 +648,7 @@ struct TestCaseManager {
                 let multiformatController = PrebidOriginalAPIMultiformatNativeStylesController(rootController: adapterVC)
                 multiformatController.adSize = CGSize(width: 300, height: 250)
                 multiformatController.adUnitID = "/21808260008/prebid-demo-multiformat-native-styles"
-                multiformatController.gamSizes = [GADAdSizeFluid, GADAdSizeBanner, GADAdSizeMediumRectangle]
+                multiformatController.gamSizes = [AdSizeFluid, AdSizeBanner, AdSizeMediumRectangle]
                 adapterVC.setup(adapter: multiformatController)
             }),
         
@@ -578,6 +667,22 @@ struct TestCaseManager {
                         
                 bannerController.prebidConfigId = "prebid-ita-banner-320-50";
                         
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 320x50 (In-App, Custom Renderer)",
+                     tags: [.banner, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = CustomRendererBannerController(rootController: adapterVC)
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                bannerController.prebidConfigId = "prebid-demo-display-banner-320-50-custom-ad-view-renderer"
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)
@@ -776,19 +881,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                        
-                       
-                                       
-                Targeting.shared.eids = [
-                    [
-                        "source" : "liveramp.com",
-                        "uids" : [
-                            [
-                                "id": "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM"
-                            ]
-                        ]
+                
+                let eid = ExternalUserId(
+                    source: "liveramp.com",
+                    uids: [
+                        UserUniqueID(
+                            id: "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM",
+                            aType: 1
+                        )
                     ]
-                ]
+                )
+               
+                Targeting.shared.setExternalUserIds([eid])
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "prebid-ita-banner-320-50"
@@ -799,7 +903,7 @@ struct TestCaseManager {
             }),
             
             // NOTE: works only with InternalTestApp-Skadn target
-            TestCase(title: "Banner 320x50 (In-App) [SKAdN]",
+            TestCase(title: "Banner 320x50 SKAdN (In-App) [OK]",
                      tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -828,7 +932,7 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [GADAdSizeBanner]
+                gamBannerController.validAdSizes = [AdSizeBanner]
                         
                 gamBannerController.prebidConfigId = "prebid-ita-banner-320-50"
                         
@@ -849,7 +953,7 @@ struct TestCaseManager {
                          
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [GADAdSizeBanner]
+                gamBannerController.validAdSizes = [AdSizeBanner]
                         
                 gamBannerController.prebidConfigId = "prebid-ita-banner-320-50"
                         
@@ -869,7 +973,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-ita-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_static"
-                gamBannerController.validAdSizes = [GADAdSizeBanner]
+                gamBannerController.validAdSizes = [AdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -886,7 +990,7 @@ struct TestCaseManager {
 
                 gamBannerController.prebidConfigId = "prebid-demo-no-bids"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_static"
-                gamBannerController.validAdSizes = [GADAdSizeBanner]
+                gamBannerController.validAdSizes = [AdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -902,7 +1006,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-ita-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_random"
-                gamBannerController.validAdSizes = [GADAdSizeBanner]
+                gamBannerController.validAdSizes = [AdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -918,7 +1022,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-ita-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [GADAdSizeBanner]
+                gamBannerController.validAdSizes = [AdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -935,7 +1039,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-ita-banner-300-250"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
-                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [AdSizeMediumRectangle]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -952,7 +1056,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-demo-banner-728-90"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_728x90_banner"
-                gamBannerController.validAdSizes = [GADAdSizeLeaderboard]
+                gamBannerController.validAdSizes = [AdSizeLeaderboard]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -969,7 +1073,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-demo-banner-multisize"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_multisize_banner"
-                gamBannerController.validAdSizes = [GADAdSizeBanner, GADAdSizeLeaderboard]
+                gamBannerController.validAdSizes = [AdSizeBanner, AdSizeLeaderboard]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -986,7 +1090,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-ita-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_android_300x250_banner"
-                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [AdSizeMediumRectangle]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -1006,6 +1110,23 @@ struct TestCaseManager {
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.banner]
                 interstitialController.prebidConfigId = "prebid-ita-display-interstitial-320-480"
+                 
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Display Interstitial 320x480 (In-App, Custom Renderer)",
+                     tags: [.interstitial, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let interstitialController = CustomRendererInterstitialController(rootController: adapterVC)
+                interstitialController.adFormats = [.banner]
+                interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-custom-interstitial-renderer"
                  
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1058,7 +1179,7 @@ struct TestCaseManager {
             }),
             
             // NOTE: works only with InternalTestApp-Skadn target
-            TestCase(title: "Display Interstitial 320x480 (In-App) [SKAdN]",
+            TestCase(title: "Display Interstitial 320x480 SKAdN (In-App) [OK]",
                      tags: [.interstitial, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1071,6 +1192,26 @@ struct TestCaseManager {
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.banner]
                 interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-skadn"
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Display Interstitial 320x480 SKOverlay (In-App) [SKAdN]",
+                     tags: [.interstitial, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.adFormats = [.banner]
+                interstitialController.supportSKOverlay = true
+                interstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-skadn-skoverlay"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1350,6 +1491,26 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Video Interstitial 320x480 with End Card SKOverlay (In-App) [SKAdN]",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "prebid-demo-video-interstitial-320-480-end-card-skadn-skoverlay"
+                interstitialController.supportSKOverlay = true
+                interstitialController.adFormats = [.video]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             TestCase(title: "Video Interstitial Vertical (In-App)",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -1501,7 +1662,7 @@ struct TestCaseManager {
             }),
 
             // NOTE: works only with InternalTestApp-Skadn target
-            TestCase(title: "Video Interstitial 320x480 (In-App) [SKAdN]",
+            TestCase(title: "Video Interstitial 320x480 SKAdN (In-App) [OK]",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1513,6 +1674,27 @@ struct TestCaseManager {
                          
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "prebid-demo-video-interstitial-320-480-skadn"
+                interstitialController.adFormats = [.video]
+                
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Video Interstitial 320x480 SKOverlay (In-App) [SKAdN]",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "prebid-demo-video-interstitial-320-480-skadn-skoverlay"
+                interstitialController.supportSKOverlay = true
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1766,12 +1948,6 @@ struct TestCaseManager {
                         adBannerView.delegate = feedVC
                         adBannerView.accessibilityIdentifier = "PrebidBannerView"
                         
-                        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-                            for dataPair in adUnitContext {
-                                adBannerView.addContextData(dataPair.value, forKey: dataPair.key)
-                            }
-                        }
-                        
                         setupCustomParams(for: prebidConfigId)
                         adBannerView.loadAd()
                         
@@ -1786,7 +1962,7 @@ struct TestCaseManager {
             }),
             
             // NOTE: works only with InternalTestApp-Skadn target
-            TestCase(title: "Video Outstream (In-App) [SKAdN]",
+            TestCase(title: "Video Outstream SKAdN (In-App) [OK]",
                      tags: [.video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1818,7 +1994,7 @@ struct TestCaseManager {
                          
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
-                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [AdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 gamBannerController.prebidConfigId = "prebid-ita-video-outstream"
                  
@@ -1836,7 +2012,7 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
-                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [AdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 gamBannerController.prebidConfigId = "prebid-demo-video-outstream-with-end-card"
                  
@@ -1856,7 +2032,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-ita-video-outstream"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
-                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [AdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -1874,7 +2050,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-demo-no-bids"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outsream_video"
-                gamBannerController.validAdSizes = [GADAdSizeMediumRectangle]
+                gamBannerController.validAdSizes = [AdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
                 
                 adapterVC.setup(adapter: gamBannerController)
@@ -1882,52 +2058,51 @@ struct TestCaseManager {
                 setupCustomParams(for: gamBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Outstream Feed (GAM)",
-                     tags: [.video, .gam, .server],
-                     exampleVCStoryboardID: "PrebidFeedTableViewController",
-                     configurationClosure: { vc in
-                        
-                guard let feedVC = vc as? PrebidFeedTableViewController,
-                    let tableView = feedVC.tableView else {
-                    return
-                }
-                feedVC.testCases = [
-                    TestCaseManager.createDummyTableCell(for: tableView),
-                    TestCaseManager.createDummyTableCell(for: tableView),
-                    TestCaseManager.createDummyTableCell(for: tableView),
+            TestCase(
+                title: "Video Outstream Feed (GAM)",
+                tags: [.video, .gam, .server],
+                exampleVCStoryboardID: "PrebidFeedTableViewController",
+                configurationClosure: { vc in
                     
-                    TestCaseForTableCell(configurationClosureForTableCell: { [weak feedVC, weak tableView] cell in
+                    guard let feedVC = vc as? PrebidFeedTableViewController,
+                          let tableView = feedVC.tableView else {
+                        return
+                    }
+                    feedVC.testCases = [
+                        TestCaseManager.createDummyTableCell(for: tableView),
+                        TestCaseManager.createDummyTableCell(for: tableView),
+                        TestCaseManager.createDummyTableCell(for: tableView),
                         
-                        guard let videoViewCell = tableView?.dequeueReusableCell(withIdentifier: "FeedAdTableViewCell") as? FeedAdTableViewCell else {
-                            return
-                        }
-                        cell = videoViewCell
-                        guard videoViewCell.adView == nil else {
-                            return
-                        }
-                        
-                        var prebidConfigId = "prebid-ita-video-outstream"
-                        let gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
-                        let validAdSize = GADAdSizeMediumRectangle
-                        let adSize = validAdSize.size
-                        let adEventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: [NSValueFromGADAdSize(validAdSize)])
-                        let adBannerView = BannerView(configID: prebidConfigId,eventHandler: adEventHandler)
-                        adBannerView.adFormat = .video
-                        adBannerView.videoParameters.placement = .InFeed
-                        adBannerView.delegate = feedVC
-                        adBannerView.accessibilityIdentifier = "PrebidBannerView"
-                        
-                        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-                            for dataPair in adUnitContext {
-                                adBannerView.addContextData(dataPair.value, forKey: dataPair.key)
-                            }
-                        }
-                        
-                        setupCustomParams(for: prebidConfigId)
-                        adBannerView.loadAd()
-                        
-                        videoViewCell.bannerView.addSubview(adBannerView)
-                        videoViewCell.adView = adBannerView
+                        TestCaseForTableCell(
+                            configurationClosureForTableCell: { [weak feedVC, weak tableView] cell in
+                                
+                                guard let videoViewCell = tableView?.dequeueReusableCell(withIdentifier: "FeedAdTableViewCell") as? FeedAdTableViewCell else {
+                                    return
+                                }
+                                cell = videoViewCell
+                                guard videoViewCell.adView == nil else {
+                                    return
+                                }
+                                
+                                var prebidConfigId = "prebid-ita-video-outstream"
+                                let gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
+                                let validAdSize = AdSizeMediumRectangle
+                                let adSize = validAdSize.size
+                                let adEventHandler = GAMBannerEventHandler(
+                                    adUnitID: gamAdUnitId,
+                                    validGADAdSizes: [nsValue(for: validAdSize)]
+                                )
+                                let adBannerView = BannerView(configID: prebidConfigId,eventHandler: adEventHandler)
+                                adBannerView.adFormat = .video
+                                adBannerView.videoParameters.placement = .InFeed
+                                adBannerView.delegate = feedVC
+                                adBannerView.accessibilityIdentifier = "PrebidBannerView"
+                                
+                                setupCustomParams(for: prebidConfigId)
+                                adBannerView.loadAd()
+                                
+                                videoViewCell.bannerView.addSubview(adBannerView)
+                                videoViewCell.adView = adBannerView
                     }),
                     
                     TestCaseManager.createDummyTableCell(for: tableView),
@@ -1936,10 +2111,10 @@ struct TestCaseManager {
                 ];
             }),
             
-            // MARK: ---- Video Rewarded (In-App) ----
+            // MARK: ---- Rewarded (In-App) ----
             
-            TestCase(title: "Video Rewarded 320x480 (In-App)",
-                     tags: [.video, .inapp, .server],
+            TestCase(title: "Banner Rewarded Default 320x480 (In-App)",
+                     tags: [.interstitial, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -1947,15 +2122,13 @@ struct TestCaseManager {
                 }
                          
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
-                
-                rewardedAdController.prebidConfigId = "prebid-ita-video-rewarded-320-480"
+                rewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-default"
                 adapterVC.setup(adapter: rewardedAdController)
-                        
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 (In-App) [SKAdN]",
-                     tags: [.video, .inapp, .server],
+            TestCase(title: "Banner Rewarded Time 320x480 (In-App)",
+                     tags: [.interstitial, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -1963,17 +2136,196 @@ struct TestCaseManager {
                 }
                          
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Banner Rewarded Time SKOverlay 320x480 (In-App, SKAdN)",
+                     tags: [.interstitial, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time-skadn-skoverlay"
+                rewardedAdController.supportSKOverlay = true
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner Rewarded Event 320x480 (In-App)",
+                     tags: [.interstitial, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-event"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Default 320x480 (In-App)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-default"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Playbackevent 320x480 (In-App)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-playbackevent"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Time 320x480 (In-App)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Video Rewarded Time 320x480 SKAdN (In-App) [OK]",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
                 Targeting.shared.sourceapp = "InternalTestApp"
                 
-                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-320-480-skadn"
-                
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-skadn"
                 adapterVC.setup(adapter: rewardedAdController)
-                        
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Video Rewarded Time 320x480 SKOverlay (In-App, SKAdN)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-skadn-skoverlay"
+                rewardedAdController.supportSKOverlay = true
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Time With Server Ad Configuration 320x480 (In-App)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-ad-config"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Endcard Default 320x480 (In-App)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-default"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Endcard Event 320x480 (In-App)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-event"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Endcard Time 320x480 (In-App)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time"
+                adapterVC.setup(adapter: rewardedAdController)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            // NOTE: works only with InternalTestApp-Skadn target
+            TestCase(title: "Video Rewarded Endcard Time SKOverlay 320x480 (In-App, SKAdN)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Targeting.shared.sourceapp = "InternalTestApp"
+                         
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time-skadn-skoverlay"
+                rewardedAdController.supportSKOverlay = true
+                adapterVC.setup(adapter: rewardedAdController)
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
 
             TestCase(title: "Video Rewarded 320x480 (In-App) [noBids]",
-                     tags: [.video, .inapp, .server],
+                     tags: [.interstitial, .video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController", configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
@@ -1982,60 +2334,44 @@ struct TestCaseManager {
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "prebid-demo-no-bids"
                 adapterVC.setup(adapter: rewardedAdController)
-                        
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 without End Card (In-App)",
-                     tags: [.video, .inapp, .server],
+            // MARK: ---- Rewarded (GAM) ----
+            
+            TestCase(title: "Banner Rewarded Time 320x480 (GAM) [OK, Metadata]",
+                     tags: [.interstitial, .gam, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                         
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
+                gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
+                gamRewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time"
+                adapterVC.setup(adapter: gamRewardedAdController)
+                setupCustomParams(for: gamRewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Time 320x480 (GAM) [OK, Metadata]",
+                     tags: [.interstitial, .video, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                          
-                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
-                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-320-480-without-end-card"
-                adapterVC.setup(adapter: rewardedAdController)
-                        
-                setupCustomParams(for: rewardedAdController.prebidConfigId)
+                let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
+                gamRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time"
+                gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
+                adapterVC.setup(adapter: gamRewardedAdController)
+                setupCustomParams(for: gamRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 480x320 (In-App)",
-                     tags: [.video, .inapp, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
-                rewardedAdController.prebidConfigId = "prebid-ita-video-rewarded-320-480"
-                adapterVC.setup(adapter: rewardedAdController)
-                        
-                setupCustomParams(for: rewardedAdController.prebidConfigId)
-            }),
-            
-            
-            TestCase(title: "Video Rewarded With Ad Configuration Server 320x480 (In-App)",
-                     tags: [.video, .inapp, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
-                
-                rewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-320-480-with-ad-configuration"
-                adapterVC.setup(adapter: rewardedAdController)
-                        
-                setupCustomParams(for: rewardedAdController.prebidConfigId)
-            }),
-            
-            // MARK: ---- Video Rewarded (GAM) ----
-            
-            TestCase(title: "Video Rewarded 320x480 (GAM) [OK, Metadata]",
-                     tags: [.video, .gam, .server],
+            TestCase(title: "Video Rewarded 320x480 Time With Server Ad Configuration (GAM) [OK, Metadata]",
+                     tags: [.interstitial, .video, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2044,49 +2380,29 @@ struct TestCaseManager {
                          
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
-                        
-                gamRewardedAdController.prebidConfigId = "prebid-ita-video-rewarded-320-480"
-                 
+                gamRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-ad-config"
                 adapterVC.setup(adapter: gamRewardedAdController)
-                        
                 setupCustomParams(for: gamRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 With Ad Configuration Server (GAM) [OK, Metadata]",
-                     tags: [.video, .gam, .server],
+            TestCase(title: "Video Rewarded Endcard Time 320x480 (GAM) [OK, Metadata]",
+                     tags: [.interstitial, .video, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
+                         
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                          
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
-                gamRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-320-480-with-ad-configuration"
-                 
+                gamRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time"
                 adapterVC.setup(adapter: gamRewardedAdController)
-                        
-                setupCustomParams(for: gamRewardedAdController.prebidConfigId)
-            }),
-            
-            TestCase(title: "Video Rewarded 320x480 (GAM) [OK, Random]",
-                     tags: [.video, .gam, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
-                gamRewardedAdController.prebidConfigId = "prebid-ita-video-rewarded-320-480"
-                gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_random"
-                adapterVC.setup(adapter: gamRewardedAdController)
-                        
                 setupCustomParams(for: gamRewardedAdController.prebidConfigId)
             }),
             
             TestCase(title: "Video Rewarded 320x480 (GAM) [noBids, GAM Ad]",
-                     tags: [.video, .gam, .server],
+                     tags: [.interstitial, .video, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2097,26 +2413,8 @@ struct TestCaseManager {
                 gamRewardedAdController.prebidConfigId = "prebid-demo-no-bids"
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_static"
                 adapterVC.setup(adapter: gamRewardedAdController)
-                        
                 setupCustomParams(for: gamRewardedAdController.prebidConfigId)
             }),
-            
-            TestCase(title: "Video Rewarded 320x480 without End Card (GAM) [OK, Metadata]",
-                     tags: [.video, .gam, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
-                gamRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-320-480-without-end-card"
-                gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
-                adapterVC.setup(adapter: gamRewardedAdController)
-                        
-                setupCustomParams(for: gamRewardedAdController.prebidConfigId)
-            }),
-            
 
             // MARK: ---- MRAID (In-App) ----
             
@@ -2341,7 +2639,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-demo-mraid-expand-1-part"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [GADAdSizeBanner]
+                gamBannerController.validAdSizes = [AdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -2359,7 +2657,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "prebid-demo-mraid-resize"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
-                gamBannerController.validAdSizes = [GADAdSizeBanner]
+                gamBannerController.validAdSizes = [AdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -2690,7 +2988,6 @@ struct TestCaseManager {
                 admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
-                        
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
             }),
             
@@ -2716,10 +3013,10 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
-            // MARK: ---- Video Rewarded (AdMob) ----
+            // MARK: ---- Rewarded (AdMob) ----
             
-            TestCase(title: "Video Rewarded 320x480 (AdMob) [OK, OXB Adapter]",
-                     tags: [.video, .admob, .server],
+            TestCase(title: "Banner Rewarded Time 320x480 (AdMob) [OK, OXB Adapter]",
+                     tags: [.interstitial, .video, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2727,15 +3024,14 @@ struct TestCaseManager {
                 }
                          
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
-                admobRewardedAdController.prebidConfigId = "prebid-ita-video-rewarded-320-480"
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
+                admobRewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time"
                 adapterVC.setup(adapter: admobRewardedAdController)
-                        
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded With Ad Configuration 320x480 Server (AdMob) [OK, OXB Adapter]",
-                     tags: [.video, .admob, .server],
+            TestCase(title: "Video Rewarded Endcard Time 320x480 (AdMob) [OK, OXB Adapter]",
+                     tags: [.interstitial, .video, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2743,16 +3039,44 @@ struct TestCaseManager {
                 }
                          
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
-                admobRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-320-480-with-ad-configuration"
-                
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
+                admobRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time"
                 adapterVC.setup(adapter: admobRewardedAdController)
-                        
+                setupCustomParams(for: admobRewardedAdController.prebidConfigId)
+            }),
+
+            TestCase(title: "Video Rewarded Time 320x480 (AdMob) [OK, OXB Adapter]",
+                     tags: [.interstitial, .video, .admob, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
+                admobRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time"
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
+                adapterVC.setup(adapter: admobRewardedAdController)
+                setupCustomParams(for: admobRewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Time With Server Ad Configuration 320x480 (AdMob) [OK, OXB Adapter]",
+                     tags: [.interstitial, .video, .admob, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
+                admobRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-ad-config"
+                adapterVC.setup(adapter: admobRewardedAdController)
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
             }),
             
             TestCase(title: "Video Rewarded 320x480 (AdMob) [noBids, AdMob Ad]",
-                     tags: [.video, .admob, .server],
+                     tags: [.interstitial, .video, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2761,41 +3085,8 @@ struct TestCaseManager {
                          
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 admobRewardedAdController.prebidConfigId = "prebid-demo-no-bids"
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
+                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/5628505938"
                 adapterVC.setup(adapter: admobRewardedAdController)
-                        
-                setupCustomParams(for: admobRewardedAdController.prebidConfigId)
-            }),
-            
-            TestCase(title: "Video Rewarded 320x480 (AdMob) [OK, Random]",
-                     tags: [.video, .admob, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
-                admobRewardedAdController.prebidConfigId = "prebid-ita-video-rewarded-320-480"
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
-                adapterVC.setup(adapter: admobRewardedAdController)
-                        
-                setupCustomParams(for: admobRewardedAdController.prebidConfigId)
-            }),
-            
-            TestCase(title: "Video Rewarded 320x480 without End Card (AdMob) [OK, OXB Adapter]",
-                     tags: [.video, .admob, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
-                admobRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-320-480-without-end-card"
-                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
-                adapterVC.setup(adapter: admobRewardedAdController)
-                        
                 setupCustomParams(for: admobRewardedAdController.prebidConfigId)
             }),
             
@@ -2999,6 +3290,7 @@ struct TestCaseManager {
 
                 setupCustomParams(for: gamNativeAdController.prebidConfigId)
             }),
+            
             TestCase(title: "Native Ad (GAM) [OK, GADNativeCustomTemplateAd]",
                      tags: [.native, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -3469,10 +3761,10 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
-            // MARK: ---- Video Rewarded (MAX) ----
+            // MARK: ---- Rewarded (MAX) ----
             
-            TestCase(title: "Video Rewarded 320x480 (MAX) [OK, OXB Adapter]",
-                     tags: [.video, .max, .server],
+            TestCase(title: "Banner Rewarded Time 320x480 (MAX) [OK, OXB Adapter]",
+                     tags: [.interstitial, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -3481,14 +3773,44 @@ struct TestCaseManager {
                          
                 let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
                 maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
-                maxRewardedAdController.prebidConfigId = "prebid-ita-video-rewarded-320-480"
+                maxRewardedAdController.prebidConfigId = "prebid-demo-banner-rewarded-time"
+                adapterVC.setup(adapter: maxRewardedAdController)
+                setupCustomParams(for: maxRewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded Endcard Time 320x480 (MAX) [OK, OXB Adapter]",
+                     tags: [.interstitial, .video, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
+                maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
+                maxRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-endcard-time"
+                adapterVC.setup(adapter: maxRewardedAdController)
+                setupCustomParams(for: maxRewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded 320x480 Time (MAX) [OK, OXB Adapter]",
+                     tags: [.interstitial, .video, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
+                maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
+                maxRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time"
                 adapterVC.setup(adapter: maxRewardedAdController)
                         
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 With Ad Configuration Server (MAX) [OK, OXB Adapter]",
-                     tags: [.video, .max, .server],
+            TestCase(title: "Video Rewarded 320x480 Time With Server Ad Configuration (MAX) [OK, OXB Adapter]",
+                     tags: [.interstitial, .video, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -3497,14 +3819,14 @@ struct TestCaseManager {
                          
                 let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
                 maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
-                maxRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-320-480-with-ad-configuration"
+                maxRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-time-ad-config"
                 adapterVC.setup(adapter: maxRewardedAdController)
                         
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
             }),
             
             TestCase(title: "Video Rewarded 320x480 (MAX) [noBids, MAX Ad]",
-                     tags: [.video, .max, .server],
+                     tags: [.interstitial, .video, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -3514,38 +3836,6 @@ struct TestCaseManager {
                 let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
                 maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
                 maxRewardedAdController.prebidConfigId = "prebid-demo-no-bids"
-                adapterVC.setup(adapter: maxRewardedAdController)
-                        
-                setupCustomParams(for: maxRewardedAdController.prebidConfigId)
-            }),
-            
-            TestCase(title: "Video Rewarded 320x480 (MAX) [OK, Random]",
-                     tags: [.video, .max, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
-                maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
-                maxRewardedAdController.prebidConfigId = "prebid-ita-video-rewarded-320-480"
-                adapterVC.setup(adapter: maxRewardedAdController)
-                        
-                setupCustomParams(for: maxRewardedAdController.prebidConfigId)
-            }),
-            
-            TestCase(title: "Video Rewarded 320x480 without End Card (MAX) [OK, OXB Adapter]",
-                     tags: [.video, .max, .server],
-                     exampleVCStoryboardID: "AdapterViewController",
-                     configurationClosure: { vc in
-                guard let adapterVC = vc as? AdapterViewController else {
-                    return
-                }
-                         
-                let maxRewardedAdController = PrebidMAXRewardedController(rootController: adapterVC)
-                maxRewardedAdController.maxAdUnitId = "8c68716a67d5a5af"
-                maxRewardedAdController.prebidConfigId = "prebid-demo-video-rewarded-320-480-without-end-card"
                 adapterVC.setup(adapter: maxRewardedAdController)
                         
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
@@ -3622,19 +3912,5 @@ struct TestCaseManager {
         return TestCaseForTableCell(configurationClosureForTableCell: { cell in
             cell = tableView.dequeueReusableCell(withIdentifier: "DummyTableViewCell")
         });
-    }
-    
-    // MALE, FEMALE, OTHER to PBMGender {
-    private static func strToGender(_ gender: String) -> Gender {
-        switch gender {
-            case "MALE":
-                return .male
-            case "FEMALE":
-                return .female
-            case "OTHER":
-                return .female
-            default:
-                return .unknown
-        }
     }
 }

@@ -17,12 +17,16 @@ import UIKit
 import GoogleMobileAds
 import PrebidMobile
 
-class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, InterstitialAdUnitDelegate {
+class PrebidInterstitialController:
+    NSObject,
+    AdaptedController,
+    PrebidConfigurableController,
+    InterstitialAdUnitDelegate {
     
     var prebidConfigId = ""
     var storedAuctionResponse: String?
 
-    var adFormats: Set<AdFormat>?
+    var adFormats: Set<PrebidMobile.AdFormat>?
     
     private var interstitialController : InterstitialRenderingAdUnit?
     
@@ -44,6 +48,9 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
     var skipButtonArea: Double?
     var skipButtonPosition: Position?
     var skipDelay: Double?
+    
+    // SKAdNetwork
+    var supportSKOverlay = false
     
     // MARK: - AdaptedController
     required init(rootController: AdapterViewController) {
@@ -70,9 +77,14 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
             Prebid.shared.storedAuctionResponse = storedAuctionResponse
         }
 
-        interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
-                                                       minSizePercentage: CGSize(width: 30, height: 30))
+        interstitialController = InterstitialRenderingAdUnit(
+            configID: prebidConfigId,
+            minSizePercentage: CGSize(width: 30, height: 30)
+        )
+        
         interstitialController?.delegate = self
+        
+        interstitialController?.supportSKOverlay = supportSKOverlay
         
         // Custom video configuarion
         if let maxDuration = maxDuration {
@@ -101,44 +113,6 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         
         if let adFormats = adFormats {
             interstitialController?.adFormats = adFormats
-        }
-        
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                interstitialController?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                interstitialController?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            interstitialController?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            interstitialController?.addAppContentData([ortbAppContentData])
         }
         
         interstitialController?.loadAd()

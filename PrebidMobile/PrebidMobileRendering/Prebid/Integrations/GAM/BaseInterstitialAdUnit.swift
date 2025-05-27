@@ -1,58 +1,54 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
-
-import Foundation
 import UIKit
 
-public class BaseInterstitialAdUnit :
+@objcMembers
+class BaseInterstitialAdUnit:
     NSObject,
     PBMInterstitialAdLoaderDelegate,
     AdLoadFlowControllerDelegate,
     InterstitialControllerInteractionDelegate,
-    InterstitialEventInteractionDelegate,
-    BaseInterstitialAdUnitProtocol {
+    InterstitialEventInteractionDelegate {
     
-    // MARK: - Public Properties
+    // MARK: - Internal Properties
     
-    @objc public var bannerParameters: BannerParameters {
+    let adUnitConfig: AdUnitConfig
+    let eventHandler: PrimaryAdRequesterProtocol
+    
+    weak var delegate: BaseInterstitialAdUnitProtocol? {
+        didSet {
+            if let adLoader {
+                delegate?.callEventHandler_setLoadingDelegate(adLoader)
+            }
+        }
+    }
+    
+    var bannerParameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
     }
     
-    @objc public var videoParameters: VideoParameters {
+    var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
-    @objc public var lastBidResponse: BidResponse? {
-        return adLoadFlowController?.bidResponse
+    var lastBidResponse: BidResponse? {
+        adLoadFlowController?.bidResponse
     }
     
-    @objc public var configID: String {
-        adUnitConfig.configId
-    }
-    
-    @objc public var adFormats: Set<AdFormat> {
-        get { adUnitConfig.adFormats }
-        set { adUnitConfig.adFormats = newValue }
-    }
-    
-    @objc public var ortbConfig: String? {
-        get { adUnitConfig.ortbConfig }
-        set { adUnitConfig.ortbConfig = newValue }
-    }
-     
-    @objc public var isReady: Bool {
+    var isReady: Bool {
         objc_sync_enter(blocksLockToken)
         if let block = isReadyBlock {
             let res = block()
@@ -63,252 +59,98 @@ public class BaseInterstitialAdUnit :
         objc_sync_exit(blocksLockToken)
         return false
     }
-
-    @objc public var isMuted: Bool {
-        get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
-        set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
-    }
-
-    @objc public var isSoundButtonVisible: Bool {
-        get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
-        set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
-    }
-
-    @objc public var closeButtonArea: Double {
-        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea }
-        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea = newValue }
-    }
-
-    @objc public var closeButtonPosition: Position {
-        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition }
-        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition = newValue }
-    }
-
-    @objc public weak var delegate: AnyObject?
-    
-    public let adUnitConfig: AdUnitConfig
     
     // MARK: - Private Properties
     
     private var adLoadFlowController: PBMAdLoadFlowController!
     
     private let blocksLockToken: NSObject
-        
     private var showBlock: ((UIViewController?) -> Void)?
     private var currentAdBlock: ((UIViewController?) -> Void)?
     private var isReadyBlock: (() -> Bool)?
-
+    private var adLoader: PBMInterstitialAdLoader?
+    
     private weak var targetController: UIViewController?
     
-    // MARK: - Public Methods
-    
-    required public init(configID: String,
-                         minSizePerc: NSValue?,
-                         eventHandler: AnyObject?) {
-        
+    init(
+        configID: String,
+        minSizePerc: NSValue?,
+        eventHandler: PrimaryAdRequesterProtocol
+    ) {
         adUnitConfig = AdUnitConfig(configId: configID)
+        blocksLockToken = NSObject()
+        
+        self.eventHandler = eventHandler
+        
+        super.init()
+        
+        let adLoader = PBMInterstitialAdLoader(
+            delegate: self,
+            eventHandler: eventHandler
+        )
+        
+        self.adLoader = adLoader
+        
+        adLoadFlowController = PBMAdLoadFlowController(
+            bidRequesterFactory: { adUnitConfig in
+                Factory.createBidRequester(
+                    connection: PrebidServerConnection.shared,
+                    sdkConfiguration: Prebid.shared,
+                    targeting: Targeting.shared,
+                    adUnitConfiguration: adUnitConfig
+                )
+            },
+            adLoader: adLoader,
+            adUnitConfig: adUnitConfig,
+            delegate: self,
+            configValidationBlock: { _, _ in true }
+        )
+        
+        // Set default values
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adConfiguration.adFormats = [.banner, .video]
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
-        blocksLockToken = NSObject()
-
-        self.eventHandler = eventHandler
-
-        super.init()
-        
         videoParameters.placement = .Interstitial
-        
-        let adLoader = PBMInterstitialAdLoader(delegate: self)
-        callEventHandler_setLoadingDelegate(adLoader)
-        
-        adLoadFlowController =  PBMAdLoadFlowController(bidRequesterFactory: { adUnitConfig in
-            return PBMBidRequester(connection: PrebidServerConnection.shared,
-                                   sdkConfiguration: Prebid.shared,
-                                   targeting: Targeting.shared,
-                                   adUnitConfiguration: adUnitConfig)
-        },
-        adLoader: adLoader,
-        delegate: self,
-        configValidationBlock: { _,_ in true } )
+        videoParameters.plcmnt = .Interstitial
     }
-    
-    public convenience init(configID: String,
-                            minSizePercentage: CGSize,
-                            eventHandler:AnyObject?)
-    {
-        self.init(configID: configID,
-                  minSizePerc:NSValue(cgSize: minSizePercentage),
-                  eventHandler: eventHandler)
-    }
-
-    public convenience init(configID: String,
-                            eventHandler:AnyObject?) {
-        self.init(configID: configID,
-                  minSizePerc:nil,
-                  eventHandler: eventHandler)
-        
-    }
-
-    public convenience init(configID: String,
-                            minSizePercentage:CGSize) {
-        
-        self.init(configID: configID,
-                  minSizePerc:NSValue(cgSize: minSizePercentage),
-                  eventHandler: nil)
-    }
-
-    public convenience init(configID: String)  {
-        self.init(configID: configID,
-                  minSizePerc:nil,
-                  eventHandler: nil)    }
     
     // MARK: - Public Methods
     
-    @objc public func loadAd() {
+    func loadAd() {
         adLoadFlowController.refresh()
     }
     
-    @objc public func show(from controller: UIViewController) {
+    func show(from controller: UIViewController) {
         // It is expected from the user to call this method on main thread
         assert(Thread.isMainThread, "Expected to only be called on the main thread");
-       
-        objc_sync_enter(blocksLockToken)
-
-            guard self.showBlock != nil,
-                  self.currentAdBlock == nil else {
-                objc_sync_exit(blocksLockToken)
-                return;
-            }
-            isReadyBlock = nil;
-            currentAdBlock = showBlock;
-            showBlock = nil;
         
-            callDelegate_willPresentAd()
-            targetController = controller;
-            currentAdBlock?(controller);
+        objc_sync_enter(blocksLockToken)
+        
+        guard self.showBlock != nil,
+              self.currentAdBlock == nil else {
             objc_sync_exit(blocksLockToken)
-
-    }
-
-    // MARK: - Ext Data (imp[].ext.data)
-
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtData method instead.")
-    @objc public func addContextData(_ data: String, forKey key: String) {
-        addExtData(key: key, value: data)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use updateExtData method instead.")
-    @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
-        updateExtData(key: key, value: data)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtData method instead.")
-    @objc public func removeContextDate(forKey key: String) {
-        removeExtData(forKey: key)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtData method instead.")
-    @objc public func clearContextData() {
-        clearExtData()
-    }
-    
-    @objc public func addExtData(key: String, value: String) {
-        adUnitConfig.addExtData(key: key, value: value)
-    }
-    
-    @objc public func updateExtData(key: String, value: Set<String>) {
-        adUnitConfig.updateExtData(key: key, value: value)
-    }
-    
-    @objc public func removeExtData(forKey: String) {
-        adUnitConfig.removeExtData(for: forKey)
-    }
-    
-    @objc public func clearExtData() {
-        adUnitConfig.clearExtData()
-    }
-    
-    // MARK: - Ext keywords (imp[].ext.keywords)
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeyword method instead.")
-    @objc public func addContextKeyword(_ newElement: String) {
-        addExtKeyword(newElement)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use addExtKeywords method instead.")
-    @objc public func addContextKeywords(_ newElements: Set<String>) {
-        addExtKeywords(newElements)
-    }
-    
-    @available(*, deprecated, message: "This method is deprecated. Please, use removeExtKeyword method instead.")
-    @objc public func removeContextKeyword(_ element: String) {
-        removeExtKeyword(element)
-    }
-
-    @available(*, deprecated, message: "This method is deprecated. Please, use clearExtKeywords method instead.")
-    @objc public func clearContextKeywords() {
-        clearExtKeywords()
-    }
-    
-    @objc public func addExtKeyword(_ newElement: String) {
-        adUnitConfig.addExtKeyword(newElement)
-    }
-    
-    @objc public func addExtKeywords(_ newElements: Set<String>) {
-        adUnitConfig.addExtKeywords(newElements)
-    }
-    
-    @objc public func removeExtKeyword(_ element: String) {
-        adUnitConfig.removeExtKeyword(element)
-    }
-    
-    @objc public func clearExtKeywords() {
-        adUnitConfig.clearExtKeywords()
-    }
-    
-    // MARK: - App Content (app.content.data)
-    
-    @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
-        adUnitConfig.setAppContent(appContent)
-    }
-    
-    @objc public func clearAppContent() {
-        adUnitConfig.clearAppContent()
-    }
-    
-    @objc public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addAppContentData(dataObjects)
-    }
-
-    @objc public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
-        adUnitConfig.removeAppContentData(dataObject)
-    }
-    
-    @objc public func clearAppContentDataObjects() {
-        adUnitConfig.clearAppContentData()
-    }
-    
-    // MARK: - User Data (user.data)
-    
-    @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addUserData(userDataObjects)
-    }
-    
-    @objc public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        adUnitConfig.removeUserData(userDataObject)
-    }
-    
-    @objc public func clearUserData() {
-        adUnitConfig.clearUserData()
+            return;
+        }
+        
+        isReadyBlock = nil
+        currentAdBlock = showBlock
+        showBlock = nil
+        
+        delegate?.callDelegate_willPresentAd()
+        targetController = controller
+        currentAdBlock?(controller)
+        objc_sync_exit(blocksLockToken)
     }
     
     // MARK: - PBMInterstitialAdLoaderDelegate
     
-    public func interstitialAdLoader(_ interstitialAdLoader: PBMInterstitialAdLoader,
-                                     loadedAd showBlock: @escaping (UIViewController?) -> Void,
-                                     isReadyBlock: @escaping () -> Bool) {
+    public func interstitialAdLoader(
+        _ interstitialAdLoader: PBMInterstitialAdLoader,
+        loadedAd showBlock: @escaping (UIViewController?) -> Void,
+        isReadyBlock: @escaping () -> Bool
+    ) {
         objc_sync_enter(blocksLockToken)
         self.showBlock = showBlock
         self.isReadyBlock = isReadyBlock
@@ -317,164 +159,116 @@ public class BaseInterstitialAdUnit :
         reportLoadingSuccess()
     }
     
-    public func interstitialAdLoader(_ interstitialAdLoader: PBMInterstitialAdLoader,
-                                     createdInterstitialController interstitialController: InterstitialController) {
+    public func interstitialAdLoader(
+        _ interstitialAdLoader: PBMInterstitialAdLoader,
+        createdInterstitialController interstitialController: InterstitialController
+    ) {
         interstitialController.interactionDelegate = self
     }
-   
-    public var eventHandler: Any?
-    
     
     // MARK: - AdLoadFlowControllerDelegate
     
-    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: PBMAdLoadFlowController) {
-        // nop
-    }
+    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: PBMAdLoadFlowController) {}
     
+    /// Called when the ad load flow controller is about to request the primary ad.
     public func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: PBMAdLoadFlowController) {
-        callEventHandler_setInteractionDelegate()
+        delegate?.callEventHandler_setInteractionDelegate()
     }
     
+    /// Called to determine if the ad load flow controller should continue with the current flow.
     public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: PBMAdLoadFlowController) -> Bool {
         true
     }
     
-    public func adLoadFlowController(_ adLoadFlowController: PBMAdLoadFlowController, failedWithError error: Error?) {
+    public func adLoadFlowController(
+        _ adLoadFlowController: PBMAdLoadFlowController,
+        failedWithError error: Error?
+    ) {
         reportLoadingFailed(with: error)
     }
     
     // MARK: - InterstitialControllerInteractionDelegate
     
-    public func trackImpression(forInterstitialController: InterstitialController) {
+    /// Tracks an impression for the given interstitial controller.
+    public func trackImpression(forInterstitialController: PrebidMobileInterstitialControllerProtocol) {
         DispatchQueue.main.async {
-            self.callEventHandler_trackImpression()
+            self.delegate?.callEventHandler_trackImpression()
         }
     }
     
-    public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
+    /// Called when the ad in the interstitial controller is clicked.
+    public func interstitialControllerDidClickAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
-        callDelegate_didClickAd()
+        delegate?.callDelegate_didClickAd()
     }
     
-    public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+    /// Called when the ad in the interstitial controller is closed.
+    public func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
-        callDelegate_didDismissAd()
+        delegate?.callDelegate_didDismissAd()
     }
     
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {
+    /// Called when the ad in the interstitial controller causes the app to leave.
+    public func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
-        callDelegate_willLeaveApplication()
+        delegate?.callDelegate_willLeaveApplication()
     }
     
-    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {
-        
-    }
+    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    public func trackUserReward(_ interstitialController: PrebidMobileInterstitialControllerProtocol, _ reward: PrebidReward) {}
     
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {
-        
-    }
-    
-    public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
+    public func viewControllerForModalPresentation(
+        fromInterstitialController: PrebidMobileInterstitialControllerProtocol
+    ) -> UIViewController? {
         return targetController
-    }
-    
-    // MARK: - Private methods
-
-    private func reportLoadingSuccess() {
-        DispatchQueue.main.async {
-            self.callDelegate_didReceiveAd()
-        }
-    }
-
-    private func reportLoadingFailed(with error: Error?) {
-        DispatchQueue.main.async {
-            self.callDelegate_didFailToReceiveAd(with: error)
-        }
     }
     
     // MARK: - InterstitialEventInteractionDelegate
     
+    /// Called when an ad is about to be presented.
     public func willPresentAd() {
         DispatchQueue.main.async {
-            self.callDelegate_willPresentAd()
+            self.delegate?.callDelegate_willPresentAd()
         }
     }
     
+    /// Called when an ad has been dismissed.
     public func didDismissAd() {
         objc_sync_enter(blocksLockToken)
         currentAdBlock = nil
         objc_sync_exit(blocksLockToken)
         
         DispatchQueue.main.async {
-            self.callDelegate_didDismissAd()
+            self.delegate?.callDelegate_didDismissAd()
         }
     }
     
+    /// Called when the ad causes the app to leave.
     public func willLeaveApp() {
         DispatchQueue.main.async {
-            self.callDelegate_willLeaveApplication()
+            self.delegate?.callDelegate_willLeaveApplication()
         }
     }
     
+    /// Called when an ad is clicked.
     public func didClickAd() {
         DispatchQueue.main.async {
-            self.callDelegate_didClickAd()
+            self.delegate?.callDelegate_didClickAd()
         }
     }
-
-    // MARK: - BaseInterstitialAdUnitProtocol
     
-    public func callEventHandler_requestAd(with bidResponse: BidResponse?) {
-        
+    // MARK: - Private methods
+    
+    private func reportLoadingSuccess() {
+        DispatchQueue.main.async {
+            self.delegate?.callDelegate_didReceiveAd()
+        }
     }
     
-    public func callEventHandler_show(from controller: UIViewController?) {
-        
-    }
-
-    // MARK: - Abstract Methods
-    
-    public func callEventHandler_isReady() -> Bool {
-        return false // to be overridden in subclass
-    }
-
-    public func callDelegate_didReceiveAd() {
-        // to be overridden in subclass
-    }
-
-    public func callDelegate_didFailToReceiveAd(with: Error?) {
-        // to be overridden in subclass
-    }
-
-    public func callDelegate_willPresentAd() {
-        // to be overridden in subclass
-    }
-
-    public func callDelegate_didDismissAd() {
-        // to be overridden in subclass
-    }
-
-    public func callDelegate_willLeaveApplication() {
-        // to be overridden in subclass
-    }
-
-    public func callDelegate_didClickAd() {
-        // to be overridden in subclass
-    }
-
-    public func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
-        // to be overridden in subclass
-    }
-
-    public func callEventHandler_setInteractionDelegate() {
-        // to be overridden in subclass
-    }
-
-    public func callEventHandler_showFromViewController(controller: UIViewController?) {
-        // to be overridden in subclass
-    }
-
-    public func callEventHandler_trackImpression() {
-        // to be overridden in subclass
+    private func reportLoadingFailed(with error: Error?) {
+        DispatchQueue.main.async {
+            self.delegate?.callDelegate_didFailToReceiveAd(with: error)
+        }
     }
 }

@@ -18,13 +18,13 @@
 
 #import "PBMVideoViewDelegate.h"
 #import "PBMCircularProgressBarView.h"
-#import "PBMTrackingEvent.h"
 
 @class PBMEventManager;
 @class PBMVideoModel;
 @class PBMCreativeModel;
 @class PBMVideoCreative;
 @class PBMOpenMeasurementSession;
+typedef NS_ENUM(NSInteger, PBMTrackingEvent); // Forward declaration of Swift-defined enum
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMVideoView : UIView <AVAssetResourceLoaderDelegate>
@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) PBMCircularProgressBarView *progressBar;
 
 @property (nonatomic, assign, getter=isMuted) BOOL muted;
+@property (nonatomic, assign) BOOL showLearnMore;
 
 // Indicates that video reached the VAST Duration
 // We must use this flag instead of player’s state to prevent double-stopping of the video due to async work of observers.
@@ -44,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithEventManager:(PBMEventManager *)eventManager;
 
 - (instancetype)initWithCreative:(PBMVideoCreative *)creative;
+
+- (void)updateLearnMoreButton;
 
 - (void)showMediaFileURL:(NSURL *)mediaFileURL preloadedData:(NSData *)preloadedData;
 
@@ -65,8 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleDidPlayToEndTime;
 - (CGFloat)handlePeriodicTimeEvent;
 
-- (void)modalManagerDidFinishPop:(PBMModalState*)state;
-- (void)modalManagerDidLeaveApp:(PBMModalState*)state;
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state;
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state;
 
 @end
 NS_ASSUME_NONNULL_END

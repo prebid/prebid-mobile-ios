@@ -15,8 +15,10 @@
 
 import Foundation
 
+/// Class representing native data elements in the ad markup.
 @objcMembers
 public class NativeData: NSObject, JsonDecodable {
+    
     /// The type of data element being submitted from the Data Asset Types table.
     /// Required for assetsurl/dcourl responses, not required for embedded asset responses.
     public var type: Int?
@@ -34,6 +36,8 @@ public class NativeData: NSObject, JsonDecodable {
     /// flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
+    /// Initializes a new `NativeData` object with the provided JSON dictionary.
+    /// - Parameter jsonDictionary: A dictionary containing the JSON data to initialize the object.
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native data json dicitonary is empty")

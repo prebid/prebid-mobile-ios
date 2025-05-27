@@ -24,7 +24,7 @@ class PrebidGAMNativeAdFeedController: NSObject, PrebidConfigurableController {
     
     var gamAdUnitId = ""
     var gamCustomTemplateIDs: [String] = []
-    var adTypes: [GADAdLoaderAdType] = []
+    var adTypes: [AdLoaderAdType] = []
     
     public var nativeAssets: [NativeAsset]?
     public var eventTrackers: [NativeEventTracker]?
@@ -60,22 +60,25 @@ class PrebidGAMNativeAdFeedController: NSObject, PrebidConfigurableController {
             TestCaseManager.createDummyTableCell(for: tableView),
             TestCaseManager.createDummyTableCell(for: tableView),
             
-            TestCaseForTableCell(configurationClosureForTableCell: { [weak self, weak tableView] cell in
-                guard let self = self else {
-                    return
-                }
-                
-                guard let adViewCell = tableView?.dequeueReusableCell(withIdentifier: "FeedGAMAdTableViewCell") as? FeedGAMAdTableViewCell else {
-                    return
-                }
-                cell = adViewCell
-                adViewCell.nativeAssets = self.nativeAssets
-                adViewCell.eventTrackers = self.eventTrackers
-                adViewCell.gamCustomTemplateIDs = self.gamCustomTemplateIDs
-                adViewCell.loadAd(configID: self.prebidConfigId,
-                                  GAMAdUnitID: self.gamAdUnitId,
-                                  rootViewController: self.rootTableViewController!,
-                                  adTypes: self.adTypes)
+            TestCaseForTableCell(
+                configurationClosureForTableCell: { [weak self, weak tableView] cell in
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    guard let adViewCell = tableView?.dequeueReusableCell(withIdentifier: "FeedGAMAdTableViewCell") as? FeedGAMAdTableViewCell else {
+                        return
+                    }
+                    cell = adViewCell
+                    adViewCell.nativeAssets = self.nativeAssets
+                    adViewCell.eventTrackers = self.eventTrackers
+                    adViewCell.gamCustomTemplateIDs = self.gamCustomTemplateIDs
+                    adViewCell.loadAd(
+                        configID: self.prebidConfigId,
+                        GAMAdUnitID: self.gamAdUnitId,
+                        rootViewController: self.rootTableViewController!,
+                        adTypes: self.adTypes
+                    )
             }),
         ]
     }

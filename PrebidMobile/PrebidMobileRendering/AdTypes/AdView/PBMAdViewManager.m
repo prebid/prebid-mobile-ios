@@ -13,17 +13,12 @@
  limitations under the License.
  */
 
-#import "PBMAdViewManager.h"
-
 #import "PBMAbstractCreative.h"
 #import "PBMAdLoadManagerProtocol.h"
 #import "PBMAutoRefreshManager.h"
-#import "PBMCreativeModel.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialLayoutConfigurator.h"
 #import "PBMModalManager.h"
-#import "PBMNSThreadProtocol.h"
-#import "PBMTransaction.h"
 #import "PBMVideoCreative.h"
 #import "UIView+PBMExtensions.h"
 
@@ -36,17 +31,21 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@interface PBMAdViewManager ()
+@interface PBMAdViewManager_Objc: NSObject <PBMAdViewManager>
 
 @property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
-@property (weak, nullable) PBMAbstractCreative *currentCreative;
-@property (nonatomic, strong, nullable) PBMTransaction *externalTransaction;
-@property (nonatomic, nullable, readonly) PBMTransaction *currentTransaction; // computed
+@property (nonatomic, weak, nullable) PBMAbstractCreative *currentCreative;
+@property (nonatomic, strong, nullable) id<PBMTransaction> externalTransaction;
+@property (nonatomic, nullable, readonly) id<PBMTransaction> currentTransaction; // computed
 @property (nonatomic, assign) BOOL videoInterstitialDidClose;
 
 @end
 
-@implementation PBMAdViewManager
+@implementation PBMAdViewManager_Objc
+@synthesize adConfiguration = _adConfiguration;
+@synthesize adViewManagerDelegate = _adViewManagerDelegate;
+@synthesize autoDisplayOnLoad = _autoDisplayOnLoad;
+@synthesize modalManager = _modalManager;
 
 - (instancetype)initWithConnection:(id<PrebidServerConnectionProtocol>)connection
               modalManagerDelegate:(nullable id<PBMModalManagerDelegate>)modalManagerDelegate
@@ -149,7 +148,7 @@
     return [self.currentCreative isMuted];
 }
 
-- (void)handleExternalTransaction:(PBMTransaction *)transaction {
+- (void)handleExternalTransaction:(id<PBMTransaction>)transaction {
     self.externalTransaction = transaction;
     [self onTransactionIsReady:transaction];
 }
@@ -182,7 +181,7 @@
     }
     
     //When a creative completes, show the next one in the transaction
-    PBMTransaction * const transaction = self.currentTransaction;
+    id<PBMTransaction> const transaction = self.currentTransaction;
     PBMAbstractCreative *nextCreative = [transaction getCreativeAfter:self.currentCreative];
     if (nextCreative && !self.videoInterstitialDidClose) {
         [self setupCreative:nextCreative];
@@ -209,13 +208,7 @@
 }
 
 - (void)creativeInterstitialDidClose:(PBMAbstractCreative *) creative {
-    if (self.adConfiguration.isOptIn) {
-        // In Rewarded Video, the Video remains on the screen with the last frame showing.
-        // Cleaning up here when the Interstial is closed.;
-        if (self.currentCreative.view && self.currentCreative.view.superview) {
-            [self.currentCreative.view removeFromSuperview];
-        }
-    } else if (self.adConfiguration.winningBidAdFormat == AdFormat.video) {
+    if (self.adConfiguration.winningBidAdFormat == AdFormat.video) {
         self.videoInterstitialDidClose = YES;
     }
     
@@ -282,9 +275,16 @@
     [self.adViewManagerDelegate adDidClose];
 }
 
+/// NOTE: Rewarded API only
+- (void)creativeDidSendRewardedEvent:(PBMAbstractCreative *)creative {
+    if (self.isInterstitial && self.isRewarded) {
+        [self.adViewManagerDelegate adDidSendRewardedEvent];
+    }
+}
+
 #pragma mark - Utility Functions
 
-- (PBMTransaction *)currentTransaction {
+- (id<PBMTransaction>)currentTransaction {
     return self.externalTransaction;
 }
 
@@ -292,11 +292,15 @@
     return self.adConfiguration.presentAsInterstitial;
 }
 
+- (BOOL)isRewarded {
+    return self.adConfiguration.isRewarded;
+}
+
 //Do not load an ad if the current one is "opened"
 //Is the current creative an PBMHTMLCreative? If so, is a clickthrough browser visible/MRAID in Expanded mode?
 - (BOOL)isCreativeOpened {
     
-    PBMTransaction * const transaction = self.currentTransaction;
+    id<PBMTransaction> const transaction = self.currentTransaction;
     if (transaction == nil) {
         return NO;
     }
@@ -315,13 +319,13 @@
     [self setupCreative:creative withThread:NSThread.currentThread];
 }
 
-- (void)setupCreative:(PBMAbstractCreative *)creative withThread:(id<PBMNSThreadProtocol>)thread {
+- (void)setupCreative:(PBMAbstractCreative *)creative withThread:(id<PBMThreadProtocol>)thread {
     if (!thread.isMainThread) {
         PBMLogError(@"setupCreative must be called on the main thread");
         return;
     }
     
-    PBMTransaction * const transaction = self.currentTransaction;
+    id<PBMTransaction> const transaction = self.currentTransaction;
     self.currentCreative.view.hidden = YES;
     self.currentCreative = creative;
     self.adConfiguration = creative.creativeModel.adConfiguration;
@@ -333,7 +337,7 @@
 
 #pragma mark - Internal Methods
 
-- (void)onTransactionIsReady:(PBMTransaction *)transaction {
+- (void)onTransactionIsReady:(id<PBMTransaction>)transaction {
     for (PBMAbstractCreative *creative in transaction.creatives) {
         creative.modalManager = self.modalManager;
     }

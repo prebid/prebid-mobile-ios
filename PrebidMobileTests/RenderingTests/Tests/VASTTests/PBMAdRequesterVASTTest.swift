@@ -15,7 +15,7 @@
 
 import Foundation
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMAdRequesterVASTTest: XCTestCase {
     
@@ -140,7 +140,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         modelMaker.makeModels(self.vastServerResponse!,
                               successCallback: { models in
             XCTAssertEqual(models.count, 1)
-            let model = models.first! as PBMCreativeModel
+            let model = models.first! as CreativeModel
             XCTAssert(model.videoFileURL == "http://i.cdn.openx.com/videos/mobile/OpenX_15_Seconds_Fade_Small.mp4")
             vastRequestErrorExpectation.fulfill()
         },

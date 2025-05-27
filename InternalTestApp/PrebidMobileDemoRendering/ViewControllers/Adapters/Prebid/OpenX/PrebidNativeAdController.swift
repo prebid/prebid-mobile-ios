@@ -96,58 +96,18 @@ class PrebidNativeAdController: NSObject, AdaptedController {
     
     func loadAd() {
         setupNativeAdUnit(configId: prebidConfigId)
-
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(key: dataPair.value, value: dataPair.key)
-            }
-        }
         
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
+        adUnit?.fetchDemand { [weak self] bidInfo in
+            guard let self = self else { return }
             
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addAppContentData([ortbAppContentData])
-        }
-        
-        adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
-            guard let self = self else {
-                return
-            }
-            
-            guard result == .prebidDemandFetchSuccess else {
+            guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
                 self.fetchDemandFailedButton.isEnabled = true
                 return
             }
             
             self.fetchDemandSuccessButton.isEnabled = true
             
-            guard let kvResultDict = kvResultDict, let cacheId = kvResultDict[PrebidLocalCacheIdKey] else {
+            guard let cacheId = bidInfo.targetingKeywords?[PrebidLocalCacheIdKey] else {
                 self.getNativeAdFailedButton.isEnabled = true
                 return
             }
@@ -163,7 +123,7 @@ class PrebidNativeAdController: NSObject, AdaptedController {
             self.nativeAdViewBox?.registerViews(nativeAd)
             self.theNativeAd = nativeAd // Note: RETAIN! or the tracking will not occur!
             self.theNativeAd?.delegate = self
-        })
+        }
     }
     
     // MARK: - Helpers

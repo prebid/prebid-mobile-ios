@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     
@@ -35,7 +35,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     weak var adDidExpandExpectation: XCTestExpectation?
     weak var adDidLeaveAppExpectation: XCTestExpectation?
 
-    var adViewManager:PBMAdViewManager!
+    var adViewManager:AdViewManager!
     var adLoadManager:PBMAdLoadManagerBase!
     
     var currentlyDisplaying = false
@@ -46,7 +46,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     override func setUp() {
         super.setUp()
         
-        adViewManager = PBMAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
+        adViewManager = Factory.createAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
         
         adViewManager.adViewManagerDelegate = self
         Prebid.forcedIsViewable = false
@@ -88,7 +88,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     }
     
     func testInitDefaults() {
-        let adViewManager = PBMAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
+        let adViewManager = Factory.createAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
         XCTAssertNil(adViewManager.externalTransaction)
         XCTAssert(adViewManager.autoDisplayOnLoad == true)
     }
@@ -112,7 +112,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         let transaction = UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true)
         adViewManager.handleExternalTransaction(transaction)
         
-        XCTAssertEqual(adViewManager.externalTransaction, transaction)
+        XCTAssertIdentical(adViewManager.externalTransaction, transaction)
         waitForExpectations(timeout: 3, handler: nil)
     }
     
@@ -171,7 +171,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         
         adDidCompleteExpectation = expectation(description: "adDidCompleteExpectation")
 
-        guard let testCreative = adViewManager.externalTransaction?.creatives.firstObject as? PBMHTMLCreative else {
+        guard let testCreative = adViewManager.externalTransaction?.creatives.first as? PBMHTMLCreative else {
             XCTFail("Could not get PBMHTMLCreative")
             return
         }
@@ -198,11 +198,11 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         // setup expectations
         displayViewExpectation = expectation(description: "displayViewExpectation #2")
         
-        guard let testCreative = adViewManager.externalTransaction?.creatives.firstObject as? PBMHTMLCreative else {
+        guard let testCreative = adViewManager.externalTransaction?.creatives.first as? PBMHTMLCreative else {
             XCTFail("Could not get PBMHTMLCreative")
             return
         }
-        adViewManager.creativeReady(toReimplant: testCreative)
+        adViewManager.creativeReadyToReimplant(_: testCreative)
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -307,7 +307,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     func testSetupCreativeNotMainThread() {
         logToFile = .init()
         
-        let creative = PBMAbstractCreative(creativeModel:PBMCreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
+        let creative = PBMAbstractCreative(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
         let thread = MockNSThread(mockIsMainThread: false)
         
         adViewManager.setupCreative(creative, withThread: thread)
@@ -326,9 +326,9 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         return UIView();
     }
     
-    func interstitialDisplayProperties() -> PBMInterstitialDisplayProperties {
+    func interstitialDisplayProperties() -> InterstitialDisplayProperties {
         fulfillOrFail(interstitialDisplayPropertiesExpectation, "interstitialDisplayPropertiesExpectation")
-        return PBMInterstitialDisplayProperties()
+        return InterstitialDisplayProperties()
     }
     
     func adLoaded(_ pbmAdDetails:PBMAdDetails) {
@@ -381,7 +381,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     //MARK: Utility methods
     @discardableResult private func setUpDelegateTests () -> PBMHTMLCreative {
         // create an ad with one creative
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
         let testCreative = PBMHTMLCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction())
         testCreative.view = PBMWebView()

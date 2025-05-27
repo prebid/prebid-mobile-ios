@@ -18,7 +18,10 @@ import PrebidMobile
 import PrebidMobileAdMobAdapters
 import GoogleMobileAds
 
-class PrebidOriginalAPINativeBannerController: NSObject, AdaptedController, GADBannerViewDelegate {
+class PrebidOriginalAPINativeBannerController:
+        NSObject,
+        AdaptedController,
+        GoogleMobileAds.BannerViewDelegate {
     
     var prebidConfigId = ""
     var adUnitID = ""
@@ -29,8 +32,8 @@ class PrebidOriginalAPINativeBannerController: NSObject, AdaptedController, GADB
     public var eventTrackers: [NativeEventTracker]?
     
     // GAM
-    private var gamBannerView: GAMBannerView!
-    private let gamRequest = GAMRequest()
+    private var gamBannerView: AdManagerBannerView!
+    private let gamRequest = AdManagerRequest()
     
     private weak var rootController: AdapterViewController?
     
@@ -61,46 +64,8 @@ class PrebidOriginalAPINativeBannerController: NSObject, AdaptedController, GADB
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
         nativeUnit.eventtrackers = eventTrackers
-        
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                nativeUnit?.addContextData(key: dataPair.key, value: dataPair.value)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                nativeUnit?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            nativeUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            nativeUnit?.addAppContentData([ortbAppContentData])
-        }
-        
-        gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
+                
+        gamBannerView = AdManagerBannerView(adSize: AdSizeFluid)
         gamBannerView.adUnitID = adUnitID
         gamBannerView.rootViewController = self.rootController
         gamBannerView.delegate = self
@@ -134,12 +99,12 @@ class PrebidOriginalAPINativeBannerController: NSObject, AdaptedController, GADB
     
     // MARK: - GADBannerViewDelegate
     
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewDidReceiveAd.isEnabled = true
         
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
-            guard let bannerView = bannerView as? GAMBannerView else { return }
-            bannerView.resize(GADAdSizeFromCGSize(size))
+            guard let bannerView = bannerView as? AdManagerBannerView else { return }
+            bannerView.resize(adSizeFor(cgSize: size))
         }, failure: { (error) in
             Log.error("Error occuring during searching for Prebid creative size: \(error)")
         })
@@ -148,28 +113,28 @@ class PrebidOriginalAPINativeBannerController: NSObject, AdaptedController, GADB
         rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(_ bannerView: GoogleMobileAds.BannerView, didFailToReceiveAdWithError error: Error) {
         bannerViewDidFailToReceiveAd.isEnabled = true
         Log.error(error.localizedDescription)
     }
     
-    func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+    func bannerViewDidRecordImpression(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewDidRecordImpression.isEnabled = true
     }
     
-    func bannerViewDidRecordClick(_ bannerView: GADBannerView) {
+    func bannerViewDidRecordClick(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewDidRecordClick.isEnabled = true
     }
     
-    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillPresentScreen(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewWillPresentScreen.isEnabled = true
     }
     
-    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillDismissScreen(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewWillDismissScreen.isEnabled = true
     }
     
-    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewDidDismissScreen(_ bannerView: GoogleMobileAds.BannerView) {
         bannerViewDidDismissScreen.isEnabled = true
     }
 }

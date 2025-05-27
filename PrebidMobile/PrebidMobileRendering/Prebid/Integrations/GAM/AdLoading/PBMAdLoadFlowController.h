@@ -16,12 +16,13 @@
 #import <Foundation/Foundation.h>
 
 #import "PBMAdLoaderProtocol.h"
-#import "PBMBidRequesterProtocol.h"
 
 @class AdUnitConfig;
+@class BidResponse;
 @class Prebid;
 @protocol PrebidServerConnectionProtocol;
 @protocol AdLoadFlowControllerDelegate;
+@protocol PBMBidRequesterProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,6 +45,7 @@ typedef BOOL(^PBMAdUnitConfigValidationBlock)(AdUnitConfig *adUnitConfig, BOOL r
 
 - (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
+                               adUnitConfig:(AdUnitConfig *)adUnitConfig
                                    delegate:(id<AdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock;
 

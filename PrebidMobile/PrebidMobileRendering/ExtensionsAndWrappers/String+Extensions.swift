@@ -28,7 +28,7 @@ extension String {
         return false
     }
     
-    func encodedURL(with characterSet: CharacterSet) -> URL? { 
+    func encodedURL(with characterSet: CharacterSet) -> URL? {
         if let url = URL(string: self) {
             return url
         }
@@ -43,5 +43,56 @@ extension String {
     
     func containsOnly(_ characterSet: CharacterSet) -> Bool {
         return self.trimmingCharacters(in: characterSet).count == 0
+    }
+    
+    /// Returns the last component of a file path, typically the file name.
+    ///
+    /// - Returns: The file name as a `String`, or an empty string if the path is empty.
+    func sourceFileName() -> String {
+        let pathComponents = components(separatedBy: "/")
+        return pathComponents.last ?? ""
+    }
+    
+    func toCGSize() -> CGSize? {
+        let sizeArr = self.split(separator: "x").map(String.init)
+        
+        guard sizeArr.count == 2 else {
+            Log.warn("\(self) has a wrong format")
+            return nil
+        }
+        
+        let nsNumberWidth = NumberFormatter().number(from: sizeArr[0])
+        let nsNumberHeight = NumberFormatter().number(from: sizeArr[1])
+        
+        guard let numberWidth = nsNumberWidth, let numberHeight = nsNumberHeight else {
+            Log.warn("\(self) can not be converted to CGSize")
+            return nil
+        }
+        
+        let width = CGFloat(truncating: numberWidth)
+        let height = CGFloat(truncating: numberHeight)
+        
+        return CGSize(width: width, height: height)
+    }
+}
+
+// MARK: - Regex Extensions
+
+extension String {
+
+    func matchAndCheck(regex: String) -> String? {
+        let matched = self.matches(for: regex)
+        return matched.isEmpty ? nil : matched[0]
+    }
+
+    func matches(for regex: String) -> [String] {
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            let results = regex.matches(in: self, range: NSRange(self.startIndex..., in: self))
+            return results.map { String(self[Range($0.range, in: self)!]) }
+        } catch {
+            Log.warn("Invalid regex: \(error.localizedDescription)")
+            return []
+        }
     }
 }

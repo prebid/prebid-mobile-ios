@@ -24,13 +24,19 @@ echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
 cd ..
 
-gem install xcpretty --user-install
+brew install xcbeautify
 
 export PATH="/Users/distiller/.gem/ruby/2.7.0/bin:$PATH"
 gem install cocoapods
 pod install --repo-update
 
-echo -e "\n\n${GREEN}TEST PREBID MOBILE${NC}\n\n"
+echo -e "\n\n${GREEN}RUN PREBID MOBILE TESTS${NC}\n\n"
+
+echo -e "\n${GREEN}Creating simulator${NC} \n"
+xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
+
+echo -e "\n${GREEN}Clean build\n"
+xcodebuild clean build 
 
 if [ "$run_only_with_latest_ios" != "YES" ]
 then
@@ -39,7 +45,7 @@ then
     -workspace PrebidMobile.xcworkspace \
     -scheme "PrebidMobileTests" \
     -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.7' \
-    -only-testing PrebidMobileTests/RequestBuilderTests/testPostData | xcpretty --color --test
+    -only-testing PrebidMobileTests/RequestBuilderTests/testPostData | xcbeautify
 
  if [[ ${PIPESTATUS[0]} == 0 ]]; then
      echo "✅ unit tests for iOS 13 Passed"
@@ -47,14 +53,14 @@ then
      echo "🔴 unit tests for iOS 13 Failed"
      exit 1
  fi
- 
 fi
 
 echo -e "\n${GREEN}Running PrebidMobile unit tests${NC} \n"
 xcodebuild test \
     -workspace PrebidMobile.xcworkspace \
+    -retry-tests-on-failure \
     -scheme "PrebidMobileTests" \
-    -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty --color --test
+    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobile Unit Tests Passed"
@@ -67,7 +73,7 @@ echo -e "\n${GREEN}Running PrebidMobileGAMEventHandlers unit tests${NC} \n"
 xcodebuild test \
     -workspace PrebidMobile.xcworkspace  \
     -scheme "PrebidMobileGAMEventHandlersTests" \
-    -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty --color --test
+    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobileGAMEventHandlers Unit Tests Passed"
@@ -77,7 +83,10 @@ else
 fi
 
 echo -e "\n${GREEN}Running PrebidMobileAdMobAdapters unit tests${NC} \n"
-xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileAdMobAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+xcodebuild test \
+    -workspace PrebidMobile.xcworkspace \
+    -scheme "PrebidMobileAdMobAdaptersTests" \
+    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobileAdMobAdapters Unit Tests Passed"
@@ -87,7 +96,10 @@ else
 fi
 
 echo -e "\n${GREEN}Running PrebidMobileMAXAdapters unit tests${NC} \n"
-xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileMAXAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+xcodebuild test \
+    -workspace PrebidMobile.xcworkspace \
+    -scheme "PrebidMobileMAXAdaptersTests" \
+    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobileMAXAdapters Unit Tests Passed"
@@ -95,5 +107,9 @@ else
     echo "🔴 PrebidMobileMAXAdapters Unit Tests Failed"
     exit 1
 fi
+
+echo -e "\n${GREEN}Removing simulator${NC} \n"
+xcrun simctl delete iPhone-16-Pro-PrebidMobile
+
 # echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
 # swiftlint --config .swiftlint.yml

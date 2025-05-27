@@ -18,7 +18,7 @@ import PrebidMobile
 
 fileprivate let storedImpVideoInterstitialLandscape = "prebid-demo-video-interstitial-landscape-with-end-card"
 
-class InAppVideoInterstitialLandscapeViewController: UIViewController {
+class InAppVideoInterstitialLandscapeViewController: UIViewController, InterstitialAdUnitDelegate {
     
     // Prebid
     private var renderingInterstitial: InterstitialRenderingAdUnit!

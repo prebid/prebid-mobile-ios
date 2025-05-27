@@ -15,12 +15,19 @@
 
 #import "PBMVastResponse.h"
 
-#import "PBMError.h"
 #import "PBMVastInlineAd.h"
 #import "PBMVastWrapperAd.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMVastCreativeNonLinearAds.h"
 #import "PBMVastCreativeCompanionAds.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 @implementation PBMVastResponse
 
@@ -60,7 +67,8 @@
 
             PBMVastResponse *unwrappedVastResponse = wrapper.vastResponse;
             if (!unwrappedVastResponse) {
-                [PBMError createError:error message:@"No nextResponse on a wrapper" type:PBMErrorTypeServerError];
+                [PBMError createError:error message:@"No nextResponse on a wrapper"
+                                 type:PBMErrorType.serverError];
                 return nil;
             }
             
@@ -77,14 +85,15 @@
         }
         else {
             NSString *message = [NSString stringWithFormat:@"Encountered unexpected class type: %@", ad];
-            [PBMError createError:error message:message type:PBMErrorTypeInternalError];
+            [PBMError createError:error message:message
+                             type:PBMErrorType.internalError];
             return nil;
         }
     }
     
     //Post-flattening, we should have at least 1 ad
     if (inlineAdAccumulator.count == 0) {
-        [PBMError createError:error message:@"No Inline Ads found during wrapper flattening" type:PBMErrorTypeInternalError];
+        [PBMError createError:error message:@"No Inline Ads found during wrapper flattening" type:PBMErrorType.internalError];
         return nil;
     }
     

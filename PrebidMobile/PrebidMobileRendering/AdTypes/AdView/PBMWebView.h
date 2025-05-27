@@ -22,12 +22,13 @@
 #import "PBMExposureChangeDelegate.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMMRAIDConstants.h"
-#import "PBMCreativeModel.h"
 
 @class Targeting;
 @class PBMAbstractCreative;
 @class PBMTouchDownRecognizer;
-@class PBMViewExposure;
+@protocol PBMViewExposure;
+@class PBMLocationManager;
+@class PBMCreativeModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -61,6 +62,8 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 @property (nonatomic, assign) BOOL isMRAID;
 @property (nonatomic, assign, getter=isRotationEnabled) BOOL rotationEnabled;
 
+@property (nonatomic, strong, nullable) NSString *rewardedAdURL;
+
 #pragma mark - Initialization
 
 - (instancetype)initWithFrame:(CGRect)frame;
@@ -90,7 +93,7 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 - (void)MRAID_error:(NSString *)message action:(PBMMRAIDAction)action
     NS_SWIFT_NAME(MRAID_error(_:action:));
 
-- (void)MRAID_onExposureChange:(PBMViewExposure *)viewExposure
+- (void)MRAID_onExposureChange:(id<PBMViewExposure>)viewExposure
     NS_SWIFT_NAME(MRAID_onExposureChange(_:));
 
 - (void)MRAID_updatePlacementType:(PBMMRAIDPlacementType)type

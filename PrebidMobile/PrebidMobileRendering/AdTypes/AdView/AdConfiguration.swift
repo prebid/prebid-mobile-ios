@@ -65,7 +65,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     /**
      Interstitial layout
      */
-    public var interstitialLayout = PBMInterstitialLayout.undefined
+    public var interstitialLayout = InterstitialLayout.undefined
     
     /**
      Size for the ad.
@@ -73,14 +73,19 @@ public class AdConfiguration: AutoRefreshCountConfig {
     public var size = CGSize.zero
     
     /**
-     Sets a video interstitial ad unit as an opt-in video
+     Sets an ad unit as an rewarded
      */
-    public var isOptIn = false
+    public var isRewarded = false
     
     /**
      Indicates whether the ad is built-in video e.g. 300x250.
      */
     public var isBuiltInVideo = false
+    
+    // MARK: - SKAdNetwork
+    
+    /// A flag that determines whether SKOverlay should be supported
+    public var supportSKOverlay = false
     
     // MARK: - Response
     
@@ -93,6 +98,9 @@ public class AdConfiguration: AutoRefreshCountConfig {
      This property represents video controls custom configuration.
      */
     public lazy var videoControlsConfig = VideoControlsConfiguration()
+    
+    /// Server-side configuration for rewarded ads (bid.ext.rwdd)
+    public var rewardedConfig: RewardedConfig?
     
     // MARK: - Impression Tracking
     
@@ -120,26 +128,11 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     // MARK: - Other
     
-    public var clickHandlerOverride: ((PBMVoidBlock) -> Void)?
+    public var clickHandlerOverride: ((VoidBlock) -> Void)?
     
     // MARK: Private properties
     
     private var _autoRefreshDelay: TimeInterval? = PBMAutoRefresh.AUTO_REFRESH_DELAY_DEFAULT
     
-    public var ortbConfig: String?
-    
-    public func getCheckedOrtbConfig() -> [String: Any]? {
-        //return ortbConfig in dictionary form after checking if it's valid json
-        if let jsonString = ortbConfig {
-            if let data = jsonString.data(using: .utf8) {
-                do {
-                    return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                } catch {
-                    Log.warn("The provided ortbConfig object is not valid JSON and will be ignored.")
-                }
-            }
-        }
-        return [:]
-    }
-    
+    public var impORTBConfig: String?
 }

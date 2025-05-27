@@ -17,15 +17,14 @@ import UIKit
 
 class PrebidExamplesUITest: AdsLoaderUITestCase {
     
-    override func setUp() {
-        super.setUp()
-        
-    }
-    
     // MARK: - Banners (In-App)
     
     func testInAppBanner_Small_OK() {
         checkBannerLoadResult(exampleName: "Banner 320x50 (In-App)")
+    }
+    
+    func testInAppBanner_Custom_Renderer() {
+        checkBannerLoadResult(exampleName: "Banner 320x50 (CustomRenderer)")
     }
     
     func testInAppBanner_Small_noBids() {
@@ -98,6 +97,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
         checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (In-App) [SKAdN]")
     }
     
+    func testInAppInterstitial_Display_320x480_SKOverlay_SKAdN() {
+        checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 SKOverlay (In-App) [SKAdN]")
+    }
+    
     // MARK: - Video Interstitials (In-App)
     
     func testInAppInterstitial_Video_320x480() {
@@ -106,6 +109,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
     
     func testInAppInterstitial_Video_320x480_with_EndCard() {
         checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 with End Card (In-App)")
+    }
+    
+    func testInAppInterstitial_Video_320x480_with_EndCard_SKOverlay() {
+        checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 with End Card SKOverlay (In-App) [SKAdN]")
     }
     
     func testInAppInterstitial_Video_noBids() {
@@ -135,6 +142,10 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
     
     func testInAppInterstitial_Video_320x480_SKAdN() {
         checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 (In-App) [SKAdN]")
+    }
+    
+    func testInAppInterstitial_Video_320x480_SKAdN_SKOverlay() {
+        checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 SKOverlay (In-App) [SKAdN]")
     }
     
     // MARK: - Interstitials (GAM)
@@ -200,41 +211,6 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
         checkBannerLoadResult(exampleName: "Video Outstream (GAM) [noBids, GAM Ad]", video: true)
     }
     
-    // MARK: - Rewarded Video
-    
-    func testInAppRewarded_320x480() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (In-App)")
-    }
-    
-    func testInAppRewarded_320x480_noBids() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (In-App) [noBids]",
-                                expectFailure: true)
-    }
-    
-    func testInAppRewarded_320x480_noEndCard() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 without End Card (In-App)")
-    }
-    
-    func testInAppRewarded_480x320() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 480x320 (In-App)")
-    }
-    
-    func testGAMRewarded_Ok_Metadata() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (GAM) [OK, Metadata]")
-    }
-    
-    func testGAMRewarded_Ok_Random() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (GAM) [OK, Random]")
-    }
-    
-    func testGAMRewarded_noBids_gamAd() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (GAM) [noBids, GAM Ad]")
-    }
-    
-    func testGAMRewarded_noEndCard_Ok_Metadata() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 without End Card (GAM) [OK, Metadata]")
-    }
-    
     // MARK: - MRAID
     
     func testMRAID_Resize_InApp() {
@@ -270,5 +246,77 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
     
     func testInAppNativeAd_Links() {
         checkNativeAdLoadResult(exampleName: "Native Ad Links (In-App)", successCallback: "getNativeAd success")
+    }
+    
+    // MARK: - Rewarded
+    
+    func testRewardedBannerDefault() {
+        checkRewardedLoadResult(exampleName: "Banner Rewarded Default 320x480 (In-App)")
+    }
+    
+    func testRewardedBannerTime() {
+        checkRewardedLoadResult(exampleName: "Banner Rewarded Time 320x480 (In-App)")
+    }
+    
+    func testRewardedBannerEvent() {
+        checkRewardedLoadResult(exampleName: "Banner Rewarded Event 320x480 (In-App)")
+    }
+    
+    func testRewardedVideoDefault() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded Default 320x480 (In-App)")
+    }
+    
+    func testRewardedVideoPlaybackevent() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded Playbackevent 320x480 (In-App)")
+    }
+    
+    func testRewardedVideoTime() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded Time 320x480 (In-App)")
+    }
+    
+    func testRewardedVideoTimeAdConfiguration() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded Time With Server Ad Configuration 320x480 (In-App)")
+    }
+    
+    func testRewardedVideoEndcardDefault() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded Endcard Default 320x480 (In-App)")
+    }
+    
+    func testRewardedVideoEndcardEvent() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded Endcard Event 320x480 (In-App)")
+    }
+    
+    func testRewardedVideoEndcardTime() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded Endcard Time 320x480 (In-App)")
+    }
+    
+    func testInAppRewarded_noBids() {
+        checkRewardedLoadResult(
+            exampleName: "Video Rewarded 320x480 (In-App) [noBids]",
+            expectFailure: true
+        )
+    }
+    
+    func testGAMRewardedBannerTime() {
+        checkRewardedLoadResult(exampleName: "Banner Rewarded Time 320x480 (GAM) [OK, Metadata]")
+    }
+    
+    func testGAMRewardedVideoTime() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded Time 320x480 (GAM) [OK, Metadata]")
+    }
+    
+    func testGAMRewardedVideoTimeAdConfiguration() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 Time With Server Ad Configuration (GAM) [OK, Metadata]")
+    }
+    
+    func testGAMRewardedVideoEndcardTime() {
+        checkRewardedLoadResult(exampleName: "Video Rewarded Endcard Time 320x480 (GAM) [OK, Metadata]")
+    }
+    
+    func testGAMRewarded_noBids_gamAd() {
+        checkRewardedLoadResult(
+            exampleName: "Video Rewarded 320x480 (GAM) [noBids, GAM Ad]",
+            expectFailure: true
+        )
     }
 }

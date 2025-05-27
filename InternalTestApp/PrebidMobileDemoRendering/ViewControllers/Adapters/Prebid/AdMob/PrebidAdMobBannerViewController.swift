@@ -28,7 +28,7 @@ class PrebidAdMobBannerViewController:
     NSObject,
     AdaptedController,
     PrebidConfigurableBannerController,
-    GADBannerViewDelegate {
+    GoogleMobileAds.BannerViewDelegate {
     
     var refreshInterval: TimeInterval = 0
     
@@ -37,13 +37,13 @@ class PrebidAdMobBannerViewController:
     var adMobAdUnitId = ""
     var adUnitSize = CGSize()
     var additionalAdSizes = [CGSize]()
-    var adFormat: AdFormat?
+    var adFormat: PrebidMobile.AdFormat?
     
-    var request = GADRequest()
+    var request = Request()
     
     var gadAdSizeType: GADAdSizeType
     
-    private var adBannerView : GADBannerView?
+    private var adBannerView : GoogleMobileAds.BannerView?
     
     private var prebidBanner: PBMDisplayView?
     
@@ -85,7 +85,7 @@ class PrebidAdMobBannerViewController:
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        adBannerView = GADBannerView()
+        adBannerView = GoogleMobileAds.BannerView()
         adBannerView?.adUnitID = adMobAdUnitId
         adBannerView?.rootViewController = rootController
         adBannerView?.delegate = self
@@ -108,44 +108,6 @@ class PrebidAdMobBannerViewController:
         
         if let adFormat = adFormat {
             adUnit?.adFormat = adFormat
-        }
-                
-        // imp[].ext.data
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        
-        // imp[].ext.keywords
-        if !AppConfiguration.shared.adUnitContextKeywords.isEmpty {
-            for keyword in AppConfiguration.shared.adUnitContextKeywords {
-                adUnit?.addContextKeyword(keyword)
-            }
-        }
-        
-        // user.data
-        if let userData = AppConfiguration.shared.userData {
-            let ortbUserData = PBMORTBContentData()
-            ortbUserData.ext = [:]
-            
-            for dataPair in userData {
-                ortbUserData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addUserData([ortbUserData])
-        }
-        
-        // app.content.data
-        if let appData = AppConfiguration.shared.appContentData {
-            let ortbAppContentData = PBMORTBContentData()
-            ortbAppContentData.ext = [:]
-            
-            for dataPair in appData {
-                ortbAppContentData.ext?[dataPair.key] = dataPair.value
-            }
-            
-            adUnit?.addAppContentData([ortbAppContentData])
         }
         
         adUnit?.fetchDemand { [weak self] result in
@@ -180,9 +142,11 @@ class PrebidAdMobBannerViewController:
             
             switch self.gadAdSizeType {
             case .regular:
-                adBannerView.adSize = GADAdSizeFromCGSize(self.adUnitSize)
+                adBannerView.adSize = adSizeFor(cgSize: self.adUnitSize)
             case .adaptiveAnchored:
-                adBannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(sizeWithMaxWidth?.width ?? self.adUnitSize.width)
+                adBannerView.adSize = currentOrientationAnchoredAdaptiveBanner(
+                    width: sizeWithMaxWidth?.width ?? self.adUnitSize.width
+                )
             }
             
             adBannerView.load(self.request)
@@ -192,7 +156,8 @@ class PrebidAdMobBannerViewController:
     }
     
     // MARK: - GADBannerViewDelegate
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    
+    func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         resetEvents()
         reloadButton.isEnabled = true
         self.adViewDidLoadAdButton.isEnabled = true
@@ -200,7 +165,7 @@ class PrebidAdMobBannerViewController:
         rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(_ bannerView: GoogleMobileAds.BannerView, didFailToReceiveAdWithError error: Error) {
         print("didFailToReceiveAdWithError \(error.localizedDescription)")
         
         resetEvents()
@@ -210,19 +175,19 @@ class PrebidAdMobBannerViewController:
         adUnit?.adObjectDidFailToLoadAd(adObject: adBannerView!, with: error)
     }
     
-    func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+    func bannerViewDidRecordImpression(_ bannerView: GoogleMobileAds.BannerView) {
         self.didRecordImpressionButton.isEnabled = true
     }
     
-    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillPresentScreen(_ bannerView: GoogleMobileAds.BannerView) {
         self.willPresentScreenButton.isEnabled = true
     }
     
-    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillDismissScreen(_ bannerView: GoogleMobileAds.BannerView) {
         self.willDismissScreenButton.isEnabled = true
     }
     
-    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewDidDismissScreen(_ bannerView: GoogleMobileAds.BannerView) {
         self.didDismissScreenButton.isEnabled = true
     }
     

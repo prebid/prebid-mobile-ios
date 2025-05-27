@@ -14,12 +14,13 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBMBidRequesterProtocol.h"
 
 @class AdUnitConfig;
+@class BidResponse;
 @class Prebid;
 @class Targeting;
 @protocol PrebidServerConnectionProtocol;
+@protocol PBMBidRequesterProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 

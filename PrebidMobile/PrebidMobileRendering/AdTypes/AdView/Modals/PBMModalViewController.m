@@ -13,16 +13,15 @@
  limitations under the License.
  */
 
-#import "PBMCreativeModel.h"
 #import "PBMMacros.h"
 #import "PBMModalState.h"
 #import "PBMModalViewController.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMFunctions+Private.h"
 #import "UIView+PBMExtensions.h"
-#import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMWebView.h"
+#import "PBMCloseActionManager.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -106,7 +105,7 @@
 
 #pragma mark - Public Methods
 
-- (void)setupState:(nonnull PBMModalState *)modalState {
+- (void)setupState:(nonnull id<PBMModalState>)modalState {
     // STEP 1: Remove the old view
     if (self.displayView && self.displayView.superview && self.displayView.superview == self.contentView) {
         [self.displayView removeFromSuperview];
@@ -120,7 +119,7 @@
     self.interstitialLayout = modalState.displayProperties.interstitialLayout;
     self.modalState = modalState;
     if (modalState.displayProperties.interstitialLayout == PBMInterstitialLayoutUndefined) {
-        self.rotationEnabled = modalState.rotationEnabled;
+        self.rotationEnabled = modalState.isRotationEnabled;
     } else {
         self.rotationEnabled = modalState.displayProperties.rotationEnabled;
     }
@@ -242,7 +241,7 @@
 - (void)setupCloseButtonVisibility {
     // Set the close button view visibilty based on th view context (i.e. normal, clickthrough browser, rewarded video)
     [self.closeButtonDecorator bringButtonToFront];
-    if (self.modalState.adConfiguration.isOptIn) {
+    if (self.modalState.adConfiguration.isRewarded) {
         return; // Must be hidden
     }
     else if (self.displayProperties && self.displayProperties.closeDelay > 0) {
@@ -260,8 +259,25 @@
 }
 
 - (void)creativeDisplayCompleted:(PBMAbstractCreative *)creative {
-    if (self.modalState.adConfiguration.isOptIn) {
-        self.closeButtonDecorator.button.hidden = NO;
+    if (self.modalState.adConfiguration.isRewarded) {
+        PBMRewardedConfig * rewardedConfig = creative.creativeModel.adConfiguration.rewardedConfig;
+        
+        NSString * ortbAction = rewardedConfig.closeAction ?: @"";
+        
+        PBMCloseAction action = [PBMCloseActionManager getActionWithDescription:ortbAction];
+        
+        switch(action) {
+            case PBMCloseActionCloseButton:
+                self.closeButtonDecorator.button.hidden = NO;
+                break;
+            case PBMCloseActionAutoClose:
+                [self.modalViewControllerDelegate modalViewControllerCloseButtonTapped:self];
+                break;
+            case PBMCloseActionUnknown:
+                // By default SDK should show close button
+                self.closeButtonDecorator.button.hidden = NO;
+                PBMLogWarn(@"SDK met unknown close action.")
+        }
     }
 }
 

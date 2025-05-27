@@ -15,21 +15,17 @@ limitations under the License.
 
 import Foundation
 
-@objc public protocol NativeAdDelegate : AnyObject{
-    /**
-     * A successful Prebid Native ad is returned
-     *
-     * @param ad use this instance for displaying
-     */
-    func nativeAdLoaded(ad:NativeAd)
-    /**
-     * Prebid Native was not found in the server returned response,
-     * Please display the ad as regular ways
-     */
+@objc public protocol NativeAdDelegate : AnyObject {
+    
+    ///  A successful Prebid Native ad is returned
+    /// - Parameter:  A successful Prebid Native ad is returned
+    func nativeAdLoaded(ad: NativeAd)
+    
+    /// Prebid Native was not found in the server returned response,
+    /// Please display the ad as regular ways
     func nativeAdNotFound()
-    /**
-     * Prebid Native ad was returned, however, the bid is not valid for displaying
-     * Should be treated as on ad load failed
-     */
+    
+    /// Prebid Native ad was returned, however, the bid is not valid for displaying
+    /// Should be treated as on ad load failed
     func nativeAdNotValid()
 }

@@ -1,5 +1,3 @@
-[![Build Status](https://api.travis-ci.org/prebid/prebid-mobile-ios.svg?branch=master)](https://travis-ci.org/prebid/prebid-mobile-ios)
-
 # Prebid Mobile iOS SDK
 
 To work with Prebid Mobile, you will need accesss to a Prebid Server. See [this page](https://docs.prebid.org/prebid-server/overview/prebid-server-overview.html) for options.
@@ -38,10 +36,10 @@ Run the test script to run unit tests and integration tests.
 
 ## Carthage
 
-`2.2.2` version is available to build PrebidMobile with Carthage. For that, please, put the following content to your `Cartfile`:
+`2.3.0` version is available to build PrebidMobile with Carthage. For that, please, put the following content to your `Cartfile`:
 
 ```
-github "prebid/prebid-mobile-ios" == 2.2.2-carthage
+github "prebid/prebid-mobile-ios" == 2.3.0-carthage
 ```
 Run this command in order to build PrebidMobile with Carthage:
 

@@ -14,9 +14,8 @@
   */
 
 #import "PBMWebView.h"
-#import "PBMTransaction.h"
 
-@protocol PBMNSThreadProtocol;
+@protocol PBMThreadProtocol;
 
 @interface PBMWebView ()
 
@@ -27,9 +26,9 @@
 - (void)loadHTML:(nonnull NSString *)html
          baseURL:(nullable NSURL *)baseURL
    injectMraidJs:(BOOL)injectMraidJs
-   currentThread:(nonnull id<PBMNSThreadProtocol>)currentThread;
+   currentThread:(nonnull id<PBMThreadProtocol>)currentThread;
 
 - (void)expand:(nonnull NSURL *)url
- currentThread:(nonnull id<PBMNSThreadProtocol>)currentThread;
+ currentThread:(nonnull id<PBMThreadProtocol>)currentThread;
 
 @end

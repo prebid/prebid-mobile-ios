@@ -15,15 +15,15 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-typealias PBMCreativeViewDelegateHandler = ((PBMAbstractCreative) -> Void)
+typealias CreativeViewDelegateHandler = ((PBMAbstractCreative) -> Void)
 
-class PBMHTMLCreativeTest_Base: XCTestCase, PBMCreativeViewDelegate {
+class PBMHTMLCreativeTest_Base: XCTestCase, CreativeViewDelegate {
     
     let timeout: TimeInterval = 1
     var htmlCreative: MockPBMHTMLCreative!
-    var transaction: PBMTransaction!
+    var transaction: Transaction!
     
     var mockCreativeModel: MockPBMCreativeModel!
     var mockEventTracker: MockPBMAdModelEventTracker!
@@ -86,37 +86,37 @@ class PBMHTMLCreativeTest_Base: XCTestCase, PBMCreativeViewDelegate {
     }
     
     // MARK: - CreativeViewDelegate
-    var creativeInterstitialDidLeaveAppHandler: PBMCreativeViewDelegateHandler?
+    var creativeInterstitialDidLeaveAppHandler: CreativeViewDelegateHandler?
     func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {
         creativeInterstitialDidLeaveAppHandler?(creative)
     }
     
-    var creativeInterstitialDidCloseHandler: PBMCreativeViewDelegateHandler?
+    var creativeInterstitialDidCloseHandler: CreativeViewDelegateHandler?
     func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {
         creativeInterstitialDidCloseHandler?(creative)
     }
     
-    var creativeClickthroughDidCloseHandler: PBMCreativeViewDelegateHandler?
+    var creativeClickthroughDidCloseHandler: CreativeViewDelegateHandler?
     func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {
         creativeClickthroughDidCloseHandler?(creative)
     }
     
-    var creativeReadyToReimplantHandler: PBMCreativeViewDelegateHandler?
-    func creativeReady(toReimplant creative: PBMAbstractCreative) {
+    var creativeReadyToReimplantHandler: CreativeViewDelegateHandler?
+    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {
         creativeReadyToReimplantHandler?(creative)
     }
     
-    var creativeMraidDidCollapseHandler: PBMCreativeViewDelegateHandler?
+    var creativeMraidDidCollapseHandler: CreativeViewDelegateHandler?
     func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {
         creativeMraidDidCollapseHandler?(creative)
     }
     
-    var creativeMraidDidExpandHandler: PBMCreativeViewDelegateHandler?
+    var creativeMraidDidExpandHandler: CreativeViewDelegateHandler?
     func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {
         creativeMraidDidExpandHandler?(creative)
     }
     
-    var creativeDidCompleteHandler: PBMCreativeViewDelegateHandler?
+    var creativeDidCompleteHandler: CreativeViewDelegateHandler?
     func creativeDidComplete(_ creative: PBMAbstractCreative) {
         creativeDidCompleteHandler?(creative)
     }
@@ -129,6 +129,8 @@ class PBMHTMLCreativeTest_Base: XCTestCase, PBMCreativeViewDelegate {
     func creativeDidDisplay(_ creative: PBMAbstractCreative) {}
     func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    
+    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
     
     // MARK: - Utilities
     /**

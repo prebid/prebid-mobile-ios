@@ -15,24 +15,24 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMErrorTest: XCTestCase {
     func testErrorCollisions() {
         let allErrors = [
-            PBMError.requestInProgress,
+            PBMError.requestInProgress(),
             
-            PBMError.prebidInvalidAccountId,
-            PBMError.prebidInvalidConfigId,
-            PBMError.prebidInvalidSize,
+            PBMError.prebidInvalidAccountId(),
+            PBMError.prebidInvalidConfigId(),
+            PBMError.prebidInvalidSize(),
             
             PBMError.serverError("some error reason"),
             
-            PBMError.jsonDictNotFound,
-            PBMError.responseDeserializationFailed,
+            PBMError.jsonDictNotFound(),
+            PBMError.responseDeserializationFailed(),
             
-            PBMError.noWinningBid,
-        ].map { $0 as NSError }
+            PBMError.noWinningBid(),
+        ]
         
         for i in 1..<allErrors.count {
             for j in 0..<i {
@@ -46,18 +46,18 @@ class PBMErrorTest: XCTestCase {
     
     func testErrorParsing() {
         let errors: [(Error?, ResultCode)] = [
-            (PBMError.requestInProgress, .prebidInternalSDKError),
+            (PBMError.requestInProgress(), .prebidInternalSDKError),
             
-            (PBMError.prebidInvalidAccountId, .prebidInvalidAccountId),
-            (PBMError.prebidInvalidConfigId, .prebidInvalidConfigId),
-            (PBMError.prebidInvalidSize, .prebidInvalidSize),
+            (PBMError.prebidInvalidAccountId(), .prebidInvalidAccountId),
+            (PBMError.prebidInvalidConfigId(), .prebidInvalidConfigId),
+            (PBMError.prebidInvalidSize(), .prebidInvalidSize),
             
             (PBMError.serverError("some error reason"), .prebidServerError),
             
-            (PBMError.jsonDictNotFound, .prebidInvalidResponseStructure),
-            (PBMError.responseDeserializationFailed, .prebidInvalidResponseStructure),
+            (PBMError.jsonDictNotFound(), .prebidInvalidResponseStructure),
+            (PBMError.responseDeserializationFailed(), .prebidInvalidResponseStructure),
             
-            (PBMError.noWinningBid, .prebidDemandNoBids),
+            (PBMError.noWinningBid(), .prebidDemandNoBids),
             
             
             (NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut), .prebidDemandTimedOut),
@@ -80,7 +80,7 @@ class PBMErrorTest: XCTestCase {
         let error = PBMError.error(description: "MyErrorDescription")
         
         // Verify default values
-        XCTAssert(error.domain == PrebidRenderingErrorDomain)
+        XCTAssert(error.domain == PBMError.errorDomain)
         XCTAssert(error.code == 700)
         XCTAssert(error.userInfo["NSLocalizedDescription"] as! String == "MyErrorDescription")
     }

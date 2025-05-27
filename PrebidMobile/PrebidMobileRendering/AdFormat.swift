@@ -15,32 +15,45 @@
 
 import Foundation
 
+/// `AdFormat` is a class that represents different types of ad formats using an OptionSet.
 @objcMembers
 public class AdFormat: NSObject, OptionSet {
     
+    /// The underlying type of the raw value.
     public typealias RawValue = Int
     
+    /// The raw integer value representing the ad format.
     public let rawValue: Int
     
+    /// The string representation of the ad format.
     public private(set) var stringEquivalent: String?
     
+    /// Initializes an `AdFormat` instance with a specified raw value and its string equivalent.
+    /// - Parameters:
+    ///   - rawValue: The raw value representing the ad format.
+    ///   - stringEquivalent: A string equivalent of the ad format.
     public convenience init(rawValue: RawValue, stringEquivalent: String) {
         self.init(rawValue: rawValue)
         self.stringEquivalent = stringEquivalent
     }
     
+    /// Initializes an `AdFormat` instance with a specified raw value.
+    /// - Parameter rawValue: The raw value representing the ad format.
     public required init(rawValue: RawValue) {
         self.rawValue = rawValue
         super.init()
     }
-        
+    
+    /// Represents a banner ad format.
     public static let banner = AdFormat(rawValue: 1 << 0, stringEquivalent: "banner")
+    
+    /// Represents a video ad format.
     public static let video = AdFormat(rawValue: 1 << 1, stringEquivalent: "video")
+    
+    /// Represents a native ad format.
     public static let native = AdFormat(rawValue: 1 << 2, stringEquivalent: "native")
     
-    @available(*, deprecated, message: "Display ad format is deprecated. Please, use banner ad format instead.")
-    public static let display = AdFormat(rawValue: 1 << 3, stringEquivalent: "banner")
-    
+    /// An array containing all cases of ad formats.
     public static var allCases: [AdFormat] {
         [.banner, .video, .native]
     }

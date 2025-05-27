@@ -113,6 +113,9 @@ extension XCTestCase {
     // MARK: - Helper methods (navigation)
     
     fileprivate func navigateToExample(app: XCUIApplication, title: String, file: StaticString = #file, line: UInt = #line) {
+        app.searchFields.element.tap()
+        app.searchFields.element.typeText(title)
+        
         let listItem = app.tables.staticTexts[title]
         waitForExists(element: listItem, waitSeconds: 5, file: file, line: line)
         listItem.tap()
@@ -211,8 +214,6 @@ extension BaseUITestCase {
     }
     
     func navigateToExample(_ title: String, file: StaticString = #file, line: UInt = #line) {
-        applyFilter(adServer: detect(from: title))
-        applyFilter(tag: detect(from: title))
         navigateToExample(app: app, title: title, file: file, line: line)
     }
     

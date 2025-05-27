@@ -15,12 +15,13 @@
 
 import Foundation
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class MockPBMCreativeModel: PBMCreativeModel {
+class MockPBMCreativeModel: CreativeModel {
     
-    //    var mock_trackEvent: ((PBMTrackingEvent) -> Void)?
-    //    override func trackEvent(_ event: PBMTrackingEvent) {
-    //        self.mock_trackEvent?(event)
-    //    }
+    var mock_trackEvent: ((TrackingEvent) -> Void)?
+    override func trackEvent(_ event: TrackingEvent) {
+        self.mock_trackEvent?(event)
+        
+    }
 }

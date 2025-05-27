@@ -17,27 +17,6 @@ import XCTest
 import CoreLocation
 @testable import PrebidMobile
 
-extension Gender: CaseIterable {
-    public static let allCases: [Self] = [
-        .unknown,
-        .male,
-        .female,
-        .other,
-    ]
-    
-    fileprivate var paramsDicLetter: String? {
-        switch self {
-        case .unknown: return nil
-        case .male:    return "M"
-        case .female:  return "F"
-        case .other:   return "O"
-        @unknown default:
-            XCTFail("Unexpected value: \(self)")
-            return nil
-        }
-    }
-}
-
 class TargetingTests: XCTestCase {
 
     override func setUp() {
@@ -47,6 +26,7 @@ class TargetingTests: XCTestCase {
 
     override func tearDown() {
         UtilitiesForTesting.resetTargeting(.shared)
+        Targeting.shared.forceSdkToChooseWinner = true
     }
 
     func testDomain() {
@@ -59,17 +39,6 @@ class TargetingTests: XCTestCase {
 
         //then
         XCTAssertEqual(domain, result)
-    }
-    
-    func testGender() {
-        //given
-        let female = Gender.female
-        
-        //when
-        Targeting.shared.userGender = female
-        
-        //then
-        XCTAssertEqual(female, Targeting.shared.userGender)
     }
 
     func testItunesID() {
@@ -104,52 +73,20 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.location = location
-        Targeting.shared.locationPrecision = 2
         
         //then
         XCTAssertEqual(location, Targeting.shared.location)
-        XCTAssertEqual(2, Targeting.shared.locationPrecision)
     }
     
-    func testLocationPrecision() {
+    func testforceSdkToChooseWinner() {
         //given
-        let locationPrecision = 2
+        let forceSdkToChooseWinner = false
         
         //when
-        Targeting.shared.locationPrecision = locationPrecision
+        Targeting.shared.forceSdkToChooseWinner = forceSdkToChooseWinner
         
         //then
-        XCTAssertEqual(locationPrecision, Targeting.shared.locationPrecision)
-    }
-    
-    // MARK: - Year Of Birth
-    func testYearOfBirth() {
-        //given
-        let yearOfBirth = 1985
-        Targeting.shared.setYearOfBirth(yob: yearOfBirth)
-        //when
-        XCTAssertTrue(Targeting.shared.yearOfBirth != 0)
-        let result = Targeting.shared.yearOfBirth
-        
-        //then
-        XCTAssertEqual(yearOfBirth, result)
-    }
-
-    func testYearOfBirthInvalid() {
-        Targeting.shared.setYearOfBirth(yob: -1)
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
-        Targeting.shared.setYearOfBirth(yob: 999)
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
-        Targeting.shared.setYearOfBirth(yob: 10000)
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
-    }
-    
-    func testClearYearOfBirth() {
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
-        Targeting.shared.setYearOfBirth(yob: 1985)
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 1985)
-        Targeting.shared.clearYearOfBirth()
-        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
+        XCTAssertEqual(forceSdkToChooseWinner, Targeting.shared.forceSdkToChooseWinner)
     }
 
     //MARK: - COPPA
@@ -163,7 +100,6 @@ class TargetingTests: XCTestCase {
 
         //then
         XCTAssertEqual(subjectToCOPPA, result);
-        
     }
     
     //MARK: - GDPR Subject
@@ -237,121 +173,6 @@ class TargetingTests: XCTestCase {
 
         //then
         XCTAssertEqual(gdprConsentString, result)
-    }
-    
-    //MARK: - External UserIds
-    func testPbExternalUserIds() {
-        //given
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
-        
-        defer {
-            Targeting.shared.removeStoredExternalUserIds()
-        }
-
-        //when
-        let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
-        let externalUserIdNetID = Targeting.shared.fetchStoredExternalUserId("netid.de")
-        let externalUserIdCriteo = Targeting.shared.fetchStoredExternalUserId("criteo.com")
-        let externalUserIdLiveRamp = Targeting.shared.fetchStoredExternalUserId("liveramp.com")
-        let externalUserIdSharedId = Targeting.shared.fetchStoredExternalUserId("sharedid.org")
-
-        //then
-        XCTAssertEqual("adserver.org", externalUserIdAdserver!.source)
-        XCTAssertEqual("111111111111", externalUserIdAdserver!.identifier)
-        XCTAssertEqual(["rtiPartner" : "TDID"], externalUserIdAdserver!.ext as! [String : String])
-        
-        XCTAssertEqual("netid.de", externalUserIdNetID!.source)
-        XCTAssertEqual("999888777", externalUserIdNetID!.identifier)
-
-        XCTAssertEqual("criteo.com", externalUserIdCriteo!.source)
-        XCTAssertEqual("_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", externalUserIdCriteo!.identifier)
-
-        XCTAssertEqual("liveramp.com", externalUserIdLiveRamp!.source)
-        XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", externalUserIdLiveRamp!.identifier)
-
-        XCTAssertEqual("sharedid.org", externalUserIdSharedId!.source)
-        XCTAssertEqual("111111111111", externalUserIdSharedId!.identifier)
-        XCTAssertEqual(1, externalUserIdSharedId!.atype)
-        XCTAssertEqual(["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"], externalUserIdSharedId!.ext as! [String : String])
-
-    }
-    
-    func testPbExternalUserIdsOverRiding() {
-        //given
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "222222222222", ext: ["rtiPartner" : "LFTD"]))
-        
-        defer {
-            Targeting.shared.removeStoredExternalUserIds()
-        }
-
-        //when
-        let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
-
-        //then
-        XCTAssertEqual("adserver.org", externalUserIdAdserver!.source)
-        XCTAssertEqual("222222222222", externalUserIdAdserver!.identifier)
-        XCTAssertEqual(["rtiPartner" : "LFTD"], externalUserIdAdserver!.ext as! [String : String])
-
-
-    }
-
-    func testPbExternalUserIdsRemoveSpecificID() {
-        //given
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-
-        //when
-        Targeting.shared.removeStoredExternalUserId("adserver.org")
-
-        //then
-        let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
-        XCTAssertNil(externalUserIdAdserver)
-
-    }
-    
-    func testPbExternalUserIdsGetAllExternalUserIDs() {
-        //given
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
-        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
-        
-        defer {
-            Targeting.shared.removeStoredExternalUserIds()
-        }
-
-        //when
-        let externalUserIdsArray = Targeting.shared.fetchStoredExternalUserIds()
-        let externalUserIdAdserver = externalUserIdsArray![0]
-        let externalUserIdNetID = externalUserIdsArray![1]
-        let externalUserIdCriteo = externalUserIdsArray![2]
-        let externalUserIdLiveRamp = externalUserIdsArray![3]
-        let externalUserIdSharedId = externalUserIdsArray![4]
-
-        //then
-        XCTAssertEqual("adserver.org", externalUserIdAdserver.source)
-        XCTAssertEqual("111111111111", externalUserIdAdserver.identifier)
-        XCTAssertEqual(["rtiPartner" : "TDID"], externalUserIdAdserver.ext as! [String : String])
-        
-        XCTAssertEqual("netid.de", externalUserIdNetID.source)
-        XCTAssertEqual("999888777", externalUserIdNetID.identifier)
-
-        XCTAssertEqual("criteo.com", externalUserIdCriteo.source)
-        XCTAssertEqual("_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", externalUserIdCriteo.identifier)
-
-        XCTAssertEqual("liveramp.com", externalUserIdLiveRamp.source)
-        XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", externalUserIdLiveRamp.identifier)
-
-        XCTAssertEqual("sharedid.org", externalUserIdSharedId.source)
-        XCTAssertEqual("111111111111", externalUserIdSharedId.identifier)
-        XCTAssertEqual(1, externalUserIdSharedId.atype)
-        XCTAssertEqual(["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"], externalUserIdSharedId.ext as! [String : String])
-
     }
 
     //MARK: - PurposeConsents
@@ -432,24 +253,24 @@ class TargetingTests: XCTestCase {
     // MARK: - access control list (ext.prebid.data)
     func testAddBidderToAccessControlList() {
         //given
-        let bidderNameRubicon = Prebid.bidderNameRubiconProject
+        let bidderName = "test-bidder"
         
         //when
-        Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
+        Targeting.shared.addBidderToAccessControlList(bidderName)
         let set = Targeting.shared.getAccessControlList()
 
         //then
         XCTAssertEqual(1, set.count)
-        XCTAssert(set.contains(bidderNameRubicon))
+        XCTAssert(set.contains(bidderName))
     }
     
     func testRemoveBidderFromAccessControlList() {
         //given
-        let bidderNameRubicon = Prebid.bidderNameRubiconProject
-        Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
+        let bidderName = "test-bidder"
+        Targeting.shared.addBidderToAccessControlList(bidderName)
         
         //when
-        Targeting.shared.removeBidderFromAccessControlList(bidderNameRubicon)
+        Targeting.shared.removeBidderFromAccessControlList(bidderName)
         let set = Targeting.shared.getAccessControlList()
 
         //then
@@ -458,8 +279,8 @@ class TargetingTests: XCTestCase {
     
     func testClearAccessControlList() {
         //given
-        let bidderNameRubicon = Prebid.bidderNameRubiconProject
-        Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
+        let bidderName = "test-bidder"
+        Targeting.shared.addBidderToAccessControlList(bidderName)
         
         //when
         Targeting.shared.clearAccessControlList()
@@ -468,69 +289,6 @@ class TargetingTests: XCTestCase {
         //then
         XCTAssertEqual(0, set.count)
     }
-    
-    // MARK: - [DEPRECATED API] global context data aka inventory data (app.ext.data)
-    
-     func testAddContextData() {
-         //given
-         let key1 = "key1"
-         let value1 = "value1"
-         
-         //when
-         Targeting.shared.addContextData(key: key1, value: value1)
-         let dictionary = Targeting.shared.getContextData()
-         let set = dictionary[key1]
-
-         //then
-         XCTAssertEqual(1, dictionary.count)
-         XCTAssertEqual(1, set?.count)
-         XCTAssert((set?.contains(value1))!)
-     }
-
-     func testUpdateContextData() {
-         //given
-         let key1 = "key1"
-         let value1 = "value1"
-         let inputSet: Set = [value1]
-         
-         //when
-         Targeting.shared.updateContextData(key: key1, value: inputSet)
-         let dictionary = Targeting.shared.getContextData()
-         let set = dictionary[key1]
-
-         //then
-         XCTAssertEqual(1, dictionary.count)
-         XCTAssertEqual(1, set?.count)
-         XCTAssert((set?.contains(value1))!)
-     }
-     
-     func testRemoveContextData() {
-         //given
-         let key1 = "key1"
-         let value1 = "value1"
-         Targeting.shared.addContextData(key: key1, value: value1)
-         
-         //when
-         Targeting.shared.removeContextData(for: key1)
-         let dictionary = Targeting.shared.getContextData()
-
-         //then
-         XCTAssertEqual(0, dictionary.count)
-     }
-     
-     func testClearContextData() {
-         //given
-         let key1 = "key1"
-         let value1 = "value1"
-         Targeting.shared.addContextData(key: key1, value: value1)
-         
-         //when
-         Targeting.shared.clearContextData()
-         let dictionary = Targeting.shared.getContextData()
-
-         //then
-         XCTAssertEqual(0, dictionary.count)
-     }
     
     // MARK: - global ext data aka inventory data (app.ext.data)
     
@@ -594,126 +352,8 @@ class TargetingTests: XCTestCase {
         //then
         XCTAssertEqual(0, dictionary.count)
     }
-    
-    // MARK: - global user data aka visitor data (user.ext.data)
-    
-    func testAddUserData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
         
-        //when
-        Targeting.shared.addUserData(key: key1, value: value1)
-        let dictionary = Targeting.shared.getUserData()
-        let set = dictionary[key1]
-        
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertEqual(1, set?.count)
-        XCTAssert((set?.contains(value1))!)
-    }
-    
-    func testUpdateUserData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let inputSet: Set = [value1]
-        
-        //when
-        Targeting.shared.updateUserData(key: key1, value: inputSet)
-        let dictionary = Targeting.shared.getUserData()
-        let set = dictionary[key1]
-        
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertEqual(1, set?.count)
-        XCTAssert((set?.contains(value1))!)
-    }
-    
-    func testRemoveUserData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        Targeting.shared.addUserData(key: key1, value: value1)
-        
-        //when
-        Targeting.shared.removeUserData(for: key1)
-        let dictionary = Targeting.shared.getUserData()
-        
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-    
-    func testClearUserData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        Targeting.shared.addUserData(key: key1, value: value1)
-        
-        //when
-        Targeting.shared.clearUserData()
-        let dictionary = Targeting.shared.getUserData()
-        
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-
-    // MARK: - [DEPRECATED API] global context keywords (app.keywords)
-    
-    func testAddContextKeyword() {
-        //given
-        let value1 = "value1"
-        
-        //when
-        Targeting.shared.addContextKeyword(value1)
-        let set = Targeting.shared.getContextKeywords()
-
-        //then
-        XCTAssertEqual(1, set.count)
-        XCTAssert(set.contains(value1))
-    }
-    
-    func testAddContextKeywords() {
-        //given
-        let value1 = "value1"
-        let inputSet: Set = [value1]
-        
-        //when
-        Targeting.shared.addContextKeywords(inputSet)
-        let set = Targeting.shared.getContextKeywords()
-
-        //then
-        XCTAssertEqual(1, set.count)
-        XCTAssert(set.contains(value1))
-    }
-    
-    func testRemoveContextKeyword() {
-        //given
-        let value1 = "value1"
-        Targeting.shared.addContextKeyword(value1)
-        
-        //when
-        Targeting.shared.removeContextKeyword(value1)
-        let set = Targeting.shared.getContextKeywords()
-
-        //then
-        XCTAssertEqual(0, set.count)
-    }
-
-    func testClearContextKeywords() {
-        //given
-        let value1 = "value1"
-        Targeting.shared.addContextKeyword(value1)
-        
-        //when
-        Targeting.shared.clearContextKeywords()
-        let set = Targeting.shared.getContextKeywords()
-
-        //then
-        XCTAssertEqual(0, set.count)
-    }
-    
-    // MARK: - [DEPRECATED API] global app keywords (app.keywords)
+    // MARK: - Global app keywords (app.keywords)
     
     func testAddExtKeyword() {
         //given
@@ -826,85 +466,6 @@ class TargetingTests: XCTestCase {
     func testShared() {
         UtilitiesForTesting.checkInitialValues(.shared)
     }
-
-    func testUserGender() {
-        
-        //Init
-        let targeting = Targeting.shared
-        XCTAssert(targeting.userGender == .unknown)
-        
-        //Set
-        for gender in Gender.allCases {
-            targeting.userGender = gender
-            XCTAssertEqual(targeting.userGender, gender)
-            
-            let expectedDic: [String: String]
-            if let letter = gender.paramsDicLetter {
-                expectedDic = ["gen": letter]
-            } else {
-                expectedDic = [:]
-            }
-            XCTAssertEqual(targeting.parameterDictionary, expectedDic, "Dict is \(targeting.parameterDictionary)")
-        }
-        
-        //Unset
-        targeting.userGender = .unknown
-        XCTAssert(targeting.userGender == .unknown)
-        XCTAssert(targeting.parameterDictionary == [:], "Dict is \(targeting.parameterDictionary)")
-    }
-
-    func testUserID() {
-
-        //Init
-        //Note: on init, the default is nil but it doesn't send a value.
-        let Targeting = Targeting.shared
-        XCTAssert(Targeting.userID == nil)
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Set
-        Targeting.userID = "abc123"
-        XCTAssert(Targeting.parameterDictionary == ["xid":"abc123"], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Unset
-        Targeting.userID = nil
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-    }
-    
-    func testBuyerUID() {
-        //Init
-        //Note: on init, and it never sends a value via an odinary ad request params.
-        let Targeting = Targeting.shared
-        XCTAssertNil(Targeting.buyerUID)
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Set
-        let buyerUID = "abc123"
-        Targeting.buyerUID = buyerUID
-        XCTAssertEqual(Targeting.buyerUID, buyerUID)
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Unset
-        Targeting.buyerUID = nil
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-    }
-    
-    func testUserCustomData() {
-
-        //Init
-        //Note: on init, and it never sends a value via an odinary ad request params.
-        let Targeting = Targeting.shared
-        XCTAssertNil(Targeting.userCustomData)
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Set
-        let customData = "123"
-        Targeting.userCustomData = customData
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Unset
-        Targeting.userCustomData = nil
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-    }
     
     func testUserExt() {
         //Init
@@ -917,18 +478,6 @@ class TargetingTests: XCTestCase {
         let userExt = ["consent": "dummyConsentString"]
         Targeting.userExt = userExt
         XCTAssertEqual(Targeting.userExt?.count, 1)
-    }
-    
-    func testUserEids() {
-        //Init
-        //Note: on init, and it never sends a value via an odinary ad request params.
-        let Targeting = Targeting.shared
-        XCTAssertNil(Targeting.eids)
-
-        //Set
-        let eids: [[String: AnyHashable]] = [["key" : "value"], ["key" : "value"]]
-        Targeting.eids = eids
-        XCTAssertEqual(Targeting.eids?.count, 2)
     }
     
     func testPublisherName() {
@@ -996,35 +545,6 @@ class TargetingTests: XCTestCase {
         //Unset
         Targeting.addParam("", withName: "name")
         XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-    }
-
-    func testAddCustomParam() {
-        
-        //Init
-        let Targeting = Targeting.shared
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Set
-        Targeting.addCustomParam("value", withName: "name")
-        XCTAssert(Targeting.parameterDictionary == ["c.name":"value"], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Unset
-        Targeting.addCustomParam("", withName: "name")
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-    }
-    
-    func testSetCustomParams() {
-        //Init
-        let Targeting = Targeting.shared
-        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Set
-        Targeting.setCustomParams(["name1":"value1", "name2":"value2"])
-        XCTAssert(Targeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(Targeting.parameterDictionary)")
-        
-        //Not currently possible to unset
-        Targeting.setCustomParams([:])
-        XCTAssert(Targeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(Targeting.parameterDictionary)")
     }
     
     func testKeywords() {

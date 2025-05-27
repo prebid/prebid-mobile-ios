@@ -15,10 +15,6 @@
 
 #import "PBMDisplayTransactionFactory.h"
 
-#import "PBMCreativeModel.h"
-#import "PBMTransaction.h"
-#import "PBMTransactionDelegate.h"
-
 #import "PBMMacros.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -38,7 +34,7 @@
 // use onFinishedWithTransaction
 @property (nonatomic, copy, readonly, nonnull) PBMTransactionFactoryCallback callback;
 
-@property (nonatomic, strong, nullable) PBMTransaction *transaction;
+@property (nonatomic, strong, nullable) id<PBMTransaction> transaction;
 @property (nonatomic, readonly) BOOL isLoading;
 
 @end
@@ -76,12 +72,12 @@
 
 // MARK: - PBMTransactionDelegate protocol
 
-- (void)transactionReadyForDisplay:(PBMTransaction *)transaction {
+- (void)transactionReadyForDisplay:(id<PBMTransaction>)transaction {
     self.transaction = nil;
     [self onFinishedWithTransaction:transaction error:nil];
 }
 
-- (void)transactionFailedToLoad:(PBMTransaction *)transaction error:(NSError *)error {
+- (void)transactionFailedToLoad:(id<PBMTransaction>)transaction error:(NSError *)error {
     self.transaction = nil;
     [self onFinishedWithTransaction:nil error:error];
 }
@@ -99,13 +95,11 @@
                                                     adMarkup:adMarkup
                                              adConfiguration:self.adConfiguration]];
     
-    self.transaction = [[PBMTransaction alloc] initWithServerConnection:self.connection
-                                                        adConfiguration:self.adConfiguration.adConfiguration
-                                                                 models:creativeModels];
+    self.transaction = [PBMFactory createTransactionWithServerConnection:self.connection
+                                                         adConfiguration:self.adConfiguration.adConfiguration
+                                                                  models:creativeModels];
     
-    self.transaction.skadnInfo = self.bid.skadn;
-    self.transaction.impURL = self.bid.events.imp;
-    self.transaction.winURL = self.bid.events.win;
+    self.transaction.bid = self.bid;
     
     self.transaction.delegate = self;
     [self.transaction startCreativeFactory];
@@ -114,16 +108,15 @@
 - (PBMCreativeModel *)htmlCreativeModelFromBid:(Bid *)bid
                                       adMarkup:(NSString *)adMarkup
                                adConfiguration:(AdUnitConfig *)adConfiguration {
-    PBMCreativeModel * const model = [[PBMCreativeModel alloc] init];
+    PBMCreativeModel * const model = [[PBMCreativeModel alloc] initWithAdConfiguration:adConfiguration.adConfiguration];
     
     model.html = adMarkup;
     model.width = bid.size.width;
     model.height = bid.size.height;
-    model.adConfiguration = adConfiguration.adConfiguration;
     return model;
 }
 
-- (void)onFinishedWithTransaction:(PBMTransaction *)transaction error:(NSError *)error {
+- (void)onFinishedWithTransaction:(id<PBMTransaction>)transaction error:(NSError *)error {
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);

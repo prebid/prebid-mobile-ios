@@ -16,7 +16,7 @@ limitations under the License.
 import UIKit
 import GoogleMobileAds
 
-public class AdMobNativeAdView: GADNativeAdView {
+public class AdMobNativeAdView: GoogleMobileAds.NativeAdView {
 
     @IBOutlet public weak var iconImageView: UIImageView!
     @IBOutlet public weak var mainImageView: UIImageView!
@@ -25,7 +25,7 @@ public class AdMobNativeAdView: GADNativeAdView {
     @IBOutlet public weak var callToActionButton: UIButton!
     @IBOutlet public weak var sponsoredLabel: UILabel!
     
-    public var admobNativeAd: GADNativeAd? {
+    public var admobNativeAd: GoogleMobileAds.NativeAd? {
         didSet {
             super.nativeAd = admobNativeAd
         }
@@ -42,6 +42,9 @@ public class AdMobNativeAdView: GADNativeAdView {
     }
     
     class func instanceFromNib() -> AdMobNativeAdView {
-        return UINib(nibName: "AdMobNativeAdView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! AdMobNativeAdView
+        return UINib(
+            nibName: "AdMobNativeAdView",
+            bundle: nil
+        ).instantiate(withOwner: nil, options: nil)[0] as! AdMobNativeAdView
     }
 }

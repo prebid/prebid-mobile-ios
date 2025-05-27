@@ -15,7 +15,7 @@
 
 #import "GAMVideoRewardedViewController.h"
 
-NSString * const storedImpGAMVideoRewarded = @"prebid-demo-video-rewarded-320-480";
+NSString * const storedImpGAMVideoRewarded = @"prebid-demo-video-rewarded-endcard-time";
 NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rewarded_video_test";
 
 @interface GAMVideoRewardedViewController ()
@@ -48,11 +48,17 @@ NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rew
 // MARK: - RewardedAdUnitDelegate
 
 - (void)rewardedAdDidReceiveAd:(RewardedAdUnit *)rewardedAd {
-    [self.rewardedAdUnit showFrom:self];
+    if (rewardedAd.isReady) {
+        [rewardedAd showFrom:self];
+    }
 }
 
 - (void)rewardedAd:(RewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {
     PBMLogError(@"%@", error.localizedDescription);
+}
+
+- (void)rewardedAdUserDidEarnReward:(RewardedAdUnit *)rewardedAd reward:(PrebidReward *)reward {
+    NSLog(@"User did earn reward - type: %@, count: %f", reward.type, [reward.count doubleValue]);
 }
 
 @end

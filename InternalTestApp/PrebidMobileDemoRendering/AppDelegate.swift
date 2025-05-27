@@ -31,21 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let consentHelper = IABConsentHelper()
 	
-	func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
-    {
-        
+	func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         let processArgumentsParser = ProcessArgumentsParser()
         
         consentHelper.eraseIrrelevantUserDefaults()
         processArgumentsParser.addOption("IABConsent_Settings", paramsCount: 1, fireOnce: true) { [consentHelper] params in
             consentHelper.parseAndApply(consentSettingsString: params[0])
         }
-        
-        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
-        
+                
         //Set up SDK.
-        Prebid.initializeSDK { status, error in
+        try? Prebid.initializeSDK(serverURL: "https://prebid-server-test-j.prebid.org/openrtb2/auction") { status, error in
             switch status {
             case .succeeded:
                 print("Prebid successfully initialized")
@@ -94,18 +92,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appConfig.adUnitContextKeywords.append(params[0])
         }
         
-        processArgumentsParser.addOption("ADD_USER_EXT_DATA", paramsCount: 2) { params in
-            Targeting.shared.addUserData(key: params[0], value: params[1])
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_EXT", paramsCount: 2) { params in
-            Targeting.shared.addContextData(key: params[0], value: params[1])
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_KEYWORD", paramsCount: 1) { params in
-            Targeting.shared.addContextKeyword(params[0])
-        }
-        
         processArgumentsParser.addOption("ADD_USER_DATA_EXT", paramsCount: 2) { params in
             let appConfig = AppConfiguration.shared
             appConfig.userData = (appConfig.userData ?? []) + [(key: params[0], value: params[1])]
@@ -131,11 +117,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
        
         // AdMob
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [GADSimulatorID]
-        GADMobileAds.sharedInstance().start { (status) in
+        MobileAds.shared.start { (status) in
             //Registered so that DownloadHelper gets covered by this
             GlobalVars.reactiveGAMInitFlag.markSdkInitialized()
-        };
+        }
         
         GAMUtils.shared.initializeGAM()
         

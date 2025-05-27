@@ -19,7 +19,9 @@ import GoogleMobileAds
 
 fileprivate let nativeStoredImpression = "prebid-demo-banner-native-styles"
 
-class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBannerViewDelegate {
+class GAMOriginalAPINativeBannerViewController:
+    BannerBaseViewController,
+    GoogleMobileAds.BannerViewDelegate {
     
     // Prebid
     private var nativeUnit: NativeRequest!
@@ -44,8 +46,8 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
     }
     
     // GAM
-    private var gamBannerView: GAMBannerView!
-    private let gamRequest = GAMRequest()
+    private var gamBannerView: AdManagerBannerView!
+    private let gamRequest = AdManagerRequest()
     
     override func loadView() {
         super.loadView()
@@ -64,7 +66,7 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
         nativeUnit.eventtrackers = eventTrackers
         
         // 3. Create a GAMBannerView
-        gamBannerView = GAMBannerView(adSize: GADAdSizeFluid)
+        gamBannerView = AdManagerBannerView(adSize: AdSizeFluid)
         gamBannerView.adUnitID = "/21808260008/prebid-demo-original-native-styles"
         gamBannerView.rootViewController = self
         gamBannerView.delegate = self
@@ -81,10 +83,12 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
         }
     }
     
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    // MARK: - GADBannerViewDelegate
+    
+    func bannerViewDidReceiveAd(_ bannerView: GoogleMobileAds.BannerView) {
         AdViewUtils.findPrebidCreativeSize(bannerView, success: { size in
-            guard let bannerView = bannerView as? GAMBannerView else { return }
-            bannerView.resize(GADAdSizeFromCGSize(size))
+            guard let bannerView = bannerView as? AdManagerBannerView else { return }
+            bannerView.resize(adSizeFor(cgSize: size))
         }, failure: { error in
             PrebidDemoLogger.shared.error("Error occuring during searching for Prebid creative size: \(error)")
         })
@@ -92,7 +96,7 @@ class GAMOriginalAPINativeBannerViewController: BannerBaseViewController, GADBan
         bannerView.constraints.first { $0.firstAttribute == .width }?.constant = UIScreen.main.bounds.width * 0.1
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(_ bannerView: GoogleMobileAds.BannerView, didFailToReceiveAdWithError error: Error) {
         PrebidDemoLogger.shared.error("GAM did fail to receive ad with error: \(error)")
     }
 }

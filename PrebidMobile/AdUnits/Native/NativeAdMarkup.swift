@@ -15,6 +15,7 @@
 
 import Foundation
 
+/// Represents the markup for a native ad, including assets, tracking URLs, and other metadata.
 @objcMembers
 public class NativeAdMarkup: NSObject, JsonDecodable {
 
@@ -66,6 +67,8 @@ public class NativeAdMarkup: NSObject, JsonDecodable {
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
+    /// Initializes a new instance of `NativeAdMarkup` from a JSON string.
+    /// - Parameter jsonString: A JSON string representing the native ad markup.
     convenience public init?(jsonString: String?) {
         guard let jsonString = jsonString, !jsonString.isEmpty else {
             Log.warn("The native ad markup json string is empty")
@@ -80,6 +83,8 @@ public class NativeAdMarkup: NSObject, JsonDecodable {
         self.init(jsonDictionary: jsonDic)
     }
     
+    /// Initializes a new instance of `NativeAdMarkup` from a JSON dictionary.
+    /// - Parameter jsonDictionary: A dictionary representing the native ad markup.
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native ad markup json dicitonary is empty")
@@ -120,6 +125,7 @@ public class NativeAdMarkup: NSObject, JsonDecodable {
         }
     }
     
+    /// Initializes a new instance of `NativeAdMarkup` with default values.
     public override init() {
         super.init()
     }

@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 typealias JsonDictionary = [String:Any]
 
@@ -80,24 +80,24 @@ typealias JsonDictionary = [String:Any]
         return connection
     }
     
-    class func createEmptyTransaction() -> PBMTransaction {
+    class func createEmptyTransaction() -> Transaction {
         let connection = PrebidServerConnection()
         let adConfiguration = AdConfiguration()
         
-        let transaction = PBMTransaction(serverConnection:connection,
-                                         adConfiguration:adConfiguration,
-                                         models:[])
+        let transaction = Factory.createTransaction(serverConnection:connection,
+                                                    adConfiguration:adConfiguration,
+                                                    models:[])
         
         return transaction;
     }
     
-    class func createHTMLCreative(with model: PBMCreativeModel) -> PBMAbstractCreative {
+    class func createHTMLCreative(with model: CreativeModel) -> PBMAbstractCreative {
         return PBMHTMLCreative(creativeModel: model,
                                transaction:UtilitiesForTesting.createEmptyTransaction())
     }
     
     class func createHTMLCreative(withView: Bool = true) -> PBMAbstractCreative {
-        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
+        let model = CreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
         
         let creative = UtilitiesForTesting.createHTMLCreative(with: model)
@@ -112,7 +112,7 @@ typealias JsonDictionary = [String:Any]
         return creative
     }
     
-    class func createHTMLCreative(withModel model: PBMCreativeModel, withView:Bool = true) -> PBMHTMLCreative {
+    class func createHTMLCreative(withModel model: CreativeModel, withView:Bool = true) -> PBMHTMLCreative {
         let creative = PBMHTMLCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction())
         
         if withView {
@@ -123,56 +123,56 @@ typealias JsonDictionary = [String:Any]
         return creative
     }
     
-    class func createTransactionWithHTMLCreative(withView:Bool = false, isInterstitial: Bool = false) -> PBMTransaction {
+    class func createTransactionWithHTMLCreative(withView:Bool = false, isInterstitial: Bool = false) -> Transaction {
         let connection = PrebidServerConnection()
         let adConfiguration = AdConfiguration()
         adConfiguration.winningBidAdFormat = .banner
         adConfiguration.isInterstitialAd = isInterstitial
         
-        let model = PBMCreativeModel(adConfiguration:adConfiguration)
+        let model = CreativeModel(adConfiguration:adConfiguration)
         model.html = "<html>test html</html>"
         model.revenue = "1234"
         let creative = UtilitiesForTesting.createHTMLCreative(withModel: model, withView: withView)
         
-        let transaction = PBMTransaction(serverConnection:connection,
-                                         adConfiguration:adConfiguration,
-                                         models:[model])
+        let transaction = Factory.createTransaction(serverConnection:connection,
+                                                    adConfiguration:adConfiguration,
+                                                    models:[model])
         
-        transaction.creatives.add(creative)
+        transaction.creatives.append(creative)
         
         return transaction;
     }
     
     class func createTransactionWithHTMLCreativeWithParams(
         connection: PrebidServerConnectionProtocol,
-        configuration: AdConfiguration) -> PBMTransaction {
-            let model = PBMCreativeModel(adConfiguration:configuration)
+        configuration: AdConfiguration) -> Transaction {
+            let model = CreativeModel(adConfiguration:configuration)
             
             model.html = "<html>test html</html>"
             model.revenue = "1234"
             
             let creative = PBMHTMLCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction())
             
-            let transaction = PBMTransaction(serverConnection:connection,
-                                             adConfiguration:configuration,
-                                             models:[model])
+            let transaction = Factory.createTransaction(serverConnection:connection,
+                                                        adConfiguration:configuration,
+                                                        models:[model])
             
-            transaction.creatives.add(creative)
+            transaction.creatives.append(creative)
             
             return transaction;
         }
     
-    class func createDummyTransaction(for adConfiguration: AdConfiguration) -> PBMTransaction {
+    class func createDummyTransaction(for adConfiguration: AdConfiguration) -> Transaction {
         let connection = getMockedServerConnection()
-        let model = PBMCreativeModel(adConfiguration: adConfiguration)
+        let model = CreativeModel(adConfiguration: adConfiguration)
         
-        let transaction = PBMTransaction(serverConnection:connection,
-                                         adConfiguration:adConfiguration,
-                                         models:[model])
+        let transaction = Factory.createTransaction(serverConnection:connection,
+                                                    adConfiguration:adConfiguration,
+                                                    models:[model])
         
         let creative = PBMHTMLCreative(creativeModel: model, transaction: transaction)
         
-        transaction.creatives.add(creative)
+        transaction.creatives.append(creative)
         
         return transaction;
         
@@ -280,17 +280,10 @@ typealias JsonDictionary = [String:Any]
     }
     
     @objc public class func resetTargeting(_ targeting: Targeting)  {
-        
-        targeting.userGender = .unknown
-        targeting.userID = nil
-        targeting.buyerUID = nil
         targeting.publisherName = nil
         targeting.storeURL = nil
-        targeting.userCustomData = nil
         targeting.userExt = nil
-        targeting.eids = nil
         targeting.location = nil
-        targeting.locationPrecision = nil
         targeting.sourceapp = nil
         targeting.storeURL = nil
         targeting.domain = nil
@@ -303,13 +296,13 @@ typealias JsonDictionary = [String:Any]
         targeting.subjectToGDPR = nil
         targeting.gdprConsentString = nil
         targeting.purposeConsents = nil
+        targeting.sendSharedId = false
         
         targeting.clearAppExtData()
         targeting.clearAppKeywords()
-        targeting.clearUserData()
         targeting.clearUserKeywords()
-        targeting.clearYearOfBirth()
         targeting.clearAccessControlList()
+        targeting.resetSharedId()
         
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_ConsentString)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
@@ -322,16 +315,10 @@ typealias JsonDictionary = [String:Any]
     }
     
     @objc public class func checkInitialValues(_ targeting: Targeting) {
-        XCTAssertEqual(targeting.userGender, .unknown)
-        XCTAssertNil(targeting.userID)
-        XCTAssertNil(targeting.buyerUID)
         XCTAssertNil(targeting.publisherName)
         XCTAssertNil(targeting.storeURL)
-        XCTAssertNil(targeting.userCustomData)
         XCTAssertNil(targeting.userExt)
-        XCTAssertNil(targeting.eids)
         XCTAssertNil(targeting.location)
-        XCTAssertNil(targeting.locationPrecision)
         XCTAssertNil(targeting.sourceapp)
         XCTAssertNil(targeting.storeURL)
         XCTAssertNil(targeting.domain)
@@ -342,9 +329,8 @@ typealias JsonDictionary = [String:Any]
         XCTAssertTrue(targeting.getAppKeywords().isEmpty)
         XCTAssertTrue(targeting.getAppExtData().isEmpty)
         XCTAssertTrue(targeting.getUserKeywords().isEmpty)
-        XCTAssertTrue(targeting.userDataDictionary.isEmpty)
         XCTAssertTrue(targeting.accessControlList.isEmpty)
-        XCTAssert(targeting.yearOfBirth == 0)
+        XCTAssertFalse(targeting.sendSharedId)
         
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_ConsentString))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR))

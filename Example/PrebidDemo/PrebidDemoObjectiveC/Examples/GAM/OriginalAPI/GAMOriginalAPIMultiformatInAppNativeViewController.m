@@ -22,7 +22,7 @@ NSString * const gamMultiformatAdUnitId = @"/21808260008/prebid-demo-multiformat
 
 // Prebid
 @property (nonatomic) PrebidAdUnit * adUnit;
-@property (nonatomic) NativeAd * nativeAd;
+@property (nonatomic, weak) NativeAd * nativeAd;
 
 @property (nonatomic) NSString * configId;
 

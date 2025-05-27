@@ -98,20 +98,20 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
         XCTAssertNil(measurement.initializeNativeVideoSession(UIView(), verificationParameters:nil))
         
         // Still empty resources - fail
-        XCTAssertNil(measurement.initializeNativeVideoSession(UIView(), verificationParameters:PBMVideoVerificationParameters()))
+        XCTAssertNil(measurement.initializeNativeVideoSession(UIView(), verificationParameters:VideoVerificationParameters()))
         
-        let verificationParams = PBMVideoVerificationParameters()
-        verificationParams.verificationResources.add(PBMVideoVerificationResource())
+        let verificationParams = VideoVerificationParameters()
+        verificationParams.verificationResources.append(VideoVerificationResource())
         
         // Still empty resources - fail
         XCTAssertNil(measurement.initializeNativeVideoSession(UIView(), verificationParameters:verificationParams))
         
-        verificationParams.verificationResources.removeLastObject()
-        let resource = PBMVideoVerificationResource()
+        verificationParams.verificationResources.removeLast()
+        let resource = VideoVerificationResource()
         resource.url = "openx.com"
         resource.vendorKey = "OpenX"
         resource.params = "no params"
-        verificationParams.verificationResources.add(resource)
+        verificationParams.verificationResources.append(resource)
         
         // Resources fine but js is empty - fail
         XCTAssertNil(measurement.initializeNativeVideoSession(UIView(), verificationParameters:verificationParams))
@@ -127,12 +127,12 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
         mockLibraryManager.omsdkScript = "{}"
         measurement.libraryManager = mockLibraryManager
         
-        let verificationParams = PBMVideoVerificationParameters()
-        let resource = PBMVideoVerificationResource()
+        let verificationParams = VideoVerificationParameters()
+        let resource = VideoVerificationResource()
         resource.url = "openx.com"
         resource.vendorKey = "OpenX"
         resource.params = "no params"
-        verificationParams.verificationResources.add(resource)
+        verificationParams.verificationResources.append(resource)
         
         let session = measurement.initializeNativeVideoSession(UIView(), verificationParameters:verificationParams)
         
@@ -146,12 +146,12 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
         mockLibraryManager.omsdkScript = "{}"
         measurement.libraryManager = mockLibraryManager
         
-        let verificationParams = PBMVideoVerificationParameters()
-        let resource = PBMVideoVerificationResource()
+        let verificationParams = VideoVerificationParameters()
+        let resource = VideoVerificationResource()
         resource.url = "openx.com"
         resource.vendorKey = "OpenX"
         resource.params = "no params"
-        verificationParams.verificationResources.add(resource)
+        verificationParams.verificationResources.append(resource)
         
         let session = measurement.initializeNativeVideoSession(UIView(), verificationParameters:verificationParams)
         
@@ -165,12 +165,12 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
         mockLibraryManager.omsdkScript = "{}"
         measurement.libraryManager = mockLibraryManager
         
-        let verificationParams = PBMVideoVerificationParameters()
-        let resource = PBMVideoVerificationResource()
+        let verificationParams = VideoVerificationParameters()
+        let resource = VideoVerificationResource()
         resource.url = "openx.com"
         resource.vendorKey = "OpenX"
         resource.params = "no params"
-        verificationParams.verificationResources.add(resource)
+        verificationParams.verificationResources.append(resource)
         
         let nativeVideoSession = measurement.initializeNativeVideoSession(UIView(), verificationParameters:verificationParams)
         

@@ -50,12 +50,12 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
         mockLibraryManager.omsdkScript = "{}"
         measurement.libraryManager = mockLibraryManager
         
-        let verificationParams = PBMVideoVerificationParameters()
-        let resource = PBMVideoVerificationResource()
+        let verificationParams = VideoVerificationParameters()
+        let resource = VideoVerificationResource()
         resource.url = "openx.com"
         resource.vendorKey = "OpenX"
         resource.params = "no params"
-        verificationParams.verificationResources.add(resource)
+        verificationParams.verificationResources.append(resource)
         
         let nativeVideoSession = measurement.initializeNativeVideoSession(UIView(), verificationParameters:verificationParams)
         
@@ -83,7 +83,7 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
         logToFile = nil
         logToFile = .init()
         
-        pbmTracker.trackEvent(PBMTrackingEvent.request)
+        pbmTracker.trackEvent(.request)
         UtilitiesForTesting.checkLogContains("Measurement Session is missed")
     }
 }

@@ -15,66 +15,87 @@ limitations under the License.
 
 import UIKit
 
-/**
- Defines the User Id Object from an External Thrid Party Source
- */
+/// Defines the User Id Object from an External Thrid Party Source
+/// https://github.com/InteractiveAdvertisingBureau/openrtb/blob/main/extensions/2.x_official_extensions/eids.md
 @objcMembers
-public class ExternalUserId: NSObject, NSCoding, NSSecureCoding, JSONConvertible {
-    
-    public static var supportsSecureCoding: Bool {
-        true
-    }
-    
+public class ExternalUserId: NSObject, JSONConvertible {
     
     // MARK: - Properties
+    
+    /// The source of the external user ID.
     public var source: String
-    public var identifier: String
-    public var atype: NSNumber?
+    
+    /// Array of extended ID UID objects from the given source.
+    public var uids: [UserUniqueID] = []
+    
+    /// Additional attributes related to the external user ID, represented as an optional dictionary.
     public var ext: [String: Any]?
 
     // MARK: - Initialization
-    /**
-     Initialize ExternalUserId Class
-    - Parameter source: Source of the External User Id String.
-    - Parameter identifier: String of the External User Id.
-    - Parameter atype: (Optional) Int of the External User Id.
-    - Parameter ext: (Optional) Dictionary of the External User Id.
-    */
-    public init(source: String, identifier: String, atype: NSNumber? = nil, ext:[String: Any]? = nil) {
+    
+    /// Initializes a new `ExternalUserId` object.
+    ///
+    /// - Parameters:
+    ///   - source: The source of the external user ID (e.g., a third-party provider).
+    ///   - uids: A list of `UserUniqueID` objects representing the user's unique identifiers.
+    ///   - ext: Optional dictionary for additional attributes related to the external user ID. Default is `nil`.
+    public init(source: String, uids: [UserUniqueID], ext: [String: Any]? = nil) {
         self.source = source
-        self.identifier = identifier
-        self.atype = atype
+        self.uids = uids
         self.ext = ext
+        
         super.init()
     }
     
-    public func encode(with coder: NSCoder) {
-        coder.encode(self.source, forKey: "source")
-        coder.encode(self.identifier, forKey: "identifier")
-        coder.encode(self.atype, forKey: "atype")
-        coder.encode(self.ext, forKey: "ext")
-    }
-    
-    public required init?(coder: NSCoder) {
-        self.source = coder.decodeObject(forKey: "source") as? String ?? ""
-        self.identifier = coder.decodeObject(forKey: "identifier") as? String ?? ""
-        self.atype = coder.decodeObject(forKey: "atype") as? NSNumber
-        self.ext = coder.decodeObject(forKey: "ext") as? [String: Any]
-    }
-    
-    public func toJSONDictionary() -> [AnyHashable: Any] {
-        guard source.count != 0 && identifier.count != 0 else {
+    /// Converts the `ExternalUserId` instance to a JSON dictionary.
+    public func toJSONDictionary() -> [String: Any] {
+        guard source.count != 0 else {
+            Log.warn("Empty source. Skipping converting to JSON.")
             return [:]
         }
-        var transformedEUIdDic = [AnyHashable: Any]()
+        
+        var transformedEUIdDic = [String: Any]()
         transformedEUIdDic["source"] = source
+        transformedEUIdDic["ext"] = ext
         
-        var externalUserIdDict = [AnyHashable: Any] ()
-        externalUserIdDict["id"] = identifier
-        externalUserIdDict["atype"] = atype
-        externalUserIdDict["ext"] = ext
-        
-        transformedEUIdDic["uids"] = [externalUserIdDict]
+        let uniqueUserIdArray = uids.map { $0.toJSONDictionary() }
+        transformedEUIdDic["uids"] = uniqueUserIdArray
         return transformedEUIdDic
+    }
+}
+
+/// Extended ID UID objects from the given source.
+@objcMembers
+public class UserUniqueID: NSObject, JSONConvertible {
+    
+    /// Cookie or platform-native identifier.
+    public var id: String
+    
+    /// Type of user agent the match is from. It is highly recommended to set this, as many DSPs separate app-native IDs from browser-based IDs and require a type value for ID resolution.
+    public var aType: NSNumber
+    
+    /// Optional vendor-specific extensions.
+    public var ext: [String: Any]?
+    
+    /// Initializes a new UserUniqueID object.
+    ///
+    /// - Parameters:
+    ///   - id: Cookie or platform-native identifier.
+    ///   - aType: Type of user agent the match is from. Recommended for DSP ID resolution.
+    ///   - ext: Optional vendor-specific extensions. Default is `nil`.
+    public init(id: String, aType: NSNumber, ext: [String : Any]? = nil) {
+        self.id = id
+        self.aType = aType
+        self.ext = ext
+    }
+    
+    func toJSONDictionary() -> [String: Any] {
+        var ret = [String: Any]()
+        
+        ret["id"] = id
+        ret["atype"] = aType
+        ret["ext"] = ext
+        
+        return ret
     }
 }

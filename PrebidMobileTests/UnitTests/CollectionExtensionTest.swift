@@ -18,16 +18,7 @@ import XCTest
 
 class CollectionExtensionTest: XCTestCase {
     
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
     func testGetObjectWithoutEmptyValues() {
-        
         //Test 1
         let node1111: NSMutableDictionary = [:]
         let node111: NSMutableDictionary = [:]
@@ -115,7 +106,6 @@ class CollectionExtensionTest: XCTestCase {
         node31.add(node313)
         let result10 = (node1 as! Dictionary).getObjectWithoutEmptyValues()
         XCTAssertEqual("{\"key3\":[{\"key312\":\"value312\"},[{\"key3131\":\"value3131\"}]]}", collectionToString(result10!))
-        
     }
     
     func testSingleContainerIntToIntArray() {
@@ -130,11 +120,199 @@ class CollectionExtensionTest: XCTestCase {
         XCTAssertTrue(intArray.contains(1) && intArray.contains(2) && intArray.contains(5))
     }
     
+    func testDeepMergeValues() {
+        let dict1: [String: Any] = [
+            "key1": "value1",
+            "key2": "value2",
+            "key4": [1,2,3],
+            "key5": 0.1,
+            "key6": "value6",
+            "key7": ["nested1": "nested_value1", "nested2": "nested_value2"],
+            "key8": ["nested1": "nested_value1", "nested2": ["deep_nested1": "deep_nested_value1", "deep_nested2": "deep_nested_value2"]]
+        ]
+        
+        let dict2: [String: Any] = [
+            "key2": "newValue2",
+            "key3": "value3",
+            "key4": [2,3,4,5],
+            "key5": 1,
+            "key6": 1.0,
+            "key7": ["nested2": "another_nested_value2", "nested3": "nested_value3"],
+            "key8": ["nested1": "another_nested_value1", "nested2": ["deep_nested1": "new_nested1", "another_deep_nested2": "another_deep_nested_value2"]]
+        ]
+        
+        let result = dict1.deepMerging(with: dict2)
+        
+        XCTAssertEqual(result["key1"] as? String, "value1")
+        XCTAssertEqual(result["key2"] as? String, "newValue2")
+        XCTAssertEqual(result["key3"] as? String, "value3")
+        XCTAssertEqual(result["key4"] as? [Int], [1,2,3,4,5])
+        XCTAssertEqual(result["key5"] as? Int, 1)
+        XCTAssertEqual(result["key6"] as? Double, 1.0)
+        XCTAssertEqual(result["key7"] as? [String: String], ["nested1": "nested_value1", "nested2": "another_nested_value2", "nested3": "nested_value3"])
+        XCTAssert(NSDictionary(dictionary: result["key8"] as! [String: Any]).isEqual(to: ["nested1": "another_nested_value1", "nested2":["deep_nested1": "new_nested1", "deep_nested2": "deep_nested_value2", "another_deep_nested2": "another_deep_nested_value2"]] as [String : Any]))
+    }
+    
+    func testDeepMergeReplaceValues() {
+        let dict1: [String: Any] = [
+            "key1": "value1",
+            "key2": "value2",
+            "key4": [1,2,3],
+            "key5": 0.1,
+            "key6": "value6",
+            "key7": ["nested1": "nested_value1", "nested2": "nested_value2"],
+            "key8": ["nested1": "nested_value1", "nested2": ["deep_nested1": "deep_nested_value1", "deep_nested2": "deep_nested_value2"]]
+        ]
+        
+        let dict2: [String: Any] = [
+            "key2": "newValue2",
+            "key3": "value3",
+            "key4": [3,4,5],
+            "key5": 1,
+            "key6": 1.0,
+            "key7": ["nested2": "another_nested_value2", "nested3": "nested_value3"],
+            "key8": ["nested1": "another_nested_value1", "nested2": ["deep_nested1": "new_nested1", "another_deep_nested2": "another_deep_nested_value2"]]
+        ]
+        
+        let result = dict1.deepMerging(with: dict2, shouldReplace: true)
+        
+        XCTAssertEqual(result["key1"] as? String, "value1")
+        XCTAssertEqual(result["key2"] as? String, "newValue2")
+        XCTAssertEqual(result["key3"] as? String, "value3")
+        XCTAssertEqual(result["key4"] as? [Int], [3,4,5])
+        XCTAssertEqual(result["key5"] as? Int, 1)
+        XCTAssertEqual(result["key6"] as? Double, 1.0)
+        XCTAssertEqual(result["key7"] as? [String: String], ["nested2": "another_nested_value2", "nested3": "nested_value3"])
+        XCTAssert(NSDictionary(dictionary: result["key8"] as! [String: Any]).isEqual(to: ["nested1": "another_nested_value1", "nested2": ["deep_nested1": "new_nested1", "another_deep_nested2": "another_deep_nested_value2"]] as [String : Any]))
+    }
+    
+    func testDeepMergeEmptyDictionary() {
+        let dict1: [String: Any] = [:]
+        let dict2: [String: Any] = [:]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        XCTAssertTrue(merged.isEmpty)
+    }
+    
+    func testDeepMergeOneEmptyDictionary() {
+        let dict1: [String: Any] = ["key1": "value1"]
+        let dict2: [String: Any] = [:]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        XCTAssert(NSDictionary(dictionary: merged).isEqual(to: dict1))
+        
+        let merged2 = dict2.deepMerging(with: dict1)
+        XCTAssert(NSDictionary(dictionary: merged2).isEqual(to: dict1))
+    }
+    
+    func testDeepMergeIdenticalDictionaries() {
+        let dict1: [String: Any] = ["key1": "value1", "key2": "value2"]
+        let dict2: [String: Any] = ["key1": "value1", "key2": "value2"]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        XCTAssert(NSDictionary(dictionary: merged).isEqual(to: dict1))
+    }
+    
+    func testDeepMergeArraysWithDuplicates() {
+        let dict1: [String: Any] = ["key1": [1, 2, 3]]
+        let dict2: [String: Any] = ["key1": [3, 4, 5]]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        let expected: [String: Any] = ["key1": [1, 2, 3, 4, 5]]
+        
+        XCTAssertEqual(merged["key1"] as? [Int], expected["key1"] as? [Int])
+    }
+    
+    func testDeepMergeDifferentValueTypes() {
+        let dict1: [String: Any] = ["key1": 123]
+        let dict2: [String: Any] = ["key1": "value1"]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        let expected: [String: Any] = ["key1": "value1"]
+        
+        XCTAssert(NSDictionary(dictionary: merged).isEqual(to: expected))
+    }
+    
+    func testDeepMergeReplaceArrayWithDictionary() {
+        let dict1: [String: Any] = ["key1": [1, 2, 3]]
+        let dict2: [String: Any] = ["key1": ["nestedKey": "value1"]]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        let expected: [String: Any] = ["key1": ["nestedKey": "value1"]]
+        
+        XCTAssert(NSDictionary(dictionary: merged).isEqual(to: expected))
+    }
+    
+    func testDeepMergeNestedDictionariesWithArrays() {
+        let dict1: [String: Any] = ["key1": ["nestedKey": [1, 2]]]
+        let dict2: [String: Any] = ["key1": ["nestedKey": [3, 4]]]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        let expected: [String: Any] = ["key1": ["nestedKey": [1, 2, 3, 4]]]
+        
+        XCTAssert(NSDictionary(dictionary: merged["key1"] as! [String: Any]).isEqual(to: expected["key1"] as! [String: Any]))
+    }
+    
+    func testDeepMergePrimitives() {
+        let dict1: [String: Any] = ["key1": 123]
+        let dict2: [String: Any] = ["key1": "value"]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        XCTAssertEqual(merged["key1"] as? String, "value")
+    }
+    
+    func testDeepMergeDeepNestedArrays() {
+        let dict1: [String: Any] = [
+            "key1": ["nestedKey1": [["a", "b"], ["c", "d"]]]
+        ]
+        let dict2: [String: Any] = [
+            "key1": ["nestedKey1": [["e", "f"], ["g", "h"]]]
+        ]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        let expected: [String: Any] = [
+            "key1": ["nestedKey1": [["a", "b"], ["c", "d"], ["e", "f"], ["g", "h"]]]
+        ]
+        
+        XCTAssertEqual(merged as NSDictionary, expected as NSDictionary)
+    }
+    
+    func testDeepMergeDeepNestedDictionaries() {
+        let dict1: [String: Any] = [
+            "key1": [
+                "nestedKey1": [
+                    "deepNestedKey1": "value1"
+                ],
+                "nestedKey2": [1, 2, 3]
+            ]
+        ]
+        let dict2: [String: Any] = [
+            "key1": [
+                "nestedKey1": [
+                    "deepNestedKey2": "value2"
+                ],
+                "nestedKey2": [3, 4, 5]
+            ]
+        ]
+        
+        let merged = dict1.deepMerging(with: dict2)
+        let expected: [String: Any] = [
+            "key1": [
+                "nestedKey1": [
+                    "deepNestedKey1": "value1",
+                    "deepNestedKey2": "value2"
+                ],
+                "nestedKey2": [1, 2, 3, 4, 5]
+            ]
+        ]
+        
+        XCTAssertEqual(merged as NSDictionary, expected as NSDictionary)
+    }
+    
     private func collectionToString(_ dict: [AnyHashable: Any]) -> String {
         let jsonData = try! JSONSerialization.data(withJSONObject: dict, options: [])
         let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
         
         return jsonString
     }
-    
 }

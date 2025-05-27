@@ -42,5 +42,4 @@ class BaseAdsTest: XCTestCase {
         app.searchFields.element.typeText(testCase)
         app.tables.element(boundBy: 0).cells.element(boundBy: 0).tap()
     }
-    
 }

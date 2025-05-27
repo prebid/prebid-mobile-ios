@@ -67,12 +67,25 @@
     BOOL const isHTML = ([adFormats containsObject:AdFormat.banner]);
     BOOL const isInterstitial = self.adConfiguration.adConfiguration.isInterstitialAd;
     
+    NSString *requestID = self.sdkConfiguration.prebidServerAccountId;
+    NSString *settingsID = self.sdkConfiguration.auctionSettingsId;
+    if (settingsID) {
+        if ([[settingsID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) {
+            PBMLogWarn(@"Auction settings Id is invalid. Prebid Server Account Id will be used.");
+        } else {
+            requestID = settingsID;
+        }
+    }
+    
     bidRequest.requestID = [NSUUID UUID].UUIDString;
-    bidRequest.extPrebid.storedRequestID        = self.sdkConfiguration.prebidServerAccountId;
+    bidRequest.extPrebid.storedRequestID        = requestID;
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
-    bidRequest.ortbObject = [self.adConfiguration.adConfiguration getCheckedOrtbConfig];
+
+    if (!self.adConfiguration.adConfiguration.isOriginalAPI) {
+        bidRequest.extPrebid.sdkRenderers = [PrebidMobilePluginRegister.shared getAllPluginsJSONRepresentation];
+    }
 
     if (Prebid.shared.pbsDebug) {
         bidRequest.test = @1;
@@ -106,12 +119,6 @@
     bidRequest.device.pxratio   = @([UIScreen mainScreen].scale);
     bidRequest.source.tid       = [NSUUID UUID].UUIDString;
     bidRequest.device.ua        = self.userAgentService.userAgent;
-    
-    bidRequest.app.content = [self.adConfiguration getAppContent];
-    
-    if (self.targeting.userDataDictionary.count > 0) {
-        bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
-    }
     
     if (self.targeting.gdprConsentString && self.targeting.gdprConsentString.length > 0) {
         bidRequest.user.ext[@"consent"] = self.targeting.gdprConsentString;
@@ -148,25 +155,12 @@
         }
         formats = newFormats;
     } else if (isInterstitial) {
-        NSNumber * const w = bidRequest.device.w;
-        NSNumber * const h = bidRequest.device.h;
-        if (w && h) {
-            PBMORTBFormat * const newFormat = [[PBMORTBFormat alloc] init];
-            newFormat.w = w;
-            newFormat.h = h;
-            formats = @[newFormat];
-        }
         if (self.adConfiguration.minSizePerc && isHTML) {
             const CGSize minSizePerc = self.adConfiguration.minSizePerc.CGSizeValue;
             PBMORTBDeviceExtPrebidInterstitial * const interstitial = bidRequest.device.extPrebid.interstitial;
             interstitial.minwidthperc = @(minSizePerc.width);
             interstitial.minheightperc = @(minSizePerc.height);
         }
-    }
-    
-    NSArray<PBMORTBContentData *> *userData = [self.adConfiguration getUserData];
-    if (userData) {
-        bidRequest.user.data = userData;
     }
     
     PBMORTBAppExt * const appExt = bidRequest.app.ext;
@@ -180,22 +174,19 @@
         nextImp.impID = [NSUUID UUID].UUIDString;
         nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
-        nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
         nextImp.extGPID = self.adConfiguration.gpid;
         
-        if ([self.adConfiguration getExtData].count > 0) {
-            nextImp.extData = [self.adConfiguration getExtData].mutableCopy;
+        nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isRewarded;
+        if (self.adConfiguration.adConfiguration.isRewarded) {
+            nextImp.rewarded = @(1);
         }
         
-        if ([self.adConfiguration getExtKeywords].count > 0) {
-            NSMutableArray * extKeywords = [NSMutableArray arrayWithArray:[[self.adConfiguration getExtKeywords] allObjects]];
-            nextImp.extKeywords = [extKeywords componentsJoinedByString:@","];
-        }
+        NSString * pbAdSlot = [self.adConfiguration getPbAdSlot];
         
-        nextImp.extData[@"adslot"] = [self.adConfiguration getPbAdSlot];
+        nextImp.extData[@"pbadslot"] = pbAdSlot;
         
         for (AdFormat* adFormat in adFormats) {
-            if (adFormat == AdFormat.banner || adFormat == AdFormat.display) {
+            if (adFormat == AdFormat.banner) {
                 PBMORTBBanner * const nextBanner = nextImp.banner;
                 if (formats) {
                     nextBanner.format = formats;
@@ -270,8 +261,20 @@
                     nextVideo.placement = [NSNumber numberWithInteger:videoParameters.placement.value];
                 }
                 
+                if (videoParameters.plcmnt) {
+                    nextVideo.plcmt = [NSNumber numberWithInteger:videoParameters.plcmnt.value];
+                }
+                
                 if (videoParameters.linearity) {
                     nextVideo.linearity = [NSNumber numberWithInteger:videoParameters.linearity.value];
+                }
+                
+                if (videoParameters.battr && videoParameters.battr.count > 0) {
+                    nextVideo.battr = videoParameters.rawBattrs;
+                }
+
+                if (videoParameters.rawSkippable) {
+                    nextVideo.skip = videoParameters.rawSkippable;
                 }
                 
                 if (self.adConfiguration.adPosition != PBMAdPositionUndefined) {

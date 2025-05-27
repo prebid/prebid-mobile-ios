@@ -17,11 +17,23 @@ import XCTest
 
 class BannerAdsTest: BaseAdsTest {
     
+    private var labelText: String?
+    
+    override func tearDown() {
+        labelText = nil
+    }
+    
     public func testInAppBannerAd() {
         testAd(testCase: testCases.inAppDisplayBannerCase)
     }
     
+    public func testInAppBannerAdCustomRenderer() {
+        labelText = "Custom Renderer"
+        testAd(testCase: testCases.inAppDisplayBannerCustomRendererCase)
+    }
+    
     public func testGamOriginalBannerAd() {
+        labelText = "Test mode"
         testAd(testCase: testCases.gamOriginalDisplayBannerCase)
     }
     
@@ -34,11 +46,16 @@ class BannerAdsTest: BaseAdsTest {
     }
     
     override func checkAd(testCase: String) {
-        XCTAssert(app.webViews.element.waitForExistence(timeout: 10), assertFailedMessage(testCase: testCase,reason: "Banner Web View is not displayed"))
-        if testCase == testCases.gamOriginalDisplayBannerCase {
-            XCTAssert(app.staticTexts["Test mode"].waitForExistence(timeout: 10))
+        XCTAssert(
+            app.webViews.element.waitForExistence(timeout: 10),
+            assertFailedMessage(testCase: testCase,reason: "Banner Web View is not displayed")
+        )
+        
+        if let labelText {
+            XCTAssert(
+                app.staticTexts[labelText].waitForExistence(timeout: 10),
+                assertFailedMessage(testCase: testCase, reason: "`\(labelText)` is not displayed")
+            )
         }
     }
-    
-    
 }

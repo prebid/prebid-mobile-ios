@@ -110,9 +110,9 @@
         
         if([adServerName isEqualToString:kDFPString]){
                 if ([host isEqualToString:kAppNexusString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostAppnexus;
+                    [Host.shared setHostURL:kAppNexusPrebidServerEndpoint nonTrackingURLString:NULL error:NULL];
                 } else if ([host isEqualToString:kRubiconString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostRubicon;
+                    [Host.shared setHostURL:kRubiconPrebidServerEndpoint nonTrackingURLString:NULL error:NULL];
                 }
         }
         [self.delegate adUnitRegistered];
@@ -124,9 +124,7 @@
 }
 
 - (void)setPrebidTargetingParams {
-    Targeting.shared.userGender = GenderFemale;
     Prebid.shared.shareGeoLocation = TRUE;
-    
 }
 
 #pragma mark - PBVPrebidSDKValidator APIs
@@ -179,7 +177,7 @@
                 }];
             }];
         } else if ([adFormatName isEqualToString:kNativeString]) {
-            self.dfpView = [[GAMBannerView alloc] initWithAdSize:kGADAdSizeFluid];
+            self.dfpView = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFluid];
             self.dfpView.adUnitID = adUnitID;
             self.dfpView.delegate = self;
             self.dfpView.rootViewController = (UIViewController *)_delegate;

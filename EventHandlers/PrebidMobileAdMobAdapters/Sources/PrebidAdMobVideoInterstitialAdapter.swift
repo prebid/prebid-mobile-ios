@@ -20,7 +20,7 @@ import PrebidMobile
 @objc(PrebidAdMobVideoInterstitialAdapter)
 public class PrebidAdMobVideoInterstitialAdapter:
     PrebidAdMobMediationBaseAdapter,
-    GADMediationInterstitialAd,
+    GoogleMobileAds.MediationInterstitialAd,
     InterstitialControllerLoadingDelegate,
     InterstitialControllerInteractionDelegate {
     
@@ -30,11 +30,13 @@ public class PrebidAdMobVideoInterstitialAdapter:
     weak var rootViewController: UIViewController?
     var adAvailable = false
     
-    public weak var delegate: GADMediationInterstitialAdEventDelegate?
+    public weak var delegate: GoogleMobileAds.MediationInterstitialAdEventDelegate?
     var completionHandler: GADMediationInterstitialLoadCompletionHandler?
     
-    public func loadInterstitial(for adConfiguration: GADMediationInterstitialAdConfiguration,
-                                 completionHandler: @escaping GADMediationInterstitialLoadCompletionHandler) {
+    public func loadInterstitial(
+        for adConfiguration: GoogleMobileAds.MediationInterstitialAdConfiguration,
+        completionHandler: @escaping GADMediationInterstitialLoadCompletionHandler
+    ) {
         self.completionHandler = completionHandler
         
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
@@ -43,7 +45,7 @@ public class PrebidAdMobVideoInterstitialAdapter:
             return
         }
         
-        guard let eventExtras = adConfiguration.extras as? GADCustomEventExtras,
+        guard let eventExtras = adConfiguration.extras as? GoogleMobileAds.CustomEventExtras,
               let eventExtrasDictionary = eventExtras.extras(forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel),
               !eventExtrasDictionary.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
@@ -103,7 +105,9 @@ public class PrebidAdMobVideoInterstitialAdapter:
     
     // MARK: - InterstitialControllerLoadingDelegate
     
-    public func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidLoadAd(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {
         adAvailable = true
         
         if let handler = completionHandler {
@@ -111,7 +115,10 @@ public class PrebidAdMobVideoInterstitialAdapter:
         }
     }
     
-    public func interstitialController(_ interstitialController: InterstitialController, didFailWithError error: Error) {
+    public func interstitialController(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol,
+        didFailWithError error: Error
+    ) {
         adAvailable = false
         
         if let handler = completionHandler {
@@ -121,28 +128,34 @@ public class PrebidAdMobVideoInterstitialAdapter:
     
     // MARK: - InterstitialControllerInteractionDelegate
     
-    public func trackImpression(forInterstitialController: InterstitialController) {
+    public func trackImpression(forInterstitialController: PrebidMobileInterstitialControllerProtocol) {
         delegate?.reportImpression()
     }
     
-    public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
+    public func viewControllerForModalPresentation(
+        fromInterstitialController: PrebidMobileInterstitialControllerProtocol
+    ) -> UIViewController? {
         rootViewController
     }
     
-    public func interstitialControllerDidClickAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidClickAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         delegate?.reportClick()
     }
     
-    public func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         delegate?.willDismissFullScreenView()
         delegate?.didDismissFullScreenView()
     }
     
-    public func interstitialControllerDidDisplay(_ interstitialController: InterstitialController) {
+    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         delegate?.willPresentFullScreenView()
     }
     
-    public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {}
+    public func interstitialControllerDidLeaveApp(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {}
     
-    public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {}
+    public func interstitialControllerDidComplete(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    ) {}
 }

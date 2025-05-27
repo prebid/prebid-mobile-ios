@@ -21,13 +21,13 @@ fileprivate let HBKeywordPrefix = "hb_"
 
 @objcMembers
 public class AdMobUtils: NSObject {
+    
     public static func initializeGAD() {
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        MobileAds.shared.start()
     }
     
     static func removeHBKeywordsFrom(_ keywords: [String]) -> [String]  {
-        return keywords
-            .filter { !$0.hasPrefix(HBKeywordPrefix) }
+        return keywords.filter { !$0.hasPrefix(HBKeywordPrefix) }
     }
     
     static func buildKeywords(existingKeywords: [String]?, targetingInfo: [String: String]?) -> [String]? {

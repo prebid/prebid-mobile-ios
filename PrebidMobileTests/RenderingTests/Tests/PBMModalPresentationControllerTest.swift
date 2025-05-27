@@ -14,11 +14,11 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMModalPresentationControllerTest: XCTestCase, UIViewControllerTransitioningDelegate {
     
-    var modalState: PBMModalState?
+    var modalState: ModalState?
     var modalPresentationController: PBMModalPresentationController?
     var expectationPresentationController:XCTestExpectation!
     
@@ -29,7 +29,9 @@ class PBMModalPresentationControllerTest: XCTestCase, UIViewControllerTransition
         presentedVC.transitioningDelegate = self;
         
         XCTAssertNil(modalState)
-        modalState = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        modalState = Factory.createModalState(view: PBMWebView(),
+                                              adConfiguration:AdConfiguration(),
+                                              displayProperties:InterstitialDisplayProperties())
         XCTAssertNil(modalPresentationController)
         
         expectationPresentationController = self.expectation(description: "expectationPresentationController")

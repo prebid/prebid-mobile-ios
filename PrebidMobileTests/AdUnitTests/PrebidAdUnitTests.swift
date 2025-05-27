@@ -175,6 +175,7 @@ class PrebidAdUnitTests: XCTestCase {
             XCTAssertTrue(config.adConfiguration.isInterstitialAd)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
+            XCTAssertEqual(config.adConfiguration.videoParameters.plcmnt, .Interstitial)
             XCTAssertEqual(config.minSizePerc, NSValue(cgSize: CGSize(width: 4, height: 4)))
             expectation.fulfill()
         }
@@ -187,6 +188,7 @@ class PrebidAdUnitTests: XCTestCase {
             XCTAssertTrue(config.adConfiguration.isInterstitialAd)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
+            XCTAssertEqual(config.adConfiguration.videoParameters.plcmnt, .Interstitial)
             XCTAssertEqual(config.minSizePerc, NSValue(cgSize: CGSize(width: 4, height: 4)))
             expectation.fulfill()
         }
@@ -202,6 +204,7 @@ class PrebidAdUnitTests: XCTestCase {
         var adUnit = PrebidAdUnit(configId: "test-config-id")
 
         let videoParameters = VideoParameters(mimes: ["video/mp4"])
+        videoParameters.battr = [.SkipButton, .AudioButton]
 
         let request = PrebidRequest(videoParameters: videoParameters, isInterstitial: true, isRewarded: true)
         
@@ -210,10 +213,12 @@ class PrebidAdUnitTests: XCTestCase {
         // fetchDemand(request:completion)
         adUnit.fetchDemand(request: request) { _ in
             XCTAssertTrue(config.adConfiguration.isInterstitialAd)
-            XCTAssertTrue(config.adConfiguration.isOptIn)
+            XCTAssertTrue(config.adConfiguration.isRewarded)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
-
+            XCTAssertEqual(config.adConfiguration.videoParameters.plcmnt, .Interstitial)
+            XCTAssertEqual(config.adConfiguration.videoParameters.battr,
+                           [.SkipButton, .AudioButton])
             expectation.fulfill()
         }
 
@@ -223,152 +228,11 @@ class PrebidAdUnitTests: XCTestCase {
         // fetchDemand(adObject:request:completion)
         adUnit.fetchDemand(adObject: testObject, request: request) { _ in
             XCTAssertTrue(config.adConfiguration.isInterstitialAd)
-            XCTAssertTrue(config.adConfiguration.isOptIn)
+            XCTAssertTrue(config.adConfiguration.isRewarded)
             XCTAssertEqual(config.adPosition, .fullScreen)
             XCTAssertEqual(config.adConfiguration.videoParameters.placement, .Interstitial)
+            XCTAssertEqual(config.adConfiguration.videoParameters.plcmnt, .Interstitial)
 
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 5, handler: nil)
-    }
-    
-    func testAdUnitConfiguration_extData() {
-        var adUnit = PrebidAdUnit(configId: "test-config-id")
-
-        let request = PrebidRequest(bannerParameters: BannerParameters())
-        request.addExtData(key: "key1", value: "value1")
-
-        let testObject: AnyObject = () as AnyObject
-
-        let expectation = expectation(description: "\(#function)")
-        expectation.expectedFulfillmentCount = 2
-
-        var config = adUnit.getConfiguration()
-        
-        // fetchDemand(request:completion)
-        adUnit.fetchDemand(request: request) { _ in
-            XCTAssertEqual(config.getExtData(), ["key1": ["value1"]])
-            expectation.fulfill()
-        }
-
-        adUnit = PrebidAdUnit(configId: "test-config-id")
-        config = adUnit.getConfiguration()
-
-        // fetchDemand(adObject:request:completion)
-        adUnit.fetchDemand(adObject: testObject, request: request) { _ in
-            XCTAssertEqual(config.getExtData(), ["key1": ["value1"]])
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 5, handler: nil)
-    }
-    
-    func testAdUnitConfiguration_appContent() {
-        var adUnit = PrebidAdUnit(configId: "test-config-id")
-
-        let request = PrebidRequest(bannerParameters: BannerParameters())
-
-        let appContent = PBMORTBAppContent()
-        let contentData = PBMORTBContentData()
-        contentData.name = "test"
-        appContent.data = [contentData]
-
-        request.setAppContent(appContent)
-
-        let testObject: AnyObject = () as AnyObject
-
-        let expectation = expectation(description: "\(#function)")
-        expectation.expectedFulfillmentCount = 2
-        
-        var config = adUnit.getConfiguration()
-
-        // fetchDemand(request:completion)
-        adUnit.fetchDemand(request: request) { _ in
-            let realAppContent = config.getAppContent()
-            XCTAssertEqual(realAppContent?.data?.count, 1)
-            XCTAssertEqual(realAppContent?.data?.first?.name, "test")
-            expectation.fulfill()
-        }
-
-        adUnit = PrebidAdUnit(configId: "test-config-id")
-        config = adUnit.getConfiguration()
-
-        // fetchDemand(adObject:request:completion)
-        adUnit.fetchDemand(adObject: testObject, request: request) { _ in
-            let realAppContent = config.getAppContent()
-            XCTAssertEqual(realAppContent?.data?.count, 1)
-            XCTAssertEqual(realAppContent?.data?.first?.name, "test")
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 5, handler: nil)
-    }
-    
-    func testAdUnitConfiguration_userData() {
-        var adUnit = PrebidAdUnit(configId: "test-config-id")
-
-        let request = PrebidRequest(bannerParameters: BannerParameters())
-
-        let contentData = PBMORTBContentData()
-        contentData.name = "test"
-
-        request.addUserData([contentData])
-
-        let testObject: AnyObject = () as AnyObject
-
-        let expectation = expectation(description: "\(#function)")
-        expectation.expectedFulfillmentCount = 2
-        
-        var config = adUnit.getConfiguration()
-
-        // fetchDemand(request:completion)
-        adUnit.fetchDemand(request: request) { _ in
-            let realUserData = config.getUserData()
-            XCTAssertEqual(realUserData?.count, 1)
-            XCTAssertEqual(realUserData?.first?.name, "test")
-            expectation.fulfill()
-        }
-
-        adUnit = PrebidAdUnit(configId: "test-config-id")
-        config = adUnit.getConfiguration()
-
-        // fetchDemand(adObject:request:completion)
-        adUnit.fetchDemand(adObject: testObject, request: request) { _ in
-            let realUserData = config.getUserData()
-            XCTAssertEqual(realUserData?.count, 1)
-            XCTAssertEqual(realUserData?.first?.name, "test")
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 5, handler: nil)
-    }
-    
-    func testAdUnitConfiguration_extKeywords() {
-        var adUnit = PrebidAdUnit(configId: "test-config-id")
-
-        let request = PrebidRequest(bannerParameters: BannerParameters())
-        request.addExtKeyword("test1")
-
-        let testObject: AnyObject = () as AnyObject
-
-        let expectation = expectation(description: "\(#function)")
-        expectation.expectedFulfillmentCount = 2
-        
-        var config = adUnit.getConfiguration()
-
-        // fetchDemand(request:completion)
-        adUnit.fetchDemand(request: request) { _ in
-            XCTAssertEqual(config.getExtKeywords(), ["test1"])
-            expectation.fulfill()
-        }
-
-        adUnit = PrebidAdUnit(configId: "test-config-id")
-        config = adUnit.getConfiguration()
-
-        // fetchDemand(adObject:request:completion)
-        adUnit.fetchDemand(adObject: testObject, request: request) { _ in
-            XCTAssertEqual(config.getExtKeywords(), ["test1"])
             expectation.fulfill()
         }
 
@@ -401,5 +265,20 @@ class PrebidAdUnitTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func testSetAdPosition() {
+        let request = PrebidRequest(bannerParameters: BannerParameters())
+        request.adPosition = .header
+        
+        let adUnit = PrebidAdUnit(configId: "test-config-id")
+        adUnit.fetchDemand(request: request, completion: { _ in })
+        
+        XCTAssertEqual(adUnit.getConfiguration().adPosition, .header)
+        
+        request.adPosition = .footer
+        adUnit.fetchDemand(request: request, completion: { _ in })
+        
+        XCTAssertEqual(adUnit.getConfiguration().adPosition, .footer)
     }
 }

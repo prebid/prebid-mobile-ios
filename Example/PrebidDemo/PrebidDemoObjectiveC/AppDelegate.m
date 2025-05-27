@@ -25,24 +25,34 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     // Initialize Prebid SDK
-    [Prebid initializeSDKWithGadMobileAdsVersion:GADGetStringFromVersionNumber(GADMobileAds.sharedInstance.versionNumber) :nil];
+    [Prebid initializeSDKWithServerURL:@"https://prebid-server-test-j.prebid.org/openrtb2/auction"
+                   gadMobileAdsVersion:GADGetStringFromVersionNumber(GADMobileAds.sharedInstance.versionNumber)
+                                 error:nil
+                                      :^(enum PrebidInitializationStatus status, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"Initialization Error: %@", error.localizedDescription);
+        }
+    }];
     
     Prebid.shared.prebidServerAccountId = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
-    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid-server-test-j.prebid.org/openrtb2/auction" error:nil];
+
     // Set sourceapp
     Targeting.shared.sourceapp = @"PrebidDemoObjectiveC";
     
     // Initialize GoogleMobileAds SDK
-    GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[ GADSimulatorID ];
     [[GADMobileAds sharedInstance] startWithCompletionHandler:^(GADInitializationStatus * _Nonnull status) {}];
     
     [GAMUtils.shared initializeGAM];
     [AdMobUtils initializeGAD];
     
     // Initialize AppLovin MAX SDK
-    [ALSdk shared].mediationProvider = ALMediationProviderMAX;
-    [ALSdk shared].userIdentifier = @"USER_ID";
-    [[ALSdk shared] initializeSdkWithCompletionHandler:^(ALSdkConfiguration *configuration) {}];
+    ALSdkInitializationConfiguration *config = [ALSdkInitializationConfiguration
+                                                    configurationWithSdkKey: @"1tLUnP4cVQqpHuHH2yMtfdESvvUhTB05NdbCoDTceDDNVnhd_T8kwIzXDN9iwbdULTboByF-TtNaiTmsoVbxZw"
+                                                    builderBlock:^(ALSdkInitializationConfigurationBuilder *builder) {
+        builder.mediationProvider = ALMediationProviderMAX;
+    }];
+    
+    [[ALSdk shared] initializeWithConfiguration:config completionHandler:^(ALSdkConfiguration * _Nonnull configuration) {}];
     
     return YES;
 }
