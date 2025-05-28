@@ -106,16 +106,4 @@ class Factory: NSObject {
                             nextOnStateHasLeftApp: nextOnStateHasLeftApp,
                             onModalPushedBlock: onModalPushedBlock)
     }
-    
-    // MARK: PBMInterstitialAdLoader
-    
-    @objc public static let PBMInterstitialAdLoaderType: PBMInterstitialAdLoader.Type = {
-        NSClassFromString("PBMInterstitialAdLoader_Objc") as! PBMInterstitialAdLoader.Type
-    }()
-    
-    @objc public static func PBMInterstitialAdLoader(delegate: InterstitialAdLoaderDelegate,
-                                                     eventHandler: PrimaryAdRequesterProtocol) -> PBMInterstitialAdLoader {
-        PBMInterstitialAdLoaderType.init(delegate: delegate, eventHandler: eventHandler)
-    }
 }
-
