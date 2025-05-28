@@ -193,7 +193,7 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
                 modalViewController = modalVC
                 // Verifying type of modalViewController
                 if state.mraidState == .resized,
-                    !modalViewController.isKind(of: Factory.NonModalViewControllerType) {
+                   !modalViewController.isKind(of: NonModalViewController.self) {
                     let rootVC = modalViewController.presentingViewController
                     self.dismissModalOnce(animated: true) { [weak self] in
                         guard let self else {
@@ -207,7 +207,7 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
                     }
                     return
                 } else if state.mraidState != .resized,
-                          modalViewController.isKind(of: Factory.NonModalViewControllerType) {
+                          modalViewController.isKind(of: NonModalViewController.self) {
                     let rootVC = modalViewController.presentingViewController
                     self.dismissModalOnce(animated: true) { [weak self] in
                         guard let self else {
@@ -222,7 +222,7 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
                     }
                     return
                 } else if state.mraidState == .resized,
-                          modalViewController.isKind(of: Factory.NonModalViewControllerType) {
+                          modalViewController.isKind(of: NonModalViewController.self) {
                     if let modalPresenter = modalViewController.presentationController as? ModalPresentationController {
                         modalPresenter.frameOfPresentedView = state.displayProperties?.contentFrame
                         modalPresenter.containerViewWillLayoutSubviews()
@@ -232,13 +232,12 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
                 // If modalViewController doesn't exist, create one and show it
                 
                 if let modalViewControllerClass = self.modalViewControllerClass {
-                    modalViewController = Factory.createModalViewController(type: modalViewControllerClass)
+                    modalViewController = ModalViewController()
                 } else if state.mraidState == .resized {
-                    modalViewController = Factory.createNonModalViewController(
-                        frameOfPresentedView:state.displayProperties?.contentFrame ?? .zero
-                    )
+                    modalViewController = NonModalViewController(
+                        frameOfPresentedView: state.displayProperties?.contentFrame ?? .zero)
                 } else {
-                    modalViewController = Factory.createModalViewController()
+                    modalViewController = ModalViewController()
                     modalViewController.modalPresentationStyle = .overFullScreen
                 }
                 
@@ -311,7 +310,7 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
     //TODO: Consider moving to PBMAbstractCreative
     // MARK: PBMModalViewControllerDelegate
     
-    public func modalViewControllerCloseButtonTapped(_ modalViewController: any ModalViewController) {
+    public func modalViewControllerCloseButtonTapped(_ modalViewController: ModalViewController) {
         if let modalState = modalViewController.modalState {
             removeModal(modalState)
         }

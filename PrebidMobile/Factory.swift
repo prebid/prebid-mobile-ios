@@ -118,3 +118,4 @@ class Factory: NSObject {
         PBMInterstitialAdLoaderType.init(delegate: delegate, eventHandler: eventHandler)
     }
 }
+

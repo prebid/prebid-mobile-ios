@@ -18,7 +18,6 @@
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMFunctions.h"
 #import "PBMFunctions+Private.h"
-#import "PBMModalViewController.h"
 #import "PBMWindowLocker.h"
 #import "Log+Extensions.h"
 

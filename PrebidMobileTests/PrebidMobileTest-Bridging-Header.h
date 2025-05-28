@@ -50,8 +50,6 @@
 #import "PBMHTMLFormatter.h"
 #import "PBMMacros.h"
 #import "PBMModalState.h"
-#import "PBMModalViewController.h"
-#import "PBMModalAnimator.h"
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"
 #import "PBMMRAIDController.h"
@@ -126,7 +124,6 @@
 #import "PBMOpenMeasurementEventTracker+PBMTestExtension.h"
 #import "PBMVideoCreative+PBMTestExtension.h"
 #import "PBMVideoView+PBMTestExtension.h"
-#import "PBMModalAnimator+PBMTestExtension.h"
 #import "PBMBasicParameterBuilder+PBMTestExtension.h"
 #import "PBMMRAIDController+PBMTestExtension.h"
 #import "PBMCreativeViewabilityTracker+PBMTestExtension.h"
@@ -149,5 +146,3 @@
 #import "MediationBannerAdUnit+TestExtension.h"
 
 #import "InternalUserConsentDataManager.h"
-
-#import "PBMCloseActionManager.h"

@@ -17,9 +17,35 @@
 import Foundation
 import UIKit
 
-@_spi(PBMInternal) public typealias NonModalViewController = (NonModalViewController_Protocol & UIViewController)
-
-@objc(PBMNonModalViewController_Protocol) @_spi(PBMInternal) public
-protocol NonModalViewController_Protocol: ModalViewController_Protocol {
-    init(frameOfPresentedView: CGRect)
+@objc(PBMNonModalViewController) @objcMembers
+final class NonModalViewController: ModalViewController {
+    
+    var modalAnimator: ModalAnimator?
+    
+    init(frameOfPresentedView: CGRect) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.view.backgroundColor = .clear
+        
+        self.modalAnimator = ModalAnimator(frameOfPresentedView: frameOfPresentedView)
+        self.transitioningDelegate = modalAnimator
+        
+        self.modalPresentationStyle = .custom
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    // Override display view layout
+    override func configureDisplayView() {
+        let props = displayProperties
+        
+        contentView?.backgroundColor = props?.contentViewColor
+        displayView?.backgroundColor = .clear
+        
+        let size = props?.contentFrame.size ?? .zero
+        let contentFrame = CGRect(origin: .zero, size: size)
+        displayView?.PBMAddConstraintsFromCGRect(contentFrame)
+    }
 }

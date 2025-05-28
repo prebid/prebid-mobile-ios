@@ -22,20 +22,22 @@ import UIKit
 
 class ModalManagerTestDisplayInInterstitial: XCTestCase {
     
-    var expectationModalManagerDidFinishPop:XCTestExpectation!
+    var expectationModalManagerDidFinishPop:XCTestExpectation?
     func modalManagerDidFinishPop(_ state: ModalState!) {
-        expectationModalManagerDidFinishPop.fulfill()
+        expectationModalManagerDidFinishPop?.fulfill()
     }
     
-    var expectationModalManagerDidLeaveApp:XCTestExpectation!
+    var expectationModalManagerDidLeaveApp:XCTestExpectation?
     func modalManagerDidLeaveApp(_ state: ModalState!) {
-        expectationModalManagerDidLeaveApp.fulfill()
+        expectationModalManagerDidLeaveApp?.fulfill()
     }
     
     private var logToFile: LogToFileLock?
     
     override func tearDown() {
         logToFile = nil
+        expectationModalManagerDidFinishPop = nil
+        expectationModalManagerDidLeaveApp = nil
         super.tearDown()
     }
     

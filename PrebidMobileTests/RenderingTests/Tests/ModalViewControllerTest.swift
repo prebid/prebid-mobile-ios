@@ -35,7 +35,7 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
     }
     
     func testConfigureSubView() {
-        let controller = Factory.createModalViewController()
+        let controller = ModalViewController()
         
         // displayView
         logToFile = .init()
@@ -75,7 +75,7 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
     
     func testCloseButtonVisibility() {
         let testDelay: TimeInterval = 3
-        let controller = Factory.createModalViewController()
+        let controller = ModalViewController()
         
         let displayProperties = InterstitialDisplayProperties()
         displayProperties.closeDelayLeft = testDelay
@@ -113,7 +113,7 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
     
     func testTopLevelUI() {
         
-        let viewController = Factory.createModalViewController()
+        let viewController = ModalViewController()
         viewController.preferAppStatusBarHidden = false
         
         let rootWindow = UIWindow(frame: UIScreen.main.bounds)
@@ -130,7 +130,7 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
     }
     
     func testCreativeDisplayCompleted_Rewarded() {
-        let controller = Factory.createModalViewController()
+        let controller = ModalViewController()
         let displayProperties = InterstitialDisplayProperties()
         displayProperties.closeDelayLeft = 3
         
@@ -146,28 +146,28 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
         
         controller.modalState = modalState
         
-        controller.closeButtonDecorator?.button.isHidden = true
-        XCTAssertTrue(controller.closeButtonDecorator!.button.isHidden)
+        controller.closeButtonDecorator.button.isHidden = true
+        XCTAssertTrue(controller.closeButtonDecorator.button.isHidden)
         
         let creative = UtilitiesForTesting.createHTMLCreative()
         creative.creativeModel?.adConfiguration = adConfiguration
         controller.creativeDisplayCompleted(creative)
-        XCTAssertFalse(controller.closeButtonDecorator!.button.isHidden)
+        XCTAssertFalse(controller.closeButtonDecorator.button.isHidden)
     }
     
     func testConfigureCloseButton() {
         expectation = self.expectation(description: "expectation modalViewControllerCloseButtonTapped")
         
-        let controller = Factory.createModalViewController()
+        let controller = ModalViewController()
         controller.setupState(Factory.createModalState(view: UIView(),
                                                        adConfiguration: AdConfiguration(),
                                                        displayProperties:nil))
         
-        XCTAssertNotNil(controller.closeButtonDecorator?.button)
-        XCTAssertFalse(controller.closeButtonDecorator!.button.isHidden)
+        XCTAssertNotNil(controller.closeButtonDecorator.button)
+        XCTAssertFalse(controller.closeButtonDecorator.button.isHidden)
         
         controller.modalViewControllerDelegate = self
-        controller.closeButtonDecorator?.buttonTappedAction()
+        controller.closeButtonDecorator.buttonTappedAction()
         
         self.waitForExpectations(timeout: 1.0, handler: nil)
     }
@@ -180,16 +180,16 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
                                                   adConfiguration: AdConfiguration(),
                                                   displayProperties:displayProperties)
         
-        let controller = Factory.createModalViewController()
+        let controller = ModalViewController()
         controller.modalState = modalState
         
         let expectationShowCloseButtonInitial = self.expectation(description: "expectationShowCloseButtonInitial")
         
         controller.setupCloseButtonDelay()
-        controller.closeButtonDecorator?.button.isHidden = true
+        controller.closeButtonDecorator.button.isHidden = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + displayProperties.closeDelayLeft + 0.5, execute:{
-            XCTAssertFalse(controller.closeButtonDecorator!.button.isHidden)
+            XCTAssertFalse(controller.closeButtonDecorator.button.isHidden)
             expectationShowCloseButtonInitial.fulfill()
         })
         
@@ -205,7 +205,7 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
                                                   adConfiguration: AdConfiguration(),
                                                   displayProperties:InterstitialDisplayProperties())
         
-        let controller = Factory.createModalViewController()
+        let controller = ModalViewController()
         XCTAssertTrue(controller.isRotationEnabled)
         
         controller.setupState(modalState)
@@ -213,7 +213,7 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
     }
     
     func testConfigureDisplayView() {
-        let controller = Factory.createModalViewController()
+        let controller = ModalViewController()
         controller.setupState(Factory.createModalState(view: UIView(),
                                                        adConfiguration: AdConfiguration(),
                                                        displayProperties:nil))
@@ -253,7 +253,7 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
                                                             interruptionTimeout: TimeInterval,
                                                             interruptionInterval: TimeInterval ) {
         
-        let controller = Factory.createModalViewController()
+        let controller = ModalViewController()
         
         let displayProperties = InterstitialDisplayProperties()
         displayProperties.closeDelayLeft = closeButtonDelay
@@ -298,7 +298,7 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
     // MARK: Helper Methods
     
     func callMethod(selector: Selector, message: String) {
-        let modalViewController = Factory.createModalViewController()
+        let modalViewController = ModalViewController()
         modalViewController.modalViewControllerDelegate = self
         
         self.expectation = self.expectation(description: message)

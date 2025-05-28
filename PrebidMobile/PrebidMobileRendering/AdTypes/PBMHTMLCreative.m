@@ -31,7 +31,6 @@
 #import "PBMHTMLFormatter.h"
 #import "PBMMacros.h"
 #import "PBMModalState.h"
-#import "PBMModalViewController.h"
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"
 #import "PBMVideoView.h"
