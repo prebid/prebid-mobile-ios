@@ -29,6 +29,7 @@ extension Prebid {
     static func reset() {
         Prebid.shared.prebidServerAccountId = ""
         Prebid.shared.auctionSettingsId = nil
+        Prebid.shared.shouldDisableStatusCheck = false
 
         Host.shared.reset()
         

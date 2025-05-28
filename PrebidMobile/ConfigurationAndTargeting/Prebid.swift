@@ -132,6 +132,12 @@ public class Prebid: NSObject {
     /// If true, the sdk will add `includebidderkeys` flag inside the targeting object described in [PBS Documentation](https://docs.prebid.org/prebid-server/endpoints/openrtb2/pbs-endpoint-auction.html#targeting)
     public var includeBidderKeys = false
     
+    /**
+     * If true, the SDK will not check the PBS status during initialization. This will save initialization time
+     * if the PBS endpoint is always live and handled client side
+     */
+    public var shouldDisableStatusCheck: Bool = false
+    
     // MARK: - Public Methods
     
     // MARK: - Stored Bid Response

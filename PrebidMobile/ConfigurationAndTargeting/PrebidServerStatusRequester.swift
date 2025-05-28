@@ -44,6 +44,11 @@ class PrebidServerStatusRequester {
     // MARK: - Internal Methods
     
     func requestStatus(_ completion: @escaping PrebidInitializationCallback) {
+        guard !Prebid.shared.shouldDisableStatusCheck else {
+            completion(.serverStatusSkipped, nil)
+            return
+        }
+        
         guard let serverEndpoint = serverEndpoint else {
             completion(.serverStatusWarning, PBMError.error(description: "Prebid SDK failed to get Prebid Server status endpoint."))
             return

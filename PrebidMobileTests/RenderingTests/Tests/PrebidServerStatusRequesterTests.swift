@@ -98,4 +98,26 @@ class PrebidServerStatusRequesterTests: XCTestCase {
         
         waitForExpectations(timeout: 3, handler: nil)
     }
+    
+    func testRequestSkipStatusCheck_Skipped() {
+        Prebid.shared.shouldDisableStatusCheck = true
+        
+        try? Host.shared.setHostURL("https://prebid-server-test-j.prebid.org/openrtb2/auction", nonTrackingURLString: nil)
+        
+        let expectation = expectation(description: "Expected skipped status.")
+        
+        let requester = PrebidServerStatusRequester()
+        
+        requester.requestStatus { status, error in
+            if case .serverStatusSkipped = status {
+                expectation.fulfill()
+            }
+            
+            if let error = error {
+                XCTFail("Failed with error: \(error.localizedDescription)")
+            }
+        }
+        
+        waitForExpectations(timeout: 3, handler: nil)
+    }
 }
