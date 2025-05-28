@@ -28,7 +28,7 @@ protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
     @objc func callDelegate_didClickAd()
 
     @objc func callEventHandler_isReady() -> Bool
-    @objc func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?)
+    @objc func callEventHandler_setLoadingDelegate(_ loadingDelegate: InterstitialEventLoadingDelegate?)
     @objc func callEventHandler_setInteractionDelegate()
     @objc func callEventHandler_requestAd(with bidResponse: BidResponse?)
     @objc func callEventHandler_show(from controller: UIViewController?)
