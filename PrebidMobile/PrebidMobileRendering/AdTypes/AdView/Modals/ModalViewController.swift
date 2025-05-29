@@ -179,6 +179,11 @@ public class ModalViewController: UIViewController {
             displayView?.PBMAddFillSuperviewConstraints()
             return
         }
+        
+        guard !props.contentFrame.isInfinite else {
+            displayView?.PBMAddFillSuperviewConstraints()
+            return
+        }
 
         contentView?.backgroundColor = props.contentViewColor
         displayView?.backgroundColor = .clear
