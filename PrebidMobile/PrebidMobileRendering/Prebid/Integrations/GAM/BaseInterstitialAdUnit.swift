@@ -68,7 +68,7 @@ class BaseInterstitialAdUnit:
     private var showBlock: ((UIViewController?) -> Void)?
     private var currentAdBlock: ((UIViewController?) -> Void)?
     private var isReadyBlock: (() -> Bool)?
-    private var adLoader: PBMInterstitialAdLoader?
+    private var adLoader: InterstitialAdLoader?
     
     private weak var targetController: UIViewController?
     
@@ -84,7 +84,7 @@ class BaseInterstitialAdUnit:
         
         super.init()
         
-        let adLoader = Factory.PBMInterstitialAdLoader(
+        let adLoader = InterstitialAdLoader(
             delegate: self,
             eventHandler: eventHandler
         )
@@ -147,7 +147,7 @@ class BaseInterstitialAdUnit:
     // MARK: - InterstitialAdLoaderDelegate
     
     public func interstitialAdLoader(
-        _ interstitialAdLoader: PBMInterstitialAdLoader,
+        _ interstitialAdLoader: InterstitialAdLoader,
         loadedAd showBlock: @escaping (UIViewController?) -> Void,
         isReadyBlock: @escaping () -> Bool
     ) {
@@ -160,7 +160,7 @@ class BaseInterstitialAdUnit:
     }
     
     public func interstitialAdLoader(
-        _ interstitialAdLoader: PBMInterstitialAdLoader,
+        _ interstitialAdLoader: InterstitialAdLoader,
         createdInterstitialController interstitialController: InterstitialController
     ) {
         interstitialController.interactionDelegate = self

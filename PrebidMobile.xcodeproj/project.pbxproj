@@ -10,6 +10,8 @@
 		00614C4D2DE5F68A00A61974 /* ModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C4C2DE5F68600A61974 /* ModalAnimator.swift */; };
 		00614C5A2DE6FFE800A61974 /* CloseActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C592DE6FFE800A61974 /* CloseActionManager.swift */; };
 		00614C892DE7B5D900A61974 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C882DE7B5D900A61974 /* WebView.swift */; };
+		00614C902DE87D6A00A61974 /* AdLoaderFlowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C8F2DE87D6900A61974 /* AdLoaderFlowDelegate.swift */; };
+		00614C922DE87D9300A61974 /* AdLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C912DE87D9100A61974 /* AdLoaderProtocol.swift */; };
 		2A9DDDCC2C5BE190000EA4A0 /* PrebidEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */; };
 		2A9DDDD42C63665A000EA4A0 /* PBMEventDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */; };
 		2A9DDDD82C63A88C000EA4A0 /* PrebidEventDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */; };
@@ -217,7 +219,7 @@
 		5A8447FE2DB7053E00446F70 /* EventTrackerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8447FD2DB7053E00446F70 /* EventTrackerProtocol.swift */; };
 		5A8448002DB7108B00446F70 /* AdModelEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8447FF2DB7108B00446F70 /* AdModelEventTracker.swift */; };
 		5A8448022DB7117400446F70 /* CreativeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8448012DB7117400446F70 /* CreativeModel.swift */; };
-		5A8C9F532DB956DB00027328 /* PBMInterstitialAdLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C9F522DB956DB00027328 /* PBMInterstitialAdLoader.swift */; };
+		5A8C9F532DB956DB00027328 /* InterstitialAdLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C9F522DB956DB00027328 /* InterstitialAdLoader.swift */; };
 		5AA8F4092DB239F3008A7702 /* PBMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8F4082DB239F3008A7702 /* PBMError.swift */; };
 		5AA8F4152DB26445008A7702 /* BidRequesterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8F4142DB26445008A7702 /* BidRequesterProtocol.swift */; };
 		5ABAA1702D384AE400FDD38A /* SharedId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABAA16F2D384ADC00FDD38A /* SharedId.swift */; };
@@ -541,13 +543,10 @@
 		5BC37A96271F1D0000444D5E /* RewardedEventHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37853271F1CFF00444D5E /* RewardedEventHandlerProtocol.swift */; };
 		5BC37A97271F1D0000444D5E /* InterstitialEventHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37854271F1CFF00444D5E /* InterstitialEventHandlerProtocol.swift */; };
 		5BC37A98271F1D0000444D5E /* PBMBannerAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37856271F1CFF00444D5E /* PBMBannerAdLoader.m */; };
-		5BC37A99271F1D0000444D5E /* PBMInterstitialAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37857271F1CFF00444D5E /* PBMInterstitialAdLoader.m */; };
 		5BC37A9A271F1D0000444D5E /* BannerAdLoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37858271F1CFF00444D5E /* BannerAdLoaderDelegate.swift */; };
 		5BC37A9B271F1D0000444D5E /* PBMAdLoadFlowController+PrivateState.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37859271F1CFF00444D5E /* PBMAdLoadFlowController+PrivateState.h */; };
-		5BC37A9C271F1D0000444D5E /* PBMAdLoaderProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3785A271F1CFF00444D5E /* PBMAdLoaderProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37A9D271F1D0000444D5E /* PBMAdLoadFlowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3785B271F1CFF00444D5E /* PBMAdLoadFlowController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37A9E271F1D0000444D5E /* PBMAdLoadFlowState.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3785C271F1CFF00444D5E /* PBMAdLoadFlowState.h */; };
-		5BC37AA0271F1D0000444D5E /* PBMAdLoaderFlowDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3785E271F1CFF00444D5E /* PBMAdLoaderFlowDelegate.h */; };
 		5BC37AA2271F1D0000444D5E /* PBMBannerAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37860271F1CFF00444D5E /* PBMBannerAdLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37AA3271F1D0000444D5E /* AdLoadFlowControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37861271F1CFF00444D5E /* AdLoadFlowControllerDelegate.swift */; };
 		5BC37AA4271F1D0000444D5E /* PBMAdLoadFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37862271F1CFF00444D5E /* PBMAdLoadFlowController.m */; };
@@ -908,6 +907,8 @@
 		00614C4C2DE5F68600A61974 /* ModalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAnimator.swift; sourceTree = "<group>"; };
 		00614C592DE6FFE800A61974 /* CloseActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseActionManager.swift; sourceTree = "<group>"; };
 		00614C882DE7B5D900A61974 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		00614C8F2DE87D6900A61974 /* AdLoaderFlowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderFlowDelegate.swift; sourceTree = "<group>"; };
+		00614C912DE87D9100A61974 /* AdLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderProtocol.swift; sourceTree = "<group>"; };
 		2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegate.swift; sourceTree = "<group>"; };
 		2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMEventDelegateHelper.swift; sourceTree = "<group>"; };
 		2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegateTests.swift; sourceTree = "<group>"; };
@@ -1117,7 +1118,7 @@
 		5A8447FD2DB7053E00446F70 /* EventTrackerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTrackerProtocol.swift; sourceTree = "<group>"; };
 		5A8447FF2DB7108B00446F70 /* AdModelEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdModelEventTracker.swift; sourceTree = "<group>"; };
 		5A8448012DB7117400446F70 /* CreativeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModel.swift; sourceTree = "<group>"; };
-		5A8C9F522DB956DB00027328 /* PBMInterstitialAdLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMInterstitialAdLoader.swift; sourceTree = "<group>"; };
+		5A8C9F522DB956DB00027328 /* InterstitialAdLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdLoader.swift; sourceTree = "<group>"; };
 		5AA8F4082DB239F3008A7702 /* PBMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMError.swift; sourceTree = "<group>"; };
 		5AA8F4142DB26445008A7702 /* BidRequesterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidRequesterProtocol.swift; sourceTree = "<group>"; };
 		5ABAA16F2D384ADC00FDD38A /* SharedId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedId.swift; sourceTree = "<group>"; };
@@ -1443,13 +1444,10 @@
 		5BC37853271F1CFF00444D5E /* RewardedEventHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RewardedEventHandlerProtocol.swift; sourceTree = "<group>"; };
 		5BC37854271F1CFF00444D5E /* InterstitialEventHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialEventHandlerProtocol.swift; sourceTree = "<group>"; };
 		5BC37856271F1CFF00444D5E /* PBMBannerAdLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMBannerAdLoader.m; sourceTree = "<group>"; };
-		5BC37857271F1CFF00444D5E /* PBMInterstitialAdLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMInterstitialAdLoader.m; sourceTree = "<group>"; };
 		5BC37858271F1CFF00444D5E /* BannerAdLoaderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAdLoaderDelegate.swift; sourceTree = "<group>"; };
 		5BC37859271F1CFF00444D5E /* PBMAdLoadFlowController+PrivateState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMAdLoadFlowController+PrivateState.h"; sourceTree = "<group>"; };
-		5BC3785A271F1CFF00444D5E /* PBMAdLoaderProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMAdLoaderProtocol.h; sourceTree = "<group>"; };
 		5BC3785B271F1CFF00444D5E /* PBMAdLoadFlowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMAdLoadFlowController.h; sourceTree = "<group>"; };
 		5BC3785C271F1CFF00444D5E /* PBMAdLoadFlowState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMAdLoadFlowState.h; sourceTree = "<group>"; };
-		5BC3785E271F1CFF00444D5E /* PBMAdLoaderFlowDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMAdLoaderFlowDelegate.h; sourceTree = "<group>"; };
 		5BC37860271F1CFF00444D5E /* PBMBannerAdLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMBannerAdLoader.h; sourceTree = "<group>"; };
 		5BC37861271F1CFF00444D5E /* AdLoadFlowControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdLoadFlowControllerDelegate.swift; sourceTree = "<group>"; };
 		5BC37862271F1CFF00444D5E /* PBMAdLoadFlowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMAdLoadFlowController.m; sourceTree = "<group>"; };
@@ -2698,18 +2696,17 @@
 		5BC37855271F1CFF00444D5E /* AdLoading */ = {
 			isa = PBXGroup;
 			children = (
+				00614C912DE87D9100A61974 /* AdLoaderProtocol.swift */,
+				00614C8F2DE87D6900A61974 /* AdLoaderFlowDelegate.swift */,
 				5BC37861271F1CFF00444D5E /* AdLoadFlowControllerDelegate.swift */,
 				5BC37858271F1CFF00444D5E /* BannerAdLoaderDelegate.swift */,
-				5BC3785E271F1CFF00444D5E /* PBMAdLoaderFlowDelegate.h */,
-				5BC3785A271F1CFF00444D5E /* PBMAdLoaderProtocol.h */,
 				5BC3785B271F1CFF00444D5E /* PBMAdLoadFlowController.h */,
 				5BC37862271F1CFF00444D5E /* PBMAdLoadFlowController.m */,
 				5BC37859271F1CFF00444D5E /* PBMAdLoadFlowController+PrivateState.h */,
 				5BC3785C271F1CFF00444D5E /* PBMAdLoadFlowState.h */,
 				5BC37860271F1CFF00444D5E /* PBMBannerAdLoader.h */,
 				5BC37856271F1CFF00444D5E /* PBMBannerAdLoader.m */,
-				5BC37857271F1CFF00444D5E /* PBMInterstitialAdLoader.m */,
-				5A8C9F522DB956DB00027328 /* PBMInterstitialAdLoader.swift */,
+				5A8C9F522DB956DB00027328 /* InterstitialAdLoader.swift */,
 				5AD6B3682DB95444006690BB /* InterstitialAdLoaderDelegate.swift */,
 			);
 			path = AdLoading;
@@ -3575,7 +3572,6 @@
 				5BC379B3271F1D0000444D5E /* PBMVideoViewDelegate.h in Headers */,
 				5BC378F2271F1CFF00444D5E /* PBMORTBAbstract.h in Headers */,
 				534C611F2CB5252C0026119A /* PBMORTBRewardedConfiguration.h in Headers */,
-				5BC37AA0271F1D0000444D5E /* PBMAdLoaderFlowDelegate.h in Headers */,
 				5BC37928271F1CFF00444D5E /* PBMDownloadDataHelper.h in Headers */,
 				5BC378E6271F1CFF00444D5E /* PBMORTBNative.h in Headers */,
 				5BC37939271F1D0000444D5E /* PBMFunctions+Testing.h in Headers */,
@@ -4131,7 +4127,6 @@
 				53A657B72A8B8B6400AE0B4F /* PBMORTBBidResponseExtPrebid.m in Sources */,
 				5BC37910271F1CFF00444D5E /* PBMWindowLocker.m in Sources */,
 				FAEE4D0D262DC2B200AD9966 /* Log.swift in Sources */,
-				5BC37A99271F1D0000444D5E /* PBMInterstitialAdLoader.m in Sources */,
 				9236A650272FEC5A00ABBEF4 /* ImpressionTask.swift in Sources */,
 				5BC37A97271F1D0000444D5E /* InterstitialEventHandlerProtocol.swift in Sources */,
 				53A0E7F12CDD40AD007887F5 /* InterstitialImpressionTracker.swift in Sources */,
@@ -4197,7 +4192,6 @@
 				5BC379DB271F1D0000444D5E /* InterstitialControllerLoadingDelegate.swift in Sources */,
 				534C61242CB526CE0026119A /* PBMORTBRewardedReward.m in Sources */,
 				534C61322CB5282F0026119A /* PBMORTBRewardedCompletionVideoEndcard.m in Sources */,
-				5BC3794A271F1D0000444D5E /* PBMAdDetails.m in Sources */,
 				5AE4E5E82DB865B4002C84DF /* DeferredModalState.swift in Sources */,
 				92C85D7027A987260080BAC5 /* NativeEventTrackerResponse.swift in Sources */,
 				5BC379C7271F1D0000444D5E /* PBMVideoView.m in Sources */,
@@ -4243,11 +4237,12 @@
 				53C8FE1729C0851300ED9230 /* ClickbrowserType.swift in Sources */,
 				5BC37AD6271F1D0100444D5E /* PBMORTBParameterBuilder.m in Sources */,
 				5BC378E9271F1CFF00444D5E /* PBMORTBRegs.m in Sources */,
-				5A8C9F532DB956DB00027328 /* PBMInterstitialAdLoader.swift in Sources */,
 				5AE4E5E32DB85DBD002C84DF /* NonModalViewController.swift in Sources */,
+				5A8C9F532DB956DB00027328 /* InterstitialAdLoader.swift in Sources */,
 				5BC37A7A271F1D0000444D5E /* PBMDisplayTransactionFactory.m in Sources */,
 				00614C892DE7B5D900A61974 /* WebView.swift in Sources */,
 				5BC378B9271F1CFF00444D5E /* PBMViewExposure.m in Sources */,
+				00614C902DE87D6A00A61974 /* AdLoaderFlowDelegate.swift in Sources */,
 				92664567272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m in Sources */,
 				5BC378D9271F1CFF00444D5E /* PBMORTBSourceExtOMID.m in Sources */,
 				5BC37AAB271F1D0000444D5E /* MediationInterstitialAdUnit.swift in Sources */,
@@ -4340,6 +4335,7 @@
 				5BC37A51271F1D0000444D5E /* PBMPrebidParameterBuilder.m in Sources */,
 				5AA8F4152DB26445008A7702 /* BidRequesterProtocol.swift in Sources */,
 				92C85D6427A979F20080BAC5 /* NativeLink.swift in Sources */,
+				00614C922DE87D9300A61974 /* AdLoaderProtocol.swift in Sources */,
 				53842BBC29E565030069A4B7 /* NSString+Extensions.swift in Sources */,
 				5BC3792B271F1D0000444D5E /* PBMConstants.m in Sources */,
 				5BC37A61271F1D0000444D5E /* PBMORTBBidExt.m in Sources */,

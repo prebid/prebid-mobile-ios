@@ -12,14 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-    
 
 import Foundation
-
-@objc @_spi(PBMInternal) public
-protocol PBMInterstitialAdLoader: PBMAdLoaderProtocol, InterstitialControllerLoadingDelegate, InterstitialEventLoadingDelegate {
     
-    init(delegate: InterstitialAdLoaderDelegate,
-         eventHandler: PrimaryAdRequesterProtocol)
+@objc(PBMAdLoaderFlowDelegate) @_spi(PBMInternal) public
+protocol AdLoaderFlowDelegate: NSObjectProtocol {
     
+    func adLoader(_ adLoader: AdLoaderProtocol, loadedPrimaryAd adObject: Any, adSize: NSValue?)
+    
+    func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrimarySDKError error: Error?)
+    
+    func adLoaderDidWinPrebid(_ adLoader: AdLoaderProtocol)
+    
+    func adLoaderLoadedPrebidAd(_ adLoader: AdLoaderProtocol)
+    
+    func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrebidError error: Error?)
 }

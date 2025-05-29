@@ -89,7 +89,7 @@ public class GAMRewardedAdEventHandler :
               let request = GAMRequestWrapper() else {
             let error = GAMEventHandlerError.gamClassesNotFound
             GAMUtils.log(error: error)
-            loadingDelegate?.failedWithError(error)
+            loadingDelegate?.failed(with: error)
             return
         }
 
@@ -147,7 +147,7 @@ public class GAMRewardedAdEventHandler :
         if requestRewarded === ad {
             requestRewarded = nil
             forgetCurrentRewarded()
-            loadingDelegate?.failedWithError(error)
+            loadingDelegate?.failed(with: error)
         }
     }
     

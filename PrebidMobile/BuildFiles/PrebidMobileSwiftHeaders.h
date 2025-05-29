@@ -6,7 +6,6 @@
 
 #import "PBMAutoRefreshManager.h"
 #import "PBMAdLoadFlowController.h"
-#import "PBMAdLoaderProtocol.h"
 #import "PBMBannerAdLoader.h"
 
 #import "PrebidMobileDisplayViewProtocol.h"

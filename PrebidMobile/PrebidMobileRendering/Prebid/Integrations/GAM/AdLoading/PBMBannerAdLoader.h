@@ -15,9 +15,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PBMAdLoaderProtocol.h"
-
 @protocol BannerAdLoaderDelegate;
+@protocol PBMAdLoaderProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 

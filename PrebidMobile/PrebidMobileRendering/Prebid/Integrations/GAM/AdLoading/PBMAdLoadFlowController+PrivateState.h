@@ -16,11 +16,11 @@
 #import "PBMAdLoadFlowController.h"
 
 #import "PBMAdLoadFlowState.h"
-#import "PBMAdLoaderFlowDelegate.h"
 
 @class BidResponse;
 @protocol AdLoadFlowControllerDelegate;
 @protocol PBMBidRequesterProtocol;
+@protocol PBMAdLoaderFlowDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 

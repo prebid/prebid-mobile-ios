@@ -15,14 +15,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PBMAdLoaderProtocol.h"
-
 @class AdUnitConfig;
 @class BidResponse;
 @class Prebid;
 @protocol PrebidServerConnectionProtocol;
 @protocol AdLoadFlowControllerDelegate;
 @protocol PBMBidRequesterProtocol;
+@protocol PBMAdLoaderProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
