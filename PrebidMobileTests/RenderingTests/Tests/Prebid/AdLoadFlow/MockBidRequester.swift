@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class MockBidRequester: NSObject, BidRequesterProtocol {
     typealias ExpectedCall = (@escaping (BidResponse?, Error?)->())->()

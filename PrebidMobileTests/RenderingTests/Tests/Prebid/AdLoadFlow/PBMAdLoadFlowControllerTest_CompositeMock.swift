@@ -15,7 +15,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMAdLoadFlowControllerTest_CompositeMock {
     enum ExpectedCall {
@@ -27,14 +27,14 @@ class PBMAdLoadFlowControllerTest_CompositeMock {
         case primaryAdRequester(call: MockPrimaryAdRequester.ExpectedCall)
         case makeBidRequester(handler: BidRequesterFactoryCall)
         case bidRequester(call: BidRequestCall)
-        case configValidation(call: PBMAdUnitConfigValidationBlock)
+        case configValidation(call: AdUnitConfigValidationBlock)
     }
     
     let mockFlowControllerDelegate: AdLoadFlowControllerDelegate
-    let mockAdLoader: PBMAdLoaderProtocol
+    let mockAdLoader: AdLoaderProtocol
     let mockPrimaryAdRequester: PrimaryAdRequesterProtocol
     let mockRequesterFactory: (AdUnitConfig)->BidRequesterProtocol
-    let mockConfigValidator: PBMAdUnitConfigValidationBlock
+    let mockConfigValidator: AdUnitConfigValidationBlock
     
     let getProgress: ()->(done: Int, total: Int)
     func checkIsFinished(file: StaticString = #file, line: UInt = #line) {
@@ -187,7 +187,7 @@ extension PBMAdLoadFlowControllerTest_CompositeMock.ExpectedCall {
             return nil
         }
     }
-    var asConfigValidationCall: PBMAdUnitConfigValidationBlock? {
+    var asConfigValidationCall: AdUnitConfigValidationBlock? {
         switch self {
         case .configValidation(let call):
             return call

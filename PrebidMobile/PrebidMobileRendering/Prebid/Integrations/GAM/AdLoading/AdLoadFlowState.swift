@@ -12,15 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 import Foundation
+
+enum AdLoadFlowState: Int {
+    case idle = 0
     
-@objc(PBMAdLoaderFlowDelegate) @_spi(PBMInternal) public
-protocol AdLoaderFlowDelegate {
+    case bidRequest
+    case demandReceived
+    case primaryAdRequest
+    case loadingDisplayView // skipped if primaryAdServer wins
+    case readyToDeploy
     
-    func adLoader(_ adLoader: AdLoaderProtocol, loadedPrimaryAd adObject: AnyObject, adSize: NSValue?)
-    func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrimarySDKError error: Error?)
-    func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrebidError error: Error?)
-    func adLoaderDidWinPrebid(_ adLoader: AdLoaderProtocol)
-    func adLoaderLoadedPrebidAd(_ adLoader: AdLoaderProtocol)
+    case loadingFailed = -1
 }

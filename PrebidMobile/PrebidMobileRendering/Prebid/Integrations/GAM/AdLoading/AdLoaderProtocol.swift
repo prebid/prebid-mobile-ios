@@ -24,9 +24,9 @@ protocol AdLoaderProtocol: NSObjectProtocol {
     @objc(createPrebidAdWithBid:adUnitConfig:adObjectSaver:loadMethodInvoker:)
     func createPrebidAd(with bid: Bid,
                         adUnitConfig: AdUnitConfig,
-                        adObjectSaver: @escaping (Any) -> Void,
-                        loadMethodInvoker: @escaping (@escaping () -> Void) -> Void)
+                        adObjectSaver: @escaping (AnyObject) -> Void,
+                        loadMethodInvoker: @escaping (@escaping VoidBlock) -> Void)
     
     @objc(reportSuccessWithAdObject:adSize:)
-    func reportSuccess(with adObject: Any, adSize: NSValue?)
+    func reportSuccess(with adObject: AnyObject, adSize: NSValue?)
 }

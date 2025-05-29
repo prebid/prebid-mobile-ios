@@ -62,7 +62,7 @@ class BaseInterstitialAdUnit:
     
     // MARK: - Private Properties
     
-    private var adLoadFlowController: PBMAdLoadFlowController!
+    private var adLoadFlowController: AdLoadFlowController!
     
     private let blocksLockToken: NSObject
     private var showBlock: ((UIViewController?) -> Void)?
@@ -91,7 +91,7 @@ class BaseInterstitialAdUnit:
         
         self.adLoader = adLoader
         
-        adLoadFlowController = PBMAdLoadFlowController(
+        adLoadFlowController = AdLoadFlowController(
             bidRequesterFactory: { adUnitConfig in
                 Factory.createBidRequester(
                     connection: PrebidServerConnection.shared,
@@ -168,20 +168,20 @@ class BaseInterstitialAdUnit:
     
     // MARK: - AdLoadFlowControllerDelegate
     
-    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: PBMAdLoadFlowController) {}
+    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: AdLoadFlowController) {}
     
     /// Called when the ad load flow controller is about to request the primary ad.
-    public func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: PBMAdLoadFlowController) {
+    public func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: AdLoadFlowController) {
         delegate?.callEventHandler_setInteractionDelegate()
     }
     
     /// Called to determine if the ad load flow controller should continue with the current flow.
-    public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: PBMAdLoadFlowController) -> Bool {
+    public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool {
         true
     }
     
     public func adLoadFlowController(
-        _ adLoadFlowController: PBMAdLoadFlowController,
+        _ adLoadFlowController: AdLoadFlowController,
         failedWithError error: Error?
     ) {
         reportLoadingFailed(with: error)

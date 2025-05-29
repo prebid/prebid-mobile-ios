@@ -40,8 +40,8 @@ final class InterstitialAdLoader: NSObject, AdLoaderProtocol, InterstitialContro
     
     func createPrebidAd(with bid: Bid,
                         adUnitConfig: AdUnitConfig,
-                        adObjectSaver: @escaping (Any) -> Void,
-                        loadMethodInvoker: @escaping (@escaping () -> Void) -> Void) {
+                        adObjectSaver: @escaping (AnyObject) -> Void,
+                        loadMethodInvoker: @escaping (@escaping VoidBlock) -> Void) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
@@ -56,7 +56,7 @@ final class InterstitialAdLoader: NSObject, AdLoaderProtocol, InterstitialContro
         }
     }
     
-    func reportSuccess(with adObject: Any, adSize: NSValue?) {
+    func reportSuccess(with adObject: AnyObject, adSize: NSValue?) {
         if let controller = adObject as? PrebidMobileInterstitialControllerProtocol {
             delegate?.interstitialAdLoader(self,
                                            loadedAd: { _ in controller.show() },
