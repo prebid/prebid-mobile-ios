@@ -18,7 +18,7 @@ import UIKit
 @objcMembers
 class BaseInterstitialAdUnit:
     NSObject,
-    PBMInterstitialAdLoaderDelegate,
+    InterstitialAdLoaderDelegate,
     AdLoadFlowControllerDelegate,
     InterstitialControllerInteractionDelegate,
     InterstitialEventInteractionDelegate {
@@ -84,7 +84,7 @@ class BaseInterstitialAdUnit:
         
         super.init()
         
-        let adLoader = PBMInterstitialAdLoader(
+        let adLoader = Factory.PBMInterstitialAdLoader(
             delegate: self,
             eventHandler: eventHandler
         )
@@ -144,7 +144,7 @@ class BaseInterstitialAdUnit:
         objc_sync_exit(blocksLockToken)
     }
     
-    // MARK: - PBMInterstitialAdLoaderDelegate
+    // MARK: - InterstitialAdLoaderDelegate
     
     public func interstitialAdLoader(
         _ interstitialAdLoader: PBMInterstitialAdLoader,

@@ -243,9 +243,9 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         (eventHandler as? InterstitialEventHandlerProtocol)?.isReady ?? false
     }
     
-    func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
+    func callEventHandler_setLoadingDelegate(_ loadingDelegate: InterstitialEventLoadingDelegate?) {
         if let eventHandler = eventHandler as? InterstitialEventHandlerProtocol {
-            eventHandler.loadingDelegate = loadingDelegate as? InterstitialEventLoadingDelegate
+            eventHandler.loadingDelegate = loadingDelegate
         }
     }
     

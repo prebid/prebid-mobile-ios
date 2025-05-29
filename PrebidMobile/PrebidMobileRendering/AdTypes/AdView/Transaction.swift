@@ -33,7 +33,7 @@ protocol Transaction: NSObjectProtocol {
          models: [CreativeModel])
     
     func startCreativeFactory()
-    func getAdDetails() -> PBMAdDetails?
+    func getAdDetails() -> AdDetails?
     func getFirstCreative() -> PBMAbstractCreative?
     func getCreative(after: PBMAbstractCreative) -> PBMAbstractCreative?
     func revenueForCreative(after: PBMAbstractCreative) -> String?

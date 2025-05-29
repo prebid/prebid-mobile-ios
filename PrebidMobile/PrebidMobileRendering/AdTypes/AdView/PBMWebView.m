@@ -29,6 +29,7 @@
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMWKScriptMessageHandlerLeakAvoider.h"
 #import "UIView+PBMExtensions.h"
+#import "Log+Extensions.h"
 
 #import "PBMWebView.h"
 #import "PBMWebView+Internal.h"

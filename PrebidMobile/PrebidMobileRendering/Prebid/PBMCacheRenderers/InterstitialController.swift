@@ -119,7 +119,7 @@ public class InterstitialController:
         interactionDelegate?.viewControllerForModalPresentation(fromInterstitialController: self)
     }
     
-    public func adLoaded(_ pbmAdDetails: PBMAdDetails) {
+    public func adLoaded(_ pbmAdDetails: AdDetails) {
         reportSuccess()
     }
     

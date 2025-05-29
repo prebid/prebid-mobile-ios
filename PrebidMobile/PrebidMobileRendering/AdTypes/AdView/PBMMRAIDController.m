@@ -37,6 +37,7 @@
 #import "PBMWebView.h"
 #import "PBMWebViewDelegate.h"
 #import "PBMExposureChangeDelegate.h"
+#import "Log+Extensions.h"
 
 #import "PBMMRAIDController.h"
 

@@ -13,12 +13,10 @@
  limitations under the License.
  */
 
-#import "PBMInterstitialAdLoader.h"
-
 #import "PBMAdLoaderFlowDelegate.h"
-#import "PBMInterstitialAdLoaderDelegate.h"
 
 #import "PBMMacros.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -27,14 +25,14 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@interface PBMInterstitialAdLoader () <InterstitialControllerLoadingDelegate, InterstitialEventLoadingDelegate>
+@interface PBMInterstitialAdLoader_Objc: NSObject <PBMInterstitialAdLoader>
 
 @property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate, InterstitialControllerInteractionDelegate> delegate;
 @property (nonatomic, weak, nullable, readonly) id<PBMPrimaryAdRequesterProtocol> eventHandler;
 
 @end
 
-@implementation PBMInterstitialAdLoader
+@implementation PBMInterstitialAdLoader_Objc
 
 @synthesize flowDelegate = _flowDelegate;
 

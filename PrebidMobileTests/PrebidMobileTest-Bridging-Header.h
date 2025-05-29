@@ -22,7 +22,6 @@
 
 //Imports
 #import "PBMAbstractCreative.h"
-#import "PBMAdDetails.h"
 #import "PBMAdLoadManagerBase.h"
 #import "PBMAdLoadManagerProtocol.h"
 #import "PBMAdLoadManagerVAST.h"

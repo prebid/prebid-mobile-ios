@@ -201,17 +201,14 @@ typealias JsonDictionary = [String:Any]
         }
     }
     
-    class func compareRawResponse(acjFileName:String, adDetails:PBMAdDetails, file:StaticString = #file, line:UInt = #line) {
+    class func compareRawResponse(acjFileName:String, adDetails: AdDetails, file:StaticString = #file, line:UInt = #line) {
         
         guard let strExpected = UtilitiesForTesting.loadFileAsStringFromBundle(acjFileName) else {
             XCTFail("Could not open file \(acjFileName)", file:file, line:line)
             return
         }
         
-        guard let strActual = adDetails.rawResponse else {
-            XCTFail("No raw response", file:file, line:line)
-            return
-        }
+        let strActual = adDetails.rawResponse
         
         compareJSON(expected:strExpected, actual:strActual, file:file, line:line)
     }

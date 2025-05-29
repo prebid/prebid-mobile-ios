@@ -45,7 +45,7 @@ class CreativeModel: NSObject {
     @objc public var trackingURLs = [String : [String]]()
 
     @objc public var adTrackingTemplateURL: String?
-    @objc public var adDetails: PBMAdDetails?
+    @objc public var adDetails: AdDetails?
     @objc public var clickThroughURL: String?
     @objc public var isCompanionAd: Bool = false
     @objc public var hasCompanionAd: Bool = false

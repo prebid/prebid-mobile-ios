@@ -13,11 +13,11 @@
  limitations under the License.
  */
 
-#import "PBMAdDetails.h"
 #import "PBMAdLoadManagerBase.h"
 #import "PBMAdRequesterVAST.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMMacros.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

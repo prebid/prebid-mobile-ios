@@ -16,6 +16,7 @@
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementEventTracker.h"
 #import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
