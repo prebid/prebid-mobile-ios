@@ -88,7 +88,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
                sdkConfiguration: Prebid.mock
         )
         
-        htmlCreative.modalManager = PBMModalManager()
+        htmlCreative.modalManager = ModalManager()
         htmlCreative.creativeViewDelegate = self
         
         let mockVC = MockViewController()

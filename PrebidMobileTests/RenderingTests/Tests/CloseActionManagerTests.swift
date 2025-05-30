@@ -16,25 +16,25 @@
 import XCTest
 @testable import PrebidMobile
 
-class PBMCloseActionManagerTests: XCTestCase {
+class CloseActionManagerTests: XCTestCase {
 
     func testGetActionWithCloseButtonDescription() {
-        let action = PBMCloseActionManager.getActionWithDescription("closebutton")
-        XCTAssertEqual(action.rawValue, PBMCloseAction.closeButton.rawValue)
+        let action = CloseActionManager.getAction(from: "closebutton")
+        XCTAssertEqual(action.rawValue, CloseAction.closeButton.rawValue)
     }
 
     func testGetActionWithAutoCloseDescription() {
-        let action = PBMCloseActionManager.getActionWithDescription( "autoclose")
-        XCTAssertEqual(action.rawValue, PBMCloseAction.autoClose.rawValue)
+        let action = CloseActionManager.getAction(from: "autoclose")
+        XCTAssertEqual(action.rawValue, CloseAction.autoClose.rawValue)
     }
 
     func testGetActionWithUnknownDescription() {
-        let action = PBMCloseActionManager.getActionWithDescription("unknown")
-        XCTAssertEqual(action.rawValue, PBMCloseAction.unknown.rawValue)
+        let action = CloseActionManager.getAction(from: "unknown")
+        XCTAssertEqual(action.rawValue, CloseAction.unknown.rawValue)
     }
 
     func testGetActionWithEmptyDescription() {
-        let action = PBMCloseActionManager.getActionWithDescription("")
-        XCTAssertEqual(action.rawValue, PBMCloseAction.unknown.rawValue)
+        let action = CloseActionManager.getAction(from: "")
+        XCTAssertEqual(action.rawValue, CloseAction.unknown.rawValue)
     }
 }

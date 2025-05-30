@@ -29,6 +29,7 @@
 @protocol PBMViewExposure;
 @class PBMLocationManager;
 @class PBMCreativeModel;
+@protocol PBMWebView_Protocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,7 +45,7 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 // The interface of the PBMWebView is specific to showing ads within the SDK.
 // It allows for us to easily tell the webview to show an ad (and handling taking the data
 // and getting it in the right format etc to be shown) while also encapsulating away other functionality that a WKWebView may have.
-@interface PBMWebView : UIView <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIGestureRecognizerDelegate>
+@interface PBMWebView : UIView <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIGestureRecognizerDelegate, PBMWebView_Protocol>
 
 @property (nonatomic, readonly) WKWebView *internalWebView;
 

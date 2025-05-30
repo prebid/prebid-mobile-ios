@@ -16,10 +16,10 @@
 import XCTest
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMModalPresentationControllerTest: XCTestCase, UIViewControllerTransitioningDelegate {
+class ModalPresentationControllerTest: XCTestCase, UIViewControllerTransitioningDelegate {
     
     var modalState: ModalState?
-    var modalPresentationController: PBMModalPresentationController?
+    var modalPresentationController: ModalPresentationController?
     var expectationPresentationController:XCTestExpectation!
     
     func testDelegateInit() {
@@ -48,7 +48,7 @@ class PBMModalPresentationControllerTest: XCTestCase, UIViewControllerTransition
         
         let suggestedFrame = CGRect(x: 0, y: 0, width: 300, height: 200)
         
-        let modalPresentationController = PBMModalPresentationController(presentedViewController: UIViewController(), presenting: UIViewController())
+        let modalPresentationController = ModalPresentationController(presentedViewController: UIViewController(), presenting: UIViewController())
         XCTAssertNotEqual(suggestedFrame, modalPresentationController.frameOfPresentedView)
         modalPresentationController.frameOfPresentedView = suggestedFrame
         
@@ -63,7 +63,7 @@ class PBMModalPresentationControllerTest: XCTestCase, UIViewControllerTransition
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         
-        modalPresentationController = PBMModalPresentationController(presentedViewController: presented, presenting: presenting)
+        modalPresentationController = ModalPresentationController(presentedViewController: presented, presenting: presenting)
         
         expectationPresentationController.fulfill()
         

@@ -18,7 +18,6 @@
 
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
-#import "PBMModalManager.h"
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMTouchDownRecognizer.h"

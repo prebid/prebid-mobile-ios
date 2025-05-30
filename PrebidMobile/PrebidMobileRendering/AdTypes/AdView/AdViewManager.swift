@@ -20,7 +20,7 @@ import Foundation
 protocol AdViewManager: CreativeViewDelegate {
         
     var adConfiguration: AdConfiguration { get set }
-    var modalManager: PBMModalManager { get set }
+    var modalManager: ModalManager { get set }
     weak var adViewManagerDelegate: PBMAdViewManagerDelegate? { get set }
     var autoDisplayOnLoad: Bool { get set }
     var isCreativeOpened: Bool { get }
@@ -28,7 +28,7 @@ protocol AdViewManager: CreativeViewDelegate {
     var isMuted: Bool { get }
     
     init(connection: PrebidServerConnectionProtocol,
-         modalManagerDelegate: PBMModalManagerDelegate?)
+         modalManagerDelegate: ModalManagerDelegate?)
     
     func revenueForNextCreative() -> String?
     

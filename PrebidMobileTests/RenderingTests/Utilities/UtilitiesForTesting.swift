@@ -101,7 +101,7 @@ typealias JsonDictionary = [String:Any]
         model.html = "<html>test html</html>"
         
         let creative = UtilitiesForTesting.createHTMLCreative(with: model)
-        let modalManager = PBMModalManager()
+        let modalManager = ModalManager()
         creative.modalManager = modalManager
         
         if withView {

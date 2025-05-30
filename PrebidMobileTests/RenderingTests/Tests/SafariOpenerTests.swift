@@ -26,7 +26,7 @@ final class SafariOpenerTests: XCTestCase {
                                                     models: [creativeModel])
         
         creative = MockPBMAbstractCreative(creativeModel: creativeModel, transaction: transaction)
-        creative?.modalManager = PBMModalManager()
+        creative?.modalManager = ModalManager()
         creative?.viewControllerForPresentingModals = vc
     }
     

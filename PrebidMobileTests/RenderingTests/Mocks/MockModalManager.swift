@@ -15,13 +15,13 @@
 
 import Foundation
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class MockModalManager: PBMModalManager {
+class MockModalManager: ModalManager {
     
     var mock_pushModalClosure: ((ModalState, UIViewController, Bool, Bool, VoidBlock?) -> Void)?
     override func pushModal(_ state:ModalState, fromRootViewController:UIViewController, animated:Bool, shouldReplace:Bool, completionHandler:VoidBlock?) -> VoidBlock? {
-        modalStateStack.add(state)
+        modalStateStack.append(state)
         
         mock_pushModalClosure?(state, fromRootViewController, animated, shouldReplace, completionHandler)
         return { [weak self, weak state] in
@@ -33,7 +33,7 @@ class MockModalManager: PBMModalManager {
     
     var mock_popModalClosure: (() -> Void)?
     override func popModal() {
-        modalStateStack.removeLastObject()
+        modalStateStack.removeLast()
         mock_popModalClosure?()
     }
     

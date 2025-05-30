@@ -21,7 +21,7 @@ import XCTest
 class VideoEventsTest : XCTestCase, CreativeViewDelegate, PBMVideoViewDelegate {
     
     let viewController = MockViewController()
-    let modalManager = PBMModalManager()
+    let modalManager = ModalManager()
     var pbmVideoCreative:PBMVideoCreative!
     var expectationVideoDidComplete:XCTestExpectation!
     var expectationCreativeDidComplete:XCTestExpectation!

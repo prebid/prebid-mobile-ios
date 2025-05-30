@@ -18,7 +18,6 @@
 #import "PBMAutoRefreshManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialLayoutConfigurator.h"
-#import "PBMModalManager.h"
 #import "PBMVideoCreative.h"
 #import "UIView+PBMExtensions.h"
 
