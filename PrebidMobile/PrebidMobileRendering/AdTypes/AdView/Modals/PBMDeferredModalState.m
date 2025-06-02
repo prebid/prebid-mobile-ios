@@ -13,11 +13,21 @@
  limitations under the License.
  */
 
-#import "PBMDeferredModalState.h"
-#import "PBMModalManager.h"
 #import "PBMMacros.h"
 
-@interface PBMDeferredModalState()
+#import "PrebidMobileSwiftHeaders.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
+
+typedef void (^PBMDeferredModalStateResolutionHandler)(BOOL success);
+typedef void (^PBMDeferredModalStatePreparationBlock)(PBMDeferredModalStateResolutionHandler completionBlock);
+typedef void (^PBMDeferredModalStatePushStartHandler)(PBMVoidBlock stateRemovalBlock);
+
+@interface PBMDeferredModalState_Objc : NSObject <PBMDeferredModalState>
 
 @property (nonatomic, weak, nullable, readonly) UIViewController *rootViewController;
 @property (nonatomic, assign, readonly) BOOL animated;
@@ -38,7 +48,8 @@
 
 // MARK: -
 
-@implementation PBMDeferredModalState
+@implementation PBMDeferredModalState_Objc
+@synthesize modalState = _modalState;
 
 - (instancetype)initWithModalState:(id<PBMModalState>)modalState
             fromRootViewController:(UIViewController *)rootViewController

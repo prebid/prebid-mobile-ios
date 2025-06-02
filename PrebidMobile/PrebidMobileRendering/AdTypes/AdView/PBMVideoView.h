@@ -24,6 +24,7 @@
 @class PBMCreativeModel;
 @class PBMVideoCreative;
 @class PBMOpenMeasurementSession;
+@protocol PBMModalState;
 typedef NS_ENUM(NSInteger, PBMTrackingEvent); // Forward declaration of Swift-defined enum
 
 NS_ASSUME_NONNULL_BEGIN

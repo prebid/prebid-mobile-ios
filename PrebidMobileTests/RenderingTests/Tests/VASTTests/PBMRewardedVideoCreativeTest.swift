@@ -20,13 +20,14 @@ import AVFoundation
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMModalManagerTest : PBMModalManager {
-    
+
+class PBMModalManagerTest: ModalManager {
     var expectationCreativeDidComplete: XCTestExpectation?
     
-    override func creativeDisplayCompleted(_ creative: PBMAbstractCreative) {
+    @objc override func creativeDisplayCompleted(_ creative: PBMAbstractCreative) {
         expectationCreativeDidComplete?.fulfill()
     }
+    
 }
 
 class PBMRewardedVideoCreativeTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewDelegate {

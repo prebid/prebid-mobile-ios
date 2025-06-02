@@ -17,7 +17,7 @@ import XCTest
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
+class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
     
     var expectation:XCTestExpectation?
     
@@ -35,7 +35,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     }
     
     func testConfigureSubView() {
-        let controller = PBMModalViewController()
+        let controller = ModalViewController()
         
         // displayView
         logToFile = .init()
@@ -69,13 +69,13 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     }
     
     func testButtonPressed() {
-        let closeButtonCallback = #selector(PBMModalViewController.closeButtonTapped)
+        let closeButtonCallback = #selector(ModalViewController.closeButtonTapped)
         callMethod(selector: closeButtonCallback, message: "Expected closeButtonCallback to be called")
     }
     
     func testCloseButtonVisibility() {
         let testDelay: TimeInterval = 3
-        let controller = PBMModalViewController()
+        let controller = ModalViewController()
         
         let displayProperties = InterstitialDisplayProperties()
         displayProperties.closeDelayLeft = testDelay
@@ -113,7 +113,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     
     func testTopLevelUI() {
         
-        let viewController = PBMModalViewController()
+        let viewController = ModalViewController()
         viewController.preferAppStatusBarHidden = false
         
         let rootWindow = UIWindow(frame: UIScreen.main.bounds)
@@ -130,7 +130,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     }
     
     func testCreativeDisplayCompleted_Rewarded() {
-        let controller = PBMModalViewController()
+        let controller = ModalViewController()
         let displayProperties = InterstitialDisplayProperties()
         displayProperties.closeDelayLeft = 3
         
@@ -158,7 +158,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     func testConfigureCloseButton() {
         expectation = self.expectation(description: "expectation modalViewControllerCloseButtonTapped")
         
-        let controller = PBMModalViewController()
+        let controller = ModalViewController()
         controller.setupState(Factory.createModalState(view: UIView(),
                                                        adConfiguration: AdConfiguration(),
                                                        displayProperties:nil))
@@ -180,7 +180,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
                                                   adConfiguration: AdConfiguration(),
                                                   displayProperties:displayProperties)
         
-        let controller = PBMModalViewController()
+        let controller = ModalViewController()
         controller.modalState = modalState
         
         let expectationShowCloseButtonInitial = self.expectation(description: "expectationShowCloseButtonInitial")
@@ -205,7 +205,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
                                                   adConfiguration: AdConfiguration(),
                                                   displayProperties:InterstitialDisplayProperties())
         
-        let controller = PBMModalViewController()
+        let controller = ModalViewController()
         XCTAssertTrue(controller.isRotationEnabled)
         
         controller.setupState(modalState)
@@ -213,7 +213,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     }
     
     func testConfigureDisplayView() {
-        let controller = PBMModalViewController()
+        let controller = ModalViewController()
         controller.setupState(Factory.createModalState(view: UIView(),
                                                        adConfiguration: AdConfiguration(),
                                                        displayProperties:nil))
@@ -253,7 +253,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
                                                             interruptionTimeout: TimeInterval,
                                                             interruptionInterval: TimeInterval ) {
         
-        let controller = PBMModalViewController()
+        let controller = ModalViewController()
         
         let displayProperties = InterstitialDisplayProperties()
         displayProperties.closeDelayLeft = closeButtonDelay
@@ -298,7 +298,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     // MARK: Helper Methods
     
     func callMethod(selector: Selector, message: String) {
-        let modalViewController = PBMModalViewController()
+        let modalViewController = ModalViewController()
         modalViewController.modalViewControllerDelegate = self
         
         self.expectation = self.expectation(description: message)
@@ -307,7 +307,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     }
     
     //MARK - PBMModalViewControllerDelegate
-    func modalViewControllerCloseButtonTapped(_ modalViewController: PBMModalViewController) {
+    func modalViewControllerCloseButtonTapped(_ modalViewController: ModalViewController) {
         expectation?.fulfill()
     }
     

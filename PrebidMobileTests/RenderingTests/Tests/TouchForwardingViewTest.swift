@@ -16,16 +16,16 @@
 import XCTest
 @testable import PrebidMobile
 
-class PBMTouchForwardingViewTest: XCTestCase {
+class TouchForwardingViewTest: XCTestCase {
     
     let rect = CGRect(x: 0, y: 0, width: 100, height: 100)
     let contentRect = CGRect(x: 20, y: 20, width: 50, height: 50)
     
     func testInit() {
         
-        let touchForwardingView = PBMTouchForwardingView()
+        let touchForwardingView = TouchForwardingView()
         XCTAssertNotNil(touchForwardingView)
-        XCTAssertNil(touchForwardingView.passThroughViews)
+        XCTAssertTrue(touchForwardingView.passThroughViews.isEmpty)
         
         touchForwardingView.passThroughViews = [UIView()]
         XCTAssertNotNil(touchForwardingView.passThroughViews)
@@ -35,9 +35,9 @@ class PBMTouchForwardingViewTest: XCTestCase {
         
         let hitPoint = CGPoint(x: 30, y: 30)
         
-        let touchForwardingView = PBMTouchForwardingView(frame: rect)
+        let touchForwardingView = TouchForwardingView(frame: rect)
         XCTAssertNotNil(touchForwardingView)
-        XCTAssertNil(touchForwardingView.passThroughViews)
+        XCTAssertTrue(touchForwardingView.passThroughViews.isEmpty)
         
         let contentView = UIView(frame: contentRect)
         touchForwardingView.passThroughViews = [contentView]
@@ -52,9 +52,9 @@ class PBMTouchForwardingViewTest: XCTestCase {
         
         let hitPoint = CGPoint(x: 10, y: 10)
         
-        let touchForwardingView = PBMTouchForwardingView(frame: rect)
+        let touchForwardingView = TouchForwardingView(frame: rect)
         XCTAssertNotNil(touchForwardingView)
-        XCTAssertNil(touchForwardingView.passThroughViews)
+        XCTAssertTrue(touchForwardingView.passThroughViews.isEmpty)
         
         let contentView = UIView(frame: contentRect)
         touchForwardingView.passThroughViews = [contentView]
