@@ -228,11 +228,12 @@
 		5AA8F4152DB26445008A7702 /* BidRequesterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8F4142DB26445008A7702 /* BidRequesterProtocol.swift */; };
 		5ABAA1702D384AE400FDD38A /* SharedId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABAA16F2D384ADC00FDD38A /* SharedId.swift */; };
 		5ABAA1732D3ADE0000FDD38A /* SharedIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABAA1722D3ADE0000FDD38A /* SharedIdTests.swift */; };
-		5AD6B3612DB9502A006690BB /* AdDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6B3602DB9502A006690BB /* AdDetails.swift */; };
-		5AD6B3692DB95444006690BB /* InterstitialAdLoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6B3682DB95444006690BB /* InterstitialAdLoaderDelegate.swift */; };
 		5AD6B3542DB89886006690BB /* UIInterfaceOrientation+PBMExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6B3532DB89886006690BB /* UIInterfaceOrientation+PBMExtensions.swift */; };
 		5AD6B3562DB8A738006690BB /* ModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6B3552DB8A738006690BB /* ModalPresentationController.swift */; };
 		5AD6B3582DB8A7AA006690BB /* TouchForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6B3572DB8A7AA006690BB /* TouchForwardingView.swift */; };
+		5AD6B3612DB9502A006690BB /* AdDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6B3602DB9502A006690BB /* AdDetails.swift */; };
+		5AD6B3692DB95444006690BB /* InterstitialAdLoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6B3682DB95444006690BB /* InterstitialAdLoaderDelegate.swift */; };
+		5ADC1EAE2DB9A6B500EA6477 /* BannerAdLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC1EAD2DB9A6B500EA6477 /* BannerAdLoader.swift */; };
 		5AE4E5962DB7255F002C84DF /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5952DB7255F002C84DF /* Transaction.swift */; };
 		5AE4E5982DB726F5002C84DF /* TransactionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5972DB726F5002C84DF /* TransactionDelegate.swift */; };
 		5AE4E59E2DB7F624002C84DF /* ViewExposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E59D2DB7F624002C84DF /* ViewExposure.swift */; };
@@ -546,9 +547,7 @@
 		5BC37A94271F1D0000444D5E /* BannerEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37851271F1CFF00444D5E /* BannerEventHandler.swift */; };
 		5BC37A96271F1D0000444D5E /* RewardedEventHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37853271F1CFF00444D5E /* RewardedEventHandlerProtocol.swift */; };
 		5BC37A97271F1D0000444D5E /* InterstitialEventHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37854271F1CFF00444D5E /* InterstitialEventHandlerProtocol.swift */; };
-		5BC37A98271F1D0000444D5E /* PBMBannerAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37856271F1CFF00444D5E /* PBMBannerAdLoader.m */; };
 		5BC37A9A271F1D0000444D5E /* BannerAdLoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37858271F1CFF00444D5E /* BannerAdLoaderDelegate.swift */; };
-		5BC37AA2271F1D0000444D5E /* PBMBannerAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37860271F1CFF00444D5E /* PBMBannerAdLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37AA3271F1D0000444D5E /* AdLoadFlowControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37861271F1CFF00444D5E /* AdLoadFlowControllerDelegate.swift */; };
 		5BC37AA5271F1D0000444D5E /* MediationBaseInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37864271F1CFF00444D5E /* MediationBaseInterstitialAdUnit.swift */; };
 		5BC37AA6271F1D0000444D5E /* MediationBidInfoWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37865271F1CFF00444D5E /* MediationBidInfoWrapper.swift */; };
@@ -718,14 +717,13 @@
 		925D5DA32737C3C900A8A2B5 /* PBMAppInfoParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA22737C3C900A8A2B5 /* PBMAppInfoParameterBuilderTest.swift */; };
 		925D5DA52737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA42737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift */; };
 		925D5DA72737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA62737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift */; };
-		925D5DAB2737C4F600A8A2B5 /* AdLoadFlowControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DAA2737C4F600A8A2B5 /* AdLoadFlowControllerTest.swift */; };
-		925D5DAD2737C51800A8A2B5 /* PBMAdLoadFlowControllerTest_CompositeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DAC2737C51800A8A2B5 /* PBMAdLoadFlowControllerTest_CompositeMock.swift */; };
+		925D5DAD2737C51800A8A2B5 /* AdLoadFlowControllerTest_CompositeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DAC2737C51800A8A2B5 /* AdLoadFlowControllerTest_CompositeMock.swift */; };
 		925D5DAF2737C53200A8A2B5 /* MockAdLoadFlowControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DAE2737C53200A8A2B5 /* MockAdLoadFlowControllerDelegate.swift */; };
 		925D5DB12737C54500A8A2B5 /* MockAdLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DB02737C54500A8A2B5 /* MockAdLoader.swift */; };
 		925D5DB32737C56000A8A2B5 /* MockBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DB22737C56000A8A2B5 /* MockBidRequester.swift */; };
 		925D5DB52737C57C00A8A2B5 /* MockPrimaryAdRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DB42737C57C00A8A2B5 /* MockPrimaryAdRequester.swift */; };
 		925D5DB72737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DB62737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift */; };
-		925D5E092737DF5F00A8A2B5 /* PBMBannerViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E082737DF5F00A8A2B5 /* PBMBannerViewTest.swift */; };
+		925D5E092737DF5F00A8A2B5 /* BannerViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E082737DF5F00A8A2B5 /* BannerViewTest.swift */; };
 		925D5E0E2737DFCC00A8A2B5 /* RawWinningBidFabricator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E0D2737DFCC00A8A2B5 /* RawWinningBidFabricator.swift */; };
 		925D5E102737DFDE00A8A2B5 /* WinningBidResponseFabricator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E0F2737DFDE00A8A2B5 /* WinningBidResponseFabricator.swift */; };
 		925D5E122737E04B00A8A2B5 /* PBMBidRequesterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E112737E04B00A8A2B5 /* PBMBidRequesterTest.swift */; };
@@ -1127,11 +1125,12 @@
 		5AA8F4142DB26445008A7702 /* BidRequesterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidRequesterProtocol.swift; sourceTree = "<group>"; };
 		5ABAA16F2D384ADC00FDD38A /* SharedId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedId.swift; sourceTree = "<group>"; };
 		5ABAA1722D3ADE0000FDD38A /* SharedIdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedIdTests.swift; sourceTree = "<group>"; };
-		5AD6B3602DB9502A006690BB /* AdDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetails.swift; sourceTree = "<group>"; };
-		5AD6B3682DB95444006690BB /* InterstitialAdLoaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdLoaderDelegate.swift; sourceTree = "<group>"; };
 		5AD6B3532DB89886006690BB /* UIInterfaceOrientation+PBMExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIInterfaceOrientation+PBMExtensions.swift"; sourceTree = "<group>"; };
 		5AD6B3552DB8A738006690BB /* ModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationController.swift; sourceTree = "<group>"; };
 		5AD6B3572DB8A7AA006690BB /* TouchForwardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchForwardingView.swift; sourceTree = "<group>"; };
+		5AD6B3602DB9502A006690BB /* AdDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetails.swift; sourceTree = "<group>"; };
+		5AD6B3682DB95444006690BB /* InterstitialAdLoaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdLoaderDelegate.swift; sourceTree = "<group>"; };
+		5ADC1EAD2DB9A6B500EA6477 /* BannerAdLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdLoader.swift; sourceTree = "<group>"; };
 		5AE4E5952DB7255F002C84DF /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		5AE4E5972DB726F5002C84DF /* TransactionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDelegate.swift; sourceTree = "<group>"; };
 		5AE4E59D2DB7F624002C84DF /* ViewExposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExposure.swift; sourceTree = "<group>"; };
@@ -1447,9 +1446,7 @@
 		5BC37851271F1CFF00444D5E /* BannerEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerEventHandler.swift; sourceTree = "<group>"; };
 		5BC37853271F1CFF00444D5E /* RewardedEventHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RewardedEventHandlerProtocol.swift; sourceTree = "<group>"; };
 		5BC37854271F1CFF00444D5E /* InterstitialEventHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialEventHandlerProtocol.swift; sourceTree = "<group>"; };
-		5BC37856271F1CFF00444D5E /* PBMBannerAdLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMBannerAdLoader.m; sourceTree = "<group>"; };
 		5BC37858271F1CFF00444D5E /* BannerAdLoaderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAdLoaderDelegate.swift; sourceTree = "<group>"; };
-		5BC37860271F1CFF00444D5E /* PBMBannerAdLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMBannerAdLoader.h; sourceTree = "<group>"; };
 		5BC37861271F1CFF00444D5E /* AdLoadFlowControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdLoadFlowControllerDelegate.swift; sourceTree = "<group>"; };
 		5BC37864271F1CFF00444D5E /* MediationBaseInterstitialAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediationBaseInterstitialAdUnit.swift; sourceTree = "<group>"; };
 		5BC37865271F1CFF00444D5E /* MediationBidInfoWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediationBidInfoWrapper.swift; sourceTree = "<group>"; };
@@ -1637,13 +1634,13 @@
 		925D5DA42737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMUserConsentParameterBuilderTest.swift; sourceTree = "<group>"; };
 		925D5DA62737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidParameterBuilderTest.swift; sourceTree = "<group>"; };
 		925D5DAA2737C4F600A8A2B5 /* AdLoadFlowControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoadFlowControllerTest.swift; sourceTree = "<group>"; };
-		925D5DAC2737C51800A8A2B5 /* PBMAdLoadFlowControllerTest_CompositeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdLoadFlowControllerTest_CompositeMock.swift; sourceTree = "<group>"; };
+		925D5DAC2737C51800A8A2B5 /* AdLoadFlowControllerTest_CompositeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoadFlowControllerTest_CompositeMock.swift; sourceTree = "<group>"; };
 		925D5DAE2737C53200A8A2B5 /* MockAdLoadFlowControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAdLoadFlowControllerDelegate.swift; sourceTree = "<group>"; };
 		925D5DB02737C54500A8A2B5 /* MockAdLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAdLoader.swift; sourceTree = "<group>"; };
 		925D5DB22737C56000A8A2B5 /* MockBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBidRequester.swift; sourceTree = "<group>"; };
 		925D5DB42737C57C00A8A2B5 /* MockPrimaryAdRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPrimaryAdRequester.swift; sourceTree = "<group>"; };
 		925D5DB62737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMBidResponseTransformer+TestExtension.swift"; sourceTree = "<group>"; };
-		925D5E082737DF5F00A8A2B5 /* PBMBannerViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMBannerViewTest.swift; sourceTree = "<group>"; };
+		925D5E082737DF5F00A8A2B5 /* BannerViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewTest.swift; sourceTree = "<group>"; };
 		925D5E0D2737DFCC00A8A2B5 /* RawWinningBidFabricator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawWinningBidFabricator.swift; sourceTree = "<group>"; };
 		925D5E0F2737DFDE00A8A2B5 /* WinningBidResponseFabricator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningBidResponseFabricator.swift; sourceTree = "<group>"; };
 		925D5E112737E04B00A8A2B5 /* PBMBidRequesterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMBidRequesterTest.swift; sourceTree = "<group>"; };
@@ -2699,13 +2696,12 @@
 				00614C912DE87D9100A61974 /* AdLoaderProtocol.swift */,
 				00614C8F2DE87D6900A61974 /* AdLoaderFlowDelegate.swift */,
 				5BC37861271F1CFF00444D5E /* AdLoadFlowControllerDelegate.swift */,
-				5BC37858271F1CFF00444D5E /* BannerAdLoaderDelegate.swift */,
 				5A51D94E2DB987EE00DD450F /* AdLoaderFlowDelegate.swift */,
 				5A51D94C2DB986CC00DD450F /* AdLoaderProtocol.swift */,
 				5A51D9502DB9898E00DD450F /* AdLoadFlowController.swift */,
 				00CD45992DE9C7E1009D1EEA /* AdLoadFlowState.swift */,
-				5BC37860271F1CFF00444D5E /* PBMBannerAdLoader.h */,
-				5BC37856271F1CFF00444D5E /* PBMBannerAdLoader.m */,
+				5ADC1EAD2DB9A6B500EA6477 /* BannerAdLoader.swift */,
+				5BC37858271F1CFF00444D5E /* BannerAdLoaderDelegate.swift */,
 				5A8C9F522DB956DB00027328 /* InterstitialAdLoader.swift */,
 				5AD6B3682DB95444006690BB /* InterstitialAdLoaderDelegate.swift */,
 			);
@@ -3116,7 +3112,7 @@
 				53CDA48C2D11AFD5004766F8 /* MediationAPI */,
 				925D5DA92737C4E800A8A2B5 /* AdLoadFlow */,
 				3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */,
-				925D5E082737DF5F00A8A2B5 /* PBMBannerViewTest.swift */,
+				925D5E082737DF5F00A8A2B5 /* BannerViewTest.swift */,
 				925D5E112737E04B00A8A2B5 /* PBMBidRequesterTest.swift */,
 				925D5E132737E74C00A8A2B5 /* PBMBidResponseTransformerTest.swift */,
 				925D5E152737E77200A8A2B5 /* DemandResponseInfoTest.swift */,
@@ -3136,7 +3132,7 @@
 			isa = PBXGroup;
 			children = (
 				925D5DAA2737C4F600A8A2B5 /* AdLoadFlowControllerTest.swift */,
-				925D5DAC2737C51800A8A2B5 /* PBMAdLoadFlowControllerTest_CompositeMock.swift */,
+				925D5DAC2737C51800A8A2B5 /* AdLoadFlowControllerTest_CompositeMock.swift */,
 				925D5DAE2737C53200A8A2B5 /* MockAdLoadFlowControllerDelegate.swift */,
 				925D5DB02737C54500A8A2B5 /* MockAdLoader.swift */,
 				925D5DB22737C56000A8A2B5 /* MockBidRequester.swift */,
@@ -3628,7 +3624,6 @@
 				5BC37940271F1D0000444D5E /* PBMCircularProgressBarView.h in Headers */,
 				5BC37A15271F1D0000444D5E /* PBMBidRequesterFactory.h in Headers */,
 				5BC37A65271F1D0000444D5E /* PBMORTBBidExtPrebidCache.h in Headers */,
-				5BC37AA2271F1D0000444D5E /* PBMBannerAdLoader.h in Headers */,
 				5BC37992271F1D0000444D5E /* PBMAdRequesterVAST.h in Headers */,
 				5BC37A21271F1D0000444D5E /* PBMJsonCodable.h in Headers */,
 				5BC378F3271F1CFF00444D5E /* PBMORTBDeviceExtAtts.h in Headers */,
@@ -3951,7 +3946,7 @@
 				925D5DA72737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift in Sources */,
 				925D5DA52737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift in Sources */,
 				922AFD002737103200732C53 /* PBMWebViewObjCTest.m in Sources */,
-				925D5DAD2737C51800A8A2B5 /* PBMAdLoadFlowControllerTest_CompositeMock.swift in Sources */,
+				925D5DAD2737C51800A8A2B5 /* AdLoadFlowControllerTest_CompositeMock.swift in Sources */,
 				53019E6127E9E40700D509C1 /* LogTest.swift in Sources */,
 				FAEE4DBA262DCBB800AD9966 /* Swizzling.swift in Sources */,
 				922AFD412737292E00732C53 /* PBMHTMLCreativeTest_MRAIDOpen.swift in Sources */,
@@ -4045,7 +4040,7 @@
 				922AFD322737267F00732C53 /* PBMDeviceAccessManagerTests.swift in Sources */,
 				925D5E642737F45600A8A2B5 /* PBMVastCreativeNonLinearAdsTest.swift in Sources */,
 				922AFD0E273715F600732C53 /* PBMAbstractCreativeTest.swift in Sources */,
-				925D5E092737DF5F00A8A2B5 /* PBMBannerViewTest.swift in Sources */,
+				925D5E092737DF5F00A8A2B5 /* BannerViewTest.swift in Sources */,
 				47D9AE45E21A81900408A396 /* MockNSThread.swift in Sources */,
 				47D9AE6C09857CB297B6D8EA /* MockPBMAdLoadManagerVAST.swift in Sources */,
 				922AFD022737108200732C53 /* BasicParameterBuilderPureTargetingTest.swift in Sources */,
@@ -4245,7 +4240,6 @@
 				5BC378D9271F1CFF00444D5E /* PBMORTBSourceExtOMID.m in Sources */,
 				5BC37AAB271F1D0000444D5E /* MediationInterstitialAdUnit.swift in Sources */,
 				5BC378FC271F1CFF00444D5E /* PBMORTBDevice.m in Sources */,
-				5BC37A98271F1D0000444D5E /* PBMBannerAdLoader.m in Sources */,
 				F91B60AF2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m in Sources */,
 				A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */,
 				536A427F282D11DA0069E9B2 /* PrebidServerConnection.swift in Sources */,
@@ -4278,6 +4272,7 @@
 				5BC378B8271F1CFF00444D5E /* PBMViewExposureChecker.m in Sources */,
 				5BC37978271F1D0000444D5E /* PBMVastCreativeNonLinearAdsNonLinear.m in Sources */,
 				5347473B2BFB4D3D00966658 /* UserAgentService.swift in Sources */,
+				5ADC1EAE2DB9A6B500EA6477 /* BannerAdLoader.swift in Sources */,
 				FAEE4D22262DC2B200AD9966 /* UIViewExtension.swift in Sources */,
 				539B0D95282A675E00513501 /* PBMORTBExtPrebidEvents.m in Sources */,
 				5BC37AD1271F1D0100444D5E /* PBMAppInfoParameterBuilder.m in Sources */,

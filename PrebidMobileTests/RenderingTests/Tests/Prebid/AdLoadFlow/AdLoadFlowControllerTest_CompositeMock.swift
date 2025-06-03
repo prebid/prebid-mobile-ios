@@ -17,7 +17,7 @@ import XCTest
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMAdLoadFlowControllerTest_CompositeMock {
+class AdLoadFlowControllerTest_CompositeMock {
     enum ExpectedCall {
         typealias BidRequestCall = (requesterOffset: Int, call: MockBidRequester.ExpectedCall)
         typealias BidRequesterFactoryCall = (AdUnitConfig, BidRequesterProtocol)->BidRequesterProtocol
@@ -146,7 +146,7 @@ class PBMAdLoadFlowControllerTest_CompositeMock {
     }
 }
 
-extension PBMAdLoadFlowControllerTest_CompositeMock.ExpectedCall {
+extension AdLoadFlowControllerTest_CompositeMock.ExpectedCall {
     var asAdLoadFlowControllerDelegateCall: MockAdLoadFlowControllerDelegate.ExpectedCall? {
         switch self {
         case .flowControllerDelegate(let call):
@@ -197,7 +197,7 @@ extension PBMAdLoadFlowControllerTest_CompositeMock.ExpectedCall {
     }
 }
 
-extension PBMAdLoadFlowControllerTest_CompositeMock.ExpectedCall: CustomStringConvertible {
+extension AdLoadFlowControllerTest_CompositeMock.ExpectedCall: CustomStringConvertible {
     var description: String {
         switch self {
         case .flowControllerDelegate(let call):

@@ -16,12 +16,13 @@
 import Foundation
 import UIKit
 
-@objc public protocol BannerAdLoaderDelegate: NSObjectProtocol {
+@objc @_spi(PBMInternal) public
+protocol BannerAdLoaderDelegate: NSObjectProtocol {
     
     var eventHandler: BannerEventHandler? { get }
 
     // Loading callbacks
-    @objc func bannerAdLoader(_ bannerAdLoader: PBMBannerAdLoader,
+    @objc func bannerAdLoader(_ bannerAdLoader: BannerAdLoader,
                               loadedAdView adView: UIView,
                               adSize: CGSize)
 }

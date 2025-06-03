@@ -34,7 +34,7 @@ final class InterstitialAdLoader: NSObject, AdLoaderProtocol, InterstitialContro
         super.init()
     }
     
-    var primaryAdRequester: PrimaryAdRequesterProtocol {
+    var primaryAdRequester: PrimaryAdRequesterProtocol? {
         eventHandler
     }
     
@@ -102,7 +102,6 @@ final class InterstitialAdLoader: NSObject, AdLoaderProtocol, InterstitialContro
     private func createController(with bid: Bid, adUnitConfig: AdUnitConfig) -> PrebidMobileInterstitialControllerProtocol? {
         guard let delegate else { return nil }
 
-        
         let renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
         Log.info("Renderer: \(renderer)")
         

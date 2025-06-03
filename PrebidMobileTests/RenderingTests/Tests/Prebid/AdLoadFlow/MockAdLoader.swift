@@ -83,7 +83,7 @@ class MockAdLoader: NSObject, AdLoaderProtocol {
         }
     }
     
-    var primaryAdRequester: PrimaryAdRequesterProtocol {
+    var primaryAdRequester: PrimaryAdRequesterProtocol? {
         let provider: (()->PrimaryAdRequesterProtocol)? = syncQueue.sync {
             guard nextCallIndex < expectedCalls.count else {
                 XCTFail("[MockAdLoader] Call index out of bounds: \(nextCallIndex) < \(expectedCalls.count)",

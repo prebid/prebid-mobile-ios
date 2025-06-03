@@ -188,7 +188,7 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
         adLoader?.flowDelegate = self
 
         DispatchQueue.main.async { [weak self] in
-            self?.adLoader?.primaryAdRequester.requestAd(with: bidResponse)
+            self?.adLoader?.primaryAdRequester?.requestAd(with: bidResponse)
         }
     }
 
