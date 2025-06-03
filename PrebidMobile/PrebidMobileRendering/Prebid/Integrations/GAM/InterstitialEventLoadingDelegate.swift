@@ -34,5 +34,6 @@ import Foundation
      @abstract Call this when the ad server SDK fails to load the ad
      @param error detailed error object describing the cause of ad failure
      */
-    func failedWithError(_ error: Error?)
+    @objc(failedWithError:)
+    func failed(with error: Error?)
 }

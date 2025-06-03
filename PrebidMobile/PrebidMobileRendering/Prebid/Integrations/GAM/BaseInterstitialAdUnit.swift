@@ -62,13 +62,13 @@ class BaseInterstitialAdUnit:
     
     // MARK: - Private Properties
     
-    private var adLoadFlowController: PBMAdLoadFlowController!
+    private var adLoadFlowController: AdLoadFlowController!
     
     private let blocksLockToken: NSObject
     private var showBlock: ((UIViewController?) -> Void)?
     private var currentAdBlock: ((UIViewController?) -> Void)?
     private var isReadyBlock: (() -> Bool)?
-    private var adLoader: PBMInterstitialAdLoader?
+    private var adLoader: InterstitialAdLoader?
     
     private weak var targetController: UIViewController?
     
@@ -84,14 +84,14 @@ class BaseInterstitialAdUnit:
         
         super.init()
         
-        let adLoader = Factory.PBMInterstitialAdLoader(
+        let adLoader = InterstitialAdLoader(
             delegate: self,
             eventHandler: eventHandler
         )
         
         self.adLoader = adLoader
         
-        adLoadFlowController = PBMAdLoadFlowController(
+        adLoadFlowController = AdLoadFlowController(
             bidRequesterFactory: { adUnitConfig in
                 Factory.createBidRequester(
                     connection: PrebidServerConnection.shared,
@@ -147,7 +147,7 @@ class BaseInterstitialAdUnit:
     // MARK: - InterstitialAdLoaderDelegate
     
     public func interstitialAdLoader(
-        _ interstitialAdLoader: PBMInterstitialAdLoader,
+        _ interstitialAdLoader: InterstitialAdLoader,
         loadedAd showBlock: @escaping (UIViewController?) -> Void,
         isReadyBlock: @escaping () -> Bool
     ) {
@@ -160,7 +160,7 @@ class BaseInterstitialAdUnit:
     }
     
     public func interstitialAdLoader(
-        _ interstitialAdLoader: PBMInterstitialAdLoader,
+        _ interstitialAdLoader: InterstitialAdLoader,
         createdInterstitialController interstitialController: InterstitialController
     ) {
         interstitialController.interactionDelegate = self
@@ -168,20 +168,20 @@ class BaseInterstitialAdUnit:
     
     // MARK: - AdLoadFlowControllerDelegate
     
-    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: PBMAdLoadFlowController) {}
+    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: AdLoadFlowController) {}
     
     /// Called when the ad load flow controller is about to request the primary ad.
-    public func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: PBMAdLoadFlowController) {
+    public func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: AdLoadFlowController) {
         delegate?.callEventHandler_setInteractionDelegate()
     }
     
     /// Called to determine if the ad load flow controller should continue with the current flow.
-    public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: PBMAdLoadFlowController) -> Bool {
+    public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool {
         true
     }
     
     public func adLoadFlowController(
-        _ adLoadFlowController: PBMAdLoadFlowController,
+        _ adLoadFlowController: AdLoadFlowController,
         failedWithError error: Error?
     ) {
         reportLoadingFailed(with: error)

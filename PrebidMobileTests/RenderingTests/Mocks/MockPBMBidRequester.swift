@@ -14,7 +14,7 @@
  */
 
 import Foundation
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class MockPBMBidRequester: NSObject, BidRequesterProtocol {
     

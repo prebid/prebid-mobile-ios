@@ -17,16 +17,16 @@
 import Foundation
 import UIKit
 
-@objc(PBMInterstitialAdLoaderDelegate) @_spi(PBMInternal) public
+@objc(PBMInterstitialAdLoaderDelegate)
 protocol InterstitialAdLoaderDelegate {
     
     // Loading callbacks
-    func interstitialAdLoader(_ interstitialAdLoader: PBMInterstitialAdLoader,
+    func interstitialAdLoader(_ interstitialAdLoader: InterstitialAdLoader,
                               loadedAd showBlock: @escaping (_ viewController: UIViewController?) -> Void,
                               isReadyBlock: @escaping () -> Bool)
     
     // Hook to insert interaction delegate
-    func interstitialAdLoader(_ interstitialAdLoader: PBMInterstitialAdLoader,
+    func interstitialAdLoader(_ interstitialAdLoader: InterstitialAdLoader,
                               createdInterstitialController interstitialController: InterstitialController)
     
 }

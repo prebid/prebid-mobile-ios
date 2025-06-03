@@ -12,14 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-    
-
 import Foundation
 
-@objc @_spi(PBMInternal) public
-protocol PBMInterstitialAdLoader: PBMAdLoaderProtocol, InterstitialControllerLoadingDelegate, InterstitialEventLoadingDelegate {
+enum AdLoadFlowState: Int {
+    case idle = 0
     
-    init(delegate: InterstitialAdLoaderDelegate,
-         eventHandler: PrimaryAdRequesterProtocol)
+    case bidRequest
+    case demandReceived
+    case primaryAdRequest
+    case loadingDisplayView // skipped if primaryAdServer wins
+    case readyToDeploy
     
+    case loadingFailed = -1
 }

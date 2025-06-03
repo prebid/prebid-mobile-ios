@@ -67,8 +67,6 @@ framework module PrebidMobile {
     header "PBMUIApplicationProtocol.h"
     
     header "PBMAutoRefreshManager.h"
-    header "PBMAdLoadFlowController.h"
-    header "PBMAdLoaderProtocol.h"
     header "PBMBannerAdLoader.h"
     
     
@@ -141,7 +139,6 @@ framework module PrebidMobile {
     
     header "NSDictionary+PBMExtensions.h"
     header "NSMutableDictionary+PBMExtensions.h"
-    header "PrebidMobileDisplayViewProtocol.h"
     
     header "OMSDKVersionProvider.h"
     header "NSObject+PBMExtensions.h"

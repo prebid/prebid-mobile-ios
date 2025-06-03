@@ -130,7 +130,6 @@
 #import "PBMSafariVCOpener+PBMTestExtensions.h"
 
 // Prebid
-#import "PBMAdLoadFlowController+PrivateState.h"
 #import "PBMBidResponseTransformer.h"
 #import "PBMPrebidParameterBuilder.h"
 
