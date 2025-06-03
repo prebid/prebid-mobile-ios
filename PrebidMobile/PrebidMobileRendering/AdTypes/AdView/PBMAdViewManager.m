@@ -15,7 +15,6 @@
 
 #import "PBMAbstractCreative.h"
 #import "PBMAdLoadManagerProtocol.h"
-#import "PBMAutoRefreshManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialLayoutConfigurator.h"
 #import "PBMVideoCreative.h"

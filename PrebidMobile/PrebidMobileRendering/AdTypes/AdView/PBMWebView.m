@@ -34,8 +34,6 @@
 #import "PBMWebView.h"
 #import "PBMWebView+Internal.h"
 
-#import "PBMAdViewManagerDelegate.h"
-
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
 #import "PrebidMobile-Swift.h"

@@ -21,7 +21,7 @@ protocol AdViewManager: CreativeViewDelegate {
         
     var adConfiguration: AdConfiguration { get set }
     var modalManager: ModalManager { get set }
-    weak var adViewManagerDelegate: PBMAdViewManagerDelegate? { get set }
+    weak var adViewManagerDelegate: AdViewManagerDelegate? { get set }
     var autoDisplayOnLoad: Bool { get set }
     var isCreativeOpened: Bool { get }
     

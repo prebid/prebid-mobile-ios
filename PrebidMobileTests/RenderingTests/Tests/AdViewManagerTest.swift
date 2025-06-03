@@ -18,7 +18,7 @@ import XCTest
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
+class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     
     weak var viewControllerForModalPresentationExpectation: XCTestExpectation?
     weak var displayViewExpectation: XCTestExpectation?
@@ -314,19 +314,19 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         UtilitiesForTesting.checkLogContains("setupCreative must be called on the main thread")
     }
     
-    //MARK: PBMAdViewManagerDelegate
+    //MARK: AdViewManagerDelegate
     
     func viewControllerForModalPresentation() -> UIViewController? {
         fulfillOrFail(viewControllerForModalPresentationExpectation, "viewControllerForModalPresentationExpectation")
         return UIViewController()
     }
     
-    func displayView() -> UIView {
+    var displayView: UIView {
         fulfillOrFail(displayViewExpectation, "displayViewExpectation")
-        return UIView();
+        return UIView()
     }
     
-    func interstitialDisplayProperties() -> InterstitialDisplayProperties {
+    var interstitialDisplayProperties: InterstitialDisplayProperties {
         fulfillOrFail(interstitialDisplayPropertiesExpectation, "interstitialDisplayPropertiesExpectation")
         return InterstitialDisplayProperties()
     }
@@ -335,7 +335,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         fulfillOrFail(adLoadedExpectation, "adLoadedExpectation")
     }
     
-    func failed(toLoad error:Error) {
+    func failedToLoad(_ error:Error) {
         fulfillOrFail(failedToLoadExpectation, "failedToLoadExpectation")
         currentlyDisplaying = false
     }

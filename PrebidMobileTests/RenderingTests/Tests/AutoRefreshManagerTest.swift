@@ -15,14 +15,18 @@
 
 import XCTest
 
-class PBMAutoRefreshManagerTest: XCTestCase {
+@testable @_spi(PBMInternal) import PrebidMobile
+
+class AutoRefreshManagerTest: XCTestCase {
     func testNoTimerAutoStart() {
         let callbackExpectation = expectation(description: "callback called")
         callbackExpectation.isInverted = true
-        withExtendedLifetime(PBMAutoRefreshManager(prefetchTime: 0,
-                                                   refreshDelay: { 5 },
-                                                   mayRefreshNowBlock: { true },
-                                                   refreshBlock: callbackExpectation.fulfill)) {
+        withExtendedLifetime(AutoRefreshManager(prefetchTime: 0,
+                                                lockingQueue: nil,
+                                                lockProvider: nil,
+                                                refreshDelayBlock: { 5 },
+                                                mayRefreshNowBlock: { true },
+                                                refreshBlock: callbackExpectation.fulfill)) {
             waitForExpectations(timeout: 6)
         }
     }
@@ -30,20 +34,24 @@ class PBMAutoRefreshManagerTest: XCTestCase {
     func testNoTimerAutoStartWithPrefetch() {
         let callbackExpectation = expectation(description: "callback called")
         callbackExpectation.isInverted = true
-        withExtendedLifetime(PBMAutoRefreshManager(prefetchTime: 2,
-                                                   refreshDelay: { 4 },
-                                                   mayRefreshNowBlock: { true },
-                                                   refreshBlock: callbackExpectation.fulfill)) {
+        withExtendedLifetime(AutoRefreshManager(prefetchTime: 2,
+                                                lockingQueue: nil,
+                                                lockProvider: nil,
+                                                refreshDelayBlock: { 4 },
+                                                mayRefreshNowBlock: { true },
+                                                refreshBlock: callbackExpectation.fulfill)) {
             waitForExpectations(timeout: 7)
         }
     }
     
     func testInitialRequest() {
         let callbackExpectation = expectation(description: "callback called")
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 0,
-                                                       refreshDelay: { 5 },
-                                                       mayRefreshNowBlock: { true },
-                                                       refreshBlock: callbackExpectation.fulfill)
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 0,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: { 5 },
+                                                    mayRefreshNowBlock: { true },
+                                                    refreshBlock: callbackExpectation.fulfill)
         let beforeSetup = Date()
         autoRefreshManager.setupRefreshTimer()
         waitForExpectations(timeout: 6)
@@ -53,10 +61,12 @@ class PBMAutoRefreshManagerTest: XCTestCase {
     
     func testInitialRequestWithPrefetch() {
         let callbackExpectation = expectation(description: "callback called")
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 2,
-                                                       refreshDelay: { 6 },
-                                                       mayRefreshNowBlock: { true },
-                                                       refreshBlock: callbackExpectation.fulfill)
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 2,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: { 6 },
+                                                    mayRefreshNowBlock: { true },
+                                                    refreshBlock: callbackExpectation.fulfill)
         let beforeSetup = Date()
         autoRefreshManager.setupRefreshTimer()
         waitForExpectations(timeout: 5)
@@ -67,10 +77,12 @@ class PBMAutoRefreshManagerTest: XCTestCase {
     func testStopTimer() {
         let callbackExpectation = expectation(description: "callback called")
         callbackExpectation.isInverted = true
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 0,
-                                                       refreshDelay: { 4 },
-                                                       mayRefreshNowBlock: { true },
-                                                       refreshBlock: callbackExpectation.fulfill)
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 0,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: { 4 },
+                                                    mayRefreshNowBlock: { true },
+                                                    refreshBlock: callbackExpectation.fulfill)
         autoRefreshManager.setupRefreshTimer()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             autoRefreshManager.cancelRefreshTimer()
@@ -81,7 +93,11 @@ class PBMAutoRefreshManagerTest: XCTestCase {
     func testNoRepeatedRequest() {
         let callbackExpectation = expectation(description: "callback called")
         let nextExpectation = NSMutableArray(object: callbackExpectation)
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 0, refreshDelay: {3}, mayRefreshNowBlock: {true}) {
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 0,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: {3},
+                                                    mayRefreshNowBlock: {true}) {
             (nextExpectation[0] as? XCTestExpectation)?.fulfill()
         }
         autoRefreshManager.setupRefreshTimer()
@@ -94,7 +110,11 @@ class PBMAutoRefreshManagerTest: XCTestCase {
     func testNoRepeatedRequestWithPrefetch() {
         let callbackExpectation = expectation(description: "callback called")
         let nextExpectation = NSMutableArray(object: callbackExpectation)
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 2, refreshDelay: {6}, mayRefreshNowBlock: {true}) {
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 2,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: {6},
+                                                    mayRefreshNowBlock: {true}) {
             (nextExpectation[0] as? XCTestExpectation)?.fulfill()
         }
         autoRefreshManager.setupRefreshTimer()
@@ -109,13 +129,15 @@ class PBMAutoRefreshManagerTest: XCTestCase {
         mayRefreshCalledExpectation.expectedFulfillmentCount = 3
         let callbackExpectation = expectation(description: "callback called")
         callbackExpectation.isInverted = true
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 0,
-                                                       refreshDelay: { 3 },
-                                                       mayRefreshNowBlock: {
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 0,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: { 3 },
+                                                    mayRefreshNowBlock: {
             mayRefreshCalledExpectation.fulfill()
             return false
         },
-                                                       refreshBlock: callbackExpectation.fulfill)
+                                                    refreshBlock: callbackExpectation.fulfill)
         autoRefreshManager.setupRefreshTimer()
         waitForExpectations(timeout: 10)
     }
@@ -125,13 +147,15 @@ class PBMAutoRefreshManagerTest: XCTestCase {
         mayRefreshCalledExpectation.expectedFulfillmentCount = 3
         let callbackExpectation = expectation(description: "callback called")
         callbackExpectation.isInverted = true
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 2,
-                                                       refreshDelay: { 6 },
-                                                       mayRefreshNowBlock: {
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 2,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: { 6 },
+                                                    mayRefreshNowBlock: {
             mayRefreshCalledExpectation.fulfill()
             return false
         },
-                                                       refreshBlock: callbackExpectation.fulfill)
+                                                    refreshBlock: callbackExpectation.fulfill)
         autoRefreshManager.setupRefreshTimer()
         waitForExpectations(timeout: 13)
     }
@@ -141,15 +165,17 @@ class PBMAutoRefreshManagerTest: XCTestCase {
         let mayRefreshCalledExpectations = (0..<3).map { expectation(description: "mayRefresh called \($0)") }
         mayRefreshCalledExpectations[2].isInverted = true
         let callbackExpectation = expectation(description: "callback called")
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 0,
-                                                       refreshDelay: { 3 },
-                                                       mayRefreshNowBlock: {
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 0,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: { 3 },
+                                                    mayRefreshNowBlock: {
             let iterationIndex = (mayRefreshCallCount[0] as? NSNumber)?.intValue ?? 0
             mayRefreshCallCount[0] = NSNumber(value: iterationIndex + 1)
             mayRefreshCalledExpectations[iterationIndex].fulfill()
             return iterationIndex == 1
         },
-                                                       refreshBlock: callbackExpectation.fulfill)
+                                                    refreshBlock: callbackExpectation.fulfill)
         autoRefreshManager.setupRefreshTimer()
         let controlledTimeout = expectation(description: "timeout")
         DispatchQueue.main.asyncAfter(deadline: .now() + 11, execute: controlledTimeout.fulfill)
@@ -161,15 +187,17 @@ class PBMAutoRefreshManagerTest: XCTestCase {
         let mayRefreshCalledExpectations = (0..<3).map { expectation(description: "mayRefresh called \($0)") }
         mayRefreshCalledExpectations[2].isInverted = true
         let callbackExpectation = expectation(description: "callback called")
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 2,
-                                                       refreshDelay: { 6 },
-                                                       mayRefreshNowBlock: {
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 2,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: { 6 },
+                                                    mayRefreshNowBlock: {
             let iterationIndex = (mayRefreshCallCount[0] as? NSNumber)?.intValue ?? 0
             mayRefreshCallCount[0] = NSNumber(value: iterationIndex + 1)
             mayRefreshCalledExpectations[iterationIndex].fulfill()
             return iterationIndex == 1
         },
-                                                       refreshBlock: callbackExpectation.fulfill)
+                                                    refreshBlock: callbackExpectation.fulfill)
         autoRefreshManager.setupRefreshTimer()
         let controlledTimeout = expectation(description: "timeout")
         DispatchQueue.main.asyncAfter(deadline: .now() + 13, execute: controlledTimeout.fulfill)
@@ -230,9 +258,11 @@ class PBMAutoRefreshManagerTest: XCTestCase {
         let noCallbackExpectation = expectation(description: "callback not called")
         noCallbackExpectation.isInverted = true
         let expectationToFulfill = NSMutableArray(object: noCallbackExpectation)
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: 0,
-                                                       refreshDelay: { refreshDelay },
-                                                       mayRefreshNowBlock: { true })
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: 0,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: { refreshDelay as NSNumber? },
+                                                    mayRefreshNowBlock: { true })
         {
             (expectationToFulfill[0] as? XCTestExpectation)?.fulfill()
         }
@@ -271,38 +301,40 @@ class PBMAutoRefreshManagerTest: XCTestCase {
             XCTFail("Call mismatch on iteration #\((nextCallIndex[0] as? NSNumber)?.intValue ?? 0)")
         }
         let refreshPoints = NSMutableArray()
-        let autoRefreshManager = PBMAutoRefreshManager(prefetchTime: prefetchTime,
-                                                       refreshDelay: {
+        let autoRefreshManager = AutoRefreshManager(prefetchTime: prefetchTime,
+                                                    lockingQueue: nil,
+                                                    lockProvider: nil,
+                                                    refreshDelayBlock: {
             switch callChain[evaluateIterationIndex()] {
-            case .delay(let delay): return delay
-            default: failIteration(); return nil
+                case .delay(let delay): return delay as NSNumber
+                default: failIteration(); return nil
             }
         },
-                                                       mayRefreshNowBlock: {
+                                                    mayRefreshNowBlock: {
             switch callChain[evaluateIterationIndex()] {
-            case .mayRefresh(let result): return result
-            default: failIteration(); return false
+                case .mayRefresh(let result): return result
+                default: failIteration(); return false
             }
         },
-                                                       refreshBlock: {
+                                                    refreshBlock: {
             refreshPoints.add(Date())
             switch callChain[evaluateIterationIndex()] {
-            case .refresh(let setupAgain):
-                if setupAgain {
-                    (autoRefreshManagers[0] as? PBMAutoRefreshManager)?
-                        .setupRefreshTimer()
-                }
-            default:
-                failIteration()
+                case .refresh(let setupAgain):
+                    if setupAgain {
+                        (autoRefreshManagers[0] as? AutoRefreshManager)?
+                            .setupRefreshTimer()
+                    }
+                default:
+                    failIteration()
             }
         })
         autoRefreshManagers.add(autoRefreshManager)
         let timeout = extraTimeToFinish + callChain.reduce(0.0) {
             switch $1 {
-            case .delay(let v):
-                return $0 + v - prefetchTime
-            default:
-                return $0
+                case .delay(let v):
+                    return $0 + v - prefetchTime
+                default:
+                    return $0
             }
         }
         let controlledTimeout = expectation(description: "timeout")
@@ -316,19 +348,5 @@ class PBMAutoRefreshManagerTest: XCTestCase {
         for i in 0..<min(refreshTimes.count, expectedRefreshTimes.count) {
             XCTAssertLessThanOrEqual(abs(refreshTimes[i] - expectedRefreshTimes[i]), extraTimeToFinish)
         }
-    }
-}
-
-extension PBMAutoRefreshManager {
-    convenience init(prefetchTime: TimeInterval,
-                     refreshDelay: @escaping () -> TimeInterval?,
-                     mayRefreshNowBlock: @escaping () -> Bool,
-                     refreshBlock: @escaping () -> ()) {
-        self.init(prefetchTime: prefetchTime,
-                  locking:nil,
-                  lockProvider:nil,
-                  refreshDelay: { refreshDelay().map(NSNumber.init) },
-                  mayRefreshNowBlock: mayRefreshNowBlock,
-                  refreshBlock: refreshBlock)
     }
 }
