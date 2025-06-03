@@ -38,9 +38,6 @@ framework module PrebidMobile {
         
     header "PBMJsonDecodable.h"
     header "PBMConstants.h"
-    
-    header "PBMAdViewManagerDelegate.h"
-    
     header "PBMScheduledTimerFactory.h"
     header "NSTimer+PBMScheduledTimerFactory.h"
     header "NSTimer+PBMTimerInterface.h"
@@ -55,8 +52,6 @@ framework module PrebidMobile {
     header "PBMDeviceAccessManager.h"
     
     header "Log+Extensions.h"
-    header "PBMAutoRefreshManager.h"
-    
     
     header "UIView+PBMExtensions.h"
     header "NSNumber+PBMORTBNative.h"
@@ -65,9 +60,6 @@ framework module PrebidMobile {
     header "PBMFunctions.h"
     header "PBMFunctions+Private.h"
     header "PBMUIApplicationProtocol.h"
-    
-    header "PBMAutoRefreshManager.h"
-    
     header "PBMBidRequesterFactoryBlock.h"
     header "PBMWinNotifierBlock.h"
     header "PBMAdMarkupStringHandler.h"
