@@ -23,7 +23,7 @@ class MockBannerView: BannerView {
     }
 }
 
-class PBMBannerViewTest: XCTestCase {
+class BannerViewTest: XCTestCase {
     override func tearDown() {
         Prebid.reset()
         
