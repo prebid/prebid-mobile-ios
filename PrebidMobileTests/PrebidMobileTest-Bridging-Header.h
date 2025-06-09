@@ -21,7 +21,6 @@
 #import "MockServerMimeType.h"
 
 //Imports
-#import "PBMAbstractCreative.h"
 #import "PBMAdLoadManagerBase.h"
 #import "PBMAdLoadManagerProtocol.h"
 #import "PBMAdLoadManagerVAST.h"
@@ -34,7 +33,6 @@
 #import "PBMCreativeFactory.h"
 #import "PBMCreativeFactoryJob.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
-#import "PBMCreativeResolutionDelegate.h"
 #import "PBMDeepLinkPlus.h"
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMDeepLinkPlusHelper+Testing.h"
@@ -114,7 +112,7 @@
 #import "PBMCreativeFactoryJob+PBMTestExtension.h"
 #import "PBMAbstractCreative+PBMTestExtension.h"
 #import "PBMAdLoadManager+PBMTestExtension.h"
-#import "PBMAutoRefreshManager+PBMTestExtension.h"
+//#import "PBMAutoRefreshManager+PBMTestExtension.h"
 #import "PBMCreativeFactoryJob+PBMTestExtension.h"
 #import "PBMHTMLCreative+PBMTestExtension.h"
 #import "PBMOpenMeasurementWrapper+PBMTestExtension.h"

@@ -91,7 +91,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         self.setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
         self.expectationDownloadCompleted = self.expectation(description: "expectationCreativeReady")
 
-        self.videoCreative.creativeModel!.adConfiguration!.isInterstitialAd = true
+        self.videoCreative.creativeModel.adConfiguration!.isInterstitialAd = true
 
         DispatchQueue.main.async {
             self.videoCreative.setupView()
@@ -132,7 +132,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         let expectedStoppedDely = 1.0
         
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
-        self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
         //Wait for creativeReady
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadCompleted")
@@ -142,7 +142,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(withRootViewController: UIViewController())
+        self.videoCreative?.display(rootViewController: UIViewController())
         
         guard let videoView = self.videoCreative.view as? PBMVideoView else {
             XCTFail("Couldn't get Video View")
@@ -169,7 +169,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         let expectedStoppedDely = 1.0
         
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
-        self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
         //Wait for creativeReady
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadCompleted")
@@ -179,7 +179,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(withRootViewController: UIViewController())
+        self.videoCreative?.display(rootViewController: UIViewController())
         
         guard let videoView = self.videoCreative.view as? PBMVideoView else {
             XCTFail("Couldn't get Video View")
@@ -232,9 +232,9 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         
         let mockModalManager = MockModalManager()
         self.videoCreative.modalManager = mockModalManager
-        self.videoCreative.creativeModel?.hasCompanionAd = false
-        self.videoCreative.creativeModel?.adConfiguration?.isRewarded = false
-        self.videoCreative.creativeModel?.adConfiguration?.videoControlsConfig.skipDelay = 1000
+        self.videoCreative.creativeModel.hasCompanionAd = false
+        self.videoCreative.creativeModel.adConfiguration?.isRewarded = false
+        self.videoCreative.creativeModel.adConfiguration?.videoControlsConfig.skipDelay = 1000
         mockModalManager.mock_pushModalClosure = { (modalState, _, _, _, completionHandler) in
             expectation.fulfill()
             PBMAssertEq(model.skipOffset, modalState.displayProperties?.closeDelay as NSNumber?)
@@ -296,7 +296,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
             self.videoCreative?.setupView()
         }
         
-        self.videoCreative.display(withRootViewController:mockViewController)
+        self.videoCreative.display(rootViewController:mockViewController)
         
         transaction?.creatives.append(self.videoCreative!)
         self.videoCreative.createOpenMeasurementSession();
@@ -388,7 +388,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
         self.videoCreative.videoViewCurrentPlayingTime(rewardTime)
         self.videoCreative.videoViewCurrentPlayingTime(postRewardTime)
         
-        XCTAssertTrue(videoCreative.creativeModel!.userPostRewardEventSent)
+        XCTAssertTrue(videoCreative.creativeModel.userPostRewardEventSent)
         
         waitForExpectations(timeout: 1)
     }
@@ -397,7 +397,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, Crea
     // MARK: - PBMCreativeResolutionDelegate
     func creativeReady(_ creative:PBMAbstractCreative) {
         self.expectationDownloadCompleted.fulfill()
-        self.videoCreative.display(withRootViewController: UIViewController())
+        self.videoCreative.display(rootViewController: UIViewController())
     }
     
     func creativeFailed(_ error:Error) {

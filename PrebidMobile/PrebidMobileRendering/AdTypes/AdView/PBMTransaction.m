@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMAbstractCreative.h"
 #import "PBMCreativeFactory.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
@@ -60,7 +59,7 @@
 
 - (void)startCreativeFactory {
     @weakify(self);
-    PBMCreativeFactoryFinishedCallback finishedCallback = ^(NSArray<PBMAbstractCreative *> *creatives, NSError *error) {
+    PBMCreativeFactoryFinishedCallback finishedCallback = ^(NSArray<id<PBMAbstractCreative>> *creatives, NSError *error) {
         @strongify(self);
         self.creativeFactory = NULL;
         if (error) {
@@ -79,13 +78,13 @@
 }
 
 - (nullable PBMAdDetails *)getAdDetails {
-    PBMAbstractCreative *creative = [self getFirstCreative];
+     id<PBMAbstractCreative> creative = [self getFirstCreative];
     
     return (creative && creative.creativeModel) ? creative.creativeModel.adDetails : nil;
 }
 
 // Return the first item in the list.  If list is empty return nil.
-- (PBMAbstractCreative *)getFirstCreative {
+- (id<PBMAbstractCreative>)getFirstCreative {
     if ((self.creatives == nil) || (self.creatives.count == 0)) {
         return nil;
     }
@@ -94,7 +93,7 @@
 
 // returns the creative after the current creative.
 // retuns nil if the creative is not found or is the last one on the list.
-- (PBMAbstractCreative *)getCreativeAfter:(PBMAbstractCreative *)creative {
+- (id<PBMAbstractCreative>)getCreativeAfter:(id<PBMAbstractCreative>)creative {
     
     if (!creative) {
         return [self getFirstCreative];
@@ -115,7 +114,7 @@
 }
 
 - (void)createOpenMeasurementSessionForFirstCreative {
-    PBMAbstractCreative *creative = [self getFirstCreative];
+     id<PBMAbstractCreative> creative = [self getFirstCreative];
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^ {
         @strongify(self);
@@ -127,8 +126,8 @@
     });
 }
 
-- (NSString *)revenueForCreativeAfter:(PBMAbstractCreative *)creative {
-    PBMAbstractCreative *targetCreative = [self getCreativeAfter:creative];
+- (NSString *)revenueForCreativeAfter:(id<PBMAbstractCreative>)creative {
+     id<PBMAbstractCreative> targetCreative = [self getCreativeAfter:creative];
     if (!targetCreative) {
         targetCreative = creative;
     }

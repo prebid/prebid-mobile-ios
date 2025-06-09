@@ -14,6 +14,7 @@
  */
 
 #import "PBMMacros.h"
+#import "PBMVoidBlock.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 

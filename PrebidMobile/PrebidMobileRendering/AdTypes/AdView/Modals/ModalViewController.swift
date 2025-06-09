@@ -241,7 +241,7 @@ public class ModalViewController: UIViewController {
     func creativeDisplayCompleted(_ creative: PBMAbstractCreative) {
         guard modalState?.adConfiguration?.isRewarded == true else { return }
 
-        let rewardedConfig = creative.creativeModel?.adConfiguration?.rewardedConfig
+        let rewardedConfig = creative.creativeModel.adConfiguration?.rewardedConfig
         let ortbAction = rewardedConfig?.closeAction ?? ""
         let action = CloseActionManager.getAction(from: ortbAction)
         switch action {

@@ -205,7 +205,7 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
         exp.isInverted = !shouldFulfill
         creativeMraidDidExpandHandler = { [weak expectedCreative] (actualCreative) in
             if shouldFulfill {
-                PBMAssertEq(actualCreative, expectedCreative)
+                XCTAssertIdentical(actualCreative, expectedCreative)
             }
             exp.fulfill()
         }

@@ -48,7 +48,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, Creat
         //Wait for creative to be ready
         self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
         self.setupVideoCreative()
-        self.videoCreative.creativeModel?.clickThroughURL = "www.openx.com"
+        self.videoCreative.creativeModel.clickThroughURL = "www.openx.com"
         self.vc = UIViewController()
         DispatchQueue.main.async {
             self.videoCreative.setupView()
@@ -66,7 +66,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, Creat
         self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
         self.setupVideoCreative()
         XCTAssertNotNil(self.videoCreative.creativeModel)
-        self.videoCreative.creativeModel?.clickThroughURL = "www.openx.com"
+        self.videoCreative.creativeModel.clickThroughURL = "www.openx.com"
         self.vc = UIViewController()
         DispatchQueue.main.async {
             self.videoCreative.setupView()
@@ -89,7 +89,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, Creat
         self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
         self.setupVideoCreative()
         XCTAssertNotNil(self.videoCreative.creativeModel)
-        self.videoCreative.creativeModel?.clickThroughURL = "www.openx.com"
+        self.videoCreative.creativeModel.clickThroughURL = "www.openx.com"
         self.vc = UIViewController()
         DispatchQueue.main.async {
             self.videoCreative.setupView()
@@ -101,7 +101,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, Creat
         
         let duration = rewardedVideoView?.requiredVideoDuration()
         let playerDuration = CGFloat(CMTimeGetSeconds(rewardedVideoView!.avPlayer.currentItem!.asset.duration))
-        let vastDuration = rewardedVideoView?.creative?.creativeModel?.displayDurationInSeconds as! CGFloat
+        let vastDuration = rewardedVideoView?.creative?.creativeModel.displayDurationInSeconds as! CGFloat
         XCTAssertEqual(duration, CGFloat.minimum(playerDuration, vastDuration))
     }
     
@@ -189,7 +189,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, Creat
     private func showAndTapLearnMore() {
         
         self.vc.view.addSubview(videoCreative.view!)
-        self.videoCreative.display(withRootViewController: self.vc)
+        self.videoCreative.display(rootViewController: self.vc)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             

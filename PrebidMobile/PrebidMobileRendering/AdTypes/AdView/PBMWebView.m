@@ -18,7 +18,6 @@
 
 #import <JavaScriptCore/JavaScriptCore.h>
 
-#import "PBMAbstractCreative.h"
 #import "PBMFunctions+Private.h"
 #import "PBMMRAIDController.h"
 #import "PBMMRAIDJavascriptCommands.h"

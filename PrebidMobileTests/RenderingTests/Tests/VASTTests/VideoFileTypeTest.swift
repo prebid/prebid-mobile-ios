@@ -111,7 +111,7 @@ class VideoFileTypeTest : XCTestCase, CreativeViewDelegate, PBMVideoViewDelegate
                     self.pbmVideoCreative = pbmVideoCreative
                     
                     DispatchQueue.main.async {
-                        self.pbmVideoCreative.display(withRootViewController: self.viewController)
+                        self.pbmVideoCreative.display(rootViewController: self.viewController)
                     }
                 }
             )

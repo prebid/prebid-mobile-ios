@@ -53,7 +53,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
     func testLearnMoreButton() {
         self.setupVideoCreative()
         
-        self.videoCreative.creativeModel!.clickThroughURL = "www.openx.com"
+        self.videoCreative.creativeModel.clickThroughURL = "www.openx.com"
         
         self.vc = UIViewController()
         
@@ -67,7 +67,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         
         //Wait half a second, then force a click
         self.vc?.view.addSubview(videoCreative.view!)
-        self.videoCreative?.display(withRootViewController: UIViewController())
+        self.videoCreative?.display(rootViewController: UIViewController())
         
         self.expectationCreativeWasClicked = expectation(description: "expectationCreativeWasClicked")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
@@ -93,7 +93,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         // Expected duration of video medium.mp4 is 60 sec
         let expectedVastDuration = 10.0
         setupVideoCreative(videoFileURL: "http://get_video/medium.mp4", localVideoFileName: "medium.mp4")
-        self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVastDuration as NSNumber // VAST Duration
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVastDuration as NSNumber // VAST Duration
         
         setupVideoDurationTest(expectedDuration: expectedVastDuration)
     }
@@ -102,7 +102,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         // Expected duration of video small.mp4 is 6 sec
         let expectedVideoDuration = 6.0
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
-        self.videoCreative.creativeModel!.displayDurationInSeconds = 10 // VAST Duration
+        self.videoCreative.creativeModel.displayDurationInSeconds = 10 // VAST Duration
         
         setupVideoDurationTest(expectedDuration: expectedVideoDuration)
     }
@@ -111,7 +111,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         // Expected duration of video small.mp4 is 6 sec
         let expectedVideoDuration = 6.0
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
-        self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
         //Wait for creativeReady
         self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
@@ -121,7 +121,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(withRootViewController: UIViewController())
+        self.videoCreative?.display(rootViewController: UIViewController())
         
         guard let videoView = self.videoCreative.view as? PBMVideoView else {
             XCTFail("Couldn't get Video View")
@@ -147,7 +147,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         let expectedPausedTime = 3.0
         
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
-        self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
         //Wait for creativeReady
         self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
@@ -157,7 +157,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(withRootViewController: UIViewController())
+        self.videoCreative?.display(rootViewController: UIViewController())
         
         guard let videoView = self.videoCreative.view as? PBMVideoView else {
             XCTFail("Couldn't get Video View")
@@ -189,7 +189,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         let expectedStoppedDely = 3.0
         
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
-        self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
         //Wait for creativeReady
         self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
@@ -199,7 +199,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(withRootViewController: UIViewController())
+        self.videoCreative?.display(rootViewController: UIViewController())
         
         guard let videoView = self.videoCreative.view as? PBMVideoView else {
             XCTFail("Couldn't get Video View")
@@ -226,7 +226,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         let event = TrackingEvent.closeLinear
         
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
-        self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
         //Wait for creativeReady
         self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
@@ -236,7 +236,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(withRootViewController: UIViewController())
+        self.videoCreative?.display(rootViewController: UIViewController())
         
         guard let videoView = self.videoCreative.view as? PBMVideoView else {
             XCTFail("Couldn't get Video View")
@@ -264,7 +264,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         let expectedVideoDuration = 6.0
         
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
-        self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVideoDuration as NSNumber
         
         //Wait for creativeReady
         self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
@@ -274,7 +274,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(withRootViewController: UIViewController())
+        self.videoCreative?.display(rootViewController: UIViewController())
         XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted == false)
     }
     
@@ -300,11 +300,10 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
             return
         }
         
-        self.videoCreative.creativeModel = CreativeModel()
-        self.videoCreative.creativeModel?.adConfiguration = AdConfiguration()
-        self.videoCreative.creativeModel?.adConfiguration?.videoControlsConfig.skipDelay = 1
-        self.videoCreative.creativeModel?.displayDurationInSeconds = 10
-        self.videoCreative.creativeModel?.hasCompanionAd = true
+        self.videoCreative.creativeModel.adConfiguration = AdConfiguration()
+        self.videoCreative.creativeModel.adConfiguration?.videoControlsConfig.skipDelay = 1
+        self.videoCreative.creativeModel.displayDurationInSeconds = 10
+        self.videoCreative.creativeModel.hasCompanionAd = true
         
         videoView.handleSkipDelay(0, videoDuration: 10)
         
@@ -613,7 +612,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewD
         }
         self.waitForExpectations(timeout: 15, handler:nil)
         
-        self.videoCreative?.display(withRootViewController: UIViewController())
+        self.videoCreative?.display(rootViewController: UIViewController())
         
         guard let videoView = self.videoCreative.view as? PBMVideoView else {
             XCTFail("Couldn't get Video View")

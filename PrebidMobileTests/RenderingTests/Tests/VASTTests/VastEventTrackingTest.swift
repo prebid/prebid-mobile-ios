@@ -136,7 +136,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
                     
                     DispatchQueue.main.async {
                         self.vc.view.addSubview(self.videoCreative.view!)
-                        self.videoCreative.display(withRootViewController: self.vc)
+                        self.videoCreative.display(rootViewController: self.vc)
                     }
             })
             

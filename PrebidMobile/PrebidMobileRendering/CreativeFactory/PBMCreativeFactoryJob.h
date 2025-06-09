@@ -14,10 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBMCreativeResolutionDelegate.h"
 
 @class PBMCreativeModel;
-@class PBMAbstractCreative;
+@protocol PBMAbstractCreative;
 @protocol PBMTransaction;
 @class PBMCreativeFactoryJob;
 
@@ -35,7 +34,7 @@ typedef void(^PBMCreativeFactoryJobFinishedCallback)(PBMCreativeFactoryJob * _No
 
 @interface PBMCreativeFactoryJob : NSObject <PBMCreativeResolutionDelegate>
 
-@property (nonatomic, strong, nonnull) PBMAbstractCreative *creative;
+@property (nonatomic, strong, nonnull)  id<PBMAbstractCreative> creative;
 @property (nonatomic, assign) PBMCreativeFactoryJobState state;
 
 - (nonnull instancetype)init NS_UNAVAILABLE;

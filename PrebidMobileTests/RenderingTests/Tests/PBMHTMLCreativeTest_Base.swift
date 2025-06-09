@@ -73,7 +73,7 @@ class PBMHTMLCreativeTest_Base: XCTestCase, CreativeViewDelegate {
             return
         }
         mockViewController.view.addSubview(creativeView)
-        htmlCreative.display(withRootViewController: mockViewController)
+        htmlCreative.display(rootViewController: mockViewController)
     }
     
     override func tearDown() {

@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMAbstractCreative.h"
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMViewExposureChecker.h"
 #import "PBMMacros.h"
@@ -67,7 +66,7 @@
     return self;
 }
 
-- (instancetype)initWithCreative:(PBMAbstractCreative *)creative {
+- (instancetype)initWithCreative:(id<PBMAbstractCreative>)creative {
     @weakify(creative);
     if (self = [self initWithView:creative.view
           pollingTimeInterval:creative.creativeModel.adConfiguration.pollFrequency
