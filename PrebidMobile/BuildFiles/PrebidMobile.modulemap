@@ -67,8 +67,6 @@ framework module PrebidMobile {
     header "PBMUIApplicationProtocol.h"
     
     header "PBMAutoRefreshManager.h"
-    header "PBMBannerAdLoader.h"
-    
     
     header "PBMBidRequesterFactoryBlock.h"
     header "PBMWinNotifierBlock.h"

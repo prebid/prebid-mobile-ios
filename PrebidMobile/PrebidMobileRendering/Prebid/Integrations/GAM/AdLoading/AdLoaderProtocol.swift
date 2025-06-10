@@ -19,7 +19,7 @@ import Foundation
 protocol AdLoaderProtocol: NSObjectProtocol {
     
     weak var flowDelegate: AdLoaderFlowDelegate? { get set }
-    var primaryAdRequester: PrimaryAdRequesterProtocol { get }
+    var primaryAdRequester: PrimaryAdRequesterProtocol? { get }
     
     @objc(createPrebidAdWithBid:adUnitConfig:adObjectSaver:loadMethodInvoker:)
     func createPrebidAd(with bid: Bid,

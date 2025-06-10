@@ -21,7 +21,6 @@ fileprivate let assertionMessageMainThread = "Expected to only be called on the 
 @objcMembers
 public class BannerView:
     UIView,
-    BannerAdLoaderDelegate,
     BannerEventInteractionDelegate,
     DisplayViewInteractionDelegate {
     
@@ -138,7 +137,7 @@ public class BannerView:
         super.init(frame: frame)
         accessibilityLabel = PBMAccesibility.bannerView
         
-        let bannerAdLoader = PBMBannerAdLoader(delegate: self)
+        let bannerAdLoader = BannerAdLoader(delegate: self)
         
         adLoadFlowController = AdLoadFlowController(
             bidRequesterFactory: { [adUnitConfig] config in
@@ -296,17 +295,6 @@ public class BannerView:
         didDismissModal()
     }
     
-    // MARK: - BannerAdLoaderDelegate
-    
-    public func bannerAdLoader(
-        _ bannerAdLoader: PBMBannerAdLoader,
-        loadedAdView adView: UIView,
-        adSize: CGSize
-    ) {
-        deployView(adView)
-        reportLoadingSuccess(with: adSize)
-    }
-    
     // MARK: - BannerEventInteractionDelegate
     
     public func willPresentModal() {
@@ -418,7 +406,7 @@ public class BannerView:
 }
 
 @_spi(PBMInternal)
-extension BannerView : AdLoadFlowControllerDelegate {
+extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
     // MARK: - AdLoadFlowControllerDelegate
     
     public func adLoadFlowController(
@@ -440,5 +428,17 @@ extension BannerView : AdLoadFlowControllerDelegate {
     
     public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool {
         !isRefreshStopped
+    }
+    
+    // MARK: - BannerAdLoaderDelegate
+    
+    @_spi(PBMInternal)
+    public func bannerAdLoader(
+        _ bannerAdLoader: BannerAdLoader,
+        loadedAdView adView: UIView,
+        adSize: CGSize
+    ) {
+        deployView(adView)
+        reportLoadingSuccess(with: adSize)
     }
 }
