@@ -47,10 +47,10 @@ protocol AdViewManager: CreativeViewDelegate {
     
     // Exposed for tests
 #if DEBUG
-    weak var currentCreative: PBMAbstractCreative? { get set }
+    weak var currentCreative: AbstractCreative? { get set }
     var externalTransaction: Transaction? { get set }
     
-    func setupCreative(_ creative: PBMAbstractCreative)
-    func setupCreative(_ creative: PBMAbstractCreative, withThread thread: ThreadProtocol)
+    func setupCreative(_ creative: AbstractCreative)
+    func setupCreative(_ creative: AbstractCreative, withThread thread: ThreadProtocol)
 #endif
 }

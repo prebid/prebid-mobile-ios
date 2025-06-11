@@ -200,7 +200,7 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
      - shouldFulfill: Whether or not the expecation is expected to fulfill
      - expectedCreative: If `shouldFulfill`, the creative to compare
      */
-    func creativeExpandExpectation(shouldFulfill: Bool, expectedCreative: PBMAbstractCreative? = nil) {
+    func creativeExpandExpectation(shouldFulfill: Bool, expectedCreative: AbstractCreative? = nil) {
         let exp = expectation(description: "Should \(shouldFulfill ? "" : "not ")call expand handler")
         exp.isInverted = !shouldFulfill
         creativeMraidDidExpandHandler = { [weak expectedCreative] (actualCreative) in

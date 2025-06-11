@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMCreativeViewabilityTracker.h"
 #import "PBMViewExposureChecker.h"
 #import "PBMMacros.h"
 
@@ -32,7 +31,9 @@
     #import "Prebid+TestExtension.h"
 #endif
 
-@interface PBMCreativeViewabilityTracker()
+typedef void(^PBMViewExposureChangeHandler)(id<PBMCreativeViewabilityTracker> tracker, id<PBMViewExposure> viewExposure);
+
+@interface PBMCreativeViewabilityTracker_Objc : NSObject <PBMCreativeViewabilityTracker>
 
 @property (nonatomic, assign, readonly) NSTimeInterval pollingTimeInterval;
 @property (nonatomic, strong, nonnull, readonly) PBMViewExposureChangeHandler onExposureChange;
@@ -47,7 +48,7 @@
 
 @end
 
-@implementation PBMCreativeViewabilityTracker
+@implementation PBMCreativeViewabilityTracker_Objc
 
 - (instancetype)initWithView:(UIView *)view
          pollingTimeInterval:(NSTimeInterval)pollingTimeInterval
@@ -70,10 +71,15 @@
     @weakify(creative);
     if (self = [self initWithView:creative.view
           pollingTimeInterval:creative.creativeModel.adConfiguration.pollFrequency
-             onExposureChange:^(PBMCreativeViewabilityTracker *tracker, id<PBMViewExposure> viewExposure)
+             onExposureChange:^(id<PBMCreativeViewabilityTracker> tracker, id<PBMViewExposure> viewExposure)
     {
         @strongify(creative);
-        BOOL isVisible = [tracker isVisibleView:tracker.testedView];
+        __auto_type objcTracker = (PBMCreativeViewabilityTracker_Objc *)tracker;
+        if (![tracker isKindOfClass:PBMCreativeViewabilityTracker_Objc.class]) {
+            return;
+        }
+        
+        BOOL isVisible = [objcTracker isVisibleView:objcTracker.testedView];
         [creative onViewabilityChanged:isVisible viewExposure:viewExposure];
     }]) {
         _isViewabilityMode = YES;

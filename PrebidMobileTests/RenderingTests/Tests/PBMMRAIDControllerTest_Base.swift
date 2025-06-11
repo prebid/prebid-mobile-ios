@@ -89,50 +89,50 @@ class PBMMRAIDControllerTest_Base: XCTestCase, CreativeViewDelegate {
     
     // MARK: - CreativeViewDelegate
     var creativeInterstitialDidLeaveAppHandler: CreativeViewDelegateHandler?
-    func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {
+    func creativeInterstitialDidLeaveApp(_ creative: AbstractCreative) {
         self.creativeInterstitialDidLeaveAppHandler?(creative)
     }
     
     var creativeInterstitialDidCloseHandler: CreativeViewDelegateHandler?
-    func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {
+    func creativeInterstitialDidClose(_ creative: AbstractCreative) {
         self.creativeInterstitialDidCloseHandler?(creative)
     }
     
     var creativeClickthroughDidCloseHandler: CreativeViewDelegateHandler?
-    func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {
+    func creativeClickthroughDidClose(_ creative: AbstractCreative) {
         self.creativeClickthroughDidCloseHandler?(creative)
     }
     
     var creativeReadyToReimplantHandler: CreativeViewDelegateHandler?
-    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {
+    func creativeReadyToReimplant(_ creative: AbstractCreative) {
         self.creativeReadyToReimplantHandler?(creative)
     }
     
     var creativeMraidDidCollapseHandler: CreativeViewDelegateHandler?
-    func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {
+    func creativeMraidDidCollapse(_ creative: AbstractCreative) {
         self.creativeMraidDidCollapseHandler?(creative)
     }
     
     var creativeMraidDidExpandHandler: CreativeViewDelegateHandler?
-    func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {
+    func creativeMraidDidExpand(_ creative: AbstractCreative) {
         self.creativeMraidDidExpandHandler?(creative)
     }
     
     var creativeDidCompleteHandler: CreativeViewDelegateHandler?
-    func creativeDidComplete(_ creative: PBMAbstractCreative) {
+    func creativeDidComplete(_ creative: AbstractCreative) {
         self.creativeDidCompleteHandler?(creative)
     }
     
-    var creativeWasClickedHandler: ((PBMAbstractCreative) -> Void)?
-    func creativeWasClicked(_ creative: PBMAbstractCreative) {
+    var creativeWasClickedHandler: ((AbstractCreative) -> Void)?
+    func creativeWasClicked(_ creative: AbstractCreative) {
         self.creativeWasClickedHandler?(creative)
     }
     
-    func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
-    func creativeDidDisplay(_ creative: PBMAbstractCreative) {}
-    func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
-    func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
-    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
+    func videoCreativeDidComplete(_ creative: AbstractCreative) {}
+    func creativeDidDisplay(_ creative: AbstractCreative) {}
+    func creativeViewWasClicked(_ creative: AbstractCreative) {}
+    func creativeFullScreenDidFinish(_ creative: AbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: AbstractCreative) {}
     
     // MARK: - Utilities
     /**

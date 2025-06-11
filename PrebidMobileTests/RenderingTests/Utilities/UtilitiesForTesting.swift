@@ -91,12 +91,12 @@ typealias JsonDictionary = [String:Any]
         return transaction;
     }
     
-    class func createHTMLCreative(with model: CreativeModel) -> PBMAbstractCreative {
+    class func createHTMLCreative(with model: CreativeModel) -> AbstractCreative {
         return PBMHTMLCreative(creativeModel: model,
                                transaction:UtilitiesForTesting.createEmptyTransaction())
     }
     
-    class func createHTMLCreative(withView: Bool = true) -> PBMAbstractCreative {
+    class func createHTMLCreative(withView: Bool = true) -> AbstractCreative {
         let model = CreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
         

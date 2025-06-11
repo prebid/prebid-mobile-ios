@@ -25,7 +25,6 @@
 #import "PBMOpenMeasurementSession.h"
 #import "PBMORTB.h"
 #import "PBMTouchDownRecognizer.h"
-#import "PBMCreativeViewabilityTracker.h"
 #import "PBMWKScriptMessageHandlerLeakAvoider.h"
 #import "UIView+PBMExtensions.h"
 #import "Log+Extensions.h"
@@ -63,7 +62,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 @property (nonatomic, assign) BOOL isVolumeObserverSetup;
 
 // viewability polling
-@property (nonatomic, strong, nullable) PBMCreativeViewabilityTracker *viewabilityTracker;
+@property (nonatomic, strong, nullable) id<PBMCreativeViewabilityTracker> viewabilityTracker;
 
 // the last frame sent to an ad via onSizeChange
 @property (nonatomic, assign) CGRect mraidLastSentFrame;
@@ -845,7 +844,7 @@ static PBMError *extracted(NSString *errorMessage) {
 //TODO: There is almost certainly a way to do this that is more industry-standard and less processor-intensive.
 - (void)pollForViewability {
     @weakify(self);
-    self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc]initWithView:self pollingTimeInterval:0.2f onExposureChange:^(PBMCreativeViewabilityTracker *tracker, id<PBMViewExposure> _Nonnull viewExposure) {
+    self.viewabilityTracker = [PBMFactory PBMCreativeViewabilityTrackerWithView:self pollingTimeInterval:0.2f onExposureChange:^(id<PBMCreativeViewabilityTracker> tracker, id<PBMViewExposure> _Nonnull viewExposure) {
         @strongify(self);
         if (!self) { return; }
 

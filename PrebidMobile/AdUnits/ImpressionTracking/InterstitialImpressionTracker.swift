@@ -19,7 +19,7 @@ import WebKit
 class InterstitialImpressionTracker: PrebidImpressionTrackerProtocol {
     
     private var interstitialObserver: InterstitialObserver?
-    private var viewabilityTracker: PBMCreativeViewabilityTracker?
+    private var viewabilityTracker: CreativeViewabilityTracker?
     
     private var eventManager: EventManager?
     private var payload: PrebidImpressionTracker.Payload?
@@ -44,7 +44,7 @@ class InterstitialImpressionTracker: PrebidImpressionTrackerProtocol {
     }
     
     private func attachViewabilityTracker(to view: UIView) {
-        viewabilityTracker = PBMCreativeViewabilityTracker(
+        viewabilityTracker = Factory.PBMCreativeViewabilityTracker(
             view: view,
             pollingTimeInterval: pollingInterval,
             onExposureChange: { [weak self, weak view] _, viewExposure in

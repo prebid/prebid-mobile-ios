@@ -106,4 +106,26 @@ class Factory: NSObject {
                             nextOnStateHasLeftApp: nextOnStateHasLeftApp,
                             onModalPushedBlock: onModalPushedBlock)
     }
+    
+    // MARK: PBMCreativeViewabilityTracker
+    
+    @objc public static let CreativeViewabilityTrackerType: CreativeViewabilityTracker.Type = {
+        NSClassFromString("PBMCreativeViewabilityTracker_Objc") as! CreativeViewabilityTracker.Type
+    }()
+    
+    @objc public static func PBMCreativeViewabilityTracker(
+        view: UIView,
+        pollingTimeInterval: TimeInterval,
+        onExposureChange: @escaping ViewExposureChangeHandler
+    ) -> CreativeViewabilityTracker {
+        CreativeViewabilityTrackerType.init(view: view,
+                                               pollingTimeInterval: pollingTimeInterval,
+                                               onExposureChange: onExposureChange)
+    }
+    
+    @objc public static func CreativeViewabilityTracker(
+        creative: AbstractCreative
+    ) -> CreativeViewabilityTracker {
+        CreativeViewabilityTrackerType.init(creative: creative)
+    }
 }
