@@ -69,7 +69,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
         mockWebView.mock_loadHTML = { (html, _, _) in actualHTML = html }
         
         self.htmlCreative.setupView()
-        self.htmlCreative.display(withRootViewController:mockViewController)
+        self.htmlCreative.display(rootViewController:mockViewController)
         
         PBMAssertEq(actualHTML, expectedHTML)
     }
@@ -79,12 +79,12 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
         
         //Set view to nil. Expect that display will fail and thus constraints will be nil
         self.htmlCreative.view = nil
-        self.htmlCreative.display(withRootViewController: UIViewController())
+        self.htmlCreative.display(rootViewController: UIViewController())
         PBMAssertEq(self.htmlCreative.view?.constraints, nil)
         
         //Set view to non-nil. Expect that display will succeed and this constraints will be non-nil.
         self.htmlCreative.view = UIView()
-        self.htmlCreative.display(withRootViewController: UIViewController())
+        self.htmlCreative.display(rootViewController: UIViewController())
         PBMAssertEq(self.htmlCreative.view?.constraints, [])
     }
     
@@ -111,7 +111,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
             self.mockWebView.delegate?.webViewReady(toDisplay: self.mockWebView!)
         }
         
-        self.htmlCreative.display(withRootViewController: UIViewController())
+        self.htmlCreative.display(rootViewController: UIViewController())
         
         self.waitForExpectations(timeout: 1)
     }
@@ -126,7 +126,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
         
         self.mockCreativeModel.isCompanionAd = true
         let mockViewController = MockViewController()
-        self.htmlCreative.display(withRootViewController: mockViewController)
+        self.htmlCreative.display(rootViewController: mockViewController)
         self.htmlCreative.webView(self.mockWebView, receivedClickthroughLink:URL(string: "http://companionTrackingURL")!)
         self.waitForExpectations(timeout: 5, handler: nil)
     }
@@ -187,7 +187,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
         )
         
         self.htmlCreative.setupView()
-        self.htmlCreative.display(withRootViewController:mockViewController)
+        self.htmlCreative.display(rootViewController:mockViewController)
         transaction.creatives.append(self.htmlCreative!)
         self.htmlCreative.createOpenMeasurementSession();
         
@@ -211,7 +211,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
         }
         
         let mockViewController = MockViewController()
-        self.htmlCreative.display(withRootViewController: mockViewController)
+        self.htmlCreative.display(rootViewController: mockViewController)
         
         // Play video
         self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("playVideo/amazingVideo"))
@@ -297,7 +297,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         
         logToFile = .init()
         
-        self.htmlCreative.display(withRootViewController:mockViewController)
+        self.htmlCreative.display(rootViewController:mockViewController)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute:{
             let log = Log.getLogFileAsString() ?? ""
@@ -333,7 +333,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         self.expectationCreativeWasClicked = self.expectation(description: "Expected creativeWasClicked to be called")
         
         self.htmlCreative.setupView()
-        self.htmlCreative.display(withRootViewController:mockViewController)
+        self.htmlCreative.display(rootViewController:mockViewController)
         
         let webView = self.htmlCreative.view as! PBMWebView
         self.htmlCreative.webView(webView, receivedClickthroughLink:self.clickThroughURL)
@@ -449,7 +449,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         )
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(time.intValue + 1)) {
-            if self.htmlCreative.creativeModel?.userHasEarnedReward == true {
+            if self.htmlCreative.creativeModel.userHasEarnedReward == true {
                 exp.fulfill()
             }
         }
@@ -476,7 +476,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
             transaction: UtilitiesForTesting.createEmptyTransaction()
         )
         
-        htmlCreative.creativeModel?.isCompanionAd = true
+        htmlCreative.creativeModel.isCompanionAd = true
         
         htmlCreative.onViewabilityChanged(
             true,
@@ -488,7 +488,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(time.intValue + 1)) {
             
-            if self.htmlCreative.creativeModel?.userHasEarnedReward == true {
+            if self.htmlCreative.creativeModel.userHasEarnedReward == true {
                 exp.fulfill()
             }
         }
@@ -526,7 +526,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         )
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(rewardTime.intValue + postRewardTime.intValue + 1)) {
-            if self.htmlCreative.creativeModel?.userPostRewardEventSent == true {
+            if self.htmlCreative.creativeModel.userPostRewardEventSent == true {
                 exp.fulfill()
             }
         }
@@ -556,7 +556,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
             transaction: UtilitiesForTesting.createEmptyTransaction()
         )
         
-        htmlCreative.creativeModel?.isCompanionAd = true
+        htmlCreative.creativeModel.isCompanionAd = true
         
         htmlCreative.onViewabilityChanged(
             true,
@@ -567,7 +567,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         )
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(rewardTime.intValue + postRewardTime.intValue + 1)) {
-            if self.htmlCreative.creativeModel?.userPostRewardEventSent == true {
+            if self.htmlCreative.creativeModel.userPostRewardEventSent == true {
                 exp.fulfill()
             }
         }

@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGRect)CGRectForResizeProperties:(PBMMRAIDResizeProperties *)properties fromView:(UIView *)fromView;
 
-- (instancetype)initWithCreative:(PBMAbstractCreative*)creative
+- (instancetype)initWithCreative:(id<PBMAbstractCreative>)creative
      viewControllerForPresenting:(UIViewController*)viewControllerForPresentingModals
                          webView:(PBMWebView*)webView
             creativeViewDelegate:(id<PBMCreativeViewDelegate>)creativeViewDelegate

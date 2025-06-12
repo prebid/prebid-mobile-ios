@@ -27,7 +27,6 @@
 #import "PBMVideoView.h"
 #import "PBMModalState.h"
 #import "PBMMacros.h"
-#import "PBMCreativeResolutionDelegate.h"
 #import "PBMCreativeViewabilityTracker.h"
 #import "Log+Extensions.h"
 

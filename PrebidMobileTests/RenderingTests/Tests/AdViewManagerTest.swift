@@ -307,7 +307,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     func testSetupCreativeNotMainThread() {
         logToFile = .init()
         
-        let creative = PBMAbstractCreative(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
+        let creative = PBMAbstractCreative_Objc(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
         let thread = MockNSThread(mockIsMainThread: false)
         
         adViewManager.setupCreative(creative, withThread: thread)

@@ -20,7 +20,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMAbstractCreative (Protected)
+@interface PBMAbstractCreative_Objc (Protected)
 
 //Clickthrough handling
 - (void)handleClickthrough:(NSURL*)url

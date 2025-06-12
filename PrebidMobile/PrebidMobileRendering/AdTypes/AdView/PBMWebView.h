@@ -24,7 +24,7 @@
 #import "PBMMRAIDConstants.h"
 
 @class Targeting;
-@class PBMAbstractCreative;
+@protocol PBMAbstractCreative;
 @class PBMTouchDownRecognizer;
 @protocol PBMViewExposure;
 @class PBMLocationManager;

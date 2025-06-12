@@ -73,7 +73,7 @@ class PBMMRAIDControllerTest_Base: XCTestCase, CreativeViewDelegate {
             return
         }
         self.mockViewController.view.addSubview(creativeView)
-        self.mockHtmlCreative.display(withRootViewController: self.mockViewController)
+        self.mockHtmlCreative.display(rootViewController: self.mockViewController)
     }
     
     override func tearDown() {

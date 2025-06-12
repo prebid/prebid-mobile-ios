@@ -21,7 +21,7 @@
 @class PBMMRAIDResizeProperties;
 @class PBMBackgroundAwareTimer;
 
-@interface PBMHTMLCreative : PBMAbstractCreative
+@interface PBMHTMLCreative : PBMAbstractCreative_Objc
 
 @property (nonatomic, copy, nullable) PBMCreativeFactoryDownloadDataCompletionClosure downloadBlock;
                                       

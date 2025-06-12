@@ -133,7 +133,7 @@ class VideoEventsTest : XCTestCase, CreativeViewDelegate, PBMVideoViewDelegate {
             self.pbmVideoCreative = pbmVideoCreative
             
             DispatchQueue.main.async {
-                self.pbmVideoCreative.display(withRootViewController: self.viewController)
+                self.pbmVideoCreative.display(rootViewController: self.viewController)
                 self.pbmVideoCreative.videoView.avPlayer.volume = 0.33
             }
         })

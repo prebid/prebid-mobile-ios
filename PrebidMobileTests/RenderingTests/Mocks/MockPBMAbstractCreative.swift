@@ -9,7 +9,7 @@
 import Foundation
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class MockPBMAbstractCreative: PBMAbstractCreative {
+class MockPBMAbstractCreative: PBMAbstractCreative_Objc {
  
     var modalManagerDidFinishPopCallback: VoidBlock?
     var modalManagerDidLeaveAppCallback: VoidBlock?

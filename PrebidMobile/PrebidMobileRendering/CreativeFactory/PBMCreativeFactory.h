@@ -18,9 +18,9 @@
 
 @protocol PrebidServerConnectionProtocol;
 @protocol PBMTransaction;
-@class PBMAbstractCreative;
+@protocol PBMAbstractCreative;
 
-typedef void(^PBMCreativeFactoryFinishedCallback)(NSArray<PBMAbstractCreative *> * _Nullable, NSError * _Nullable);
+typedef void(^PBMCreativeFactoryFinishedCallback)(NSArray<id<PBMAbstractCreative>> * _Nullable, NSError * _Nullable);
 typedef void(^PBMCreativeFactoryDownloadDataCompletionClosure)(NSURL* _Nonnull, PBMDownloadDataCompletionClosure _Nonnull);
 
 @interface PBMCreativeFactory : NSObject

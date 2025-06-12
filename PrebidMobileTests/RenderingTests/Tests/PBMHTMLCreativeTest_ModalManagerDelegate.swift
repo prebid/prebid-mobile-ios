@@ -22,7 +22,7 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
     func testInterstitialDidLeaveApp() {
         var called = false
         self.creativeInterstitialDidLeaveAppHandler = { (creative) in
-            PBMAssertEq(creative, self.htmlCreative)
+            XCTAssertIdentical(creative, self.htmlCreative)
             called = true
         }
         
@@ -43,7 +43,7 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
     func testInterstitialAdClosed() {
         var called = false
         self.creativeInterstitialDidCloseHandler = { (creative) in
-            PBMAssertEq(creative, self.htmlCreative)
+            XCTAssertIdentical(creative, self.htmlCreative)
             called = true
         }
         
@@ -67,7 +67,7 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
     func testInterstitialAdClosed_clickthroughOpened() {
         var called = false
         self.creativeInterstitialDidCloseHandler = { (creative) in
-            PBMAssertEq(creative, self.htmlCreative)
+            XCTAssertIdentical(creative, self.htmlCreative)
             called = true
         }
         

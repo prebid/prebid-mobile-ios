@@ -16,7 +16,6 @@
 #import "PBMCreativeFactory.h"
 #import "PBMCreativeFactoryJob.h"
 #import "PBMMacros.h"
-#import "PBMAbstractCreative.h"
 #import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -103,7 +102,7 @@
         }
         
         if ([self allJobsSucceeded]) {
-            NSMutableArray<PBMAbstractCreative *> *finishedCreatives = [NSMutableArray new];
+            NSMutableArray<id<PBMAbstractCreative>> *finishedCreatives = [NSMutableArray new];
             for (PBMCreativeFactoryJob *job in self.jobs) {
                 [finishedCreatives addObject:job.creative];
             }

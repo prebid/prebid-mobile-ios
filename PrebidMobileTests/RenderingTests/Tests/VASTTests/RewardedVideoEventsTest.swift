@@ -135,7 +135,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
                 
                 DispatchQueue.main.async {
                     self.vc.view.addSubview(self.pbmVideoCreative.view!)
-                    self.pbmVideoCreative.display(withRootViewController: self.vc)
+                    self.pbmVideoCreative.display(rootViewController: self.vc)
                 }
             })
             
@@ -281,7 +281,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
         
         DispatchQueue.main.async {
             self.vc.view.addSubview(self.pbmVideoCreative.view!)
-            self.pbmVideoCreative.display(withRootViewController: self.vc)
+            self.pbmVideoCreative.display(rootViewController: self.vc)
         }
     }
 }

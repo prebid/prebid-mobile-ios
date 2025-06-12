@@ -20,14 +20,14 @@ import XCTest
 class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
     
     var expectation:XCTestExpectation?
-    var pbmAbstractCreative: PBMAbstractCreative!
+    var pbmAbstractCreative: PBMAbstractCreative_Objc!
     let msgAbstractFunctionCalled = "Abstract function called"
     
     private var logToFile: LogToFileLock?
     
     override func setUp() {
         super.setUp()
-        self.pbmAbstractCreative = PBMAbstractCreative(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
+        self.pbmAbstractCreative = PBMAbstractCreative_Objc(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
         self.pbmAbstractCreative.creativeResolutionDelegate = self
     }
     

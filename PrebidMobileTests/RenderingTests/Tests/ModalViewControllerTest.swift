@@ -150,7 +150,7 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
         XCTAssertTrue(controller.closeButtonDecorator.button.isHidden)
         
         let creative = UtilitiesForTesting.createHTMLCreative()
-        creative.creativeModel?.adConfiguration = adConfiguration
+        creative.creativeModel.adConfiguration = adConfiguration
         controller.creativeDisplayCompleted(creative)
         XCTAssertFalse(controller.closeButtonDecorator.button.isHidden)
     }

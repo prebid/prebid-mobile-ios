@@ -18,7 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class UIView;
-@class PBMAbstractCreative;
+@protocol PBMAbstractCreative;
 @protocol PBMViewExposure;
 @class PBMCreativeViewabilityTracker;
 
@@ -28,7 +28,7 @@ typedef void(^PBMViewExposureChangeHandler)(PBMCreativeViewabilityTracker *track
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithView:(UIView *)view pollingTimeInterval:(NSTimeInterval)pollingTimeInterval onExposureChange:(PBMViewExposureChangeHandler)onExposureChange NS_DESIGNATED_INITIALIZER;
-- (instancetype)initWithCreative:(PBMAbstractCreative *)creative;
+- (instancetype)initWithCreative:(id<PBMAbstractCreative>)creative;
 
 - (void)start;
 - (void)stop;
