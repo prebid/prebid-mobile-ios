@@ -231,7 +231,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
     }
 }
 
-class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeViewDelegate {
+class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate {
     
     // expectations
     var expectationDownloadCompleted: XCTestExpectation?
@@ -405,7 +405,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         
         self.expectationCreativeDidDisplay = self.expectation(description: "Expected creativeDidDisplay to be called")
         
-        let viewabilityTracker = PBMCreativeViewabilityTracker(creative: self.htmlCreative)
+        let viewabilityTracker = Factory.CreativeViewabilityTracker(creative: self.htmlCreative)
         viewabilityTracker.checkViewability()
         
         self.waitForExpectations(timeout: 1, handler: nil)
@@ -577,32 +577,32 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
     
     //MARK: - PBMCreativeResolutionDelegate
     
-    func creativeDidComplete(_ creative: PBMAbstractCreative) {
+    func creativeDidComplete(_ creative: AbstractCreative) {
         self.expectationCreativeDidComplete.fulfill()
     }
     
-    func creativeDidDisplay(_ creative: PBMAbstractCreative) {
+    func creativeDidDisplay(_ creative: AbstractCreative) {
         self.expectationCreativeDidDisplay.fulfill()
     }
     
-    func creativeWasClicked(_ creative: PBMAbstractCreative) {
+    func creativeWasClicked(_ creative: AbstractCreative) {
         expectationCreativeWasClicked.fulfill()
     }
     
-    func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
-    func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
-    func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {}
-    func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {}
-    func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {}
+    func videoCreativeDidComplete(_ creative: AbstractCreative) {}
+    func creativeViewWasClicked(_ creative: AbstractCreative) {}
+    func creativeClickthroughDidClose(_ creative: AbstractCreative) {}
+    func creativeInterstitialDidClose(_ creative: AbstractCreative) {}
+    func creativeInterstitialDidLeaveApp(_ creative: AbstractCreative) {}
     
-    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {
+    func creativeReadyToReimplant(_ creative: AbstractCreative) {
         XCTAssert(false)
     }
     
-    func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {}
-    func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {}
+    func creativeMraidDidCollapse(_ creative: AbstractCreative) {}
+    func creativeMraidDidExpand(_ creative: AbstractCreative) {}
     
-    func creativeReady(_ creative: PBMAbstractCreative) {
+    func creativeReady(_ creative: AbstractCreative) {
         fulfillOrFail(self.expectationDownloadCompleted, "expectationCreativeReady")
     }
     
@@ -610,6 +610,6 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, CreativeV
         XCTFail("error: \(error)")
     }
     
-    func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
-    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
+    func creativeFullScreenDidFinish(_ creative: AbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: AbstractCreative) {}
 }

@@ -36,7 +36,6 @@
 #import "PBMVideoView.h"
 #import "PBMWebView.h"
 #import "PBMMRAIDController.h"
-#import "PBMCreativeViewabilityTracker.h"
 #import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"

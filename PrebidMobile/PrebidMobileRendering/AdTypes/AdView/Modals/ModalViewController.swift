@@ -238,7 +238,7 @@ public class ModalViewController: UIViewController {
         }
     }
 
-    func creativeDisplayCompleted(_ creative: PBMAbstractCreative) {
+    func creativeDisplayCompleted(_ creative: AbstractCreative) {
         guard modalState?.adConfiguration?.isRewarded == true else { return }
 
         let rewardedConfig = creative.creativeModel.adConfiguration?.rewardedConfig

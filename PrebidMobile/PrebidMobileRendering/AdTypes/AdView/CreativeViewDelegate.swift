@@ -18,25 +18,25 @@ import Foundation
 
 @objc(PBMCreativeViewDelegate) @_spi(PBMInternal) public
 protocol CreativeViewDelegate: NSObjectProtocol {
-    func creativeDidComplete(_ creative: PBMAbstractCreative)
-    func creativeDidDisplay(_ creative: PBMAbstractCreative)
-    func creativeWasClicked(_ creative: PBMAbstractCreative)
-    func creativeViewWasClicked(_ creative: PBMAbstractCreative)
-    func creativeClickthroughDidClose(_ creative: PBMAbstractCreative)
-    func creativeInterstitialDidClose(_ creative: PBMAbstractCreative)
-    func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative)
-    func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative)
+    func creativeDidComplete(_ creative: AbstractCreative)
+    func creativeDidDisplay(_ creative: AbstractCreative)
+    func creativeWasClicked(_ creative: AbstractCreative)
+    func creativeViewWasClicked(_ creative: AbstractCreative)
+    func creativeClickthroughDidClose(_ creative: AbstractCreative)
+    func creativeInterstitialDidClose(_ creative: AbstractCreative)
+    func creativeInterstitialDidLeaveApp(_ creative: AbstractCreative)
+    func creativeFullScreenDidFinish(_ creative: AbstractCreative)
     
     // Rewarded Ad Only
-    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative)
+    func creativeDidSendRewardedEvent(_ creative: AbstractCreative)
     
     // MRAID Only
-    func creativeReadyToReimplant(_ creative: PBMAbstractCreative)
-    func creativeMraidDidCollapse(_ creative: PBMAbstractCreative)
-    func creativeMraidDidExpand(_ creative: PBMAbstractCreative)
+    func creativeReadyToReimplant(_ creative: AbstractCreative)
+    func creativeMraidDidCollapse(_ creative: AbstractCreative)
+    func creativeMraidDidExpand(_ creative: AbstractCreative)
     
     // Video specific method
-    @objc optional func videoCreativeDidComplete(_ creative: PBMAbstractCreative)
-    @objc optional func videoWasMuted(_ creative: PBMAbstractCreative)
-    @objc optional func videoWasUnmuted(_ creative: PBMAbstractCreative)
+    @objc optional func videoCreativeDidComplete(_ creative: AbstractCreative)
+    @objc optional func videoWasMuted(_ creative: AbstractCreative)
+    @objc optional func videoWasUnmuted(_ creative: AbstractCreative)
 }

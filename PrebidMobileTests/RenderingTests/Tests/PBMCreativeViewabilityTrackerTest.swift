@@ -15,6 +15,7 @@
 
 import Foundation
 import XCTest
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PBMCreativeViewabilityTrackerTest: XCTestCase {
     
@@ -41,22 +42,22 @@ class PBMCreativeViewabilityTrackerTest: XCTestCase {
         
         self.expectationOnExposureChange = self.expectation(description: "Expected onExposureChange to be called")
         
-        let viewabilityTracker = PBMCreativeViewabilityTracker(view: view, pollingTimeInterval: 10, onExposureChange:{ _, _ in
+        let viewabilityTracker = Factory.PBMCreativeViewabilityTracker(view: view, pollingTimeInterval: 10, onExposureChange:{ _, _ in
             self.expectationOnExposureChange.fulfill()
         });
         
-        viewabilityTracker.checkExposure(withForce: false)
+        viewabilityTracker.checkExposure(force: false)
         self.waitForExpectations(timeout: 1)
         
         // exposure didn't change and isForce is false - onExposureChange should not be called
         self.expectationOnExposureChange = self.expectation(description: "Expected onExposureChange to be called")
         self.expectationOnExposureChange.isInverted = true
-        viewabilityTracker.checkExposure(withForce: false)
+        viewabilityTracker.checkExposure(force: false)
         self.waitForExpectations(timeout: 1)
         
         // exposure didn't change BUT isForce is true - onExposureChange should be called
         self.expectationOnExposureChange = self.expectation(description: "Expected onExposureChange to be called")
-        viewabilityTracker.checkExposure(withForce: true)
+        viewabilityTracker.checkExposure(force: true)
         self.waitForExpectations(timeout: 1)
         
     }

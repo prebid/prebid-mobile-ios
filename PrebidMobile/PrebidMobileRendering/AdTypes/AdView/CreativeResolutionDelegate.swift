@@ -16,10 +16,11 @@
 
 import Foundation
 
-@objc @_spi(PBMInternal) public
-protocol PBMCreativeResolutionDelegate {
+@objc(PBMCreativeResolutionDelegate)
+@_spi(PBMInternal) public
+protocol CreativeResolutionDelegate {
     
-    func creativeReady(_ creative: PBMAbstractCreative)
+    func creativeReady(_ creative: AbstractCreative)
     func creativeFailed(_ error: Error)
     
 }

@@ -18,5 +18,3 @@
 #import "PBMORTBRewardedCompletionVideoEndcard.h"
 #import "PBMORTBRewardedConfiguration.h"
 #import "PBMORTBRewardedReward.h"
-
-#import "PBMCreativeViewabilityTracker.h"

@@ -24,8 +24,9 @@ import UIKit
  *  All `Creatives` must conform to this protocol. Each creative has-a model which contains the
  *  creative info, and must implement a few methods for handling display of the creative.
  */
-@objc @_spi(PBMInternal) public
-protocol PBMAbstractCreative: NSObjectProtocol {
+@objc(PBMAbstractCreative)
+@_spi(PBMInternal) public
+protocol AbstractCreative: NSObjectProtocol {
     
     weak var transaction: Transaction? { get }
     var creativeModel: CreativeModel { get }
@@ -35,7 +36,7 @@ protocol PBMAbstractCreative: NSObjectProtocol {
     var clickthroughVisible: Bool { get set }
     var modalManager: ModalManager? { get set }
     var dispatchQueue: DispatchQueue { get set }
-    var viewabilityTracker: PBMCreativeViewabilityTracker? { get set }
+    var viewabilityTracker: CreativeViewabilityTracker? { get set }
     var dismissInterstitialModalState: VoidBlock { get }
     var isDownloaded: Bool { get set }
     
@@ -47,7 +48,7 @@ protocol PBMAbstractCreative: NSObjectProtocol {
     // Note that subclasses provide specific implementation.
     var displayInterval: NSNumber? { get }
     
-    weak var creativeResolutionDelegate: PBMCreativeResolutionDelegate? { get set }
+    weak var creativeResolutionDelegate: CreativeResolutionDelegate? { get set }
     weak var creativeViewDelegate: CreativeViewDelegate? { get set }
     weak var viewControllerForPresentingModals: UIViewController? { get set }
     

@@ -154,7 +154,7 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
         }
     }
     
-    @objc public func creativeDisplayCompleted(_ creative: PBMAbstractCreative) {
+    @objc public func creativeDisplayCompleted(_ creative: AbstractCreative) {
         modalViewController?.creativeDisplayCompleted(creative)
     }
     

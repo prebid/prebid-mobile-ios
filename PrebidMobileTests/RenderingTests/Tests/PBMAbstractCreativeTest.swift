@@ -17,7 +17,7 @@ import XCTest
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
+class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
     
     var expectation:XCTestExpectation?
     var pbmAbstractCreative: PBMAbstractCreative_Objc!
@@ -90,7 +90,7 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
     
     //MARK - PBMCreativeResolutionDelegate
     
-    func creativeReady(_ creative: PBMAbstractCreative) {
+    func creativeReady(_ creative: AbstractCreative) {
         expectation?.fulfill()
         XCTAssertTrue(creative.isDownloaded)
     }

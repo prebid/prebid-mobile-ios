@@ -72,7 +72,6 @@
 #import "PBMAdRequestResponseVAST.h"
 #import "PBMCircularProgressBarLayer.h"
 #import "PBMInterstitialLayoutConfigurator.h"
-#import "PBMCreativeViewabilityTracker.h"
 #import "PBMSKAdNetworksParameterBuilder.h"
 
 // Extensions
@@ -124,7 +123,6 @@
 #import "PBMVideoView+PBMTestExtension.h"
 #import "PBMBasicParameterBuilder+PBMTestExtension.h"
 #import "PBMMRAIDController+PBMTestExtension.h"
-#import "PBMCreativeViewabilityTracker+PBMTestExtension.h"
 #import "PBMSafariVCOpener+PBMTestExtensions.h"
 
 // Prebid

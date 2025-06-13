@@ -24,7 +24,7 @@ import Foundation
 // As a workaround, we explicitly redeclare all of the protocol's methods here -- except for those
 // that are declared in PBMAbstractCreative+PbmTestExtension.h to allow for subclass overrides.
 extension PBMAbstractCreative_Objc {
-    private var p: PBMAbstractCreative { self as PBMAbstractCreative }
+    private var p: AbstractCreative { self as AbstractCreative }
     
     weak var transaction: Transaction? { p.transaction }
     var creativeModel: CreativeModel { p.creativeModel }
@@ -49,7 +49,7 @@ extension PBMAbstractCreative_Objc {
         get { p.dispatchQueue }
         set { p.dispatchQueue = newValue }
     }
-    var viewabilityTracker: PBMCreativeViewabilityTracker? {
+    var viewabilityTracker: CreativeViewabilityTracker? {
         get { p.viewabilityTracker }
         set { p.viewabilityTracker = newValue }
     }
@@ -63,7 +63,7 @@ extension PBMAbstractCreative_Objc {
     
     var displayInterval: NSNumber? { p.displayInterval }
     
-    weak var creativeResolutionDelegate: PBMCreativeResolutionDelegate? {
+    weak var creativeResolutionDelegate: CreativeResolutionDelegate? {
         get { p.creativeResolutionDelegate }
         set { p.creativeResolutionDelegate = newValue }
     }
