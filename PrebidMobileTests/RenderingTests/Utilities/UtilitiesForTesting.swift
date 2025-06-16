@@ -44,7 +44,7 @@ typealias JsonDictionary = [String:Any]
         return ret
     }
     
-    class func loadFileAsDictFromBundle(_ fileName:String) -> JsonDictionary? {
+    class func loadFileAsDictFromBundle(_ fileName:String) -> [String : Any]? {
         guard let data = loadFileAsDataFromBundle(fileName) else {
             return nil
         }
@@ -53,7 +53,7 @@ typealias JsonDictionary = [String:Any]
             return nil
         }
         
-        let ret = jsonObject as? JsonDictionary
+        let ret = jsonObject as? [String : Any]
         return ret
     }
     

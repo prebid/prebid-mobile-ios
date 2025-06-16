@@ -15,7 +15,6 @@
 
 #import "PBMWinNotifierFactoryBlock.h"
 
-#import "PBMORTBMacrosHelper.h"
 #import "PBMFunctions+Private.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -34,7 +33,7 @@
                      winningBid:(Bid *)bid
                        callback:(PBMAdMarkupStringHandler)adMarkupConsumer
 {
-    PBMORTBMacrosHelper * const macrosHelper = [[PBMORTBMacrosHelper alloc] initWithBid:bid.bid];
+    PBMORTBMacrosHelper * const macrosHelper = [[PBMORTBMacrosHelper alloc] initWithBid:bid];
     
     PBMAdMarkupStringHandler (^ const chainNotificationAction)(NSString * _Nullable, PBMAdMarkupStringHandler) =
     ^(NSString * _Nullable notificationUrl, PBMAdMarkupStringHandler _Nonnull onResult) {

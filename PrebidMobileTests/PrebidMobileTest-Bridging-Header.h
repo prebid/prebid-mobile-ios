@@ -129,8 +129,6 @@
 // PBMORTB
 #import "PBMORTBPrebid.h"
 #import "PBMORTBAbstractResponse+Protected.h"
-#import "PBMORTBBidResponse+Internal.h"
-#import "PBMORTBSeatBid+Internal.h"
 
 #import "UIView+PBMViewExposure.h"
 

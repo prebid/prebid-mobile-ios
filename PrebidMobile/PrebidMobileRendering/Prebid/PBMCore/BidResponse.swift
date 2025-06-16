@@ -15,6 +15,8 @@
 
 import Foundation
 
+typealias RawBidResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, [String : Any], PBMORTBBidExt>
+
 @objcMembers
 public class BidResponse: NSObject {
     
@@ -28,7 +30,7 @@ public class BidResponse: NSObject {
     
     public private(set) var ext: PBMORTBBidResponseExt?
     
-    private(set) var rawResponse: RawBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>?
+    private(set) var rawResponse: RawBidResponse?
     
     public convenience init(adUnitId: String?, targetingInfo: [String: String]?) {
         self.init(jsonDictionary: [:])
@@ -36,24 +38,23 @@ public class BidResponse: NSObject {
         self.targetingInfo = targetingInfo
     }
 
-    public convenience init(jsonDictionary: JsonDictionary) {
-        let rawResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>(
-            jsonDictionary: jsonDictionary as! [String : Any],
+    public convenience init(jsonDictionary: [String : Any]) {
+        let rawResponse = RawBidResponse(
+            jsonDictionary: jsonDictionary,
             extParser: { extDic in
-                return PBMORTBBidResponseExt(jsonDictionary: extDic)
+                PBMORTBBidResponseExt(jsonDictionary: extDic)
             },
             seatBidExtParser: { extDic in
-                return extDic as NSDictionary
+                extDic
             },
             bidExtParser: { extDic in
-                return PBMORTBBidExt(jsonDictionary: extDic)
+                PBMORTBBidExt(jsonDictionary: extDic)
             })
-
+        
         self.init(rawBidResponse: rawResponse)
     }
     
-    required init(rawBidResponse: RawBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>?) {
-
+    required init(rawBidResponse: RawBidResponse?) {
         rawResponse = rawBidResponse
         
         guard let rawBidResponse = rawBidResponse else {
@@ -86,7 +87,7 @@ public class BidResponse: NSObject {
         self.winningBid = winningBid
         self.allBids = allBids
         self.targetingInfo = targetingInfo.count > 0 ? targetingInfo : nil
-        tmaxrequest = rawBidResponse.ext.tmaxrequest
+        tmaxrequest = rawBidResponse.ext?.tmaxrequest
         self.ext = rawBidResponse.ext
     }
     

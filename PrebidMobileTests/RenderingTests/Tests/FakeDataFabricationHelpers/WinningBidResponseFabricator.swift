@@ -20,11 +20,14 @@ import XCTest
 
 public class WinningBidResponseFabricator {
     static func makeWinningBidResponse(bidPrice: Double) -> BidResponse {
-        let rawBidResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>()
-        rawBidResponse.seatbid = [.init()]
         let rawWinningBid = RawWinningBidFabricator.makeRawWinningBid(price: bidPrice, bidder: "some bidder", cacheID: "some-cache-id")
-        rawBidResponse.seatbid![0].bid = [rawWinningBid]
-        let bidResponse = BidResponse(jsonDictionary: rawBidResponse.toJsonDictionary() as NSDictionary)
+        
+        let rawBidResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, [String : Any], PBMORTBBidExt>(
+            requestID: ""
+        )
+        rawBidResponse.seatbid = [.init(bid: [rawWinningBid])]
+        
+        let bidResponse = BidResponse(jsonDictionary: rawBidResponse.jsonDictionary)
         XCTAssertNotNil(bidResponse.winningBid)
         return bidResponse
     }

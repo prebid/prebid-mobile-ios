@@ -27,7 +27,6 @@ framework module PrebidMobile {
     
     // ===
     //Temp. for converting
-    header "PBMJsonCodable.h"
     header "PBMFunctions.h"
     header "PBMFunctions+Private.h"
     header "PBMFunctions+Testing.h"
@@ -36,7 +35,6 @@ framework module PrebidMobile {
     header "PBMViewControllerProvider.h"
     header "PBMVoidBlock.h"
         
-    header "PBMJsonDecodable.h"
     header "PBMConstants.h"
     header "PBMScheduledTimerFactory.h"
     header "NSTimer+PBMScheduledTimerFactory.h"
@@ -55,7 +53,6 @@ framework module PrebidMobile {
     header "UIView+PBMExtensions.h"
     header "NSNumber+PBMORTBNative.h"
     
-    header "PBMJsonCodable.h"
     header "PBMFunctions.h"
     header "PBMFunctions+Private.h"
     header "PBMUIApplicationProtocol.h"
@@ -93,13 +90,6 @@ framework module PrebidMobile {
     header "PBMORTBAbstract+Protected.h"
     header "PBMORTBAbstractResponse.h"
     header "PBMORTBAbstractResponse+Protected.h"
-    header "PBMRawBidResponse.h"
-    header "PBMORTBBidResponse.h"
-    header "PBMORTBBidResponse+Internal.h"
-    header "PBMORTBBidResponseExt.h"
-    header "PBMORTBBid.h"
-    header "PBMORTBBidExt.h"
-    header "PBMORTBSeatBid.h"
     header "PBMORTBBidExtPrebid.h"
     header "PBMORTBBidResponseExtPrebid.h"
     header "PBMORTBExtPrebidPassthrough.h"
@@ -109,7 +99,6 @@ framework module PrebidMobile {
     header "PBMORTBBidExtSkadnSKOverlay.h"
     header "PBMORTBSkadnFidelity.h"
     header "PBMORTBExtPrebidEvents.h"
-    header "PBMORTBMacrosHelper.h"
     
     header "PBMORTBAppContent.h"
     header "PBMORTBContentProducer.h"

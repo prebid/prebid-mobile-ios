@@ -203,13 +203,13 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidExt() {
         let json = JSON.bidExt()
-        let entity = PBMORTBBidExt(jsonDictionary: json)!
+        let entity = PBMORTBBidExt(jsonDictionary: json)
         XCTAssertEqual(entity.bidder as NSDictionary?,
                        ["bidder_k1" : "bidder_str", "bidder_k2" : 1] as NSDictionary)
         XCTAssertTrue(compare(entity.prebid, JSON.bidExtPrebid()))
         XCTAssertTrue(compare(entity.skadn, JSON.bidExtSkadn()))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testBidExtPrebid() {
@@ -287,12 +287,12 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidResponseExt() {
         let json = JSON.bidResponseExt()
-        let entity = PBMORTBBidResponseExt(jsonDictionary: json)!
+        let entity = PBMORTBBidResponseExt(jsonDictionary: json)
         XCTAssertEqual(entity.responsetimemillis, ["responsetimemillis_k1" : 1])
         XCTAssertEqual(entity.tmaxrequest, 1)
         XCTAssertTrue(compare(entity.extPrebid, JSON.bidResponseExtPrebid()))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testBidResponseExtPrebidWithPassthroughObject() {

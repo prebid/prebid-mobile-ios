@@ -308,8 +308,7 @@ class PBMWinNotifierTest: XCTestCase {
                                   file: StaticString = #file,
                                   line: UInt = #line)
     {
-        let ortbBid = PBMORTBBid<PBMORTBBidExt>()
-        ortbBid.price = NSNumber(value: bidPrice)
+        let ortbBid = PBMORTBBid<PBMORTBBidExt>(bidID: "", impid: "", price: NSNumber(value: bidPrice))
         ortbBid.adm = adm
         ortbBid.nurl = nurl
         if let targeting = targeting {
