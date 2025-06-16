@@ -25,7 +25,6 @@
 #import "PBMAdLoadManagerProtocol.h"
 #import "PBMAdLoadManagerVAST.h"
 #import "PBMAdLoadManagerDelegate.h"
-#import "PBMAdRefreshOptions.h"
 #import "PBMAppInfoParameterBuilder.h"
 #import "PBMBasicParameterBuilder.h"
 #import "PBMConstants.h"
