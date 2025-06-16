@@ -81,7 +81,7 @@ public class BannerView:
     
     // MARK: Readonly storage
     
-    var autoRefreshManager: PBMAutoRefreshManager?
+    var autoRefreshManager: AutoRefreshManager?
     var adLoadFlowController: AdLoadFlowController?
     
     // MARK: Externally observable
@@ -155,13 +155,13 @@ public class BannerView:
                 true
             })
         
-        autoRefreshManager = PBMAutoRefreshManager(
+        autoRefreshManager = AutoRefreshManager(
             prefetchTime: PBMAdPrefetchTime,
-            locking: adLoadFlowController?.dispatchQueue,
+            lockingQueue: adLoadFlowController?.dispatchQueue,
             lockProvider: { [weak self] in
                 self?.adLoadFlowController?.mutationLock
             },
-            refreshDelay: { [weak self] in
+            refreshDelayBlock: { [weak self] in
                 if let interval = self?.adUnitConfig.refreshInterval {
                     return NSNumber(value: interval)
                 }

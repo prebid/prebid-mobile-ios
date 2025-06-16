@@ -325,7 +325,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     public func setAutoRefreshMillis(time: Double) {
         
         guard checkRefreshTime(time) else {
-            Log.error("auto refresh not set as the refresh time is less than to \(AdUnit.PB_MIN_RefreshTime as Double) seconds")
+            Log.error("auto refresh not set as the refresh time is less than to \(AdUnit.PB_MIN_RefreshTime as Double) milliseconds")
             return
         }
         

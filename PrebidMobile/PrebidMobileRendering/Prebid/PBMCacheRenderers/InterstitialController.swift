@@ -18,8 +18,7 @@ import UIKit
 @objcMembers
 public class InterstitialController:
     NSObject,
-    PrebidMobileInterstitialControllerProtocol,
-    PBMAdViewManagerDelegate {
+    PrebidMobileInterstitialControllerProtocol {
     
     public var adFormats: Set<AdFormat> {
         get { adConfiguration.adFormats }
@@ -113,7 +112,41 @@ public class InterstitialController:
         }
     }
     
-    // MARK: - PBMAdViewManagerDelegate protocol
+    // MARK: - Private Helpers
+    
+    @available(*, unavailable)
+    private override init() {
+        fatalError("Init is unavailable.")
+    }
+    
+    public func reportFailureWithError(_ error: Error?) {
+        if let error = error,
+           let loadingDelegate = loadingDelegate {
+            loadingDelegate.interstitialController(self, didFailWithError: error)
+        }
+    }
+    
+    func reportSuccess() {
+        if let loadingDelegate = loadingDelegate {
+            loadingDelegate.interstitialControllerDidLoadAd(self)
+        }
+    }
+    
+    private func display(transaction: Transaction) {
+        adViewManager = Factory.createAdViewManager(
+            connection: PrebidServerConnection.shared,
+            modalManagerDelegate: nil
+        )
+        adViewManager?.adViewManagerDelegate = self
+        adViewManager?.adConfiguration.isInterstitialAd = true
+        adViewManager?.adConfiguration.isRewarded = adConfiguration.adConfiguration.isRewarded
+        adViewManager?.handleExternalTransaction(transaction)
+    }
+}
+
+@_spi(PBMInternal)
+extension InterstitialController: AdViewManagerDelegate {
+    // MARK: - AdViewManagerDelegate protocol
     
     public func viewControllerForModalPresentation() -> UIViewController? {
         interactionDelegate?.viewControllerForModalPresentation(fromInterstitialController: self)
@@ -123,7 +156,7 @@ public class InterstitialController:
         reportSuccess()
     }
     
-    public func failed(toLoad error: Error) {
+    public func failedToLoad(_ error: Error) {
         reportFailureWithError(error)
     }
     
@@ -170,42 +203,11 @@ public class InterstitialController:
         }
     }
     
-    @objc public func interstitialDisplayProperties() -> InterstitialDisplayProperties {
+    @objc public var interstitialDisplayProperties: InterstitialDisplayProperties {
         displayProperties
     }
     
     public func adClickthroughDidClose() {}
     public func adDidExpand() {}
     public func adDidCollapse() {}
-    
-    // MARK: - Private Helpers
-    
-    @available(*, unavailable)
-    private override init() {
-        fatalError("Init is unavailable.")
-    }
-    
-    public func reportFailureWithError(_ error: Error?) {
-        if let error = error,
-           let loadingDelegate = loadingDelegate {
-            loadingDelegate.interstitialController(self, didFailWithError: error)
-        }
-    }
-    
-    func reportSuccess() {
-        if let loadingDelegate = loadingDelegate {
-            loadingDelegate.interstitialControllerDidLoadAd(self)
-        }
-    }
-    
-    private func display(transaction: Transaction) {
-        adViewManager = Factory.createAdViewManager(
-            connection: PrebidServerConnection.shared,
-            modalManagerDelegate: nil
-        )
-        adViewManager?.adViewManagerDelegate = self
-        adViewManager?.adConfiguration.isInterstitialAd = true
-        adViewManager?.adConfiguration.isRewarded = adConfiguration.adConfiguration.isRewarded
-        adViewManager?.handleExternalTransaction(transaction)
-    }
 }

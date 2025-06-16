@@ -30,7 +30,7 @@ public class MediationBannerAdUnit : NSObject {
     var lastCompletion: ((ResultCode) -> Void)?
     
     var isRefreshStopped = false
-    var autoRefreshManager: PBMAutoRefreshManager?
+    var autoRefreshManager: AutoRefreshManager?
     
     var adRequestError: Error?
     
@@ -107,13 +107,13 @@ public class MediationBannerAdUnit : NSObject {
         self.mediationDelegate = mediationDelegate
         super.init()
         
-        autoRefreshManager = PBMAutoRefreshManager(prefetchTime: PBMAdPrefetchTime,
-                                                   locking: nil,
-                                                   lockProvider: nil,
-                                                   refreshDelay: { [weak self] in
+        autoRefreshManager = AutoRefreshManager(prefetchTime: PBMAdPrefetchTime,
+                                                lockingQueue: nil,
+                                                lockProvider: nil,
+                                                refreshDelayBlock: { [weak self] in
             (self?.adUnitConfig.refreshInterval ?? 0) as NSNumber
         },
-                                                   mayRefreshNowBlock: { [weak self] in
+                                                           mayRefreshNowBlock: { [weak self] in
             guard let self = self else { return false }
             return self.isAdObjectVisible() || self.adRequestError != nil
         }, refreshBlock: { [weak self] in
