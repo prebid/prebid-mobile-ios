@@ -128,7 +128,7 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
         }
     }
     
-    func backwardsCompatiblePassthrough(key: Key) -> [PBMORTBExtPrebidPassthrough]? {
+    func backwardsCompatiblePassthrough(key: Key) -> [ORTBExtPrebidPassthrough]? {
         // The prebid spec defines in various parts of the schema the "passthrough" key
         // which is supposed to map to a JSON object. However it was mistakenly implemented
         // as an array of objects in this SDK. To maintain backwards compatibility we still
@@ -143,6 +143,6 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
                 dictionaries = nil
         }
         
-        return dictionaries?.compactMap { PBMORTBExtPrebidPassthrough(jsonDictionary: $0) }
+        return dictionaries?.compactMap { ORTBExtPrebidPassthrough(jsonDictionary: $0) }
     }
 }

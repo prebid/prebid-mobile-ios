@@ -82,7 +82,7 @@ public class Bid: NSObject {
     }
     
     /// Prebid video ad configuration
-    public var videoAdConfiguration: PBMORTBAdConfiguration? {
+    public var videoAdConfiguration: ORTBAdConfiguration? {
         bid.ext?.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
     }
     
@@ -99,7 +99,7 @@ public class Bid: NSObject {
     // This part is dedicating to test server-side ad configurations.
     // Need to be removed when ext.prebid.passthrough will be available.
     #if DEBUG
-    public var testVideoAdConfiguration: PBMORTBAdConfiguration? {
+    public var testVideoAdConfiguration: ORTBAdConfiguration? {
         bid.ext?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
     }
     #endif

@@ -170,8 +170,6 @@
 		53A657A02A860F7200AE0B4F /* CacheExpiryDelegateWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A6579F2A860F7200AE0B4F /* CacheExpiryDelegateWrapper.swift */; };
 		53A657B02A8B64C200AE0B4F /* PBMORTBSDKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A657AF2A8B64C200AE0B4F /* PBMORTBSDKConfiguration.m */; };
 		53A657B12A8B650900AE0B4F /* PBMORTBSDKConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A657AE2A8B64B300AE0B4F /* PBMORTBSDKConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		53A657B52A8B8B0500AE0B4F /* PBMORTBBidResponseExtPrebid.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A657B42A8B8B0500AE0B4F /* PBMORTBBidResponseExtPrebid.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		53A657B72A8B8B6400AE0B4F /* PBMORTBBidResponseExtPrebid.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A657B62A8B8B6400AE0B4F /* PBMORTBBidResponseExtPrebid.m */; };
 		53A8CBDB2C64D12A008ABEA7 /* SingleContainerInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8CBDA2C64D12A008ABEA7 /* SingleContainerInt.swift */; };
 		53B221CF2A0E3D2800C91CCB /* PrebidJSLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B221CE2A0E3D2800C91CCB /* PrebidJSLibrary.swift */; };
 		53B221D12A0E3D3D00C91CCB /* PrebidJSLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B221D02A0E3D3D00C91CCB /* PrebidJSLibraryManager.swift */; };
@@ -212,6 +210,9 @@
 		5A423C902DBA4190008EE9EA /* ORTBBidExtPrebidCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423C8F2DBA4190008EE9EA /* ORTBBidExtPrebidCache.swift */; };
 		5A423C922DBA41F3008EE9EA /* ORTBBidExtPrebidCacheBids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423C912DBA41F3008EE9EA /* ORTBBidExtPrebidCacheBids.swift */; };
 		5A423C942DBA4498008EE9EA /* ORTBExtPrebidEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423C932DBA4498008EE9EA /* ORTBExtPrebidEvents.swift */; };
+		5A423C962DBA469F008EE9EA /* ORTBExtPrebidPassthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423C952DBA469F008EE9EA /* ORTBExtPrebidPassthrough.swift */; };
+		5A423C982DBA4744008EE9EA /* ORTBBidResponseExtPrebid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423C972DBA4744008EE9EA /* ORTBBidResponseExtPrebid.swift */; };
+		5A423C9A2DBA48D7008EE9EA /* ORTBAdConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423C992DBA48D7008EE9EA /* ORTBAdConfiguration.swift */; };
 		5A51D94B2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */; };
 		5A51D94D2DB986CC00DD450F /* AdLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94C2DB986CC00DD450F /* AdLoaderProtocol.swift */; };
 		5A51D94F2DB987EE00DD450F /* AdLoaderFlowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94E2DB987EE00DD450F /* AdLoaderFlowDelegate.swift */; };
@@ -674,10 +675,6 @@
 		9236A650272FEC5A00ABBEF4 /* ImpressionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A64F272FEC5A00ABBEF4 /* ImpressionTask.swift */; };
 		923B55002744F19600E00C88 /* PrebidMediationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923B54FF2744F19600E00C88 /* PrebidMediationDelegate.swift */; };
 		9247FEFE2808175E00ACD84A /* VideoControlsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9247FEFD2808175E00ACD84A /* VideoControlsConfiguration.swift */; };
-		924F661827FDB79C00C8DAF7 /* PBMORTBExtPrebidPassthrough.h in Headers */ = {isa = PBXBuildFile; fileRef = 924F661727FDB79C00C8DAF7 /* PBMORTBExtPrebidPassthrough.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		924F661A27FDB82600C8DAF7 /* PBMORTBAdConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 924F661927FDB82600C8DAF7 /* PBMORTBAdConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		924F661C27FDBA5200C8DAF7 /* PBMORTBAdConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F661B27FDBA5200C8DAF7 /* PBMORTBAdConfiguration.m */; };
-		924F661E27FDBC3100C8DAF7 /* PBMORTBExtPrebidPassthrough.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F661D27FDBC3100C8DAF7 /* PBMORTBExtPrebidPassthrough.m */; };
 		925A641627317A39009E72F9 /* HiddenWebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A641527317A39009E72F9 /* HiddenWebViewManager.swift */; };
 		925D5D6A2737B5BC00A8A2B5 /* ServerConnectionWithMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D692737B5BC00A8A2B5 /* ServerConnectionWithMockServer.swift */; };
 		925D5D6E2737B6B500A8A2B5 /* PBMTouchDownRecognizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D6D2737B6B500A8A2B5 /* PBMTouchDownRecognizerTests.swift */; };
@@ -1052,8 +1049,6 @@
 		53A6579F2A860F7200AE0B4F /* CacheExpiryDelegateWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheExpiryDelegateWrapper.swift; sourceTree = "<group>"; };
 		53A657AE2A8B64B300AE0B4F /* PBMORTBSDKConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBSDKConfiguration.h; sourceTree = "<group>"; };
 		53A657AF2A8B64C200AE0B4F /* PBMORTBSDKConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSDKConfiguration.m; sourceTree = "<group>"; };
-		53A657B42A8B8B0500AE0B4F /* PBMORTBBidResponseExtPrebid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBBidResponseExtPrebid.h; sourceTree = "<group>"; };
-		53A657B62A8B8B6400AE0B4F /* PBMORTBBidResponseExtPrebid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBBidResponseExtPrebid.m; sourceTree = "<group>"; };
 		53A8CBDA2C64D12A008ABEA7 /* SingleContainerInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContainerInt.swift; sourceTree = "<group>"; };
 		53B221CE2A0E3D2800C91CCB /* PrebidJSLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidJSLibrary.swift; sourceTree = "<group>"; };
 		53B221D02A0E3D3D00C91CCB /* PrebidJSLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidJSLibraryManager.swift; sourceTree = "<group>"; };
@@ -1097,6 +1092,9 @@
 		5A423C8F2DBA4190008EE9EA /* ORTBBidExtPrebidCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidExtPrebidCache.swift; sourceTree = "<group>"; };
 		5A423C912DBA41F3008EE9EA /* ORTBBidExtPrebidCacheBids.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidExtPrebidCacheBids.swift; sourceTree = "<group>"; };
 		5A423C932DBA4498008EE9EA /* ORTBExtPrebidEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBExtPrebidEvents.swift; sourceTree = "<group>"; };
+		5A423C952DBA469F008EE9EA /* ORTBExtPrebidPassthrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBExtPrebidPassthrough.swift; sourceTree = "<group>"; };
+		5A423C972DBA4744008EE9EA /* ORTBBidResponseExtPrebid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidResponseExtPrebid.swift; sourceTree = "<group>"; };
+		5A423C992DBA48D7008EE9EA /* ORTBAdConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBAdConfiguration.swift; sourceTree = "<group>"; };
 		5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileDisplayViewProtocol.swift; sourceTree = "<group>"; };
 		5A51D94C2DB986CC00DD450F /* AdLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderProtocol.swift; sourceTree = "<group>"; };
 		5A51D94E2DB987EE00DD450F /* AdLoaderFlowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderFlowDelegate.swift; sourceTree = "<group>"; };
@@ -1574,10 +1572,6 @@
 		9236A64F272FEC5A00ABBEF4 /* ImpressionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTask.swift; sourceTree = "<group>"; };
 		923B54FF2744F19600E00C88 /* PrebidMediationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMediationDelegate.swift; sourceTree = "<group>"; };
 		9247FEFD2808175E00ACD84A /* VideoControlsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoControlsConfiguration.swift; sourceTree = "<group>"; };
-		924F661727FDB79C00C8DAF7 /* PBMORTBExtPrebidPassthrough.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBExtPrebidPassthrough.h; sourceTree = "<group>"; };
-		924F661927FDB82600C8DAF7 /* PBMORTBAdConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBAdConfiguration.h; sourceTree = "<group>"; };
-		924F661B27FDBA5200C8DAF7 /* PBMORTBAdConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBAdConfiguration.m; sourceTree = "<group>"; };
-		924F661D27FDBC3100C8DAF7 /* PBMORTBExtPrebidPassthrough.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBExtPrebidPassthrough.m; sourceTree = "<group>"; };
 		925A641527317A39009E72F9 /* HiddenWebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWebViewManager.swift; sourceTree = "<group>"; };
 		925D5D692737B5BC00A8A2B5 /* ServerConnectionWithMockServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectionWithMockServer.swift; sourceTree = "<group>"; };
 		925D5D6D2737B6B500A8A2B5 /* PBMTouchDownRecognizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMTouchDownRecognizerTests.swift; sourceTree = "<group>"; };
@@ -2542,13 +2536,13 @@
 		5BC3780F271F1CFF00444D5E /* ORTB */ = {
 			isa = PBXGroup;
 			children = (
-				5BC37810271F1CFF00444D5E /* PBMORTBNoBidReason.m */,
 				5A6167F42DB9F73D0018E6B6 /* ORTBBidResponse.swift */,
 				5A6167EE2DB9E2710018E6B6 /* ORTBBid.swift */,
 				5BC37813271F1CFF00444D5E /* PBMORTBAbstractResponse.h */,
 				5A6167FA2DBA072D0018E6B6 /* PBMORTBExtensible.swift */,
 				5BC37814271F1CFF00444D5E /* Prebid */,
 				5BC37824271F1CFF00444D5E /* PBMORTBNoBidReason.h */,
+				5BC37810271F1CFF00444D5E /* PBMORTBNoBidReason.m */,
 				5BC37828271F1CFF00444D5E /* PBMORTBAbstractResponse.m */,
 				5BC37829271F1CFF00444D5E /* PBMORTBAbstractResponse+Protected.h */,
 				5A6167F62DB9FCAB0018E6B6 /* ORTBSeatBid.swift */,
@@ -2559,22 +2553,19 @@
 		5BC37814271F1CFF00444D5E /* Prebid */ = {
 			isa = PBXGroup;
 			children = (
-				924F661927FDB82600C8DAF7 /* PBMORTBAdConfiguration.h */,
-				924F661B27FDBA5200C8DAF7 /* PBMORTBAdConfiguration.m */,
 				5A6167F82DBA06470018E6B6 /* ORTBBidExt.swift */,
 				5A423C8D2DBA4075008EE9EA /* ORTBBidExtPrebid.swift */,
 				5A423C8F2DBA4190008EE9EA /* ORTBBidExtPrebidCache.swift */,
 				5A423C912DBA41F3008EE9EA /* ORTBBidExtPrebidCacheBids.swift */,
+				5A423C992DBA48D7008EE9EA /* ORTBAdConfiguration.swift */,
 				5BC3781F271F1CFF00444D5E /* PBMORTBBidExtSkadn.h */,
 				5BC37818271F1CFF00444D5E /* PBMORTBBidExtSkadn.m */,
 				F91B60AD2C58120C00DA9796 /* PBMORTBBidExtSkadnSKOverlay.h */,
 				F91B60AE2C58138600DA9796 /* PBMORTBBidExtSkadnSKOverlay.m */,
 				5A6167FC2DBA0B1F0018E6B6 /* ORTBBidResponseExt.swift */,
-				53A657B42A8B8B0500AE0B4F /* PBMORTBBidResponseExtPrebid.h */,
-				53A657B62A8B8B6400AE0B4F /* PBMORTBBidResponseExtPrebid.m */,
 				5A423C932DBA4498008EE9EA /* ORTBExtPrebidEvents.swift */,
-				924F661727FDB79C00C8DAF7 /* PBMORTBExtPrebidPassthrough.h */,
-				924F661D27FDBC3100C8DAF7 /* PBMORTBExtPrebidPassthrough.m */,
+				5A423C972DBA4744008EE9EA /* ORTBBidResponseExtPrebid.swift */,
+				5A423C952DBA469F008EE9EA /* ORTBExtPrebidPassthrough.swift */,
 				5BC3781C271F1CFF00444D5E /* PBMORTBPrebid.h */,
 				534C61332CB529240026119A /* PBMORTBRewardedClose.h */,
 				534C61342CB529240026119A /* PBMORTBRewardedClose.m */,
@@ -3461,7 +3452,6 @@
 				FAEE4D24262DC2B200AD9966 /* PrebidMobile.h in Headers */,
 				5BC378E7271F1CFF00444D5E /* PBMORTBBidRequestExtPrebid.h in Headers */,
 				5BC37A23271F1D0000444D5E /* PBMSafariVCOpener.h in Headers */,
-				53A657B52A8B8B0500AE0B4F /* PBMORTBBidResponseExtPrebid.h in Headers */,
 				5BC378DA271F1CFF00444D5E /* PBMORTBSource.h in Headers */,
 				5BC3796F271F1D0000444D5E /* PBMVastCreativeCompanionAdsCompanion.h in Headers */,
 				5BC378CA271F1CFF00444D5E /* PBMWeakTimerTargetBox.h in Headers */,
@@ -3585,7 +3575,6 @@
 				5BC37AD5271F1D0100444D5E /* PBMParameterBuilderService.h in Headers */,
 				5BC37968271F1D0000444D5E /* PBMVastInlineAd.h in Headers */,
 				5BC378DC271F1CFF00444D5E /* PBMORTBPublisher.h in Headers */,
-				924F661A27FDB82600C8DAF7 /* PBMORTBAdConfiguration.h in Headers */,
 				5BC37906271F1CFF00444D5E /* PBMWebView+Internal.h in Headers */,
 				5BC37AC4271F1D0100444D5E /* PBMAppInfoParameterBuilder.h in Headers */,
 				5BC37945271F1D0000444D5E /* PBMMRAIDConstants.h in Headers */,
@@ -3604,7 +3593,6 @@
 				534C61232CB526CE0026119A /* PBMORTBRewardedReward.h in Headers */,
 				5BC37AD3271F1D0100444D5E /* PBMBasicParameterBuilder.h in Headers */,
 				5BC37921271F1CFF00444D5E /* PBMUIApplicationProtocol.h in Headers */,
-				924F661827FDB79C00C8DAF7 /* PBMORTBExtPrebidPassthrough.h in Headers */,
 				5BC378C5271F1CFF00444D5E /* NSMutableDictionary+PBMExtensions.h in Headers */,
 				5BC378C1271F1CFF00444D5E /* NSException+PBMExtensions.h in Headers */,
 				5BC37951271F1D0000444D5E /* PBMCreativeFactoryJob.h in Headers */,
@@ -4055,9 +4043,9 @@
 				5BC379A6271F1D0000444D5E /* PBMModalState.m in Sources */,
 				5BC37AAD271F1D0000444D5E /* RewardedEventHandlerStandalone.swift in Sources */,
 				FAEE4D21262DC2B200AD9966 /* VideoBasedAdUnitProtocol.swift in Sources */,
-				53A657B72A8B8B6400AE0B4F /* PBMORTBBidResponseExtPrebid.m in Sources */,
 				5BC37910271F1CFF00444D5E /* PBMWindowLocker.m in Sources */,
 				FAEE4D0D262DC2B200AD9966 /* Log.swift in Sources */,
+				5A423C9A2DBA48D7008EE9EA /* ORTBAdConfiguration.swift in Sources */,
 				9236A650272FEC5A00ABBEF4 /* ImpressionTask.swift in Sources */,
 				5BC37A97271F1D0000444D5E /* InterstitialEventHandlerProtocol.swift in Sources */,
 				53A0E7F12CDD40AD007887F5 /* InterstitialImpressionTracker.swift in Sources */,
@@ -4097,6 +4085,7 @@
 				FAEE4D28262DC2B200AD9966 /* PbWebViewSearchError.swift in Sources */,
 				5BC37990271F1D0000444D5E /* PBMVideoCreative.m in Sources */,
 				FAEE4D2A262DC2B200AD9966 /* IMAUtils.swift in Sources */,
+				5A423C982DBA4744008EE9EA /* ORTBBidResponseExtPrebid.swift in Sources */,
 				5BC379E0271F1D0000444D5E /* DisplayViewInteractionDelegate.swift in Sources */,
 				5BC37AA5271F1D0000444D5E /* MediationBaseInterstitialAdUnit.swift in Sources */,
 				5BC3797D271F1D0000444D5E /* PBMHTMLFormatter.m in Sources */,
@@ -4227,6 +4216,7 @@
 				92C85D5C27A96C680080BAC5 /* NativeImage.swift in Sources */,
 				5BC37A86271F1D0000444D5E /* BannerView.swift in Sources */,
 				5BC3796E271F1D0000444D5E /* PBMVastWrapperAd.m in Sources */,
+				5A423C962DBA469F008EE9EA /* ORTBExtPrebidPassthrough.swift in Sources */,
 				537B6518283372FD008AE9D1 /* PathBuilder.swift in Sources */,
 				FAEE4D1A262DC2B200AD9966 /* NativeAd.swift in Sources */,
 				5BC37A1B271F1D0000444D5E /* Prebid.swift in Sources */,
@@ -4266,7 +4256,6 @@
 				5A51D94B2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift in Sources */,
 				53D93505282CEA900092E243 /* DateFormatService.swift in Sources */,
 				532936792CEB887D0056FD8D /* ArbitraryORTBService.swift in Sources */,
-				924F661E27FDBC3100C8DAF7 /* PBMORTBExtPrebidPassthrough.m in Sources */,
 				5A8448002DB7108B00446F70 /* AdModelEventTracker.swift in Sources */,
 				5A51D94F2DB987EE00DD450F /* AdLoaderFlowDelegate.swift in Sources */,
 				5ADC1EB12DB9A90E00EA6477 /* AdViewManagerDelegate.swift in Sources */,
@@ -4279,7 +4268,6 @@
 				FAEE4D13262DC2B200AD9966 /* AdUnit.swift in Sources */,
 				53A8CBDB2C64D12A008ABEA7 /* SingleContainerInt.swift in Sources */,
 				5BC379CF271F1D0000444D5E /* PBMAdLoadManagerBase.m in Sources */,
-				924F661C27FDBA5200C8DAF7 /* PBMORTBAdConfiguration.m in Sources */,
 				5BC379FB271F1D0000444D5E /* PBMExternalURLOpenCallbacks.m in Sources */,
 				5AD6B3562DB8A738006690BB /* ModalPresentationController.swift in Sources */,
 				5BC37A78271F1D0000444D5E /* PBMTransactionFactory.m in Sources */,

@@ -55,7 +55,7 @@ class VideoControlsConfigTests: XCTestCase {
     func testInitWithORTBAdConfiguration() {
         let adConfiguration = VideoControlsConfiguration()
         
-        let ortbAdConfig = PBMORTBAdConfiguration()
+        let ortbAdConfig = ORTBAdConfiguration()
         ortbAdConfig.isMuted = false
         ortbAdConfig.maxVideoDuration = 40
         ortbAdConfig.skipButtonArea = 0.3

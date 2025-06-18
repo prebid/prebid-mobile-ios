@@ -16,40 +16,42 @@
 
 import Foundation
 
-@objc public class ORTBBidResponseExt: NSObject, PBMJsonCodable {
-    
-    /// [ (bidder: String) -> (millis: Integer) ]
-    @objc public var responsetimemillis: [String : NSNumber]?
-    
-    /// [Integer]
-    @objc public var tmaxrequest: NSNumber?
-    
-    @objc public var extPrebid: ORTBBidResponseExtPrebid?
-    
+@objc public class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
+    @objc public var type: String?
+    @objc public var adConfiguration: ORTBAdConfiguration?
+    @objc public var sdkConfiguration: PBMORTBSDKConfiguration?
+    @objc public var rewardedConfiguration: PBMORTBRewardedConfiguration?
+
     private enum KeySet: String {
-        case responsetimemillis
-        case tmaxrequest
-        case prebid
+        case type
+        case adconfiguration
+        case sdkconfiguration
+        case rwdd
     }
-    
-    override init() {
+
+    @objc public override init() {
+        super.init()
     }
-    
+
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
-        
-        responsetimemillis  = json[.responsetimemillis]
-        tmaxrequest         = json[.tmaxrequest]
-        extPrebid           = json[.prebid]
+
+        type = json[.type]
+        adConfiguration = json[.adconfiguration]
+        sdkConfiguration = json[.sdkconfiguration]
+        rewardedConfiguration = json[.rwdd]
+
+        super.init()
     }
     
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
-        
-        json[.responsetimemillis]   = responsetimemillis
-        json[.tmaxrequest]          = tmaxrequest
-        json[.prebid]               = extPrebid
-        
+
+        json[.type] = type
+        json[.adconfiguration] = adConfiguration
+        json[.sdkconfiguration] = sdkConfiguration
+        json[.rwdd] = rewardedConfiguration
+
         return json.dict
     }
 }

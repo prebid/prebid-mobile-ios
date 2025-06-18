@@ -190,7 +190,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testAdConfiguration() {
         let json = JSON.adConfiguration()
-        let entity = PBMORTBAdConfiguration(jsonDictionary: json)!
+        let entity = ORTBAdConfiguration(jsonDictionary: json)
         XCTAssertEqual(entity.maxVideoDuration, 1)
         XCTAssertEqual(entity.isMuted, 2)
         XCTAssertEqual(entity.closeButtonArea, 3)
@@ -198,7 +198,7 @@ class ResponseParsingTests: XCTestCase {
         XCTAssertEqual(entity.skipButtonPosition, "_skipbuttonposition")
         XCTAssertEqual(entity.skipDelay, 5)
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testBidExt() {
@@ -320,13 +320,13 @@ class ResponseParsingTests: XCTestCase {
     
     func testExtPrebidPassthrough() {
         let json = JSON.extPrebidPassthrough()
-        let entity = PBMORTBExtPrebidPassthrough(jsonDictionary: json)!
+        let entity = ORTBExtPrebidPassthrough(jsonDictionary: json)
         XCTAssertEqual(entity.type, "_type")
         XCTAssertTrue(compare(entity.adConfiguration, JSON.adConfiguration()))
         XCTAssertTrue(compare(entity.sdkConfiguration, JSON.sdkConfiguration()))
         XCTAssertTrue(compare(entity.rewardedConfiguration, JSON.rewardedConfiguration()))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testRewardedClose() {

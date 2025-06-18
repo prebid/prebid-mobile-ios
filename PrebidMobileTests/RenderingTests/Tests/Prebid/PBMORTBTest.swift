@@ -187,9 +187,9 @@ class PBMORTBTest: XCTestCase {
         ]
         ext.tmaxrequest = 3000
         
-        let extPrebid = PBMORTBBidResponseExtPrebid()
+        let extPrebid = ORTBBidResponseExtPrebid()
         
-        let passthrough = PBMORTBExtPrebidPassthrough()
+        let passthrough = ORTBExtPrebidPassthrough()
         
         let sdkConfiguration = PBMORTBSDKConfiguration()
         sdkConfiguration.cftBanner = 42

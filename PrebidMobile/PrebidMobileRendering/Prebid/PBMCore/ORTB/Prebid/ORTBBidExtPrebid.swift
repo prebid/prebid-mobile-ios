@@ -21,7 +21,7 @@ class ORTBBidExtPrebid: PBMJsonCodable {
     var targeting: [String : Any]?
     var meta: [String : Any]?
     var type: String?
-    var passthrough: [PBMORTBExtPrebidPassthrough]?
+    var passthrough: [ORTBExtPrebidPassthrough]?
     var events: ORTBExtPrebidEvents?
 
     private enum KeySet: String {

@@ -25,7 +25,7 @@ class ORTBBidExt: PBMJsonCodable {
     // This part is dedicating to test server-side ad configurations.
     // Need to be removed when ext.prebid.passthrough will be available.
 #if DEBUG
-    var passthrough: [PBMORTBExtPrebidPassthrough]?
+    var passthrough: [ORTBExtPrebidPassthrough]?
 #endif
     
     private enum KeySet: String {

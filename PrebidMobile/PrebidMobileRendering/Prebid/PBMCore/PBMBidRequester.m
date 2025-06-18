@@ -18,7 +18,6 @@
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMParameterBuilderService.h"
 #import "PBMORTBSDKConfiguration.h"
-#import "PBMORTBBidResponseExtPrebid.h"
 #import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
@@ -143,7 +142,7 @@
                 };
             }
             
-            PBMORTBSDKConfiguration *pbsSDKConfig = [bidResponse.ext.extPrebid.passthrough filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(PBMORTBExtPrebidPassthrough *_Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+            PBMORTBSDKConfiguration *pbsSDKConfig = [bidResponse.ext.extPrebid.passthrough filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(ORTBExtPrebidPassthrough *_Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
                 return [evaluatedObject.type isEqual: @"prebidmobilesdk"];
             }]].firstObject.sdkConfiguration;
             
