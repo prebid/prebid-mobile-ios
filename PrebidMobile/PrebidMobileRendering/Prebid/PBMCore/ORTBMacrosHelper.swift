@@ -17,7 +17,7 @@
 import Foundation
 
 @objc @_spi(PBMInternal) public
-class PBMORTBMacrosHelper: NSObject {
+class ORTBMacrosHelper: NSObject {
     
     let macroValues: [String : String]
     
@@ -28,7 +28,7 @@ class PBMORTBMacrosHelper: NSObject {
     }
         
     @objc public convenience init(bid: Bid) {
-        self.init(bidPrice: bid.bid.price)
+        self.init(bidPrice: bid.bid.price ?? 0.0)
     }
     
     @objc(replaceMacrosInString:)

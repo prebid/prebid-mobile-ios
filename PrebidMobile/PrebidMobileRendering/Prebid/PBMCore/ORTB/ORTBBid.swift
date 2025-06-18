@@ -20,20 +20,20 @@ import Foundation
 
 /// A SeatBid object contains one or more `Bid` objects, each of which relates to a specific impression in the bid
 /// request via the `impid` attribute and constitutes an offer to buy that impression for a given `price`.
-class PBMORTBBid<ExtType: PBMJsonCodable>: PBMJsonCodable, PBMORTBExtensible {
+class ORTBBid<ExtType: PBMJsonCodable>: PBMJsonCodable, PBMORTBExtensible {
     /// [Required]
     /// Bidder generated bid ID to assist with logging/tracking.
-    var bidID: String
+    var bidID: String?
     
     /// [Required]
     /// ID of the Imp object in the related bid request.
-    var impid: String
+    var impid: String?
     
     /// [Required]
     /// [Float]
     /// Bid price expressed as CPM although the actual transaction is for a unit impression only. Note that while the type
     /// indicates float, integer math is highly recommended when handling currencies (e.g., BigDecimal in Java).
-    var price: NSNumber
+    var price: NSNumber?
     
     /// Win notice URL called by the exchange if the bid wins (not necessarily indicative of a delivered, viewed, or
     /// billable ad); optional means of serving ad markup. Substitution macros (Section 4.4) may be included in both the URL

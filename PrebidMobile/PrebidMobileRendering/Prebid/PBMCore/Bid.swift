@@ -29,7 +29,7 @@ public class Bid: NSObject {
     /// Note that while the type indicates float, integer math is highly recommended
     /// when handling currencies (e.g., BigDecimal in Java).
     @objc public var price: Float {
-        bid.price.floatValue
+        bid.price?.floatValue ?? 0.0
     }
     
     /// Billing notice URL called by the exchange when a winning bid
@@ -132,11 +132,11 @@ public class Bid: NSObject {
         bid.ext?.prebid?.events
     }
     
-    var bid: PBMORTBBid<PBMORTBBidExt>
+    var bid: ORTBBid<ORTBBidExt>
 
-    init(bid: PBMORTBBid<PBMORTBBidExt>) {
+    init(bid: ORTBBid<ORTBBidExt>) {
         self.bid = bid
-        let macrosHelper = PBMORTBMacrosHelper(bidPrice: bid.price)
+        let macrosHelper = ORTBMacrosHelper(bidPrice: bid.price ?? 0.0)
         adm = macrosHelper.replaceMacros(in: bid.adm)
         nurl = macrosHelper.replaceMacros(in: bid.nurl)
     }
@@ -146,9 +146,9 @@ extension Bid {
 
     static func bid(from bidString: String) -> Bid? {
         guard let bidDic = Utils.shared.getDictionaryFromString(bidString),
-              let rawBid = PBMORTBBid<PBMORTBBidExt>(
+              let rawBid = ORTBBid<ORTBBidExt>(
                 jsonDictionary: bidDic,
-                extParser: { PBMORTBBidExt(jsonDictionary: $0)}
+                extParser: { ORTBBidExt(jsonDictionary: $0)}
               ) else { return nil }
 
         return Bid(bid: rawBid)

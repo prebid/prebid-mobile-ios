@@ -16,7 +16,7 @@
 
 import Foundation
 
-class PBMORTBBidExt: PBMJsonCodable {
+class ORTBBidExt: PBMJsonCodable {
     
     var prebid: PBMORTBBidExtPrebid?
     var bidder: [String : Any]?

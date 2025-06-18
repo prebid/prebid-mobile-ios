@@ -22,7 +22,7 @@ public class WinningBidResponseFabricator {
     static func makeWinningBidResponse(bidPrice: Double) -> BidResponse {
         let rawWinningBid = RawWinningBidFabricator.makeRawWinningBid(price: bidPrice, bidder: "some bidder", cacheID: "some-cache-id")
         
-        let rawBidResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, [String : Any], PBMORTBBidExt>(
+        let rawBidResponse = ORTBBidResponse<ORTBBidResponseExt, [String : Any], ORTBBidExt>(
             requestID: ""
         )
         rawBidResponse.seatbid = [.init(bid: [rawWinningBid])]

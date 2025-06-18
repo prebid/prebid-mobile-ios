@@ -26,7 +26,7 @@ import Foundation
 /// To express a “no-bid”, the options are to return an empty response with HTTP 204. Alternately if the bidder wishes to
 /// convey to the exchange a reason for not bidding, just a `BidResponse` object is returned with a reason code in the `nbr`
 /// attribute.
-class PBMORTBBidResponse<
+class ORTBBidResponse<
     ExtType: PBMJsonCodable,
     SeatBidExtType: PBMJsonCodable,
     BidExtType: PBMJsonCodable
@@ -34,10 +34,10 @@ class PBMORTBBidResponse<
     
     /// [Required]
     /// ID of the bid request to which this is a response.
-    var requestID: String
+    var requestID: String?
     
     /// Array of seatbid objects; 1+ required if a bid is to be made.
-    var seatbid: [PBMORTBSeatBid<SeatBidExtType, BidExtType>]?
+    var seatbid: [ORTBSeatBid<SeatBidExtType, BidExtType>]?
     
     /// Bidder generated response ID to assist with logging/tracking.
     var bidid: String?
@@ -106,7 +106,7 @@ class PBMORTBBidResponse<
         
         if let seatBidArray: [[String : Any]] = json[.seatbid] {
             seatbid = seatBidArray.compactMap {
-                PBMORTBSeatBid(jsonDictionary: $0,
+                ORTBSeatBid(jsonDictionary: $0,
                                       extParser: seatBidExtParser,
                                       bidExtParser: bidExtParser)
             }

@@ -33,7 +33,7 @@
                      winningBid:(Bid *)bid
                        callback:(PBMAdMarkupStringHandler)adMarkupConsumer
 {
-    PBMORTBMacrosHelper * const macrosHelper = [[PBMORTBMacrosHelper alloc] initWithBid:bid];
+    ORTBMacrosHelper * const macrosHelper = [[ORTBMacrosHelper alloc] initWithBid:bid];
     
     PBMAdMarkupStringHandler (^ const chainNotificationAction)(NSString * _Nullable, PBMAdMarkupStringHandler) =
     ^(NSString * _Nullable notificationUrl, PBMAdMarkupStringHandler _Nonnull onResult) {

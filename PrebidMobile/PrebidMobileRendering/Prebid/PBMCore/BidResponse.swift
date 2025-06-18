@@ -15,7 +15,7 @@
 
 import Foundation
 
-typealias RawBidResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, [String : Any], PBMORTBBidExt>
+typealias RawBidResponse = ORTBBidResponse<ORTBBidResponseExt, [String : Any], ORTBBidExt>
 
 @objcMembers
 public class BidResponse: NSObject {
@@ -28,7 +28,7 @@ public class BidResponse: NSObject {
     
     public private(set) var tmaxrequest: NSNumber?
     
-    public private(set) var ext: PBMORTBBidResponseExt?
+    public private(set) var ext: ORTBBidResponseExt?
     
     private(set) var rawResponse: RawBidResponse?
     
@@ -42,13 +42,13 @@ public class BidResponse: NSObject {
         let rawResponse = RawBidResponse(
             jsonDictionary: jsonDictionary,
             extParser: { extDic in
-                PBMORTBBidResponseExt(jsonDictionary: extDic)
+                ORTBBidResponseExt(jsonDictionary: extDic)
             },
             seatBidExtParser: { extDic in
                 extDic
             },
             bidExtParser: { extDic in
-                PBMORTBBidExt(jsonDictionary: extDic)
+                ORTBBidExt(jsonDictionary: extDic)
             })
         
         self.init(rawBidResponse: rawResponse)
@@ -67,7 +67,8 @@ public class BidResponse: NSObject {
 
         if let seatbid = rawBidResponse.seatbid {
             for nextSeatBid in seatbid {
-                for nextBid in nextSeatBid.bid {
+                guard let bids = nextSeatBid.bid else { continue }
+                for nextBid in bids {
                     let bid = Bid(bid: nextBid)
                     allBids.append(bid)
                     

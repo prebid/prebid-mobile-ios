@@ -18,8 +18,8 @@ import Foundation
 @testable @_spi(PBMInternal) import PrebidMobile
 
 public class RawWinningBidFabricator {
-    static func makeRawWinningBid(price: Double?, bidder: String?, cacheID: String?) -> PBMORTBBid<PBMORTBBidExt> {
-        let rawBid = PBMORTBBid<PBMORTBBidExt>(bidID: "", impid: "", price: (price ?? 0) as NSNumber)
+    static func makeRawWinningBid(price: Double?, bidder: String?, cacheID: String?) -> ORTBBid<ORTBBidExt> {
+        let rawBid = ORTBBid<ORTBBidExt>(bidID: "", impid: "", price: (price ?? 0) as NSNumber)
         
         rawBid.ext = .init()
         rawBid.ext?.prebid = .init()

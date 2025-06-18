@@ -14,8 +14,8 @@ public class RawSampleCustomRendererBidFabricator {
     static func makeSampleCustomRendererBid(
         rendererName: String,
         rendererVersion: String
-    ) -> PBMORTBBid<PBMORTBBidExt> {
-        let rawBid = PBMORTBBid<PBMORTBBidExt>(bidID: "", impid: "", price: 1.2)
+    ) -> ORTBBid<ORTBBidExt> {
+        let rawBid = ORTBBid<ORTBBidExt>(bidID: "", impid: "", price: 1.2)
         rawBid.ext = .init()
         rawBid.ext?.prebid = .init()
         

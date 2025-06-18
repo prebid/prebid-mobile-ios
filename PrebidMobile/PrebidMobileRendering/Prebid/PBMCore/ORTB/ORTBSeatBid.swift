@@ -22,14 +22,14 @@ import Foundation
 /// one or more individual bids. If multiple impressions are presented in the request, the `group` attribute can be used to
 /// specify if a seat is willing to accept any impressions that it can win (default) or if it is only interested in
 /// winning any if it can win them all as a group.
-class PBMORTBSeatBid<
+class ORTBSeatBid<
     ExtType: PBMJsonCodable,
     BidExtType: PBMJsonCodable
 >: PBMJsonCodable, PBMORTBExtensible {
     
     /// [Required]
     /// Array of 1+ `Bid` objects (Section 4.2.3) each related to an impression. Multiple bids can relate to the same impression.
-    var bid: [PBMORTBBid<BidExtType>]
+    var bid: [ORTBBid<BidExtType>]?
     
     /// ID of the buyer seat (e.g., advertiser, agency) on whose behalf this bid is made.
     var seat: String?
@@ -49,7 +49,7 @@ class PBMORTBSeatBid<
         case ext
     }
     
-    init(bid: [PBMORTBBid<BidExtType>]) {
+    init(bid: [ORTBBid<BidExtType>]) {
         self.bid = bid
     }
     
@@ -72,7 +72,7 @@ class PBMORTBSeatBid<
             return nil
         }
         let bids = bidsArray.compactMap {
-            PBMORTBBid(jsonDictionary: $0, extParser: bidExtParser)
+            ORTBBid(jsonDictionary: $0, extParser: bidExtParser)
         }
         guard !bids.isEmpty else {
             return nil
