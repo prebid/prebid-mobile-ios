@@ -18,9 +18,9 @@ import Foundation
 
 class MockPBMBidRequester: NSObject, BidRequesterProtocol {
     
-    let jsonDictionary: PrebidMobile.JsonDictionary
+    let jsonDictionary: [String : Any]
     
-    init(jsonDictionary: PrebidMobile.JsonDictionary) {
+    init(jsonDictionary: [String : Any]) {
         self.jsonDictionary = jsonDictionary
     }
     

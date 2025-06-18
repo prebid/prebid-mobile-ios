@@ -130,7 +130,7 @@ class AdUnitTests: XCTestCase {
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
         let rawWinningBid = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.75)
-        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
         //when
@@ -152,7 +152,7 @@ class AdUnitTests: XCTestCase {
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
         let rawWinningBid = PBMBidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
-        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
         //when
@@ -174,7 +174,7 @@ class AdUnitTests: XCTestCase {
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
         let rawWinningBid = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.75)
-        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
         //when
@@ -197,7 +197,7 @@ class AdUnitTests: XCTestCase {
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
         let rawWinningBid = PBMBidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
-        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
         //when
@@ -222,7 +222,7 @@ class AdUnitTests: XCTestCase {
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
         let rawWinningBid = PBMBidResponseTransformer.makeNativeValidResponse(bidPrice: 0.75)
-        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
         //when
@@ -248,7 +248,7 @@ class AdUnitTests: XCTestCase {
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
         let rawWinningBid = PBMBidResponseTransformer.makeNativeValidResponse(bidPrice: 0.75)
-        let jsonDict = rawWinningBid.jsonDict as? NSDictionary
+        let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
         //when
@@ -268,7 +268,7 @@ class AdUnitTests: XCTestCase {
             Prebid.shared.prebidServerAccountId = ""
         }
         
-        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") as PrebidMobile.JsonDictionary? else {
+        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") else {
             XCTFail("Couldn't load `sample_ortb_native_with_win_event.json` file.")
             return
         }
@@ -388,7 +388,7 @@ class AdUnitTests: XCTestCase {
         exception.expectedFulfillmentCount = expectedFetchDemandCount
         exception.assertForOverFulfill = false
         
-        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") as PrebidMobile.JsonDictionary? else {
+        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") else {
             XCTFail("Couldn't load `sample_ortb_native_with_win_event.json` file.")
             return
         }

@@ -15,6 +15,8 @@
 
 import Foundation
 
+typealias RawBidResponse = ORTBBidResponse<ORTBBidResponseExt, [String : Any], ORTBBidExt>
+
 @objcMembers
 public class BidResponse: NSObject {
     
@@ -26,9 +28,9 @@ public class BidResponse: NSObject {
     
     public private(set) var tmaxrequest: NSNumber?
     
-    public private(set) var ext: PBMORTBBidResponseExt?
+    public private(set) var ext: ORTBBidResponseExt?
     
-    private(set) var rawResponse: RawBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>?
+    private(set) var rawResponse: RawBidResponse?
     
     public convenience init(adUnitId: String?, targetingInfo: [String: String]?) {
         self.init(jsonDictionary: [:])
@@ -36,24 +38,23 @@ public class BidResponse: NSObject {
         self.targetingInfo = targetingInfo
     }
 
-    public convenience init(jsonDictionary: JsonDictionary) {
-        let rawResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>(
-            jsonDictionary: jsonDictionary as! [String : Any],
+    public convenience init(jsonDictionary: [String : Any]) {
+        let rawResponse = RawBidResponse(
+            jsonDictionary: jsonDictionary,
             extParser: { extDic in
-                return PBMORTBBidResponseExt(jsonDictionary: extDic)
+                ORTBBidResponseExt(jsonDictionary: extDic)
             },
             seatBidExtParser: { extDic in
-                return extDic as NSDictionary
+                extDic
             },
             bidExtParser: { extDic in
-                return PBMORTBBidExt(jsonDictionary: extDic)
+                ORTBBidExt(jsonDictionary: extDic)
             })
-
+        
         self.init(rawBidResponse: rawResponse)
     }
     
-    required init(rawBidResponse: RawBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>?) {
-
+    required init(rawBidResponse: RawBidResponse?) {
         rawResponse = rawBidResponse
         
         guard let rawBidResponse = rawBidResponse else {
@@ -66,7 +67,8 @@ public class BidResponse: NSObject {
 
         if let seatbid = rawBidResponse.seatbid {
             for nextSeatBid in seatbid {
-                for nextBid in nextSeatBid.bid {
+                guard let bids = nextSeatBid.bid else { continue }
+                for nextBid in bids {
                     let bid = Bid(bid: nextBid)
                     allBids.append(bid)
                     
@@ -86,7 +88,7 @@ public class BidResponse: NSObject {
         self.winningBid = winningBid
         self.allBids = allBids
         self.targetingInfo = targetingInfo.count > 0 ? targetingInfo : nil
-        tmaxrequest = rawBidResponse.ext.tmaxrequest
+        tmaxrequest = rawBidResponse.ext?.tmaxrequest
         self.ext = rawBidResponse.ext
     }
     
