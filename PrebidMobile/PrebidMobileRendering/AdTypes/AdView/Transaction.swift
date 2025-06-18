@@ -19,7 +19,7 @@ import Foundation
 @objc(PBMTransaction) @_spi(PBMInternal) public
 protocol Transaction: NSObjectProtocol {
     var adConfiguration: AdConfiguration { get } // If need to change use resetAdConfiguration
-    var creatives: [PBMAbstractCreative] { get set }
+    var creatives: [AbstractCreative] { get set }
     var creativeModels: [CreativeModel] { get set }
     var measurementSession: PBMOpenMeasurementSession { get set }
     var measurementWrapper: PBMOpenMeasurementWrapper { get set }
@@ -33,10 +33,10 @@ protocol Transaction: NSObjectProtocol {
          models: [CreativeModel])
     
     func startCreativeFactory()
-    func getAdDetails() -> PBMAdDetails?
-    func getFirstCreative() -> PBMAbstractCreative?
-    func getCreative(after: PBMAbstractCreative) -> PBMAbstractCreative?
-    func revenueForCreative(after: PBMAbstractCreative) -> String?
+    func getAdDetails() -> AdDetails?
+    func getFirstCreative() -> AbstractCreative?
+    func getCreative(after: AbstractCreative) -> AbstractCreative?
+    func revenueForCreative(after: AbstractCreative) -> String?
     func resetAdConfiguration(_ adConfiguration: AdConfiguration)
     
 #if DEBUG

@@ -15,6 +15,7 @@
 
 #import "PBMORTBAbstractResponse.h"
 #import "PBMORTBAbstractResponse+Protected.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

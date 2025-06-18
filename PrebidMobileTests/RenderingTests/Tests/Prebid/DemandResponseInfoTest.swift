@@ -30,7 +30,7 @@ class DemandResponseInfoTest: XCTestCase {
         
         let testBlocks: [(fetchDemandResult: ResultCode, bid: Bid?, configId: String?)] = [
             (.prebidDemandNoBids, nil, nil),
-            (.prebidDemandFetchSuccess, Bid(bid: PBMORTBBid<PBMORTBBidExt>()), "configID-1"),
+            (.prebidDemandFetchSuccess, Bid(bid: ORTBBid<ORTBBidExt>(bidID: "", impid: "", price: 1)), "configID-1"),
             (.prebidDemandFetchSuccess, winningBid, "configID-2"),
         ]
         

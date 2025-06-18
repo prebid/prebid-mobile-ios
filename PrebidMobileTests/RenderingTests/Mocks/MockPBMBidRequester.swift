@@ -14,13 +14,13 @@
  */
 
 import Foundation
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class MockPBMBidRequester: NSObject, BidRequesterProtocol {
     
-    let jsonDictionary: PrebidMobile.JsonDictionary
+    let jsonDictionary: [String : Any]
     
-    init(jsonDictionary: PrebidMobile.JsonDictionary) {
+    init(jsonDictionary: [String : Any]) {
         self.jsonDictionary = jsonDictionary
     }
     

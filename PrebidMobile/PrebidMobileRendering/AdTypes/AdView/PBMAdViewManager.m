@@ -13,16 +13,14 @@
  limitations under the License.
  */
 
-#import "PBMAbstractCreative.h"
 #import "PBMAdLoadManagerProtocol.h"
-#import "PBMAutoRefreshManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialLayoutConfigurator.h"
-#import "PBMModalManager.h"
 #import "PBMVideoCreative.h"
 #import "UIView+PBMExtensions.h"
 
 #import "PBMMacros.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -34,7 +32,7 @@
 @interface PBMAdViewManager_Objc: NSObject <PBMAdViewManager>
 
 @property (nonatomic, strong) id<PrebidServerConnectionProtocol> serverConnection;
-@property (nonatomic, weak, nullable) PBMAbstractCreative *currentCreative;
+@property (nonatomic, weak, nullable)  id<PBMAbstractCreative> currentCreative;
 @property (nonatomic, strong, nullable) id<PBMTransaction> externalTransaction;
 @property (nonatomic, nullable, readonly) id<PBMTransaction> currentTransaction; // computed
 @property (nonatomic, assign) BOOL videoInterstitialDidClose;
@@ -155,25 +153,25 @@
 
 #pragma mark - PBMCreativeViewDelegate
 
-- (void)videoCreativeDidComplete:(PBMAbstractCreative *)creative {
+- (void)videoCreativeDidComplete:(id<PBMAbstractCreative>)creative {
     if ([self.adViewManagerDelegate respondsToSelector:@selector(videoAdDidFinish)]) {
         [self.adViewManagerDelegate videoAdDidFinish];
     }
 }
 
-- (void)videoWasMuted:(PBMAbstractCreative *)creative {
+- (void)videoWasMuted:(id<PBMAbstractCreative>)creative {
     if ([self.adViewManagerDelegate respondsToSelector:@selector(videoAdWasMuted)]) {
         [self.adViewManagerDelegate videoAdWasMuted];
     }
 }
 
-- (void)videoWasUnmuted:(PBMAbstractCreative *)creative {
+- (void)videoWasUnmuted:(id<PBMAbstractCreative>)creative {
     if ([self.adViewManagerDelegate respondsToSelector:@selector(videoAdWasUnmuted)]) {
         [self.adViewManagerDelegate videoAdWasUnmuted];
     }
 }
 
-- (void)creativeDidComplete:(PBMAbstractCreative *)creative {
+- (void)creativeDidComplete:(id<PBMAbstractCreative>)creative {
     PBMLogWhereAmI();
     
     if (!self.adConfiguration.isBuiltInVideo && self.currentCreative.view && self.currentCreative.view.superview) {
@@ -182,7 +180,7 @@
     
     //When a creative completes, show the next one in the transaction
     id<PBMTransaction> const transaction = self.currentTransaction;
-    PBMAbstractCreative *nextCreative = [transaction getCreativeAfter:self.currentCreative];
+     id<PBMAbstractCreative> nextCreative = [transaction getCreativeAfter:self.currentCreative];
     if (nextCreative && !self.videoInterstitialDidClose) {
         [self setupCreative:nextCreative];
         return;
@@ -198,16 +196,16 @@
     [self.adViewManagerDelegate adDidComplete];
 }
 
-- (void)creativeDidDisplay:(PBMAbstractCreative *)creative {
+- (void)creativeDidDisplay:(id<PBMAbstractCreative>)creative {
     self.videoInterstitialDidClose = NO;
     [self.adViewManagerDelegate adDidDisplay];
 }
 
-- (void)creativeWasClicked:(PBMAbstractCreative *)creative {
+- (void)creativeWasClicked:(id<PBMAbstractCreative>)creative {
     [self.adViewManagerDelegate adWasClicked];
 }
 
-- (void)creativeInterstitialDidClose:(PBMAbstractCreative *) creative {
+- (void)creativeInterstitialDidClose:(id<PBMAbstractCreative>) creative {
     if (self.adConfiguration.winningBidAdFormat == AdFormat.video) {
         self.videoInterstitialDidClose = YES;
     }
@@ -215,24 +213,24 @@
     [self.adViewManagerDelegate adDidClose];
 }
 
-- (void)creativeInterstitialDidLeaveApp:(PBMAbstractCreative *) creative {
+- (void)creativeInterstitialDidLeaveApp:(id<PBMAbstractCreative>) creative {
     [self.adViewManagerDelegate adDidLeaveApp];
 }
 
-- (void)creativeClickthroughDidClose:(PBMAbstractCreative *) creative {
+- (void)creativeClickthroughDidClose:(id<PBMAbstractCreative>) creative {
     [self.adViewManagerDelegate adClickthroughDidClose];
 }
 
-- (void)creativeMraidDidCollapse:(PBMAbstractCreative *) creative {
+- (void)creativeMraidDidCollapse:(id<PBMAbstractCreative>) creative {
     [self.adViewManagerDelegate adDidCollapse];
 }
 
-- (void)creativeMraidDidExpand:(PBMAbstractCreative *) creative {
+- (void)creativeMraidDidExpand:(id<PBMAbstractCreative>) creative {
     [self.adViewManagerDelegate adDidExpand];
 }
 
 //TODO: Describe what implanting means
-- (void)creativeReadyToReimplant:(PBMAbstractCreative *)creative {
+- (void)creativeReadyToReimplant:(id<PBMAbstractCreative>)creative {
     UIView *creativeView = creative.view;
     if (!creativeView) {
         return;
@@ -245,7 +243,7 @@
     [creativeView PBMAddFillSuperviewConstraints];
 }
 
-- (void)creativeViewWasClicked:(PBMAbstractCreative *)creative {
+- (void)creativeViewWasClicked:(id<PBMAbstractCreative>)creative {
     // POTENTIAL BUG: if publisher did not provide the controller for modal presentation
     // and we did not check it before 'show'
     // the video will disappear from UI and won't appear in the interstitial controller.
@@ -263,7 +261,7 @@
     }
 }
 
-- (void)creativeFullScreenDidFinish:(PBMAbstractCreative *)creative {
+- (void)creativeFullScreenDidFinish:(id<PBMAbstractCreative>)creative {
     self.adConfiguration.forceInterstitialPresentation = nil;
     self.currentCreative.creativeModel.adConfiguration.forceInterstitialPresentation = nil;
     [self.currentCreative.eventManager trackEvent:PBMTrackingEventNormal];
@@ -276,7 +274,7 @@
 }
 
 /// NOTE: Rewarded API only
-- (void)creativeDidSendRewardedEvent:(PBMAbstractCreative *)creative {
+- (void)creativeDidSendRewardedEvent:(id<PBMAbstractCreative>)creative {
     if (self.isInterstitial && self.isRewarded) {
         [self.adViewManagerDelegate adDidSendRewardedEvent];
     }
@@ -315,11 +313,11 @@
 }
 
 // Changes self.creative and calls show & setupRefreshTimer if possible.
-- (void)setupCreative:(PBMAbstractCreative *)creative {
+- (void)setupCreative:(id<PBMAbstractCreative>)creative {
     [self setupCreative:creative withThread:NSThread.currentThread];
 }
 
-- (void)setupCreative:(PBMAbstractCreative *)creative withThread:(id<PBMThreadProtocol>)thread {
+- (void)setupCreative:(id<PBMAbstractCreative>)creative withThread:(id<PBMThreadProtocol>)thread {
     if (!thread.isMainThread) {
         PBMLogError(@"setupCreative must be called on the main thread");
         return;
@@ -338,7 +336,7 @@
 #pragma mark - Internal Methods
 
 - (void)onTransactionIsReady:(id<PBMTransaction>)transaction {
-    for (PBMAbstractCreative *creative in transaction.creatives) {
+    for ( id<PBMAbstractCreative> creative in transaction.creatives) {
         creative.modalManager = self.modalManager;
     }
         

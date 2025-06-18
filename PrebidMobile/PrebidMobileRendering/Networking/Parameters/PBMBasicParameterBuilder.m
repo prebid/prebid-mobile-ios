@@ -20,6 +20,7 @@
 #import "InternalUserConsentDataManager.h"
 
 #import "PBMBasicParameterBuilder.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

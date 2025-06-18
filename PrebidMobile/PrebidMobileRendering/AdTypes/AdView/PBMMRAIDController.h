@@ -20,7 +20,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class PBMAbstractCreative;
+@protocol PBMAbstractCreative;
+@protocol PBMCreativeViewDelegate;
 @class PBMModalManager;
 @class PBMWebView;
 @class PBMMRAIDCommand;
@@ -33,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(BOOL)isMRAIDLink:(NSString *)urlString;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithCreative:(PBMAbstractCreative*)creative
+- (instancetype)initWithCreative:(id<PBMAbstractCreative>)creative
      viewControllerForPresenting:(UIViewController*)viewControllerForPresentingModals
                          webView:(PBMWebView*)webView
             creativeViewDelegate:(id<PBMCreativeViewDelegate>)creativeViewDelegate

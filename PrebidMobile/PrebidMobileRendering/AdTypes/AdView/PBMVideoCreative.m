@@ -24,12 +24,10 @@
 #import "PBMFunctions.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMOpenMeasurementSession.h"
-#import "PBMModalManager.h"
 #import "PBMVideoView.h"
 #import "PBMModalState.h"
 #import "PBMMacros.h"
-#import "PBMCreativeResolutionDelegate.h"
-#import "PBMCreativeViewabilityTracker.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

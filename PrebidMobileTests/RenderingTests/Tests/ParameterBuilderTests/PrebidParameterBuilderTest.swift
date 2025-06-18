@@ -750,6 +750,35 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
     }
     
+    func testVideoParametersSkippable_isInteger() throws {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        adUnitConfig.adFormats = [.video]
+        adUnitConfig.adPosition = .header
+        
+        let parameters = VideoParameters(mimes: [])
+        parameters.isSkippable = true
+        
+        adUnitConfig.adConfiguration.videoParameters = parameters
+        
+        let bidRequest = buildBidRequest(with: adUnitConfig)
+        
+        guard let video = bidRequest.imp.first?.video else {
+            XCTFail("No Video object!")
+            return
+        }
+                
+        let skip = try XCTUnwrap(video.skip)
+        let encodedType = String(cString: skip.objCType)
+        // "c" - BOOL type, "q" - NSInteger type
+        if encodedType == "c" && (skip == 0 || skip == 1) {
+            XCTFail("Enclosing type is BOOL")
+            return
+        }
+        
+        PBMAssertEq(video.skip, 1)
+    }
+        
     func testIncludeFormatOnMultiformatAdUnit() {
         let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
         adUnit.adUnitConfig.adFormats = [.banner]

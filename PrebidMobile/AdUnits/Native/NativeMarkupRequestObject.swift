@@ -17,7 +17,7 @@ import Foundation
 
 /// Represents a request object for native markup, including details about the ad's context, placement, and supported features.
 @objc(PBMNativeMarkupRequestObject) @objcMembers
-public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
+public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonEncodable {
     
     /// [Recommended]
     /// [Integer]
@@ -121,7 +121,7 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
     /// Converts the `NativeMarkupRequestObject` instance to a JSON dictionary.
     ///
     /// - Returns: A dictionary representation of the `NativeMarkupRequestObject` instance.
-    public var jsonDictionary: [String : Any]? {
+    public var jsonDictionary: [String : Any] {
         var json = [String : Any]()
         
         json["context"]         = context?.value
@@ -143,8 +143,9 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonCodable {
     ///
     /// - Returns: A JSON string representation of the `NativeMarkupRequestObject` instance.
     /// - Throws: An error if the conversion to JSON string fails.
+    @objc(toJsonStringWithError:)
     public func toJsonString() throws -> String {
-        try PBMFunctions.toStringJsonDictionary(jsonDictionary ?? [:])
+        try PBMFunctions.toStringJsonDictionary(jsonDictionary)
     }
     
     // MARK: - Private  Methods

@@ -75,7 +75,7 @@ public class GAMInterstitialEventHandler :
               let request = GAMRequestWrapper() else {
             let error = GAMEventHandlerError.gamClassesNotFound
             GAMUtils.log(error: error)
-            loadingDelegate?.failedWithError(error)
+            loadingDelegate?.failed(with: error)
             return
         }
         
@@ -130,7 +130,7 @@ public class GAMInterstitialEventHandler :
         if requestInterstitial === ad {
             requestInterstitial = nil
             forgetCurrentInterstitial()
-            loadingDelegate?.failedWithError(error)
+            loadingDelegate?.failed(with: error)
         }
     }
     

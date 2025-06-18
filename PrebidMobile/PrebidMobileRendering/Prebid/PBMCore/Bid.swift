@@ -28,8 +28,8 @@ public class Bid: NSObject {
     /// Bid price expressed as CPM although the actual transaction is for a unit impression only.
     /// Note that while the type indicates float, integer math is highly recommended
     /// when handling currencies (e.g., BigDecimal in Java).
-    public var price: Float {
-        bid.price.floatValue
+    @objc public var price: Float {
+        bid.price?.floatValue ?? 0.0
     }
     
     /// Billing notice URL called by the exchange when a winning bid
@@ -60,12 +60,12 @@ public class Bid: NSObject {
     
     /// Targeting information that needs to be passed to the ad server SDK.
     public var targetingInfo: [String : String]? {
-        bid.ext.prebid?.targeting
+        bid.ext?.prebid?.targeting
     }
     
   /// Targeting information that needs to be passed to the ad server SDK.
     public var meta: [String : Any]? {
-        bid.ext.prebid?.meta
+        bid.ext?.prebid?.meta
     }
     
     /**
@@ -73,17 +73,17 @@ public class Bid: NSObject {
      Used in the StoreKit
      */
     public var skadn: PBMORTBBidExtSkadn? {
-        return bid.ext.skadn
+        return bid.ext?.skadn
     }
     
     /// Prebid ad format
     public var adFormat: AdFormat? {
-        AdFormat.allCases.filter { $0.stringEquivalent == bid.ext.prebid?.type }.first
+        AdFormat.allCases.filter { $0.stringEquivalent == bid.ext?.prebid?.type }.first
     }
     
     /// Prebid video ad configuration
     public var videoAdConfiguration: PBMORTBAdConfiguration? {
-        bid.ext.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
+        bid.ext?.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
     }
     
        /// Preffered plugin renderer name
@@ -100,12 +100,12 @@ public class Bid: NSObject {
     // Need to be removed when ext.prebid.passthrough will be available.
     #if DEBUG
     public var testVideoAdConfiguration: PBMORTBAdConfiguration? {
-        bid.ext.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
+        bid.ext?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
     }
     #endif
     
     public var rewardedConfig: PBMORTBRewardedConfiguration? {
-        bid.ext.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.rewardedConfiguration
+        bid.ext?.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.rewardedConfiguration
     }
     
     /// Returns YES if this bid is intented for display.
@@ -129,14 +129,14 @@ public class Bid: NSObject {
     }
     
     public var events: PBMORTBExtPrebidEvents? {
-        bid.ext.prebid?.events
+        bid.ext?.prebid?.events
     }
     
-    public private(set) var bid: PBMORTBBid<PBMORTBBidExt>
+    var bid: ORTBBid<ORTBBidExt>
 
-    public init(bid: PBMORTBBid<PBMORTBBidExt>) {
+    init(bid: ORTBBid<ORTBBidExt>) {
         self.bid = bid
-        let macrosHelper = PBMORTBMacrosHelper(bid: bid)
+        let macrosHelper = ORTBMacrosHelper(bidPrice: bid.price ?? 0.0)
         adm = macrosHelper.replaceMacros(in: bid.adm)
         nurl = macrosHelper.replaceMacros(in: bid.nurl)
     }
@@ -146,9 +146,9 @@ extension Bid {
 
     static func bid(from bidString: String) -> Bid? {
         guard let bidDic = Utils.shared.getDictionaryFromString(bidString),
-              let rawBid = PBMORTBBid<PBMORTBBidExt>(
+              let rawBid = ORTBBid<ORTBBidExt>(
                 jsonDictionary: bidDic,
-                extParser: { PBMORTBBidExt(jsonDictionary: $0)}
+                extParser: { ORTBBidExt(jsonDictionary: $0)}
               ) else { return nil }
 
         return Bid(bid: rawBid)

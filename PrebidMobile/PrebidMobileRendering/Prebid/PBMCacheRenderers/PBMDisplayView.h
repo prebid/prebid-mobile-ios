@@ -15,12 +15,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PBMAdViewManagerDelegate.h"
-#import "PBMModalManagerDelegate.h"
-#import "PrebidMobileDisplayViewProtocol.h"
-
 @protocol DisplayViewLoadingDelegate;
 @protocol DisplayViewInteractionDelegate;
+@protocol PBMAdViewManagerDelegate;
+@protocol PBMModalManagerDelegate;
+@protocol PrebidMobileDisplayViewProtocol;
 
 @class AdUnitConfig;
 @class Bid;

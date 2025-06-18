@@ -19,8 +19,6 @@
 #import "PBMDisplayView+InternalState.h"
 
 #import "PBMTransactionFactory.h"
-#import "PBMAdViewManagerDelegate.h"
-#import "PBMModalManagerDelegate.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -39,11 +37,10 @@
 @property (nonatomic, strong, nullable) PBMTransactionFactory *transactionFactory;
 @property (nonatomic, strong, nullable) id<PBMAdViewManager> adViewManager;
 
-@property (nonatomic, strong, readonly, nonnull) PBMInterstitialDisplayProperties *interstitialDisplayProperties;
-
 @end
 
 @implementation PBMDisplayView
+@synthesize interstitialDisplayProperties = _interstitialDisplayProperties;
 
 // MARK: - Public API
 
@@ -107,7 +104,7 @@
     return self.adViewManager.isCreativeOpened;
 }
 
-// MARK: - PBMAdViewManagerDelegate protocol
+// MARK: - AdViewManagerDelegate protocol
 
 - (UIViewController *)viewControllerForModalPresentation {
     return [self.interactionDelegate viewControllerForModalPresentationFromDisplayView:self];

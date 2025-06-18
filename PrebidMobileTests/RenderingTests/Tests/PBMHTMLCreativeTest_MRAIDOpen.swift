@@ -138,7 +138,7 @@ class PBMHTMLCreativeTest_MRAIDOpen: PBMHTMLCreativeTest_Base {
     func testOpenSucceeds() {
         let clickHandlerExpectation = self.expectation(description: "Should have triggered click")
         self.creativeWasClickedHandler = { (creative) in
-            PBMAssertEq(creative, self.htmlCreative)
+            XCTAssertIdentical(creative, self.htmlCreative)
             clickHandlerExpectation.fulfill()
         }
         

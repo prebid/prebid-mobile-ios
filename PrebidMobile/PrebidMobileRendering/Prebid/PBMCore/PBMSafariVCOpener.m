@@ -16,11 +16,10 @@
 #import "PBMSafariVCOpener.h"
 
 #import "PBMDeepLinkPlusHelper.h"
-#import "PBMDeferredModalState.h"
 #import "PBMFunctions.h"
 #import "PBMFunctions+Private.h"
-#import "PBMModalViewController.h"
 #import "PBMWindowLocker.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

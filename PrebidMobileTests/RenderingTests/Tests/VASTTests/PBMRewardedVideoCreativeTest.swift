@@ -20,16 +20,17 @@ import AVFoundation
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMModalManagerTest : PBMModalManager {
-    
+
+class PBMModalManagerTest: ModalManager {
     var expectationCreativeDidComplete: XCTestExpectation?
     
-    override func creativeDisplayCompleted(_ creative: PBMAbstractCreative) {
+    @objc override func creativeDisplayCompleted(_ creative: AbstractCreative) {
         expectationCreativeDidComplete?.fulfill()
     }
+    
 }
 
-class PBMRewardedVideoCreativeTest: XCTestCase, PBMCreativeResolutionDelegate, CreativeViewDelegate {
+class PBMRewardedVideoCreativeTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate {
     
     var expectationDownloadCompleted:XCTestExpectation!
     var expectationCreativeDidComplete:XCTestExpectation!
@@ -72,24 +73,24 @@ class PBMRewardedVideoCreativeTest: XCTestCase, PBMCreativeResolutionDelegate, C
     
     // MARK: CreativeViewDelegate
     
-    func creativeDidComplete(_ creative: PBMAbstractCreative) {
+    func creativeDidComplete(_ creative: AbstractCreative) {
         self.expectationCreativeDidComplete.fulfill()
     }
     
-    func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
-    func creativeDidDisplay(_ creative: PBMAbstractCreative) {}
-    func creativeWasClicked(_ creative: PBMAbstractCreative) {}
-    func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
-    func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {}
-    func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {}
-    func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {}
-    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {}
-    func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {}
-    func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {}
-    func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
-    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
+    func videoCreativeDidComplete(_ creative: AbstractCreative) {}
+    func creativeDidDisplay(_ creative: AbstractCreative) {}
+    func creativeWasClicked(_ creative: AbstractCreative) {}
+    func creativeViewWasClicked(_ creative: AbstractCreative) {}
+    func creativeClickthroughDidClose(_ creative: AbstractCreative) {}
+    func creativeInterstitialDidClose(_ creative: AbstractCreative) {}
+    func creativeInterstitialDidLeaveApp(_ creative: AbstractCreative) {}
+    func creativeReadyToReimplant(_ creative: AbstractCreative) {}
+    func creativeMraidDidCollapse(_ creative: AbstractCreative) {}
+    func creativeMraidDidExpand(_ creative: AbstractCreative) {}
+    func creativeFullScreenDidFinish(_ creative: AbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: AbstractCreative) {}
     
-    func creativeReady(_ creative: PBMAbstractCreative) {
+    func creativeReady(_ creative: AbstractCreative) {
         self.expectationDownloadCompleted.fulfill()
     }
     

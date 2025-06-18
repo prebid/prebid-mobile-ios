@@ -88,7 +88,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
                sdkConfiguration: Prebid.mock
         )
         
-        htmlCreative.modalManager = PBMModalManager()
+        htmlCreative.modalManager = ModalManager()
         htmlCreative.creativeViewDelegate = self
         
         let mockVC = MockViewController()
@@ -119,21 +119,21 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
     
     // MARK: CreativeViewDelegate
     
-    func creativeDidComplete(_ creative: PBMAbstractCreative) {}
-    func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
-    func creativeDidDisplay(_ creative: PBMAbstractCreative) {}
-    func creativeWasClicked(_ creative: PBMAbstractCreative) {}
-    func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {}
-    func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {}
-    func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {}
+    func creativeDidComplete(_ creative: AbstractCreative) {}
+    func videoCreativeDidComplete(_ creative: AbstractCreative) {}
+    func creativeDidDisplay(_ creative: AbstractCreative) {}
+    func creativeWasClicked(_ creative: AbstractCreative) {}
+    func creativeClickthroughDidClose(_ creative: AbstractCreative) {}
+    func creativeInterstitialDidClose(_ creative: AbstractCreative) {}
+    func creativeInterstitialDidLeaveApp(_ creative: AbstractCreative) {}
     
-    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {
+    func creativeReadyToReimplant(_ creative: AbstractCreative) {
         creativeReadyToReimplantExpectation.fulfill()
     }
     
-    func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {}
-    func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {}
-    func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
-    func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
-    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
+    func creativeMraidDidCollapse(_ creative: AbstractCreative) {}
+    func creativeMraidDidExpand(_ creative: AbstractCreative) {}
+    func creativeViewWasClicked(_ creative: AbstractCreative) {}
+    func creativeFullScreenDidFinish(_ creative: AbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: AbstractCreative) {}
 }

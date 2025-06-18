@@ -16,15 +16,15 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
-class MockAdLoader: NSObject, PBMAdLoaderProtocol {
+class MockAdLoader: NSObject, AdLoaderProtocol {
     enum ExpectedCall {
-        case getFlowDelegate(provider: ()->PBMAdLoaderFlowDelegate?)
-        case setFlowDelegate(handler: (PBMAdLoaderFlowDelegate?)->())
+        case getFlowDelegate(provider: ()->AdLoaderFlowDelegate?)
+        case setFlowDelegate(handler: (AdLoaderFlowDelegate?)->())
         case primaryAdRequester(provider: ()->PrimaryAdRequesterProtocol)
-        case createPrebidAd(handler: (Bid, AdUnitConfig, (Any)->(), (@escaping ()->())->())->())
-        case reportSuccess(handler: (Any, NSValue?)->())
+        case createPrebidAd(handler: (Bid, AdUnitConfig, (AnyObject)->(), (@escaping ()->())->())->())
+        case reportSuccess(handler: (AnyObject, NSValue?)->())
     }
     
     private let expectedCalls: [ExpectedCall]
@@ -42,9 +42,9 @@ class MockAdLoader: NSObject, PBMAdLoaderProtocol {
     
     // MARK: - PBMAdLoaderProtocol
     
-    var flowDelegate: PBMAdLoaderFlowDelegate? {
+    var flowDelegate: AdLoaderFlowDelegate? {
         get {
-            let provider: (()->PBMAdLoaderFlowDelegate?)? = syncQueue.sync {
+            let provider: (()->AdLoaderFlowDelegate?)? = syncQueue.sync {
                 guard nextCallIndex < expectedCalls.count else {
                     XCTFail("[MockAdLoader] Call index out of bounds: \(nextCallIndex) < \(expectedCalls.count)",
                             file: file, line: line)
@@ -63,7 +63,7 @@ class MockAdLoader: NSObject, PBMAdLoaderProtocol {
             return provider?()
         }
         set {
-            let handler: ((PBMAdLoaderFlowDelegate?)->())? = syncQueue.sync {
+            let handler: ((AdLoaderFlowDelegate?)->())? = syncQueue.sync {
                 guard nextCallIndex < expectedCalls.count else {
                     XCTFail("[MockAdLoader] Call index out of bounds: \(nextCallIndex) < \(expectedCalls.count)",
                             file: file, line: line)
@@ -83,7 +83,7 @@ class MockAdLoader: NSObject, PBMAdLoaderProtocol {
         }
     }
     
-    var primaryAdRequester: PrimaryAdRequesterProtocol {
+    var primaryAdRequester: PrimaryAdRequesterProtocol? {
         let provider: (()->PrimaryAdRequesterProtocol)? = syncQueue.sync {
             guard nextCallIndex < expectedCalls.count else {
                 XCTFail("[MockAdLoader] Call index out of bounds: \(nextCallIndex) < \(expectedCalls.count)",
@@ -103,8 +103,8 @@ class MockAdLoader: NSObject, PBMAdLoaderProtocol {
         return provider?() ?? MockPrimaryAdRequester(expectedCalls: [], file: file, line: line)
     }
     
-    func createPrebidAd(with bid: Bid, adUnitConfig: AdUnitConfig, adObjectSaver: @escaping (Any) -> Void, loadMethodInvoker: @escaping (@escaping () -> Void) -> Void) {
-        let handler: ((Bid, AdUnitConfig, (Any)->(), (@escaping ()->())->())->())? = syncQueue.sync {
+    func createPrebidAd(with bid: Bid, adUnitConfig: AdUnitConfig, adObjectSaver: @escaping (AnyObject) -> Void, loadMethodInvoker: @escaping (@escaping VoidBlock) -> Void) {
+        let handler: ((Bid, AdUnitConfig, (AnyObject)->(), (@escaping ()->())->())->())? = syncQueue.sync {
             guard nextCallIndex < expectedCalls.count else {
                 XCTFail("[MockAdLoader] Call index out of bounds: \(nextCallIndex) < \(expectedCalls.count)",
                         file: file, line: line)
@@ -123,8 +123,8 @@ class MockAdLoader: NSObject, PBMAdLoaderProtocol {
         handler?(bid, adUnitConfig, adObjectSaver, loadMethodInvoker)
     }
     
-    func reportSuccess(withAdObject adObject: Any, adSize: NSValue?) {
-        let handler: ((Any, NSValue?)->())? = syncQueue.sync {
+    func reportSuccess(with adObject: AnyObject, adSize: NSValue?) {
+        let handler: ((AnyObject, NSValue?)->())? = syncQueue.sync {
             guard nextCallIndex < expectedCalls.count else {
                 XCTFail("[MockAdLoader] Call index out of bounds: \(nextCallIndex) < \(expectedCalls.count)",
                         file: file, line: line)

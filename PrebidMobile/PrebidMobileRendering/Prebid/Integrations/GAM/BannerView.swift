@@ -21,8 +21,6 @@ fileprivate let assertionMessageMainThread = "Expected to only be called on the 
 @objcMembers
 public class BannerView:
     UIView,
-    BannerAdLoaderDelegate,
-    AdLoadFlowControllerDelegate,
     BannerEventInteractionDelegate,
     DisplayViewInteractionDelegate {
     
@@ -83,8 +81,8 @@ public class BannerView:
     
     // MARK: Readonly storage
     
-    var autoRefreshManager: PBMAutoRefreshManager?
-    var adLoadFlowController: PBMAdLoadFlowController?
+    var autoRefreshManager: AutoRefreshManager?
+    var adLoadFlowController: AdLoadFlowController?
     
     // MARK: Externally observable
     var deployedView: UIView?
@@ -139,9 +137,9 @@ public class BannerView:
         super.init(frame: frame)
         accessibilityLabel = PBMAccesibility.bannerView
         
-        let bannerAdLoader = PBMBannerAdLoader(delegate: self)
+        let bannerAdLoader = BannerAdLoader(delegate: self)
         
-        adLoadFlowController = PBMAdLoadFlowController(
+        adLoadFlowController = AdLoadFlowController(
             bidRequesterFactory: { [adUnitConfig] config in
                 Factory.createBidRequester(
                     connection: PrebidServerConnection.shared,
@@ -157,13 +155,13 @@ public class BannerView:
                 true
             })
         
-        autoRefreshManager = PBMAutoRefreshManager(
+        autoRefreshManager = AutoRefreshManager(
             prefetchTime: PBMAdPrefetchTime,
-            locking: adLoadFlowController?.dispatchQueue,
+            lockingQueue: adLoadFlowController?.dispatchQueue,
             lockProvider: { [weak self] in
                 self?.adLoadFlowController?.mutationLock
             },
-            refreshDelay: { [weak self] in
+            refreshDelayBlock: { [weak self] in
                 if let interval = self?.adUnitConfig.refreshInterval {
                     return NSNumber(value: interval)
                 }
@@ -297,40 +295,6 @@ public class BannerView:
         didDismissModal()
     }
     
-    // MARK: - BannerAdLoaderDelegate
-    
-    public func bannerAdLoader(
-        _ bannerAdLoader: PBMBannerAdLoader,
-        loadedAdView adView: UIView,
-        adSize: CGSize
-    ) {
-        deployView(adView)
-        reportLoadingSuccess(with: adSize)
-    }
-    
-    // MARK: - PBMAdLoadFlowControllerDelegate
-    
-    public func adLoadFlowController(
-        _ adLoadFlowController: PBMAdLoadFlowController,
-        failedWithError error: Error?
-    ) {
-        reportLoadingFailed(with: error)
-    }
-    
-    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: PBMAdLoadFlowController) {
-        isRefreshStopped = false
-        autoRefreshManager?.cancelRefreshTimer()
-    }
-    
-    public func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: PBMAdLoadFlowController) {
-        autoRefreshManager?.setupRefreshTimer()
-        eventHandler?.interactionDelegate = self
-    }
-    
-    public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: PBMAdLoadFlowController) -> Bool {
-        !isRefreshStopped
-    }
-    
     // MARK: - BannerEventInteractionDelegate
     
     public func willPresentModal() {
@@ -438,5 +402,43 @@ public class BannerView:
                                attribute: .height,
                                multiplier: 1, constant: 0)
         ])
+    }
+}
+
+@_spi(PBMInternal)
+extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
+    // MARK: - AdLoadFlowControllerDelegate
+    
+    public func adLoadFlowController(
+        _ adLoadFlowController: AdLoadFlowController,
+        failedWithError error: Error?
+    ) {
+        reportLoadingFailed(with: error)
+    }
+    
+    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: AdLoadFlowController) {
+        isRefreshStopped = false
+        autoRefreshManager?.cancelRefreshTimer()
+    }
+    
+    public func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: AdLoadFlowController) {
+        autoRefreshManager?.setupRefreshTimer()
+        eventHandler?.interactionDelegate = self
+    }
+    
+    public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool {
+        !isRefreshStopped
+    }
+    
+    // MARK: - BannerAdLoaderDelegate
+    
+    @_spi(PBMInternal)
+    public func bannerAdLoader(
+        _ bannerAdLoader: BannerAdLoader,
+        loadedAdView adView: UIView,
+        adSize: CGSize
+    ) {
+        deployView(adView)
+        reportLoadingSuccess(with: adSize)
     }
 }

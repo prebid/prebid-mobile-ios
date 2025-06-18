@@ -17,13 +17,13 @@ import XCTest
 
 @testable import PrebidMobile
 
-class PBMModalAnimatorTest: XCTestCase {
+class ModalAnimatorTest: XCTestCase {
     
     var expectation:XCTestExpectation?
     
     func testPresentVC() {
         let frame = CGRect(x: 10.0, y: 10.0, width: 320.0, height: 50.0);
-        let modalAnimator = PBMModalAnimator(frameOfPresentedView: frame)
+        let modalAnimator = ModalAnimator(frameOfPresentedView: frame)
         
         XCTAssertFalse(modalAnimator.isPresented)
         XCTAssertNil(modalAnimator.modalPresentationController)
@@ -41,7 +41,7 @@ class PBMModalAnimatorTest: XCTestCase {
         
         rootVC.present(presentedVC, animated: true)
         
-        //to hold a weak ref to PBMModalAnimator.modalPresentationController
+        //to hold a weak ref to ModalAnimator.modalPresentationController
         let weakRefHolder = modalAnimator.modalPresentationController
 
         Thread.sleep(forTimeInterval: 2)
@@ -57,7 +57,7 @@ class PBMModalAnimatorTest: XCTestCase {
         let presentedViewController = UIViewController()
         
         let frame = CGRect(x: 10.0, y: 10.0, width: 320.0, height: 50.0);
-        let modalAnimator = PBMModalAnimator(frameOfPresentedView: frame)
+        let modalAnimator = ModalAnimator(frameOfPresentedView: frame)
         XCTAssertFalse(modalAnimator.isPresented)
 
         let presentationController = modalAnimator.presentationController(forPresented: presentedViewController, presenting: presentingViewController, source: UIViewController())
@@ -69,21 +69,21 @@ class PBMModalAnimatorTest: XCTestCase {
     
     func testControllerTransitioningDelegate() {
         let frame = CGRect(x: 10.0, y: 10.0, width: 320.0, height: 50.0);
-        let modalAnimator = PBMModalAnimator(frameOfPresentedView: frame)
+        let modalAnimator = ModalAnimator(frameOfPresentedView: frame)
         XCTAssertFalse(modalAnimator.isPresented)
         
         var result = modalAnimator.animationController(forPresented: UIViewController(), presenting: UIViewController(), source: UIViewController())
-        XCTAssertEqual(modalAnimator, result as! PBMModalAnimator)
+        XCTAssertEqual(modalAnimator, result as! ModalAnimator)
         XCTAssertTrue(modalAnimator.isPresented)
         
         result = modalAnimator.animationController(forDismissed: UIViewController())
-        XCTAssertEqual(modalAnimator, result as! PBMModalAnimator)
+        XCTAssertEqual(modalAnimator, result as! ModalAnimator)
         XCTAssertFalse(modalAnimator.isPresented)
     }
     
     func testControllerAnimatedTransitioning() {
         let frame = CGRect(x: 10.0, y: 10.0, width: 320.0, height: 50.0);
-        let modalAnimator = PBMModalAnimator(frameOfPresentedView: frame)
+        let modalAnimator = ModalAnimator(frameOfPresentedView: frame)
         XCTAssertFalse(modalAnimator.isPresented)
         
         modalAnimator.isPresented = true
@@ -107,7 +107,7 @@ class PBMModalAnimatorTest: XCTestCase {
         expectation = self.expectation(description: "Expected completeTransition isPresented false")
         
         let frame = CGRect(x: 10.0, y: 10.0, width: 320.0, height: 50.0);
-        let modalAnimator = PBMModalAnimator(frameOfPresentedView: frame)
+        let modalAnimator = ModalAnimator(frameOfPresentedView: frame)
         XCTAssertFalse(modalAnimator.isPresented)
         
         modalAnimator.animateTransition(using: controllerContextTransitioning)

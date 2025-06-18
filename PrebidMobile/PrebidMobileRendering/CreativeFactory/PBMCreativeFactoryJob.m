@@ -16,9 +16,9 @@
 #import "PBMCreativeFactoryJob.h"
 #import "PBMHTMLCreative.h"
 #import "PBMVideoCreative.h"
-#import "PBMAbstractCreative.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMMacros.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -59,7 +59,7 @@
     return self;
 }
 
-- (void)successWithCreative:(PBMAbstractCreative *)creative {
+- (void)successWithCreative:(id<PBMAbstractCreative>)creative {
     self.creative = creative;
     @weakify(self);
     dispatch_async(_dispatchQueue, ^{
@@ -240,7 +240,7 @@
 
 #pragma mark - PBMCreativeResolutionDelegate
 
-- (void)creativeReady:(PBMAbstractCreative *)creative {
+- (void)creativeReady:(id<PBMAbstractCreative>)creative {
     [self successWithCreative:creative];
 }
 

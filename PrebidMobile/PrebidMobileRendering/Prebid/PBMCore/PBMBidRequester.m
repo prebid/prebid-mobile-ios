@@ -18,6 +18,8 @@
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMParameterBuilderService.h"
 #import "PBMORTBSDKConfiguration.h"
+#import "PBMORTBBidResponseExtPrebid.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

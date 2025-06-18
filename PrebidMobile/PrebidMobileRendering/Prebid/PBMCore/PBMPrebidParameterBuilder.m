@@ -17,9 +17,6 @@
 
 #import "PBMORTB.h"
 
-#import "PBMAdViewManagerDelegate.h"
-#import "PBMJsonCodable.h"
-
 #import "PBMBidRequesterFactoryBlock.h"
 #import "PBMWinNotifierBlock.h"
 
@@ -27,6 +24,7 @@
 #import "PBMORTBAppExt.h"
 
 #import "PBMFunctions.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

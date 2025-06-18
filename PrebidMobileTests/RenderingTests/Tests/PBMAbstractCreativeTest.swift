@@ -17,17 +17,17 @@ import XCTest
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
-class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
+class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
     
     var expectation:XCTestExpectation?
-    var pbmAbstractCreative: PBMAbstractCreative!
+    var pbmAbstractCreative: PBMAbstractCreative_Objc!
     let msgAbstractFunctionCalled = "Abstract function called"
     
     private var logToFile: LogToFileLock?
     
     override func setUp() {
         super.setUp()
-        self.pbmAbstractCreative = PBMAbstractCreative(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
+        self.pbmAbstractCreative = PBMAbstractCreative_Objc(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
         self.pbmAbstractCreative.creativeResolutionDelegate = self
     }
     
@@ -90,7 +90,7 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
     
     //MARK - PBMCreativeResolutionDelegate
     
-    func creativeReady(_ creative: PBMAbstractCreative) {
+    func creativeReady(_ creative: AbstractCreative) {
         expectation?.fulfill()
         XCTAssertTrue(creative.isDownloaded)
     }

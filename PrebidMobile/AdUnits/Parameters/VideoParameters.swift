@@ -102,7 +102,7 @@ public class VideoParameters: NSObject {
     public var rawSkippable: NSNumber? {
         get {
             guard let isSkippable else { return nil }
-            return NSNumber(value: isSkippable)
+            return NSNumber(value: isSkippable ? 1 : 0)
         }
     }
     

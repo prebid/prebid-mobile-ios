@@ -13,16 +13,32 @@
   limitations under the License.
   */
 
+#import "PBMAbstractCreative.h"
+
 @protocol PBMThreadProtocol;
 
-@interface PBMAbstractCreative ()
+NS_ASSUME_NONNULL_BEGIN
+
+@interface PBMAbstractCreative_Objc (PBMTestExpose)
 
 @property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
 
-- (void)setupViewWithThread:(nonnull id<PBMThreadProtocol>)thread;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
+                          transaction:(id<PBMTransaction>)transaction;
 
-- (BOOL)handleNormalClickthrough:(NSURL *_Nonnull)url
-                sdkConfiguration:(Prebid *_Nonnull)sdkConfiguration
-                          onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock;
+- (void)setupViewWithThread:(id<PBMThreadProtocol>)thread;
+
+- (BOOL)handleNormalClickthrough:(NSURL *)url
+                sdkConfiguration:(Prebid *)sdkConfiguration
+                          onExit:(PBMVoidBlock)onClickthroughExitBlock;
+
+- (void)modalManagerDidFinishPop:(id<PBMModalState>)state;
+- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state;
+
+- (void)pause;
+- (void)resume;
 
 @end
+
+NS_ASSUME_NONNULL_END

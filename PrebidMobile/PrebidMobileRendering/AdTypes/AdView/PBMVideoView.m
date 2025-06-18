@@ -18,13 +18,13 @@
 
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
-#import "PBMModalManager.h"
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMTouchDownRecognizer.h"
 #import "PBMVideoCreative.h"
 #import "PBMVideoView.h"
 #import "UIView+PBMExtensions.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")

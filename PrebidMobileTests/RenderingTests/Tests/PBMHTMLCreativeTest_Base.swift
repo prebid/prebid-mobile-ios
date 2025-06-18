@@ -17,7 +17,7 @@ import XCTest
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
-typealias CreativeViewDelegateHandler = ((PBMAbstractCreative) -> Void)
+typealias CreativeViewDelegateHandler = ((AbstractCreative) -> Void)
 
 class PBMHTMLCreativeTest_Base: XCTestCase, CreativeViewDelegate {
     
@@ -73,7 +73,7 @@ class PBMHTMLCreativeTest_Base: XCTestCase, CreativeViewDelegate {
             return
         }
         mockViewController.view.addSubview(creativeView)
-        htmlCreative.display(withRootViewController: mockViewController)
+        htmlCreative.display(rootViewController: mockViewController)
     }
     
     override func tearDown() {
@@ -87,50 +87,50 @@ class PBMHTMLCreativeTest_Base: XCTestCase, CreativeViewDelegate {
     
     // MARK: - CreativeViewDelegate
     var creativeInterstitialDidLeaveAppHandler: CreativeViewDelegateHandler?
-    func creativeInterstitialDidLeaveApp(_ creative: PBMAbstractCreative) {
+    func creativeInterstitialDidLeaveApp(_ creative: AbstractCreative) {
         creativeInterstitialDidLeaveAppHandler?(creative)
     }
     
     var creativeInterstitialDidCloseHandler: CreativeViewDelegateHandler?
-    func creativeInterstitialDidClose(_ creative: PBMAbstractCreative) {
+    func creativeInterstitialDidClose(_ creative: AbstractCreative) {
         creativeInterstitialDidCloseHandler?(creative)
     }
     
     var creativeClickthroughDidCloseHandler: CreativeViewDelegateHandler?
-    func creativeClickthroughDidClose(_ creative: PBMAbstractCreative) {
+    func creativeClickthroughDidClose(_ creative: AbstractCreative) {
         creativeClickthroughDidCloseHandler?(creative)
     }
     
     var creativeReadyToReimplantHandler: CreativeViewDelegateHandler?
-    func creativeReadyToReimplant(_ creative: PBMAbstractCreative) {
+    func creativeReadyToReimplant(_ creative: AbstractCreative) {
         creativeReadyToReimplantHandler?(creative)
     }
     
     var creativeMraidDidCollapseHandler: CreativeViewDelegateHandler?
-    func creativeMraidDidCollapse(_ creative: PBMAbstractCreative) {
+    func creativeMraidDidCollapse(_ creative: AbstractCreative) {
         creativeMraidDidCollapseHandler?(creative)
     }
     
     var creativeMraidDidExpandHandler: CreativeViewDelegateHandler?
-    func creativeMraidDidExpand(_ creative: PBMAbstractCreative) {
+    func creativeMraidDidExpand(_ creative: AbstractCreative) {
         creativeMraidDidExpandHandler?(creative)
     }
     
     var creativeDidCompleteHandler: CreativeViewDelegateHandler?
-    func creativeDidComplete(_ creative: PBMAbstractCreative) {
+    func creativeDidComplete(_ creative: AbstractCreative) {
         creativeDidCompleteHandler?(creative)
     }
     
-    var creativeWasClickedHandler: ((PBMAbstractCreative) -> Void)?
-    func creativeWasClicked(_ creative: PBMAbstractCreative) {
+    var creativeWasClickedHandler: ((AbstractCreative) -> Void)?
+    func creativeWasClicked(_ creative: AbstractCreative) {
         creativeWasClickedHandler?(creative)
     }
-    func videoCreativeDidComplete(_ creative: PBMAbstractCreative) {}
-    func creativeDidDisplay(_ creative: PBMAbstractCreative) {}
-    func creativeViewWasClicked(_ creative: PBMAbstractCreative) {}
-    func creativeFullScreenDidFinish(_ creative: PBMAbstractCreative) {}
+    func videoCreativeDidComplete(_ creative: AbstractCreative) {}
+    func creativeDidDisplay(_ creative: AbstractCreative) {}
+    func creativeViewWasClicked(_ creative: AbstractCreative) {}
+    func creativeFullScreenDidFinish(_ creative: AbstractCreative) {}
     
-    func creativeDidSendRewardedEvent(_ creative: PBMAbstractCreative) {}
+    func creativeDidSendRewardedEvent(_ creative: AbstractCreative) {}
     
     // MARK: - Utilities
     /**

@@ -30,16 +30,13 @@
 #import "PBMHTMLCreative.h"
 #import "PBMHTMLFormatter.h"
 #import "PBMMacros.h"
-#import "PBMModalManager.h"
 #import "PBMModalState.h"
-#import "PBMModalViewController.h"
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"
 #import "PBMVideoView.h"
 #import "PBMWebView.h"
-#import "PBMWebViewDelegate.h"
 #import "PBMMRAIDController.h"
-#import "PBMCreativeViewabilityTracker.h"
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -50,10 +47,7 @@
 
 #pragma mark - Private Extension
 
-@interface PBMAbstractCreative() <PBMWebViewDelegate>
-@end
-
-@interface PBMHTMLCreative()
+@interface PBMHTMLCreative() <PBMWebViewDelegate>
 
 @property (nonatomic, strong) NSURL *baseURL;
 @property (nonatomic, strong) PBMWebView *prebidWebView;

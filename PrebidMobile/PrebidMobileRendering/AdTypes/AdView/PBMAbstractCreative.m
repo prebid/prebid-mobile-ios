@@ -19,20 +19,17 @@
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
 #import "PBMSafariVCOpener.h"
-#import "PBMCreativeResolutionDelegate.h"
-#import "PBMCreativeViewabilityTracker.h"
 #import "PBMDeepLinkPlusHelper.h"
-#import "PBMDeferredModalState.h"
 #import "PBMFunctions+Private.h"
 #import "PBMFunctions.h"
 #import "PBMMacros.h"
-#import "PBMModalManager.h"
 #import "PBMModalState.h"
-#import "PBMModalViewController.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMORTBBidExtSkadn.h"
 #import "PBMWindowLocker.h"
+
+#import "Log+Extensions.h"
 
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
@@ -41,7 +38,7 @@
 #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
-@interface PBMAbstractCreative() <SKStoreProductViewControllerDelegate>
+@interface PBMAbstractCreative_Objc () <SKStoreProductViewControllerDelegate>
 
 @property (nonatomic, weak, readwrite) id<PBMTransaction> transaction;
 @property (nonatomic, strong, readwrite) PBMEventManager *eventManager;
@@ -53,7 +50,18 @@
 
 @end
 
-@implementation PBMAbstractCreative
+@implementation PBMAbstractCreative_Objc
+@synthesize creativeModel = _creativeModel;
+@synthesize creativeResolutionDelegate = _creativeResolutionDelegate;
+@synthesize creativeViewDelegate = _creativeViewDelegate;
+@synthesize clickthroughVisible = _clickthroughVisible;
+@synthesize dispatchQueue = _dispatchQueue;
+@synthesize isDownloaded = _isDownloaded;
+@synthesize modalManager = _modalManager;
+@synthesize skOverlayManager = _skOverlayManager;
+@synthesize view = _view;
+@synthesize viewControllerForPresentingModals = _viewControllerForPresentingModals;
+@synthesize viewabilityTracker = _viewabilityTracker;
 
 #pragma mark - Init
 
@@ -63,12 +71,13 @@
     if (self) {
         PBMAssert(creativeModel);
         
-        self.clickthroughVisible = NO;
-        self.isDownloaded = NO;
-        self.creativeModel = creativeModel;
-        self.transaction = transaction;
-        self.dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
-        self.eventManager = [PBMEventManager new];
+        _clickthroughVisible = NO;
+        _isDownloaded = NO;
+        _creativeModel = creativeModel;
+        _transaction = transaction;
+        _dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
+        _eventManager = [PBMEventManager new];
+        
         if (creativeModel.eventTracker) {
             [self.eventManager registerTracker: (id<PBMEventTrackerProtocol>)creativeModel.eventTracker];
         } else {
@@ -165,7 +174,7 @@
     }
     
     if (!self.adWasShown) {
-        self.viewabilityTracker = [[PBMCreativeViewabilityTracker alloc] initWithCreative:self];
+        self.viewabilityTracker = [PBMFactory CreativeViewabilityTrackerWithCreative:self];
     }
     
     PBMORTBBidExtSkadn * skadnInfo = self.transaction.bid.skadn;

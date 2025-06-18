@@ -44,7 +44,7 @@ typealias JsonDictionary = [String:Any]
         return ret
     }
     
-    class func loadFileAsDictFromBundle(_ fileName:String) -> JsonDictionary? {
+    class func loadFileAsDictFromBundle(_ fileName:String) -> [String : Any]? {
         guard let data = loadFileAsDataFromBundle(fileName) else {
             return nil
         }
@@ -53,7 +53,7 @@ typealias JsonDictionary = [String:Any]
             return nil
         }
         
-        let ret = jsonObject as? JsonDictionary
+        let ret = jsonObject as? [String : Any]
         return ret
     }
     
@@ -91,17 +91,17 @@ typealias JsonDictionary = [String:Any]
         return transaction;
     }
     
-    class func createHTMLCreative(with model: CreativeModel) -> PBMAbstractCreative {
+    class func createHTMLCreative(with model: CreativeModel) -> AbstractCreative {
         return PBMHTMLCreative(creativeModel: model,
                                transaction:UtilitiesForTesting.createEmptyTransaction())
     }
     
-    class func createHTMLCreative(withView: Bool = true) -> PBMAbstractCreative {
+    class func createHTMLCreative(withView: Bool = true) -> AbstractCreative {
         let model = CreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
         
         let creative = UtilitiesForTesting.createHTMLCreative(with: model)
-        let modalManager = PBMModalManager()
+        let modalManager = ModalManager()
         creative.modalManager = modalManager
         
         if withView {
@@ -201,17 +201,14 @@ typealias JsonDictionary = [String:Any]
         }
     }
     
-    class func compareRawResponse(acjFileName:String, adDetails:PBMAdDetails, file:StaticString = #file, line:UInt = #line) {
+    class func compareRawResponse(acjFileName:String, adDetails: AdDetails, file:StaticString = #file, line:UInt = #line) {
         
         guard let strExpected = UtilitiesForTesting.loadFileAsStringFromBundle(acjFileName) else {
             XCTFail("Could not open file \(acjFileName)", file:file, line:line)
             return
         }
         
-        guard let strActual = adDetails.rawResponse else {
-            XCTFail("No raw response", file:file, line:line)
-            return
-        }
+        let strActual = adDetails.rawResponse
         
         compareJSON(expected:strExpected, actual:strActual, file:file, line:line)
     }

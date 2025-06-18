@@ -18,7 +18,7 @@
 @interface PBMCreativeFactoryJob ()
 
 - (void)attemptVASTCreative;
-- (void)successWithCreative:(PBMAbstractCreative *)creative;
+- (void)successWithCreative:(id<PBMAbstractCreative>)creative;
 - (void)failWithError:(NSError *)error;
 - (void)startJobWithTimeInterval:(NSTimeInterval)timeInterval;
 - (NSTimeInterval)getTimeInterval;

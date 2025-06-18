@@ -13,94 +13,13 @@
  limitations under the License.
  */
 
-//Superclass
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-//Protocols
-#import "PBMVoidBlock.h"
-
-//Classes
-@class UIView;
-@class UIViewController;
-
-@protocol PBMCreativeResolutionDelegate;
-@protocol PBMCreativeViewDelegate;
-@class PBMCreativeModel;
-@class PBMInterstitialDisplayProperties;
-@class PBMModalManager;
-@protocol PBMModalState;
-@protocol PBMTransaction;
-@class PBMEventManager;
-@class PBMOpenMeasurementSession;
-@class PBMDownloadDataHelper;
-@class PBMCreativeViewabilityTracker;
-@protocol PBMViewExposure;
-@class PBMSKOverlayManager;
+@protocol PBMAbstractCreative;
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- *  `PBMAbstractCreative`'s purpose is a bundling of a model and a view. It acts as an adapter between
- *  the view and the SDK, it's essentially the C in MVC.
- *
- *  All `Creatives` must conform to this protocol. Each creative has-a model which contains the
- *  creative info, and must implement a few methods for handling display of the creative.
- */
-@interface PBMAbstractCreative : NSObject
-
-@property (nonatomic, weak, readonly, nullable) id<PBMTransaction> transaction;
-@property (nonatomic, strong, nullable) PBMCreativeModel *creativeModel;
-@property (nonatomic, readonly, nonnull) PBMEventManager *eventManager;
-@property (nonatomic, strong, nullable) PBMSKOverlayManager * skOverlayManager;
-@property (nonatomic, strong, nullable) UIView *view;
-@property (nonatomic, assign) BOOL clickthroughVisible;
-@property (nonatomic, strong, nullable) PBMModalManager *modalManager;
-@property (nonatomic, strong, nonnull) dispatch_queue_t dispatchQueue;
-@property (nonatomic, strong, nullable) PBMCreativeViewabilityTracker *viewabilityTracker;
-@property (nonatomic, copy, nullable, readonly) PBMVoidBlock dismissInterstitialModalState;
-@property BOOL isDownloaded;
-
-// Indicates whether creative is opened with user action (expanded, clickthrough showed ...) or not
-// Note that subclasses provide specific implementation.
-@property (nonatomic, readonly) BOOL isOpened;
-
-// The time that that the ad is displayed (i.e. before its refreshed).
-// Note that subclasses provide specific implementation.
-@property (nonatomic, readonly, nullable)NSNumber *displayInterval;
-
-@property (nonatomic, weak, nullable) id<PBMCreativeResolutionDelegate> creativeResolutionDelegate;
-@property (nonatomic, weak, nullable) id<PBMCreativeViewDelegate> creativeViewDelegate;
-@property (nonatomic, weak, nullable) UIViewController* viewControllerForPresentingModals;
-
-@property (nonatomic, readonly, getter=isMuted) BOOL muted;
-
-- (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
-                          transaction:(id<PBMTransaction>)transaction NS_DESIGNATED_INITIALIZER;
-
-- (void)setupView;
-- (void)displayWithRootViewController:(UIViewController *)viewController;
-- (void)showAsInterstitialFromRootViewController:(UIViewController *)viewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties;
-- (void)handleClickthrough:(NSURL *)url;
-
-//Resolution
-- (void)onResolutionCompleted;
-- (void)onResolutionFailed:(NSError *)error;
-
-//Open Measurement
-- (void)createOpenMeasurementSession;
-
-- (void)pause;
-- (void)resume;
-- (void)mute;
-- (void)unmute;
-
-//Modal Manager Events
-- (void)modalManagerDidFinishPop:(id<PBMModalState>)state;
-- (void)modalManagerDidLeaveApp:(id<PBMModalState>)state;
-
-- (void)onViewabilityChanged:(BOOL)viewable viewExposure:(id<PBMViewExposure>)viewExposure;
-
+@interface PBMAbstractCreative_Objc : NSObject <PBMAbstractCreative>
 @end
 
 NS_ASSUME_NONNULL_END
