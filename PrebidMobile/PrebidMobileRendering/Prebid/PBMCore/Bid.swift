@@ -60,7 +60,7 @@ public class Bid: NSObject {
     
     /// Targeting information that needs to be passed to the ad server SDK.
     public var targetingInfo: [String : String]? {
-        bid.ext?.prebid?.targeting
+        bid.ext?.prebid?.targeting?.compactMapValues { $0 as? String }
     }
     
   /// Targeting information that needs to be passed to the ad server SDK.
@@ -128,7 +128,7 @@ public class Bid: NSObject {
         return true
     }
     
-    public var events: PBMORTBExtPrebidEvents? {
+    public var events: ORTBExtPrebidEvents? {
         bid.ext?.prebid?.events
     }
     

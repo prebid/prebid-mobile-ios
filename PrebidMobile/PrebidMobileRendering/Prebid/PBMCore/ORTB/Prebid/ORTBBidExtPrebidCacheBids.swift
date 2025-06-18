@@ -16,49 +16,31 @@
 
 import Foundation
 
-class ORTBBidExt: PBMJsonCodable {
-    
-    var prebid: ORTBBidExtPrebid?
-    var bidder: [String : Any]?
-    var skadn: PBMORTBBidExtSkadn?
-    
-    // This part is dedicating to test server-side ad configurations.
-    // Need to be removed when ext.prebid.passthrough will be available.
-#if DEBUG
-    var passthrough: [PBMORTBExtPrebidPassthrough]?
-#endif
-    
+class ORTBBidExtPrebidCacheBids: PBMJsonCodable {
+    var url: String?
+    var cacheId: String?
+
     private enum KeySet: String {
-        case prebid
-        case bidder
-        case skadn
-        case passthrough
+        case url
+        case cacheId
     }
     
     init() {
     }
-    
+
     required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
-        
-        prebid      = json[.prebid]
-        bidder      = json[.bidder]
-        skadn       = json[.skadn]
-#if DEBUG
-        passthrough = json.backwardsCompatiblePassthrough(key: .passthrough)
-#endif
+
+        url = json[.url]
+        cacheId = json[.cacheId]
     }
     
     var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
-        
-        json[.prebid] = prebid
-        json[.bidder] = bidder
-        json[.skadn] = skadn
-#if DEBUG
-        json[.passthrough] = passthrough
-#endif
-        
+
+        json[.url] = url
+        json[.cacheId] = cacheId
+
         return json.dict
     }
 }

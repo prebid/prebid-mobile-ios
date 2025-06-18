@@ -214,7 +214,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidExtPrebid() {
         let json = JSON.bidExtPrebid()
-        let entity = PBMORTBBidExtPrebid(jsonDictionary: json)!
+        let entity = ORTBBidExtPrebid(jsonDictionary: json)
         XCTAssertNotNil(entity.cache)
         XCTAssertEqual(entity.targeting as NSDictionary?,
                        ["targeting_k1" : "targeting_str"] as NSDictionary)
@@ -223,7 +223,7 @@ class ResponseParsingTests: XCTestCase {
         XCTAssertTrue(compare(entity.passthrough, [JSON.extPrebidPassthrough()]))
         XCTAssertTrue(compare(entity.events, JSON.extPrebidEvents()))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testBidExtPrebidWithPassthroughObject() {
@@ -234,29 +234,29 @@ class ResponseParsingTests: XCTestCase {
         var modifiedJson = json
         modifiedJson["passthrough"] = JSON.extPrebidPassthrough()
         
-        let entity = PBMORTBBidExtPrebid(jsonDictionary: modifiedJson)!
+        let entity = ORTBBidExtPrebid(jsonDictionary: modifiedJson)
         XCTAssertTrue(compare(entity.passthrough, [JSON.extPrebidPassthrough()]))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
 
     func testBidExtPrebidCache() {
         let json = JSON.bidExtPrebidCache()
-        let entity = PBMORTBBidExtPrebidCache(jsonDictionary: json)!
+        let entity = ORTBBidExtPrebidCache(jsonDictionary: json)!
         XCTAssertEqual(entity.key, "_key")
         XCTAssertEqual(entity.url, "_url")
         XCTAssertTrue(compare(entity.bids, JSON.bidExtPrebidCacheBids()))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testBidExtPrebidCacheBids() {
         let json = JSON.bidExtPrebidCacheBids()
-        let entity = PBMORTBBidExtPrebidCacheBids(jsonDictionary: json)!
+        let entity = ORTBBidExtPrebidCacheBids(jsonDictionary: json)
         XCTAssertEqual(entity.url, "_url")
         XCTAssertEqual(entity.cacheId, "_cacheId")
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testBidExtSkadn() {
@@ -303,19 +303,19 @@ class ResponseParsingTests: XCTestCase {
         var modifiedJson = json
         modifiedJson["passthrough"] = JSON.extPrebidPassthrough()
         
-        let entity = PBMORTBBidExtPrebid(jsonDictionary: modifiedJson)!
+        let entity = ORTBBidExtPrebid(jsonDictionary: modifiedJson)
         XCTAssertTrue(compare(entity.passthrough, [JSON.extPrebidPassthrough()]))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testExtPrebidEvents() {
         let json = JSON.extPrebidEvents()
-        let entity = PBMORTBExtPrebidEvents(jsonDictionary: json)!
+        let entity = ORTBExtPrebidEvents(jsonDictionary: json)
         XCTAssertEqual(entity.win, "_win")
         XCTAssertEqual(entity.imp, "_imp")
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testExtPrebidPassthrough() {
@@ -417,21 +417,19 @@ class ResponseParsingTests: XCTestCase {
         XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
     }
     
-    @objc(compareObj::)
-    func compare(_ entity: PBMORTBAbstract?, _ object: [String : Any]) -> Bool {
+    func compare(_ entity: PBMJsonEncodable?, _ object: [String : Any]) -> Bool {
         guard let entity else {
             return false
         }
-        return entity.toJsonDictionary() as NSDictionary == object as NSDictionary
+        return entity.jsonDictionary as NSDictionary == object as NSDictionary
     }
     
-    @objc(compareArray::)
-    func compare(_ entities: [PBMORTBAbstract]?, _ array: [[String : Any]]) -> Bool {
+    func compare(_ entities: [PBMJsonEncodable]?, _ array: [[String : Any]]) -> Bool {
         guard let entities else {
             return false
         }
         
-        return entities.map { $0.toJsonDictionary() as NSDictionary } == array.map { $0 as NSDictionary }
+        return entities.map { $0.jsonDictionary as NSDictionary } == array.map { $0 as NSDictionary }
     }
     
 }
