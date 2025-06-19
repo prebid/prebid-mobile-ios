@@ -92,7 +92,7 @@ public class VideoControlsConfiguration: NSObject {
     public var isSoundButtonVisible = false
     
     /// Use to initialize video controls with server values.
-    public func initialize(with ortbAdConfiguration: PBMORTBAdConfiguration?) {
+    public func initialize(with ortbAdConfiguration: ORTBAdConfiguration?) {
         
         guard let ortbAdConfiguration = ortbAdConfiguration else {
             return

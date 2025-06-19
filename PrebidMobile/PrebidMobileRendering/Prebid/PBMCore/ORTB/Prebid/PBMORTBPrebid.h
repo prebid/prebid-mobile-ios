@@ -17,10 +17,6 @@
 #import "PBMORTBNoBidReason.h"
 
 // MARK: response.seatbid[?].bid[?].ext
-#import "PBMORTBBidExtPrebid.h"
-#import "PBMORTBExtPrebidPassthrough.h"
-#import "PBMORTBBidExtPrebidCache.h"
-#import "PBMORTBBidExtPrebidCacheBids.h"
 #import "PBMORTBBidExtSkadn.h"
 #import "PBMORTBBidExtSkadnSKOverlay.h"
 

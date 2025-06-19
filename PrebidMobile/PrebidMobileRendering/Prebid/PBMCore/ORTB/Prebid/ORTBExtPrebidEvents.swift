@@ -16,40 +16,31 @@
 
 import Foundation
 
-@objc public class ORTBBidResponseExt: NSObject, PBMJsonCodable {
-    
-    /// [ (bidder: String) -> (millis: Integer) ]
-    @objc public var responsetimemillis: [String : NSNumber]?
-    
-    /// [Integer]
-    @objc public var tmaxrequest: NSNumber?
-    
-    @objc public var extPrebid: ORTBBidResponseExtPrebid?
-    
+@objc public class ORTBExtPrebidEvents: NSObject, PBMJsonCodable {
+    @objc public var win: String?
+    @objc public var imp: String?
+
     private enum KeySet: String {
-        case responsetimemillis
-        case tmaxrequest
-        case prebid
+        case win
+        case imp
     }
-    
-    override init() {
+
+    @objc public override init() {
     }
-    
+
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
-        
-        responsetimemillis  = json[.responsetimemillis]
-        tmaxrequest         = json[.tmaxrequest]
-        extPrebid           = json[.prebid]
+
+        win = json[.win]
+        imp = json[.imp]
     }
     
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
-        
-        json[.responsetimemillis]   = responsetimemillis
-        json[.tmaxrequest]          = tmaxrequest
-        json[.prebid]               = extPrebid
-        
+
+        json[.win] = win
+        json[.imp] = imp
+
         return json.dict
     }
 }
