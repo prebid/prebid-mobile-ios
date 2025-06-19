@@ -59,7 +59,7 @@
     _nextOnStatePopFinished = [nextOnStatePopFinished copy];
     _nextOnStateHasLeftApp = [nextOnStateHasLeftApp copy];
     _onModalPushedBlock = [onModalPushedBlock copy];
-    _mraidState = [PBMMRAIDStateNotEnabled copy];
+    _mraidState = PBMMRAIDState.notEnabled;
     
     return self;
 }

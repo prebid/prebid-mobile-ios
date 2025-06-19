@@ -209,6 +209,7 @@
 		5A423CA62DBA4E28008EE9EA /* ORTBRewardedCompletionVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CA52DBA4E28008EE9EA /* ORTBRewardedCompletionVideo.swift */; };
 		5A423CA82DBA4EA7008EE9EA /* ORTBRewardedCompletionVideoEndcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CA72DBA4EA7008EE9EA /* ORTBRewardedCompletionVideoEndcard.swift */; };
 		5A423CB62DBA5A3B008EE9EA /* ORTBSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CB52DBA5A3B008EE9EA /* ORTBSDKConfiguration.swift */; };
+		5A423CAA2DBA50BC008EE9EA /* MRAIDState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CA92DBA50BC008EE9EA /* MRAIDState.swift */; };
 		5A51D94B2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */; };
 		5A51D94D2DB986CC00DD450F /* AdLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94C2DB986CC00DD450F /* AdLoaderProtocol.swift */; };
 		5A51D94F2DB987EE00DD450F /* AdLoaderFlowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94E2DB987EE00DD450F /* AdLoaderFlowDelegate.swift */; };
@@ -1075,6 +1076,7 @@
 		5A423CA72DBA4EA7008EE9EA /* ORTBRewardedCompletionVideoEndcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBRewardedCompletionVideoEndcard.swift; sourceTree = "<group>"; };
 		5A423CB32DBA5934008EE9EA /* ORTBSkadnFidelity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBSkadnFidelity.swift; sourceTree = "<group>"; };
 		5A423CB52DBA5A3B008EE9EA /* ORTBSDKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBSDKConfiguration.swift; sourceTree = "<group>"; };
+		5A423CA92DBA50BC008EE9EA /* MRAIDState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRAIDState.swift; sourceTree = "<group>"; };
 		5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileDisplayViewProtocol.swift; sourceTree = "<group>"; };
 		5A51D94C2DB986CC00DD450F /* AdLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderProtocol.swift; sourceTree = "<group>"; };
 		5A51D94E2DB987EE00DD450F /* AdLoaderFlowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderFlowDelegate.swift; sourceTree = "<group>"; };
@@ -2182,6 +2184,7 @@
 				5BC376E8271F1CFE00444D5E /* PBMMRAIDConstants.h */,
 				5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */,
 				5A8447F72DB6FFF800446F70 /* ThreadProtocol.swift */,
+				5A423CA92DBA50BC008EE9EA /* MRAIDState.swift */,
 				5BC376C3271F1CFE00444D5E /* PBMUIApplicationProtocol.h */,
 				5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */,
 				5AE4E5D92DB84C25002C84DF /* VoidBlock.swift */,
@@ -4204,6 +4207,7 @@
 				5BC37A78271F1D0000444D5E /* PBMTransactionFactory.m in Sources */,
 				53A6579E2A860F5800AE0B4F /* CacheExpiryDelegate.swift in Sources */,
 				53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */,
+				5A423CAA2DBA50BC008EE9EA /* MRAIDState.swift in Sources */,
 				FAEE4D19262DC2B200AD9966 /* NativeEventTracker.swift in Sources */,
 				53A0E7E42CDCAF74007887F5 /* UIApplication+Extensions.swift in Sources */,
 				5BC37A26271F1D0000444D5E /* PBMBidRequesterFactory.m in Sources */,

@@ -323,8 +323,8 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         
         XCTAssertEqual(webView.mraidState, .notEnabled)
-        webView.changeToMRAIDState(PBMMRAIDState.default)
-        XCTAssertEqual(webView.mraidState, PBMMRAIDState.default)
+        webView.changeToMRAIDState(.defaultState)
+        XCTAssertEqual(webView.mraidState, .defaultState)
     }
     
     // MARK: - Test UIGestureRecognizerDelegate
@@ -553,7 +553,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         XCTAssertEqual(webView.mraidState, .notEnabled)
         
         // TESTS: state must change
-        let expandedPredicate = NSPredicate(format: "mraidState == \"expanded\"" )
+        let expandedPredicate = NSPredicate(format: "mraidState.rawValue == \"expanded\"" )
         expectation(for: expandedPredicate, evaluatedWith: webView, handler: nil)
         
         // FIXME: Investigate cause of different webview states per OS version
@@ -687,7 +687,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         waitForExpectations(timeout: 5, handler: { _ in
             XCTAssertEqual(webView.state, .loaded)
-            XCTAssertEqual(webView.mraidState, PBMMRAIDState.default)
+            XCTAssertEqual(webView.mraidState, .defaultState)
         })
     }
     
