@@ -503,7 +503,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
     func testCalculateProgressBarDuration_default() {
         let adConfiguration = AdConfiguration()
         adConfiguration.isRewarded = true
-        adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: PBMORTBRewardedConfiguration())
+        adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: ORTBRewardedConfiguration())
         
         let model = CreativeModel(adConfiguration: adConfiguration)
         
@@ -630,12 +630,12 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
     
     private func createRewardedConfig(postRewardTime: NSNumber = 0, playbackevent: String? = nil,
                                       time: NSNumber? = nil) -> RewardedConfig {
-        let ortbRewarded = PBMORTBRewardedConfiguration()
-        ortbRewarded.completion = PBMORTBRewardedCompletion()
-        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        let ortbRewarded = ORTBRewardedConfiguration()
+        ortbRewarded.completion = ORTBRewardedCompletion()
+        ortbRewarded.completion?.video = ORTBRewardedCompletionVideo()
         ortbRewarded.completion?.video?.playbackevent = playbackevent
         ortbRewarded.completion?.video?.time = time
-        ortbRewarded.close = PBMORTBRewardedClose()
+        ortbRewarded.close = ORTBRewardedClose()
         ortbRewarded.close?.postrewardtime = postRewardTime
         
         return RewardedConfig(ortbRewarded: ortbRewarded)

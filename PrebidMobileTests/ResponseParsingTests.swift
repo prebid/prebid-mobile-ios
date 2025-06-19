@@ -331,69 +331,69 @@ class ResponseParsingTests: XCTestCase {
     
     func testRewardedClose() {
         let json = JSON.rewardedClose()
-        let entity = PBMORTBRewardedClose(jsonDictionary: json)!
+        let entity = ORTBRewardedClose(jsonDictionary: json)
         XCTAssertEqual(entity.postrewardtime, 1)
         XCTAssertEqual(entity.action, "_action")
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testRewardedCompletion() {
         let json = JSON.rewardedCompletion()
-        let entity = PBMORTBRewardedCompletion(jsonDictionary: json)!
+        let entity = ORTBRewardedCompletion(jsonDictionary: json)
         XCTAssertTrue(compare(entity.banner, JSON.rewardedCompletionBanner()))
         XCTAssertTrue(compare(entity.video, JSON.rewardedCompletionVideo()))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testRewardedCompletionBanner() {
         let json = JSON.rewardedCompletionBanner()
-        let entity = PBMORTBRewardedCompletionBanner(jsonDictionary: json)!
+        let entity = ORTBRewardedCompletionBanner(jsonDictionary: json)
         XCTAssertEqual(entity.time, 1)
         XCTAssertEqual(entity.event, "_event")
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testRewardedCompletionVideo() {
         let json = JSON.rewardedCompletionVideo()
-        let entity = PBMORTBRewardedCompletionVideo(jsonDictionary: json)!
+        let entity = ORTBRewardedCompletionVideo(jsonDictionary: json)
         XCTAssertEqual(entity.time, 1)
         XCTAssertEqual(entity.playbackevent, "_playbackevent")
         XCTAssertTrue(compare(entity.endcard, JSON.rewardedCompletionVideoEndcard()))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testRewardedCompletionVideoEndcard() {
         let json = JSON.rewardedCompletionVideoEndcard()
-        let entity = PBMORTBRewardedCompletionVideoEndcard(jsonDictionary: json)!
+        let entity = ORTBRewardedCompletionVideoEndcard(jsonDictionary: json)
         XCTAssertEqual(entity.time, 1)
         XCTAssertEqual(entity.event, "_event")
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testRewardedConfiguration() {
         let json = JSON.rewardedConfiguration()
-        let entity = PBMORTBRewardedConfiguration(jsonDictionary: json)!
+        let entity = ORTBRewardedConfiguration(jsonDictionary: json)
         XCTAssertTrue(compare(entity.reward, JSON.rewardedReward()))
         XCTAssertTrue(compare(entity.completion, JSON.rewardedCompletion()))
         XCTAssertTrue(compare(entity.close, JSON.rewardedClose()))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testRewardedReward() {
         let json = JSON.rewardedReward()
-        let entity = PBMORTBRewardedReward(jsonDictionary: json)!
+        let entity = ORTBRewardedReward(jsonDictionary: json)
         XCTAssertEqual(entity.type, "_type")
         XCTAssertEqual(entity.count, 1)
         XCTAssertEqual(entity.ext as NSDictionary?,
                        ["ext_k1" : "ext_str", "ext_k2" : 1] as NSDictionary)
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testSDKConfiguration() {

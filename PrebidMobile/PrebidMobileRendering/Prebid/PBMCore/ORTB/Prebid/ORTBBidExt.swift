@@ -41,9 +41,9 @@ class ORTBBidExt: PBMJsonCodable {
     required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
-        prebid      = json[.prebid]
-        bidder      = json[.bidder]
-        skadn       = json[.skadn]
+        prebid  = json[.prebid]
+        bidder  = json[.bidder]
+        skadn   = json[.skadn]
 #if DEBUG
         passthrough = json.backwardsCompatiblePassthrough(key: .passthrough)
 #endif
@@ -52,9 +52,9 @@ class ORTBBidExt: PBMJsonCodable {
     var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
         
-        json[.prebid] = prebid
-        json[.bidder] = bidder
-        json[.skadn] = skadn
+        json[.prebid]   = prebid
+        json[.bidder]   = bidder
+        json[.skadn]    = skadn
 #if DEBUG
         json[.passthrough] = passthrough
 #endif

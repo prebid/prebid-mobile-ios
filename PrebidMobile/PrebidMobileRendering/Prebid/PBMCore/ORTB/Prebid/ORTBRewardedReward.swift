@@ -16,41 +16,39 @@
 
 import Foundation
 
-@objc public class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
+@objc public class ORTBRewardedReward: NSObject, PBMJsonCodable {
+    /// Type of the reward
     @objc public var type: String?
-    @objc public var adConfiguration: ORTBAdConfiguration?
-    @objc public var sdkConfiguration: PBMORTBSDKConfiguration?
-    @objc public var rewardedConfiguration: ORTBRewardedConfiguration?
+
+    /// Amount of reward
+    @objc public var count: NSNumber?
+
+    /// For the future extensions
+    @objc public var ext: [String : Any]?
 
     private enum KeySet: String {
         case type
-        case adconfiguration
-        case sdkconfiguration
-        case rwdd
+        case count
+        case ext
     }
 
     @objc public override init() {
-        super.init()
     }
 
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        type = json[.type]
-        adConfiguration         = json[.adconfiguration]
-        sdkConfiguration        = json[.sdkconfiguration]
-        rewardedConfiguration   = json[.rwdd]
-
-        super.init()
+        type    = json[.type]
+        count   = json[.count]
+        ext     = json[.ext]
     }
     
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
-        json[.type]             = type
-        json[.adconfiguration]  = adConfiguration
-        json[.sdkconfiguration] = sdkConfiguration
-        json[.rwdd]             = rewardedConfiguration
+        json[.type]     = type
+        json[.count]    = count
+        json[.ext]      = ext
 
         return json.dict
     }

@@ -41,25 +41,25 @@ import Foundation
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        maxVideoDuration = json[.maxvideoduration]
-        isMuted = json[.ismuted]
-        closeButtonArea = json[.closebuttonarea]
+        maxVideoDuration    = json[.maxvideoduration]
+        isMuted             = json[.ismuted]
+        closeButtonArea     = json[.closebuttonarea]
         closeButtonPosition = json[.closebuttonposition]
-        skipButtonArea = json[.skipbuttonarea]
-        skipButtonPosition = json[.skipbuttonposition]
-        skipDelay = json[.skipdelay]
+        skipButtonArea      = json[.skipbuttonarea]
+        skipButtonPosition  = json[.skipbuttonposition]
+        skipDelay           = json[.skipdelay]
     }
     
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
-        json[.maxvideoduration] = maxVideoDuration
-        json[.ismuted] = isMuted
-        json[.closebuttonarea] = closeButtonArea
-        json[.closebuttonposition] = closeButtonPosition
-        json[.skipbuttonarea] = skipButtonArea
-        json[.skipbuttonposition] = skipButtonPosition
-        json[.skipdelay] = skipDelay
+        json[.maxvideoduration]     = maxVideoDuration
+        json[.ismuted]              = isMuted
+        json[.closebuttonarea]      = closeButtonArea
+        json[.closebuttonposition]  = closeButtonPosition
+        json[.skipbuttonarea]       = skipButtonArea
+        json[.skipbuttonposition]   = skipButtonPosition
+        json[.skipdelay]            = skipDelay
 
         return json.dict
     }

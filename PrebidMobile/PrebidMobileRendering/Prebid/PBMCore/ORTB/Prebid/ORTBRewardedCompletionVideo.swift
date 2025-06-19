@@ -16,41 +16,39 @@
 
 import Foundation
 
-@objc public class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
-    @objc public var type: String?
-    @objc public var adConfiguration: ORTBAdConfiguration?
-    @objc public var sdkConfiguration: PBMORTBSDKConfiguration?
-    @objc public var rewardedConfiguration: ORTBRewardedConfiguration?
+@objc public class ORTBRewardedCompletionVideo: NSObject, PBMJsonCodable {
+    /// The period of time that the ad is on the screen and the user earns a reward
+    @objc public var time: NSNumber?
+
+    /// The playback part when the user earns a reward
+    @objc public var playbackevent: String?
+
+    /// Endcard completion criteria
+    @objc public var endcard: ORTBRewardedCompletionVideoEndcard?
 
     private enum KeySet: String {
-        case type
-        case adconfiguration
-        case sdkconfiguration
-        case rwdd
+        case time
+        case playbackevent
+        case endcard
     }
 
     @objc public override init() {
-        super.init()
     }
 
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        type = json[.type]
-        adConfiguration         = json[.adconfiguration]
-        sdkConfiguration        = json[.sdkconfiguration]
-        rewardedConfiguration   = json[.rwdd]
-
-        super.init()
+        time            = json[.time]
+        playbackevent   = json[.playbackevent]
+        endcard         = json[.endcard]
     }
     
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
-        json[.type]             = type
-        json[.adconfiguration]  = adConfiguration
-        json[.sdkconfiguration] = sdkConfiguration
-        json[.rwdd]             = rewardedConfiguration
+        json[.time]             = time
+        json[.playbackevent]    = playbackevent
+        json[.endcard]          = endcard
 
         return json.dict
     }

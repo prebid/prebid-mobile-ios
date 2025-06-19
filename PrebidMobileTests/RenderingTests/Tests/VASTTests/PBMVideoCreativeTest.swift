@@ -330,9 +330,9 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         let time: NSNumber = 5
         expectationCreativeDidSendRewardedEvent = expectation(description: "Reward event - creativeDidSendRewardedEvent called")
         
-        let ortbRewarded = PBMORTBRewardedConfiguration()
-        ortbRewarded.completion = PBMORTBRewardedCompletion()
-        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        let ortbRewarded = ORTBRewardedConfiguration()
+        ortbRewarded.completion = ORTBRewardedCompletion()
+        ortbRewarded.completion?.video = ORTBRewardedCompletionVideo()
         ortbRewarded.completion?.video?.time = time
         
         let adConfiguration = AdConfiguration()
@@ -363,11 +363,11 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         let postRewardTime: NSNumber = 2
         expectationCreativeDidSendRewardedEvent = expectation(description: "Reward event - creativeDidSendRewardedEvent called")
         
-        let ortbRewarded = PBMORTBRewardedConfiguration()
-        ortbRewarded.completion = PBMORTBRewardedCompletion()
-        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        let ortbRewarded = ORTBRewardedConfiguration()
+        ortbRewarded.completion = ORTBRewardedCompletion()
+        ortbRewarded.completion?.video = ORTBRewardedCompletionVideo()
         ortbRewarded.completion?.video?.time = rewardTime
-        ortbRewarded.close = PBMORTBRewardedClose()
+        ortbRewarded.close = ORTBRewardedClose()
         ortbRewarded.close?.postrewardtime = postRewardTime
         
         let adConfiguration = AdConfiguration()

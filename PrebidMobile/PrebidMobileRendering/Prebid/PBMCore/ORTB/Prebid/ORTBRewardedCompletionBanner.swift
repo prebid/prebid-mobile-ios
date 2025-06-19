@@ -16,41 +16,33 @@
 
 import Foundation
 
-@objc public class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
-    @objc public var type: String?
-    @objc public var adConfiguration: ORTBAdConfiguration?
-    @objc public var sdkConfiguration: PBMORTBSDKConfiguration?
-    @objc public var rewardedConfiguration: ORTBRewardedConfiguration?
+@objc public class ORTBRewardedCompletionBanner: NSObject, PBMJsonCodable {
+    /// The period of time that the ad is on the screen and the user earns a reward
+    @objc public var time: NSNumber?
+
+    /// The URL with a custom schema that will be sent by the creative and should be caught by the SDK
+    @objc public var event: String?
 
     private enum KeySet: String {
-        case type
-        case adconfiguration
-        case sdkconfiguration
-        case rwdd
+        case time
+        case event
     }
 
     @objc public override init() {
-        super.init()
     }
 
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        type = json[.type]
-        adConfiguration         = json[.adconfiguration]
-        sdkConfiguration        = json[.sdkconfiguration]
-        rewardedConfiguration   = json[.rwdd]
-
-        super.init()
+        time    = json[.time]
+        event   = json[.event]
     }
     
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
-        json[.type]             = type
-        json[.adconfiguration]  = adConfiguration
-        json[.sdkconfiguration] = sdkConfiguration
-        json[.rwdd]             = rewardedConfiguration
+        json[.time]     = time
+        json[.event]    = event
 
         return json.dict
     }

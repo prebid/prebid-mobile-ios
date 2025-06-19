@@ -16,41 +16,38 @@
 
 import Foundation
 
-@objc public class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
-    @objc public var type: String?
-    @objc public var adConfiguration: ORTBAdConfiguration?
-    @objc public var sdkConfiguration: PBMORTBSDKConfiguration?
-    @objc public var rewardedConfiguration: ORTBRewardedConfiguration?
+/// Describes the close behavior. How should the SDK manage the ad when it is encountered as viewed
+@objc public class ORTBRewardedClose: NSObject, PBMJsonCodable {
+    /// The time interval in seconds passed after the reward event when SDK should close the interstitial
+    @objc public var postrewardtime: NSNumber?
+
+    /// The action that SDK should do.
+    ///
+    /// Available options:
+    /// - autoclose - close the interstitial;
+    /// - closebutton - show the close button.
+    @objc public var action: String?
 
     private enum KeySet: String {
-        case type
-        case adconfiguration
-        case sdkconfiguration
-        case rwdd
+        case postrewardtime
+        case action
     }
 
     @objc public override init() {
-        super.init()
     }
 
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        type = json[.type]
-        adConfiguration         = json[.adconfiguration]
-        sdkConfiguration        = json[.sdkconfiguration]
-        rewardedConfiguration   = json[.rwdd]
-
-        super.init()
+        postrewardtime  = json[.postrewardtime]
+        action          = json[.action]
     }
     
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
-        json[.type]             = type
-        json[.adconfiguration]  = adConfiguration
-        json[.sdkconfiguration] = sdkConfiguration
-        json[.rwdd]             = rewardedConfiguration
+        json[.postrewardtime]   = postrewardtime
+        json[.action]           = action
 
         return json.dict
     }
