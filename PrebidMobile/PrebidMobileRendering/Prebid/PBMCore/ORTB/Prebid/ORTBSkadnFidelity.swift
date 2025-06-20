@@ -16,17 +16,24 @@
 
 import Foundation
 
-@objc public class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
-    @objc public var type: String?
-    @objc public var adConfiguration: ORTBAdConfiguration?
-    @objc public var sdkConfiguration: ORTBSDKConfiguration?
-    @objc public var rewardedConfiguration: ORTBRewardedConfiguration?
+@objc public class ORTBSkadnFidelity: NSObject, PBMJsonCodable {
+    /// The fidelity-type of the attribution to track
+    @objc public var fidelity: NSNumber?
+
+    /// SKAdNetwork signature as specified by Apple
+    @objc public var signature: String?
+
+    /// An id unique to each ad response. Refer to Apple’s documentation for the proper UUID format requirements
+    @objc public var nonce: UUID?
+
+    /// Unix time in millis string used at the time of signature
+    @objc public var timestamp: NSNumber?
 
     private enum KeySet: String {
-        case type
-        case adconfiguration
-        case sdkconfiguration
-        case rwdd
+        case fidelity
+        case nonce
+        case timestamp
+        case signature
     }
 
     @objc public override init() {
@@ -36,21 +43,19 @@ import Foundation
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        type = json[.type]
-        adConfiguration         = json[.adconfiguration]
-        sdkConfiguration        = json[.sdkconfiguration]
-        rewardedConfiguration   = json[.rwdd]
-
-        super.init()
+        fidelity    = json[.fidelity]
+        nonce       = json[.nonce]
+        timestamp   = json[.timestamp]
+        signature   = json[.signature]
     }
     
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
-        json[.type]             = type
-        json[.adconfiguration]  = adConfiguration
-        json[.sdkconfiguration] = sdkConfiguration
-        json[.rwdd]             = rewardedConfiguration
+        json[.fidelity]     = fidelity
+        json[.nonce]        = nonce
+        json[.timestamp]    = timestamp
+        json[.signature]    = signature
 
         return json.dict
     }

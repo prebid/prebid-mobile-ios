@@ -72,7 +72,7 @@ public class Bid: NSObject {
      SKAdNetwork parameters about an App Store product.
      Used in the StoreKit
      */
-    public var skadn: PBMORTBBidExtSkadn? {
+    public var skadn: ORTBBidExtSkadn? {
         return bid.ext?.skadn
     }
     
