@@ -191,7 +191,7 @@ class PBMORTBTest: XCTestCase {
         
         let passthrough = ORTBExtPrebidPassthrough()
         
-        let sdkConfiguration = PBMORTBSDKConfiguration()
+        let sdkConfiguration = ORTBSDKConfiguration()
         sdkConfiguration.cftBanner = 42
         sdkConfiguration.cftPreRender = 4242
         

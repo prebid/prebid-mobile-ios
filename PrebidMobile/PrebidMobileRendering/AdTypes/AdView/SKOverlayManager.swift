@@ -27,7 +27,7 @@ public class SKOverlayManager: NSObject {
         super.init()
     }
     
-    public func presentSKOverlay(with skadnInfo: PBMORTBBidExtSkadn, isCompanionAd: Bool) {
+    public func presentSKOverlay(with skadnInfo: ORTBBidExtSkadn, isCompanionAd: Bool) {
         guard #available(iOS 14.0, *) else { return }
         
         guard let scene = viewControllerForPresentation?.view.window?.windowScene else {
@@ -63,7 +63,7 @@ public class SKOverlayManager: NSObject {
     }
     
     @available(iOS 14.0, *)
-    private func buildConfig(with skadnInfo: PBMORTBBidExtSkadn) -> SKOverlay.AppConfiguration? {
+    private func buildConfig(with skadnInfo: ORTBBidExtSkadn) -> SKOverlay.AppConfiguration? {
         guard let skoverlay = skadnInfo.skoverlay else {
             Log.warn("SDK failed to build SKOverlay configuration. `skoverlay` dictionary is nil.")
             return nil

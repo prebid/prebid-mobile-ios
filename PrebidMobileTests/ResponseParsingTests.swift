@@ -242,7 +242,7 @@ class ResponseParsingTests: XCTestCase {
 
     func testBidExtPrebidCache() {
         let json = JSON.bidExtPrebidCache()
-        let entity = ORTBBidExtPrebidCache(jsonDictionary: json)!
+        let entity = ORTBBidExtPrebidCache(jsonDictionary: json)
         XCTAssertEqual(entity.key, "_key")
         XCTAssertEqual(entity.url, "_url")
         XCTAssertTrue(compare(entity.bids, JSON.bidExtPrebidCacheBids()))
@@ -261,7 +261,7 @@ class ResponseParsingTests: XCTestCase {
     
     func testBidExtSkadn() {
         let json = JSON.bidExtSkadn()
-        let entity = PBMORTBBidExtSkadn(jsonDictionary: json)!
+        let entity = ORTBBidExtSkadn(jsonDictionary: json)
         XCTAssertEqual(entity.version, "_version")
         XCTAssertEqual(entity.network, "_network")
         XCTAssertEqual(entity.campaign, 1)
@@ -271,18 +271,18 @@ class ResponseParsingTests: XCTestCase {
         XCTAssertTrue(compare(entity.fidelities, [JSON.skadnFidelity()]))
         XCTAssertTrue(compare(entity.skoverlay, JSON.bidExtSkadnSKOverlay()))
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testBidExtSkadnSKOverlay() {
         let json = JSON.bidExtSkadnSKOverlay()
-        let entity = PBMORTBBidExtSkadnSKOverlay(jsonDictionary: json)!
+        let entity = ORTBBidExtSkadnSKOverlay(jsonDictionary: json)
         XCTAssertEqual(entity.delay, 1)
         XCTAssertEqual(entity.endcarddelay, 2)
         XCTAssertEqual(entity.dismissible, 3)
         XCTAssertEqual(entity.pos, 4)
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func testBidResponseExt() {
@@ -398,23 +398,23 @@ class ResponseParsingTests: XCTestCase {
     
     func testSDKConfiguration() {
         let json = JSON.sdkConfiguration()
-        let entity = PBMORTBSDKConfiguration(jsonDictionary: json)!
+        let entity = ORTBSDKConfiguration(jsonDictionary: json)
         XCTAssertEqual(entity.cftBanner, 1)
         XCTAssertEqual(entity.cftPreRender, 2)
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
         
     }
     
     func testSkadnFidelity() {
         let json = JSON.skadnFidelity()
-        let entity = PBMORTBSkadnFidelity(jsonDictionary: json)!
+        let entity = ORTBSkadnFidelity(jsonDictionary: json)
         XCTAssertEqual(entity.fidelity, 1)
         XCTAssertEqual(entity.nonce, UUID(uuidString: "12345678-ABCD-1234-ABCD-1234567890AB"))
         XCTAssertEqual(entity.timestamp, 2)
         XCTAssertEqual(entity.signature, "_signature")
         
-        XCTAssertEqual(entity.toJsonDictionary() as NSDictionary, json as NSDictionary)
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
     
     func compare(_ entity: PBMJsonEncodable?, _ object: [String : Any]) -> Bool {

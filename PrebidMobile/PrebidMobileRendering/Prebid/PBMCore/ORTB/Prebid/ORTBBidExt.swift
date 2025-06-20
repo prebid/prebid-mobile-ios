@@ -20,7 +20,7 @@ class ORTBBidExt: PBMJsonCodable {
     
     var prebid: ORTBBidExtPrebid?
     var bidder: [String : Any]?
-    var skadn: PBMORTBBidExtSkadn?
+    var skadn: ORTBBidExtSkadn?
     
     // This part is dedicating to test server-side ad configurations.
     // Need to be removed when ext.prebid.passthrough will be available.
