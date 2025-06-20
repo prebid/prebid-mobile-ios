@@ -104,7 +104,7 @@ public class Bid: NSObject {
     }
     #endif
     
-    public var rewardedConfig: PBMORTBRewardedConfiguration? {
+    public var rewardedConfig: ORTBRewardedConfiguration? {
         bid.ext?.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.rewardedConfiguration
     }
     

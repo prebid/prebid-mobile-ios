@@ -33,16 +33,16 @@ class ORTBBidExtPrebidCache: PBMJsonCodable {
     required init?(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        url = json[.url]
-        key = json[.key]
-        bids = json[.bids]
+        url     = json[.url]
+        key     = json[.key]
+        bids    = json[.bids]
     }
     
     var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
-        json[.key] = key
-        json[.url] = url
+        json[.key]  = key
+        json[.url]  = url
         json[.bids] = bids
 
         return json.dict

@@ -73,9 +73,9 @@ public class RewardedConfig: NSObject {
     /// The playback event when the SDK should send a signal to the application that the user has earned the reward
     public let defaultVideoPlaybackEvent = "complete"
     
-    private let ortbRewarded: PBMORTBRewardedConfiguration?
+    private let ortbRewarded: ORTBRewardedConfiguration?
     
-    public init(ortbRewarded: PBMORTBRewardedConfiguration?) {
+    public init(ortbRewarded: ORTBRewardedConfiguration?) {
         self.ortbRewarded = ortbRewarded
     }
 }

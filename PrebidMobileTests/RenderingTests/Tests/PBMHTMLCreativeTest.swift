@@ -426,9 +426,9 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         let time: NSNumber = 5
         let exp = expectation(description: "Reward completion")
         
-        let ortbRewarded = PBMORTBRewardedConfiguration()
-        ortbRewarded.completion = PBMORTBRewardedCompletion()
-        ortbRewarded.completion?.banner = PBMORTBRewardedCompletionBanner()
+        let ortbRewarded = ORTBRewardedConfiguration()
+        ortbRewarded.completion = ORTBRewardedCompletion()
+        ortbRewarded.completion?.banner = ORTBRewardedCompletionBanner()
         ortbRewarded.completion?.banner?.time = time
         
         let adConfiguration = AdConfiguration()
@@ -461,10 +461,10 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         let time: NSNumber = 5
         let exp = expectation(description: "Reward completion")
         
-        let ortbRewarded = PBMORTBRewardedConfiguration()
-        ortbRewarded.completion = PBMORTBRewardedCompletion()
-        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
-        ortbRewarded.completion?.video?.endcard = PBMORTBRewardedCompletionVideoEndcard()
+        let ortbRewarded = ORTBRewardedConfiguration()
+        ortbRewarded.completion = ORTBRewardedCompletion()
+        ortbRewarded.completion?.video = ORTBRewardedCompletionVideo()
+        ortbRewarded.completion?.video?.endcard = ORTBRewardedCompletionVideoEndcard()
         ortbRewarded.completion?.video?.endcard?.time = time
         
         let adConfiguration = AdConfiguration()
@@ -501,11 +501,11 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         let postRewardTime: NSNumber = 2
         let exp = expectation(description: "Post reward completion")
         
-        let ortbRewarded = PBMORTBRewardedConfiguration()
-        ortbRewarded.completion = PBMORTBRewardedCompletion()
-        ortbRewarded.completion?.banner = PBMORTBRewardedCompletionBanner()
+        let ortbRewarded = ORTBRewardedConfiguration()
+        ortbRewarded.completion = ORTBRewardedCompletion()
+        ortbRewarded.completion?.banner = ORTBRewardedCompletionBanner()
         ortbRewarded.completion?.banner?.time = rewardTime
-        ortbRewarded.close = PBMORTBRewardedClose()
+        ortbRewarded.close = ORTBRewardedClose()
         ortbRewarded.close?.postrewardtime = postRewardTime
         
         let adConfiguration = AdConfiguration()
@@ -539,12 +539,12 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         let postRewardTime: NSNumber = 2
         let exp = expectation(description: "Post reward completion")
         
-        let ortbRewarded = PBMORTBRewardedConfiguration()
-        ortbRewarded.completion = PBMORTBRewardedCompletion()
-        ortbRewarded.completion?.video = PBMORTBRewardedCompletionVideo()
-        ortbRewarded.completion?.video?.endcard = PBMORTBRewardedCompletionVideoEndcard()
+        let ortbRewarded = ORTBRewardedConfiguration()
+        ortbRewarded.completion = ORTBRewardedCompletion()
+        ortbRewarded.completion?.video = ORTBRewardedCompletionVideo()
+        ortbRewarded.completion?.video?.endcard = ORTBRewardedCompletionVideoEndcard()
         ortbRewarded.completion?.video?.endcard?.time = rewardTime
-        ortbRewarded.close = PBMORTBRewardedClose()
+        ortbRewarded.close = ORTBRewardedClose()
         ortbRewarded.close?.postrewardtime = postRewardTime
         
         let adConfiguration = AdConfiguration()

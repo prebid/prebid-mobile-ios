@@ -16,41 +16,39 @@
 
 import Foundation
 
-@objc public class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
-    @objc public var type: String?
-    @objc public var adConfiguration: ORTBAdConfiguration?
-    @objc public var sdkConfiguration: PBMORTBSDKConfiguration?
-    @objc public var rewardedConfiguration: ORTBRewardedConfiguration?
+@objc public class ORTBRewardedConfiguration: NSObject, PBMJsonCodable {
+    /// Metadata provided by the publisher to describe the reward.
+    @objc public var reward: ORTBRewardedReward?
+
+    /// Describes the condition when the SDK should send a signal to the application that the user has earned the reward.
+    @objc public var completion: ORTBRewardedCompletion?
+
+    /// Describes the close behavior. How should the SDK manage the ad when it is encountered as viewed.
+    @objc public var close: ORTBRewardedClose?
 
     private enum KeySet: String {
-        case type
-        case adconfiguration
-        case sdkconfiguration
-        case rwdd
+        case reward
+        case completion
+        case close
     }
 
     @objc public override init() {
-        super.init()
     }
 
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        type = json[.type]
-        adConfiguration         = json[.adconfiguration]
-        sdkConfiguration        = json[.sdkconfiguration]
-        rewardedConfiguration   = json[.rwdd]
-
-        super.init()
+        reward      = json[.reward]
+        completion  = json[.completion]
+        close       = json[.close]
     }
     
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
-        json[.type]             = type
-        json[.adconfiguration]  = adConfiguration
-        json[.sdkconfiguration] = sdkConfiguration
-        json[.rwdd]             = rewardedConfiguration
+        json[.reward]       = reward
+        json[.completion]   = completion
+        json[.close]        = close
 
         return json.dict
     }
