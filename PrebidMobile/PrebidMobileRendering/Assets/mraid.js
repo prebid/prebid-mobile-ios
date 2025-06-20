@@ -622,22 +622,26 @@ debugPBMMRAID(() => "Beginning to add mraid.js...");
 			return;
 		}
 
+		var orgHandlers = [];
+		for (var handler in handlers)
+			orgHandlers[handler] = handlers[handler];
+
 		/* see if the listener is present */
-		for (var handler = 0; handler < handlers.length; handler++) {
+		for (var handler = 0; handler < orgHandlers.length; handler++) {
 			if (event == 'ready') {
-				handlers[handler]();
+				orgHandlers[handler]();
 			} else if (event == 'error') {
-				handlers[handler](args[0], args[1]);
+				orgHandlers[handler](args[0], args[1]);
 			} else if (event == 'stateChange') {
-				handlers[handler](args);
+				orgHandlers[handler](args);
 			} else if (event == 'viewableChange') {
-				handlers[handler](args);
+				orgHandlers[handler](args);
 			} else if (event == 'sizeChange') {
-				handlers[handler](args[0], args[1]);
+				orgHandlers[handler](args[0], args[1]);
 			} else if (event == 'exposureChange') {
-				handlers[handler](mraid.lastExposure.exposedPercentage, mraid.lastExposure.visibleRectangle, mraid.lastExposure.occlusionRectangles);
+				orgHandlers[handler](mraid.lastExposure.exposedPercentage, mraid.lastExposure.visibleRectangle, mraid.lastExposure.occlusionRectangles);
 			} else if (event == 'audioVolumeChange') {
-                handlers[handler](args);
+                orgHandlers[handler](args);
             }
 		}
 	};
