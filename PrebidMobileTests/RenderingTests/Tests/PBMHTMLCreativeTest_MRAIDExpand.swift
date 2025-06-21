@@ -22,7 +22,7 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
     override func setUp() {
         super.setUp()
         htmlCreative.setupView()
-        mockWebView.mraidState = .default
+        mockWebView.mraidState = .defaultState
     }
     
     override func tearDown() {
@@ -249,7 +249,7 @@ class PBMHTMLCreativeTest_MRAIDExpand: PBMHTMLCreativeTest_Base {
      - shouldFulfill: Whether or not the expecation is expected to fulfill
      - expectedState: The MRAID state to compare
      */
-    func mraidStateChangeExpectation(shouldFulfill: Bool, exptectedState: PBMMRAIDState) {
+    func mraidStateChangeExpectation(shouldFulfill: Bool, exptectedState: MRAIDState) {
         let exp = expectation(description: "Should change MRAID state to '\(exptectedState.rawValue)'")
         exp.isInverted = !shouldFulfill
         mockWebView.mock_changeToMRAIDState = { (actualState) in

@@ -27,7 +27,7 @@ protocol ModalState {
     var displayProperties: InterstitialDisplayProperties? { get }
     var view: UIView? { get }
     
-    var mraidState: PBMMRAIDState { get set }
+    var mraidState: MRAIDState { get set }
     
     var onStatePopFinished: ModalStatePopHandler? { get }
     var onStateHasLeftApp: ModalStateAppLeavingHandler? { get }

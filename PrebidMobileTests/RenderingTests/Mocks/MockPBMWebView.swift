@@ -27,8 +27,8 @@ class MockPBMWebView: PBMWebView {
         self.mock_loadHTML?(html, baseURL, injectMraidJs)
     }
     
-    var mock_changeToMRAIDState: ((PBMMRAIDState) -> Void)?
-    override func changeToMRAIDState(_ state: PBMMRAIDState) {
+    var mock_changeToMRAIDState: ((MRAIDState) -> Void)?
+    override func changeToMRAIDState(_ state: MRAIDState) {
         self.mock_changeToMRAIDState?(state)
     }
     

@@ -29,6 +29,7 @@
 @protocol PBMViewExposure;
 @class PBMLocationManager;
 @class PBMCreativeModel;
+@class PBMMRAIDState;
 @protocol PBMWebView_Protocol;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -57,7 +58,7 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 @property (nonatomic, weak, nullable) id<PBMExposureChangeDelegate> exposureDelegate;
 @property (nonatomic, strong) PBMTouchDownRecognizer *tapdownGestureRecognizer;
 
-@property (nonatomic, copy) PBMMRAIDState mraidState;
+@property (nonatomic) PBMMRAIDState *mraidState;
 @property (nonatomic, assign, readonly) PBMWebViewState state;
 @property (nonatomic, assign, getter=isViewable) BOOL viewable;
 @property (nonatomic, assign) BOOL isMRAID;
@@ -107,7 +108,7 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
     NS_SWIFT_NAME(updateMRAIDLayoutInfo(_:));
 
 // update the current state
-- (void)changeToMRAIDState:(PBMMRAIDState)state
+- (void)changeToMRAIDState:(PBMMRAIDState *)state
     NS_SWIFT_NAME(changeToMRAIDState(_:));
 
 #pragma mark - MRAID Injection

@@ -100,7 +100,7 @@
 #pragma mark - PBMAbstractCreative
 
 - (BOOL)isOpened {
-    return self.clickthroughVisible || (self.MRAIDController && self.MRAIDController.mraidState != PBMMRAIDStateDefault);
+    return self.clickthroughVisible || (self.MRAIDController && self.MRAIDController.mraidState != PBMMRAIDState.defaultState);
 }
 
 - (NSNumber *)displayInterval {

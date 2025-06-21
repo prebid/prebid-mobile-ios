@@ -81,20 +81,20 @@ class SkadnParametersManagerTest: XCTestCase {
 
 class SkadnUtilities {
     
-    class func createSkadnExtWithFidelities() -> PBMORTBBidExtSkadn {
-        let skadn = PBMORTBBidExtSkadn()
+    class func createSkadnExtWithFidelities() -> ORTBBidExtSkadn {
+        let skadn = ORTBBidExtSkadn()
         
         skadn.version = "2.2"
         skadn.network = "cDkw7geQsH.skadnetwork"
         skadn.campaign = 45
         skadn.itunesitem = 123456789
         skadn.sourceapp = 880047117
-        let fidelity0 = PBMORTBSkadnFidelity()
+        let fidelity0 = ORTBSkadnFidelity()
         fidelity0.fidelity = 0
         fidelity0.signature = "MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg=="
         fidelity0.nonce = UUID()
         fidelity0.timestamp = 1594406342
-        let fidelity1 = PBMORTBSkadnFidelity()
+        let fidelity1 = ORTBSkadnFidelity()
         fidelity1.fidelity = 1
         fidelity1.signature = "MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg=="
         fidelity1.nonce = UUID()
@@ -104,8 +104,8 @@ class SkadnUtilities {
         return skadn
     }
     
-    class func createSkadnExtWithFidelities_version_4_0() -> PBMORTBBidExtSkadn {
-        let skadn = PBMORTBBidExtSkadn()
+    class func createSkadnExtWithFidelities_version_4_0() -> ORTBBidExtSkadn {
+        let skadn = ORTBBidExtSkadn()
         
         skadn.version = "4.0"
         skadn.network = "cDkw7geQsH.skadnetwork"
@@ -113,12 +113,12 @@ class SkadnUtilities {
         skadn.itunesitem = 123456789
         skadn.sourceapp = 880047117
         
-        let fidelity0 = PBMORTBSkadnFidelity()
+        let fidelity0 = ORTBSkadnFidelity()
         fidelity0.fidelity = 0
         fidelity0.signature = "MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg=="
         fidelity0.nonce = UUID()
         fidelity0.timestamp = 1594406342
-        let fidelity1 = PBMORTBSkadnFidelity()
+        let fidelity1 = ORTBSkadnFidelity()
         fidelity1.fidelity = 1
         fidelity1.signature = "MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg=="
         fidelity1.nonce = UUID()
@@ -128,8 +128,8 @@ class SkadnUtilities {
         return skadn
     }
     
-    class func createSkadnExtWithFidelities_version_4_0_SKOverlay() -> PBMORTBBidExtSkadn {
-        let skadn = PBMORTBBidExtSkadn()
+    class func createSkadnExtWithFidelities_version_4_0_SKOverlay() -> ORTBBidExtSkadn {
+        let skadn = ORTBBidExtSkadn()
         
         skadn.version = "4.0"
         skadn.network = "cDkw7geQsH.skadnetwork"
@@ -137,12 +137,12 @@ class SkadnUtilities {
         skadn.itunesitem = 123456789
         skadn.sourceapp = 880047117
         
-        let fidelity0 = PBMORTBSkadnFidelity()
+        let fidelity0 = ORTBSkadnFidelity()
         fidelity0.fidelity = 0
         fidelity0.signature = "MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg=="
         fidelity0.nonce = UUID()
         fidelity0.timestamp = 1594406342
-        let fidelity1 = PBMORTBSkadnFidelity()
+        let fidelity1 = ORTBSkadnFidelity()
         fidelity1.fidelity = 1
         fidelity1.signature = "MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg=="
         fidelity1.nonce = UUID()
@@ -150,7 +150,7 @@ class SkadnUtilities {
         
         skadn.fidelities = [fidelity0, fidelity1]
         
-        skadn.skoverlay = PBMORTBBidExtSkadnSKOverlay()
+        skadn.skoverlay = ORTBBidExtSkadnSKOverlay()
         skadn.skoverlay?.delay = 10
         skadn.skoverlay?.endcarddelay = 20
         skadn.skoverlay?.dismissible = 1
@@ -160,7 +160,7 @@ class SkadnUtilities {
     }
     
     @available(iOS 14.0, *)
-    class func createSkadnProductParameters(from skadn: PBMORTBBidExtSkadn) -> [String: Any] {
+    class func createSkadnProductParameters(from skadn: ORTBBidExtSkadn) -> [String: Any] {
         let fidelity1 = skadn.fidelities!.filter({ $0.fidelity == 1 }).first!
         return [
             SKStoreProductParameterITunesItemIdentifier : skadn.itunesitem!,
@@ -176,7 +176,7 @@ class SkadnUtilities {
     }
     
     @available(iOS 16.1, *)
-    class func createSkadnProductParameters_version_4_0(from skadn: PBMORTBBidExtSkadn) -> [String: Any] {
+    class func createSkadnProductParameters_version_4_0(from skadn: ORTBBidExtSkadn) -> [String: Any] {
         let fidelity1 = skadn.fidelities!.filter({ $0.fidelity == 1 }).first!
         return [
             SKStoreProductParameterITunesItemIdentifier : skadn.itunesitem!,

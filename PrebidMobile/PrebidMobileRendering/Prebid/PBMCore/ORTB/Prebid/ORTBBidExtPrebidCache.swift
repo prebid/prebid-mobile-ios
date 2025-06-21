@@ -30,7 +30,7 @@ class ORTBBidExtPrebidCache: PBMJsonCodable {
     init() {
     }
     
-    required init?(jsonDictionary: [String : Any]) {
+    required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
         url     = json[.url]

@@ -61,16 +61,6 @@ typedef NS_ENUM(NSInteger, PBMLocationSourceValues) {
 
 @end
 
-//MARK: MRAID
-typedef NSString * PBMMRAIDState NS_TYPED_ENUM;
-FOUNDATION_EXPORT PBMMRAIDState const PBMMRAIDStateNotEnabled;
-FOUNDATION_EXPORT PBMMRAIDState const PBMMRAIDStateDefault;
-FOUNDATION_EXPORT PBMMRAIDState const PBMMRAIDStateExpanded;
-FOUNDATION_EXPORT PBMMRAIDState const PBMMRAIDStateHidden;
-FOUNDATION_EXPORT PBMMRAIDState const PBMMRAIDStateLoading;
-FOUNDATION_EXPORT PBMMRAIDState const PBMMRAIDStateResized;
-
-
 //MARK: Tracking Supression Detection Strings
 typedef NSString * PBMTrackingPattern NS_TYPED_ENUM;
 FOUNDATION_EXPORT PBMTrackingPattern const PBMTrackingPatternRI;

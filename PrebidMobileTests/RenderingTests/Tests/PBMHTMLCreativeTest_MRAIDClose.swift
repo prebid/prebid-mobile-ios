@@ -106,7 +106,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, CreativeViewDelegate {
         let changeToMRAIDExpectation = self.expectation(description: "Should change to default MRAID state")
         mockWebView.mock_changeToMRAIDState = { (state) in
             changeToMRAIDExpectation.fulfill()
-            PBMAssertEq(state, .default)
+            PBMAssertEq(state, .defaultState)
         }
         
         // RUN TEST

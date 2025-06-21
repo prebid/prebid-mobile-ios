@@ -22,6 +22,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PBMViewExposure;
+@class PBMMRAIDState;
 
 @interface PBMMRAIDJavascriptCommands : NSObject
 
@@ -37,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)onViewableChange:(BOOL)isViewable;
 + (NSString *)onExposureChange:(id<PBMViewExposure>)viewExposure;
 + (NSString *)onSizeChange:(CGSize)newSize;
-+ (NSString *)onStateChange:(PBMMRAIDState)newState;
++ (NSString *)onStateChange:(PBMMRAIDState *)newState;
 + (NSString *)onAudioVolumeChange:(nullable NSNumber *)volumePercentage;
 
 // update Ad data

@@ -26,7 +26,6 @@
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMORTBBidExtSkadn.h"
 #import "PBMWindowLocker.h"
 
 #import "Log+Extensions.h"
@@ -257,7 +256,12 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    PBMJsonDictionary * skadnetProductParameters = [PBMSkadnParametersManager getSkadnProductParametersFor:self.transaction.bid.skadn];
+    PBMJsonDictionary * skadnetProductParameters;
+    
+    if (self.transaction.bid.skadn) {
+        skadnetProductParameters = [PBMSkadnParametersManager
+                                    getSkadnProductParametersFor:self.transaction.bid.skadn];
+    }
     
     if (skadnetProductParameters) {
             clickthroughOpened = [self handleProductClickthrough:url

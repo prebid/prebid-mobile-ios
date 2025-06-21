@@ -74,7 +74,7 @@ static NSString * const PBMMRAIDCommandFormatSize = @"%@:%@";
     return [NSString stringWithFormat:@"mraid.onSizeChange(%@,%@);", [PBMMRAIDJavascriptCommands formatFloat:newSize.width], [PBMMRAIDJavascriptCommands formatFloat:newSize.height]];
 }
 
-+ (nonnull NSString *)onStateChange:(nonnull PBMMRAIDState)newState {
++ (nonnull NSString *)onStateChange:(nonnull PBMMRAIDState *)newState {
     return [NSString stringWithFormat:@"mraid.onStateChange('%@');",newState];
 }
 

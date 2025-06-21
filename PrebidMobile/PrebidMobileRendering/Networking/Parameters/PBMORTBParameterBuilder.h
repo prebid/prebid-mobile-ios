@@ -15,7 +15,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PBMParameterBuilderProtocol.h"
-#import "PrebidMobileSwiftHeaders.h"
+#import "PBMConstants.h"
 
 @interface PBMORTBParameterBuilder : NSObject
 

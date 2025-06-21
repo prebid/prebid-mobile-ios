@@ -55,7 +55,7 @@ class MRAIDJavascriptCommandsTests: XCTestCase {
         XCTAssertEqual(PBMMRAIDJavascriptCommands.onSizeChange(CGSize(width: 1.1111, height: 2.2222)), "mraid.onSizeChange(1.1111,2.2222);")
         
         // onStateChange
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onStateChange(.default), "mraid.onStateChange('default');");
+        XCTAssertEqual(PBMMRAIDJavascriptCommands.onStateChange(.defaultState), "mraid.onStateChange('default');");
         XCTAssertEqual(PBMMRAIDJavascriptCommands.onStateChange(.expanded), "mraid.onStateChange('expanded');");
         
         // onAudioVolumeChange

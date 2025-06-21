@@ -269,7 +269,7 @@ class ModalManagerTestPresentationType : XCTestCase {
         let resizedState = Factory.createModalState(view: PBMWebView(),
                                                     adConfiguration:AdConfiguration(),
                                                     displayProperties:InterstitialDisplayProperties())
-        resizedState.mraidState = PBMMRAIDState.resized
+        resizedState.mraidState = MRAIDState.resized
         XCTAssertEqual(resizedState.mraidState, .resized)
         presentationFrom(resizedState) { controller in
             XCTAssertTrue(controller! is NonModalViewController)

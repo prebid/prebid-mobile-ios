@@ -28,7 +28,7 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
 
     //TODO: Evaluate whether this test still has merit
     func testMissingViewController() {
-        self.mockWebView.mraidState = .default
+        self.mockWebView.mraidState = .defaultState
         self.mockWebViewResize(MRAIDResizeProperties())
         
         self.htmlCreative.viewControllerForPresentingModals = nil
@@ -50,7 +50,7 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
     }
 
     func testInvalidView() {
-        self.mockWebView.mraidState = .default
+        self.mockWebView.mraidState = .defaultState
         self.mockWebViewResize(MRAIDResizeProperties())
 
         let expectation = self.expectation(description: "Should not push Modal")
@@ -93,7 +93,7 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
 
     func testNoResizeProperties() {
 
-        self.mockWebView.mraidState = .default
+        self.mockWebView.mraidState = .defaultState
         self.mockWebViewResize(nil)
 
         self.mraidErrorExpectation(shouldFulfill: true, message: "Was unable to get resizeProperties", action: .resize)
@@ -111,7 +111,7 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
 
     func testInvalidFrameSize() {
 
-        self.mockWebView.mraidState = .default
+        self.mockWebView.mraidState = .defaultState
         self.mockWebViewResize(MRAIDResizeProperties())
 
         self.mraidErrorExpectation(shouldFulfill: true, message: "MRAID ad attempted to resize to an invalid size", action: .resize)
@@ -132,7 +132,7 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
 
     func testSuccess() {
 
-        self.mockWebView.mraidState = .default
+        self.mockWebView.mraidState = .defaultState
         self.mockWebViewResize(self.validResizeProperties)
 
         self.mraidStateChangeExpecation(shouldFulfill: true, expectedState: .resized)
@@ -162,7 +162,7 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
     
     func testResizeWithoutExposure() {
 
-        self.mockWebView.mraidState = .default
+        self.mockWebView.mraidState = .defaultState
         self.mockWebViewResize(self.validResizeProperties)
 
         //A new state Resized must be set *ONLY* after the exposureChange event
@@ -223,9 +223,9 @@ class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
 
      - parameters:
         - shouldFulfill: Whether or not the expecation is expected to fulfill
-        - expectedState: If `shouldFulfill`, the `PBMMRAIDState` expected to change to
+        - expectedState: If `shouldFulfill`, the `MRAIDState` expected to change to
     */
-    func mraidStateChangeExpecation(shouldFulfill: Bool, expectedState: PBMMRAIDState = .default) {
+    func mraidStateChangeExpecation(shouldFulfill: Bool, expectedState: MRAIDState = .defaultState) {
         let exp = self.expectation(description: "Should \(shouldFulfill ? "" : "not ")cause an MRAID state change")
         exp.isInverted = !shouldFulfill
         self.mockWebView.mock_changeToMRAIDState = { (actualState) in
