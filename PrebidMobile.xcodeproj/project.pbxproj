@@ -14,6 +14,7 @@
 		0012D6C22E0589CA007013F3 /* ORTBBidExtSkadnSKOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D6C02E0589CA007013F3 /* ORTBBidExtSkadnSKOverlay.swift */; };
 		0012D6C32E0589DA007013F3 /* ORTBSkadnFidelity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CB32DBA5934008EE9EA /* ORTBSkadnFidelity.swift */; };
 		0012D6C52E058C04007013F3 /* ORTBNoBidReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D6C42E058BF9007013F3 /* ORTBNoBidReason.swift */; };
+		0012D7492E08717A007013F3 /* DeviceAccessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7482E08717A007013F3 /* DeviceAccessManager.swift */; };
 		00614C4D2DE5F68A00A61974 /* ModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C4C2DE5F68600A61974 /* ModalAnimator.swift */; };
 		00614C5A2DE6FFE800A61974 /* CloseActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C592DE6FFE800A61974 /* CloseActionManager.swift */; };
 		00614C892DE7B5D900A61974 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C882DE7B5D900A61974 /* WebView.swift */; };
@@ -352,7 +353,6 @@
 		5BC37908271F1CFF00444D5E /* PBMFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AA271F1CFE00444D5E /* PBMFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37909271F1CFF00444D5E /* PBMDeepLinkPlusHelper+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AB271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.h */; };
 		5BC3790B271F1CFF00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AD271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h */; };
-		5BC3790F271F1CFF00444D5E /* PBMDeviceAccessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B1271F1CFE00444D5E /* PBMDeviceAccessManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37910271F1CFF00444D5E /* PBMWindowLocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */; };
 		5BC37911271F1CFF00444D5E /* PBMDeepLinkPlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B3271F1CFE00444D5E /* PBMDeepLinkPlus.m */; };
 		5BC37912271F1CFF00444D5E /* PBMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B4271F1CFE00444D5E /* PBMConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -373,7 +373,6 @@
 		5BC3792B271F1D0000444D5E /* PBMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376CD271F1CFE00444D5E /* PBMConstants.m */; };
 		5BC3792C271F1D0000444D5E /* PBMWindowLocker.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376CE271F1CFE00444D5E /* PBMWindowLocker.h */; };
 		5BC3792E271F1D0000444D5E /* PBMFunctions+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376D0271F1CFE00444D5E /* PBMFunctions+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC3792F271F1D0000444D5E /* PBMDeviceAccessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376D1271F1CFE00444D5E /* PBMDeviceAccessManager.m */; };
 		5BC37938271F1D0000444D5E /* PBMMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DB271F1CFE00444D5E /* PBMMacros.h */; };
 		5BC37939271F1D0000444D5E /* PBMFunctions+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3793B271F1D0000444D5E /* PBMVoidBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -877,6 +876,7 @@
 		0012D6BF2E0589CA007013F3 /* ORTBBidExtSkadn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidExtSkadn.swift; sourceTree = "<group>"; };
 		0012D6C02E0589CA007013F3 /* ORTBBidExtSkadnSKOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidExtSkadnSKOverlay.swift; sourceTree = "<group>"; };
 		0012D6C42E058BF9007013F3 /* ORTBNoBidReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBNoBidReason.swift; sourceTree = "<group>"; };
+		0012D7482E08717A007013F3 /* DeviceAccessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAccessManager.swift; sourceTree = "<group>"; };
 		00614C4C2DE5F68600A61974 /* ModalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAnimator.swift; sourceTree = "<group>"; };
 		00614C592DE6FFE800A61974 /* CloseActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseActionManager.swift; sourceTree = "<group>"; };
 		00614C882DE7B5D900A61974 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -1219,7 +1219,6 @@
 		5BC376AA271F1CFE00444D5E /* PBMFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMFunctions.h; sourceTree = "<group>"; };
 		5BC376AB271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMDeepLinkPlusHelper+Testing.h"; sourceTree = "<group>"; };
 		5BC376AD271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMWKScriptMessageHandlerLeakAvoider.h; sourceTree = "<group>"; };
-		5BC376B1271F1CFE00444D5E /* PBMDeviceAccessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDeviceAccessManager.h; sourceTree = "<group>"; };
 		5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMWindowLocker.m; sourceTree = "<group>"; };
 		5BC376B3271F1CFE00444D5E /* PBMDeepLinkPlus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeepLinkPlus.m; sourceTree = "<group>"; };
 		5BC376B4271F1CFE00444D5E /* PBMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMConstants.h; sourceTree = "<group>"; };
@@ -1240,7 +1239,6 @@
 		5BC376CD271F1CFE00444D5E /* PBMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMConstants.m; sourceTree = "<group>"; };
 		5BC376CE271F1CFE00444D5E /* PBMWindowLocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMWindowLocker.h; sourceTree = "<group>"; };
 		5BC376D0271F1CFE00444D5E /* PBMFunctions+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMFunctions+Private.h"; sourceTree = "<group>"; };
-		5BC376D1271F1CFE00444D5E /* PBMDeviceAccessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeviceAccessManager.m; sourceTree = "<group>"; };
 		5BC376DB271F1CFE00444D5E /* PBMMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMMacros.h; sourceTree = "<group>"; };
 		5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMFunctions+Testing.h"; sourceTree = "<group>"; };
 		5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMVoidBlock.h; sourceTree = "<group>"; };
@@ -2169,8 +2167,6 @@
 				5BC376B9271F1CFE00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h */,
 				5BC376AB271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.h */,
 				5BC376C8271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.m */,
-				5BC376B1271F1CFE00444D5E /* PBMDeviceAccessManager.h */,
-				5BC376D1271F1CFE00444D5E /* PBMDeviceAccessManager.m */,
 				5BC376C1271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.h */,
 				5BC376E5271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.m */,
 				5BC376CA271F1CFE00444D5E /* PBMDownloadDataHelper.h */,
@@ -2199,6 +2195,7 @@
 				534C61412CB55D980026119A /* BackgroundAwareTimer.swift */,
 				538704222DE05847006EA150 /* LocationManager.swift */,
 				538704292DE0848D006EA150 /* LocationManagerProtocol.swift */,
+				0012D7482E08717A007013F3 /* DeviceAccessManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -3427,7 +3424,6 @@
 				53D3C38E2C2BEF9B0074D99B /* NSURL+PBMExtensions.h in Headers */,
 				5BC379CC271F1D0000444D5E /* PBMAdLoadManagerVAST.h in Headers */,
 				5BC37985271F1D0000444D5E /* PBMMRAIDController.h in Headers */,
-				5BC3790F271F1CFF00444D5E /* PBMDeviceAccessManager.h in Headers */,
 				5BC379F5271F1D0000444D5E /* PBMTrackingURLVisitors.h in Headers */,
 				5BC378E3271F1CFF00444D5E /* PBMORTBImp.h in Headers */,
 				5BC37A18271F1D0000444D5E /* PBMViewControllerProvider.h in Headers */,
@@ -4197,6 +4193,7 @@
 				5AA8F4152DB26445008A7702 /* BidRequesterProtocol.swift in Sources */,
 				92C85D6427A979F20080BAC5 /* NativeLink.swift in Sources */,
 				00614C922DE87D9300A61974 /* AdLoaderProtocol.swift in Sources */,
+				0012D7492E08717A007013F3 /* DeviceAccessManager.swift in Sources */,
 				53842BBC29E565030069A4B7 /* NSString+Extensions.swift in Sources */,
 				5BC3792B271F1D0000444D5E /* PBMConstants.m in Sources */,
 				FAEE4D13262DC2B200AD9966 /* AdUnit.swift in Sources */,
@@ -4274,7 +4271,6 @@
 				5A663B552DB26890005DF07F /* BidRequester.swift in Sources */,
 				0012D6C12E0589CA007013F3 /* ORTBBidExtSkadn.swift in Sources */,
 				0012D6C22E0589CA007013F3 /* ORTBBidExtSkadnSKOverlay.swift in Sources */,
-				5BC3792F271F1D0000444D5E /* PBMDeviceAccessManager.m in Sources */,
 				5BC37ACE271F1D0100444D5E /* PBMGeoLocationParameterBuilder.m in Sources */,
 				5BC37A8C271F1D0000444D5E /* BaseInterstitialAdUnitProtocol.swift in Sources */,
 				5BC3797A271F1D0000444D5E /* PBMVastRequester.m in Sources */,

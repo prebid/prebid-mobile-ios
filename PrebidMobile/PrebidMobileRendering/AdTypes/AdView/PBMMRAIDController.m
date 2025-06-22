@@ -22,7 +22,6 @@
 #import "UIView+PBMExtensions.h"
 #import "NSURL+PBMExtensions.h"
 
-#import "PBMDeviceAccessManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"

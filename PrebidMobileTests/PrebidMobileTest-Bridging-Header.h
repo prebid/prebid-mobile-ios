@@ -34,7 +34,6 @@
 #import "PBMDeepLinkPlus.h"
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMDeepLinkPlusHelper+Testing.h"
-#import "PBMDeviceAccessManager.h"
 #import "PBMDeviceAccessManagerKeys.h"
 #import "PBMDeviceInfoParameterBuilder.h"
 #import "PBMDownloadDataHelper.h"
