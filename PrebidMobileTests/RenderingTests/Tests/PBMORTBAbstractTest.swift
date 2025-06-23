@@ -232,7 +232,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBImp.impID = uuid
         pbmORTBImp.banner = PBMORTBBanner()
         pbmORTBImp.video = PBMORTBVideo()
-        pbmORTBImp.native = PBMORTBNative()
+        pbmORTBImp.native = ORTBNative()
         pbmORTBImp.pmp = PBMORTBPmp()
         pbmORTBImp.displaymanager = "MOCK_SDK_NAME"
         pbmORTBImp.displaymanagerver = "MOCK_SDK_VERSION"
@@ -257,7 +257,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testNativeToJsonString() {
-        let pbmORTBNative = PBMORTBNative()
+        let pbmORTBNative = ORTBNative()
         
         XCTAssertEqual(pbmORTBNative.ver, "1.2")
         XCTAssertNil(pbmORTBNative.request as NSString?)
@@ -391,14 +391,14 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBApp.privacypolicy = 1
         pbmORTBApp.paid = 1
         pbmORTBApp.keywords = "foo,bar,baz"
-        pbmORTBApp.content = PBMORTBAppContent()
+        pbmORTBApp.content = ORTBAppContent()
         pbmORTBApp.content?.url = "https://corresponding.section.publishers.website"
         
         codeAndDecode(abstract: pbmORTBApp, expectedString: "{\"bundle\":\"com.PubApp\",\"content\":{\"url\":\"https:\\/\\/corresponding.section.publishers.website\"},\"domain\":\"pubapp.com\",\"id\":\"foo\",\"keywords\":\"foo,bar,baz\",\"name\":\"PubApp\",\"paid\":1,\"privacypolicy\":1,\"storeurl\":\"itunes.com?pubapp\",\"ver\":\"1.2\"}")
     }
     
     func testAppContentToJsonString() {
-        let appContent = PBMORTBAppContent()
+        let appContent = ORTBAppContent()
         appContent.episode = 2
         appContent.title = "title"
         appContent.series = "series"
@@ -408,7 +408,7 @@ class PBMORTBAbstractTest : XCTestCase {
         appContent.album = "album"
         appContent.isrc = "isrc"
         
-        let producer = PBMORTBContentProducer()
+        let producer = ORTBContentProducer()
         producer.name = "producerName"
         producer.cat = ["producerCat"]
         producer.domain = "domain"
@@ -427,10 +427,10 @@ class PBMORTBAbstractTest : XCTestCase {
         appContent.language = "language"
         appContent.embeddable = 0
         
-        let data = PBMORTBContentData()
+        let data = ORTBContentData()
         data.name = "dataName"
         
-        let segment = PBMORTBContentSegment()
+        let segment = ORTBContentSegment()
         segment.name = "segmentName"
         segment.value = "segmentValue"
         data.segment = [segment]
@@ -592,6 +592,24 @@ class PBMORTBAbstractTest : XCTestCase {
             
             //Convert it to json
             let newJsonString = try newCodable.toJsonString()
+            
+            //Strings should match
+            PBMAssertEq(newJsonString, expectedString, file:file, line:line)
+        } catch {
+            XCTFail("\(error)", file:file, line:line)
+        }
+    }
+    
+    func codeAndDecode<T : PBMJsonCodable>(abstract:T, expectedString:String, file: StaticString = #file, line: UInt = #line) {
+        
+        guard #available(iOS 11.0, *) else {
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            return
+        }
+        
+        do {
+            //Convert it to json
+            let newJsonString = try abstract.toJsonString()
             
             //Strings should match
             PBMAssertEq(newJsonString, expectedString, file:file, line:line)

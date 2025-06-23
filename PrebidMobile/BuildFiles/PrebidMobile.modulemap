@@ -84,17 +84,6 @@ framework module PrebidMobile {
     // Interstitial
     header "PBMWeakTimerTargetBox.h"
     
-    // Bid
-    header "PBMORTBAbstract.h"
-    header "PBMORTBAbstract+Protected.h"
-    
-    header "PBMORTBAppContent.h"
-    header "PBMORTBContentProducer.h"
-    header "PBMORTBContentData.h"
-    header "PBMORTBContentSegment.h"
-    header "PBMORTBNative.h"
-    
-    
     header "NSDictionary+PBMExtensions.h"
     header "NSMutableDictionary+PBMExtensions.h"
     
