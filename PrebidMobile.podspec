@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
-  s.name         = "PrebidMobile"
-  s.version      = "3.1.0"
+  s.name         = "VeonPrebidMobile"
+  s.version      = "0.0.1"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
@@ -27,10 +27,10 @@ Pod::Spec.new do |s|
     LICENSE
     }
 
-  s.author                 = { "Prebid.org, Inc." => "info@prebid.org" }
+  s.author                 = { "Veon AdTech" => "veon.com" }
   s.platform     	   = :ios, "12.0"
   s.swift_version 	   = '5.0'
-  s.source      	   = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
+  s.source      	   = { :git => "https://github.com/veonadtech/prebid-ios-sdk.git", :tag => "#{s.version}" }
   s.xcconfig 		   = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
 			       :OTHER_CFLAGS => '$(inherited)',
 			       :OTHER_LDFLAGS => '$(inherited)',
