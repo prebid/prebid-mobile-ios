@@ -35,7 +35,7 @@ class DemandResponseInfoTest: XCTestCase {
         ]
         
         for initArgs in testBlocks {
-            let notifier: PBMWinNotifierBlock = { (bid, markupStringHandler) in
+            let notifier = { (bid: Bid, markupStringHandler: AdMarkupStringHandler) in
                 XCTFail()
                 markupStringHandler(nil)
             }

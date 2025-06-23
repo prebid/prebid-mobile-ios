@@ -50,15 +50,10 @@ framework module PrebidMobile {
     header "Log+Extensions.h"
     
     header "UIView+PBMExtensions.h"
-    header "NSNumber+PBMORTBNative.h"
     
     header "PBMFunctions.h"
     header "PBMFunctions+Private.h"
     header "PBMUIApplicationProtocol.h"
-    header "PBMBidRequesterFactoryBlock.h"
-    header "PBMWinNotifierBlock.h"
-    header "PBMAdMarkupStringHandler.h"
-    header "PBMBidRequesterFactory.h"
     
     // OM tracking
     header "PBMOpenMeasurementWrapper.h"
@@ -66,17 +61,7 @@ framework module PrebidMobile {
     header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
     
     // Urls openers
-    header "PBMExternalURLOpeners.h"
-    header "PBMExternalURLOpenerBlock.h"
-    header "PBMURLOpenResultHandlerBlock.h"
-    header "PBMTrackingURLVisitors.h"
-    header "PBMTrackingURLVisitorBlock.h"
-    header "PBMExternalLinkHandler.h"
-    header "PBMURLOpenAttempterBlock.h"
-    header "PBMExternalURLOpenCallbacks.h"
     header "PBMSafariVCOpener.h"
-    header "PBMDeepLinkPlusHelper.h"
-    header "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"
     
     // ModalManager
     header "PBMModalState.h"
@@ -88,5 +73,4 @@ framework module PrebidMobile {
     header "NSMutableDictionary+PBMExtensions.h"
     
     header "OMSDKVersionProvider.h"
-    header "NSObject+PBMExtensions.h"
 }
