@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 
-  s.name         = "PrebidMobileAdMobAdapters"
+  s.name         = "VeonPrebidMobileAdMobAdapters"
   s.version      = "0.0.1"
   s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
 
