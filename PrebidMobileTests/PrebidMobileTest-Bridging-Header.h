@@ -126,10 +126,6 @@
 #import "PBMBidResponseTransformer.h"
 #import "PBMPrebidParameterBuilder.h"
 
-// PBMORTB
-#import "PBMORTBPrebid.h"
-#import "PBMORTBAbstractResponse+Protected.h"
-
 #import "UIView+PBMViewExposure.h"
 
 #import "MediationInterstitialAdUnit+TestExtension.h"

@@ -88,12 +88,6 @@ framework module PrebidMobile {
     // Bid
     header "PBMORTBAbstract.h"
     header "PBMORTBAbstract+Protected.h"
-    header "PBMORTBAbstractResponse.h"
-    header "PBMORTBAbstractResponse+Protected.h"
-    header "PBMORTBSDKConfiguration.h"
-    header "PBMORTBBidExtSkadn.h"
-    header "PBMORTBBidExtSkadnSKOverlay.h"
-    header "PBMORTBSkadnFidelity.h"
     
     header "PBMORTBAppContent.h"
     header "PBMORTBContentProducer.h"

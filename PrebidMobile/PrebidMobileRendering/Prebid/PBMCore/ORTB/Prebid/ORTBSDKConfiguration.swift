@@ -16,17 +16,14 @@
 
 import Foundation
 
-@objc public class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
-    @objc public var type: String?
-    @objc public var adConfiguration: ORTBAdConfiguration?
-    @objc public var sdkConfiguration: ORTBSDKConfiguration?
-    @objc public var rewardedConfiguration: ORTBRewardedConfiguration?
+@objc(PBMORTBSDKConfiguration)
+public class ORTBSDKConfiguration: NSObject, PBMJsonCodable {
+    @objc public var cftBanner: NSNumber?
+    @objc public var cftPreRender: NSNumber?
 
     private enum KeySet: String {
-        case type
-        case adconfiguration
-        case sdkconfiguration
-        case rwdd
+        case cftbanner
+        case cftprerender
     }
 
     @objc public override init() {
@@ -36,10 +33,8 @@ import Foundation
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        type = json[.type]
-        adConfiguration         = json[.adconfiguration]
-        sdkConfiguration        = json[.sdkconfiguration]
-        rewardedConfiguration   = json[.rwdd]
+        cftBanner = json[.cftbanner]
+        cftPreRender = json[.cftprerender]
 
         super.init()
     }
@@ -47,10 +42,8 @@ import Foundation
     @objc public var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
-        json[.type]             = type
-        json[.adconfiguration]  = adConfiguration
-        json[.sdkconfiguration] = sdkConfiguration
-        json[.rwdd]             = rewardedConfiguration
+        json[.cftbanner] = cftBanner
+        json[.cftprerender] = cftPreRender
 
         return json.dict
     }
