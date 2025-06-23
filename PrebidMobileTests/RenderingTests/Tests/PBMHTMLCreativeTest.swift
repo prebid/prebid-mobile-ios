@@ -224,7 +224,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
             return rsp
         }()
         
-        self.mockWebView.mraidState = .default
+        self.mockWebView.mraidState = .defaultState
         self.mockWebView.mock_MRAID_getResizeProperties = { $0(validResizeProperties) }
         self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("resize"))
         self.waitForExpectations(timeout: 3)

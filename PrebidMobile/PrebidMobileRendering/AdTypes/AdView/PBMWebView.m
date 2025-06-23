@@ -106,7 +106,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     _isMRAID = NO;
     _rotationEnabled = YES;
     _state = PBMWebViewStateLoading;
-    self.mraidState = PBMMRAIDStateNotEnabled;
+    self.mraidState = PBMMRAIDState.notEnabled;
     _mraidLastSentFrame = CGRectZero;
     _bundle = [PBMFunctions bundleForSDK];
     _isVolumeObserverSetup = NO;
@@ -505,7 +505,7 @@ static PBMError *extracted(NSString *errorMessage) {
                 return;
             }
 
-            self.mraidState = isForExpandContent ? PBMMRAIDStateExpanded : PBMMRAIDStateDefault;
+            self.mraidState = isForExpandContent ? PBMMRAIDState.expanded : PBMMRAIDState.defaultState;
         }];
     }];
     
@@ -645,7 +645,7 @@ static PBMError *extracted(NSString *errorMessage) {
     //self.MRAID_onViewableChange(PBMFunctions.isVisible(self))
 }
 
-- (void)changeToMRAIDState:(PBMMRAIDState)state {
+- (void)changeToMRAIDState:(PBMMRAIDState *)state {
     self.mraidState = state;
     [self MRAID_onStateChange:state];
 }
@@ -683,7 +683,7 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 // updates the state of the webview in mraid.js
-- (void)MRAID_onStateChange:(PBMMRAIDState)state {
+- (void)MRAID_onStateChange:(PBMMRAIDState *)state {
     [self evaluateJavaScript:[PBMMRAIDJavascriptCommands onStateChange:state]];
 }
 
