@@ -101,7 +101,7 @@ public class GAMBannerEventHandler :
         requestBanner?.delegate = self
         requestBanner?.appEventDelegate = self
         requestBanner?.adSizeDelegate = self
-        requestBanner?.enableManualImpressions = true
+//        requestBanner?.enableManualImpressions = true
         
         lastGADSize = nil
         
