@@ -79,6 +79,7 @@
 #import "UIWindow+PBMExtensions.h"
 #import "WKNavigationAction+PBMWKNavigationActionCompatible.h"
 #import "WKWebView+PBMWKWebViewCompatible.h"
+#import "Log+Extensions.h"
 
 // VAST
 #import "PBMVastAbstractAd.h"

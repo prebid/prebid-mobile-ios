@@ -18,36 +18,16 @@ framework module PrebidMobile {
     // Versions
     header "PrebidMobile.h"
     
-    // Enums
-    
-    // PBMCore
-    
     // PBMCacheRenderers
     header "PBMDisplayView.h"
     
-    // ===
-    //Temp. for converting
-    header "PBMFunctions.h"
-    header "PBMFunctions+Private.h"
-    header "PBMFunctions+Testing.h"
-    header "PBMUIApplicationProtocol.h"
-
-    header "PBMViewControllerProvider.h"
     header "PBMVoidBlock.h"
         
     header "PBMConstants.h"
-    header "PBMScheduledTimerFactory.h"
-    header "NSTimer+PBMScheduledTimerFactory.h"
-    header "NSTimer+PBMTimerInterface.h"
-    header "PBMTimerInterface.h"
     
     header "PBMTransactionFactory.h"
     header "PBMVastTransactionFactory.h"
     header "PBMTransactionFactoryCallback.h"
-    
-    header "PBMAdLoadManagerDelegate.h"
-    
-    header "Log+Extensions.h"
     
     header "UIView+PBMExtensions.h"
     
@@ -59,18 +39,6 @@ framework module PrebidMobile {
     header "PBMOpenMeasurementWrapper.h"
     header "PBMOpenMeasurementSession.h"
     header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
-    
-    // Urls openers
-    header "PBMSafariVCOpener.h"
-    
-    // ModalManager
-    header "PBMModalState.h"
-    
-    // Interstitial
-    header "PBMWeakTimerTargetBox.h"
-    
-    header "NSDictionary+PBMExtensions.h"
-    header "NSMutableDictionary+PBMExtensions.h"
     
     header "OMSDKVersionProvider.h"
 }
