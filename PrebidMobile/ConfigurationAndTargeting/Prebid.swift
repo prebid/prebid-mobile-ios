@@ -212,7 +212,7 @@ public class Prebid: NSObject {
     /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
     /// - Parameters:
     ///   - serverURL: The custom Prebid Server URL, used when a user allowed the app to track
-    ///   - nonTrackingURL: The custom Prebid Server URL, used when a user rejected the app to track
+    ///   - nonTrackingURLString: The custom Prebid Server URL, used when a user rejected the app to track
     ///   - gadMobileAdsObject: GADMobileAds object
     ///   - completion: returns initialization status and optional error
     public static func initializeSDK(
@@ -257,7 +257,7 @@ public class Prebid: NSObject {
     /// Use this SDK initializer if you're using PrebidMobile with GMA SDK.
     /// - Parameters:
     ///   - serverURL: The custom Prebid Server URL, used when a user allowed the app to track
-    ///   - nonTrackingURL: The custom Prebid Server URL, used when a user rejected the app to track
+    ///   - nonTrackingURLString: The custom Prebid Server URL, used when a user rejected the app to track
     ///   - gadMobileAdsVersion: GADMobileAds version string, use `GADGetStringFromVersionNumber(GADMobileAds.sharedInstance().versionNumber)` to get it
     ///   - completion: returns initialization status and optional error
     public static func initializeSDK(
@@ -294,7 +294,7 @@ public class Prebid: NSObject {
     /// Use this SDK initializer if you're using PrebidMobile without GMA SDK.
     /// - Parameters:
     ///   - serverURL: The custom Prebid Server URL, used when a user allowed the app to track
-    ///   - nonTrackingURL: The custom Prebid Server URL, used when a user rejected the app to track
+    ///   - nonTrackingURLString: The custom Prebid Server URL, used when a user rejected the app to track
     ///   - completion: returns initialization status and optional error
     public static func initializeSDK(
         serverURL: String,
