@@ -58,7 +58,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'core' do |core|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
-    
+
     core.private_header_files = [
       'PrebidMobile/Objc/PrivateHeaders/*.h'
     ]
