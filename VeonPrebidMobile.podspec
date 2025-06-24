@@ -59,7 +59,8 @@ Pod::Spec.new do |s|
   s.subspec 'core' do |core|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
-    core.private_header_files = [ 
+    core.module_name = 'PrebidMobile'
+    core.private_header_files = [
       'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMParameterBuilderService.h', 
       'PrebidMobile/PrebidMobileRendering/Prebid+TestExtension.h',
       'PrebidMobile/PrebidMobileRendering/3dPartyWrappers/OpenMeasurement/PBMOpenMeasurementFriendlyObstructionTypeBridge.h',
@@ -71,5 +72,7 @@ Pod::Spec.new do |s|
 
   s.pod_target_xcconfig = {
     'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
+    'DEFINES_MODULE' => 'YES',
+    'SWIFT_OBJC_INTERFACE_HEADER_NAME' => 'PrebidMobile-Swift.h'
   }
 end
