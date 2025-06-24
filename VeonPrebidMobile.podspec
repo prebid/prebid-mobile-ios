@@ -38,8 +38,10 @@ Pod::Spec.new do |s|
 			       :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
 			     }
   s.requires_arc = true
-
-  s.frameworks = [ 'UIKit', 
+    
+  s.module_name = 'PrebidMobile'
+  
+  s.frameworks = [ 'UIKit',
                    'Foundation', 
                    'MapKit', 
                    'SafariServices', 
@@ -59,7 +61,6 @@ Pod::Spec.new do |s|
   s.subspec 'core' do |core|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
-    core.module_name = 'PrebidMobile'
     core.private_header_files = [
       'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMParameterBuilderService.h', 
       'PrebidMobile/PrebidMobileRendering/Prebid+TestExtension.h',
