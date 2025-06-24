@@ -4,8 +4,9 @@
 import PackageDescription
 
 let package = Package(
-    
-    name: "PrebidMobile",
+
+    name: "VeonPrebidMobile",
+
     platforms: [
         .iOS(.v12),
     ],
