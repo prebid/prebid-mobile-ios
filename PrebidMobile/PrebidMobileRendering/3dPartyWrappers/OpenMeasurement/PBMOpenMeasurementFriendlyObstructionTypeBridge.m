@@ -19,9 +19,9 @@
 
 + (OMIDFriendlyObstructionType)obstructionTypeOfObstructionPurpose:(PBMOpenMeasurementFriendlyObstructionPurpose)friendlyObstructionPurpose {
     switch (friendlyObstructionPurpose) {
-        case PBMOpenMeasurementFriendlyObstructionModalViewControllerClose:
+        case PBMOpenMeasurementFriendlyObstructionPurposeModalViewControllerClose:
             return OMIDFriendlyObstructionCloseAd;
-        case PBMOpenMeasurementFriendlyObstructionVideoViewProgressBar:
+        case PBMOpenMeasurementFriendlyObstructionPurposeVideoViewProgressBar:
             return OMIDFriendlyObstructionMediaControls;
         default:
             return OMIDFriendlyObstructionOther;
@@ -35,17 +35,17 @@
     // * `A-z`, `0-9`, or spaces.
     
     switch (friendlyObstructionPurpose) {
-        case PBMOpenMeasurementFriendlyObstructionWindowLockerBackground:
+        case PBMOpenMeasurementFriendlyObstructionPurposeWindowLockerBackground:
             return @"Fullscreen UI locker or loading the ad";
-        case PBMOpenMeasurementFriendlyObstructionWindowLockerActivityIndicator:
+        case PBMOpenMeasurementFriendlyObstructionPurposeWindowLockerActivityIndicator:
             return @"Activity Indicator for loading the ad";
-        case PBMOpenMeasurementFriendlyObstructionModalViewControllerView:
+        case PBMOpenMeasurementFriendlyObstructionPurposeModalViewControllerView:
             return @"Fullscreen modal ad view container";
-        case PBMOpenMeasurementFriendlyObstructionModalViewControllerClose:
+        case PBMOpenMeasurementFriendlyObstructionPurposeModalViewControllerClose:
             return @"Close button";
-        case PBMOpenMeasurementFriendlyObstructionVideoViewLearnMoreButton:
+        case PBMOpenMeasurementFriendlyObstructionPurposeVideoViewLearnMoreButton:
             return @"Learn More  button";
-        case PBMOpenMeasurementFriendlyObstructionVideoViewProgressBar:
+        case PBMOpenMeasurementFriendlyObstructionPurposeVideoViewProgressBar:
             return @"Video playback Progress Bar";
         default:
             return nil;
