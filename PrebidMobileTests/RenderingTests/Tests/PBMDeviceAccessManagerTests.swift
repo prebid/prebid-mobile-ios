@@ -21,7 +21,7 @@ import UIKit
 
 class PBMDeviceAccessManagerTests : XCTestCase {
     
-    fileprivate var deviceAccessManager:PBMDeviceAccessManager!
+    fileprivate var deviceAccessManager:DeviceAccessManager!
     let expectationTimeout:TimeInterval = 2
     
     // strings
@@ -34,7 +34,7 @@ class PBMDeviceAccessManagerTests : XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.deviceAccessManager = PBMDeviceAccessManager(rootViewController: nil)
+        self.deviceAccessManager = DeviceAccessManager(rootViewController: nil)
     }
 
     
@@ -79,14 +79,14 @@ class PBMDeviceAccessManagerTests : XCTestCase {
     func testUserLanguage() {
         let localeIdentifier = "jp"
         let locale = Locale(identifier: localeIdentifier)
-        let deviceAccessManager = PBMDeviceAccessManager(rootViewController: nil, locale: locale)
+        let deviceAccessManager = DeviceAccessManager(rootViewController: nil, locale: locale)
         
         XCTAssertEqual(deviceAccessManager.userLangaugeCode, localeIdentifier)
     }
     
     func testNilUserLanguage() {
         let locale = Locale(identifier: "")
-        let deviceAccessManager = PBMDeviceAccessManager(rootViewController: nil, locale: locale)
+        let deviceAccessManager = DeviceAccessManager(rootViewController: nil, locale: locale)
         
         XCTAssertNil(deviceAccessManager.userLangaugeCode)
     }

@@ -148,7 +148,7 @@ public class NativeRequest: AdUnit {
             return nil
         }
         
-        let native = PBMORTBNative()
+        let native = ORTBNative()
         
         native.request = markup
         
@@ -156,6 +156,6 @@ public class NativeRequest: AdUnit {
             native.ver = ver;
         }
         
-        return native.toJsonDictionary()
+        return native.jsonDictionary
     }
 }

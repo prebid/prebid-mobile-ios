@@ -69,16 +69,6 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
         }
     }
     
-    subscript<T: PBMORTBAbstract>(_ key: Key) -> T? {
-        get {
-            (dict[key.rawValue] as? [String : Any]).flatMap { T.init(jsonDictionary: $0) }
-        }
-        
-        set {
-            dict[key.rawValue] = newValue?.toJsonDictionary()
-        }
-    }
-    
     // MARK: Array
     
     @_disfavoredOverload
@@ -89,18 +79,6 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
         
         set {
             dict[key.rawValue] = newValue
-        }
-    }
-    
-    subscript<T: PBMORTBAbstract>(_ key: Key) -> [T]? {
-        get {
-            (dict[key.rawValue] as? [Any])?.compactMap {
-                ($0 as? [String : Any]).flatMap { T.init(jsonDictionary: $0) }
-            }
-        }
-        
-        set {
-            dict[key.rawValue] = newValue?.compactMap { $0.toJsonDictionary() }
         }
     }
     

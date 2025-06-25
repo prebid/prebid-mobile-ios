@@ -18,93 +18,27 @@ framework module PrebidMobile {
     // Versions
     header "PrebidMobile.h"
     
-    // Enums
-    
-    // PBMCore
-    
     // PBMCacheRenderers
     header "PBMDisplayView.h"
     
-    // ===
-    //Temp. for converting
-    header "PBMFunctions.h"
-    header "PBMFunctions+Private.h"
-    header "PBMFunctions+Testing.h"
-    header "PBMUIApplicationProtocol.h"
-
-    header "PBMViewControllerProvider.h"
     header "PBMVoidBlock.h"
         
     header "PBMConstants.h"
-    header "PBMScheduledTimerFactory.h"
-    header "NSTimer+PBMScheduledTimerFactory.h"
-    header "NSTimer+PBMTimerInterface.h"
-    header "PBMTimerInterface.h"
     
     header "PBMTransactionFactory.h"
     header "PBMVastTransactionFactory.h"
     header "PBMTransactionFactoryCallback.h"
     
-    header "PBMAdLoadManagerDelegate.h"
-    header "PBMDeviceAccessManager.h"
-    
-    header "Log+Extensions.h"
-    
     header "UIView+PBMExtensions.h"
-    header "NSNumber+PBMORTBNative.h"
     
     header "PBMFunctions.h"
     header "PBMFunctions+Private.h"
     header "PBMUIApplicationProtocol.h"
-    header "PBMBidRequesterFactoryBlock.h"
-    header "PBMWinNotifierBlock.h"
-    header "PBMAdMarkupStringHandler.h"
-    header "PBMBidRequesterFactory.h"
     
     // OM tracking
     header "PBMOpenMeasurementWrapper.h"
     header "PBMOpenMeasurementSession.h"
     header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
     
-    // Urls openers
-    header "PBMExternalURLOpeners.h"
-    header "PBMExternalURLOpenerBlock.h"
-    header "PBMURLOpenResultHandlerBlock.h"
-    header "PBMTrackingURLVisitors.h"
-    header "PBMTrackingURLVisitorBlock.h"
-    header "PBMExternalLinkHandler.h"
-    header "PBMURLOpenAttempterBlock.h"
-    header "PBMExternalURLOpenCallbacks.h"
-    header "PBMSafariVCOpener.h"
-    header "PBMDeepLinkPlusHelper.h"
-    header "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"
-    
-    // ModalManager
-    header "PBMModalState.h"
-    
-    // Interstitial
-    header "PBMWeakTimerTargetBox.h"
-    
-    // Bid
-    header "PBMORTBAbstract.h"
-    header "PBMORTBAbstract+Protected.h"
-    header "PBMORTBAbstractResponse.h"
-    header "PBMORTBAbstractResponse+Protected.h"
-    header "PBMORTBSDKConfiguration.h"
-    header "PBMORTBBidExtSkadn.h"
-    header "PBMORTBBidExtSkadnSKOverlay.h"
-    header "PBMORTBSkadnFidelity.h"
-    
-    header "PBMORTBAppContent.h"
-    header "PBMORTBContentProducer.h"
-    header "PBMORTBContentData.h"
-    header "PBMORTBContentSegment.h"
-    header "PBMORTBNative.h"
-    
-    
-    header "NSDictionary+PBMExtensions.h"
-    header "NSMutableDictionary+PBMExtensions.h"
-    
     header "OMSDKVersionProvider.h"
-    header "NSObject+PBMExtensions.h"
 }

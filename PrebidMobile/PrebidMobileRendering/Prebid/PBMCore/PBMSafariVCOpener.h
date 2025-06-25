@@ -15,7 +15,6 @@
 
 #import <SafariServices/SafariServices.h>
 
-#import "PBMURLOpenAttempterBlock.h"
 #import "PBMViewControllerProvider.h"
 #import "PBMVoidBlock.h"
 #import "PBMModalState.h"

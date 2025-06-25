@@ -26,10 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class PBMWebView;
 @class PBMMRAIDCommand;
 @class PBMOpenMeasurementSession;
+@class PBMMRAIDState;
 
 @interface PBMMRAIDController : NSObject
 
-@property (nonatomic, assign, nonnull) PBMMRAIDState mraidState;
+@property (nonatomic, assign, nonnull) PBMMRAIDState *mraidState;
 
 +(BOOL)isMRAIDLink:(NSString *)urlString;
 

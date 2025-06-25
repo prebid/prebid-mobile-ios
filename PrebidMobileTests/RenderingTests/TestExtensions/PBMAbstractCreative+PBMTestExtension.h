@@ -14,6 +14,7 @@
   */
 
 #import "PBMAbstractCreative.h"
+#import "PBMSafariVCOpener.h"
 
 @protocol PBMThreadProtocol;
 

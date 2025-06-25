@@ -63,15 +63,6 @@ const NSTimeInterval PBMAdPrefetchTime = 3;
 
 @end
 
-
-//MARK: MRAID
-PBMMRAIDState const PBMMRAIDStateNotEnabled = @"not_enabled";
-PBMMRAIDState const PBMMRAIDStateDefault = @"default";
-PBMMRAIDState const PBMMRAIDStateExpanded = @"expanded";
-PBMMRAIDState const PBMMRAIDStateHidden = @"hidden";
-PBMMRAIDState const PBMMRAIDStateLoading = @"loading";
-PBMMRAIDState const PBMMRAIDStateResized = @"resized";
-
 //MARK: Tracking Supression Detection Strings
 PBMTrackingPattern const PBMTrackingPatternRI = @"/ma/1.0/ri";
 PBMTrackingPattern const PBMTrackingPatternRC = @"/ma/1.0/rc";

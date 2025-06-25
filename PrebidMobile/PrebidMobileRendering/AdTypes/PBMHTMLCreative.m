@@ -24,7 +24,6 @@
 #import "UIView+PBMExtensions.h"
 
 #import "PBMConstants.h"
-#import "PBMDeviceAccessManager.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMFunctions+Private.h"
 #import "PBMHTMLCreative.h"
@@ -100,7 +99,7 @@
 #pragma mark - PBMAbstractCreative
 
 - (BOOL)isOpened {
-    return self.clickthroughVisible || (self.MRAIDController && self.MRAIDController.mraidState != PBMMRAIDStateDefault);
+    return self.clickthroughVisible || (self.MRAIDController && self.MRAIDController.mraidState != PBMMRAIDState.defaultState);
 }
 
 - (NSNumber *)displayInterval {

@@ -22,7 +22,6 @@
 #import "UIView+PBMExtensions.h"
 #import "NSURL+PBMExtensions.h"
 
-#import "PBMDeviceAccessManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"
@@ -65,7 +64,7 @@
 //A new state (via sending changeState) must be set
 //only *AFTER* the exposureChange event
 //we save the new state and will send it after the exposureChange event
-@property (nonatomic, copy, nonnull) PBMMRAIDState delayedMraidState;
+@property (nonatomic, nonnull) PBMMRAIDState *delayedMraidState;
 
 @end
 
@@ -110,8 +109,8 @@
         self.deviceAccessManagerClass = (deviceAccessManagerClass) ? deviceAccessManagerClass : [PBMDeviceAccessManager class];
         self.sdkConfiguration = sdkConfiguration;
         
-        self.mraidState = PBMMRAIDStateDefault;
-        self.delayedMraidState = PBMMRAIDStateNotEnabled;
+        self.mraidState = PBMMRAIDState.defaultState;
+        self.delayedMraidState = PBMMRAIDState.notEnabled;
         self.playingMRAIDVideo = NO;
     }
     return self;
@@ -172,10 +171,10 @@
     if (self.playingMRAIDVideo) {
         // When closing a MRAID video interstitial, only need to set the MRAID state to hidden.
         self.playingMRAIDVideo = NO;
-        if (self.mraidState == PBMMRAIDStateExpanded) {
-            [self.prebidWebView changeToMRAIDState:PBMMRAIDStateExpanded];
+        if (self.mraidState == PBMMRAIDState.expanded) {
+            [self.prebidWebView changeToMRAIDState:PBMMRAIDState.expanded];
         } else {
-            [self.prebidWebView changeToMRAIDState:PBMMRAIDStateHidden];
+            [self.prebidWebView changeToMRAIDState:PBMMRAIDState.hidden];
         }
         return;
     }
@@ -191,18 +190,18 @@
         
         if (!self) { return; }
 
-        PBMMRAIDState prevState = self.prebidWebView.mraidState;
+        PBMMRAIDState *prevState = self.prebidWebView.mraidState;
         [self.prebidWebView updateMRAIDLayoutInfoWithForceNotification:NO];
-        if ([prevState isEqualToString:PBMMRAIDStateExpanded] || [prevState isEqualToString:PBMMRAIDStateResized]) {
-            self.delayedMraidState = PBMMRAIDStateDefault;
+        if ([prevState isEqual:PBMMRAIDState.expanded] || [prevState isEqual:PBMMRAIDState.resized]) {
+            self.delayedMraidState = PBMMRAIDState.defaultState;
         } else {
-            [self.prebidWebView changeToMRAIDState:(isInterstitial ? PBMMRAIDStateHidden : PBMMRAIDStateDefault)];
+            [self.prebidWebView changeToMRAIDState:(isInterstitial ? PBMMRAIDState.hidden : PBMMRAIDState.defaultState)];
         }
 
         
         // Notify Mraid Collapsed *after* the state has changed and Only if we were Expanded.
-        if ([prevState isEqualToString:PBMMRAIDStateExpanded]) {
-            self.mraidState = PBMMRAIDStateDefault;
+        if ([prevState isEqual:PBMMRAIDState.expanded]) {
+            self.mraidState = PBMMRAIDState.defaultState;
             [self.creativeViewDelegate creativeMraidDidCollapse:self.creative];
         }
     });
@@ -215,13 +214,13 @@
 //MARK: - PBMExposureChangeDelegate protocol
 
 - (BOOL)shouldCheckExposure {
-    return ![self.delayedMraidState isEqualToString:PBMMRAIDStateNotEnabled];
+    return ![self.delayedMraidState isEqual:PBMMRAIDState.notEnabled];
 }
 
 - (void)webView:(PBMWebView *)webView exposureChange:(id<PBMViewExposure>)viewExposure {
-    if (![self.delayedMraidState isEqualToString:PBMMRAIDStateNotEnabled]) {
+    if (![self.delayedMraidState isEqual:PBMMRAIDState.notEnabled]) {
         [self.prebidWebView changeToMRAIDState:self.delayedMraidState];
-        self.delayedMraidState = PBMMRAIDStateNotEnabled;
+        self.delayedMraidState = PBMMRAIDState.notEnabled;
     }
 }
 
@@ -292,9 +291,9 @@
     }
     
     PBMWebView *webView = (PBMWebView *)self.prebidWebView;
-    PBMMRAIDState mraidState = self.prebidWebView.mraidState;
+    PBMMRAIDState *mraidState = self.prebidWebView.mraidState;
     
-    NSArray *allowableStatesForResize = @[PBMMRAIDStateDefault, PBMMRAIDStateResized];
+    NSArray *allowableStatesForResize = @[PBMMRAIDState.defaultState, PBMMRAIDState.resized];
     if (![allowableStatesForResize containsObject:mraidState]) {
         @throw [NSException pbmException:[NSString stringWithFormat:@"MRAID cannot expand from state: %@", mraidState]];
     }
@@ -349,7 +348,7 @@
                 if (!self) { return; }
                 
                 // ALSO set the first part (banner) to Expanded per MRAID spec
-                self.delayedMraidState = PBMMRAIDStateExpanded;
+                self.delayedMraidState = PBMMRAIDState.expanded;
 
                 [newWebView prepareForMRAIDWithRootViewController:self.viewControllerForPresentingModals];
                 [self.creative.modalManager.modalViewController addFriendlyObstructionsToMeasurementSession:self.creative.transaction.measurementSession];
@@ -377,7 +376,7 @@
                 @strongify(self);
                 if (!self) { return; }
                 
-                self.delayedMraidState = PBMMRAIDStateExpanded;
+                self.delayedMraidState = PBMMRAIDState.expanded;
                 [self.creative.modalManager.modalViewController addFriendlyObstructionsToMeasurementSession:self.creative.transaction.measurementSession];
             }];
         }
@@ -386,7 +385,7 @@
         
         // Notify delegates that the MRAID ad has Expanded
         [self.creativeViewDelegate creativeMraidDidExpand:self.creative];
-        self.mraidState = PBMMRAIDStateExpanded;
+        self.mraidState = PBMMRAIDState.expanded;
         [self.creative.eventManager trackEvent:PBMTrackingEventClick];
     }];
 }
@@ -404,9 +403,9 @@
     
     PBMWebView *webView = self.prebidWebView;
     
-    PBMMRAIDState mraidState = self.prebidWebView.mraidState;
+    PBMMRAIDState *mraidState = self.prebidWebView.mraidState;
     
-    NSArray *allowableStatesForResize = @[PBMMRAIDStateDefault, PBMMRAIDStateResized];
+    NSArray *allowableStatesForResize = @[PBMMRAIDState.defaultState, PBMMRAIDState.resized];
     if (![allowableStatesForResize containsObject:mraidState]) {
         NSString * const message = [NSString stringWithFormat:@"MRAID cannot resize from state: %@", mraidState];
         [webView MRAID_error:message action:PBMMRAIDActionResize];
@@ -441,7 +440,7 @@
         
         //If we're resizing from an already resized state, the content should replace the existing content rather than
         //push on top of the existing InterstitialState stack.
-        BOOL shouldReplace = [mraidState isEqualToString:PBMMRAIDStateResized];
+        BOOL shouldReplace = [mraidState isEqual:PBMMRAIDState.resized];
         
         @weakify(self);
         id<PBMModalState> pbmModalState = [PBMFactory createModalStateWithView:webView
@@ -458,7 +457,7 @@
             
             [self modalManagerDidLeaveApp:leavingState];
         } nextOnStatePopFinished:nil nextOnStateHasLeftApp:nil onModalPushedBlock:nil];
-        pbmModalState.mraidState = PBMMRAIDStateResized;
+        pbmModalState.mraidState = PBMMRAIDState.resized;
         
         self.dismissResizedModalState = [self.creative.modalManager pushModal:pbmModalState
               fromRootViewController:self.viewControllerForPresentingModals
@@ -468,8 +467,8 @@
             @strongify(self);
             if (!self) { return; }
             
-            self.mraidState = PBMMRAIDStateResized;
-            self.delayedMraidState = PBMMRAIDStateResized;
+            self.mraidState = PBMMRAIDState.resized;
+            self.delayedMraidState = PBMMRAIDState.resized;
             
             [self.creative.modalManager.modalViewController addFriendlyObstructionsToMeasurementSession:self.creative.transaction.measurementSession];
         }];
@@ -482,10 +481,10 @@
     PBMVoidBlock dismissModalStateBlock = nil;
     if (self.creative.transaction.adConfiguration.presentAsInterstitial) {
         dismissModalStateBlock = self.creative.dismissInterstitialModalState;
-    } else if (self.mraidState == PBMMRAIDStateExpanded) {
+    } else if (self.mraidState == PBMMRAIDState.expanded) {
         dismissModalStateBlock = self.dismissExpandedModalState;
         self.dismissExpandedModalState = nil;
-    } else if (self.mraidState == PBMMRAIDStateResized) {
+    } else if (self.mraidState == PBMMRAIDState.resized) {
         dismissModalStateBlock = self.dismissResizedModalState;
         self.dismissResizedModalState = nil;
     }
@@ -503,7 +502,7 @@
                 [self handleMRAIDCommandClose];
                 break;
             }
-            if (self.mraidState == PBMMRAIDStateExpanded || self.mraidState == PBMMRAIDStateResized) {
+            if (self.mraidState == PBMMRAIDState.expanded || self.mraidState == PBMMRAIDState.resized) {
                 [self handleMRAIDCommandClose];
             }
             id<PBMCreativeViewDelegate> const delegate = creative.creativeViewDelegate;
