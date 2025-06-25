@@ -173,7 +173,7 @@
     }
     
     if (!self.adWasShown) {
-        self.viewabilityTracker = [PBMFactory CreativeViewabilityTrackerWithCreative:self];
+        self.viewabilityTracker = [PBMFactory createCreativeViewabilityTrackerWithCreative:self];
     }
     
     PBMORTBBidExtSkadn * skadnInfo = self.transaction.bid.skadn;

@@ -18,8 +18,6 @@
 #import "PBMDisplayView.h"
 #import "PBMDisplayView+InternalState.h"
 
-#import "PBMTransactionFactory.h"
-
 #import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
 #import "PrebidMobile-Swift.h"
@@ -34,7 +32,7 @@
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 
-@property (nonatomic, strong, nullable) PBMTransactionFactory *transactionFactory;
+@property (nonatomic, strong, nullable) id<PBMTransactionFactory> transactionFactory;
 @property (nonatomic, strong, nullable) id<PBMAdViewManager> adViewManager;
 
 @end
@@ -75,11 +73,11 @@
     self.adConfiguration.adConfiguration.rewardedConfig = [[PBMRewardedConfig alloc] initWithOrtbRewarded:self.bid.rewardedConfig];
     
     @weakify(self);
-    self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
-                                                         adConfiguration:self.adConfiguration
-                                                              connection:self.connection ?: PrebidServerConnection.shared
-                                                                callback:^(id<PBMTransaction> _Nullable transaction,
-                                                                           NSError * _Nullable error) {
+    self.transactionFactory = [PBMFactory createTransactionFactoryWithBid:self.bid
+                                                          adConfiguration:self.adConfiguration
+                                                               connection:self.connection ?: PrebidServerConnection.shared
+                                                                 callback:^(id<PBMTransaction> _Nullable transaction,
+                                                                            NSError * _Nullable error) {
         @strongify(self);
         if (!self) { return; }
         

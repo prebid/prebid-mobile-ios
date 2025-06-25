@@ -44,7 +44,7 @@ class InterstitialImpressionTracker: PrebidImpressionTrackerProtocol {
     }
     
     private func attachViewabilityTracker(to view: UIView) {
-        viewabilityTracker = Factory.PBMCreativeViewabilityTracker(
+        viewabilityTracker = Factory.createCreativeViewabilityTracker(
             view: view,
             pollingTimeInterval: pollingInterval,
             onExposureChange: { [weak self, weak view] _, viewExposure in

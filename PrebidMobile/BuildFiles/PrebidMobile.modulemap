@@ -24,11 +24,7 @@ framework module PrebidMobile {
     header "PBMVoidBlock.h"
         
     header "PBMConstants.h"
-    
-    header "PBMTransactionFactory.h"
-    header "PBMVastTransactionFactory.h"
-    header "PBMTransactionFactoryCallback.h"
-    
+        
     header "UIView+PBMExtensions.h"
     
     header "PBMFunctions.h"

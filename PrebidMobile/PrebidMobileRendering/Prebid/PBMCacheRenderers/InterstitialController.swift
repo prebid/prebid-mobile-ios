@@ -48,7 +48,7 @@ public class InterstitialController:
     var adConfiguration: AdUnitConfig
     var displayProperties: InterstitialDisplayProperties
     
-    var transactionFactory: PBMTransactionFactory?
+    var transactionFactory: TransactionFactory?
     var adViewManager: AdViewManager?
     
     // MARK: - Life cycle
@@ -81,7 +81,7 @@ public class InterstitialController:
         adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
         #endif
         
-        transactionFactory = PBMTransactionFactory(
+        transactionFactory = Factory.createTransactionFactory(
             bid: bid,
             adConfiguration: adConfiguration,
             connection: PrebidServerConnection.shared,
@@ -99,7 +99,7 @@ public class InterstitialController:
             winningBid: bid,
             callback: { [weak self] adMarkup in
                 if let adMarkup = adMarkup {
-                    self?.transactionFactory?.load(withAdMarkup: adMarkup)
+                    self?.transactionFactory?.load(adMarkup: adMarkup)
                 } else {
                     Log.error("No ad markup received from server.")
                 }

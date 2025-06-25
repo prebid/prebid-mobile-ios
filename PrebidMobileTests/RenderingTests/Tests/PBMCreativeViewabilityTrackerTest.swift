@@ -42,7 +42,7 @@ class PBMCreativeViewabilityTrackerTest: XCTestCase {
         
         self.expectationOnExposureChange = self.expectation(description: "Expected onExposureChange to be called")
         
-        let viewabilityTracker = Factory.PBMCreativeViewabilityTracker(view: view, pollingTimeInterval: 10, onExposureChange:{ _, _ in
+        let viewabilityTracker = Factory.createCreativeViewabilityTracker(view: view, pollingTimeInterval: 10, onExposureChange:{ _, _ in
             self.expectationOnExposureChange.fulfill()
         });
         
