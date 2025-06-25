@@ -19,9 +19,14 @@
 #import "PBMORTBBanner.h"
 #import "PBMORTBImpExtPrebid.h"
 #import "PBMORTBImpExtSkadn.h"
-#import "PBMORTBNative.h"
 #import "PBMORTBPmp.h"
 #import "PBMORTBVideo.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 @implementation PBMORTBImp
 

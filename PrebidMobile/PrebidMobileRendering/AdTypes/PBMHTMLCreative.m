@@ -24,7 +24,6 @@
 #import "UIView+PBMExtensions.h"
 
 #import "PBMConstants.h"
-#import "PBMDeviceAccessManager.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMFunctions+Private.h"
 #import "PBMHTMLCreative.h"

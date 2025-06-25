@@ -18,7 +18,12 @@
 
 #import "PBMORTBPublisher.h"
 #import "PBMORTBAppExt.h"
-#import "PBMORTBAppContent.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 @implementation PBMORTBApp
 

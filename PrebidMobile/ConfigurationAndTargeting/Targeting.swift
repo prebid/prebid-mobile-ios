@@ -196,7 +196,7 @@ public class Targeting: NSObject {
     
     /// Sets the global-level OpenRTB configuration string.
     ///
-    /// - Parameter ortbObject: The global-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    /// - Parameter ortbConfig: The global-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
     public func setGlobalORTBConfig(_ ortbConfig: String?) {
         globalORTBConfig = ortbConfig
     }

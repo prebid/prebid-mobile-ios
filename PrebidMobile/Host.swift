@@ -37,14 +37,14 @@ public class Host: NSObject {
     private var trackingURL: URL?
     private var nonTrackingURL: URL?
     
-    private var deviceManager = PBMDeviceAccessManager(rootViewController: nil)
+    private var deviceManager = DeviceAccessManager(rootViewController: nil)
 
     /// The class is created as a singleton object & used
     public static let shared = Host()
 
     override init() {}
     
-    convenience init(deviceManager: PBMDeviceAccessManager) {
+    convenience init(deviceManager: DeviceAccessManager) {
         self.init()
         self.deviceManager = deviceManager
     }

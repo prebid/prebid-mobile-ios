@@ -21,7 +21,7 @@ import CoreGraphics
 fileprivate let advertisingTrackingEnabledDefault = true
 fileprivate let defaultUserLanguageCode = "ml"
 
-class MockDeviceAccessManager: PBMDeviceAccessManager {
+class MockDeviceAccessManager: DeviceAccessManager {
     
     static let nullUUID = "00000000-0000-0000-0000-000000000000"
     static let mockIdentifierForVendor = "B78D99E3-5BD1-49AF-A669-0D77B464C5B9"
@@ -43,7 +43,7 @@ class MockDeviceAccessManager: PBMDeviceAccessManager {
         get { return "MockOS" }
     }
     
-    override var osVersion: String {
+    override var OSVersion: String {
         get { return "1.2.3" }
     }
     

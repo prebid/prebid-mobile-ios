@@ -112,7 +112,7 @@ public class MediationNativeAdUnit : NSObject {
         
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
     ///
-    /// - Parameter ortbObject: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    /// - Parameter ortbConfig: The  impression-level OpenRTB configuration string to set. Can be `nil` to clear the configuration.
     public func setImpORTBConfig(_ ortbConfig: String?) {
         nativeAdUnit.adUnitConfig.impORTBConfig = ortbConfig
     }
