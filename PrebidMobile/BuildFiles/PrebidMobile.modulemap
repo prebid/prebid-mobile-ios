@@ -18,9 +18,6 @@ framework module PrebidMobile {
     // Versions
     header "PrebidMobile.h"
     
-    // PBMCacheRenderers
-    header "PBMDisplayView.h"
-    
     header "PBMVoidBlock.h"
         
     header "PBMConstants.h"

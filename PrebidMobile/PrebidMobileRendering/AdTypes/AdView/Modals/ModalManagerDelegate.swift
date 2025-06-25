@@ -16,8 +16,8 @@
 
 import Foundation
 
-@objc(PBMModalManagerDelegate) @_spi(PBMInternal) public
-protocol ModalManagerDelegate {
+@objc(PBMModalManagerDelegate)
+public protocol ModalManagerDelegate {
     
     func modalManagerWillPresentModal()
     func modalManagerDidDismissModal()

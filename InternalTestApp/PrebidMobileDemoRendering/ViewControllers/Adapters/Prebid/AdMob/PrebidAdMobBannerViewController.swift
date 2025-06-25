@@ -45,7 +45,7 @@ class PrebidAdMobBannerViewController:
     
     private var adBannerView : GoogleMobileAds.BannerView?
     
-    private var prebidBanner: PBMDisplayView?
+    private var prebidBanner: DisplayView?
     
     private weak var rootController: AdapterViewController?
     

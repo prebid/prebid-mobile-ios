@@ -21,6 +21,7 @@
 		0012D7492E08717A007013F3 /* DeviceAccessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7482E08717A007013F3 /* DeviceAccessManager.swift */; };
 		0012D74B2E087428007013F3 /* ORTBAppContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D74A2E087428007013F3 /* ORTBAppContent.swift */; };
 		0012D7832E0BE60C007013F3 /* TransactionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7822E0BE602007013F3 /* TransactionFactory.swift */; };
+		0012D78A2E0BFAC3007013F3 /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7892E0BFABF007013F3 /* DisplayView.swift */; };
 		00614C4D2DE5F68A00A61974 /* ModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C4C2DE5F68600A61974 /* ModalAnimator.swift */; };
 		00614C5A2DE6FFE800A61974 /* CloseActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C592DE6FFE800A61974 /* CloseActionManager.swift */; };
 		00614C892DE7B5D900A61974 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C882DE7B5D900A61974 /* WebView.swift */; };
@@ -464,10 +465,7 @@
 		5BC379D3271F1D0000444D5E /* PBMMRAIDJavascriptCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37781271F1CFE00444D5E /* PBMMRAIDJavascriptCommands.m */; };
 		5BC379D4271F1D0000444D5E /* PBMWKNavigationActionCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37782271F1CFE00444D5E /* PBMWKNavigationActionCompatible.h */; };
 		5BC379D6271F1D0000444D5E /* PBMWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37784271F1CFE00444D5E /* PBMWebView.m */; };
-		5BC379D7271F1D0000444D5E /* PBMDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37787271F1CFE00444D5E /* PBMDisplayView.m */; };
-		5BC379D8271F1D0000444D5E /* PBMDisplayView+InternalState.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37788271F1CFE00444D5E /* PBMDisplayView+InternalState.h */; };
 		5BC379DB271F1D0000444D5E /* InterstitialControllerLoadingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3778B271F1CFE00444D5E /* InterstitialControllerLoadingDelegate.swift */; };
-		5BC379DC271F1D0000444D5E /* PBMDisplayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3778C271F1CFE00444D5E /* PBMDisplayView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC379DE271F1D0000444D5E /* InterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3778E271F1CFE00444D5E /* InterstitialController.swift */; };
 		5BC379DF271F1D0000444D5E /* DisplayViewLoadingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3778F271F1CFE00444D5E /* DisplayViewLoadingDelegate.swift */; };
 		5BC379E0271F1D0000444D5E /* DisplayViewInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37790271F1CFE00444D5E /* DisplayViewInteractionDelegate.swift */; };
@@ -874,6 +872,7 @@
 		0012D7482E08717A007013F3 /* DeviceAccessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAccessManager.swift; sourceTree = "<group>"; };
 		0012D74A2E087428007013F3 /* ORTBAppContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBAppContent.swift; sourceTree = "<group>"; };
 		0012D7822E0BE602007013F3 /* TransactionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFactory.swift; sourceTree = "<group>"; };
+		0012D7892E0BFABF007013F3 /* DisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
 		00614C4C2DE5F68600A61974 /* ModalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAnimator.swift; sourceTree = "<group>"; };
 		00614C592DE6FFE800A61974 /* CloseActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseActionManager.swift; sourceTree = "<group>"; };
 		00614C882DE7B5D900A61974 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -1321,10 +1320,7 @@
 		5BC37781271F1CFE00444D5E /* PBMMRAIDJavascriptCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMMRAIDJavascriptCommands.m; sourceTree = "<group>"; };
 		5BC37782271F1CFE00444D5E /* PBMWKNavigationActionCompatible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMWKNavigationActionCompatible.h; sourceTree = "<group>"; };
 		5BC37784271F1CFE00444D5E /* PBMWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMWebView.m; sourceTree = "<group>"; };
-		5BC37787271F1CFE00444D5E /* PBMDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDisplayView.m; sourceTree = "<group>"; };
-		5BC37788271F1CFE00444D5E /* PBMDisplayView+InternalState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMDisplayView+InternalState.h"; sourceTree = "<group>"; };
 		5BC3778B271F1CFE00444D5E /* InterstitialControllerLoadingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialControllerLoadingDelegate.swift; sourceTree = "<group>"; };
-		5BC3778C271F1CFE00444D5E /* PBMDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDisplayView.h; sourceTree = "<group>"; };
 		5BC3778E271F1CFE00444D5E /* InterstitialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialController.swift; sourceTree = "<group>"; };
 		5BC3778F271F1CFE00444D5E /* DisplayViewLoadingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewLoadingDelegate.swift; sourceTree = "<group>"; };
 		5BC37790271F1CFE00444D5E /* DisplayViewInteractionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewInteractionDelegate.swift; sourceTree = "<group>"; };
@@ -2396,11 +2392,9 @@
 		5BC37786271F1CFE00444D5E /* PBMCacheRenderers */ = {
 			isa = PBXGroup;
 			children = (
+				0012D7892E0BFABF007013F3 /* DisplayView.swift */,
 				A908694529E05F7900B37479 /* PrebidRenderer.swift */,
 				5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */,
-				5BC3778C271F1CFE00444D5E /* PBMDisplayView.h */,
-				5BC37787271F1CFE00444D5E /* PBMDisplayView.m */,
-				5BC37788271F1CFE00444D5E /* PBMDisplayView+InternalState.h */,
 				5BC3778F271F1CFE00444D5E /* DisplayViewLoadingDelegate.swift */,
 				5BC37790271F1CFE00444D5E /* DisplayViewInteractionDelegate.swift */,
 				53BFCD102CF9155E00A3287A /* PrebidMobileInterstitialControllerProtocol.swift */,
@@ -3422,7 +3416,6 @@
 				5BC37939271F1D0000444D5E /* PBMFunctions+Testing.h in Headers */,
 				5BC378EC271F1CFF00444D5E /* PBMORTBSourceExtOMID.h in Headers */,
 				5BC3795F271F1D0000444D5E /* PBMVastCreativeNonLinearAds.h in Headers */,
-				5BC379D8271F1D0000444D5E /* PBMDisplayView+InternalState.h in Headers */,
 				53BDBF8A293F605B004B6DE8 /* InternalUserConsentDataManager.h in Headers */,
 				5A663B5E2DB31917005DF07F /* PBMWinNotifierFactoryBlock.h in Headers */,
 				5BC378F0271F1CFF00444D5E /* PBMORTBAbstract+Protected.h in Headers */,
@@ -3470,7 +3463,6 @@
 				5BC379CD271F1D0000444D5E /* PBMAdLoadManagerProtocol.h in Headers */,
 				5BC378F7271F1CFF00444D5E /* PBMORTBDeviceExtPrebidInterstitial.h in Headers */,
 				533E0FB7290FFEB9000CC24F /* PBMORTBAppExt.h in Headers */,
-				5BC379DC271F1D0000444D5E /* PBMDisplayView.h in Headers */,
 				5BC37904271F1CFF00444D5E /* PBMORTBRegs.h in Headers */,
 				5BC379B1271F1D0000444D5E /* PBMExposureChangeDelegate.h in Headers */,
 				5BC37962271F1D0000444D5E /* PBMVastAbstractAd.h in Headers */,
@@ -4103,6 +4095,7 @@
 				5BC37978271F1D0000444D5E /* PBMVastCreativeNonLinearAdsNonLinear.m in Sources */,
 				5347473B2BFB4D3D00966658 /* UserAgentService.swift in Sources */,
 				5ADC1EAE2DB9A6B500EA6477 /* BannerAdLoader.swift in Sources */,
+				0012D78A2E0BFAC3007013F3 /* DisplayView.swift in Sources */,
 				FAEE4D22262DC2B200AD9966 /* UIViewExtension.swift in Sources */,
 				5A6167EF2DB9E2710018E6B6 /* ORTBBid.swift in Sources */,
 				5BC37AD1271F1D0100444D5E /* PBMAppInfoParameterBuilder.m in Sources */,
@@ -4198,7 +4191,6 @@
 				5AE4E5EB2DB87172002C84DF /* ModalManagerDelegate.swift in Sources */,
 				53760E062D64B9B7008B9DFD /* PrebidStoreKitAdsHelper.swift in Sources */,
 				5BC379A7271F1D0000444D5E /* PBMDeferredModalState.m in Sources */,
-				5BC379D7271F1D0000444D5E /* PBMDisplayView.m in Sources */,
 				0009B80E2E02E7D5006E406D /* ORTBBidExtPrebid.swift in Sources */,
 				00CD459A2DE9C7E4009D1EEA /* AdLoadFlowState.swift in Sources */,
 				5BC37AA3271F1D0000444D5E /* AdLoadFlowControllerDelegate.swift in Sources */,

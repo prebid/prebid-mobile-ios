@@ -109,7 +109,7 @@ public class BannerView:
     }
     
     var isCreativeOpened : Bool {
-        if let displayView = deployedView as? PBMDisplayView {
+        if let displayView = deployedView as? DisplayView {
             return displayView.isCreativeOpened
         }
         

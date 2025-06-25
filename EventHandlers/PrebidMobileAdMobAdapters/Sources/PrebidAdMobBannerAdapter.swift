@@ -28,7 +28,7 @@ public class PrebidAdMobBannerAdapter:
         displayView ?? UIView()
     }
     
-    var displayView: PBMDisplayView?
+    var displayView: DisplayView?
     
     weak var delegate: GoogleMobileAds.MediationBannerAdEventDelegate?
     var adConfiguration: GoogleMobileAds.MediationBannerAdConfiguration?
@@ -81,7 +81,7 @@ public class PrebidAdMobBannerAdapter:
         
         let frame = CGRect(origin: .zero, size: bid.size)
         
-        displayView = PBMDisplayView(frame: frame, bid: bid, configId: configId)
+        displayView = DisplayView(frame: frame, bid: bid, configId: configId)
         displayView?.interactionDelegate = self
         displayView?.loadingDelegate = self
         
