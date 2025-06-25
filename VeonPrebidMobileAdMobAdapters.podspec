@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
 
-  s.name         = "PrebidMobileAdMobAdapters"
-  s.version      = "3.0.2"
+  s.name         = "VeonPrebidMobileAdMobAdapters"
+  s.version      = "0.0.2"
   s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
 
   s.description  = "AdMob Adatpers manages rendering of Prebid ads in the case of integration with AdMob as a Primary Ad Server."
-  s.homepage     = "https://www.prebid.org"
+  s.homepage     = "https://www.veon.com"
 
 
   s.license      = { :type => "Apache License, Version 2.0", :text => <<-LICENSE
@@ -25,10 +25,10 @@ Pod::Spec.new do |s|
     LICENSE
     }
 
-  s.author        = { "Prebid.org, Inc." => "info@prebid.org" }
+  s.author        = { "Veon AdTech" => "veon.com" }
   s.platform      = :ios, "12.0"
   s.swift_version = '5.0'
-  s.source        = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
+  s.source        = { :git => "https://github.com/veonadtech/prebid-ios-sdk.git", :tag => "#{s.version}" }
   s.xcconfig      = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
 		      :OTHER_CFLAGS => '$(inherited)',
 		      :OTHER_LDFLAGS => '$(inherited)',
@@ -40,10 +40,12 @@ Pod::Spec.new do |s|
 
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '3.0.2'
+  s.dependency 'VeonPrebidMobile', '0.0.2'
   s.dependency 'Google-Mobile-Ads-SDK', '>= 12.0.0'
   
   s.pod_target_xcconfig = {
-    'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
+    'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES',
+    'DEFINES_MODULE' => 'YES',
+    'SWIFT_OBJC_INTERFACE_HEADER_NAME' => 'PrebidMobile-Swift.h'
   }
 end
