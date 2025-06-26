@@ -27,11 +27,6 @@ framework module PrebidMobile {
     header "PBMFunctions.h"
     header "PBMFunctions+Private.h"
     header "PBMUIApplicationProtocol.h"
-    
-    // OM tracking
-    header "PBMOpenMeasurementWrapper.h"
-    header "PBMOpenMeasurementSession.h"
-    header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
-    
+        
     header "OMSDKVersionProvider.h"
 }

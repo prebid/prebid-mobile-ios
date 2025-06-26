@@ -22,6 +22,9 @@
 		0012D74B2E087428007013F3 /* ORTBAppContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D74A2E087428007013F3 /* ORTBAppContent.swift */; };
 		0012D7832E0BE60C007013F3 /* TransactionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7822E0BE602007013F3 /* TransactionFactory.swift */; };
 		0012D78A2E0BFAC3007013F3 /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7892E0BFABF007013F3 /* DisplayView.swift */; };
+		0012D7912E0C311D007013F3 /* OMSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7902E0C3109007013F3 /* OMSession.swift */; };
+		0012D7A32E0C3210007013F3 /* OpenMeasurementFriendlyObstructionPurpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7A22E0C320D007013F3 /* OpenMeasurementFriendlyObstructionPurpose.swift */; };
+		0012D7AB2E0C540C007013F3 /* OMSessionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7AA2E0C540C007013F3 /* OMSessionWrapper.swift */; };
 		00614C4D2DE5F68A00A61974 /* ModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C4C2DE5F68600A61974 /* ModalAnimator.swift */; };
 		00614C5A2DE6FFE800A61974 /* CloseActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C592DE6FFE800A61974 /* CloseActionManager.swift */; };
 		00614C892DE7B5D900A61974 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C882DE7B5D900A61974 /* WebView.swift */; };
@@ -533,7 +536,6 @@
 		5BC37AAD271F1D0000444D5E /* RewardedEventHandlerStandalone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3786E271F1CFF00444D5E /* RewardedEventHandlerStandalone.swift */; };
 		5BC37AAE271F1D0000444D5E /* BannerEventHandlerStandalone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3786F271F1CFF00444D5E /* BannerEventHandlerStandalone.swift */; };
 		5BC37AB1271F1D0000444D5E /* DemandResponseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37872271F1CFF00444D5E /* DemandResponseInfo.swift */; };
-		5BC37AB4271F1D0000444D5E /* PBMOpenMeasurementFriendlyObstructionPurpose.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37877271F1CFF00444D5E /* PBMOpenMeasurementFriendlyObstructionPurpose.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37AB5271F1D0000444D5E /* PBMOpenMeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37878271F1CFF00444D5E /* PBMOpenMeasurementSession.m */; };
 		5BC37AB6271F1D0000444D5E /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37879271F1CFF00444D5E /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m */; };
 		5BC37AB7271F1D0000444D5E /* PBMOpenMeasurementWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3787A271F1CFF00444D5E /* PBMOpenMeasurementWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -873,6 +875,9 @@
 		0012D74A2E087428007013F3 /* ORTBAppContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBAppContent.swift; sourceTree = "<group>"; };
 		0012D7822E0BE602007013F3 /* TransactionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFactory.swift; sourceTree = "<group>"; };
 		0012D7892E0BFABF007013F3 /* DisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
+		0012D7902E0C3109007013F3 /* OMSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMSession.swift; sourceTree = "<group>"; };
+		0012D7A22E0C320D007013F3 /* OpenMeasurementFriendlyObstructionPurpose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMeasurementFriendlyObstructionPurpose.swift; sourceTree = "<group>"; };
+		0012D7AA2E0C540C007013F3 /* OMSessionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMSessionWrapper.swift; sourceTree = "<group>"; };
 		00614C4C2DE5F68600A61974 /* ModalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAnimator.swift; sourceTree = "<group>"; };
 		00614C592DE6FFE800A61974 /* CloseActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseActionManager.swift; sourceTree = "<group>"; };
 		00614C882DE7B5D900A61974 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -1390,7 +1395,6 @@
 		5BC3786E271F1CFF00444D5E /* RewardedEventHandlerStandalone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RewardedEventHandlerStandalone.swift; sourceTree = "<group>"; };
 		5BC3786F271F1CFF00444D5E /* BannerEventHandlerStandalone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerEventHandlerStandalone.swift; sourceTree = "<group>"; };
 		5BC37872271F1CFF00444D5E /* DemandResponseInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemandResponseInfo.swift; sourceTree = "<group>"; };
-		5BC37877271F1CFF00444D5E /* PBMOpenMeasurementFriendlyObstructionPurpose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMOpenMeasurementFriendlyObstructionPurpose.h; sourceTree = "<group>"; };
 		5BC37878271F1CFF00444D5E /* PBMOpenMeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMOpenMeasurementSession.m; sourceTree = "<group>"; };
 		5BC37879271F1CFF00444D5E /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMOpenMeasurementFriendlyObstructionTypeBridge.m; sourceTree = "<group>"; };
 		5BC3787A271F1CFF00444D5E /* PBMOpenMeasurementWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMOpenMeasurementWrapper.h; sourceTree = "<group>"; };
@@ -2626,7 +2630,9 @@
 		5BC37876271F1CFF00444D5E /* OpenMeasurement */ = {
 			isa = PBXGroup;
 			children = (
-				5BC37877271F1CFF00444D5E /* PBMOpenMeasurementFriendlyObstructionPurpose.h */,
+				0012D7A22E0C320D007013F3 /* OpenMeasurementFriendlyObstructionPurpose.swift */,
+				0012D7902E0C3109007013F3 /* OMSession.swift */,
+				0012D7AA2E0C540C007013F3 /* OMSessionWrapper.swift */,
 				5BC37878271F1CFF00444D5E /* PBMOpenMeasurementSession.m */,
 				5BC37879271F1CFF00444D5E /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m */,
 				5BC3787A271F1CFF00444D5E /* PBMOpenMeasurementWrapper.h */,
@@ -3451,7 +3457,6 @@
 				5BC37A7E271F1D0000444D5E /* PBMVastTransactionFactory.h in Headers */,
 				5BC379D2271F1D0000444D5E /* PBMAbstractCreative+Protected.h in Headers */,
 				5BC37995271F1D0000444D5E /* PBMWebViewDelegate.h in Headers */,
-				5BC37AB4271F1D0000444D5E /* PBMOpenMeasurementFriendlyObstructionPurpose.h in Headers */,
 				5BC37940271F1D0000444D5E /* PBMCircularProgressBarView.h in Headers */,
 				5BC37A15271F1D0000444D5E /* PBMBidRequesterFactory.h in Headers */,
 				5BC37992271F1D0000444D5E /* PBMAdRequesterVAST.h in Headers */,
@@ -3949,6 +3954,7 @@
 				5BC379AD271F1D0000444D5E /* PBMTransaction.m in Sources */,
 				5387042A2DE0848D006EA150 /* LocationManagerProtocol.swift in Sources */,
 				53269D55282E6D0F0098550D /* ServerEvent.swift in Sources */,
+				0012D7AB2E0C540C007013F3 /* OMSessionWrapper.swift in Sources */,
 				5A423CA82DBA4EA7008EE9EA /* ORTBRewardedCompletionVideoEndcard.swift in Sources */,
 				5BC378D7271F1CFF00444D5E /* PBMORTBUser.m in Sources */,
 				53137BD42D563CF400E417CE /* SKOverlayManager.swift in Sources */,
@@ -4073,6 +4079,7 @@
 				5A6167F92DBA06470018E6B6 /* ORTBBidExt.swift in Sources */,
 				534C613C2CB536F00026119A /* RewardedConfig.swift in Sources */,
 				5BC378B7271F1CFF00444D5E /* UIView+PBMViewExposure.m in Sources */,
+				0012D7A32E0C3210007013F3 /* OpenMeasurementFriendlyObstructionPurpose.swift in Sources */,
 				53322AA8282E29910049229D /* EventManager.swift in Sources */,
 				5351EECE2D4CC000007E5C6D /* StorageUtils.swift in Sources */,
 				531CF21927E8FC1B005E5ABE /* LogLevel.swift in Sources */,
@@ -4141,6 +4148,7 @@
 				53A368E72AB2E31700A03B3E /* PrebidRequest.swift in Sources */,
 				5BC37A85271F1D0000444D5E /* BannerEventLoadingDelegate.swift in Sources */,
 				5BC37A8D271F1D0000444D5E /* InterstitialRenderingAdUnit.swift in Sources */,
+				0012D7912E0C311D007013F3 /* OMSession.swift in Sources */,
 				5A51D94B2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift in Sources */,
 				53D93505282CEA900092E243 /* DateFormatService.swift in Sources */,
 				532936792CEB887D0056FD8D /* ArbitraryORTBService.swift in Sources */,

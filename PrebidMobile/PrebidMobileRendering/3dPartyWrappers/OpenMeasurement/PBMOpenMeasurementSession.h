@@ -15,15 +15,21 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "PBMOpenMeasurementFriendlyObstructionPurpose.h"
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 @class OMIDPrebidorgAdSessionContext;
 @class OMIDPrebidorgAdSessionConfiguration;
 @class PBMVideoVerificationParameters;
 @protocol PBMEventTrackerProtocol;
+@protocol PBMOMSession;
 
 NS_ASSUME_NONNULL_BEGIN
-@interface PBMOpenMeasurementSession : NSObject
+@interface PBMOpenMeasurementSession : NSObject<PBMOMSession>
 
 @property (nonatomic, readonly) id<PBMEventTrackerProtocol> eventTracker;
 

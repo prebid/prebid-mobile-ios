@@ -19,8 +19,8 @@ import XCTest
 class PBMOpenMeasurementFriendlyObstructionTypeBridgeTest: XCTestCase {
     
     func testDetailedPurposeStrings() {
-        for i: UInt in 0..<PBMOpenMeasurementFriendlyObstructionPurpose._PurposesCount.rawValue {
-            guard let purpose = PBMOpenMeasurementFriendlyObstructionPurpose(rawValue: i) else {
+        for i: UInt in 0..<OpenMeasurementFriendlyObstructionPurpose.purposesCount.rawValue {
+            guard let purpose = OpenMeasurementFriendlyObstructionPurpose(rawValue: i) else {
                 break
             }
             guard let detailedPurpose = (PBMOpenMeasurementFriendlyObstructionTypeBridge.describe(purpose) as String?), !detailedPurpose.isEmpty else {

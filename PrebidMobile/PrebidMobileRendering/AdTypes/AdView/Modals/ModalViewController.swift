@@ -129,7 +129,8 @@ public class ModalViewController: UIViewController {
         modalViewControllerDelegate?.modalViewControllerCloseButtonTapped(self)
     }
 
-    public func addFriendlyObstructions(toMeasurementSession session: PBMOpenMeasurementSession) {
+    public func addFriendlyObstructions(toMeasurementSession session: OMSession?) {
+        guard let session else { return }
         session.addFriendlyObstruction(view, purpose: .modalViewControllerView)
         session.addFriendlyObstruction(closeButtonDecorator.button, purpose: .modalViewControllerClose)
     }

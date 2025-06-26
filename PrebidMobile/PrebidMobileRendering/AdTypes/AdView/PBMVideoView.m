@@ -727,8 +727,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)addFriendlyObstructionsToMeasurementSession:(PBMOpenMeasurementSession *)session {
-    [session addFriendlyObstruction:self.btnLearnMore purpose:PBMOpenMeasurementFriendlyObstructionVideoViewLearnMoreButton];
-    [session addFriendlyObstruction:self.progressBar purpose:PBMOpenMeasurementFriendlyObstructionVideoViewProgressBar];
+    [session addFriendlyObstruction:self.btnLearnMore purpose:PBMOpenMeasurementFriendlyObstructionPurposeVideoViewLearnMoreButton];
+    [session addFriendlyObstruction:self.progressBar purpose:PBMOpenMeasurementFriendlyObstructionPurposeVideoViewProgressBar];
 }
 
 #pragma mark - Observers
