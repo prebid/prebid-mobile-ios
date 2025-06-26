@@ -18,8 +18,9 @@
 #import "PBMVoidBlock.h"
 
 @class WKWebView;
+@protocol PBMOMSessionWrapper;
 
-@interface PBMOpenMeasurementWrapper : NSObject 
+@interface PBMOpenMeasurementWrapper : NSObject <PBMOMSessionWrapper>
 
 NS_ASSUME_NONNULL_BEGIN
 @property (class, readonly, nonnull) PBMOpenMeasurementWrapper *shared;

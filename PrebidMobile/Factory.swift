@@ -113,19 +113,38 @@ class Factory: NSObject {
         NSClassFromString("PBMCreativeViewabilityTracker_Objc") as! CreativeViewabilityTracker.Type
     }()
     
-    @objc public static func PBMCreativeViewabilityTracker(
+    @objc public static func createCreativeViewabilityTracker(
         view: UIView,
         pollingTimeInterval: TimeInterval,
         onExposureChange: @escaping ViewExposureChangeHandler
     ) -> CreativeViewabilityTracker {
         CreativeViewabilityTrackerType.init(view: view,
-                                               pollingTimeInterval: pollingTimeInterval,
-                                               onExposureChange: onExposureChange)
+                                            pollingTimeInterval: pollingTimeInterval,
+                                            onExposureChange: onExposureChange)
     }
     
-    @objc public static func CreativeViewabilityTracker(
+    @objc public static func createCreativeViewabilityTracker(
         creative: AbstractCreative
     ) -> CreativeViewabilityTracker {
         CreativeViewabilityTrackerType.init(creative: creative)
+    }
+    
+    // MARK: PBMTransactionFactory
+    
+    @objc public static let TransactionFactoryType: TransactionFactory.Type = {
+        NSClassFromString("PBMTransactionFactory_Objc") as! TransactionFactory.Type
+    }()
+    
+    @objc public static func createTransactionFactory(
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        connection: PrebidServerConnectionProtocol,
+        callback: @escaping TransactionFactoryCallback
+    ) -> TransactionFactory {
+        TransactionFactoryType.init(
+            bid: bid,
+            adConfiguration: adConfiguration,
+            connection: connection,
+            callback: callback)
     }
 }

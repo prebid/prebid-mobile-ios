@@ -12,14 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-    
 
 import Foundation
 
-@objc(PBMModalManagerDelegate)
-public protocol ModalManagerDelegate {
-    
-    func modalManagerWillPresentModal()
-    func modalManagerDidDismissModal()
-    
+@_spi(PBMInternal) public
+typealias TransactionFactoryCallback = (_ transaction: Transaction?, _ error: Error?) -> Void
+
+@objc(PBMTransactionFactory) @_spi(PBMInternal) public
+protocol TransactionFactory: NSObjectProtocol {
+
+    @objc(initWithBid:adConfiguration:connection:callback:)
+    init(bid: Bid,
+         adConfiguration: AdUnitConfig,
+         connection: PrebidServerConnectionProtocol,
+         callback: @escaping TransactionFactoryCallback)
+
+    @objc(loadWithAdMarkup:)
+    @discardableResult
+    func load(adMarkup: String) -> Bool
 }

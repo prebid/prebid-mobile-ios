@@ -842,7 +842,7 @@ static PBMError *extracted(NSString *errorMessage) {
 //TODO: There is almost certainly a way to do this that is more industry-standard and less processor-intensive.
 - (void)pollForViewability {
     @weakify(self);
-    self.viewabilityTracker = [PBMFactory PBMCreativeViewabilityTrackerWithView:self pollingTimeInterval:0.2f onExposureChange:^(id<PBMCreativeViewabilityTracker> tracker, id<PBMViewExposure> _Nonnull viewExposure) {
+    self.viewabilityTracker = [PBMFactory createCreativeViewabilityTrackerWithView:self pollingTimeInterval:0.2f onExposureChange:^(id<PBMCreativeViewabilityTracker> tracker, id<PBMViewExposure> _Nonnull viewExposure) {
         @strongify(self);
         if (!self) { return; }
 

@@ -157,7 +157,7 @@
     self.transaction.measurementSession = [self.transaction.measurementWrapper
                                           initializeNativeVideoSession:self.videoView
                                                 verificationParameters:self.creativeModel.verificationParameters];
-    if (self.transaction.measurementSession) {
+    if (self.transaction.measurementSession && [self.transaction.measurementSession isKindOfClass:PBMOpenMeasurementSession.class]) {
         [self.videoView addFriendlyObstructionsToMeasurementSession:self.transaction.measurementSession];
         [self.transaction.measurementSession start];
         if (self.transaction.measurementSession.eventTracker) {

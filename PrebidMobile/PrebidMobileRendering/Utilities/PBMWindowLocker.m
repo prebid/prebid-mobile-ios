@@ -106,8 +106,8 @@
     backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
     activityIndicatorView.color = [UIColor whiteColor];
     
-    [self.measurementSession addFriendlyObstruction:backgroundView purpose:PBMOpenMeasurementFriendlyObstructionWindowLockerBackground];
-    [self.measurementSession addFriendlyObstruction:activityIndicatorView purpose:PBMOpenMeasurementFriendlyObstructionWindowLockerActivityIndicator];
+    [self.measurementSession addFriendlyObstruction:backgroundView purpose:PBMOpenMeasurementFriendlyObstructionPurposeWindowLockerBackground];
+    [self.measurementSession addFriendlyObstruction:activityIndicatorView purpose:PBMOpenMeasurementFriendlyObstructionPurposeWindowLockerActivityIndicator];
     
     return backgroundView;
 }

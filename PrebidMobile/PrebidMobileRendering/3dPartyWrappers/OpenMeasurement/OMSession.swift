@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-    
 
-import Foundation
+import UIKit
 
-@objc(PBMModalManagerDelegate)
-public protocol ModalManagerDelegate {
+@objc(PBMOMSession)
+public protocol OMSession: NSObjectProtocol {
     
-    func modalManagerWillPresentModal()
-    func modalManagerDidDismissModal()
-    
+    var eventTracker: EventTrackerProtocol { get }
+
+    func start()
+    func addFriendlyObstruction(_ friendlyObstruction: UIView,
+                                purpose: OpenMeasurementFriendlyObstructionPurpose)
 }

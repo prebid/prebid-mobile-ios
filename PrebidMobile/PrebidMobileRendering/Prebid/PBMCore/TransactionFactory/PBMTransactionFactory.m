@@ -13,8 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMTransactionFactory.h"
-
 #import "PBMDisplayTransactionFactory.h"
 #import "PBMVastTransactionFactory.h"
 
@@ -27,7 +25,7 @@
 
 #import "PBMMacros.h"
 
-@interface PBMTransactionFactory()
+@interface PBMTransactionFactory_Objc: NSObject <PBMTransactionFactory>
 
 @property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
@@ -45,9 +43,7 @@
 
 @end
 
-
-
-@implementation PBMTransactionFactory
+@implementation PBMTransactionFactory_Objc
 
 // MARK: - Public API
 

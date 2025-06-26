@@ -18,7 +18,7 @@ import Foundation
 import UIKit
 
 @objc(PBMAdViewManagerDelegate)
-@_spi(PBMInternal) public
+public
 protocol AdViewManagerDelegate: NSObjectProtocol {
     func viewControllerForModalPresentation() -> UIViewController?
     

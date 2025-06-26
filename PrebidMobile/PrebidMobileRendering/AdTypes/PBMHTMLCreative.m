@@ -298,7 +298,7 @@
                     
     self.transaction.measurementSession = [self.transaction.measurementWrapper initializeWebViewSession:self.prebidWebView.internalWebView
                                                                                              contentUrl:@""];
-    if (self.transaction.measurementSession) {
+    if (self.transaction.measurementSession && [self.transaction.measurementSession isKindOfClass:PBMOpenMeasurementSession.class]) {
         [self.prebidWebView addFriendlyObstructionsToMeasurementSession:self.transaction.measurementSession];
         [self.transaction.measurementSession start];
     }

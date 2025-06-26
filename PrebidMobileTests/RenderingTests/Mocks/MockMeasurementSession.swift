@@ -40,6 +40,6 @@ class MockMeasurementSession: PBMOpenMeasurementSession {
         stopClosure?()
     }
     
-    override func addFriendlyObstruction(_ view: UIView, purpose:PBMOpenMeasurementFriendlyObstructionPurpose) {
+    override func addFriendlyObstruction(_ view: UIView, purpose:OpenMeasurementFriendlyObstructionPurpose) {
     }
 }

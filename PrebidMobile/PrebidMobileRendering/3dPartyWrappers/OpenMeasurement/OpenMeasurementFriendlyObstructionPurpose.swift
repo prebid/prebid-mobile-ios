@@ -12,14 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-    
 
 import Foundation
 
-@objc(PBMModalManagerDelegate)
-public protocol ModalManagerDelegate {
-    
-    func modalManagerWillPresentModal()
-    func modalManagerDidDismissModal()
-    
+@objc(PBMOpenMeasurementFriendlyObstructionPurpose)
+public enum OpenMeasurementFriendlyObstructionPurpose: UInt {
+    case windowLockerBackground = 0
+    case windowLockerActivityIndicator
+    case modalViewControllerView
+    case modalViewControllerClose
+    case videoViewLearnMoreButton
+    case videoViewProgressBar
+    case purposesCount
 }
+
