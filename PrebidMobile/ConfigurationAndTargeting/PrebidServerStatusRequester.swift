@@ -23,7 +23,7 @@ class PrebidServerStatusRequester {
         // Default status endpoint
         if let hostString = try? Host.shared.getHostURL(),
            let host = URL(string: hostString)?.host,
-           let generatedStatusEndpoint = PathBuilder.buildURL(for: host, path: PBMServerEndpoints.status) {
+           let generatedStatusEndpoint = PathBuilder.buildURL(for: host, path: PrebidConstants.SERVER_ENDPOINTS_STATUS) {
             
             serverEndpoint = generatedStatusEndpoint
         }

@@ -18,61 +18,40 @@ import XCTest
 
 class PBMConstantsTests: XCTestCase {
     
-    func testLocationParamKeys() {
-        XCTAssertEqual(LocationParamKeys.Latitude       , "lat")
-        XCTAssertEqual(LocationParamKeys.Longitude      , "lon")
-        XCTAssertEqual(LocationParamKeys.Country        , "cnt")
-        XCTAssertEqual(LocationParamKeys.City           , "cty")
-        XCTAssertEqual(LocationParamKeys.State          , "stt")
-        XCTAssertEqual(LocationParamKeys.Zip            , "zip")
-        XCTAssertEqual(LocationParamKeys.LocationSource , "lt")
-    }
-    
-    func testPBMParseKey() {
-        XCTAssertEqual(ParseKey.ADUNIT          , "adUnit")
-        XCTAssertEqual(ParseKey.HEIGHT          , "height")
-        XCTAssertEqual(ParseKey.WIDTH           , "width")
-        XCTAssertEqual(ParseKey.HTML            , "html")
-        XCTAssertEqual(ParseKey.IMAGE           , "image")
-        XCTAssertEqual(ParseKey.NETWORK_UID     , "network_uid")
-        XCTAssertEqual(ParseKey.REVENUE         , "revenue")
-        XCTAssertEqual(ParseKey.SSM_TYPE        , "apihtml")
-    }
-    
     func testPBMAutoRefresh() {
-        XCTAssertEqual(PBMAutoRefresh.AUTO_REFRESH_DELAY_DEFAULT    , 60)
-        XCTAssertEqual(PBMAutoRefresh.AUTO_REFRESH_DELAY_MIN        , 15)
-        XCTAssertEqual(PBMAutoRefresh.AUTO_REFRESH_DELAY_MAX        , 125)
+        XCTAssertEqual(PrebidConstants.AUTO_REFRESH_DELAY_DEFAULT    , 60)
+        XCTAssertEqual(PrebidConstants.AUTO_REFRESH_DELAY_MIN        , 15)
+        XCTAssertEqual(PrebidConstants.AUTO_REFRESH_DELAY_MAX        , 125)
     }
     
     func testPBMTimeInterval() {
-        XCTAssertEqual(PBMTimeInterval.VAST_LOADER_TIMEOUT          , 3)
-        XCTAssertEqual(PBMTimeInterval.AD_CLICKED_ALLOWED_INTERVAL  , 5)
-        XCTAssertEqual(PBMTimeInterval.CONNECTION_TIMEOUT_DEFAULT   , 3)
-        XCTAssertEqual(PBMTimeInterval.CLOSE_DELAY_MIN              , 2)
-        XCTAssertEqual(PBMTimeInterval.CLOSE_DELAY_MAX              , 30)
-        XCTAssertEqual(PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT      , 3)
+        XCTAssertEqual(PrebidConstants.VAST_LOADER_TIMEOUT          , 3)
+        XCTAssertEqual(PrebidConstants.AD_CLICKED_ALLOWED_INTERVAL  , 5)
+        XCTAssertEqual(PrebidConstants.CONNECTION_TIMEOUT_DEFAULT   , 3)
+        XCTAssertEqual(PrebidConstants.CLOSE_DELAY_MIN              , 2)
+        XCTAssertEqual(PrebidConstants.CLOSE_DELAY_MAX              , 30)
+        XCTAssertEqual(PrebidConstants.FIRE_AND_FORGET_TIMEOUT      , 3)
     }
     
     func testPBMTimeScale() {
-        XCTAssertEqual(PBMVideoConstants.VIDEO_TIMESCALE, 1000)
+        XCTAssertEqual(PrebidConstants.VIDEO_TIMESCALE, 1000)
     }
     
     func testPBMGeoLocationConstants() {
-        XCTAssertEqual(GeoLocationConstants.DISTANCE_FILTER, 50.0)
+        XCTAssertEqual(PrebidConstants.DISTANCE_FILTER, 50.0)
     }
     
     func testButtonAreaConstant() {
-        XCTAssertEqual(PBMConstants.BUTTON_AREA_DEFAULT, 0.1)
+        XCTAssertEqual(PrebidConstants.BUTTON_AREA_DEFAULT, 0.1)
     }
     
     func testSkipDelayConstant() {
-        XCTAssertEqual(PBMConstants.SKIP_DELAY_DEFAULT, 10)
+        XCTAssertEqual(PrebidConstants.SKIP_DELAY_DEFAULT, 10)
     }
     
     func testPBMSupportedVideoMimeTypes() {
         
-        let types = PBMConstants.supportedVideoMimeTypes
+        let types = PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES
         let expected = ["video/mp4",
                         "video/quicktime",
                         "video/x-m4v",

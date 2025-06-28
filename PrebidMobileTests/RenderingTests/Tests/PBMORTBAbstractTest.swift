@@ -333,7 +333,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBVideo.linearity = 1
         pbmORTBVideo.minbitrate = 20
         pbmORTBVideo.maxbitrate = 40
-        pbmORTBVideo.mimes = PBMConstants.supportedVideoMimeTypes
+        pbmORTBVideo.mimes = PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES
         pbmORTBVideo.protocols = [2, 5]
         pbmORTBVideo.pos = 7
         pbmORTBVideo.delivery = [3]

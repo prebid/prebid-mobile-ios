@@ -65,7 +65,7 @@ class AdViewButtonDecoratorTests: XCTestCase {
         let screenWidth = UIApplication.shared.statusBarOrientation.isPortrait ? UIScreen.main.bounds.width : UIScreen.main.bounds.height
         let expectedConstraintConstant = (screenWidth * constant) / 2
         let buttonConstraint = buttonDecorator.getButtonConstraintConstant()
-        XCTAssertTrue(expectedConstraintConstant == buttonConstraint || buttonConstraint == PBMConstants.buttonConstraintConstant.doubleValue)
+        XCTAssertTrue(expectedConstraintConstant == buttonConstraint || buttonConstraint == PrebidConstants.BUTTON_CONSTRAINT.doubleValue)
     }
     
     func testAddButtonToView() {

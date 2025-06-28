@@ -32,7 +32,6 @@
 #import "PBMWebView.h"
 #import "PBMWebView+Internal.h"
 
-#import "PrebidMobileSwiftHeaders.h"
 #if __has_include("PrebidMobile-Swift.h")
 #import "PrebidMobile-Swift.h"
 #else
@@ -96,7 +95,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     if (!(self = [super initWithFrame:frame])) {
         return nil;
     }
-    self.accessibilityIdentifier = PBMAccesibility.WebViewLabel;
+    self.accessibilityIdentifier = PrebidConstants.ACCESSIBILITY_WEB_VIEW_LABEL;
     WKUserContentController * const wkUserContentController = [[WKUserContentController alloc] init];
     self.wkUserContentController = wkUserContentController;
     _targeting = targeting;
@@ -408,7 +407,7 @@ static PBMError *extracted(NSString *errorMessage) {
 
 #ifdef DEBUG
 - (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
-    [PBMFunctions checkCertificateChallenge:challenge completionHandler:completionHandler];
+    [Functions checkCertificateChallenge:challenge completionHandler:completionHandler];
 }
 #endif
 
@@ -894,7 +893,7 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 - (BOOL)wasRecentlyTapped {
-    return fabs([self.lastTapTimestamp timeIntervalSinceNow]) < PBMTimeInterval.AD_CLICKED_ALLOWED_INTERVAL;
+    return fabs([self.lastTapTimestamp timeIntervalSinceNow]) < PrebidConstants.AD_CLICKED_ALLOWED_INTERVAL;
 }
 
 #pragma mark - Orientation changing support

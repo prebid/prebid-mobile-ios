@@ -15,7 +15,11 @@ limitations under the License.
 
 #import <XCTest/XCTest.h>
 #import <WebKit/WebKit.h>
-#import "PrebidMobile/PrebidMobile.h"
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 @interface AdViewUtilsObjCTests : XCTestCase
 

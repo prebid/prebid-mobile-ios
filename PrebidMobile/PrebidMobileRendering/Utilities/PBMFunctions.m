@@ -64,7 +64,7 @@ static NSString * const PBMPlistExt = @"plist";
     NSMutableDictionary<NSString *, NSString *> *result = [[NSMutableDictionary alloc] init];
     NSURLComponents *components = [NSURLComponents componentsWithString:urlString];
     if (components.host) {
-        [result setObject:components.host forKey:PBM_DOMAIN_KEY];
+        [result setObject:components.host forKey:PrebidConstants.DOMAIN_KEY];
     }
     for (NSString *key in keys) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@", key];
@@ -83,30 +83,6 @@ static NSString * const PBMPlistExt = @"plist";
     }
     
     return (adUnitID || adUnitGroupID);
-}
-
-+ (void)checkCertificateChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
-    // Check if mock server host
-    if (![challenge.protectionSpace.host isEqualToString:@"10.0.2.2"]) {
-        // Default handling
-        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
-    }
-    
-    CFStringRef certificateHost = NULL;
-    SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
-    SecCertificateRef certificate = SecTrustGetCertificateAtIndex(serverTrust, 0);
-    if (serverTrust && certificate) {
-        certificateHost = SecCertificateCopySubjectSummary(certificate);
-    }
-    NSURLCredential *credential = [NSURLCredential credentialForTrust: challenge.protectionSpace.serverTrust];
-    
-    // Only allow when involving 10.0.2.2 mock server host
-    if (certificateHost && [(__bridge NSString *)certificateHost isEqualToString:@"10.0.2.2"]) {
-        completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
-    }
-    if (certificateHost != nil) {
-        CFRelease(certificateHost);
-    }
 }
 
 #pragma mark - Private
@@ -157,8 +133,8 @@ static NSString * const PBMPlistExt = @"plist";
 
 + (NSTimeInterval)clampAutoRefresh:(NSTimeInterval)val {
     return [PBMFunctions clamp:val
-                    lowerBound:PBMAutoRefresh.AUTO_REFRESH_DELAY_MIN
-                    upperBound:PBMAutoRefresh.AUTO_REFRESH_DELAY_MAX];
+                    lowerBound:PrebidConstants.AUTO_REFRESH_DELAY_MIN
+                    upperBound:PrebidConstants.AUTO_REFRESH_DELAY_MAX];
 }
 
 + (dispatch_time_t)dispatchTimeAfterTimeInterval:(NSTimeInterval)timeInterval {

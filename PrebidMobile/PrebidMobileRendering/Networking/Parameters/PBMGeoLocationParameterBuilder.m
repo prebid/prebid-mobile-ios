@@ -64,7 +64,7 @@
     
     if (self.locationManager.coordinatesAreValid) {
         CLLocationCoordinate2D coordinates = self.locationManager.coordinates;
-        bidRequest.device.geo.type = @(PBMLocationSourceValuesGPS);
+        bidRequest.device.geo.type = @(PrebidConstants.LOCATION_SOURCE_GPS);
         bidRequest.device.geo.lat = @(coordinates.latitude);
         bidRequest.device.geo.lon = @(coordinates.longitude);
     }

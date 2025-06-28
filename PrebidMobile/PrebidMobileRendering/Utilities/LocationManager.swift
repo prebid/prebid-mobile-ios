@@ -161,7 +161,7 @@ public class LocationManager: NSObject {
     
     private func setup(with locationManager: LocationManagerProtocol) {
         internalLocationManager = locationManager
-        internalLocationManager?.distanceFilter = GeoLocationConstants.DISTANCE_FILTER
+        internalLocationManager?.distanceFilter = PrebidConstants.DISTANCE_FILTER
         internalLocationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
         internalLocationManager?.delegate = self
         

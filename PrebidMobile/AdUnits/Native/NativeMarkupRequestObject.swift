@@ -145,7 +145,7 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonEncodable {
     /// - Throws: An error if the conversion to JSON string fails.
     @objc(toJsonStringWithError:)
     public func toJsonString() throws -> String {
-        try PBMFunctions.toStringJsonDictionary(jsonDictionary)
+        try Functions.jsonString(from: jsonDictionary)
     }
     
     // MARK: - Private  Methods

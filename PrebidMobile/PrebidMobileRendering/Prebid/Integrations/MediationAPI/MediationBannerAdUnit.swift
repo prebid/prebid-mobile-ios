@@ -107,7 +107,7 @@ public class MediationBannerAdUnit : NSObject {
         self.mediationDelegate = mediationDelegate
         super.init()
         
-        autoRefreshManager = AutoRefreshManager(prefetchTime: PBMAdPrefetchTime,
+        autoRefreshManager = AutoRefreshManager(prefetchTime: PrebidConstants.AD_PREFETCH_TIME,
                                                 lockingQueue: nil,
                                                 lockProvider: nil,
                                                 refreshDelayBlock: { [weak self] in

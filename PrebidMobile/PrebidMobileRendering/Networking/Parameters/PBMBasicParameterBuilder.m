@@ -70,7 +70,7 @@
 }
 
 + (NSString *)urlKey {
-    return PBMParameterKeysAPP_STORE_URL;
+    return PrebidConstants.APP_STORE_URL_SCHEME;
 }
 
 + (NSString*)rewardedVideoKey {

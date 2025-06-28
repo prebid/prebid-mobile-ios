@@ -61,7 +61,7 @@
         return;
     }
 
-    [self.serverConnection head:url.absoluteString timeout:PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT callback:^(PrebidServerResponse * _Nonnull serverResponse) {
+    [self.serverConnection head:url.absoluteString timeout:PrebidConstants.FIRE_AND_FORGET_TIMEOUT callback:^(PrebidServerResponse * _Nonnull serverResponse) {
   
         NSString *strContentLength = serverResponse ? serverResponse.responseHeaders[@"Content-Length"] : nil;
         

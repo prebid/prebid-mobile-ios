@@ -146,7 +146,7 @@ class PBMError: NSError, @unchecked Sendable {
                 userInfo: [
                     NSLocalizedDescriptionKey : "Network request already in progress",
                     NSLocalizedRecoverySuggestionErrorKey : "Wait for a competion handler to fire before attempting to send new requests",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInternalSDKError.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInternalSDKError.rawValue
                 ])
     }
     
@@ -157,7 +157,7 @@ class PBMError: NSError, @unchecked Sendable {
                 code: Self.errorCode(1, forFamily: .knownServerErrors),
                 userInfo: [
                     NSLocalizedDescriptionKey : "Prebid server does not recognize Account Id",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidAccountId.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidAccountId.rawValue
                 ])
     }
     
@@ -166,7 +166,7 @@ class PBMError: NSError, @unchecked Sendable {
                 code: Self.errorCode(2, forFamily: .knownServerErrors),
                 userInfo: [
                     NSLocalizedDescriptionKey : "Prebid server does not recognize Config Id",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidConfigId.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidConfigId.rawValue
                 ])
     }
     
@@ -175,7 +175,7 @@ class PBMError: NSError, @unchecked Sendable {
                 code: Self.errorCode(3, forFamily: .knownServerErrors),
                 userInfo: [
                     NSLocalizedDescriptionKey : "Prebid server does not recognize the size requested",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidSize.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidSize.rawValue
                 ])
     }
     
@@ -184,7 +184,7 @@ class PBMError: NSError, @unchecked Sendable {
                 code: Self.errorCode(4, forFamily: .knownServerErrors),
                 userInfo: [
                     NSLocalizedDescriptionKey : "Prebid server URL \(url) is invalid",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidServerURLInvalid.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidServerURLInvalid.rawValue
                 ])
     }
     
@@ -196,7 +196,7 @@ class PBMError: NSError, @unchecked Sendable {
                 userInfo: [
                     NSLocalizedDescriptionKey : "Prebid Server Error",
                     NSLocalizedFailureReasonErrorKey : errorBody,
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidServerError.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidServerError.rawValue
                 ])
     }
     
@@ -207,7 +207,7 @@ class PBMError: NSError, @unchecked Sendable {
                 code: Self.errorCode(1, forFamily: .responseProcessingErrors),
                 userInfo: [
                     NSLocalizedDescriptionKey : "The response does not contain a valid json dictionary",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidResponseStructure.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidResponseStructure.rawValue
                 ])
     }
     
@@ -216,7 +216,7 @@ class PBMError: NSError, @unchecked Sendable {
                 code: Self.errorCode(2, forFamily: .responseProcessingErrors),
                 userInfo: [
                     NSLocalizedDescriptionKey : "Failed to deserialize jsonDict from response into a proper BidResponse object",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidResponseStructure.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidInvalidResponseStructure.rawValue
                 ])
     }
     
@@ -225,7 +225,7 @@ class PBMError: NSError, @unchecked Sendable {
                 code: Self.errorCode(1, forFamily: .integrationLayerErrors),
                 userInfo: [
                     NSLocalizedDescriptionKey : "The response is blank.",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidDemandNoBids.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidDemandNoBids.rawValue
                 ])
     }
     
@@ -236,7 +236,7 @@ class PBMError: NSError, @unchecked Sendable {
                 code: Self.errorCode(1, forFamily: .integrationLayerErrors),
                 userInfo: [
                     NSLocalizedDescriptionKey : "There is no winning bid in the bid response.",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidDemandNoBids.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidDemandNoBids.rawValue
                 ])
     }
     
@@ -245,7 +245,7 @@ class PBMError: NSError, @unchecked Sendable {
                 code: Self.errorCode(3, forFamily: .integrationLayerErrors),
                 userInfo: [
                     NSLocalizedDescriptionKey : "Failed to find VAST Tag inside the provided Media Data.",
-                    PBM_FETCH_DEMAND_RESULT_KEY : ResultCode.prebidNoVastTagInMediaData.rawValue
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidNoVastTagInMediaData.rawValue
                 ])
     }
     
@@ -257,7 +257,7 @@ class PBMError: NSError, @unchecked Sendable {
         }
         
         if error.domain == PBMError.errorDomain {
-            if let demandCode = error.userInfo[PBM_FETCH_DEMAND_RESULT_KEY] as? NSNumber,
+            if let demandCode = error.userInfo[PrebidConstants.FETCH_DEMAND_RESULT_KEY] as? NSNumber,
                let res = ResultCode(rawValue: demandCode.intValue)  {
                 return res
             } else {
