@@ -115,7 +115,8 @@ public class AdConfiguration: AutoRefreshCountConfig {
     public override var autoRefreshDelay: TimeInterval? {
         set {
             if let newValue = newValue, newValue > 0 {
-                let clampedValue = PBMFunctions.clampAutoRefresh(newValue)
+                let minDelay = max(newValue, PBMAutoRefresh.AUTO_REFRESH_DELAY_MIN)
+                let clampedValue = min(minDelay, PBMAutoRefresh.AUTO_REFRESH_DELAY_MAX)
                 _autoRefreshDelay = clampedValue
             } else {
                 _autoRefreshDelay = nil

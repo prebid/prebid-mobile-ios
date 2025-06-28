@@ -91,6 +91,10 @@ extension UIDevice {
         default:                                        return identifier
         }
     }
+    
+    var screenSize: CGSize {
+        UIScreen.main.bounds.size
+    }
 
 }
 

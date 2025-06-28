@@ -25,6 +25,7 @@
 		0012D7912E0C311D007013F3 /* OMSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7902E0C3109007013F3 /* OMSession.swift */; };
 		0012D7A32E0C3210007013F3 /* OpenMeasurementFriendlyObstructionPurpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7A22E0C320D007013F3 /* OpenMeasurementFriendlyObstructionPurpose.swift */; };
 		0012D7AB2E0C540C007013F3 /* OMSessionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7AA2E0C540C007013F3 /* OMSessionWrapper.swift */; };
+		0012D7D52E0E97C9007013F3 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7D42E0E97C9007013F3 /* Functions.swift */; };
 		00614C4D2DE5F68A00A61974 /* ModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C4C2DE5F68600A61974 /* ModalAnimator.swift */; };
 		00614C5A2DE6FFE800A61974 /* CloseActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C592DE6FFE800A61974 /* CloseActionManager.swift */; };
 		00614C892DE7B5D900A61974 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C882DE7B5D900A61974 /* WebView.swift */; };
@@ -878,6 +879,7 @@
 		0012D7902E0C3109007013F3 /* OMSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMSession.swift; sourceTree = "<group>"; };
 		0012D7A22E0C320D007013F3 /* OpenMeasurementFriendlyObstructionPurpose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMeasurementFriendlyObstructionPurpose.swift; sourceTree = "<group>"; };
 		0012D7AA2E0C540C007013F3 /* OMSessionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMSessionWrapper.swift; sourceTree = "<group>"; };
+		0012D7D42E0E97C9007013F3 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		00614C4C2DE5F68600A61974 /* ModalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAnimator.swift; sourceTree = "<group>"; };
 		00614C592DE6FFE800A61974 /* CloseActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseActionManager.swift; sourceTree = "<group>"; };
 		00614C882DE7B5D900A61974 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -2169,6 +2171,7 @@
 				538704222DE05847006EA150 /* LocationManager.swift */,
 				538704292DE0848D006EA150 /* LocationManagerProtocol.swift */,
 				0012D7482E08717A007013F3 /* DeviceAccessManager.swift */,
+				0012D7D42E0E97C9007013F3 /* Functions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -3936,6 +3939,7 @@
 				5BC378DD271F1CFF00444D5E /* PBMORTBPmp.m in Sources */,
 				5BC378CE271F1CFF00444D5E /* PBMTouchDownRecognizer.m in Sources */,
 				5BC378ED271F1CFF00444D5E /* PBMORTBAppExtPrebid.m in Sources */,
+				0012D7D52E0E97C9007013F3 /* Functions.swift in Sources */,
 				5BC37A96271F1D0000444D5E /* RewardedEventHandlerProtocol.swift in Sources */,
 				FAEE4D10262DC2B200AD9966 /* CacheManager.swift in Sources */,
 				5BC379A6271F1D0000444D5E /* PBMModalState.m in Sources */,

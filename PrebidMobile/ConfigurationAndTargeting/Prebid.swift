@@ -71,7 +71,7 @@ public class Prebid: NSObject {
     
     /// The version of the PrebidMobile SDK.
     public var version: String {
-        PBMFunctions.sdkVersion()
+        PrebidConstants.PREBID_VERSION
     }
     
     /// The version of the OM SDK.

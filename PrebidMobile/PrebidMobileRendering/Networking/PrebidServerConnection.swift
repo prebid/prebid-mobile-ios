@@ -197,7 +197,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
             if let contentType = responseHeaders[PrebidServerConnection.contentTypeKey],
                contentType.contains(PrebidServerConnection.contentTypeVal) {
                 do {
-                    let json = try PBMFunctions.dictionaryFromData(responseData)
+                    let json = try Functions.dictionary(from: responseData)
                     serverResponse.jsonDict = json
                 } catch let parsingError {
                     let error = PBMError.error(message: "JSON Parsing Error: \(parsingError.localizedDescription)",
@@ -256,7 +256,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     
     #if DEBUG
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        PBMFunctions.checkCertificateChallenge(challenge, completionHandler: completionHandler)
+        Functions.checkCertificateChallenge(challenge, completionHandler: completionHandler)
     }
     #endif
 }

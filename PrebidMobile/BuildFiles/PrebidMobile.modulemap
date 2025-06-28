@@ -23,10 +23,6 @@ framework module PrebidMobile {
     header "PBMConstants.h"
         
     header "UIView+PBMExtensions.h"
-    
-    header "PBMFunctions.h"
-    header "PBMFunctions+Private.h"
-    header "PBMUIApplicationProtocol.h"
-        
+            
     header "OMSDKVersionProvider.h"
 }
