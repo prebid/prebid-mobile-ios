@@ -95,7 +95,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     if (!(self = [super initWithFrame:frame])) {
         return nil;
     }
-    self.accessibilityIdentifier = PBMAccesibility.WebViewLabel;
+    self.accessibilityIdentifier = PrebidConstants.ACCESSIBILITY_WEB_VIEW_LABEL;
     WKUserContentController * const wkUserContentController = [[WKUserContentController alloc] init];
     self.wkUserContentController = wkUserContentController;
     _targeting = targeting;
@@ -893,7 +893,7 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 - (BOOL)wasRecentlyTapped {
-    return fabs([self.lastTapTimestamp timeIntervalSinceNow]) < PBMTimeInterval.AD_CLICKED_ALLOWED_INTERVAL;
+    return fabs([self.lastTapTimestamp timeIntervalSinceNow]) < PrebidConstants.AD_CLICKED_ALLOWED_INTERVAL;
 }
 
 #pragma mark - Orientation changing support

@@ -75,7 +75,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         
         request.httpMethod = HTTPMethodGET
         
-        let session = createSession(PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT)
+        let session = createSession(PrebidConstants.FIRE_AND_FORGET_TIMEOUT)
         let task = session.dataTask(with: request)
         task.resume()
     }
@@ -119,7 +119,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         
         request.setValue(PrebidServerConnection.contentTypeVal, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
-        let session = createSession(PBMTimeInterval.FIRE_AND_FORGET_TIMEOUT)
+        let session = createSession(PrebidConstants.FIRE_AND_FORGET_TIMEOUT)
         let task = session.dataTask(with: request) { [weak self] data, response, error in
             self?.proccessResponse(request, urlResponse: response,
                                    responseData: data, error: error, fullServerCallback: callback)

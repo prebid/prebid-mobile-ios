@@ -47,7 +47,7 @@ static NSString *vastContentType = @"application/x-www-form-urlencoded";
 
     [connection post:urlComponents.urlString
          contentType:vastContentType
-                data:data timeout:PBMTimeInterval.CONNECTION_TIMEOUT_DEFAULT
+                data:data timeout:PrebidConstants.CONNECTION_TIMEOUT_DEFAULT
             callback:^(PrebidServerResponse * _Nonnull serverResponse) {
         if (serverResponse.error) {
             completion(nil, serverResponse.error);

@@ -76,7 +76,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         )
         
         //Create a new PBMORTBBidRequest based off of the json string in the params dict
-        guard let strORTB = paramsDict[PBMParameterKeys.OPEN_RTB.rawValue] else {
+        guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
             XCTFail("No ORTB string in parameter keys")
             return
         }

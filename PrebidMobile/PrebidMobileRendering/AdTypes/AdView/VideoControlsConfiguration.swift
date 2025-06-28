@@ -86,7 +86,7 @@ public class VideoControlsConfiguration: NSObject {
     
     /// This property indicates the number of seconds which should be passed from the start of playback until the skip or close button should be shown.
     /// Obtained from the field ext,prebid.passthrough[].adConfiguration.skipdelay or set by user.
-    public var skipDelay = PBMConstants.SKIP_DELAY_DEFAULT.doubleValue
+    public var skipDelay = PrebidConstants.SKIP_DELAY_DEFAULT.doubleValue
     
     /// This property indicates whether mute controls is visible on the screen.
     public var isSoundButtonVisible = false
@@ -131,9 +131,9 @@ public class VideoControlsConfiguration: NSObject {
     
     // MARK: - Private properties
     
-    private var _closeButtonArea = PBMConstants.BUTTON_AREA_DEFAULT.doubleValue
+    private var _closeButtonArea = PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue
     private var _closeButtonPosition = Position.topRight
     
-    private var _skipButtonArea = PBMConstants.BUTTON_AREA_DEFAULT.doubleValue
+    private var _skipButtonArea = PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue
     private var _skipButtonPosition = Position.topLeft
 }

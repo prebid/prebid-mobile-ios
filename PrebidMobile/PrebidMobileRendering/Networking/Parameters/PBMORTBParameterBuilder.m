@@ -40,7 +40,7 @@
     NSError *error = nil;
     NSString *jsonString = [PBMFunctions toStringJsonDictionary:ortbJsonDictionary error:&error];
     if (jsonString) {
-        ret[PBMParameterKeysOPEN_RTB] = jsonString;
+        ret[PrebidConstants.OPEN_RTB_SCHEME] = jsonString;
     } else {
         PBMLogError(@"%@", [error localizedDescription]);
     }

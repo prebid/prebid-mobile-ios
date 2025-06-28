@@ -205,7 +205,7 @@
                     nextVideo.playbackend = @(2);
                     nextVideo.pos = @(7);
                     nextVideo.protocols = @[@(2),@(5)];
-                    nextVideo.mimes = PBMConstants.supportedVideoMimeTypes;
+                    nextVideo.mimes = PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES;
                 }
                 
                 nextVideo.delivery = @[@(3)];

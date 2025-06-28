@@ -59,8 +59,8 @@ public class InterstitialDisplayProperties: NSObject, Copyable {
     private func setupCloseButtonAccessibility() {
         //Explicitly set the accessibility identifier every time the close button image is set.
         //This prevents the file name from informing the identifier.
-        _closeButtonImage?.accessibilityIdentifier = PBMAccesibility.closeButtonIdentifier
-        _closeButtonImage?.accessibilityLabel = PBMAccesibility.closeButtonLabel
+        _closeButtonImage?.accessibilityIdentifier = PrebidConstants.ACCESSIBILITY_CLOSE_BUTTON_IDENTIFIER
+        _closeButtonImage?.accessibilityLabel = PrebidConstants.ACCESSIBILITY_CLOSE_BUTTON_LABEL
     }
     
     @objc public func getCloseButtonImage() -> UIImage? {

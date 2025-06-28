@@ -165,7 +165,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.maxbitrate, 10)
         PBMAssertEq(video.protocols, [2, 5])
         PBMAssertEq(video.startdelay, -1)
-        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
+        PBMAssertEq(video.mimes, PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES)
         PBMAssertEq(video.playbackend, 2)
         PBMAssertEq(video.delivery, [3])
         PBMAssertEq(video.battr, [15, 16])
@@ -606,7 +606,7 @@ class PrebidParameterBuilderTest: XCTestCase {
             return
         }
 
-        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
+        PBMAssertEq(video.mimes, PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES)
         PBMAssertEq(video.protocols, [2,5])
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
@@ -647,7 +647,7 @@ class PrebidParameterBuilderTest: XCTestCase {
             return
         }
 
-        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
+        PBMAssertEq(video.mimes, PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES)
         PBMAssertEq(video.protocols, [2,5])
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
@@ -678,7 +678,7 @@ class PrebidParameterBuilderTest: XCTestCase {
             return
         }
 
-        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
+        PBMAssertEq(video.mimes, PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES)
         PBMAssertEq(video.protocols, [2,5])
         XCTAssertNil(video.placement)
         XCTAssertNil(video.plcmt)

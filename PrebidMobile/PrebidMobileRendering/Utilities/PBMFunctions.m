@@ -64,7 +64,7 @@ static NSString * const PBMPlistExt = @"plist";
     NSMutableDictionary<NSString *, NSString *> *result = [[NSMutableDictionary alloc] init];
     NSURLComponents *components = [NSURLComponents componentsWithString:urlString];
     if (components.host) {
-        [result setObject:components.host forKey:PBM_DOMAIN_KEY];
+        [result setObject:components.host forKey:PrebidConstants.DOMAIN_KEY];
     }
     for (NSString *key in keys) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@", key];
@@ -133,8 +133,8 @@ static NSString * const PBMPlistExt = @"plist";
 
 + (NSTimeInterval)clampAutoRefresh:(NSTimeInterval)val {
     return [PBMFunctions clamp:val
-                    lowerBound:PBMAutoRefresh.AUTO_REFRESH_DELAY_MIN
-                    upperBound:PBMAutoRefresh.AUTO_REFRESH_DELAY_MAX];
+                    lowerBound:PrebidConstants.AUTO_REFRESH_DELAY_MIN
+                    upperBound:PrebidConstants.AUTO_REFRESH_DELAY_MAX];
 }
 
 + (dispatch_time_t)dispatchTimeAfterTimeInterval:(NSTimeInterval)timeInterval {

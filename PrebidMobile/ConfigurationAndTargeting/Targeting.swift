@@ -168,8 +168,8 @@ public class Targeting: NSObject {
     
     /// App store URL for an installed app
     public var storeURL: String? {
-        get { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] }
-        set { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] = newValue }
+        get { parameterDictionary[PrebidConstants.APP_STORE_URL_SCHEME] }
+        set { parameterDictionary[PrebidConstants.APP_STORE_URL_SCHEME] = newValue }
     }
     
     /// Domain name of the app
