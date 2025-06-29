@@ -49,10 +49,10 @@ class PBMUIViewTests: XCTestCase {
         
         // Run methods
         
-        testView.PBMAddFillSuperviewConstraints()
+        testView.addFillSuperviewConstraints()
         
         let testRect = CGRect(x: testX, y: testY, width: testWidth, height: testHeight)
-        testView.PBMAddConstraintsFromCGRect(testRect)
+        testView.addConstraints(from: testRect)
         
         let viewSize = CGSize(width: 120, height: 110)
         let marginSize = CGSize(width: testWidth, height: testHeight)
@@ -78,7 +78,7 @@ class PBMUIViewTests: XCTestCase {
         
         // Change
         
-        testView.PBMAddFillSuperviewConstraints()
+        testView.addFillSuperviewConstraints()
         
         // Check constraints
         
@@ -111,7 +111,7 @@ class PBMUIViewTests: XCTestCase {
         // Change
         
         let testRect = CGRect(x: testX, y: testY, width: testWidth, height: testHeight)
-        testView.PBMAddConstraintsFromCGRect(testRect)
+        testView.addConstraints(from: testRect)
         
         // Check constraints
         

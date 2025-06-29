@@ -177,18 +177,18 @@ public class ModalViewController: UIViewController {
 
     func configureDisplayView() {
         guard let props = displayProperties else {
-            displayView?.PBMAddFillSuperviewConstraints()
+            displayView?.addFillSuperviewConstraints()
             return
         }
         
         guard !props.contentFrame.isInfinite else {
-            displayView?.PBMAddFillSuperviewConstraints()
+            displayView?.addFillSuperviewConstraints()
             return
         }
 
         contentView?.backgroundColor = props.contentViewColor
         displayView?.backgroundColor = .clear
-        displayView?.PBMAddConstraintsFromCGRect(props.contentFrame)
+        displayView?.addConstraints(from: props.contentFrame)
     }
 
     // MARK: - Close Button Handling
