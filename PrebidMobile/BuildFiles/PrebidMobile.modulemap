@@ -14,5 +14,4 @@
   */
 
 framework module PrebidMobile {
-    header "UIView+PBMExtensions.h"
 }

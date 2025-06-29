@@ -46,4 +46,100 @@ extension UIView {
         getSubview(view: self)
         return all
     }
+    
+    @objc(PBMAddFillSuperviewConstraints)
+    public func addFillSuperviewConstraints() {
+        guard let superview = self.superview else { return }
+
+        self.translatesAutoresizingMaskIntoConstraints = false
+
+        let width = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal,
+                                       toItem: superview, attribute: .width,
+                                       multiplier: 1.0, constant: 0.0)
+        let height = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal,
+                                        toItem: superview, attribute: .height,
+                                        multiplier: 1.0, constant: 0.0)
+        let centerX = NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal,
+                                         toItem: superview, attribute: .centerX,
+                                         multiplier: 1.0, constant: 0.0)
+        let centerY = NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal,
+                                         toItem: superview, attribute: .centerY,
+                                         multiplier: 1.0, constant: 0.0)
+
+        let constraints = [width, height, centerX, centerY]
+        constraints.forEach { $0.isActive = true }
+        superview.addConstraints(constraints)
+    }
+
+    @objc(PBMAddConstraintsFromCGRect:)
+    public func addConstraints(from rect: CGRect) {
+        guard let superview = self.superview else { return }
+
+        self.translatesAutoresizingMaskIntoConstraints = false
+
+        let width = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal,
+                                       toItem: nil, attribute: .notAnAttribute,
+                                       multiplier: 1.0, constant: rect.size.width)
+        let height = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal,
+                                        toItem: nil, attribute: .notAnAttribute,
+                                        multiplier: 1.0, constant: rect.size.height)
+        let x = NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal,
+                                   toItem: superview, attribute: .left,
+                                   multiplier: 1.0, constant: rect.origin.x)
+        let y = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal,
+                                   toItem: superview, attribute: .top,
+                                   multiplier: 1.0, constant: rect.origin.y)
+
+        let constraints = [width, height, x, y]
+        constraints.forEach { $0.isActive = true }
+        superview.addConstraints(constraints)
+    }
+    
+    @objc(pbmIsVisible)
+    public func isVisible() -> Bool {
+        if self.isHidden || self.alpha == 0 || self.window == nil {
+            return false
+        }
+        return self.isVisible(inViewLegacy: self.superview)
+    }
+    
+    @objc(pbmIsVisibleInViewLegacy:)
+    public func isVisible(inViewLegacy inView: UIView?) -> Bool {
+        guard let inView = inView else {
+            return true
+        }
+        
+        if inView.superview == inView.window, let siblings = inView.superview?.subviews, siblings.count > 1 {
+            for view in siblings.reversed() {
+                if view === inView {
+                    break
+                }
+                if view.isSubTreeViewVisible() {
+                    return false
+                }
+            }
+        }
+        
+        let viewFrame = inView.convert(self.bounds, from: self)
+        if viewFrame.intersects(inView.bounds) {
+            return self.isVisible(inViewLegacy: inView.superview)
+        }
+        
+        return false
+    }
+
+    @objc
+    func isSubTreeViewVisible() -> Bool {
+        if !self.isHidden && self.alpha > 0 && !self.bounds.size.equalTo(.zero) {
+            return true
+        }
+        
+        for view in self.subviews {
+            if view.isSubTreeViewVisible() {
+                return true
+            }
+        }
+        
+        return false
+    }
 }

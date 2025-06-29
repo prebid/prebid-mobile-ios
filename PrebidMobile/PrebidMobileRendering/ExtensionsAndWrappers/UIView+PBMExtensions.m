@@ -31,40 +31,6 @@
 
 #pragma mark - Extensions
 
-- (void)PBMAddFillSuperviewConstraints {
-    if (!self.superview) {
-        return;
-    }
-    
-    self.translatesAutoresizingMaskIntoConstraints = false;
-    
-    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
-    NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0];
-    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0];
-    NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0];
-    
-    NSArray* constraints = @[width, height, centerX, centerY];
-    [self activateConstraints:constraints];
-    [self.superview addConstraints:constraints];
-}
-
-- (void)PBMAddConstraintsFromCGRect:(CGRect)rect {
-    if (!self.superview) {
-        return;
-    }
-    
-    self.translatesAutoresizingMaskIntoConstraints = false;
-    
-    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:rect.size.width];
-    NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:rect.size.height];
-    NSLayoutConstraint *x = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeLeft multiplier:1.0 constant:rect.origin.x];
-    NSLayoutConstraint *y = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeTop multiplier:1.0 constant:rect.origin.y];
-    
-    NSArray *constraints = @[width, height, x, y];
-    [self activateConstraints:constraints];
-    [self.superview addConstraints:constraints];
-}
-
 - (void)PBMAddCropAndCenterConstraintsWithInitialWidth:(CGFloat)initialWidth initialHeight:(CGFloat)initialHeight {
     if (!self.superview) {
         return;
@@ -208,68 +174,8 @@
     }
 }
 
-- (BOOL)pbmIsVisible {
-    if (self.hidden || self.alpha == 0 || self.window == nil) {
-        return NO;
-    }
-    return [self pbmIsVisibleInViewLegacy:self.superview];
-}
-
 - (BOOL)pbmIsVisibleInView:(UIView *)inView {
     return self.viewExposure.exposureFactor > 0;
 }
-
-- (BOOL)pbmIsVisibleInViewLegacy:(UIView *)inView {
-    if (!inView) {
-        return YES;
-    }
-    
-    if (inView.superview == inView.window && inView.superview.subviews.count > 1) {
-        /*
-         We've reached the top of our view hierarchy
-          
-         We need to check that there is no any other visible hierarchy above the tested one
-         UIWindow
-           |   |
-           |   |-- UIView
-           |           |-> ... -> inView <-- the tested view
-           |-------UIView
-                       |-> ... -> UIView <- an hierarhy above the tested one (f.e. modal view)
-         
-         Walk through views in the reverse order while a visible not found or the tested reached
-         */
-        for(UIView *view in inView.superview.subviews.reverseObjectEnumerator) {
-            if (view == inView) {
-                //There are no visible view hierarhies above the tested one
-                break;
-            }
-            if ([view isSubTreeViewVisible]) {
-                return false;
-            }
-        }
-    }
-    
-    CGRect viewFrame = [inView convertRect:self.bounds fromView:self];
-    if (CGRectIntersectsRect(viewFrame, inView.bounds)) {
-        return [self pbmIsVisibleInViewLegacy:inView.superview];
-    }
-    
-    return NO;
-}
-
-- (BOOL)isSubTreeViewVisible {
-    if (!self.isHidden && self.alpha > 0 && !CGSizeEqualToSize(self.bounds.size, CGSizeZero)) {
-        return YES;
-    }
-    
-    for(UIView *view in self.subviews) {
-        if ([view isSubTreeViewVisible]) {
-            return YES;
-        }
-    }
-    
-    return NO;
-}
-
 
 @end
