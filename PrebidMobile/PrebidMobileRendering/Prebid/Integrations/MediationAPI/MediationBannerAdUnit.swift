@@ -213,7 +213,7 @@ public class MediationBannerAdUnit : NSObject {
             return false
         }
         
-        return adObject.pbmIsVisible()
+        return adObject.isVisible()
     }
     
     private func markLoadingFinished() {

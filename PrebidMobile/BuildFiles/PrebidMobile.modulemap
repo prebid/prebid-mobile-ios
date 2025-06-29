@@ -18,15 +18,10 @@ framework module PrebidMobile {
     // Versions
     header "PrebidMobile.h"
     
-    header "PBMVoidBlock.h"
-        
     header "PBMConstants.h"
-        
-    header "UIView+PBMExtensions.h"
-    
+            
     header "PBMFunctions.h"
     header "PBMFunctions+Private.h"
     header "PBMUIApplicationProtocol.h"
         
-    header "OMSDKVersionProvider.h"
 }

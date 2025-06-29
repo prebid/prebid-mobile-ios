@@ -101,7 +101,7 @@ public class BannerView:
             return  true
         }
         
-        if isAdOpened || !pbmIsVisible() || isCreativeOpened {
+        if isAdOpened || !isVisible() || isCreativeOpened {
             return false
         }
         

@@ -17,12 +17,6 @@
 
 @interface UIView (PBMExtensions)
 
-- (void)PBMAddFillSuperviewConstraints
-    NS_SWIFT_NAME(PBMAddFillSuperviewConstraints());
-
-- (void)PBMAddConstraintsFromCGRect:(CGRect)rect
-    NS_SWIFT_NAME(PBMAddConstraintsFromCGRect(_:));
-
 - (void)PBMAddCropAndCenterConstraintsWithInitialWidth:(CGFloat)initialWidth initialHeight:(CGFloat)initialHeight
     NS_SWIFT_NAME(PBMAddCropAndCenterConstraints(initialWidth:initialHeight:));
 
@@ -42,10 +36,6 @@ NS_SWIFT_NAME(PBMAddTopLeftConstraints(viewSize:marginSize:));
 
 - (void)LogViewHierarchy;
 
-- (BOOL)pbmIsVisible;
-
 - (BOOL)pbmIsVisibleInView:(UIView *)inView;
-
-- (BOOL)pbmIsVisibleInViewLegacy:(UIView *)inView;
 
 @end

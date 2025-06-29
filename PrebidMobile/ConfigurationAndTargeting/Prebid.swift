@@ -76,7 +76,7 @@ public class Prebid: NSObject {
     
     /// The version of the OM SDK.
     public var omsdkVersion: String {
-        OMSDKVersionProvider.omSDKVersionString
+        Factory.OMSDKVersionProviderType.omSDKVersionString
     }
     
     // MARK: - Public Properties (Prebid)
