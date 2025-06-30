@@ -199,7 +199,7 @@ typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
         self.requestsPending += 1;
     });
     
-    [self.serverConnection get:vastURL timeout:PBMTimeInterval.CONNECTION_TIMEOUT_DEFAULT callback:^(PrebidServerResponse * _Nonnull serverResponse) {
+    [self.serverConnection get:vastURL timeout:PrebidConstants.CONNECTION_TIMEOUT_DEFAULT callback:^(PrebidServerResponse * _Nonnull serverResponse) {
         if (serverResponse.error) {
             completion(serverResponse.error);
             return;

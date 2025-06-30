@@ -116,7 +116,7 @@
 }
 
 - (BOOL)shouldTryOpenURLScheme:(NSString *)strURLscheme {
-    if ([PBMFunctions isSimulator] && [PBMConstants.urlSchemesNotSupportedOnSimulator containsObject:strURLscheme]) {
+    if ([PBMFunctions isSimulator] && [PrebidConstants.URL_SCHEMES_NOT_SUPPORTED_ON_SIMULATOR containsObject:strURLscheme]) {
         return NO;
     }
     

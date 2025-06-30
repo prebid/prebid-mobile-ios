@@ -99,6 +99,6 @@ public class DeviceAccessManager: NSObject {
     // MARK: - Screen
 
     @objc public func screenSize() -> CGSize {
-        PBMFunctions.deviceScreenSize()
+        UIDevice.current.screenSize
     }
 }

@@ -28,7 +28,7 @@ class ArbitraryImpORTBHelper: ArbitraryORTBHelperProtocol {
     }
     
     func getValidatedORTBDict() -> [String : Any]? {
-        guard let ortbDict = try? PBMFunctions.dictionaryFromJSONString(ortb) else {
+        guard let ortbDict = try? Functions.dictionary(from: ortb) else {
             Log.warn("The provided impression-level ortbConfig object is not valid JSON and will be ignored.")
             return nil
         }
@@ -76,7 +76,7 @@ class ArbitraryGlobalORTBHelper: ArbitraryORTBHelperProtocol {
     }
     
     func getValidatedORTBDict() -> [String : Any]? {
-        guard var ortbDict = try? PBMFunctions.dictionaryFromJSONString(ortb) else {
+        guard var ortbDict = try? Functions.dictionary(from: ortb) else {
             Log.warn("The provided global-level ortbConfig object is not valid JSON and will be ignored.")
             return nil
         }

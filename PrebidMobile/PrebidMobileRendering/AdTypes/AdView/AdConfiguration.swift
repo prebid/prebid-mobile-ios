@@ -115,7 +115,8 @@ public class AdConfiguration: AutoRefreshCountConfig {
     public override var autoRefreshDelay: TimeInterval? {
         set {
             if let newValue = newValue, newValue > 0 {
-                let clampedValue = PBMFunctions.clampAutoRefresh(newValue)
+                let minDelay = max(newValue, PrebidConstants.AUTO_REFRESH_DELAY_MIN)
+                let clampedValue = min(minDelay, PrebidConstants.AUTO_REFRESH_DELAY_MAX)
                 _autoRefreshDelay = clampedValue
             } else {
                 _autoRefreshDelay = nil
@@ -132,7 +133,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     // MARK: Private properties
     
-    private var _autoRefreshDelay: TimeInterval? = PBMAutoRefresh.AUTO_REFRESH_DELAY_DEFAULT
+    private var _autoRefreshDelay: TimeInterval? = PrebidConstants.AUTO_REFRESH_DELAY_DEFAULT
     
     public var impORTBConfig: String?
 }

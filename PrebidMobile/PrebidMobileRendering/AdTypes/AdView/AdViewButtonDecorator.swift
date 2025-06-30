@@ -34,7 +34,7 @@ public class AdViewButtonDecorator: NSObject {
         customButtonPosition = .zero
         buttonPosition = .topRight
         isMRAID = false
-        buttonArea = PBMConstants.BUTTON_AREA_DEFAULT.doubleValue
+        buttonArea = PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue
         super.init()
     }
     
@@ -77,7 +77,7 @@ public class AdViewButtonDecorator: NSObject {
         var btnConstraintConstant = (screenWidth * buttonArea) / 2
         
         if btnConstraintConstant > 30 || btnConstraintConstant < 5 {
-            btnConstraintConstant = PBMConstants.buttonConstraintConstant.doubleValue
+            btnConstraintConstant = PrebidConstants.BUTTON_CONSTRAINT.doubleValue
         }
         
         return isMRAID ? 0 : btnConstraintConstant

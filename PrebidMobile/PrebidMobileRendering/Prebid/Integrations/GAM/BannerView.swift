@@ -135,7 +135,7 @@ public class BannerView:
 
         self.eventHandler = eventHandler
         super.init(frame: frame)
-        accessibilityLabel = PBMAccesibility.bannerView
+        accessibilityLabel = PrebidConstants.ACCESSIBILITY_BANNER_VIEW
         
         let bannerAdLoader = BannerAdLoader(delegate: self)
         
@@ -156,7 +156,7 @@ public class BannerView:
             })
         
         autoRefreshManager = AutoRefreshManager(
-            prefetchTime: PBMAdPrefetchTime,
+            prefetchTime: PrebidConstants.AD_PREFETCH_TIME,
             lockingQueue: adLoadFlowController?.dispatchQueue,
             lockProvider: { [weak self] in
                 self?.adLoadFlowController?.mutationLock
