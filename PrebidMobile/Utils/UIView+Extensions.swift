@@ -48,6 +48,7 @@ extension UIView {
     }
     
     @objc(PBMAddFillSuperviewConstraints)
+    @_spi(PBMInternal)
     public func addFillSuperviewConstraints() {
         guard let superview = self.superview else { return }
 
@@ -72,6 +73,7 @@ extension UIView {
     }
 
     @objc(PBMAddConstraintsFromCGRect:)
+    @_spi(PBMInternal)
     public func addConstraints(from rect: CGRect) {
         guard let superview = self.superview else { return }
 
@@ -96,6 +98,7 @@ extension UIView {
     }
     
     @objc(pbmIsVisible)
+    @_spi(PBMInternal)
     public func isVisible() -> Bool {
         if self.isHidden || self.alpha == 0 || self.window == nil {
             return false
@@ -104,6 +107,7 @@ extension UIView {
     }
     
     @objc(pbmIsVisibleInViewLegacy:)
+    @_spi(PBMInternal)
     public func isVisible(inViewLegacy inView: UIView?) -> Bool {
         guard let inView = inView else {
             return true
@@ -129,7 +133,7 @@ extension UIView {
     }
 
     @objc
-    func isSubTreeViewVisible() -> Bool {
+    private func isSubTreeViewVisible() -> Bool {
         if !self.isHidden && self.alpha > 0 && !self.bounds.size.equalTo(.zero) {
             return true
         }
