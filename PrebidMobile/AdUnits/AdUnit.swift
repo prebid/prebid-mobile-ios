@@ -177,6 +177,8 @@ public class AdUnit: NSObject, DispatcherDelegate {
             }
         }
         
+        eventManager.unregisterAllTrackers()
+        
         bidRequester.requestBids { [weak self] bidResponse, error in
             timeoutHandler.cancel()
 
