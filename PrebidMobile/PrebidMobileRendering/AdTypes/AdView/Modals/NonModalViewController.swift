@@ -46,6 +46,6 @@ final class NonModalViewController: ModalViewController {
         
         let size = props?.contentFrame.size ?? .zero
         let contentFrame = CGRect(origin: .zero, size: size)
-        displayView?.PBMAddConstraintsFromCGRect(contentFrame)
+        displayView?.addConstraints(from: contentFrame)
     }
 }

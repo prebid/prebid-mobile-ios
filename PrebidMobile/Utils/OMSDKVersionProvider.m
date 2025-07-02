@@ -13,10 +13,19 @@
  limitations under the License.
  */
 
-#import "OMSDKVersionProvider.h"
 #import <OMIDSDK.h>
 
-@implementation OMSDKVersionProvider
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
+
+@interface OMSDKVersionProvider_Objc : NSObject<OMSDKVersionProvider>
+
+@end
+
+@implementation OMSDKVersionProvider_Objc
 
 + (nonnull NSString *) omSDKVersionString {
     return [OMIDPrebidorgSDK versionString];

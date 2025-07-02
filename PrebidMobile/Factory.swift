@@ -147,4 +147,10 @@ class Factory: NSObject {
             connection: connection,
             callback: callback)
     }
+    
+    // MARK: - OMSDKVersionProvider
+    
+    @objc public static let OMSDKVersionProviderType: OMSDKVersionProvider.Type = {
+        NSClassFromString("OMSDKVersionProvider_Objc") as! OMSDKVersionProvider.Type
+    }()
 }
