@@ -24,7 +24,7 @@ public class ModalViewController: UIViewController {
     var modalState: ModalState?
     var contentView: UIView?
     var isRotationEnabled = true
-    var modalManager: ModalManager?
+    weak var modalManager: ModalManager?
 
     // MARK: - Private Properties
 
