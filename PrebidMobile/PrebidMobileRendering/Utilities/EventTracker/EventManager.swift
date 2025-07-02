@@ -44,6 +44,10 @@ public class EventManager: NSObject, EventTrackerProtocol {
         trackers = trackers.filter({ $0 !== tracker })
     }
     
+    public func unregisterAllTrackers() {
+        trackers.removeAll()
+    }
+    
     // MARK: - EventTrackerProtocol
     
     public func trackEvent(_ event: TrackingEvent) {
