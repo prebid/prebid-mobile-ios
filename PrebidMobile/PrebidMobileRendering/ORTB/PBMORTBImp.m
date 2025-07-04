@@ -37,7 +37,7 @@
     //_impID = nil;
     _pmp = [PBMORTBPmp new];
     _instl = @0;
-    _clickbrowser = @0;
+    _clickbrowser = @1; // native
     _secure = @0;
     _extPrebid = [[PBMORTBImpExtPrebid alloc] init];
     _extSkadn = [PBMORTBImpExtSkadn new];
