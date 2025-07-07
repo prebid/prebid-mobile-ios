@@ -4,21 +4,22 @@
 import PackageDescription
 
 let package = Package(
-
+    
     name: "PrebidMobile",
     platforms: [
-        .iOS(.v12)
+        .iOS(.v12),
     ],
     products: [
         .library(
             name: "PrebidMobile",
-            targets: ["PrebidMobile", "PrebidMobileObjc"])
+            targets: ["PrebidMobile", "PrebidMobileObjc"]
+        ),
     ],
     targets: [
         .target(
             name: "PrebidMobile",
             path: "PrebidMobile",
-            sources: ["Swift"],
+            sources: ["Swift"]
         ),
         .target(
             name: "PrebidMobileObjc",
@@ -34,7 +35,8 @@ let package = Package(
             ]
         ),
         .binaryTarget(
-                    name: "PrebidMobileOMSDK",
-                    path: "Frameworks/OMSDK_Prebidorg.xcframework"),
-    ],
+            name: "PrebidMobileOMSDK",
+            path: "Frameworks/OMSDK_Prebidorg.xcframework"
+        ),
+    ]
 )
