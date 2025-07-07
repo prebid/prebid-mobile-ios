@@ -8,7 +8,7 @@ NC='\033[0m' # No Color
 echo -e "\n\n${GREEN}RUN PREBID DEMO TESTS${NC}\n\n"
 
 echo -e "\n${GREEN}Creating simulator${NC} \n"
-xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
+xcrun simctl create iPhone-16-Pro-PrebidMobile-SPM com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
 
 cd ..
 echo $PWD
@@ -22,7 +22,7 @@ echo -e "\n${GREEN}Running integration tests${NC} \n"
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
     -scheme SPMTestApp \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
+    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile-SPM,OS=latest' | xcbeautify
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ Build Success"
@@ -32,4 +32,4 @@ else
 fi
 
 echo -e "\n${GREEN}Removing simulator${NC} \n"
-xcrun simctl delete iPhone-16-Pro-PrebidMobile
+xcrun simctl delete iPhone-16-Pro-PrebidMobile-SPM
