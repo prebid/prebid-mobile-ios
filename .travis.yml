@@ -12,4 +12,5 @@ script:
   - "./scripts/buildPrebidMobile.sh <<< $'y\n'" 
   - "./scripts/testPrebidMobile.sh"
   - "./scripts/testPrebidDemo.sh"
+  - "./scripts/testPrebidSPM.sh"
   # - "./scripts/swiftLint.sh"
