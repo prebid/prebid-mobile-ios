@@ -116,7 +116,7 @@
 			mainGroup = 5AE19C492E136462002AD0D1;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5AE19C6D2E136485002AD0D1 /* XCLocalSwiftPackageReference "../../prebid-mobile-ios" */,
+				5AE19C6D2E136485002AD0D1 /* XCLocalSwiftPackageReference ".." */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5AE19C532E136462002AD0D1 /* Products */;
@@ -346,9 +346,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		5AE19C6D2E136485002AD0D1 /* XCLocalSwiftPackageReference "../../prebid-mobile-ios" */ = {
+		5AE19C6D2E136485002AD0D1 /* XCLocalSwiftPackageReference ".." */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../prebid-mobile-ios";
+			relativePath = "..";
 		};
 /* End XCLocalSwiftPackageReference section */
 
