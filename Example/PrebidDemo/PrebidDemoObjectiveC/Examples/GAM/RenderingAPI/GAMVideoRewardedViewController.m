@@ -14,6 +14,7 @@
  */
 
 #import "GAMVideoRewardedViewController.h"
+#import "PrebidDemoMacros.h"
 
 NSString * const storedImpGAMVideoRewarded = @"prebid-demo-video-rewarded-endcard-time";
 NSString * const gamAdUnitVideoRewardedRendering = @"/21808260008/prebid_oxb_rewarded_video_test";

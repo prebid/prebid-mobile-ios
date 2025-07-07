@@ -36,7 +36,6 @@
 		2A9DDDCC2C5BE190000EA4A0 /* PrebidEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */; };
 		2A9DDDD42C63665A000EA4A0 /* PBMEventDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */; };
 		2A9DDDD82C63A88C000EA4A0 /* PrebidEventDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */; };
-		34F51A562850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F51A552850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework */; };
 		38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B262576421400E026A2 /* CacheManagerTests.swift */; };
 		38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B322576624C00E026A2 /* TrackerManagerTests.swift */; };
 		3CD0ADEE2C5125E9006CDA6B /* PluginRegisterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */; };
@@ -229,6 +228,7 @@
 		5A663B5C2DB31790005DF07F /* AdMarkupStringHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B5B2DB31790005DF07F /* AdMarkupStringHandler.swift */; };
 		5A663B642DB31E41005DF07F /* PrimaryAdRequesterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B632DB31E41005DF07F /* PrimaryAdRequesterProtocol.swift */; };
 		5A663B662DB32010005DF07F /* InterstitialAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B652DB32010005DF07F /* InterstitialAd.swift */; };
+		5A6E9E6B2E1C585F00F22587 /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF1BFD42E1C4F660096B53C /* OMSDK_Prebidorg.xcframework */; };
 		5A8447F82DB6FFF800446F70 /* ThreadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8447F72DB6FFF800446F70 /* ThreadProtocol.swift */; };
 		5A8447FC2DB7050D00446F70 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8447FB2DB7050D00446F70 /* TrackingEvent.swift */; };
 		5A8447FE2DB7053E00446F70 /* EventTrackerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8447FD2DB7053E00446F70 /* EventTrackerProtocol.swift */; };
@@ -266,8 +266,9 @@
 		5AE4E5E52DB863EB002C84DF /* ModalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5E42DB863EB002C84DF /* ModalManager.swift */; };
 		5AE4E5E82DB865B4002C84DF /* DeferredModalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5E72DB865B4002C84DF /* DeferredModalState.swift */; };
 		5AE4E5EB2DB87172002C84DF /* ModalManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5EA2DB87172002C84DF /* ModalManagerDelegate.swift */; };
-		5AF5E9212E13547A002D80C1 /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AF5E9202E13547A002D80C1 /* omsdk.js */; };
-		5AF5E9222E13547A002D80C1 /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AF5E91F2E13547A002D80C1 /* mraid.js */; };
+		5AF1BFD52E1C4F660096B53C /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF1BFD42E1C4F660096B53C /* OMSDK_Prebidorg.xcframework */; };
+		5AF1BFDE2E1C50D30096B53C /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AF1BFDC2E1C50D30096B53C /* omsdk.js */; };
+		5AF1BFDF2E1C50D30096B53C /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AF1BFDB2E1C50D30096B53C /* mraid.js */; };
 		5AF5EA532E13580F002D80C1 /* PBMORTBUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA122E13580F002D80C1 /* PBMORTBUser.h */; };
 		5AF5EA542E13580F002D80C1 /* PBMAbstractCreative.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9C02E13580F002D80C1 /* PBMAbstractCreative.h */; };
 		5AF5EA552E13580F002D80C1 /* PBMAdRequesterVAST.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9C82E13580F002D80C1 /* PBMAdRequesterVAST.h */; };
@@ -853,19 +854,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		53061A3C2848B97000AF07C3 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		0009B7AD2DEC521D006E406D /* AdRefreshOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdRefreshOptions.swift; sourceTree = "<group>"; };
 		0012D6AD2E044A40007013F3 /* ORTBRewardedClose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBRewardedClose.swift; sourceTree = "<group>"; };
@@ -894,7 +882,6 @@
 		2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegate.swift; sourceTree = "<group>"; };
 		2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMEventDelegateHelper.swift; sourceTree = "<group>"; };
 		2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegateTests.swift; sourceTree = "<group>"; };
-		34F51A552850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "OMSDK-Static_Prebidorg.xcframework"; path = "Frameworks/OMSDK-Static_Prebidorg.xcframework"; sourceTree = "<group>"; };
 		38F03B262576421400E026A2 /* CacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTests.swift; sourceTree = "<group>"; };
 		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
 		3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginRegisterTest.swift; sourceTree = "<group>"; };
@@ -1129,8 +1116,9 @@
 		5AE4E5E42DB863EB002C84DF /* ModalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalManager.swift; sourceTree = "<group>"; };
 		5AE4E5E72DB865B4002C84DF /* DeferredModalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeferredModalState.swift; sourceTree = "<group>"; };
 		5AE4E5EA2DB87172002C84DF /* ModalManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalManagerDelegate.swift; sourceTree = "<group>"; };
-		5AF5E91F2E13547A002D80C1 /* mraid.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = mraid.js; sourceTree = "<group>"; };
-		5AF5E9202E13547A002D80C1 /* omsdk.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
+		5AF1BFD42E1C4F660096B53C /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
+		5AF1BFDB2E1C50D30096B53C /* mraid.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = mraid.js; sourceTree = "<group>"; };
+		5AF1BFDC2E1C50D30096B53C /* omsdk.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
 		5AF5E9242E13580F002D80C1 /* InternalUserConsentDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InternalUserConsentDataManager.m; sourceTree = "<group>"; };
 		5AF5E9272E13580F002D80C1 /* PBMOpenMeasurementEventTracker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMOpenMeasurementEventTracker.m; sourceTree = "<group>"; };
 		5AF5E9282E13580F002D80C1 /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMOpenMeasurementFriendlyObstructionTypeBridge.m; sourceTree = "<group>"; };
@@ -1726,6 +1714,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A6E9E6B2E1C585F00F22587 /* OMSDK_Prebidorg.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1733,7 +1722,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34F51A562850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework in Frameworks */,
+				5AF1BFD52E1C4F660096B53C /* OMSDK_Prebidorg.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2006,13 +1995,13 @@
 			path = ConfigurationAndTargeting;
 			sourceTree = "<group>";
 		};
-		5AF5E91E2E13546C002D80C1 /* Assets */ = {
+		5AF1BFDD2E1C50D30096B53C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5AF5E91F2E13547A002D80C1 /* mraid.js */,
-				5AF5E9202E13547A002D80C1 /* omsdk.js */,
+				5AF1BFDB2E1C50D30096B53C /* mraid.js */,
+				5AF1BFDC2E1C50D30096B53C /* omsdk.js */,
 			);
-			path = Assets;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		5AF5E9252E13580F002D80C1 /* ConfigurationAndTargeting */ = {
@@ -2021,13 +2010,6 @@
 				5AF5E9242E13580F002D80C1 /* InternalUserConsentDataManager.m */,
 			);
 			path = ConfigurationAndTargeting;
-			sourceTree = "<group>";
-		};
-		5AF5E9262E13580F002D80C1 /* Logging */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Logging;
 			sourceTree = "<group>";
 		};
 		5AF5E92B2E13580F002D80C1 /* OpenMeasurement */ = {
@@ -2533,7 +2515,6 @@
 			isa = PBXGroup;
 			children = (
 				5AF5E9252E13580F002D80C1 /* ConfigurationAndTargeting */,
-				5AF5E9262E13580F002D80C1 /* Logging */,
 				5AF5E9B62E13580F002D80C1 /* PrebidMobileRendering */,
 				5AF5EA4F2E13580F002D80C1 /* PrivateHeaders */,
 				5AF5EA512E13580F002D80C1 /* Utils */,
@@ -3012,7 +2993,7 @@
 		6062B19A218243FA00CE1BA3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				34F51A552850F50E0063763D /* OMSDK-Static_Prebidorg.xcframework */,
+				5AF1BFD42E1C4F660096B53C /* OMSDK_Prebidorg.xcframework */,
 				6062B19B218243FA00CE1BA3 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
@@ -3486,7 +3467,7 @@
 		FAEE4CDC262DC2B200AD9966 /* PrebidMobile */ = {
 			isa = PBXGroup;
 			children = (
-				5AF5E91E2E13546C002D80C1 /* Assets */,
+				5AF1BFDD2E1C50D30096B53C /* Resources */,
 				5AFCF3D42E133E4900998AED /* Swift */,
 				5AF5EA522E13580F002D80C1 /* Objc */,
 				FAEE4CFB262DC2B200AD9966 /* PrebidMobile.h */,
@@ -3769,7 +3750,6 @@
 				FAAA00B92322733E009DC7D6 /* Sources */,
 				FAAA00BA2322733E009DC7D6 /* Frameworks */,
 				FAAA00BB2322733E009DC7D6 /* Resources */,
-				53061A3C2848B97000AF07C3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3880,8 +3860,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AF5E9212E13547A002D80C1 /* omsdk.js in Resources */,
-				5AF5E9222E13547A002D80C1 /* mraid.js in Resources */,
+				5AF1BFDE2E1C50D30096B53C /* omsdk.js in Resources */,
+				5AF1BFDF2E1C50D30096B53C /* mraid.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4698,7 +4678,6 @@
 		60D7930A217E229B0080F428 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -4724,7 +4703,6 @@
 		60D7930B217E229B0080F428 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";

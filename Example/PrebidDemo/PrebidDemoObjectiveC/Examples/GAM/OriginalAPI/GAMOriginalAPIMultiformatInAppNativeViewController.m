@@ -14,6 +14,7 @@
  */
 
 #import "GAMOriginalAPIMultiformatInAppNativeViewController.h"
+#import "PrebidDemoMacros.h"
 
 NSArray<NSString *> * const multiformatStoredPrebidImpressions = @[@"prebid-demo-banner-300-250", @"prebid-demo-video-outstream-original-api", @"prebid-demo-banner-native-styles"];
 NSString * const gamMultiformatAdUnitId = @"/21808260008/prebid-demo-multiformat";

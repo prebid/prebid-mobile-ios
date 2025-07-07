@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import <OMIDSDK.h>
+#import <OMSDK_Prebidorg/OMIDSDK.h>
 
 #import "SwiftImport.h"
 

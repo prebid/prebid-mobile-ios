@@ -18,7 +18,7 @@ let package = Package(
         .target(
             name: "PrebidMobile",
             path: "PrebidMobile",
-            sources: ["Swift"]
+            sources: ["Swift"],
         ),
         .target(
             name: "PrebidMobileObjc",
@@ -35,6 +35,6 @@ let package = Package(
         ),
         .binaryTarget(
                     name: "PrebidMobileOMSDK",
-                    path: "Frameworks/OMSDK-Static_Prebidorg.xcframework"),
+                    path: "Frameworks/OMSDK_Prebidorg.xcframework"),
     ],
 )

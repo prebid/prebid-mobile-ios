@@ -14,6 +14,7 @@
  */
 
 #import "GAMDisplayBannerViewController.h"
+#import "PrebidDemoMacros.h"
 
 NSString * const storedImpDisplayBannerGAMRendering = @"prebid-demo-banner-320-50";
 NSString * const gamAdUnitDisplayBannerRendering = @"/21808260008/prebid_oxb_320x50_banner";

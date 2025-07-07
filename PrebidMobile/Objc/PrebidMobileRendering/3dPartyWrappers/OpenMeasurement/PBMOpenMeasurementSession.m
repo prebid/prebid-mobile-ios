@@ -20,7 +20,7 @@
 
 #import "SwiftImport.h"
 
-#import <OMIDAdSession.h>
+#import <OMSDK_Prebidorg/OMIDAdSession.h>
 
 @interface PBMOpenMeasurementSession ()
 
