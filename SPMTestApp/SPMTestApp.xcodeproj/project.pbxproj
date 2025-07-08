@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A470B2E2E1D8D2900D0470D /* PrebidMobileAdMobAdapters in Frameworks */ = {isa = PBXBuildFile; productRef = 5A470B2D2E1D8D2900D0470D /* PrebidMobileAdMobAdapters */; };
+		5A470B302E1D8D2900D0470D /* PrebidMobileGAMEventHandlers in Frameworks */ = {isa = PBXBuildFile; productRef = 5A470B2F2E1D8D2900D0470D /* PrebidMobileGAMEventHandlers */; };
+		5A470B322E1D8D2900D0470D /* PrebidMobileMAXAdapters in Frameworks */ = {isa = PBXBuildFile; productRef = 5A470B312E1D8D2900D0470D /* PrebidMobileMAXAdapters */; };
 		5AE19C6F2E136485002AD0D1 /* PrebidMobile in Frameworks */ = {isa = PBXBuildFile; productRef = 5AE19C6E2E136485002AD0D1 /* PrebidMobile */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +44,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A470B302E1D8D2900D0470D /* PrebidMobileGAMEventHandlers in Frameworks */,
+				5A470B2E2E1D8D2900D0470D /* PrebidMobileAdMobAdapters in Frameworks */,
 				5AE19C6F2E136485002AD0D1 /* PrebidMobile in Frameworks */,
+				5A470B322E1D8D2900D0470D /* PrebidMobileMAXAdapters in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +92,9 @@
 			name = SPMTestApp;
 			packageProductDependencies = (
 				5AE19C6E2E136485002AD0D1 /* PrebidMobile */,
+				5A470B2D2E1D8D2900D0470D /* PrebidMobileAdMobAdapters */,
+				5A470B2F2E1D8D2900D0470D /* PrebidMobileGAMEventHandlers */,
+				5A470B312E1D8D2900D0470D /* PrebidMobileMAXAdapters */,
 			);
 			productName = SPMTestApp;
 			productReference = 5AE19C522E136462002AD0D1 /* SPMTestApp.app */;
@@ -355,6 +364,18 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5A470B2D2E1D8D2900D0470D /* PrebidMobileAdMobAdapters */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PrebidMobileAdMobAdapters;
+		};
+		5A470B2F2E1D8D2900D0470D /* PrebidMobileGAMEventHandlers */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PrebidMobileGAMEventHandlers;
+		};
+		5A470B312E1D8D2900D0470D /* PrebidMobileMAXAdapters */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PrebidMobileMAXAdapters;
+		};
 		5AE19C6E2E136485002AD0D1 /* PrebidMobile */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PrebidMobile;

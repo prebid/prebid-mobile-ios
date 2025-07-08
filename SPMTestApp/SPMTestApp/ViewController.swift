@@ -8,6 +8,9 @@
 import UIKit
 
 import PrebidMobile
+import PrebidMobileAdMobAdapters
+import PrebidMobileGAMEventHandlers
+import PrebidMobileMAXAdapters
 
 class ViewController: UIViewController {
 
@@ -16,6 +19,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         print(Prebid.shared.version)
+        print(AdMobConstants.PrebidAdMobRewardedAdapterVersion)
+        print(GAMUtils.shared)
+        print(MAXConstants.PrebidMAXAdapterVersion)
     }
 
 
