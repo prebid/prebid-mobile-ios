@@ -12,7 +12,7 @@ let package = Package(
     products: [
         .library(
             name: "PrebidMobile",
-            targets: ["PrebidMobile", "PrebidMobileObjc"]
+            targets: ["PrebidMobile", "__PrebidMobileInternal"]
         ),
         .library(
             name: "PrebidMobileAdMobAdapters",
@@ -38,7 +38,7 @@ let package = Package(
             sources: ["Swift"]
         ),
         .target(
-            name: "PrebidMobileObjc",
+            name: "__PrebidMobileInternal",
             dependencies: [
                 "PrebidMobile",
                 "PrebidMobileOMSDK",
