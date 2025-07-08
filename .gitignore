@@ -115,3 +115,7 @@ Pods/
 
 # Visual Studio Code 
 .build/
+
+# Swift Package Manager
+/.swiftpm
+

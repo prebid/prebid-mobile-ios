@@ -47,6 +47,9 @@ pod install --repo-update
 
 echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
 
+echo "Available Schemes:\n"
+xcodebuild -workspace PrebidMobile.xcworkspace -list
+
 schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers" "PrebidMobileAdMobAdapters" "PrebidMobileMAXAdapters")
 
 for(( n=0; n<${#schemes[@]}; n++ ))
@@ -67,9 +70,13 @@ do
 	-sdk "iphoneos" \
 	-derivedDataPath $XCODE_BUILD_DIR \
 	-archivePath "$XCODE_ARCHIVE_DIR/${schemes[$n]}.xcarchive" \
+    -verbose #\
 	> "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
+ 
+    echo "Find Framework ${schemes[$n]} for device"
+    find "$XCODE_ARCHIVE_DIR" -type d,f
 
-	echo -e "${GREEN} - Archiving ${schemes[$n]} for simulator${NC}"
+	echo -e "\n${GREEN} - Archiving ${schemes[$n]} for simulator${NC}"
 
 	xcodebuild archive \
 	only_active_arch=NO \
@@ -82,7 +89,11 @@ do
 	-sdk "iphonesimulator" \
 	-derivedDataPath $XCODE_BUILD_DIR \
 	-archivePath "$XCODE_ARCHIVE_DIR/${schemes[$n]}$POSTFIX_SIMULATOR.xcarchive" \
+    -verbose #\
 	> "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
+ 
+    echo "Find Framework ${schemes[$n]} for simulator"
+    find "$XCODE_ARCHIVE_DIR" -type d,f
 
 	echo -e "${GREEN} - Creating ${schemes[$n]} XCFramework${NC}"
 	# Create XCFramework
