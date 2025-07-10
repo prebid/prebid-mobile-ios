@@ -185,6 +185,7 @@
 		53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */; };
 		53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */; };
 		53D93505282CEA900092E243 /* DateFormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D93504282CEA900092E243 /* DateFormatService.swift */; };
+		53DC72042E1F95320028D00E /* UserConsentDataManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DC72032E1F95320028D00E /* UserConsentDataManager+Extensions.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
 		53E45A0327FCD09C0095C0B2 /* BannerParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */; };
 		53ED304C29798585007D13EE /* SkadnParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED304B29798585007D13EE /* SkadnParameterBuilderTest.swift */; };
@@ -1032,6 +1033,7 @@
 		53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMBidRequester.swift; sourceTree = "<group>"; };
 		53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		53D93504282CEA900092E243 /* DateFormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatService.swift; sourceTree = "<group>"; };
+		53DC72032E1F95320028D00E /* UserConsentDataManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserConsentDataManager+Extensions.swift"; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
 		53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerParameters.swift; sourceTree = "<group>"; };
 		53E649D529B091000072CC4B /* PBMSafariVCOpener+PBMTestExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMSafariVCOpener+PBMTestExtensions.h"; sourceTree = "<group>"; };
@@ -3147,6 +3149,7 @@
 				922AFCE92736FB9200732C53 /* Prebid */,
 				925D5E7E2738009100A8A2B5 /* PBMAdLoadManager+pbmTestExtension.h */,
 				53E649D529B091000072CC4B /* PBMSafariVCOpener+PBMTestExtensions.h */,
+				53DC72032E1F95320028D00E /* UserConsentDataManager+Extensions.swift */,
 			);
 			path = TestExtensions;
 			sourceTree = "<group>";
@@ -4105,6 +4108,7 @@
 				925D5E682737F49700A8A2B5 /* PBMVastLoaderMultiWrapperTest.swift in Sources */,
 				925D5E1E2737E8BF00A8A2B5 /* PBMBaseInterstitialAdUnit_DelegationTest.swift in Sources */,
 				925D5D7E2737B9BE00A8A2B5 /* SkadnParametersManagerTest.swift in Sources */,
+				53DC72042E1F95320028D00E /* UserConsentDataManager+Extensions.swift in Sources */,
 				925D5E5C2737F38400A8A2B5 /* PBMVastLoaderTestOMVerificationInExtension.swift in Sources */,
 				922AFCEB2736FBA000732C53 /* PBMSDKConfiguration+TestExtension.swift in Sources */,
 				929638BB27AB200400D30F3D /* NativeImageTests.swift in Sources */,

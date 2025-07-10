@@ -29,6 +29,8 @@ class PrebidTest: XCTestCase {
     }
     
     override func tearDown() {
+        Log.logLevel = .debug
+        
         logToFile = nil
         sdkConfiguration = nil
         

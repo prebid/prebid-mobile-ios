@@ -18,6 +18,11 @@ import XCTest
 
 class PBMUserConsentParameterBuilderTest: XCTestCase {
     
+    override func tearDown() {
+        UserConsentDataManager.shared.reset()
+        super.tearDown()
+    }
+    
     func testInit() {
         let builder = PBMUserConsentParameterBuilder()
         XCTAssertNotNil(builder)
