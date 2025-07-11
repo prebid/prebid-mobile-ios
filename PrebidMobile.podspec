@@ -66,7 +66,7 @@ Pod::Spec.new do |s|
       'PrebidMobile/ConfigurationAndTargeting/InternalUserConsentDataManager.h',
       'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMUserConsentParameterBuilder.h'
     ]
-    core.vendored_frameworks = 'Frameworks/OMSDK-Static_Prebidorg.xcframework'
+    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
   end
 
   s.pod_target_xcconfig = {

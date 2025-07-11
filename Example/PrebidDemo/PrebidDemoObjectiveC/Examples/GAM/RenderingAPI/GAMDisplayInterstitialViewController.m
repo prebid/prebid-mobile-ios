@@ -14,6 +14,7 @@
  */
 
 #import "GAMDisplayInterstitialViewController.h"
+#import "PrebidDemoMacros.h"
 
 NSString * const storedImpGAMDisplayInterstitial = @"prebid-demo-display-interstitial-320-480";
 NSString * const gamAdUnitDisplayInterstitialRendering = @"/21808260008/prebid_oxb_html_interstitial";

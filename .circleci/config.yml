@@ -10,6 +10,16 @@ jobs:
       - run:
           name: Build Frameworks
           command: scripts/buildPrebidMobile.sh
+          
+  build-spm:
+    macos:
+      xcode: 16.2.0
+    resource_class: macos.m1.medium.gen1
+    steps:
+      - checkout
+      - run:
+          name: Build via SPM
+          command: scripts/buildPrebidSPM.sh
 
   unit-test:
     macos:
@@ -52,3 +62,5 @@ workflows:
          name: Run Intgration Tests - Swift Demo App
       - run-swift-demo-ui-tests:
          name: Run Smoke UI Tests - Swift Demo App
+      - build-spm:
+         name: Build PrebidMobile via SPM

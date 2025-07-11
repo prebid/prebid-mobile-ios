@@ -331,6 +331,7 @@
 			children = (
 				34B64D6D24F7E54700FDD9F4 /* Sources */,
 				34B64D5F24F7E41600FDD9F4 /* Info.plist */,
+				5B69677F2642A56A0042372E /* PrebidMobileGAMEventHandlers.h */,
 			);
 			path = PrebidMobileGAMEventHandlers;
 			sourceTree = "<group>";
@@ -340,7 +341,6 @@
 			children = (
 				34C7C9E8250901410021C6D0 /* Boxes */,
 				53F2A5792CB94FA8009B74CA /* Utils */,
-				5B69677F2642A56A0042372E /* PrebidMobileGAMEventHandlers.h */,
 				5B3617FB2638131A00AFA1C2 /* Constants.swift */,
 				5BF8E76D263BF4DF00341EE4 /* GAMBannerEventHandler.swift */,
 				5B69676F2642993B0042372E /* GAMEventHandlerError.swift */,
