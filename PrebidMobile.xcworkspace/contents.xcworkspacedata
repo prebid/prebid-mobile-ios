@@ -17,9 +17,6 @@
       location = "group:InternalTestApp/InternalTestApp.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:SPMTestApp/SPMTestApp.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:tools/TestUtils/TestUtils.xcodeproj">
    </FileRef>
    <FileRef

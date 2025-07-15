@@ -1,7 +1,7 @@
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-echo -e "\n\n${GREEN}RUN PREBID DEMO TESTS${NC}\n\n"
+echo -e "\n\n${GREEN}RUN PREBID DEMO SPM${NC}\n\n"
 
 echo $PWD
 
@@ -10,11 +10,9 @@ xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDevice
 
 brew install xcbeautify
 
-echo -e "\n${GREEN}Running integration tests${NC} \n"
-
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
-    -scheme SPMTestApp \
+    -scheme PrebidDemoSPM \
     -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
