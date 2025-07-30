@@ -14,31 +14,4 @@
   */
 
 framework module PrebidMobile {
-    
-    // Versions
-    header "PrebidMobile.h"
-    
-    // PBMCacheRenderers
-    header "PBMDisplayView.h"
-    
-    header "PBMVoidBlock.h"
-        
-    header "PBMConstants.h"
-    
-    header "PBMTransactionFactory.h"
-    header "PBMVastTransactionFactory.h"
-    header "PBMTransactionFactoryCallback.h"
-    
-    header "UIView+PBMExtensions.h"
-    
-    header "PBMFunctions.h"
-    header "PBMFunctions+Private.h"
-    header "PBMUIApplicationProtocol.h"
-    
-    // OM tracking
-    header "PBMOpenMeasurementWrapper.h"
-    header "PBMOpenMeasurementSession.h"
-    header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
-    
-    header "OMSDKVersionProvider.h"
 }

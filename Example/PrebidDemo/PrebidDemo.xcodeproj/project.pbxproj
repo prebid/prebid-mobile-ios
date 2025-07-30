@@ -7,6 +7,83 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0012D8B12E214EBE007013F3 /* MultiformatBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A368F32AB8468200A03B3E /* MultiformatBaseViewController.swift */; };
+		0012D8B22E214EBE007013F3 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ACBEAE2937A6DE00A9BAE2 /* UIApplication+Extensions.swift */; };
+		0012D8B32E214EBE007013F3 /* InAppVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B82292275EF00228462 /* InAppVideoRewardedViewController.swift */; };
+		0012D8B42E214EBE007013F3 /* GAMOriginalAPIVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B742922655400228462 /* GAMOriginalAPIVideoInterstitialViewController.swift */; };
+		0012D8B52E214EBE007013F3 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D91291A87F4000117E1 /* UIButton+Extensions.swift */; };
+		0012D8B62E214EBE007013F3 /* GAMOriginalAPIMultiformatBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F960029DEE1DA0061E7A5 /* GAMOriginalAPIMultiformatBannerViewController.swift */; };
+		0012D8B72E214EBE007013F3 /* BannerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */; };
+		0012D8B82E214EBE007013F3 /* AdMobDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AC2922864000A1F582 /* AdMobDisplayBannerViewController.swift */; };
+		0012D8B92E214EBE007013F3 /* GAMVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6A62922808500A1F582 /* GAMVideoInterstitialViewController.swift */; };
+		0012D8BA2E214EBE007013F3 /* GAMOriginalAPIDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */; };
+		0012D8BB2E214EBE007013F3 /* GAMOriginalAPIMultiformatNativeStylesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533784C72AC2C883009A8650 /* GAMOriginalAPIMultiformatNativeStylesViewController.swift */; };
+		0012D8BC2E214EBE007013F3 /* IntegrationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D8F291A7FD3000117E1 /* IntegrationKind.swift */; };
+		0012D8BD2E214EBE007013F3 /* ExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D8B291A6562000117E1 /* ExamplesViewController.swift */; };
+		0012D8BE2E214EBE007013F3 /* MAXVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C22922AAE500A1F582 /* MAXVideoRewardedViewController.swift */; };
+		0012D8BF2E214EBE007013F3 /* GAMOriginalAPIVideoInstreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B6829217D1800228462 /* GAMOriginalAPIVideoInstreamViewController.swift */; };
+		0012D8C02E214EBE007013F3 /* InAppDisplayInterstitialPluginRendererViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CA22CFF9DD000A480C0 /* InAppDisplayInterstitialPluginRendererViewController.swift */; };
+		0012D8C12E214EBE007013F3 /* GAMVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6A82922815000A1F582 /* GAMVideoRewardedViewController.swift */; };
+		0012D8C22E214EBE007013F3 /* AdMobDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61562CB7F4780026119A /* AdMobDisplayRewardedViewController.swift */; };
+		0012D8C32E214EBE007013F3 /* InAppDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B7A292270EE00228462 /* InAppDisplayInterstitialViewController.swift */; };
+		0012D8C42E214EBE007013F3 /* SampleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C982CFF988E00A480C0 /* SampleAdView.swift */; };
+		0012D8C52E214EBE007013F3 /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C9B2CFF988E00A480C0 /* SampleInterstitialController.swift */; };
+		0012D8C62E214EBE007013F3 /* SampleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C992CFF988E00A480C0 /* SampleRenderer.swift */; };
+		0012D8C72E214EBE007013F3 /* GAMOriginalAPIVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B5D2921522000228462 /* GAMOriginalAPIVideoRewardedViewController.swift */; };
+		0012D8C82E214EBE007013F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4AA5291A4BC600A2C796 /* AppDelegate.swift */; };
+		0012D8C92E214EBE007013F3 /* InstreamBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B6A29217E8600228462 /* InstreamBaseViewController.swift */; };
+		0012D8CA2E214EBE007013F3 /* MAXDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6BA29229FA000A1F582 /* MAXDisplayBannerViewController.swift */; };
+		0012D8CB2E214EBE007013F3 /* InAppVideoInterstitialLandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B802922753D00228462 /* InAppVideoInterstitialLandscapeViewController.swift */; };
+		0012D8CC2E214EBE007013F3 /* MAXVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C02922A97200A1F582 /* MAXVideoInterstitialViewController.swift */; };
+		0012D8CD2E214EBE007013F3 /* InAppVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B7C2922733800228462 /* InAppVideoInterstitialViewController.swift */; };
+		0012D8CE2E214EBE007013F3 /* InAppDisplayBannerPluginRendererViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C952CFF97DB00A480C0 /* InAppDisplayBannerPluginRendererViewController.swift */; };
+		0012D8CF2E214EBE007013F3 /* GAMDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C614E2CB7F20A0026119A /* GAMDisplayRewardedViewController.swift */; };
+		0012D8D02E214EBE007013F3 /* MAXNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C42922AC2C00A1F582 /* MAXNativeViewController.swift */; };
+		0012D8D12E214EBE007013F3 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA4291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift */; };
+		0012D8D22E214EBE007013F3 /* GAMOriginalAPIMultiformatInAppNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A368F72AB8482300A03B3E /* GAMOriginalAPIMultiformatInAppNativeViewController.swift */; };
+		0012D8D32E214EBE007013F3 /* AdMobVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AE2922885200A1F582 /* AdMobVideoBannerViewController.swift */; };
+		0012D8D42E214EBE007013F3 /* AdMobNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6B629228CE600A1F582 /* AdMobNativeViewController.swift */; };
+		0012D8D52E214EBE007013F3 /* InAppVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B7829226EF400228462 /* InAppVideoBannerViewController.swift */; };
+		0012D8D62E214EBE007013F3 /* InAppNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E69E2922796000A1F582 /* InAppNativeViewController.swift */; };
+		0012D8D72E214EBE007013F3 /* IntegrationCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D96291A8CA4000117E1 /* IntegrationCase.swift */; };
+		0012D8D82E214EBE007013F3 /* GAMOriginalAPIMultiformatInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F960229DEE3D40061E7A5 /* GAMOriginalAPIMultiformatInterstitialViewController.swift */; };
+		0012D8D92E214EBE007013F3 /* AdMobDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6B02922896F00A1F582 /* AdMobDisplayInterstitialViewController.swift */; };
+		0012D8DA2E214EBE007013F3 /* InAppVideoInterstitialVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B7E2922748200228462 /* InAppVideoInterstitialVerticalViewController.swift */; };
+		0012D8DB2E214EBE007013F3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D8D291A66E7000117E1 /* SettingsViewController.swift */; };
+		0012D8DC2E214EBE007013F3 /* NativeBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B5F2921585900228462 /* NativeBaseViewController.swift */; };
+		0012D8DD2E214EBE007013F3 /* AdMobVideoInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6B229228AAB00A1F582 /* AdMobVideoInterstitialViewController.swift */; };
+		0012D8DE2E214EBE007013F3 /* PrebidDemoLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA6291BF2C2000117E1 /* PrebidDemoLogger.swift */; };
+		0012D8DF2E214EBE007013F3 /* GAMVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6A229227DE100A1F582 /* GAMVideoBannerViewController.swift */; };
+		0012D8E02E214EBE007013F3 /* MAXVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6BC2922A67D00A1F582 /* MAXVideoBannerViewController.swift */; };
+		0012D8E12E214EBE007013F3 /* InterstitialBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B572921023E00228462 /* InterstitialBaseViewController.swift */; };
+		0012D8E22E214EBE007013F3 /* GAMOriginalAPINativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B662921726C00228462 /* GAMOriginalAPINativeViewController.swift */; };
+		0012D8E32E214EBE007013F3 /* GAMOriginalAPIVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B722922621600228462 /* GAMOriginalAPIVideoBannerViewController.swift */; };
+		0012D8E42E214EBE007013F3 /* MAXDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61542CB7F32D0026119A /* MAXDisplayRewardedViewController.swift */; };
+		0012D8E52E214EBE007013F3 /* GAMOriginalAPINativeBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B6429215D4200228462 /* GAMOriginalAPINativeBannerViewController.swift */; };
+		0012D8E62E214EBE007013F3 /* InAppDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C614C2CB7EFD50026119A /* InAppDisplayRewardedViewController.swift */; };
+		0012D8E72E214EBE007013F3 /* GAMDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6A029227BFE00A1F582 /* GAMDisplayBannerViewController.swift */; };
+		0012D8E82E214EBE007013F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4AA7291A4BC600A2C796 /* SceneDelegate.swift */; };
+		0012D8E92E214EBE007013F3 /* MAXDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6BE2922A79000A1F582 /* MAXDisplayInterstitialViewController.swift */; };
+		0012D8EA2E214EBE007013F3 /* AdMobVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6B429228B7C00A1F582 /* AdMobVideoRewardedViewController.swift */; };
+		0012D8EB2E214EBE007013F3 /* GAMDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6A429227F1800A1F582 /* GAMDisplayInterstitialViewController.swift */; };
+		0012D8EC2E214EBE007013F3 /* AdFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D94291A8911000117E1 /* AdFormat.swift */; };
+		0012D8ED2E214EBE007013F3 /* InAppDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B7629226CFE00228462 /* InAppDisplayBannerViewController.swift */; };
+		0012D8EE2E214EBE007013F3 /* IntegrationCaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D98291A8EE7000117E1 /* IntegrationCaseManager.swift */; };
+		0012D8EF2E214EBE007013F3 /* GAMNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AA2922826100A1F582 /* GAMNativeViewController.swift */; };
+		0012D8F72E214EBE007013F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530D4AB0291A4BC700A2C796 /* LaunchScreen.storyboard */; };
+		0012D8F82E214EBE007013F3 /* MAXNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530923E929237E1F005C8B3C /* MAXNativeAdView.xib */; };
+		0012D8F92E214EBE007013F3 /* BannerBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */; };
+		0012D8FA2E214EBE007013F3 /* MultiformatBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53A368F42AB8468200A03B3E /* MultiformatBaseViewController.xib */; };
+		0012D8FB2E214EBE007013F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 530D4AAE291A4BC700A2C796 /* Assets.xcassets */; };
+		0012D8FC2E214EBE007013F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530D4AAB291A4BC600A2C796 /* Main.storyboard */; };
+		0012D8FD2E214EBE007013F3 /* NativeBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53072B602921585900228462 /* NativeBaseViewController.xib */; };
+		0012D8FE2E214EBE007013F3 /* InterstitialBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53072B582921023E00228462 /* InterstitialBaseViewController.xib */; };
+		0012D8FF2E214EBE007013F3 /* InstreamBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53072B6B29217E8600228462 /* InstreamBaseViewController.xib */; };
+		0012D90E2E215435007013F3 /* PrebidMobile in Frameworks */ = {isa = PBXBuildFile; productRef = 0012D90D2E215435007013F3 /* PrebidMobile */; };
+		0012D9102E215435007013F3 /* PrebidMobileAdMobAdapters in Frameworks */ = {isa = PBXBuildFile; productRef = 0012D90F2E215435007013F3 /* PrebidMobileAdMobAdapters */; };
+		0012D9122E215435007013F3 /* PrebidMobileGAMEventHandlers in Frameworks */ = {isa = PBXBuildFile; productRef = 0012D9112E215435007013F3 /* PrebidMobileGAMEventHandlers */; };
+		0012D9142E215435007013F3 /* PrebidMobileMAXAdapters in Frameworks */ = {isa = PBXBuildFile; productRef = 0012D9132E215435007013F3 /* PrebidMobileMAXAdapters */; };
+		0012D9262E2159C0007013F3 /* GoogleInteractiveMediaAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0012D9252E2159C0007013F3 /* GoogleInteractiveMediaAds */; };
 		2235279D5C42ED56993F7486 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7B36D91CB781AAC3B2E9CED /* Pods_PrebidDemoObjectiveC.framework */; };
 		3B91139C2351AB73A1FCAA3D /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD5DAB24E3A731BAE7B7F4F /* Pods_PrebidDemoSwift.framework */; };
 		4A202872DBC83DC8657AD22A /* Pods_PrebidDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D15B7407C160BC5C35E9AD7 /* Pods_PrebidDemoTests.framework */; };
@@ -235,10 +312,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0012D90A2E214EBE007013F3 /* PrebidDemoSPM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoSPM.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0012D9152E21544E007013F3 /* PrebidDemoSPM-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PrebidDemoSPM-Info.plist"; sourceTree = "<group>"; };
 		0B32F72A9BBDBE997EFFDDA4 /* Pods-PrebidDemoSwift_Old.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift_Old.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old.debug.xcconfig"; sourceTree = "<group>"; };
 		27A91CDC4C1E50EB4FC1CD46 /* Pods-PrebidDemoSwift_Old.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift_Old.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift_Old/Pods-PrebidDemoSwift_Old.release.xcconfig"; sourceTree = "<group>"; };
 		383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidDemoTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		47B8513C50FA0D7F53C6498E /* Pods-PrebidDemoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.release.xcconfig"; sourceTree = "<group>"; };
 		53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIDisplayInterstitialViewController.swift; sourceTree = "<group>"; };
 		53072B572921023E00228462 /* InterstitialBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialBaseViewController.swift; sourceTree = "<group>"; };
 		53072B582921023E00228462 /* InterstitialBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterstitialBaseViewController.xib; sourceTree = "<group>"; };
@@ -324,6 +402,7 @@
 		53514CB82CFFAECB00A480C0 /* InAppDisplayInterstitialPluginRendererViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InAppDisplayInterstitialPluginRendererViewController.m; sourceTree = "<group>"; };
 		5354C0C62923E99800DB25EA /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		536937672D537A8F00AA6D08 /* GMAApiAvailabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMAApiAvailabilityTests.swift; sourceTree = "<group>"; };
+		53708327CFCDBB5409DDDECD /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		539928BD292534BB0078053C /* IntegrationCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegrationCase.h; sourceTree = "<group>"; };
 		539928BE292534EA0078053C /* IntegrationCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegrationCase.m; sourceTree = "<group>"; };
 		539928C0292535100078053C /* AdFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdFormat.h; sourceTree = "<group>"; };
@@ -499,7 +578,7 @@
 		C38D69C229362B7700E82B31 /* InterstitialAdsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialAdsTest.swift; sourceTree = "<group>"; };
 		C38D69C429362B7700E82B31 /* TestCases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCases.swift; sourceTree = "<group>"; };
 		C3ACBEAE2937A6DE00A9BAE2 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
-		D1294ABFE85D62872D074F2C /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
+		C9DBC625BEAFC3D135666E04 /* Pods-PrebidDemoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.release.xcconfig"; sourceTree = "<group>"; };
 		E2EBDC8956E40A3297274B54 /* Pods_PrebidDemoObjectiveC_Old.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoObjectiveC_Old.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA12E4E0231EB4BB00CAA05B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FA12E4E6231EB52D00CAA05B /* PrebidDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -508,6 +587,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0012D8F02E214EBE007013F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0012D9122E215435007013F3 /* PrebidMobileGAMEventHandlers in Frameworks */,
+				0012D9262E2159C0007013F3 /* GoogleInteractiveMediaAds in Frameworks */,
+				0012D9102E215435007013F3 /* PrebidMobileAdMobAdapters in Frameworks */,
+				0012D90E2E215435007013F3 /* PrebidMobile in Frameworks */,
+				0012D9142E215435007013F3 /* PrebidMobileMAXAdapters in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		530D4AA0291A4BC600A2C796 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -559,10 +650,10 @@
 				BA2C237381964CC29C2EC365 /* Pods-PrebidDemoTests.release.xcconfig */,
 				A9A4A80EA5AE7DC6151531C0 /* Pods-PrebidDemoObjectiveC_Old.debug.xcconfig */,
 				640E75E2C6EB2A7268230D2A /* Pods-PrebidDemoObjectiveC_Old.release.xcconfig */,
-				D1294ABFE85D62872D074F2C /* Pods-PrebidDemoSwift.debug.xcconfig */,
-				47B8513C50FA0D7F53C6498E /* Pods-PrebidDemoSwift.release.xcconfig */,
 				0B32F72A9BBDBE997EFFDDA4 /* Pods-PrebidDemoSwift_Old.debug.xcconfig */,
 				27A91CDC4C1E50EB4FC1CD46 /* Pods-PrebidDemoSwift_Old.release.xcconfig */,
+				53708327CFCDBB5409DDDECD /* Pods-PrebidDemoSwift.debug.xcconfig */,
+				C9DBC625BEAFC3D135666E04 /* Pods-PrebidDemoSwift.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../../Pods;
@@ -723,6 +814,7 @@
 		530D4AB7291A4CAB00A2C796 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				0012D9152E21544E007013F3 /* PrebidDemoSPM-Info.plist */,
 				530D4AB3291A4BC700A2C796 /* Info.plist */,
 				530D4AAE291A4BC700A2C796 /* Assets.xcassets */,
 				530D4AB8291A4CC700A2C796 /* Storyboards */,
@@ -1217,6 +1309,7 @@
 				530D4AA3291A4BC600A2C796 /* PrebidDemoSwift.app */,
 				53BA02B0292531D000BE6015 /* PrebidDemoObjectiveC.app */,
 				C3781471292FE9FD00870845 /* PrebidDemoSwiftUITests.xctest */,
+				0012D90A2E214EBE007013F3 /* PrebidDemoSPM.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1238,6 +1331,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0012D8AE2E214EBE007013F3 /* PrebidDemoSPM */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0012D9072E214EBE007013F3 /* Build configuration list for PBXNativeTarget "PrebidDemoSPM" */;
+			buildPhases = (
+				0012D8B02E214EBE007013F3 /* Sources */,
+				0012D8F02E214EBE007013F3 /* Frameworks */,
+				0012D8F62E214EBE007013F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrebidDemoSPM;
+			productName = PrebidDemoSwift;
+			productReference = 0012D90A2E214EBE007013F3 /* PrebidDemoSPM.app */;
+			productType = "com.apple.product-type.application";
+		};
 		530D4AA2291A4BC600A2C796 /* PrebidDemoSwift */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 530D4AB4291A4BC700A2C796 /* Build configuration list for PBXNativeTarget "PrebidDemoSwift" */;
@@ -1353,6 +1463,10 @@
 				Base,
 			);
 			mainGroup = FA12E452231E9C5900CAA05B;
+			packageReferences = (
+				0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */,
+				0012D9242E2159C0007013F3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */,
+			);
 			productRefGroup = FA12E45C231E9C5900CAA05B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1361,11 +1475,28 @@
 				530D4AA2291A4BC600A2C796 /* PrebidDemoSwift */,
 				53BA02AF292531D000BE6015 /* PrebidDemoObjectiveC */,
 				C3781470292FE9FD00870845 /* PrebidDemoSwiftUITests */,
+				0012D8AE2E214EBE007013F3 /* PrebidDemoSPM */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0012D8F62E214EBE007013F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0012D8F72E214EBE007013F3 /* LaunchScreen.storyboard in Resources */,
+				0012D8F82E214EBE007013F3 /* MAXNativeAdView.xib in Resources */,
+				0012D8F92E214EBE007013F3 /* BannerBaseViewController.xib in Resources */,
+				0012D8FA2E214EBE007013F3 /* MultiformatBaseViewController.xib in Resources */,
+				0012D8FB2E214EBE007013F3 /* Assets.xcassets in Resources */,
+				0012D8FC2E214EBE007013F3 /* Main.storyboard in Resources */,
+				0012D8FD2E214EBE007013F3 /* NativeBaseViewController.xib in Resources */,
+				0012D8FE2E214EBE007013F3 /* InterstitialBaseViewController.xib in Resources */,
+				0012D8FF2E214EBE007013F3 /* InstreamBaseViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		530D4AA1291A4BC600A2C796 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1552,6 +1683,76 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0012D8B02E214EBE007013F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0012D8B12E214EBE007013F3 /* MultiformatBaseViewController.swift in Sources */,
+				0012D8B22E214EBE007013F3 /* UIApplication+Extensions.swift in Sources */,
+				0012D8B32E214EBE007013F3 /* InAppVideoRewardedViewController.swift in Sources */,
+				0012D8B42E214EBE007013F3 /* GAMOriginalAPIVideoInterstitialViewController.swift in Sources */,
+				0012D8B52E214EBE007013F3 /* UIButton+Extensions.swift in Sources */,
+				0012D8B62E214EBE007013F3 /* GAMOriginalAPIMultiformatBannerViewController.swift in Sources */,
+				0012D8B72E214EBE007013F3 /* BannerBaseViewController.swift in Sources */,
+				0012D8B82E214EBE007013F3 /* AdMobDisplayBannerViewController.swift in Sources */,
+				0012D8B92E214EBE007013F3 /* GAMVideoInterstitialViewController.swift in Sources */,
+				0012D8BA2E214EBE007013F3 /* GAMOriginalAPIDisplayInterstitialViewController.swift in Sources */,
+				0012D8BB2E214EBE007013F3 /* GAMOriginalAPIMultiformatNativeStylesViewController.swift in Sources */,
+				0012D8BC2E214EBE007013F3 /* IntegrationKind.swift in Sources */,
+				0012D8BD2E214EBE007013F3 /* ExamplesViewController.swift in Sources */,
+				0012D8BE2E214EBE007013F3 /* MAXVideoRewardedViewController.swift in Sources */,
+				0012D8BF2E214EBE007013F3 /* GAMOriginalAPIVideoInstreamViewController.swift in Sources */,
+				0012D8C02E214EBE007013F3 /* InAppDisplayInterstitialPluginRendererViewController.swift in Sources */,
+				0012D8C12E214EBE007013F3 /* GAMVideoRewardedViewController.swift in Sources */,
+				0012D8C22E214EBE007013F3 /* AdMobDisplayRewardedViewController.swift in Sources */,
+				0012D8C32E214EBE007013F3 /* InAppDisplayInterstitialViewController.swift in Sources */,
+				0012D8C42E214EBE007013F3 /* SampleAdView.swift in Sources */,
+				0012D8C52E214EBE007013F3 /* SampleInterstitialController.swift in Sources */,
+				0012D8C62E214EBE007013F3 /* SampleRenderer.swift in Sources */,
+				0012D8C72E214EBE007013F3 /* GAMOriginalAPIVideoRewardedViewController.swift in Sources */,
+				0012D8C82E214EBE007013F3 /* AppDelegate.swift in Sources */,
+				0012D8C92E214EBE007013F3 /* InstreamBaseViewController.swift in Sources */,
+				0012D8CA2E214EBE007013F3 /* MAXDisplayBannerViewController.swift in Sources */,
+				0012D8CB2E214EBE007013F3 /* InAppVideoInterstitialLandscapeViewController.swift in Sources */,
+				0012D8CC2E214EBE007013F3 /* MAXVideoInterstitialViewController.swift in Sources */,
+				0012D8CD2E214EBE007013F3 /* InAppVideoInterstitialViewController.swift in Sources */,
+				0012D8CE2E214EBE007013F3 /* InAppDisplayBannerPluginRendererViewController.swift in Sources */,
+				0012D8CF2E214EBE007013F3 /* GAMDisplayRewardedViewController.swift in Sources */,
+				0012D8D02E214EBE007013F3 /* MAXNativeViewController.swift in Sources */,
+				0012D8D12E214EBE007013F3 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */,
+				0012D8D22E214EBE007013F3 /* GAMOriginalAPIMultiformatInAppNativeViewController.swift in Sources */,
+				0012D8D32E214EBE007013F3 /* AdMobVideoBannerViewController.swift in Sources */,
+				0012D8D42E214EBE007013F3 /* AdMobNativeViewController.swift in Sources */,
+				0012D8D52E214EBE007013F3 /* InAppVideoBannerViewController.swift in Sources */,
+				0012D8D62E214EBE007013F3 /* InAppNativeViewController.swift in Sources */,
+				0012D8D72E214EBE007013F3 /* IntegrationCase.swift in Sources */,
+				0012D8D82E214EBE007013F3 /* GAMOriginalAPIMultiformatInterstitialViewController.swift in Sources */,
+				0012D8D92E214EBE007013F3 /* AdMobDisplayInterstitialViewController.swift in Sources */,
+				0012D8DA2E214EBE007013F3 /* InAppVideoInterstitialVerticalViewController.swift in Sources */,
+				0012D8DB2E214EBE007013F3 /* SettingsViewController.swift in Sources */,
+				0012D8DC2E214EBE007013F3 /* NativeBaseViewController.swift in Sources */,
+				0012D8DD2E214EBE007013F3 /* AdMobVideoInterstitialViewController.swift in Sources */,
+				0012D8DE2E214EBE007013F3 /* PrebidDemoLogger.swift in Sources */,
+				0012D8DF2E214EBE007013F3 /* GAMVideoBannerViewController.swift in Sources */,
+				0012D8E02E214EBE007013F3 /* MAXVideoBannerViewController.swift in Sources */,
+				0012D8E12E214EBE007013F3 /* InterstitialBaseViewController.swift in Sources */,
+				0012D8E22E214EBE007013F3 /* GAMOriginalAPINativeViewController.swift in Sources */,
+				0012D8E32E214EBE007013F3 /* GAMOriginalAPIVideoBannerViewController.swift in Sources */,
+				0012D8E42E214EBE007013F3 /* MAXDisplayRewardedViewController.swift in Sources */,
+				0012D8E52E214EBE007013F3 /* GAMOriginalAPINativeBannerViewController.swift in Sources */,
+				0012D8E62E214EBE007013F3 /* InAppDisplayRewardedViewController.swift in Sources */,
+				0012D8E72E214EBE007013F3 /* GAMDisplayBannerViewController.swift in Sources */,
+				0012D8E82E214EBE007013F3 /* SceneDelegate.swift in Sources */,
+				0012D8E92E214EBE007013F3 /* MAXDisplayInterstitialViewController.swift in Sources */,
+				0012D8EA2E214EBE007013F3 /* AdMobVideoRewardedViewController.swift in Sources */,
+				0012D8EB2E214EBE007013F3 /* GAMDisplayInterstitialViewController.swift in Sources */,
+				0012D8EC2E214EBE007013F3 /* AdFormat.swift in Sources */,
+				0012D8ED2E214EBE007013F3 /* InAppDisplayBannerViewController.swift in Sources */,
+				0012D8EE2E214EBE007013F3 /* IntegrationCaseManager.swift in Sources */,
+				0012D8EF2E214EBE007013F3 /* GAMNativeViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		530D4A9F291A4BC600A2C796 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1771,9 +1972,73 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0012D9082E214EBE007013F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9295BF929;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/PrebidDemoSwift/Supporting files/PrebidDemoSPM-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Prebid Demo SPM";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoSPM;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0012D9092E214EBE007013F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9295BF929;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/PrebidDemoSwift/Supporting files/PrebidDemoSPM-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Prebid Demo SPM";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoSPM;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		530D4AB5291A4BC700A2C796 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1294ABFE85D62872D074F2C /* Pods-PrebidDemoSwift.debug.xcconfig */;
+			baseConfigurationReference = 53708327CFCDBB5409DDDECD /* Pods-PrebidDemoSwift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1784,6 +2049,7 @@
 				DEVELOPMENT_TEAM = L9295BF929;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PrebidDemoSwift/Supporting files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Prebid Demo Swift";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1805,7 +2071,7 @@
 		};
 		530D4AB6291A4BC700A2C796 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47B8513C50FA0D7F53C6498E /* Pods-PrebidDemoSwift.release.xcconfig */;
+			baseConfigurationReference = C9DBC625BEAFC3D135666E04 /* Pods-PrebidDemoSwift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1816,6 +2082,7 @@
 				DEVELOPMENT_TEAM = L9295BF929;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PrebidDemoSwift/Supporting files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Prebid Demo Swift";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -2111,6 +2378,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0012D9072E214EBE007013F3 /* Build configuration list for PBXNativeTarget "PrebidDemoSPM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0012D9082E214EBE007013F3 /* Debug */,
+				0012D9092E214EBE007013F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		530D4AB4291A4BC700A2C796 /* Build configuration list for PBXNativeTarget "PrebidDemoSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2157,6 +2433,53 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/prebid/prebid-mobile-ios.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		0012D9242E2159C0007013F3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0012D90D2E215435007013F3 /* PrebidMobile */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
+			productName = PrebidMobile;
+		};
+		0012D90F2E215435007013F3 /* PrebidMobileAdMobAdapters */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
+			productName = PrebidMobileAdMobAdapters;
+		};
+		0012D9112E215435007013F3 /* PrebidMobileGAMEventHandlers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
+			productName = PrebidMobileGAMEventHandlers;
+		};
+		0012D9132E215435007013F3 /* PrebidMobileMAXAdapters */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
+			productName = PrebidMobileMAXAdapters;
+		};
+		0012D9252E2159C0007013F3 /* GoogleInteractiveMediaAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0012D9242E2159C0007013F3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */;
+			productName = GoogleInteractiveMediaAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA12E453231E9C5900CAA05B /* Project object */;
 }

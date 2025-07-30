@@ -38,9 +38,9 @@ Pod::Spec.new do |s|
 			       :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
 			     }
   s.requires_arc = true
-    
+
   s.module_name = 'PrebidMobile'
-  
+
   s.frameworks = [ 'UIKit',
                    'Foundation', 
                    'MapKit', 
@@ -62,18 +62,18 @@ Pod::Spec.new do |s|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
     core.private_header_files = [
-      'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMParameterBuilderService.h', 
-      'PrebidMobile/PrebidMobileRendering/Prebid+TestExtension.h',
-      'PrebidMobile/PrebidMobileRendering/3dPartyWrappers/OpenMeasurement/PBMOpenMeasurementFriendlyObstructionTypeBridge.h',
-      'PrebidMobile/ConfigurationAndTargeting/InternalUserConsentDataManager.h',
-      'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMUserConsentParameterBuilder.h'
+      'PrebidMobile/Objc/PrivateHeaders/*.h'
     ]
-    core.vendored_frameworks = 'Frameworks/OMSDK-Static_Prebidorg.xcframework'
+    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
   end
 
   s.pod_target_xcconfig = {
     'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES',
     'DEFINES_MODULE' => 'YES',
     'SWIFT_OBJC_INTERFACE_HEADER_NAME' => 'PrebidMobile-Swift.h'
+    'OTHER_LDFLAGS' => '$(inherited) -lObjC -framework OMSDK_Prebidorg',
+    'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) @executable_path/Frameworks',
+    'OTHER_SWIFT_FLAGS' => '$(inherited) -no-verify-emitted-module-interface'
   }
+
 end

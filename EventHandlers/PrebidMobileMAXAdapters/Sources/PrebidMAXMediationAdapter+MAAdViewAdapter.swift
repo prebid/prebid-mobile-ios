@@ -58,7 +58,7 @@ extension PrebidMAXMediationAdapter:
         }
         
         let frame = CGRect(origin: .zero, size: bid.size)
-        displayView = PBMDisplayView(frame: frame, bid: bid, configId: configId)
+        displayView = DisplayView(frame: frame, bid: bid, configId: configId)
         displayView?.interactionDelegate = self
         displayView?.loadingDelegate = self
         

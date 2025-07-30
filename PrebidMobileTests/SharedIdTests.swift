@@ -120,7 +120,7 @@ final class SharedIdTests: XCTestCase {
                 extraParameterBuilders: nil
             )
             
-            let strORTB = paramsDict[PBMParameterKeys.OPEN_RTB.rawValue]!
+            let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME]!
             let bidRequest = try! PBMORTBBidRequest.from(jsonString:strORTB)
             
             let eids = bidRequest.user.ext?["eids"] as? [[String : Any]]

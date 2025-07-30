@@ -41,11 +41,11 @@ class PBMORTBAbstractTest : XCTestCase {
     //Check default values of all objects decending from PBMORTBAbstract
     func testDefaultToJsonString() {
         
-        codeAndDecode(abstract:PBMORTBBidRequest(), expectedString: "{\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
+        codeAndDecode(abstract:PBMORTBBidRequest(), expectedString: "{\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
         
         //Source not implemented
         codeAndDecode(abstract:PBMORTBRegs(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBImp(), expectedString: "{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract:PBMORTBImp(), expectedString: "{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
         
         //Metric not implemented
         codeAndDecode(abstract:PBMORTBBanner(), expectedString: "{}")
@@ -165,15 +165,15 @@ class PBMORTBAbstractTest : XCTestCase {
         let uuid = UUID().uuidString
         pbmORTBBidRequest.requestID = uuid
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
         
         pbmORTBBidRequest.tmax = 2000
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":2000}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"tmax\":2000}")
         
         pbmORTBBidRequest.test = 2
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"test\":2,\"tmax\":2000}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"test\":2,\"tmax\":2000}")
     }
     
     func testBidRequestExtPrebidToJsonString() {
@@ -188,7 +188,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBBidRequest = PBMORTBBidRequest()
         pbmORTBBidRequest.extPrebid = extPrebid
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"ext\":{\"prebid\":{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"sdk\":{\"renderers\":[{\"name\":\"MockRenderer1\",\"version\":\"0.0.1\"},{\"name\":\"MockRenderer2\",\"version\":\"0.0.2\"}]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":0,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"ext\":{\"prebid\":{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"sdk\":{\"renderers\":[{\"name\":\"MockRenderer1\",\"version\":\"0.0.1\"},{\"name\":\"MockRenderer2\",\"version\":\"0.0.2\"}]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
     }
     
     func testSourceToJsonString() {
@@ -242,7 +242,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBImp.secure = 1
         pbmORTBImp.extData = ["lookup_words": ["dragon", "flame"]]
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"rwdd\":1,\"secure\":1,\"tagid\":\"tagid\"}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":1,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"rwdd\":1,\"secure\":1,\"tagid\":\"tagid\"}")
     }
     
     func testPBMORTBImpExtSkadnToJsonString() { 
@@ -283,7 +283,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBImp = PBMORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":1,\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
     }
     
     func testImpExtPrebidToJsonStringRewarded() {
@@ -296,7 +296,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBImp = PBMORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":1,\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
     }
     
     func testImpExtGPID() {
@@ -305,7 +305,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let imp = PBMORTBImp()
         imp.extGPID = gpid
         
-        codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":0,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\"},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":1,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\"},\"instl\":0,\"secure\":0}")
     }
     
     func testBannerToJsonString() {
@@ -333,7 +333,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBVideo.linearity = 1
         pbmORTBVideo.minbitrate = 20
         pbmORTBVideo.maxbitrate = 40
-        pbmORTBVideo.mimes = PBMConstants.supportedVideoMimeTypes
+        pbmORTBVideo.mimes = PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES
         pbmORTBVideo.protocols = [2, 5]
         pbmORTBVideo.pos = 7
         pbmORTBVideo.delivery = [3]

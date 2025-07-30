@@ -14,7 +14,7 @@ limitations under the License.
 */
 
 #import <XCTest/XCTest.h>
-#import "PrebidMobile/PrebidMobile.h"
+#import "SwiftImport.h"
 #import "PrebidMobileTests-Swift.h"
 
 @interface AdUnitObjCTests : XCTestCase
