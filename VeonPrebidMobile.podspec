@@ -70,7 +70,7 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = {
     'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES',
     'DEFINES_MODULE' => 'YES',
-    'SWIFT_OBJC_INTERFACE_HEADER_NAME' => 'PrebidMobile-Swift.h'
+    'SWIFT_OBJC_INTERFACE_HEADER_NAME' => 'PrebidMobile-Swift.h',
     'OTHER_LDFLAGS' => '$(inherited) -lObjC -framework OMSDK_Prebidorg',
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) @executable_path/Frameworks',
     'OTHER_SWIFT_FLAGS' => '$(inherited) -no-verify-emitted-module-interface'
