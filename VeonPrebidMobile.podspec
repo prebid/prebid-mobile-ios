@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
 
   s.name         = "VeonPrebidMobile"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
     Prebid-Mobile-SDK is a lightweight framework that integrates directly with Prebid Server to increase yield for publishers by adding more mobile buyers."
     DESC
-  s.homepage     = "https://www.veon.com"
+  s.homepage     = "https://www.veonadtech.com"
 
 
   s.license      = { :type => "Apache License, Version 2.0", :text => <<-LICENSE
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
     LICENSE
     }
 
-  s.author                 = { "Veon AdTech" => "veon.com" }
+  s.author                 = { "Veon AdTech" => "veonadtech.com" }
   s.platform     	   = :ios, "12.0"
   s.swift_version 	   = '5.0'
   s.source      	   = { :git => "https://github.com/veonadtech/prebid-ios-sdk.git", :tag => "#{s.version}" }
@@ -55,22 +55,22 @@ Pod::Spec.new do |s|
                  ]
   s.weak_frameworks  = [ 'AdSupport', 'StoreKit', 'WebKit' ]
 
-  # Support previous intagration
-  s.default_subspec = 'core'
+   # Support previous intagration
+    s.default_subspec = 'core'
 
-  s.subspec 'core' do |core|
-    core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
-    
-    core.private_header_files = [
-      'PrebidMobile/Objc/PrivateHeaders/*.h'
-    ]
-    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
-  end
+    s.subspec 'core' do |core|
+      core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
+
+      core.private_header_files = [
+        'PrebidMobile/Objc/PrivateHeaders/*.h'
+      ]
+      core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
+    end
 
   s.pod_target_xcconfig = {
     'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES',
     'DEFINES_MODULE' => 'YES',
-    'SWIFT_OBJC_INTERFACE_HEADER_NAME' => 'PrebidMobile-Swift.h'
+    'SWIFT_OBJC_INTERFACE_HEADER_NAME' => 'PrebidMobile-Swift.h',
     'OTHER_LDFLAGS' => '$(inherited) -lObjC -framework OMSDK_Prebidorg',
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) @executable_path/Frameworks',
     'OTHER_SWIFT_FLAGS' => '$(inherited) -no-verify-emitted-module-interface'
