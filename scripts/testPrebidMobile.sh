@@ -3,15 +3,19 @@ cd scripts/
 fi
 
 # Flags:
-# -l:   run tests only for the latest iOS.
-#       It is needed for CircleCI builds.
-#       Do not use this flag locally to keep everything updated.
+# -l:           run tests only for the latest iOS.
+#               It is needed for CircleCI builds.
+#               Do not use this flag locally to keep everything updated.
+# -q:           run only quick set of tests for PR.
+#               It is needed for CircleCI builds on every PR to avoid running all tests.  
 
 run_only_with_latest_ios="NO"
+run_only_PR_tests="NO"
 
-while getopts 'l' flag; do
+while getopts 'lq' flag; do
   case "${flag}" in
     l) run_only_with_latest_ios="YES" ;;
+    q) run_only_PR_tests="YES" ;;
   esac
 done
 
@@ -55,12 +59,22 @@ then
  fi
 fi
 
+TESTPLAN=""
+
+if [ "$run_only_PR_tests" != "YES" ]; then
+    TESTPLAN="PrebidMobileTests"
+ else
+    TESTPLAN="PrebidMobilePRTests"
+ fi
+
 echo -e "\n${GREEN}Running PrebidMobile unit tests${NC} \n"
 xcodebuild test \
     -workspace PrebidMobile.xcworkspace \
     -retry-tests-on-failure \
     -scheme "PrebidMobileTests" \
+    -testPlan "${TESTPLAN}" \
     -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
+
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ PrebidMobile Unit Tests Passed"

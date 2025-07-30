@@ -1,0 +1,55 @@
+
+name: Full / Selective PrebidMobile Checks
+
+on:
+  workflow_dispatch:
+    inputs:
+      build:
+        description: 'Build PrebidMobile frameworks'
+        type: boolean
+        default: false
+      unit_tests:
+        description: 'Run Unit Tests'
+        type: boolean
+        default: false            
+      smoke_ui_tests:
+        description: 'Run Smoke UI Tests - Swift Demo App'
+        type: boolean
+        default: false
+      integration_tests:
+        description: 'Run Integration Tests'
+        type: boolean
+        default: false
+      all:
+        description: 'Run All PrebidMobile checks'
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    if: ${{ inputs.all || inputs.build }}
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/buildPrebidMobile.sh
+
+  unit_tests:
+    if: ${{ inputs.all || inputs.unit_tests }}
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/buildPrebidMobile.sh
+
+  smoke_ui_tests:
+    if: ${{ inputs.all || inputs.smoke_ui_tests }}
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/testPrebidDemo.sh -ui -l
+
+  integration_tests:
+    if: ${{ inputs.all || inputs.integration_tests }}
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/testPrebidDemo.sh -l
