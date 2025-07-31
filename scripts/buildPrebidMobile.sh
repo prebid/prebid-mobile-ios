@@ -85,6 +85,8 @@ do
 	-scheme "Lib-${schemes[$n]}" \
 	-configuration Release \
 	-sdk "iphonesimulator" \
+	-arch x86_64 \
+	-arch arm64 \
 	-derivedDataPath $XCODE_BUILD_DIR \
 	-archivePath "$XCODE_ARCHIVE_DIR/${schemes[$n]}$POSTFIX_SIMULATOR.xcarchive" \
 	> "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
