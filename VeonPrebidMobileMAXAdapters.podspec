@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "VeonPrebidMobileMAXAdapters"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "The bridge between PrebidMobile SDK and Applovin MAX SDK."
 
   s.description  = "MAX Adapters manages rendering of Prebid or MAX ads respectively to the winning bid."
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
     LICENSE
     }
 
-  s.author		= { "Veon AdTech" => "veon.com" }
+  s.author		= { "Veon AdTech" => "veonadtech.com" }
   s.platform     	= :ios, "12.0"
   s.swift_version 	= '5.0'
   s.source       	= { :git => "https://github.com/veonadtech/prebid-ios-sdk.git", :tag => "#{s.version}" }
@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
   s.source_files = 'EventHandlers/PrebidMobileMAXAdapters/**/*.{h,m,swift}'
   s.static_framework = true
 
-  s.dependency 'VeonPrebidMobile', '0.0.2'
+  s.dependency 'VeonPrebidMobile', '0.0.3'
   s.dependency 'AppLovinSDK'
 
   s.pod_target_xcconfig = {
