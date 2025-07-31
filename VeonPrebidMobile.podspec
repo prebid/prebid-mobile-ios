@@ -63,12 +63,12 @@ Pod::Spec.new do |s|
       'PrebidMobile/Objc/PrivateHeaders/**/*.h'
     ]
     core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
-    
+
     # Add resources
     core.resource_bundles = {
       'PrebidMobile' => ['PrebidMobile/Resources/**/*']
     }
-    
+
     # Exclude specific files if needed
     core.exclude_files = [
       'PrebidMobile/BuildFiles/**/*'
