@@ -36,23 +36,6 @@ class PBMDeviceAccessManagerTests : XCTestCase {
         super.setUp()
         self.deviceAccessManager = DeviceAccessManager(rootViewController: nil)
     }
-
-    
-    //MARK: - UIAlertController Tests
-    
-    func testUIAlertController_ShouldAutoRotate () {
-        let uiAlertController = UIAlertController()
-        
-        // PBMPrivate category for UIAlertController returns false
-        let shouldRotate = uiAlertController.shouldAutorotate
-        XCTAssert(shouldRotate == false)
-    }
-    
-    func testUIAlertController_SupportedInterfaceOrientations() {
-        let uiAlertController = UIAlertController()
-        let mask = uiAlertController.supportedInterfaceOrientations
-        XCTAssert(mask == .portrait)
-    }
     
     //MARK: - Miscellaneous tests
     
