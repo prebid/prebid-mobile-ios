@@ -55,27 +55,17 @@ Pod::Spec.new do |s|
                  ]
   s.weak_frameworks  = [ 'AdSupport', 'StoreKit', 'WebKit' ]
 
-  # Support previous intagration
-  s.default_subspec = 'core'
+   # Support previous intagration
+    s.default_subspec = 'core'
 
-  s.subspec 'core' do |core|
-    core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
-    
-    core.private_header_files = [
-      'PrebidMobile/Objc/PrivateHeaders/**/*.h'
-    ]
-    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
-    
-    # Add resources
-    core.resource_bundles = {
-      'PrebidMobile' => ['PrebidMobile/Resources/**/*']
-    }
-    
-    # Exclude specific files if needed
-    core.exclude_files = [
-      'PrebidMobile/BuildFiles/**/*'
-    ]
-  end
+    s.subspec 'core' do |core|
+      core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
+
+      core.private_header_files = [
+        'PrebidMobile/Objc/PrivateHeaders/*.h'
+      ]
+      core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
+    end
 
   s.pod_target_xcconfig = {
     'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES',
