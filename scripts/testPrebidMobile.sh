@@ -3,21 +3,37 @@ cd scripts/
 fi
 
 # Flags:
-# -l:           run tests only for the latest iOS.
-#               It is needed for CircleCI builds.
-#               Do not use this flag locally to keep everything updated.
-# -q:           run only quick set of tests for PR.
-#               It is needed for CircleCI builds on every PR to avoid running all tests.  
+# --latest:             run tests only for the latest iOS.
+#                       It is needed for the GitHub Actions builds.
+#                       Do not use this flag locally to keep everything updated.
+# --quick:              run only quick set of tests for PR.
+#                       It is needed for the GitHub Actions builds on every PR to avoid running all tests.
+# --skip-adapters:      skip adapter tests for PR.
+#                       It is needed for the GitHub Actions builds on every PR to avoid running redundant tests.  
 
 run_only_with_latest_ios="NO"
 run_only_PR_tests="NO"
+skip_adapter_tests="NO"
 
-while getopts 'lq' flag; do
-  case "${flag}" in
-    l) run_only_with_latest_ios="YES" ;;
-    q) run_only_PR_tests="YES" ;;
+usage() {
+  cat <<'USAGE'
+Usage: testPrebidMobile.sh [--latest] [--quick] [--skip-adapters]
+USAGE
+}
+
+# Parse flags
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --latest)         run_only_with_latest_ios="YES"; shift ;;
+    --quick)          run_only_PR_tests="YES"; shift ;;
+    --skip-adapters)  skip_adapter_tests="YES"; shift ;;
+    -h|--help)        usage; exit 0 ;;
+    --)               shift; break ;;
+    -*)               echo "Unknown option: $1" >&2; usage; exit 2 ;;
+    *)                break ;;
   esac
 done
+
 
 set -e
 
@@ -39,8 +55,10 @@ echo -e "\n\n${GREEN}RUN PREBID MOBILE TESTS${NC}\n\n"
 echo -e "\n${GREEN}Creating simulator${NC} \n"
 xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
 
-echo -e "\n${GREEN}Clean build\n"
-xcodebuild clean build 
+if [ "$run_only_PR_tests" != "YES" ]; then
+    echo -e "\n${GREEN}Clean build\n"
+    xcodebuild clean build
+fi
 
 if [ "$run_only_with_latest_ios" != "YES" ]
 then
@@ -63,9 +81,9 @@ TESTPLAN=""
 
 if [ "$run_only_PR_tests" != "YES" ]; then
     TESTPLAN="PrebidMobileTests"
- else
+else
     TESTPLAN="PrebidMobilePRTests"
- fi
+fi
 
 echo -e "\n${GREEN}Running PrebidMobile unit tests${NC} \n"
 xcodebuild test \
@@ -83,43 +101,45 @@ else
     exit 1
 fi
 
-echo -e "\n${GREEN}Running PrebidMobileGAMEventHandlers unit tests${NC} \n"
-xcodebuild test \
-    -workspace PrebidMobile.xcworkspace  \
-    -scheme "PrebidMobileGAMEventHandlersTests" \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
+if [ "$skip_adapter_tests" != "YES" ]; then
+    echo -e "\n${GREEN}Running PrebidMobileGAMEventHandlers unit tests${NC} \n"
+    xcodebuild test \
+        -workspace PrebidMobile.xcworkspace  \
+        -scheme "PrebidMobileGAMEventHandlersTests" \
+        -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
 
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
-    echo "✅ PrebidMobileGAMEventHandlers Unit Tests Passed"
-else
-    echo "🔴 PrebidMobileGAMEventHandlers Unit Tests Failed"
-    exit 1
-fi
+    if [[ ${PIPESTATUS[0]} == 0 ]]; then
+        echo "✅ PrebidMobileGAMEventHandlers Unit Tests Passed"
+    else
+        echo "🔴 PrebidMobileGAMEventHandlers Unit Tests Failed"
+        exit 1
+    fi
 
-echo -e "\n${GREEN}Running PrebidMobileAdMobAdapters unit tests${NC} \n"
-xcodebuild test \
-    -workspace PrebidMobile.xcworkspace \
-    -scheme "PrebidMobileAdMobAdaptersTests" \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
+    echo -e "\n${GREEN}Running PrebidMobileAdMobAdapters unit tests${NC} \n"
+    xcodebuild test \
+        -workspace PrebidMobile.xcworkspace \
+        -scheme "PrebidMobileAdMobAdaptersTests" \
+        -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
 
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
-    echo "✅ PrebidMobileAdMobAdapters Unit Tests Passed"
-else
-    echo "🔴 PrebidMobileAdMobAdapters Unit Tests Failed"
-    exit 1
-fi
+    if [[ ${PIPESTATUS[0]} == 0 ]]; then
+        echo "✅ PrebidMobileAdMobAdapters Unit Tests Passed"
+    else
+        echo "🔴 PrebidMobileAdMobAdapters Unit Tests Failed"
+        exit 1
+    fi
 
-echo -e "\n${GREEN}Running PrebidMobileMAXAdapters unit tests${NC} \n"
-xcodebuild test \
-    -workspace PrebidMobile.xcworkspace \
-    -scheme "PrebidMobileMAXAdaptersTests" \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
+    echo -e "\n${GREEN}Running PrebidMobileMAXAdapters unit tests${NC} \n"
+    xcodebuild test \
+        -workspace PrebidMobile.xcworkspace \
+        -scheme "PrebidMobileMAXAdaptersTests" \
+        -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
 
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
-    echo "✅ PrebidMobileMAXAdapters Unit Tests Passed"
-else
-    echo "🔴 PrebidMobileMAXAdapters Unit Tests Failed"
-    exit 1
+    if [[ ${PIPESTATUS[0]} == 0 ]]; then
+        echo "✅ PrebidMobileMAXAdapters Unit Tests Passed"
+    else
+        echo "🔴 PrebidMobileMAXAdapters Unit Tests Failed"
+        exit 1
+    fi
 fi
 
 echo -e "\n${GREEN}Removing simulator${NC} \n"

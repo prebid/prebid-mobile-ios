@@ -44,9 +44,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            adapters:
+              - 'EventHandlers/**'
       - name: Run Quick Unit Tests for Frameworks
-        run: ./scripts/testPrebidMobile.sh -l -q
-
+        env:
+          ADAPTERS_CHANGED: ${{ steps.changes.outputs.adapters }}
+        run: |
+          if [ "${ADAPTERS_CHANGED}" = "false" ]; then
+            ./scripts/testPrebidMobile.sh --latest --quick --skip-adapters
+          else
+            ./scripts/testPrebidMobile.sh --latest --quick
+          fi
   unit-test-full:
     name: Run All Unit Tests for Frameworks
     if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
@@ -56,7 +68,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run All Unit Tests for Frameworks
-        run: ./scripts/testPrebidMobile.sh -l
+        run: ./scripts/testPrebidMobile.sh --latest
 
   run-swift-demo-ui-tests:
     name: Run Smoke UI Tests - Swift Demo App

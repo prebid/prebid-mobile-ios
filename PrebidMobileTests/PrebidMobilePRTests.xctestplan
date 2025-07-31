@@ -14,6 +14,10 @@
   "testTargets" : [
     {
       "skippedTests" : [
+        "AdUnitTests\/testFetchDemandAutoRefresh()",
+        "AdUnitTests\/testFetchDemandBidsAutoRefresh()",
+        "AdUnitTests\/testFetchDemandBidsAutoRefreshWithSimilarGlobalTimeout()",
+        "AdUnitTests\/testFetchDemandResumeAutoRefresh()",
         "AdViewButtonDecoratorTests",
         "AdViewButtonDecoratorTests\/testAddButtonToView()",
         "AdViewButtonDecoratorTests\/testButtonTappedAction()",
@@ -74,6 +78,7 @@
         "BannerViewReloadTrackerTests\/testDetectWebViewReloadMultipleReloads()",
         "BannerViewReloadTrackerTests\/testInitWithDefaultInterval()",
         "BannerViewReloadTrackerTests\/testStartSchedulesTimer()",
+        "BannerViewTest\/testAccountErrorPropagation()",
         "DispatcherTests",
         "DispatcherTests\/testAutorefreshDispatcher()",
         "DispatcherTests\/testDispatcherIsNotNil()",
@@ -205,6 +210,8 @@
         "PBMAutoRefreshManagerTest\/testNoTimerAutoStartWithPrefetch()",
         "PBMAutoRefreshManagerTest\/testPostponeWithSetupRefresh()",
         "PBMAutoRefreshManagerTest\/testStopTimer()",
+        "PBMBaseInterstitialAdUnit_DelegationTest\/testAccountErrorPropagationByInterstitial()",
+        "PBMBaseInterstitialAdUnit_DelegationTest\/testAccountErrorPropagationByRewardedAd()",
         "PBMCircularProgressBarLayerTests",
         "PBMCircularProgressBarLayerTests\/testNeedsDisplayForKey()",
         "PBMCircularProgressBarLayerTests\/testProperties()",
@@ -509,6 +516,7 @@
         "UserConsentDataManagerTest",
         "VastEventTrackingTest",
         "VastEventTrackingTest\/testEvents()",
+        "VastTrackingEventsTest",
         "VideoControlsConfigTests",
         "VideoControlsConfigTests\/testCloseButtonArea()",
         "VideoControlsConfigTests\/testDefaultCloseButtonPosition()",
