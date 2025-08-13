@@ -189,6 +189,10 @@ public class Targeting: NSObject {
     /// See CoreLocation framework documentation.
     public var coordinate: NSValue?
     
+    /// Number of decimal places to use when rounding latitude/longitude for device geolocation.
+    /// A value of 0 means no fractional precision (whole degrees only).
+    /// Example: precision 2 ≈ ~1 km accuracy, precision 4 ≈ ~11 m accuracy.
+    public var locationPrecision: UInt = 0
     
     // MARK: - Public Methods
     

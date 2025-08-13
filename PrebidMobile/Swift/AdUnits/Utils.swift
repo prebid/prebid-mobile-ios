@@ -15,6 +15,7 @@
 
 import Foundation
 import WebKit
+import CoreLocation
 
 /// A utility class for handling various ad-related operations and conversions.
 public class Utils: NSObject {
@@ -417,6 +418,18 @@ public class Utils: NSObject {
 
           return nil
       }
+    
+    @objc public func round(coordinates : CLLocationCoordinate2D, precision: Int) -> CLLocationCoordinate2D {
+        guard precision > 0 else {
+            return coordinates
+        }
+        
+        let multiplier = pow(10.0, Double(precision))
+        let roundedLat = (coordinates.latitude * multiplier).rounded() / multiplier
+        let roundedLon = (coordinates.longitude * multiplier).rounded() / multiplier
+        
+        return CLLocationCoordinate2D(latitude: roundedLat, longitude: roundedLon)
+    }
 }
 
 
