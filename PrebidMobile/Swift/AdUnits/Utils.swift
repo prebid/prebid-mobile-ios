@@ -419,7 +419,7 @@ public class Utils: NSObject {
           return nil
       }
     
-    @objc public func round(coordinates : CLLocationCoordinate2D, precision: Int) -> CLLocationCoordinate2D {
+    @objc public func round(coordinates : CLLocationCoordinate2D, precision: UInt) -> CLLocationCoordinate2D {
         guard precision > 0 else {
             return coordinates
         }
