@@ -41,4 +41,6 @@ class MockLocationManagerSuccessful: LocationManager {
     }
 }
 
-class MockLocationManagerUnSuccessful : LocationManager {}
+class MockLocationManagerUnSuccessful : LocationManager {
+    static let sharedMock = MockLocationManagerUnSuccessful()
+}
