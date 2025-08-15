@@ -166,7 +166,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.protocols, [2, 5])
         PBMAssertEq(video.startdelay, -1)
         PBMAssertEq(video.mimes, PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES)
-        PBMAssertEq(video.playbackend, 2)
+        PBMAssertEq(video.playbackend, 1)
         PBMAssertEq(video.delivery, [3])
         PBMAssertEq(video.battr, [15, 16])
         PBMAssertEq(video.skip, 0)
@@ -610,7 +610,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.protocols, [2,5])
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
-        PBMAssertEq(video.playbackend, 2)
+        PBMAssertEq(video.playbackend, 1)
     }
 
     func testParameterBuilderInterstitialVAST() {

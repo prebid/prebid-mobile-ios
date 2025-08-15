@@ -337,9 +337,9 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBVideo.protocols = [2, 5]
         pbmORTBVideo.pos = 7
         pbmORTBVideo.delivery = [3]
-        pbmORTBVideo.playbackend = 2
+        pbmORTBVideo.playbackend = 1
         
-        codeAndDecode(abstract: pbmORTBVideo, expectedString: "{\"delivery\":[3],\"h\":200,\"linearity\":1,\"maxbitrate\":40,\"maxduration\":100,\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"minbitrate\":20,\"minduration\":10,\"playbackend\":2,\"pos\":7,\"protocols\":[2,5],\"startdelay\":5,\"w\":100}")
+        codeAndDecode(abstract: pbmORTBVideo, expectedString: "{\"delivery\":[3],\"h\":200,\"linearity\":1,\"maxbitrate\":40,\"maxduration\":100,\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"minbitrate\":20,\"minduration\":10,\"playbackend\":1,\"pos\":7,\"protocols\":[2,5],\"startdelay\":5,\"w\":100}")
     }
     
     func testFormatToJsonString() {
