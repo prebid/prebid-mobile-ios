@@ -6,14 +6,21 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+'
       - 'test-doc-*'
 
+env:
+  XCODE_VERSION: "16.1.0"
+
 jobs:
   upload-docs:
 
-    runs-on: macos-15
+    runs-on: macos-latest
 
     steps:
     - name: Checkout current branch
       uses: actions/checkout@v4
+    - name: Select Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with: 
+          xcode-version: ${{ env.XCODE_VERSION }}
     - name: Install Jazzy
       run: |
         gem install jazzy
