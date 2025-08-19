@@ -660,6 +660,9 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     
     [self.avPlayer pause];
     [self.eventManager trackEvent:PBMTrackingEventPause];
+    if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoDidPause:)]) {
+        [self.creative.creativeViewDelegate videoDidPause:self.creative];
+    }
 }
 
 - (void)resume {
@@ -674,6 +677,9 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     
     [self.avPlayer play];
     [self.eventManager trackEvent:PBMTrackingEventResume];
+    if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoDidResume:)]) {
+        [self.creative.creativeViewDelegate videoDidResume:self.creative];
+    }
 }
 
 - (void)stop {
