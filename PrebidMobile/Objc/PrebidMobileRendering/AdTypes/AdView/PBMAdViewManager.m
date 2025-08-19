@@ -166,6 +166,18 @@
     }
 }
 
+- (void)videoDidPause:(id<PBMAbstractCreative>)creative {
+    if ([self.adViewManagerDelegate respondsToSelector:@selector(videoAdDidPause)]) {
+        [self.adViewManagerDelegate videoAdDidPause];
+    }
+}
+
+- (void)videoDidResume:(id<PBMAbstractCreative>)creative {
+    if ([self.adViewManagerDelegate respondsToSelector:@selector(videoAdDidResume)]) {
+        [self.adViewManagerDelegate videoAdDidResume];
+    }
+}
+
 - (void)creativeDidComplete:(id<PBMAbstractCreative>)creative {
     PBMLogWhereAmI();
     

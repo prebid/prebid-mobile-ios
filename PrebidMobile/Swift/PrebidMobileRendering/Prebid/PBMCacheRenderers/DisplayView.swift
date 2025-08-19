@@ -36,6 +36,8 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     private(set) var connection: PrebidServerConnectionProtocol? = nil
     var transactionFactory: TransactionFactory?
     var adViewManager: AdViewManager?
+    
+    weak var videoPlaybackDelegate: DisplayViewVideoPlaybackDelegate?
 
     // MARK: - Initializers
 
@@ -191,5 +193,25 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
             return
         }
         delegate.didDismissModal(from: self)
+    }
+    
+    public func videoAdWasMuted() {
+        videoPlaybackDelegate?.videoPlaybackWasMuted()
+    }
+    
+    public func videoAdWasUnmuted() {
+        videoPlaybackDelegate?.videoPlaybackWasUnmuted()
+    }
+    
+    public func videoAdDidFinish() {
+        videoPlaybackDelegate?.videoPlaybackDidComplete()
+    }
+    
+    public func videoAdDidPause() {
+        videoPlaybackDelegate?.videoPlaybackDidPause()
+    }
+    
+    public func videoAdDidResume() {
+        videoPlaybackDelegate?.videoPlaybackDidResume()
     }
 }
