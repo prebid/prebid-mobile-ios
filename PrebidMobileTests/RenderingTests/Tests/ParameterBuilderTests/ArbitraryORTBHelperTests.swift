@@ -26,7 +26,7 @@ class ArbitraryORTBHelperTests: XCTestCase {
         }
         """
         
-        let result = ArbitraryImpORTBHelper(ortb: validJSON).getValidatedORTBDict()
+        let result = ArbitraryORTBHelper(ortb: validJSON).getValidatedORTBDict()
         
         XCTAssertNotNil(result)
         XCTAssertEqual(result?["key1"] as? String, "value1")
@@ -40,7 +40,7 @@ class ArbitraryORTBHelperTests: XCTestCase {
             "key2":
         """
         
-        let result = ArbitraryImpORTBHelper(ortb: invalidJSON).getValidatedORTBDict()
+        let result = ArbitraryORTBHelper(ortb: invalidJSON).getValidatedORTBDict()
         
         XCTAssertNil(result)
     }

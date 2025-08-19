@@ -40,6 +40,7 @@ public class PrebidRequest: NSObject {
     
     private(set) var gpid: String?
     private var impORTBConfig: String?
+    private var contentORTBConfig: String?
     
     /// Initializes a new `PrebidRequest` with the given parameters.
     /// - Parameters:
@@ -84,5 +85,17 @@ public class PrebidRequest: NSObject {
     /// Returns the impression-level OpenRTB configuration string.
     public func getImpORTBConfig() -> String? {
         impORTBConfig
+    }
+    
+    /// Sets the content OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbConfig: The content OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setContentORTBConfig(_ ortbConfig: String?) {
+        self.contentORTBConfig = ortbConfig
+    }
+    
+    /// Returns the content OpenRTB configuration string.
+    public func getContentORTBConfig() -> String? {
+        contentORTBConfig
     }
 }
