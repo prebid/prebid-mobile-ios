@@ -74,7 +74,7 @@
         return;
     }
     
-    CGSize screenSize = self.deviceAccessManager.screenSize;
+    CGSize screenSize = self.deviceAccessManager.screenSizeInPixels;
     
     bidRequest.device.w = @(screenSize.width);
     bidRequest.device.h = @(screenSize.height);
