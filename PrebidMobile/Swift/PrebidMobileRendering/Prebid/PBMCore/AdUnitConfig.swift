@@ -82,6 +82,11 @@ public class AdUnitConfig: NSObject, NSCopying {
         get { adConfiguration.impORTBConfig }
         set { adConfiguration.impORTBConfig = newValue }
     }
+    
+    public var contentORTBConfig: String? {
+        get { adConfiguration.contentORTBConfig }
+        set { adConfiguration.contentORTBConfig = newValue }
+    }
 
     // MARK: - Public Methods
     
@@ -137,6 +142,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.pbAdSlot = self.pbAdSlot
         
         clone.adConfiguration.impORTBConfig = self.adConfiguration.impORTBConfig
+        clone.adConfiguration.contentORTBConfig = self.adConfiguration.contentORTBConfig
         clone.adConfiguration.rewardedConfig = self.adConfiguration.rewardedConfig
         clone.adConfiguration.winningBidAdFormat = self.adConfiguration.winningBidAdFormat
         clone.adConfiguration.adFormats = self.adConfiguration.adFormats

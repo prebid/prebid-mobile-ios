@@ -122,6 +122,18 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.adUnitConfig.impORTBConfig
     }
     
+    /// Sets the content OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbConfig: The content OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setContentORTBConfig(_ ortbConfig: String?) {
+        nativeAdUnit.adUnitConfig.contentORTBConfig = ortbConfig
+    }
+    
+    /// Returns the content OpenRTB configuration string.
+    public func getContentORTBConfig() -> String? {
+        nativeAdUnit.adUnitConfig.contentORTBConfig
+    }
+    
     /// Makes bid request for the native ad unit and setups mediation parameters.
     /// - Parameter completion: The completion handler to call with the result code.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

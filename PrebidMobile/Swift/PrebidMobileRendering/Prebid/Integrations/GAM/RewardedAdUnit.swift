@@ -193,6 +193,18 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         adUnitConfig.impORTBConfig
     }
     
+    /// Sets the content OpenRTB configuration string for the ad unit.
+    ///
+    /// - Parameter ortbConfig: The content OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setContentORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.contentORTBConfig = ortbConfig
+    }
+    
+    /// Returns the content OpenRTB configuration string.
+    public func getContentORTBConfig() -> String? {
+        adUnitConfig.contentORTBConfig
+    }
+    
     // MARK: - Internal methods
     
     func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
