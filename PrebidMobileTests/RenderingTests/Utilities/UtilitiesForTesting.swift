@@ -294,7 +294,7 @@ typealias JsonDictionary = [String:Any]
         targeting.gdprConsentString = nil
         targeting.purposeConsents = nil
         targeting.sendSharedId = false
-        targeting.locationPrecision = 0
+        targeting.locationPrecision = nil
         
         targeting.clearAppExtData()
         targeting.clearAppKeywords()

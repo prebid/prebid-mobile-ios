@@ -419,14 +419,23 @@ public class Utils: NSObject {
           return nil
       }
     
-    @objc public func round(coordinates : CLLocationCoordinate2D, precision: UInt) -> CLLocationCoordinate2D {
-        guard precision > 0 else {
+    @objc public func round(coordinates : CLLocationCoordinate2D, precision: NSNumber?) -> CLLocationCoordinate2D {
+        guard let precision, CLLocationCoordinate2DIsValid(coordinates) else {
             return coordinates
         }
         
-        let multiplier = pow(10.0, Double(precision))
+        let multiplier = pow(10.0, precision.doubleValue)
+        guard !multiplier.isZero && multiplier.isFinite else {
+            // For cases that result in 0/inf values of multiplier which can lead to unexpected behavior. 
+            return coordinates
+        }
+        
         let roundedLat = (coordinates.latitude * multiplier).rounded() / multiplier
         let roundedLon = (coordinates.longitude * multiplier).rounded() / multiplier
+        
+        guard roundedLat.isFinite, roundedLon.isFinite else {
+            return coordinates
+        }
         
         return CLLocationCoordinate2D(latitude: roundedLat, longitude: roundedLon)
     }

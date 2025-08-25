@@ -58,11 +58,8 @@
     }
     
     if (self.locationManager.coordinatesAreValid) {
-        CLLocationCoordinate2D coordinates = self.locationManager.coordinates;
-        
-        // Rounds with the precision defined in Targeting or returns the original coordinates if precision is 0.
-        coordinates = [[Utils shared] roundWithCoordinates:coordinates precision:[[Targeting shared] locationPrecision]];
-        
+        // Rounds with the precision defined in Targeting, or returns the original coordinates if precision is nil.
+        CLLocationCoordinate2D coordinates = [[Utils shared] roundWithCoordinates:self.locationManager.coordinates precision:[[Targeting shared] locationPrecision]];
         bidRequest.device.geo.type = @(PrebidConstants.LOCATION_SOURCE_GPS);
         bidRequest.device.geo.lat = @(coordinates.latitude);
         bidRequest.device.geo.lon = @(coordinates.longitude);

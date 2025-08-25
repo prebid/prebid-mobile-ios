@@ -190,9 +190,12 @@ public class Targeting: NSObject {
     public var coordinate: NSValue?
     
     /// Number of decimal places to use when rounding latitude/longitude for device geolocation.
-    /// A value of 0 means no fractional precision (whole degrees only).
-    /// Example: precision 2 ≈ ~1 km accuracy, precision 4 ≈ ~11 m accuracy.
-    public var locationPrecision: UInt = 0
+    /// Set to nil for full precision (no rounding).
+    /// Example usage:
+    ///   Targeting.shared.locationPrecision = NSNumber(value: 0) // latitude 37.774929 -> 37.0 (No precision)
+    ///   Targeting.shared.locationPrecision = NSNumber(value: 2) // latitude 37.774929 -> 37.77
+    ///   Targeting.shared.locationPrecision = nil // latitude 37.774929 -> 37.774929 (full precision)
+    public var locationPrecision: NSNumber?
     
     // MARK: - Public Methods
     
