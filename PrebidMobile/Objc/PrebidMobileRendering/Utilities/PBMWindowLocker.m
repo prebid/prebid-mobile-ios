@@ -26,6 +26,7 @@
 @property (nonatomic, weak, nullable, readonly) UIWindow *window;
 @property (nonatomic, weak, readonly) PBMOpenMeasurementSession *measurementSession;
 @property (nonatomic, weak, nullable, readwrite) UIView *lockingView;
+@property (nonatomic, strong) dispatch_queue_t serialLockerQueue;
 @end
 
 // MARK: -
@@ -38,38 +39,47 @@
     }
     _window = window;
     _measurementSession = measurementSession;
+    _serialLockerQueue = dispatch_queue_create("PBMWindowLocker", DISPATCH_QUEUE_SERIAL);
     return self;
 }
 
 - (void)lock {
-    if (self.locked) {
-        PBMLogError(@"Attempting to lock already locked window locker.");
-        return;
-    }
-    UIView * lockingView = [self lockingView] ?: [self buildLockingView];
-    if (lockingView == nil) {
-        PBMLogError(@"Failed to create window locking view.");
-        return;
-    }
-    self.lockingView = lockingView;
-    [self.window addSubview:lockingView];
-    [self.window addConstraints:@[
-        [NSLayoutConstraint constraintWithItem:self.window attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.lockingView attribute:NSLayoutAttributeWidth multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:self.window attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.lockingView attribute:NSLayoutAttributeHeight multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:self.window attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.lockingView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:self.window attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.lockingView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
-    ]];
-    
-    self.locked = YES;
+    dispatch_async(self.serialLockerQueue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.locked) {
+                PBMLogError(@"Attempting to lock already locked window locker.");
+                return;
+            }
+            UIView * lockingView = [self lockingView] ?: [self buildLockingView];
+            if (lockingView == nil) {
+                PBMLogError(@"Failed to create window locking view.");
+                return;
+            }
+            self.lockingView = lockingView;
+            [self.window addSubview:lockingView];
+            [self.window addConstraints:@[
+                [NSLayoutConstraint constraintWithItem:self.window attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.lockingView attribute:NSLayoutAttributeWidth multiplier:1 constant:0],
+                [NSLayoutConstraint constraintWithItem:self.window attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.lockingView attribute:NSLayoutAttributeHeight multiplier:1 constant:0],
+                [NSLayoutConstraint constraintWithItem:self.window attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.lockingView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0],
+                [NSLayoutConstraint constraintWithItem:self.window attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.lockingView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
+            ]];
+            
+            self.locked = YES;
+        });
+    });
 }
 
 - (void)unlock {
-    if (!self.locked) {
-        PBMLogError(@"Attempting to unlock already unlocked window locker.");
-        return;
-    }
-    [self.lockingView removeFromSuperview];
-    self.locked = NO;
+    dispatch_async(self.serialLockerQueue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!self.locked) {
+                PBMLogError(@"Attempting to unlock already unlocked window locker.");
+                return;
+            }
+            [self.lockingView removeFromSuperview];
+            self.locked = NO;
+        });
+    });
 }
 
 - (UIView *)buildLockingView {
