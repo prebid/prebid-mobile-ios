@@ -419,20 +419,72 @@ public class Utils: NSObject {
           return nil
       }
     
+    /**
+     Rounds geographic coordinates to a specified decimal precision.
+     
+     This method rounds both latitude and longitude values to the specified number of decimal places.
+     For example, with precision 2, coordinates (37.7749, -122.4194) become (37.77, -122.42).
+     
+     - Parameters:
+       - coordinates: The geographic coordinates to round (latitude: -90 to 90, longitude: -180 to 180)
+       - precision: The number of decimal places to round to. Must be non-negative.
+                    - 0: Round to whole numbers (e.g., 37.8 -> 38.0)
+                    - 1: Round to 1 decimal place (e.g., 37.7749 -> 37.8)
+                    - 2: Round to 2 decimal places (e.g., 37.7749 -> 37.77)
+                    - nil: Return original coordinates unchanged
+     
+     - Returns: A new CLLocationCoordinate2D with rounded values, or the original coordinates if:
+                - precision is nil
+                - precision is negative
+                - coordinates are invalid (outside valid ranges)
+                - precision results in infinite or zero multiplier
+                - rounded values are not finite
+     
+     - Note: This method uses standard rounding rules (round half up). For example:
+             - 37.775 rounds to 37.78 with precision 2
+             - 37.774 rounds to 37.77 with precision 2
+     
+     - Example:
+     ```swift
+     let utils = Utils.shared
+     let coords = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+     let rounded = utils.round(coordinates: coords, precision: NSNumber(value: 2))
+     // Result: latitude: 37.77, longitude: -122.42
+     ```
+     */
     @objc public func round(coordinates : CLLocationCoordinate2D, precision: NSNumber?) -> CLLocationCoordinate2D {
+        // Early return if precision is nil or coordinates are invalid
         guard let precision, CLLocationCoordinate2DIsValid(coordinates) else {
             return coordinates
         }
         
+        // Return original coordinates for negative precision (invalid input)
+        guard precision.doubleValue >= 0 else {
+            return coordinates
+        }
+        
+        // Optimized path for precision 0 (rounding to whole numbers)
+        if precision.doubleValue == 0 {
+            return CLLocationCoordinate2D(
+                latitude: coordinates.latitude.rounded(),
+                longitude: coordinates.longitude.rounded()
+            )
+        }
+        
+        // Calculate multiplier for rounding (e.g., precision 2 -> multiplier 100)
         let multiplier = pow(10.0, precision.doubleValue)
+        
+        // Guard against edge cases where multiplier becomes 0 or infinite
         guard !multiplier.isZero && multiplier.isFinite else {
             // For cases that result in 0/inf values of multiplier which can lead to unexpected behavior. 
             return coordinates
         }
         
+        // Round coordinates using standard rounding (round half up)
         let roundedLat = (coordinates.latitude * multiplier).rounded() / multiplier
         let roundedLon = (coordinates.longitude * multiplier).rounded() / multiplier
         
+        // Ensure rounded values are finite (not NaN or infinite)
         guard roundedLat.isFinite, roundedLon.isFinite else {
             return coordinates
         }

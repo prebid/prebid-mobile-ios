@@ -1012,6 +1012,301 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
        }
        return nil
    }
+    
+    // MARK: - Round Method Tests
+    
+    func testRoundMethodWithValidCoordinatesAndPrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: 2)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 37.77, accuracy: 0.01)
+        XCTAssertEqual(result.longitude, -122.42, accuracy: 0.01)
+    }
+    
+    func testRoundMethodWithZeroPrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: 0)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 38.0, accuracy: 0.1)
+        XCTAssertEqual(result.longitude, -122.0, accuracy: 0.1)
+    }
+    
+    func testRoundMethodWithHighPrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749123, longitude: -122.4194567)
+        let precision = NSNumber(value: 5)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 37.77491, accuracy: 0.00001)
+        XCTAssertEqual(result.longitude, -122.41946, accuracy: 0.00001)
+    }
+    
+    func testRoundMethodWithNegativePrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: -1)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        // Should return original coordinates when precision is negative (invalid)
+        XCTAssertEqual(result.latitude, coordinates.latitude, accuracy: 0.0001)
+        XCTAssertEqual(result.longitude, coordinates.longitude, accuracy: 0.0001)
+    }
+    
+    func testRoundMethodWithNilPrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        
+        let result = utils.round(coordinates: coordinates, precision: nil)
+        
+        // Should return original coordinates when precision is nil
+        XCTAssertEqual(result.latitude, coordinates.latitude, accuracy: 0.0001)
+        XCTAssertEqual(result.longitude, coordinates.longitude, accuracy: 0.0001)
+    }
+    
+    func testRoundMethodWithInvalidCoordinates() {
+        let utils = Utils.shared
+        let invalidCoordinates = CLLocationCoordinate2D(latitude: 91.0, longitude: 181.0) // Invalid coordinates
+        let precision = NSNumber(value: 2)
+        
+        let result = utils.round(coordinates: invalidCoordinates, precision: precision)
+        
+        // Should return original coordinates when coordinates are invalid
+        XCTAssertEqual(result.latitude, invalidCoordinates.latitude, accuracy: 0.0001)
+        XCTAssertEqual(result.longitude, invalidCoordinates.longitude, accuracy: 0.0001)
+    }
+    
+    func testRoundMethodWithEdgeCaseCoordinates() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 90.0, longitude: 180.0) // Maximum valid coordinates
+        let precision = NSNumber(value: 1)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 90.0, accuracy: 0.1)
+        XCTAssertEqual(result.longitude, 180.0, accuracy: 0.1)
+    }
+    
+    func testRoundMethodWithNegativeCoordinates() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: -37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: 3)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, -37.775, accuracy: 0.001)
+        XCTAssertEqual(result.longitude, -122.419, accuracy: 0.001)
+    }
+    
+    func testRoundMethodWithVerySmallCoordinates() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 0.0001, longitude: 0.0001)
+        let precision = NSNumber(value: 4)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 0.0001, accuracy: 0.00001)
+        XCTAssertEqual(result.longitude, 0.0001, accuracy: 0.00001)
+    }
+    
+    func testRoundMethodWithLargePrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: 10)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        // Should handle large precision gracefully
+        XCTAssertEqual(result.latitude, coordinates.latitude, accuracy: 0.0000000001)
+        XCTAssertEqual(result.longitude, coordinates.longitude, accuracy: 0.0000000001)
+    }
+    
+    func testRoundMethodWithExtremePrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: 100)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        // Should return original coordinates when precision is too extreme
+        XCTAssertEqual(result.latitude, coordinates.latitude, accuracy: 0.0001)
+        XCTAssertEqual(result.longitude, coordinates.longitude, accuracy: 0.0001)
+    }
+    
+    func testRoundMethodWithZeroCoordinates() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+        let precision = NSNumber(value: 2)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 0.0, accuracy: 0.01)
+        XCTAssertEqual(result.longitude, 0.0, accuracy: 0.01)
+    }
+    
+    func testRoundMethodWithRoundingUp() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7755, longitude: -122.4195)
+        let precision = NSNumber(value: 2)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 37.78, accuracy: 0.01)
+        XCTAssertEqual(result.longitude, -122.42, accuracy: 0.01)
+    }
+    
+    func testRoundMethodWithRoundingDown() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7744, longitude: -122.4194)
+        let precision = NSNumber(value: 2)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 37.77, accuracy: 0.01)
+        XCTAssertEqual(result.longitude, -122.42, accuracy: 0.01)
+    }
+    
+    func testRoundMethodWithHalfwayRounding() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7750, longitude: -122.4195)
+        let precision = NSNumber(value: 2)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 37.78, accuracy: 0.01)
+        XCTAssertEqual(result.longitude, -122.42, accuracy: 0.01)
+    }
+    
+    func testRoundMethodWithMultiplePrecisionLevels() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749123, longitude: -122.4194567)
+        
+        // Test different precision levels
+        let precision1 = NSNumber(value: 1)
+        let result1 = utils.round(coordinates: coordinates, precision: precision1)
+        XCTAssertEqual(result1.latitude, 37.8, accuracy: 0.1)
+        XCTAssertEqual(result1.longitude, -122.4, accuracy: 0.1)
+        
+        let precision2 = NSNumber(value: 2)
+        let result2 = utils.round(coordinates: coordinates, precision: precision2)
+        XCTAssertEqual(result2.latitude, 37.77, accuracy: 0.01)
+        XCTAssertEqual(result2.longitude, -122.42, accuracy: 0.01)
+        
+        let precision3 = NSNumber(value: 3)
+        let result3 = utils.round(coordinates: coordinates, precision: precision3)
+        XCTAssertEqual(result3.latitude, 37.775, accuracy: 0.001)
+        XCTAssertEqual(result3.longitude, -122.419, accuracy: 0.001)
+    }
+    
+    func testRoundMethodWithBoundaryValues() {
+        let utils = Utils.shared
+        
+        // Test boundary values for latitude (-90 to 90)
+        let minLatCoordinates = CLLocationCoordinate2D(latitude: -90.0, longitude: 0.0)
+        let maxLatCoordinates = CLLocationCoordinate2D(latitude: 90.0, longitude: 0.0)
+        let precision = NSNumber(value: 1)
+        
+        let minResult = utils.round(coordinates: minLatCoordinates, precision: precision)
+        let maxResult = utils.round(coordinates: maxLatCoordinates, precision: precision)
+        
+        XCTAssertEqual(minResult.latitude, -90.0, accuracy: 0.1)
+        XCTAssertEqual(maxResult.latitude, 90.0, accuracy: 0.1)
+    }
+    
+    func testRoundMethodWithLongitudeBoundaryValues() {
+        let utils = Utils.shared
+        
+        // Test boundary values for longitude (-180 to 180)
+        let minLonCoordinates = CLLocationCoordinate2D(latitude: 0.0, longitude: -180.0)
+        let maxLonCoordinates = CLLocationCoordinate2D(latitude: 0.0, longitude: 180.0)
+        let precision = NSNumber(value: 1)
+        
+        let minResult = utils.round(coordinates: minLonCoordinates, precision: precision)
+        let maxResult = utils.round(coordinates: maxLonCoordinates, precision: precision)
+        
+        XCTAssertEqual(minResult.longitude, -180.0, accuracy: 0.1)
+        XCTAssertEqual(maxResult.longitude, 180.0, accuracy: 0.1)
+    }
+    
+    func testRoundMethodWithInfinitePrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: Double.infinity)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        // Should return original coordinates when precision is infinite
+        XCTAssertEqual(result.latitude, coordinates.latitude, accuracy: 0.0001)
+        XCTAssertEqual(result.longitude, coordinates.longitude, accuracy: 0.0001)
+    }
+    
+    func testRoundMethodWithNaNPrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: Double.nan)
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        // Should return original coordinates when precision is NaN
+        XCTAssertEqual(result.latitude, coordinates.latitude, accuracy: 0.0001)
+        XCTAssertEqual(result.longitude, coordinates.longitude, accuracy: 0.0001)
+    }
+    
+    func testRoundMethodWithDecimalPrecision() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: 2.5) // Decimal precision
+        
+        let result = utils.round(coordinates: coordinates, precision: precision)
+        
+        // Should handle decimal precision by truncating to integer
+        XCTAssertEqual(result.latitude, 37.77, accuracy: 0.01)
+        XCTAssertEqual(result.longitude, -122.42, accuracy: 0.01)
+    }
+    
+    func testRoundMethodConsistency() {
+        let utils = Utils.shared
+        let coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let precision = NSNumber(value: 2)
+        
+        // Call the method multiple times with same input
+        let result1 = utils.round(coordinates: coordinates, precision: precision)
+        let result2 = utils.round(coordinates: coordinates, precision: precision)
+        let result3 = utils.round(coordinates: coordinates, precision: precision)
+        
+        // All results should be identical
+        XCTAssertEqual(result1.latitude, result2.latitude, accuracy: 0.0001)
+        XCTAssertEqual(result1.longitude, result2.longitude, accuracy: 0.0001)
+        XCTAssertEqual(result2.latitude, result3.latitude, accuracy: 0.0001)
+        XCTAssertEqual(result2.longitude, result3.longitude, accuracy: 0.0001)
+    }
+    
+    func testRoundMethodWithRealWorldCoordinates() {
+        let utils = Utils.shared
+        
+        // Test with real-world coordinates (New York City)
+        let nycCoordinates = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
+        let precision = NSNumber(value: 3)
+        
+        let result = utils.round(coordinates: nycCoordinates, precision: precision)
+        
+        XCTAssertEqual(result.latitude, 40.713, accuracy: 0.001)
+        XCTAssertEqual(result.longitude, -74.006, accuracy: 0.001)
+        
+        // Test with real-world coordinates (London)
+        let londonCoordinates = CLLocationCoordinate2D(latitude: 51.5074, longitude: -0.1278)
+        let result2 = utils.round(coordinates: londonCoordinates, precision: precision)
+        
+        XCTAssertEqual(result2.latitude, 51.507, accuracy: 0.001)
+        XCTAssertEqual(result2.longitude, -0.128, accuracy: 0.001)
+    }
 }
 
 extension String {
