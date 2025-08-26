@@ -295,6 +295,7 @@ typealias JsonDictionary = [String:Any]
         targeting.purposeConsents = nil
         targeting.sendSharedId = false
         targeting.locationPrecision = nil
+        targeting.coordinate = nil
         
         targeting.clearAppExtData()
         targeting.clearAppKeywords()
