@@ -26,7 +26,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: nil
         )
         
@@ -52,7 +52,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
             impORTB: impORTB,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: nil
         )
         
@@ -70,7 +70,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
             impORTB: impORTB,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: nil
         )
         
@@ -101,7 +101,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -165,7 +165,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
             impORTB: impORTB,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -194,7 +194,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: impORTB,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -249,7 +249,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -286,7 +286,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -317,7 +317,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -363,7 +363,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -411,7 +411,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -455,7 +455,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -499,7 +499,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -547,7 +547,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -596,7 +596,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -637,7 +637,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -677,7 +677,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: globalORTB
         )
         
@@ -700,14 +700,14 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: [:],
             impORTB: nil,
-            contentORTB: nil,
+            globalAdUnitORTB: nil,
             globalORTB: nil
         )
         
         XCTAssertTrue(result.isEmpty)
     }
     
-    func testMergeContentORTB_EmptyAppObject() {
+    func testMergeAdUnitORTB_EmptyAppObject() {
         let sdkORTB = """
         {
             "imp": [
@@ -717,18 +717,22 @@ class ArbitraryORTBServiceTests: XCTestCase {
         }
         """
         
-        let contentORTB = """
+        let adUnitORTB = """
         {
-            "episode": 0,
-            "title": "Test title",
-            "keywords": "keyword1,keyword2"
+            "app": {
+                "content": {
+                    "episode": 0,
+                    "title": "Test title",
+                    "keywords": "keyword1,keyword2"
+                }
+            }
         }
         """
         
         let result = ArbitraryORTBService.merge(
             sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
             impORTB: nil,
-            contentORTB: contentORTB,
+            globalAdUnitORTB: adUnitORTB,
             globalORTB: nil
         )
         
@@ -756,12 +760,16 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testMergeContentORTB_WithExistingAppContent() {
-        let contentORTB = """
+    func testMergeAdUnitGlobalORTB_WithExistingORTB() {
+        let adUnitORTB = """
         {
-            "episode": 0,
-            "title": "Test title",
-            "keywords": "keyword1,keyword2"
+            "app": {
+                "content": {
+                    "episode": 0,
+                    "title": "Test title",
+                    "keywords": "keyword1,keyword2"                
+                }
+            }
         }
         """
         
@@ -778,7 +786,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: contentORTB,
+            globalAdUnitORTB: adUnitORTB,
             globalORTB: nil
         )
         
@@ -805,12 +813,16 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testMergeContentORTB_WithContentInGlobal() {
-        let contentORTB = """
+    func testMergeAdUnitGlobalORTB_WithContentInGlobal() {
+        let adUnitORTB = """
         {
-            "episode": 0,
-            "title": "Test title",
-            "keywords": "keyword1,keyword2"
+            "app": {
+                "content": {
+                    "episode": 0,
+                    "title": "Test title",
+                    "keywords": "keyword1,keyword2"
+                }
+            }
         }
         """
         
@@ -823,7 +835,10 @@ class ArbitraryORTBServiceTests: XCTestCase {
                     "genre": "Test genre",
                     "album": "Test album"
                 }
-            }
+            },
+            "imp": [
+                {"banner": {"format": [{"w": 320, "h": 50}]}, "id": "existing_imp"}
+            ]
         }
         """
         
@@ -834,13 +849,16 @@ class ArbitraryORTBServiceTests: XCTestCase {
                      "season": "2",
                      "userrating": "4.2"
                 ]
+            ],
+            "device": [
+                "ua": "Mozilla/5.0"
             ]
         ]
         
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: contentORTB,
+            globalAdUnitORTB: adUnitORTB,
             globalORTB: globalORTB
         )
         
@@ -861,7 +879,11 @@ class ArbitraryORTBServiceTests: XCTestCase {
                     "genre": "Test genre",
                     "album": "Test album"
                 }
-            }
+            },
+            "imp": [
+                {"banner": {"format": [{"w": 320, "h": 50}]}, "id": "existing_imp"}
+            ],
+            "device": {"ua": "Mozilla/5.0"}
         }
         """
         
@@ -871,12 +893,16 @@ class ArbitraryORTBServiceTests: XCTestCase {
         )
     }
     
-    func testMergeContentORTB_GlobalObject_WithConflicts() {
-        let contentORTB = """
+    func testMergeAdUnitGlobalORTB_GlobalObject_WithConflicts() {
+        let adUnitORTB = """
         {
-            "episode": 0,
-            "title": "Test title",
-            "keywords": "keyword1,keyword2"
+            "app": {
+                "content": {
+                    "episode": 0,
+                    "title": "Test title",
+                    "keywords": "keyword1,keyword2"
+                }
+            }
         }
         """
         
@@ -903,7 +929,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         let result = ArbitraryORTBService.merge(
             sdkORTB: sdkORTB,
             impORTB: nil,
-            contentORTB: contentORTB,
+            globalAdUnitORTB: adUnitORTB,
             globalORTB: globalORTB
         )
         
@@ -913,7 +939,7 @@ class ArbitraryORTBServiceTests: XCTestCase {
         {
             "app": {
                 "content": {
-                    "episode": 12,
+                    "episode": 0,
                     "title": "Test title",
                     "keywords": "keyword1,keyword2",
                     "series": "All About Tests",
@@ -929,5 +955,71 @@ class ArbitraryORTBServiceTests: XCTestCase {
             try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
         )
     }
-
+    
+    func testMergeAdUnitGlobalORTB_SkipProtectedFields() {
+        let adUnitORTB = """
+        {
+            "app": {
+                "content": {
+                    "episode": 0,
+                    "title": "Test title",
+                    "keywords": "keyword1,keyword2"
+                }
+            },
+            "device": {
+                "ifa": "protectedValue",
+                "os": "Android",
+                "pxratio": 3.0
+            }
+        }
+        """
+        
+        
+        let sdkORTB: [String: Any] = [
+            "app": [
+                "content": [
+                     "series": "All About Tests",
+                     "season": "2",
+                     "userrating": "4.2"
+                ]
+            ],
+            "device": [
+                "os": "iOS",
+                "model": "iPhone"
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        XCTAssertNotNil(result)
+        
+        let expectedORTB = """
+        {
+            "app": {
+                "content": {
+                    "episode": 0,
+                    "title": "Test title",
+                    "keywords": "keyword1,keyword2",
+                    "series": "All About Tests",
+                    "season": "2",
+                    "userrating": "4.2"
+                }
+            },
+            "device": {
+                "model": "iPhone",
+                "os": "iOS"
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
 }

@@ -136,5 +136,5 @@ public class AdConfiguration: AutoRefreshCountConfig {
     private var _autoRefreshDelay: TimeInterval? = PrebidConstants.AUTO_REFRESH_DELAY_DEFAULT
     
     public var impORTBConfig: String?
-    public var contentORTBConfig: String?
+    public var globalORTBConfig: String?
 }
