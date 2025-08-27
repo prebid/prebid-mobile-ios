@@ -581,18 +581,10 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 - (void)btnMuteClick:(UIButton *)button {
     [self mute];
-    
-    if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoWasMuted:)]) {
-        [self.creative.creativeViewDelegate videoWasMuted:self.creative];
-    }
 }
 
 - (void)btnUnmuteClick:(UIButton *)button {
     [self unmute];
-    
-    if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoWasUnmuted:)]) {
-        [self.creative.creativeViewDelegate videoWasUnmuted:self.creative];
-    }
 }
 
 #pragma mark - Interface
@@ -699,10 +691,18 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 - (void)mute {
     [self setMuted:YES];
+    
+    if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoWasMuted:)]) {
+        [self.creative.creativeViewDelegate videoWasMuted:self.creative];
+    }
 }
 
 - (void)unmute {
     [self setMuted:NO];
+    
+    if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoWasUnmuted:)]) {
+        [self.creative.creativeViewDelegate videoWasUnmuted:self.creative];
+    }
 }
 
 - (void)setMuted:(BOOL)muted {

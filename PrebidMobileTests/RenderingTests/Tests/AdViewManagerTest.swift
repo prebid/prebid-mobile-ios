@@ -34,9 +34,15 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     weak var adDidCollapseExpectation: XCTestExpectation?
     weak var adDidExpandExpectation: XCTestExpectation?
     weak var adDidLeaveAppExpectation: XCTestExpectation?
+    
+    weak var videoWasMutedExpectation: XCTestExpectation?
+    weak var videoWasUnmutedExpectation: XCTestExpectation?
+    weak var videoDidPauseExpectation: XCTestExpectation?
+    weak var videoDidResumeExpectation: XCTestExpectation?
 
     var adViewManager:AdViewManager!
     var adLoadManager:PBMAdLoadManagerBase!
+    var videoCreative: PBMVideoCreative?
     
     var currentlyDisplaying = false
     var loadError:NSError?
@@ -313,6 +319,33 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         adViewManager.setupCreative(creative, withThread: thread)
         UtilitiesForTesting.checkLogContains("setupCreative must be called on the main thread")
     }
+        
+    func testVideoCreativePlaybackEvents() {
+        videoWasMutedExpectation = expectation(description: "Expected a delegate function videoAdWasMuted to fire")
+        videoWasUnmutedExpectation = expectation(description: "Expected a delegate function videoAdWasUnmuted to fire")
+        videoDidPauseExpectation = expectation(description: "Expected a delegate function videoAdDidPause to fire")
+        videoDidResumeExpectation = expectation(description: "Expected a delegate function videoAdDidResume to fire")
+
+        let model = CreativeModel(adConfiguration: AdConfiguration())
+        videoCreative = PBMVideoCreative(creativeModel: model,
+                                            transaction: UtilitiesForTesting.createEmptyTransaction(),
+                                            videoData: Data())
+        videoCreative?.videoView.avPlayer = AVPlayer()
+        videoCreative?.creativeViewDelegate = adViewManager
+        
+        XCTAssertNotNil(videoCreative)
+        XCTAssertNotNil(videoCreative?.videoView)
+        
+        adViewManager.currentCreative = videoCreative
+        adViewManager.adViewManagerDelegate = self
+ 
+        adViewManager.pause()
+        adViewManager.resume()
+        adViewManager.mute()
+        adViewManager.unmute()
+        
+        waitForExpectations(timeout: 0.1)
+    }
     
     //MARK: AdViewManagerDelegate
     
@@ -376,7 +409,22 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     func adDidClose() {
         fulfillOrFail(adDidCloseExpectation, "adDidCloseExpectation")
     }
-
+    
+    func videoAdWasMuted() {
+        fulfillOrFail(videoWasMutedExpectation, "videoWasMutedExpectation")
+    }
+    
+    func videoAdWasUnmuted() {
+        fulfillOrFail(videoWasUnmutedExpectation, "videoWasUnmutedExpectation")
+    }
+    
+    func videoAdDidPause() {
+        fulfillOrFail(videoDidPauseExpectation, "videoDidPauseExpectation")
+    }
+    
+    func videoAdDidResume() {
+        fulfillOrFail(videoDidResumeExpectation, "videoDidResumeExpectation")
+    }
     
     //MARK: Utility methods
     @discardableResult private func setUpDelegateTests () -> PBMHTMLCreative {

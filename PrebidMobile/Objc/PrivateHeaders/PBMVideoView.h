@@ -25,14 +25,12 @@
 @class PBMVideoCreative;
 @class PBMOpenMeasurementSession;
 @protocol PBMModalState;
-@protocol PBMDisplayVideoPlaybackDelegate;
 typedef NS_ENUM(NSInteger, PBMTrackingEvent); // Forward declaration of Swift-defined enum
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMVideoView : UIView <AVAssetResourceLoaderDelegate>
 
 @property (nonatomic, weak, nullable) id<PBMVideoViewDelegate> videoViewDelegate;
-@property (weak, nonatomic, nullable) id <PBMDisplayVideoPlaybackDelegate> videoPlaybackDelegate;
 @property (nonatomic, strong) AVPlayer *avPlayer;
 @property (nonatomic, strong, nullable) PBMCircularProgressBarView *progressBar;
 

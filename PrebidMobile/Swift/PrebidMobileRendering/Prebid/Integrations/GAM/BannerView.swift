@@ -337,7 +337,7 @@ public class BannerView:
         delegate.perform(selector, with: self)
     }
     
-    private func deployView(_ view: UIView) {
+    func deployView(_ view: UIView) {
         guard deployedView !== view else {
             return
         }
