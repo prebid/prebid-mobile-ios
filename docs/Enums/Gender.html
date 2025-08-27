@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>VastTrackingEvents Class Reference</title>
+    <title>Gender Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,11 +13,11 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/VastTrackingEvents" class="dashAnchor"></a>
-    <a title="VastTrackingEvents Class Reference"></a>
+    <a name="//apple_ref/swift/Enum/Gender" class="dashAnchor"></a>
+    <a title="Gender Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 3.0.1 Docs</a> (85% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.5.1 Docs</a> (91% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -29,9 +29,9 @@
       <p id="breadcrumbs">
         <a href="../index.html">PrebidMobile</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        <a href="../Classes.html">Classes</a>
+        <a href="../Enums.html">Enumerations</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        VastTrackingEvents Class Reference
+        Gender Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -224,10 +224,13 @@
                 <a href="../Classes/Utils.html">Utils</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/VastTrackingEvents.html">VastTrackingEvents</a>
+                <a href="../Classes/VideoAdUnit.html">VideoAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/VideoControlsConfiguration.html">VideoControlsConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoInterstitialAdUnit.html">VideoInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/VideoParameters.html">VideoParameters</a>
@@ -244,6 +247,9 @@
                 <a href="../Enums/DataAsset.html">DataAsset</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/Gender.html">Gender</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/NativeDataAssetType.html">NativeDataAssetType</a>
               </li>
               <li class="nav-group-task">
@@ -253,13 +259,13 @@
                 <a href="../Enums/Position.html">Position</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/PrebidHost.html">PrebidHost</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/PrebidInitializationStatus.html">PrebidInitializationStatus</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/ResultCode.html">ResultCode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/TrackingEvent.html">TrackingEvent</a>
               </li>
             </ul>
           </li>
@@ -271,9 +277,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialAd.html">InterstitialAd</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
@@ -297,9 +300,6 @@
                 <a href="../Protocols/PrebidMobilePluginRenderer.html">PrebidMobilePluginRenderer</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/PrimaryAdRequesterProtocol.html">PrimaryAdRequesterProtocol</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/RewardedAdUnitDelegate.html">RewardedAdUnitDelegate</a>
               </li>
               <li class="nav-group-task">
@@ -320,16 +320,24 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>VastTrackingEvents</h1>
+            <h1>Gender</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">@objc</span><span class="p">(</span><span class="kt">PBMVastTrackingEvents</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">VastTrackingEvents</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">@objc</span><span class="p">(</span><span class="kt">PBMGender</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Gender</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>An enumeration representing gender options for ad targeting or other purposes.
+This enum is used to specify different gender options and is intended for use in contexts where gender information may be relevant.</p>
+
+<ul>
+<li><code>unknown</code>: Gender is not specified or unknown.</li>
+<li><code>male</code>: Represents the male gender.</li>
+<li><code>female</code>: Represents the female gender.</li>
+<li><code>other</code>: Represents any other gender that does not fit into the male or female categories.</li>
+</ul>
 
           </section>
           <section class="section task-group-section">
@@ -338,9 +346,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(py)trackingEvents"></a>
-                    <a name="//apple_ref/swift/Property/trackingEvents" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(py)trackingEvents">trackingEvents</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMGender@PBMGenderUnknown"></a>
+                    <a name="//apple_ref/swift/Element/unknown" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMGender@PBMGenderUnknown">unknown</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -348,15 +356,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Gender is not specified or unknown.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">trackingEvents</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unknown</span></code></pre>
 
                         </div>
                       </div>
@@ -366,9 +373,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(py)progressOffsets"></a>
-                    <a name="//apple_ref/swift/Property/progressOffsets" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(py)progressOffsets">progressOffsets</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMGender@PBMGenderMale"></a>
+                    <a name="//apple_ref/swift/Element/male" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMGender@PBMGenderMale">male</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -376,15 +383,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Represents the male gender.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">progressOffsets</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSNumber</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">male</span></code></pre>
 
                         </div>
                       </div>
@@ -394,9 +400,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(im)addTrackingURL:event:attributes:"></a>
-                    <a name="//apple_ref/swift/Method/addTrackingURL(_:event:attributes:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(im)addTrackingURL:event:attributes:">addTrackingURL(_:<wbr>event:<wbr>attributes:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMGender@PBMGenderFemale"></a>
+                    <a name="//apple_ref/swift/Element/female" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMGender@PBMGenderFemale">female</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -404,17 +410,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Represents the female gender.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addTrackingURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-                   <span class="nv">event</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-                   <span class="nv">attributes</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">female</span></code></pre>
 
                         </div>
                       </div>
@@ -424,9 +427,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(im)trackingURLsForEvent:"></a>
-                    <a name="//apple_ref/swift/Method/trackingURLs(forEvent:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(im)trackingURLsForEvent:">trackingURLs(forEvent:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMGender@PBMGenderOther"></a>
+                    <a name="//apple_ref/swift/Element/other" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMGender@PBMGenderOther">other</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -434,43 +437,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Represents any other gender that does not fit into the male or female categories.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">trackingURLs</span><span class="p">(</span><span class="n">forEvent</span> <span class="nv">event</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(im)addTrackingEvents:"></a>
-                    <a name="//apple_ref/swift/Method/addTrackingEvents(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)PBMVastTrackingEvents(im)addTrackingEvents:">addTrackingEvents(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addTrackingEvents</span><span class="p">(</span><span class="n">_</span> <span class="nv">events</span><span class="p">:</span> <span class="kt">VastTrackingEvents</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">other</span></code></pre>
 
                         </div>
                       </div>
@@ -482,7 +456,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-05-26)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-08-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

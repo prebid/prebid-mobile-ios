@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SKOverlayManager Class Reference</title>
+    <title>PrebidHost Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/SKOverlayManager" class="dashAnchor"></a>
-    <a title="SKOverlayManager Class Reference"></a>
+    <a name="//apple_ref/swift/Enum/PrebidHost" class="dashAnchor"></a>
+    <a title="PrebidHost Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">PrebidMobile 2.5.1 Docs</a> (91% documented)</p>
@@ -29,9 +29,9 @@
       <p id="breadcrumbs">
         <a href="../index.html">PrebidMobile</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        <a href="../Classes.html">Classes</a>
+        <a href="../Enums.html">Enumerations</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        SKOverlayManager Class Reference
+        PrebidHost Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -320,17 +320,17 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>SKOverlayManager</h1>
+            <h1>PrebidHost</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">@objc</span><span class="p">(</span><span class="kt">PBMSKOverlayManager</span><span class="p">)</span>
-<span class="kd">@objcMembers</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">SKOverlayManager</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This enum is deprecated. In the upcoming major release, the enum will be removed."</span><span class="p">)</span>
+<span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PrebidHost</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p><code>PrebidHost</code> represents various Prebid server hosts used for ad bidding.</p>
 
           </section>
           <section class="section task-group-section">
@@ -339,9 +339,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)PBMSKOverlayManager(im)initWithViewControllerForPresentation:"></a>
-                    <a name="//apple_ref/swift/Method/init(viewControllerForPresentation:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)PBMSKOverlayManager(im)initWithViewControllerForPresentation:">init(viewControllerForPresentation:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@E@PrebidHost@PrebidHostAppnexus"></a>
+                    <a name="//apple_ref/swift/Element/Appnexus" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PrebidHost@PrebidHostAppnexus">Appnexus</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -349,14 +349,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>URL <a href="URL">https://ib.adnxs.com/openrtb2/prebid</a></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">viewControllerForPresentation</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="kt">Appnexus</span></code></pre>
 
                         </div>
                       </div>
@@ -366,9 +366,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)PBMSKOverlayManager(im)presentSKOverlayWith:isCompanionAd:"></a>
-                    <a name="//apple_ref/swift/Method/presentSKOverlay(with:isCompanionAd:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)PBMSKOverlayManager(im)presentSKOverlayWith:isCompanionAd:">presentSKOverlay(with:<wbr>isCompanionAd:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@E@PrebidHost@PrebidHostRubicon"></a>
+                    <a name="//apple_ref/swift/Element/Rubicon" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PrebidHost@PrebidHostRubicon">Rubicon</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -376,14 +376,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>URL <a href="URL">https://prebid-server.rubiconproject.com/openrtb2/auction</a></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">presentSKOverlay</span><span class="p">(</span><span class="n">with</span> <span class="nv">skadnInfo</span><span class="p">:</span> <span class="kt">PBMORTBBidExtSkadn</span><span class="p">,</span> <span class="nv">isCompanionAd</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="kt">Rubicon</span></code></pre>
 
                         </div>
                       </div>
@@ -393,9 +393,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)PBMSKOverlayManager(im)dismissSKOverlay"></a>
-                    <a name="//apple_ref/swift/Method/dismissSKOverlay()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)PBMSKOverlayManager(im)dismissSKOverlay">dismissSKOverlay()</a>
+                    <a name="/c:@M@PrebidMobile@E@PrebidHost@PrebidHostCustom"></a>
+                    <a name="//apple_ref/swift/Element/Custom" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PrebidHost@PrebidHostCustom">Custom</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -403,14 +403,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Custom Prebid server URL. The URL for this case should be set separately.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dismissSKOverlay</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="kt">Custom</span></code></pre>
 
                         </div>
                       </div>

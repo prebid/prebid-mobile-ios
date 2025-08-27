@@ -17,7 +17,7 @@
     <a title="AdFormat Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 3.0.1 Docs</a> (85% documented)</p>
+        <p><a href="../index.html">PrebidMobile 2.5.1 Docs</a> (91% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -224,10 +224,13 @@
                 <a href="../Classes/Utils.html">Utils</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/VastTrackingEvents.html">VastTrackingEvents</a>
+                <a href="../Classes/VideoAdUnit.html">VideoAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/VideoControlsConfiguration.html">VideoControlsConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VideoInterstitialAdUnit.html">VideoInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/VideoParameters.html">VideoParameters</a>
@@ -244,6 +247,9 @@
                 <a href="../Enums/DataAsset.html">DataAsset</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/Gender.html">Gender</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/NativeDataAssetType.html">NativeDataAssetType</a>
               </li>
               <li class="nav-group-task">
@@ -253,13 +259,13 @@
                 <a href="../Enums/Position.html">Position</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/PrebidHost.html">PrebidHost</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/PrebidInitializationStatus.html">PrebidInitializationStatus</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/ResultCode.html">ResultCode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/TrackingEvent.html">TrackingEvent</a>
               </li>
             </ul>
           </li>
@@ -271,9 +277,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/InterstitialAd.html">InterstitialAd</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
@@ -295,9 +298,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/PrebidMobilePluginRenderer.html">PrebidMobilePluginRenderer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/PrimaryAdRequesterProtocol.html">PrimaryAdRequesterProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RewardedAdUnitDelegate.html">RewardedAdUnitDelegate</a>
@@ -329,7 +329,8 @@
 
                 </div>
               </div>
-            <p><code>AdFormat</code> is a class that represents different types of ad formats using an OptionSet.</p>
+            <p><code>AdFormat</code> is a class that represents different types of ad formats using an OptionSet.
+The class also includes a deprecated display format for backward compatibility, marked with a deprecation message.</p>
 
           </section>
           <section class="section task-group-section">
@@ -604,6 +605,34 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)AdFormat(cpy)display"></a>
+                    <a name="//apple_ref/swift/Variable/display" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)AdFormat(cpy)display">display</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a deprecated display ad format.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Display ad format is deprecated. Please, use banner ad format instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">display</span><span class="p">:</span> <span class="kt">AdFormat</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:@M@PrebidMobile@objc(cs)AdFormat(cpy)allCases"></a>
                     <a name="//apple_ref/swift/Variable/allCases" class="dashAnchor"></a>
                     <a class="token" href="#/c:@M@PrebidMobile@objc(cs)AdFormat(cpy)allCases">allCases</a>
@@ -614,7 +643,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An array containing all cases of ad formats.</p>
+                        <p>An array containing all cases of ad formats, excluding deprecated ones.</p>
 
                       </div>
                       <div class="declaration">
@@ -633,7 +662,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-05-26)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-08-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
