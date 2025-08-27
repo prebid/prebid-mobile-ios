@@ -132,16 +132,16 @@ limitations under the License.
     
     //when
     [Targeting.shared setLocationPrecision: locationPrecision1];
-    NSNumber *result1 = [Targeting.shared getLocationPrecision];
+    NSNumber *result1 = [Targeting.shared locationPrecision];
     
     [Targeting.shared setLocationPrecision: [NSNumber numberWithInt:locationPrecision2]];
-    int result2 = [[Targeting.shared getLocationPrecision] intValue];
+    int result2 = [[Targeting.shared locationPrecision] intValue];
     
     [Targeting.shared setLocationPrecision: locationPrecision3];
-    int result3 = [[Targeting.shared getLocationPrecision] intValue];
+    int result3 = [[Targeting.shared locationPrecision] intValue];
     
     [Targeting.shared setLocationPrecision: locationPrecision4];
-    NSNumber *result4 = [Targeting.shared getLocationPrecision];
+    NSNumber *result4 = [Targeting.shared locationPrecision];
     
     //then
     XCTAssertEqualObjects(locationPrecision1, result1);

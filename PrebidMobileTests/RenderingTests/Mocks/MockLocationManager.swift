@@ -43,4 +43,7 @@ class MockLocationManagerSuccessful: PBMLocationManager {
     }
 }
 
-class MockLocationManagerUnSuccessful : PBMLocationManager {}
+
+class MockLocationManagerUnSuccessful : PBMLocationManager {
+    static let sharedMock = MockLocationManagerUnSuccessful(thread: Thread.current)
+}

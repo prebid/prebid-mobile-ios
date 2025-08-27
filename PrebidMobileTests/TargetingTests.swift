@@ -114,7 +114,7 @@ class TargetingTests: XCTestCase {
     
     func testLocationPrecision() {
         //given
-        let locationPrecision = 2
+        let locationPrecision : NSNumber = NSNumber(value: 2)
         
         //when
         Targeting.shared.locationPrecision = locationPrecision

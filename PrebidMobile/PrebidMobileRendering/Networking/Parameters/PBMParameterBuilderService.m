@@ -158,7 +158,9 @@
         
     NSValue * const coordObj = targeting.coordinate;
     if (coordObj) {
-        const CLLocationCoordinate2D coord2d = coordObj.MKCoordinateValue;
+        // Rounds with the precision defined in Targeting, or returns the original coordinates if precision is nil.
+        const CLLocationCoordinate2D coord2d = [[Utils shared] roundWithCoordinates:coordObj.MKCoordinateValue precision:[[Targeting shared] locationPrecision]];;
+        
         bidRequest.user.geo.lat = @(coord2d.latitude);
         bidRequest.user.geo.lon = @(coord2d.longitude);
     }

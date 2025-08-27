@@ -328,24 +328,13 @@ public class Targeting: NSObject {
     /// The application location for targeting
     public var location: CLLocation?
     
-    /// The application location precision for targeting
-    /// Deprecated.
-    @available(*, deprecated, message: "This property is deprecated. In the upcoming major release, the property will be removed.")
-    public var locationPrecision: Int?
-    
-    /// Objective-C API
-    /// Deprecated.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
-    public func setLocationPrecision(_ newValue: NSNumber?) {
-        locationPrecision = newValue?.intValue
-    }
-    
-    /// Objective-C API
-    /// Deprecated.
-    @available(*, deprecated, message: "This method is deprecated. In the upcoming major release, the method will be removed.")
-    public func getLocationPrecision() -> NSNumber? {
-        return locationPrecision as NSNumber?
-    }
+    /// Number of decimal places to use when rounding latitude/longitude for device geolocation.
+    /// Set to nil for full precision (no rounding).
+    /// Example usage:
+    ///   Targeting.shared.locationPrecision = NSNumber(value: 0) // latitude 37.774929 -> 37.0 (No precision)
+    ///   Targeting.shared.locationPrecision = NSNumber(value: 2) // latitude 37.774929 -> 37.77
+    ///   Targeting.shared.locationPrecision = nil // latitude 37.774929 -> 37.774929 (full precision)
+    public var locationPrecision: NSNumber?
     
     // MARK: - Location and connection information
     
