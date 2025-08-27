@@ -88,6 +88,17 @@ class TargetingTests: XCTestCase {
         //then
         XCTAssertEqual(forceSdkToChooseWinner, Targeting.shared.forceSdkToChooseWinner)
     }
+    
+    func testLocationPrecision() {
+        //given
+        let locationPrecision : NSNumber = NSNumber(value: 2)
+        
+        //when
+        Targeting.shared.locationPrecision = locationPrecision
+        
+        //then
+        XCTAssertEqual(locationPrecision, Targeting.shared.locationPrecision)
+    }
 
     //MARK: - COPPA
     func testSubjectToCOPPA() {
