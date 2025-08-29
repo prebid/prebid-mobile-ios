@@ -249,6 +249,18 @@ public class BannerView:
         adUnitConfig.impORTBConfig
     }
     
+    /// Sets the global OpenRTB configuration string for the ad unit. It takes precedence over `Targeting.setGlobalOrtbConfig`.
+    ///
+    /// - Parameter ortbConfig: The global OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setGlobalORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.globalORTBConfig = ortbConfig
+    }
+    
+    /// Returns the global OpenRTB configuration string.
+    public func getGlobalORTBConfig() -> String? {
+        adUnitConfig.globalORTBConfig
+    }
+    
     /// Stops the auto-refresh of the ad.
     public func stopRefresh() {
         adLoadFlowController?.enqueueGatedBlock { [weak self] in

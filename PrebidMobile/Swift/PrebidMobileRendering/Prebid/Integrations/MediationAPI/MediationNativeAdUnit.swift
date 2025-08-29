@@ -122,6 +122,18 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.adUnitConfig.impORTBConfig
     }
     
+    /// Sets the global OpenRTB configuration string for the ad unit. It takes precedence over `Targeting.setGlobalOrtbConfig`.
+    ///
+    /// - Parameter ortbConfig: The global OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setGlobalORTBConfig(_ ortbConfig: String?) {
+        nativeAdUnit.adUnitConfig.globalORTBConfig = ortbConfig
+    }
+    
+    /// Returns the global OpenRTB configuration string.
+    public func getGlobalORTBConfig() -> String? {
+        nativeAdUnit.adUnitConfig.globalORTBConfig
+    }
+    
     /// Makes bid request for the native ad unit and setups mediation parameters.
     /// - Parameter completion: The completion handler to call with the result code.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

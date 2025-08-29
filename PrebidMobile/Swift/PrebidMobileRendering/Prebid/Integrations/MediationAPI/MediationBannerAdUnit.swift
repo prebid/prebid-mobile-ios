@@ -94,6 +94,18 @@ public class MediationBannerAdUnit : NSObject {
         adUnitConfig.impORTBConfig
     }
     
+    /// Sets the global OpenRTB configuration string for the ad unit. It takes precedence over `Targeting.setGlobalOrtbConfig`.
+    ///
+    /// - Parameter ortbConfig: The global OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setGlobalORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.globalORTBConfig = ortbConfig
+    }
+    
+    /// Returns the global OpenRTB configuration string.
+    public func getGlobalORTBConfig() -> String? {
+        adUnitConfig.globalORTBConfig
+    }
+    
     // MARK: - Public Methods
     
     /// Initializes a new mediation banner ad unit with the specified configuration ID, size, and mediation delegate.
