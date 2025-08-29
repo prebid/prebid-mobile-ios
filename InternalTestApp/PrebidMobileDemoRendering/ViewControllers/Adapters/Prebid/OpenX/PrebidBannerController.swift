@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 
-class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate {
+class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate, BannerViewVideoPlaybackDelegate {
     
     var refreshInterval: TimeInterval = 0
     
@@ -90,6 +90,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         }
     
         adBannerView?.delegate = self
+        adBannerView?.videoPlaybackDelegate = self
         adBannerView?.accessibilityIdentifier = "PrebidBannerView"
         
         adBannerView?.loadAd()
@@ -157,6 +158,21 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     
     func bannerViewWillLeaveApplication(_ bannerView: BannerView) {
         adViewWillLeaveApplicationButton.isEnabled = true
+    }
+    
+    
+    // MARK: - BannerViewVideoPlaybackDelegate
+    
+    func videoPlaybackDidPause(_ banner: PrebidMobile.BannerView) {}
+    
+    func videoPlaybackDidResume(_ banner: PrebidMobile.BannerView) {}
+    
+    func videoPlaybackWasMuted(_ banner: PrebidMobile.BannerView) {}
+    
+    func videoPlaybackWasUnmuted(_ banner: PrebidMobile.BannerView) {}
+    
+    func videoPlaybackDidComplete(_ banner: PrebidMobile.BannerView) {
+        print("BannerView video playback is finished.")
     }
     
     // MARK: - Private Methods

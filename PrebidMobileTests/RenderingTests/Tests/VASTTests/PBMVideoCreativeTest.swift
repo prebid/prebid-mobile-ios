@@ -33,6 +33,11 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
     var expectationCreativeDidSendRewardedEvent:XCTestExpectation?
     var isVideoViewCompletedDisplay = false;
     
+    var expectationVideoMute: XCTestExpectation?
+    var expectationVideoUnmute: XCTestExpectation?
+    var expectationVideoPause: XCTestExpectation?
+    var expectationVideoResume: XCTestExpectation?
+    
     private var logToFile: LogToFileLock?
 
     override func setUp() {
@@ -392,6 +397,32 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         
         waitForExpectations(timeout: 1)
     }
+    
+    func testVideoPlaybackEvents() {
+        expectationVideoMute = expectation(description: "Should mute video")
+        expectationVideoUnmute = expectation(description: "Should unmute video")
+        expectationVideoPause = expectation(description: "Should pause video")
+        expectationVideoResume = expectation(description: "Should resume video")
+        
+        let model = CreativeModel(adConfiguration: AdConfiguration())
+        self.videoCreative = PBMVideoCreative(creativeModel: model,
+                                              transaction: UtilitiesForTesting.createEmptyTransaction(),
+                                              videoData: Data())
+        
+        videoCreative.creativeViewDelegate = self
+        videoCreative.videoView.avPlayer = AVPlayer()
+                
+        XCTAssertNotNil(videoCreative)
+        XCTAssertNotNil(videoCreative.videoView)
+        
+        videoCreative.mute()
+        videoCreative.pause()
+        wait(for: [expectationVideoMute!, expectationVideoPause!], timeout: 0.1)
+
+        videoCreative.resume()
+        videoCreative.unmute()
+        wait(for: [expectationVideoResume!, expectationVideoUnmute!], timeout: 0.1)
+    }
 
     
     // MARK: - PBMCreativeResolutionDelegate
@@ -446,6 +477,22 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
     }
     
     func videoWasClicked() {}
+    
+    func videoDidPause(_ creative: any AbstractCreative) {
+        expectationVideoPause?.fulfill()
+    }
+    
+    func videoDidResume(_ creative: any AbstractCreative) {
+        expectationVideoResume?.fulfill()
+    }
+    
+    func videoWasMuted(_ creative: any AbstractCreative) {
+        expectationVideoMute?.fulfill()
+    }
+    
+    func videoWasUnmuted(_ creative: any AbstractCreative) {
+        expectationVideoUnmute?.fulfill()
+    }
     
     // MARK: - Helper Methods
     private func setupVideoCreative(videoFileURL:String = "http://get_video/small.mp4", localVideoFileName:String = "small.mp4") {
