@@ -5,7 +5,6 @@ workspace 'PrebidMobile'
 project 'PrebidMobile.xcodeproj'
 project 'EventHandlers/EventHandlers.xcodeproj'
 project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
-project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
 
 def gma_pods
   pod 'Google-Mobile-Ads-SDK'
@@ -83,12 +82,6 @@ end
 
 target 'PrebidDemoObjectiveC' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
-  
-  prebid_demo_pods
-end
-
-target 'Dr.Prebid' do
-  project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
   
   prebid_demo_pods
 end
