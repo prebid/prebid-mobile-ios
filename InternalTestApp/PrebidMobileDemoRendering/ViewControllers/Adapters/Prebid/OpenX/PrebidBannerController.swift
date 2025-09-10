@@ -37,6 +37,12 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     private let adViewDidDismissScreenButton = EventReportContainer()
     private let adViewWillLeaveApplicationButton = EventReportContainer()
     
+    private let videoPlaybackDidPauseButton = EventReportContainer()
+    private let videoPlaybackDidResumeButton = EventReportContainer()
+    private let videoPlaybackWasMutedButton = EventReportContainer()
+    private let videoPlaybackWasUnmutedButton = EventReportContainer()
+    private let videoPlaybackDidCompleteButton = EventReportContainer()
+    
     private let reloadButton = ThreadCheckingButton()
     private let stopRefreshButton = ThreadCheckingButton()
     
@@ -163,16 +169,24 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     
     // MARK: - BannerViewVideoPlaybackDelegate
     
-    func videoPlaybackDidPause(_ banner: PrebidMobile.BannerView) {}
+    func videoPlaybackDidPause(_ banner: PrebidMobile.BannerView) {
+        videoPlaybackDidPauseButton.isEnabled = true
+    }
     
-    func videoPlaybackDidResume(_ banner: PrebidMobile.BannerView) {}
+    func videoPlaybackDidResume(_ banner: PrebidMobile.BannerView) {
+        videoPlaybackDidResumeButton.isEnabled = true
+    }
     
-    func videoPlaybackWasMuted(_ banner: PrebidMobile.BannerView) {}
+    func videoPlaybackWasMuted(_ banner: PrebidMobile.BannerView) {
+        videoPlaybackWasMutedButton.isEnabled = true
+    }
     
-    func videoPlaybackWasUnmuted(_ banner: PrebidMobile.BannerView) {}
+    func videoPlaybackWasUnmuted(_ banner: PrebidMobile.BannerView) {
+        videoPlaybackWasUnmutedButton.isEnabled = true
+    }
     
     func videoPlaybackDidComplete(_ banner: PrebidMobile.BannerView) {
-        print("BannerView video playback is finished.")
+        videoPlaybackDidCompleteButton.isEnabled = true
     }
     
     // MARK: - Private Methods
@@ -194,6 +208,12 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         rootController?.setupAction(adViewDidDismissScreenButton, "adViewDidDismissScreen called")
         rootController?.setupAction(adViewWillLeaveApplicationButton, "adViewWillLeaveApplication called")
         
+        rootController?.setupAction(videoPlaybackDidPauseButton, "videoPlaybackDidPauseButton called")
+        rootController?.setupAction(videoPlaybackDidResumeButton, "videoPlaybackDidResumeButton called")
+        rootController?.setupAction(videoPlaybackWasMutedButton, "videoPlaybackWasMutedButton called")
+        rootController?.setupAction(videoPlaybackWasUnmutedButton, "videoPlaybackWasUnmutedButton called")
+        rootController?.setupAction(videoPlaybackDidCompleteButton, "videoPlaybackDidCompleteButton called")
+        
         rootController?.setupAction(reloadButton, "[Reload]")
         rootController?.setupAction(stopRefreshButton, "[Stop Refresh]")
         stopRefreshButton.isEnabled = true
@@ -206,6 +226,12 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         adViewDidDismissScreenButton.isEnabled = false
         adViewWillLeaveApplicationButton.isEnabled = false
         
+        videoPlaybackDidPauseButton.isEnabled = false
+        videoPlaybackDidResumeButton.isEnabled = false
+        videoPlaybackWasMutedButton.isEnabled = false
+        videoPlaybackWasUnmutedButton.isEnabled = false
+        videoPlaybackDidCompleteButton.isEnabled = false
+
         lastLoadedAdSizeLabel.isHidden = true
     }
     

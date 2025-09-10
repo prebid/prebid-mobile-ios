@@ -921,6 +921,22 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
+            TestCase(title: "Banner 300x250 (In-App, Video Banner)",
+                     tags: [.banner, .inapp, .video, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                bannerController.prebidConfigId = "prebid-demo-video-outstream"
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
             // MARK: ---- Banner (GAM) ----
             
             TestCase(title: "Banner 320x50 (GAM) [OK, AppEvent]",
