@@ -1022,4 +1022,774 @@ class ArbitraryORTBServiceTests: XCTestCase {
             try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
         )
     }
+    
+    func testMergeORTBWithAdUnit_AppObject_NoConflicts() {
+        let adUnitORTB = """
+         {
+            "app": {
+                "storeurl": "https://example.com/app"
+            }
+         }
+        """
+        let sdkORTB: [String: Any] = [
+            "app": [
+                "name": "TestApp",
+                "bundle": "com.example.testapp"
+            ]
+        ]
+        
+        let expectedORTB = """
+        {
+            "app": {
+                "name": "TestApp",
+                "bundle": "com.example.testapp",
+                "storeurl": "https://example.com/app"
+            }
+        }
+        """
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_AppObject_WithConflicts() {
+        let adUnitORTB = """
+        {
+            "app": {
+                "version": "2.0"
+            }
+        }
+        """
+        let sdkORTB: [String: Any] = [
+            "app": [
+                "name": "TestApp",
+                "version": "1.0"
+            ]
+        ]
+        
+        let expectedORTB = """
+        {
+            "app": {
+                "name": "TestApp",
+                "version": "2.0"
+            }
+        }
+        """
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_UserObject_NoConflicts() {
+        let adUnitORTB = """
+        {
+            "user": {
+                "id": "12345",
+                "buyeruid": "buyer123"
+            }
+        }
+        """
+        let sdkORTB: [String: Any] = [
+            "user": [
+                "geo": [
+                    "lat": 37,
+                    "lon": -122
+                ]
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        let expectedORTB = """
+        {
+            "user": {
+                "id": "12345",
+                "buyeruid": "buyer123",
+                "geo": {
+                    "lat": 37,
+                    "lon": -122
+                }
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_UserObject_WithConflicts() {
+        let adUnitORTB = """
+        {
+            "user": {
+                "id": "override123",
+                "geo": {
+                    "country": "CA"
+                }
+            }
+        }
+        """
+        let sdkORTB: [String: Any] = [
+            "user": [
+                "id": "12345",
+                "geo": [
+                    "country": "US"
+                ]
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        let expectedORTB = """
+        {
+            "user": {
+                "id": "override123",
+                "geo": {
+                    "country": "US"
+                }
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_UserObject_ProtectedFieldsNotCopied() {
+        let adUnitORTB = """
+        {
+            "user": {
+                "id": "12345",
+                "ext": {
+                    "consent": "someConsentString",
+                    "otherField": "allowedValue"
+                },
+                "geo": {
+                    "country": "US"
+                }
+            }
+        }
+        """
+        let sdkORTB: [String: Any] = [
+            "user": [
+                "geo": [
+                    "lat": 37,
+                    "lon": -122
+                ]
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        let expectedORTB = """
+        {
+            "user": {
+                "id": "12345",
+                "geo": {
+                    "lat": 37,
+                    "lon": -122
+                },
+                "ext": {
+                    "otherField": "allowedValue"
+                }
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_SourceObject_NoConflicts() {
+        let adUnitORTB = """
+        {
+            "source": {
+                "pchain": "pchainValue"
+            }
+        }
+        """
+        let sdkORTB: [String: Any] = [
+            "source": [
+                "ext": [
+                    "tid": "transaction123"
+                ]
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        let expectedORTB = """
+        {
+            "source": {
+                "ext": {
+                    "tid": "transaction123"
+                },
+                "pchain": "pchainValue"
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_SourceObject_WithConflicts() {
+        let adUnitORTB = """
+        {
+            "source": {
+                "tid": "adUnitTransaction",
+                "ext": {
+                    "sourceType": "reseller"
+                }
+            }
+        }
+        """
+        let sdkORTB: [String: Any] = [
+            "source": [
+                "tid": "existingTransaction",
+                "ext": [
+                    "sourceType": "direct"
+                ]
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        let expectedORTB = """
+        {
+            "source": {
+                "tid": "adUnitTransaction",
+                "ext": {
+                    "sourceType": "reseller"
+                }
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_ExtObject_NoConflicts() {
+        let adUnitORTB = """
+        {
+            "ext": {
+                "test": {
+                    "new": "value"
+                },
+                "prebid": {
+                    "storedrequest": {
+                        "id": "stored-request-id-placeholder"
+                    }
+                }
+            }
+        }
+        """
+        
+        let sdkORTB: [String: Any] = [
+            "ext": [
+                "prebid": [
+                    "existingConfig": "existingValue"
+                ]
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        let expectedORTB = """
+         {
+             "ext": {
+                 "prebid": {
+                    "existingConfig": "existingValue",
+                    "storedrequest": {
+                        "id": "stored-request-id-placeholder"
+                    }
+                 },
+                 "test": {
+                    "new": "value"
+                 }
+             }
+         }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_ExtObject_WithConflicts() {
+        let adUnitORTB = """
+        {
+            "ext": {
+                "prebid": {
+                    "sharedField": "adUnitSharedValue",
+                    "globalConfig": "adUnitValue"
+                }
+            }
+        }
+        """
+        let sdkORTB: [String: Any] = [
+            "ext": [
+                "prebid": [
+                    "sharedField": "existingSharedValue",
+                    "existingConfig": "existingValue"
+                ]
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        let expectedORTB = """
+        {
+            "ext": {
+                "prebid": {
+                    "sharedField": "adUnitSharedValue",
+                    "existingConfig": "existingValue",
+                    "globalConfig": "adUnitValue"
+                }
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_DeviceObject_NoConflicts() {
+        let adUnitORTB = """
+        {
+            "device": {
+                "test": 1
+            }
+        }
+        """
+        
+        let sdkORTB: [String: Any] = [
+            "device": [
+                "language": "en",
+                "connectiontype": 2
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        let expectedORTB = """
+        {
+            "device": {
+                "language": "en",
+                "connectiontype": 2,
+                "test": 1
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithAdUnit_DeviceObject_ProtectedFieldsNotCopied() {
+        let adUnitORTB = """
+        {
+            "device": {
+                "ifa": "protectedValue",
+                "os": "Android",
+                "pxratio": 3.0
+            }
+        }
+        """
+        let sdkORTB: [String: Any] = [
+            "device": [
+                "os": "iOS",
+                "model": "iPhone"
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        let expectedORTB = """
+        {
+            "device": {
+                "os": "iOS",
+                "model": "iPhone"
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBGlobalAndAdUnit_AdUnitORTBTakesPrecedence() {
+        let globalORTB = """
+        {
+            "user": {
+                "id": "12345",
+                "ext": {
+                    "otherField": "globalValue"
+                }
+            },
+            "ext": {
+                "prebid": {
+                    "sharedField": "globalSharedValue",
+                    "globalConfig": "globalValue"
+                }
+            }
+        }
+        """
+        
+        let adUnitORTB = """
+        {
+            "user": {
+                "id": "98765",
+                "ext": {
+                    "otherField": "adUnitValue"
+                }
+            },
+            "ext": {
+                "prebid": {
+                    "sharedField": "adUnitSharedValue"
+                }
+            }
+        }
+        """
+        let sdkORTB: [String: Any] = [
+            "user": [
+                "geo": [
+                    "lat": 37,
+                    "lon": -122
+                ]
+            ],
+            "ext": [
+                "prebid": [
+                    "sharedField": "existingSharedValue",
+                    "existingConfig": "existingValue"
+                ]
+            ]
+        ]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: nil,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: globalORTB
+        )
+        
+        let expectedORTB = """
+        {
+            "user": {
+                "id": "98765",
+                "geo": {
+                    "lat": 37,
+                    "lon": -122
+                },
+                "ext": {
+                    "otherField": "adUnitValue"
+                }
+            },
+            "ext": {
+                "prebid": {
+                    "sharedField": "adUnitSharedValue",
+                    "existingConfig": "existingValue",
+                    "globalConfig": "globalValue"
+                }
+            }
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithImp_ImpConfigProvidedAdUnitAndImpressionLevels() {
+        let impORTB = "{\"banner\": {\"format\": [{\"w\": 300, \"h\": 250}]}}"
+        
+        let adUnitORTB = """
+        {
+            "imp": [
+                {"banner": {"format": [{"w": 728, "h": 90}]},"id": "imp1"},
+                {"id": "imp2", "video": {"mimes": ["video/mp4"]}}
+            ]
+        }
+        """
+        
+        let sdkORTB = """
+        {
+            "imp": [
+                {"banner": {"format": [{"w": 320, "h": 50}]}, "id": "existing_imp"}
+            ],
+            "device": {"ua": "Mozilla/5.0"}
+        }
+        """
+        
+        let expectedORTB = """
+        {
+            "device": {"ua": "Mozilla/5.0"},
+            "imp": [
+                {"id": "existing_imp", "banner": {"format": [{"w": 320, "h": 50},{"w": 300, "h": 250}]}},
+                {"id": "imp1", "banner": {"format": [{"w": 728, "h": 90}]}},
+                {"id": "imp2", "video": {"mimes": ["video/mp4"]}},
+            ]
+        }
+        """
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
+            impORTB: impORTB,
+            globalAdUnitORTB: adUnitORTB,
+            globalORTB: nil
+        )
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithImp_ImpConfigProvidedAdUnitAndGlobalLevels() {
+        
+        let globalAdUnitORTB = """
+        {
+           "imp": [{"id": "global_ad_unit_imp", "banner": {"format": [{"w": 300, "h": 250}]}}]
+        }
+        """
+        
+        let globalORTB = """
+        {
+           "imp": [{"id": "global_imp", "banner": {"format": [{"w": 728, "h": 90}]}}]
+        }
+        """
+        
+        let sdkORTB = """
+        {
+            "imp": [
+                {"banner": {"format": [{"w": 320, "h": 50}]}, "id": "existing_imp"}
+            ],
+            "device": {"ua": "Mozilla/5.0"}
+        }
+        """
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
+            impORTB: nil,
+            globalAdUnitORTB: globalAdUnitORTB,
+            globalORTB: globalORTB
+        )
+        
+        let expectedORTB = """
+        {
+            "device": {"ua": "Mozilla/5.0"},
+            "imp": [
+                {"id": "existing_imp", "banner": {"format": [{"w": 320, "h": 50}]}},
+                {"id": "global_imp", "banner": {"format": [{"w": 728, "h": 90}]}},
+                {"id": "global_ad_unit_imp", "banner": {"format": [{"w": 300, "h": 250}]}}
+            ]
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithImp_ImpConfigProvidedForAllLevels_WithEmptyExistingORTB() {
+        let impORTB = """
+        {
+           "id": "imp1",
+           "native": { "request": "placeholder" }
+        }
+        """
+        
+        let globalAdUnitORTB = """
+        {
+           "imp": [{"id": "global_ad_unit_imp", "banner": {"format": [{"w": 300, "h": 250}]}}]
+        }
+        """
+        
+        let globalORTB = """
+        {
+           "imp": [{"id": "global_imp", "banner": {"format": [{"w": 320, "h": 50}]}}]
+        }
+        """
+        
+        let sdkORTB: [String: Any] = [:]
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: sdkORTB,
+            impORTB: impORTB,
+            globalAdUnitORTB: globalAdUnitORTB,
+            globalORTB: globalORTB
+        )
+        
+        XCTAssertNotNil(result)
+        
+        let expectedORTB = """
+        {
+           "imp": [
+               {
+                   "id": "imp1",
+                   "native": { "request": "placeholder" }
+               },
+               {
+                   "id": "global_imp",
+                   "banner": {"format": [{"w": 320, "h": 50}]},
+               },
+               {
+                   "id": "global_ad_unit_imp",
+                   "banner": {"format": [{"w": 300, "h": 250}]},
+               },
+           ]
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
+    
+    func testMergeORTBWithImp_ImpConfigProvidedForAllLevels_WithExistingORTB() {
+        let impORTB = """
+        {
+            "banner": {"format": [{"w": 728, "h": 90}]}, "id": "impression_id"
+        }
+        """
+        
+        let globalAdUnitORTB = """
+        {
+           "imp": [{"id": "global_ad_unit_imp", "banner": {"format": [{"w": 300, "h": 250}]}}]
+        }
+        """
+        
+        let globalORTB = """
+        {
+            "imp": [{"native": { "request": "placeholder" }, "id": "global_imp"}]
+        }
+        """
+        
+        let sdkORTB = """
+        {
+            "imp": [{
+                "id": "existing_imp", 
+                "banner": {"format": [{"w": 320, "h": 50}]}
+            }],
+            "device": {"ua": "Mozilla/5.0"}
+        }
+        """
+        
+        let result = ArbitraryORTBService.merge(
+            sdkORTB: try! PBMFunctions.dictionaryFromJSONString(sdkORTB),
+            impORTB: impORTB,
+            globalAdUnitORTB: globalAdUnitORTB,
+            globalORTB: globalORTB
+        )
+        
+        XCTAssertNotNil(result)
+        
+        let expectedORTB = """
+        {
+           "imp": [
+               {
+                    "id": "impression_id",
+                    "banner": {"format": [{"w": 320, "h": 50}, {"w": 728, "h": 90}]}
+               },
+               {
+                    "native": { "request": "placeholder" }, 
+                    "id": "global_imp"
+               },
+               {
+                    "id": "global_ad_unit_imp", 
+                    "banner": {"format": [{"w": 300, "h": 250}]}
+               }
+            ],
+            "device": {"ua": "Mozilla/5.0"}
+        }
+        """
+        
+        XCTAssertEqual(
+            result as NSDictionary,
+            try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
+        )
+    }
 }
