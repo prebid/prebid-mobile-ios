@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "VeonPrebidMobileGAMEventHandlers"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
 
   s.description  = "GAM Event Handlers manages rendering of Prebid or GAM ads respectively to the winning bid."

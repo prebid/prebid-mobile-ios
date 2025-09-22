@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "VeonPrebidMobileMAXAdapters"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "The bridge between PrebidMobile SDK and Applovin MAX SDK."
 
   s.description  = "MAX Adapters manages rendering of Prebid or MAX ads respectively to the winning bid."
