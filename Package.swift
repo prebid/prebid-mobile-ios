@@ -12,20 +12,20 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "PrebidMobile",
-            targets: ["PrebidMobile", "__PrebidMobileInternal"]
+            name: "VeonPrebidMobile",
+            targets: ["VeonPrebidMobile", "__VeonPrebidMobileInternal"]
         ),
         .library(
-            name: "PrebidMobileAdMobAdapters",
-            targets: ["PrebidMobileAdMobAdapters"]
+            name: "VeonPrebidMobileAdMobAdapters",
+            targets: ["VeonPrebidMobileAdMobAdapters"]
         ),
         .library(
-            name: "PrebidMobileGAMEventHandlers",
-            targets: ["PrebidMobileGAMEventHandlers"]
+            name: "VeonPrebidMobileGAMEventHandlers",
+            targets: ["VeonPrebidMobileGAMEventHandlers"]
         ),
         .library(
-            name: "PrebidMobileMAXAdapters",
-            targets: ["PrebidMobileMAXAdapters"]
+            name: "VeonPrebidMobileMAXAdapters",
+            targets: ["VeonPrebidMobileMAXAdapters"]
         ),
     ],
     dependencies: [
@@ -34,14 +34,14 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "PrebidMobile",
+            name: "VeonPrebidMobile",
             path: "PrebidMobile",
             sources: ["Swift"]
         ),
         .target(
-            name: "__PrebidMobileInternal",
+            name: "__VeonPrebidMobileInternal",
             dependencies: [
-                "PrebidMobile",
+                "VeonPrebidMobile",
                 "PrebidMobileOMSDK",
             ],
             path: "PrebidMobile",
@@ -56,27 +56,27 @@ let package = Package(
             path: "Frameworks/OMSDK_Prebidorg.xcframework"
         ),
         .target(
-            name: "PrebidMobileAdMobAdapters",
+            name: "VeonPrebidMobileAdMobAdapters",
             dependencies: [
-                "PrebidMobile",
+                "VeonPrebidMobile",
                 .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
             ],
             path: "EventHandlers/PrebidMobileAdMobAdapters",
             sources: ["Sources"]
         ),
         .target(
-            name: "PrebidMobileGAMEventHandlers",
+            name: "VeonPrebidMobileGAMEventHandlers",
             dependencies: [
-                "PrebidMobile",
+                "VeonPrebidMobile",
                 .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
             ],
             path: "EventHandlers/PrebidMobileGAMEventHandlers",
             sources: ["Sources"]
         ),
         .target(
-            name: "PrebidMobileMAXAdapters",
+            name: "VeonPrebidMobileMAXAdapters",
             dependencies: [
-                "PrebidMobile",
+                "VeonPrebidMobile",
                 .product(name: "AppLovinSDK", package: "AppLovin-MAX-Swift-Package"),
             ],
             path: "EventHandlers/PrebidMobileMAXAdapters",
