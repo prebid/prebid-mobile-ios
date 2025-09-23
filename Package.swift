@@ -5,26 +5,26 @@ import PackageDescription
 
 let package = Package(
 
-    name: "PrebidMobile",
+    name: "VeonPrebidMobile",
 
     platforms: [
         .iOS(.v12),
     ],
     products: [
         .library(
-            name: "PrebidMobile",
+            name: "VeonPrebidMobile",
             targets: ["PrebidMobile", "__PrebidMobileInternal"]
         ),
         .library(
-            name: "PrebidMobileAdMobAdapters",
+            name: "VeonPrebidMobileAdMobAdapters",
             targets: ["PrebidMobileAdMobAdapters"]
         ),
         .library(
-            name: "PrebidMobileGAMEventHandlers",
+            name: "VeonPrebidMobileGAMEventHandlers",
             targets: ["PrebidMobileGAMEventHandlers"]
         ),
         .library(
-            name: "PrebidMobileMAXAdapters",
+            name: "VeonPrebidMobileMAXAdapters",
             targets: ["PrebidMobileMAXAdapters"]
         ),
     ],
