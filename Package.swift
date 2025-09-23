@@ -12,19 +12,19 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "VeonPrebidMobile",
+            name: "PrebidMobile",
             targets: ["PrebidMobile", "__PrebidMobileInternal"]
         ),
         .library(
-            name: "VeonPrebidMobileAdMobAdapters",
+            name: "PrebidMobileAdMobAdapters",
             targets: ["PrebidMobileAdMobAdapters"]
         ),
         .library(
-            name: "VeonPrebidMobileGAMEventHandlers",
+            name: "PrebidMobileGAMEventHandlers",
             targets: ["PrebidMobileGAMEventHandlers"]
         ),
         .library(
-            name: "VeonPrebidMobileMAXAdapters",
+            name: "PrebidMobileMAXAdapters",
             targets: ["PrebidMobileMAXAdapters"]
         ),
     ],
