@@ -44,7 +44,7 @@ let package = Package(
                 "VeonPrebidMobile",
                 "PrebidMobileOMSDK",
             ],
-            path: "PrebidMobile",
+            path: "VeonPrebidMobile",
             sources: ["Objc"],
             cSettings: [
                 .headerSearchPath("./Objc/PrivateHeaders"),
