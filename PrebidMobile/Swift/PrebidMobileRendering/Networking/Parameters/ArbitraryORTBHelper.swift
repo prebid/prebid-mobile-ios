@@ -19,7 +19,7 @@ protocol ArbitraryORTBHelperProtocol {
     func getValidatedORTBDict() -> [String: Any]?
 }
 
-class ArbitraryImpORTBHelper: ArbitraryORTBHelperProtocol {
+class ArbitraryORTBHelper: ArbitraryORTBHelperProtocol {
     
     private let ortb: String
     
@@ -29,7 +29,7 @@ class ArbitraryImpORTBHelper: ArbitraryORTBHelperProtocol {
     
     func getValidatedORTBDict() -> [String : Any]? {
         guard let ortbDict = try? Functions.dictionary(from: ortb) else {
-            Log.warn("The provided impression-level ortbConfig object is not valid JSON and will be ignored.")
+            Log.warn("The provided ortbConfig object is not valid JSON and will be ignored.")
             return nil
         }
         
