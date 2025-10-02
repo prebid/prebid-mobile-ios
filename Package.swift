@@ -74,7 +74,7 @@ let package = Package(
             sources: ["Sources"]
         ),
         .target(
-            name: "VePrebidMobileMAXAdapters",
+            name: "VeonPrebidMobileMAXAdapters",
             dependencies: [
                 "PrebidMobile",
                 .product(name: "AppLovinSDK", package: "AppLovin-MAX-Swift-Package"),
