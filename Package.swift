@@ -17,15 +17,15 @@ let package = Package(
         ),
         .library(
             name: "VeonPrebidMobileAdMobAdapters",
-            targets: ["PrebidMobileAdMobAdapters"]
+            targets: ["VeonPrebidMobileAdMobAdapters"]
         ),
         .library(
             name: "VeonPrebidMobileGAMEventHandlers",
-            targets: ["PrebidMobileGAMEventHandlers"]
+            targets: ["VeonPrebidMobileGAMEventHandlers"]
         ),
         .library(
             name: "VeonPrebidMobileMAXAdapters",
-            targets: ["PrebidMobileMAXAdapters"]
+            targets: ["VeonPrebidMobileMAXAdapters"]
         ),
     ],
     dependencies: [
@@ -56,7 +56,7 @@ let package = Package(
             path: "Frameworks/OMSDK_Prebidorg.xcframework"
         ),
         .target(
-            name: "PrebidMobileAdMobAdapters",
+            name: "VeonPrebidMobileAdMobAdapters",
             dependencies: [
                 "PrebidMobile",
                 .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
@@ -65,7 +65,7 @@ let package = Package(
             sources: ["Sources"]
         ),
         .target(
-            name: "PrebidMobileGAMEventHandlers",
+            name: "VeonPrebidMobileGAMEventHandlers",
             dependencies: [
                 "PrebidMobile",
                 .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
@@ -74,7 +74,7 @@ let package = Package(
             sources: ["Sources"]
         ),
         .target(
-            name: "PrebidMobileMAXAdapters",
+            name: "VePrebidMobileMAXAdapters",
             dependencies: [
                 "PrebidMobile",
                 .product(name: "AppLovinSDK", package: "AppLovin-MAX-Swift-Package"),
