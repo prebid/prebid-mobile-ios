@@ -53,10 +53,15 @@ class PBMDeviceAccessManagerTests : XCTestCase {
     
     func testScreenSize() {
         let size = deviceAccessManager.screenSize()
+        let sizeInPixels = deviceAccessManager.screenSizeInPixels()
         
         // nothing to test other than running it and it doesn't crash.
         XCTAssert(size.width > 0)
         XCTAssert(size.height > 0)
+        
+        XCTAssert(sizeInPixels.width > 0)
+        XCTAssert(sizeInPixels.height > 0)
+
     }
     
     func testUserLanguage() {

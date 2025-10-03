@@ -39,8 +39,8 @@ class DeviceInfoParameterBuilderTest: XCTestCase {
     func testDeviceSize() {
         self.deviceInfoParameterBuilder.build(self.bidRequest)
         
-        PBMAssertEq(self.bidRequest.device.w, 100)
-        PBMAssertEq(self.bidRequest.device.h, 200)
+        PBMAssertEq(self.bidRequest.device.w, 300)
+        PBMAssertEq(self.bidRequest.device.h, 600)
     }
 
     func testAdTrackingEnabled() {
