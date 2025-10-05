@@ -297,17 +297,3 @@ static NSString * const PBMPlistExt = @"plist";
 }
 
 @end
-
-
-//FIXME: Should be moved to appropriate place after PBMDeviceAccessManager migration
-@implementation UIAlertController (PBMPrivate)
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (BOOL)shouldAutorotate {
-    return false;
-}
-
-@end

@@ -25,6 +25,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     override func setUp() {
         UtilitiesForTesting.resetTargeting(.shared)
         Prebid.shared.shareGeoLocation = true
+        Targeting.shared.locationPrecision = nil
     }
     
     override func tearDown() {
@@ -56,6 +57,7 @@ class ParameterBuilderServiceTest : XCTestCase {
             MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
         }
         let mockLocationManagerSuccessful = MockLocationManagerSuccessful.sharedMock
+        mockLocationManagerSuccessful.latestAuthorizationStatus = .authorizedWhenInUse
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
@@ -153,6 +155,542 @@ class ParameterBuilderServiceTest : XCTestCase {
         let expectedOrtb = """
         {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"keywords\":\"appKeyword1,appKeyword2\",\"name\":\"MockBundleDisplayName\",\"publisher\":{\"name\":\"Publisher\"},\"storeurl\":\"https:\\/\\/openx.com\"},\"device\":{\(carrier)\"connectiontype\":2,\(deviceExt)\"geo\":{\"lat\":34.149335,\"lon\":-118.1328249,\"type\":1},\"h\":200,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\(mccmnc)\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":1,\"ext\":{\"gdpr\":0}},\"user\":{\"ext\":{\"consent\":\"consentstring\"},\"keywords\":\"keyword1,keyword2\"}}
         """
+        PBMAssertEq(strORTB, expectedOrtb)
+    }
+    
+    func testDeviceLocationPrecisionInParamsDict() {
+        
+        let adConfiguration = AdConfiguration()
+        
+        let targeting = Targeting.shared
+        targeting.parameterDictionary.removeAll()
+        targeting.locationPrecision = NSNumber(value: 2)
+        Prebid.shared.shareGeoLocation = true
+        
+        let sdkConfiguration = Prebid.mock
+        
+        let mockBundle = MockBundle()
+        let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        let mockLocationManagerSuccessful = MockLocationManagerSuccessful.sharedMock
+        let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
+        let mockReachability = MockReachability.shared
+        
+        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+            with: adConfiguration,
+            bundle:mockBundle,
+            pbmLocationManager: mockLocationManagerSuccessful,
+            pbmDeviceAccessManager: mockDeviceAccessManager,
+            ctTelephonyNetworkInfo: mockCTTelephonyNetworkInfo,
+            reachability: mockReachability,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting,
+            extraParameterBuilders: nil
+        )
+        
+        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
+            XCTFail("No ORTB string in parameter keys")
+            return
+        }
+        
+        let bidRequest: PBMORTBBidRequest
+        do {
+            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+        } catch {
+            XCTFail("\(error)")
+            return
+        }
+        
+        //Verify GeoLocationParameterBuilder
+        let preciseLocation = Utils.shared.round(coordinates: mockLocationManagerSuccessful.coordinates, precision: targeting.locationPrecision)
+        
+        PBMAssertEq(bidRequest.device.geo.type, 1)
+        PBMAssertEq(bidRequest.device.geo.lat!.doubleValue, preciseLocation.latitude)
+        PBMAssertEq(bidRequest.device.geo.lon!.doubleValue, preciseLocation.longitude)
+        
+        //Verify User Geo is not set
+        XCTAssertNil(bidRequest.user.geo.lat)
+        XCTAssertNil(bidRequest.user.geo.lon)
+        
+        //Verify ORTBParameterBuilder
+        guard #available(iOS 11.0, *) else {
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            return
+        }
+        
+        var deviceExt = ""
+        if #available(iOS 14.0, *) {
+            deviceExt = "\"ext\":{\"atts\":3},"
+        }
+
+        let expectedOrtb = """
+        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"name\":\"MockBundleDisplayName\"},\"device\":{\"connectiontype\":2,\(deviceExt)\"geo\":{\"lat\":34.15,\"lon\":-118.13,\"type\":1},\"h\":200,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":0}}
+        """
+        
+        PBMAssertEq(strORTB, expectedOrtb)
+    }
+    
+    func testUserLocationPrecisionInParamsDict() {
+        
+        let adConfiguration = AdConfiguration()
+        
+        let targeting = Targeting.shared
+        targeting.parameterDictionary.removeAll()
+        targeting.locationPrecision = NSNumber.init(value: 2)
+        
+        Prebid.shared.shareGeoLocation = false
+        
+        let sdkConfiguration = Prebid.mock
+        
+        let mockBundle = MockBundle()
+        let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        let mockLocationManagerSuccessful = MockLocationManagerSuccessful.sharedMock
+        
+        targeting.coordinate = NSValue(mkCoordinate: mockLocationManagerSuccessful.coordinates) 
+        let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
+        let mockReachability = MockReachability.shared
+        
+        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+            with: adConfiguration,
+            bundle:mockBundle,
+            pbmLocationManager: mockLocationManagerSuccessful,
+            pbmDeviceAccessManager: mockDeviceAccessManager,
+            ctTelephonyNetworkInfo: mockCTTelephonyNetworkInfo,
+            reachability: mockReachability,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting,
+            extraParameterBuilders: nil
+        )
+        
+        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
+            XCTFail("No ORTB string in parameter keys")
+            return
+        }
+        
+        let bidRequest: PBMORTBBidRequest
+        do {
+            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+        } catch {
+            XCTFail("\(error)")
+            return
+        }
+        
+        //Verify GeoLocationParameterBuilder
+        XCTAssertNil(bidRequest.device.geo.lat)
+        XCTAssertNil(bidRequest.device.geo.lon)
+
+        //Verify User Geo is not set
+        let preciseLocation = Utils.shared.round(coordinates: mockLocationManagerSuccessful.coordinates, precision: targeting.locationPrecision)
+        PBMAssertEq(bidRequest.user.geo.lat!.doubleValue, preciseLocation.latitude)
+        PBMAssertEq(bidRequest.user.geo.lon!.doubleValue, preciseLocation.longitude)
+        
+        //Verify ORTBParameterBuilder
+        guard #available(iOS 11.0, *) else {
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            return
+        }
+        
+        var deviceExt = ""
+        if #available(iOS 14.0, *) {
+            deviceExt = "\"ext\":{\"atts\":3},"
+        }
+
+        let expectedOrtb = """
+        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"name\":\"MockBundleDisplayName\"},\"device\":{\"connectiontype\":2,\(deviceExt)\"h\":200,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":0},\"user\":{\"geo\":{\"lat\":34.15,\"lon\":-118.13}}}
+        """
+        
+        PBMAssertEq(strORTB, expectedOrtb)
+    }
+    
+    func testSettingHighLocationPrecisionInParamsDict() {
+        
+        let adConfiguration = AdConfiguration()
+        
+        let targeting = Targeting.shared
+        targeting.parameterDictionary.removeAll()
+        targeting.locationPrecision = NSNumber(value: Int.max)
+        
+        Prebid.shared.shareGeoLocation = false
+        
+        let sdkConfiguration = Prebid.mock
+        
+        let mockBundle = MockBundle()
+        let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        let mockLocationManagerSuccessful = MockLocationManagerSuccessful.sharedMock
+        
+        targeting.coordinate = NSValue(mkCoordinate: mockLocationManagerSuccessful.coordinates)
+        let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
+        let mockReachability = MockReachability.shared
+        
+        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+            with: adConfiguration,
+            bundle:mockBundle,
+            pbmLocationManager: mockLocationManagerSuccessful,
+            pbmDeviceAccessManager: mockDeviceAccessManager,
+            ctTelephonyNetworkInfo: mockCTTelephonyNetworkInfo,
+            reachability: mockReachability,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting,
+            extraParameterBuilders: nil
+        )
+        
+        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
+            XCTFail("No ORTB string in parameter keys")
+            return
+        }
+        
+        let bidRequest: PBMORTBBidRequest
+        do {
+            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+        } catch {
+            XCTFail("\(error)")
+            return
+        }
+        
+        //Verify GeoLocationParameterBuilder
+        XCTAssertNil(bidRequest.device.geo.lat)
+        XCTAssertNil(bidRequest.device.geo.lon)
+
+        //Verify User Geo is not set
+        let preciseLocation = Utils.shared.round(coordinates: mockLocationManagerSuccessful.coordinates, precision: targeting.locationPrecision)
+        PBMAssertEq(bidRequest.user.geo.lat!.doubleValue, preciseLocation.latitude)
+        PBMAssertEq(bidRequest.user.geo.lon!.doubleValue, preciseLocation.longitude)
+        
+        //Verify ORTBParameterBuilder
+        guard #available(iOS 11.0, *) else {
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            return
+        }
+        
+        var deviceExt = ""
+        if #available(iOS 14.0, *) {
+            deviceExt = "\"ext\":{\"atts\":3},"
+        }
+
+        let expectedOrtb = """
+        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"name\":\"MockBundleDisplayName\"},\"device\":{\"connectiontype\":2,\(deviceExt)\"h\":200,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":0},\"user\":{\"geo\":{\"lat\":34.149335,\"lon\":-118.1328249}}}
+        """
+        
+        PBMAssertEq(strORTB, expectedOrtb)
+    }
+    
+    func testSettingNegativeLocationPrecisionInParamsDict() {
+        
+        let adConfiguration = AdConfiguration()
+        
+        let targeting = Targeting.shared
+        targeting.parameterDictionary.removeAll()
+        targeting.locationPrecision = NSNumber(value: Int.min)
+        
+        Prebid.shared.shareGeoLocation = false
+        
+        let sdkConfiguration = Prebid.mock
+        
+        let mockBundle = MockBundle()
+        let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        let mockLocationManagerSuccessful = MockLocationManagerSuccessful.sharedMock
+        
+        targeting.coordinate = NSValue(mkCoordinate: mockLocationManagerSuccessful.coordinates)
+        let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
+        let mockReachability = MockReachability.shared
+        
+        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+            with: adConfiguration,
+            bundle:mockBundle,
+            pbmLocationManager: mockLocationManagerSuccessful,
+            pbmDeviceAccessManager: mockDeviceAccessManager,
+            ctTelephonyNetworkInfo: mockCTTelephonyNetworkInfo,
+            reachability: mockReachability,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting,
+            extraParameterBuilders: nil
+        )
+        
+        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
+            XCTFail("No ORTB string in parameter keys")
+            return
+        }
+        
+        let bidRequest: PBMORTBBidRequest
+        do {
+            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+        } catch {
+            XCTFail("\(error)")
+            return
+        }
+        
+        //Verify GeoLocationParameterBuilder
+        XCTAssertNil(bidRequest.device.geo.lat)
+        XCTAssertNil(bidRequest.device.geo.lon)
+
+        //Verify User Geo is not set
+        let preciseLocation = Utils.shared.round(coordinates: mockLocationManagerSuccessful.coordinates, precision: targeting.locationPrecision)
+        PBMAssertEq(bidRequest.user.geo.lat!.doubleValue, preciseLocation.latitude)
+        PBMAssertEq(bidRequest.user.geo.lon!.doubleValue, preciseLocation.longitude)
+        
+        //Verify ORTBParameterBuilder
+        guard #available(iOS 11.0, *) else {
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            return
+        }
+        
+        var deviceExt = ""
+        if #available(iOS 14.0, *) {
+            deviceExt = "\"ext\":{\"atts\":3},"
+        }
+
+        let expectedOrtb = """
+        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"name\":\"MockBundleDisplayName\"},\"device\":{\"connectiontype\":2,\(deviceExt)\"h\":200,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":0},\"user\":{\"geo\":{\"lat\":34.149335,\"lon\":-118.1328249}}}
+        """
+        
+        PBMAssertEq(strORTB, expectedOrtb)
+    }
+    
+    func testSettingZeroLocationPrecisionInParamsDict() {
+        
+        let adConfiguration = AdConfiguration()
+        
+        let targeting = Targeting.shared
+        targeting.parameterDictionary.removeAll()
+        targeting.locationPrecision = NSNumber(value: Int.zero)
+        
+        Prebid.shared.shareGeoLocation = false
+        
+        let sdkConfiguration = Prebid.mock
+        
+        let mockBundle = MockBundle()
+        let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        let mockLocationManagerSuccessful = MockLocationManagerSuccessful.sharedMock
+        
+        targeting.coordinate = NSValue(mkCoordinate: mockLocationManagerSuccessful.coordinates)
+        let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
+        let mockReachability = MockReachability.shared
+        
+        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+            with: adConfiguration,
+            bundle:mockBundle,
+            pbmLocationManager: mockLocationManagerSuccessful,
+            pbmDeviceAccessManager: mockDeviceAccessManager,
+            ctTelephonyNetworkInfo: mockCTTelephonyNetworkInfo,
+            reachability: mockReachability,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting,
+            extraParameterBuilders: nil
+        )
+        
+        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
+            XCTFail("No ORTB string in parameter keys")
+            return
+        }
+        
+        let bidRequest: PBMORTBBidRequest
+        do {
+            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+        } catch {
+            XCTFail("\(error)")
+            return
+        }
+        
+        //Verify GeoLocationParameterBuilder
+        XCTAssertNil(bidRequest.device.geo.lat)
+        XCTAssertNil(bidRequest.device.geo.lon)
+
+        //Verify User Geo is not set
+        let preciseLocation = Utils.shared.round(coordinates: mockLocationManagerSuccessful.coordinates, precision: targeting.locationPrecision)
+        PBMAssertEq(bidRequest.user.geo.lat!.doubleValue, preciseLocation.latitude)
+        PBMAssertEq(bidRequest.user.geo.lon!.doubleValue, preciseLocation.longitude)
+        
+        //Verify ORTBParameterBuilder
+        guard #available(iOS 11.0, *) else {
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            return
+        }
+        
+        var deviceExt = ""
+        if #available(iOS 14.0, *) {
+            deviceExt = "\"ext\":{\"atts\":3},"
+        }
+
+        let expectedOrtb = """
+        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"name\":\"MockBundleDisplayName\"},\"device\":{\"connectiontype\":2,\(deviceExt)\"h\":200,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":0},\"user\":{\"geo\":{\"lat\":34,\"lon\":-118}}}
+        """
+        
+        PBMAssertEq(strORTB, expectedOrtb)
+    }
+    
+    func testDeviceLocationNoUsedIfDenied() {
+        
+        let adConfiguration = AdConfiguration()
+        
+        let targeting = Targeting.shared
+        targeting.parameterDictionary.removeAll()
+        targeting.locationPrecision = NSNumber.init(value: 2)
+        
+        Prebid.shared.shareGeoLocation = true
+        
+        let sdkConfiguration = Prebid.mock
+        
+        let mockBundle = MockBundle()
+        let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        
+        let mockLocationManagerUnSuccessful = MockLocationManagerUnSuccessful.sharedMock
+        
+        let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
+        let mockReachability = MockReachability.shared
+        
+        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+            with: adConfiguration,
+            bundle:mockBundle,
+            pbmLocationManager: mockLocationManagerUnSuccessful,
+            pbmDeviceAccessManager: mockDeviceAccessManager,
+            ctTelephonyNetworkInfo: mockCTTelephonyNetworkInfo,
+            reachability: mockReachability,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting,
+            extraParameterBuilders: nil
+        )
+        
+        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
+            XCTFail("No ORTB string in parameter keys")
+            return
+        }
+        
+        let bidRequest: PBMORTBBidRequest
+        do {
+            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+        } catch {
+            XCTFail("\(error)")
+            return
+        }
+        
+        //Verify GeoLocationParameterBuilder
+        XCTAssertNil(bidRequest.device.geo.lat)
+        XCTAssertNil(bidRequest.device.geo.lon)
+        
+        //Verify User Geo is not set
+        XCTAssertNil(bidRequest.user.geo.lat)
+        XCTAssertNil(bidRequest.user.geo.lon)
+        
+        //Verify ORTBParameterBuilder
+        guard #available(iOS 11.0, *) else {
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            return
+        }
+        
+        var deviceExt = ""
+        if #available(iOS 14.0, *) {
+            deviceExt = "\"ext\":{\"atts\":3},"
+        }
+
+        let expectedOrtb = """
+        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"name\":\"MockBundleDisplayName\"},\"device\":{\"connectiontype\":2,\(deviceExt)\"h\":200,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":0}}
+        """
+        
+        PBMAssertEq(strORTB, expectedOrtb)
+    }
+    
+    func testDeviceLocationNotUsedIfUndetermined() {
+        
+        let adConfiguration = AdConfiguration()
+        
+        let targeting = Targeting.shared
+        targeting.parameterDictionary.removeAll()
+        targeting.locationPrecision = NSNumber.init(value: 2)
+        
+        Prebid.shared.shareGeoLocation = true
+        
+        let sdkConfiguration = Prebid.mock
+        
+        let mockBundle = MockBundle()
+        let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        let mockLocationManagerUnSuccessful = MockLocationManagerUnSuccessful.sharedMock
+        mockLocationManagerUnSuccessful.latestAuthorizationStatus = .notDetermined
+        
+        let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
+        let mockReachability = MockReachability.shared
+        
+        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+            with: adConfiguration,
+            bundle:mockBundle,
+            pbmLocationManager: mockLocationManagerUnSuccessful,
+            pbmDeviceAccessManager: mockDeviceAccessManager,
+            ctTelephonyNetworkInfo: mockCTTelephonyNetworkInfo,
+            reachability: mockReachability,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting,
+            extraParameterBuilders: nil
+        )
+        
+        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
+            XCTFail("No ORTB string in parameter keys")
+            return
+        }
+        
+        let bidRequest: PBMORTBBidRequest
+        do {
+            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+        } catch {
+            XCTFail("\(error)")
+            return
+        }
+        
+        //Verify GeoLocationParameterBuilder
+        XCTAssertNil(bidRequest.device.geo.lat)
+        XCTAssertNil(bidRequest.device.geo.lon)
+        
+        //Verify User Geo is not set
+        XCTAssertNil(bidRequest.user.geo.lat)
+        XCTAssertNil(bidRequest.user.geo.lon)
+        
+        //Verify ORTBParameterBuilder
+        guard #available(iOS 11.0, *) else {
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            return
+        }
+        
+        var deviceExt = ""
+        if #available(iOS 14.0, *) {
+            deviceExt = "\"ext\":{\"atts\":3},"
+        }
+
+        let expectedOrtb = """
+        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"name\":\"MockBundleDisplayName\"},\"device\":{\"connectiontype\":2,\(deviceExt)\"h\":200,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":0}}
+        """
+        
         PBMAssertEq(strORTB, expectedOrtb)
     }
 }

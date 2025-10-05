@@ -12,20 +12,20 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "PrebidMobile",
+            name: "VeonPrebidMobile",
             targets: ["PrebidMobile", "__PrebidMobileInternal"]
         ),
         .library(
-            name: "PrebidMobileAdMobAdapters",
-            targets: ["PrebidMobileAdMobAdapters"]
+            name: "VeonPrebidMobileAdMobAdapters",
+            targets: ["VeonPrebidMobileAdMobAdapters"]
         ),
         .library(
-            name: "PrebidMobileGAMEventHandlers",
-            targets: ["PrebidMobileGAMEventHandlers"]
+            name: "VeonPrebidMobileGAMEventHandlers",
+            targets: ["VeonPrebidMobileGAMEventHandlers"]
         ),
         .library(
-            name: "PrebidMobileMAXAdapters",
-            targets: ["PrebidMobileMAXAdapters"]
+            name: "VeonPrebidMobileMAXAdapters",
+            targets: ["VeonPrebidMobileMAXAdapters"]
         ),
     ],
     dependencies: [
@@ -56,7 +56,7 @@ let package = Package(
             path: "Frameworks/OMSDK_Prebidorg.xcframework"
         ),
         .target(
-            name: "PrebidMobileAdMobAdapters",
+            name: "VeonPrebidMobileAdMobAdapters",
             dependencies: [
                 "PrebidMobile",
                 .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
@@ -65,7 +65,7 @@ let package = Package(
             sources: ["Sources"]
         ),
         .target(
-            name: "PrebidMobileGAMEventHandlers",
+            name: "VeonPrebidMobileGAMEventHandlers",
             dependencies: [
                 "PrebidMobile",
                 .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
@@ -74,7 +74,7 @@ let package = Package(
             sources: ["Sources"]
         ),
         .target(
-            name: "PrebidMobileMAXAdapters",
+            name: "VeonPrebidMobileMAXAdapters",
             dependencies: [
                 "PrebidMobile",
                 .product(name: "AppLovinSDK", package: "AppLovin-MAX-Swift-Package"),
