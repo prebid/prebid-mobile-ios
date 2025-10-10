@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc public class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
+@objc open class ORTBExtPrebidPassthrough: NSObject, PBMJsonCodable {
     @objc public var type: String?
     @objc public var adConfiguration: ORTBAdConfiguration?
     @objc public var sdkConfiguration: ORTBSDKConfiguration?

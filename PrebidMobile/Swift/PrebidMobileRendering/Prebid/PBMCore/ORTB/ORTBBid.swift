@@ -20,7 +20,7 @@ import Foundation
 
 /// A SeatBid object contains one or more `Bid` objects, each of which relates to a specific impression in the bid
 /// request via the `impid` attribute and constitutes an offer to buy that impression for a given `price`.
-class ORTBBid<ExtType: PBMJsonCodable>: PBMJsonCodable, PBMORTBExtensible {
+class ORTBBid<ExtType: PBMJsonCodable>: PBMJsonCodable, ORTBExtensible {
     /// [Required]
     /// Bidder generated bid ID to assist with logging/tracking.
     var bidID: String?
