@@ -182,7 +182,7 @@ public class NativeAd: NSObject, CacheExpiryDelegate {
         // Track win event immediately
         ad.eventManager.trackEvent(.prebidWin)
         
-        guard let nativeAdMarkup = NativeAdMarkup(jsonString: rawBid.adm) else {
+        guard let nativeAdMarkup = NativeAdMarkup(jsonString: bid.adm) else {
             Log.error("SDK couldn't retrieve native ad markup from bid response.")
             return nil
         }
