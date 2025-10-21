@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc public class ORTBRewardedConfiguration: NSObject, PBMJsonCodable {
+@objc open class ORTBRewardedConfiguration: NSObject, PBMJsonCodable {
     /// Metadata provided by the publisher to describe the reward.
     @objc public var reward: ORTBRewardedReward?
 
