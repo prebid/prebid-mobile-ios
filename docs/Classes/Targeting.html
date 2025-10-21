@@ -17,7 +17,7 @@
     <a title="Targeting Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 2.5.2 Docs</a> (91% documented)</p>
+        <p><a href="../index.html">PrebidMobile 3.1.1 Docs</a> (87% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -221,16 +221,7 @@
                 <a href="../Classes/UserUniqueID.html">UserUniqueID</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/Utils.html">Utils</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/VideoAdUnit.html">VideoAdUnit</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/VideoControlsConfiguration.html">VideoControlsConfiguration</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/VideoInterstitialAdUnit.html">VideoInterstitialAdUnit</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/VideoParameters.html">VideoParameters</a>
@@ -247,9 +238,6 @@
                 <a href="../Enums/DataAsset.html">DataAsset</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/Gender.html">Gender</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/NativeDataAssetType.html">NativeDataAssetType</a>
               </li>
               <li class="nav-group-task">
@@ -259,13 +247,13 @@
                 <a href="../Enums/Position.html">Position</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PrebidHost.html">PrebidHost</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/PrebidInitializationStatus.html">PrebidInitializationStatus</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/ResultCode.html">ResultCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TrackingEvent.html">TrackingEvent</a>
               </li>
             </ul>
           </li>
@@ -277,6 +265,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/BannerViewDelegate.html">BannerViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/BannerViewVideoPlaybackDelegate.html">BannerViewVideoPlaybackDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/InterstitialAd.html">InterstitialAd</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/InterstitialAdUnitDelegate.html">InterstitialAdUnitDelegate</a>
@@ -298,6 +292,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/PrebidMobilePluginRenderer.html">PrebidMobilePluginRenderer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PrimaryAdRequesterProtocol.html">PrimaryAdRequesterProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RewardedAdUnitDelegate.html">RewardedAdUnitDelegate</a>
@@ -332,7 +329,7 @@
             <p>A class that manages targeting information for ads.</p>
 
 <p>This class provides properties and methods for setting and retrieving
-user-specific targeting information, such as user ID, gender, and custom
+user-specific targeting information, such as user ID, and custom
 data. It also includes details for OMID (Open Measurement Interface Definition)
 partner and supports managing user identity links and custom extensions.</p>
 
@@ -447,288 +444,6 @@ partner and supports managing user identity links and custom extensions.</p>
                 </div>
               </div>
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)yearOfBirth"></a>
-                    <a name="//apple_ref/swift/Property/yearOfBirth" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)yearOfBirth">yearOfBirth</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Indicates user birth year.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated by ORTB"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">yearOfBirth</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)setYearOfBirthWithYob:"></a>
-                    <a name="//apple_ref/swift/Method/setYearOfBirth(yob:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)setYearOfBirthWithYob:">setYearOfBirth(yob:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method set the year of birth value</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated by ORTB"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setYearOfBirth</span><span class="p">(</span><span class="nv">yob</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)getYearOfBirth"></a>
-                    <a name="//apple_ref/swift/Method/getYearOfBirth()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)getYearOfBirth">getYearOfBirth()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getYearOfBirth</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSNumber</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)clearYearOfBirth"></a>
-                    <a name="//apple_ref/swift/Method/clearYearOfBirth()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)clearYearOfBirth">clearYearOfBirth()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method clears year of birth value set by the application developer</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearYearOfBirth</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)userGender"></a>
-                    <a name="//apple_ref/swift/Property/userGender" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)userGender">userGender</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Indicates the end-user&rsquo;s gender.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated by ORTB"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">userGender</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gender.html">Gender</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)userGenderDescription"></a>
-                    <a name="//apple_ref/swift/Method/userGenderDescription()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)userGenderDescription">userGenderDescription()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>String representation of the users gender,
-where “M” = male, “F” = female, “O” = known to be other (i.e., omitted is unknown)</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">userGenderDescription</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)userID"></a>
-                    <a name="//apple_ref/swift/Property/userID" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)userID">userID</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Indicates the customer-provided user ID, if different from the Device ID.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">userID</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)buyerUID"></a>
-                    <a name="//apple_ref/swift/Property/buyerUID" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)buyerUID">buyerUID</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Buyer-specific ID for the user as mapped by the exchange for the buyer.
-Deprecated.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This property is deprecated. In the upcoming major release, the property will be removed."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">buyerUID</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)userCustomData"></a>
-                    <a name="//apple_ref/swift/Property/userCustomData" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)userCustomData">userCustomData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Optional feature to pass bidder data that was set in the
-exchange’s cookie. The string must be in base85 cookie safe
-characters and be in any format. Proper JSON encoding must
-be used to include “escaped” quotation marks.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This property is deprecated.  This is an exchange-specific property."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">userCustomData</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)eids"></a>
-                    <a name="//apple_ref/swift/Property/eids" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)eids">eids</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Placeholder for User Identity Links.
-The data from this property will be added to usr.ext.eids</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated. This property will be removed in future releases. Please, use Targeting.setExternalUserIds(_:﹚ instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">eids</span><span class="p">:</span> <span class="p">[[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">AnyHashable</span><span class="p">]]?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -1200,146 +915,6 @@ established by the USA FTC, where 0 = no, 1 = yes</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)storeExternalUserId:"></a>
-                    <a name="//apple_ref/swift/Method/storeExternalUserId(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)storeExternalUserId:">storeExternalUserId(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method allows to save External User Id</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated. SDK doesn't support storing External User IDs in application storage. This method will be removed in future releases."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">storeExternalUserId</span><span class="p">(</span><span class="n">_</span> <span class="nv">externalUserId</span><span class="p">:</span> <span class="kt"><a href="../Classes/ExternalUserId.html">ExternalUserId</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)fetchStoredExternalUserIds"></a>
-                    <a name="//apple_ref/swift/Method/fetchStoredExternalUserIds()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)fetchStoredExternalUserIds">fetchStoredExternalUserIds()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method allows to get all External User Ids</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated. SDK doesn't support storing External User IDs in application storage. This method will be removed in future releases."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">fetchStoredExternalUserIds</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/ExternalUserId.html">ExternalUserId</a></span><span class="p">]?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)fetchStoredExternalUserId:"></a>
-                    <a name="//apple_ref/swift/Method/fetchStoredExternalUserId(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)fetchStoredExternalUserId:">fetchStoredExternalUserId(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method allows to get External User Id by passing respective &lsquo;source&rsquo; string as param</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated. This method will be removed in future releases."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">fetchStoredExternalUserId</span><span class="p">(</span><span class="n">_</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/ExternalUserId.html">ExternalUserId</a></span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)removeStoredExternalUserId:"></a>
-                    <a name="//apple_ref/swift/Method/removeStoredExternalUserId(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)removeStoredExternalUserId:">removeStoredExternalUserId(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method allows to remove specific External User Id by passing respective &lsquo;source&rsquo; string as param</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated. This method will be removed in future releases."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeStoredExternalUserId</span><span class="p">(</span><span class="n">_</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)removeStoredExternalUserIds"></a>
-                    <a name="//apple_ref/swift/Method/removeStoredExternalUserIds()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)removeStoredExternalUserIds">removeStoredExternalUserIds()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method allows to remove all the External User Ids</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Deprecated. This method will be removed in future releases."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeStoredExternalUserIds</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -1662,38 +1237,6 @@ return a new randomized value.</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)locationPrecision"></a>
-                    <a name="//apple_ref/swift/Property/locationPrecision" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)locationPrecision">locationPrecision</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Number of decimal places to use when rounding latitude/longitude for device geolocation.
-Set to nil for full precision (no rounding).
-Example usage:
-  Targeting.shared.locationPrecision = NSNumber(value: 0) // latitude 37.774929 -&gt; 37.0 (No precision)
-  Targeting.shared.locationPrecision = NSNumber(value: 2) // latitude 37.774929 -&gt; 37.77
-  Targeting.shared.locationPrecision = nil // latitude 37.774929 -&gt; 37.774929 (full precision)</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">locationPrecision</span><span class="p">:</span> <span class="kt">NSNumber</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -1729,6 +1272,38 @@ See CoreLocation framework documentation.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">coordinate</span><span class="p">:</span> <span class="kt">NSValue</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)locationPrecision"></a>
+                    <a name="//apple_ref/swift/Property/locationPrecision" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)locationPrecision">locationPrecision</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Number of decimal places to use when rounding latitude/longitude for device geolocation.
+Set to nil for full precision (no rounding).
+Example usage:
+  Targeting.shared.locationPrecision = NSNumber(value: 0) // latitude 37.774929 -&gt; 37.0 (No precision)
+  Targeting.shared.locationPrecision = NSNumber(value: 2) // latitude 37.774929 -&gt; 37.77
+  Targeting.shared.locationPrecision = nil // latitude 37.774929 -&gt; 37.774929 (full precision)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">locationPrecision</span><span class="p">:</span> <span class="kt">NSNumber</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -1779,7 +1354,7 @@ See CoreLocation framework documentation.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>ortbObject</em>
+                                <em>ortbConfig</em>
                                 </code>
                               </td>
                               <td>
@@ -1870,114 +1445,6 @@ See CoreLocation framework documentation.</p>
                               <td>
                                 <div>
                                   <p>The name of the parameter. If <code>nil</code>, the parameter is not added.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)setCustomParams:"></a>
-                    <a name="//apple_ref/swift/Method/setCustomParams(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)setCustomParams:">setCustomParams(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Sets custom parameters by adding each key-value pair to the parameter dictionary.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setCustomParams</span><span class="p">(</span><span class="n">_</span> <span class="nv">params</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>params</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A dictionary of parameters to set. If <code>nil</code>, no parameters are added.
-Deprecated.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)addCustomParam:withName:"></a>
-                    <a name="//apple_ref/swift/Method/addCustomParam(_:withName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)addCustomParam:withName:">addCustomParam(_:<wbr>withName:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Adds a custom parameter to the parameter dictionary with a prefixed name.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addCustomParam</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">withName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>value</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The value of the custom parameter.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>withName</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The name of the custom parameter. If <code>nil</code>, the parameter is not added.
-Deprecated.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2212,276 +1679,6 @@ Deprecated.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Global%20User%20Data%20%28user.ext.data%29"></a>
-                <a name="//apple_ref/swift/Section/Global User Data (user.ext.data)" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Global%20User%20Data%20%28user.ext.data%29"></a>
-                  <h3 class="section-name"><span>Global User Data (user.ext.data)</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)addUserDataWithKey:value:"></a>
-                    <a name="//apple_ref/swift/Method/addUserData(key:value:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)addUserDataWithKey:value:">addUserData(key:<wbr>value:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Adds user data for a specified key.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addUserData</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>key</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The key for the user data.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>value</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The value to add for the specified key.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)updateUserDataWithKey:value:"></a>
-                    <a name="//apple_ref/swift/Method/updateUserData(key:value:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)updateUserDataWithKey:value:">updateUserData(key:<wbr>value:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Updates user data for a specified key with a new set of values.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateUserData</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>key</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The key for the user data.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>value</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The set of values to update for the specified key.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)removeUserDataFor:"></a>
-                    <a name="//apple_ref/swift/Method/removeUserData(for:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)removeUserDataFor:">removeUserData(for:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Removes user data for a specified key.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeUserData</span><span class="p">(</span><span class="k">for</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>key</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The key for the user data to remove.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)clearUserData"></a>
-                    <a name="//apple_ref/swift/Method/clearUserData()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)clearUserData">clearUserData()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Clears all user data.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearUserData</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)getUserData"></a>
-                    <a name="//apple_ref/swift/Method/getUserData()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)getUserData">getUserData()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Retrieves all user data.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getUserData</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary mapping keys to arrays of values.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)userDataDictionary"></a>
-                    <a name="//apple_ref/swift/Property/userDataDictionary" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)userDataDictionary">userDataDictionary</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>User data dictionary for external use.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. In the upcoming major release, the method will be removed."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">userDataDictionary</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary mapping keys to arrays of values.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
                 <a name="/Global%20User%20Keywords%20%28user.keywords%29"></a>
                 <a name="//apple_ref/swift/Section/Global User Keywords (user.keywords)" class="dashAnchor"></a>
                 <div class="section-name-container">
@@ -2687,34 +1884,6 @@ Deprecated.</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)userKeywords"></a>
-                    <a name="//apple_ref/swift/Property/userKeywords" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)userKeywords">userKeywords</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>getUserKeywords</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This property is deprecated. Please, use getUserKeywords method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">userKeywords</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -2728,174 +1897,6 @@ Deprecated.</p>
                 </div>
               </div>
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)addContextDataWithKey:value:"></a>
-                    <a name="//apple_ref/swift/Method/addContextData(key:value:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)addContextDataWithKey:value:">addContextData(key:<wbr>value:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>addAppExtData</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addAppExtData method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextData</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)updateContextDataWithKey:value:"></a>
-                    <a name="//apple_ref/swift/Method/updateContextData(key:value:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)updateContextDataWithKey:value:">updateContextData(key:<wbr>value:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>updateAppExtData</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use updateAppExtData method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateContextData</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)removeContextDataFor:"></a>
-                    <a name="//apple_ref/swift/Method/removeContextData(for:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)removeContextDataFor:">removeContextData(for:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>removeAppExtData</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use removeAppExtData method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeContextData</span><span class="p">(</span><span class="k">for</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)clearContextData"></a>
-                    <a name="//apple_ref/swift/Method/clearContextData()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)clearContextData">clearContextData()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>clearAppExtData</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use clearAppExtData method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearContextData</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)getContextData"></a>
-                    <a name="//apple_ref/swift/Method/getContextData()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)getContextData">getContextData()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>getAppExtData</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use getAppExtData method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getContextData</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]]</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)contextDataDictionary"></a>
-                    <a name="//apple_ref/swift/Property/contextDataDictionary" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)contextDataDictionary">contextDataDictionary</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>getAppExtData</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This property is deprecated. Please, use getAppExtData method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">contextDataDictionary</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -3129,174 +2130,6 @@ Deprecated.</p>
                 </div>
               </div>
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)addContextKeyword:"></a>
-                    <a name="//apple_ref/swift/Method/addContextKeyword(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)addContextKeyword:">addContextKeyword(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>addAppKeyword</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addAppKeyword method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElement</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)addContextKeywords:"></a>
-                    <a name="//apple_ref/swift/Method/addContextKeywords(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)addContextKeywords:">addContextKeywords(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>addAppKeywords</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use addAppKeywords method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addContextKeywords</span><span class="p">(</span><span class="n">_</span> <span class="nv">newElements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)removeContextKeyword:"></a>
-                    <a name="//apple_ref/swift/Method/removeContextKeyword(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)removeContextKeyword:">removeContextKeyword(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>removeAppKeyword</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use removeAppKeyword method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeContextKeyword</span><span class="p">(</span><span class="n">_</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)clearContextKeywords"></a>
-                    <a name="//apple_ref/swift/Method/clearContextKeywords()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)clearContextKeywords">clearContextKeywords()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>clearAppKeywords</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use clearAppKeywords method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearContextKeywords</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(im)getContextKeywords"></a>
-                    <a name="//apple_ref/swift/Method/getContextKeywords()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(im)getContextKeywords">getContextKeywords()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>getAppKeywords</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This method is deprecated. Please, use getAppKeywords method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getContextKeywords</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Targeting(py)contextKeywords"></a>
-                    <a name="//apple_ref/swift/Property/contextKeywords" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Targeting(py)contextKeywords">contextKeywords</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated. Use <code>getAppKeywords</code> method instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"This property is deprecated. Please, use getAppKeywords method instead."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">contextKeywords</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -3538,7 +2371,7 @@ Deprecated.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-10-20)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2025-10-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

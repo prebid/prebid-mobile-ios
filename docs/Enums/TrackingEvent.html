@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>NativeRequest Class Reference</title>
+    <title>TrackingEvent Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/NativeRequest" class="dashAnchor"></a>
-    <a title="NativeRequest Class Reference"></a>
+    <a name="//apple_ref/swift/Enum/TrackingEvent" class="dashAnchor"></a>
+    <a title="TrackingEvent Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">PrebidMobile 3.1.1 Docs</a> (87% documented)</p>
@@ -29,9 +29,9 @@
       <p id="breadcrumbs">
         <a href="../index.html">PrebidMobile</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        <a href="../Classes.html">Classes</a>
+        <a href="../Enums.html">Enumerations</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        NativeRequest Class Reference
+        TrackingEvent Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -317,15 +317,16 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>NativeRequest</h1>
+            <h1>TrackingEvent</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">NativeRequest</span> <span class="p">:</span> <span class="kt"><a href="../Classes/AdUnit.html">AdUnit</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">@objc</span><span class="p">(</span><span class="kt">PBMTrackingEvent</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TrackingEvent</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                 </div>
               </div>
-            <p>A class representing a native request for original type of integration.</p>
+            <p>Undocumented</p>
 
           </section>
           <section class="section task-group-section">
@@ -334,9 +335,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)version"></a>
-                    <a name="//apple_ref/swift/Property/version" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)version">version</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventRequest"></a>
+                    <a name="//apple_ref/swift/Element/request" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventRequest">request</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -344,14 +345,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The version of the native ad specification being used. Defaults to &ldquo;1.2&rdquo; if not set.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">version</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">request</span> <span class="o">=</span> <span class="mi">0</span></code></pre>
 
                         </div>
                       </div>
@@ -361,9 +362,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)context"></a>
-                    <a name="//apple_ref/swift/Property/context" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)context">context</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventImpression"></a>
+                    <a name="//apple_ref/swift/Element/impression" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventImpression">impression</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -371,14 +372,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The context in which the ad appears. See <code><a href="../Classes/ContextType.html">ContextType</a></code> for possible values.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Classes/ContextType.html">ContextType</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">impression</span></code></pre>
 
                         </div>
                       </div>
@@ -388,9 +389,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)contextSubType"></a>
-                    <a name="//apple_ref/swift/Property/contextSubType" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)contextSubType">contextSubType</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventClick"></a>
+                    <a name="//apple_ref/swift/Element/click" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventClick">click</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -398,14 +399,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A more detailed context in which the ad appears. See <code><a href="../Classes/ContextSubType.html">ContextSubType</a></code> for possible values.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">contextSubType</span><span class="p">:</span> <span class="kt"><a href="../Classes/ContextSubType.html">ContextSubType</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">click</span></code></pre>
 
                         </div>
                       </div>
@@ -415,9 +416,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)placementType"></a>
-                    <a name="//apple_ref/swift/Property/placementType" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)placementType">placementType</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventOverlayClick"></a>
+                    <a name="//apple_ref/swift/Element/overlayClick" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventOverlayClick">overlayClick</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -425,14 +426,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The design/format/layout of the ad unit being offered. See <code><a href="../Classes/PlacementType.html">PlacementType</a></code> for possible values.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">placementType</span><span class="p">:</span> <span class="kt"><a href="../Classes/PlacementType.html">PlacementType</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">overlayClick</span></code></pre>
 
                         </div>
                       </div>
@@ -442,9 +443,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)placementCount"></a>
-                    <a name="//apple_ref/swift/Property/placementCount" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)placementCount">placementCount</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCompanionClick"></a>
+                    <a name="//apple_ref/swift/Element/companionClick" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCompanionClick">companionClick</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -452,14 +453,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The number of identical placements in the ad layout. Defaults to 1 if not set.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">placementCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">companionClick</span></code></pre>
 
                         </div>
                       </div>
@@ -469,9 +470,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)sequence"></a>
-                    <a name="//apple_ref/swift/Property/sequence" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)sequence">sequence</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventPlay"></a>
+                    <a name="//apple_ref/swift/Element/play" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventPlay">play</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -479,14 +480,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The sequence number of the ad. Defaults to 0 if not set.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sequence</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">play</span></code></pre>
 
                         </div>
                       </div>
@@ -496,9 +497,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)assets"></a>
-                    <a name="//apple_ref/swift/Property/assets" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)assets">assets</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventPause"></a>
+                    <a name="//apple_ref/swift/Element/pause" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventPause">pause</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -506,14 +507,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An array of <code><a href="../Classes/NativeAsset.html">NativeAsset</a></code> objects representing the assets required for the native ad request.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">assets</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeAsset.html">NativeAsset</a></span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">pause</span></code></pre>
 
                         </div>
                       </div>
@@ -523,9 +524,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)asseturlsupport"></a>
-                    <a name="//apple_ref/swift/Property/asseturlsupport" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)asseturlsupport">asseturlsupport</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventResume"></a>
+                    <a name="//apple_ref/swift/Element/resume" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventResume">resume</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -533,15 +534,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Indicates whether the supply source/impression supports returning an <code>assetsurl</code> instead of an asset object.
-Defaults to 0 if not set.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">asseturlsupport</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">resume</span></code></pre>
 
                         </div>
                       </div>
@@ -551,9 +551,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)durlsupport"></a>
-                    <a name="//apple_ref/swift/Property/durlsupport" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)durlsupport">durlsupport</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventRewind"></a>
+                    <a name="//apple_ref/swift/Element/rewind" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventRewind">rewind</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -561,15 +561,14 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Indicates whether the supply source/impression supports returning a <code>dco</code> URL instead of an asset object.
-Defaults to 0 if not set.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">durlsupport</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">rewind</span></code></pre>
 
                         </div>
                       </div>
@@ -579,9 +578,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)eventtrackers"></a>
-                    <a name="//apple_ref/swift/Property/eventtrackers" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)eventtrackers">eventtrackers</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventSkip"></a>
+                    <a name="//apple_ref/swift/Element/skip" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventSkip">skip</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -589,14 +588,14 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An array of <code><a href="../Classes/NativeEventTracker.html">NativeEventTracker</a></code> objects specifying the event tracking settings for the native ad.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">eventtrackers</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeEventTracker.html">NativeEventTracker</a></span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">skip</span></code></pre>
 
                         </div>
                       </div>
@@ -606,9 +605,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)privacy"></a>
-                    <a name="//apple_ref/swift/Property/privacy" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)privacy">privacy</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCreativeView"></a>
+                    <a name="//apple_ref/swift/Element/creativeView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCreativeView">creativeView</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -616,14 +615,14 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Indicates whether the native ad supports a buyer-specific privacy notice. Defaults to 0 if not set.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">privacy</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">creativeView</span></code></pre>
 
                         </div>
                       </div>
@@ -633,9 +632,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)ext"></a>
-                    <a name="//apple_ref/swift/Property/ext" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)ext">ext</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventStart"></a>
+                    <a name="//apple_ref/swift/Element/start" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventStart">start</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -643,14 +642,14 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A placeholder for custom JSON agreed to by the parties to support flexibility beyond the standard specification.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">ext</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">start</span></code></pre>
 
                         </div>
                       </div>
@@ -660,9 +659,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(py)configId"></a>
-                    <a name="//apple_ref/swift/Property/configId" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(py)configId">configId</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventFirstQuartile"></a>
+                    <a name="//apple_ref/swift/Element/firstQuartile" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventFirstQuartile">firstQuartile</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -670,14 +669,14 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The configuration ID for the ad unit.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">configId</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">firstQuartile</span></code></pre>
 
                         </div>
                       </div>
@@ -687,9 +686,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(im)initWithConfigId:"></a>
-                    <a name="//apple_ref/swift/Method/init(configId:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(im)initWithConfigId:">init(configId:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventMidpoint"></a>
+                    <a name="//apple_ref/swift/Element/midpoint" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventMidpoint">midpoint</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -697,35 +696,16 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes a <code>NativeRequest</code> with a specified configuration ID.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">midpoint</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>configId</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The configuration ID for the ad unit.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -733,9 +713,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(im)initWithConfigId:assets:eventTrackers:"></a>
-                    <a name="//apple_ref/swift/Method/init(configId:assets:eventTrackers:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(im)initWithConfigId:assets:eventTrackers:">init(configId:<wbr>assets:<wbr>eventTrackers:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventThirdQuartile"></a>
+                    <a name="//apple_ref/swift/Element/thirdQuartile" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventThirdQuartile">thirdQuartile</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -743,59 +723,16 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes a <code>NativeRequest</code> with a specified configuration ID, assets, and event trackers.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">assets</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeAsset.html">NativeAsset</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">eventTrackers</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeEventTracker.html">NativeEventTracker</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">thirdQuartile</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>configId</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The configuration ID for the ad unit.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>assets</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>An optional array of <code><a href="../Classes/NativeAsset.html">NativeAsset</a></code> objects.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>eventTrackers</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>An optional array of <code><a href="../Classes/NativeEventTracker.html">NativeEventTracker</a></code> objects.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -803,9 +740,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(im)addNativeAssets:"></a>
-                    <a name="//apple_ref/swift/Method/addNativeAssets(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(im)addNativeAssets:">addNativeAssets(_:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventComplete"></a>
+                    <a name="//apple_ref/swift/Element/complete" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventComplete">complete</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -813,35 +750,16 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Adds an array of native assets to the request. If assets already exist, they will be appended.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addNativeAssets</span><span class="p">(</span><span class="n">_</span> <span class="nv">assets</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeAsset.html">NativeAsset</a></span><span class="p">])</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">complete</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>assets</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>An array of <code><a href="../Classes/NativeAsset.html">NativeAsset</a></code> objects to add.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -849,9 +767,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(im)addNativeEventTracker:"></a>
-                    <a name="//apple_ref/swift/Method/addNativeEventTracker(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(im)addNativeEventTracker:">addNativeEventTracker(_:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventMute"></a>
+                    <a name="//apple_ref/swift/Element/mute" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventMute">mute</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -859,35 +777,16 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Adds an array of native event trackers to the request. If event trackers already exist, they will be appended.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addNativeEventTracker</span><span class="p">(</span><span class="n">_</span> <span class="nv">eventTrackers</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/NativeEventTracker.html">NativeEventTracker</a></span><span class="p">])</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">mute</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>eventTrackers</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>An array of <code><a href="../Classes/NativeEventTracker.html">NativeEventTracker</a></code> objects to add.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -895,9 +794,9 @@ Defaults to 0 if not set.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)NativeRequest(im)getNativeRequestObject"></a>
-                    <a name="//apple_ref/swift/Method/getNativeRequestObject()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)NativeRequest(im)getNativeRequestObject">getNativeRequestObject()</a>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventUnmute"></a>
+                    <a name="//apple_ref/swift/Element/unmute" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventUnmute">unmute</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -905,20 +804,340 @@ Defaults to 0 if not set.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Retrieves the native request object as a JSON dictionary.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getNativeRequestObject</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">AnyHashable</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unmute</span></code></pre>
 
                         </div>
                       </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary representation of the native request object, or <code>nil</code> if an error occurs.</p>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventFullscreen"></a>
+                    <a name="//apple_ref/swift/Element/fullscreen" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventFullscreen">fullscreen</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">fullscreen</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventExitFullscreen"></a>
+                    <a name="//apple_ref/swift/Element/exitFullscreen" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventExitFullscreen">exitFullscreen</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">exitFullscreen</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventNormal"></a>
+                    <a name="//apple_ref/swift/Element/normal" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventNormal">normal</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">normal</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventExpand"></a>
+                    <a name="//apple_ref/swift/Element/expand" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventExpand">expand</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">expand</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCollapse"></a>
+                    <a name="//apple_ref/swift/Element/collapse" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCollapse">collapse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">collapse</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCloseLinear"></a>
+                    <a name="//apple_ref/swift/Element/closeLinear" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCloseLinear">closeLinear</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">closeLinear</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCloseOverlay"></a>
+                    <a name="//apple_ref/swift/Element/closeOverlay" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventCloseOverlay">closeOverlay</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">closeOverlay</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventAcceptInvitation"></a>
+                    <a name="//apple_ref/swift/Element/acceptInvitation" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventAcceptInvitation">acceptInvitation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">acceptInvitation</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventError"></a>
+                    <a name="//apple_ref/swift/Element/error" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventError">error</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventLoaded"></a>
+                    <a name="//apple_ref/swift/Element/loaded" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventLoaded">loaded</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">loaded</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventPrebidWin"></a>
+                    <a name="//apple_ref/swift/Element/prebidWin" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventPrebidWin">prebidWin</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">prebidWin</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventUnknown"></a>
+                    <a name="//apple_ref/swift/Element/unknown" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@E@PBMTrackingEvent@PBMTrackingEventUnknown">unknown</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unknown</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
