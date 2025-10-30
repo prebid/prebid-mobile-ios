@@ -23,6 +23,8 @@
 #define PBMAssert(condition)                              \
     PBMAssertExt(condition, @"Invalid input parameters");
 
+#define PBMLogError( s, ... ) [PBMLog error:[NSString stringWithFormat:(s), ##__VA_ARGS__] filename:[NSString stringWithUTF8String:__FILE__] line:__LINE__ function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]];
+
 #pragma mark - Memory Managment
 
 #define __deprecated__(s) __attribute__((deprecated(s)))

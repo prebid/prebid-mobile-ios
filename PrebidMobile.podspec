@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobile"
-  s.version      = "3.0.2"
+  s.version      = "3.1.1"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
@@ -59,17 +59,17 @@ Pod::Spec.new do |s|
   s.subspec 'core' do |core|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
     
-    core.private_header_files = [ 
-      'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMParameterBuilderService.h', 
-      'PrebidMobile/PrebidMobileRendering/Prebid+TestExtension.h',
-      'PrebidMobile/PrebidMobileRendering/3dPartyWrappers/OpenMeasurement/PBMOpenMeasurementFriendlyObstructionTypeBridge.h',
-      'PrebidMobile/ConfigurationAndTargeting/InternalUserConsentDataManager.h',
-      'PrebidMobile/PrebidMobileRendering/Networking/Parameters/PBMUserConsentParameterBuilder.h'
+    core.private_header_files = [
+      'PrebidMobile/Objc/PrivateHeaders/*.h'
     ]
-    core.vendored_frameworks = 'Frameworks/OMSDK-Static_Prebidorg.xcframework'
+    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.xcframework'
   end
 
   s.pod_target_xcconfig = {
-    'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
+    'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES',
+    'OTHER_LDFLAGS' => '$(inherited) -lObjC -framework OMSDK_Prebidorg',
+    'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) @executable_path/Frameworks',
+    'OTHER_SWIFT_FLAGS' => '$(inherited) -no-verify-emitted-module-interface'
   }
+
 end

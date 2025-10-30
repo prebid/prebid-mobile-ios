@@ -21,7 +21,7 @@ import UIKit
 
 class PBMDeviceAccessManagerTests : XCTestCase {
     
-    fileprivate var deviceAccessManager:PBMDeviceAccessManager!
+    fileprivate var deviceAccessManager:DeviceAccessManager!
     let expectationTimeout:TimeInterval = 2
     
     // strings
@@ -34,24 +34,7 @@ class PBMDeviceAccessManagerTests : XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.deviceAccessManager = PBMDeviceAccessManager(rootViewController: nil)
-    }
-
-    
-    //MARK: - UIAlertController Tests
-    
-    func testUIAlertController_ShouldAutoRotate () {
-        let uiAlertController = UIAlertController()
-        
-        // PBMPrivate category for UIAlertController returns false
-        let shouldRotate = uiAlertController.shouldAutorotate
-        XCTAssert(shouldRotate == false)
-    }
-    
-    func testUIAlertController_SupportedInterfaceOrientations() {
-        let uiAlertController = UIAlertController()
-        let mask = uiAlertController.supportedInterfaceOrientations
-        XCTAssert(mask == .portrait)
+        self.deviceAccessManager = DeviceAccessManager(rootViewController: nil)
     }
     
     //MARK: - Miscellaneous tests
@@ -79,14 +62,14 @@ class PBMDeviceAccessManagerTests : XCTestCase {
     func testUserLanguage() {
         let localeIdentifier = "jp"
         let locale = Locale(identifier: localeIdentifier)
-        let deviceAccessManager = PBMDeviceAccessManager(rootViewController: nil, locale: locale)
+        let deviceAccessManager = DeviceAccessManager(rootViewController: nil, locale: locale)
         
         XCTAssertEqual(deviceAccessManager.userLangaugeCode, localeIdentifier)
     }
     
     func testNilUserLanguage() {
         let locale = Locale(identifier: "")
-        let deviceAccessManager = PBMDeviceAccessManager(rootViewController: nil, locale: locale)
+        let deviceAccessManager = DeviceAccessManager(rootViewController: nil, locale: locale)
         
         XCTAssertNil(deviceAccessManager.userLangaugeCode)
     }

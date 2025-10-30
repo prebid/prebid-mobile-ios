@@ -15,37 +15,37 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class UIViewExtensionsTest: XCTestCase {
     
-    func testPBMIsVisible() {
+    func testisVisible() {
         
         let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 560, height: 420))
         let root = UIView(frame: CGRect(x: 10, y: 10, width: 240, height: 400))
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 80))
         
-        XCTAssertFalse(view.pbmIsVisible())
+        XCTAssertFalse(view.isVisible())
         
         window.addSubview(root)
         root.addSubview(view)
         
-        XCTAssertTrue(view.pbmIsVisible())
+        XCTAssertTrue(view.isVisible())
         
         view.isHidden = true
-        XCTAssertFalse(view.pbmIsVisible())
+        XCTAssertFalse(view.isVisible())
         
         view.isHidden = false
         view.alpha = 0
-        XCTAssertFalse(view.pbmIsVisible())
+        XCTAssertFalse(view.isVisible())
         
         view.alpha = 0.5
         view.frame = CGRect(origin: CGPoint(x: view.frame.origin.x - view.frame.size.width, y: view.frame.origin.y), size: view.frame.size);
-        XCTAssertFalse(view.pbmIsVisible())
+        XCTAssertFalse(view.isVisible())
         
         view.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: view.frame.size);
-        XCTAssertTrue(view.pbmIsVisible())
+        XCTAssertTrue(view.isVisible())
     }
     
     func testIsVisibleInView() {
@@ -60,20 +60,20 @@ class UIViewExtensionsTest: XCTestCase {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 80))
         root.addSubview(view)
         window.addSubview(root)
-        XCTAssertTrue(view.pbmIsVisible(inViewLegacy: view.superview))
+        XCTAssertTrue(view.isVisible(inViewLegacy: view.superview))
         
         //a visible view above the tested one
         let root2 = UIView(frame: CGRect(x: 10, y: 10, width: 240, height: 400))
         window.addSubview(root2)
-        XCTAssertFalse(view.pbmIsVisible(inViewLegacy: view.superview))
+        XCTAssertFalse(view.isVisible(inViewLegacy: view.superview))
         
         //the invisble above view
         root2.isHidden = true
-        XCTAssertTrue(view.pbmIsVisible(inViewLegacy: view.superview))
+        XCTAssertTrue(view.isVisible(inViewLegacy: view.superview))
         
         //the invisible above view but with a visible suvbiew
         root2.addSubview(UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200)))
-        XCTAssertFalse(view.pbmIsVisible(inViewLegacy: view.superview))
+        XCTAssertFalse(view.isVisible(inViewLegacy: view.superview))
     }
     
 }

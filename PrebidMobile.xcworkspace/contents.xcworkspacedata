@@ -11,9 +11,6 @@
       location = "group:Pods/../EventHandlers/EventHandlers.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:tools/PrebidValidator/Dr.Prebid.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:InternalTestApp/InternalTestApp.xcodeproj">
    </FileRef>
    <FileRef

@@ -38,6 +38,10 @@ class ExamplesViewController: UIViewController {
         tableView.delegate = self
         searchBar.delegate = self
         
+        if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String {
+            title = appName
+        }
+        
         displayedCases = testCases
         
         setupPickers()

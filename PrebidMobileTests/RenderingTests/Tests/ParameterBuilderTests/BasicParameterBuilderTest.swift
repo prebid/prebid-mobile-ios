@@ -66,7 +66,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         PBMAssertEq(imp.instl, 0)
         PBMAssertEq(imp.secure, 1)
-        PBMAssertEq(imp.clickbrowser, 0)
+        PBMAssertEq(imp.clickbrowser, 1)
         
         //Check banner
         guard let banner = imp.banner else {

@@ -194,8 +194,8 @@ class TestStringExtension: XCTestCase {
         XCTAssert(expected == actual, "expected \(expected), got \(actual)")
         
         //Regex "Not" With Group & Append
-        actual = "a href=\"foo.com\(PBMTrackingPattern.RI.rawValue)?key1=val1&key2=val2\"".PBMstringByReplacingRegex("\(PBMTrackingPattern.RI.rawValue)\\?([^'\"]+)", replaceWith:"\(PBMTrackingPattern.RI.rawValue)?$1&bar=baz")
-        expected = "a href=\"foo.com\(PBMTrackingPattern.RI.rawValue)?key1=val1&key2=val2&bar=baz\""
+        actual = "a href=\"foo.com\(PrebidConstants.TRACKING_PATTERN_RI)?key1=val1&key2=val2\"".PBMstringByReplacingRegex("\(PrebidConstants.TRACKING_PATTERN_RI)\\?([^'\"]+)", replaceWith:"\(PrebidConstants.TRACKING_PATTERN_RI)?$1&bar=baz")
+        expected = "a href=\"foo.com\(PrebidConstants.TRACKING_PATTERN_RI)?key1=val1&key2=val2&bar=baz\""
         XCTAssert(expected == actual, "expected \(expected), got \(actual)")
     }
     

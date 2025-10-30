@@ -92,7 +92,7 @@ class PBMORTBTest: XCTestCase {
     // MARK: - Prebid ext
     
     func testPrebidCacheBids() {
-        let bids = PBMORTBBidExtPrebidCacheBids()
+        let bids = ORTBBidExtPrebidCacheBids()
         
         bids.url = "prebid.devint.openx.net/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe"
         bids.cacheId = "32541b8f-5d49-446d-ae26-18629273a6fe"
@@ -101,8 +101,8 @@ class PBMORTBTest: XCTestCase {
     }
     
     func testPrebidCache() {
-        let cache = PBMORTBBidExtPrebidCache()
-        let bids = PBMORTBBidExtPrebidCacheBids()
+        let cache = ORTBBidExtPrebidCache()
+        let bids = ORTBBidExtPrebidCacheBids()
         
         bids.url = "prebid.devint.openx.net/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe"
         bids.cacheId = "32541b8f-5d49-446d-ae26-18629273a6fe"
@@ -115,9 +115,9 @@ class PBMORTBTest: XCTestCase {
     }
     
     func testBidExtPrebid() {
-        let prebid = PBMORTBBidExtPrebid()
-        let cache = PBMORTBBidExtPrebidCache()
-        let bids = PBMORTBBidExtPrebidCacheBids()
+        let prebid = ORTBBidExtPrebid()
+        let cache = ORTBBidExtPrebidCache()
+        let bids = ORTBBidExtPrebidCacheBids()
         
         bids.url = "prebid.devint.openx.net/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe"
         bids.cacheId = "32541b8f-5d49-446d-ae26-18629273a6fe"
@@ -140,9 +140,9 @@ class PBMORTBTest: XCTestCase {
     
     func testBidExt() {
         let ext = ORTBBidExt()
-        let prebid = PBMORTBBidExtPrebid()
-        let cache = PBMORTBBidExtPrebidCache()
-        let bids = PBMORTBBidExtPrebidCacheBids()
+        let prebid = ORTBBidExtPrebid()
+        let cache = ORTBBidExtPrebidCache()
+        let bids = ORTBBidExtPrebidCacheBids()
         
         bids.url = "prebid.devint.openx.net/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe"
         bids.cacheId = "32541b8f-5d49-446d-ae26-18629273a6fe"
@@ -187,11 +187,11 @@ class PBMORTBTest: XCTestCase {
         ]
         ext.tmaxrequest = 3000
         
-        let extPrebid = PBMORTBBidResponseExtPrebid()
+        let extPrebid = ORTBBidResponseExtPrebid()
         
-        let passthrough = PBMORTBExtPrebidPassthrough()
+        let passthrough = ORTBExtPrebidPassthrough()
         
-        let sdkConfiguration = PBMORTBSDKConfiguration()
+        let sdkConfiguration = ORTBSDKConfiguration()
         sdkConfiguration.cftBanner = 42
         sdkConfiguration.cftPreRender = 4242
         
@@ -227,16 +227,16 @@ class PBMORTBTest: XCTestCase {
     // MARK: - Prebid response
     
     func testPrebidResponse() {
-        let cacheBids = PBMORTBBidExtPrebidCacheBids()
+        let cacheBids = ORTBBidExtPrebidCacheBids()
         cacheBids.url = "prebid.devint.openx.net/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe"
         cacheBids.cacheId = "32541b8f-5d49-446d-ae26-18629273a6fe"
         
-        let cache = PBMORTBBidExtPrebidCache()
+        let cache = ORTBBidExtPrebidCache()
         cache.key = "kkk"
         cache.url = "some/url"
         cache.bids = cacheBids
         
-        let prebid = PBMORTBBidExtPrebid()
+        let prebid = ORTBBidExtPrebid()
         prebid.cache = cache
         prebid.targeting = [
             "hb_bidder": "openx",
@@ -304,27 +304,27 @@ class PBMORTBTest: XCTestCase {
     }
     
     func testRewardedResponse() {
-        let rewarded = PBMORTBRewardedConfiguration()
+        let rewarded = ORTBRewardedConfiguration()
         
-        rewarded.completion = PBMORTBRewardedCompletion()
+        rewarded.completion = ORTBRewardedCompletion()
         
-        rewarded.completion?.banner = PBMORTBRewardedCompletionBanner()
+        rewarded.completion?.banner = ORTBRewardedCompletionBanner()
         rewarded.completion?.banner?.time = 5
         rewarded.completion?.banner?.event = "rwdd"
         
-        rewarded.completion?.video = PBMORTBRewardedCompletionVideo()
+        rewarded.completion?.video = ORTBRewardedCompletionVideo()
         rewarded.completion?.video?.time = 5
         rewarded.completion?.video?.playbackevent = "complete"
         
-        rewarded.completion?.video?.endcard = PBMORTBRewardedCompletionVideoEndcard()
+        rewarded.completion?.video?.endcard = ORTBRewardedCompletionVideoEndcard()
         rewarded.completion?.video?.endcard?.time = 5
         rewarded.completion?.video?.endcard?.event = "rwdd"
         
-        rewarded.close = PBMORTBRewardedClose()
+        rewarded.close = ORTBRewardedClose()
         rewarded.close?.action = "closebutton"
         rewarded.close?.postrewardtime = 5
         
-        rewarded.reward = PBMORTBRewardedReward()
+        rewarded.reward = ORTBRewardedReward()
         rewarded.reward?.type = "coins"
         rewarded.reward?.count = 5
         

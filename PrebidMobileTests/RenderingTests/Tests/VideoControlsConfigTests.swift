@@ -29,7 +29,7 @@ class VideoControlsConfigTests: XCTestCase {
 
     func testCloseButtonArea() {
         let adConfiguration = VideoControlsConfiguration()
-        XCTAssertEqual(adConfiguration.closeButtonArea, PBMConstants.BUTTON_AREA_DEFAULT.doubleValue)
+        XCTAssertEqual(adConfiguration.closeButtonArea, PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue)
     }
     
     func testDefaultCloseButtonPosition() {
@@ -39,7 +39,7 @@ class VideoControlsConfigTests: XCTestCase {
     
     func testDefaultSkipButtonArea() {
         let adConfiguration = VideoControlsConfiguration()
-        XCTAssertEqual(adConfiguration.skipButtonArea, PBMConstants.BUTTON_AREA_DEFAULT.doubleValue)
+        XCTAssertEqual(adConfiguration.skipButtonArea, PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue)
     }
     
     func testDefaultSkipButtonPosition() {
@@ -49,13 +49,13 @@ class VideoControlsConfigTests: XCTestCase {
     
     func testDefaultSkipButtonDelay() {
         let adConfiguration = VideoControlsConfiguration()
-        XCTAssertEqual(adConfiguration.skipDelay, PBMConstants.SKIP_DELAY_DEFAULT.doubleValue)
+        XCTAssertEqual(adConfiguration.skipDelay, PrebidConstants.SKIP_DELAY_DEFAULT.doubleValue)
     }
     
     func testInitWithORTBAdConfiguration() {
         let adConfiguration = VideoControlsConfiguration()
         
-        let ortbAdConfig = PBMORTBAdConfiguration()
+        let ortbAdConfig = ORTBAdConfiguration()
         ortbAdConfig.isMuted = false
         ortbAdConfig.maxVideoDuration = 40
         ortbAdConfig.skipButtonArea = 0.3

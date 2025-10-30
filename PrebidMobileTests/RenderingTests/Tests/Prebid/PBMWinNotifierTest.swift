@@ -312,7 +312,7 @@ class PBMWinNotifierTest: XCTestCase {
         ortbBid.adm = adm
         ortbBid.nurl = nurl
         if let targeting = targeting {
-            let bidExtPrebid = PBMORTBBidExtPrebid()
+            let bidExtPrebid = ORTBBidExtPrebid()
             bidExtPrebid.targeting = targeting
             let bidExt = ORTBBidExt()
             bidExt.prebid = bidExtPrebid

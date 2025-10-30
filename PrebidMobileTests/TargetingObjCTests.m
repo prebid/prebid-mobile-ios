@@ -15,7 +15,7 @@ limitations under the License.
 
 #import <XCTest/XCTest.h>
 #import <CoreLocation/CoreLocation.h>
-#import "PrebidMobile/PrebidMobile.h"
+#import "SwiftImport.h"
 
 @interface TargetingObjCTests : XCTestCase
 
