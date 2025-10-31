@@ -788,6 +788,7 @@
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
+		A7CA57962EB40E9D002688F8 /* UserAgentPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CA57952EB40E9D002688F8 /* UserAgentPersistence.swift */; };
 		A908694229E05EAF00B37479 /* PrebidMobilePluginRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */; };
 		A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */; };
 		A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694529E05F7900B37479 /* PrebidRenderer.swift */; };
@@ -1668,6 +1669,7 @@
 		97826AA621FB4F1B001E2C05 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9791778F2201AF4700E624CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		979177962201AF5F00E624CE /* DispatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatcherTests.swift; sourceTree = "<group>"; };
+		A7CA57952EB40E9D002688F8 /* UserAgentPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentPersistence.swift; sourceTree = "<group>"; };
 		A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRegister.swift; sourceTree = "<group>"; };
 		A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRenderer.swift; sourceTree = "<group>"; };
 		A908694529E05F7900B37479 /* PrebidRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRenderer.swift; sourceTree = "<group>"; };
@@ -2356,6 +2358,7 @@
 		5AF5EA4F2E13580F002D80C1 /* PrivateHeaders */ = {
 			isa = PBXGroup;
 			children = (
+				A7CA57952EB40E9D002688F8 /* UserAgentPersistence.swift */,
 				5AF5E9B72E13580F002D80C1 /* InternalUserConsentDataManager.h */,
 				5AF5E9B82E13580F002D80C1 /* Log+Extensions.h */,
 				5AF5E9B92E13580F002D80C1 /* NSDictionary+PBMExtensions.h */,
@@ -4405,6 +4408,7 @@
 				5AF5EB412E13580F002D80C1 /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m in Sources */,
 				5AF5EB422E13580F002D80C1 /* PBMModalState.m in Sources */,
 				5AF5EB432E13580F002D80C1 /* PBMORTBFormat.m in Sources */,
+				A7CA57962EB40E9D002688F8 /* UserAgentPersistence.swift in Sources */,
 				5AF5EB442E13580F002D80C1 /* PBMORTBAbstract.m in Sources */,
 				5AF5EB452E13580F002D80C1 /* PBMDeepLinkPlusHelper.m in Sources */,
 				5AF5EB462E13580F002D80C1 /* PBMORTBDeviceExtAtts.m in Sources */,
