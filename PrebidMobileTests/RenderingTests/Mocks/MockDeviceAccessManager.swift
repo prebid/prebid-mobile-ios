@@ -83,6 +83,12 @@ class MockDeviceAccessManager: DeviceAccessManager {
         return CGSize(width: 100, height: 200)
     }
     
+    override func screenSizeInPixels() -> CGSize {
+        let scale = UIScreen.main.scale
+        let size = screenSize()
+        return CGSize(width: size.width * scale, height: size.height * scale)
+    }
+    
     class func reset() {
         self.mockAdvertisingTrackingEnabled = advertisingTrackingEnabledDefault
         self.mockUserLanguageCode = defaultUserLanguageCode

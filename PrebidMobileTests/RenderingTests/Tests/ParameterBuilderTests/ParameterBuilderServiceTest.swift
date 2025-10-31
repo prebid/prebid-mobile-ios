@@ -108,8 +108,8 @@ class ParameterBuilderServiceTest : XCTestCase {
         PBMAssertEq(bidRequest.app.publisher?.name, publisherName)
         
         //Verify DeviceInfoParameterBuilder
-        PBMAssertEq(bidRequest.device.w!.intValue, Int(mockDeviceAccessManager.screenSize().width))
-        PBMAssertEq(bidRequest.device.h!.intValue, Int(mockDeviceAccessManager.screenSize().height))
+        PBMAssertEq(bidRequest.device.w!.intValue, Int(mockDeviceAccessManager.screenSizeInPixels().width))
+        PBMAssertEq(bidRequest.device.h!.intValue, Int(mockDeviceAccessManager.screenSizeInPixels().height))
         PBMAssertEq(bidRequest.device.ifa, MockDeviceAccessManager.mockAdvertisingIdentifier)
         PBMAssertEq(bidRequest.device.lmt, 0)
         PBMAssertEq(bidRequest.device.hwv, mockDeviceAccessManager.platformString)
@@ -153,7 +153,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         }
         
         let expectedOrtb = """
-        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"keywords\":\"appKeyword1,appKeyword2\",\"name\":\"MockBundleDisplayName\",\"publisher\":{\"name\":\"Publisher\"},\"storeurl\":\"https:\\/\\/openx.com\"},\"device\":{\(carrier)\"connectiontype\":2,\(deviceExt)\"geo\":{\"lat\":34.149335,\"lon\":-118.1328249,\"type\":1},\"h\":200,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\(mccmnc)\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":100},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":1,\"ext\":{\"gdpr\":0}},\"user\":{\"ext\":{\"consent\":\"consentstring\"},\"keywords\":\"keyword1,keyword2\"}}
+        {\"app\":{\"bundle\":\"Mock.Bundle.Identifier\",\"keywords\":\"appKeyword1,appKeyword2\",\"name\":\"MockBundleDisplayName\",\"publisher\":{\"name\":\"Publisher\"},\"storeurl\":\"https:\\/\\/openx.com\"},\"device\":{\(carrier)\"connectiontype\":2,\(deviceExt)\"geo\":{\"lat\":34.149335,\"lon\":-118.1328249,\"type\":1},\"h\":600,\"hwv\":\"iPhone1,1\",\"ifa\":\"abc123\",\"language\":\"ml\",\"lmt\":0,\"make\":\"MockMake\",\(mccmnc)\"model\":\"MockModel\",\"os\":\"MockOS\",\"osv\":\"1.2.3\",\"w\":300},\"imp\":[{\"clickbrowser\":1,\"displaymanager\":\"prebid-mobile\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":1}],\"regs\":{\"coppa\":1,\"ext\":{\"gdpr\":0}},\"user\":{\"ext\":{\"consent\":\"consentstring\"},\"keywords\":\"keyword1,keyword2\"}}
         """
         PBMAssertEq(strORTB, expectedOrtb)
     }
