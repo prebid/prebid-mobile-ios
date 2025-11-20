@@ -14,7 +14,7 @@
  */
 
 #import "PBMInterstitialLayoutConfigurator.h"
-
+#import <UIKit/UIKit.h>
 #import "SwiftImport.h"
 
 @implementation PBMInterstitialLayoutConfigurator

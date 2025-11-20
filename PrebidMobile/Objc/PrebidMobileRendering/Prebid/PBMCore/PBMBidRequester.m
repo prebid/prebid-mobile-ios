@@ -18,7 +18,7 @@
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMParameterBuilderService.h"
 #import "Log+Extensions.h"
-
+#import <UIKit/UIKit.h>
 #import "SwiftImport.h"
 
 #import "PBMMacros.h"
