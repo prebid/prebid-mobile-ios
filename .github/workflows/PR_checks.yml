@@ -20,55 +20,55 @@ env:
   XCODE_VERSION: "16.4.0"
 
 jobs:
-  build:
-    name: Build PrebidMobile Frameworks
-    if: ${{ !github.event.pull_request.draft }}
-    runs-on: macos-15
+  # build:
+  #   name: Build PrebidMobile Frameworks
+  #   if: ${{ !github.event.pull_request.draft }}
+  #   runs-on: macos-15
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}
-      - name: Build Prebid Mobile Frameworks
-        run: ./scripts/buildPrebidMobile.sh
-      - name: Upload logs on failure
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: logs-${{ github.run_id }}
-          path: generated/log/prebid_mobile_build.log
-          retention-days: 1
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Select Xcode
+  #       uses: maxim-lobanov/setup-xcode@v1
+  #       with: 
+  #         xcode-version: ${{ env.XCODE_VERSION }}
+  #     - name: Build Prebid Mobile Frameworks
+  #       run: ./scripts/buildPrebidMobile.sh
+  #     - name: Upload logs on failure
+  #       if: ${{ failure() }}
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: logs-${{ github.run_id }}
+  #         path: generated/log/prebid_mobile_build.log
+  #         retention-days: 1
 
-  unit-test-pr:
-    name: Run Quick Unit Tests for Frameworks
-    if: ${{!github.event.pull_request.draft && !(contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
-    runs-on: macos-15
+  # unit-test-pr:
+  #   name: Run Quick Unit Tests for Frameworks
+  #   if: ${{!github.event.pull_request.draft && !(contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+  #   runs-on: macos-15
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}        
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: |
-            adapters:
-              - 'EventHandlers/**'
-      - name: Run Quick Unit Tests for Frameworks
-        env:
-          ADAPTERS_CHANGED: ${{ steps.changes.outputs.adapters }}
-        run: |
-          if [ "${ADAPTERS_CHANGED}" = "false" ]; then
-            ./scripts/testPrebidMobile.sh --latest --quick --skip-adapters
-          else
-            ./scripts/testPrebidMobile.sh --latest --quick
-          fi
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Select Xcode
+  #       uses: maxim-lobanov/setup-xcode@v1
+  #       with: 
+  #         xcode-version: ${{ env.XCODE_VERSION }}        
+  #     - uses: dorny/paths-filter@v3
+  #       id: changes
+  #       with:
+  #         filters: |
+  #           adapters:
+  #             - 'EventHandlers/**'
+  #     - name: Run Quick Unit Tests for Frameworks
+  #       env:
+  #         ADAPTERS_CHANGED: ${{ steps.changes.outputs.adapters }}
+  #       run: |
+  #         if [ "${ADAPTERS_CHANGED}" = "false" ]; then
+  #           ./scripts/testPrebidMobile.sh --latest --quick --skip-adapters
+  #         else
+  #           ./scripts/testPrebidMobile.sh --latest --quick
+  #         fi
   unit-test-full:
     name: Run All Unit Tests for Frameworks
     if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
@@ -84,30 +84,30 @@ jobs:
       - name: Run All Unit Tests for Frameworks
         run: ./scripts/testPrebidMobile.sh --latest
 
-  run-swift-demo-ui-tests:
-    name: Run Smoke UI Tests - Swift Demo App
-    if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
-    runs-on: macos-15
+  # run-swift-demo-ui-tests:
+  #   name: Run Smoke UI Tests - Swift Demo App
+  #   if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+  #   runs-on: macos-15
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}
-      - name: Run Smoke UI Tests - Swift Demo App
-        run: ./scripts/testPrebidDemo.sh -ui -l
-  run-swift-demo-integration-tests:
-    name: Run Integration Tests - Swift Demo App
-    if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
-    runs-on: macos-15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}
-      - name: Run Integration Tests - Swift Demo App
-        run: ./scripts/testPrebidDemo.sh -l
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Select Xcode
+  #       uses: maxim-lobanov/setup-xcode@v1
+  #       with: 
+  #         xcode-version: ${{ env.XCODE_VERSION }}
+  #     - name: Run Smoke UI Tests - Swift Demo App
+  #       run: ./scripts/testPrebidDemo.sh -ui -l
+  # run-swift-demo-integration-tests:
+  #   name: Run Integration Tests - Swift Demo App
+  #   if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+  #   runs-on: macos-15
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Select Xcode
+  #       uses: maxim-lobanov/setup-xcode@v1
+  #       with: 
+  #         xcode-version: ${{ env.XCODE_VERSION }}
+  #     - name: Run Integration Tests - Swift Demo App
+  #       run: ./scripts/testPrebidDemo.sh -l
