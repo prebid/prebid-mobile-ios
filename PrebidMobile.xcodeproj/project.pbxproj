@@ -214,6 +214,8 @@
 		5A423CA82DBA4EA7008EE9EA /* ORTBRewardedCompletionVideoEndcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CA72DBA4EA7008EE9EA /* ORTBRewardedCompletionVideoEndcard.swift */; };
 		5A423CAA2DBA50BC008EE9EA /* MRAIDState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CA92DBA50BC008EE9EA /* MRAIDState.swift */; };
 		5A423CB62DBA5A3B008EE9EA /* ORTBSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CB52DBA5A3B008EE9EA /* ORTBSDKConfiguration.swift */; };
+		5A46A9682E99C640006780B1 /* CustomModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46A9672E99C640006780B1 /* CustomModelObject.swift */; };
+		5A46A96A2E99C9BC006780B1 /* TestCustomModelObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46A9692E99C9BC006780B1 /* TestCustomModelObjects.swift */; };
 		5A51D94B2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */; };
 		5A51D94D2DB986CC00DD450F /* AdLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94C2DB986CC00DD450F /* AdLoaderProtocol.swift */; };
 		5A51D94F2DB987EE00DD450F /* AdLoaderFlowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94E2DB987EE00DD450F /* AdLoaderFlowDelegate.swift */; };
@@ -225,7 +227,7 @@
 		5A6167F52DB9F73D0018E6B6 /* ORTBBidResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167F42DB9F73D0018E6B6 /* ORTBBidResponse.swift */; };
 		5A6167F72DB9FCAB0018E6B6 /* ORTBSeatBid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167F62DB9FCAB0018E6B6 /* ORTBSeatBid.swift */; };
 		5A6167F92DBA06470018E6B6 /* ORTBBidExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167F82DBA06470018E6B6 /* ORTBBidExt.swift */; };
-		5A6167FB2DBA072D0018E6B6 /* PBMORTBExtensible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167FA2DBA072D0018E6B6 /* PBMORTBExtensible.swift */; };
+		5A6167FB2DBA072D0018E6B6 /* ORTBExtensible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167FA2DBA072D0018E6B6 /* ORTBExtensible.swift */; };
 		5A6167FD2DBA0B1F0018E6B6 /* ORTBBidResponseExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167FC2DBA0B1F0018E6B6 /* ORTBBidResponseExt.swift */; };
 		5A663B552DB26890005DF07F /* BidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B542DB26890005DF07F /* BidRequester.swift */; };
 		5A663B582DB30DA6005DF07F /* WinNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B572DB30DA6005DF07F /* WinNotifier.swift */; };
@@ -1071,6 +1073,8 @@
 		5A423CA92DBA50BC008EE9EA /* MRAIDState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRAIDState.swift; sourceTree = "<group>"; };
 		5A423CB32DBA5934008EE9EA /* ORTBSkadnFidelity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBSkadnFidelity.swift; sourceTree = "<group>"; };
 		5A423CB52DBA5A3B008EE9EA /* ORTBSDKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBSDKConfiguration.swift; sourceTree = "<group>"; };
+		5A46A9672E99C640006780B1 /* CustomModelObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModelObject.swift; sourceTree = "<group>"; };
+		5A46A9692E99C9BC006780B1 /* TestCustomModelObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCustomModelObjects.swift; sourceTree = "<group>"; };
 		5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileDisplayViewProtocol.swift; sourceTree = "<group>"; };
 		5A51D94C2DB986CC00DD450F /* AdLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderProtocol.swift; sourceTree = "<group>"; };
 		5A51D94E2DB987EE00DD450F /* AdLoaderFlowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderFlowDelegate.swift; sourceTree = "<group>"; };
@@ -1082,7 +1086,7 @@
 		5A6167F42DB9F73D0018E6B6 /* ORTBBidResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidResponse.swift; sourceTree = "<group>"; };
 		5A6167F62DB9FCAB0018E6B6 /* ORTBSeatBid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBSeatBid.swift; sourceTree = "<group>"; };
 		5A6167F82DBA06470018E6B6 /* ORTBBidExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidExt.swift; sourceTree = "<group>"; };
-		5A6167FA2DBA072D0018E6B6 /* PBMORTBExtensible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMORTBExtensible.swift; sourceTree = "<group>"; };
+		5A6167FA2DBA072D0018E6B6 /* ORTBExtensible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBExtensible.swift; sourceTree = "<group>"; };
 		5A6167FC2DBA0B1F0018E6B6 /* ORTBBidResponseExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidResponseExt.swift; sourceTree = "<group>"; };
 		5A663B542DB26890005DF07F /* BidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidRequester.swift; sourceTree = "<group>"; };
 		5A663B572DB30DA6005DF07F /* WinNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinNotifier.swift; sourceTree = "<group>"; };
@@ -2781,12 +2785,13 @@
 		5BC3780F271F1CFF00444D5E /* ORTB */ = {
 			isa = PBXGroup;
 			children = (
-				5A6167F42DB9F73D0018E6B6 /* ORTBBidResponse.swift */,
-				5A6167EE2DB9E2710018E6B6 /* ORTBBid.swift */,
-				5A6167FA2DBA072D0018E6B6 /* PBMORTBExtensible.swift */,
 				5BC37814271F1CFF00444D5E /* Prebid */,
+				5A6167EE2DB9E2710018E6B6 /* ORTBBid.swift */,
+				5A6167F42DB9F73D0018E6B6 /* ORTBBidResponse.swift */,
+				5A6167FA2DBA072D0018E6B6 /* ORTBExtensible.swift */,
 				0012D6C42E058BF9007013F3 /* ORTBNoBidReason.swift */,
 				5A6167F62DB9FCAB0018E6B6 /* ORTBSeatBid.swift */,
+				5A46A9672E99C640006780B1 /* CustomModelObject.swift */,
 			);
 			path = ORTB;
 			sourceTree = "<group>";
@@ -3558,6 +3563,7 @@
 				606FAC2521FFB20A008EAE5E /* TargetingTests.swift */,
 				FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */,
 				FAA2990724322962002ACBF2 /* PrebidObjcTests.m */,
+				5A46A9692E99C9BC006780B1 /* TestCustomModelObjects.swift */,
 				FA4A88432497A99D00FDCBB6 /* Swizzling.swift */,
 				5351EECF2D4CC0DD007E5C6D /* StorageUtilsTests.swift */,
 				606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */,
@@ -3976,6 +3982,7 @@
 				5AE4E5D22DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift in Sources */,
 				922AFD4B27372A0500732C53 /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
+				5A46A96A2E99C9BC006780B1 /* TestCustomModelObjects.swift in Sources */,
 				5ABAA1732D3ADE0000FDD38A /* SharedIdTests.swift in Sources */,
 				5A197FC12D810CC3002A51F2 /* ResponseParsingTests.swift in Sources */,
 				922AFCE12735424F00732C53 /* PBMAssert.swift in Sources */,
@@ -4236,7 +4243,7 @@
 				9298652528058CEB007A2F34 /* MediationNativeUtils.swift in Sources */,
 				5BC378AD271F1CFF00444D5E /* Targeting.swift in Sources */,
 				0012D73B2E086E33007013F3 /* ORTBContentProducer.swift in Sources */,
-				5A6167FB2DBA072D0018E6B6 /* PBMORTBExtensible.swift in Sources */,
+				5A6167FB2DBA072D0018E6B6 /* ORTBExtensible.swift in Sources */,
 				923B55002744F19600E00C88 /* PrebidMediationDelegate.swift in Sources */,
 				A908694229E05EAF00B37479 /* PrebidMobilePluginRegister.swift in Sources */,
 				FAEE4D1D262DC2B200AD9966 /* BannerAdUnit.swift in Sources */,
@@ -4515,6 +4522,7 @@
 				5BC37A89271F1D0000444D5E /* RewardedEventInteractionDelegate.swift in Sources */,
 				9290549227A417F00091D10D /* ImageHelper.swift in Sources */,
 				9247FEFE2808175E00ACD84A /* VideoControlsConfiguration.swift in Sources */,
+				5A46A9682E99C640006780B1 /* CustomModelObject.swift in Sources */,
 				005425012E5487E10051B28D /* BannerVideoPlaybackDelegate.swift in Sources */,
 				53A434782CDABE7900CB381B /* BannerViewImpressionTracker.swift in Sources */,
 				FAEE4D17262DC2B200AD9966 /* NativeRequest.swift in Sources */,
