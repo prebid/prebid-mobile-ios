@@ -401,22 +401,24 @@ public class BannerView:
     private func installDeployedViewConstraints(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        addConstraints([
-            NSLayoutConstraint(item: self,
-                               attribute: .width,
-                               relatedBy: .equal,
-                               toItem: view,
-                               attribute: .width,
-                               multiplier: 1,
-                               constant: 0),
-            
-            NSLayoutConstraint(item: self,
-                               attribute: .height,
-                               relatedBy: .equal,
-                               toItem: view,
-                               attribute: .height,
-                               multiplier: 1, constant: 0)
-        ])
+        // Fill to parent, instead of shrink to child
+        // This fixes an issue for GAM where if incorrect width/height is set on parent,
+        // the ad would fail to render. By enforcing ad size in GAMBannerEventHandler and
+        // setting BannerView to fill to parent, ad will always center-in-view and render.
+        if let superview = view.superview {
+            let widthConstraint = view.widthAnchor.constraint(equalTo: superview.widthAnchor)
+            let heightConstraint = view.heightAnchor.constraint(equalTo: superview.heightAnchor)
+            widthConstraint.priority = .defaultHigh
+            heightConstraint.priority = .defaultHigh
+            NSLayoutConstraint.activate([widthConstraint, heightConstraint])
+        }
+
+        // Fix ambiguous layout warning by adding missing constraints
+        let centerX = view.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        let centerY = view.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        centerX.priority = .defaultHigh
+        centerY.priority = .defaultHigh
+        NSLayoutConstraint.activate([centerX, centerY])
     }
 }
 

@@ -242,6 +242,10 @@ public class GAMBannerEventHandler :
         
         if let banner = banner,
            let adSize = dfpAdSize {
+            // Enforce size constraints on banner. Ad will not render without correct constraints.
+            banner.banner.widthAnchor.constraint(equalToConstant: adSize.width).isActive = true
+            banner.banner.heightAnchor.constraint(equalToConstant: adSize.height).isActive = true
+            
             loadingDelegate?.adServerDidWin(banner.banner, adSize: adSize)
         }
     }
