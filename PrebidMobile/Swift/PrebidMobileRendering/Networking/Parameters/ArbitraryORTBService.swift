@@ -15,6 +15,8 @@
 
 import UIKit
 
+fileprivate typealias StringAnyDict = [String: Any]
+
 @objc(PBMArbitraryORTBService) @objcMembers
 public class ArbitraryORTBService: NSObject {
     
@@ -25,13 +27,14 @@ public class ArbitraryORTBService: NSObject {
     public static func merge(
         sdkORTB: [String: Any],
         impORTB: String?,
+        globalAdUnitORTB: String?,
         globalORTB: String?
     ) -> [String: Any] {
         var resultORTB = sdkORTB
-        var resultImp = resultORTB["imp"] as? [[String: Any]]
+        var resultImp = resultORTB["imp"] as? [StringAnyDict]
         
         if let impORTB,
-           let impORTBDict = ArbitraryImpORTBHelper(ortb: impORTB).getValidatedORTBDict() {
+           let impORTBDict = ArbitraryORTBHelper(ortb: impORTB).getValidatedORTBDict() {
             // Imp objects from imp configuration should be merged to existing imp objects.
             resultImp = resultImp?.map { $0.deepMerging(with: impORTBDict) } ?? [impORTBDict]
         }
@@ -41,7 +44,17 @@ public class ArbitraryORTBService: NSObject {
             resultORTB = resultORTB.deepMerging(with: globalORTBDict)
             
             // Imp objects from global configuration should be appended to existing array.
-            if let globalImps = globalORTBDict["imp"] as? [[String: Any]] {
+            if let globalImps = globalORTBDict["imp"] as? [StringAnyDict] {
+                resultImp = (resultImp ?? []) + globalImps
+            }
+        }
+        
+        if let globalAdUnitORTB,
+           let globalAdUnitORTBDict = ArbitraryGlobalORTBHelper(ortb: globalAdUnitORTB).getValidatedORTBDict() {
+            resultORTB = resultORTB.deepMerging(with: globalAdUnitORTBDict)
+            
+            // Imp objects from global ad unit configuration should be appended to existing array.
+            if let globalImps = globalAdUnitORTBDict["imp"] as? [StringAnyDict] {
                 resultImp = (resultImp ?? []) + globalImps
             }
         }

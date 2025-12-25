@@ -27,13 +27,15 @@
 		0012D7AB2E0C540C007013F3 /* OMSessionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7AA2E0C540C007013F3 /* OMSessionWrapper.swift */; };
 		0012D7B32E0D67A7007013F3 /* OMSDKVersionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7B22E0D67A7007013F3 /* OMSDKVersionProvider.swift */; };
 		0012D7D52E0E97C9007013F3 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012D7D42E0E97C9007013F3 /* Functions.swift */; };
+		00334CA82D55EFED00770E4C /* PrebidMobilePRTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 00334CA72D55EFED00770E4C /* PrebidMobilePRTests.xctestplan */; };
+		005425012E5487E10051B28D /* BannerVideoPlaybackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005425002E5487E10051B28D /* BannerVideoPlaybackDelegate.swift */; };
+		005425032E548A7B0051B28D /* DisplayViewVideoPlaybackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005425022E548A7B0051B28D /* DisplayViewVideoPlaybackDelegate.swift */; };
 		00614C4D2DE5F68A00A61974 /* ModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C4C2DE5F68600A61974 /* ModalAnimator.swift */; };
 		00614C5A2DE6FFE800A61974 /* CloseActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C592DE6FFE800A61974 /* CloseActionManager.swift */; };
 		00614C892DE7B5D900A61974 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C882DE7B5D900A61974 /* WebView.swift */; };
 		00614C902DE87D6A00A61974 /* AdLoaderFlowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C8F2DE87D6900A61974 /* AdLoaderFlowDelegate.swift */; };
 		00614C922DE87D9300A61974 /* AdLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C912DE87D9100A61974 /* AdLoaderProtocol.swift */; };
 		00CD459A2DE9C7E4009D1EEA /* AdLoadFlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD45992DE9C7E1009D1EEA /* AdLoadFlowState.swift */; };
-		00334CA82D55EFED00770E4C /* PrebidMobilePRTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 00334CA72D55EFED00770E4C /* PrebidMobilePRTests.xctestplan */; };
 		2A9DDDCC2C5BE190000EA4A0 /* PrebidEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */; };
 		2A9DDDD42C63665A000EA4A0 /* PBMEventDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */; };
 		2A9DDDD82C63A88C000EA4A0 /* PrebidEventDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */; };
@@ -212,6 +214,8 @@
 		5A423CA82DBA4EA7008EE9EA /* ORTBRewardedCompletionVideoEndcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CA72DBA4EA7008EE9EA /* ORTBRewardedCompletionVideoEndcard.swift */; };
 		5A423CAA2DBA50BC008EE9EA /* MRAIDState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CA92DBA50BC008EE9EA /* MRAIDState.swift */; };
 		5A423CB62DBA5A3B008EE9EA /* ORTBSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A423CB52DBA5A3B008EE9EA /* ORTBSDKConfiguration.swift */; };
+		5A46A9682E99C640006780B1 /* CustomModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46A9672E99C640006780B1 /* CustomModelObject.swift */; };
+		5A46A96A2E99C9BC006780B1 /* TestCustomModelObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46A9692E99C9BC006780B1 /* TestCustomModelObjects.swift */; };
 		5A51D94B2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */; };
 		5A51D94D2DB986CC00DD450F /* AdLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94C2DB986CC00DD450F /* AdLoaderProtocol.swift */; };
 		5A51D94F2DB987EE00DD450F /* AdLoaderFlowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51D94E2DB987EE00DD450F /* AdLoaderFlowDelegate.swift */; };
@@ -223,7 +227,7 @@
 		5A6167F52DB9F73D0018E6B6 /* ORTBBidResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167F42DB9F73D0018E6B6 /* ORTBBidResponse.swift */; };
 		5A6167F72DB9FCAB0018E6B6 /* ORTBSeatBid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167F62DB9FCAB0018E6B6 /* ORTBSeatBid.swift */; };
 		5A6167F92DBA06470018E6B6 /* ORTBBidExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167F82DBA06470018E6B6 /* ORTBBidExt.swift */; };
-		5A6167FB2DBA072D0018E6B6 /* PBMORTBExtensible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167FA2DBA072D0018E6B6 /* PBMORTBExtensible.swift */; };
+		5A6167FB2DBA072D0018E6B6 /* ORTBExtensible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167FA2DBA072D0018E6B6 /* ORTBExtensible.swift */; };
 		5A6167FD2DBA0B1F0018E6B6 /* ORTBBidResponseExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6167FC2DBA0B1F0018E6B6 /* ORTBBidResponseExt.swift */; };
 		5A663B552DB26890005DF07F /* BidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B542DB26890005DF07F /* BidRequester.swift */; };
 		5A663B582DB30DA6005DF07F /* WinNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A663B572DB30DA6005DF07F /* WinNotifier.swift */; };
@@ -789,6 +793,7 @@
 		A908694229E05EAF00B37479 /* PrebidMobilePluginRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */; };
 		A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */; };
 		A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694529E05F7900B37479 /* PrebidRenderer.swift */; };
+		E557D4B72ED219CB00E5580A /* UserAgentPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E557D4B62ED219CB00E5580A /* UserAgentPersistence.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
 		FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */; };
@@ -875,14 +880,16 @@
 		0012D7AA2E0C540C007013F3 /* OMSessionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMSessionWrapper.swift; sourceTree = "<group>"; };
 		0012D7B22E0D67A7007013F3 /* OMSDKVersionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMSDKVersionProvider.swift; sourceTree = "<group>"; };
 		0012D7D42E0E97C9007013F3 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		00334CA62D55EFB600770E4C /* PrebidMobileTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PrebidMobileTests.xctestplan; sourceTree = "<group>"; };
+		00334CA72D55EFED00770E4C /* PrebidMobilePRTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PrebidMobilePRTests.xctestplan; sourceTree = "<group>"; };
+		005425002E5487E10051B28D /* BannerVideoPlaybackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerVideoPlaybackDelegate.swift; sourceTree = "<group>"; };
+		005425022E548A7B0051B28D /* DisplayViewVideoPlaybackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayViewVideoPlaybackDelegate.swift; sourceTree = "<group>"; };
 		00614C4C2DE5F68600A61974 /* ModalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAnimator.swift; sourceTree = "<group>"; };
 		00614C592DE6FFE800A61974 /* CloseActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseActionManager.swift; sourceTree = "<group>"; };
 		00614C882DE7B5D900A61974 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		00614C8F2DE87D6900A61974 /* AdLoaderFlowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderFlowDelegate.swift; sourceTree = "<group>"; };
 		00614C912DE87D9100A61974 /* AdLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderProtocol.swift; sourceTree = "<group>"; };
 		00CD45992DE9C7E1009D1EEA /* AdLoadFlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoadFlowState.swift; sourceTree = "<group>"; };
-		00334CA62D55EFB600770E4C /* PrebidMobileTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PrebidMobileTests.xctestplan; sourceTree = "<group>"; };
-		00334CA72D55EFED00770E4C /* PrebidMobilePRTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PrebidMobilePRTests.xctestplan; sourceTree = "<group>"; };
 		2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegate.swift; sourceTree = "<group>"; };
 		2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMEventDelegateHelper.swift; sourceTree = "<group>"; };
 		2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegateTests.swift; sourceTree = "<group>"; };
@@ -1066,6 +1073,8 @@
 		5A423CA92DBA50BC008EE9EA /* MRAIDState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRAIDState.swift; sourceTree = "<group>"; };
 		5A423CB32DBA5934008EE9EA /* ORTBSkadnFidelity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBSkadnFidelity.swift; sourceTree = "<group>"; };
 		5A423CB52DBA5A3B008EE9EA /* ORTBSDKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBSDKConfiguration.swift; sourceTree = "<group>"; };
+		5A46A9672E99C640006780B1 /* CustomModelObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModelObject.swift; sourceTree = "<group>"; };
+		5A46A9692E99C9BC006780B1 /* TestCustomModelObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCustomModelObjects.swift; sourceTree = "<group>"; };
 		5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileDisplayViewProtocol.swift; sourceTree = "<group>"; };
 		5A51D94C2DB986CC00DD450F /* AdLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderProtocol.swift; sourceTree = "<group>"; };
 		5A51D94E2DB987EE00DD450F /* AdLoaderFlowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdLoaderFlowDelegate.swift; sourceTree = "<group>"; };
@@ -1077,7 +1086,7 @@
 		5A6167F42DB9F73D0018E6B6 /* ORTBBidResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidResponse.swift; sourceTree = "<group>"; };
 		5A6167F62DB9FCAB0018E6B6 /* ORTBSeatBid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBSeatBid.swift; sourceTree = "<group>"; };
 		5A6167F82DBA06470018E6B6 /* ORTBBidExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidExt.swift; sourceTree = "<group>"; };
-		5A6167FA2DBA072D0018E6B6 /* PBMORTBExtensible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMORTBExtensible.swift; sourceTree = "<group>"; };
+		5A6167FA2DBA072D0018E6B6 /* ORTBExtensible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBExtensible.swift; sourceTree = "<group>"; };
 		5A6167FC2DBA0B1F0018E6B6 /* ORTBBidResponseExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBBidResponseExt.swift; sourceTree = "<group>"; };
 		5A663B542DB26890005DF07F /* BidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidRequester.swift; sourceTree = "<group>"; };
 		5A663B572DB30DA6005DF07F /* WinNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinNotifier.swift; sourceTree = "<group>"; };
@@ -1667,6 +1676,7 @@
 		A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRegister.swift; sourceTree = "<group>"; };
 		A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRenderer.swift; sourceTree = "<group>"; };
 		A908694529E05F7900B37479 /* PrebidRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRenderer.swift; sourceTree = "<group>"; };
+		E557D4B62ED219CB00E5580A /* UserAgentPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentPersistence.swift; sourceTree = "<group>"; };
 		F9F0999C2C78CC8A007DB464 /* SDKConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConsoleLogger.swift; sourceTree = "<group>"; };
 		FA4A88432497A99D00FDCBB6 /* Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzling.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
@@ -2600,6 +2610,7 @@
 				537B651D2833A3DA008AE9D1 /* Reachability.swift */,
 				537B653F2833C091008AE9D1 /* NetworkType.swift */,
 				5347473A2BFB4D3D00966658 /* UserAgentService.swift */,
+				E557D4B62ED219CB00E5580A /* UserAgentPersistence.swift */,
 				534C61412CB55D980026119A /* BackgroundAwareTimer.swift */,
 				538704222DE05847006EA150 /* LocationManager.swift */,
 				538704292DE0848D006EA150 /* LocationManagerProtocol.swift */,
@@ -2738,6 +2749,7 @@
 			isa = PBXGroup;
 			children = (
 				0012D7892E0BFABF007013F3 /* DisplayView.swift */,
+				005425022E548A7B0051B28D /* DisplayViewVideoPlaybackDelegate.swift */,
 				A908694529E05F7900B37479 /* PrebidRenderer.swift */,
 				5A51D94A2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift */,
 				5BC3778F271F1CFE00444D5E /* DisplayViewLoadingDelegate.swift */,
@@ -2773,12 +2785,13 @@
 		5BC3780F271F1CFF00444D5E /* ORTB */ = {
 			isa = PBXGroup;
 			children = (
-				5A6167F42DB9F73D0018E6B6 /* ORTBBidResponse.swift */,
-				5A6167EE2DB9E2710018E6B6 /* ORTBBid.swift */,
-				5A6167FA2DBA072D0018E6B6 /* PBMORTBExtensible.swift */,
 				5BC37814271F1CFF00444D5E /* Prebid */,
+				5A6167EE2DB9E2710018E6B6 /* ORTBBid.swift */,
+				5A6167F42DB9F73D0018E6B6 /* ORTBBidResponse.swift */,
+				5A6167FA2DBA072D0018E6B6 /* ORTBExtensible.swift */,
 				0012D6C42E058BF9007013F3 /* ORTBNoBidReason.swift */,
 				5A6167F62DB9FCAB0018E6B6 /* ORTBSeatBid.swift */,
+				5A46A9672E99C640006780B1 /* CustomModelObject.swift */,
 			);
 			path = ORTB;
 			sourceTree = "<group>";
@@ -2836,6 +2849,7 @@
 				5BC37848271F1CFF00444D5E /* BannerEventInteractionDelegate.swift */,
 				5BC37842271F1CFF00444D5E /* BannerEventLoadingDelegate.swift */,
 				5BC37843271F1CFF00444D5E /* BannerView.swift */,
+				005425002E5487E10051B28D /* BannerVideoPlaybackDelegate.swift */,
 				5BC37847271F1CFF00444D5E /* BannerViewDelegate.swift */,
 				53A447CE2CAEA65A008DE6C0 /* BaseInterstitialAdUnit.swift */,
 				5BC37849271F1CFF00444D5E /* BaseInterstitialAdUnitProtocol.swift */,
@@ -3549,6 +3563,7 @@
 				606FAC2521FFB20A008EAE5E /* TargetingTests.swift */,
 				FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */,
 				FAA2990724322962002ACBF2 /* PrebidObjcTests.m */,
+				5A46A9692E99C9BC006780B1 /* TestCustomModelObjects.swift */,
 				FA4A88432497A99D00FDCBB6 /* Swizzling.swift */,
 				5351EECF2D4CC0DD007E5C6D /* StorageUtilsTests.swift */,
 				606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */,
@@ -3967,6 +3982,7 @@
 				5AE4E5D22DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift in Sources */,
 				922AFD4B27372A0500732C53 /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
+				5A46A96A2E99C9BC006780B1 /* TestCustomModelObjects.swift in Sources */,
 				5ABAA1732D3ADE0000FDD38A /* SharedIdTests.swift in Sources */,
 				5A197FC12D810CC3002A51F2 /* ResponseParsingTests.swift in Sources */,
 				922AFCE12735424F00732C53 /* PBMAssert.swift in Sources */,
@@ -4227,7 +4243,7 @@
 				9298652528058CEB007A2F34 /* MediationNativeUtils.swift in Sources */,
 				5BC378AD271F1CFF00444D5E /* Targeting.swift in Sources */,
 				0012D73B2E086E33007013F3 /* ORTBContentProducer.swift in Sources */,
-				5A6167FB2DBA072D0018E6B6 /* PBMORTBExtensible.swift in Sources */,
+				5A6167FB2DBA072D0018E6B6 /* ORTBExtensible.swift in Sources */,
 				923B55002744F19600E00C88 /* PrebidMediationDelegate.swift in Sources */,
 				A908694229E05EAF00B37479 /* PrebidMobilePluginRegister.swift in Sources */,
 				FAEE4D1D262DC2B200AD9966 /* BannerAdUnit.swift in Sources */,
@@ -4294,6 +4310,7 @@
 				00614C4D2DE5F68A00A61974 /* ModalAnimator.swift in Sources */,
 				5BC3794E271F1D0000444D5E /* AdPosition.swift in Sources */,
 				928E5A6E27F0F706000ADA1A /* ContextType.swift in Sources */,
+				E557D4B72ED219CB00E5580A /* UserAgentPersistence.swift in Sources */,
 				5BC37AA7271F1D0000444D5E /* MediationBannerAdUnit.swift in Sources */,
 				53F35F6F292BAE9B001C1183 /* UserDefaults+Extensions.swift in Sources */,
 				532936862CEDE8E00056FD8D /* PrebidImpressionTracker.swift in Sources */,
@@ -4311,6 +4328,7 @@
 				0012D7912E0C311D007013F3 /* OMSession.swift in Sources */,
 				5AF5EAEB2E13580F002D80C1 /* PBMGeoLocationParameterBuilder.m in Sources */,
 				5AF5EAEC2E13580F002D80C1 /* UIView+PBMExtensions.m in Sources */,
+				005425032E548A7B0051B28D /* DisplayViewVideoPlaybackDelegate.swift in Sources */,
 				5AF5EAED2E13580F002D80C1 /* PBMVideoView.m in Sources */,
 				5AF5EAEE2E13580F002D80C1 /* PBMVastCreativeNonLinearAds.m in Sources */,
 				5AF5EAEF2E13580F002D80C1 /* NSDictionary+PBMExtensions.m in Sources */,
@@ -4504,6 +4522,8 @@
 				5BC37A89271F1D0000444D5E /* RewardedEventInteractionDelegate.swift in Sources */,
 				9290549227A417F00091D10D /* ImageHelper.swift in Sources */,
 				9247FEFE2808175E00ACD84A /* VideoControlsConfiguration.swift in Sources */,
+				5A46A9682E99C640006780B1 /* CustomModelObject.swift in Sources */,
+				005425012E5487E10051B28D /* BannerVideoPlaybackDelegate.swift in Sources */,
 				53A434782CDABE7900CB381B /* BannerViewImpressionTracker.swift in Sources */,
 				FAEE4D17262DC2B200AD9966 /* NativeRequest.swift in Sources */,
 				534C61422CB55D980026119A /* BackgroundAwareTimer.swift in Sources */,
@@ -4744,7 +4764,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				CURRENT_PROJECT_VERSION = 3.1.0;
+				CURRENT_PROJECT_VERSION = 3.2.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4763,7 +4783,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				MODULEMAP_FILE = PrebidMobile/BuildFiles/PrebidMobile.modulemap;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -4783,7 +4803,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				CURRENT_PROJECT_VERSION = 3.1.0;
+				CURRENT_PROJECT_VERSION = 3.2.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4802,7 +4822,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				MODULEMAP_FILE = PrebidMobile/BuildFiles/PrebidMobile.modulemap;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

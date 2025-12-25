@@ -76,8 +76,8 @@ public class BannerView:
         set { adUnitConfig.adPosition = newValue }
     }
 
-    /// ORTB configuration string.
     public weak var delegate: BannerViewDelegate?
+    public weak var videoPlaybackDelegate: BannerViewVideoPlaybackDelegate?
     
     // MARK: Readonly storage
     
@@ -249,6 +249,18 @@ public class BannerView:
         adUnitConfig.impORTBConfig
     }
     
+    /// Sets the global OpenRTB configuration string for the ad unit. It takes precedence over `Targeting.setGlobalOrtbConfig`.
+    ///
+    /// - Parameter ortbConfig: The global OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setGlobalORTBConfig(_ ortbConfig: String?) {
+        adUnitConfig.globalORTBConfig = ortbConfig
+    }
+    
+    /// Returns the global OpenRTB configuration string.
+    public func getGlobalORTBConfig() -> String? {
+        adUnitConfig.globalORTBConfig
+    }
+    
     /// Stops the auto-refresh of the ad.
     public func stopRefresh() {
         adLoadFlowController?.enqueueGatedBlock { [weak self] in
@@ -337,7 +349,7 @@ public class BannerView:
         delegate.perform(selector, with: self)
     }
     
-    private func deployView(_ view: UIView) {
+    func deployView(_ view: UIView) {
         guard deployedView !== view else {
             return
         }
@@ -354,6 +366,9 @@ public class BannerView:
             
             self.installDeployedViewConstraints(view: view)
             self.deployedView = view
+            if let displayView = self.deployedView as? DisplayView {
+                displayView.videoPlaybackDelegate = self
+            }
         }
     }
     
@@ -440,5 +455,28 @@ extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
     ) {
         deployView(adView)
         reportLoadingSuccess(with: adSize)
+    }
+}
+
+@_spi(PBMInternal)
+extension BannerView: DisplayViewVideoPlaybackDelegate {
+    public func videoPlaybackDidPause() {
+        videoPlaybackDelegate?.videoPlaybackDidPause(self)
+    }
+    
+    public func videoPlaybackDidResume() {
+        videoPlaybackDelegate?.videoPlaybackDidResume(self)
+    }
+    
+    public func videoPlaybackWasMuted() {
+        videoPlaybackDelegate?.videoPlaybackWasMuted(self)
+    }
+    
+    public func videoPlaybackWasUnmuted() {
+        videoPlaybackDelegate?.videoPlaybackWasUnmuted(self)
+    }
+    
+    public func videoPlaybackDidComplete() {
+        videoPlaybackDelegate?.videoPlaybackDidComplete(self)
     }
 }

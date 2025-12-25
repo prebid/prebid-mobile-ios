@@ -17,7 +17,7 @@
 import Foundation
 
 /// Describes the condition when the SDK should send a signal to the application that the user has earned the reward.
-@objc public class ORTBRewardedCompletion: NSObject, PBMJsonCodable {
+@objc open class ORTBRewardedCompletion: NSObject, PBMJsonCodable {
     @objc public var banner: ORTBRewardedCompletionBanner?
     @objc public var video: ORTBRewardedCompletionVideo?
 

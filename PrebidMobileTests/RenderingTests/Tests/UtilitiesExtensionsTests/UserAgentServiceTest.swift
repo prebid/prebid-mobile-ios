@@ -16,14 +16,23 @@
 import XCTest
 @testable import PrebidMobile
 
+private class MockUserAgentPersistence: UserAgentPersistence {
+    var userAgent: String?
+    required init(osVersion: String? = nil) {}
+}
+
 class UserAgentServiceTest: XCTestCase {
     
     var expectationUserAgentExecuted: XCTestExpectation?
     
+    var service: UserAgentService {
+        UserAgentService(store: MockUserAgentPersistence())
+    }
+    
     func testUserAgentService() {
         expectationUserAgentExecuted = expectation(description: "expectationUserAgentExecuted")
         
-        let userAgentService = UserAgentService.shared
+        let userAgentService = service
         
         userAgentService.fetchUserAgent { [weak self] userAgentString in
             XCTAssert(userAgentService.userAgent == userAgentString)
@@ -54,7 +63,7 @@ class UserAgentServiceTest: XCTestCase {
         let expectationCheckThread = self.expectation(description: "Check thread expectation")
         
         DispatchQueue.global(qos: .background).async {
-            print(UserAgentService.shared.userAgent)
+            print(self.service.userAgent)
             expectationCheckThread.fulfill()
         }
         
@@ -62,8 +71,8 @@ class UserAgentServiceTest: XCTestCase {
     }
     
     func testMultipleCalls() {
-        let userAgentService = UserAgentService.shared
-        
+        let userAgentService = service
+
         expectationUserAgentExecuted = expectation(description: "expectationUserAgentExecuted")
         expectationUserAgentExecuted?.expectedFulfillmentCount = 3
         
@@ -76,6 +85,25 @@ class UserAgentServiceTest: XCTestCase {
         }
         
         userAgentService.fetchUserAgent { [weak self] _  in
+            self?.expectationUserAgentExecuted?.fulfill()
+        }
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssert(userAgentService.userAgent.isEmpty == false)
+    }
+    
+    func testPersistence() {
+        let userAgentService = UserAgentService()
+
+        expectationUserAgentExecuted = expectation(description: "expectationUserAgentExecuted")
+        expectationUserAgentExecuted?.expectedFulfillmentCount = 2
+        
+        userAgentService.fetchUserAgent { [weak self] _ in
+            self?.expectationUserAgentExecuted?.fulfill()
+        }
+        
+        userAgentService.fetchUserAgent { [weak self] _ in
             self?.expectationUserAgentExecuted?.fulfill()
         }
         

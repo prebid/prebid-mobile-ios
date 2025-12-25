@@ -18,6 +18,7 @@
 #import "PBMConstants.h"
 #import "PBMMacros.h"
 #import "Log+Extensions.h"
+#import <CoreLocation/CoreLocation.h>
 
 #import "SwiftImport.h"
 

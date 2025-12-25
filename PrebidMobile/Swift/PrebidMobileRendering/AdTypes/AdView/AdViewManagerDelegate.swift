@@ -52,6 +52,8 @@ protocol AdViewManagerDelegate: NSObjectProtocol {
     @objc optional func videoAdDidFinish()
     @objc optional func videoAdWasMuted()
     @objc optional func videoAdWasUnmuted()
+    @objc optional func videoAdDidPause()
+    @objc optional func videoAdDidResume()
     
     // Used only for rewarded API
     @objc optional func adDidSendRewardedEvent()

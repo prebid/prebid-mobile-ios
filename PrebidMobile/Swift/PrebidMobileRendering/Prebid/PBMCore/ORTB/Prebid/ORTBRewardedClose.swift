@@ -17,7 +17,7 @@
 import Foundation
 
 /// Describes the close behavior. How should the SDK manage the ad when it is encountered as viewed
-@objc public class ORTBRewardedClose: NSObject, PBMJsonCodable {
+@objc open class ORTBRewardedClose: NSObject, PBMJsonCodable {
     /// The time interval in seconds passed after the reward event when SDK should close the interstitial
     @objc public var postrewardtime: NSNumber?
 

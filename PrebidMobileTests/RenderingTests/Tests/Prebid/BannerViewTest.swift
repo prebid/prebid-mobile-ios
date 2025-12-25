@@ -75,6 +75,44 @@ class BannerViewTest: XCTestCase {
         waitForExpectations(timeout: 3)
     }
     
+    func testVideoPlaybackDelegateEvents() throws {
+        let testID = "auid"
+        
+        let primarySize = CGSize(width: 320, height: 50)
+        let frame = CGRect(origin: .zero, size: primarySize)
+        
+        let bannerView = MockBannerView(frame: frame, configID: testID, adSize: primarySize, eventHandler: BannerEventHandlerStandalone())
+        let delegate = TestBannerViewVideoPlaybackDelegate()
+        bannerView.videoPlaybackDelegate = delegate
+        
+        let config = AdUnitConfig(configId: testID, size: primarySize)
+        let bid = Bid(bid: ORTBBid(bidID: "", impid: "", price: 0.1))
+        let displayView = DisplayView(frame: frame, bid: bid, adConfiguration: config)
+        bannerView.deployView(displayView)
+        
+        // The dsiplay view delegate is set asynchronously, so we need to wait for that
+        let predicate = NSPredicate { obj, _ in
+            (obj as? DisplayView)?.videoPlaybackDelegate != nil
+        }
+        let delegateExpectation = expectation(for: predicate, evaluatedWith: displayView, handler: nil)
+        wait(for: [delegateExpectation], timeout: 3.0)
+        
+        // Simulate video playback events
+        displayView.videoAdDidPause()
+        displayView.videoAdDidResume()
+        displayView.videoAdWasMuted()
+        displayView.videoAdWasUnmuted()
+        
+        XCTAssertTrue(delegate.events.contains(.pause))
+        XCTAssertTrue(delegate.events.contains(.resume))
+        XCTAssertTrue(delegate.events.contains(.mute))
+        XCTAssertTrue(delegate.events.contains(.unmute))
+        XCTAssertFalse(delegate.events.contains(.complete))
+        
+        displayView.videoAdDidFinish()
+        XCTAssertTrue(delegate.events.contains(.complete))
+    }
+    
     @objc private class TestBannerDelegate: NSObject, BannerViewDelegate {
         let exp: XCTestExpectation
         
@@ -95,6 +133,41 @@ class BannerViewTest: XCTestCase {
         func bannerView(_ bannerView: BannerView, didReceiveAdWithAdSize adSize: CGSize) {
             XCTFail("Ad unexpectedly loaded successfully...")
             exp.fulfill()
+        }
+    }
+    
+    @objc private class TestBannerViewVideoPlaybackDelegate: NSObject, BannerViewVideoPlaybackDelegate {
+        
+        struct BannerViewVideoPlaybackDelegateEvents: OptionSet {
+            let rawValue: Int8
+            
+            static let pause = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 0)
+            static let resume = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 1)
+            static let mute = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 2)
+            static let unmute = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 3)
+            static let complete = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 4)
+        }
+        
+        var events: BannerViewVideoPlaybackDelegateEvents = []
+        
+        func videoPlaybackDidPause(_ banner: PrebidMobile.BannerView) {
+            events.insert(.pause)
+        }
+        
+        func videoPlaybackDidResume(_ banner: PrebidMobile.BannerView) {
+            events.insert(.resume)
+        }
+        
+        func videoPlaybackWasMuted(_ banner: PrebidMobile.BannerView) {
+            events.insert(.mute)
+        }
+        
+        func videoPlaybackWasUnmuted(_ banner: PrebidMobile.BannerView) {
+            events.insert(.unmute)
+        }
+        
+        func videoPlaybackDidComplete(_ banner: PrebidMobile.BannerView) {
+            events.insert(.complete)
         }
     }
 }

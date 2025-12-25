@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc public class ORTBExtPrebidEvents: NSObject, PBMJsonCodable {
+@objc open class ORTBExtPrebidEvents: NSObject, PBMJsonCodable {
     @objc public var win: String?
     @objc public var imp: String?
 
