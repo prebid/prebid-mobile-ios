@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "VeonPrebidMobile"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.module_name = "PrebidMobile"
