@@ -21,6 +21,58 @@ class ResponseParsingTests: XCTestCase {
     
     struct JSON {
         
+        static func bidResponse() -> [String : Any] {
+            [
+                "id" : "_id",
+                "seatbid" : [seatBid()],
+                "bidid" : "_bidid",
+                "cur" : "_cur",
+                "customdata" : "_customdata",
+                "nbr" : 1,
+                "ext" : bidResponseExt(),
+            ]
+        }
+        
+        static func seatBid() -> [String : Any] {
+            [
+                "bid" : [bid()],
+                "seat" : "_seat",
+                "group" : 1,
+            ]
+        }
+        
+        static func bid() -> [String : Any] {
+            [
+                "ext" : bidExt(),
+                "id" : "_id",
+                "impid" : "_impid",
+                "price" : 1,
+                "nurl" : "_nurl",
+                "burl" : "_burl",
+                "lurl" : "_lurl",
+                "adm" : "_adm",
+                "adid" : "_adid",
+                "adomain" : "_adomain",
+                "bundle" : "_bundle",
+                "iurl" : "_iurl",
+                "cid" : "_cid",
+                "crid" : "_crid",
+                "tactic" : "_tactic",
+                "cat" : ["cat_str", 1],
+                "attr" : ["attr_str", 1],
+                "api" : 2,
+                "protocol" : 3,
+                "qagmediarating" : 4,
+                "language" : "_language",
+                "dealid" : "_dealid",
+                "w" : 5,
+                "h" : 6,
+                "wratio" : 7,
+                "hratio" : 8,
+                "exp" : 9,
+            ]
+        }
+        
         static func adConfiguration() -> [String : Any] {
             [
                 "maxvideoduration" : 1,
@@ -432,4 +484,33 @@ class ResponseParsingTests: XCTestCase {
         return entities.map { $0.jsonDictionary as NSDictionary } == array.map { $0 as NSDictionary }
     }
     
+    func testInstantiatesCustomModelObjects() {
+        registerCustomClasses()
+        
+        defer {
+            unregisterCustomClasses()
+        }
+        
+        let bidResponse = BidResponse(jsonDictionary: JSON.bidResponse())
+        let bidExt = bidResponse.allBids![0].bid.ext!
+        let bidResponseExt = bidResponse.ext!
+        let passthrough = bidExt.prebid!.passthrough![0]
+        
+        XCTAssertTrue(passthrough.adConfiguration is CustomAdConfiguration)
+        XCTAssertTrue(bidExt.skadn is CustomBidExtSkadn)
+        XCTAssertTrue(bidExt.skadn!.skoverlay is CustomBidExtSkadnSKOverlay)
+        XCTAssertTrue(bidResponseExt is CustomBidResponseExt)
+        XCTAssertTrue(bidResponseExt.extPrebid is CustomBidResponseExtPrebid)
+        XCTAssertTrue(bidExt.prebid?.events is CustomExtPrebidEvents)
+        XCTAssertTrue(passthrough is CustomExtPrebidPassthrough)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.close is CustomRewardedClose)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.completion is CustomRewardedCompletion)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.completion!.banner is CustomRewardedCompletionBanner)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.completion!.video is CustomRewardedCompletionVideo)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.completion!.video?.endcard is CustomRewardedCompletionVideoEndcard)
+        XCTAssertTrue(passthrough.rewardedConfiguration is CustomRewardedConfiguration)
+        XCTAssertTrue(passthrough.rewardedConfiguration!.reward is CustomRewardedReward)
+        XCTAssertTrue(passthrough.sdkConfiguration is CustomSDKConfiguration)
+        XCTAssertTrue(bidExt.skadn!.fidelities![0] is CustomSkadnFidelity)
+    }
 }

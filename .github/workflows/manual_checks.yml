@@ -26,13 +26,13 @@ on:
         default: true
 
 env:
-  XCODE_VERSION: "16.1.0"
+  XCODE_VERSION: "16.4.0"
 
 jobs:
   build:
     name: Build PrebidMobile Frameworks
     if: ${{ inputs.all || inputs.build }}
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
@@ -50,7 +50,7 @@ jobs:
   unit_tests:
     name: Run All Unit Tests for Frameworks
     if: ${{ inputs.all || inputs.unit_tests }}
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
@@ -61,7 +61,7 @@ jobs:
   smoke_ui_tests:
     name: Run Smoke UI Tests - Swift Demo App
     if: ${{ inputs.all || inputs.smoke_ui_tests }}
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
@@ -72,7 +72,7 @@ jobs:
   integration_tests:
     name: Run Integration Tests - Swift Demo App
     if: ${{ inputs.all || inputs.integration_tests }}
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1

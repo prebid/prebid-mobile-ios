@@ -653,6 +653,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.pos, 7)
         PBMAssertEq(video.battr, [6, 7])
         PBMAssertEq(video.skip, 1)
+        PBMAssertEq(video.playbackend, 1)
     }
 
     func testParameterBuilderOutstream() {
@@ -685,6 +686,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
+        PBMAssertEq(video.playbackend, 2)
     }
 
     func testBannerParameters() {

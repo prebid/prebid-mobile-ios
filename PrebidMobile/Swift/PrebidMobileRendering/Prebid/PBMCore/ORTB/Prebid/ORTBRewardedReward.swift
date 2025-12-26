@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc public class ORTBRewardedReward: NSObject, PBMJsonCodable {
+@objc open class ORTBRewardedReward: NSObject, PBMJsonCodable {
     /// Type of the reward
     @objc public var type: String?
 

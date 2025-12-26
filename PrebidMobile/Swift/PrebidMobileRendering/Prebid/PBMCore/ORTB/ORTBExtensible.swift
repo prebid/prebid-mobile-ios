@@ -16,7 +16,7 @@
 
 import Foundation
 
-protocol PBMORTBExtensible: PBMJsonDecodable {
+protocol ORTBExtensible: PBMJsonDecodable {
     associatedtype ExtType
     init?(jsonDictionary: [String : Any], extParser: (_ jsonDictionary: [String : Any]) -> ExtType?)
 }

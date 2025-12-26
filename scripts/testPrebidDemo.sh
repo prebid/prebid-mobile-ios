@@ -14,14 +14,11 @@ cd ..
 echo $PWD
 
 export PATH="/Users/distiller/.gem/ruby/2.7.0/bin:$PATH"
-brew install xcbeautify
 gem install cocoapods
 
 pod deintegrate
 pod install --repo-update
 pod update
-
-brew install xcbeautify
 
 if [ "$1" == "-ui" ]; then
     echo -e "\n${GREEN}Running UI tests${NC} \n"
@@ -33,12 +30,28 @@ else
     TEST="Integration"
 fi
 
-xcodebuild test \
+echo -e "\n\n${GREEN}Building ${SCHEME} for testing${NC}\n\n"
+
+xcodebuild \
     -workspace PrebidMobile.xcworkspace \
     -scheme $SCHEME \
+    -sdk iphonesimulator \
+    -configuration Debug \
+    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+    -destination-timeout 60 \
+    build-for-testing
+
+echo -e "\n\n${GREEN}Testing ${SCHEME}${NC}\n\n"
+
+xcodebuild \
+    -workspace PrebidMobile.xcworkspace \
+    -scheme $SCHEME \
+    -sdk iphonesimulator \
+    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+    -destination-timeout 60 \
     -test-iterations 2 \
     -retry-tests-on-failure \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' | xcbeautify
+    test-without-building
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ ${TEST} Tests Passed"

@@ -39,4 +39,7 @@ protocol CreativeViewDelegate: NSObjectProtocol {
     @objc optional func videoCreativeDidComplete(_ creative: AbstractCreative)
     @objc optional func videoWasMuted(_ creative: AbstractCreative)
     @objc optional func videoWasUnmuted(_ creative: AbstractCreative)
+    @objc optional func videoDidResume(_ creative: AbstractCreative)
+    @objc optional func videoDidPause(_ creative: AbstractCreative)
+
 }

@@ -40,6 +40,7 @@ public class PrebidRequest: NSObject {
     
     private(set) var gpid: String?
     private var impORTBConfig: String?
+    private var globalORTBConfig: String?
     
     /// Initializes a new `PrebidRequest` with the given parameters.
     /// - Parameters:
@@ -84,5 +85,17 @@ public class PrebidRequest: NSObject {
     /// Returns the impression-level OpenRTB configuration string.
     public func getImpORTBConfig() -> String? {
         impORTBConfig
+    }
+    
+    /// Sets the global OpenRTB configuration string for the ad unit. It takes precedence over `Targeting.setGlobalOrtbConfig`.
+    ///
+    /// - Parameter ortbConfig: The global OpenRTB configuration string to set. Can be `nil` to clear the configuration.
+    public func setGlobalORTBConfig(_ ortbConfig: String?) {
+        self.globalORTBConfig = ortbConfig
+    }
+    
+    /// Returns the global OpenRTB configuration string.
+    public func getGlobalORTBConfig() -> String? {
+        globalORTBConfig
     }
 }

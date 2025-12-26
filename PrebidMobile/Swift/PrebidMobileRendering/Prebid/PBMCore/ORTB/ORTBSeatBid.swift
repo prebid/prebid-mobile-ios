@@ -25,7 +25,7 @@ import Foundation
 class ORTBSeatBid<
     ExtType: PBMJsonCodable,
     BidExtType: PBMJsonCodable
->: PBMJsonCodable, PBMORTBExtensible {
+>: PBMJsonCodable, ORTBExtensible {
     
     /// [Required]
     /// Array of 1+ `Bid` objects (Section 4.2.3) each related to an impression. Multiple bids can relate to the same impression.

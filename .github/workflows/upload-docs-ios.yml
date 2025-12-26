@@ -7,12 +7,12 @@ on:
       - 'test-doc-*'
 
 env:
-  XCODE_VERSION: "16.1.0"
+  XCODE_VERSION: "16.4.0"
 
 jobs:
   upload-docs:
 
-    runs-on: macos-latest
+    runs-on: macos-15
 
     steps:
     - name: Checkout current branch

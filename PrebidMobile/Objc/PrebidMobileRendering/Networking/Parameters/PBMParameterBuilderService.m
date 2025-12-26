@@ -93,6 +93,7 @@
     
     NSDictionary * arbitratyORTB = [PBMArbitraryORTBService mergeWithSdkORTB:ortb
                                                                      impORTB:adConfiguration.impORTBConfig
+                                                            globalAdUnitORTB:adConfiguration.globalORTBConfig
                                                                   globalORTB:[targeting getGlobalORTBConfig]];
     
     return [PBMORTBParameterBuilder buildOpenRTBFor:arbitratyORTB];

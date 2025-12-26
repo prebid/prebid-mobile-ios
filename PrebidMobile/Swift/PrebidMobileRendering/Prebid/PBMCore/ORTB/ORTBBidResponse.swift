@@ -30,7 +30,7 @@ class ORTBBidResponse<
     ExtType: PBMJsonCodable,
     SeatBidExtType: PBMJsonCodable,
     BidExtType: PBMJsonCodable
->: PBMJsonCodable, PBMORTBExtensible {
+>: PBMJsonCodable, ORTBExtensible {
     
     /// [Required]
     /// ID of the bid request to which this is a response.

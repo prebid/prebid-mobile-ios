@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc public class ORTBBidResponseExt: NSObject, PBMJsonCodable {
+@objc open class ORTBBidResponseExt: NSObject, PBMJsonCodable {
     
     /// [ (bidder: String) -> (millis: Integer) ]
     @objc public var responsetimemillis: [String : NSNumber]?

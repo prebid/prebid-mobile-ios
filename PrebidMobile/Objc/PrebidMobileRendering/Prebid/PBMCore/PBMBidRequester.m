@@ -18,7 +18,7 @@
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMParameterBuilderService.h"
 #import "Log+Extensions.h"
-
+#import <UIKit/UIKit.h>
 #import "SwiftImport.h"
 
 #import "PBMMacros.h"
@@ -97,23 +97,34 @@
                  callback:^(PrebidServerResponse * _Nonnull serverResponse) {
         @strongify(self);
         if (!self) { return; }
-        
-        void (^ const completion)(BidResponse *, NSError *) = self.completion;
-        self.completion = nil;
-        
+
+        // Fix for GitHub Issue #1195: Thread-safe completion handling
+        // Protect against duplicate callback invocations (redirects, retries, network bugs)
+        void (^ _Nullable completion)(BidResponse *, NSError *) = nil;
+        @synchronized(self) {
+            completion = self.completion;
+            if (!completion) {
+                // Completion already called or nil - this is a duplicate callback
+                PBMLogInfo(@"WARNING: Network callback invoked multiple times. Ignoring duplicate callback. Thread: %@", [NSThread currentThread]);
+                return;
+            }
+            // Clear completion to prevent duplicate invocations
+            self.completion = nil;
+        }
+
         if (serverResponse.statusCode == 204) {
             completion(nil, PBMError.blankResponse);
             return;
         }
-        
+
         if (serverResponse.error) {
             PBMLogInfo(@"Bid Request Error: %@", [serverResponse.error localizedDescription]);
             completion(nil, serverResponse.error);
             return;
         }
-        
+
         PBMLogInfo(@"Bid Response: %@", [[NSString alloc] initWithData:serverResponse.rawData encoding:NSUTF8StringEncoding]);
-        
+
         NSError *trasformationError = nil;
         BidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
         

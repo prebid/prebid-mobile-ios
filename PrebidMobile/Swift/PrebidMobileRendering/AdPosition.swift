@@ -32,13 +32,17 @@ import Foundation
 @objc(PBMAdPosition)
 public enum AdPosition: Int {
     
+    /// -1 Undefined
+    case undefined = -1
+    
     /// 0 Unknown
-    case undefined = 0
+    case unknown = 0
     
     /// 1 Above the Fold
     case aboveTheFold = 1
     
     /// 2 Locked (i.e. fixed position)
+    @available(*, unavailable, message: "Deprecated in the OpenRTB standard.")
     case locked = 2
     
     /// 3 Below the Fold

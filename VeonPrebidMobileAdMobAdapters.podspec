@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "VeonPrebidMobileAdMobAdapters"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
 
   s.module_name = "PrebidMobileAdMobAdapters"
@@ -42,7 +42,7 @@ Pod::Spec.new do |s|
 
   s.static_framework = true
 
-  s.dependency 'VeonPrebidMobile', '0.0.4'
+  s.dependency 'VeonPrebidMobile', '0.0.5'
   s.dependency 'Google-Mobile-Ads-SDK', '>= 12.0.0'
   
   s.pod_target_xcconfig = {

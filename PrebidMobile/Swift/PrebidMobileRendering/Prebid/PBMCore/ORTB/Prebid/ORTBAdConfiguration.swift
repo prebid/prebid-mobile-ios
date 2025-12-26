@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc public class ORTBAdConfiguration: NSObject, PBMJsonCodable {
+@objc open class ORTBAdConfiguration: NSObject, PBMJsonCodable {
     @objc public var maxVideoDuration: NSNumber?
     @objc public var isMuted: NSNumber?
     @objc public var closeButtonArea: NSNumber?
