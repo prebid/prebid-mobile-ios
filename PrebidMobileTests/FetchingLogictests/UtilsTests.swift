@@ -15,7 +15,7 @@
 
 import XCTest
 import TestUtils
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 @objcMembers class DFPORequest: NSObject {
     var name: String!

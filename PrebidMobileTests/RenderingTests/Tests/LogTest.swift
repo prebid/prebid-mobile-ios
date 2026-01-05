@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class LogTest: XCTestCase {
 
@@ -223,7 +223,7 @@ class LogTest: XCTestCase {
             log("WHEREAMI", logLevel: .info, filename: filename, line: line, function: function)
         }
         
-        func log(_ object: Any, logLevel: PrebidMobile.LogLevel, filename: String, line: Int, function: String) {
+        func log(_ object: Any, logLevel: NativoPrebidSDK.LogLevel, filename: String, line: Int, function: String) {
             let finalMessage = "\(logLevel.stringValue) \(object): TESTLOG"
             print(finalMessage)
             Log.serialWriteToLog(finalMessage)

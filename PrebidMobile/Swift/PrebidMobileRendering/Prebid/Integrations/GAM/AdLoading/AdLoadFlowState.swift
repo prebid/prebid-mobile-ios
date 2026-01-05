@@ -17,6 +17,7 @@ import Foundation
 enum AdLoadFlowState: Int {
     case idle = 0
     
+    case nativoRequest
     case bidRequest
     case demandReceived
     case primaryAdRequest

@@ -8,6 +8,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 
 // Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -25,4 +26,13 @@ public protocol PrimaryAdRequesterProtocol: NSObjectProtocol {
      */
     @objc(requestAdWithBidResponse:)
     func requestAd(with bidResponse: BidResponse?)
+    
+    /**
+     @abstract The SDK calls this method when it has both Prebid and Nativo bid responses available.
+     @discussion Implementers can compare bids across responses and decide which to render.
+     @param prebidResponse The bid response returned from Prebid Server (may be nil).
+     @param nativoResponse The bid response returned from Nativo (may be nil).
+     */
+    @objc(requestAdWithPrebidResponse:nativoResponse:)
+    optional func requestAd(withPrebidResponse prebidResponse: BidResponse?, nativoResponse: BidResponse?)
 }

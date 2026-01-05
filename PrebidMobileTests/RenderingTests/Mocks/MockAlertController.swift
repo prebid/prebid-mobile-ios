@@ -15,7 +15,7 @@
 
 import UIKit
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class MockAlertController: UIAlertController {
     

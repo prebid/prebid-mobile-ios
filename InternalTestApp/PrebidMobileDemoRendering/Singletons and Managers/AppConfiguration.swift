@@ -15,7 +15,7 @@
 
 import UIKit
 import RxSwift
-import PrebidMobile
+import NativoPrebidSDK
 
 final class AppConfiguration: NSObject {
    

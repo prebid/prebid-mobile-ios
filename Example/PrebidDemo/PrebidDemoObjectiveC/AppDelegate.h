@@ -15,13 +15,13 @@
 
 #import <UIKit/UIKit.h>
 
-@import PrebidMobile;
+@import NativoPrebidSDK;
 @import GoogleMobileAds;
 @import AppLovinSDK;
 
-@import PrebidMobileGAMEventHandlers;
-@import PrebidMobileAdMobAdapters;
-@import PrebidMobileMAXAdapters;
+@import NativoPrebidSDKGAMEventHandlers;
+@import NativoPrebidSDKAdMobAdapters;
+@import NativoPrebidSDKMAXAdapters;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

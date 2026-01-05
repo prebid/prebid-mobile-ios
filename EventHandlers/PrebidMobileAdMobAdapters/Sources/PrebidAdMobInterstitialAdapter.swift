@@ -15,7 +15,7 @@
 
 import Foundation
 import GoogleMobileAds
-import PrebidMobile
+import NativoPrebidSDK
 
 @objc(PrebidAdMobInterstitialAdapter)
 public class PrebidAdMobInterstitialAdapter:

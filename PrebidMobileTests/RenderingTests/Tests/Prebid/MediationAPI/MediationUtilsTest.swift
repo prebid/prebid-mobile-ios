@@ -15,7 +15,7 @@
 
 import XCTest
 import UIKit
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class MediationUtilsTest: XCTestCase {
     func testServerParameterChecking() {

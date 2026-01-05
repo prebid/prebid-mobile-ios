@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 import GoogleMobileAds
 
 fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream-original-api"

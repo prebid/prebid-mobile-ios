@@ -15,7 +15,7 @@
 
 import Foundation
 import GoogleMobileAds
-import PrebidMobile
+import NativoPrebidSDK
 
 @objc(PrebidAdMobNativeAdapter)
 public class PrebidAdMobNativeAdapter:
@@ -55,7 +55,7 @@ public class PrebidAdMobNativeAdapter:
     
     public var extraAssets: [String: Any]?
     
-    var prebidNativeAd: PrebidMobile.NativeAd?
+    var prebidNativeAd: NativoPrebidSDK.NativeAd?
     
     public weak var delegate: GoogleMobileAds.MediationNativeAdEventDelegate?
     var completionHandler: GADMediationNativeLoadCompletionHandler?
@@ -126,18 +126,18 @@ public class PrebidAdMobNativeAdapter:
     
     // MARK: - NativeAdEventDelegate
     
-    public func adDidExpire(ad: PrebidMobile.NativeAd) {
+    public func adDidExpire(ad: NativoPrebidSDK.NativeAd) {
         let error = AdMobAdaptersError.adExpired
         if let handler = completionHandler {
            delegate = handler(nil, error)
         }
     }
     
-    public func adWasClicked(ad: PrebidMobile.NativeAd) {
+    public func adWasClicked(ad: NativoPrebidSDK.NativeAd) {
         delegate?.reportClick()
     }
     
-    public func adDidLogImpression(ad: PrebidMobile.NativeAd) {
+    public func adDidLogImpression(ad: NativoPrebidSDK.NativeAd) {
         delegate?.reportImpression()
     }
     

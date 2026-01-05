@@ -15,7 +15,7 @@
 
 import Foundation
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class MockDelayedReachability: Reachability {
     

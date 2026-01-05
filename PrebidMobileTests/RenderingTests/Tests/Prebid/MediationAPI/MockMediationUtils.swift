@@ -15,7 +15,7 @@
 
 import Foundation
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 
 public let MockMediationAdUnitBidKey           = "PBM_BID"
 public let MockMediationConfigIdKey            = "PBM_CONFIG_ID"

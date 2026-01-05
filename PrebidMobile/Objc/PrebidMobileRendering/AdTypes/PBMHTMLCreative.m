@@ -173,6 +173,11 @@
     [super onAdDisplayed];
     [self setupDisplayTimer];
     [self setupRewardTimerIfNeeded];
+    
+    // For html ads, we definitely don't need to keep polling viewability after this point.
+    // TODO: For other types of ads I'm not so sure yet
+    [self.viewabilityTracker stop];
+    self.viewabilityTracker = nil;
 }
 
 - (void)setupDisplayTimer {

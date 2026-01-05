@@ -15,8 +15,8 @@
 
 #import "InterstitialBaseViewController.h"
 
-@import PrebidMobile;
-@import PrebidMobileGAMEventHandlers;
+@import NativoPrebidSDK;
+@import NativoPrebidSDKGAMEventHandlers;
 @import GoogleMobileAds;
 
 NS_ASSUME_NONNULL_BEGIN

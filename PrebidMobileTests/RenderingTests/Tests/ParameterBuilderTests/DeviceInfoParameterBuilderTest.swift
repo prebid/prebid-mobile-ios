@@ -16,7 +16,7 @@
 import AppTrackingTransparency
 import UIKit
 import XCTest
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class DeviceInfoParameterBuilderTest: XCTestCase {
 

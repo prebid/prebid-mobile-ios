@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 import GoogleMobileAds
 
 fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-320-480-original-api"

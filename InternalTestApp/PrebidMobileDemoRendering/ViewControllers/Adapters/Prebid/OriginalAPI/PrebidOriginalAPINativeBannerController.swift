@@ -14,8 +14,8 @@
   */
 
 import UIKit
-import PrebidMobile
-import PrebidMobileAdMobAdapters
+import NativoPrebidSDK
+import NativoPrebidSDKAdMobAdapters
 import GoogleMobileAds
 
 class PrebidOriginalAPINativeBannerController:

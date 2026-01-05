@@ -1,6 +1,6 @@
 platform :ios, '12.0'
 
-workspace 'PrebidMobile'
+workspace 'NativoPrebidSDK'
 
 project 'PrebidMobile.xcodeproj'
 project 'EventHandlers/EventHandlers.xcodeproj'
@@ -39,33 +39,33 @@ def internalTestApp_pods
   gma_pods
 end
 
-target 'PrebidMobileGAMEventHandlers' do
+target 'NativoPrebidSDKGAMEventHandlers' do
   event_handlers_project
   gma_pods
 end
 
-target 'PrebidMobileGAMEventHandlersTests' do
+target 'NativoPrebidSDKGAMEventHandlersTests' do
   event_handlers_project
   gma_pods
 end
 
-target 'PrebidMobileAdMobAdapters' do
+target 'NativoPrebidSDKAdMobAdapters' do
   event_handlers_project
   gma_pods
   
 end
 
-target 'PrebidMobileAdMobAdaptersTests' do
+target 'NativoPrebidSDKAdMobAdaptersTests' do
   event_handlers_project
   gma_pods
 end
 
-target 'PrebidMobileMAXAdapters' do
+target 'NativoPrebidSDKMAXAdapters' do
   event_handlers_project
   applovin_pods
 end
 
-target 'PrebidMobileMAXAdaptersTests' do
+target 'NativoPrebidSDKMAXAdaptersTests' do
   event_handlers_project
   applovin_pods
 end

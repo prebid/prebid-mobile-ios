@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 import GoogleInteractiveMediaAds
 
 class PrebidOriginalAPIVideoInstreamViewController:

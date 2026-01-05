@@ -22,5 +22,6 @@ protocol AdLoaderFlowDelegate {
     func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrimarySDKError error: Error?)
     func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrebidError error: Error?)
     func adLoaderDidWinPrebid(_ adLoader: AdLoaderProtocol)
+    func adLoaderDidWinNativo(_ adLoader: AdLoaderProtocol)
     func adLoaderLoadedPrebidAd(_ adLoader: AdLoaderProtocol)
 }

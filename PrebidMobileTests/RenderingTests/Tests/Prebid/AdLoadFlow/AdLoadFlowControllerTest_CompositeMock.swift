@@ -15,7 +15,7 @@
 import Foundation
 import XCTest
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 class AdLoadFlowControllerTest_CompositeMock {
     enum ExpectedCall {

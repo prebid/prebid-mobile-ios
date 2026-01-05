@@ -17,7 +17,7 @@ import UIKit
 import XCTest
 import CoreLocation
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class GeoLocationParameterBuilderTest : XCTestCase {
     

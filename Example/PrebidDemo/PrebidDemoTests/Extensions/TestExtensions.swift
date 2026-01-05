@@ -14,7 +14,7 @@
  */
 
 import UIKit
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 extension UIWindow {
     static var key: UIWindow? {

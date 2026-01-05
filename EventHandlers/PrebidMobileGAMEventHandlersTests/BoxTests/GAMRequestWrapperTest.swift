@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobileGAMEventHandlers
+@testable import NativoPrebidSDKGAMEventHandlers
 
 class GAMRequestWrapperTest: XCTestCase {
     

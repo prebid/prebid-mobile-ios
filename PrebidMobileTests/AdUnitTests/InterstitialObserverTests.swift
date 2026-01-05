@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 fileprivate class DummyView: UIView {}
 fileprivate class DummyViewController: UIViewController {}

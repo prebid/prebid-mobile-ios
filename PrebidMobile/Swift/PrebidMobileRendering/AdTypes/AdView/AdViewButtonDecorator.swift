@@ -80,7 +80,7 @@ public class AdViewButtonDecorator: NSObject {
             btnConstraintConstant = PrebidConstants.BUTTON_CONSTRAINT.doubleValue
         }
         
-        return isMRAID ? 0 : btnConstraintConstant
+        return isMRAID ? 16.0 : btnConstraintConstant
     }
     
     public func getButtonSize() -> CGSize {

@@ -15,7 +15,7 @@
 
 import Foundation
 import GoogleMobileAds
-import PrebidMobile
+import NativoPrebidSDK
 
 @objcMembers
 public class GAMBannerEventHandler :
@@ -40,6 +40,8 @@ public class GAMBannerEventHandler :
     
     let adUnitID: String
     
+    var nativoDidWin: Bool = false
+    
     // MARK: - Public Methods
     
     public init(adUnitID: String, validGADAdSizes: [NSValue]) {
@@ -59,6 +61,21 @@ public class GAMBannerEventHandler :
     
     public func trackImpression() {
         proxyBanner?.recordImpression()
+    }
+    
+    public func requestAd(withPrebidResponse prebidResponse: BidResponse?, nativoResponse: BidResponse?) {
+        let prebidPrice = prebidResponse?.winningBid?.price ?? 0.0
+        let nativoPrice = nativoResponse?.winningBid?.price ?? 0.0
+        
+        var winningResponse :BidResponse?
+        if (nativoPrice >= prebidPrice) {
+            nativoDidWin = true
+            winningResponse = nativoResponse
+        } else {
+            nativoDidWin = false
+            winningResponse = prebidResponse
+        }
+        requestAd(with: winningResponse)
     }
     
     public func requestAd(with bidResponse: BidResponse?) {
@@ -225,7 +242,11 @@ public class GAMBannerEventHandler :
             
             proxyBanner = banner
             
-            loadingDelegate?.prebidDidWin()
+            if (nativoDidWin) {
+                loadingDelegate?.nativoDidWin()
+            } else {
+                loadingDelegate?.prebidDidWin()
+            }
         }
     }
     
@@ -242,6 +263,10 @@ public class GAMBannerEventHandler :
         
         if let banner = banner,
            let adSize = dfpAdSize {
+            // Enforce size constraints on banner. Ad will not render without correct constraints.
+            banner.banner.widthAnchor.constraint(equalToConstant: adSize.width).isActive = true
+            banner.banner.heightAnchor.constraint(equalToConstant: adSize.height).isActive = true
+            
             loadingDelegate?.adServerDidWin(banner.banner, adSize: adSize)
         }
     }

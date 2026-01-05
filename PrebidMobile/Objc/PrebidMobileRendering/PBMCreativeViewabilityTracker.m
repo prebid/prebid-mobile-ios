@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "PBMViewExposureChecker.h"
+#import "NativoViewExposureChecker.h"
 #import "PBMMacros.h"
 
 #import "NSTimer+PBMScheduledTimerFactory.h"
@@ -50,7 +50,7 @@ typedef void(^PBMViewExposureChangeHandler)(id<PBMCreativeViewabilityTracker> tr
             onExposureChange:(PBMViewExposureChangeHandler)onExposureChange {
     self = [super init];
     if (self) {
-        _checker = [[PBMViewExposureChecker alloc] initWithView:view];
+        _checker = [[NativoViewExposureChecker alloc] initWithView:view];
         _pollingTimeInterval = pollingTimeInterval;
         _lastExposure = [PBMFactory.ViewExposureType zeroExposure];
         _onExposureChange = onExposureChange;

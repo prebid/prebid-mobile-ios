@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 
-  s.name         = "PrebidMobileMAXAdapters"
+  s.name         = "NativoPrebidSDKMAXAdapters"
   s.version      = "3.2.0"
-  s.summary      = "The bridge between PrebidMobile SDK and Applovin MAX SDK."
+  s.summary      = "The bridge between NativoPrebidSDK and Applovin MAX SDK."
 
   s.description  = "MAX Adapters manages rendering of Prebid or MAX ads respectively to the winning bid."
   s.homepage     = "https://www.prebid.org"
@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
   s.source_files = 'EventHandlers/PrebidMobileMAXAdapters/**/*.{h,m,swift}'
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '3.2.0'
+  s.dependency 'NativoPrebidSDK', '3.2.0'
   s.dependency 'AppLovinSDK'
 
   s.pod_target_xcconfig = {

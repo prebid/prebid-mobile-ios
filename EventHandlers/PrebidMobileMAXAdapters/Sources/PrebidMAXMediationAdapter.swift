@@ -14,7 +14,7 @@
  */
 
 import Foundation
-import PrebidMobile
+import NativoPrebidSDK
 import AppLovinSDK
 
 public let MAXCustomParametersKey = "custom_parameters"

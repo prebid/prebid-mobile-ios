@@ -15,7 +15,7 @@
 
 @import Foundation;
 
-@import PrebidMobile;
+@import NativoPrebidSDK;
 
 #import "MockServer.h"
 #import "MockServerRule.h"

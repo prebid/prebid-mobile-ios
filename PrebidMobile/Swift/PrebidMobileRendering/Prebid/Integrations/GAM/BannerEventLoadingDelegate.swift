@@ -27,6 +27,13 @@ import UIKit
     func prebidDidWin()
 
     /*!
+     @abstract Call this when a Nativo O&O bid wins
+     @desc The goal is to have some separation of flow between Prebid and Nativo wins,
+     while keeping surface area for future merge conflicts low.
+     */
+    func nativoDidWin()
+
+    /*!
      @abstract Call this when the ad server SDK renders its own ad
      @param view rendered ad view from the ad server SDK
      */

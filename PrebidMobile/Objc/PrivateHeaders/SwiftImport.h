@@ -14,10 +14,8 @@
 //
     
 
-#if PrebidMobile_SPM
-@import PrebidMobile;
-#elif __has_include("PrebidMobile-Swift.h")
-#import "PrebidMobile-Swift.h"
+#if __has_include("NativoPrebidSDK-Swift.h")
+#import "NativoPrebidSDK-Swift.h"
 #else
-#import <PrebidMobile/PrebidMobile-Swift.h>
+#import <NativoPrebidSDK/NativoPrebidSDK-Swift.h>
 #endif

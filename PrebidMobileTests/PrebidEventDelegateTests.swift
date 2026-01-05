@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 private typealias Callback = (Data?, Data?) -> Void
 

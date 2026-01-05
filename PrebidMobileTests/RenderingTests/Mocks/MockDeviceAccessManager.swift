@@ -16,7 +16,7 @@
 import AppTrackingTransparency
 import CoreGraphics
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 fileprivate let advertisingTrackingEnabledDefault = true
 fileprivate let defaultUserLanguageCode = "ml"

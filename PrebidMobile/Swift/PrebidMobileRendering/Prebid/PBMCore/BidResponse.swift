@@ -22,15 +22,15 @@ public class BidResponse: NSObject {
     
     public var adUnitId: String?
     
-    public private(set) var allBids: [Bid]?
-    public private(set) var winningBid: Bid?
-    public private(set) var targetingInfo: [String: String]?
+    public internal(set) var allBids: [Bid]?
+    public internal(set) var winningBid: Bid?
+    public internal(set) var targetingInfo: [String: String]?
     
-    public private(set) var tmaxrequest: NSNumber?
+    public internal(set) var tmaxrequest: NSNumber?
     
-    public private(set) var ext: ORTBBidResponseExt?
+    public internal(set) var ext: ORTBBidResponseExt?
     
-    private(set) var rawResponse: RawBidResponse?
+    internal var rawResponse: RawBidResponse?
     
     public convenience init(adUnitId: String?, targetingInfo: [String: String]?) {
         self.init(jsonDictionary: [:])
@@ -55,12 +55,20 @@ public class BidResponse: NSObject {
     }
     
     required init(rawBidResponse: RawBidResponse?) {
+        super.init()
         rawResponse = rawBidResponse
         
         guard let rawBidResponse = rawBidResponse else {
             return
         }
 
+        createBids(rawBidResponse: rawBidResponse)
+        
+        tmaxrequest = rawBidResponse.ext?.tmaxrequest
+        self.ext = rawBidResponse.ext
+    }
+    
+    internal func createBids(rawBidResponse: RawBidResponse) {
         var allBids: [Bid] = []
         var targetingInfo: [String : String] = [:]
         var winningBid: Bid? = nil
@@ -88,8 +96,6 @@ public class BidResponse: NSObject {
         self.winningBid = winningBid
         self.allBids = allBids
         self.targetingInfo = targetingInfo.count > 0 ? targetingInfo : nil
-        tmaxrequest = rawBidResponse.ext?.tmaxrequest
-        self.ext = rawBidResponse.ext
     }
     
     public func setTargetingInfo(with newValue: [String : String]) {

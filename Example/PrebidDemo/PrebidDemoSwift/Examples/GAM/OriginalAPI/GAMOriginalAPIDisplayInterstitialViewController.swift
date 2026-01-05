@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 import GoogleMobileAds
 
 fileprivate let storedImpDisplayInterstitial = "prebid-demo-display-interstitial-320-480"

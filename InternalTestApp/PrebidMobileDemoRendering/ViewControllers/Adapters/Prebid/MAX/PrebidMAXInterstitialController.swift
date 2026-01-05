@@ -15,8 +15,8 @@
 
 import UIKit
 import AppLovinSDK
-import PrebidMobile
-import PrebidMobileMAXAdapters
+import NativoPrebidSDK
+import NativoPrebidSDKMAXAdapters
 
 class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfigurableController {
     

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1020"
+   LastUpgradeVersion = "2600"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FAAA00BC2322733E009DC7D6"
-               BuildableName = "PrebidMobile.framework"
-               BlueprintName = "PrebidMobile"
+               BuildableName = "NativoPrebidSDK.framework"
+               BlueprintName = "NativoPrebidSDK"
                ReferencedContainer = "container:PrebidMobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,7 +30,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "60D792FA217E229B0080F428"
                BuildableName = "PrebidMobileTests.xctest"
-               BlueprintName = "PrebidMobileTests"
+               BlueprintName = "NativoPrebidSDKTests"
                ReferencedContainer = "container:PrebidMobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FAAA00BC2322733E009DC7D6"
-            BuildableName = "PrebidMobile.framework"
-            BlueprintName = "PrebidMobile"
+            BuildableName = "NativoPrebidSDK.framework"
+            BlueprintName = "NativoPrebidSDK"
             ReferencedContainer = "container:PrebidMobile.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -59,7 +59,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "60D792FA217E229B0080F428"
                BuildableName = "PrebidMobileTests.xctest"
-               BlueprintName = "PrebidMobileTests"
+               BlueprintName = "NativoPrebidSDKTests"
                ReferencedContainer = "container:PrebidMobile.xcodeproj">
             </BuildableReference>
             <SkippedTests>
@@ -96,8 +96,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FAAA00BC2322733E009DC7D6"
-            BuildableName = "PrebidMobile.framework"
-            BlueprintName = "PrebidMobile"
+            BuildableName = "NativoPrebidSDK.framework"
+            BlueprintName = "NativoPrebidSDK"
             ReferencedContainer = "container:PrebidMobile.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -112,8 +112,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FAAA00BC2322733E009DC7D6"
-            BuildableName = "PrebidMobile.framework"
-            BlueprintName = "PrebidMobile"
+            BuildableName = "NativoPrebidSDK.framework"
+            BlueprintName = "NativoPrebidSDK"
             ReferencedContainer = "container:PrebidMobile.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

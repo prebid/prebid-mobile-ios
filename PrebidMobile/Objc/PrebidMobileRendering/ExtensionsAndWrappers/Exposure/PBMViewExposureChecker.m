@@ -126,8 +126,8 @@
 }
 
 - (void)collectObstructionsFrom:(UIView *)view {
-    if (view.isHidden) {
-        return; // not obstructing
+    if ([self shouldIgnoreView:view]) {
+        return;
     }
     [self testForObstructing:view];
     if (view.clipsToBounds) {
@@ -212,6 +212,10 @@
 }
 
 - (void)testForObstructing:(UIView *)view {
+    if ([self shouldIgnoreView:view]) {
+        return;
+    }
+    
     CGRect testRect = [self.testedView convertRect:view.bounds fromView:view];
     CGRect obstruction = CGRectIntersection(self.clippedRect, testRect);
     if (!CGRectIsEmpty(obstruction)) {
@@ -298,6 +302,66 @@
             [array addObject:@(subRects[i])];
         }
     }
+}
+
+- (BOOL)shouldIgnoreView:(UIView *)view {
+    if (view.isHidden) {
+        return YES;
+    }
+
+    // Ignore TabBar + anything attached beneath it
+    if ([self isViewPartOfTabBar:view]) {
+        return YES;
+    }
+    // Ignore NavigationBar
+    if ([self isViewPartOfNavigationBar:view]) {
+        return YES;
+    }
+
+    return NO;
+}
+
+- (BOOL)isViewDescendantOfClass:(Class)class view:(UIView *)view {
+    for (UIView *v = view; v != nil; v = v.superview) {
+        if ([v isKindOfClass:class]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)isViewPartOfTabBar:(UIView *)view {
+    // Covers UITabBar + anything attached beneath it (background, effect views, buttons)
+    if ([self isViewDescendantOfClass:[UITabBar class] view:view]) {
+        return YES;
+    }
+
+    UIResponder *responder = view.nextResponder;
+    while (responder != nil) {
+        if ([responder isKindOfClass:[UITabBar class]] ||
+            [responder isKindOfClass:[UITabBarController class]]) {
+            return YES;
+        }
+        responder = responder.nextResponder;
+    }
+    return NO;
+}
+
+- (BOOL)isViewPartOfNavigationBar:(UIView *)view {
+    // Covers UINavigationBar + subviews (background/effects)
+    if ([self isViewDescendantOfClass:[UINavigationBar class] view:view]) {
+        return YES;
+    }
+
+    UIResponder *responder = view.nextResponder;
+    while (responder != nil) {
+        if ([responder isKindOfClass:[UINavigationBar class]] ||
+            [responder isKindOfClass:[UINavigationController class]]) {
+            return YES;
+        }
+        responder = responder.nextResponder;
+    }
+    return NO;
 }
 
 @end

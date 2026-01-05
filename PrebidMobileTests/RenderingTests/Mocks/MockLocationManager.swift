@@ -15,7 +15,7 @@
 
 import CoreLocation
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class MockLocationManagerSuccessful: LocationManager {
 

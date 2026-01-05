@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 protocol TCFEdition {
     var subjectToGDPRKey: String { get }

@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 class MockBannerView: BannerView {
     override var lastBidResponse: BidResponse? {
@@ -150,23 +150,23 @@ class BannerViewTest: XCTestCase {
         
         var events: BannerViewVideoPlaybackDelegateEvents = []
         
-        func videoPlaybackDidPause(_ banner: PrebidMobile.BannerView) {
+        func videoPlaybackDidPause(_ banner: NativoPrebidSDK.BannerView) {
             events.insert(.pause)
         }
         
-        func videoPlaybackDidResume(_ banner: PrebidMobile.BannerView) {
+        func videoPlaybackDidResume(_ banner: NativoPrebidSDK.BannerView) {
             events.insert(.resume)
         }
         
-        func videoPlaybackWasMuted(_ banner: PrebidMobile.BannerView) {
+        func videoPlaybackWasMuted(_ banner: NativoPrebidSDK.BannerView) {
             events.insert(.mute)
         }
         
-        func videoPlaybackWasUnmuted(_ banner: PrebidMobile.BannerView) {
+        func videoPlaybackWasUnmuted(_ banner: NativoPrebidSDK.BannerView) {
             events.insert(.unmute)
         }
         
-        func videoPlaybackDidComplete(_ banner: PrebidMobile.BannerView) {
+        func videoPlaybackDidComplete(_ banner: NativoPrebidSDK.BannerView) {
             events.insert(.complete)
         }
     }
