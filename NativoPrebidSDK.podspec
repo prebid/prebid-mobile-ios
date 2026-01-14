@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.author         = { "Nativo, Inc." => "info@nativo.com" }
   s.platform     	 = :ios, "12.0"
   s.swift_version  = '5.0'
-  s.source         = { :git => "git@github.com:NativoPlatform/nativo-prebid-sdk-ios.git", :tag => "#{s.version}-pod" }
+  s.source         = { :git => "https://github.com/NativoPlatform/nativo-prebid-sdk-ios.git", :tag => "#{s.version}" }
   s.xcconfig 		   = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
 			       :OTHER_CFLAGS => '$(inherited)',
 			       :OTHER_LDFLAGS => '$(inherited)',
