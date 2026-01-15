@@ -26,13 +26,4 @@ public protocol PrimaryAdRequesterProtocol: NSObjectProtocol {
      */
     @objc(requestAdWithBidResponse:)
     func requestAd(with bidResponse: BidResponse?)
-    
-    /**
-     @abstract The SDK calls this method when it has both Prebid and Nativo bid responses available.
-     @discussion Implementers can compare bids across responses and decide which to render.
-     @param prebidResponse The bid response returned from Prebid Server (may be nil).
-     @param nativoResponse The bid response returned from Nativo (may be nil).
-     */
-    @objc(requestAdWithPrebidResponse:nativoResponse:)
-    optional func requestAd(withPrebidResponse prebidResponse: BidResponse?, nativoResponse: BidResponse?)
 }

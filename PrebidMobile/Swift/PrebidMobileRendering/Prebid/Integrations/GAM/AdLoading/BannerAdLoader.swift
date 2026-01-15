@@ -84,12 +84,8 @@ class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, Ba
 
     // MARK: - BannerEventLoadingDelegate
 
-    public func prebidDidWin() {
-        flowDelegate?.adLoaderDidWinPrebid(self)
-    }
-
-    public func nativoDidWin() {
-        flowDelegate?.adLoaderDidWinNativo(self)
+    public func sdkDidWin(_ bidResponse: BidResponse?) {
+        flowDelegate?.adLoaderDidWinSdk(self, withBidResponse: bidResponse)
     }
 
     public func adServerDidWin(_ view: UIView, adSize: CGSize) {

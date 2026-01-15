@@ -40,7 +40,7 @@ public class GAMBannerEventHandler :
     
     let adUnitID: String
     
-    var nativoDidWin: Bool = false
+    var bidResponse: BidResponse?
     
     // MARK: - Public Methods
     
@@ -63,22 +63,8 @@ public class GAMBannerEventHandler :
         proxyBanner?.recordImpression()
     }
     
-    public func requestAd(withPrebidResponse prebidResponse: BidResponse?, nativoResponse: BidResponse?) {
-        let prebidPrice = prebidResponse?.winningBid?.price ?? 0.0
-        let nativoPrice = nativoResponse?.winningBid?.price ?? 0.0
-        
-        var winningResponse :BidResponse?
-        if (nativoPrice >= prebidPrice) {
-            nativoDidWin = true
-            winningResponse = nativoResponse
-        } else {
-            nativoDidWin = false
-            winningResponse = prebidResponse
-        }
-        requestAd(with: winningResponse)
-    }
-    
     public func requestAd(with bidResponse: BidResponse?) {
+        self.bidResponse = bidResponse
         guard let bannerViewWrapper = GAMBannerViewWrapper(),
               let request = GAMRequestWrapper() else {
             let error = GAMEventHandlerError.gamClassesNotFound
@@ -242,11 +228,7 @@ public class GAMBannerEventHandler :
             
             proxyBanner = banner
             
-            if (nativoDidWin) {
-                loadingDelegate?.nativoDidWin()
-            } else {
-                loadingDelegate?.prebidDidWin()
-            }
+            loadingDelegate?.sdkDidWin(bidResponse)
         }
     }
     

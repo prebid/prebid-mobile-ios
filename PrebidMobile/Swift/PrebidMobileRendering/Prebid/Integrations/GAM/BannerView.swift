@@ -212,7 +212,7 @@ public class BannerView:
             frame: frame,
             configID: configID,
             adSize: adSize,
-            eventHandler: NativoStandaloneBannerHandler()
+            eventHandler: BannerEventHandlerStandalone()
         )
     }
     

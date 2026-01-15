@@ -24,7 +24,7 @@ public class BannerEventHandlerStandalone: NSObject, BannerEventHandler {
     public var adSizes: [CGSize] = []
     
     public func requestAd(with bidResponse: BidResponse?) {
-        loadingDelegate?.prebidDidWin()
+        loadingDelegate?.sdkDidWin(bidResponse)
     }
     
     public func trackImpression() {

@@ -98,13 +98,19 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
                 self?.reportLoadingFailedWithError(error)
                 return
             }
-            self?.loadPrebidDisplayView(bidResponse: self?.bidResponse)
+            self?.decideWinner { [weak self] winningBid in
+                self?.loadPrebidDisplayView(bidResponse: winningBid)
+            }
         }
     }
 
-    public func adLoaderDidWinPrebid(_ adLoader: AdLoaderProtocol) {
+    public func adLoaderDidWinSdk(_ adLoader: AdLoaderProtocol, withBidResponse bidResponse: BidResponse?) {
         enqueueGatedBlock { [weak self] in
-            self?.loadPrebidDisplayView(bidResponse: self?.bidResponse)
+            if let winningBid = bidResponse {
+                self?.loadPrebidDisplayView(bidResponse: winningBid)
+            } else {
+                self?.loadPrebidDisplayView(bidResponse: self?.bidResponse)
+            }
         }
     }
     
@@ -170,7 +176,9 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
         case .bidRequest, .primaryAdRequest, .loadingDisplayView:
             return // waiting
         case .demandReceived:
-            requestPrimaryAdServer(bidResponse)
+            decideWinner { winningBid in
+                self.requestPrimaryAdServer(winningBid)
+            }
         case .readyToDeploy:
             deployPendingViewAndSendSuccessReport()
         }
@@ -206,7 +214,7 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
             self.bidRequestError = error
             self.bidRequester = nil
             adLoader?.flowDelegate = self
-            bannerEventDelegate?.nativoDidWin()
+            self.loadPrebidDisplayView(bidResponse: response)
         } else {
             flowState = .bidRequest
             sendBidRequest()
@@ -242,6 +250,19 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
         self.flowState = .demandReceived
         enqueueNextStepAttempt()
     }
+    
+    private func decideWinner(completion: ((BidResponse?) -> Void)? = nil) {
+        let prebidPrice = bidResponse?.winningBid?.price ?? 0.0
+        let nativoPrice = nativoBidResponse?.winningBid?.price ?? 0.0
+        
+        var winningResponse: BidResponse?
+        if (nativoPrice >= prebidPrice) {
+            winningResponse = nativoBidResponse
+        } else {
+            winningResponse = bidResponse
+        }
+        completion?(winningResponse)
+    }
 
     private func requestPrimaryAdServer(_ bidResponse: BidResponse?) {
         flowState = .primaryAdRequest
@@ -250,7 +271,7 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
 
         DispatchQueue.main.async { [weak self] in
             guard let self, let primaryAdServer = self.adLoader?.primaryAdRequester else { return }
-            primaryAdServer.requestAd?(withPrebidResponse: bidResponse, nativoResponse: self.nativoBidResponse) ??  primaryAdServer.requestAd(with: bidResponse)
+            primaryAdServer.requestAd(with: bidResponse)
         }
     }
 
