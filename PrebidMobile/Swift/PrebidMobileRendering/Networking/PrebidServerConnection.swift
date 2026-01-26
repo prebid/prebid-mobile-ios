@@ -247,7 +247,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         }
         
         // Prebid custom headers
-        for (key, value) in Prebid.shared.getCustomHeaders() {
+        for (key, value) in Prebid.shared.customHeaders {
             request.addValue(value, forHTTPHeaderField: key)
         }
         

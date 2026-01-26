@@ -45,15 +45,14 @@ public class Prebid: NSObject {
     /// ORTB: bidRequest.test
     public var pbsDebug = false
 
-    /// Dispatch queue for thread-safe access to custom headers
-    let customHeaderQueue : DispatchQueue = DispatchQueue(label: "com.prebid.customHeaderQ")
-
-    /// Private backing storage for custom HTTP headers
-    private var _customHeaders: [String: String] = [:]
-
     /// Custom HTTP headers to be sent with requests.
+    ///
+    /// Thread-safe: All access is synchronized via a serial dispatch queue.
+    /// The getter returns a snapshot copy of the headers dictionary.
     public var customHeaders: [String: String] {
-        get { getCustomHeaders() }
+        get {
+            customHeaderQueue.sync { _customHeaders }
+        }
         set {
             customHeaderQueue.sync {
                 self._customHeaders = newValue
@@ -151,6 +150,12 @@ public class Prebid: NSObject {
      */
     public var shouldDisableStatusCheck: Bool = false
     
+    /// Serial dispatch queue for thread-safe custom header access
+    private let customHeaderQueue = DispatchQueue(label: "com.prebid.customHeaderQ")
+
+    /// Backing storage for custom HTTP headers
+    private var _customHeaders: [String: String] = [:]
+
     // MARK: - Public Methods
     
     // MARK: - Stored Bid Response
@@ -183,8 +188,8 @@ public class Prebid: NSObject {
     }
     
     // MARK: - Custom Headers
-    
-    /// Adds a custom HTTP header.
+
+    /// Adds a custom HTTP header in a thread-safe manner.
     /// - Parameters:
     ///   - name: The name of the header.
     ///   - value: The value of the header.
@@ -194,18 +199,10 @@ public class Prebid: NSObject {
         }
     }
     
-    /// Clears all custom HTTP headers.
+    /// Clears all custom HTTP headers in a thread-safe manner.
     public func clearCustomHeaders() {
         customHeaderQueue.sync {
             self._customHeaders.removeAll()
-        }
-    }
-
-    /// Returns a copy of the current custom HTTP headers.
-    /// - Returns: A dictionary containing all custom headers.
-    public func getCustomHeaders() -> [String : String] {
-        customHeaderQueue.sync {
-            return _customHeaders
         }
     }
 
