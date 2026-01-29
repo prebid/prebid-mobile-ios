@@ -1,0 +1,317 @@
+name: Sync PrebidMobile -> Core & Adapters
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag to use (e.g. 3.1.0)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: read
+  
+
+concurrency:
+  group: sync-split-repos-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  ORG: prebid
+  CORE_REPO: prebid/prebid-mobile-ios-sdk
+  ADAPTERS_REPO: prebid/prebid-mobile-ios-adapters
+
+  TARGET_BRANCH: main
+  GH_TOKEN_PREBID_MOBILE: ${{ github.token }}
+
+  XCODE_VERSION: "16.4.0"
+
+jobs:
+  resolve_version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      should_run: ${{ steps.version.outputs.should_run }}
+    steps:
+      - name: Resolve version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ### Prebid Mobile SPM is available since 3.1.0
+          MIN_VERSION="3.1.0"
+
+          ### ONLY x.y.z (no suffix like -carthage)
+          semver_re='^[0-9]+\.[0-9]+\.[0-9]+$'
+
+          version_ge() {
+            ### works for strict x.y.z
+            printf '%s\n%s\n' "$2" "$1" | sort -V | head -n1 | grep -qx "$2"
+          }
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            v="${{ inputs.version }}"
+          else
+            v="${{ github.ref_name }}"   # tag name
+          fi
+
+          ### Strict semver check
+          if [[ ! "$v" =~ $semver_re ]]; then
+            echo "Tag '$v' is not strict x.y.z -> skipping"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          ### Minimum version check
+          if ! version_ge "$v" "$MIN_VERSION"; then
+            echo "Version $v < $MIN_VERSION -> skipping"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Version $v >= $MIN_VERSION -> running"
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "should_run=true" >> "$GITHUB_OUTPUT"
+
+  sync_core:
+    needs: resolve_version
+    if: needs.resolve_version.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PrebidMobile repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: source
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.SYNC_APP_ID }}
+          private-key: ${{ secrets.SYNC_APP_PRIVATE_KEY }}
+          owner: ${{ env.ORG }}
+          repositories: prebid-mobile-ios-sdk, prebid-mobile-ios-adapters
+      - name: Checkout target PrebidMobile Core SDK repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.CORE_REPO }}
+          token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ env.TARGET_BRANCH }}
+          fetch-depth: 0
+          path: core
+
+      - name: Sync PrebidMobile Core SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          rsync -a --delete "source/Frameworks/"  "core/Frameworks/"
+          rsync -a --delete "source/PrebidMobile/" "core/PrebidMobile/"
+          cp -f "source/PrebidMobile/Package.swift" "core/Package.swift"
+          cp -f "source/LICENSE" "core/LICENSE"
+          cp -f "source/PrebidMobile/README-SPM.md" "core/README.md"
+
+      - name: Commit & tag PrebidMobile Core SDK
+        shell: bash
+        env:
+          VERSION: ${{ needs.resolve_version.outputs.version }}
+          TARGET_BRANCH: ${{ env.TARGET_BRANCH }}
+        run: |
+          set -euo pipefail
+
+          "source/scripts/publishSPM.sh" \
+          "core" \
+          "${{ needs.resolve_version.outputs.version }}" \
+          "${{ env.TARGET_BRANCH }}"
+
+  sync_adapters:
+    needs: [resolve_version, sync_core]
+    if: needs.resolve_version.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repo (PrebidMobile)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: source
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.SYNC_APP_ID }}
+          private-key: ${{ secrets.SYNC_APP_PRIVATE_KEY }}
+          owner: ${{ env.ORG }}
+          repositories: prebid-mobile-ios-sdk, prebid-mobile-ios-adapters
+      - name: Checkout target PrebidMobile Adapters SDK repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.ADAPTERS_REPO }}
+          token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ env.TARGET_BRANCH }}
+          fetch-depth: 0
+          path: adapters
+
+      - name: Sync PrebidMobile Adapters SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          rsync -a --delete "source/EventHandlers/PrebidMobileAdMobAdapters/" "adapters/PrebidMobileAdMobAdapters/"
+          rsync -a --delete "source/EventHandlers/PrebidMobileMAXAdapters/"   "adapters/PrebidMobileMAXAdapters/"
+          rsync -a --delete "source/EventHandlers/PrebidMobileGAMEventHandlers/" "adapters/PrebidMobileGAMEventHandlers/"
+
+          cp -f "source/EventHandlers/Package.swift" "adapters/Package.swift"
+          cp -f "source/LICENSE" "adapters/LICENSE"
+          cp -f "source/EventHandlers/README-SPM.md" "adapters/README.md"
+
+      - name: Commit & tag PrebidMobile Adapters SDK
+        shell: bash
+        env:
+          VERSION: ${{ needs.resolve_version.outputs.version }}
+          TARGET_BRANCH: ${{ env.TARGET_BRANCH }}
+        run: |
+          set -euo pipefail
+
+          "source/scripts/publishSPM.sh" \
+          "adapters" \
+          "${{ needs.resolve_version.outputs.version }}" \
+          "${{ env.TARGET_BRANCH }}"
+  
+  release_notes:
+    runs-on: ubuntu-latest
+    needs: [resolve_version, sync_adapters]
+    env:
+      VERSION: ${{ needs.resolve_version.outputs.version }}
+    steps:
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.SYNC_APP_ID }}
+          private-key: ${{ secrets.SYNC_APP_PRIVATE_KEY }}
+          owner: ${{ env.ORG }}
+          repositories: prebid-mobile-ios-sdk, prebid-mobile-ios-adapters
+      - name: Checkout PrebidMobile repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compute tag + previous tag
+        id: tags
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TAG="${VERSION}"
+
+          ### Find previous semver tag (excluding current)
+          semver_regex='^(v)?[0-9]+\.[0-9]+\.[0-9]+$'
+          prev_tag="$(
+            git tag --list --sort=-v:refname \
+            | grep -E "$semver_regex" \
+            | grep -vx "$TAG" \
+            | head -n 1 \
+            || true
+          )"
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "prev_tag=$prev_tag" >> "$GITHUB_OUTPUT"
+
+          echo "Current tag: $TAG"
+          echo "Previous tag: ${prev_tag:-<none>}"
+      - name: Generate GitHub "auto-generated release notes"
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          set -euo pipefail
+
+          TAG="${{ steps.tags.outputs.tag }}"
+          PREV="${{ steps.tags.outputs.prev_tag }}"
+
+          ### This calls the same generator GitHub uses for "Auto-generate release notes"
+          ### If PREV is empty, omit previous_tag_name.
+          if [[ -n "$PREV" ]]; then
+            gh api "repos/${GITHUB_REPOSITORY}/releases/generate-notes" \
+              -f tag_name="$TAG" \
+              -f target_commitish="${GITHUB_SHA}" \
+              -f previous_tag_name="$PREV" \
+              --jq '.body' > release_notes.md
+          else
+            gh api "repos/${GITHUB_REPOSITORY}/releases/generate-notes" \
+              -f tag_name="$TAG" \
+              -f target_commitish="${GITHUB_SHA}" \
+              --jq '.body' > release_notes.md
+          fi
+
+          echo "----- CHANGELOG -----"
+          cat release_notes.md
+          echo "---------------------"
+      
+      - name: Create/Update release in PrebidMobile repo
+        shell: bash
+        env:
+          GH_TOKEN: ${{ env.GH_TOKEN_PREBID_MOBILE }}
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.tags.outputs.tag }}"
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --notes-file release_notes.md
+          else
+            gh release create "$TAG" --title "$TAG" --notes-file release_notes.md
+          fi
+
+      - name: Create/Update release in PrebidMobile Core SDK repo
+        shell: bash
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.tags.outputs.tag }}"
+
+          if gh release view "$TAG" --repo "$CORE_REPO" >/dev/null 2>&1; then
+            gh release edit "$TAG" --repo "$CORE_REPO" --notes-file release_notes.md
+          else
+            gh release create "$TAG" --repo "$CORE_REPO" --title "$TAG" --notes-file release_notes.md
+          fi
+
+      - name: Create/Update release in PrebidMobile Adapters SDK Adapters repo
+        shell: bash
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.tags.outputs.tag }}"
+
+          if gh release view "$TAG" --repo "$ADAPTERS_REPO" >/dev/null 2>&1; then
+            gh release edit "$TAG" --repo "$ADAPTERS_REPO" --notes-file release_notes.md
+          else
+            gh release create "$TAG" --repo "$ADAPTERS_REPO" --title "$TAG" --notes-file release_notes.md
+          fi
+  build:
+    name: Build PrebidMobile SPM demo
+    needs: [sync_adapters]
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with: 
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Build Prebid SPM Demo
+        run: ./scripts/buildPrebidSPM.sh
+      - name: Upload logs on failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-${{ github.run_id }}
+          path: generated/log/prebid_mobile_build.log
+          retention-days: 1
+  
