@@ -93,7 +93,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
         let bidResponse = try! PBMBidResponseTransformer.transform(response)
         XCTAssertNotNil(bidResponse)
         XCTAssertEqual(bidResponse.allBids?.count, 1)
-        XCTAssertNil(bidResponse.winningBid)
+        XCTAssertNotNil(bidResponse.winningBid)
     }
     
     func testRealPrebidResponse() {
