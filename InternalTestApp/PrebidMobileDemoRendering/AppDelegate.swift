@@ -45,7 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Prebid.shared.shouldDisableStatusCheck = true
                 
         //Set up SDK.
-        try? Prebid.initializeSDK(serverURL: "https://prebid-server-test-j.prebid.org/openrtb2/auction") { status, error in
+        let swiftVersionString = string(for: MobileAds.shared.versionNumber)
+
+        try? Prebid.initializeSDK(serverURL: "https://prebid-server-test-j.prebid.org/openrtb2/auction", gadMobileAdsVersion: swiftVersionString) { status, error in
             switch status {
             case .succeeded:
                 print("Prebid successfully initialized")
