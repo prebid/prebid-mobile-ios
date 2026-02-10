@@ -113,6 +113,10 @@ jobs:
 
           rsync -a --delete "source/Frameworks/"  "core/Frameworks/"
           rsync -a --delete "source/PrebidMobile/" "core/PrebidMobile/"
+
+          rm -f "core/PrebidMobile/Package.swift"
+          rm -f "core/PrebidMobile/README-SPM.md"
+
           cp -f "source/PrebidMobile/Package.swift" "core/Package.swift"
           cp -f "source/LICENSE" "core/LICENSE"
           cp -f "source/PrebidMobile/README-SPM.md" "core/README.md"

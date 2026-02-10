@@ -1464,7 +1464,7 @@
 			);
 			mainGroup = FA12E452231E9C5900CAA05B;
 			packageReferences = (
-				0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */,
+				0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios-adapters" */,
 				0012D9242E2159C0007013F3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */,
 			);
 			productRefGroup = FA12E45C231E9C5900CAA05B /* Products */;
@@ -2435,11 +2435,11 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */ = {
+		0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios-adapters" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/prebid/prebid-mobile-ios.git";
+			repositoryURL = "https://github.com/prebid/prebid-mobile-ios-adapters.git";
 			requirement = {
-				branch = master;
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -2456,22 +2456,22 @@
 /* Begin XCSwiftPackageProductDependency section */
 		0012D90D2E215435007013F3 /* PrebidMobile */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
+			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios-adapters" */;
 			productName = PrebidMobile;
 		};
 		0012D90F2E215435007013F3 /* PrebidMobileAdMobAdapters */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
+			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios-adapters" */;
 			productName = PrebidMobileAdMobAdapters;
 		};
 		0012D9112E215435007013F3 /* PrebidMobileGAMEventHandlers */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
+			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios-adapters" */;
 			productName = PrebidMobileGAMEventHandlers;
 		};
 		0012D9132E215435007013F3 /* PrebidMobileMAXAdapters */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
+			package = 0012D90C2E215435007013F3 /* XCRemoteSwiftPackageReference "prebid-mobile-ios-adapters" */;
 			productName = PrebidMobileMAXAdapters;
 		};
 		0012D9252E2159C0007013F3 /* GoogleInteractiveMediaAds */ = {
