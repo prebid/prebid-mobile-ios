@@ -1,22 +1,31 @@
 {
-  "originHash" : "9f352382f00da4f55601254a73790a056e3e2d9309d0665b416a47e424cefc7b",
+  "originHash" : "06fac310b679638e058bcd12a1dec194cd4a25449b07a2e6d1c6c3d02db44a61",
   "pins" : [
     {
       "identity" : "applovin-max-swift-package",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AppLovin/AppLovin-MAX-Swift-Package.git",
       "state" : {
-        "revision" : "c184b428415a05dcad488c6834e0bd02fe1d8f3e",
-        "version" : "13.3.1"
+        "revision" : "b5acf713209298059bb2f09b22d84d523454bc7b",
+        "version" : "13.5.1"
       }
     },
     {
-      "identity" : "prebid-mobile-ios",
+      "identity" : "prebid-mobile-ios-adapters",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/prebid/prebid-mobile-ios.git",
+      "location" : "https://github.com/prebid/prebid-mobile-ios-adapters.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "35342d7af22435ff703157042a983de74d37949e"
+        "branch" : "main",
+        "revision" : "57fc7189a0897bbd68f40cf3221c16b8314aefd8"
+      }
+    },
+    {
+      "identity" : "prebid-mobile-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/prebid/prebid-mobile-ios-sdk.git",
+      "state" : {
+        "revision" : "f194540e3a6b8ecc46acca223aaf112c0e08a86c",
+        "version" : "3.2.0"
       }
     },
     {
@@ -33,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/googleads/swift-package-manager-google-mobile-ads.git",
       "state" : {
-        "revision" : "d24a9f5ad472610598449dc669befa5b7ed50658",
-        "version" : "12.7.0"
+        "revision" : "1239c23464503053c17d37ee5daa70de3455e9c8",
+        "version" : "12.14.0"
       }
     },
     {
@@ -42,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/googleads/swift-package-manager-google-user-messaging-platform.git",
       "state" : {
-        "revision" : "69b53394c5258b3fe688e625a998047d1f393497",
-        "version" : "3.0.0"
+        "revision" : "13b248eaa73b7826f0efb1bcf455e251d65ecb1b",
+        "version" : "3.1.0"
       }
     }
   ],
