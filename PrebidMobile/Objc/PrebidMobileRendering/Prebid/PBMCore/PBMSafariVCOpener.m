@@ -42,6 +42,7 @@
 @property (nonatomic, strong, nullable) PBMVoidBlock onClickthroughExitBlock;
 
 @property (nonatomic, strong, nullable) SFSafariViewController * safariViewController;
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, PBMWindowLocker *> *windowLockers;
 
 @end
 
@@ -69,6 +70,7 @@
     _onWillLeaveAppBlock = onWillLeaveAppBlock;
     _onClickthroughPoppedBlock = onClickthroughPoppedBlock;
     _onDidLeaveAppBlock = onDidLeaveAppBlock;
+    _windowLockers = [NSMutableDictionary new];
     return self;
 }
 
@@ -126,19 +128,29 @@
                  viewController:(UIViewController *)viewControllerForPresentingModals
 {
     @try {
+        if (self.safariViewController && self.safariViewController.presentingViewController) {
+            PBMLogInfo(@"⚠️ Safari already being presented, ignoring");
+            return NO;
+        }
+        
         self.safariViewController = [[SFSafariViewController alloc] initWithURL:url];
         self.safariViewController.delegate = self;
-        
-        PBMOpenMeasurementSession * const measurementSession = self.measurementSessionProvider();
-        PBMWindowLocker * windowLocker = [[PBMWindowLocker alloc] initWithWindow:viewControllerForPresentingModals.view.window
-                                                              measurementSession:measurementSession];
-        [windowLocker lock];
         
         UIViewController * presentingViewController = viewControllerForPresentingModals;
         
         if (self.modalManager.modalViewController) {
             presentingViewController = self.modalManager.modalViewController;
         }
+        
+        if (presentingViewController.presentedViewController != nil) {
+            PBMLogInfo(@"⚠️ Presenting view controller is already presenting something");
+            return NO;
+        }
+        
+        PBMOpenMeasurementSession * const measurementSession = self.measurementSessionProvider();
+        PBMWindowLocker *windowLocker = [self windowLockerForWindow:viewControllerForPresentingModals.view.window
+                                                  measurementSession:measurementSession];
+        [windowLocker lock];
         
         if (self.onWillLoadURLInClickthrough != nil) {
             self.onWillLoadURLInClickthrough();
@@ -149,9 +161,23 @@
         }];
     } @catch (NSException *exception) {
         PBMLogError(@"Error occurred during URL opening: %@", exception.reason);
+        return NO;
     }
     
     return YES;
+}
+
+- (PBMWindowLocker *)windowLockerForWindow:(UIWindow *)window
+                        measurementSession:(PBMOpenMeasurementSession *)measurementSession {
+    NSNumber *key = @(window.hash);
+    PBMWindowLocker *locker = self.windowLockers[key];
+    
+    if (!locker) {
+        locker = [[PBMWindowLocker alloc] initWithWindow:window
+                                      measurementSession:measurementSession];
+        self.windowLockers[key] = locker;
+    }
+    return locker;
 }
 
 #pragma mark SFSafariViewControllerDelegate
