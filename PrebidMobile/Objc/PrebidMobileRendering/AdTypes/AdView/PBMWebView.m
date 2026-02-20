@@ -215,7 +215,8 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
         
 #if REMOTE_DEBUGGING
         // Delay in order to give time to start Safari remote debugging
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        int seconds = 8;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 #else
         dispatch_async(dispatch_get_main_queue(), ^{
 #endif
