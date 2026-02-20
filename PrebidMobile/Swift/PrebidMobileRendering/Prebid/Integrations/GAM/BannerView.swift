@@ -401,22 +401,17 @@ public class BannerView:
     private func installDeployedViewConstraints(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        addConstraints([
-            NSLayoutConstraint(item: self,
-                               attribute: .width,
-                               relatedBy: .equal,
-                               toItem: view,
-                               attribute: .width,
-                               multiplier: 1,
-                               constant: 0),
-            
-            NSLayoutConstraint(item: self,
-                               attribute: .height,
-                               relatedBy: .equal,
-                               toItem: view,
-                               attribute: .height,
-                               multiplier: 1, constant: 0)
-        ])
+        let widthConstraint = self.widthAnchor.constraint(equalTo: view.widthAnchor)
+        let heightConstraint = self.heightAnchor.constraint(equalTo: view.heightAnchor)
+        let centerX = view.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        let centerY = view.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        
+        widthConstraint.priority = .defaultHigh
+        heightConstraint.priority = .defaultHigh
+        centerX.priority = .defaultHigh
+        centerY.priority = .defaultHigh
+        
+        NSLayoutConstraint.activate([widthConstraint, heightConstraint, centerX, centerY])
     }
 }
 
