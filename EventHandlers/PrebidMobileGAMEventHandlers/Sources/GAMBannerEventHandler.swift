@@ -206,6 +206,7 @@ public class GAMBannerEventHandler :
             
             if let banner = banner,
                let adSize = dfpAdSize {
+                setSizeConstraints(banner.banner, forAdSize: adSize)
                 loadingDelegate?.adServerDidWin(banner.banner, adSize: adSize)
             }
         }
@@ -242,12 +243,15 @@ public class GAMBannerEventHandler :
         
         if let banner = banner,
            let adSize = dfpAdSize {
-            // Enforce size constraints on banner. Ad will not render without correct constraints.
-            banner.banner.widthAnchor.constraint(equalToConstant: adSize.width).isActive = true
-            banner.banner.heightAnchor.constraint(equalToConstant: adSize.height).isActive = true
-            
+            setSizeConstraints(banner.banner, forAdSize: adSize)
             loadingDelegate?.adServerDidWin(banner.banner, adSize: adSize)
         }
+    }
+    
+    func setSizeConstraints(_ banner: GoogleMobileAds.BannerView, forAdSize adSize: CGSize) {
+        // Ad will not render without correct constraints.
+        banner.widthAnchor.constraint(equalToConstant: adSize.width).isActive = true
+        banner.heightAnchor.constraint(equalToConstant: adSize.height).isActive = true
     }
     
     func recycleCurrentBanner() {
@@ -258,4 +262,5 @@ public class GAMBannerEventHandler :
     class func convertGADSizes(_ inSizes: [NSValue]) -> [CGSize] {
         inSizes.map { cgSize(for: GoogleMobileAds.adSizeFor(nsValue: $0)) }
     }
+    
 }
