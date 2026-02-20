@@ -252,7 +252,7 @@ public class GAMBannerEventHandler :
     }
     
     func setSizeConstraints(_ banner: GoogleMobileAds.BannerView, forAdSize adSize: CGSize) {
-        // Enforce size constraints on banner. Ad will not render without correct constraints.
+        // Ad will not render without correct constraints.
         banner.widthAnchor.constraint(equalToConstant: adSize.width).isActive = true
         banner.heightAnchor.constraint(equalToConstant: adSize.height).isActive = true
     }
