@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
   s.static_framework = true
 
   s.dependency 'PrebidMobile', '3.2.1'
-  s.dependency 'Google-Mobile-Ads-SDK', '>= 12.0.0'
+  s.dependency 'Google-Mobile-Ads-SDK', '>= 13.0.0'
 
   s.pod_target_xcconfig = {
     'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
