@@ -23,7 +23,7 @@ To [add the Prebid Mobile SDK package dependency](https://developer.apple.com/do
 Easily include the Prebid Mobile SDK for your primary ad server in your Podfile/
 
 ```
-platform :ios, '12.0'
+platform :ios, '13.0'
 
 target 'MyAmazingApp' do 
     pod 'PrebidMobile'
