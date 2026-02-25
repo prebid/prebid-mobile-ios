@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AppLovin/AppLovin-MAX-Swift-Package.git",
       "state" : {
-        "revision" : "b5acf713209298059bb2f09b22d84d523454bc7b",
-        "version" : "13.5.1"
+        "revision" : "199b14d91a2311b020d8a303c59d93010051d1f9",
+        "version" : "13.6.0"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/prebid/prebid-mobile-ios-adapters.git",
       "state" : {
         "branch" : "main",
-        "revision" : "57fc7189a0897bbd68f40cf3221c16b8314aefd8"
+        "revision" : "f95a1026f123b7252a0dace2fe83d2fd962a0a48"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/prebid/prebid-mobile-ios-sdk.git",
       "state" : {
-        "revision" : "f194540e3a6b8ecc46acca223aaf112c0e08a86c",
-        "version" : "3.2.0"
+        "revision" : "ee87fc64a159fca2b6d4ab02545009ade19337d1",
+        "version" : "3.2.1"
       }
     },
     {

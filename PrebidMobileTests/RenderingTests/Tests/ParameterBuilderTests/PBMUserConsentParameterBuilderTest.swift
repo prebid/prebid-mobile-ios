@@ -19,7 +19,11 @@ import XCTest
 class PBMUserConsentParameterBuilderTest: XCTestCase {
     
     override func tearDown() {
-        UserConsentDataManager.shared.reset()
+        UserConsentDataManager.shared.subjectToGDPR = nil
+        UserConsentDataManager.shared.gdprConsentString = nil
+        UserConsentDataManager.shared.purposeConsents = nil
+        UserConsentDataManager.shared.subjectToCOPPA = nil
+
         super.tearDown()
     }
     
