@@ -180,12 +180,25 @@
         for (AdFormat* adFormat in adFormats) {
             if (adFormat == AdFormat.banner) {
                 PBMORTBBanner * const nextBanner = nextImp.banner;
+            
+                BannerParameters *bannerParameters = self.adConfiguration.adConfiguration.bannerParameters;
+                NSMutableArray<PBMORTBFormat *> *mergedFormats = [NSMutableArray new];
+                
                 if (formats) {
-                    nextBanner.format = formats;
+                    [mergedFormats addObjectsFromArray:formats];
                 }
                 
-                BannerParameters *bannerParameters = self.adConfiguration.adConfiguration.bannerParameters;
+                if (bannerParameters.adSizes && bannerParameters.adSizes.count > 0) {
+                    for (NSValue *sizeValue in bannerParameters.adSizes) {
+                        [mergedFormats addObject:[PBMPrebidParameterBuilder ortbFormatWithSize:sizeValue]];
+                    }
+                }
                 
+                NSArray<PBMORTBFormat *> *uniqueFormats = [[NSSet setWithArray:mergedFormats] allObjects];
+                if (uniqueFormats.count > 0) {
+                    nextBanner.format = uniqueFormats;
+                }
+
                 if (bannerParameters.api && bannerParameters.api.count > 0) {
                     nextBanner.api = bannerParameters.rawAPI;
                 }
