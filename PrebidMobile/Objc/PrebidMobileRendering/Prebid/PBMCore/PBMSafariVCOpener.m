@@ -43,6 +43,7 @@
 
 @property (nonatomic, strong, nullable) SFSafariViewController * safariViewController;
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, PBMWindowLocker *> *windowLockers;
+@property (nonatomic, strong, nullable) NSNumber *currentWindowLockerKey;
 
 @end
 
@@ -147,10 +148,13 @@
             return NO;
         }
         
+        NSNumber *key = @(viewControllerForPresentingModals.view.window.hash);
         PBMOpenMeasurementSession * const measurementSession = self.measurementSessionProvider();
         PBMWindowLocker *windowLocker = [self windowLockerForWindow:viewControllerForPresentingModals.view.window
                                                   measurementSession:measurementSession];
         [windowLocker lock];
+        
+        self.currentWindowLockerKey = key;
         
         if (self.onWillLoadURLInClickthrough != nil) {
             self.onWillLoadURLInClickthrough();
@@ -183,6 +187,10 @@
 #pragma mark SFSafariViewControllerDelegate
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    if (self.currentWindowLockerKey) {
+        [self.windowLockers removeObjectForKey:self.currentWindowLockerKey];
+        self.currentWindowLockerKey = nil;
+    }
     
     if (self.onClickthroughPoppedBlock != nil) {
         self.onClickthroughPoppedBlock(nil);
