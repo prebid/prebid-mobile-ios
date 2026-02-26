@@ -70,6 +70,7 @@
 #import "PBMCircularProgressBarLayer.h"
 #import "PBMInterstitialLayoutConfigurator.h"
 #import "PBMSKAdNetworksParameterBuilder.h"
+#import "PBMViewExposureChecker.h"
 
 // Extensions
 #import "NSException+PBMExtensions.h"

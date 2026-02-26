@@ -126,8 +126,8 @@
 }
 
 - (void)collectObstructionsFrom:(UIView *)view {
-    if (view.isHidden) {
-        return; // not obstructing
+    if ([self shouldIgnoreView:view]) {
+        return;
     }
     [self testForObstructing:view];
     if (view.clipsToBounds) {
@@ -298,6 +298,51 @@
             [array addObject:@(subRects[i])];
         }
     }
+}
+
+- (BOOL)shouldIgnoreView:(UIView *)view {
+    if (view.isHidden) {
+        return YES;
+    }
+    
+    NSArray<Class> *systemUIClasses = @[
+        [UITabBar class],
+        [UITabBarController class],
+        [UINavigationBar class],
+        [UINavigationController class],
+        [UIToolbar class],
+        [UISearchBar class]
+    ];
+    
+    return [self isViewPartOfSystemUIType:systemUIClasses view:view];
+}
+
+- (BOOL)isViewDescendantOfClass:(Class)class view:(UIView *)view {
+    for (UIView *v = view; v != nil; v = v.superview) {
+        if ([v isKindOfClass:class]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)isViewPartOfSystemUIType:(NSArray<Class> *)classes view:(UIView *)view {
+    for (Class cls in classes) {
+        if ([self isViewDescendantOfClass:cls view:view]) {
+            return YES;
+        }
+    }
+    
+    UIResponder *responder = view.nextResponder;
+    while (responder != nil) {
+        for (Class cls in classes) {
+            if ([responder isKindOfClass:cls]) {
+                return YES;
+            }
+        }
+        responder = responder.nextResponder;
+    }
+    return NO;
 }
 
 @end
