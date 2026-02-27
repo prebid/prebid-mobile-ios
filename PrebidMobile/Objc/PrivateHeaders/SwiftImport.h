@@ -13,9 +13,10 @@
 // limitations under the License.
 //
     
-
-#if __has_include("NativoPrebidSDK-Swift.h")
-#import "NativoPrebidSDK-Swift.h"
+#if PrebidMobile_SPM
+@import NativoPrebidSDK;
+#elif __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
 #else
-#import <NativoPrebidSDK/NativoPrebidSDK-Swift.h>
+#import <NativoPrebidSDK/PrebidMobile-Swift.h>
 #endif

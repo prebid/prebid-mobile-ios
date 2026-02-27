@@ -5,42 +5,42 @@ import PackageDescription
 
 let package = Package(
     
-    name: "PrebidMobile",
+    name: "NativoPrebidSDK",
     platforms: [
         .iOS(.v12),
     ],
     products: [
         .library(
-            name: "PrebidMobile",
-            targets: ["PrebidMobile", "__PrebidMobileInternal"]
+            name: "NativoPrebidSDK",
+            targets: ["NativoPrebidSDK", "__PrebidMobileInternal"]
         ),
         .library(
-            name: "PrebidMobileAdMobAdapters",
-            targets: ["PrebidMobileAdMobAdapters"]
+            name: "NativoPrebidSDKAdMobAdapters",
+            targets: ["NativoPrebidSDKAdMobAdapters"]
         ),
         .library(
-            name: "PrebidMobileGAMEventHandlers",
-            targets: ["PrebidMobileGAMEventHandlers"]
+            name: "NativoPrebidSDKGAMEventHandlers",
+            targets: ["NativoPrebidSDKGAMEventHandlers"]
         ),
         .library(
-            name: "PrebidMobileMAXAdapters",
-            targets: ["PrebidMobileMAXAdapters"]
-        ),
+            name: "NativoPrebidSDKMAXAdapters",
+            targets: ["NativoPrebidSDKMAXAdapters"]
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", .upToNextMajor(from: "12.0.0")),
-        .package(url: "https://github.com/AppLovin/AppLovin-MAX-Swift-Package.git", .upToNextMajor(from: "13.0.0")),
+        .package(url: "https://github.com/AppLovin/AppLovin-MAX-Swift-Package.git", .upToNextMajor(from: "13.0.0"))
     ],
     targets: [
         .target(
-            name: "PrebidMobile",
+            name: "NativoPrebidSDK",
             path: "PrebidMobile",
             sources: ["Swift"]
         ),
         .target(
             name: "__PrebidMobileInternal",
             dependencies: [
-                "PrebidMobile",
+                "NativoPrebidSDK",
                 "PrebidMobileOMSDK",
             ],
             path: "PrebidMobile",
@@ -55,27 +55,27 @@ let package = Package(
             path: "Frameworks/OMSDK_Prebidorg.xcframework"
         ),
         .target(
-            name: "PrebidMobileAdMobAdapters",
+            name: "NativoPrebidSDKAdMobAdapters",
             dependencies: [
-                "PrebidMobile",
+                "NativoPrebidSDK",
                 .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
             ],
             path: "EventHandlers/PrebidMobileAdMobAdapters",
             sources: ["Sources"]
         ),
         .target(
-            name: "PrebidMobileGAMEventHandlers",
+            name: "NativoPrebidSDKGAMEventHandlers",
             dependencies: [
-                "PrebidMobile",
+                "NativoPrebidSDK",
                 .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
             ],
             path: "EventHandlers/PrebidMobileGAMEventHandlers",
             sources: ["Sources"]
         ),
         .target(
-            name: "PrebidMobileMAXAdapters",
+            name: "NativoPrebidSDKMAXAdapters",
             dependencies: [
-                "PrebidMobile",
+                "NativoPrebidSDK",
                 .product(name: "AppLovinSDK", package: "AppLovin-MAX-Swift-Package"),
             ],
             path: "EventHandlers/PrebidMobileMAXAdapters",
