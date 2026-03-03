@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
       Prebid-Mobile-SDK is a lightweight framework that integrates directly with Prebid Server to increase yield for publishers by adding more mobile buyers."
       DESC
-    s.homepage     = "https://www.veonadtech.com"
+    s.homepage     = "https://www.veon.com"
 
 
     s.license      = { :type => "Apache License, Version 2.0", :text => <<-LICENSE

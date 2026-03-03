@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.module_name = "PrebidMobileGAMEventHandlers"
 
   s.description  = "GAM Event Handlers manages rendering of Prebid or GAM ads respectively to the winning bid."
-  s.homepage     = "https://www.veonadtech.com"
+  s.homepage     = "https://www.veon.com"
 
 
   s.license      = { :type => "Apache License, Version 2.0", :text => <<-LICENSE

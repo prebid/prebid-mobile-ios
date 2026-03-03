@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.module_name = "PrebidMobileAdMobAdapters"
 
   s.description  = "AdMob Adapters manages rendering of Prebid ads in the case of integration with AdMob as a Primary Ad Server."
-  s.homepage     = "https://www.veonadtech.com"
+  s.homepage     = "https://www.veon.com"
 
 
   s.license      = { :type => "Apache License, Version 2.0", :text => <<-LICENSE
