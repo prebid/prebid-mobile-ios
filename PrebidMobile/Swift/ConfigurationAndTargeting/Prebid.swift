@@ -44,9 +44,21 @@ public class Prebid: NSObject {
     /// Enables or disables debug mode.
     /// ORTB: bidRequest.test
     public var pbsDebug = false
-    
+
     /// Custom HTTP headers to be sent with requests.
-    public var customHeaders: [String: String] = [:]
+    ///
+    /// Thread-safe: All access is synchronized via a serial dispatch queue.
+    /// The getter returns a snapshot copy of the headers dictionary.
+    public var customHeaders: [String: String] {
+        get {
+            customHeaderQueue.sync { _customHeaders }
+        }
+        set {
+            customHeaderQueue.sync {
+                self._customHeaders = newValue
+            }
+        }
+    }
     
     /// Stored bid responses identified by bidder names.
     public var storedBidResponses: [String: String] = [:]
@@ -138,6 +150,12 @@ public class Prebid: NSObject {
      */
     public var shouldDisableStatusCheck: Bool = false
     
+    /// Serial dispatch queue for thread-safe custom header access
+    private let customHeaderQueue = DispatchQueue(label: "com.prebid.customHeaderQ")
+
+    /// Backing storage for custom HTTP headers
+    private var _customHeaders: [String: String] = [:]
+
     // MARK: - Public Methods
     
     // MARK: - Stored Bid Response
@@ -170,20 +188,24 @@ public class Prebid: NSObject {
     }
     
     // MARK: - Custom Headers
-    
-    /// Adds a custom HTTP header.
+
+    /// Adds a custom HTTP header in a thread-safe manner.
     /// - Parameters:
     ///   - name: The name of the header.
     ///   - value: The value of the header.
     public func addCustomHeader(name: String, value: String) {
-        customHeaders[name] = value
+        customHeaderQueue.sync {
+            self._customHeaders[name] = value
+        }
     }
     
-    /// Clears all custom HTTP headers.
+    /// Clears all custom HTTP headers in a thread-safe manner.
     public func clearCustomHeaders() {
-        customHeaders.removeAll()
+        customHeaderQueue.sync {
+            self._customHeaders.removeAll()
+        }
     }
-    
+
     /// Checks the status of Prebid Server. The `customStatusEndpoint` property is used as server status endpoint.
     /// If `customStatusEndpoint` property is not provided, the SDK will use default endpoint - `host` + `/status`.
     ///

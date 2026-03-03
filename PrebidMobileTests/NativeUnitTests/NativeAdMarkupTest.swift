@@ -53,6 +53,44 @@ class NativeAdMarkupTest: XCTestCase {
         
         XCTAssertTrue(expectedMarkup == resultMarkup)
     }
+    
+    func testInitFromJsonWithNativeWrapper() {
+        let linkDic: [String: Any] = [
+            "fallback": "fallback-url",
+            "clicktrackers": ["first-clicktracker", "Last Clicktracker"],
+            "url": "link url",
+            "ext": ["la": "lb"],
+        ]
+        
+        let linkObject = NativeLink(jsonDictionary: linkDic)
+        
+        let markupDict: [String: Any] = [
+            "native": [
+                "ver": "1.0",
+                "assetsurl": "test assetsurl",
+                "dcourl": "test dcourl",
+                "link" : linkDic,
+                "imptrackers": ["imptrackers 1", "imptrackers 2"],
+                "jstracker": "test jstracker",
+                "privacy": "test privacy",
+                "ext": ["ls": "as"]
+            ]
+        ]
+        
+        let expectedMarkup = NativeAdMarkup()
+        expectedMarkup.version = "1.0"
+        expectedMarkup.assetsurl = "test assetsurl"
+        expectedMarkup.dcourl = "test dcourl"
+        expectedMarkup.link = linkObject
+        expectedMarkup.imptrackers = ["imptrackers 1", "imptrackers 2"]
+        expectedMarkup.jstracker = "test jstracker"
+        expectedMarkup.privacy = "test privacy"
+        expectedMarkup.ext = ["ls": "as"]
+        
+        let resultMarkup = NativeAdMarkup(jsonDictionary: markupDict)
+        
+        XCTAssertTrue(expectedMarkup == resultMarkup)
+    }
 }
 
 

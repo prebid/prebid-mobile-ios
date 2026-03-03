@@ -121,8 +121,8 @@ class PBMORTBAbstractTest : XCTestCase {
             
             XCTAssertNotEqual(impInitial.banner, impCopy.banner)
             
-            XCTAssertNotEqual(impInitial.banner?.format, impCopy.banner?.format)
-            XCTAssertNotEqual(impInitial.banner?.format[0], impCopy.banner?.format[0])
+            XCTAssertFalse(impInitial.banner!.format as AnyObject === impCopy.banner!.format as AnyObject)
+            XCTAssertFalse(impInitial.banner!.format[0] === impCopy.banner!.format[0])
             XCTAssertEqual(impInitial.banner?.format[0].w, impCopy.banner?.format[0].w)
             XCTAssertEqual(impInitial.banner?.format[0].h, impCopy.banner?.format[0].h)
             XCTAssertEqual(impInitial.banner?.format[0].wratio, impCopy.banner?.format[0].wratio)

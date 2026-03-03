@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NativoPrebidSDKAdMobAdapters"
-  s.version      = "3.2.0"
+  s.version      = "3.3.0"
   s.summary      = "The bridge between NativoPrebidSDK and GMA SDK."
 
   s.description  = "AdMob Adatpers manages rendering of Prebid ads in the case of integration with AdMob as a Primary Ad Server."
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
     }
 
   s.author        = { "Prebid.org, Inc." => "info@prebid.org" }
-  s.platform      = :ios, "12.0"
+  s.platform      = :ios, "13.0"
   s.swift_version = '5.0'
   s.source        = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
   s.xcconfig      = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
@@ -40,8 +40,8 @@ Pod::Spec.new do |s|
 
   s.static_framework = true
 
-  s.dependency 'NativoPrebidSDK', '3.2.0'
-  s.dependency 'Google-Mobile-Ads-SDK', '>= 12.0.0'
+  s.dependency 'NativoPrebidSDK', '3.3.0'
+  s.dependency 'Google-Mobile-Ads-SDK', '>= 13.0.0'
   
   s.pod_target_xcconfig = {
     'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'

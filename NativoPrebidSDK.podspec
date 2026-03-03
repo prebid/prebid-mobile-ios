@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NativoPrebidSDK"
-  s.version      = "3.2.0-alpha.1"
+  s.version      = "3.3.0-alpha.1"
   s.summary      = "Nativo's PrebidMobile wrapper is a lightweight framework that integrates directly with Nativo and Prebid Server."
 
   s.description  = <<-DESC
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
     }
 
   s.author         = { "Nativo, Inc." => "info@nativo.com" }
-  s.platform     	 = :ios, "12.0"
+  s.platform     	 = :ios, "13.0"
   s.swift_version  = '5.0'
   s.source         = { :git => "https://github.com/NativoPlatform/nativo-prebid-sdk-ios.git", :tag => "#{s.version}" }
   s.xcconfig 		   = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
@@ -56,9 +56,10 @@ Pod::Spec.new do |s|
 
   s.default_subspecs = ['core']
   s.subspec 'core' do |core|
-    core.source_files = [
-    'PrebidMobile/**/*.{h,m,swift}',
-    'NativoPrebidRenderer/'
+    core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
+    core.exclude_files = [
+      'PrebidMobile/Package.swift',
+      'PrebidMobile/README-SPM.md'
     ]
     
     core.private_header_files = [

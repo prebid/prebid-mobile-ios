@@ -18,5 +18,6 @@
 @interface PBMTouchDownRecognizer : UITapGestureRecognizer
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
+- (void)handleTouch;
 
 @end

@@ -1,5 +1,4 @@
 {
-  "originHash" : "06fac310b679638e058bcd12a1dec194cd4a25449b07a2e6d1c6c3d02db44a61",
   "pins" : [
     {
       "identity" : "applovin-max-swift-package",
@@ -8,15 +7,6 @@
       "state" : {
         "revision" : "199b14d91a2311b020d8a303c59d93010051d1f9",
         "version" : "13.6.0"
-      }
-    },
-    {
-      "identity" : "prebid-mobile-ios-adapters",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/prebid/prebid-mobile-ios-adapters.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "f95a1026f123b7252a0dace2fe83d2fd962a0a48"
       }
     },
     {
@@ -29,21 +19,12 @@
       }
     },
     {
-      "identity" : "swift-package-manager-google-interactive-media-ads-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-ios.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "871bc80349774ba228c41096129995d1e9848b04"
-      }
-    },
-    {
       "identity" : "swift-package-manager-google-mobile-ads",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/googleads/swift-package-manager-google-mobile-ads.git",
       "state" : {
-        "revision" : "1239c23464503053c17d37ee5daa70de3455e9c8",
-        "version" : "12.14.0"
+        "revision" : "1a1a5ee5563b8e9ef57ba82c4a570e2e47078dc1",
+        "version" : "13.0.0"
       }
     },
     {
@@ -56,5 +37,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
