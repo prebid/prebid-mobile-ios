@@ -91,15 +91,22 @@ public class NativeAdMarkup: NSObject, JsonDecodable {
             return
         }
         
-        self.version = jsonDictionary["ver"] as? String
-        self.assetsurl = jsonDictionary["assetsurl"] as? String
-        self.dcourl = jsonDictionary["dcourl"] as? String
-        self.imptrackers = jsonDictionary["imptrackers"] as? [String]
-        self.jstracker = jsonDictionary["jstracker"] as? String
-        self.privacy = jsonDictionary["privacy"] as? String
-        self.ext = jsonDictionary["ext"] as? [String: Any]
+        let nativeDict: [String: Any]
+        if let nativeWrapper = jsonDictionary["native"] as? [String: Any] {
+            nativeDict = nativeWrapper
+        } else {
+            nativeDict = jsonDictionary
+        }
         
-        if let assetDictArray = jsonDictionary["assets"] as? [[String: Any]] {
+        self.version = nativeDict["ver"] as? String
+        self.assetsurl = nativeDict["assetsurl"] as? String
+        self.dcourl = nativeDict["dcourl"] as? String
+        self.imptrackers = nativeDict["imptrackers"] as? [String]
+        self.jstracker = nativeDict["jstracker"] as? String
+        self.privacy = nativeDict["privacy"] as? String
+        self.ext = nativeDict["ext"] as? [String: Any]
+        
+        if let assetDictArray = nativeDict["assets"] as? [[String: Any]] {
             var finalAssetArray = [NativeAdMarkupAsset]()
             
             for assetDict in assetDictArray {
@@ -108,11 +115,11 @@ public class NativeAdMarkup: NSObject, JsonDecodable {
             self.assets = finalAssetArray
         }
         
-        if let linkDicitonary = jsonDictionary["link"] as? [String: Any] {
+        if let linkDicitonary = nativeDict["link"] as? [String: Any] {
             self.link = NativeLink(jsonDictionary: linkDicitonary)
         }
         
-        if let eventTrackerDictArray = jsonDictionary["eventtrackers"] as? [[String: Any]] {
+        if let eventTrackerDictArray = nativeDict["eventtrackers"] as? [[String: Any]] {
             var finalEventTrackers = [NativeEventTrackerResponse]()
             for eventTrackerDictionary in eventTrackerDictArray {
                 finalEventTrackers.append(NativeEventTrackerResponse(jsonDictionary: eventTrackerDictionary))

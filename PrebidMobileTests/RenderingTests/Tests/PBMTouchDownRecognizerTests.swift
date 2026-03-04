@@ -30,14 +30,46 @@ class PBMTouchDownRecognizerTests : XCTestCase {
         //between release of iOS. For more information, see:
         //http://blog.lazerwalker.com/objective-c/code/2013/10/16/faking-touch-events-on-ios-for-fun-and-profit.html
         
-        //Should start as Possible
-        let pbmTouchDownRecognizer = PBMTouchDownRecognizer()
-        PBMAssertEq(pbmTouchDownRecognizer.state, UIGestureRecognizer.State.possible)
+        // Should start as Possible
+        let recognizer = TestablePBMTouchDownRecognizer()
+        PBMAssertEq(recognizer.state, .possible)
         
-        //If you touch down onto the view it should immediately count as ended.
-        //This will not fire the associated selector, though.
-        let touches = Set<UITouch>([UITouch()])
-        pbmTouchDownRecognizer.touchesBegan(touches, with: UIEvent())
-        PBMAssertEq(pbmTouchDownRecognizer.state.rawValue, UIGestureRecognizer.State.ended.rawValue)
+        // Trigger touch down logic
+        recognizer.handleTouch()
+        
+        // Should transition to Ended
+        PBMAssertEq(recognizer.state.rawValue, UIGestureRecognizer.State.ended.rawValue)
+    }
+    
+    func testDoesNotTransitionIfNotPossible() {
+        let recognizer = TestablePBMTouchDownRecognizer()
+        recognizer.mockState = .failed
+        
+        recognizer.handleTouch()
+        
+        // State should remain unchanged since it wasn't .possible
+        PBMAssertEq(recognizer.state, .failed)
+    }
+    
+    func testTransitionsOnlyOnce() {
+        let recognizer = TestablePBMTouchDownRecognizer()
+        
+        recognizer.handleTouch()
+        PBMAssertEq(recognizer.state, .ended)
+        
+        // Calling again should not change state (already .ended, not .possible)
+        recognizer.handleTouch()
+        PBMAssertEq(recognizer.state, .ended)
+    }
+    
+    // MARK: - Test Helpers
+
+    private class TestablePBMTouchDownRecognizer: PBMTouchDownRecognizer {
+        var mockState: UIGestureRecognizer.State = .possible
+        
+        override var state: UIGestureRecognizer.State {
+            get { mockState }
+            set { mockState = newValue }
+        }
     }
 }
