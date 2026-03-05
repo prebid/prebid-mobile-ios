@@ -41,7 +41,7 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
     private var nativoRequester: BidRequesterProtocol?
     private var prebidAdObject: AnyObject?
     private var primaryAdObject: AnyObject?
-    private var adSize: NSValue?
+    private var winningAdSize: NSValue?
 
     @objc let dispatchQueue: DispatchQueue
     @objc let mutationLock = NSLock()
@@ -86,7 +86,7 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
                 self?.bidRequestError = nil
                 Log.info("[ERROR]: \(error.localizedDescription)")
             }
-            self?.adSize = adSize
+            self?.winningAdSize = adSize
             self?.primaryAdObject = adObject
             self?.markReadyToDeployAdView()
         }
@@ -126,9 +126,6 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
 
     public func adLoaderLoadedPrebidAd(_ adLoader: AdLoaderProtocol) {
         enqueueGatedBlock { [weak self] in
-            if let bidSize = self?.bidResponse?.winningBid?.size {
-                self?.adSize = NSValue(cgSize: bidSize)
-            }
             self?.markReadyToDeployAdView()
         }
     }
@@ -208,9 +205,6 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
         let isOwnedOperated: Bool = bid?.bid.ext?.nativo?.isOwnedOperated ?? false
         if (isOwnedOperated) {
             // Render O&O demand via adLoader Nativo flow
-            if let size = bid?.size {
-                self.adSize = NSValue(cgSize: size)
-            }
             self.bidRequestError = error
             self.bidRequester = nil
             adLoader?.flowDelegate = self
@@ -245,7 +239,11 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
 
     private func handleBidResponse(response: BidResponse?, error: Error?) {
         self.bidResponse = (response != nil && error == nil) ? response : nil
-        self.bidRequestError = error
+        if let error = error as NSError? {
+            self.bidRequestError = error
+            let errorMsg = error.localizedFailureReason ?? String(describing: error)
+            Log.debug("Prebid Server: \(errorMsg)")
+        }
         self.bidRequester = nil
         self.flowState = .demandReceived
         enqueueNextStepAttempt()
@@ -261,6 +259,12 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
         } else {
             winningResponse = bidResponse
         }
+        
+        // Set winning ad size for later
+        if let size = winningResponse?.winningBid?.size {
+            self.winningAdSize = NSValue(cgSize: size)
+        }
+        
         completion?(winningResponse)
     }
 
@@ -276,11 +280,6 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
     }
 
     private func loadPrebidDisplayView(bidResponse: BidResponse?) {
-        if let error = bidRequestError {
-            reportLoadingFailedWithError(error)
-            bidRequestError = nil
-            return
-        }
 
         guard configValidationBlock(savedAdUnitConfig, true) else {
             let error = PBMError.error(message: "AdUnitConfig is not valid.",
@@ -290,6 +289,11 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
         }
         
         guard let bid = bidResponse?.winningBid else {
+            if let error = bidRequestError {
+                reportLoadingFailedWithError(error)
+                bidRequestError = nil
+                return
+            }
             reportLoadingFailedWithError(PBMError.noWinningBid())
             return
         }
@@ -320,7 +324,7 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
         flowState = .idle
         guard let adObject = primaryAdObject ?? prebidAdObject else { return }
         adLoader?.reportSuccess(with: adObject,
-                                adSize: adSize)
+                                adSize: winningAdSize)
     }
 
     private func reportLoadingFailedWithError(_ error: Error?) {
