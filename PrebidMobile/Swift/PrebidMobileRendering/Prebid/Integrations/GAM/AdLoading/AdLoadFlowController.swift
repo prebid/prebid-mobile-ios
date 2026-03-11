@@ -260,11 +260,6 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
             winningResponse = bidResponse
         }
         
-        // Set winning ad size for later
-        if let size = winningResponse?.winningBid?.size {
-            self.winningAdSize = NSValue(cgSize: size)
-        }
-        
         completion?(winningResponse)
     }
 
@@ -297,6 +292,10 @@ typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderW
             reportLoadingFailedWithError(PBMError.noWinningBid())
             return
         }
+        
+        // Set winning ad size for later
+        self.winningAdSize = NSValue(cgSize: bid.size)
+        self.bidResponse = bidResponse
 
         flowState = .loadingDisplayView
 

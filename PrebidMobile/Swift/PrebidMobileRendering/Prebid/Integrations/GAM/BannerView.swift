@@ -362,13 +362,14 @@ public class BannerView:
                 oldDeployedView.removeFromSuperview()
             } else {
                 self.addSubview(view)
-            }
+            }            
+            self.notifyRendererDidInjectView(view)
             
             self.installDeployedViewConstraints(view: view)
             self.deployedView = view
             if let displayView = self.deployedView as? DisplayView {
                 displayView.videoPlaybackDelegate = self
-            }
+            } 
         }
     }
     
@@ -413,6 +414,23 @@ public class BannerView:
         centerY.priority = .defaultHigh
         
         NSLayoutConstraint.activate([widthConstraint, heightConstraint, centerX, centerY])
+    }
+    
+    // MARK: Renderer notification
+    
+    private func notifyRendererDidInjectView(_ injectedView: UIView) {
+        guard let bid = lastBidResponse?.winningBid else {
+            print("Failed to find last bid. Skipped final rendering phase.")
+            return
+        }
+        
+        let plugin: any PrebidMobilePluginRenderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
+        
+        // Notify plugin if it implements this method
+        let selector = NSSelectorFromString("didInjectView:into:")
+        if (plugin as AnyObject).responds(to: selector) {
+            (plugin as AnyObject).perform(selector, with: injectedView, with: self)
+        }
     }
 }
 
