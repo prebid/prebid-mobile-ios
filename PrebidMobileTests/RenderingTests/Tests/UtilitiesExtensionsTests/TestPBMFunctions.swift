@@ -15,7 +15,7 @@
 
 import UIKit
 import XCTest
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class TestPBMFunctions: XCTestCase {
     

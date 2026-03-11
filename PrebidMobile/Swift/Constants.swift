@@ -121,7 +121,7 @@ public class PrebidConstants: NSObject {
     }
     
     public static let PREBID_VERSION                                                        = "3.3.0"
-    public static let SDK_NAME                                                              = "prebid-mobile-sdk"
+    public static let SDK_NAME                                                              = "nativo-prebid-sdk"
     
     public static let DOMAIN_KEY                                                            = "domain"
     public static let PBM_TRANSACTION_STATE_KEY                                             = "ts"

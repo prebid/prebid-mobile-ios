@@ -24,7 +24,7 @@ import UIKit
     /*!
      @abstract Call this when the ad server SDK signals about partner bid win
      */
-    func prebidDidWin()
+    func sdkDidWin(_ bidResponse: BidResponse?)
 
     /*!
      @abstract Call this when the ad server SDK renders its own ad

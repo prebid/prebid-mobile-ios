@@ -15,7 +15,7 @@
 
 import Foundation
 import GoogleMobileAds
-import PrebidMobile
+import NativoPrebidSDK
 
 @objcMembers
 public class GAMInterstitialEventHandler :

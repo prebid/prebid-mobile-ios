@@ -17,7 +17,7 @@
 #import "SampleAdView.h"
 #import "SampleInterstitialController.h"
 
-@import PrebidMobile;
+@import NativoPrebidSDK;
 
 NS_ASSUME_NONNULL_BEGIN
 

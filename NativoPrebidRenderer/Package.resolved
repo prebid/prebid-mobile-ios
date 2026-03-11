@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "prebid-mobile-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/prebid/prebid-mobile-ios-sdk.git",
+      "state" : {
+        "revision" : "a3ea1cfe6732ea951a9f93b74ee645f5208675fb",
+        "version" : "3.3.0"
+      }
+    }
+  ],
+  "version" : 2
+}

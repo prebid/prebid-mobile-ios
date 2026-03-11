@@ -16,7 +16,7 @@
 import XCTest
 import Foundation
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class PBMVastCreativeCompanionAdsTest: XCTestCase {
     

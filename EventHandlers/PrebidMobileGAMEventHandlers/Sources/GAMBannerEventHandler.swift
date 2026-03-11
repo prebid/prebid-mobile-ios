@@ -15,7 +15,7 @@
 
 import Foundation
 import GoogleMobileAds
-import PrebidMobile
+import NativoPrebidSDK
 
 @objcMembers
 public class GAMBannerEventHandler :
@@ -40,6 +40,8 @@ public class GAMBannerEventHandler :
     
     let adUnitID: String
     
+    var bidResponse: BidResponse?
+    
     // MARK: - Public Methods
     
     public init(adUnitID: String, validGADAdSizes: [NSValue]) {
@@ -62,6 +64,7 @@ public class GAMBannerEventHandler :
     }
     
     public func requestAd(with bidResponse: BidResponse?) {
+        self.bidResponse = bidResponse
         guard let bannerViewWrapper = GAMBannerViewWrapper(),
               let request = GAMRequestWrapper() else {
             let error = GAMEventHandlerError.gamClassesNotFound
@@ -226,7 +229,7 @@ public class GAMBannerEventHandler :
             
             proxyBanner = banner
             
-            loadingDelegate?.prebidDidWin()
+            loadingDelegate?.sdkDidWin(bidResponse)
         }
     }
     

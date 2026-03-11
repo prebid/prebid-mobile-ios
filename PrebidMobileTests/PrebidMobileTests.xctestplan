@@ -29,7 +29,7 @@
       "target" : {
         "containerPath" : "container:PrebidMobile.xcodeproj",
         "identifier" : "60D792FA217E229B0080F428",
-        "name" : "PrebidMobileTests"
+        "name" : "NativoPrebidSDKTests"
       }
     }
   ],

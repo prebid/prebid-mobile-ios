@@ -15,7 +15,7 @@
 
 import XCTest
 import GoogleMobileAds
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 // NOTE: Starting with v12, the GMA SDK has introduced new naming conventions for its classes.
 

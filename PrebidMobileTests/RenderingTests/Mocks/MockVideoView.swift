@@ -14,7 +14,7 @@
   */
 
 import Foundation
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class MockVideoView: PBMVideoView {
     

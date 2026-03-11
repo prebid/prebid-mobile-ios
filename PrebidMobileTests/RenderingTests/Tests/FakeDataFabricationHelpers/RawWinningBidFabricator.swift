@@ -15,7 +15,7 @@
 
 import Foundation
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 public class RawWinningBidFabricator {
     static func makeRawWinningBid(price: Double?, bidder: String?, cacheID: String?) -> ORTBBid<ORTBBidExt> {

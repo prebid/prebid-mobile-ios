@@ -14,7 +14,7 @@
   */
 
 import Foundation
-import PrebidMobile
+import NativoPrebidSDK
 
 extension PBMBidResponseTransformer {
     static func invalidAccountIDResponse(accountID: String) -> PrebidServerResponse {

@@ -14,7 +14,7 @@
   */
 
 import Foundation
-import PrebidMobile
+import NativoPrebidSDK
 import GoogleMobileAds
 
 public class PrebidAdMobMediationBaseAdapter: NSObject, GoogleMobileAds.MediationAdapter {

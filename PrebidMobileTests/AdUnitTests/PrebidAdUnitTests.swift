@@ -15,7 +15,7 @@
 
 import XCTest
 import TestUtils
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class PrebidAdUnitTests: XCTestCase {
     

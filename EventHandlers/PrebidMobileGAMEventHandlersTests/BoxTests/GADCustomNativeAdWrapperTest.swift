@@ -15,7 +15,7 @@
 
 import XCTest
 import GoogleMobileAds
-@testable import PrebidMobileGAMEventHandlers
+@testable import NativoPrebidSDKGAMEventHandlers
 
 class GADCustomNativeAdWrapperTest: XCTestCase {
 

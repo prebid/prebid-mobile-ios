@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 
-  s.name         = "PrebidMobileGAMEventHandlers"
+  s.name         = "NativoPrebidSDKGAMEventHandlers"
   s.version      = "3.3.0"
-  s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
+  s.summary      = "The bridge between NativoPrebidSDK and GMA SDK."
 
   s.description  = "GAM Event Handlers manages rendering of Prebid or GAM ads respectively to the winning bid."
   s.homepage     = "https://www.prebid.org"
@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
   s.source_files = 'EventHandlers/PrebidMobileGAMEventHandlers/**/*.{h,m,swift}'
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '3.3.0'
+  s.dependency 'NativoPrebidSDK', '>= 3.2.0-alpha.1', '< 3.3.0'
   s.dependency 'Google-Mobile-Ads-SDK', '>= 13.0.0'
 
   s.pod_target_xcconfig = {

@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 
 fileprivate let storedImpDisplayBanner = "prebid-demo-display-banner-320-50-custom-ad-view-renderer"
 

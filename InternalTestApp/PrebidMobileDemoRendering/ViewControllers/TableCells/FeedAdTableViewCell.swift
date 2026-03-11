@@ -14,7 +14,7 @@
   */
 
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 
 class FeedAdTableViewCell: UITableViewCell {
     @IBOutlet weak var bannerView: UIView!

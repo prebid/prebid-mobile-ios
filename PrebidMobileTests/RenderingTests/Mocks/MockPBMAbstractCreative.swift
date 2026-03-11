@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 class MockPBMAbstractCreative: PBMAbstractCreative_Objc {
  

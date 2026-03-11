@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class MediationInterstitialAdUnitTest: XCTestCase {
     private let sdkConfiguration: Prebid = {

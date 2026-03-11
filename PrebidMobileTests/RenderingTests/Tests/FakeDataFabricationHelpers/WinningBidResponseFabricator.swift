@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 public class WinningBidResponseFabricator {
     static func makeWinningBidResponse(bidPrice: Double) -> BidResponse {

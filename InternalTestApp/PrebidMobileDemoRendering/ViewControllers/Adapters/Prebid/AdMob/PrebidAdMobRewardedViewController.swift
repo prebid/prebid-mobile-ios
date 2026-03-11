@@ -15,8 +15,8 @@
 
 import UIKit
 import GoogleMobileAds
-import PrebidMobile
-import PrebidMobileAdMobAdapters
+import NativoPrebidSDK
+import NativoPrebidSDKAdMobAdapters
 
 class PrebidAdMobRewardedViewController:
         NSObject,

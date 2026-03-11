@@ -18,7 +18,7 @@ import XCTest
 
 import UIKit
 import AdSupport
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 // MARK: - Mocks
 

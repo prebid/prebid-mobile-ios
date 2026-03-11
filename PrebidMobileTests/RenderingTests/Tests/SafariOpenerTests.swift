@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 final class SafariOpenerTests: XCTestCase {
 

@@ -13,7 +13,7 @@
   limitations under the License.
   */
 
-import PrebidMobile
+import NativoPrebidSDK
 import AppLovinSDK
 
 extension PrebidMAXMediationAdapter: MAInterstitialAdapter,

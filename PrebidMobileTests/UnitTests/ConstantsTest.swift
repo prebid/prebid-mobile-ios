@@ -15,7 +15,7 @@ limitations under the License.
 
 import XCTest
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class ConstantsTest: XCTestCase {
 

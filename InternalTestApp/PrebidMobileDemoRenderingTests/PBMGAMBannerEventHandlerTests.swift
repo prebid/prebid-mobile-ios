@@ -15,7 +15,7 @@
 
 import XCTest
 import GoogleMobileAds
-import PrebidMobileGAMEventHandlers
+import NativoPrebidSDKGAMEventHandlers
 
 class PBMGAMBannerEventHandlerTests: XCTestCase {
     

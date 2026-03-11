@@ -14,7 +14,7 @@ limitations under the License.
 */
 
 #import <XCTest/XCTest.h>
-#import "PrebidMobile/PrebidMobile.h"
+#import "NativoPrebidSDK/NativoPrebidSDK.h"
 
 @interface UtilsObjCTests : XCTestCase
 

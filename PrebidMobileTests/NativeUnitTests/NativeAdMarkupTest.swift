@@ -15,7 +15,7 @@ limitations under the License.
 
 import Foundation
 import XCTest
-import PrebidMobile
+import NativoPrebidSDK
 
 class NativeAdMarkupTest: XCTestCase {
     func testInitFromJson() {

@@ -15,7 +15,7 @@
 
 import UIKit
 import GoogleMobileAds
-import PrebidMobile
+import NativoPrebidSDK
 
 class CustomRendererInterstitialController:
     NSObject,

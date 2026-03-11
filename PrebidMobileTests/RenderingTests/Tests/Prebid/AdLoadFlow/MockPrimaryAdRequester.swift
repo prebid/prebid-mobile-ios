@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class MockPrimaryAdRequester: NSObject, PrimaryAdRequesterProtocol {
     typealias ExpectedCall = (BidResponse?)->()

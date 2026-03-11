@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 
 class NativeAdViewBoxLinks: NativeAdViewBoxProtocol {
     

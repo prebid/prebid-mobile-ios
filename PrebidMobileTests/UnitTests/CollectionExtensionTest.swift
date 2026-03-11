@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class CollectionExtensionTest: XCTestCase {
     

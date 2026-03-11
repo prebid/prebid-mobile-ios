@@ -15,7 +15,7 @@
 
 import UIKit
 import WebKit
-import PrebidMobile
+import NativoPrebidSDK
 
 class SampleInterstitialController: NSObject, PrebidMobileInterstitialControllerProtocol {
     

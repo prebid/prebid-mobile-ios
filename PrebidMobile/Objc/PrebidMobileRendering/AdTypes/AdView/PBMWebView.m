@@ -33,6 +33,10 @@
 #import "PBMWebView+Internal.h"
 
 #import "SwiftImport.h"
+#import "NativoViewExposureChecker.h"
+
+// If remote debugging via Safari, delay the html injection until the Safari instance can connect
+#define REMOTE_DEBUGGING 0
 
 #pragma mark - Constants
 
@@ -56,6 +60,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 
 // viewability polling
 @property (nonatomic, strong, nullable) id<PBMCreativeViewabilityTracker> viewabilityTracker;
+@property (nonatomic, strong, nullable) NativoViewExposureChecker *nativoExposureChecker;
 
 // the last frame sent to an ad via onSizeChange
 @property (nonatomic, assign) CGRect mraidLastSentFrame;
@@ -168,6 +173,8 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     if (self.isVolumeObserverSetup) {
         [[AVAudioSession sharedInstance] removeObserver:self forKeyPath:KeyPathOutputVolume];
     }
+    self.nativoExposureChecker = nil;
+    self.viewabilityTracker = nil;
 }
 
 #pragma mark - API
@@ -204,11 +211,24 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     [self loadContentWithMRAID:injectMraidJs forExpandContent:NO contentLoader:^{
         @strongify(self);
         if (!self) { return; }
-        
-        PBMLogInfo(@"loadHTMLString");
         self.state = PBMWebViewStateLoading;
         
-        [self.internalWebView loadHTMLString:html baseURL:nil];
+#if REMOTE_DEBUGGING
+        // Delay in order to give time to start Safari remote debugging
+        int seconds = 8;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+#else
+        dispatch_async(dispatch_get_main_queue(), ^{
+#endif
+            [self.internalWebView loadHTMLString:html baseURL:nil];
+            [self pollForDocumentReadyState];
+        });
+#if REMOTE_DEBUGGING
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate webViewReadyToDisplay:self];
+        });
+#endif
+
     } onError:^(NSError * _Nullable error) {
         PBMLogError(@"%@", error.localizedDescription);
     }];
@@ -313,7 +333,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     }
 
     //If this is the first URL, allow it.
-    if (self.state == PBMWebViewStateLoading) {
+    if (self.state == PBMWebViewStateLoading || [url.absoluteString isEqual:@"about:blank"]) {
         decisionHandler(WKNavigationActionPolicyAllow);
         return;
     }
@@ -326,6 +346,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     }
     
     //Prevent malicious auto-clicking
+    // TODO: some cookie-sync urls are trying to fire here. Should they get through?
     if ([self wasRecentlyTapped]) {
         //Open clickthrough
         @weakify(self);
@@ -343,7 +364,10 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     PBMLogWhereAmI();
-    [self pollForDocumentReadyState];
+    // Moving this out since document will always be ready at this point
+    // Noticable performance improvements if we call this earlier and load in content sooner
+//    [self pollForDocumentReadyState];
+    self.state = PBMWebViewStateLoaded;
 }
 
 - (void)pollForDocumentReadyState {
@@ -367,9 +391,10 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
         }
         
         if ([readyState isEqualToString:@"complete"]) {
-            self.state = PBMWebViewStateLoaded;
             self.isPollingForDocumentReady = NO;
+#if REMOTE_DEBUGGING == 0
             [self.delegate webViewReadyToDisplay:self];
+#endif
         } else {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
                 @strongify(self);
@@ -499,7 +524,6 @@ static PBMError *extracted(NSString *errorMessage) {
                 PBMLogError(@"Error calling %@: %@", command, error.localizedDescription);
                 return;
             }
-
             self.mraidState = isForExpandContent ? PBMMRAIDState.expanded : PBMMRAIDState.defaultState;
         }];
     }];
@@ -590,7 +614,7 @@ static PBMError *extracted(NSString *errorMessage) {
     BOOL isLocked = [self isOrientationLockedWithViewController:viewController];
     [self MRAID_updateCurrentAppOrientationIsLocked:isLocked];
     
-    [self pollForViewability];
+    [self observeScrollForViewability];
     [self setupVolumeObserver];
 }
 
@@ -674,6 +698,13 @@ static PBMError *extracted(NSString *errorMessage) {
     //these changes were fired by a transition default => expened, default => resize ....
     if (self.viewabilityTracker != nil && self.exposureDelegate != nil && [self.exposureDelegate shouldCheckExposure]) {
         [self.viewabilityTracker checkExposureWithForce:YES];
+    }
+    if (self.nativoExposureChecker != nil && self.exposureDelegate != nil && [self.exposureDelegate shouldCheckExposure]) {
+        id<PBMViewExposure> exposureNow = self.nativoExposureChecker.exposure;
+        [self MRAID_onExposureChange:exposureNow];
+        if (self.exposureDelegate != nil) {
+            [self.exposureDelegate webView:self exposureChange:exposureNow];
+        }
     }
 }
 
@@ -831,6 +862,23 @@ static PBMError *extracted(NSString *errorMessage) {
 - (void)MRAID_error:(NSString *)message action:(PBMMRAIDAction)action {
     PBMLogError(@"Action: [%@] generated error with message [%@]", action, message);
     [self evaluateJavaScript:[PBMMRAIDJavascriptCommands onErrorWithMessage:message action: action]];
+}
+
+- (void)observeScrollForViewability {
+    @weakify(self);
+    self.nativoExposureChecker = [[NativoViewExposureChecker alloc] initWithView:self onExposureChange:^(id<PBMViewExposure>  _Nonnull viewExposure, NSError *error) {
+        @strongify(self);
+        if (!self) { return; }
+        if (!error) {
+            [self MRAID_onExposureChange:viewExposure];
+            if (self.exposureDelegate != nil) {
+                [self.exposureDelegate webView:self exposureChange:viewExposure];
+            }
+        } else {
+            // Fallback to original prebid implementation
+            [self pollForViewability];
+        }
+    }];
 }
     
 //Poll every 200 ms for viewability changes.

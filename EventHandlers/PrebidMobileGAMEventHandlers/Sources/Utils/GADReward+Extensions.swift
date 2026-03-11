@@ -14,7 +14,7 @@
  */
 
 import GoogleMobileAds
-import PrebidMobile
+import NativoPrebidSDK
 
 extension GoogleMobileAds.AdReward {
     
