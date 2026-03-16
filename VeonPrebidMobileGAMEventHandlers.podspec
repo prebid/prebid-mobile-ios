@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.module_name = "PrebidMobileGAMEventHandlers"
 
   s.description  = "GAM Event Handlers manages rendering of Prebid or GAM ads respectively to the winning bid."
-  s.homepage     = "https://www.veonadtech.com"
+  s.homepage     = "https://www.veon.com"
 
 
   s.license      = { :type => "Apache License, Version 2.0", :text => <<-LICENSE
@@ -45,6 +45,8 @@ Pod::Spec.new do |s|
   s.dependency 'Google-Mobile-Ads-SDK', '>= 12.0.0'
 
   s.pod_target_xcconfig = {
-    'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
+    'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES',
+    'DEFINES_MODULE' => 'YES',
+    'OTHER_SWIFT_FLAGS' => '$(inherited) -no-verify-emitted-module-interface'
   }
 end
