@@ -329,6 +329,12 @@ public class BannerView:
         invokeDelegateSelector(#selector(BannerViewDelegate.bannerViewWillLeaveApplication))
     }
     
+    public func didDisplayAd() {
+        assert(Thread.isMainThread, assertionMessageMainThread)
+        
+        invokeDelegateSelector(#selector(BannerViewDelegate.bannerViewDidDisplay))
+    }
+    
     public var viewControllerForPresentingModal: UIViewController? {
         guard let delegate = self.delegate,
               delegate.responds(to: #selector(BannerViewDelegate.bannerViewPresentationController)) else {
