@@ -128,7 +128,11 @@ public class GAMBannerEventHandler :
     }
     
     public func bannerViewDidRecordImpression(_ bannerView: GoogleMobileAds.BannerView) {
-        // TODO
+        interactionDelegate?.didDisplayAd()
+    }
+
+    public func bannerViewDidRecordClick(_ bannerView: GoogleMobileAds.BannerView) {
+        interactionDelegate?.willLeaveApp()
     }
     
     public func bannerViewWillPresentScreen(_ bannerView: GoogleMobileAds.BannerView) {
