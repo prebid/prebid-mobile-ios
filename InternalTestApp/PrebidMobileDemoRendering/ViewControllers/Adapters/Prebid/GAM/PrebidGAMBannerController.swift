@@ -39,6 +39,7 @@ class PrebidGAMBannerController:
     
     private let adViewDidReceiveAdButton = EventReportContainer()
     private let adViewDidFailToLoadAdButton = EventReportContainer()
+    private let adViewDidDisplayButton = EventReportContainer()
     private let adViewWillPresentScreenButton = EventReportContainer()
     private let adViewDidDismissScreenButton = EventReportContainer()
     private let adViewWillLeaveApplicationButton = EventReportContainer()
@@ -136,6 +137,10 @@ class PrebidGAMBannerController:
         adViewDidFailToLoadAdButton.isEnabled = true
     }
     
+    func bannerViewDidDisplay(_ bannerView: PrebidMobile.BannerView) {
+        adViewDidDisplayButton.isEnabled = true
+    }
+    
     func bannerViewWillPresentModal(_ bannerView: PrebidMobile.BannerView) {
         adViewWillPresentScreenButton.isEnabled = true
     }
@@ -164,6 +169,7 @@ class PrebidGAMBannerController:
     private func setupActions() {
         rootController?.setupAction(adViewDidReceiveAdButton, "adViewDidReceiveAd called")
         rootController?.setupAction(adViewDidFailToLoadAdButton, "adViewDidFailToLoadAd called")
+        rootController?.setupAction(adViewDidDisplayButton, "bannerViewDidDisplay called")
         rootController?.setupAction(adViewWillPresentScreenButton, "adViewWillPresentScreen called")
         rootController?.setupAction(adViewDidDismissScreenButton, "adViewDidDismissScreen called")
         rootController?.setupAction(adViewWillLeaveApplicationButton, "adViewWillLeaveApplication called")
@@ -177,6 +183,7 @@ class PrebidGAMBannerController:
     private func resetEvents() {
         adViewDidReceiveAdButton.isEnabled = false
         adViewDidFailToLoadAdButton.isEnabled = false
+        adViewDidDisplayButton.isEnabled = false
         adViewWillPresentScreenButton.isEnabled = false
         adViewDidDismissScreenButton.isEnabled = false
         adViewWillLeaveApplicationButton.isEnabled = false

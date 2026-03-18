@@ -37,6 +37,11 @@ import UIKit
     func willLeaveApp()
 
     /*!
+     @abstract Call this when the ad server SDK records an impression
+     */
+    func didDisplayAd()
+    
+    /*!
      @abstract Returns a view controller instance to be used by ad server SDK for showing modals
      @result a UIViewController instance for showing modals
      */
