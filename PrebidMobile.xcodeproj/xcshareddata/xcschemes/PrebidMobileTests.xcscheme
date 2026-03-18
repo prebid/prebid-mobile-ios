@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1020"
+   LastUpgradeVersion = "2600"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "60D792FA217E229B0080F428"
                BuildableName = "PrebidMobileTests.xctest"
-               BlueprintName = "PrebidMobileTests"
+               BlueprintName = "NativoPrebidSDKTests"
                ReferencedContainer = "container:PrebidMobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,7 +44,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "60D792FA217E229B0080F428"
                BuildableName = "PrebidMobileTests.xctest"
-               BlueprintName = "PrebidMobileTests"
+               BlueprintName = "NativoPrebidSDKTests"
                ReferencedContainer = "container:PrebidMobile.xcodeproj">
             </BuildableReference>
             <SkippedTests>
@@ -93,7 +93,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "60D792FA217E229B0080F428"
             BuildableName = "PrebidMobileTests.xctest"
-            BlueprintName = "PrebidMobileTests"
+            BlueprintName = "NativoPrebidSDKTests"
             ReferencedContainer = "container:PrebidMobile.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

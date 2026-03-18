@@ -18,7 +18,7 @@ import Foundation
 import XCTest
 import CoreFoundation
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
     

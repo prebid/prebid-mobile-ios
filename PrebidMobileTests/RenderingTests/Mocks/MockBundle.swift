@@ -16,7 +16,7 @@
 
 import Foundation
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class MockBundle: PBMBundleProtocol {
     var mockBundleIdentifier: String? = "Mock.Bundle.Identifier"

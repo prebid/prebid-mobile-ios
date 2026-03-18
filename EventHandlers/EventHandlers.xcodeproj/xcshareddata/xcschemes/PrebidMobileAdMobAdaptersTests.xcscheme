@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1310"
+   LastUpgradeVersion = "2600"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -17,8 +17,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "92F4389C27688E8600FDC950"
-               BuildableName = "PrebidMobileAdMobAdaptersTests.xctest"
-               BlueprintName = "PrebidMobileAdMobAdaptersTests"
+               BuildableName = "NativoPrebidSDKAdMobAdaptersTests.xctest"
+               BlueprintName = "NativoPrebidSDKAdMobAdaptersTests"
                ReferencedContainer = "container:EventHandlers.xcodeproj">
             </BuildableReference>
          </TestableReference>

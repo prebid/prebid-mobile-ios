@@ -14,7 +14,7 @@
  */
 
 import Foundation
-import PrebidMobile
+import NativoPrebidSDK
 
 @objc public enum GAMEventHandlerError: Int, Error {
     

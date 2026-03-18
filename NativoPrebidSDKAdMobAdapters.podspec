@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 
-  s.name         = "PrebidMobileAdMobAdapters"
+  s.name         = "NativoPrebidSDKAdMobAdapters"
   s.version      = "3.3.0"
-  s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
+  s.summary      = "The bridge between NativoPrebidSDK and GMA SDK."
 
   s.description  = "AdMob Adatpers manages rendering of Prebid ads in the case of integration with AdMob as a Primary Ad Server."
   s.homepage     = "https://www.prebid.org"
@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
 
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '3.3.0'
+  s.dependency 'NativoPrebidSDK', '3.3.0'
   s.dependency 'Google-Mobile-Ads-SDK', '>= 13.0.0'
   
   s.pod_target_xcconfig = {

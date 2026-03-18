@@ -15,7 +15,7 @@
 
 import Foundation
 import XCTest
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class NativeEventTrackerResponseTests: XCTestCase {
     func testInitFromJson() {

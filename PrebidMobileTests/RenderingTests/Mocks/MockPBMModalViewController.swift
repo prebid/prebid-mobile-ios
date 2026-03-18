@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 import XCTest
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 class MockPBMModalViewController : ModalViewController {
     

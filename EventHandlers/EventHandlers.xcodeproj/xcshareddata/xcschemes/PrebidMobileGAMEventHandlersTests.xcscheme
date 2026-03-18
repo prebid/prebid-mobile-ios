@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1210"
+   LastUpgradeVersion = "2600"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3405F944250A555800268A77"
-               BuildableName = "PrebidMobileGAMEventHandlersTests.xctest"
-               BlueprintName = "PrebidMobileGAMEventHandlersTests"
+               BuildableName = "NativoPrebidSDKGAMEventHandlersTests.xctest"
+               BlueprintName = "NativoPrebidSDKGAMEventHandlersTests"
                ReferencedContainer = "container:EventHandlers.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,8 +34,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3405F944250A555800268A77"
-               BuildableName = "PrebidMobileGAMEventHandlersTests.xctest"
-               BlueprintName = "PrebidMobileGAMEventHandlersTests"
+               BuildableName = "NativoPrebidSDKGAMEventHandlersTests.xctest"
+               BlueprintName = "NativoPrebidSDKGAMEventHandlersTests"
                ReferencedContainer = "container:EventHandlers.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3405F944250A555800268A77"
-            BuildableName = "PrebidMobileGAMEventHandlersTests.xctest"
-            BlueprintName = "PrebidMobileGAMEventHandlersTests"
+            BuildableName = "NativoPrebidSDKGAMEventHandlersTests.xctest"
+            BlueprintName = "NativoPrebidSDKGAMEventHandlersTests"
             ReferencedContainer = "container:EventHandlers.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

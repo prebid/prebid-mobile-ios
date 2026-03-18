@@ -14,7 +14,7 @@
  */
 
 import Foundation
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 extension Prebid {
     static let devintServerURL = "https://prebid.devint.openx.net/openrtb2/auction"

@@ -18,7 +18,7 @@ import Foundation
 
 
 // Do not use `@testable import` here so that we get a compiler error if a model object is not `open`
-import PrebidMobile
+import NativoPrebidSDK
 
 class CustomAdConfiguration: ORTBAdConfiguration {
     required init(jsonDictionary: [String : Any]) {

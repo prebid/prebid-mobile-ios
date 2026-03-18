@@ -15,7 +15,7 @@
 
 #import "InterstitialBaseViewController.h"
 
-@import PrebidMobile;
+@import NativoPrebidSDK;
 
 NS_ASSUME_NONNULL_BEGIN
 

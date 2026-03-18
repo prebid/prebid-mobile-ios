@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class DemandResponseInfoTest: XCTestCase {
     private func makeWinningBid() -> Bid {

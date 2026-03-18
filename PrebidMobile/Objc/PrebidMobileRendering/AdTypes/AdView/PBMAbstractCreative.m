@@ -167,6 +167,7 @@
         self.adWasShown = NO;
     }
     
+    // TODO: What is this extra tracker used for? There is already another tracker setup in PBMWebView.
     if (!self.adWasShown) {
         self.viewabilityTracker = [PBMFactory createCreativeViewabilityTrackerWithCreative:self];
     }

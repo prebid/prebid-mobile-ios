@@ -15,7 +15,7 @@
 
 import XCTest
 import WebKit
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class AdViewUtilsTests: XCTestCase {
     

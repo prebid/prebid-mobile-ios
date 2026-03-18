@@ -16,7 +16,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-@import PrebidMobile;
+@import NativoPrebidSDK;
 
 NS_ASSUME_NONNULL_BEGIN
 

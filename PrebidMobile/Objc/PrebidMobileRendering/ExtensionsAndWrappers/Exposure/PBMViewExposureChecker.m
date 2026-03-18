@@ -212,6 +212,10 @@
 }
 
 - (void)testForObstructing:(UIView *)view {
+    if ([self shouldIgnoreView:view]) {
+        return;
+    }
+    
     CGRect testRect = [self.testedView convertRect:view.bounds fromView:view];
     CGRect obstruction = CGRectIntersection(self.clippedRect, testRect);
     if (!CGRectIsEmpty(obstruction)) {

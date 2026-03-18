@@ -15,7 +15,7 @@
 
 import UIKit
 import CoreLocation
-import PrebidMobile
+import NativoPrebidSDK
 
 class TestCasesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate {
     

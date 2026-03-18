@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 
 class PrebidFeedTableViewController: UITableViewController, ConfigurableViewController, BannerViewDelegate {
     

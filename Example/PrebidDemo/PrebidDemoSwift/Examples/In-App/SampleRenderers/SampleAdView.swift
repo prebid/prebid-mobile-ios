@@ -15,7 +15,7 @@
 
 import UIKit
 import WebKit
-import PrebidMobile
+import NativoPrebidSDK
 
 /// An example showcasing the implementation of the `PrebidMobileDisplayViewProtocol`.
 /// A sample view that is used for rendering ads.

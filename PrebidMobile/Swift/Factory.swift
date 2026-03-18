@@ -8,6 +8,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 
 // Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -34,6 +35,22 @@ class Factory: NSObject {
                               sdkConfiguration: sdkConfiguration,
                               targeting: targeting,
                               adUnitConfiguration: adUnitConfiguration)
+    }
+    
+    // MARK: Nativo BidRequester
+    // Needed in order to instantiate ObjC class from Swift
+    static let nativoBidRequesterType: BidRequester.Type = {
+        NSClassFromString("NativoBidRequester") as! BidRequester.Type
+    }()
+    
+    @objc public static func createNativoBidRequester(connection: PrebidServerConnectionProtocol,
+                                                      sdkConfiguration: Prebid,
+                                                      targeting: Targeting,
+                                                      adUnitConfiguration: AdUnitConfig) -> BidRequester {
+        nativoBidRequesterType.init(connection: connection,
+                                    sdkConfiguration: sdkConfiguration,
+                                    targeting: targeting,
+                                    adUnitConfiguration: adUnitConfiguration)
     }
     
     // MARK: WinNotifier

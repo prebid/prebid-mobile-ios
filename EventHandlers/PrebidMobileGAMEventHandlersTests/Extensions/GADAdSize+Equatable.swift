@@ -15,7 +15,7 @@
 
 import Foundation
 import GoogleMobileAds
-@testable import PrebidMobileGAMEventHandlers
+@testable import NativoPrebidSDKGAMEventHandlers
 
 extension GoogleMobileAds.AdSize: @retroactive Equatable {
     

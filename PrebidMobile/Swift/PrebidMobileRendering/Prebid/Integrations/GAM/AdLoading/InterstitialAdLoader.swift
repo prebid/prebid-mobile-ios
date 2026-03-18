@@ -86,7 +86,7 @@ final class InterstitialAdLoader: NSObject, AdLoaderProtocol, InterstitialContro
     // MARK: - InterstitialEventLoadingDelegate
     
     func prebidDidWin() {
-        flowDelegate?.adLoaderDidWinPrebid(self)
+        flowDelegate?.adLoaderDidWinSdk(self, withBidResponse: nil)
     }
     
     func adServerDidWin() {

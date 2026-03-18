@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import NativoPrebidSDK
 
 fileprivate let storedImpDisplayRewarded = "prebid-demo-banner-rewarded-time"
 

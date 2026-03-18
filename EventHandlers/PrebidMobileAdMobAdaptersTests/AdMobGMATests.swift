@@ -15,8 +15,8 @@
 
 import XCTest
 import GoogleMobileAds
-import PrebidMobile
-@testable import PrebidMobileAdMobAdapters
+import NativoPrebidSDK
+@testable import NativoPrebidSDKAdMobAdapters
 
 final class AdMobGMATests: XCTestCase {
     

@@ -15,7 +15,7 @@
 
 import UIKit
 import WebKit
-import PrebidMobile
+import NativoPrebidSDK
 
 /// An example showcasing the implementation of the `PrebidMobileInterstitialControllerProtocol`.
 /// A sample controller that is used for rendering ads.

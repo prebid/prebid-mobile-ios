@@ -16,7 +16,7 @@
 #import "GAMOriginalAPIVideoInterstitialViewController.h"
 #import "PrebidDemoMacros.h"
 
-@import PrebidMobile;
+@import NativoPrebidSDK;
 
 NSString * const storedImpVideoInterstitial = @"prebid-demo-video-interstitial-320-480-original-api";
 NSString * const gamAdUnitVideoInterstitialOriginal = @"/21808260008/prebid-demo-app-original-api-video-interstitial";

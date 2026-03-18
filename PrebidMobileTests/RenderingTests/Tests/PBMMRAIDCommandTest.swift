@@ -18,7 +18,7 @@ import Foundation
 import XCTest
 
 import UIKit
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 class PBMMRAIDCommandTest : XCTestCase {
     

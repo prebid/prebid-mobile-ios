@@ -15,7 +15,7 @@
 
 import Foundation
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 class MockPBMVideoCreative: PBMVideoCreative {
     

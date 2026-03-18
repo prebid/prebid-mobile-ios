@@ -15,7 +15,7 @@
 
 import XCTest
 import CoreLocation
-@testable import PrebidMobile
+@testable import NativoPrebidSDK
 
 class TargetingTests: XCTestCase {
 

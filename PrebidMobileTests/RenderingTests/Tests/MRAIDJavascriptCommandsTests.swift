@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 // This test case was created during porting SDK to Objective-C.
 // The purpose of these tests is to be sure that methods' parameters are converted to the output strings properly.

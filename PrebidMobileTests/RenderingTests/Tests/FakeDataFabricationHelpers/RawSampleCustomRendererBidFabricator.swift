@@ -8,7 +8,7 @@
 
 import Foundation
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import NativoPrebidSDK
 
 public class RawSampleCustomRendererBidFabricator {
     static func makeSampleCustomRendererBid(

@@ -16,7 +16,7 @@
 #import "NativeBaseViewController.h"
 
 @import GoogleMobileAds;
-@import PrebidMobile;
+@import NativoPrebidSDK;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -14,8 +14,8 @@
  */
 import UIKit
 import GoogleMobileAds
-import PrebidMobile
-import PrebidMobileGAMEventHandlers
+import NativoPrebidSDK
+import NativoPrebidSDKGAMEventHandlers
 
 class PrebidGAMNativeAdController: NSObject, AdaptedController {
     
