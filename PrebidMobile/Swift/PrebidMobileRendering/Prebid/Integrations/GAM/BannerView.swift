@@ -287,6 +287,7 @@ public class BannerView:
               }
         
         eventHandler.trackImpression()
+        invokeDelegateSelector(#selector(BannerViewDelegate.bannerViewDidDisplay))
     }
     
     public func viewControllerForModalPresentation(
