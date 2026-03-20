@@ -35,9 +35,7 @@ public class Bid: NSObject {
     /// Billing notice URL called by the exchange when a winning bid
     /// becomes billable based on exchange-specific business policy
     /// (e.g., typically delivered, viewed, etc.). 
-    @objc public var burl: String? {
-        bid.burl
-    }
+    @objc public var burl: String?
     
     /// Win notice URL called by the exchange if the bid wins (not necessarily indicative of a delivered,
     /// viewed, or billable ad); optional means of serving ad markup.
@@ -137,6 +135,7 @@ public class Bid: NSObject {
     init(bid: ORTBBid<ORTBBidExt>) {
         self.bid = bid
         let macrosHelper = ORTBMacrosHelper(bidPrice: bid.price ?? 0.0)
+        burl = macrosHelper.replaceMacros(in: bid.burl)
         adm = macrosHelper.replaceMacros(in: bid.adm)
         nurl = macrosHelper.replaceMacros(in: bid.nurl)
     }
