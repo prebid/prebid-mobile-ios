@@ -231,10 +231,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
         
-        if Targeting.shared.forceSdkToChooseWinner {
-            Log.error("Breaking change: set Targeting.forceSdkToChooseWinner = false and test your behavior. In the upcoming major release, the SDK will send all targeting keywords to the AdSever, so you should prepare your setup.")
-        }
-
         guard let winningBid = bidResponse.winningBid else {
             
             //When the new behavior is active

@@ -882,6 +882,138 @@ class PrebidParameterBuilderTest: XCTestCase {
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
         XCTAssertNil(bidRequest.extPrebid.sdkRenderers)
     }
+    
+    func testBannerParamsAdSizesNoBannerParametersSizes() throws {
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        
+        let bannerParameters = BannerParameters()
+        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        let banner = try XCTUnwrap(bidRequest.imp.first?.banner)
+        XCTAssertEqual(banner.format.count, 1)
+        PBMAssertEq(banner.format.first?.w, 320)
+        PBMAssertEq(banner.format.first?.h, 50)
+    }
+
+    func testBannerParamsSingleAdSize() throws {
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        
+        let bannerParameters = BannerParameters()
+        bannerParameters.adSizes = [CGSize(width: 300, height: 250)]
+        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        let banner = try XCTUnwrap(bidRequest.imp.first?.banner)
+        XCTAssertEqual(banner.format.count, 2)
+        XCTAssertTrue(banner.format.contains { $0.w == 320 && $0.h == 50 })
+        XCTAssertTrue(banner.format.contains { $0.w == 300 && $0.h == 250 })
+    }
+
+    func testBannerParamsMultipleAdSizes() throws {
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        
+        let bannerParameters = BannerParameters()
+        bannerParameters.adSizes = [
+            CGSize(width: 320, height: 480),
+            CGSize(width: 320, height: 460)
+        ]
+        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        let banner = try XCTUnwrap(bidRequest.imp.first?.banner)
+        XCTAssertEqual(banner.format.count, 3)
+        XCTAssertTrue(banner.format.contains { $0.w == 320 && $0.h == 50 })
+        XCTAssertTrue(banner.format.contains { $0.w == 320 && $0.h == 480 })
+        XCTAssertTrue(banner.format.contains { $0.w == 320 && $0.h == 460 })
+    }
+
+    func testBannerParamsAdSizesWithDuplicates() throws {
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        
+        let bannerParameters = BannerParameters()
+        // 320x50 is the same as adConfiguration.adSize — should appear only once
+        bannerParameters.adSizes = [
+            CGSize(width: 320, height: 50),
+            CGSize(width: 300, height: 250)
+        ]
+        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        let banner = try XCTUnwrap(bidRequest.imp.first?.banner)
+        XCTAssertEqual(banner.format.count, 2)
+        XCTAssertEqual(banner.format.filter { $0.w == 320 && $0.h == 50 }.count, 1)
+        XCTAssertTrue(banner.format.contains { $0.w == 300 && $0.h == 250 })
+    }
+
+    func testBannerParamsAdSizesDuplicatesWithinBannerParams() throws {
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        
+        let bannerParameters = BannerParameters()
+        bannerParameters.adSizes = [
+            CGSize(width: 300, height: 250),
+            CGSize(width: 300, height: 250) // duplicate
+        ]
+        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        let banner = try XCTUnwrap(bidRequest.imp.first?.banner)
+        XCTAssertEqual(banner.format.count, 2)
+        XCTAssertEqual(banner.format.filter { $0.w == 300 && $0.h == 250 }.count, 1)
+    }
+
+    func testBannerParamsAdSizesMergedWithAdditionalSizes() throws {
+        let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        adUnit.adUnitConfig.adFormats = [.banner]
+        adUnit.adUnitConfig.additionalSizes = [CGSize(width: 728, height: 90)]
+        
+        let bannerParameters = BannerParameters()
+        bannerParameters.adSizes = [
+            CGSize(width: 300, height: 250),
+            CGSize(width: 728, height: 90) // duplicate
+        ]
+        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        let banner = try XCTUnwrap(bidRequest.imp.first?.banner)
+        XCTAssertEqual(banner.format.count, 3)
+        XCTAssertEqual(banner.format.filter { $0.w == 728 && $0.h == 90 }.count, 1)
+        XCTAssertTrue(banner.format.contains { $0.w == 320 && $0.h == 50 })
+        XCTAssertTrue(banner.format.contains { $0.w == 300 && $0.h == 250 })
+    }
+
+    func testInterstitialBannerParamsMultipleAdSizes() throws {
+        let adUnit = InterstitialAdUnit(configId: "test")
+        adUnit.adUnitConfig.adFormats = [.banner]
+        
+        let bannerParameters = BannerParameters()
+        bannerParameters.adSizes = [
+            CGSize(width: 320, height: 480),
+            CGSize(width: 320, height: 460)
+        ]
+        adUnit.adUnitConfig.adConfiguration.bannerParameters = bannerParameters
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        let imp = try XCTUnwrap(bidRequest.imp.first)
+        XCTAssertEqual(imp.instl, 1)
+
+        let banner = try XCTUnwrap(imp.banner)
+        XCTAssertEqual(banner.format.count, 2)
+        XCTAssertTrue(banner.format.contains { $0.w == 320 && $0.h == 480 })
+        XCTAssertTrue(banner.format.contains { $0.w == 320 && $0.h == 460 })
+    }
 
     // MARK: - Helpers
     

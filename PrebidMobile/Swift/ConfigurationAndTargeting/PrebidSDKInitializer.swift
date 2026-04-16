@@ -42,7 +42,11 @@ class PrebidSDKInitializer {
         }
         
         guard gadObject.responds(to: NSSelectorFromString("sdkVersion")) else {
-            Log.error("There is no sdkVersion property in GoogleMobileAds object.")
+            if gadObject.responds(to: NSSelectorFromString("versionNumber")) {
+                Log.error("Starting with GMA SDK 10.7.0, the 'sdkVersion' property has been removed. Please use Prebid.initializeSDK(serverURL:gadMobileAdsVersion:completion:) and pass the version string from GADMobileAds.sharedInstance().versionNumber")
+            } else {
+                Log.error("There is no sdkVersion property in GoogleMobileAds object.")
+            }
             return
         }
         

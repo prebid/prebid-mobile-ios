@@ -116,7 +116,7 @@ public class Targeting: NSObject {
     }
     
     /// This value forces SDK to choose targeting info of the winning bid
-    public var forceSdkToChooseWinner : Bool = true
+    public var forceSdkToChooseWinner : Bool = false
     
     // MARK: - External User Ids
     
