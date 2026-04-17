@@ -5,8 +5,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AppLovin/AppLovin-MAX-Swift-Package.git",
       "state" : {
-        "revision" : "c184b428415a05dcad488c6834e0bd02fe1d8f3e",
-        "version" : "13.3.1"
+        "revision" : "199b14d91a2311b020d8a303c59d93010051d1f9",
+        "version" : "13.6.0"
+      }
+    },
+    {
+      "identity" : "prebid-mobile-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/prebid/prebid-mobile-ios-sdk.git",
+      "state" : {
+        "revision" : "ee87fc64a159fca2b6d4ab02545009ade19337d1",
+        "version" : "3.2.1"
       }
     },
     {
@@ -23,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/googleads/swift-package-manager-google-user-messaging-platform.git",
       "state" : {
-        "revision" : "69b53394c5258b3fe688e625a998047d1f393497",
-        "version" : "3.0.0"
+        "revision" : "13b248eaa73b7826f0efb1bcf455e251d65ecb1b",
+        "version" : "3.1.0"
       }
     }
   ],

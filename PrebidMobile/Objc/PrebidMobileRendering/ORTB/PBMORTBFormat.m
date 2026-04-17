@@ -53,4 +53,14 @@
     return self;
 }
 
+- (BOOL)isEqual:(id)object {
+    if (![object isKindOfClass:[PBMORTBFormat class]]) return NO;
+    PBMORTBFormat *other = (PBMORTBFormat *)object;
+    return [self.w isEqual:other.w] && [self.h isEqual:other.h];
+}
+
+- (NSUInteger)hash {
+    return self.w.hash ^ self.h.hash;
+}
+
 @end

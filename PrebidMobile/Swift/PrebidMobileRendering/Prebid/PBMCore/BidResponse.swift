@@ -72,7 +72,7 @@ public class BidResponse: NSObject {
                     let bid = Bid(bid: nextBid)
                     allBids.append(bid)
                     
-                    if winningBid == nil && bid.price > 0 && bid.isWinning {
+                    if winningBid == nil && bid.isWinning {
                         winningBid = bid
                     } else if let bidTargetingInfo = bid.targetingInfo {
                         targetingInfo.merge(bidTargetingInfo) { $1 }

@@ -278,7 +278,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     
     //If there's no URL, bail
     NSURL *url = navigationAction.request.URL;
-    if (!url) {
+    if (!url || url.absoluteString.length == 0) {
         PBMLogWarn(@"No URL found on WKWebView navigation");
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
