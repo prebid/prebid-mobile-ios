@@ -45,7 +45,7 @@ import Foundation
 
         fidelity    = json[.fidelity]
         nonce       = json[.nonce]
-        timestamp   = json[.timestamp]
+        timestamp   = json.numberOrString(.timestamp)
         signature   = json[.signature]
     }
     

@@ -106,6 +106,12 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
         }
     }
     
+    // For fields where the IAB spec defines strings but Apple APIs require NSNumber.
+    func numberOrString(_ key: Key) -> NSNumber? {
+        let raw = dict[key.rawValue]
+        return (raw as? String).flatMap { Int64($0) }.map { NSNumber(value: $0) } ?? (raw as? NSNumber)
+    }
+
     func backwardsCompatiblePassthrough(key: Key) -> [ORTBExtPrebidPassthrough]? {
         // The prebid spec defines in various parts of the schema the "passthrough" key
         // which is supposed to map to a JSON object. However it was mistakenly implemented
