@@ -19,7 +19,7 @@ import XCTest
 class ExternalUserIdTests: XCTestCase {
     
     func testInitialization() {
-        let uids = [UserUniqueID(id: "uid1", aType: 1)]
+        let uids = [UserUniqueID(uniqueId: "uid1", aType: 1)]
         let ext: [String: Any] = ["key": "value"]
         let externalUserId = ExternalUserId(source: "source1", uids: uids, ext: ext)
         
@@ -30,7 +30,7 @@ class ExternalUserIdTests: XCTestCase {
     }
     
     func testToJSONDictionary() {
-        let uids = [UserUniqueID(id: "uid1", aType: 1)]
+        let uids = [UserUniqueID(uniqueId: "uid1", aType: 1)]
         let ext: [String: Any] = ["key": "value"]
         let externalUserId = ExternalUserId(source: "source1", uids: uids, ext: ext)
         
