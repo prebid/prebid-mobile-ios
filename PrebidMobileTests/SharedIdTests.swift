@@ -42,7 +42,7 @@ final class SharedIdTests: XCTestCase {
         
         setLocalStorageAccessAllowed(true)
         
-        XCTAssertEqual(targeting.sharedId.uids.first?.id, "abc123")
+        XCTAssertEqual(targeting.sharedId.uids.first?.uniqueId, "abc123")
     }
     
     func testDoesNotUseValueInLocalStorageIfAccessNotAllowed() {
@@ -50,20 +50,20 @@ final class SharedIdTests: XCTestCase {
         
         setLocalStorageAccessAllowed(false)
         
-        XCTAssertNotEqual(targeting.sharedId.uids.first?.id, "abc123")
+        XCTAssertNotEqual(targeting.sharedId.uids.first?.uniqueId, "abc123")
     }
     
     func testGeneratedIdWrittenToLocalStorageIfAllowed() {
         setLocalStorageAccessAllowed(true)
         
-        let identifier = targeting.sharedId.uids.first?.id
+        let identifier = targeting.sharedId.uids.first?.uniqueId
         XCTAssertEqual(StorageUtils.sharedId, identifier)
     }
     
     func testGeneratedIdWrittenNotToLocalStorageIfNotAllowed() {
         setLocalStorageAccessAllowed(false)
         
-        let _ = targeting.sharedId.uids.first?.id // Generate an id
+        let _ = targeting.sharedId.uids.first?.uniqueId // Generate an id
         XCTAssertNil(StorageUtils.sharedId)
     }
     
@@ -71,19 +71,19 @@ final class SharedIdTests: XCTestCase {
         // Even if local storage is not allowed, we should persist an in-memory
         // identifier for the current app session
         setLocalStorageAccessAllowed(false)
-        let originalIdentifier = targeting.sharedId.uids.first?.id
+        let originalIdentifier = targeting.sharedId.uids.first?.uniqueId
         
-        XCTAssertEqual(targeting.sharedId.uids.first?.id, originalIdentifier)
+        XCTAssertEqual(targeting.sharedId.uids.first?.uniqueId, originalIdentifier)
     }
     
     func testReturnsTheSameIdentifierUntilReset() {
-        let originalIdentifier = targeting.sharedId.uids.first?.id
+        let originalIdentifier = targeting.sharedId.uids.first?.uniqueId
         
-        XCTAssertEqual(targeting.sharedId.uids.first?.id, originalIdentifier)
+        XCTAssertEqual(targeting.sharedId.uids.first?.uniqueId, originalIdentifier)
         
         targeting.resetSharedId()
         
-        XCTAssertNotEqual(targeting.sharedId.uids.first?.id, originalIdentifier)
+        XCTAssertNotEqual(targeting.sharedId.uids.first?.uniqueId, originalIdentifier)
     }
     
     func testResettingClearsIdFromLocalStorage() {
