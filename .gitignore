@@ -113,6 +113,10 @@ xcuserdata/
 #
 Pods/
 
-# Visual Studio Code 
+# Visual Studio Code
 .build/
+
+# Claude Code
+CLAUDE.md
+.claude/
 

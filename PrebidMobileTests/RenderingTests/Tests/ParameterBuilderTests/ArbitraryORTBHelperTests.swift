@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class ArbitraryORTBHelperTests: XCTestCase {
     
@@ -132,9 +132,59 @@ class ArbitraryORTBHelperTests: XCTestCase {
            "key1": "value1",
            "key2":
         """
-        
+
         let result = ArbitraryGlobalORTBHelper(ortb: invalidJSON).getValidatedORTBDict()
-        
+
         XCTAssertNil(result)
+    }
+
+    // MARK: - Issue #1259: decimal precision preservation
+
+    func testGlobalORTBHelper_PreservesDecimalPriceGranularity() throws {
+        let json = """
+        {
+          "ext": {
+            "prebid": {
+              "targeting": {
+                "pricegranularity": {
+                  "ranges": [
+                    { "min": 0, "max": 1, "increment": 0.05 },
+                    { "min": 1, "max": 5, "increment": 0.1 },
+                    { "min": 5, "max": 20, "increment": 0.5 }
+                  ]
+                }
+              }
+            }
+          }
+        }
+        """
+
+        let result = ArbitraryGlobalORTBHelper(ortb: json).getValidatedORTBDict()
+        XCTAssertNotNil(result)
+
+        let ranges = (((result?["ext"] as? [String: Any])?["prebid"] as? [String: Any])?["targeting"] as? [String: Any])
+            .flatMap { ($0["pricegranularity"] as? [String: Any])?["ranges"] as? [[String: Any]] }
+
+        XCTAssertEqual(ranges?[0]["increment"] as? NSDecimalNumber, NSDecimalNumber(string: "0.05"))
+        XCTAssertEqual(ranges?[1]["increment"] as? NSDecimalNumber, NSDecimalNumber(string: "0.1"))
+        XCTAssertEqual(ranges?[2]["increment"] as? NSDecimalNumber, NSDecimalNumber(string: "0.5"))
+
+        let written = try Functions.jsonString(from: result ?? [:])
+        XCTAssertFalse(written.contains("0.050000000000000003"), written)
+        XCTAssertFalse(written.contains("0.10000000000000001"), written)
+    }
+
+    func testImpORTBHelper_PreservesDecimalsInExt() throws {
+        let json = #"{"ext": {"bidfloor": 0.05}}"#
+
+        let result = ArbitraryORTBHelper(ortb: json).getValidatedORTBDict()
+        XCTAssertNotNil(result)
+
+        let ext = result?["ext"] as? [String: Any]
+        XCTAssertEqual(ext?["bidfloor"] as? NSDecimalNumber, NSDecimalNumber(string: "0.05"))
+
+        let written = try Functions.jsonString(from: result ?? [:])
+        XCTAssertTrue(written.contains("\"bidfloor\":0.05"), written)
+        XCTAssertFalse(written.contains("0.050000000000000003"), written)
     }
 }

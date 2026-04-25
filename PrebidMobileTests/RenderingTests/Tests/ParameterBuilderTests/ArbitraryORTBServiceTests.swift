@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class ArbitraryORTBServiceTests: XCTestCase {
     
@@ -1791,5 +1791,43 @@ class ArbitraryORTBServiceTests: XCTestCase {
             result as NSDictionary,
             try? PBMFunctions.dictionaryFromJSONString(expectedORTB) as NSDictionary
         )
+    }
+
+    // MARK: - Issue #1259 regression
+
+    func testMergeGlobalORTB_preservesDecimalPriceGranularity_issue1259() throws {
+        let globalORTB = """
+        {
+          "ext": {
+            "prebid": {
+              "targeting": {
+                "pricegranularity": {
+                  "ranges": [
+                    { "min": 0, "max": 1, "increment": 0.05 },
+                    { "min": 1, "max": 5, "increment": 0.1 },
+                    { "min": 5, "max": 20, "increment": 0.5 }
+                  ]
+                }
+              }
+            }
+          }
+        }
+        """
+
+        let merged = ArbitraryORTBService.merge(
+            sdkORTB: [:],
+            impORTB: nil,
+            globalAdUnitORTB: nil,
+            globalORTB: globalORTB
+        )
+
+        let jsonString = try Functions.jsonString(from: merged)
+
+        XCTAssertTrue(jsonString.contains("\"increment\":0.05"), jsonString)
+        XCTAssertTrue(jsonString.contains("\"increment\":0.1"), jsonString)
+        XCTAssertTrue(jsonString.contains("\"increment\":0.5"), jsonString)
+
+        XCTAssertFalse(jsonString.contains("0.050000000000000003"), jsonString)
+        XCTAssertFalse(jsonString.contains("0.10000000000000001"), jsonString)
     }
 }
