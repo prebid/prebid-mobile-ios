@@ -61,7 +61,7 @@ public class GAMUtils: NSObject {
     static func latestTestedGMAVersion() -> GoogleMobileAds.VersionNumber {
         GoogleMobileAds.VersionNumber(
             majorVersion: 13,
-            minorVersion: 1,
+            minorVersion: 2,
             patchVersion: 0
         )
     }
