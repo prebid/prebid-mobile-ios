@@ -47,14 +47,14 @@ import Foundation
     /// `0.05` or `0.1` must round-trip exactly. The default `dictionary(from:)`
     /// uses `JSONSerialization`, which decodes numbers as `Double` and loses
     /// precision for values that aren't exactly representable in IEEE-754.
-    public static func dictionaryPreservingDecimals(from jsonString: String) throws -> [String: Any] {
+    static func dictionaryPreservingDecimals(from jsonString: String) throws -> [String: Any] {
         guard let jsonData = jsonString.data(using: .utf8) else {
             throw PBMError.error(description: "Could not convert jsonString to data: \(jsonString)")
         }
         return try dictionaryPreservingDecimals(from: jsonData)
     }
 
-    public static func dictionaryPreservingDecimals(from jsonData: Data) throws -> [String: Any] {
+    static func dictionaryPreservingDecimals(from jsonData: Data) throws -> [String: Any] {
         let node = try JSONDecoder().decode(JSONNode.self, from: jsonData)
         guard case let .object(dict) = node else {
             throw PBMError.error(description: "Invalid JSON data: top-level element is not an object")
@@ -62,7 +62,7 @@ import Foundation
         return dict.mapValues { $0.unwrappedValue }
     }
 
-    public static func jsonString(from dictionary: [String: Any]) throws -> String {
+    static func jsonString(from dictionary: [String: Any]) throws -> String {
         guard JSONSerialization.isValidJSONObject(dictionary) else {
             throw PBMError.error(description: "Not valid JSON object: \(dictionary)")
         }

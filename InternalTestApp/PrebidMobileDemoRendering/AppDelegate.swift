@@ -61,39 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             case .serverStatusSkipped:
                 print("Prebid status check skipped")
-                
-                let globalORTB = """
-                {
-                  "ext": {
-                    "prebid": {
-                      "targeting": {
-                        "pricegranularity": {
-                          "ranges": [
-                            {
-                              "min": 0,
-                              "max": 1,
-                              "increment": 0.05
-                            },
-                            {
-                              "min": 1,
-                              "max": 5,
-                              "increment": 0.1
-                            },
-                            {
-                              "min": 5,
-                              "max": 20,
-                              "increment": 0.5
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
-                }
-                """
 
-                Targeting.shared.setGlobalORTBConfig(globalORTB)
-                
             default:
                 break
             }            
