@@ -886,7 +886,7 @@ struct TestCaseManager {
                     source: "liveramp.com",
                     uids: [
                         UserUniqueID(
-                            id: "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM",
+                            uniqueId: "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM",
                             aType: 1
                         )
                     ]
