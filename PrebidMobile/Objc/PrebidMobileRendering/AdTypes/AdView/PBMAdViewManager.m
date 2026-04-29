@@ -117,7 +117,6 @@
             
             [[self.adViewManagerDelegate displayView] addSubview:creativeView];
             [self.currentCreative displayWithRootViewController:viewController];
-            [self.adViewManagerDelegate adLoaded:[self.currentTransaction getAdDetails]];
         });
     }
 }
@@ -362,6 +361,8 @@
         
         //Otherwise attempt to show the creative.
         [self setupCreative:[transaction getFirstCreative]];
+        
+        [self.adViewManagerDelegate adLoaded:[transaction getAdDetails]];
     });
 }
 

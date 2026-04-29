@@ -74,6 +74,10 @@ public protocol PrebidMobilePluginRenderer: AnyObject {
         interactionDelegate: InterstitialControllerInteractionDelegate
     ) -> PrebidMobileInterstitialControllerProtocol?
     
-    /// Notifies that the ad view has been injected into the banner view.
+    /// Notifies the plugin renderer that an ad view has been injected into the banner view.
+    ///
+    /// - Parameters:
+    ///   - view: The ad view that was injected.
+    ///   - bannerView: The banner view into which the ad view was injected.
     @objc optional func didInjectView(_ view: UIView, into bannerView: UIView)
 }
