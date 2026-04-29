@@ -21,11 +21,21 @@ class MockPrebidMobilePluginRenderer: PrebidMobilePluginRenderer {
     let name: String
     let version: String
     var data: [String: Any]?
-    
+
+    var didInjectViewCallCount = 0
+    var capturedInjectedView: UIView?
+    var capturedBannerView: UIView?
+
     init(name: String, version: String, data: [String: Any]? = nil) {
         self.name = name
         self.version = version
         self.data = data
+    }
+
+    func didInjectView(_ view: UIView, into bannerView: UIView) {
+        didInjectViewCallCount += 1
+        capturedInjectedView = view
+        capturedBannerView = bannerView
     }
     
     func jsonDictionary() -> [String: Any] {
