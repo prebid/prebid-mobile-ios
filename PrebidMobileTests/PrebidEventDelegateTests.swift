@@ -34,6 +34,8 @@ class PrebidEventDelegateTests: XCTestCase {
     
     func test_eventDelegate_isCalled() {
         let exp = expectation(description: "Expect PrebidEventDelegate to be called")
+        // PBMBidRequester also fires this delegate; other tests' in-flight responses can land here.
+        exp.assertForOverFulfill = false
 
         delegate = PrebidEventDelegateTestsMockDelegate(onRequestDidFinish: { requestData, responseData in
             XCTAssertEqual(requestData, self.mockRequestData)
