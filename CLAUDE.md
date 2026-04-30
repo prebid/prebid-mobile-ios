@@ -125,3 +125,12 @@ Framework build uses `Lib-PrebidMobile`, `Lib-PrebidMobileGAMEventHandlers`, `Li
 GitHub Actions (Xcode 16.4.0, macOS 15):
 - PRs run quick tests (`--latest --quick`) unless labeled `run-full-tests`
 - Branch names starting with `bump-to` trigger full test suite + UI/integration tests
+
+## ObjC → Swift migration
+
+Migration docs live in `docs/migration/`. Keep them current throughout every working session:
+
+- **`docs/migration/playbook.md`** — per-class porting guide and gap decisions. Update when a new gap is discovered or a rule changes.
+- **`docs/migration/pr-phase-0.md`** (and future `pr-phase-N.md` files) — PR-level summary of what was done, with a test-plan checklist. Update the relevant PR doc at the end of each session: add an `S<phase>.<step>` entry for completed work, tick test-plan checkboxes, and note any open items for the reviewer.
+
+When starting work on a migration phase, read the relevant PR doc first to pick up prior context.
