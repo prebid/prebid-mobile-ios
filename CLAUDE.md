@@ -38,6 +38,8 @@ Flags: `--latest` skips the legacy iOS 13 sanity test (always use locally); `--q
 
 Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1111 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 694 tests).
 
+**When adding new tests:** register every new test class in `PrebidMobileTests/PrebidMobilePRTests.xctestplan` so it runs on every PR. The full plan picks up all tests automatically; only the PR plan requires explicit registration.
+
 To run a single test class:
 ```bash
 # Step 1 — build once
