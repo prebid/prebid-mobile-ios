@@ -13,9 +13,6 @@ xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDevice
 cd ..
 echo $PWD
 
-export PATH="/Users/distiller/.gem/ruby/2.7.0/bin:$PATH"
-gem install cocoapods
-
 pod deintegrate
 pod install --repo-update
 pod update
