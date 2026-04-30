@@ -24,4 +24,4 @@ Phase 0 of the ObjC → Swift migration for `PrebidMobile/Objc/`. Must merge bef
 ## Test plan
 - [x] `./scripts/testPrebidMobile.sh --latest --quick` — 694 tests, 0 failures
 - [x] `./scripts/testPrebidMobile.sh --latest` — 1111 tests, 0 failures (full plan, including previously-crashing `PrebidEventDelegateTests`)
-- [ ] Reviewer: confirm gap decisions in `docs/migration/playbook.md` before S1 PRs open
+- [x] Reviewer: confirm gap decisions in `docs/migration/playbook.md` before S1 PRs open — all 5 confirmed; Gap 5 note: S1.1 should spot-check `PBMBidResponseTransformerTest` and `PBMORTBTest` for any indirect reliance on the broken-instance fallback path
