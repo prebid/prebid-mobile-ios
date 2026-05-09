@@ -75,6 +75,32 @@ After Phase 3 all ObjC consumers are gone; revisit in S9.x cleanup whether to dr
 
 **Rule:** No change to `PBMJsonCoding.swift` needed. During S1.1, audit test code for any test that depended on the broken-instance behavior and update to expect `nil`.
 
+### Gap 6 — Framework build visibility: `public` required (discovered S1.1)
+
+In a framework archive build, Swift types with `internal` access only appear as `@class` forward stubs in `PrebidMobile-Swift.h`. ObjC consumers in the same target get "receiver type is a forward declaration" errors when trying to alloc/init or call methods.
+
+**Rule:** All Phase 1–3 Swift twins must be `@objc public class` with `@objc public var` properties. After Phase 3 when all ObjC consumers are gone, demote to `internal` in S9.2.
+
+### Gap 7 — ObjC selector bridge: explicit annotations required (discovered S1.1)
+
+Protocol requirements from non-`@objc` protocols (`PBMJsonDecodable.init?`, `PBMJsonEncodable.jsonDictionary`) do NOT get automatic `@objc` selector inference even on `public NSObject` subclasses. ObjC consumers get "no visible @interface declares the selector" errors.
+
+**Rule:** Use explicit ObjC bridge annotations on both required members:
+- `@objc(initWithJsonDictionary:) public required init(jsonDictionary:)` — non-optional (a non-failable init satisfies the failable protocol requirement); call `super.init()` as first statement.
+- `@objc(toJsonDictionary) public var jsonDictionary: [String: Any]`
+
+This matches the existing pattern in `ORTBAppContent.swift`.
+
+### Gap 8 — ObjC private headers not visible to Swift in framework builds (discovered S1.1)
+
+ObjC private headers (e.g. `PBMFunctions.h`) are not bridged into the Swift compilation context during a framework archive build. Any Swift file that calls `PBMFunctions.*` will fail with "cannot find in scope".
+
+**Rule:** Do not call ObjC private-header functions from Swift migration twins. Inline the logic in Swift instead. Example: `PBMORTBImpExtSkadn` inlines `supportedSKAdNetworkVersions` as a `private static var` with `#available` guards, removing the `PBMFunctions` dependency.
+
+### Gap 9 — Empty arrays are preserved by `pbmCopyWithoutEmptyVals` (discovered S1.1)
+
+`pbmCopyWithoutEmptyVals` and `pbmRemoveEmptyVals` only strip `nil` / `NSNull` — **empty arrays `[]` are kept**. Swift twins must not suppress empty `[String]` arrays. Pass them through as-is; do not apply `.isEmpty ? nil : array` guards.
+
 ## Canonical Swift twin template
 
 ```swift
@@ -82,27 +108,31 @@ After Phase 3 all ObjC consumers are gone; revisit in S9.x cleanup whether to dr
 
 import Foundation
 
-@objc class PBMORTBFoo: NSObject, PBMJsonCodable {
+@objc public class PBMORTBFoo: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc var someField: NSNumber?
-    @objc var anotherField: String?
+    @objc public var someField: NSNumber?
+    @objc public var anotherField: String?
 
     // MARK: - Init
 
-    override init() {}
+    public override init() {
+        super.init()
+    }
 
-    required convenience init?(jsonDictionary: [String: Any]) {
-        self.init()
+    @objc(initWithJsonDictionary:)
+    public required init(jsonDictionary: [String: Any]) {
+        super.init()
         let json = JSONObject<Key>(jsonDictionary)
-        someField   = json[.someField]
+        someField    = json[.someField]
         anotherField = json[.anotherField]
     }
 
     // MARK: - PBMJsonEncodable
 
-    var jsonDictionary: [String: Any] {
+    @objc(toJsonDictionary)
+    public var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.someField]    = someField
         json[.anotherField] = anotherField
@@ -119,11 +149,14 @@ import Foundation
 ```
 
 Key points:
-- `Key` enum uses `RawRepresentable` with `String` raw values matching JSON keys.
-- `@objc` on properties ensures ObjC consumers can access them via `*-Swift.h`.
+- `@objc public class` + `@objc public var` — required for framework build ObjC bridge (Gap 6).
+- `@objc(initWithJsonDictionary:)` + non-optional `public required init` — exposes the init selector to ObjC (Gap 7).
+- `@objc(toJsonDictionary)` — exposes the encode selector to ObjC (Gap 7).
+- `super.init()` as first statement in the JSON init.
 - No `toJsonStringWithError:` / `fromJsonString:` implementations — inherited.
 - No `NSCopying`.
-- For child ORTB objects, use `json[.childKey] = self.childObj` — empty-dict suppression is automatic.
+- For child ORTB objects, use `json[.childKey] = self.childObj` — empty-dict suppression is automatic (Gap 2).
+- Empty `[String]` arrays: include as-is, never suppress (Gap 9).
 
 ## Validation checklist per PR
 

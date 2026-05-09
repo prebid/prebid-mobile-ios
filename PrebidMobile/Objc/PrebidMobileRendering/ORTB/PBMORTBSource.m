@@ -16,7 +16,7 @@
 #import "PBMORTBSource.h"
 #import "PBMORTBAbstract+Protected.h"
 
-#import "PBMORTBSourceExtOMID.h"
+#import "SwiftImport.h"
 
 @implementation PBMORTBSource
 

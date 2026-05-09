@@ -16,8 +16,6 @@
 #import "PBMORTBUser.h"
 #import "PBMORTBAbstract+Protected.h"
 
-#import "PBMORTBGeo.h"
-
 #import "SwiftImport.h"
 
 @implementation PBMORTBUser

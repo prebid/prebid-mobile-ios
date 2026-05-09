@@ -36,9 +36,11 @@
 		00614C902DE87D6A00A61974 /* AdLoaderFlowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C8F2DE87D6900A61974 /* AdLoaderFlowDelegate.swift */; };
 		00614C922DE87D9300A61974 /* AdLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00614C912DE87D9100A61974 /* AdLoaderProtocol.swift */; };
 		00CD459A2DE9C7E4009D1EEA /* AdLoadFlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD45992DE9C7E1009D1EEA /* AdLoadFlowState.swift */; };
+		1859EC301B875085EE74A0B4 /* PBMORTBImpExtSkadn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36E1F2608F3FE9482E26B58 /* PBMORTBImpExtSkadn.swift */; };
 		2A9DDDCC2C5BE190000EA4A0 /* PrebidEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */; };
 		2A9DDDD42C63665A000EA4A0 /* PBMEventDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */; };
 		2A9DDDD82C63A88C000EA4A0 /* PrebidEventDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */; };
+		2D15D3A95CB7BD5F88F19A84 /* PBMORTBDeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18B18C8FF34917C31D27DAD /* PBMORTBDeal.swift */; };
 		38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B262576421400E026A2 /* CacheManagerTests.swift */; };
 		38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B322576624C00E026A2 /* TrackerManagerTests.swift */; };
 		3CD0ADEE2C5125E9006CDA6B /* PluginRegisterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */; };
@@ -193,6 +195,7 @@
 		53ED304C29798585007D13EE /* SkadnParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED304B29798585007D13EE /* SkadnParameterBuilderTest.swift */; };
 		53F35F6D292B9F2F001C1183 /* UserConsentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F6C292B9F2F001C1183 /* UserConsentDataManager.swift */; };
 		53F35F6F292BAE9B001C1183 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F6E292BAE9B001C1183 /* UserDefaults+Extensions.swift */; };
+		575EB9BD8A5A505C30EA3DD3 /* PBMORTBSourceExtOMID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FBD50AA9C905E01710527F /* PBMORTBSourceExtOMID.swift */; };
 		5A068F122DB6ED1700DA62F3 /* CreativeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A068F112DB6ED1700DA62F3 /* CreativeViewDelegate.swift */; };
 		5A068F142DB6ED2900DA62F3 /* AdViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A068F132DB6ED2900DA62F3 /* AdViewManager.swift */; };
 		5A068F1C2DB6F88900DA62F3 /* VastTrackingEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A068F1B2DB6F88900DA62F3 /* VastTrackingEvents.swift */; };
@@ -261,7 +264,6 @@
 		5AE4E5B52DB81D2D002C84DF /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5B42DB81D2D002C84DF /* Factory.swift */; };
 		5AE4E5D02DB83E20002C84DF /* SwiftMigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5CF2DB83E20002C84DF /* SwiftMigrationHelper.swift */; };
 		5AE4E5D22DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5D12DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift */; };
-		A9D01DE1E7594F359AF84A11 /* ORTBParityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E618F8CC072D420CBB717375 /* ORTBParityHelper.swift */; };
 		5AE4E5D42DB843E8002C84DF /* InterstitialLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5D32DB843E8002C84DF /* InterstitialLayout.swift */; };
 		5AE4E5D62DB84427002C84DF /* InterstitialDisplayProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5D52DB84427002C84DF /* InterstitialDisplayProperties.swift */; };
 		5AE4E5D82DB84B43002C84DF /* ModalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5D72DB84B43002C84DF /* ModalState.swift */; };
@@ -308,7 +310,6 @@
 		5AF5EA712E13580F002D80C1 /* PBMORTBApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9FB2E13580F002D80C1 /* PBMORTBApp.h */; };
 		5AF5EA722E13580F002D80C1 /* PBMORTBRendererConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA0F2E13580F002D80C1 /* PBMORTBRendererConfig.h */; };
 		5AF5EA732E13580F002D80C1 /* UIView+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA4A2E13580F002D80C1 /* UIView+PBMExtensions.h */; };
-		5AF5EA742E13580F002D80C1 /* PBMORTBGeo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA072E13580F002D80C1 /* PBMORTBGeo.h */; };
 		5AF5EA752E13580F002D80C1 /* PBMExternalURLOpenerBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9E32E13580F002D80C1 /* PBMExternalURLOpenerBlock.h */; };
 		5AF5EA762E13580F002D80C1 /* NSException+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9BA2E13580F002D80C1 /* NSException+PBMExtensions.h */; };
 		5AF5EA772E13580F002D80C1 /* PBMAdRequestResponseVAST.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9C92E13580F002D80C1 /* PBMAdRequestResponseVAST.h */; };
@@ -317,7 +318,6 @@
 		5AF5EA7A2E13580F002D80C1 /* PBMAbstractCreative+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9C12E13580F002D80C1 /* PBMAbstractCreative+Protected.h */; };
 		5AF5EA7B2E13580F002D80C1 /* NSTimer+PBMTimerInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9BE2E13580F002D80C1 /* NSTimer+PBMTimerInterface.h */; };
 		5AF5EA7C2E13580F002D80C1 /* PBMWebView+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA402E13580F002D80C1 /* PBMWebView+Internal.h */; };
-		5AF5EA7D2E13580F002D80C1 /* PBMORTBFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA062E13580F002D80C1 /* PBMORTBFormat.h */; };
 		5AF5EA7E2E13580F002D80C1 /* PBMORTBAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9F92E13580F002D80C1 /* PBMORTBAbstract.h */; };
 		5AF5EA7F2E13580F002D80C1 /* PBMCreativeModelCollectionMakerVAST.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9D62E13580F002D80C1 /* PBMCreativeModelCollectionMakerVAST.h */; };
 		5AF5EA802E13580F002D80C1 /* PBMCreativeFactoryJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9D52E13580F002D80C1 /* PBMCreativeFactoryJob.h */; };
@@ -328,7 +328,6 @@
 		5AF5EA852E13580F002D80C1 /* PBMAdLoadManagerBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9C32E13580F002D80C1 /* PBMAdLoadManagerBase.h */; };
 		5AF5EA862E13580F002D80C1 /* PBMParameterBuilderService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA152E13580F002D80C1 /* PBMParameterBuilderService.h */; };
 		5AF5EA872E13580F002D80C1 /* PBMUIApplicationProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA202E13580F002D80C1 /* PBMUIApplicationProtocol.h */; };
-		5AF5EA882E13580F002D80C1 /* PBMORTBPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA0D2E13580F002D80C1 /* PBMORTBPublisher.h */; };
 		5AF5EA892E13580F002D80C1 /* WKNavigationAction+PBMWKNavigationActionCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA4D2E13580F002D80C1 /* WKNavigationAction+PBMWKNavigationActionCompatible.h */; };
 		5AF5EA8A2E13580F002D80C1 /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9DA2E13580F002D80C1 /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h */; };
 		5AF5EA8B2E13580F002D80C1 /* UIWindow+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA4C2E13580F002D80C1 /* UIWindow+PBMExtensions.h */; };
@@ -358,7 +357,6 @@
 		5AF5EAA32E13580F002D80C1 /* Prebid+TestExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA482E13580F002D80C1 /* Prebid+TestExtension.h */; };
 		5AF5EAA42E13580F002D80C1 /* PBMAppInfoParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9CA2E13580F002D80C1 /* PBMAppInfoParameterBuilder.h */; };
 		5AF5EAA52E13580F002D80C1 /* PBMORTBAppExtPrebid.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9FD2E13580F002D80C1 /* PBMORTBAppExtPrebid.h */; };
-		5AF5EAA62E13580F002D80C1 /* PBMORTBDeviceExtAtts.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA032E13580F002D80C1 /* PBMORTBDeviceExtAtts.h */; };
 		5AF5EAA72E13580F002D80C1 /* PBMMRAIDController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9F02E13580F002D80C1 /* PBMMRAIDController.h */; };
 		5AF5EAA82E13580F002D80C1 /* WKWebView+PBMWKWebViewCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA4E2E13580F002D80C1 /* WKWebView+PBMWKWebViewCompatible.h */; };
 		5AF5EAA92E13580F002D80C1 /* PBMMRAIDJavascriptCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9F12E13580F002D80C1 /* PBMMRAIDJavascriptCommands.h */; };
@@ -371,9 +369,7 @@
 		5AF5EAB02E13580F002D80C1 /* PBMDeepLinkPlusHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9D92E13580F002D80C1 /* PBMDeepLinkPlusHelper.h */; };
 		5AF5EAB12E13580F002D80C1 /* PBMWeakTimerTargetBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA3E2E13580F002D80C1 /* PBMWeakTimerTargetBox.h */; };
 		5AF5EAB22E13580F002D80C1 /* UIView+PBMViewExposure.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA4B2E13580F002D80C1 /* UIView+PBMViewExposure.h */; };
-		5AF5EAB32E13580F002D80C1 /* PBMORTBDeal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA012E13580F002D80C1 /* PBMORTBDeal.h */; };
 		5AF5EAB42E13580F002D80C1 /* InternalUserConsentDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9B72E13580F002D80C1 /* InternalUserConsentDataManager.h */; };
-		5AF5EAB52E13580F002D80C1 /* PBMORTBImpExtSkadn.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA0A2E13580F002D80C1 /* PBMORTBImpExtSkadn.h */; };
 		5AF5EAB62E13580F002D80C1 /* PBMORTBSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA102E13580F002D80C1 /* PBMORTBSource.h */; };
 		5AF5EAB72E13580F002D80C1 /* PBMWKScriptMessageHandlerLeakAvoider.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA462E13580F002D80C1 /* PBMWKScriptMessageHandlerLeakAvoider.h */; };
 		5AF5EAB82E13580F002D80C1 /* PBMExternalLinkHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9E12E13580F002D80C1 /* PBMExternalLinkHandler.h */; };
@@ -417,7 +413,6 @@
 		5AF5EADE2E13580F002D80C1 /* PBMExternalURLOpenCallbacks.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9E22E13580F002D80C1 /* PBMExternalURLOpenCallbacks.h */; };
 		5AF5EADF2E13580F002D80C1 /* PBMORTBAbstract+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9FA2E13580F002D80C1 /* PBMORTBAbstract+Protected.h */; };
 		5AF5EAE02E13580F002D80C1 /* PBMUserConsentParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA242E13580F002D80C1 /* PBMUserConsentParameterBuilder.h */; };
-		5AF5EAE12E13580F002D80C1 /* PBMORTBSourceExtOMID.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA112E13580F002D80C1 /* PBMORTBSourceExtOMID.h */; };
 		5AF5EAE22E13580F002D80C1 /* PBMBidRequester.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9CC2E13580F002D80C1 /* PBMBidRequester.h */; };
 		5AF5EAE32E13580F002D80C1 /* PBMHTMLCreative.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9E92E13580F002D80C1 /* PBMHTMLCreative.h */; };
 		5AF5EAE42E13580F002D80C1 /* PBMTimerInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA1A2E13580F002D80C1 /* PBMTimerInterface.h */; };
@@ -440,7 +435,6 @@
 		5AF5EAF52E13580F002D80C1 /* PBMExternalURLOpeners.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9952E13580F002D80C1 /* PBMExternalURLOpeners.m */; };
 		5AF5EAF62E13580F002D80C1 /* PBMORTBRegs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9892E13580F002D80C1 /* PBMORTBRegs.m */; };
 		5AF5EAF72E13580F002D80C1 /* PBMORTBAppExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9782E13580F002D80C1 /* PBMORTBAppExt.m */; };
-		5AF5EAF82E13580F002D80C1 /* PBMORTBGeo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9832E13580F002D80C1 /* PBMORTBGeo.m */; };
 		5AF5EAF92E13580F002D80C1 /* PBMORTBImp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9842E13580F002D80C1 /* PBMORTBImp.m */; };
 		5AF5EAFA2E13580F002D80C1 /* PBMORTBAppExtPrebid.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9792E13580F002D80C1 /* PBMORTBAppExtPrebid.m */; };
 		5AF5EAFB2E13580F002D80C1 /* PBMDisplayTransactionFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9992E13580F002D80C1 /* PBMDisplayTransactionFactory.m */; };
@@ -470,7 +464,6 @@
 		5AF5EB132E13580F002D80C1 /* PBMDeepLinkPlusHelper+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9A92E13580F002D80C1 /* PBMDeepLinkPlusHelper+Testing.m */; };
 		5AF5EB142E13580F002D80C1 /* PBMBasicParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9682E13580F002D80C1 /* PBMBasicParameterBuilder.m */; };
 		5AF5EB152E13580F002D80C1 /* PBMVastInlineAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9482E13580F002D80C1 /* PBMVastInlineAd.m */; };
-		5AF5EB162E13580F002D80C1 /* PBMORTBPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9882E13580F002D80C1 /* PBMORTBPublisher.m */; };
 		5AF5EB172E13580F002D80C1 /* PBMVastCreativeCompanionAdsCompanion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9432E13580F002D80C1 /* PBMVastCreativeCompanionAdsCompanion.m */; };
 		5AF5EB182E13580F002D80C1 /* PBMViewExposure.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9572E13580F002D80C1 /* PBMViewExposure.m */; };
 		5AF5EB192E13580F002D80C1 /* PBMURLComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9732E13580F002D80C1 /* PBMURLComponents.m */; };
@@ -502,7 +495,6 @@
 		5AF5EB332E13580F002D80C1 /* PBMVastMediaFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9492E13580F002D80C1 /* PBMVastMediaFile.m */; };
 		5AF5EB342E13580F002D80C1 /* PBMDeepLinkPlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9A72E13580F002D80C1 /* PBMDeepLinkPlus.m */; };
 		5AF5EB352E13580F002D80C1 /* PBMVastAdsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9402E13580F002D80C1 /* PBMVastAdsBuilder.m */; };
-		5AF5EB362E13580F002D80C1 /* PBMORTBDeal.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E97D2E13580F002D80C1 /* PBMORTBDeal.m */; };
 		5AF5EB372E13580F002D80C1 /* PBMVastCreativeLinear.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9442E13580F002D80C1 /* PBMVastCreativeLinear.m */; };
 		5AF5EB382E13580F002D80C1 /* PBMORTBBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E97A2E13580F002D80C1 /* PBMORTBBanner.m */; };
 		5AF5EB392E13580F002D80C1 /* UIWindow+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9652E13580F002D80C1 /* UIWindow+PBMExtensions.m */; };
@@ -515,10 +507,8 @@
 		5AF5EB402E13580F002D80C1 /* PBMHTMLCreative.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9502E13580F002D80C1 /* PBMHTMLCreative.m */; };
 		5AF5EB412E13580F002D80C1 /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9282E13580F002D80C1 /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m */; };
 		5AF5EB422E13580F002D80C1 /* PBMModalState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9312E13580F002D80C1 /* PBMModalState.m */; };
-		5AF5EB432E13580F002D80C1 /* PBMORTBFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9822E13580F002D80C1 /* PBMORTBFormat.m */; };
 		5AF5EB442E13580F002D80C1 /* PBMORTBAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9762E13580F002D80C1 /* PBMORTBAbstract.m */; };
 		5AF5EB452E13580F002D80C1 /* PBMDeepLinkPlusHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9A82E13580F002D80C1 /* PBMDeepLinkPlusHelper.m */; };
-		5AF5EB462E13580F002D80C1 /* PBMORTBDeviceExtAtts.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E97F2E13580F002D80C1 /* PBMORTBDeviceExtAtts.m */; };
 		5AF5EB472E13580F002D80C1 /* PBMFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9AC2E13580F002D80C1 /* PBMFunctions.m */; };
 		5AF5EB482E13580F002D80C1 /* PBMAdLoadManagerVAST.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E92E2E13580F002D80C1 /* PBMAdLoadManagerVAST.m */; };
 		5AF5EB492E13580F002D80C1 /* PBMORTBApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9772E13580F002D80C1 /* PBMORTBApp.m */; };
@@ -540,11 +530,9 @@
 		5AF5EB592E13580F002D80C1 /* PBMVastParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E94A2E13580F002D80C1 /* PBMVastParser.m */; };
 		5AF5EB5A2E13580F002D80C1 /* PBMOpenMeasurementEventTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9272E13580F002D80C1 /* PBMOpenMeasurementEventTracker.m */; };
 		5AF5EB5B2E13580F002D80C1 /* PBMDeferredModalState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9302E13580F002D80C1 /* PBMDeferredModalState.m */; };
-		5AF5EB5C2E13580F002D80C1 /* PBMORTBImpExtSkadn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9862E13580F002D80C1 /* PBMORTBImpExtSkadn.m */; };
 		5AF5EB5D2E13580F002D80C1 /* NSMutableDictionary+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9602E13580F002D80C1 /* NSMutableDictionary+PBMExtensions.m */; };
 		5AF5EB5E2E13580F002D80C1 /* PBMParameterBuilderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E96D2E13580F002D80C1 /* PBMParameterBuilderService.m */; };
 		5AF5EB5F2E13580F002D80C1 /* PBMSKAdNetworksParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E96E2E13580F002D80C1 /* PBMSKAdNetworksParameterBuilder.m */; };
-		5AF5EB602E13580F002D80C1 /* PBMORTBSourceExtOMID.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E98C2E13580F002D80C1 /* PBMORTBSourceExtOMID.m */; };
 		5AF5EB612E13580F002D80C1 /* PBMExternalLinkHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9932E13580F002D80C1 /* PBMExternalLinkHandler.m */; };
 		5BC378AD271F1CFF00444D5E /* Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3764A271F1CFD00444D5E /* Targeting.swift */; };
 		5BC3794E271F1D0000444D5E /* AdPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376F3271F1CFE00444D5E /* AdPosition.swift */; };
@@ -596,6 +584,8 @@
 		606FAC5222022932008EAE5E /* AdUnitSwizzleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */; };
 		60C0381F2204AF5D0082B32C /* DispatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979177962201AF5F00E624CE /* DispatcherTests.swift */; };
 		60C038242204AF5D0082B32C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97826AA621FB4F1B001E2C05 /* Constants.swift */; };
+		75B8629127EA6FE94C5CC8AF /* PBMORTBPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9174EEAFE5EA16364D1B3A78 /* PBMORTBPublisher.swift */; };
+		8BADC9578B0CF7BE38AA6AB8 /* PBMORTBGeo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360DDF22CFA7990EC8F8B9FD /* PBMORTBGeo.swift */; };
 		92028EA627F0D89E00783470 /* NativeAdConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92028EA527F0D89E00783470 /* NativeAdConfiguration.swift */; };
 		920E8D6D28084BF200E6313B /* VideoControlsConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920E8D6C28084BF200E6313B /* VideoControlsConfigTests.swift */; };
 		922AFC8827352B0100732C53 /* MockUserAgentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFC8727352B0100732C53 /* MockUserAgentService.swift */; };
@@ -790,11 +780,15 @@
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
+		A6973A23E4372256034F22D7 /* PBMORTBDeviceExtAtts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEB81589766D33F9F73C471 /* PBMORTBDeviceExtAtts.swift */; };
 		A908694229E05EAF00B37479 /* PrebidMobilePluginRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */; };
 		A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */; };
 		A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694529E05F7900B37479 /* PrebidRenderer.swift */; };
+		A9D01DE1E7594F359AF84A11 /* ORTBParityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E618F8CC072D420CBB717375 /* ORTBParityHelper.swift */; };
+		B125F3F2B9BC171A76DEB367 /* PBMORTBFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68664B988D627C36D0583E20 /* PBMORTBFormat.swift */; };
 		E557D4B72ED219CB00E5580A /* UserAgentPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E557D4B62ED219CB00E5580A /* UserAgentPersistence.swift */; };
 		E5D88C022F4517FA00E801C3 /* ViewExposureCheckerSystemUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D88C012F4517FA00E801C3 /* ViewExposureCheckerSystemUITests.swift */; };
+		FA12590120260425000000A1 /* FunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12590120260425000000A2 /* FunctionsTests.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
 		FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */; };
@@ -805,7 +799,6 @@
 		FAA299102434C141002ACBF2 /* AdViewUtilsObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA2990F2434C141002ACBF2 /* AdViewUtilsObjCTests.m */; };
 		FAA299122434C769002ACBF2 /* UtilsObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA299112434C769002ACBF2 /* UtilsObjCTests.m */; };
 		FAC837D82321583500565051 /* CollectionExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC837D72321583500565051 /* CollectionExtensionTest.swift */; };
-		FA12590120260425000000A1 /* FunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12590120260425000000A2 /* FunctionsTests.swift */; };
 		FAEE4D08262DC2B200AD9966 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CDD262DC2B200AD9966 /* Constants.swift */; };
 		FAEE4D0A262DC2B200AD9966 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CDF262DC2B200AD9966 /* Global.swift */; };
 		FAEE4D0B262DC2B200AD9966 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE0262DC2B200AD9966 /* Dispatcher.swift */; };
@@ -895,6 +888,7 @@
 		2A9DDDCB2C5BE190000EA4A0 /* PrebidEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegate.swift; sourceTree = "<group>"; };
 		2A9DDDD32C63665A000EA4A0 /* PBMEventDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMEventDelegateHelper.swift; sourceTree = "<group>"; };
 		2A9DDDD72C63A88C000EA4A0 /* PrebidEventDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidEventDelegateTests.swift; sourceTree = "<group>"; };
+		360DDF22CFA7990EC8F8B9FD /* PBMORTBGeo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PBMORTBGeo.swift; sourceTree = "<group>"; };
 		38F03B262576421400E026A2 /* CacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTests.swift; sourceTree = "<group>"; };
 		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
 		3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginRegisterTest.swift; sourceTree = "<group>"; };
@@ -1121,7 +1115,6 @@
 		5AE4E5B42DB81D2D002C84DF /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		5AE4E5CF2DB83E20002C84DF /* SwiftMigrationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMigrationHelper.swift; sourceTree = "<group>"; };
 		5AE4E5D12DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftMigrationHelper+pbmTests.swift"; sourceTree = "<group>"; };
-		E618F8CC072D420CBB717375 /* ORTBParityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBParityHelper.swift; sourceTree = "<group>"; };
 		5AE4E5D32DB843E8002C84DF /* InterstitialLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialLayout.swift; sourceTree = "<group>"; };
 		5AE4E5D52DB84427002C84DF /* InterstitialDisplayProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialDisplayProperties.swift; sourceTree = "<group>"; };
 		5AE4E5D72DB84B43002C84DF /* ModalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalState.swift; sourceTree = "<group>"; };
@@ -1206,22 +1199,15 @@
 		5AF5E97A2E13580F002D80C1 /* PBMORTBBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBBanner.m; sourceTree = "<group>"; };
 		5AF5E97B2E13580F002D80C1 /* PBMORTBBidRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBBidRequest.m; sourceTree = "<group>"; };
 		5AF5E97C2E13580F002D80C1 /* PBMORTBBidRequestExtPrebid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBBidRequestExtPrebid.m; sourceTree = "<group>"; };
-		5AF5E97D2E13580F002D80C1 /* PBMORTBDeal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBDeal.m; sourceTree = "<group>"; };
 		5AF5E97E2E13580F002D80C1 /* PBMORTBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBDevice.m; sourceTree = "<group>"; };
-		5AF5E97F2E13580F002D80C1 /* PBMORTBDeviceExtAtts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBDeviceExtAtts.m; sourceTree = "<group>"; };
 		5AF5E9802E13580F002D80C1 /* PBMORTBDeviceExtPrebid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBDeviceExtPrebid.m; sourceTree = "<group>"; };
 		5AF5E9812E13580F002D80C1 /* PBMORTBDeviceExtPrebidInterstitial.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBDeviceExtPrebidInterstitial.m; sourceTree = "<group>"; };
-		5AF5E9822E13580F002D80C1 /* PBMORTBFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBFormat.m; sourceTree = "<group>"; };
-		5AF5E9832E13580F002D80C1 /* PBMORTBGeo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBGeo.m; sourceTree = "<group>"; };
 		5AF5E9842E13580F002D80C1 /* PBMORTBImp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBImp.m; sourceTree = "<group>"; };
 		5AF5E9852E13580F002D80C1 /* PBMORTBImpExtPrebid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBImpExtPrebid.m; sourceTree = "<group>"; };
-		5AF5E9862E13580F002D80C1 /* PBMORTBImpExtSkadn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBImpExtSkadn.m; sourceTree = "<group>"; };
 		5AF5E9872E13580F002D80C1 /* PBMORTBPmp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBPmp.m; sourceTree = "<group>"; };
-		5AF5E9882E13580F002D80C1 /* PBMORTBPublisher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBPublisher.m; sourceTree = "<group>"; };
 		5AF5E9892E13580F002D80C1 /* PBMORTBRegs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRegs.m; sourceTree = "<group>"; };
 		5AF5E98A2E13580F002D80C1 /* PBMORTBRendererConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBRendererConfig.m; sourceTree = "<group>"; };
 		5AF5E98B2E13580F002D80C1 /* PBMORTBSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSource.m; sourceTree = "<group>"; };
-		5AF5E98C2E13580F002D80C1 /* PBMORTBSourceExtOMID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSourceExtOMID.m; sourceTree = "<group>"; };
 		5AF5E98D2E13580F002D80C1 /* PBMORTBUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBUser.m; sourceTree = "<group>"; };
 		5AF5E98E2E13580F002D80C1 /* PBMORTBVideo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBVideo.m; sourceTree = "<group>"; };
 		5AF5E9932E13580F002D80C1 /* PBMExternalLinkHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMExternalLinkHandler.m; sourceTree = "<group>"; };
@@ -1327,23 +1313,16 @@
 		5AF5E9FE2E13580F002D80C1 /* PBMORTBBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBBanner.h; sourceTree = "<group>"; };
 		5AF5E9FF2E13580F002D80C1 /* PBMORTBBidRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBBidRequest.h; sourceTree = "<group>"; };
 		5AF5EA002E13580F002D80C1 /* PBMORTBBidRequestExtPrebid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBBidRequestExtPrebid.h; sourceTree = "<group>"; };
-		5AF5EA012E13580F002D80C1 /* PBMORTBDeal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBDeal.h; sourceTree = "<group>"; };
 		5AF5EA022E13580F002D80C1 /* PBMORTBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBDevice.h; sourceTree = "<group>"; };
-		5AF5EA032E13580F002D80C1 /* PBMORTBDeviceExtAtts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBDeviceExtAtts.h; sourceTree = "<group>"; };
 		5AF5EA042E13580F002D80C1 /* PBMORTBDeviceExtPrebid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBDeviceExtPrebid.h; sourceTree = "<group>"; };
 		5AF5EA052E13580F002D80C1 /* PBMORTBDeviceExtPrebidInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBDeviceExtPrebidInterstitial.h; sourceTree = "<group>"; };
-		5AF5EA062E13580F002D80C1 /* PBMORTBFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBFormat.h; sourceTree = "<group>"; };
-		5AF5EA072E13580F002D80C1 /* PBMORTBGeo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBGeo.h; sourceTree = "<group>"; };
 		5AF5EA082E13580F002D80C1 /* PBMORTBImp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBImp.h; sourceTree = "<group>"; };
 		5AF5EA092E13580F002D80C1 /* PBMORTBImpExtPrebid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBImpExtPrebid.h; sourceTree = "<group>"; };
-		5AF5EA0A2E13580F002D80C1 /* PBMORTBImpExtSkadn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBImpExtSkadn.h; sourceTree = "<group>"; };
 		5AF5EA0B2E13580F002D80C1 /* PBMORTBParameterBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBParameterBuilder.h; sourceTree = "<group>"; };
 		5AF5EA0C2E13580F002D80C1 /* PBMORTBPmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBPmp.h; sourceTree = "<group>"; };
-		5AF5EA0D2E13580F002D80C1 /* PBMORTBPublisher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBPublisher.h; sourceTree = "<group>"; };
 		5AF5EA0E2E13580F002D80C1 /* PBMORTBRegs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRegs.h; sourceTree = "<group>"; };
 		5AF5EA0F2E13580F002D80C1 /* PBMORTBRendererConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBRendererConfig.h; sourceTree = "<group>"; };
 		5AF5EA102E13580F002D80C1 /* PBMORTBSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBSource.h; sourceTree = "<group>"; };
-		5AF5EA112E13580F002D80C1 /* PBMORTBSourceExtOMID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBSourceExtOMID.h; sourceTree = "<group>"; };
 		5AF5EA122E13580F002D80C1 /* PBMORTBUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBUser.h; sourceTree = "<group>"; };
 		5AF5EA132E13580F002D80C1 /* PBMORTBVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBVideo.h; sourceTree = "<group>"; };
 		5AF5EA142E13580F002D80C1 /* PBMParameterBuilderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMParameterBuilderProtocol.h; sourceTree = "<group>"; };
@@ -1459,6 +1438,9 @@
 		60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		60D792FB217E229B0080F428 /* PrebidMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		60D79302217E229B0080F428 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68664B988D627C36D0583E20 /* PBMORTBFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PBMORTBFormat.swift; sourceTree = "<group>"; };
+		82FBD50AA9C905E01710527F /* PBMORTBSourceExtOMID.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PBMORTBSourceExtOMID.swift; sourceTree = "<group>"; };
+		9174EEAFE5EA16364D1B3A78 /* PBMORTBPublisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PBMORTBPublisher.swift; sourceTree = "<group>"; };
 		92028EA527F0D89E00783470 /* NativeAdConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdConfiguration.swift; sourceTree = "<group>"; };
 		920E8D6C28084BF200E6313B /* VideoControlsConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoControlsConfigTests.swift; sourceTree = "<group>"; };
 		922AFC8727352B0100732C53 /* MockUserAgentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserAgentService.swift; sourceTree = "<group>"; };
@@ -1678,9 +1660,14 @@
 		A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRegister.swift; sourceTree = "<group>"; };
 		A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRenderer.swift; sourceTree = "<group>"; };
 		A908694529E05F7900B37479 /* PrebidRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRenderer.swift; sourceTree = "<group>"; };
+		B36E1F2608F3FE9482E26B58 /* PBMORTBImpExtSkadn.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PBMORTBImpExtSkadn.swift; sourceTree = "<group>"; };
+		D18B18C8FF34917C31D27DAD /* PBMORTBDeal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PBMORTBDeal.swift; sourceTree = "<group>"; };
+		DBEB81589766D33F9F73C471 /* PBMORTBDeviceExtAtts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PBMORTBDeviceExtAtts.swift; sourceTree = "<group>"; };
 		E557D4B62ED219CB00E5580A /* UserAgentPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentPersistence.swift; sourceTree = "<group>"; };
 		E5D88C012F4517FA00E801C3 /* ViewExposureCheckerSystemUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExposureCheckerSystemUITests.swift; sourceTree = "<group>"; };
+		E618F8CC072D420CBB717375 /* ORTBParityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBParityHelper.swift; sourceTree = "<group>"; };
 		F9F0999C2C78CC8A007DB464 /* SDKConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConsoleLogger.swift; sourceTree = "<group>"; };
+		FA12590120260425000000A2 /* FunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionsTests.swift; sourceTree = "<group>"; };
 		FA4A88432497A99D00FDCBB6 /* Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzling.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestUtils.xcodeproj; path = ../tools/TestUtils/TestUtils.xcodeproj; sourceTree = "<group>"; };
@@ -1694,7 +1681,6 @@
 		FAA299112434C769002ACBF2 /* UtilsObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UtilsObjCTests.m; sourceTree = "<group>"; };
 		FAAA00BD2322733E009DC7D6 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC837D72321583500565051 /* CollectionExtensionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTest.swift; sourceTree = "<group>"; };
-		FA12590120260425000000A2 /* FunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionsTests.swift; sourceTree = "<group>"; };
 		FAEE4CDD262DC2B200AD9966 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAEE4CDF262DC2B200AD9966 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		FAEE4CE0262DC2B200AD9966 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
@@ -2227,22 +2213,15 @@
 				5AF5E97A2E13580F002D80C1 /* PBMORTBBanner.m */,
 				5AF5E97B2E13580F002D80C1 /* PBMORTBBidRequest.m */,
 				5AF5E97C2E13580F002D80C1 /* PBMORTBBidRequestExtPrebid.m */,
-				5AF5E97D2E13580F002D80C1 /* PBMORTBDeal.m */,
 				5AF5E97E2E13580F002D80C1 /* PBMORTBDevice.m */,
-				5AF5E97F2E13580F002D80C1 /* PBMORTBDeviceExtAtts.m */,
 				5AF5E9802E13580F002D80C1 /* PBMORTBDeviceExtPrebid.m */,
 				5AF5E9812E13580F002D80C1 /* PBMORTBDeviceExtPrebidInterstitial.m */,
-				5AF5E9822E13580F002D80C1 /* PBMORTBFormat.m */,
-				5AF5E9832E13580F002D80C1 /* PBMORTBGeo.m */,
 				5AF5E9842E13580F002D80C1 /* PBMORTBImp.m */,
 				5AF5E9852E13580F002D80C1 /* PBMORTBImpExtPrebid.m */,
-				5AF5E9862E13580F002D80C1 /* PBMORTBImpExtSkadn.m */,
 				5AF5E9872E13580F002D80C1 /* PBMORTBPmp.m */,
-				5AF5E9882E13580F002D80C1 /* PBMORTBPublisher.m */,
 				5AF5E9892E13580F002D80C1 /* PBMORTBRegs.m */,
 				5AF5E98A2E13580F002D80C1 /* PBMORTBRendererConfig.m */,
 				5AF5E98B2E13580F002D80C1 /* PBMORTBSource.m */,
-				5AF5E98C2E13580F002D80C1 /* PBMORTBSourceExtOMID.m */,
 				5AF5E98D2E13580F002D80C1 /* PBMORTBUser.m */,
 				5AF5E98E2E13580F002D80C1 /* PBMORTBVideo.m */,
 			);
@@ -2440,23 +2419,16 @@
 				5AF5E9FE2E13580F002D80C1 /* PBMORTBBanner.h */,
 				5AF5E9FF2E13580F002D80C1 /* PBMORTBBidRequest.h */,
 				5AF5EA002E13580F002D80C1 /* PBMORTBBidRequestExtPrebid.h */,
-				5AF5EA012E13580F002D80C1 /* PBMORTBDeal.h */,
 				5AF5EA022E13580F002D80C1 /* PBMORTBDevice.h */,
-				5AF5EA032E13580F002D80C1 /* PBMORTBDeviceExtAtts.h */,
 				5AF5EA042E13580F002D80C1 /* PBMORTBDeviceExtPrebid.h */,
 				5AF5EA052E13580F002D80C1 /* PBMORTBDeviceExtPrebidInterstitial.h */,
-				5AF5EA062E13580F002D80C1 /* PBMORTBFormat.h */,
-				5AF5EA072E13580F002D80C1 /* PBMORTBGeo.h */,
 				5AF5EA082E13580F002D80C1 /* PBMORTBImp.h */,
 				5AF5EA092E13580F002D80C1 /* PBMORTBImpExtPrebid.h */,
-				5AF5EA0A2E13580F002D80C1 /* PBMORTBImpExtSkadn.h */,
 				5AF5EA0B2E13580F002D80C1 /* PBMORTBParameterBuilder.h */,
 				5AF5EA0C2E13580F002D80C1 /* PBMORTBPmp.h */,
-				5AF5EA0D2E13580F002D80C1 /* PBMORTBPublisher.h */,
 				5AF5EA0E2E13580F002D80C1 /* PBMORTBRegs.h */,
 				5AF5EA0F2E13580F002D80C1 /* PBMORTBRendererConfig.h */,
 				5AF5EA102E13580F002D80C1 /* PBMORTBSource.h */,
-				5AF5EA112E13580F002D80C1 /* PBMORTBSourceExtOMID.h */,
 				5AF5EA122E13580F002D80C1 /* PBMORTBUser.h */,
 				5AF5EA132E13580F002D80C1 /* PBMORTBVideo.h */,
 				5AF5EA142E13580F002D80C1 /* PBMParameterBuilderProtocol.h */,
@@ -2599,6 +2571,7 @@
 				0012D73C2E086E3A007013F3 /* ORTBContentSegment.swift */,
 				0012D73A2E086E33007013F3 /* ORTBContentProducer.swift */,
 				0012D7382E086E28007013F3 /* ORTBContentData.swift */,
+				91D48C2FB42C3F4D9432923A /* Request */,
 			);
 			path = ORTB;
 			sourceTree = "<group>";
@@ -3041,6 +3014,21 @@
 				FAAA00BD2322733E009DC7D6 /* PrebidMobile.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		91D48C2FB42C3F4D9432923A /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				68664B988D627C36D0583E20 /* PBMORTBFormat.swift */,
+				9174EEAFE5EA16364D1B3A78 /* PBMORTBPublisher.swift */,
+				360DDF22CFA7990EC8F8B9FD /* PBMORTBGeo.swift */,
+				D18B18C8FF34917C31D27DAD /* PBMORTBDeal.swift */,
+				82FBD50AA9C905E01710527F /* PBMORTBSourceExtOMID.swift */,
+				B36E1F2608F3FE9482E26B58 /* PBMORTBImpExtSkadn.swift */,
+				DBEB81589766D33F9F73C471 /* PBMORTBDeviceExtAtts.swift */,
+			);
+			name = Request;
+			path = Request;
 			sourceTree = "<group>";
 		};
 		922AFCC427353B2E00732C53 /* MockServer */ = {
@@ -3626,7 +3614,6 @@
 				5AF5EA712E13580F002D80C1 /* PBMORTBApp.h in Headers */,
 				5AF5EA722E13580F002D80C1 /* PBMORTBRendererConfig.h in Headers */,
 				5AF5EA732E13580F002D80C1 /* UIView+PBMExtensions.h in Headers */,
-				5AF5EA742E13580F002D80C1 /* PBMORTBGeo.h in Headers */,
 				5AF5EA752E13580F002D80C1 /* PBMExternalURLOpenerBlock.h in Headers */,
 				5AF5EA762E13580F002D80C1 /* NSException+PBMExtensions.h in Headers */,
 				5AF5EA772E13580F002D80C1 /* PBMAdRequestResponseVAST.h in Headers */,
@@ -3635,7 +3622,6 @@
 				5AF5EA7A2E13580F002D80C1 /* PBMAbstractCreative+Protected.h in Headers */,
 				5AF5EA7B2E13580F002D80C1 /* NSTimer+PBMTimerInterface.h in Headers */,
 				5AF5EA7C2E13580F002D80C1 /* PBMWebView+Internal.h in Headers */,
-				5AF5EA7D2E13580F002D80C1 /* PBMORTBFormat.h in Headers */,
 				5AF5EA7E2E13580F002D80C1 /* PBMORTBAbstract.h in Headers */,
 				5AF5EA7F2E13580F002D80C1 /* PBMCreativeModelCollectionMakerVAST.h in Headers */,
 				5AF5EA802E13580F002D80C1 /* PBMCreativeFactoryJob.h in Headers */,
@@ -3646,7 +3632,6 @@
 				5AF5EA852E13580F002D80C1 /* PBMAdLoadManagerBase.h in Headers */,
 				5AF5EA862E13580F002D80C1 /* PBMParameterBuilderService.h in Headers */,
 				5AF5EA872E13580F002D80C1 /* PBMUIApplicationProtocol.h in Headers */,
-				5AF5EA882E13580F002D80C1 /* PBMORTBPublisher.h in Headers */,
 				5AF5EA892E13580F002D80C1 /* WKNavigationAction+PBMWKNavigationActionCompatible.h in Headers */,
 				5AF5EA8A2E13580F002D80C1 /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h in Headers */,
 				5AF5EA8B2E13580F002D80C1 /* UIWindow+PBMExtensions.h in Headers */,
@@ -3676,7 +3661,6 @@
 				5AF5EAA32E13580F002D80C1 /* Prebid+TestExtension.h in Headers */,
 				5AF5EAA42E13580F002D80C1 /* PBMAppInfoParameterBuilder.h in Headers */,
 				5AF5EAA52E13580F002D80C1 /* PBMORTBAppExtPrebid.h in Headers */,
-				5AF5EAA62E13580F002D80C1 /* PBMORTBDeviceExtAtts.h in Headers */,
 				5AF5EAA72E13580F002D80C1 /* PBMMRAIDController.h in Headers */,
 				5AF5EAA82E13580F002D80C1 /* WKWebView+PBMWKWebViewCompatible.h in Headers */,
 				5AF5EAA92E13580F002D80C1 /* PBMMRAIDJavascriptCommands.h in Headers */,
@@ -3689,9 +3673,7 @@
 				5AF5EAB02E13580F002D80C1 /* PBMDeepLinkPlusHelper.h in Headers */,
 				5AF5EAB12E13580F002D80C1 /* PBMWeakTimerTargetBox.h in Headers */,
 				5AF5EAB22E13580F002D80C1 /* UIView+PBMViewExposure.h in Headers */,
-				5AF5EAB32E13580F002D80C1 /* PBMORTBDeal.h in Headers */,
 				5AF5EAB42E13580F002D80C1 /* InternalUserConsentDataManager.h in Headers */,
-				5AF5EAB52E13580F002D80C1 /* PBMORTBImpExtSkadn.h in Headers */,
 				5AF5EAB62E13580F002D80C1 /* PBMORTBSource.h in Headers */,
 				5AF5EAB72E13580F002D80C1 /* PBMWKScriptMessageHandlerLeakAvoider.h in Headers */,
 				5AF5EAB82E13580F002D80C1 /* PBMExternalLinkHandler.h in Headers */,
@@ -3735,7 +3717,6 @@
 				5AF5EADE2E13580F002D80C1 /* PBMExternalURLOpenCallbacks.h in Headers */,
 				5AF5EADF2E13580F002D80C1 /* PBMORTBAbstract+Protected.h in Headers */,
 				5AF5EAE02E13580F002D80C1 /* PBMUserConsentParameterBuilder.h in Headers */,
-				5AF5EAE12E13580F002D80C1 /* PBMORTBSourceExtOMID.h in Headers */,
 				5AF5EAE22E13580F002D80C1 /* PBMBidRequester.h in Headers */,
 				5AF5EAE32E13580F002D80C1 /* PBMHTMLCreative.h in Headers */,
 				5AF5EAE42E13580F002D80C1 /* PBMTimerInterface.h in Headers */,
@@ -4348,7 +4329,6 @@
 				5AF5EAF52E13580F002D80C1 /* PBMExternalURLOpeners.m in Sources */,
 				5AF5EAF62E13580F002D80C1 /* PBMORTBRegs.m in Sources */,
 				5AF5EAF72E13580F002D80C1 /* PBMORTBAppExt.m in Sources */,
-				5AF5EAF82E13580F002D80C1 /* PBMORTBGeo.m in Sources */,
 				5AF5EAF92E13580F002D80C1 /* PBMORTBImp.m in Sources */,
 				5AF5EAFA2E13580F002D80C1 /* PBMORTBAppExtPrebid.m in Sources */,
 				5AF5EAFB2E13580F002D80C1 /* PBMDisplayTransactionFactory.m in Sources */,
@@ -4378,7 +4358,6 @@
 				5AF5EB132E13580F002D80C1 /* PBMDeepLinkPlusHelper+Testing.m in Sources */,
 				5AF5EB142E13580F002D80C1 /* PBMBasicParameterBuilder.m in Sources */,
 				5AF5EB152E13580F002D80C1 /* PBMVastInlineAd.m in Sources */,
-				5AF5EB162E13580F002D80C1 /* PBMORTBPublisher.m in Sources */,
 				5AF5EB172E13580F002D80C1 /* PBMVastCreativeCompanionAdsCompanion.m in Sources */,
 				5AF5EB182E13580F002D80C1 /* PBMViewExposure.m in Sources */,
 				5AF5EB192E13580F002D80C1 /* PBMURLComponents.m in Sources */,
@@ -4410,7 +4389,6 @@
 				5AF5EB332E13580F002D80C1 /* PBMVastMediaFile.m in Sources */,
 				5AF5EB342E13580F002D80C1 /* PBMDeepLinkPlus.m in Sources */,
 				5AF5EB352E13580F002D80C1 /* PBMVastAdsBuilder.m in Sources */,
-				5AF5EB362E13580F002D80C1 /* PBMORTBDeal.m in Sources */,
 				5AF5EB372E13580F002D80C1 /* PBMVastCreativeLinear.m in Sources */,
 				5AF5EB382E13580F002D80C1 /* PBMORTBBanner.m in Sources */,
 				5AF5EB392E13580F002D80C1 /* UIWindow+PBMExtensions.m in Sources */,
@@ -4423,10 +4401,8 @@
 				5AF5EB402E13580F002D80C1 /* PBMHTMLCreative.m in Sources */,
 				5AF5EB412E13580F002D80C1 /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m in Sources */,
 				5AF5EB422E13580F002D80C1 /* PBMModalState.m in Sources */,
-				5AF5EB432E13580F002D80C1 /* PBMORTBFormat.m in Sources */,
 				5AF5EB442E13580F002D80C1 /* PBMORTBAbstract.m in Sources */,
 				5AF5EB452E13580F002D80C1 /* PBMDeepLinkPlusHelper.m in Sources */,
-				5AF5EB462E13580F002D80C1 /* PBMORTBDeviceExtAtts.m in Sources */,
 				5AF5EB472E13580F002D80C1 /* PBMFunctions.m in Sources */,
 				5AF5EB482E13580F002D80C1 /* PBMAdLoadManagerVAST.m in Sources */,
 				5AF5EB492E13580F002D80C1 /* PBMORTBApp.m in Sources */,
@@ -4448,11 +4424,9 @@
 				5AF5EB592E13580F002D80C1 /* PBMVastParser.m in Sources */,
 				5AF5EB5A2E13580F002D80C1 /* PBMOpenMeasurementEventTracker.m in Sources */,
 				5AF5EB5B2E13580F002D80C1 /* PBMDeferredModalState.m in Sources */,
-				5AF5EB5C2E13580F002D80C1 /* PBMORTBImpExtSkadn.m in Sources */,
 				5AF5EB5D2E13580F002D80C1 /* NSMutableDictionary+PBMExtensions.m in Sources */,
 				5AF5EB5E2E13580F002D80C1 /* PBMParameterBuilderService.m in Sources */,
 				5AF5EB5F2E13580F002D80C1 /* PBMSKAdNetworksParameterBuilder.m in Sources */,
-				5AF5EB602E13580F002D80C1 /* PBMORTBSourceExtOMID.m in Sources */,
 				5AF5EB612E13580F002D80C1 /* PBMExternalLinkHandler.m in Sources */,
 				5A51D94B2DB985DD00DD450F /* PrebidMobileDisplayViewProtocol.swift in Sources */,
 				53D93505282CEA900092E243 /* DateFormatService.swift in Sources */,
@@ -4566,6 +4540,13 @@
 				5A6167F12DB9E5870018E6B6 /* JSONParsing.swift in Sources */,
 				53E45A0327FCD09C0095C0B2 /* BannerParameters.swift in Sources */,
 				FAEE4D1F262DC2B200AD9966 /* Utils.swift in Sources */,
+				B125F3F2B9BC171A76DEB367 /* PBMORTBFormat.swift in Sources */,
+				75B8629127EA6FE94C5CC8AF /* PBMORTBPublisher.swift in Sources */,
+				8BADC9578B0CF7BE38AA6AB8 /* PBMORTBGeo.swift in Sources */,
+				2D15D3A95CB7BD5F88F19A84 /* PBMORTBDeal.swift in Sources */,
+				575EB9BD8A5A505C30EA3DD3 /* PBMORTBSourceExtOMID.swift in Sources */,
+				1859EC301B875085EE74A0B4 /* PBMORTBImpExtSkadn.swift in Sources */,
+				A6973A23E4372256034F22D7 /* PBMORTBDeviceExtAtts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,10 +15,9 @@
 
 #import "PBMORTBDevice.h"
 #import "PBMORTBAbstract+Protected.h"
-#import "PBMORTBDeviceExtAtts.h"
 #import "PBMORTBDeviceExtPrebid.h"
 
-#import "PBMORTBGeo.h"
+#import "SwiftImport.h"
 
 @implementation PBMORTBDevice
 

@@ -80,7 +80,7 @@ enum ORTBFixtures {
         """
 
     static let sourceExtOMID = """
-        {"anid":"some-anid-value"}
+        {"omidpn":"prebid.org","omidpv":"1.0.0"}
         """
 
     static let impExtSkadn = """

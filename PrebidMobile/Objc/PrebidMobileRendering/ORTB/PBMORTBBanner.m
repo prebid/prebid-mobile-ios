@@ -16,7 +16,7 @@
 #import "PBMORTBBanner.h"
 #import "PBMORTBAbstract+Protected.h"
 
-#import "PBMORTBFormat.h"
+#import "SwiftImport.h"
 
 @implementation PBMORTBBanner
 

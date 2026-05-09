@@ -16,7 +16,7 @@
 #import "PBMORTBPmp.h"
 #import "PBMORTBAbstract+Protected.h"
 
-#import "PBMORTBDeal.h"
+#import "SwiftImport.h"
 
 @implementation PBMORTBPmp
 
