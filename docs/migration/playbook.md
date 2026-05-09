@@ -101,14 +101,21 @@ ObjC private headers (e.g. `PBMFunctions.h`) are not bridged into the Swift comp
 
 `pbmCopyWithoutEmptyVals` and `pbmRemoveEmptyVals` only strip `nil` / `NSNull` — **empty arrays `[]` are kept**. Swift twins must not suppress empty `[String]` arrays. Pass them through as-is; do not apply `.isEmpty ? nil : array` guards.
 
+### Naming convention — no PBM prefix on Swift types (applied S1.1)
+
+Swift class names and filenames drop the `PBM` namespace prefix. The ObjC bridge name is preserved via `@objc(PBMORTBFoo)` on the class declaration so all ObjC consumers continue to see the original `PBMORTBFoo` name unchanged.
+
+**Rule:** Swift class = `ORTBFoo`, filename = `ORTBFoo.swift`, ObjC bridge = `@objc(PBMORTBFoo)`. This mirrors the existing response-side pattern (`ORTBAppContent`, `ORTBBid`, etc.). Applies to every Swift twin from Phase 1 onward.
+
 ## Canonical Swift twin template
 
 ```swift
-// PrebidMobile/Swift/PrebidMobileRendering/ORTB/Request/PBMORTBFoo.swift
+// PrebidMobile/Swift/PrebidMobileRendering/ORTB/Request/ORTBFoo.swift
 
 import Foundation
 
-@objc public class PBMORTBFoo: NSObject, PBMJsonCodable {
+@objc(PBMORTBFoo)
+public class ORTBFoo: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
@@ -149,6 +156,8 @@ import Foundation
 ```
 
 Key points:
+- **Filename / Swift class name**: `ORTBFoo` / `ORTBFoo.swift` — no `PBM` prefix.
+- **ObjC bridge name**: `@objc(PBMORTBFoo)` on the class — ObjC consumers unchanged.
 - `@objc public class` + `@objc public var` — required for framework build ObjC bridge (Gap 6).
 - `@objc(initWithJsonDictionary:)` + non-optional `public required init` — exposes the init selector to ObjC (Gap 7).
 - `@objc(toJsonDictionary)` — exposes the encode selector to ObjC (Gap 7).
