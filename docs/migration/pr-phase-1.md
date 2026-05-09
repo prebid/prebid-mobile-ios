@@ -2,35 +2,40 @@
 
 Phase 1, S1.1 — ORTB leaf models. Ports 7 ObjC bid-request ORTB types to Swift, with full parity verification.
 
-**S1.1 — ORTB leaf models:**
-- `PBMORTBFormat` → `PrebidMobile/Swift/PrebidMobileRendering/ORTB/Request/PBMORTBFormat.swift`
-- `PBMORTBPublisher` → `...PBMORTBPublisher.swift`
-- `PBMORTBGeo` → `...PBMORTBGeo.swift`
-- `PBMORTBDeal` → `...PBMORTBDeal.swift`
-- `PBMORTBSourceExtOMID` → `...PBMORTBSourceExtOMID.swift`
-- `PBMORTBImpExtSkadn` → `...PBMORTBImpExtSkadn.swift`
-- `PBMORTBDeviceExtAtts` → `...PBMORTBDeviceExtAtts.swift`
+**S1.1 — ORTB leaf models (Swift name → file):**
+- `ORTBFormat` (`@objc(PBMORTBFormat)`) → `ORTB/Request/ORTBFormat.swift`
+- `ORTBPublisher` (`@objc(PBMORTBPublisher)`) → `ORTB/Request/ORTBPublisher.swift`
+- `ORTBGeo` (`@objc(PBMORTBGeo)`) → `ORTB/Request/ORTBGeo.swift`
+- `ORTBDeal` (`@objc(PBMORTBDeal)`) → `ORTB/Request/ORTBDeal.swift`
+- `ORTBSourceExtOMID` (`@objc(PBMORTBSourceExtOMID)`) → `ORTB/Request/ORTBSourceExtOMID.swift`
+- `ORTBImpExtSkadn` (`@objc(PBMORTBImpExtSkadn)`) → `ORTB/Request/ORTBImpExtSkadn.swift`
+- `ORTBDeviceExtAtts` (`@objc(PBMORTBDeviceExtAtts)`) → `ORTB/Request/ORTBDeviceExtAtts.swift`
 
-ObjC `.m` files and `PrivateHeaders/` `.h` files deleted. ObjC consumers (`PBMORTBBanner`, `PBMORTBApp`, `PBMORTBDevice`, `PBMORTBImp`, `PBMORTBPmp`, `PBMORTBSource`, `PBMORTBUser`) updated to replace deleted `#import "PBMORTBXxx.h"` with `#import "SwiftImport.h"`. `PBMORTB.h` umbrella updated.
+All under `PrebidMobile/Swift/PrebidMobileRendering/`. ObjC `.m` files and `PrivateHeaders/` `.h` files deleted. ObjC consumers (`PBMORTBBanner`, `PBMORTBApp`, `PBMORTBDevice`, `PBMORTBImp`, `PBMORTBPmp`, `PBMORTBSource`, `PBMORTBUser`) updated to replace deleted `#import "PBMORTBXxx.h"` with `#import "SwiftImport.h"`. `PBMORTB.h` umbrella updated.
 
-**Gap 3 (PBMORTBFormat):** `isEqual(_:)` / `hash` override implemented using `w` and `h` fields, matching ObjC behaviour.
+**Gap 3 (ORTBFormat):** `isEqual(_:)` / `hash` override on `(w, h)` for NSSet deduplication.
 
-**New gap discovered (Gap 6) — Framework build visibility:** Phase 1–3 Swift twins must be `@objc public class` with `@objc public var` properties. Intra-module ObjC consumers (in the same framework target) can only call methods that appear with full `@interface` in `PrebidMobile-Swift.h`. For a framework archive build, Swift types with `internal` access only appear as `@class` forward stubs — the ObjC consumers get "forward declaration" errors. The fix: `public` on the class and all `@objc` properties.
+**Gap 6 — Framework build visibility:** Phase 1–3 Swift twins must be `@objc public class` with `@objc public var` properties. Internal Swift types only get `@class` stubs in `PrebidMobile-Swift.h` for archive builds.
 
-**New gap discovered (Gap 7) — ObjC selector bridge:** Protocol requirements from non-`@objc` protocols (`PBMJsonDecodable.init?`, `PBMJsonEncodable.jsonDictionary`) do NOT get automatic `@objc` inference. Must use explicit bridge annotations:
-- Init: `@objc(initWithJsonDictionary:) public required init(jsonDictionary:)` (non-optional, matching `ORTBAppContent` pattern)
-- Encode: `@objc(toJsonDictionary) public var jsonDictionary: [String: Any]`
+**Gap 7 — ObjC selector bridge:** Protocol requirements from non-`@objc` protocols need explicit annotations: `@objc(initWithJsonDictionary:) public required init(jsonDictionary:)` (non-optional) and `@objc(toJsonDictionary) public var jsonDictionary`.
 
-**New finding — empty arrays NOT stripped:** `pbmCopyWithoutEmptyVals` only strips `nil` / `NSNull` values. Empty arrays (`[]`) are preserved. Swift twins must not suppress empty `[String]` properties — pass them through as-is.
+**Gap 8 — ObjC private headers not visible to Swift:** `PBMFunctions.supportedSKAdNetworkVersions` inlined in `ORTBImpExtSkadn` as a `private static var` with `#available` guards.
 
-**`PBMFunctions.supportedSKAdNetworkVersions` not visible from Swift (Gap 8):** ObjC private headers are not bridged to Swift in a framework build. Inlined directly in `PBMORTBImpExtSkadn.swift` as `static var supportedSKAdNetworkVersions: [String]` with `#available` guards matching the ObjC logic.
+**Gap 9 — Empty arrays preserved:** `pbmCopyWithoutEmptyVals` only strips `nil`/`NSNull`. Empty `[String]` arrays must be passed through as-is, not suppressed.
+
+**Naming convention:** Swift class names and filenames drop the `PBM` prefix. ObjC bridge name preserved via `@objc(PBMORTBFoo)`. Applies to all Phase 1+ twins.
 
 ## Playbook updates
-- Gaps 6, 7, 8 added to `docs/migration/playbook.md`.
-- Canonical template updated to `@objc public class` / `@objc(initWithJsonDictionary:) public required init` / `@objc(toJsonDictionary) public var jsonDictionary`.
+- Gaps 6–9 and the naming convention codified in `docs/migration/playbook.md`.
+- Canonical template updated to `@objc(PBMORTBFoo) public class ORTBFoo` pattern.
+
+## Commits (branch `swift-migration-phase-1`)
+- `fe2a5b6e` S1.1 — Port ORTB leaf models to Swift
+- `d015b44b` S1.1 — Rename Swift twins: drop PBM prefix
+- `4ee63c52` docs: codify no-PBM-prefix naming rule in playbook
 
 ## Test plan
-- [ ] `./scripts/testPrebidMobile.sh --latest --quick` — 694 tests, 0 failures
-- [ ] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks build cleanly
-- [ ] JSON round-trip parity (ORTBParityHelper) — all 7 leaf types
-- [ ] Reviewer: confirm Gap 6/7/8 additions to playbook before S1.2 opens
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 694 tests, 0 failures
+- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks build cleanly
+- [ ] JSON round-trip parity (ORTBParityHelper) — all 7 leaf types (harness in place; dedicated parity test class TBD in S1.2 or separate commit)
+- [ ] Reviewer: confirm Gaps 6–9 and naming convention in playbook before S1.2 opens
