@@ -15,12 +15,14 @@
 
 import Foundation
 
-@objc public class PBMORTBDeviceExtAtts: NSObject, PBMJsonCodable {
+@objc(PBMORTBImpExtSkadn)
+public class ORTBImpExtSkadn: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var atts: NSNumber?
-    @objc public var ifv: String?
+    @objc public var sourceapp: String?
+    @objc public var skadnetids: [String] = []
+    @objc public var skoverlay: NSNumber?
 
     // MARK: - Init
 
@@ -32,8 +34,9 @@ import Foundation
     public required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
-        atts = json[.atts]
-        ifv  = json[.ifv]
+        sourceapp  = json[.sourceapp]
+        skadnetids = (json[.skadnetids] as [String]?) ?? []
+        skoverlay  = json[.skoverlay]
     }
 
     // MARK: - PBMJsonEncodable
@@ -41,14 +44,26 @@ import Foundation
     @objc(toJsonDictionary)
     public var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
-        json[.atts] = atts
-        json[.ifv]  = ifv
+        if let sourceapp = sourceapp, !skadnetids.isEmpty {
+            json[.versions]   = Self.supportedSKAdNetworkVersions
+            json[.sourceapp]  = sourceapp
+            json[.skadnetids] = skadnetids
+            json[.skoverlay]  = skoverlay
+        }
         return json.dict
+    }
+
+    private static var supportedSKAdNetworkVersions: [String] {
+        var versions = [String]()
+        if #available(iOS 14.5, *) { versions.append("2.2") }
+        if #available(iOS 14.6, *) { versions.append("3.0") }
+        if #available(iOS 16.2, *) { versions.append("4.0") }
+        return versions
     }
 
     // MARK: - Keys
 
     private enum Key: String {
-        case atts, ifv
+        case versions, sourceapp, skadnetids, skoverlay
     }
 }

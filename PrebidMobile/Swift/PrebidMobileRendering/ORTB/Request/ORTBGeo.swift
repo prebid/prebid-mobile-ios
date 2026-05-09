@@ -15,7 +15,8 @@
 
 import Foundation
 
-@objc public class PBMORTBGeo: NSObject, PBMJsonCodable {
+@objc(PBMORTBGeo)
+public class ORTBGeo: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
@@ -62,18 +63,18 @@ import Foundation
     public var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         // lat/lon converted to NSDecimalNumber to preserve decimal precision on JSON serialization
-        json[.lat]          = lat.map { NSDecimalNumber(decimal: $0.decimalValue) }
-        json[.lon]          = lon.map { NSDecimalNumber(decimal: $0.decimalValue) }
-        json[.type]         = type
-        json[.accuracy]     = accuracy
-        json[.lastfix]      = lastfix
-        json[.country]      = country
-        json[.region]       = region
+        json[.lat]           = lat.map { NSDecimalNumber(decimal: $0.decimalValue) }
+        json[.lon]           = lon.map { NSDecimalNumber(decimal: $0.decimalValue) }
+        json[.type]          = type
+        json[.accuracy]      = accuracy
+        json[.lastfix]       = lastfix
+        json[.country]       = country
+        json[.region]        = region
         json[.regionfips104] = regionfips104
-        json[.metro]        = metro
-        json[.city]         = city
-        json[.zip]          = zip
-        json[.utcoffset]    = utcoffset
+        json[.metro]         = metro
+        json[.city]          = city
+        json[.zip]           = zip
+        json[.utcoffset]     = utcoffset
         return json.dict
     }
 

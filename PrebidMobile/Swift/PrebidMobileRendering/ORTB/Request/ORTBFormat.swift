@@ -15,13 +15,16 @@
 
 import Foundation
 
-@objc public class PBMORTBImpExtSkadn: NSObject, PBMJsonCodable {
+@objc(PBMORTBFormat)
+public class ORTBFormat: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var sourceapp: String?
-    @objc public var skadnetids: [String] = []
-    @objc public var skoverlay: NSNumber?
+    @objc public var w: NSNumber?
+    @objc public var h: NSNumber?
+    @objc public var wratio: NSNumber?
+    @objc public var hratio: NSNumber?
+    @objc public var wmin: NSNumber?
 
     // MARK: - Init
 
@@ -33,9 +36,11 @@ import Foundation
     public required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
-        sourceapp  = json[.sourceapp]
-        skadnetids = (json[.skadnetids] as [String]?) ?? []
-        skoverlay  = json[.skoverlay]
+        w      = json[.w]
+        h      = json[.h]
+        wratio = json[.wratio]
+        hratio = json[.hratio]
+        wmin   = json[.wmin]
     }
 
     // MARK: - PBMJsonEncodable
@@ -43,26 +48,26 @@ import Foundation
     @objc(toJsonDictionary)
     public var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
-        if let sourceapp = sourceapp, !skadnetids.isEmpty {
-            json[.versions]   = Self.supportedSKAdNetworkVersions
-            json[.sourceapp]  = sourceapp
-            json[.skadnetids] = skadnetids
-            json[.skoverlay]  = skoverlay
-        }
+        json[.w]      = w
+        json[.h]      = h
+        json[.wratio] = wratio
+        json[.hratio] = hratio
+        json[.wmin]   = wmin
         return json.dict
     }
 
-    private static var supportedSKAdNetworkVersions: [String] {
-        var versions = [String]()
-        if #available(iOS 14.5, *) { versions.append("2.2") }
-        if #available(iOS 14.6, *) { versions.append("3.0") }
-        if #available(iOS 16.2, *) { versions.append("4.0") }
-        return versions
+    // MARK: - NSObject equality (Gap 3 — used in NSSet deduplication)
+
+    public override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? ORTBFormat else { return false }
+        return w == other.w && h == other.h
     }
+
+    public override var hash: Int { (w?.hashValue ?? 0) ^ (h?.hashValue ?? 0) }
 
     // MARK: - Keys
 
     private enum Key: String {
-        case versions, sourceapp, skadnetids, skoverlay
+        case w, h, wratio, hratio, wmin
     }
 }

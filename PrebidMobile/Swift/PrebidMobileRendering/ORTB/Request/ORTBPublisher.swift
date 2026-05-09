@@ -15,16 +15,15 @@
 
 import Foundation
 
-@objc public class PBMORTBDeal: NSObject, PBMJsonCodable {
+@objc(PBMORTBPublisher)
+public class ORTBPublisher: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var id: String?
-    @objc public var bidfloor: NSNumber = 0.0
-    @objc public var bidfloorcur: String = "USD"
-    @objc public var at: NSNumber?
-    @objc public var wseat: [String] = []
-    @objc public var wadomain: [String] = []
+    @objc public var publisherID: String?
+    @objc public var name: String?
+    @objc public var cat: [String] = []
+    @objc public var domain: String?
 
     // MARK: - Init
 
@@ -36,12 +35,10 @@ import Foundation
     public required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
-        id          = json[.id]
-        bidfloor    = json[.bidfloor] ?? 0.0
-        bidfloorcur = json[.bidfloorcur] ?? "USD"
-        at          = json[.at]
-        wseat       = (json[.wseat] as [String]?) ?? []
-        wadomain    = (json[.wadomain] as [String]?) ?? []
+        publisherID = json[.id]
+        name        = json[.name]
+        cat         = (json[.cat] as [String]?) ?? []
+        domain      = json[.domain]
     }
 
     // MARK: - PBMJsonEncodable
@@ -49,18 +46,15 @@ import Foundation
     @objc(toJsonDictionary)
     public var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
-        json[.id]          = id
-        json[.bidfloor]    = bidfloor
-        json[.bidfloorcur] = bidfloorcur
-        json[.at]          = at
-        json[.wseat]       = wseat
-        json[.wadomain]    = wadomain
+        json[.id]     = publisherID
+        json[.name]   = name
+        json[.domain] = domain
         return json.dict
     }
 
     // MARK: - Keys
 
     private enum Key: String {
-        case id, bidfloor, bidfloorcur, at, wseat, wadomain
+        case id, name, cat, domain
     }
 }

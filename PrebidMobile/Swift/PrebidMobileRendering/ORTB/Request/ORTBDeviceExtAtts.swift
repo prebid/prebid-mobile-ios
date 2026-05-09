@@ -15,12 +15,13 @@
 
 import Foundation
 
-@objc public class PBMORTBSourceExtOMID: NSObject, PBMJsonCodable {
+@objc(PBMORTBDeviceExtAtts)
+public class ORTBDeviceExtAtts: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var omidpn: String?
-    @objc public var omidpv: String?
+    @objc public var atts: NSNumber?
+    @objc public var ifv: String?
 
     // MARK: - Init
 
@@ -32,8 +33,8 @@ import Foundation
     public required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
-        omidpn = json[.omidpn]
-        omidpv = json[.omidpv]
+        atts = json[.atts]
+        ifv  = json[.ifv]
     }
 
     // MARK: - PBMJsonEncodable
@@ -41,14 +42,14 @@ import Foundation
     @objc(toJsonDictionary)
     public var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
-        json[.omidpn] = omidpn
-        json[.omidpv] = omidpv
+        json[.atts] = atts
+        json[.ifv]  = ifv
         return json.dict
     }
 
     // MARK: - Keys
 
     private enum Key: String {
-        case omidpn, omidpv
+        case atts, ifv
     }
 }

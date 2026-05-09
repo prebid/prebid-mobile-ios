@@ -15,15 +15,13 @@
 
 import Foundation
 
-@objc public class PBMORTBFormat: NSObject, PBMJsonCodable {
+@objc(PBMORTBSourceExtOMID)
+public class ORTBSourceExtOMID: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var w: NSNumber?
-    @objc public var h: NSNumber?
-    @objc public var wratio: NSNumber?
-    @objc public var hratio: NSNumber?
-    @objc public var wmin: NSNumber?
+    @objc public var omidpn: String?
+    @objc public var omidpv: String?
 
     // MARK: - Init
 
@@ -35,11 +33,8 @@ import Foundation
     public required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
-        w      = json[.w]
-        h      = json[.h]
-        wratio = json[.wratio]
-        hratio = json[.hratio]
-        wmin   = json[.wmin]
+        omidpn = json[.omidpn]
+        omidpv = json[.omidpv]
     }
 
     // MARK: - PBMJsonEncodable
@@ -47,26 +42,14 @@ import Foundation
     @objc(toJsonDictionary)
     public var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
-        json[.w]      = w
-        json[.h]      = h
-        json[.wratio] = wratio
-        json[.hratio] = hratio
-        json[.wmin]   = wmin
+        json[.omidpn] = omidpn
+        json[.omidpv] = omidpv
         return json.dict
     }
-
-    // MARK: - NSObject equality (Gap 3 — used in NSSet deduplication)
-
-    public override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? PBMORTBFormat else { return false }
-        return w == other.w && h == other.h
-    }
-
-    public override var hash: Int { (w?.hashValue ?? 0) ^ (h?.hashValue ?? 0) }
 
     // MARK: - Keys
 
     private enum Key: String {
-        case w, h, wratio, hratio, wmin
+        case omidpn, omidpv
     }
 }
