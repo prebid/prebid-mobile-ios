@@ -2500,7 +2500,6 @@
 				0012D73C2E086E3A007013F3 /* ORTBContentSegment.swift */,
 				0012D73A2E086E33007013F3 /* ORTBContentProducer.swift */,
 				0012D7382E086E28007013F3 /* ORTBContentData.swift */,
-				91D48C2FB42C3F4D9432923A /* Request */,
 			);
 			path = ORTB;
 			sourceTree = "<group>";
@@ -2698,6 +2697,30 @@
 				0012D6C42E058BF9007013F3 /* ORTBNoBidReason.swift */,
 				5A6167F62DB9FCAB0018E6B6 /* ORTBSeatBid.swift */,
 				5A46A9672E99C640006780B1 /* CustomModelObject.swift */,
+				68664B988D627C36D0583E20 /* ORTBFormat.swift */,
+				9174EEAFE5EA16364D1B3A78 /* ORTBPublisher.swift */,
+				360DDF22CFA7990EC8F8B9FD /* ORTBGeo.swift */,
+				D18B18C8FF34917C31D27DAD /* ORTBDeal.swift */,
+				82FBD50AA9C905E01710527F /* ORTBSourceExtOMID.swift */,
+				B36E1F2608F3FE9482E26B58 /* ORTBImpExtSkadn.swift */,
+				DBEB81589766D33F9F73C471 /* ORTBDeviceExtAtts.swift */,
+				D4A2D673C8D00CE5C8F2D254 /* ORTBBanner.swift */,
+				6831B0DD60EF55A07D4D1847 /* ORTBVideo.swift */,
+				3871C59520F7BB233C8E9387 /* ORTBPmp.swift */,
+				7382945425DA87CF4D4920D5 /* ORTBImpExtPrebid.swift */,
+				4A39AD253CDEECC791304046 /* ORTBImp.swift */,
+				53A4C47F8AD51FBE02021911 /* ORTBAppExtPrebid.swift */,
+				ED245A104A112F097C6593E5 /* ORTBAppExt.swift */,
+				3996B77BA1A2119C714F103A /* ORTBApp.swift */,
+				68C98CE7FF0CEDDDA4593726 /* ORTBDeviceExtPrebidInterstitial.swift */,
+				9B8674299BC145909DB3E1D6 /* ORTBDeviceExtPrebid.swift */,
+				D57D31DE1AFA14ABA663192C /* ORTBDevice.swift */,
+				652D755A3EB43A8614741A21 /* ORTBUser.swift */,
+				2AB891002AE52343932C140A /* ORTBRegs.swift */,
+				0D6ACD389F978752087E0949 /* ORTBSource.swift */,
+				886FF24ABB135D0617F9DB78 /* ORTBRendererConfig.swift */,
+				4404B3DFFA15E3C0EA70A691 /* ORTBBidRequestExtPrebid.swift */,
+				875BF6DB6E8E8F7D9333F85E /* ORTBBidRequest.swift */,
 			);
 			path = ORTB;
 			sourceTree = "<group>";
@@ -2943,38 +2966,6 @@
 				FAAA00BD2322733E009DC7D6 /* PrebidMobile.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		91D48C2FB42C3F4D9432923A /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				68664B988D627C36D0583E20 /* ORTBFormat.swift */,
-				9174EEAFE5EA16364D1B3A78 /* ORTBPublisher.swift */,
-				360DDF22CFA7990EC8F8B9FD /* ORTBGeo.swift */,
-				D18B18C8FF34917C31D27DAD /* ORTBDeal.swift */,
-				82FBD50AA9C905E01710527F /* ORTBSourceExtOMID.swift */,
-				B36E1F2608F3FE9482E26B58 /* ORTBImpExtSkadn.swift */,
-				DBEB81589766D33F9F73C471 /* ORTBDeviceExtAtts.swift */,
-				D4A2D673C8D00CE5C8F2D254 /* ORTBBanner.swift */,
-				6831B0DD60EF55A07D4D1847 /* ORTBVideo.swift */,
-				3871C59520F7BB233C8E9387 /* ORTBPmp.swift */,
-				7382945425DA87CF4D4920D5 /* ORTBImpExtPrebid.swift */,
-				4A39AD253CDEECC791304046 /* ORTBImp.swift */,
-				53A4C47F8AD51FBE02021911 /* ORTBAppExtPrebid.swift */,
-				ED245A104A112F097C6593E5 /* ORTBAppExt.swift */,
-				3996B77BA1A2119C714F103A /* ORTBApp.swift */,
-				68C98CE7FF0CEDDDA4593726 /* ORTBDeviceExtPrebidInterstitial.swift */,
-				9B8674299BC145909DB3E1D6 /* ORTBDeviceExtPrebid.swift */,
-				D57D31DE1AFA14ABA663192C /* ORTBDevice.swift */,
-				652D755A3EB43A8614741A21 /* ORTBUser.swift */,
-				2AB891002AE52343932C140A /* ORTBRegs.swift */,
-				0D6ACD389F978752087E0949 /* ORTBSource.swift */,
-				886FF24ABB135D0617F9DB78 /* ORTBRendererConfig.swift */,
-				4404B3DFFA15E3C0EA70A691 /* ORTBBidRequestExtPrebid.swift */,
-				875BF6DB6E8E8F7D9333F85E /* ORTBBidRequest.swift */,
-			);
-			name = Request;
-			path = Request;
 			sourceTree = "<group>";
 		};
 		922AFCC427353B2E00732C53 /* MockServer */ = {
