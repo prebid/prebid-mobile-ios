@@ -110,7 +110,7 @@ Swift class names and filenames drop the `PBM` namespace prefix. The ObjC bridge
 ## Canonical Swift twin template
 
 ```swift
-// PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/ORTBFoo.swift
+// PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/Request/ORTBFoo.swift
 
 import Foundation
 
