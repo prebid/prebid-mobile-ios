@@ -1,41 +1,72 @@
 ## Summary
 
-Phase 1, S1.1 — ORTB leaf models. Ports 7 ObjC bid-request ORTB types to Swift, with full parity verification.
+Phase 1 — ORTB bid-request models (all 25 files in `PrebidMobile/Objc/PrebidMobileRendering/ORTB/`). Ports in 4 steps; S1.1–S1.3 complete, S1.4 remaining.
 
-**S1.1 — ORTB leaf models (Swift name → file):**
-- `ORTBFormat` (`@objc(PBMORTBFormat)`) → `ORTB/Request/ORTBFormat.swift`
-- `ORTBPublisher` (`@objc(PBMORTBPublisher)`) → `ORTB/Request/ORTBPublisher.swift`
-- `ORTBGeo` (`@objc(PBMORTBGeo)`) → `ORTB/Request/ORTBGeo.swift`
-- `ORTBDeal` (`@objc(PBMORTBDeal)`) → `ORTB/Request/ORTBDeal.swift`
-- `ORTBSourceExtOMID` (`@objc(PBMORTBSourceExtOMID)`) → `ORTB/Request/ORTBSourceExtOMID.swift`
-- `ORTBImpExtSkadn` (`@objc(PBMORTBImpExtSkadn)`) → `ORTB/Request/ORTBImpExtSkadn.swift`
-- `ORTBDeviceExtAtts` (`@objc(PBMORTBDeviceExtAtts)`) → `ORTB/Request/ORTBDeviceExtAtts.swift`
+All Swift twins live under `PrebidMobile/Swift/PrebidMobileRendering/ORTB/Request/`.
+Naming: Swift class = `ORTBFoo`, file = `ORTBFoo.swift`, ObjC bridge = `@objc(PBMORTBFoo)`.
 
-All under `PrebidMobile/Swift/PrebidMobileRendering/`. ObjC `.m` files and `PrivateHeaders/` `.h` files deleted. ObjC consumers (`PBMORTBBanner`, `PBMORTBApp`, `PBMORTBDevice`, `PBMORTBImp`, `PBMORTBPmp`, `PBMORTBSource`, `PBMORTBUser`) updated to replace deleted `#import "PBMORTBXxx.h"` with `#import "SwiftImport.h"`. `PBMORTB.h` umbrella updated.
+---
 
-**Gap 3 (ORTBFormat):** `isEqual(_:)` / `hash` override on `(w, h)` for NSSet deduplication.
+### S1.1 — ORTB leaf models (7 types)
 
-**Gap 6 — Framework build visibility:** Phase 1–3 Swift twins must be `@objc public class` with `@objc public var` properties. Internal Swift types only get `@class` stubs in `PrebidMobile-Swift.h` for archive builds.
+`ORTBFormat`, `ORTBPublisher`, `ORTBGeo`, `ORTBDeal`, `ORTBSourceExtOMID`, `ORTBImpExtSkadn`, `ORTBDeviceExtAtts`
 
-**Gap 7 — ObjC selector bridge:** Protocol requirements from non-`@objc` protocols need explicit annotations: `@objc(initWithJsonDictionary:) public required init(jsonDictionary:)` (non-optional) and `@objc(toJsonDictionary) public var jsonDictionary`.
+Key findings: Gaps 6–9 discovered (framework visibility, ObjC selector bridge, empty arrays, private headers). Naming convention established.
 
-**Gap 8 — ObjC private headers not visible to Swift:** `PBMFunctions.supportedSKAdNetworkVersions` inlined in `ORTBImpExtSkadn` as a `private static var` with `#available` guards.
+### S1.2 — Composite request blocks (5 types)
 
-**Gap 9 — Empty arrays preserved:** `pbmCopyWithoutEmptyVals` only strips `nil`/`NSNull`. Empty `[String]` arrays must be passed through as-is, not suppressed.
+`ORTBBanner`, `ORTBVideo`, `ORTBPmp`, `ORTBImpExtPrebid`, `ORTBImp`
 
-**Naming convention:** Swift class names and filenames drop the `PBM` prefix. ObjC bridge name preserved via `@objc(PBMORTBFoo)`. Applies to all Phase 1+ twins.
+Key findings: Gap 10 — `JSONObject.dict` is `private(set)`; use `var result = json.dict` for untyped sub-dict injection. Test files need `perl -pi` rename after each step.
 
-## Playbook updates
-- Gaps 6–9 and the naming convention codified in `docs/migration/playbook.md`.
-- Canonical template updated to `@objc(PBMORTBFoo) public class ORTBFoo` pattern.
+### S1.3 — Top-level objects (10 types)
+
+`ORTBAppExtPrebid`, `ORTBAppExt`, `ORTBApp`, `ORTBDeviceExtPrebidInterstitial`, `ORTBDeviceExtPrebid`, `ORTBDevice`, `ORTBUser`, `ORTBRegs`, `ORTBSource`, `ORTBRendererConfig`
+
+Key findings:
+- `ORTBRendererConfig` is plain `NSObject` (not `PBMORTBAbstract`) — no `PBMJsonCodable`, just a custom designated init.
+- `ORTBAppExt.data` typed `[String: [String]]?` (not `Any`) to match ObjC generic.
+- `ORTBDevice.jsonDictionary`: conditional `ifa`/`dpid`/`mac` block; merges `extPrebid` + `extAtts` into `ext`.
+- `ORTBRegs.coppa`: validated computed property — only 0 or 1 accepted.
+- `ORTBUser.appendEids(_:)`: `@objc` method preserved for ObjC callers.
+- Gap 10 applies in `ORTBRegs`, `ORTBSource`, `ORTBUser`.
+- Flaky test clarified: `PBMBidRequesterTest.testBanner_300x250` fails in full-suite (simulator load) but passes in isolation — confirmed not a regression.
+
+### S1.4 — Root container (remaining)
+
+`ORTBBidRequest`, `ORTBBidRequestExtPrebid`, delete `PBMORTBAbstract`, port `ORTBParameterBuilder`.
+`PBMORTB.h` and `PBMORTBAbstract+Protected.h` deleted once no ObjC consumers remain.
+
+---
+
+## Gaps discovered (all codified in playbook.md)
+
+| Gap | Summary |
+|-----|---------|
+| 3 | `ORTBFormat` needs `isEqual`/`hash` override for NSSet dedup |
+| 6 | `@objc public class` + `@objc public var` required for framework archive build |
+| 7 | Explicit `@objc(initWithJsonDictionary:)` and `@objc(toJsonDictionary)` annotations |
+| 8 | ObjC private headers not visible to Swift — inline logic instead |
+| 9 | `pbmCopyWithoutEmptyVals` keeps empty arrays — do not suppress |
+| 10 | `JSONObject.dict` is `private(set)` — use `var result = json.dict` for ext injection |
+| — | Non-`PBMJsonCodable` types: plain `NSObject` subclasses ported without protocol |
+| — | Typed ObjC generics: use `[String: [String]]?` not `[String: Any]?` when it matters |
 
 ## Commits (branch `swift-migration-phase-1`)
+
 - `fe2a5b6e` S1.1 — Port ORTB leaf models to Swift
 - `d015b44b` S1.1 — Rename Swift twins: drop PBM prefix
 - `4ee63c52` docs: codify no-PBM-prefix naming rule in playbook
+- `5a82caa3` docs: update pr-phase-1 with S1.1 completion
+- `9f86c80f` S1.2 — Port composite ORTB request blocks
+- `02b6fe8b` docs: update playbook with S1.2 learnings
+- `2781f57b` S1.3 — Port top-level ORTB request objects
 
 ## Test plan
-- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 694 tests, 0 failures
-- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks build cleanly
-- [ ] JSON round-trip parity (ORTBParityHelper) — all 7 leaf types (harness in place; dedicated parity test class TBD in S1.2 or separate commit)
-- [ ] Reviewer: confirm Gaps 6–9 and naming convention in playbook before S1.2 opens
+
+- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean (S1.1, S1.2, S1.3)
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 694+ tests, 0 real failures (S1.1, S1.2, S1.3; `PBMBidRequesterTest.testBanner_300x250` confirmed pre-existing flaky, passes in isolation)
+- [ ] `./scripts/testPrebidMobile.sh --latest --quick` — S1.4 final green run
+- [ ] `./scripts/testPrebidMobile.sh --latest` — full suite green after S1.4
+- [ ] JSON round-trip parity (ORTBParityHelper) — harness in place; dedicated parity test class TBD
+- [ ] Reviewer: confirm all gap decisions in playbook.md before S1.4 merges

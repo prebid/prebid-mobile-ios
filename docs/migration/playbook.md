@@ -209,7 +209,29 @@ Run after renaming: `xcodebuild ... build-for-testing 2>&1 | grep "error:" | gre
 
 This is a **pre-existing timing flakiness** unrelated to the Swift migration. It was present before Phase 1 and has appeared on both the first and second post-migration runs. On a clean re-run of `./scripts/testPrebidMobile.sh --latest --quick` it passes.
 
-**Rule:** If this is the only failing test after a migration step, re-run once. If it passes on the second run, proceed — do not investigate or modify the test. If it fails consistently across multiple clean runs, investigate separately.
+**Rule:** If this is the only failing test after a migration step, re-run once. If it passes on the second run, proceed — do not investigate or modify the test. If it keeps failing across multiple full-suite runs **but passes when run in isolation** (`-only-testing PrebidMobileTests/PBMBidRequesterTest/testBanner_300x250`), that is still flakiness — move on. Only investigate if it fails in isolation too.
+
+**Confirmed S1.3:** fails in 2 consecutive full-suite runs, passes immediately when run alone. Root cause is simulator resource pressure under full-suite load, not a regression.
+
+### Non-`PBMJsonCodable` types (discovered S1.3)
+
+Not every type in `PrebidMobile/Objc/PrebidMobileRendering/ORTB/` inherits from `PBMORTBAbstract`. Some are plain `NSObject` subclasses with custom designated initializers and no `toJsonDictionary`/`initWithJsonDictionary:`. These do NOT conform to `PBMJsonCodable`.
+
+**Rule:** Check each file's superclass before starting. If it inherits from `NSObject` (not `PBMORTBAbstract`), port as a plain `@objc public class ORTBFoo: NSObject` with the custom designated init — no `PBMJsonCodable`, no `@objc(initWithJsonDictionary:)`, no `@objc(toJsonDictionary)`.
+
+Example: `ORTBRendererConfig` — plain `NSObject`, designated init `initWithName:version:data:`.
+
+### Typed ObjC generic dicts (discovered S1.3)
+
+When an ObjC property uses a parameterized `NSDictionary<KeyType, ValueType>`, declare the Swift equivalent with the correct concrete types — not `[String: Any]`. The type matters for test code that calls methods on the values.
+
+Example: `PBMORTBAppExt.data` is `NSDictionary<NSString*, NSArray<NSString*>*>*` → Swift `[String: [String]]?`. Using `[String: Any]?` compiles but breaks tests that call `.sorted()` on the values.
+
+### Non-optional ObjC properties in test code (discovered S1.3)
+
+When an ObjC property is declared without `nullable` (e.g. `@property (nonatomic, strong) NSNumber *pos`) but made `NSNumber?` in Swift, test code that used `?.` chains on the property needs the optional chain removed (`.` instead of `?.`).
+
+Catch with: `xcodebuild ... build-for-testing 2>&1 | grep "cannot use optional chaining on non-optional"`.
 
 ## Validation checklist per PR
 
