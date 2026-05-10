@@ -369,8 +369,3 @@ class PBMORTBTest: XCTestCase {
     }
 }
 
-extension PBMORTBAbstract: PBMJsonCodable {
-    public var jsonDictionary: [String : Any] {
-        self.toJsonDictionary()
-    }
-}

@@ -41,7 +41,7 @@ class PBMORTBAbstractTest : XCTestCase {
     //Check default values of all objects decending from PBMORTBAbstract
     func testDefaultToJsonString() {
         
-        codeAndDecode(abstract:PBMORTBBidRequest(), expectedString: "{\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
+        codeAndDecode(abstract:ORTBBidRequest(), expectedString: "{\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
         
         //Source not implemented
         codeAndDecode(abstract:ORTBRegs(), expectedString: "{}")
@@ -68,25 +68,14 @@ class PBMORTBAbstractTest : XCTestCase {
         //Data not implemented
         //Segment not implemented
         
-        codeAndDecode(abstract:PBMORTBBidRequestExtPrebid(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBBidRequestExtPrebid(), expectedString: "{}")
         codeAndDecode(abstract:ORTBImpExtPrebid(), expectedString: "{}")
         
         codeAndDecode(abstract: ORTBImpExtSkadn(), expectedString: "{}")
     }
     
-    func testAbstractMethods() {
-        logToFile = .init()
-        
-        let abstract = try! PBMORTBAbstract.from(jsonString: "")
-        let _ = try! abstract.toJsonString()
-        
-        let log = Log.getLogFileAsString() ?? ""
-        XCTAssert(log.contains("You should not initialize abstract class directly"))
-        XCTAssert(log.contains("You must override toJsonDictionary in a subclass"))
-    }
-    
     func testCopying() {
-        let initial = PBMORTBBidRequest()
+        let initial = ORTBBidRequest()
         
         initial.imp[0].banner = ORTBBanner()
         initial.imp[0].video = ORTBVideo()
@@ -105,7 +94,7 @@ class PBMORTBAbstractTest : XCTestCase {
         XCTAssertFalse(initial.imp[0].extPrebid.isRewardedInventory)
         initial.imp[0].extPrebid.isRewardedInventory = true
         
-        let copy = initial.copy() as! PBMORTBBidRequest
+        let copy = initial.copy() as! ORTBBidRequest
         
         XCTAssertNotEqual(initial, copy)
         
@@ -161,7 +150,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testBidRequestToJsonString() {
-        let pbmORTBBidRequest = PBMORTBBidRequest()
+        let pbmORTBBidRequest = ORTBBidRequest()
         let uuid = UUID().uuidString
         pbmORTBBidRequest.requestID = uuid
         
@@ -177,7 +166,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testBidRequestExtPrebidToJsonString() {
-        let extPrebid = PBMORTBBidRequestExtPrebid()
+        let extPrebid = ORTBBidRequestExtPrebid()
         extPrebid.storedRequestID = "b4eb1475-4e3d-4186-97b7-25b6a6cf8618"
         extPrebid.dataBidders = ["openx", "prebid", "thanatos"]
         extPrebid.storedAuctionResponse = "stored-auction-response-test"
@@ -185,7 +174,7 @@ class PBMORTBAbstractTest : XCTestCase {
         
         codeAndDecode(abstract: extPrebid, expectedString: "{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"sdk\":{\"renderers\":[{\"name\":\"MockRenderer1\",\"version\":\"0.0.1\"},{\"name\":\"MockRenderer2\",\"version\":\"0.0.2\"}]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}")
         
-        let pbmORTBBidRequest = PBMORTBBidRequest()
+        let pbmORTBBidRequest = ORTBBidRequest()
         pbmORTBBidRequest.extPrebid = extPrebid
         
         codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"ext\":{\"prebid\":{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"sdk\":{\"renderers\":[{\"name\":\"MockRenderer1\",\"version\":\"0.0.1\"},{\"name\":\"MockRenderer2\",\"version\":\"0.0.2\"}]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
@@ -577,27 +566,6 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBPDevice.macsha1 = "macsha1"
         pbmORTBPDevice.macmd5 = "macmd5"
         return pbmORTBPDevice
-    }
-    
-    func codeAndDecode<T : PBMORTBAbstract>(abstract:T, expectedString:String, file: StaticString = #file, line: UInt = #line) {
-        
-        guard #available(iOS 11.0, *) else {
-            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
-            return
-        }
-        
-        do {
-            //Make a copy of the object
-            let newCodable = abstract as PBMORTBAbstract
-            
-            //Convert it to json
-            let newJsonString = try newCodable.toJsonString()
-            
-            //Strings should match
-            PBMAssertEq(newJsonString, expectedString, file:file, line:line)
-        } catch {
-            XCTFail("\(error)", file:file, line:line)
-        }
     }
     
     func codeAndDecode<T : PBMJsonCodable>(abstract:T, expectedString:String, file: StaticString = #file, line: UInt = #line) {

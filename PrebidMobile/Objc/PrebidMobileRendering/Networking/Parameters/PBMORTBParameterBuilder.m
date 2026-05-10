@@ -15,7 +15,6 @@
 
 #import "PBMORTBParameterBuilder.h"
 #import "PBMConstants.h"
-#import "PBMORTBBidRequest.h"
 #import "PBMFunctions.h"
 #import "PBMFunctions+Private.h"
 #import "Log+Extensions.h"

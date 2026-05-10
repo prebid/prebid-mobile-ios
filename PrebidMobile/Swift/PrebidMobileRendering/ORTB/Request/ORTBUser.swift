@@ -40,7 +40,9 @@ public class ORTBUser: NSObject, PBMJsonCodable {
         keywords   = json[.keywords]
         customdata = json[.customdata]
         userid     = json[.id]
-        ext        = jsonDictionary["ext"] as? NSMutableDictionary
+        if let extDict = jsonDictionary["ext"] as? [String: Any] {
+            ext = NSMutableDictionary(dictionary: extDict)
+        }
         geo        = json[.geo] ?? ORTBGeo()
 
         if let dataDicts = jsonDictionary["data"] as? [[String: Any]], !dataDicts.isEmpty {

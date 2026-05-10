@@ -16,8 +16,6 @@
 #ifndef PBMORTB_h
 #define PBMORTB_h
 
-#import "PBMORTBBidRequest.h"
-#import "PBMORTBBidRequestExtPrebid.h"
 #import "SwiftImport.h"
 
 #endif /* PBMORTB_h */

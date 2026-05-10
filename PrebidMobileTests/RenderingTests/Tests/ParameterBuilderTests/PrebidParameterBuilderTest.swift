@@ -1017,8 +1017,8 @@ class PrebidParameterBuilderTest: XCTestCase {
 
     // MARK: - Helpers
     
-    func buildBidRequest(with adUnitConfig: AdUnitConfig) -> PBMORTBBidRequest {
-        let bidRequest = PBMORTBBidRequest()
+    func buildBidRequest(with adUnitConfig: AdUnitConfig) -> ORTBBidRequest {
+        let bidRequest = ORTBBidRequest()
         PBMBasicParameterBuilder(
             adConfiguration: adUnitConfig.adConfiguration,
             sdkConfiguration: sdkConfiguration,

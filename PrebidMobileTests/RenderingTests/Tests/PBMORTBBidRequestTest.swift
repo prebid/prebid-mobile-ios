@@ -19,8 +19,8 @@ class PBMORTBBidRequestTest: XCTestCase {
     
     func testCombinedProperties() {
         
-        // PBMORTBBidRequest
-        checkInt(PBMORTBBidRequest(), property: "tmax")
+        // ORTBBidRequest
+        checkInt(ORTBBidRequest(), property: "tmax")
         
         // ORTBBanner
         checkInt(ORTBBanner(), property: "pos")

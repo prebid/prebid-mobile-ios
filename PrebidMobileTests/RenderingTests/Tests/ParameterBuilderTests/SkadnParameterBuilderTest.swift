@@ -46,7 +46,7 @@ class SkadnParameterBuilderTest: XCTestCase {
             adConfiguration: adConfiguration
         )
         
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         
         basicBuilder.build(bidRequest)
         skadnBuilder.build(bidRequest)
@@ -78,7 +78,7 @@ class SkadnParameterBuilderTest: XCTestCase {
             adConfiguration: adConfiguration
         )
         
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         
         basicBuilder.build(bidRequest)
         skadnBuilder.build(bidRequest)

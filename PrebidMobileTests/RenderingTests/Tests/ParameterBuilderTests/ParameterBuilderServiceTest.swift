@@ -77,15 +77,15 @@ class ParameterBuilderServiceTest : XCTestCase {
             extraParameterBuilders: nil
         )
         
-        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        //Create a new ORTBBidRequest based off of the json string in the params dict
         guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
             XCTFail("No ORTB string in parameter keys")
             return
         }
         
-        let bidRequest: PBMORTBBidRequest
+        let bidRequest: ORTBBidRequest
         do {
-            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+            bidRequest = try ORTBBidRequest.from(jsonString:strORTB)
         } catch {
             XCTFail("\(error)")
             return
@@ -191,15 +191,15 @@ class ParameterBuilderServiceTest : XCTestCase {
             extraParameterBuilders: nil
         )
         
-        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        //Create a new ORTBBidRequest based off of the json string in the params dict
         guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
             XCTFail("No ORTB string in parameter keys")
             return
         }
         
-        let bidRequest: PBMORTBBidRequest
+        let bidRequest: ORTBBidRequest
         do {
-            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+            bidRequest = try ORTBBidRequest.from(jsonString:strORTB)
         } catch {
             XCTFail("\(error)")
             return
@@ -270,15 +270,15 @@ class ParameterBuilderServiceTest : XCTestCase {
             extraParameterBuilders: nil
         )
         
-        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        //Create a new ORTBBidRequest based off of the json string in the params dict
         guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
             XCTFail("No ORTB string in parameter keys")
             return
         }
         
-        let bidRequest: PBMORTBBidRequest
+        let bidRequest: ORTBBidRequest
         do {
-            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+            bidRequest = try ORTBBidRequest.from(jsonString:strORTB)
         } catch {
             XCTFail("\(error)")
             return
@@ -347,15 +347,15 @@ class ParameterBuilderServiceTest : XCTestCase {
             extraParameterBuilders: nil
         )
         
-        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        //Create a new ORTBBidRequest based off of the json string in the params dict
         guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
             XCTFail("No ORTB string in parameter keys")
             return
         }
         
-        let bidRequest: PBMORTBBidRequest
+        let bidRequest: ORTBBidRequest
         do {
-            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+            bidRequest = try ORTBBidRequest.from(jsonString:strORTB)
         } catch {
             XCTFail("\(error)")
             return
@@ -424,15 +424,15 @@ class ParameterBuilderServiceTest : XCTestCase {
             extraParameterBuilders: nil
         )
         
-        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        //Create a new ORTBBidRequest based off of the json string in the params dict
         guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
             XCTFail("No ORTB string in parameter keys")
             return
         }
         
-        let bidRequest: PBMORTBBidRequest
+        let bidRequest: ORTBBidRequest
         do {
-            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+            bidRequest = try ORTBBidRequest.from(jsonString:strORTB)
         } catch {
             XCTFail("\(error)")
             return
@@ -501,15 +501,15 @@ class ParameterBuilderServiceTest : XCTestCase {
             extraParameterBuilders: nil
         )
         
-        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        //Create a new ORTBBidRequest based off of the json string in the params dict
         guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
             XCTFail("No ORTB string in parameter keys")
             return
         }
         
-        let bidRequest: PBMORTBBidRequest
+        let bidRequest: ORTBBidRequest
         do {
-            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+            bidRequest = try ORTBBidRequest.from(jsonString:strORTB)
         } catch {
             XCTFail("\(error)")
             return
@@ -578,15 +578,15 @@ class ParameterBuilderServiceTest : XCTestCase {
             extraParameterBuilders: nil
         )
         
-        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        //Create a new ORTBBidRequest based off of the json string in the params dict
         guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
             XCTFail("No ORTB string in parameter keys")
             return
         }
         
-        let bidRequest: PBMORTBBidRequest
+        let bidRequest: ORTBBidRequest
         do {
-            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+            bidRequest = try ORTBBidRequest.from(jsonString:strORTB)
         } catch {
             XCTFail("\(error)")
             return
@@ -654,15 +654,15 @@ class ParameterBuilderServiceTest : XCTestCase {
             extraParameterBuilders: nil
         )
         
-        //Create a new PBMORTBBidRequest based off of the json string in the params dict
+        //Create a new ORTBBidRequest based off of the json string in the params dict
         guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
             XCTFail("No ORTB string in parameter keys")
             return
         }
         
-        let bidRequest: PBMORTBBidRequest
+        let bidRequest: ORTBBidRequest
         do {
-            bidRequest = try PBMORTBBidRequest.from(jsonString:strORTB)
+            bidRequest = try ORTBBidRequest.from(jsonString:strORTB)
         } catch {
             XCTFail("\(error)")
             return
