@@ -2,7 +2,7 @@
 
 Phase 1 — ORTB bid-request models (all 25 files in `PrebidMobile/Objc/PrebidMobileRendering/ORTB/`). Ports in 4 steps; S1.1–S1.3 complete, S1.4 remaining.
 
-All Swift twins live under `PrebidMobile/Swift/PrebidMobileRendering/ORTB/Request/`.
+All Swift twins live under `PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/`.
 Naming: Swift class = `ORTBFoo`, file = `ORTBFoo.swift`, ObjC bridge = `@objc(PBMORTBFoo)`.
 
 ---
