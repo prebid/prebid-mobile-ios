@@ -166,10 +166,55 @@ Key points:
 - No `NSCopying`.
 - For child ORTB objects, use `json[.childKey] = self.childObj` — empty-dict suppression is automatic (Gap 2).
 - Empty `[String]` arrays: include as-is, never suppress (Gap 9).
+- When you need to inject a key not part of the typed `Key` enum (e.g. a dynamic `ext` sub-dict), use `var result = json.dict; result["ext"] = ext; return result` — `JSONObject.dict` has `private(set)` and cannot be written from outside the struct directly.
+
+### Encoding pattern for untyped sub-dicts (Gap 10 — discovered S1.2)
+
+`JSONObject.dict` is `private(set)`, so you cannot do `json.dict["ext"] = ext` from outside the struct. When the serialized form requires injecting a raw `[String: Any]` dict that does not fit a typed `Key` (e.g. `ORTBImp.ext` which is built from several heterogeneous sub-fields), build via subscripts first then mutate the returned dict:
+
+```swift
+@objc(toJsonDictionary)
+public var jsonDictionary: [String: Any] {
+    var json = JSONObject<Key>()
+    // ... typed subscript assignments
+    var result = json.dict
+    let ext = extDictionary          // private [String: Any] helper
+    if !ext.isEmpty { result["ext"] = ext }
+    return result
+}
+```
+
+## Swift test file updates after each migration step
+
+When a Swift test file references a migrated type by its old `PBMORTBFoo` name, the Swift compiler emits `'PBMORTBFoo' has been renamed to 'ORTBFoo'`. Fix with a bulk rename using `perl -pi`:
+
+```bash
+perl -pi -e 's/PBMORTBFoo\b/ORTBFoo/g' PrebidMobileTests/path/to/TestFile.swift
+```
+
+**Use `perl -pi` not `sed -i ''` for word-boundary replacements** — BSD `sed` on macOS does not reliably handle `\b` word boundaries; `perl` does.
+
+Files to scan after each migration step:
+- `PrebidMobileTests/RenderingTests/Tests/PBMORTBAbstractTest.swift`
+- `PrebidMobileTests/RenderingTests/Tests/PBMORTBBidRequestTest.swift`
+- `PrebidMobileTests/RenderingTests/Tests/ParameterBuilderTests/PrebidParameterBuilderTest.swift`
+- Any other Swift test file that imports or instantiates the migrated types
+
+Run after renaming: `xcodebuild ... build-for-testing 2>&1 | grep "error:" | grep "has been renamed"` to catch stragglers.
+
+## Known flaky test — do not over-investigate
+
+`PBMBidRequesterTest.testBanner_300x250` fails intermittently with:
+> Asynchronous wait failed: Exceeded timeout of 5 seconds, with unfulfilled expectations: "exp".
+
+This is a **pre-existing timing flakiness** unrelated to the Swift migration. It was present before Phase 1 and has appeared on both the first and second post-migration runs. On a clean re-run of `./scripts/testPrebidMobile.sh --latest --quick` it passes.
+
+**Rule:** If this is the only failing test after a migration step, re-run once. If it passes on the second run, proceed — do not investigate or modify the test. If it fails consistently across multiple clean runs, investigate separately.
 
 ## Validation checklist per PR
 
-- [ ] `xcodebuild -workspace PrebidMobile.xcworkspace -scheme Lib-PrebidMobile -sdk iphonesimulator build`
-- [ ] `./scripts/testPrebidMobile.sh --latest --quick`
+- [ ] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean
+- [ ] `./scripts/testPrebidMobile.sh --latest --quick` — must pass on a clean run (re-run once if only `PBMBidRequesterTest.testBanner_300x250` fails)
+- [ ] Swift test files updated: no `'PBMORTBFoo' has been renamed` compiler errors
 - [ ] (Phase 1 & 3) JSON round-trip parity test passes (see S0.2 harness)
 - [ ] No `"app": {}` / `"device": {}` empty-object regressions in captured bid requests
