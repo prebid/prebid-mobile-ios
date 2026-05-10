@@ -44,7 +44,7 @@ class PBMORTBAbstractTest : XCTestCase {
         codeAndDecode(abstract:PBMORTBBidRequest(), expectedString: "{\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
         
         //Source not implemented
-        codeAndDecode(abstract:PBMORTBRegs(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBRegs(), expectedString: "{}")
         codeAndDecode(abstract:ORTBImp(), expectedString: "{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
         
         //Metric not implemented
@@ -58,13 +58,13 @@ class PBMORTBAbstractTest : XCTestCase {
         codeAndDecode(abstract:ORTBDeal(), expectedString: "{\"bidfloor\":0,\"bidfloorcur\":\"USD\",\"wadomain\":[],\"wseat\":[]}")
         
         //Site not implemented
-        codeAndDecode(abstract:PBMORTBApp(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBApp(), expectedString: "{}")
         //Publisher not implemented
         //Content not implemented
         //Producer not implemented
-        codeAndDecode(abstract:PBMORTBDevice(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBDevice(), expectedString: "{}")
         codeAndDecode(abstract:ORTBGeo(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBUser(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBUser(), expectedString: "{}")
         //Data not implemented
         //Segment not implemented
         
@@ -192,7 +192,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testSourceToJsonString() {
-        let pbmORTBSource = PBMORTBSource()
+        let pbmORTBSource = ORTBSource()
         
         let tid = UUID().uuidString
         let pchain = "some_pchain_string"
@@ -205,7 +205,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testRegsToJsonString() {
-        let pbmORTBRegs = PBMORTBRegs()
+        let pbmORTBRegs = ORTBRegs()
         pbmORTBRegs.coppa = 1
         XCTAssertEqual(pbmORTBRegs.coppa, 1)
         codeAndDecode(abstract:pbmORTBRegs, expectedString:"{\"coppa\":1}")
@@ -380,7 +380,7 @@ class PBMORTBAbstractTest : XCTestCase {
     
     func testAppToJsonString() {
         
-        let pbmORTBApp = PBMORTBApp()
+        let pbmORTBApp = ORTBApp()
         
         pbmORTBApp.id = "foo"
         pbmORTBApp.name = "PubApp"
@@ -392,7 +392,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBApp.paid = 1
         pbmORTBApp.keywords = "foo,bar,baz"
         pbmORTBApp.content = ORTBAppContent()
-        pbmORTBApp.content?.url = "https://corresponding.section.publishers.website"
+        pbmORTBApp.content.url = "https://corresponding.section.publishers.website"
         
         codeAndDecode(abstract: pbmORTBApp, expectedString: "{\"bundle\":\"com.PubApp\",\"content\":{\"url\":\"https:\\/\\/corresponding.section.publishers.website\"},\"domain\":\"pubapp.com\",\"id\":\"foo\",\"keywords\":\"foo,bar,baz\",\"name\":\"PubApp\",\"paid\":1,\"privacypolicy\":1,\"storeurl\":\"itunes.com?pubapp\",\"ver\":\"1.2\"}")
     }
@@ -442,7 +442,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testAppExtPrebidToJsonString() {
-        let pbmORTBApp = PBMORTBApp()
+        let pbmORTBApp = ORTBApp()
         let appExtPrebid = pbmORTBApp.ext.prebid
         
         codeAndDecode(abstract: appExtPrebid, expectedString: "{}")
@@ -500,7 +500,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testUserToJsonString() {
-        let pbmORTBUser = PBMORTBUser()
+        let pbmORTBUser = ORTBUser()
         
         pbmORTBUser.keywords = "key1,key2,key3"
         pbmORTBUser.geo.lat = 34.1477849
@@ -515,7 +515,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testUserEidsToJsonString() {
-        let user = PBMORTBUser()
+        let user = ORTBUser()
         
         user.appendEids([["key": ["key":"value"]]])
         
@@ -526,7 +526,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testUserEidsInExtToJsonString() {
-        let user = PBMORTBUser()
+        let user = ORTBUser()
         
         user.ext = ["eids":[["key": ["key":"value"]]]]
         
@@ -537,7 +537,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testUserEidsAndExtToJsonString() {
-        let user = PBMORTBUser()
+        let user = ORTBUser()
         
         user.ext = ["eids":[["key": ["key":"value"]]]]
         user.appendEids([["key2": ["key2":"value2"]]])
@@ -550,8 +550,8 @@ class PBMORTBAbstractTest : XCTestCase {
     
     // MARK: - Utility
     
-    func initORTBDevice(ifa: String?) -> PBMORTBDevice {
-        let pbmORTBPDevice = PBMORTBDevice()
+    func initORTBDevice(ifa: String?) -> ORTBDevice {
+        let pbmORTBPDevice = ORTBDevice()
         pbmORTBPDevice.lmt = 1
         pbmORTBPDevice.devicetype = 1
         pbmORTBPDevice.make = "Apple"

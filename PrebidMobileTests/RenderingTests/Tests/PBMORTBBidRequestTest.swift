@@ -40,20 +40,20 @@ class PBMORTBBidRequestTest: XCTestCase {
         // ORTBDeal
         checkInt(ORTBDeal(), property: "at")
         
-        // PBMORTBApp
-        checkInt(PBMORTBApp(), property: "privacypolicy")
-        checkInt(PBMORTBApp(), property: "paid")
+        // ORTBApp
+        checkInt(ORTBApp(), property: "privacypolicy")
+        checkInt(ORTBApp(), property: "paid")
         
-        // PBMORTBDevice
-        checkInt(PBMORTBDevice(), property: "lmt")
-        checkInt(PBMORTBDevice(), property: "devicetype")
-        checkInt(PBMORTBDevice(), property: "h")
-        checkInt(PBMORTBDevice(), property: "w")
-        checkInt(PBMORTBDevice(), property: "ppi")
-        checkDouble(PBMORTBDevice(), property: "pxratio")
-        checkInt(PBMORTBDevice(), property: "js")
-        checkInt(PBMORTBDevice(), property: "geofetch")
-        checkInt(PBMORTBDevice(), property: "connectiontype")
+        // ORTBDevice
+        checkInt(ORTBDevice(), property: "lmt")
+        checkInt(ORTBDevice(), property: "devicetype")
+        checkInt(ORTBDevice(), property: "h")
+        checkInt(ORTBDevice(), property: "w")
+        checkInt(ORTBDevice(), property: "ppi")
+        checkDouble(ORTBDevice(), property: "pxratio")
+        checkInt(ORTBDevice(), property: "js")
+        checkInt(ORTBDevice(), property: "geofetch")
+        checkInt(ORTBDevice(), property: "connectiontype")
         
         // ORTBGeo
         checkDouble(ORTBGeo(), property: "lat")

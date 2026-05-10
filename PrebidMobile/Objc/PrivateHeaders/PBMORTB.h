@@ -16,17 +16,8 @@
 #ifndef PBMORTB_h
 #define PBMORTB_h
 
-#import "PBMORTBApp.h"
-#import "PBMORTBAppExt.h"
-#import "PBMORTBAppExtPrebid.h"
 #import "PBMORTBBidRequest.h"
 #import "PBMORTBBidRequestExtPrebid.h"
-#import "PBMORTBDevice.h"
-#import "PBMORTBDeviceExtPrebid.h"
-#import "PBMORTBDeviceExtPrebidInterstitial.h"
-#import "PBMORTBRegs.h"
-#import "PBMORTBSource.h"
-#import "PBMORTBUser.h"
 #import "SwiftImport.h"
 
 #endif /* PBMORTB_h */
