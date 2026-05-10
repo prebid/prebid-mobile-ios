@@ -32,10 +32,14 @@ Key findings:
 - Gap 10 applies in `ORTBRegs`, `ORTBSource`, `ORTBUser`.
 - Flaky test clarified: `PBMBidRequesterTest.testBanner_300x250` fails in full-suite (simulator load) but passes in isolation — confirmed not a regression.
 
-### S1.4 — Root container (remaining)
+### S1.4 — Root container ✅
 
-`ORTBBidRequest`, `ORTBBidRequestExtPrebid`, delete `PBMORTBAbstract`, port `ORTBParameterBuilder`.
-`PBMORTB.h` and `PBMORTBAbstract+Protected.h` deleted once no ObjC consumers remain.
+`ORTBBidRequestExtPrebid`, `ORTBBidRequest`. `PBMORTBAbstract.m` deleted (headers kept for Phase 3/4). `PBMORTB.h` stripped to just `SwiftImport.h`. No separate `PBMORTBParameterBuilder` existed in the ORTB directory.
+
+Key findings:
+- `ORTBBidRequest` needs `NSCopying` — ObjC abstract base had it; Swift `NSObject` does not. Implemented via JSON round-trip.
+- `ORTBUser.ext` (and any `NSMutableDictionary *` property): `JSONSerialization` returns immutable `NSDictionary`; cast to `NSMutableDictionary?` silently returns nil. Fix: wrap with `NSMutableDictionary(dictionary:)` on decode. Broke `SharedIdTests` (EIDs disappeared after round-trip).
+- Deleting `PBMORTBAbstract.m` cascades into test files: `from(jsonString:)` shim added to `ORTBParityHelper.swift`; `codeAndDecode<T: PBMORTBAbstract>` overload removed; `testAbstractMethods()` removed; `extension PBMORTBAbstract: PBMJsonCodable` removed.
 
 ---
 
@@ -61,12 +65,13 @@ Key findings:
 - `9f86c80f` S1.2 — Port composite ORTB request blocks
 - `02b6fe8b` docs: update playbook with S1.2 learnings
 - `2781f57b` S1.3 — Port top-level ORTB request objects
+- `d43722b9` docs: update playbook and pr-phase-1 with S1.3 learnings
+- `a6fa9c76` S1.4 — Port root ORTB container; Phase 1 complete
 
 ## Test plan
 
-- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean (S1.1, S1.2, S1.3)
-- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 694+ tests, 0 real failures (S1.1, S1.2, S1.3; `PBMBidRequesterTest.testBanner_300x250` confirmed pre-existing flaky, passes in isolation)
-- [ ] `./scripts/testPrebidMobile.sh --latest --quick` — S1.4 final green run
-- [ ] `./scripts/testPrebidMobile.sh --latest` — full suite green after S1.4
-- [ ] JSON round-trip parity (ORTBParityHelper) — harness in place; dedicated parity test class TBD
-- [ ] Reviewer: confirm all gap decisions in playbook.md before S1.4 merges
+- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 693 tests, 0 failures (Phase 1 final)
+- [x] `./scripts/testPrebidMobile.sh --latest` — 1110 tests, 0 failures (Phase 1 final)
+- [x] JSON round-trip parity: `ORTBParityHelper` harness in place; `from(jsonString:)` shim added
+- [ ] Reviewer: confirm all gap decisions in playbook.md before merging

@@ -233,6 +233,48 @@ When an ObjC property is declared without `nullable` (e.g. `@property (nonatomic
 
 Catch with: `xcodebuild ... build-for-testing 2>&1 | grep "cannot use optional chaining on non-optional"`.
 
+### NSCopying on root containers (discovered S1.4)
+
+`PBMORTBAbstract` implemented `<NSCopying>` via a JSON round-trip. Swift twins that inherit from `NSObject` do NOT get `NSCopying` automatically — `obj.copy()` crashes at runtime.
+
+**Rule:** Any Swift twin that replaces an `NSCopying`-conforming ObjC type must explicitly add `NSCopying`. Implement via JSON round-trip to match the ObjC behaviour:
+
+```swift
+public func copy(with zone: NSZone? = nil) -> Any {
+    Self(jsonDictionary: jsonDictionary)
+}
+```
+
+For Phase 1 only `ORTBBidRequest` needs this (it's the only type whose `.copy()` is called by test code). Check other phases as they land.
+
+### NSMutableDictionary from JSON decode (discovered S1.4)
+
+When an ObjC property is `NSMutableDictionary *` (e.g. `PBMORTBUser.ext`, `PBMORTBRegs.ext`), `JSONSerialization` always returns an immutable `NSDictionary`. The cast `jsonDictionary["ext"] as? NSMutableDictionary` silently returns `nil`, leaving the property nil even when the JSON contained data.
+
+**Rule:** Decode mutable dict properties by wrapping in `NSMutableDictionary(dictionary:)`:
+
+```swift
+if let extDict = jsonDictionary["ext"] as? [String: Any] {
+    ext = NSMutableDictionary(dictionary: extDict)
+}
+```
+
+This applies to any property declared `NSMutableDictionary *` in ObjC that is decoded from JSON. Forgetting this silently breaks any code that reads back a round-tripped `ext` (e.g. EIDs disappear after `ORTBBidRequest` serialization/deserialization).
+
+### Deleting PBMORTBAbstract — cascade effects (discovered S1.4)
+
+Deleting `PBMORTBAbstract.m` removes:
+- The `from(jsonString:)` ObjC class method (bridged as `try SomeClass.from(jsonString:)` in Swift tests)
+- The `copyWithZone:` NSCopying implementation
+- The `toJsonDictionary`/`initWithJsonDictionary:` abstract fallback implementations
+
+**Action items when deleting `PBMORTBAbstract.m`:**
+1. Search tests for `PBMORTBAbstract.from(jsonString:)` and `SomeType.from(jsonString:)` — replace with the `PBMJsonDecodable.from(jsonString:)` shim (defined in `ORTBParityHelper.swift`).
+2. Remove any `extension PBMORTBAbstract: SomeProtocol` blocks in test files.
+3. Remove `codeAndDecode<T: PBMORTBAbstract>` overloads — the `PBMJsonCodable` overload handles all Swift types.
+4. Remove any `testAbstractMethods()` test that calls `PBMORTBAbstract.from(jsonString:)` directly.
+5. Keep `PBMORTBAbstract.h` and `PBMORTBAbstract+Protected.h` — Phase 3/4 ObjC parameter builders still import them.
+
 ## Validation checklist per PR
 
 - [ ] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean
