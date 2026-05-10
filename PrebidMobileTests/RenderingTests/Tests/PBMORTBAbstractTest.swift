@@ -45,17 +45,17 @@ class PBMORTBAbstractTest : XCTestCase {
         
         //Source not implemented
         codeAndDecode(abstract:PBMORTBRegs(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBImp(), expectedString: "{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract:ORTBImp(), expectedString: "{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
         
         //Metric not implemented
-        codeAndDecode(abstract:PBMORTBBanner(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBVideo(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBBanner(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBVideo(), expectedString: "{}")
         
         //Audio not implemented
         //Native not implemented
-        codeAndDecode(abstract:PBMORTBFormat(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBPmp(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBDeal(), expectedString: "{\"bidfloor\":0,\"bidfloorcur\":\"USD\",\"wadomain\":[],\"wseat\":[]}")
+        codeAndDecode(abstract:ORTBFormat(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBPmp(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBDeal(), expectedString: "{\"bidfloor\":0,\"bidfloorcur\":\"USD\",\"wadomain\":[],\"wseat\":[]}")
         
         //Site not implemented
         codeAndDecode(abstract:PBMORTBApp(), expectedString: "{}")
@@ -63,15 +63,15 @@ class PBMORTBAbstractTest : XCTestCase {
         //Content not implemented
         //Producer not implemented
         codeAndDecode(abstract:PBMORTBDevice(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBGeo(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBGeo(), expectedString: "{}")
         codeAndDecode(abstract:PBMORTBUser(), expectedString: "{}")
         //Data not implemented
         //Segment not implemented
         
         codeAndDecode(abstract:PBMORTBBidRequestExtPrebid(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBImpExtPrebid(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBImpExtPrebid(), expectedString: "{}")
         
-        codeAndDecode(abstract: PBMORTBImpExtSkadn(), expectedString: "{}")
+        codeAndDecode(abstract: ORTBImpExtSkadn(), expectedString: "{}")
     }
     
     func testAbstractMethods() {
@@ -88,11 +88,11 @@ class PBMORTBAbstractTest : XCTestCase {
     func testCopying() {
         let initial = PBMORTBBidRequest()
         
-        initial.imp[0].banner = PBMORTBBanner()
-        initial.imp[0].video = PBMORTBVideo()
-        initial.imp[0].pmp.deals = [PBMORTBDeal()]
+        initial.imp[0].banner = ORTBBanner()
+        initial.imp[0].video = ORTBVideo()
+        initial.imp[0].pmp.deals = [ORTBDeal()]
         
-        initial.imp[0].banner?.format = [PBMORTBFormat()]
+        initial.imp[0].banner?.format = [ORTBFormat()]
         initial.imp[0].banner?.format[0].w = 640
         initial.imp[0].banner?.format[0].h = 480
         initial.imp[0].banner?.format[0].wratio = 4
@@ -226,14 +226,14 @@ class PBMORTBAbstractTest : XCTestCase {
     // MARK: PBMORTBImp
     
     func testImpToJsonString() {
-        let pbmORTBImp = PBMORTBImp()
+        let pbmORTBImp = ORTBImp()
         
         let uuid = UUID().uuidString
         pbmORTBImp.impID = uuid
-        pbmORTBImp.banner = PBMORTBBanner()
-        pbmORTBImp.video = PBMORTBVideo()
+        pbmORTBImp.banner = ORTBBanner()
+        pbmORTBImp.video = ORTBVideo()
         pbmORTBImp.native = ORTBNative()
-        pbmORTBImp.pmp = PBMORTBPmp()
+        pbmORTBImp.pmp = ORTBPmp()
         pbmORTBImp.displaymanager = "MOCK_SDK_NAME"
         pbmORTBImp.displaymanagerver = "MOCK_SDK_VERSION"
         pbmORTBImp.instl = 1
@@ -246,7 +246,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testPBMORTBImpExtSkadnToJsonString() { 
-        let skadn = PBMORTBImpExtSkadn()
+        let skadn = ORTBImpExtSkadn()
         skadn.sourceapp = "12345678"
         skadn.skadnetids = ["1", "2", "3"]
         
@@ -274,26 +274,26 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testImpExtPrebidToJsonString() {
-        let extPrebid = PBMORTBImpExtPrebid()
+        let extPrebid = ORTBImpExtPrebid()
         extPrebid.storedRequestID = "b4eb1475-4e3d-4186-97b7-25b6a6cf8618"
         XCTAssertFalse(extPrebid.isRewardedInventory)
         
         codeAndDecode(abstract: extPrebid, expectedString: "{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}")
         
-        let pbmORTBImp = PBMORTBImp()
+        let pbmORTBImp = ORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
         codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":1,\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
     }
     
     func testImpExtPrebidToJsonStringRewarded() {
-        let extPrebid = PBMORTBImpExtPrebid()
+        let extPrebid = ORTBImpExtPrebid()
         extPrebid.storedRequestID = "b4eb1475-4e3d-4186-97b7-25b6a6cf8618"
         extPrebid.isRewardedInventory = true
         
         codeAndDecode(abstract: extPrebid, expectedString: "{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}")
         
-        let pbmORTBImp = PBMORTBImp()
+        let pbmORTBImp = ORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
         codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":1,\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
@@ -302,20 +302,20 @@ class PBMORTBAbstractTest : XCTestCase {
     func testImpExtGPID() {
         let gpid = "/12345/home_screen#identifier"
         
-        let imp = PBMORTBImp()
+        let imp = ORTBImp()
         imp.extGPID = gpid
         
         codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":1,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\"},\"instl\":0,\"secure\":0}")
     }
     
     func testBannerToJsonString() {
-        let pbmORTBBanner = PBMORTBBanner()
+        let pbmORTBBanner = ORTBBanner()
         pbmORTBBanner.pos = 1                   //Above the fold
         pbmORTBBanner.api = [2,5]
         
         codeAndDecode(abstract: pbmORTBBanner, expectedString: "{\"api\":[2,5],\"pos\":1}")
         
-        pbmORTBBanner.format = [PBMORTBFormat()]
+        pbmORTBBanner.format = [ORTBFormat()]
         pbmORTBBanner.format[0].w = 728
         pbmORTBBanner.format[0].h = 90
         
@@ -323,7 +323,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testVideoToJsonString() {
-        let pbmORTBVideo = PBMORTBVideo()
+        let pbmORTBVideo = ORTBVideo()
         
         pbmORTBVideo.minduration = 10
         pbmORTBVideo.maxduration = 100
@@ -343,7 +343,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testFormatToJsonString() {
-        let pbmORTBFormat = PBMORTBFormat()
+        let pbmORTBFormat = ORTBFormat()
         pbmORTBFormat.w = 320
         pbmORTBFormat.h = 50
         codeAndDecode(abstract: pbmORTBFormat, expectedString: "{\"h\":50,\"w\":320}")
@@ -357,16 +357,16 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testPmpToJsonString() {
-        let pbmORTBPmp = PBMORTBPmp()
+        let pbmORTBPmp = ORTBPmp()
         pbmORTBPmp.private_auction = 1
-        pbmORTBPmp.deals.append(PBMORTBDeal())
+        pbmORTBPmp.deals.append(ORTBDeal())
         pbmORTBPmp.deals.first?.bidfloor = 1.0
         
         codeAndDecode(abstract: pbmORTBPmp, expectedString: "{\"deals\":[{\"bidfloor\":1,\"bidfloorcur\":\"USD\",\"wadomain\":[],\"wseat\":[]}],\"private_auction\":1}")
     }
     
     func testDealToJsonString() {
-        let pbmORTBDeal = PBMORTBDeal()
+        let pbmORTBDeal = ORTBDeal()
         
         pbmORTBDeal.id = "id"
         pbmORTBDeal.bidfloor = 100.0
@@ -481,7 +481,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testGeoToJsonString() {
-        let pbmORTBGeo = PBMORTBGeo()
+        let pbmORTBGeo = ORTBGeo()
         
         pbmORTBGeo.lat = 34.1477849
         pbmORTBGeo.lon = -118.1445155

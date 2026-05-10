@@ -19,7 +19,7 @@
 #import "PBMORTBApp.h"
 #import "PBMORTBBidRequestExtPrebid.h"
 #import "PBMORTBDevice.h"
-#import "PBMORTBImp.h"
+#import "SwiftImport.h"
 #import "PBMORTBRegs.h"
 #import "PBMORTBSource.h"
 #import "PBMORTBUser.h"
