@@ -139,6 +139,10 @@
 		53ED301F29798104007D13EE /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF236273420690046CCFC /* PrebidMobile.framework */; };
 		53ED302029798104007D13EE /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */; };
 		53ED302129798104007D13EE /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
+		5A0F10012E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; };
+		5A0F10022E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; };
+		5A0F10032E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5A0F10042E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53ED302229798104007D13EE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830AA20B43717002B2596 /* SystemConfiguration.framework */; };
 		53ED302329798104007D13EE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830A620B43703002B2596 /* Social.framework */; };
 		53ED302429798104007D13EE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830A220B436F1002B2596 /* MessageUI.framework */; };
@@ -338,6 +342,7 @@
 				53ED303C29798104007D13EE /* PrebidMobile.framework in Embed Frameworks */,
 				53ED303D29798104007D13EE /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 				53ED303E29798104007D13EE /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
+				5A0F10032E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,6 +358,7 @@
 				92C833D727B3C9EA00B99AC6 /* PrebidMobile.framework in Embed Frameworks */,
 				92F438B82768954400FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 				924F663027FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
+				5A0F10042E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,6 +464,7 @@
 		5BCCF236273420690046CCFC /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = ../Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
 		5BD84734252F23E70092AF74 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C79CC19ED6C6CCC5305DDC5 /* Pods-OpenXMockServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.debug.xcconfig"; path = "Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -557,6 +564,7 @@
 				53ED301F29798104007D13EE /* PrebidMobile.framework in Frameworks */,
 				53ED302029798104007D13EE /* PrebidMobileMAXAdapters.framework in Frameworks */,
 				53ED302129798104007D13EE /* OpenXMockServer.framework in Frameworks */,
+				5A0F10012E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Frameworks */,
 				53ED302229798104007D13EE /* SystemConfiguration.framework in Frameworks */,
 				53ED302329798104007D13EE /* Social.framework in Frameworks */,
 				53ED302429798104007D13EE /* MessageUI.framework in Frameworks */,
@@ -592,6 +600,7 @@
 				92C833D627B3C9EA00B99AC6 /* PrebidMobile.framework in Frameworks */,
 				924F662F27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework in Frameworks */,
 				9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */,
+				5A0F10022E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Frameworks */,
 				5B5830AB20B43717002B2596 /* SystemConfiguration.framework in Frameworks */,
 				5B5830A720B43704002B2596 /* Social.framework in Frameworks */,
 				5B5830A320B436F1002B2596 /* MessageUI.framework in Frameworks */,
@@ -781,6 +790,7 @@
 				5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */,
 				5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */,
 				5BCCF236273420690046CCFC /* PrebidMobile.framework */,
+				5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */,
 				5BD84734252F23E70092AF74 /* CoreServices.framework */,
 				5B5830AE20B43727002B2596 /* WatchConnectivity.framework */,
 				5B5830AC20B4371F002B2596 /* WebKit.framework */,

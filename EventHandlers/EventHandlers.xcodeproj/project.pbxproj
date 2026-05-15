@@ -71,6 +71,7 @@
 		C3E45723C24D15415F4FAB0C /* Pods_PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC52FAF1C12304695E019A4D /* Pods_PrebidMobileGAMEventHandlers.framework */; };
 		D1059C00DE847D8091FB2541 /* Pods_PrebidMobileAdMobAdaptersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CB2A536AF6D4E751D46FBE /* Pods_PrebidMobileAdMobAdaptersTests.framework */; };
 		D2FEF30160712DAAB98913EC /* Pods_PrebidMobileMAXAdaptersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6E3D686EF908BFEAF1DF154 /* Pods_PrebidMobileMAXAdaptersTests.framework */; };
+		E5D79CAC2FADC40F00C0C44A /* GAMEventHandlerRequestConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D79CAB2FADC40F00C0C44A /* GAMEventHandlerRequestConfigurationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +179,7 @@
 		A6E3D686EF908BFEAF1DF154 /* Pods_PrebidMobileMAXAdaptersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileMAXAdaptersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D018605E7CEA3B29DC916A73 /* Pods_PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B77165045D380B64491D0E /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlersTests/Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E5D79CAB2FADC40F00C0C44A /* GAMEventHandlerRequestConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMEventHandlerRequestConfigurationTests.swift; sourceTree = "<group>"; };
 		EC52FAF1C12304695E019A4D /* Pods_PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F06F98153B4FCC7F187B0A60 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlers.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlers/Pods-PrebidMobileGAMEventHandlers.release.xcconfig"; sourceTree = "<group>"; };
 		F7F666DB80A4C4141B6F1270 /* Pods-PrebidMobileAdMobAdaptersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileAdMobAdaptersTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileAdMobAdaptersTests/Pods-PrebidMobileAdMobAdaptersTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				344A7F06250B73A700743A93 /* BoxTests */,
 				344A7F0A250B743900743A93 /* Extensions */,
 				344A7F07250B73BA00743A93 /* TestModels */,
+				E5D79CAB2FADC40F00C0C44A /* GAMEventHandlerRequestConfigurationTests.swift */,
 			);
 			path = PrebidMobileGAMEventHandlersTests;
 			sourceTree = "<group>";
@@ -944,6 +947,7 @@
 				5B7B134C26455E5400EBF42A /* GADNativeAdWrapperTest.swift in Sources */,
 				344A7F14250B823F00743A93 /* GAMInterstitialAdWrapperTest.swift in Sources */,
 				344A7F0C250B744D00743A93 /* GADAdSize+Equatable.swift in Sources */,
+				E5D79CAC2FADC40F00C0C44A /* GAMEventHandlerRequestConfigurationTests.swift in Sources */,
 				3405F951250A55AE00268A77 /* GAMBannerViewWrapperTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

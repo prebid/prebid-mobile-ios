@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/prebid/prebid-mobile-ios-sdk.git",
       "state" : {
-        "revision" : "ee87fc64a159fca2b6d4ab02545009ade19337d1",
-        "version" : "3.2.1"
+        "revision" : "6d68f30a011ceaa8c368dfc446761d8fba8a9915",
+        "version" : "3.3.1"
       }
     },
     {

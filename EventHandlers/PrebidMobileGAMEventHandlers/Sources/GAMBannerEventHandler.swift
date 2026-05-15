@@ -39,6 +39,14 @@ public class GAMBannerEventHandler :
     var lastGADSize: CGSize?
     
     let adUnitID: String
+
+    /// A closure called with the `AdManagerRequest` before each ad load.
+    /// Use this to configure request properties such as `publisherProvidedID`,
+    /// `categoryExclusions`, `customTargeting`, etc.
+    ///
+    /// Note: Any `customTargeting` set via this closure will be merged with
+    /// bid response targeting. Bid response targeting takes priority on conflicts.
+    public var adManagerRequestConfiguration: ((AdManagerRequest) -> Void)?
     
     // MARK: - Public Methods
     
@@ -82,21 +90,13 @@ public class GAMBannerEventHandler :
         
         if let bidResponse = bidResponse {
             isExpectingAppEvent = bidResponse.winningBid != nil
-            
-            var targeting = [String : String]()
-              
-            if let requestTargeting = request.customTargeting {
-                targeting.merge(requestTargeting) { $1 }
-            }
-            
-            if let responseTargeting = bidResponse.targetingInfo {
-                targeting.merge(responseTargeting) { $1 }
-            }
-            
-            if !targeting.isEmpty {
-                request.customTargeting = targeting
-            }
         }
+
+        GAMUtils.configureRequest(
+            request,
+            bidResponse: bidResponse,
+            adManagerRequestConfiguration: adManagerRequestConfiguration
+        )
         
         requestBanner?.delegate = self
         requestBanner?.appEventDelegate = self

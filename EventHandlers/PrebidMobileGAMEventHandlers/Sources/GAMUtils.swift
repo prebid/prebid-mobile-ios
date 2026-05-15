@@ -52,6 +52,25 @@ public class GAMUtils: NSObject {
         mergedTargeting.merge(bidTargeting) { $1 }
         boxedRequest.customTargeting = mergedTargeting
     }
+
+    static func configureRequest(
+        _ request: GAMRequestWrapper,
+        bidResponse: BidResponse?,
+        adManagerRequestConfiguration: ((AdManagerRequest) -> Void)?
+    ) {
+        adManagerRequestConfiguration?(request.request)
+
+        guard let bidTargeting = bidResponse?.targetingInfo else {
+            return
+        }
+
+        var targeting = request.customTargeting ?? [:]
+        targeting.merge(bidTargeting) { $1 }
+
+        if !targeting.isEmpty {
+            request.customTargeting = targeting
+        }
+    }
         
     class func log(error: GAMEventHandlerError) {
         Log.error(error.localizedDescription)
