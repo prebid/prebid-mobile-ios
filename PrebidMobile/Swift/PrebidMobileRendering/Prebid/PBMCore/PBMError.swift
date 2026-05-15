@@ -240,6 +240,15 @@ class PBMError: NSError, @unchecked Sendable {
                 ])
     }
     
+    @objc public static func noCachedBids() -> NSError {
+        NSError(domain: Self.errorDomain,
+                code: Self.errorCode(2, forFamily: .integrationLayerErrors),
+                userInfo: [
+                    NSLocalizedDescriptionKey : "No bids with successful Prebid Cache entries were found.",
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidDemandNoCachedBids.rawValue
+                ])
+    }
+    
     @objc public static func prebidNoVastTagInMediaData() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(3, forFamily: .integrationLayerErrors),

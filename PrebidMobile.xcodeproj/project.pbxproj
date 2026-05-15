@@ -53,6 +53,7 @@
 		47D9A2402A8716A24203EEF3 /* ACJPublisherRevenue1000.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AE4FB6589DB32680F89D /* ACJPublisherRevenue1000.json */; };
 		47D9A2764D4FD6D7437732D9 /* large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 47D9A26C7251DF5F35B0CDB5 /* large.mp4 */; };
 		47D9A339DCD990CEBBA9B9DB /* SSC_test_empty_fields.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9A6CCD40A2B6F9BC571F3 /* SSC_test_empty_fields.json */; };
+		47D9A33C1000000000000001 /* cached_bid_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9A33C1000000000000002 /* cached_bid_response.json */; };
 		47D9A3EF88B06B204F40463E /* MockPBMCreativeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9A65561D54EB501103D1F /* MockPBMCreativeModel.swift */; };
 		47D9A4C632B5580F0B67E8BB /* medium.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AA623866C609CC88839F /* medium.mp4 */; };
 		47D9A4E2F32109B33E75FD2C /* MockBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9AB8D61F1A933D3C51AE7 /* MockBundle.swift */; };
@@ -920,6 +921,7 @@
 		47D9A630F7F8443F29F48813 /* MockAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAlertController.swift; sourceTree = "<group>"; };
 		47D9A65561D54EB501103D1F /* MockPBMCreativeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPBMCreativeModel.swift; sourceTree = "<group>"; };
 		47D9A6CCD40A2B6F9BC571F3 /* SSC_test_empty_fields.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SSC_test_empty_fields.json; sourceTree = "<group>"; };
+		47D9A33C1000000000000002 /* cached_bid_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cached_bid_response.json; sourceTree = "<group>"; };
 		47D9A6D9917A568CEDA774F5 /* small.m4v */ = {isa = PBXFileReference; lastKnownFileType = file.m4v; path = small.m4v; sourceTree = "<group>"; };
 		47D9A721F20C97168D2E7349 /* prebid_vast_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = prebid_vast_response.xml; sourceTree = "<group>"; };
 		47D9A788E8D0FBF93345D2AD /* document_with_one_inline_ad.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = document_with_one_inline_ad.xml; sourceTree = "<group>"; };
@@ -1840,6 +1842,7 @@
 			isa = PBXGroup;
 			children = (
 				47D9AADC57CCCE64C374E101 /* mraid.js */,
+				47D9A33C1000000000000002 /* cached_bid_response.json */,
 				47D9A6CCD40A2B6F9BC571F3 /* SSC_test_empty_fields.json */,
 				47D9A9442B0ED2E99D0DD613 /* SSC_test_empty_file.json */,
 				47D9AA7D94E9FDAA0F9F4EC7 /* SSC_test_with_libs.json */,
@@ -3877,6 +3880,7 @@
 				47D9ACBAE08321DC00F46D04 /* inline_with_padding_on_urls.xml in Resources */,
 				47D9A174D4A1BE3A50FFC36F /* prebid_vast_response.xml in Resources */,
 				47D9A8B4C06AB77665C92674 /* VAST_Empty_Response2.xml in Resources */,
+				47D9A33C1000000000000001 /* cached_bid_response.json in Resources */,
 				47D9A339DCD990CEBBA9B9DB /* SSC_test_empty_fields.json in Resources */,
 				47D9AC177CFFCCC76C9B21DE /* SSC_test_empty_file.json in Resources */,
 				47D9A57D748F0AA605901275 /* SSC_test_with_libs.json in Resources */,

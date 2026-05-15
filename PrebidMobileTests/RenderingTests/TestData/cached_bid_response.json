@@ -1,0 +1,35 @@
+{
+  "id": "response-id",
+  "seatbid": [
+    {
+      "bid": [
+        {
+          "id": "test-bid-id",
+          "impid": "test-imp-id",
+          "price": 0.1,
+          "adm": "<html></html>",
+          "w": 300,
+          "h": 250,
+          "ext": {
+            "prebid": {
+              "cache": {
+                "bids": {
+                  "url": "https://prebid-cache/cache?uuid=cache-id",
+                  "cacheId": "cache-id"
+                }
+              },
+              "targeting": {
+                "hb_bidder": "openx",
+                "hb_pb": "0.10",
+                "hb_cache_id": "cache-id"
+              },
+              "type": "banner"
+            }
+          }
+        }
+      ],
+      "seat": "openx"
+    }
+  ],
+  "cur": "USD"
+}

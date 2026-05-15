@@ -103,4 +103,37 @@ public class BidResponse: NSObject {
         
         targetingInfo?[key] = value
     }
+    
+    @discardableResult
+    public func removeBidsWithoutSuccessfulCache() -> Int {
+        guard let allBids else { return 0 }
+        
+        let filteredBids = allBids.filter { $0.hasSuccessfulServerCache }
+        let removedBids = allBids.count - filteredBids.count
+        
+        self.allBids = filteredBids
+        updateWinningBidAndTargetingInfo(from: filteredBids)
+        
+        return removedBids
+    }
+    
+    private func updateWinningBidAndTargetingInfo(from bids: [Bid]) {
+        var targetingInfo: [String : String] = [:]
+        var winningBid: Bid?
+        
+        for bid in bids {
+            if winningBid == nil && bid.isWinning {
+                winningBid = bid
+            } else if let bidTargetingInfo = bid.targetingInfo {
+                targetingInfo.merge(bidTargetingInfo) { $1 }
+            }
+        }
+        
+        if let winningBidTargetingInfo = winningBid?.targetingInfo {
+            targetingInfo.merge(winningBidTargetingInfo) { $1 }
+        }
+        
+        self.winningBid = winningBid
+        self.targetingInfo = targetingInfo.isEmpty ? nil : targetingInfo
+    }
 }

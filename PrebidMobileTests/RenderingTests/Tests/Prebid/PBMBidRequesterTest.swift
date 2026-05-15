@@ -29,6 +29,7 @@ class PBMBidRequesterTest: XCTestCase {
     }
     
     override func tearDown() {
+        sdkConfiguration.requireServerSideBidCache = false
         sdkConfiguration = nil
         super.tearDown()
     }
@@ -57,6 +58,100 @@ class PBMBidRequesterTest: XCTestCase {
         waitForExpectations(timeout: 5)
     }
     
+    func testBanner_requireServerCacheAndNoCachedBids_returnsNoBidsError() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.1))
+        }])
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
+        sdkConfiguration.requireServerSideBidCache = true
+        
+        let exp = expectation(description: "exp")
+        requester.requestBids { (bidResponse, error) in
+            XCTAssertNil(bidResponse)
+            XCTAssertEqual(error as NSError?, PBMError.noCachedBids() as NSError?)
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5)
+    }
+    
+    func testBanner_requireServerCacheAndNoBids_returnsNoWinningBidError() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(PBMBidResponseTransformer.noWinningBidResponse)
+        }])
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
+        sdkConfiguration.requireServerSideBidCache = true
+        
+        let exp = expectation(description: "exp")
+        requester.requestBids { (bidResponse, error) in
+            XCTAssertNil(bidResponse)
+            XCTAssertEqual(error as NSError?, PBMError.noWinningBid() as NSError?)
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5)
+    }
+    
+    func testBanner_defaultServerCacheRequirementAndNoCachedBids_returnsBidResponse() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.1))
+        }])
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
+        
+        let exp = expectation(description: "exp")
+        requester.requestBids { (bidResponse, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(bidResponse)
+            XCTAssertEqual(bidResponse?.allBids?.count, 1)
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5)
+    }
+    
+    func testBanner_requireServerCacheAndCachedBid_returnsBidResponse() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            guard let responseBody = UtilitiesForTesting.loadFileAsStringFromBundle("cached_bid_response.json") else {
+                XCTFail("Expected cached_bid_response.json fixture.")
+                return
+            }
+            callback(PBMBidResponseTransformer.buildResponse(responseBody))
+        }])
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
+        sdkConfiguration.requireServerSideBidCache = true
+        
+        let exp = expectation(description: "exp")
+        requester.requestBids { (bidResponse, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(bidResponse)
+            XCTAssertEqual(bidResponse?.allBids?.count, 1)
+            XCTAssertEqual(bidResponse?.targetingInfo?["hb_cache_id"], "cache-id")
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5)
+    }
+
     func testBanner_invalidAccountID_noRequest() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
