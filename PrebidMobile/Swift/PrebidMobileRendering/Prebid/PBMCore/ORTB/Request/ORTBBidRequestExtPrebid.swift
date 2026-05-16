@@ -24,6 +24,7 @@ public class ORTBBidRequestExtPrebid: NSObject, PBMJsonCodable {
     @objc public var dataBidders: [String]?
     @objc public var storedAuctionResponse: String?
     @objc public var storedBidResponses: [[String: String]]?
+    // targeting and cache are write-only via API; not populated on decode (matches ObjC parity)
     @objc public var cache: NSMutableDictionary?
     @objc public var targeting: NSMutableDictionary = NSMutableDictionary()
     @objc public var sdkRenderers: [[String: Any]]?

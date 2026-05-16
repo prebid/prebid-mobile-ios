@@ -18,7 +18,7 @@ import XCTest
 
 @testable import PrebidMobile
 
-class PBMORTBAbstractTest : XCTestCase {
+class ORTBAbstractTest : XCTestCase {
     
     private var sdkVersion: String {
         let infoDic = Bundle(for: BannerView.self).infoDictionary
@@ -38,7 +38,7 @@ class PBMORTBAbstractTest : XCTestCase {
         super.tearDown()
     }
     
-    //Check default values of all objects decending from PBMORTBAbstract
+    //Check default values of all ORTB request objects
     func testDefaultToJsonString() {
         
         codeAndDecode(abstract:ORTBBidRequest(), expectedString: "{\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
@@ -211,7 +211,18 @@ class PBMORTBAbstractTest : XCTestCase {
         XCTAssertEqual(pbmORTBRegs.coppa, nil)
         codeAndDecode(abstract:pbmORTBRegs, expectedString:"{}")
     }
-    
+
+    func testRegsGppToJsonString() {
+        let regs = ORTBRegs()
+        regs.gpp = "DBACNYA~CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA~1YNN"
+        regs.gppSID = [2, 6]
+        codeAndDecode(abstract: regs, expectedString: "{\"gpp\":\"DBACNYA~CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA~1YNN\",\"gpp_sid\":[2,6]}")
+
+        let decoded = try! ORTBRegs.from(jsonString: try! regs.toJsonString())
+        XCTAssertEqual(decoded.gpp, regs.gpp)
+        XCTAssertEqual(decoded.gppSID, regs.gppSID)
+    }
+
     // MARK: PBMORTBImp
     
     func testImpToJsonString() {
