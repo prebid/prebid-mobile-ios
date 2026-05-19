@@ -43,6 +43,8 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     var adViewManager:AdViewManager!
     var adLoadManager:PBMAdLoadManagerBase!
     var videoCreative: PBMVideoCreative?
+    var testDisplayView: UIView!
+    var adLoadedHandler: (() -> Void)?
     
     var currentlyDisplaying = false
     var loadError:NSError?
@@ -56,6 +58,8 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         
         adViewManager.adViewManagerDelegate = self
         Prebid.forcedIsViewable = false
+        testDisplayView = UIView()
+        adLoadedHandler = nil
         loadError = nil;
     }
     
@@ -79,6 +83,8 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     override func tearDown() {
         adLoadManager = nil
         adViewManager = nil
+        testDisplayView = nil
+        adLoadedHandler = nil
         logToFile = nil
         
         nilExpectations()
@@ -119,6 +125,29 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         adViewManager.handleExternalTransaction(transaction)
         
         XCTAssertIdentical(adViewManager.externalTransaction, transaction)
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    func testAdLoadedAfterDisplayViewContainsCreative() {
+        nilExpectations()
+        adLoadedExpectation = expectation(description: "adLoadedExpectation")
+        displayViewExpectation = expectation(description: "displayViewExpectation")
+        adDidDisplayExpectation = expectation(description: "adDidDisplayExpectation")
+        viewControllerForModalPresentationExpectation = expectation(description: "Expected a viewControllerForModalPresentationExpectation delegate to fire")
+        
+        Prebid.forcedIsViewable = true
+        
+        adLoadedHandler = { [weak self] in
+            guard let self else {
+                XCTFail("Expected test instance to be available")
+                return
+            }
+            
+            XCTAssertEqual(self.testDisplayView.subviews.count, 1)
+        }
+        
+        adViewManager.handleExternalTransaction(UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true))
+        
         waitForExpectations(timeout: 3, handler: nil)
     }
     
@@ -356,7 +385,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     
     var displayView: UIView {
         fulfillOrFail(displayViewExpectation, "displayViewExpectation")
-        return UIView()
+        return testDisplayView
     }
     
     var interstitialDisplayProperties: InterstitialDisplayProperties {
@@ -365,6 +394,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     }
     
     func adLoaded(_ pbmAdDetails: AdDetails) {
+        adLoadedHandler?()
         fulfillOrFail(adLoadedExpectation, "adLoadedExpectation")
     }
     

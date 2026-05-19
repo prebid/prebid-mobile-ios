@@ -32,6 +32,8 @@
 @property (nonatomic, nullable, readonly) id<PBMTransaction> currentTransaction; // computed
 @property (nonatomic, assign) BOOL videoInterstitialDidClose;
 
+- (void)displayCreativeView:(UIView *)creativeView rootViewController:(UIViewController *)viewController;
+
 @end
 
 @implementation PBMAdViewManager_Objc
@@ -110,14 +112,17 @@
             return;
         }
         
-        @weakify(self);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            @strongify(self);
-            if (!self) { return; }
-            
-            [[self.adViewManagerDelegate displayView] addSubview:creativeView];
-            [self.currentCreative displayWithRootViewController:viewController];
-        });
+        if (NSThread.isMainThread) {
+            [self displayCreativeView:creativeView rootViewController:viewController];
+        } else {
+            @weakify(self);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (!self) { return; }
+                
+                [self displayCreativeView:creativeView rootViewController:viewController];
+            });
+        }
     }
 }
 
@@ -341,6 +346,11 @@
 }
 
 #pragma mark - Internal Methods
+
+- (void)displayCreativeView:(UIView *)creativeView rootViewController:(UIViewController *)viewController {
+    [[self.adViewManagerDelegate displayView] addSubview:creativeView];
+    [self.currentCreative displayWithRootViewController:viewController];
+}
 
 - (void)onTransactionIsReady:(id<PBMTransaction>)transaction {
     for ( id<PBMAbstractCreative> creative in transaction.creatives) {
