@@ -39,6 +39,83 @@ class NativeAdTests: XCTestCase {
         XCTAssertEqual(nativeAd!.bid?.price, 0.1)
     }
     
+    func testNativeAdNotifiesDelegateWhenCacheExpires() {
+        let cacheId = CacheManager.shared.save(content: nativeAdString, expireInterval: 0.1)!
+        let nativeAd = NativeAd.create(cacheId: cacheId)!
+        let expireExpectation = expectation(description: "Native ad expiration delegate called")
+        let delegate = NativeAdExpirationDelegate(expireExpectation: expireExpectation)
+        nativeAd.delegate = delegate
+        
+        withExtendedLifetime(delegate) {
+            waitForExpectations(timeout: 1.0)
+        }
+    }
+    
+    func testNativeAdDoesNotExpireWhenViewIsRegistered() {
+        let cacheId = CacheManager.shared.save(content: nativeAdString, expireInterval: 0.1)!
+        let nativeAd = NativeAd.create(cacheId: cacheId)!
+        let unexpectedExpiration = expectation(description: "Native ad expiration delegate should not be called")
+        unexpectedExpiration.isInverted = true
+        let delegate = NativeAdExpirationDelegate(expireExpectation: unexpectedExpiration)
+        nativeAd.delegate = delegate
+        
+        let trackingView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        XCTAssertTrue(nativeAd.registerView(view: trackingView, clickableViews: nil))
+        
+        withExtendedLifetime((delegate, trackingView)) {
+            waitForExpectations(timeout: 0.3)
+        }
+    }
+    
+    func testNativeAdRegisterViewAfterCacheExpiryFails() {
+        let cacheId = CacheManager.shared.save(content: nativeAdString, expireInterval: 0.1)!
+        let nativeAd = NativeAd.create(cacheId: cacheId)!
+        let expireExpectation = expectation(description: "Native ad expiration delegate called")
+        let delegate = NativeAdExpirationDelegate(expireExpectation: expireExpectation)
+        nativeAd.delegate = delegate
+        
+        withExtendedLifetime(delegate) {
+            waitForExpectations(timeout: 1.0)
+        }
+        
+        let trackingView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        XCTAssertFalse(nativeAd.registerView(view: trackingView, clickableViews: nil))
+    }
+    
+    func testNativeAdExpirationDelegateCalledExactlyOnce() {
+        let cacheId = CacheManager.shared.save(content: nativeAdString, expireInterval: 0.1)!
+        let nativeAd = NativeAd.create(cacheId: cacheId)!
+        let expireExpectation = expectation(description: "Native ad expiration delegate called")
+        let delegate = NativeAdExpirationDelegate(expireExpectation: expireExpectation)
+        nativeAd.delegate = delegate
+        
+        withExtendedLifetime(delegate) {
+            waitForExpectations(timeout: 1.0)
+            
+            let settleExpectation = expectation(description: "No additional expiration callbacks")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                XCTAssertEqual(delegate.expireCallCount, 1)
+                XCTAssertTrue(delegate.expiredAd === nativeAd)
+                settleExpectation.fulfill()
+            }
+            waitForExpectations(timeout: 1.0)
+        }
+    }
+    
+    func testNativeAdCacheExpiryWithNilDelegateDoesNotCrashAndPreventsRegistration() {
+        let cacheId = CacheManager.shared.save(content: nativeAdString, expireInterval: 0.1)!
+        let nativeAd = NativeAd.create(cacheId: cacheId)!
+        let expireExpectation = expectation(description: "Native ad expires without delegate")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            let trackingView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+            XCTAssertFalse(nativeAd.registerView(view: trackingView, clickableViews: nil))
+            expireExpectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1.0)
+    }
+    
     func testArrayGetters() {
         let cacheId = CacheManager.shared.save(content: nativeAdString)
         let nativeAd = NativeAd.create(cacheId: cacheId!)

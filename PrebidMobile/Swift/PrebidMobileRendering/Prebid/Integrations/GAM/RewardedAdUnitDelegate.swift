@@ -40,4 +40,7 @@ import Foundation
 
     /// Called when user clicked the ad
     @objc optional func rewardedAdDidClickAd(_ rewardedAd: RewardedAdUnit)
+    
+    /// Called when the loaded ad expired and can no longer be displayed.
+    @objc optional func rewardedAdDidExpire(_ rewardedAd: RewardedAdUnit)
 }

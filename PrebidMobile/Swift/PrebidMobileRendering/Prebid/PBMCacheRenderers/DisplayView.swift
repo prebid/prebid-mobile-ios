@@ -36,6 +36,10 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     private(set) var connection: PrebidServerConnectionProtocol? = nil
     var transactionFactory: TransactionFactory?
     var adViewManager: AdViewManager?
+    private var expirationWorkItem: DispatchWorkItem?
+    private(set) var isExpired = false
+    private var isDisplayed = false
+    private var expirationInterval: NSNumber?
     
     weak var videoPlaybackDelegate: DisplayViewVideoPlaybackDelegate?
 
@@ -55,9 +59,13 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        expirationWorkItem?.cancel()
+    }
 
     public func loadAd() {
-        guard transactionFactory == nil else { return }
+        guard transactionFactory == nil, !isExpired else { return }
 
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
         adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
@@ -104,6 +112,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     }
 
     public func adDidDisplay() {
+        isDisplayed = true
         interactionDelegate?.trackImpression(forDisplayView: self)
     }
 
@@ -157,10 +166,15 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     }
 
     private func reportSuccess() {
+        scheduleExpirationIfNeeded()
         loadingDelegate?.displayViewDidLoadAd(self)
     }
 
     private func display(transaction: Transaction) {
+        guard !isExpired else { return }
+        
+        expirationInterval = transaction.creativeModels.first?.expirationInterval ?? bid.exp
+        
         let activeConnection = connection ?? PrebidServerConnection.shared
 
         let manager = Factory.createAdViewManager(
@@ -177,6 +191,30 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
 
         self.adViewManager = manager
         manager.handleExternalTransaction(transaction)
+    }
+    
+    private func scheduleExpirationIfNeeded() {
+        guard expirationWorkItem == nil,
+              let exp = expirationInterval ?? bid.exp,
+              exp.doubleValue > 0 else {
+            return
+        }
+        
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.expireAd()
+        }
+        expirationWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + exp.doubleValue, execute: workItem)
+    }
+    
+    private func expireAd() {
+        guard !isExpired else { return }
+        
+        isExpired = true
+        if !isDisplayed {
+            adViewManager = nil
+        }
+        loadingDelegate?.displayViewDidExpire?(self)
     }
 
     private func interactionDelegateWillPresentModal() {

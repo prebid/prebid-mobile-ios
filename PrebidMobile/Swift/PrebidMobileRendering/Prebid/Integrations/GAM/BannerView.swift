@@ -406,6 +406,22 @@ public class BannerView:
         }
     }
     
+    private func reportAdExpired() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            self.delegate?.bannerViewDidExpire?(self)
+            self.deployedView?.removeFromSuperview()
+            self.deployedView = nil
+            
+            if self.adUnitConfig.refreshInterval > 0, !self.isRefreshStopped {
+                self.adLoadFlowController?.refresh()
+            } else {
+                self.autoRefreshManager?.cancelRefreshTimer()
+            }
+        }
+    }
+    
     private func installDeployedViewConstraints(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -471,6 +487,10 @@ extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
     ) {
         deployView(adView)
         reportLoadingSuccess(with: adSize)
+    }
+    
+    public func bannerAdLoaderDidExpire(_ bannerAdLoader: BannerAdLoader) {
+        reportAdExpired()
     }
 }
 
