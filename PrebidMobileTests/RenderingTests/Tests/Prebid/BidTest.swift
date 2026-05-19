@@ -69,4 +69,21 @@ class BidTest: XCTestCase {
         let bid = RawWinningBidFabricator.makeWinningBid(price: 0.75, bidder: "some bidder", cacheID: "cache/id")
         XCTAssertTrue(bid.isWinning)
     }
+    
+    func testBidExp() {
+        let rawBid = RawWinningBidFabricator.makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: "cache/id")
+        rawBid.exp = 42
+        
+        let bid = Bid(bid: rawBid)
+        
+        XCTAssertEqual(bid.exp, 42)
+    }
+    
+    func testBidExpNilWhenRawBidHasNoExpiration() {
+        let rawBid = RawWinningBidFabricator.makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: "cache/id")
+        
+        let bid = Bid(bid: rawBid)
+        
+        XCTAssertNil(bid.exp)
+    }
 }

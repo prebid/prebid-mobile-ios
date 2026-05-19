@@ -80,6 +80,10 @@ class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, Ba
     public func displayView(_ displayView: UIView, didFailWithError error: any Error) {
         flowDelegate?.adLoader(self, failedWithPrebidError: error)
     }
+    
+    @objc public func displayViewDidExpire(_ displayView: UIView) {
+        delegate?.bannerAdLoaderDidExpire?(self)
+    }
 
     // MARK: - BannerEventLoadingDelegate
 

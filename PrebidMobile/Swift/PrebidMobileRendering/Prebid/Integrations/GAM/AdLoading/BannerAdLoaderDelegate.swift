@@ -25,4 +25,6 @@ protocol BannerAdLoaderDelegate: NSObjectProtocol {
     @objc func bannerAdLoader(_ bannerAdLoader: BannerAdLoader,
                               loadedAdView adView: UIView,
                               adSize: CGSize)
+    
+    @objc optional func bannerAdLoaderDidExpire(_ bannerAdLoader: BannerAdLoader)
 }

@@ -83,6 +83,10 @@ final class InterstitialAdLoader: NSObject, AdLoaderProtocol, InterstitialContro
         flowDelegate?.adLoader(self, failedWithPrebidError: error as NSError)
     }
     
+    func interstitialControllerDidExpire(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+        delegate?.interstitialAdLoaderAdDidExpire(self)
+    }
+    
     // MARK: - InterstitialEventLoadingDelegate
     
     func prebidDidWin() {

@@ -36,6 +36,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     private let adViewWillPresentScreenButton = EventReportContainer()
     private let adViewDidDismissScreenButton = EventReportContainer()
     private let adViewWillLeaveApplicationButton = EventReportContainer()
+    private let adViewDidExpireButton = EventReportContainer()
     
     private let videoPlaybackDidPauseButton = EventReportContainer()
     private let videoPlaybackDidResumeButton = EventReportContainer()
@@ -166,6 +167,10 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         adViewWillLeaveApplicationButton.isEnabled = true
     }
     
+    func bannerViewDidExpire(_ bannerView: BannerView) {
+        adViewDidExpireButton.isEnabled = true
+    }
+    
     
     // MARK: - BannerViewVideoPlaybackDelegate
     
@@ -207,6 +212,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         rootController?.setupAction(adViewWillPresentScreenButton, "adViewWillPresentScreen called")
         rootController?.setupAction(adViewDidDismissScreenButton, "adViewDidDismissScreen called")
         rootController?.setupAction(adViewWillLeaveApplicationButton, "adViewWillLeaveApplication called")
+        rootController?.setupAction(adViewDidExpireButton, "adViewDidExpire called")
         
         rootController?.setupAction(videoPlaybackDidPauseButton, "videoPlaybackDidPauseButton called")
         rootController?.setupAction(videoPlaybackDidResumeButton, "videoPlaybackDidResumeButton called")
@@ -225,6 +231,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         adViewWillPresentScreenButton.isEnabled = false
         adViewDidDismissScreenButton.isEnabled = false
         adViewWillLeaveApplicationButton.isEnabled = false
+        adViewDidExpireButton.isEnabled = false
         
         videoPlaybackDidPauseButton.isEnabled = false
         videoPlaybackDidResumeButton.isEnabled = false

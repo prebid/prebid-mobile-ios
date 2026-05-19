@@ -29,4 +29,6 @@ protocol InterstitialAdLoaderDelegate {
     func interstitialAdLoader(_ interstitialAdLoader: InterstitialAdLoader,
                               createdInterstitialController interstitialController: InterstitialController)
     
+    func interstitialAdLoaderAdDidExpire(_ interstitialAdLoader: InterstitialAdLoader)
+    
 }

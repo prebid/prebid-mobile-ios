@@ -235,6 +235,10 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         delegate?.rewardedAdDidClickAd?(self)
     }
     
+    func callDelegate_adDidExpire() {
+        delegate?.rewardedAdDidExpire?(self)
+    }
+    
     func callEventHandler_isReady() -> Bool {
         (eventHandler as? RewardedEventHandlerProtocol)?.isReady ?? false
     }

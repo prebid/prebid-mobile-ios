@@ -38,6 +38,7 @@ class PrebidInterstitialController:
     private let interstitialDidDismissAdButton = EventReportContainer()
     private let interstitialWillLeaveApplicationButton = EventReportContainer()
     private let interstitialDidClickAdButton = EventReportContainer()
+    private let interstitialDidExpireAdButton = EventReportContainer()
     
     private let configIdLabel = UILabel()
     
@@ -146,6 +147,11 @@ class PrebidInterstitialController:
     func interstitialDidClickAd(_ interstitial: InterstitialRenderingAdUnit) {
         interstitialDidClickAdButton.isEnabled = true
     }
+    
+    func interstitialDidExpireAd(_ interstitial: InterstitialRenderingAdUnit) {
+        adapterViewController?.showButton.isEnabled = false
+        interstitialDidExpireAdButton.isEnabled = true
+    }
         
     // MARK: - Private Methods
     private func setupAdapterController() {
@@ -170,6 +176,7 @@ class PrebidInterstitialController:
         adapterViewController?.setupAction(interstitialDidDismissAdButton, "interstitialDidDismissAd called")
         adapterViewController?.setupAction(interstitialWillLeaveApplicationButton, "interstitialWillLeaveApplication called")
         adapterViewController?.setupAction(interstitialDidClickAdButton, "interstitialDidClickAd called")
+        adapterViewController?.setupAction(interstitialDidExpireAdButton, "interstitialDidExpireAd called")
     }
     
     @IBAction func showButtonClicked() {
