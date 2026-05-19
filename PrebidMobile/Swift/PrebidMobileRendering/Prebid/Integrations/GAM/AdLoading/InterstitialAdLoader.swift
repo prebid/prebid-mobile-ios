@@ -102,22 +102,11 @@ final class InterstitialAdLoader: NSObject, AdLoaderProtocol, InterstitialContro
     private func createController(with bid: Bid, adUnitConfig: AdUnitConfig) -> PrebidMobileInterstitialControllerProtocol? {
         guard let delegate else { return nil }
 
-        let renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
-        Log.info("Renderer: \(renderer)")
-        
-        if let controller = renderer.createInterstitialController(bid: bid,
-                                                                  adConfiguration: adUnitConfig,
-                                                                  loadingDelegate: self,
-                                                                  interactionDelegate: delegate) {
-            return controller
-        }
-                
-        Log.warn("SDK couldn't retrieve an implementation of PrebidMobileInterstitialControllerProtocol. SDK will use the PrebidMobile SDK renderer.")
-        
-        let sdkRenderer = PrebidMobilePluginRegister.shared.sdkRenderer
-        return sdkRenderer.createInterstitialController(bid: bid,
-                                                        adConfiguration: adUnitConfig,
-                                                        loadingDelegate: self,
-                                                        interactionDelegate: delegate)
+        return PluginRendererFactory.createInterstitialController(
+            bid: bid,
+            adConfiguration: adUnitConfig,
+            loadingDelegate: self,
+            interactionDelegate: delegate
+        )
     }
 }

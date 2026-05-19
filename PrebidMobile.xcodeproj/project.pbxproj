@@ -793,7 +793,10 @@
 		A908694429E05ED500B37479 /* PrebidMobilePluginRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */; };
 		A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694529E05F7900B37479 /* PrebidRenderer.swift */; };
 		E557D4B72ED219CB00E5580A /* UserAgentPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E557D4B62ED219CB00E5580A /* UserAgentPersistence.swift */; };
+		E5D79CAE2FAE93BF00C0C44A /* PluginRendererFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D79CAD2FAE93BF00C0C44A /* PluginRendererFactory.swift */; };
+		E5D79CB02FAE951C00C0C44A /* PluginRendererFactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D79CAF2FAE951C00C0C44A /* PluginRendererFactoryTest.swift */; };
 		E5D88C022F4517FA00E801C3 /* ViewExposureCheckerSystemUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D88C012F4517FA00E801C3 /* ViewExposureCheckerSystemUITests.swift */; };
+		FA12590120260425000000A1 /* FunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12590120260425000000A2 /* FunctionsTests.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
 		FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */; };
@@ -804,7 +807,6 @@
 		FAA299102434C141002ACBF2 /* AdViewUtilsObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA2990F2434C141002ACBF2 /* AdViewUtilsObjCTests.m */; };
 		FAA299122434C769002ACBF2 /* UtilsObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA299112434C769002ACBF2 /* UtilsObjCTests.m */; };
 		FAC837D82321583500565051 /* CollectionExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC837D72321583500565051 /* CollectionExtensionTest.swift */; };
-		FA12590120260425000000A1 /* FunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12590120260425000000A2 /* FunctionsTests.swift */; };
 		FAEE4D08262DC2B200AD9966 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CDD262DC2B200AD9966 /* Constants.swift */; };
 		FAEE4D0A262DC2B200AD9966 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CDF262DC2B200AD9966 /* Global.swift */; };
 		FAEE4D0B262DC2B200AD9966 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CE0262DC2B200AD9966 /* Dispatcher.swift */; };
@@ -1677,8 +1679,11 @@
 		A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobilePluginRenderer.swift; sourceTree = "<group>"; };
 		A908694529E05F7900B37479 /* PrebidRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRenderer.swift; sourceTree = "<group>"; };
 		E557D4B62ED219CB00E5580A /* UserAgentPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentPersistence.swift; sourceTree = "<group>"; };
+		E5D79CAD2FAE93BF00C0C44A /* PluginRendererFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginRendererFactory.swift; sourceTree = "<group>"; };
+		E5D79CAF2FAE951C00C0C44A /* PluginRendererFactoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginRendererFactoryTest.swift; sourceTree = "<group>"; };
 		E5D88C012F4517FA00E801C3 /* ViewExposureCheckerSystemUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExposureCheckerSystemUITests.swift; sourceTree = "<group>"; };
 		F9F0999C2C78CC8A007DB464 /* SDKConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConsoleLogger.swift; sourceTree = "<group>"; };
+		FA12590120260425000000A2 /* FunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionsTests.swift; sourceTree = "<group>"; };
 		FA4A88432497A99D00FDCBB6 /* Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzling.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestUtils.xcodeproj; path = ../tools/TestUtils/TestUtils.xcodeproj; sourceTree = "<group>"; };
@@ -1692,7 +1697,6 @@
 		FAA299112434C769002ACBF2 /* UtilsObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UtilsObjCTests.m; sourceTree = "<group>"; };
 		FAAA00BD2322733E009DC7D6 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC837D72321583500565051 /* CollectionExtensionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTest.swift; sourceTree = "<group>"; };
-		FA12590120260425000000A2 /* FunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionsTests.swift; sourceTree = "<group>"; };
 		FAEE4CDD262DC2B200AD9966 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAEE4CDF262DC2B200AD9966 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		FAEE4CE0262DC2B200AD9966 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
@@ -3260,6 +3264,7 @@
 				53514CC52D01B5AF00A480C0 /* InterstitialRenderingAdUnitTest.swift */,
 				53514CC72D01B5F200A480C0 /* RewardedAdUnitTest.swift */,
 				533135C5282A869800AA1E4D /* BidTest.swift */,
+				E5D79CAF2FAE951C00C0C44A /* PluginRendererFactoryTest.swift */,
 			);
 			path = Prebid;
 			sourceTree = "<group>";
@@ -3449,6 +3454,7 @@
 				A908694129E05EAF00B37479 /* PrebidMobilePluginRegister.swift */,
 				A908694329E05ED500B37479 /* PrebidMobilePluginRenderer.swift */,
 				53BFCD302CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift */,
+				E5D79CAD2FAE93BF00C0C44A /* PluginRendererFactory.swift */,
 			);
 			path = PluginRenderer;
 			sourceTree = "<group>";
@@ -3942,6 +3948,7 @@
 				922AFD2B2737258200732C53 /* PBMCreativeViewabilityTrackerTest.swift in Sources */,
 				922AFCF927370B9800732C53 /* LogObjCTest.m in Sources */,
 				9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */,
+				E5D79CB02FAE951C00C0C44A /* PluginRendererFactoryTest.swift in Sources */,
 				922AFD372737281D00732C53 /* PBMHTMLCreativeTest_Base.swift in Sources */,
 				925D5E462737F0ED00A8A2B5 /* TestPBMFunctions.swift in Sources */,
 				922AFC9727352DDB00732C53 /* MockPBMAdModelEventTracker.swift in Sources */,
@@ -4547,6 +4554,7 @@
 				92C3A83827F98B9700DC05E9 /* AdConfiguration.swift in Sources */,
 				53842BB829E561750069A4B7 /* PrebidImagesRepository.swift in Sources */,
 				53BFCD312CFE435D00A3287A /* PrebidMobilePluginRenderer+Extensions.swift in Sources */,
+				E5D79CAE2FAE93BF00C0C44A /* PluginRendererFactory.swift in Sources */,
 				53BFCD112CF9156000A3287A /* PrebidMobileInterstitialControllerProtocol.swift in Sources */,
 				92C85D5A27A96AC50080BAC5 /* NativeTitle.swift in Sources */,
 				5A8448022DB7117400446F70 /* CreativeModel.swift in Sources */,
