@@ -25,6 +25,8 @@ class PrebidAdMobRewardedViewController:
         FullScreenContentDelegate {
     
     var prebidConfigId = ""
+    var storedAuctionResponse: String?
+    var useSampleCustomRenderer = false
 
     var adMobAdUnitId = ""
     
@@ -43,6 +45,7 @@ class PrebidAdMobRewardedViewController:
     
     private var adUnit: MediationRewardedAdUnit?
     private var mediationDelegate: AdMobMediationRewardedUtils?
+    private var sampleCustomRenderer: SampleRenderer?
     
     var request = Request()
     
@@ -52,11 +55,23 @@ class PrebidAdMobRewardedViewController:
         setupAdapterController()
     }
     
+    deinit {
+        if let sampleCustomRenderer = sampleCustomRenderer {
+            Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        }
+    }
+
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
     
     func loadAd() {
+        if let storedAuctionResponse = storedAuctionResponse {
+            Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        }
+
+        registerSampleCustomRendererIfNeeded()
+
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
@@ -149,5 +164,13 @@ class PrebidAdMobRewardedViewController:
                 print("User rewarded")
             })
         }
+    }
+
+    private func registerSampleCustomRendererIfNeeded() {
+        guard useSampleCustomRenderer, sampleCustomRenderer == nil else { return }
+
+        let renderer = SampleRenderer()
+        Prebid.registerPluginRenderer(renderer)
+        sampleCustomRenderer = renderer
     }
 }

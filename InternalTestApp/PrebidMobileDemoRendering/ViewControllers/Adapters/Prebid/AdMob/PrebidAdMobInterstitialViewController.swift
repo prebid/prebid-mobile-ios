@@ -26,6 +26,7 @@ class PrebidAdMobInterstitialViewController:
     
     var prebidConfigId = ""
     var storedAuctionResponse: String?
+    var useSampleCustomRenderer = false
 
     var adMobAdUnitId = ""
     
@@ -46,6 +47,7 @@ class PrebidAdMobInterstitialViewController:
     
     private var adUnit: MediationInterstitialAdUnit?
     private var mediationDelegate: AdMobMediationInterstitialUtils?
+    private var sampleCustomRenderer: SampleRenderer?
     
     var request = Request()
     
@@ -64,6 +66,12 @@ class PrebidAdMobInterstitialViewController:
         setupAdapterController()
     }
     
+    deinit {
+        if let sampleCustomRenderer = sampleCustomRenderer {
+            Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        }
+    }
+
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -76,6 +84,8 @@ class PrebidAdMobInterstitialViewController:
             Prebid.shared.storedAuctionResponse = storedAuctionResponse
         }
         
+        registerSampleCustomRendererIfNeeded()
+
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: request)
         adUnit = MediationInterstitialAdUnit(
             configId: prebidConfigId,
@@ -192,5 +202,13 @@ class PrebidAdMobInterstitialViewController:
             adapterViewController.showButton.isEnabled = false
             interstitial?.present(from: adapterViewController)
         }
+    }
+
+    private func registerSampleCustomRendererIfNeeded() {
+        guard useSampleCustomRenderer, sampleCustomRenderer == nil else { return }
+
+        let renderer = SampleRenderer()
+        Prebid.registerPluginRenderer(renderer)
+        sampleCustomRenderer = renderer
     }
 }

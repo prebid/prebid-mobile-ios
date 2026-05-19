@@ -38,6 +38,8 @@ class PrebidAdMobBannerViewController:
     var adUnitSize = CGSize()
     var additionalAdSizes = [CGSize]()
     var adFormat: PrebidMobile.AdFormat?
+    var storedAuctionResponse: String?
+    var useSampleCustomRenderer = false
     
     var request = Request()
     
@@ -63,6 +65,7 @@ class PrebidAdMobBannerViewController:
     private var adUnit: MediationBannerAdUnit?
     
     private var mediationDelegate: AdMobMediationBannerUtils?
+    private var sampleCustomRenderer: SampleRenderer?
     
     // MARK: - AdaptedController
     
@@ -77,11 +80,23 @@ class PrebidAdMobBannerViewController:
         setupAdapterController()
     }
     
+    deinit {
+        if let sampleCustomRenderer = sampleCustomRenderer {
+            Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        }
+    }
+
     func configurationController() -> BaseConfigurationController? {
         return PrebidBannerConfigurationController(controller: self)
     }
     
     func loadAd() {
+        if let storedAuctionResponse = storedAuctionResponse {
+            Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        }
+
+        registerSampleCustomRendererIfNeeded()
+
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
@@ -239,5 +254,13 @@ class PrebidAdMobBannerViewController:
     @objc private func stopRefresh() {
         stopRefreshButton.isEnabled = false
         adUnit?.stopRefresh()
+    }
+
+    private func registerSampleCustomRendererIfNeeded() {
+        guard useSampleCustomRenderer, sampleCustomRenderer == nil else { return }
+
+        let renderer = SampleRenderer()
+        Prebid.registerPluginRenderer(renderer)
+        sampleCustomRenderer = renderer
     }
 }

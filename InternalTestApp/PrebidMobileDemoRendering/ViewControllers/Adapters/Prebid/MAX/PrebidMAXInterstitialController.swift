@@ -22,6 +22,7 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
     
     var prebidConfigId: String = ""
     var storedAuctionResponse: String?
+    var useSampleCustomRenderer = false
     
     var maxAdUnitId = ""
     
@@ -29,6 +30,7 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
     
     private var adUnit: MediationInterstitialAdUnit?
     private var mediationDelegate: MAXMediationInterstitialUtils?
+    private var sampleCustomRenderer: SampleRenderer?
     
     private var interstitial: MAInterstitialAd?
     
@@ -62,6 +64,12 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
         setupAdapterController()
     }
     
+    deinit {
+        if let sampleCustomRenderer = sampleCustomRenderer {
+            Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        }
+    }
+
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -71,6 +79,8 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
             Prebid.shared.storedAuctionResponse = storedAuctionResponse
         }
         
+        registerSampleCustomRendererIfNeeded()
+
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
@@ -164,6 +174,14 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
             adapterViewController?.showButton.isEnabled = false
             interstitial.show()
         }
+    }
+
+    private func registerSampleCustomRendererIfNeeded() {
+        guard useSampleCustomRenderer, sampleCustomRenderer == nil else { return }
+
+        let renderer = SampleRenderer()
+        Prebid.registerPluginRenderer(renderer)
+        sampleCustomRenderer = renderer
     }
 }
 
