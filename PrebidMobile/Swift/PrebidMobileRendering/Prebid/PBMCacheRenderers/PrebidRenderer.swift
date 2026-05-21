@@ -29,7 +29,7 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+    ) -> PrebidMobileDisplayViewProtocol? {
         let displayView = DisplayView(
             frame: frame,
             bid: bid,

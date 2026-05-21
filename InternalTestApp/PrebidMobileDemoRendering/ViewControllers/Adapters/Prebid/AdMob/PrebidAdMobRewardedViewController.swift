@@ -66,10 +66,6 @@ class PrebidAdMobRewardedViewController:
     }
     
     func loadAd() {
-        if let storedAuctionResponse = storedAuctionResponse {
-            Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        }
-
         registerSampleCustomRendererIfNeeded()
 
         configIdLabel.isHidden = false
@@ -78,7 +74,15 @@ class PrebidAdMobRewardedViewController:
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
+        if let storedAuctionResponse = storedAuctionResponse {
+            Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        }
+        
         adUnit?.fetchDemand { [weak self] result in
+            if self?.storedAuctionResponse != nil {
+                Prebid.shared.storedAuctionResponse = nil
+            }
+
             guard let self = self else { return }
             RewardedAd.load(with: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }

@@ -76,10 +76,6 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
     }
     
     func loadAd() {
-        if let storedAuctionResponse = storedAuctionResponse {
-            Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        }
-
         registerSampleCustomRendererIfNeeded()
 
         configIdLabel.isHidden = false
@@ -110,7 +106,15 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
             adUnit?.adFormat = adFormat
         }
         
+        if let storedAuctionResponse = storedAuctionResponse {
+            Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        }
+        
         adUnit?.fetchDemand { [weak self] result in
+            if self?.storedAuctionResponse != nil {
+                Prebid.shared.storedAuctionResponse = nil
+            }
+
             guard let self = self,
                   let adBannerView = self.adBannerView,
                   let container = self.rootController?.bannerView else {

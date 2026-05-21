@@ -72,10 +72,7 @@ class PrebidInterstitialController:
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
-        
-        if let storedAuctionResponse = storedAuctionResponse {
-            Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        }
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
         interstitialController = InterstitialRenderingAdUnit(
             configID: prebidConfigId,
@@ -116,6 +113,10 @@ class PrebidInterstitialController:
         }
         
         interstitialController?.loadAd()
+
+        if storedAuctionResponse != nil {
+            Prebid.shared.storedAuctionResponse = nil
+        }
     }
     
     // MARK: - GADInterstitialDelegate

@@ -40,7 +40,7 @@ public class PluginRendererFactory: NSObject {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+    ) -> PrebidMobileDisplayViewProtocol? {
         let renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
         Log.info("PluginRendererFactory banner renderer: \(renderer.name)")
 
@@ -74,22 +74,6 @@ public class PluginRendererFactory: NSObject {
     ///   - interactionDelegate: Delegate for interstitial interaction events.
     /// - Returns: An interstitial controller conforming to `PrebidMobileInterstitialControllerProtocol`, or `nil` on failure.
     public static func createInterstitialController(
-        bid: Bid,
-        adConfiguration: AdUnitConfig,
-        loadingDelegate: InterstitialControllerLoadingDelegate,
-        interactionDelegate: InterstitialControllerInteractionDelegate
-    ) -> PrebidMobileInterstitialControllerProtocol? {
-        return resolveInterstitialController(
-            bid: bid,
-            adConfiguration: adConfiguration,
-            loadingDelegate: loadingDelegate,
-            interactionDelegate: interactionDelegate
-        )
-    }
-
-    // MARK: - Private
-
-    private static func resolveInterstitialController(
         bid: Bid,
         adConfiguration: AdUnitConfig,
         loadingDelegate: InterstitialControllerLoadingDelegate,

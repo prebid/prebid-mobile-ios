@@ -108,7 +108,7 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
             .localExtraParameters[PBMMediationVideoParameters] as? VideoParameters
         let renderingConfig = AdUnitConfig(configId: configId)
         renderingConfig.adConfiguration.isInterstitialAd = true
-        renderingConfig.adConfiguration.isRewarded = isRewarded || bid.rewardedConfig != nil
+        renderingConfig.adConfiguration.isRewarded = isRewarded
         
         if let videoControlsConfig = videoControlsConfig {
             renderingConfig.adConfiguration.videoControlsConfig = videoControlsConfig

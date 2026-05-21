@@ -80,10 +80,6 @@ class PrebidAdMobInterstitialViewController:
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        if let storedAuctionResponse = storedAuctionResponse {
-            Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        }
-        
         registerSampleCustomRendererIfNeeded()
 
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: request)
@@ -122,7 +118,15 @@ class PrebidAdMobInterstitialViewController:
             adUnit?.adFormats = adFormats
         }
         
+        if let storedAuctionResponse = storedAuctionResponse {
+            Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        }
+        
         adUnit?.fetchDemand { [weak self] result in
+            if self?.storedAuctionResponse != nil {
+                Prebid.shared.storedAuctionResponse = nil
+            }
+
             guard let self = self else { return }
             InterstitialAd.load(with: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }

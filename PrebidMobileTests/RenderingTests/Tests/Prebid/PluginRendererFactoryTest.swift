@@ -439,7 +439,7 @@ extension PluginRendererFactoryTest {
         configId: String,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+    ) -> PrebidMobileDisplayViewProtocol? {
         let adConfiguration = AdUnitConfig(configId: configId, size: bid.size)
         return createBannerView(
             with: frame,
@@ -456,7 +456,7 @@ extension PluginRendererFactoryTest {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+    ) -> PrebidMobileDisplayViewProtocol? {
         PluginRendererFactory.createBannerView(
             with: frame,
             bid: bid,
@@ -543,7 +543,7 @@ class MockTrackingPluginRenderer: NSObject, PrebidMobilePluginRenderer {
     var createBannerViewCalled = false
     var createInterstitialControllerCalled = false
 
-    var bannerViewToReturn: (UIView & PrebidMobileDisplayViewProtocol)?
+    var bannerViewToReturn: PrebidMobileDisplayViewProtocol?
     var interstitialControllerToReturn: PrebidMobileInterstitialControllerProtocol?
 
     var lastBannerBid: Bid?
@@ -562,7 +562,7 @@ class MockTrackingPluginRenderer: NSObject, PrebidMobilePluginRenderer {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+    ) -> PrebidMobileDisplayViewProtocol? {
         createBannerViewCalled = true
         lastBannerBid = bid
         lastBannerAdConfiguration = adConfiguration

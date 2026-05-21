@@ -66,10 +66,6 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
     }
     
     func loadAd() {
-        if let storedAuctionResponse = storedAuctionResponse {
-            Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        }
-
         registerSampleCustomRendererIfNeeded()
 
         configIdLabel.isHidden = false
@@ -81,7 +77,15 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         mediationDelegate = MAXMediationRewardedUtils(rewardedAd: rewarded!)
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
+        if let storedAuctionResponse = storedAuctionResponse {
+            Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        }
+        
         adUnit?.fetchDemand { [weak self] result in
+            if self?.storedAuctionResponse != nil {
+                Prebid.shared.storedAuctionResponse = nil
+            }
+
             guard let self = self else { return }
             
             if result != .prebidDemandFetchSuccess {

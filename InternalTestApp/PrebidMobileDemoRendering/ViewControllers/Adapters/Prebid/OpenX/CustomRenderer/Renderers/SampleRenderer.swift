@@ -28,7 +28,7 @@ public class SampleRenderer: NSObject, PrebidMobilePluginRenderer {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+    ) -> PrebidMobileDisplayViewProtocol? {
         let bannerView = SampleAdView(frame: frame)
         
         bannerView.interactionDelegate = interactionDelegate

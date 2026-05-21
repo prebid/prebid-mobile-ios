@@ -81,7 +81,7 @@ public class PrebidAdMobVideoInterstitialAdapter:
         let videoParameters = eventExtrasDictionary[PBMMediationVideoParameters] as? VideoParameters
         let renderingConfig = AdUnitConfig(configId: configId)
         renderingConfig.adConfiguration.isInterstitialAd = true
-        renderingConfig.adConfiguration.isRewarded = bid.rewardedConfig != nil
+        renderingConfig.adConfiguration.isRewarded = false
         renderingConfig.adFormats = [.video]
         
         if let videoControlsConfig = videoControlsConfig {

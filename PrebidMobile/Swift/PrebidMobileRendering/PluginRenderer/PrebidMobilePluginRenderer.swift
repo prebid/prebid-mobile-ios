@@ -57,7 +57,7 @@ public protocol PrebidMobilePluginRenderer: AnyObject {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> (UIView & PrebidMobileDisplayViewProtocol)?
+    ) -> PrebidMobileDisplayViewProtocol?
     
     /// Creates and returns an implementation of `PrebidMobileInterstitialControllerProtocol` for a given bid response.
     /// Returns nil in the case of an internal error or if no renderer is provided.

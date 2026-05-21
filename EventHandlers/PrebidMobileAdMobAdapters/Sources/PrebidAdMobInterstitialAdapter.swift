@@ -79,7 +79,7 @@ public class PrebidAdMobInterstitialAdapter:
         
         let renderingConfig = AdUnitConfig(configId: configId)
         renderingConfig.adConfiguration.isInterstitialAd = true
-        renderingConfig.adConfiguration.isRewarded = bid.rewardedConfig != nil
+        renderingConfig.adConfiguration.isRewarded = false
         
         guard let controller = PluginRendererFactory.createInterstitialController(
             bid: bid,
