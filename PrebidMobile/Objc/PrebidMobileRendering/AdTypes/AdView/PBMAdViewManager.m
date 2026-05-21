@@ -32,8 +32,6 @@
 @property (nonatomic, nullable, readonly) id<PBMTransaction> currentTransaction; // computed
 @property (nonatomic, assign) BOOL videoInterstitialDidClose;
 
-- (void)displayCreativeView:(UIView *)creativeView rootViewController:(UIViewController *)viewController;
-
 @end
 
 @implementation PBMAdViewManager_Objc
