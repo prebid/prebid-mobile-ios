@@ -22,12 +22,14 @@ class DeviceInfoParameterBuilderTest: XCTestCase {
 
     let initialDict = [String:String]()
     var userDefaults: UserDefaults!
+    var mockDeviceAccessManager: MockDeviceAccessManager!
     var deviceInfoParameterBuilder: DeviceInfoParameterBuilder!
     var bidRequest: PBMORTBBidRequest!
 
     override func setUp() {
         self.userDefaults = UserDefaults()
-        self.deviceInfoParameterBuilder = DeviceInfoParameterBuilder(deviceAccessManager: MockDeviceAccessManager(rootViewController: nil))
+        self.mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
+        self.deviceInfoParameterBuilder = DeviceInfoParameterBuilder(deviceAccessManager: self.mockDeviceAccessManager)
         self.bidRequest = PBMORTBBidRequest()
     }
 
@@ -38,9 +40,10 @@ class DeviceInfoParameterBuilderTest: XCTestCase {
 
     func testDeviceSize() {
         self.deviceInfoParameterBuilder.build(self.bidRequest)
+        let expectedScreenSize = self.mockDeviceAccessManager.screenSizeInPixels()
         
-        PBMAssertEq(self.bidRequest.device.w, 100)
-        PBMAssertEq(self.bidRequest.device.h, 200)
+        PBMAssertEq(self.bidRequest.device.w, NSNumber(value: Int(expectedScreenSize.width)))
+        PBMAssertEq(self.bidRequest.device.h, NSNumber(value: Int(expectedScreenSize.height)))
     }
 
     func testAdTrackingEnabled() {
