@@ -87,7 +87,7 @@ public class GAMUtils: NSObject {
     
     // MARK: Private Methods
     
-    private func getPrebidTargeting(from request: GAMRequestWrapper) -> [String: String] {
+    private func getPrebidTargeting(from request: GAMRequestWrapper) -> [String: Any] {
         guard let requestTargeting = request.customTargeting else {
             return [:]
         }

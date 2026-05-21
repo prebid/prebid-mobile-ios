@@ -118,9 +118,9 @@ final class GAMEventHandlerRequestConfigurationTests: XCTestCase {
             }
         )
 
-        XCTAssertEqual(request.customTargeting?["publisher_key"], "publisher_value")
-        XCTAssertEqual(request.customTargeting?["hb_pb"], "1.50")
-        XCTAssertEqual(request.customTargeting?["hb_bidder"], "appnexus")
+        XCTAssertEqual(request.customTargeting?["publisher_key"] as? String, "publisher_value")
+        XCTAssertEqual(request.customTargeting?["hb_pb"] as? String, "1.50")
+        XCTAssertEqual(request.customTargeting?["hb_bidder"] as? String, "appnexus")
     }
 
     func testConfigureRequestLetsBidTargetingOverridePublisherTargeting() {
@@ -144,9 +144,32 @@ final class GAMEventHandlerRequestConfigurationTests: XCTestCase {
             }
         )
 
-        XCTAssertEqual(request.customTargeting?["publisher_key"], "publisher_value")
-        XCTAssertEqual(request.customTargeting?["hb_pb"], "1.50")
-        XCTAssertEqual(request.customTargeting?["hb_cache_id"], "prebid-cache-id")
+        XCTAssertEqual(request.customTargeting?["publisher_key"] as? String, "publisher_value")
+        XCTAssertEqual(request.customTargeting?["hb_pb"] as? String, "1.50")
+        XCTAssertEqual(request.customTargeting?["hb_cache_id"] as? String, "prebid-cache-id")
+    }
+
+    func testConfigureRequestPreservesNonStringPublisherTargeting() {
+        let request = makeRequest()
+        let bidResponse = BidResponse(
+            adUnitId: "test",
+            targetingInfo: [
+                "hb_pb": "1.50"
+            ]
+        )
+
+        GAMUtils.configureRequest(
+            request,
+            bidResponse: bidResponse,
+            adManagerRequestConfiguration: { request in
+                request.customTargeting = [
+                    "publisher_key": 42
+                ]
+            }
+        )
+
+        XCTAssertEqual(request.customTargeting?["publisher_key"] as? Int, 42)
+        XCTAssertEqual(request.customTargeting?["hb_pb"] as? String, "1.50")
     }
 
     private func makeRequest(
