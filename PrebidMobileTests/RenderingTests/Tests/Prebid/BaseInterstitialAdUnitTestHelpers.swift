@@ -20,6 +20,7 @@ import UIKit
 
 class InterstitialExpirationLoadingDelegate: NSObject, InterstitialControllerLoadingDelegate {
     let expirationExpectation: XCTestExpectation
+    var onExpire: ((PrebidMobileInterstitialControllerProtocol) -> Void)?
 
     init(expirationExpectation: XCTestExpectation) {
         self.expirationExpectation = expirationExpectation
@@ -33,12 +34,14 @@ class InterstitialExpirationLoadingDelegate: NSObject, InterstitialControllerLoa
     ) {}
 
     func interstitialControllerDidExpire(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+        onExpire?(interstitialController)
         expirationExpectation.fulfill()
     }
 }
 
 class DisplayViewExpirationDelegate: NSObject, DisplayViewLoadingDelegate {
     let expirationExpectation: XCTestExpectation
+    var onExpire: ((UIView) -> Void)?
 
     init(expirationExpectation: XCTestExpectation) {
         self.expirationExpectation = expirationExpectation
@@ -49,6 +52,7 @@ class DisplayViewExpirationDelegate: NSObject, DisplayViewLoadingDelegate {
     func displayView(_ displayView: UIView, didFailWithError error: Error) {}
 
     func displayViewDidExpire(_ displayView: UIView) {
+        onExpire?(displayView)
         expirationExpectation.fulfill()
     }
 }

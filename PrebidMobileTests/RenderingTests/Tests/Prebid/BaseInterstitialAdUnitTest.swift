@@ -60,8 +60,14 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         rawBid.exp = 0.3
         let bid = Bid(bid: rawBid)
         let controller = InterstitialController(bid: bid, configId: "test")
+        controller.adViewManager = TestAdViewManager()
         let expirationExpectation = expectation(description: "Interstitial expiration callback")
         let loadingDelegate = InterstitialExpirationLoadingDelegate(expirationExpectation: expirationExpectation)
+        loadingDelegate.onExpire = { interstitialController in
+            let controller = interstitialController as? InterstitialController
+            XCTAssertTrue(controller?.isExpired == true)
+            XCTAssertNil(controller?.adViewManager)
+        }
         controller.loadingDelegate = loadingDelegate
         
         controller.reportSuccess()
@@ -136,7 +142,13 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         )
         let expectation = expectation(description: "DisplayView expiration callback")
         let delegate = DisplayViewExpirationDelegate(expirationExpectation: expectation)
+        delegate.onExpire = { displayView in
+            let displayView = displayView as? DisplayView
+            XCTAssertTrue(displayView?.isExpired == true)
+            XCTAssertNil(displayView?.adViewManager)
+        }
         displayView.loadingDelegate = delegate
+        displayView.adViewManager = TestAdViewManager()
         
         displayView.adLoaded(AdDetails(rawResponse: "", transactionId: ""))
         

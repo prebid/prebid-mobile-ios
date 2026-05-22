@@ -132,6 +132,9 @@ class BannerViewTest: XCTestCase {
         )
         let expirationExpectation = expectation(description: "Banner expiration callback")
         let delegate = TestBannerDelegate(expireExp: expirationExpectation)
+        delegate.onExpire = { bannerView in
+            XCTAssertNil(bannerView.deployedView)
+        }
         bannerView.delegate = delegate
         let deployedView = UIView()
         bannerView.deployView(deployedView)
@@ -168,13 +171,28 @@ class BannerViewTest: XCTestCase {
         )
         bannerView.refreshInterval = 30
         let adLoadFlowController = TestAdLoadFlowController(adUnitConfig: bannerView.adUnitConfig)
+        let autoRefreshManager = AutoRefreshManager(
+            prefetchTime: PrebidConstants.AD_PREFETCH_TIME,
+            lockingQueue: nil,
+            lockProvider: nil,
+            refreshDelayBlock: { 30 },
+            mayRefreshNowBlock: { true },
+            refreshBlock: {}
+        )
+        autoRefreshManager.setupRefreshTimer()
+        XCTAssertNotNil(autoRefreshManager.delayedBlock)
+        bannerView.autoRefreshManager = autoRefreshManager
         let refreshExpectation = expectation(description: "Banner expiration refreshes ad load flow")
         adLoadFlowController.refreshHandler = {
+            XCTAssertNil(autoRefreshManager.delayedBlock)
             refreshExpectation.fulfill()
         }
         bannerView.adLoadFlowController = adLoadFlowController
         let expirationExpectation = expectation(description: "Banner expiration callback")
         let delegate = TestBannerDelegate(expireExp: expirationExpectation)
+        delegate.onExpire = { bannerView in
+            XCTAssertNil(bannerView.deployedView)
+        }
         bannerView.delegate = delegate
         let deployedView = UIView()
         bannerView.deployView(deployedView)
