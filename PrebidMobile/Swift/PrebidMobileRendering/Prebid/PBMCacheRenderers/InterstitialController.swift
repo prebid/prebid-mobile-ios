@@ -177,11 +177,10 @@ public class InterstitialController:
         guard !isExpired else { return }
         
         isExpired = true
-        loadingDelegate?.interstitialControllerDidExpire?(self)
-        
         if !isDisplayed {
             adViewManager = nil
         }
+        loadingDelegate?.interstitialControllerDidExpire?(self)
     }
 }
 

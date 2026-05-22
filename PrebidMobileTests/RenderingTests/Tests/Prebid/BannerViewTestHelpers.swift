@@ -27,6 +27,7 @@ class MockBannerView: BannerView {
 @objc class TestBannerDelegate: NSObject, BannerViewDelegate {
     let exp: XCTestExpectation?
     let expireExp: XCTestExpectation?
+    var onExpire: ((BannerView) -> Void)?
     var failCallCount = 0
 
     init(exp: XCTestExpectation? = nil, expireExp: XCTestExpectation? = nil) {
@@ -53,6 +54,7 @@ class MockBannerView: BannerView {
     }
 
     func bannerViewDidExpire(_ bannerView: BannerView) {
+        onExpire?(bannerView)
         expireExp?.fulfill()
     }
 }
