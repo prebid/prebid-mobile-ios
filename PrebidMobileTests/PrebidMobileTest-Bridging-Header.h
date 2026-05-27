@@ -63,14 +63,8 @@
 // PBMCircularProgressBarLayer moved to Swift — available via module import
 #import "PBMInterstitialLayoutConfigurator.h"
 #import "PBMSKAdNetworksParameterBuilder.h"
-#import "PBMViewExposureChecker.h"
 
 // Extensions
-#import "NSException+PBMExtensions.h"
-#import "NSString+PBMExtensions.h"
-#import "PBMTouchDownRecognizer.h"
-#import "UIView+PBMExtensions.h"
-#import "UIWindow+PBMExtensions.h"
 #import "WKNavigationAction+PBMWKNavigationActionCompatible.h"
 #import "WKWebView+PBMWKWebViewCompatible.h"
 #import "Log+Extensions.h"
@@ -120,7 +114,6 @@
 #import "PBMBidResponseTransformer.h"
 #import "PBMPrebidParameterBuilder.h"
 
-#import "UIView+PBMViewExposure.h"
 
 #import "MediationInterstitialAdUnit+TestExtension.h"
 #import "MediationBannerAdUnit+TestExtension.h"

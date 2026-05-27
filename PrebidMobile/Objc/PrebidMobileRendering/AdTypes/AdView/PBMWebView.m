@@ -23,8 +23,6 @@
 #import "PBMMacros.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMORTB.h"
-#import "PBMTouchDownRecognizer.h"
-#import "UIView+PBMExtensions.h"
 #import "Log+Extensions.h"
 
 #import "PBMWebView.h"

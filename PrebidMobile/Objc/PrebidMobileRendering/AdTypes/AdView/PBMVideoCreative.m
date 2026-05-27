@@ -16,7 +16,6 @@
 #import "PBMVideoCreative.h"
 #import "PBMAbstractCreative+Protected.h"
 
-#import "UIView+PBMExtensions.h"
 
 #import "PBMConstants.h"
 #import "PBMOpenMeasurementWrapper.h"
