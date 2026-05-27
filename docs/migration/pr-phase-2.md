@@ -70,10 +70,29 @@ Deferred 4 files due to unported ObjC dependencies (noted below).
 
 - `632bd5dd` S2.1 — Port standalone utilities to Swift
 - `16f89cb1` docs: update playbook with S2.1 gaps
+- `990b6778` S2.2 — Port Foundation/UI category extensions to Swift
+
+### S2.2 — Foundation/UI category extensions (ExtensionsAndWrappers/)
+
+Ported all 11 files (including Exposure/ subgroup).
+
+**Key findings:**
+- `@objc extension NSDictionary/NSMutableDictionary/NSString/NSURL/NSException` — ObjC category methods bridge cleanly to ObjC via `PrebidMobile-Swift.h`; no ObjC consumer `.m` changes needed beyond removing the deleted `#import`
+- `ViewExposure` protocol and `ViewExposureChecker` are `@_spi(PBMInternal)` — new Swift implementations must carry the same annotation
+- `Factory` (Swift name) not `PBMFactory` (ObjC name) for the runtime class registry
+- `NSClassFromString("PBMViewExposure_Objc")` in `Factory.swift` requires the ObjC bridge name `@objc(PBMViewExposure_Objc)` preserved on the Swift class
+- `NSString` nil-param bridging: ObjC `nil NSString*` → Swift `String` becomes `""`. For methods that had ObjC nil guards, change parameter type to `String?` so nil passes through correctly
+- `logViewHierarchy()`: Swift name (lowercase) exposed via `@objc(LogViewHierarchy)` to keep ObjC selector intact while matching what Swift test code calls
+- `ViewExposureChecker.exposure` debug path: accesses `Prebid.shared.forcedIsViewable` (ObjC category, private header) via KVC `value(forKey:)` to avoid Gap 8
+
+**ObjC consumer updates:**
+- Added `#import "SwiftImport.h"` to `PBMURLComponents.m` (used `NSString+PBMExtensions` methods)
+- Removed `#import` of deleted headers from `PBMAbstractCreative.m`, `PBMAdViewManager.m`, `PBMMRAIDController.m`, etc. (12 files total)
+- Removed deleted headers from `PrebidMobileTest-Bridging-Header.h` and two ObjC test files
 
 ## Test plan
 
-- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean
-- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 694 tests, 0 failures
+- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean (S2.1 + S2.2)
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 696 tests, 0 failures (S2.2 final; `testBanner_300x250` and `testInitializeSDK` are pre-existing flaky/network tests)
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite (pending)
 - [ ] Reviewer: confirm gap S2.1-A (NS_TYPED_ENUM deferred) and gap S2.1-B (@_spi imports in tests)
