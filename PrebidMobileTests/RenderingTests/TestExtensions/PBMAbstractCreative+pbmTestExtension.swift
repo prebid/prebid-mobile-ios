@@ -16,7 +16,7 @@
 
 import Foundation
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 // Because the PBMAbstractCreative_Objc's conformance to PBMAbstractCreative is declared in
 // objc with a forward declaration, the compiler doesn't let us call PBMAbstractCreative methods

@@ -18,14 +18,12 @@
 
 #import <JavaScriptCore/JavaScriptCore.h>
 
-#import "PBMFunctions+Private.h"
 #import "PBMMRAIDController.h"
 #import "PBMMRAIDJavascriptCommands.h"
 #import "PBMMacros.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMORTB.h"
 #import "PBMTouchDownRecognizer.h"
-#import "PBMWKScriptMessageHandlerLeakAvoider.h"
 #import "UIView+PBMExtensions.h"
 #import "Log+Extensions.h"
 
@@ -403,7 +401,7 @@ static PBMError *extracted(NSString *errorMessage) {
 
 #ifdef DEBUG
 - (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
-    [Functions checkCertificateChallenge:challenge completionHandler:completionHandler];
+    [PBMFunctions checkCertificateChallenge:challenge completionHandler:completionHandler];
 }
 #endif
 

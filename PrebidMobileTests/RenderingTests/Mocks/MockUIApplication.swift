@@ -15,7 +15,7 @@
 
 import Foundation
 
-class MockUIApplication : PBMUIApplicationProtocol {
+class MockUIApplication: NSObject, PBMUIApplicationProtocol {
     
     var statusBarFrame = CGRect(x: 0.0, y: 0.0, width: 1.0, height:2.0)
     var isStatusBarHidden = false
@@ -27,7 +27,9 @@ class MockUIApplication : PBMUIApplicationProtocol {
         return self.openURLClosure?(url) ?? false
     }
     
-    func open(_ url: URL, options: [String : Any]? = [:], completionHandler completion: ((Bool) -> Void)? = nil) {
+    func open(_ url: URL,
+              options: [UIApplication.OpenExternalURLOptionsKey: Any],
+              completionHandler completion: ((Bool) -> Void)? = nil) {
         let result = openURL(url: url)
         completion?(result)
     }

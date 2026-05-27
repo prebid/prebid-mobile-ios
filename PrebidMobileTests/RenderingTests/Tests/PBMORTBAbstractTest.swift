@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class ORTBAbstractTest : XCTestCase {
     
@@ -26,7 +26,7 @@ class ORTBAbstractTest : XCTestCase {
     }
     
     private var omidVersion: String {
-        return PBMFunctions.sdkVersion();
+        return Functions.sdkVersion;
     }
     
     private let userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 OpenXSDK/\(Prebid.shared.version)"
@@ -250,7 +250,7 @@ class ORTBAbstractTest : XCTestCase {
         skadn.sourceapp = "12345678"
         skadn.skadnetids = ["1", "2", "3"]
         
-        var expectedString = "{\"skadnetids\":[\"1\",\"2\",\"3\"],\"sourceapp\":\"12345678\",\"versions\":\(PBMFunctions.supportedSKAdNetworkVersions())}"
+        var expectedString = "{\"skadnetids\":[\"1\",\"2\",\"3\"],\"sourceapp\":\"12345678\",\"versions\":\(Functions.supportedSKAdNetworkVersions)}"
         expectedString.removeAll(where: { $0 == " "})
         
         codeAndDecode(abstract: skadn, expectedString: expectedString)

@@ -16,7 +16,6 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"

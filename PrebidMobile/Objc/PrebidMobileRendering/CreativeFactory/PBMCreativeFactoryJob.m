@@ -16,7 +16,6 @@
 #import "PBMCreativeFactoryJob.h"
 #import "PBMHTMLCreative.h"
 #import "PBMVideoCreative.h"
-#import "PBMDownloadDataHelper.h"
 #import "PBMMacros.h"
 #import "Log+Extensions.h"
 
