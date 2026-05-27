@@ -30,6 +30,12 @@ The script handles simulator create/delete, the two-step build-for-testing /
 test-without-building flow, -retry-tests-on-failure, and the correct test plan
 (-testPlan PrebidMobilePRTests or PrebidMobileTests).
 
+## Pass/fail policy
+
+**`--quick` run is the gate for migration PRs.** Any failure in `./scripts/testPrebidMobile.sh --latest --quick` is a regression that must be fixed before committing. Do not recheck the same failure on another branch or re-run to dismiss it — if it fails, investigate and fix.
+
+The only exception is `PBMBidRequesterTest.testBanner_300x250` (documented in playbook.md as a pre-existing flaky test). If that is the sole failure and it passes when run in isolation, proceed. Every other failure is a hard stop.
+
 ## Running a single test class (raw xcodebuild)
 
 Use the two-step approach so you can iterate without rebuilding:

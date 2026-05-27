@@ -66,6 +66,11 @@ Deferred 4 files due to unported ObjC dependencies (noted below).
 
 ---
 
+## Commits (branch `swift-migration-phase-2`)
+
+- `632bd5dd` S2.1 — Port standalone utilities to Swift
+- `16f89cb1` docs: update playbook with S2.1 gaps
+
 ## Test plan
 
 - [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean
