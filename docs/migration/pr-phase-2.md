@@ -71,6 +71,7 @@ Deferred 4 files due to unported ObjC dependencies (noted below).
 - `632bd5dd` S2.1 — Port standalone utilities to Swift
 - `16f89cb1` docs: update playbook with S2.1 gaps
 - `990b6778` S2.2 — Port Foundation/UI category extensions to Swift
+- `c81e0568` S2.3 — Port NSTimer wrapper to Swift; Phase 2 complete
 
 ### S2.2 — Foundation/UI category extensions (ExtensionsAndWrappers/)
 
@@ -94,5 +95,18 @@ Ported all 11 files (including Exposure/ subgroup).
 
 - [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean (S2.1 + S2.2)
 - [x] `./scripts/testPrebidMobile.sh --latest --quick` — 696 tests, 0 failures (S2.2 final; `testBanner_300x250` and `testInitializeSDK` are pre-existing flaky/network tests)
+### S2.3 — NSTimer wrapper
+
+Ported `NSTimer+PBMScheduledTimerFactory` and `PBMWeakTimerTargetBox`. Also added `TimerInterface` as a Swift `@objc protocol` replacing the ObjC-only `PBMTimerInterface`.
+
+**Key findings:**
+- `NSInvocationOperation` unavailable in Swift — replaced with `NSObject.perform(_:with:)` (semantically equivalent for synchronous selector invocation)
+- `PBMScheduledTimerFactory` ObjC block typedef cannot be exported from Swift as a named type — kept in `PBMScheduledTimerFactory.h` (header-only, no `.m`); Swift closure `(TimeInterval, AnyObject, Selector, Any?, Bool) -> TimerInterface` is structurally compatible with the ObjC typedef, so ObjC callers assign without explicit casts
+- `PBMScheduledTimerFactory.h` needed `#import <Foundation/Foundation.h>` added directly after `PBMTimerInterface.h` was reduced to a forward declaration (lost the transitively-imported Foundation types)
+
+## Test plan
+
+- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean (all phases)
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 694 tests, 0 failures (S2.3 final)
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite (pending)
 - [ ] Reviewer: confirm gap S2.1-A (NS_TYPED_ENUM deferred) and gap S2.1-B (@_spi imports in tests)
