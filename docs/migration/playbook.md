@@ -282,3 +282,33 @@ Deleting `PBMORTBAbstract.m` removes:
 - [ ] Swift test files updated: no `'PBMORTBFoo' has been renamed` compiler errors
 - [ ] (Phase 1 & 3) JSON round-trip parity test passes (see S0.2 harness)
 - [ ] No `"app": {}` / `"device": {}` empty-object regressions in captured bid requests
+
+## Phase 2 gaps (discovered S2.1)
+
+### Gap S2.1-A — NS_TYPED_ENUM constants cannot be bridged as free-standing ObjC constants from Swift
+
+`FOUNDATION_EXPORT NSString * const PBMFooAction = @"foo"` style global constants have no Swift equivalent that bridges to C-level symbols. Keep a residual ObjC `.m` file containing ONLY the constant assignments; port the class implementations to Swift separately. Delete the residual `.m` when the last ObjC consumer of those constants is ported.
+
+### Gap S2.1-B — @_spi(PBMInternal) class requires @_spi import in test files
+
+`Functions` (`PBMFunctions`) is declared `@_spi(PBMInternal) public class`. Any Swift test file that accesses `Functions.*` directly must use `@_spi(PBMInternal) @testable import PrebidMobile` instead of just `@testable import PrebidMobile`.
+
+### Gap S2.1-C — dispatch_time() C function unavailable in Swift
+
+Replace `dispatch_time(startTime, delta)` with `(DispatchTime(uptimeNanoseconds: startTime) + timeInterval).rawValue`. Use `.now()` when `startTime == DISPATCH_TIME_NOW (== 0)`.
+
+### Gap S2.1-D — UIInterfaceOrientationIsPortrait() unavailable in Swift
+
+Replace with `orientation.isPortrait` (Swift property on `UIInterfaceOrientation`).
+
+### Gap S2.1-E — @objc(selector:) on throws methods must include :error: label
+
+For `@objc(name:)` on a Swift `throws` method, the explicit name must include the `:error:` label or the compiler emits "provides N argument names, but method has N+1 parameters (including the error parameter)". Use `@objc(dictionaryFromJSONString:error:)` not `@objc(dictionaryFromJSONString:)`.
+
+### Gap S2.1-F — CALayer @dynamic → @NSManaged in Swift
+
+`@dynamic value;` in ObjC CALayer subclasses maps to `@NSManaged var value: CGFloat` in Swift.
+
+### Gap S2.1-G — ObjC protocol migration: reduce header to forward declaration
+
+When porting an `@objc protocol` to Swift, change the ObjC private header to just `@protocol PBMFoo;` (forward declaration). The full definition comes from `PrebidMobile-Swift.h` via `SwiftImport.h`. Any ObjC `.m` file that calls methods on `id<PBMFoo>` needs `#import "SwiftImport.h"`.
