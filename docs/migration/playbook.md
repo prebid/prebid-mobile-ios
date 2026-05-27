@@ -312,3 +312,65 @@ For `@objc(name:)` on a Swift `throws` method, the explicit name must include th
 ### Gap S2.1-G — ObjC protocol migration: reduce header to forward declaration
 
 When porting an `@objc protocol` to Swift, change the ObjC private header to just `@protocol PBMFoo;` (forward declaration). The full definition comes from `PrebidMobile-Swift.h` via `SwiftImport.h`. Any ObjC `.m` file that calls methods on `id<PBMFoo>` needs `#import "SwiftImport.h"`.
+
+## Phase 2 gaps (discovered S2.2)
+
+### Gap S2.2-A — @objc extensions on Foundation types bridge to ObjC via PrebidMobile-Swift.h
+
+`@objc extension NSDictionary`, `@objc extension NSString`, etc. with `@objc public func` methods appear in `PrebidMobile-Swift.h` as ObjC categories. ObjC consumers that import `SwiftImport.h` can call these methods without any additional header imports after the original `.h` is deleted.
+
+**Rule:** When porting ObjC categories on Foundation types (`NSDictionary`, `NSString`, `NSURL`, etc.), create a Swift `extension SomeClass` with `@objc public` methods. Remove the ObjC header import from all consumers; they get the methods automatically via `PrebidMobile-Swift.h`.
+
+### Gap S2.2-B — NSString nil-param bridging: use String? to preserve nil guards
+
+ObjC `nil` passed to a `nonnull NSString *` parameter bridges to Swift `String` as `""` (empty string), not `nil`. If the original ObjC code had a nil guard (`if (!param) { return self; }`), the Swift equivalent must use `String?` parameters so the nil passes through correctly.
+
+**Rule:** For methods that had ObjC nil guards on string parameters, declare those parameters as `String?` in Swift (even if the ObjC header said `nonnull`). This is a backwards-compatible relaxation (`_Nullable` vs `_Nonnull` in the ObjC bridge).
+
+### Gap S2.2-C — SPI protocol conformers must inherit @_spi
+
+A Swift class that conforms to an `@_spi(PBMInternal)` protocol (e.g. `ViewExposure`) must itself be declared `@_spi(PBMInternal)`. Otherwise the compiler emits "cannot use protocol 'Foo' here; it is SPI".
+
+**Rule:** When implementing a `@_spi` protocol, add `@_spi(PBMInternal)` to the conforming class/struct declaration. Similarly, properties/methods that return a `@_spi` type must themselves be marked `@_spi`.
+
+### Gap S2.2-D — Swift name vs ObjC name for Factory and other @_spi classes
+
+`Factory` (Swift name) is `PBMFactory` (ObjC bridge name via `@objc(PBMFactory)`). When writing Swift code that calls methods on the class, always use the Swift name `Factory`, never `PBMFactory`. Applies to all `@_spi` classes that have `@objc(PBMFoo)` bridge names.
+
+### Gap S2.2-E — logViewHierarchy naming: @objc(LogViewHierarchy) with lowercase Swift name
+
+ObjC method `- (void)LogViewHierarchy` (capital L) imports to Swift test code as `logViewHierarchy()` (lowercase). Swift callers use the lowercase name. Fix: name the Swift method `logViewHierarchy()` and add `@objc(LogViewHierarchy)` to preserve the ObjC selector for ObjC consumers.
+
+**Rule:** When an ObjC method name starts with a capital letter, Swift automatically lowercases the first letter when importing. If both ObjC and Swift callers exist, name the Swift method in lowercase and use the explicit `@objc(UppercaseName)` annotation to maintain the ObjC selector.
+
+### Gap S2.2-F — DEBUG-only ObjC category properties: KVC in Swift
+
+`Prebid.forcedIsViewable` is defined in a private `#ifdef DEBUG` ObjC category (`Prebid+TestExtension.h`). Since private headers are not visible to Swift (Gap 8), access it via KVC: `Prebid.shared.value(forKey: "forcedIsViewable") as? Bool ?? false`. Only safe inside `#if DEBUG` blocks.
+
+## Phase 2 gaps (discovered S2.3)
+
+### Gap S2.3-A — NSInvocationOperation not available in Swift
+
+`NSInvocationOperation` is an ObjC-only class. Replace with `NSObject.perform(_:with:)` for synchronous target/selector invocation:
+
+```swift
+// ObjC: NSInvocationOperation(target: obj, selector: sel, object: arg).start()
+// Swift:
+if target.responds(to: selector) {
+    target.perform(selector, with: argument)
+}
+```
+
+### Gap S2.3-B — ObjC block typedef cannot be exported from Swift as a named type
+
+ObjC `typedef id<Foo>(^PBMBar)(NSTimeInterval, id, SEL, id?, BOOL)` cannot be reproduced in Swift as a named ObjC-visible type. Options:
+1. Keep the typedef `.h` file (no `.m` to delete — it's header-only). ObjC consumers continue importing it.
+2. The Swift closure `(TimeInterval, AnyObject, Selector, Any?, Bool) -> ProtocolType` generates an ObjC block type with the same signature. ObjC assignment is compatible without explicit casts (block types are structurally typed).
+
+**Rule:** For header-only ObjC typedef files (`.h` with no corresponding `.m`), there is nothing to "port" — keep them in place. The Swift implementation uses a matching closure type; structural compatibility with the ObjC typedef is sufficient.
+
+### Gap S2.3-C — Header chain: reducing one header breaks its importers
+
+When `PBMTimerInterface.h` was reduced to a forward declaration `@protocol PBMTimerInterface;` (removing `@import Foundation;`), `PBMScheduledTimerFactory.h` lost Foundation types it was getting transitively. Fix: add `#import <Foundation/Foundation.h>` directly to any header that loses types via a reduced dependency.
+
+**Rule:** After reducing a private header to a forward declaration, check every header that `#import`s it for Foundation-type usage (`NSTimeInterval`, `BOOL`, `NS_ASSUME_NONNULL_BEGIN`, etc.) and add `#import <Foundation/Foundation.h>` or `@import Foundation;` as needed.

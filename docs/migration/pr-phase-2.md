@@ -1,6 +1,6 @@
 ## Summary
 
-Phase 2 — Utilities & extensions. S2.1 complete; S2.2 and S2.3 pending.
+Phase 2 — Utilities & extensions. All three steps complete (S2.1, S2.2, S2.3).
 
 All Swift twins live under `PrebidMobile/Swift/PrebidMobileRendering/Utilities/`.
 Naming: Swift class = `FooBar`, file = `FooBar.swift`, ObjC bridge = `@objc(PBMFooBar)`.
@@ -93,8 +93,7 @@ Ported all 11 files (including Exposure/ subgroup).
 
 ## Test plan
 
-- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean (S2.1 + S2.2)
-- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 696 tests, 0 failures (S2.2 final; `testBanner_300x250` and `testInitializeSDK` are pre-existing flaky/network tests)
+- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean (all steps)
 ### S2.3 — NSTimer wrapper
 
 Ported `NSTimer+PBMScheduledTimerFactory` and `PBMWeakTimerTargetBox`. Also added `TimerInterface` as a Swift `@objc protocol` replacing the ObjC-only `PBMTimerInterface`.
