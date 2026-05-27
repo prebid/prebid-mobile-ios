@@ -14,9 +14,8 @@
  */
 
 #import "PBMMacros.h"
+#import "PBMScheduledTimerFactory.h"
 
-#import "NSTimer+PBMScheduledTimerFactory.h"
-#import "PBMWeakTimerTargetBox.h"
 
 #import "SwiftImport.h"
 

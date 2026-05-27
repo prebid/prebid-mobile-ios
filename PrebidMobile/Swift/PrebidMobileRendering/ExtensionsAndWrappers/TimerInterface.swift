@@ -13,5 +13,10 @@
  limitations under the License.
  */
 
-// Protocol moved to Swift. Full definition is available via SwiftImport.h (PrebidMobile-Swift.h).
-@protocol PBMTimerInterface;
+import Foundation
+
+@objc(PBMTimerInterface) public protocol TimerInterface: NSObjectProtocol {
+    func invalidate()
+}
+
+extension Timer: TimerInterface {}

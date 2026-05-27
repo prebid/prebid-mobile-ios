@@ -13,5 +13,19 @@
  limitations under the License.
  */
 
-// Protocol moved to Swift. Full definition is available via SwiftImport.h (PrebidMobile-Swift.h).
-@protocol PBMTimerInterface;
+import Foundation
+
+extension Timer {
+    @objc(pbmScheduledTimerFactory)
+    public static func pbmScheduledTimerFactory()
+        -> (TimeInterval, AnyObject, Selector, Any?, Bool) -> TimerInterface
+    {
+        return { timeInterval, target, selector, userInfo, repeats in
+            Timer.scheduledTimer(timeInterval: timeInterval,
+                                 target:      target,
+                                 selector:    selector,
+                                 userInfo:    userInfo,
+                                 repeats:     repeats)
+        }
+    }
+}
