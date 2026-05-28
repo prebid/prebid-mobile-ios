@@ -31,6 +31,7 @@ class ORTBBidExtPrebidCache: PBMJsonCodable {
         case key
         case bids
         case vastXml
+        case vastxml
     }
     
     init() {
@@ -44,9 +45,8 @@ class ORTBBidExtPrebidCache: PBMJsonCodable {
         bids    = json[.bids]
         vastXml = json[.vastXml]
         // PBS uses "vastxml" in cache requests and may return it in responses, while older/typed models use "vastXml".
-        if vastXml?.hasCacheData != true,
-           let vastXmlDictionary = jsonDictionary["vastxml"] as? [String : Any] {
-            vastXml = ORTBBidExtPrebidCacheBids(jsonDictionary: vastXmlDictionary)
+        if vastXml?.hasCacheData != true {
+            vastXml = json[.vastxml]
         }
     }
     
