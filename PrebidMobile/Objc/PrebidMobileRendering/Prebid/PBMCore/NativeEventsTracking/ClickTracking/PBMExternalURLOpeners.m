@@ -14,6 +14,7 @@
  */
 
 #import "PBMExternalURLOpeners.h"
+#import "SwiftImport.h"
 
 @implementation PBMExternalURLOpeners
 

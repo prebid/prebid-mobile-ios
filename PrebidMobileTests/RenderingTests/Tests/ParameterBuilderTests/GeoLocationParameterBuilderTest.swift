@@ -28,7 +28,7 @@ class GeoLocationParameterBuilderTest : XCTestCase {
     func testBasic() {
         let mockLocationManagerSuccessful = MockLocationManagerSuccessful.sharedMock
         let builder = GeoLocationParameterBuilder(locationManager:mockLocationManagerSuccessful)
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         
         builder.build(bidRequest)
         
@@ -44,7 +44,7 @@ class GeoLocationParameterBuilderTest : XCTestCase {
         let builder = GeoLocationParameterBuilder(locationManager:mockLocationManagerSuccessful)
         
         
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         bidRequest.user.geo.type = 3
         bidRequest.user.geo.lat = 123.0
         bidRequest.user.geo.lon = 456.0

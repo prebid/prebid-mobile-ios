@@ -31,7 +31,7 @@ class PBMTouchDownRecognizerTests : XCTestCase {
         //http://blog.lazerwalker.com/objective-c/code/2013/10/16/faking-touch-events-on-ios-for-fun-and-profit.html
         
         // Should start as Possible
-        let recognizer = TestablePBMTouchDownRecognizer()
+        let recognizer = TestableTouchDownRecognizer()
         PBMAssertEq(recognizer.state, .possible)
         
         // Trigger touch down logic
@@ -42,7 +42,7 @@ class PBMTouchDownRecognizerTests : XCTestCase {
     }
     
     func testDoesNotTransitionIfNotPossible() {
-        let recognizer = TestablePBMTouchDownRecognizer()
+        let recognizer = TestableTouchDownRecognizer()
         recognizer.mockState = .failed
         
         recognizer.handleTouch()
@@ -52,7 +52,7 @@ class PBMTouchDownRecognizerTests : XCTestCase {
     }
     
     func testTransitionsOnlyOnce() {
-        let recognizer = TestablePBMTouchDownRecognizer()
+        let recognizer = TestableTouchDownRecognizer()
         
         recognizer.handleTouch()
         PBMAssertEq(recognizer.state, .ended)
@@ -64,7 +64,7 @@ class PBMTouchDownRecognizerTests : XCTestCase {
     
     // MARK: - Test Helpers
 
-    private class TestablePBMTouchDownRecognizer: PBMTouchDownRecognizer {
+    private class TestableTouchDownRecognizer: TouchDownRecognizer {
         var mockState: UIGestureRecognizer.State = .possible
         
         override var state: UIGestureRecognizer.State {

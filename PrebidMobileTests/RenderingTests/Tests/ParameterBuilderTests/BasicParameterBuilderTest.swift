@@ -54,7 +54,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         
         //Run Builder
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         //Check Impression
@@ -90,7 +90,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
         
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         guard let imp = bidRequest.imp.first else {
@@ -112,7 +112,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
         
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         guard let imp = bidRequest.imp.first else {
@@ -156,7 +156,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         
         //Run Builder
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         XCTAssertNil(bidRequest.regs.coppa)
@@ -185,7 +185,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         
         //Run Builder
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         PBMAssertEq(bidRequest.regs.coppa, expectedRegValue)
@@ -195,7 +195,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         let adConfiguration = AdConfiguration()
         
         let sdkConfiguration = Prebid.mock
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
@@ -267,7 +267,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         guard let video = bidRequest.imp.first?.video else {
@@ -299,7 +299,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
                                                targeting: targeting)
         
         // Run Builder
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         // Check Regs
@@ -318,7 +318,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
         
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         //Check that this is counted as an interstitial

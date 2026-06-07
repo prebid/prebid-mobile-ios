@@ -19,49 +19,49 @@ class PBMORTBBidRequestTest: XCTestCase {
     
     func testCombinedProperties() {
         
-        // PBMORTBBidRequest
-        checkInt(PBMORTBBidRequest(), property: "tmax")
+        // ORTBBidRequest
+        checkInt(ORTBBidRequest(), property: "tmax")
         
-        // PBMORTBBanner
-        checkInt(PBMORTBBanner(), property: "pos")
+        // ORTBBanner
+        checkInt(ORTBBanner(), property: "pos")
         
-        // PBMORTBVideo
-        checkInt(PBMORTBVideo(), property: "minduration")
-        checkInt(PBMORTBVideo(), property: "maxduration")
-        checkInt(PBMORTBVideo(), property: "w")
-        checkInt(PBMORTBVideo(), property: "h")
-        checkInt(PBMORTBVideo(), property: "startdelay")
-        checkInt(PBMORTBVideo(), property: "minbitrate")
-        checkInt(PBMORTBVideo(), property: "maxbitrate")
+        // ORTBVideo
+        checkInt(ORTBVideo(), property: "minduration")
+        checkInt(ORTBVideo(), property: "maxduration")
+        checkInt(ORTBVideo(), property: "w")
+        checkInt(ORTBVideo(), property: "h")
+        checkInt(ORTBVideo(), property: "startdelay")
+        checkInt(ORTBVideo(), property: "minbitrate")
+        checkInt(ORTBVideo(), property: "maxbitrate")
         
-        // PBMORTBPmp
-        checkInt(PBMORTBPmp(), property: "private_auction")
+        // ORTBPmp
+        checkInt(ORTBPmp(), property: "private_auction")
         
-        // PBMORTBDeal
-        checkInt(PBMORTBDeal(), property: "at")
+        // ORTBDeal
+        checkInt(ORTBDeal(), property: "at")
         
-        // PBMORTBApp
-        checkInt(PBMORTBApp(), property: "privacypolicy")
-        checkInt(PBMORTBApp(), property: "paid")
+        // ORTBApp
+        checkInt(ORTBApp(), property: "privacypolicy")
+        checkInt(ORTBApp(), property: "paid")
         
-        // PBMORTBDevice
-        checkInt(PBMORTBDevice(), property: "lmt")
-        checkInt(PBMORTBDevice(), property: "devicetype")
-        checkInt(PBMORTBDevice(), property: "h")
-        checkInt(PBMORTBDevice(), property: "w")
-        checkInt(PBMORTBDevice(), property: "ppi")
-        checkDouble(PBMORTBDevice(), property: "pxratio")
-        checkInt(PBMORTBDevice(), property: "js")
-        checkInt(PBMORTBDevice(), property: "geofetch")
-        checkInt(PBMORTBDevice(), property: "connectiontype")
+        // ORTBDevice
+        checkInt(ORTBDevice(), property: "lmt")
+        checkInt(ORTBDevice(), property: "devicetype")
+        checkInt(ORTBDevice(), property: "h")
+        checkInt(ORTBDevice(), property: "w")
+        checkInt(ORTBDevice(), property: "ppi")
+        checkDouble(ORTBDevice(), property: "pxratio")
+        checkInt(ORTBDevice(), property: "js")
+        checkInt(ORTBDevice(), property: "geofetch")
+        checkInt(ORTBDevice(), property: "connectiontype")
         
-        // PBMORTBGeo
-        checkDouble(PBMORTBGeo(), property: "lat")
-        checkDouble(PBMORTBGeo(), property: "lon")
-        checkInt(PBMORTBGeo(), property: "type")
-        checkInt(PBMORTBGeo(), property: "accuracy")
-        checkInt(PBMORTBGeo(), property: "lastfix")
-        checkInt(PBMORTBGeo(), property: "utcoffset")
+        // ORTBGeo
+        checkDouble(ORTBGeo(), property: "lat")
+        checkDouble(ORTBGeo(), property: "lon")
+        checkInt(ORTBGeo(), property: "type")
+        checkInt(ORTBGeo(), property: "accuracy")
+        checkInt(ORTBGeo(), property: "lastfix")
+        checkInt(ORTBGeo(), property: "utcoffset")
     }
     
     // MARK: Test Function

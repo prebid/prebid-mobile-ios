@@ -170,8 +170,8 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.delivery, [3])
         PBMAssertEq(video.battr, [15, 16])
         PBMAssertEq(video.skip, 0)
-        XCTAssertEqual(video.pos.intValue, AdPosition.header.rawValue)
-        XCTAssertEqual(video.pos.intValue, 4)
+        XCTAssertEqual(video.pos!.intValue, AdPosition.header.rawValue)
+        XCTAssertEqual(video.pos!.intValue, 4)
     }
     
     func testFirstPartyData() {
@@ -215,11 +215,11 @@ class PrebidParameterBuilderTest: XCTestCase {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         Targeting.shared.omidPartnerName = "Prebid"
-        Targeting.shared.omidPartnerVersion = PBMFunctions.sdkVersion()
+        Targeting.shared.omidPartnerVersion = PrebidConstants.PREBID_VERSION
         var bidRequest = buildBidRequest(with: adUnitConfig)
 
         XCTAssertEqual(bidRequest.source.extOMID.omidpn, "Prebid")
-        XCTAssertEqual(bidRequest.source.extOMID.omidpv, PBMFunctions.sdkVersion())
+        XCTAssertEqual(bidRequest.source.extOMID.omidpv, PrebidConstants.PREBID_VERSION)
 
         targeting.omidPartnerVersion = "test omid version"
         targeting.omidPartnerName = "test omid name"
@@ -1017,8 +1017,8 @@ class PrebidParameterBuilderTest: XCTestCase {
 
     // MARK: - Helpers
     
-    func buildBidRequest(with adUnitConfig: AdUnitConfig) -> PBMORTBBidRequest {
-        let bidRequest = PBMORTBBidRequest()
+    func buildBidRequest(with adUnitConfig: AdUnitConfig) -> ORTBBidRequest {
+        let bidRequest = ORTBBidRequest()
         PBMBasicParameterBuilder(
             adConfiguration: adUnitConfig.adConfiguration,
             sdkConfiguration: sdkConfiguration,

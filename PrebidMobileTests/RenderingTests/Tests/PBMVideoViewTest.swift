@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, PBMVideoViewDelegate {
     
@@ -586,7 +586,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadCompleted")
         
         let url = URL(string: model.videoFileURL!)
-        let downloader = PBMDownloadDataHelper(serverConnection: connection)
+        let downloader = DownloadDataHelper(serverConnection: connection)
         downloader.downloadData(for: url, maxSize: PBMVideoCreative.maxSizeForPreRenderContent, completionClosure: { (data:Data?, error:Error?) in
             
             DispatchQueue.main.async {
