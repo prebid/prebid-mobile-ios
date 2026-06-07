@@ -14,7 +14,7 @@
  */
 
 #import <XCTest/XCTest.h>
-#import "NSMutableDictionary+PBMExtensions.h"
+#import "SwiftImport.h"
 
 @interface NSMutableDictionaryTests : XCTestCase
 
