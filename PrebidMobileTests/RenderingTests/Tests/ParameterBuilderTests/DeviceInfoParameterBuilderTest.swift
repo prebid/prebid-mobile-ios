@@ -76,6 +76,19 @@ class DeviceInfoParameterBuilderTest: XCTestCase {
             PBMAssertEq(self.bidRequest.device.extAtts.atts as? UInt, ATTrackingManager.AuthorizationStatus.notDetermined.rawValue)
         }
     }
+    
+    func testEmptyAdvertisingIdentifier() {
+        MockDeviceAccessManager.mockAdvertisingIdentifier = ""
+        
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+        
+        self.deviceInfoParameterBuilder.build(self.bidRequest)
+        
+        XCTAssertNil(self.bidRequest.device.ifa)
+        PBMAssertEq(self.bidRequest.device.extAtts.ifv, MockDeviceAccessManager.mockIdentifierForVendor)
+    }
 
     func testDeviceDetails() {
         self.deviceInfoParameterBuilder.build(self.bidRequest)

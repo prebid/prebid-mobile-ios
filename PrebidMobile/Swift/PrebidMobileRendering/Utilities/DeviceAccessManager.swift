@@ -82,7 +82,10 @@ public class DeviceAccessManager: NSObject {
     // MARK: - IDFA & Tracking
 
     @objc public func advertisingIdentifier() -> String {
-        ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        let advertisingIdentifier = ASIdentifierManager.shared()
+            .perform(#selector(getter: ASIdentifierManager.advertisingIdentifier))?
+            .takeUnretainedValue() as? NSUUID
+        return advertisingIdentifier?.uuidString ?? ""
     }
 
     @objc public func advertisingTrackingEnabled() -> Bool {
