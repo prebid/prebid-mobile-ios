@@ -30,6 +30,7 @@
 		0012D8C52E214EBE007013F3 /* SampleInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C9B2CFF988E00A480C0 /* SampleInterstitialController.swift */; };
 		0012D8C62E214EBE007013F3 /* SampleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514C992CFF988E00A480C0 /* SampleRenderer.swift */; };
 		0012D8C72E214EBE007013F3 /* GAMOriginalAPIVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B5D2921522000228462 /* GAMOriginalAPIVideoRewardedViewController.swift */; };
+		CB250A4B5F90FD8D32B6B420 /* GAMOriginalAPIDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B533CDEDF2992EE8F209D868 /* GAMOriginalAPIDisplayRewardedViewController.swift */; };
 		0012D8C82E214EBE007013F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530D4AA5291A4BC600A2C796 /* AppDelegate.swift */; };
 		0012D8C92E214EBE007013F3 /* InstreamBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B6A29217E8600228462 /* InstreamBaseViewController.swift */; };
 		0012D8CA2E214EBE007013F3 /* MAXDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6BA29229FA000A1F582 /* MAXDisplayBannerViewController.swift */; };
@@ -91,6 +92,7 @@
 		53072B592921023E00228462 /* InterstitialBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B572921023E00228462 /* InterstitialBaseViewController.swift */; };
 		53072B5A2921023E00228462 /* InterstitialBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53072B582921023E00228462 /* InterstitialBaseViewController.xib */; };
 		53072B5E2921522000228462 /* GAMOriginalAPIVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B5D2921522000228462 /* GAMOriginalAPIVideoRewardedViewController.swift */; };
+		4493932962A67554AA81892B /* GAMOriginalAPIDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B533CDEDF2992EE8F209D868 /* GAMOriginalAPIDisplayRewardedViewController.swift */; };
 		53072B612921585900228462 /* NativeBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B5F2921585900228462 /* NativeBaseViewController.swift */; };
 		53072B622921585900228462 /* NativeBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53072B602921585900228462 /* NativeBaseViewController.xib */; };
 		53072B6529215D4200228462 /* GAMOriginalAPINativeBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B6429215D4200228462 /* GAMOriginalAPINativeBannerViewController.swift */; };
@@ -179,6 +181,7 @@
 		539928F5292566AD0078053C /* GAMOriginalAPIDisplayBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 539928F4292566AD0078053C /* GAMOriginalAPIDisplayBannerViewController.m */; };
 		539928F829257FFB0078053C /* GAMOriginalAPIVideoBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 539928F729257FFB0078053C /* GAMOriginalAPIVideoBannerViewController.m */; };
 		539928FB292642B50078053C /* GAMOriginalAPIDisplayInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 539928FA292642B50078053C /* GAMOriginalAPIDisplayInterstitialViewController.m */; };
+		6FEC0948B1EE02267FE48E56 /* GAMOriginalAPIDisplayRewardedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9165242CA3D49276327EE9BA /* GAMOriginalAPIDisplayRewardedViewController.m */; };
 		539928FE2926460F0078053C /* GAMOriginalAPIVideoInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 539928FD2926460F0078053C /* GAMOriginalAPIVideoInterstitialViewController.m */; };
 		539929012926488B0078053C /* GAMOriginalAPIVideoRewardedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 539929002926488B0078053C /* GAMOriginalAPIVideoRewardedViewController.m */; };
 		5399290429264C5A0078053C /* GAMOriginalAPIVideoInstreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5399290329264C5A0078053C /* GAMOriginalAPIVideoInstreamViewController.m */; };
@@ -321,6 +324,7 @@
 		53072B572921023E00228462 /* InterstitialBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialBaseViewController.swift; sourceTree = "<group>"; };
 		53072B582921023E00228462 /* InterstitialBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterstitialBaseViewController.xib; sourceTree = "<group>"; };
 		53072B5D2921522000228462 /* GAMOriginalAPIVideoRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIVideoRewardedViewController.swift; sourceTree = "<group>"; };
+		B533CDEDF2992EE8F209D868 /* GAMOriginalAPIDisplayRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIDisplayRewardedViewController.swift; sourceTree = "<group>"; };
 		53072B5F2921585900228462 /* NativeBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeBaseViewController.swift; sourceTree = "<group>"; };
 		53072B602921585900228462 /* NativeBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NativeBaseViewController.xib; sourceTree = "<group>"; };
 		53072B6429215D4200228462 /* GAMOriginalAPINativeBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPINativeBannerViewController.swift; sourceTree = "<group>"; };
@@ -431,6 +435,8 @@
 		539928F729257FFB0078053C /* GAMOriginalAPIVideoBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GAMOriginalAPIVideoBannerViewController.m; sourceTree = "<group>"; };
 		539928F9292642B50078053C /* GAMOriginalAPIDisplayInterstitialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAMOriginalAPIDisplayInterstitialViewController.h; sourceTree = "<group>"; };
 		539928FA292642B50078053C /* GAMOriginalAPIDisplayInterstitialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GAMOriginalAPIDisplayInterstitialViewController.m; sourceTree = "<group>"; };
+		FBED14AE3817ED806EAAAD99 /* GAMOriginalAPIDisplayRewardedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAMOriginalAPIDisplayRewardedViewController.h; sourceTree = "<group>"; };
+		9165242CA3D49276327EE9BA /* GAMOriginalAPIDisplayRewardedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GAMOriginalAPIDisplayRewardedViewController.m; sourceTree = "<group>"; };
 		539928FC2926460F0078053C /* GAMOriginalAPIVideoInterstitialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAMOriginalAPIVideoInterstitialViewController.h; sourceTree = "<group>"; };
 		539928FD2926460F0078053C /* GAMOriginalAPIVideoInterstitialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GAMOriginalAPIVideoInterstitialViewController.m; sourceTree = "<group>"; };
 		539928FF2926488B0078053C /* GAMOriginalAPIVideoRewardedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAMOriginalAPIVideoRewardedViewController.h; sourceTree = "<group>"; };
@@ -773,6 +779,7 @@
 				533784C72AC2C883009A8650 /* GAMOriginalAPIMultiformatNativeStylesViewController.swift */,
 				53072B6429215D4200228462 /* GAMOriginalAPINativeBannerViewController.swift */,
 				53072B662921726C00228462 /* GAMOriginalAPINativeViewController.swift */,
+				B533CDEDF2992EE8F209D868 /* GAMOriginalAPIDisplayRewardedViewController.swift */,
 				53072B722922621600228462 /* GAMOriginalAPIVideoBannerViewController.swift */,
 				53072B6829217D1800228462 /* GAMOriginalAPIVideoInstreamViewController.swift */,
 				53072B742922655400228462 /* GAMOriginalAPIVideoInterstitialViewController.swift */,
@@ -942,6 +949,8 @@
 				53992909292665D80078053C /* GAMOriginalAPINativeViewController.m */,
 				539928F629257FFB0078053C /* GAMOriginalAPIVideoBannerViewController.h */,
 				539928F729257FFB0078053C /* GAMOriginalAPIVideoBannerViewController.m */,
+				FBED14AE3817ED806EAAAD99 /* GAMOriginalAPIDisplayRewardedViewController.h */,
+				9165242CA3D49276327EE9BA /* GAMOriginalAPIDisplayRewardedViewController.m */,
 				5399290229264C5A0078053C /* GAMOriginalAPIVideoInstreamViewController.h */,
 				5399290329264C5A0078053C /* GAMOriginalAPIVideoInstreamViewController.m */,
 				539928FC2926460F0078053C /* GAMOriginalAPIVideoInterstitialViewController.h */,
@@ -1710,6 +1719,7 @@
 				0012D8C52E214EBE007013F3 /* SampleInterstitialController.swift in Sources */,
 				0012D8C62E214EBE007013F3 /* SampleRenderer.swift in Sources */,
 				0012D8C72E214EBE007013F3 /* GAMOriginalAPIVideoRewardedViewController.swift in Sources */,
+				CB250A4B5F90FD8D32B6B420 /* GAMOriginalAPIDisplayRewardedViewController.swift in Sources */,
 				0012D8C82E214EBE007013F3 /* AppDelegate.swift in Sources */,
 				0012D8C92E214EBE007013F3 /* InstreamBaseViewController.swift in Sources */,
 				0012D8CA2E214EBE007013F3 /* MAXDisplayBannerViewController.swift in Sources */,
@@ -1780,6 +1790,7 @@
 				53514C9F2CFF988E00A480C0 /* SampleInterstitialController.swift in Sources */,
 				53514CA02CFF988E00A480C0 /* SampleRenderer.swift in Sources */,
 				53072B5E2921522000228462 /* GAMOriginalAPIVideoRewardedViewController.swift in Sources */,
+				4493932962A67554AA81892B /* GAMOriginalAPIDisplayRewardedViewController.swift in Sources */,
 				530D4AA6291A4BC600A2C796 /* AppDelegate.swift in Sources */,
 				53072B6C29217E8600228462 /* InstreamBaseViewController.swift in Sources */,
 				5344E6BB29229FA000A1F582 /* MAXDisplayBannerViewController.swift in Sources */,
@@ -1865,6 +1876,7 @@
 				533784CC2AC2CFF5009A8650 /* GAMOriginalAPIMultiformatNativeStylesViewController.m in Sources */,
 				53514CAD2CFFA99200A480C0 /* InAppDisplayBannerPluginRendererViewController.m in Sources */,
 				539929012926488B0078053C /* GAMOriginalAPIVideoRewardedViewController.m in Sources */,
+				6FEC0948B1EE02267FE48E56 /* GAMOriginalAPIDisplayRewardedViewController.m in Sources */,
 				53514CA72CFFA52A00A480C0 /* SampleAdView.m in Sources */,
 				53BA02C5292531D100BE6015 /* main.m in Sources */,
 				53F35F1C292692DC001C1183 /* AdMobDisplayInterstitialViewController.m in Sources */,

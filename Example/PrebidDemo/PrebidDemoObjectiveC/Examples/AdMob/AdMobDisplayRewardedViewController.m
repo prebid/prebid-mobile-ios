@@ -47,12 +47,17 @@ NSString * const adMobAdUnitDisplayRewardedId = @"ca-app-pub-5922967660082475/56
     
     // 3. Create a MediationRewardedAdUnit
     self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpDisplayRewardedAdMob
-                                                               mediationDelegate:self.mediationDelegate];
+                                                               mediationDelegate:self.mediationDelegate
+                                                                       adFormats:[NSSet setWithObject:AdFormat.banner]];
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);
     [self.admobRewardedAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
+        if (!self) { return; }
+        if (resultCode != ResultCodePrebidDemandFetchSuccess) {
+            NSLog(@"Continuing with AdMob waterfall fallback.");
+        }
         
         // 5. Load the rewarded ad
         @weakify(self);
@@ -71,7 +76,7 @@ NSString * const adMobAdUnitDisplayRewardedId = @"ca-app-pub-5922967660082475/56
             if (rewardedAd != nil) {
                 self.gadRewardedAd = rewardedAd;
                 self.gadRewardedAd.fullScreenContentDelegate = self;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     [self.gadRewardedAd presentFromRootViewController:self userDidEarnRewardHandler:^{
                         NSLog(@"User did earn reward.");
                     }];

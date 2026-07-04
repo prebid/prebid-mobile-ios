@@ -40,6 +40,7 @@ public class RewardedVideoAdUnit: AdUnit, VideoBasedAdUnitProtocol {
     public init(configId: String) {
         super.init(configId: configId, size: nil, adFormats: [.video])
         adUnitConfig.adConfiguration.isInterstitialAd = true
+        adUnitConfig.adConfiguration.isRewarded = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.adConfiguration.videoParameters.placement = .Interstitial
         adUnitConfig.adConfiguration.videoParameters.plcmnt = .Interstitial

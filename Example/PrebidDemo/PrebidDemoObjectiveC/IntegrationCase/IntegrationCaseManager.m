@@ -22,6 +22,7 @@
 #import "GAMOriginalAPIDisplayInterstitialViewController.h"
 #import "GAMOriginalAPIVideoInterstitialViewController.h"
 #import "GAMOriginalAPIMultiformatInterstitialViewController.h"
+#import "GAMOriginalAPIDisplayRewardedViewController.h"
 #import "GAMOriginalAPIVideoRewardedViewController.h"
 #import "GAMOriginalAPIVideoInstreamViewController.h"
 #import "GAMOriginalAPINativeBannerViewController.h"
@@ -139,6 +140,16 @@
             adFormat:AdFormatVideoRewarded
             configurationClosure:^UIViewController *{
                 return [[GAMOriginalAPIVideoRewardedViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
+            initWithTitle:@"GAM (Original API) Display Rewarded 320x480"
+            integrationKind:IntegrationKindGAMOriginal
+            adFormat:AdFormatDisplayRewarded
+            configurationClosure:^UIViewController *{
+                return [[GAMOriginalAPIDisplayRewardedViewController alloc] init];
             }
         ],
         
