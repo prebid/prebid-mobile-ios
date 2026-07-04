@@ -20,6 +20,13 @@ import Foundation
 @objcMembers
 public class MediationRewardedAdUnit : MediationBaseInterstitialAdUnit {
     
+    /// The ad formats for the rewarded ad unit.
+    /// Use `[.banner]` for display rewarded ads, `[.video]` for rewarded video ads, or both for multiformat rewarded inventory.
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
+    }
+    
     // - MARK: Public Methods
     
     /// Initializes a new instance of the `MediationRewardedAdUnit` with the specified configuration ID and mediation delegate.
@@ -31,5 +38,15 @@ public class MediationRewardedAdUnit : MediationBaseInterstitialAdUnit {
         
         adUnitConfig.adConfiguration.isRewarded = true
         adUnitConfig.adFormats = [.video]
+    }
+    
+    /// Initializes a new rewarded mediation ad unit with the specified ad formats.
+    /// - Parameters:
+    ///   - configId: The configuration ID for the ad unit.
+    ///   - mediationDelegate: The delegate for mediation-related tasks.
+    ///   - adFormats: The rewarded ad formats to request. Use `[.banner]` for display rewarded ads, `[.video]` for rewarded video ads, or both for multiformat rewarded inventory.
+    public convenience init(configId: String, mediationDelegate: PrebidMediationDelegate, adFormats: Set<AdFormat>) {
+        self.init(configId: configId, mediationDelegate: mediationDelegate)
+        self.adFormats = adFormats
     }
 }
