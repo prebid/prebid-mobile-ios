@@ -115,10 +115,7 @@ public class InterstitialController:
     }
     
     public func show() {
-        guard !isExpired else { return }
-        
         if let adViewManager = adViewManager {
-            isDisplayed = true
             adViewManager.show()
         }
     }
@@ -174,13 +171,15 @@ public class InterstitialController:
     }
     
     private func expireAd() {
-        guard !isExpired else { return }
+        guard !isExpired, !isDisplayed else { return }
         
         isExpired = true
-        if !isDisplayed {
-            adViewManager = nil
-        }
         loadingDelegate?.interstitialControllerDidExpire?(self)
+    }
+
+    private func cancelExpiration() {
+        expirationWorkItem?.cancel()
+        expirationWorkItem = nil
     }
 }
 
@@ -208,6 +207,7 @@ extension InterstitialController: AdViewManagerDelegate {
     
     public func adDidDisplay() {
         isDisplayed = true
+        cancelExpiration()
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidDisplay(self)
         }

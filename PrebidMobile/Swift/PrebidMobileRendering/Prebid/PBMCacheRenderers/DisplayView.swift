@@ -113,6 +113,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
 
     public func adDidDisplay() {
         isDisplayed = true
+        cancelExpiration()
         interactionDelegate?.trackImpression(forDisplayView: self)
     }
 
@@ -208,13 +209,15 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     }
     
     private func expireAd() {
-        guard !isExpired else { return }
+        guard !isExpired, !isDisplayed else { return }
         
         isExpired = true
-        if !isDisplayed {
-            adViewManager = nil
-        }
         loadingDelegate?.displayViewDidExpire?(self)
+    }
+
+    private func cancelExpiration() {
+        expirationWorkItem?.cancel()
+        expirationWorkItem = nil
     }
 
     private func interactionDelegateWillPresentModal() {

@@ -66,7 +66,7 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         loadingDelegate.onExpire = { interstitialController in
             let controller = interstitialController as? InterstitialController
             XCTAssertTrue(controller?.isExpired == true)
-            XCTAssertNil(controller?.adViewManager)
+            XCTAssertNotNil(controller?.adViewManager)
         }
         controller.loadingDelegate = loadingDelegate
         
@@ -76,28 +76,33 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         XCTAssertTrue(controller.isExpired)
     }
     
-    func testInterstitialControllerPreservesAdViewManagerWhenShownBeforeExpiration() {
+    func testInterstitialControllerDoesNotExpireAfterDisplay() {
         let rawBid = ORTBBid<ORTBBidExt>(bidID: "bid-id", impid: "imp-id", price: 0.1)
         rawBid.exp = 0.3
         let bid = Bid(bid: rawBid)
         let controller = InterstitialController(bid: bid, configId: "test")
         let adViewManager = TestAdViewManager()
         controller.adViewManager = adViewManager
+        let expirationExpectation = expectation(description: "Displayed interstitial should not expire")
+        expirationExpectation.isInverted = true
+        let loadingDelegate = InterstitialExpirationLoadingDelegate(expirationExpectation: expirationExpectation)
+        controller.loadingDelegate = loadingDelegate
         
-        controller.show()
         controller.reportSuccess()
+        controller.show()
+        controller.adDidDisplay()
         
-        let expirationExpectation = expectation(description: "Interstitial expires")
+        let stateExpectation = expectation(description: "Displayed interstitial keeps ad manager")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-            XCTAssertTrue(controller.isExpired)
+            XCTAssertFalse(controller.isExpired)
             XCTAssertTrue(adViewManager.showCalled)
             XCTAssertNotNil(controller.adViewManager)
-            expirationExpectation.fulfill()
+            stateExpectation.fulfill()
         }
-        waitForExpectations(timeout: 1.0)
+        wait(for: [expirationExpectation, stateExpectation], timeout: 1.0)
     }
     
-    func testInterstitialControllerShowAfterExpirationDoesNothing() {
+    func testInterstitialControllerShowAfterExpirationStillShows() {
         let rawBid = ORTBBid<ORTBBidExt>(bidID: "bid-id", impid: "imp-id", price: 0.1)
         rawBid.exp = 0.3
         let bid = Bid(bid: rawBid)
@@ -111,7 +116,7 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
             XCTAssertTrue(controller.isExpired)
             controller.show()
-            XCTAssertFalse(adViewManager.showCalled)
+            XCTAssertTrue(adViewManager.showCalled)
             expirationExpectation.fulfill()
         }
         waitForExpectations(timeout: 1.0)
@@ -145,7 +150,7 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         delegate.onExpire = { displayView in
             let displayView = displayView as? DisplayView
             XCTAssertTrue(displayView?.isExpired == true)
-            XCTAssertNil(displayView?.adViewManager)
+            XCTAssertNotNil(displayView?.adViewManager)
         }
         displayView.loadingDelegate = delegate
         displayView.adViewManager = TestAdViewManager()
@@ -156,7 +161,7 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         XCTAssertTrue(displayView.isExpired)
     }
     
-    func testDisplayViewLoadAdAfterExpirationDoesNothing() {
+    func testDisplayViewLoadAdAfterExpirationDoesNothingForAlreadyLoadedAd() {
         let rawBid = ORTBBid<ORTBBidExt>(bidID: "bid-id", impid: "imp-id", price: 0.1)
         rawBid.exp = 0.3
         let displayView = DisplayView(
@@ -177,6 +182,32 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         waitForExpectations(timeout: 1.0)
     }
     
+    func testDisplayViewDoesNotExpireAfterImpressionTracked() {
+        let rawBid = ORTBBid<ORTBBidExt>(bidID: "bid-id", impid: "imp-id", price: 0.1)
+        rawBid.exp = 0.3
+        let displayView = DisplayView(
+            frame: .zero,
+            bid: Bid(bid: rawBid),
+            adConfiguration: AdUnitConfig(configId: "test", size: .zero)
+        )
+        let expirationExpectation = expectation(description: "Displayed DisplayView should not expire")
+        expirationExpectation.isInverted = true
+        let loadingDelegate = DisplayViewExpirationDelegate(expirationExpectation: expirationExpectation)
+        displayView.loadingDelegate = loadingDelegate
+        displayView.adViewManager = TestAdViewManager()
+        
+        displayView.adLoaded(AdDetails(rawResponse: "", transactionId: ""))
+        displayView.adDidDisplay()
+        
+        let stateExpectation = expectation(description: "Displayed DisplayView keeps ad manager")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            XCTAssertFalse(displayView.isExpired)
+            XCTAssertNotNil(displayView.adViewManager)
+            stateExpectation.fulfill()
+        }
+        wait(for: [expirationExpectation, stateExpectation], timeout: 1.0)
+    }
+    
     func testDisplayViewWithoutExpirationDoesNotExpire() {
         let rawBid = ORTBBid<ORTBBidExt>(bidID: "bid-id", impid: "imp-id", price: 0.1)
         let displayView = DisplayView(
@@ -195,7 +226,7 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         waitForExpectations(timeout: 1.0)
     }
     
-    func testBaseInterstitialAdUnitExpiresLoadedAdAndDisablesReadyAndShow() {
+    func testBaseInterstitialAdUnitExpiresLoadedAdAndKeepsReadyAndShow() {
         let adUnit = BaseInterstitialAdUnit(
             configID: "test",
             minSizePerc: nil,
@@ -220,10 +251,10 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         )
         
         waitForExpectations(timeout: 1.0)
-        XCTAssertFalse(adUnit.isReady)
+        XCTAssertTrue(adUnit.isReady)
         
         adUnit.show(from: UIViewController())
-        XCTAssertFalse(showCalled)
+        XCTAssertTrue(showCalled)
     }
     
 }

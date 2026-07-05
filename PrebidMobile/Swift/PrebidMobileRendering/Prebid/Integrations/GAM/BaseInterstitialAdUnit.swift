@@ -50,11 +50,6 @@ class BaseInterstitialAdUnit:
     
     var isReady: Bool {
         objc_sync_enter(blocksLockToken)
-        guard !isExpired else {
-            objc_sync_exit(blocksLockToken)
-            return false
-        }
-        
         if let block = isReadyBlock {
             let res = block()
             objc_sync_exit(blocksLockToken)
@@ -138,8 +133,7 @@ class BaseInterstitialAdUnit:
         
         objc_sync_enter(blocksLockToken)
         
-        guard !isExpired,
-              self.showBlock != nil,
+        guard self.showBlock != nil,
               self.currentAdBlock == nil else {
             objc_sync_exit(blocksLockToken)
             return;
@@ -296,8 +290,6 @@ class BaseInterstitialAdUnit:
         }
         
         isExpired = true
-        isReadyBlock = nil
-        showBlock = nil
         objc_sync_exit(blocksLockToken)
         
         DispatchQueue.main.async {

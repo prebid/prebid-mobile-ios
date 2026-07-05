@@ -410,15 +410,13 @@ public class BannerView:
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
+            self.autoRefreshManager?.cancelRefreshTimer()
             self.deployedView?.removeFromSuperview()
             self.deployedView = nil
             self.delegate?.bannerViewDidExpire?(self)
             
             if self.adUnitConfig.refreshInterval > 0, !self.isRefreshStopped {
-                self.autoRefreshManager?.cancelRefreshTimer()
                 self.adLoadFlowController?.refresh()
-            } else {
-                self.autoRefreshManager?.cancelRefreshTimer()
             }
         }
     }
