@@ -130,12 +130,6 @@ class BannerViewTest: XCTestCase {
             adSize: CGSize(width: 320, height: 50),
             eventHandler: BannerEventHandlerStandalone()
         )
-        let expirationExpectation = expectation(description: "Banner expiration callback")
-        let delegate = TestBannerDelegate(expireExp: expirationExpectation)
-        delegate.onExpire = { bannerView in
-            XCTAssertNil(bannerView.deployedView)
-        }
-        bannerView.delegate = delegate
         let deployedView = UIView()
         bannerView.deployView(deployedView)
         bannerView.isRefreshStopped = true
@@ -152,6 +146,13 @@ class BannerViewTest: XCTestCase {
         autoRefreshManager.setupRefreshTimer()
         XCTAssertNotNil(autoRefreshManager.delayedBlock)
         bannerView.autoRefreshManager = autoRefreshManager
+        let expirationExpectation = expectation(description: "Banner expiration callback")
+        let delegate = TestBannerDelegate(expireExp: expirationExpectation)
+        delegate.onExpire = { bannerView in
+            XCTAssertNil(bannerView.deployedView)
+            XCTAssertNil(autoRefreshManager.delayedBlock)
+        }
+        bannerView.delegate = delegate
         
         let adLoader = BannerAdLoader(delegate: bannerView)
         bannerView.bannerAdLoaderDidExpire(adLoader)
@@ -192,6 +193,7 @@ class BannerViewTest: XCTestCase {
         let delegate = TestBannerDelegate(expireExp: expirationExpectation)
         delegate.onExpire = { bannerView in
             XCTAssertNil(bannerView.deployedView)
+            XCTAssertNil(autoRefreshManager.delayedBlock)
         }
         bannerView.delegate = delegate
         let deployedView = UIView()
