@@ -131,6 +131,32 @@ class PBMBidResponseTransformerTest: XCTestCase {
         XCTAssertEqual(bidResponse.targetingInfo?["hb_bidder"], "openx")
     }
     
+    func testTargetingInfo_winningBidTargetingOverridesLaterBids() {
+        var winningBid = Self.bidDictionary(cache: nil, bidder: "winning_bidder")
+        Self.setTargetingValue("winning_value", forKey: "shared_key", in: &winningBid)
+        
+        var laterBid = Self.bidDictionary(cache: nil, bidder: "later_bidder")
+        laterBid["id"] = "later-bid-id"
+        Self.setTargetingValue("later_value", forKey: "shared_key", in: &laterBid)
+        
+        let bidResponse = BidResponse(jsonDictionary: [
+            "id": "response-id",
+            "seatbid": [
+                [
+                    "bid": [
+                        winningBid,
+                        laterBid
+                    ],
+                    "seat": "openx"
+                ]
+            ],
+            "cur": "USD"
+        ])
+        
+        XCTAssertEqual(bidResponse.targetingInfo?["hb_bidder"], "winning_bidder")
+        XCTAssertEqual(bidResponse.targetingInfo?["shared_key"], "winning_value")
+    }
+    
     func testRemoveBidsWithoutSuccessfulCache_vastXmlCacheBidRemains() {
         let bidResponse = BidResponse(jsonDictionary: Self.cachedBidResponseDictionary(cacheKey: "vastXml"))
         
@@ -258,5 +284,15 @@ class PBMBidResponseTransformerTest: XCTestCase {
                 "prebid": prebid
             ]
         ]
+    }
+    
+    private static func setTargetingValue(_ value: String, forKey key: String, in bid: inout [String : Any]) {
+        var ext = bid["ext"] as? [String : Any] ?? [:]
+        var prebid = ext["prebid"] as? [String : Any] ?? [:]
+        var targeting = prebid["targeting"] as? [String : Any] ?? [:]
+        targeting[key] = value
+        prebid["targeting"] = targeting
+        ext["prebid"] = prebid
+        bid["ext"] = ext
     }
 }

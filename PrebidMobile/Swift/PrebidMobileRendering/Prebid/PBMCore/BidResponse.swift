@@ -113,9 +113,13 @@ public class BidResponse: NSObject {
                 winningBid = bid
             }
             
-            if let bidTargetingInfo = bid.targetingInfo {
+            if winningBid !== bid, let bidTargetingInfo = bid.targetingInfo {
                 targetingInfo.merge(bidTargetingInfo) { $1 }
             }
+        }
+        
+        if let winningBidTargetingInfo = winningBid?.targetingInfo {
+            targetingInfo.merge(winningBidTargetingInfo) { $1 }
         }
 
         self.winningBid = winningBid
