@@ -118,4 +118,20 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
         XCTAssertEqual(adUnitConfig.adPosition, .footer)
     }
+
+    private final class StubBidSelector: PrebidBidSelecting {
+        func selectBid(from bids: [Bid]) -> Bid? { bids.first }
+    }
+
+    func testBidSelectorForwardsToAdUnitConfig() {
+        let adUnit = MediationBaseInterstitialAdUnit(
+            configId: "test",
+            mediationDelegate: MockEmptyPrebidMediationDelegate()
+        )
+        let selector = StubBidSelector()
+
+        adUnit.bidSelector = selector
+
+        XCTAssertTrue(adUnit.adUnitConfig.bidSelector === selector)
+    }
 }

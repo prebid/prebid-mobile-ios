@@ -129,6 +129,8 @@
         BidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
         
         if (bidResponse && !trasformationError) {
+            [bidResponse applyBidSelector:self.adUnitConfiguration.bidSelector];
+
             if (self.sdkConfiguration.requireServerSideBidCache) {
                 NSInteger bidCount = bidResponse.allBids.count;
                 NSInteger removedBids = [bidResponse removeBidsWithoutSuccessfulCache];

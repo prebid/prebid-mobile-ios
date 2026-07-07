@@ -152,6 +152,56 @@ class PBMBidRequesterTest: XCTestCase {
         waitForExpectations(timeout: 5)
     }
 
+    // MARK: - bidSelector
+
+    private final class HighestPriceBidSelector: PrebidBidSelecting {
+        func selectBid(from bids: [Bid]) -> Bid? {
+            bids.max { $0.price < $1.price }
+        }
+    }
+
+    func testBanner_bidSelectorAppliedBeforeCacheFiltering() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        adUnitConfig.bidSelector = HighestPriceBidSelector()
+
+        // Two bids, both with a successful server cache entry -- only one carries the standard
+        // hb_bidder/hb_pb/hb_cache_id markers (and would be the default winner), the other is
+        // higher-priced but unmarked. If PBMBidRequester didn't actually apply
+        // `adUnitConfiguration.bidSelector`, the marked (lower-price) bid would win instead.
+        let responseBody = """
+        {"id":"resp-id","seatbid":[{"bid":[\
+        {"id":"marked-bid","impid":"imp-1","price":0.75,"adm":"<html></html>","w":300,"h":250,\
+        "ext":{"prebid":{"targeting":{"hb_bidder":"openx","hb_pb":"0.75","hb_cache_id":"cache-id"},"type":"banner",\
+        "cache":{"bids":{"url":"https://prebid-cache/cache?uuid=cache-id","cacheId":"cache-id"}}}}},\
+        {"id":"unmarked-bid","impid":"imp-2","price":2.00,"adm":"<html></html>","w":300,"h":250,\
+        "ext":{"prebid":{"type":"banner",\
+        "cache":{"bids":{"url":"https://prebid-cache/cache?uuid=cache-id-2","cacheId":"cache-id-2"}}}}}\
+        ],"seat":"openx"}],"cur":"USD"}
+        """
+
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(PBMBidResponseTransformer.buildResponse(responseBody))
+        }])
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
+        sdkConfiguration.requireServerSideBidCache = true
+
+        let exp = expectation(description: "exp")
+        requester.requestBids { (bidResponse, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(bidResponse)
+            // Both bids have a successful cache entry, so cache filtering removes neither.
+            XCTAssertEqual(bidResponse?.allBids?.count, 2)
+            XCTAssertEqual(bidResponse?.winningBid?.price, 2.00)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 5)
+    }
+
     func testBanner_invalidAccountID_noRequest() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))

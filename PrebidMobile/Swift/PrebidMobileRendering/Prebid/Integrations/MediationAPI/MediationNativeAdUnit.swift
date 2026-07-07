@@ -133,7 +133,13 @@ public class MediationNativeAdUnit : NSObject {
     public func getGlobalORTBConfig() -> String? {
         nativeAdUnit.adUnitConfig.globalORTBConfig
     }
-    
+
+    /// A publisher-supplied strategy for choosing the winning bid. See `PrebidBidSelecting`.
+    public var bidSelector: PrebidBidSelecting? {
+        get { nativeAdUnit.adUnitConfig.bidSelector }
+        set { nativeAdUnit.adUnitConfig.bidSelector = newValue }
+    }
+
     /// Makes bid request for the native ad unit and setups mediation parameters.
     /// - Parameter completion: The completion handler to call with the result code.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

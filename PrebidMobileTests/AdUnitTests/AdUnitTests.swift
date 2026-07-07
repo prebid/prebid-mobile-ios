@@ -209,6 +209,34 @@ class AdUnitTests: XCTestCase {
         XCTAssertEqual(resultCode, expected)
     }
     
+    // Selector returns nil => demand suppressed, no keywords attached, regardless of
+    // forceSdkToChooseWinner. A selector's "no winner" decision must be final, unlike the
+    // default (no-selector) marker-based "no winner" case which still reports success below.
+    private final class NilBidSelector: PrebidBidSelecting {
+        func selectBid(from bids: [Bid]) -> Bid? { nil }
+    }
+
+    func testSelectorNilWinner_suppressesDemandRegardlessOfForceSdkToChooseWinner() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = false
+
+        let expected = ResultCode.prebidDemandNoBids
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let rawWinningBid = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.75)
+        let jsonDict = rawWinningBid.jsonDict
+        let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
+        bidResponse.applyBidSelector(NilBidSelector())
+
+        //when
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+
+        //then
+        XCTAssertFalse((adObject.allKeys as? [String])?.contains("hb_bidder") ?? false)
+        XCTAssertEqual(resultCode, expected)
+    }
+
     //forceSdkToChooseWinner + Native Format Winner = Contains Targeting Info
     func testForcedWinnerAndWinningBidNativeFormat() {
         //given

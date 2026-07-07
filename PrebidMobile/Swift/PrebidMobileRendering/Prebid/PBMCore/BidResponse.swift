@@ -29,7 +29,10 @@ public class BidResponse: NSObject {
     public private(set) var tmaxrequest: NSNumber?
     
     public private(set) var ext: ORTBBidResponseExt?
-    
+
+    /// The publisher-supplied bid selector currently in effect, if any. Set via `applyBidSelector(_:)`.
+    public private(set) var bidSelector: PrebidBidSelecting?
+
     private(set) var rawResponse: RawBidResponse?
     
     public convenience init(adUnitId: String?, targetingInfo: [String: String]?) {
@@ -103,21 +106,53 @@ public class BidResponse: NSObject {
         
         return removedBids
     }
-    
+
+    /// Sets the bid selector and immediately recomputes the winning bid and targeting info using it.
+    /// When `selector` is non-nil, it takes precedence over the default marker-driven winner selection.
+    /// - Parameter selector: The bid selector to apply, or `nil` to restore the default selection logic.
+    public func applyBidSelector(_ selector: PrebidBidSelecting?) {
+        bidSelector = selector
+        updateWinningBidAndTargetingInfo(from: allBids ?? [])
+    }
+
+    /// Standard winner-marker keys (see `Bid.isWinning`). These specifically identify "the" winner,
+    /// so they must never be attributed to a bid that isn't the (possibly selector-chosen) winner --
+    /// otherwise `targetingInfo` could still point at a different bid than `winningBid` does.
+    private static let winningBidMarkerKeys: Set<String> = ["hb_pb", "hb_bidder", "hb_cache_id"]
+
     private func updateWinningBidAndTargetingInfo(from bids: [Bid]) {
         var targetingInfo: [String : String] = [:]
         var winningBid: Bid?
-        
-        for bid in bids {
-            if winningBid == nil && bid.isWinning {
-                winningBid = bid
+        let selectorActive = bidSelector != nil
+
+        if let bidSelector {
+            let selectedBid = bidSelector.selectBid(from: bids)
+            if let selectedBid, !bids.contains(where: { $0 === selectedBid }) {
+                Log.warn("PrebidBidSelecting.selectBid(from:) returned a bid that is not part of the provided bids. Ignoring it.")
+            } else {
+                winningBid = selectedBid
             }
-            
-            if winningBid !== bid, let bidTargetingInfo = bid.targetingInfo {
-                targetingInfo.merge(bidTargetingInfo) { $1 }
+        } else {
+            for bid in bids {
+                if winningBid == nil && bid.isWinning {
+                    winningBid = bid
+                }
             }
         }
-        
+
+        for bid in bids {
+            guard winningBid !== bid, let bidTargetingInfo = bid.targetingInfo else { continue }
+            // Only strip the standard winner markers when a selector is actively overriding the
+            // winner -- that's the one scenario where a bid other than `winningBid` could still
+            // carry `hb_pb`/`hb_bidder`/`hb_cache_id` and mislead the ad server about who won.
+            // In default (no-selector) mode, leave this untouched: a bid with only a partial
+            // marker set (e.g. `hb_bidder` but no `hb_pb`) legitimately contributes it today.
+            let nonWinnerTargetingInfo = selectorActive
+                ? bidTargetingInfo.filter { !Self.winningBidMarkerKeys.contains($0.key) }
+                : bidTargetingInfo
+            targetingInfo.merge(nonWinnerTargetingInfo) { $1 }
+        }
+
         if let winningBidTargetingInfo = winningBid?.targetingInfo {
             targetingInfo.merge(winningBidTargetingInfo) { $1 }
         }

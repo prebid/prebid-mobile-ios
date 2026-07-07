@@ -64,7 +64,20 @@ class MediationBannerAdUnitTest: XCTestCase {
         bannerAdUnit.refreshInterval = refreshInterval
         XCTAssertEqual(adUnitConfig.refreshInterval, refreshInterval)
     }
-    
+
+    private final class StubBidSelector: PrebidBidSelecting {
+        func selectBid(from bids: [Bid]) -> Bid? { bids.first }
+    }
+
+    func testBidSelectorForwardsToAdUnitConfig() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let selector = StubBidSelector()
+
+        bannerAdUnit.bidSelector = selector
+
+        XCTAssertTrue(bannerAdUnit.adUnitConfig.bidSelector === selector)
+    }
+
     func testAdObjectSetUpCleanUp() {
        
         //a good response with a bid

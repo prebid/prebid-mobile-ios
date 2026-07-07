@@ -76,6 +76,12 @@ public class BannerView:
         set { adUnitConfig.adPosition = newValue }
     }
 
+    /// A publisher-supplied strategy for choosing the winning bid. See `PrebidBidSelecting`.
+    public var bidSelector: PrebidBidSelecting? {
+        get { adUnitConfig.bidSelector }
+        set { adUnitConfig.bidSelector = newValue }
+    }
+
     public weak var delegate: BannerViewDelegate?
     public weak var videoPlaybackDelegate: BannerViewVideoPlaybackDelegate?
     
