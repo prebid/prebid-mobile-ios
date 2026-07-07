@@ -119,6 +119,8 @@ class BidRequesterImpl: NSObject, BidRequester {
             }
 
             if let bidResponse {
+                bidResponse.applyBidSelector(self.adUnitConfiguration.bidSelector)
+
                 // filterOutUncachedBids applies to Original API only. Rendering API renders
                 // creatives directly from the bid's own markup and never depends on Prebid
                 // Cache to display an ad, so a cache failure there is not a demand failure.

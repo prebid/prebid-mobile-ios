@@ -204,6 +204,7 @@ public class PrebidAdUnit: NSObject {
         
         adUnit.adUnitConfig.adConfiguration.supportSKOverlay = request.supportSKOverlayForInterstitial
         adUnit.adUnitConfig.gpid = request.gpid
+        adUnit.adUnitConfig.bidSelector = request.bidSelector
     }
     
     // For tests, SDK internal
