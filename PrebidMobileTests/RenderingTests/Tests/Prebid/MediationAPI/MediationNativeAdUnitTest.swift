@@ -32,6 +32,19 @@ class MediationNativeAdUnitTest: XCTestCase {
         mediationDelegate = MockMediationUtils(adObject: adObject!)
     }
 
+    private final class StubBidSelector: PrebidBidSelecting {
+        func selectBid(from bids: [Bid]) -> Bid? { bids.first }
+    }
+
+    func testBidSelectorForwardsToAdUnitConfig() {
+        let adUnit = MediationNativeAdUnit(configId: "test", mediationDelegate: MockEmptyPrebidMediationDelegate())
+        let selector = StubBidSelector()
+
+        adUnit.bidSelector = selector
+
+        XCTAssertTrue(adUnit.nativeAdUnit.adUnitConfig.bidSelector === selector)
+    }
+
     // MARK: - fetchDemandBidInfo
 
     func testFetchDemandBidInfoProvidesWinningBid() {

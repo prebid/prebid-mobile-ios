@@ -62,7 +62,13 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     public var configId: String {
         adUnitConfig.configId
     }
-    
+
+    /// A publisher-supplied strategy for choosing the winning bid. See `PrebidBidSelecting`.
+    public var bidSelector: PrebidBidSelecting? {
+        get { adUnitConfig.bidSelector }
+        set { adUnitConfig.bidSelector = newValue }
+    }
+
     let adUnitConfig: AdUnitConfig
     
     var bidRequester: BidRequester?
