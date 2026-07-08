@@ -1,0 +1,123 @@
+{
+  "configurations" : [
+    {
+      "id" : "306843F3-0184-4A1B-9702-E34BCCB129EA",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "mobile-d.openx.net 540397906",
+        "enabled" : false
+      },
+      {
+        "argument" : "GPP_HDR_STRING nil"
+      },
+      {
+        "argument" : "AD_POSITION 4",
+        "enabled" : false
+      },
+      {
+        "argument" : "VIDEO_PLACEMENT_TYPE 4",
+        "enabled" : false
+      },
+      {
+        "argument" : "mobile-d.openx.net 540396661",
+        "enabled" : false
+      },
+      {
+        "argument" : "{\\\"precache_configuration\\\":[{\\\"auid\\\":\\\"539733507\\\",\\\"domain\\\":\\\"mobile-d.openx.net\\\"},{\\\"pgid\\\":\\\"540069345\\\",\\\"domain\\\":\\\"mobile-d.openx.net\\\"}]}",
+        "enabled" : false
+      },
+      {
+        "argument" : "EXTRA_OPEN_RTB \"[{\\\"configId\\\":\\\"7e2c753a-2aad-49fb-b3b3-9b18018feb67\\\",\\\"openRtb\\\":{\\\"age\\\":23,\\\"url\\\":\\\"https:\/\/url.com\\\",\\\"crr\\\":\\\"carrier\\\",\\\"ip\\\":\\\"127.0.0.1\\\",\\\"xid\\\":\\\"007\\\",\\\"gen\\\":\\\"MALE\\\",\\\"buyerid\\\":\\\"buyerid\\\",\\\"customdata\\\":\\\"customdata\\\", \\\"keywords\\\":\\\"keyword1,keyword2\\\",\\\"geo\\\":{ \\\"lat\\\":1.0, \\\"lon\\\":2.0 }, \\\"ext\\\":{ \\\"key1\\\":\\\"string\\\", \\\"key2\\\":1, \\\"object\\\":{ \\\"inner\\\":\\\"value\\\" } }}}]\"",
+        "enabled" : false
+      },
+      {
+        "argument" : "IABConsent_Settings",
+        "enabled" : false
+      },
+      {
+        "argument" : "\"{\\\"launchOptions\\\":{\\\"IABConsent_CMPPresent\\\":false,\\\"IABConsent_SubjectToGDPR\\\":null,\\\"IABConsent_ConsentString\\\":null},\\\"updateInterval\\\":15,\\\"updatedOptions\\\":[{\\\"IABConsent_CMPPresent\\\":true,\\\"IABConsent_SubjectToGDPR\\\":\\\"1\\\",\\\"IABConsent_ConsentString\\\":\\\"BOEFEAyOEFEAyAHABDENAI4AAAB9vABAASA\\\"},{\\\"IABConsent_CMPPresent\\\":true,\\\"IABConsent_SubjectToGDPR\\\":\\\"0\\\",\\\"IABConsent_ConsentString\\\":null},{\\\"IABConsent_CMPPresent\\\":true,\\\"IABConsent_SubjectToGDPR\\\":null,\\\"IABConsent_ConsentString\\\":null}]}\"",
+        "enabled" : false
+      },
+      {
+        "argument" : "\"{\\\"launchOptions\\\": {\\\"IABUSPrivacy_String\\\": \\\"1YNN\\\"}}\"",
+        "enabled" : false
+      },
+      {
+        "argument" : "\"{\\\"launchOptions\\\": {\\\"IABTCF_CmpSdkID\\\": \\\"1\\\",\\\"IABTCF_gdprApplies\\\": \\\"1\\\",\\\"IABTCF_TCString\\\": \\\"BObdrPUOevsguAfDqFENCNAAAAAmeAAA.PVAfDObdrA.DqFENCAmeAENCDA.OevsguAfDq\\\"}}\"",
+        "enabled" : false
+      },
+      {
+        "argument" : "EXTRA_NATIVE '{\"assets\":[{\"img\":{\"hmin\":50,\"type\":3,\"wmin\":150},\"required\":1},{\"img\":{\"hmin\":50,\"type\":1,\"wmin\":50},\"required\":1},{\"required\":1,\"title\":{\"len\":90}},{\"data\":{\"type\":2},\"required\":1},{\"data\":{\"type\":12},\"required\":1},{\"data\":{\"type\":1},\"required\":1}],\"context\":2,\"contextsubtype\":20,\"eventtrackers\":[{\"event\":1,\"methods\":[1,2]}],\"plcmttype\":1,\"ver\":\"1.2\"}'",
+        "enabled" : false
+      },
+      {
+        "argument" : "ADD_USER_EXT_DATA bravo charlie ADD_USER_EXT_DATA bravo tango ADD_USER_EXT_DATA mango sushi",
+        "enabled" : false
+      },
+      {
+        "argument" : "ADD_APP_EXT bravo charlie ADD_APP_EXT bravo tango ADD_APP_EXT mango sushi",
+        "enabled" : false
+      },
+      {
+        "argument" : "ADD_USER_DATA_EXT bravo charlie ADD_USER_DATA_EXT bravo tango ADD_USER_DATA_EXT mango sushi",
+        "enabled" : false
+      },
+      {
+        "argument" : "ADD_APP_CONTENT_DATA_EXT bravo charlie ADD_APP_CONTENT_DATA_EXT bravo tango ADD_APP_CONTENT_DATA_EXT mango sushi",
+        "enabled" : false
+      },
+      {
+        "argument" : "ADD_ADUNIT_CONTEXT crab dragon ADD_ADUNIT_CONTEXT turtle butterfly ADD_ADUNIT_CONTEXT turtle rabbit",
+        "enabled" : false
+      },
+      {
+        "argument" : "BIDDER_ACCESS_CONTROL_LIST tesla faraday",
+        "enabled" : false
+      }
+    ],
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:InternalTestApp.xcodeproj",
+      "identifier" : "93FED9C21A376EFE009A6E9F",
+      "name" : "InternalTestApp"
+    }
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "PrebidBannerUITest\/testOpenInNewTab()",
+        "PrebidExamplesUITest\/testMoPubInterstitial_Video_VanillaPrebidOrder()",
+        "PrebidServerUITests\/testBannerNativeStyle()",
+        "PrebidServerUITests\/testGAMBannerNativeStyle_MRect()",
+        "PrebidServerUITests\/testMoPubBannerNativeStyle_OK()"
+      ],
+      "target" : {
+        "containerPath" : "container:InternalTestApp.xcodeproj",
+        "identifier" : "35F94D121F93F85D00CF46DB",
+        "name" : "InternalTestAppUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:InternalTestApp.xcodeproj",
+        "identifier" : "5B6EB00E2122CAA400C5B072",
+        "name" : "InternalTestAppTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:InternalTestApp.xcodeproj",
+        "identifier" : "D08680722398088A00E70E60",
+        "name" : "OpenXMockServerTests"
+      }
+    }
+  ],
+  "version" : 1
+}

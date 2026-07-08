@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2604D58DE0E44F9775BAF84A /* Pods_InternalTestAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20BF2D4480DA6AB05F7C86FF /* Pods_InternalTestAppUITests.framework */; };
 		341CC3142562C9D000186F29 /* FormViewController+RowBuildHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341CC3132562C9D000186F29 /* FormViewController+RowBuildHelpers.swift */; };
 		34215B0F25C4598E00C74A09 /* ProcessArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34215B0E25C4598E00C74A09 /* ProcessArgumentsParser.swift */; };
 		3459DF0825E8D46C004EC761 /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3459DF0725E8D3FB004EC761 /* UnifiedNativeAdView.xib */; };
@@ -25,8 +26,11 @@
 		34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E56989237DB96900B47B01 /* UtilitiesViewController.swift */; };
 		34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF324ADD3A80045553E /* PrebidInterstitialController.swift */; };
 		34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */; };
+		397624373BB4F6E0FA97A439 /* Pods_OpenXMockServerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54464C4C19B2AA9F53050A9F /* Pods_OpenXMockServerTests.framework */; };
 		457FD34BA45C3840CC31A8F5 /* Pods_InternalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */; };
 		530E722C292FACB20025B44D /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530E722B292FACB20025B44D /* UIImageView+Extensions.swift */; };
+		5324614B2FFE9D1200E3FDFD /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; };
+		5324614C2FFE9D1200E3FDFD /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53514CE12D08416B00A480C0 /* CustomRendererInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDF2D08416B00A480C0 /* CustomRendererInterstitialController.swift */; };
 		53514CE22D08416B00A480C0 /* SampleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CD92D08416B00A480C0 /* SampleRenderer.swift */; };
 		53514CE32D08416B00A480C0 /* SampleModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CDC2D08416B00A480C0 /* SampleModalViewController.swift */; };
@@ -139,10 +143,6 @@
 		53ED301F29798104007D13EE /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF236273420690046CCFC /* PrebidMobile.framework */; };
 		53ED302029798104007D13EE /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */; };
 		53ED302129798104007D13EE /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
-		5A0F10012E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; };
-		5A0F10022E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; };
-		5A0F10032E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5A0F10042E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53ED302229798104007D13EE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830AA20B43717002B2596 /* SystemConfiguration.framework */; };
 		53ED302329798104007D13EE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830A620B43703002B2596 /* Social.framework */; };
 		53ED302429798104007D13EE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830A220B436F1002B2596 /* MessageUI.framework */; };
@@ -169,6 +169,8 @@
 		53ED303D29798104007D13EE /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53ED303E29798104007D13EE /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53ED305229798DBC007D13EE /* Info-Skadn.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53ED305129798DBC007D13EE /* Info-Skadn.plist */; };
+		5A0F10012E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; };
+		5A0F10032E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */; };
 		5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7A2100D59000B46B43 /* LaunchScreen.xib */; };
 		5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7C2100D59000B46B43 /* Main.storyboard */; };
@@ -358,7 +360,7 @@
 				92C833D727B3C9EA00B99AC6 /* PrebidMobile.framework in Embed Frameworks */,
 				92F438B82768954400FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 				924F663027FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
-				5A0F10042E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Embed Frameworks */,
+				5324614C2FFE9D1200E3FDFD /* OMSDK_Prebidorg.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,6 +369,7 @@
 
 /* Begin PBXFileReference section */
 		196672FF431C599F7F0BB7FB /* Pods-OpenXMockServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.release.xcconfig"; path = "Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.release.xcconfig"; sourceTree = "<group>"; };
+		20BF2D4480DA6AB05F7C86FF /* Pods_InternalTestAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalTestAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		216379A7FA012D66ADD40F27 /* Pods-InternalTestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp.debug.xcconfig"; path = "Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp.debug.xcconfig"; sourceTree = "<group>"; };
 		25BDF9AD318E1B723F32B7B9 /* Pods-InternalTestAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestAppTests.debug.xcconfig"; path = "Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2DDA36A19772E26D12BDD3FB /* Pods_InternalTestApp_Skadn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalTestApp_Skadn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -419,6 +422,9 @@
 		53A651832AC200AA000D42E4 /* PrebidOriginalAPIMultiformatNativeStylesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidOriginalAPIMultiformatNativeStylesController.swift; sourceTree = "<group>"; };
 		53ED304329798104007D13EE /* InternalTestApp-Skadn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InternalTestApp-Skadn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED305129798DBC007D13EE /* Info-Skadn.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Skadn.plist"; sourceTree = "<group>"; };
+		54464C4C19B2AA9F53050A9F /* Pods_OpenXMockServerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXMockServerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56380C3959E9D522CB28E773 /* Pods-InternalTestAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestAppUITests.release.xcconfig"; path = "Target Support Files/Pods-InternalTestAppUITests/Pods-InternalTestAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = ../Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
 		5B1BDB792100D59000B46B43 /* PrebidMobileDemoRendering-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRendering-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B1BDB7B2100D59000B46B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -464,13 +470,13 @@
 		5BCCF236273420690046CCFC /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A0F10002E30000100C0DEAA /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = ../Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
 		5BD84734252F23E70092AF74 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C79CC19ED6C6CCC5305DDC5 /* Pods-OpenXMockServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.debug.xcconfig"; path = "Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.debug.xcconfig"; sourceTree = "<group>"; };
 		67633DFDAA84B67435DAF458 /* Pods-InternalTestApp-Skadn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp-Skadn.release.xcconfig"; path = "Target Support Files/Pods-InternalTestApp-Skadn/Pods-InternalTestApp-Skadn.release.xcconfig"; sourceTree = "<group>"; };
 		7980EA1C315B2917A67701C9 /* Pods-InternalTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp.release.xcconfig"; path = "Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp.release.xcconfig"; sourceTree = "<group>"; };
 		80D8C2A2F2A9FA388C535AB0 /* Pods-InternalTestApp-Skadn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp-Skadn.debug.xcconfig"; path = "Target Support Files/Pods-InternalTestApp-Skadn/Pods-InternalTestApp-Skadn.debug.xcconfig"; sourceTree = "<group>"; };
+		81BE690D1504C83B84F92C27 /* Pods-InternalTestAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-InternalTestAppUITests/Pods-InternalTestAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		92221CE02804AF5B005DF671 /* PrebidMAXInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXInterstitialController.swift; sourceTree = "<group>"; };
 		92221CE42804BBB6005DF671 /* PrebidMAXRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXRewardedController.swift; sourceTree = "<group>"; };
 		924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -510,6 +516,7 @@
 		92E92501276B299F002B57F3 /* PrebidAdMobBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobBannerViewController.swift; sourceTree = "<group>"; };
 		92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93FED9C31A376EFE009A6E9F /* InternalTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InternalTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9526D1A8D7218EC249B0A2EF /* Pods-OpenXMockServerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServerTests.release.xcconfig"; path = "Target Support Files/Pods-OpenXMockServerTests/Pods-OpenXMockServerTests.release.xcconfig"; sourceTree = "<group>"; };
 		AB5BF7E0D8CDA704D2B8D60A /* Pods_InternalTestAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalTestAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidBannerConfigurationController.swift; sourceTree = "<group>"; };
 		AC27E9E124D9A51B000CD7EC /* FeedAdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAdTableViewCell.swift; sourceTree = "<group>"; };
@@ -542,6 +549,7 @@
 		D551B96E21491AAA00FFF51D /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		D551B9702149207500FFF51D /* TabNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationController.swift; sourceTree = "<group>"; };
 		D83A8B92B4A68C3EFF8216D4 /* Pods-InternalTestAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestAppTests.release.xcconfig"; path = "Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		ECD681AF30F8624BAA315132 /* Pods-OpenXMockServerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServerTests.debug.xcconfig"; path = "Target Support Files/Pods-OpenXMockServerTests/Pods-OpenXMockServerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -549,6 +557,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2604D58DE0E44F9775BAF84A /* Pods_InternalTestAppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92C833DD27B3CA8E00B99AC6 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
+				5324614B2FFE9D1200E3FDFD /* OMSDK_Prebidorg.xcframework in Frameworks */,
 				92C833D927B3CA8000B99AC6 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
 				5B5830AF20B43727002B2596 /* WatchConnectivity.framework in Frameworks */,
 				5BD84735252F23E80092AF74 /* CoreServices.framework in Frameworks */,
@@ -600,7 +610,6 @@
 				92C833D627B3C9EA00B99AC6 /* PrebidMobile.framework in Frameworks */,
 				924F662F27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework in Frameworks */,
 				9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */,
-				5A0F10022E30000100C0DEAA /* OMSDK_Prebidorg.xcframework in Frameworks */,
 				5B5830AB20B43717002B2596 /* SystemConfiguration.framework in Frameworks */,
 				5B5830A720B43704002B2596 /* Social.framework in Frameworks */,
 				5B5830A320B436F1002B2596 /* MessageUI.framework in Frameworks */,
@@ -630,6 +639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D08680742398088A00E70E60 /* OpenXMockServer.framework in Frameworks */,
+				397624373BB4F6E0FA97A439 /* Pods_OpenXMockServerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +657,10 @@
 				7980EA1C315B2917A67701C9 /* Pods-InternalTestApp.release.xcconfig */,
 				80D8C2A2F2A9FA388C535AB0 /* Pods-InternalTestApp-Skadn.debug.xcconfig */,
 				67633DFDAA84B67435DAF458 /* Pods-InternalTestApp-Skadn.release.xcconfig */,
+				81BE690D1504C83B84F92C27 /* Pods-InternalTestAppUITests.debug.xcconfig */,
+				56380C3959E9D522CB28E773 /* Pods-InternalTestAppUITests.release.xcconfig */,
+				ECD681AF30F8624BAA315132 /* Pods-OpenXMockServerTests.debug.xcconfig */,
+				9526D1A8D7218EC249B0A2EF /* Pods-OpenXMockServerTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../Pods;
@@ -812,6 +826,8 @@
 				5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */,
 				AB5BF7E0D8CDA704D2B8D60A /* Pods_InternalTestAppTests.framework */,
 				2DDA36A19772E26D12BDD3FB /* Pods_InternalTestApp_Skadn.framework */,
+				20BF2D4480DA6AB05F7C86FF /* Pods_InternalTestAppUITests.framework */,
+				54464C4C19B2AA9F53050A9F /* Pods_OpenXMockServerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1077,6 +1093,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35F94D1A1F93F85D00CF46DB /* Build configuration list for PBXNativeTarget "InternalTestAppUITests" */;
 			buildPhases = (
+				0A46957558B5D43615E2D41D /* [CP] Check Pods Manifest.lock */,
 				35F94D0F1F93F85D00CF46DB /* Sources */,
 				35F94D101F93F85D00CF46DB /* Frameworks */,
 				35F94D111F93F85D00CF46DB /* Resources */,
@@ -1100,8 +1117,8 @@
 				53ED301929798104007D13EE /* Frameworks */,
 				53ED302E29798104007D13EE /* Resources */,
 				53ED303929798104007D13EE /* Embed Frameworks */,
-				F810254EF73CD102F09EE0F6 /* [CP] Embed Pods Frameworks */,
-				1EF4B1649E94D149D090D9A9 /* [CP] Copy Pods Resources */,
+				CC34B83A76F0D030C4F51D82 /* [CP] Embed Pods Frameworks */,
+				465BAAAB73FF277B52B201AF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1121,8 +1138,6 @@
 				5B6EB00B2122CAA400C5B072 /* Sources */,
 				5B6EB00C2122CAA400C5B072 /* Frameworks */,
 				5B6EB00D2122CAA400C5B072 /* Resources */,
-				0163900BBA5F053F055F3A03 /* [CP] Embed Pods Frameworks */,
-				D1F74D555EAC12CAB8036FD4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1179,6 +1194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D08680872398088A00E70E60 /* Build configuration list for PBXNativeTarget "OpenXMockServerTests" */;
 			buildPhases = (
+				3813BA254711CFAFCFFB7101 /* [CP] Check Pods Manifest.lock */,
 				D086806F2398088A00E70E60 /* Sources */,
 				D08680702398088A00E70E60 /* Frameworks */,
 				D08680712398088A00E70E60 /* Resources */,
@@ -1324,46 +1340,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0163900BBA5F053F055F3A03 /* [CP] Embed Pods Frameworks */ = {
+		0A46957558B5D43615E2D41D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AppLovinSDK/AppLovinSDK.framework/AppLovinSDK",
+			inputFileListPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppLovinSDK.framework",
+				"$(DERIVED_FILE_DIR)/Pods-InternalTestAppUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1EF4B1649E94D149D090D9A9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp-Skadn/Pods-InternalTestApp-Skadn-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Google-Mobile-Ads-SDK/GoogleMobileAdsResources.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUserMessagingPlatform/UserMessagingPlatformResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMobileAdsResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UserMessagingPlatformResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp-Skadn/Pods-InternalTestApp-Skadn-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2604B52EFD0A1C8698F645F8 /* [CP] Copy Pods Resources */ = {
@@ -1384,6 +1380,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3813BA254711CFAFCFFB7101 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OpenXMockServerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		465BAAAB73FF277B52B201AF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp-Skadn/Pods-InternalTestApp-Skadn-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Google-Mobile-Ads-SDK/GoogleMobileAdsResources.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUserMessagingPlatform/UserMessagingPlatformResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMobileAdsResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UserMessagingPlatformResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp-Skadn/Pods-InternalTestApp-Skadn-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		484200C8E7CBBACB19DC5AB3 /* [CP] Check Pods Manifest.lock */ = {
@@ -1437,19 +1475,19 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AppLovinSDK/AppLovinSDK.framework/AppLovinSDK",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework/GoogleInteractiveMediaAds",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppLovinSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
 			);
@@ -1502,46 +1540,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D1F74D555EAC12CAB8036FD4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Google-Mobile-Ads-SDK/GoogleMobileAdsResources.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUserMessagingPlatform/UserMessagingPlatformResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMobileAdsResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UserMessagingPlatformResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F810254EF73CD102F09EE0F6 /* [CP] Embed Pods Frameworks */ = {
+		CC34B83A76F0D030C4F51D82 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp-Skadn/Pods-InternalTestApp-Skadn-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AppLovinSDK/AppLovinSDK.framework/AppLovinSDK",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework/GoogleInteractiveMediaAds",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppLovinSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
 			);
@@ -1850,6 +1868,7 @@
 /* Begin XCBuildConfiguration section */
 		35F94D1B1F93F85D00CF46DB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81BE690D1504C83B84F92C27 /* Pods-InternalTestAppUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1870,7 +1889,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = PrebidMobileDemoRenderingUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.PrebidMobileDemoRenderingUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1885,6 +1908,7 @@
 		};
 		35F94D1C1F93F85D00CF46DB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56380C3959E9D522CB28E773 /* Pods-InternalTestAppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1905,7 +1929,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = PrebidMobileDemoRenderingUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.PrebidMobileDemoRenderingUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1933,7 +1961,10 @@
 				);
 				INFOPLIST_FILE = "PrebidMobileDemoRendering/Resources/Info-Skadn.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1966,7 +1997,10 @@
 				);
 				INFOPLIST_FILE = "PrebidMobileDemoRendering/Resources/Info-Skadn.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2004,7 +2038,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = PrebidMobileDemoRenderingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = openx.com.OpenXInternalTestAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -2037,7 +2075,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = PrebidMobileDemoRenderingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = openx.com.OpenXInternalTestAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -2150,7 +2192,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2172,7 +2215,10 @@
 				);
 				INFOPLIST_FILE = PrebidMobileDemoRendering/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2204,7 +2250,10 @@
 				);
 				INFOPLIST_FILE = PrebidMobileDemoRendering/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2245,7 +2294,11 @@
 				INFOPLIST_FILE = OpenXMockServer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXMockServer;
@@ -2288,7 +2341,11 @@
 				INFOPLIST_FILE = OpenXMockServer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXMockServer;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -2305,6 +2362,7 @@
 		};
 		D08680842398088A00E70E60 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECD681AF30F8624BAA315132 /* Pods-OpenXMockServerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2319,7 +2377,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OpenXMockServerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXMockServerTests;
@@ -2333,6 +2395,7 @@
 		};
 		D08680852398088A00E70E60 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9526D1A8D7218EC249B0A2EF /* Pods-OpenXMockServerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2347,7 +2410,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OpenXMockServerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXMockServerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

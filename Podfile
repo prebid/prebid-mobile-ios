@@ -32,11 +32,16 @@ def prebid_demo_pods
 end
 
 def internalTestApp_pods
+  use_frameworks!
+  
+  pod 'Alamofire', '4.9.1'
   pod 'Eureka'
   pod 'SVProgressHUD'
+  pod 'RxSwift'
   
-  applovin_pods
+  ima_pod
   gma_pods
+  applovin_pods
 end
 
 target 'PrebidMobileGAMEventHandlers' do
@@ -87,24 +92,21 @@ target 'PrebidDemoObjectiveC' do
 end
 
 target 'InternalTestApp' do
-  use_frameworks!
   project 'InternalTestApp/InternalTestApp.xcodeproj'
   internalTestApp_pods
-  ima_pod
+  
+  target 'InternalTestAppTests' do
+    inherit! :search_paths
+  end
+  
+  target 'InternalTestAppUITests' do
+    inherit! :search_paths
+  end
 end
 
 target 'InternalTestApp-Skadn' do
-  use_frameworks!
   project 'InternalTestApp/InternalTestApp.xcodeproj'
   internalTestApp_pods
-  ima_pod
-end
-
-target 'InternalTestAppTests' do
-  use_frameworks!
-  project 'InternalTestApp/InternalTestApp.xcodeproj'
-  internalTestApp_pods
-  pod 'Google-Mobile-Ads-SDK'
 end
 
 target 'OpenXMockServer' do
@@ -113,6 +115,10 @@ target 'OpenXMockServer' do
   
   pod 'Alamofire', '4.9.1'
   pod 'RxSwift'
+  
+  target 'OpenXMockServerTests' do
+    inherit! :search_paths
+  end
 end
 
 post_install do |installer|
