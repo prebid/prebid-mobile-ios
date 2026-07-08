@@ -102,10 +102,11 @@ target 'InternalTestApp' do
   target 'InternalTestAppUITests' do
     inherit! :search_paths
   end
-  
-  target 'InternalTestApp-Skadn' do
-    inherit! :search_paths
-  end
+end
+
+target 'InternalTestApp-Skadn' do
+  project 'InternalTestApp/InternalTestApp.xcodeproj'
+  internalTestApp_pods
 end
 
 target 'OpenXMockServer' do
