@@ -30,11 +30,11 @@
     return self;
 }
 
-- (UIView<PrebidMobileDisplayViewProtocol> * _Nullable)createBannerViewWith:(CGRect)frame
-                                                                        bid:(Bid * _Nonnull)bid
-                                                            adConfiguration:(AdUnitConfig * _Nonnull)adConfiguration
-                                                            loadingDelegate:(id<DisplayViewLoadingDelegate> _Nonnull)loadingDelegate
-                                                        interactionDelegate:(id<DisplayViewInteractionDelegate> _Nonnull)interactionDelegate {
+- (id<PrebidMobileDisplayViewProtocol>)createBannerViewWith:(CGRect)frame
+                                                        bid:(Bid * _Nonnull)bid
+                                            adConfiguration:(AdUnitConfig * _Nonnull)adConfiguration
+                                            loadingDelegate:(id<DisplayViewLoadingDelegate> _Nonnull)loadingDelegate
+                                        interactionDelegate:(id<DisplayViewInteractionDelegate> _Nonnull)interactionDelegate {
     SampleAdView *adView = [[SampleAdView alloc] initWithFrame:frame];
     
     adView.interactionDelegate = interactionDelegate;
