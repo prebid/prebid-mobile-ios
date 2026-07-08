@@ -30,7 +30,7 @@ public class SampleRenderer: NSObject, PrebidMobilePluginRenderer {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+    ) -> (PrebidMobileDisplayViewProtocol)? {
         let adView = SampleAdView(frame: frame)
         
         adView.interactionDelegate = interactionDelegate
