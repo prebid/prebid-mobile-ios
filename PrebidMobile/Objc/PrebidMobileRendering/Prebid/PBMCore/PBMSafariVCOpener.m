@@ -16,8 +16,6 @@
 #import "PBMSafariVCOpener.h"
 
 #import "PBMDeepLinkPlusHelper.h"
-#import "PBMFunctions.h"
-#import "PBMFunctions+Private.h"
 #import "PBMWindowLocker.h"
 #import "Log+Extensions.h"
 

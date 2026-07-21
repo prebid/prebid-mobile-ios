@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import XCTest
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 // MARK: - Parity assertion
 

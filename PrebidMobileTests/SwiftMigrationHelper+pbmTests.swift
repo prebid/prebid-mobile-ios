@@ -15,7 +15,7 @@
     
 
 import XCTest
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 func XCTAssertEqual<T: PBMSwiftMigrationHelper>(_ expression1: @autoclosure () -> T,
                                                 _ expression2: @autoclosure () -> T) {

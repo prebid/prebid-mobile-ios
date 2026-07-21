@@ -17,7 +17,7 @@ import UIKit
 import XCTest
 import AVFoundation
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, PBMVideoViewDelegate {
    

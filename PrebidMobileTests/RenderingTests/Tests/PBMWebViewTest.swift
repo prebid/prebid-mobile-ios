@@ -18,7 +18,7 @@ import XCTest
 
 import UIKit
 import AdSupport
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 // MARK: - Mocks
 
@@ -866,7 +866,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         let expectedMraidEnv = [
             "version": "3.0",
             "sdk": "prebid-mobile-sdk",
-            "sdkVersion": PBMFunctions.sdkVersion(),
+            "sdkVersion": Functions.sdkVersion,
             "appId": "com.apple.dt.xctest.tool",
             "ifa": ASIdentifierManager.shared().advertisingIdentifier.uuidString,
             "limitAdTracking": !ASIdentifierManager.shared().isAdvertisingTrackingEnabled,
@@ -1000,7 +1000,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationCommandExecuted = expectation(description: "expectationCommandExecuted")
         
         webView.jsEvaluatingCompletion = { jsCommand, jsRes, error in
-            if jsCommand == PBMMRAIDJavascriptCommands.updateMaxSize(PBMFunctions.deviceMaxSize()) {
+            if jsCommand == PBMMRAIDJavascriptCommands.updateMaxSize(Functions.deviceMaxSize) {
                 self.expectationCommandExecuted?.fulfill();
             }
         }

@@ -13,6 +13,7 @@
  limitations under the License.
  */
 
+#import <Foundation/Foundation.h>
 #import "PBMTimerInterface.h"
 
 NS_ASSUME_NONNULL_BEGIN

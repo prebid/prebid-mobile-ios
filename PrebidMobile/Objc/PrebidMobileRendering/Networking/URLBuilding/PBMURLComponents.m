@@ -14,7 +14,7 @@
  */
 
 #import "PBMURLComponents.h"
-#import "NSString+PBMExtensions.h"
+#import "SwiftImport.h"
 
 #pragma mark - Private Extension
 

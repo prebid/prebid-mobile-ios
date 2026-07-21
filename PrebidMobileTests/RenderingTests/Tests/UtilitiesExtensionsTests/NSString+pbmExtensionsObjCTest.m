@@ -14,7 +14,7 @@
  */
 
 #import <XCTest/XCTest.h>
-#import "NSString+PBMExtensions.h"
+#import "SwiftImport.h"
 
 @interface NSString_PBMExtensionsObjCTest : XCTestCase
 

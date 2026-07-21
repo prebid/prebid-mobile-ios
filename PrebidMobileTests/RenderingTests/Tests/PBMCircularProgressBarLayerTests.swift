@@ -19,15 +19,15 @@ import XCTest
 class PBMCircularProgressBarLayerTests: XCTestCase {
     
     func testNeedsDisplayForKey() {
-        XCTAssertTrue(PBMCircularProgressBarLayer.needsDisplay(forKey: "value"))
-        XCTAssertFalse(PBMCircularProgressBarLayer.needsDisplay(forKey: "nonNeedsDisplay"))
+        XCTAssertTrue(CircularProgressBarLayer.needsDisplay(forKey: "value"))
+        XCTAssertFalse(CircularProgressBarLayer.needsDisplay(forKey: "nonNeedsDisplay"))
     }
     
     func testProperties() {
-        let circularProgressBarView = PBMCircularProgressBarView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        let circularProgressBarView = CircularProgressBarView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         XCTAssertNotNil(circularProgressBarView)
         
-        guard let circularProgressBarLayer = circularProgressBarView.layer as? PBMCircularProgressBarLayer else {
+        guard let circularProgressBarLayer = circularProgressBarView.layer as? CircularProgressBarLayer else {
             XCTFail()
             return
         }
@@ -86,10 +86,10 @@ class PBMCircularProgressBarLayerTests: XCTestCase {
     func testUpdateProgress() {
         
         let viewRect = CGRect(x: 0, y: 0, width: 50, height: 50)
-        let circularProgressBarView = PBMCircularProgressBarView(frame: viewRect)
+        let circularProgressBarView = CircularProgressBarView(frame: viewRect)
         XCTAssertNotNil(circularProgressBarView)
         
-        guard let circularProgressBarLayer = circularProgressBarView.layer as? PBMCircularProgressBarLayer else {
+        guard let circularProgressBarLayer = circularProgressBarView.layer as? CircularProgressBarLayer else {
             XCTFail()
             return
         }
