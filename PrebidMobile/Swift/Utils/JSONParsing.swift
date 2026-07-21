@@ -63,9 +63,10 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
         get {
             (dict[key.rawValue] as? [String : Any]).flatMap { CustomModelObjects.instantiate(json: $0) }
         }
-        
+
         set {
-            dict[key.rawValue] = newValue?.jsonDictionary
+            let childDict = newValue?.jsonDictionary
+            dict[key.rawValue] = (childDict?.isEmpty == true) ? nil : childDict
         }
     }
     

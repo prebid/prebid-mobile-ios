@@ -116,8 +116,4 @@ Pods/
 # Visual Studio Code
 .build/
 
-# Claude Code
-CLAUDE.md
-.claude/
-
 EventHandlers/Package.resolved

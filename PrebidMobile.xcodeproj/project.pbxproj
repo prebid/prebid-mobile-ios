@@ -263,6 +263,7 @@
 		5AE4E5B52DB81D2D002C84DF /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5B42DB81D2D002C84DF /* Factory.swift */; };
 		5AE4E5D02DB83E20002C84DF /* SwiftMigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5CF2DB83E20002C84DF /* SwiftMigrationHelper.swift */; };
 		5AE4E5D22DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5D12DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift */; };
+		A9D01DE1E7594F359AF84A11 /* ORTBParityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E618F8CC072D420CBB717375 /* ORTBParityHelper.swift */; };
 		5AE4E5D42DB843E8002C84DF /* InterstitialLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5D32DB843E8002C84DF /* InterstitialLayout.swift */; };
 		5AE4E5D62DB84427002C84DF /* InterstitialDisplayProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5D52DB84427002C84DF /* InterstitialDisplayProperties.swift */; };
 		5AE4E5D82DB84B43002C84DF /* ModalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE4E5D72DB84B43002C84DF /* ModalState.swift */; };
@@ -1125,6 +1126,7 @@
 		5AE4E5B42DB81D2D002C84DF /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		5AE4E5CF2DB83E20002C84DF /* SwiftMigrationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMigrationHelper.swift; sourceTree = "<group>"; };
 		5AE4E5D12DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftMigrationHelper+pbmTests.swift"; sourceTree = "<group>"; };
+		E618F8CC072D420CBB717375 /* ORTBParityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBParityHelper.swift; sourceTree = "<group>"; };
 		5AE4E5D32DB843E8002C84DF /* InterstitialLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialLayout.swift; sourceTree = "<group>"; };
 		5AE4E5D52DB84427002C84DF /* InterstitialDisplayProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialDisplayProperties.swift; sourceTree = "<group>"; };
 		5AE4E5D72DB84B43002C84DF /* ModalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalState.swift; sourceTree = "<group>"; };
@@ -3585,6 +3587,7 @@
 				5ABAA1722D3ADE0000FDD38A /* SharedIdTests.swift */,
 				5A197FC02D810CC3002A51F2 /* ResponseParsingTests.swift */,
 				5AE4E5D12DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift */,
+				E618F8CC072D420CBB717375 /* ORTBParityHelper.swift */,
 				47D9A35B40BBC16996BC05A9 /* RenderingTests */,
 			);
 			path = PrebidMobileTests;
@@ -3995,6 +3998,7 @@
 				53169F1B2D424289007355E8 /* ExternalUserIdTests.swift in Sources */,
 				2A9DDDD82C63A88C000EA4A0 /* PrebidEventDelegateTests.swift in Sources */,
 				5AE4E5D22DB83F53002C84DF /* SwiftMigrationHelper+pbmTests.swift in Sources */,
+				A9D01DE1E7594F359AF84A11 /* ORTBParityHelper.swift in Sources */,
 				922AFD4B27372A0500732C53 /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
 				5A46A96A2E99C9BC006780B1 /* TestCustomModelObjects.swift in Sources */,
