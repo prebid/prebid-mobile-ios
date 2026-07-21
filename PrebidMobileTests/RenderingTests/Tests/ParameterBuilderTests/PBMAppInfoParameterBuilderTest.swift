@@ -19,14 +19,14 @@ class PBMAppInfoParameterBuilderTest: XCTestCase {
     
     let parameterDict = ["foo": "bar"]
     let publisherName = "publisherName"
-    var bidRequest: PBMORTBBidRequest!
+    var bidRequest: ORTBBidRequest!
     var mockBundle: MockBundle!
     var builder: PBMAppInfoParameterBuilder!
     var targeting: Targeting!
     
     override func setUp() {
         super.setUp()
-        bidRequest = PBMORTBBidRequest()
+        bidRequest = ORTBBidRequest()
         mockBundle = MockBundle()
         targeting = Targeting.shared
         targeting.publisherName = publisherName

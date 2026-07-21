@@ -171,8 +171,8 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.delivery, [3])
         PBMAssertEq(video.battr, [15, 16])
         PBMAssertEq(video.skip, 0)
-        XCTAssertEqual(video.pos.intValue, AdPosition.header.rawValue)
-        XCTAssertEqual(video.pos.intValue, 4)
+        XCTAssertEqual(video.pos!.intValue, AdPosition.header.rawValue)
+        XCTAssertEqual(video.pos!.intValue, 4)
     }
     
     func testFirstPartyData() {
@@ -1035,8 +1035,8 @@ class PrebidParameterBuilderTest: XCTestCase {
 
     // MARK: - Helpers
     
-    func buildBidRequest(with adUnitConfig: AdUnitConfig) -> PBMORTBBidRequest {
-        let bidRequest = PBMORTBBidRequest()
+    func buildBidRequest(with adUnitConfig: AdUnitConfig) -> ORTBBidRequest {
+        let bidRequest = ORTBBidRequest()
         PBMBasicParameterBuilder(
             adConfiguration: adUnitConfig.adConfiguration,
             sdkConfiguration: sdkConfiguration,

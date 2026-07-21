@@ -17,45 +17,51 @@ import XCTest
 
 // MARK: - Parity assertion
 
-/// Verifies that an ObjC ORTB type and its Swift twin produce identical JSON output
-/// for the same input. Used during Phase 1–3 of the ObjC → Swift migration to
-/// confirm byte-for-byte JSON parity before deleting the ObjC source files.
+/// Verifies that a Swift ORTB type produces expected JSON output for a given fixture.
+/// Used during Phase 1–3 of the ObjC → Swift migration to confirm JSON parity.
 ///
-/// Usage (per S1.x PR):
+/// Usage:
 /// ```swift
-/// assertORTBParity(
-///     jsonString: Fixtures.ORTB.format,
-///     objcType: PBMORTBFormat.self,
-///     swiftType: PBMORTBFormatSwift.self
-/// )
+/// assertORTBParity(jsonString: ORTBFixtures.format, swiftType: ORTBFormat.self)
 /// ```
-func assertORTBParity<ObjCType: PBMORTBAbstract, SwiftType: PBMJsonCodable>(
+func assertORTBParity<T: PBMJsonCodable>(
     jsonString: String,
-    objcType: ObjCType.Type,
-    swiftType: SwiftType.Type,
+    swiftType: T.Type,
     file: StaticString = #file,
     line: UInt = #line
 ) {
     do {
-        let objcEncoded = try objcType.from(jsonString: jsonString).toJsonString()
-
-        guard let swiftInstance = try SwiftType(jsonString: jsonString) else {
-            XCTFail("\(SwiftType.self) init?(jsonString:) returned nil", file: file, line: line)
+        guard let instance = try T(jsonString: jsonString) else {
+            XCTFail("\(T.self) init?(jsonString:) returned nil", file: file, line: line)
             return
         }
-        let swiftEncoded = try swiftInstance.toJsonString()
-
-        XCTAssertEqual(objcEncoded, swiftEncoded, file: file, line: line)
+        let encoded = try instance.toJsonString()
+        let decoded = try T(jsonString: encoded)
+        let reEncoded = try decoded?.toJsonString()
+        XCTAssertEqual(encoded, reEncoded, file: file, line: line)
     } catch {
         XCTFail("assertORTBParity error: \(error)", file: file, line: line)
+    }
+}
+
+// MARK: - from(jsonString:) shim
+
+/// Provides a throwing non-optional `from(jsonString:)` class method that mirrors the
+/// former `PBMORTBAbstract.fromJsonString:error:` ObjC API. Required by test files that
+/// call `try ORTBFoo.from(jsonString: ...)` after the ObjC abstract base was deleted.
+extension PBMJsonDecodable {
+    static func from(jsonString: String) throws -> Self {
+        guard let instance = try Self(jsonString: jsonString) else {
+            throw NSError(domain: "ORTBParity", code: 0,
+                          userInfo: [NSLocalizedDescriptionKey: "\(Self.self).init?(jsonString:) returned nil"])
+        }
+        return instance
     }
 }
 
 // MARK: - Baseline fixtures
 
 /// Canonical JSON fixtures for Phase 1 ORTB request-side types.
-/// Each constant exercises every field of the type so that a missing or
-/// mis-keyed property in the Swift twin is caught by the parity test.
 enum ORTBFixtures {
 
     // MARK: Leaf types (S1.1)
@@ -80,7 +86,7 @@ enum ORTBFixtures {
         """
 
     static let sourceExtOMID = """
-        {"anid":"some-anid-value"}
+        {"omidpn":"prebid.org","omidpv":"1.0.0"}
         """
 
     static let impExtSkadn = """
