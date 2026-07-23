@@ -139,7 +139,7 @@
 }
 
 - (BOOL)isPlaybackFinished {
-    return self.videoView.isPlaybackFinished;
+    return self.videoView.playbackState == PBMVideoViewPlaybackStateFinished;
 }
 
 - (void)createOpenMeasurementSession {

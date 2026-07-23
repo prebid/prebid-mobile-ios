@@ -17,6 +17,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "PBMVideoViewDelegate.h"
+#import "PBMVideoViewPlaybackState.h"
 #import "PBMCircularProgressBarView.h"
 
 @class PBMEventManager;
@@ -37,9 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, getter=isMuted) BOOL muted;
 @property (nonatomic, assign) BOOL showLearnMore;
 
-// Indicates that video reached the VAST Duration
-// We must use this flag instead of player’s state to prevent double-stopping of the video due to async work of observers.
-@property (nonatomic, assign, readonly) BOOL isPlaybackFinished;
+// Reflects the playback intent rather than the player's actual rate,
+// so it stays reliable while the player is buffering or stalled.
+// Also used instead of the player's state to prevent double-stopping of the video due to async work of observers.
+@property (nonatomic, assign, readonly) PBMVideoViewPlaybackState playbackState;
 
 @property (nonatomic, assign) BOOL isSoundButtonVisible;
 
