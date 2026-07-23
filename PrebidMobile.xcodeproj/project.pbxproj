@@ -187,6 +187,7 @@
 		53CDA4912D11AFD5004766F8 /* MediationRewardedAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CDA4892D11AFD5004766F8 /* MediationRewardedAdUnitTest.swift */; };
 		53CE09012AD673020018CB75 /* sample_ortb_native_with_win_event.json in Resources */ = {isa = PBXBuildFile; fileRef = 53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */; };
 		53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */; };
+		53D3858E30123D4200923255 /* MockCreativeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3858D30123D4200923255 /* MockCreativeViewDelegate.swift */; };
 		53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */; };
 		53D93505282CEA900092E243 /* DateFormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D93504282CEA900092E243 /* DateFormatService.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
@@ -912,6 +913,7 @@
 		47D9A230B9C99352DE486DD3 /* document_with_one_wrapper_ad.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = document_with_one_wrapper_ad.xml; sourceTree = "<group>"; };
 		47D9A2491192A084AE14E1E9 /* MockNSThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNSThread.swift; sourceTree = "<group>"; };
 		47D9A26C7251DF5F35B0CDB5 /* large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file.mp4; path = large.mp4; sourceTree = "<group>"; };
+		47D9A33C1000000000000002 /* cached_bid_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cached_bid_response.json; sourceTree = "<group>"; };
 		47D9A356DC60E61416DC1739 /* ACJSingleAdWithoutSDKParams.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ACJSingleAdWithoutSDKParams.json; sourceTree = "<group>"; };
 		47D9A35FC91B425F274DFD8D /* ACJNonChainingAdUnit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ACJNonChainingAdUnit.json; sourceTree = "<group>"; };
 		47D9A36B91A82F353CEB1C3B /* small.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file.mp4; path = small.mp4; sourceTree = "<group>"; };
@@ -923,7 +925,6 @@
 		47D9A630F7F8443F29F48813 /* MockAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAlertController.swift; sourceTree = "<group>"; };
 		47D9A65561D54EB501103D1F /* MockPBMCreativeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPBMCreativeModel.swift; sourceTree = "<group>"; };
 		47D9A6CCD40A2B6F9BC571F3 /* SSC_test_empty_fields.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SSC_test_empty_fields.json; sourceTree = "<group>"; };
-		47D9A33C1000000000000002 /* cached_bid_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cached_bid_response.json; sourceTree = "<group>"; };
 		47D9A6D9917A568CEDA774F5 /* small.m4v */ = {isa = PBXFileReference; lastKnownFileType = file.m4v; path = small.m4v; sourceTree = "<group>"; };
 		47D9A721F20C97168D2E7349 /* prebid_vast_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = prebid_vast_response.xml; sourceTree = "<group>"; };
 		47D9A788E8D0FBF93345D2AD /* document_with_one_inline_ad.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = document_with_one_inline_ad.xml; sourceTree = "<group>"; };
@@ -1046,6 +1047,7 @@
 		53CDA48B2D11AFD5004766F8 /* MockMediationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMediationUtils.swift; sourceTree = "<group>"; };
 		53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_ortb_native_with_win_event.json; sourceTree = "<group>"; };
 		53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMBidRequester.swift; sourceTree = "<group>"; };
+		53D3858D30123D4200923255 /* MockCreativeViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreativeViewDelegate.swift; sourceTree = "<group>"; };
 		53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		53D93504282CEA900092E243 /* DateFormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatService.swift; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
@@ -1784,6 +1786,7 @@
 				53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */,
 				53BFCD322CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift */,
 				534C61432CB5619B0026119A /* MockVideoView.swift */,
+				53D3858D30123D4200923255 /* MockCreativeViewDelegate.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -4062,6 +4065,7 @@
 				922AFD672737313000732C53 /* PBMMRAIDControllerTest.swift in Sources */,
 				922AFD432737295500732C53 /* PBMHTMLCreativeTest_MRAIDOrientationChange.swift in Sources */,
 				925D5D8A2737BB9C00A8A2B5 /* OMIDContext+pbmTestExtension.m in Sources */,
+				53D3858E30123D4200923255 /* MockCreativeViewDelegate.swift in Sources */,
 				925D5E0E2737DFCC00A8A2B5 /* RawWinningBidFabricator.swift in Sources */,
 				929638B827AB19DE00D30F3D /* NativeTitleTests.swift in Sources */,
 				922AFD04273711CF00732C53 /* CreativeModelTest.swift in Sources */,

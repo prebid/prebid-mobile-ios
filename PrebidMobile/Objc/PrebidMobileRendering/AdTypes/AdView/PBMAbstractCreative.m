@@ -483,10 +483,6 @@
 #pragma mark - SKStoreProductViewControllerDelegate
 
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
-    if (viewController.presentingViewController && !viewController.isBeingDismissed) {
-        [viewController dismissViewControllerAnimated:YES completion:nil];
-    }
-
     [self.creativeViewDelegate creativeClickthroughDidClose:self];
 
     if (self.skStoreProductViewControllerExitBlock) {
