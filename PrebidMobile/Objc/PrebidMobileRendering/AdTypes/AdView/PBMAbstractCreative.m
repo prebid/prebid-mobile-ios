@@ -36,7 +36,9 @@
 
 @property (nonatomic, weak, readwrite) id<PBMTransaction> transaction;
 @property (nonatomic, strong, readwrite) PBMEventManager *eventManager;
+
 @property (nonatomic, copy, nullable, readwrite) PBMVoidBlock dismissInterstitialModalState;
+@property (nonatomic, copy, nullable) PBMVoidBlock skStoreProductViewControllerExitBlock;
 
 @property (nonatomic, assign) BOOL adWasShown;
 
@@ -383,15 +385,17 @@
     }
     
     if (@available(iOS 14, *)) {
-        
-        if (self.viewControllerForPresentingModals.presentedViewController) {
-            [self.viewControllerForPresentingModals.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-        }
-        
+        self.skStoreProductViewControllerExitBlock = onClickthroughExitBlock;
+
         dispatch_async(dispatch_get_main_queue(), ^{
+            UIViewController *presentingController = self.viewControllerForPresentingModals;
+            while (presentingController.presentedViewController) {
+                presentingController = presentingController.presentedViewController;
+            }
+
             SKStoreProductViewController *skadnController = [SKStoreProductViewController new];
             skadnController.delegate = self;
-            [self.viewControllerForPresentingModals presentViewController:skadnController animated:YES completion:nil];
+            [presentingController presentViewController:skadnController animated:YES completion:nil];
             [skadnController loadProductWithParameters:productParams completionBlock:^(BOOL result, NSError *error) {
                 if (error) {
                     PBMLogError(@"Error presenting a product: %@", error.localizedDescription);
@@ -401,10 +405,6 @@
     }
 
     return YES;
-}
-
-- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
-    [self.creativeViewDelegate creativeClickthroughDidClose:self];
 }
 
 // Helper methods for resolution success & failure
@@ -478,6 +478,17 @@
 
 - (void)modalManagerDidLeaveApp:(id<PBMModalState>)state {
     PBMLogError(@"Abstract function called");
+}
+
+#pragma mark - SKStoreProductViewControllerDelegate
+
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
+    [self.creativeViewDelegate creativeClickthroughDidClose:self];
+
+    if (self.skStoreProductViewControllerExitBlock) {
+        self.skStoreProductViewControllerExitBlock();
+        self.skStoreProductViewControllerExitBlock = nil;
+    }
 }
 
 #pragma mark - Open Measurement
