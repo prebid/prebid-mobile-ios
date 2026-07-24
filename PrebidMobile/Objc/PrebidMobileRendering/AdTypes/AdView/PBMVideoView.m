@@ -74,8 +74,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 // This property holds the amount of data that was sent to the player.
 @property (atomic, assign) NSInteger requestedDataLength;
 
-@property (nonatomic, assign) BOOL isPlaybackStarted;
-@property (nonatomic, assign) BOOL isPlaybackFinished;
+@property (nonatomic, assign, readwrite) PBMVideoViewPlaybackState playbackState;
 
 @property (nonatomic, strong, nonnull) NSNumber * progressBarDuration;
 
@@ -152,9 +151,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)setupWithEventManager:(PBMEventManager *)eventManager {
-    self.isPlaybackFinished = NO;
     self.showLearnMore = NO;
-    self.isPlaybackStarted = NO;
+    self.playbackState = PBMVideoViewPlaybackStateUnstarted;
     self.eventManager = eventManager;
     self.accessibilityIdentifier = @"PBMVideoView";
     
@@ -568,10 +566,9 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)btnWatchAgainClick {
-    self.isPlaybackFinished = NO;
-
     [self.avPlayer seekToTime:kCMTimeZero toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
     [self.avPlayer play];
+    self.playbackState = PBMVideoViewPlaybackStatePlaying;
     
     [self.btnWatchAgain removeFromSuperview];
     self.btnWatchAgain = nil;
@@ -610,13 +607,15 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     [self updateControls];
     [self initTimeObserver];
 
+    BOOL isFirstPlayback = self.playbackState == PBMVideoViewPlaybackStateUnstarted;
+
     [self.avPlayer play];
-    
+    self.playbackState = PBMVideoViewPlaybackStatePlaying;
+
     [self handleSkipDelay:self.adConfiguration.videoControlsConfig.skipDelay
             videoDuration:self.creative.creativeModel.displayDurationInSeconds.doubleValue];
 
-    if (!self.isPlaybackStarted) {
-        self.isPlaybackStarted = YES;
+    if (isFirstPlayback) {
         [self trackStartPlaybackEvents];
     }
 }
@@ -646,11 +645,12 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
 
-    if (self.avPlayer.error || self.isPlaybackFinished) {
+    if (self.avPlayer.error || self.playbackState == PBMVideoViewPlaybackStateFinished) {
         return;
     }
-    
+
     [self.avPlayer pause];
+    self.playbackState = PBMVideoViewPlaybackStatePaused;
     [self.eventManager trackEvent:PBMTrackingEventPause];
     if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoDidPause:)]) {
         [self.creative.creativeViewDelegate videoDidPause:self.creative];
@@ -663,11 +663,12 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
 
-    if (self.avPlayer.error || self.isPlaybackFinished) {
+    if (self.avPlayer.error || self.playbackState == PBMVideoViewPlaybackStateFinished) {
         return;
     }
-    
+
     [self.avPlayer play];
+    self.playbackState = PBMVideoViewPlaybackStatePlaying;
     [self.eventManager trackEvent:PBMTrackingEventResume];
     if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoDidResume:)]) {
         [self.creative.creativeViewDelegate videoDidResume:self.creative];
@@ -685,6 +686,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
     
     [self.avPlayer pause];
+    self.playbackState = PBMVideoViewPlaybackStateFinished;
     [self.eventManager trackEvent:trackingEvent];
     [self.videoViewDelegate videoViewCompletedDisplay];
 }
@@ -724,6 +726,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
     
     [self.avPlayer pause];
+    self.playbackState = PBMVideoViewPlaybackStatePaused;
     [self.eventManager trackEvent:trackingEvent];
 }
 
@@ -750,11 +753,20 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)observer_UIApplicationWillResignActive:(NSNotification *)notification {
+    // If the video is not playing (e.g. already paused for a clickthrough overlay),
+    // leave its state untouched - it will be resumed by whoever paused it.
+    if (self.playbackState != PBMVideoViewPlaybackStatePlaying) {
+        return;
+    }
+
     [self pause];
+    self.playbackState = PBMVideoViewPlaybackStatePausedByBackground;
 }
 
 - (void)observer_UIApplicationDidBecomeActive:(NSNotification *)notification {
-    [self resume];
+    if (self.playbackState == PBMVideoViewPlaybackStatePausedByBackground) {
+        [self resume];
+    }
 }
 
 - (void)observer_AVPlayerItemDidPlayToEndTimeNotification:(NSNotification *)notification {
@@ -762,9 +774,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)completeVideoViewDisplayWith:(PBMTrackingEvent)trackingEvent {
-
-    if (!self.isPlaybackFinished ) {
-        self.isPlaybackFinished = YES;
+    if (self.playbackState != PBMVideoViewPlaybackStateFinished) {
+        self.playbackState = PBMVideoViewPlaybackStateFinished;
         [self.eventManager trackEvent:trackingEvent];
     }
     
@@ -791,7 +802,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)handleDidPlayToEndTime {
-    if (self.isPlaybackFinished) {
+    if (self.playbackState == PBMVideoViewPlaybackStateFinished) {
         return;
     }
     
@@ -881,8 +892,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 // pause avPlayer and notify videoViewCompletedDisplay if video reached the VAST Duration
 - (void)stopAdIfNeeded {
-    
-    if (self.isPlaybackFinished) {
+
+    if (self.playbackState == PBMVideoViewPlaybackStateFinished) {
         return;
     }
     
@@ -1086,6 +1097,5 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     // Return video duration by default
     return [NSNumber numberWithDouble:[self requiredVideoDuration]];
 }
-
 
 @end

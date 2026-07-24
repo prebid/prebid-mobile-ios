@@ -183,6 +183,107 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         waitForExpectations(timeout: expectedVideoDuration + expectedPausedTime + 0.5, handler:nil)
     }
     
+    func testVideoStaysPausedWhenAppBecomesActiveWhilePaused() {
+        // Expected duration of video small.mp4 is 6 sec
+        let expectedVideoDuration = 6.0
+        setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVideoDuration as NSNumber
+
+        //Wait for creativeReady
+        self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
+
+        DispatchQueue.main.async {
+            self.videoCreative?.setupView()
+        }
+        self.waitForExpectations(timeout: 10, handler:nil)
+
+        self.videoCreative?.display(rootViewController: UIViewController())
+
+        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+            XCTFail("Couldn't get Video View")
+            return
+        }
+
+        videoView.videoViewDelegate = self
+
+        let expectationVideoStaysPaused = expectation(description: "expectationVideoStaysPaused")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            XCTAssertEqual(videoView.playbackState, .playing)
+
+            // Simulate the video being paused by a clickthrough overlay
+            // (App Store or SafariViewController)
+            videoView.pause()
+            XCTAssertEqual(videoView.playbackState, .paused)
+
+            // Simulate the app being backgrounded and foregrounded
+            // while the overlay is still displayed
+            NotificationCenter.default.post(name: UIApplication.willResignActiveNotification,
+                                            object: UIApplication.shared)
+            XCTAssertEqual(videoView.playbackState, .paused, "Explicit pause must not be converted to a background pause")
+
+            NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification,
+                                            object: UIApplication.shared)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                XCTAssertEqual(videoView.playbackState, .paused)
+                XCTAssertEqual(videoView.avPlayer.rate, 0, "Video must not resume while it was paused before resigning active")
+                expectationVideoStaysPaused.fulfill()
+            })
+        })
+
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+
+    func testVideoResumesWhenAppBecomesActiveWhilePlaying() {
+        // Expected duration of video small.mp4 is 6 sec
+        let expectedVideoDuration = 6.0
+        setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
+        self.videoCreative.creativeModel.displayDurationInSeconds = expectedVideoDuration as NSNumber
+
+        //Wait for creativeReady
+        self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
+
+        DispatchQueue.main.async {
+            self.videoCreative?.setupView()
+        }
+        self.waitForExpectations(timeout: 10, handler:nil)
+
+        self.videoCreative?.display(rootViewController: UIViewController())
+
+        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+            XCTFail("Couldn't get Video View")
+            return
+        }
+
+        videoView.videoViewDelegate = self
+
+        let expectationVideoResumed = expectation(description: "expectationVideoResumed")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            XCTAssertNotEqual(videoView.avPlayer.rate, 0)
+            XCTAssertEqual(videoView.playbackState, .playing)
+
+            // Simulate the app being backgrounded while the video is playing
+            NotificationCenter.default.post(name: UIApplication.willResignActiveNotification,
+                                            object: UIApplication.shared)
+            XCTAssertEqual(videoView.avPlayer.rate, 0, "Video must be paused when the app resigns active")
+            XCTAssertEqual(videoView.playbackState, .pausedByBackground)
+
+            // Simulate the app returning to the foreground
+            NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification,
+                                            object: UIApplication.shared)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                XCTAssertNotEqual(videoView.avPlayer.rate, 0, "Video must resume when it was playing before resigning active")
+                XCTAssertEqual(videoView.playbackState, .playing)
+                expectationVideoResumed.fulfill()
+            })
+        })
+
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+
     func testStopVideo() {
         // Expected duration of video small.mp4 is 6 sec
         let expectedVideoDuration = 6.0
