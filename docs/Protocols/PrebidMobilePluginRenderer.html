@@ -17,7 +17,7 @@
     <a title="PrebidMobilePluginRenderer Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 3.3.1 Docs</a> (87% documented)</p>
+        <p><a href="../index.html">PrebidMobile 3.3.2 Docs</a> (87% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -159,6 +159,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PlacementType.html">PlacementType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PluginRendererFactory.html">PluginRendererFactory</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Prebid.html">Prebid</a>
@@ -508,7 +511,7 @@ Returns nil in the case of an internal error or if no renderer is provided.</p>
     <span class="nv">adConfiguration</span><span class="p">:</span> <span class="kt">AdUnitConfig</span><span class="p">,</span>
     <span class="nv">loadingDelegate</span><span class="p">:</span> <span class="kt">DisplayViewLoadingDelegate</span><span class="p">,</span>
     <span class="nv">interactionDelegate</span><span class="p">:</span> <span class="kt">DisplayViewInteractionDelegate</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">UIView</span> <span class="o">&amp;</span> <span class="kt">PrebidMobileDisplayViewProtocol</span><span class="p">)?</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">PrebidMobileDisplayViewProtocol</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -674,6 +677,65 @@ Returns nil in the case of an internal error or if no renderer is provided.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)didInjectView:into:"></a>
+                    <a name="//apple_ref/swift/Method/didInjectView(_:into:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(pl)PrebidMobilePluginRenderer(im)didInjectView:into:">didInjectView(_:<wbr>into:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the plugin renderer that an ad view has been injected into the banner view.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">optional</span> <span class="kd">func</span> <span class="nf">didInjectView</span><span class="p">(</span><span class="n">_</span> <span class="nv">view</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">,</span> <span class="n">into</span> <span class="nv">bannerView</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>view</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ad view that was injected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bannerView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The banner view into which the ad view was injected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:12PrebidMobile0aB14PluginRendererPAAE14jsonDictionarySDySSypGyF"></a>
                     <a name="//apple_ref/swift/Method/jsonDictionary()" class="dashAnchor"></a>
                     <a class="token" href="#/s:12PrebidMobile0aB14PluginRendererPAAE14jsonDictionarySDySSypGyF">jsonDictionary()</a>
@@ -706,7 +768,7 @@ Returns nil in the case of an internal error or if no renderer is provided.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2026-04-30)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2026-07-24)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

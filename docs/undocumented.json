@@ -198,21 +198,21 @@
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/ConfigurationAndTargeting/Prebid.swift",
-      "line": 336,
+      "line": 340,
       "symbol": "Prebid.registerPluginRenderer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/ConfigurationAndTargeting/Prebid.swift",
-      "line": 340,
+      "line": 344,
       "symbol": "Prebid.unregisterPluginRenderer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/ConfigurationAndTargeting/Prebid.swift",
-      "line": 344,
+      "line": 348,
       "symbol": "Prebid.containsPluginRenderer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -632,28 +632,35 @@
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 312,
+      "line": 313,
       "symbol": "BannerView.willPresentModal()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 319,
+      "line": 320,
       "symbol": "BannerView.didDismissModal()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 326,
+      "line": 327,
       "symbol": "BannerView.willLeaveApp()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 332,
+      "line": 333,
+      "symbol": "BannerView.didDisplayAd()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
+      "line": 339,
       "symbol": "BannerView.viewControllerForPresentingModal",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
