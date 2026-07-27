@@ -50,7 +50,7 @@ class MockPrebidMobilePluginRenderer: PrebidMobilePluginRenderer {
         adConfiguration: AdUnitConfig,
         loadingDelegate: any DisplayViewLoadingDelegate,
         interactionDelegate: any DisplayViewInteractionDelegate
-    ) -> PrebidMobileDisplayViewProtocol? {
+    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
         return nil
     }
     

@@ -543,7 +543,7 @@ class MockTrackingPluginRenderer: NSObject, PrebidMobilePluginRenderer {
     var createBannerViewCalled = false
     var createInterstitialControllerCalled = false
 
-    var bannerViewToReturn: PrebidMobileDisplayViewProtocol?
+    var bannerViewToReturn: (UIView & PrebidMobileDisplayViewProtocol)?
     var interstitialControllerToReturn: PrebidMobileInterstitialControllerProtocol?
 
     var lastBannerBid: Bid?
@@ -562,7 +562,7 @@ class MockTrackingPluginRenderer: NSObject, PrebidMobilePluginRenderer {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> PrebidMobileDisplayViewProtocol? {
+    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
         createBannerViewCalled = true
         lastBannerBid = bid
         lastBannerAdConfiguration = adConfiguration
