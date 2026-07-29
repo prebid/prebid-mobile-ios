@@ -25,5 +25,9 @@ typedef NS_ENUM(NSInteger, PBMVideoViewPlaybackState) {
     // Paused automatically because the app resigned active.
     // The only state that is auto-resumed when the app becomes active again.
     PBMVideoViewPlaybackStatePausedByBackground,
+    // Paused automatically because the ad view left the viewport,
+    // e.g. it was scrolled off-screen.
+    // Auto-resumed when the ad becomes viewable again.
+    PBMVideoViewPlaybackStatePausedByVisibility,
     PBMVideoViewPlaybackStateFinished,
 };

@@ -53,6 +53,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startPlayback;
 - (void)pause;
 - (void)resume;
+
+/// Pauses playback because the ad view left the viewport.
+/// Does nothing unless the video is currently playing, so that a pause
+/// made for another reason (clickthrough, background) is not overwritten.
+- (void)pauseForVisibilityChange;
+
+/// Resumes playback that was paused by `pauseForVisibilityChange`.
+/// Does nothing if the video was paused for any other reason.
+- (void)resumeAfterVisibilityChange;
+
 - (void)stop;
 - (void)stopWithTrackingEvent:(PBMTrackingEvent)trackingEvent;
 

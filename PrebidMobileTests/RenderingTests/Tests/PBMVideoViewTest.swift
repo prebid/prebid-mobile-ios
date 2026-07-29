@@ -35,10 +35,12 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
     
     override func setUp() {
         MockServer.shared.reset()
+        Prebid.forcedIsViewable = true
     }
-    
+
     override func tearDown() {
         MockServer.shared.reset()
+        Prebid.forcedIsViewable = false
         self.videoCreative = nil
         self.expectationDownloadCompleted = nil
         self.expectationCreativeReady = nil
