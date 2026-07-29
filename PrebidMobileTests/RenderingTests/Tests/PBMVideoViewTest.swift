@@ -35,9 +35,6 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
     
     override func setUp() {
         MockServer.shared.reset()
-        // These tests are about the video view itself and keep the ad off screen,
-        // so viewability has to be forced - otherwise the viewability tracker
-        // pauses playback right after it starts.
         Prebid.forcedIsViewable = true
     }
 
