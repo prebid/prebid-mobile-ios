@@ -675,6 +675,23 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
 }
 
+- (void)pauseForVisibilityChange {
+    if (self.playbackState != PBMVideoViewPlaybackStatePlaying) {
+        return;
+    }
+
+    [self pause];
+    self.playbackState = PBMVideoViewPlaybackStatePausedByVisibility;
+}
+
+- (void)resumeAfterVisibilityChange {
+    if (self.playbackState != PBMVideoViewPlaybackStatePausedByVisibility) {
+        return;
+    }
+
+    [self resume];
+}
+
 - (void)stop {
     [self stopWithTrackingEvent:PBMTrackingEventSkip];
 }
