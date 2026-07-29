@@ -75,7 +75,6 @@
 // Extensions
 #import "NSException+PBMExtensions.h"
 #import "NSString+PBMExtensions.h"
-#import "PBMTouchDownRecognizer.h"
 #import "UIView+PBMExtensions.h"
 #import "UIWindow+PBMExtensions.h"
 #import "WKNavigationAction+PBMWKNavigationActionCompatible.h"

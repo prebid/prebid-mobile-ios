@@ -394,6 +394,25 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         XCTAssertEqual(videoView.skipButtonDecorator.button.image(for: .normal)?.pngData(), PrebidImagesRepository.skipButton.base64DecodedImage?.pngData())
     }
     
+    func testSetupTapRecognizer() {
+        setupVideoCreative(
+            videoFileURL: "http://get_video/small.mp4",
+            localVideoFileName: "small.mp4"
+        )
+
+        guard let videoView = self.videoCreative.videoView else {
+            XCTFail()
+            return
+        }
+
+        let tapRecognizers = (videoView.gestureRecognizers ?? []).compactMap { $0 as? UITapGestureRecognizer }
+        XCTAssertEqual(tapRecognizers.count, 1)
+
+        XCTAssertTrue(tapRecognizers.first.map { type(of: $0) == UITapGestureRecognizer.self } ?? false)
+        XCTAssertEqual(tapRecognizers.first?.numberOfTapsRequired, 1)
+        XCTAssertEqual(tapRecognizers.first?.cancelsTouchesInView, false)
+    }
+
     func testHandleSkipDelay() {
         let expectation = expectation(description: "Test Skip Button Active")
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")

@@ -20,7 +20,6 @@
 #import "PBMMacros.h"
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"
-#import "PBMTouchDownRecognizer.h"
 #import "PBMVideoCreative.h"
 #import "PBMVideoView.h"
 #import "UIView+PBMExtensions.h"
@@ -46,7 +45,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 @property (nonatomic, weak) PBMVideoCreative *creative;
 @property (nonatomic, strong) PBMEventManager *eventManager;
-@property (nonatomic, strong) PBMTouchDownRecognizer *tapdownGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 #pragma mark UI
 
@@ -999,6 +998,22 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     return YES;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (gestureRecognizer != self.tapGestureRecognizer) {
+        return YES;
+    }
+
+    // The video controls (mute, Learn More, Watch Again) handle their own taps
+    // and must not be reported as a click on the ad.
+    for (UIView *view = touch.view; view && view != self; view = view.superview) {
+        if ([view isKindOfClass:[UIControl class]]) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
 #pragma mark - Utilities
 
 - (NSString *)getStringFromCMTime:(CMTime)time {
@@ -1027,21 +1042,21 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)setupTapRecognizer {
-    if (self.tapdownGestureRecognizer) {
-        [self removeGestureRecognizer:self.tapdownGestureRecognizer];
+    if (self.tapGestureRecognizer) {
+        [self removeGestureRecognizer:self.tapGestureRecognizer];
     }
     
-    self.tapdownGestureRecognizer = [[PBMTouchDownRecognizer alloc] initWithTarget:self action:@selector(recordTapEvent:)];
-    [self.tapdownGestureRecognizer setCancelsTouchesInView:YES];
-    [self addGestureRecognizer:self.tapdownGestureRecognizer];
-    self.tapdownGestureRecognizer.delegate = self;
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recordTapEvent:)];
+    [self.tapGestureRecognizer setCancelsTouchesInView:NO];
+    [self addGestureRecognizer:self.tapGestureRecognizer];
+    self.tapGestureRecognizer.delegate = self;
 }
 
 - (void)recordTapEvent:(UITapGestureRecognizer *)tap {
-    if (self.tapdownGestureRecognizer != tap) {
+    if (self.tapGestureRecognizer != tap) {
         return;
     }
-    
+
     if (ENABLE_OUTSTREAM_TAP_TO_EXPAND) {
         [self.videoViewDelegate videoViewWasTapped];
     } else {

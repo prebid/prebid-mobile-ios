@@ -25,7 +25,6 @@
 
 @class Targeting;
 @protocol PBMAbstractCreative;
-@class PBMTouchDownRecognizer;
 @protocol PBMViewExposure;
 @class PBMLocationManager;
 @class PBMCreativeModel;
@@ -56,7 +55,7 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 @property (nonatomic, weak, nullable) NSBundle *bundle;
 @property (nonatomic, weak, nullable) id<PBMWebViewDelegate> delegate;
 @property (nonatomic, weak, nullable) id<PBMExposureChangeDelegate> exposureDelegate;
-@property (nonatomic, strong) PBMTouchDownRecognizer *tapdownGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 @property (nonatomic) PBMMRAIDState *mraidState;
 @property (nonatomic, assign, readonly) PBMWebViewState state;
