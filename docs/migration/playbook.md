@@ -39,8 +39,8 @@ Swift `JSONObject`'s subscript setter for `PBMJsonCodable` values naively assign
 
 ```swift
 set {
-    let d = newValue?.jsonDictionary
-    dict[key.rawValue] = (d?.isEmpty == true) ? nil : d
+    let childDict = newValue?.jsonDictionary
+    dict[key.rawValue] = (childDict?.isEmpty == true) ? nil : childDict
 }
 ```
 
@@ -374,3 +374,76 @@ ObjC `typedef id<Foo>(^PBMBar)(NSTimeInterval, id, SEL, id?, BOOL)` cannot be re
 When `PBMTimerInterface.h` was reduced to a forward declaration `@protocol PBMTimerInterface;` (removing `@import Foundation;`), `PBMScheduledTimerFactory.h` lost Foundation types it was getting transitively. Fix: add `#import <Foundation/Foundation.h>` directly to any header that loses types via a reduced dependency.
 
 **Rule:** After reducing a private header to a forward declaration, check every header that `#import`s it for Foundation-type usage (`NSTimeInterval`, `BOOL`, `NS_ASSUME_NONNULL_BEGIN`, etc.) and add `#import <Foundation/Foundation.h>` or `@import Foundation;` as needed.
+
+## General ObjC → Swift reference
+
+Not phase-specific. Adapted from the generic guides in `agents/ios/migration-patterns/`. Those
+guides conflict with this playbook on four significant points — read
+`agents/ios/migration-patterns/SKILL.md` before consulting them directly.
+
+### `NSNull` from `JSONSerialization` is not `nil`
+
+`JSONSerialization` decodes a JSON `null` to `NSNull`, not to an absent key. **Typed reads are
+inherently safe**: `NSNull as? String`, `as? NSNumber`, and `as? [String: Any]` all yield `nil`, so
+every typed `JSONObject` subscript and every `case let value as …` pattern match in
+`JSONParsing.swift` already rejects it. `numberOrString` (`JSONParsing.swift:111`) and
+`backwardsCompatiblePassthrough` (`:116`) are both safe for this reason.
+
+The hazard is confined to **untyped existence checks**. One instance exists:
+
+```swift
+// ORTBImpExtPrebid.swift:37
+isRewardedInventory = jsonDictionary["is_rewarded_inventory"] != nil
+```
+
+Given `"is_rewarded_inventory": null` this yields `true`. The ObjC original used the same `!= nil`
+test, so wire-format parity is preserved and this is **not** a migration regression — but do not
+introduce further instances.
+
+**Rule:** Never test presence with `jsonDictionary[key] != nil` or a bare
+`if let value = jsonDictionary[key]`. Read through a type (`as? NSNumber`, `as? String`), or guard
+explicitly the way `NSMutableDictionary+PBMExtensions.swift:40` does: `value == nil || value is NSNull`.
+
+### ObjC ↔ Swift concept mapping
+
+Quick reference for porting. Rows marked ⚠ are where the generic source is wrong for this repo.
+
+| Objective-C | Swift | Notes |
+|-------------|-------|-------|
+| `@interface` / `@implementation` | `class` | ⚠ **Not `struct`** for Phase 1–3 twins — ObjC parameter builders consume them (Gap 4) |
+| `@property (nonatomic, strong)` | `var` | `let` for readonly equivalents |
+| `@property (nonatomic, copy)` | `var` | ⚠ If the ObjC type conformed to `<NSCopying>`, the Swift twin must implement it explicitly or `.copy()` crashes (see S1.4) |
+| `@property (nonatomic, readonly)` | `let` or `private(set) var` | Note `JSONObject.dict` is `private(set)` — see Gap 10 |
+| `NSString` | `String` | ⚠ Use `String?` where the ObjC param was nullable, to preserve nil guards (Gap S2.2-B) |
+| `NSArray` / `NSDictionary` | `[Element]` / `[Key: Value]` | ⚠ `NSMutableDictionary` properties must be decoded as `NSMutableDictionary(dictionary:)`, not `as?` (S1.4) |
+| `NSNumber` | `NSNumber` for ORTB fields | Keep `NSNumber` where the ORTB model needs optional numerics and JSON-key parity |
+| `NSError **` | `throws` | ⚠ `@objc` name must include the label: `@objc(name:error:)` (Gap S2.1-E) |
+| Block (`^`) | Closure | ⚠ A block *typedef* cannot be exported from Swift as a named type (Gap S2.3-B) |
+| `id` | `Any` | Prefer specific types |
+| `NS_ENUM` | `enum: Int` | ⚠ `NS_TYPED_ENUM` string constants cannot be bridged — keep a residual ObjC `.m` (Gap S2.1-A) |
+| `NS_OPTIONS` | `OptionSet` | Struct-based |
+| `dispatch_queue_t` + GCD | `DispatchQueue` | ⚠ **Not** `async`/`await` — iOS 13 floor. `dispatch_time()` becomes `(DispatchTime(uptimeNanoseconds:) + interval).rawValue` (Gap S2.1-C) |
+| Category | Extension | ⚠ `@objc` extensions on Foundation types bridge via `PrebidMobile-Swift.h` (Gap S2.2-A) |
+| `@protocol` | `protocol` | ⚠ Reduce the ObjC header to a forward declaration (Gap S2.1-G) |
+| `#pragma mark -` | `// MARK: -` | |
+| `@selector` | `#selector` | Compile-time checked |
+| `@try` / `@catch` | `do` / `try` / `catch` | Swift cannot catch ObjC exceptions |
+| `instancetype` | `Self` | |
+| `nullable` / `nonnull` | `Optional` / non-optional | |
+| `@dynamic` (CALayer) | `@NSManaged` | Gap S2.1-F |
+
+### `NS_SWIFT_NAME` / `NS_REFINED_FOR_SWIFT` on surviving ObjC APIs
+
+The reverse of `@objc(PBMFoo)`: these improve how *remaining* ObjC declarations appear to Swift,
+which still matters while ObjC parameter builders survive into Phase 3/4.
+
+```objc
+// Rename for Swift without touching the ObjC interface
+- (void)fetchRecordsOfType:(PBMRecordType)type NS_SWIFT_NAME(fetchRecords(ofType:));
+
+// Hide the ObjC form (exposed as __countForType:) and wrap it in a Swift extension
+- (NSInteger)countForType:(NSString *)type NS_REFINED_FOR_SWIFT;
+```
+
+Use sparingly — a rename that is not obvious from the ObjC selector makes the two layers harder to
+cross-reference during review.

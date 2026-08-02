@@ -61,6 +61,22 @@ If the full suite is warranted (final PR in a phase, or touching networking):
 - `fetchDemand` call sites and ad unit lifecycle unaffected
 - Min deployment target stays iOS 13.0 — no API calls that require higher
 - No new ObjC dependency added to the Swift layer without justification
+- Never log consent strings, IDFA, or EIDs (`ORTBUser.ext`) — this SDK handles all three
+
+**Ad rendering — the SDK draws into someone else's window**
+- SDK-drawn controls (close, skip, mute, Learn More) keep a **≥44×44pt** tap target. Note
+  `AdViewButtonDecorator.getButtonSize()` computes `0.1 × screenWidth`, which is under 44pt on most
+  of the device fleet — don't propagate that pattern.
+- No `UIScreen.main.bounds` for sizing or positioning. The host app's window may be a fraction of
+  the screen under Split View, Slide Over, or Stage Manager; size from the containing view's bounds.
+  Likewise avoid `UIApplication.statusBarOrientation` (deprecated since iOS 13) — read the trait
+  environment instead.
+- Overlay chrome composited over arbitrary advertiser content meets contrast floors: **4.5:1** for
+  text, **3:1** for UI components. A translucent scrim over unknown video does not guarantee either.
+- Text the SDK draws either scales with Dynamic Type (`UIFontMetrics.scaledFont(for:)`) or is
+  deliberately capped for a fixed-height overlay — not silently frozen at a point size.
+- When ad chrome changes, spot-check with VoiceOver on, text at Accessibility XXXL, and Reduce
+  Transparency enabled.
 
 **Tests**
 - New test class registered in `PrebidMobileTests/PrebidMobilePRTests.xctestplan`
