@@ -375,6 +375,34 @@ When `PBMTimerInterface.h` was reduced to a forward declaration `@protocol PBMTi
 
 **Rule:** After reducing a private header to a forward declaration, check every header that `#import`s it for Foundation-type usage (`NSTimeInterval`, `BOOL`, `NS_ASSUME_NONNULL_BEGIN`, etc.) and add `#import <Foundation/Foundation.h>` or `@import Foundation;` as needed.
 
+### Gap S2.4-A — Rebasing a migration commit onto an upstream commit that deletes the ported class
+
+When rebasing a migration branch onto `master` and the *ported* ObjC class was independently
+deleted upstream (its whole feature replaced, not just tweaked), the migration's Swift port
+becomes dead code even if the rebase auto-merges cleanly — a clean auto-merge only means git found
+no *overlapping lines*, not that the port is still wanted. This happened with
+`PBMTouchDownRecognizer`: `master` deleted it in favor of `UITapGestureRecognizer` in the same
+commit range being rebased onto, and the deletion touched different lines than the migration's
+port, so `PBMWebView.m`/`PBMVideoView.m` auto-merged onto master's replacement while
+`TouchDownRecognizer.swift` and its test sailed through unchanged.
+
+**Rule:** After any rebase of a migration branch onto `master`, diff the upstream commits being
+rebased onto against the set of classes ported in this phase. For any ObjC class deleted upstream
+(not just modified), delete the corresponding Swift port and its test rather than reconciling —
+check first whether any production code (post-rebase) still references it.
+
+### Gap S2.4-B — Post-migration upstream commits can reintroduce ObjC-name references in tests
+
+A test file can be modified by an upstream commit *after* a class was already migrated to Swift,
+adding a fresh reference to the old ObjC name (the author copy-pasted from an older test or wasn't
+aware of the port). This isn't caught by the migration's own history — grep the full test suite
+for stale ObjC-prefixed names after every rebase, not just the files touched by rebase conflicts.
+
+**Rule:** After rebasing onto `master`, run the build once; any `'PBMFoo' has been renamed to 'Foo'`
+compiler error names the file. Then grep proactively: build the list of `@objc(PBMFoo)` names from
+every Swift file this phase ported, and search all `*.swift` files for each name outside its own
+declaration line — this catches other stale references the build hasn't reached yet.
+
 ## General ObjC → Swift reference
 
 Not phase-specific. Adapted from the generic guides in `agents/ios/migration-patterns/`. Those

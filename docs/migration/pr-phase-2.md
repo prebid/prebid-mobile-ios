@@ -66,3 +66,29 @@ Key findings:
 - [x] `./scripts/testPrebidMobile.sh --latest --quick` — 694 tests, 0 failures (S2.3 final)
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite (pending before merge)
 - [ ] Reviewer: confirm gap S2.1-A (NS_TYPED_ENUM deferred) and gap S2.1-B (@_spi imports in tests)
+
+---
+
+### S2.4 — Rebase onto `master` (post `#1294`)
+
+Rebased phases 0–2 onto `master` at `273cd07f` ("fix: register click on touch up", #1294), which
+landed after these commits were originally authored.
+
+Conflicts resolved:
+- `project.pbxproj`, `PBMWebView.m`, `PBMVideoView.h`, test bridging header — mechanical; kept the
+  migration's file deletions (ObjC → Swift moves) alongside master's unrelated changes.
+- `PBMTouchDownRecognizer` — **dropped, not reconciled**. `#1294` deleted the class entirely
+  (replaced `PBMWebView`/`PBMVideoView`'s tap-down recognizer with a plain `UITapGestureRecognizer`
+  + `shouldReceiveTouch:`), which auto-merged cleanly since the migration's diff didn't touch that
+  code. The migration's `TouchDownRecognizer.swift` port and its test were now dead code ported
+  from a class master no longer has — removed both, plus their `project.pbxproj` entries, rather
+  than reconciling (Gap S2.4-A, see `pr-phase-2-description.md`).
+- `PBMVideoViewPlaybackStateTest.swift:462` — master's `#1286`/`#1292` fixes added a new test after
+  S2.1 was authored, referencing `PBMDownloadDataHelper` (the ObjC name). Since `DownloadDataHelper`
+  is Swift-only now, renamed the reference (Gap S2.4-B — same class as S2.1, but rediscovered
+  because it was introduced by a post-migration upstream commit, not part of the original port).
+
+Test plan for the rebase:
+- [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 751 tests, 0 failures (test count grew
+      from 694 due to master's intervening commits)
