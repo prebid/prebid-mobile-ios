@@ -98,6 +98,9 @@ public class VideoControlsConfiguration: NSObject {
     /// use the `rwdd.close.action` configuration instead.
     /// Obtained from `ext.prebid.passthrough[].adConfiguration.isautocloseoncompletionenabled` or set by the user.
     public var isAutoCloseOnCompletionEnabled = true
+
+    /// This property indicates whether the remaining-time indicator is visible for full-screen video ads.
+    public var isVideoProgressIndicatorVisible = true
     
     /// Use to initialize video controls with server values.
     public func initialize(with ortbAdConfiguration: ORTBAdConfiguration?) {
