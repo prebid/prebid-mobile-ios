@@ -35,6 +35,11 @@ public class InterstitialController:
         get { adConfiguration.adConfiguration.videoControlsConfig }
         set { adConfiguration.adConfiguration.videoControlsConfig = newValue }
     }
+
+    public var rewardedCompletionTimeout: TimeInterval {
+        get { videoControlsConfig.rewardedCompletionTimeout }
+        set { videoControlsConfig.rewardedCompletionTimeout = newValue }
+    }
     
     public var videoParameters: VideoParameters {
         get { adConfiguration.adConfiguration.videoParameters }
@@ -72,7 +77,6 @@ public class InterstitialController:
         }
         
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
-        adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
         videoControlsConfig.initialize(with: bid.videoAdConfiguration)
         
         // This part is dedicating to test server-side ad configurations.
@@ -80,6 +84,10 @@ public class InterstitialController:
         #if DEBUG
         adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
         #endif
+
+        let rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
+        rewardedConfig.defaultCompletionTime = NSNumber(value: videoControlsConfig.rewardedCompletionTimeout)
+        adConfiguration.adConfiguration.rewardedConfig = rewardedConfig
         
         transactionFactory = Factory.createTransactionFactory(
             bid: bid,

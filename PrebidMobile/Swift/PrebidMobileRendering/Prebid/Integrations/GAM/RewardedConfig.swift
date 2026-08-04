@@ -68,7 +68,7 @@ public class RewardedConfig: NSObject {
     // MARK: - Default Values
     
     /// The timeout duration for rewarded completion, measured in seconds.
-    public let defaultCompletionTime: NSNumber = 120
+    public var defaultCompletionTime: NSNumber = 120
     
     /// The playback event when the SDK should send a signal to the application that the user has earned the reward
     public let defaultVideoPlaybackEvent = "complete"

@@ -60,7 +60,11 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         guard transactionFactory == nil else { return }
 
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
-        adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
+        let rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
+        rewardedConfig.defaultCompletionTime = NSNumber(
+            value: adConfiguration.adConfiguration.videoControlsConfig.rewardedCompletionTimeout
+        )
+        adConfiguration.adConfiguration.rewardedConfig = rewardedConfig
 
         transactionFactory = Factory.createTransactionFactory(
             bid: bid,

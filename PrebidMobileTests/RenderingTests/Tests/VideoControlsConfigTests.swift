@@ -27,6 +27,50 @@ class VideoControlsConfigTests: XCTestCase {
         XCTAssertTrue(adConfiguration.isSoundButtonVisible == false)
     }
 
+    func testRewardedCompletionTimeout() {
+        let adConfiguration = VideoControlsConfiguration()
+        XCTAssertEqual(adConfiguration.rewardedCompletionTimeout, 120)
+
+        adConfiguration.rewardedCompletionTimeout = 15
+        XCTAssertEqual(adConfiguration.rewardedCompletionTimeout, 15)
+
+        adConfiguration.rewardedCompletionTimeout = -1
+        XCTAssertEqual(adConfiguration.rewardedCompletionTimeout, 15)
+    }
+
+    func testInterstitialControllerPropagatesRewardedCompletionTimeout() {
+        let adConfiguration = AdUnitConfig(configId: "test")
+        let controller = InterstitialController(
+            bid: makeBid(),
+            adConfiguration: adConfiguration
+        )
+        controller.rewardedCompletionTimeout = 15
+
+        controller.loadAd()
+
+        XCTAssertEqual(
+            adConfiguration.adConfiguration.rewardedConfig?.defaultCompletionTime,
+            15
+        )
+    }
+
+    func testDisplayViewPropagatesRewardedCompletionTimeout() {
+        let adConfiguration = AdUnitConfig(configId: "test")
+        adConfiguration.adConfiguration.videoControlsConfig.rewardedCompletionTimeout = 20
+        let displayView = DisplayView(
+            frame: .zero,
+            bid: makeBid(),
+            adConfiguration: adConfiguration
+        )
+
+        displayView.loadAd()
+
+        XCTAssertEqual(
+            adConfiguration.adConfiguration.rewardedConfig?.defaultCompletionTime,
+            20
+        )
+    }
+
     func testCloseButtonArea() {
         let adConfiguration = VideoControlsConfiguration()
         XCTAssertEqual(adConfiguration.closeButtonArea, PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue)
@@ -72,5 +116,9 @@ class VideoControlsConfigTests: XCTestCase {
         XCTAssertEqual(adConfiguration.closeButtonArea, 0.3)
         XCTAssertEqual(adConfiguration.closeButtonPosition, .topLeft)
         
+    }
+
+    private func makeBid() -> Bid {
+        Bid(bid: ORTBBid<ORTBBidExt>(bidID: "test", impid: "imp1", price: 1))
     }
 }

@@ -45,6 +45,12 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
+
+    /// The fallback completion timeout used when the bid omits rewarded completion criteria.
+    public var rewardedCompletionTimeout: TimeInterval {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.rewardedCompletionTimeout }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.rewardedCompletionTimeout = newValue }
+    }
     
     /// The area for the close button in the video ad.
     public var closeButtonArea: Double {

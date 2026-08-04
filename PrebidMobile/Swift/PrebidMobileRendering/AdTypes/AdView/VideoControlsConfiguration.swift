@@ -90,6 +90,18 @@ public class VideoControlsConfiguration: NSObject {
     
     /// This property indicates whether mute controls is visible on the screen.
     public var isSoundButtonVisible = false
+
+    /// The fallback rewarded-ad completion timeout, in seconds, used when the bid does not provide completion criteria.
+    public var rewardedCompletionTimeout: TimeInterval {
+        set {
+            if newValue >= 0 {
+                _rewardedCompletionTimeout = newValue
+            } else {
+                Log.warn("The rewarded completion timeout must not be negative.")
+            }
+        }
+        get { _rewardedCompletionTimeout }
+    }
     
     /// Use to initialize video controls with server values.
     public func initialize(with ortbAdConfiguration: ORTBAdConfiguration?) {
@@ -136,4 +148,6 @@ public class VideoControlsConfiguration: NSObject {
     
     private var _skipButtonArea = PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue
     private var _skipButtonPosition = Position.topLeft
+
+    private var _rewardedCompletionTimeout: TimeInterval = 120
 }

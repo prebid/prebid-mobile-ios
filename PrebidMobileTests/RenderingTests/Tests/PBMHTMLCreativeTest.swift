@@ -495,6 +495,39 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         
         waitForExpectations(timeout: 10)
     }
+
+    func testRewardEvent_EndcardUsesConfiguredFallback() {
+        let exp = expectation(description: "Reward completion")
+
+        let rewardedConfig = RewardedConfig(ortbRewarded: ORTBRewardedConfiguration())
+        rewardedConfig.defaultCompletionTime = 1
+
+        let adConfiguration = AdConfiguration()
+        adConfiguration.rewardedConfig = rewardedConfig
+        adConfiguration.isRewarded = true
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
+        self.htmlCreative = MockPBMHTMLCreative(
+            creativeModel: creativeModel,
+            transaction: UtilitiesForTesting.createEmptyTransaction()
+        )
+
+        htmlCreative.creativeModel.isCompanionAd = true
+        htmlCreative.onViewabilityChanged(
+            true,
+            viewExposure: Factory.createViewExposure(
+                exposureFactor: 5,
+                visibleRectangle: CGRect(origin: .zero, size: CGSize(width: 300, height: 250))
+            )
+        )
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            if self.htmlCreative.creativeModel.userHasEarnedReward == true {
+                exp.fulfill()
+            }
+        }
+
+        waitForExpectations(timeout: 3)
+    }
     
     func testPostRewardEvent_Banner() {
         let rewardTime: NSNumber = 2
