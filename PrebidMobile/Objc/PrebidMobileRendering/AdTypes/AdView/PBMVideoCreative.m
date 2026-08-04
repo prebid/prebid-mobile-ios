@@ -204,10 +204,11 @@
     }
     
     if (self.creativeModel.adConfiguration.presentAsInterstitial) {
-        // no companion ads so pass this event to the PBMModalManager
-        // and close video automatically
-        [self.modalManager creativeDisplayCompleted:self];        
-        if (self.dismissInterstitialModalState) {
+        // No companion ads, so pass completion to the modal manager and
+        // close automatically unless the publisher disabled that behavior.
+        [self.modalManager creativeDisplayCompleted:self];
+        if (self.creativeModel.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled &&
+            self.dismissInterstitialModalState) {
             self.dismissInterstitialModalState();
         }
     } else {

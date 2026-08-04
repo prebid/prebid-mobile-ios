@@ -27,6 +27,14 @@ class VideoControlsConfigTests: XCTestCase {
         XCTAssertTrue(adConfiguration.isSoundButtonVisible == false)
     }
 
+    func testAutoCloseOnCompletion() {
+        let adConfiguration = VideoControlsConfiguration()
+        XCTAssertTrue(adConfiguration.isAutoCloseOnCompletionEnabled)
+
+        adConfiguration.isAutoCloseOnCompletionEnabled = false
+        XCTAssertFalse(adConfiguration.isAutoCloseOnCompletionEnabled)
+    }
+
     func testCloseButtonArea() {
         let adConfiguration = VideoControlsConfiguration()
         XCTAssertEqual(adConfiguration.closeButtonArea, PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue)

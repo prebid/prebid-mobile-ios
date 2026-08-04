@@ -90,6 +90,9 @@ public class VideoControlsConfiguration: NSObject {
     
     /// This property indicates whether mute controls is visible on the screen.
     public var isSoundButtonVisible = false
+
+    /// This property indicates whether a full-screen video without a companion ad closes automatically when playback completes.
+    public var isAutoCloseOnCompletionEnabled = true
     
     /// Use to initialize video controls with server values.
     public func initialize(with ortbAdConfiguration: ORTBAdConfiguration?) {

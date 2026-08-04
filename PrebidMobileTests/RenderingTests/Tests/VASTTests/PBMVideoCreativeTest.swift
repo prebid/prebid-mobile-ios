@@ -19,6 +19,14 @@ import AVFoundation
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
+private final class CompletionTrackingModalManager: MockModalManager {
+    private(set) var completedCreative: AbstractCreative?
+
+    override func creativeDisplayCompleted(_ creative: AbstractCreative) {
+        completedCreative = creative
+    }
+}
+
 class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, PBMVideoViewDelegate {
    
     var videoCreative:PBMVideoCreative!
@@ -222,6 +230,84 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         self.videoCreative.showAsInterstitial(fromRootViewController: rootVC, displayProperties: displayProperties)
         
         waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testInterstitialWithoutCompanionAutoClosesByDefault() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isInterstitialAd = true
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        model.hasCompanionAd = false
+
+        videoCreative = PBMVideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+
+        let modalManager = MockModalManager()
+        videoCreative.modalManager = modalManager
+        videoCreative.showAsInterstitial(
+            fromRootViewController: UIViewController(),
+            displayProperties: InterstitialDisplayProperties()
+        )
+        XCTAssertEqual(modalManager.modalStateStack.count, 1)
+
+        videoCreative.videoViewCompletedDisplay()
+
+        XCTAssertTrue(modalManager.modalStateStack.isEmpty)
+    }
+
+    func testInterstitialWithoutCompanionCanDisableAutoClose() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isInterstitialAd = true
+        adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled = false
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        model.hasCompanionAd = false
+
+        videoCreative = PBMVideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+
+        let modalManager = MockModalManager()
+        videoCreative.modalManager = modalManager
+        videoCreative.showAsInterstitial(
+            fromRootViewController: UIViewController(),
+            displayProperties: InterstitialDisplayProperties()
+        )
+        XCTAssertEqual(modalManager.modalStateStack.count, 1)
+
+        videoCreative.videoViewCompletedDisplay()
+
+        XCTAssertEqual(modalManager.modalStateStack.count, 1)
+    }
+
+    func testRewardedCompletionIsReportedWhenAutoCloseIsDisabled() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isInterstitialAd = true
+        adConfiguration.isRewarded = true
+        adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled = false
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        model.hasCompanionAd = false
+
+        videoCreative = PBMVideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+
+        let modalManager = CompletionTrackingModalManager()
+        videoCreative.modalManager = modalManager
+        videoCreative.showAsInterstitial(
+            fromRootViewController: UIViewController(),
+            displayProperties: InterstitialDisplayProperties()
+        )
+
+        videoCreative.videoViewCompletedDisplay()
+
+        XCTAssertTrue(modalManager.completedCreative === videoCreative)
+        XCTAssertEqual(modalManager.modalStateStack.count, 1)
     }
     
     func testSkipOffset() {
