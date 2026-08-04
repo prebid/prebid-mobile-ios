@@ -76,6 +76,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 @property (nonatomic, strong, nonnull) NSNumber * progressBarDuration;
 
 - (NSNumber *)calculateProgressBarDuration;
+- (BOOL)shouldShowProgressBar;
 
 @end
 
@@ -350,9 +351,10 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 - (void)updateProgressBar {
     if (self.progressBar) {
         [self.progressBar removeFromSuperview];
+        self.progressBar = nil;
     }
     
-    if (!self.creative.creativeModel.adConfiguration.isRewarded) {
+    if (![self shouldShowProgressBar]) {
         return;
     }
     
@@ -373,6 +375,12 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     [progressBar PBMAddBottomLeftConstraintsWithViewSize:CGSizeMake(36, 36) marginSize:CGSizeMake(25.0, -25.0)];
     
     self.progressBar = progressBar;
+}
+
+- (BOOL)shouldShowProgressBar {
+    PBMAdConfiguration *adConfiguration = self.creative.creativeModel.adConfiguration;
+    return adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible &&
+        (adConfiguration.isRewarded || adConfiguration.presentAsInterstitial);
 }
 
 - (void)updateWatchAgainButton {
@@ -631,7 +639,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         }];
     }
     
-    if (self.adConfiguration.isRewarded) {
+    if ([self shouldShowProgressBar]) {
         self.progressBar.duration = [self.progressBarDuration doubleValue];
     }
 }
@@ -869,7 +877,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     CGFloat playingTime = CMTimeGetSeconds(currentTime);
     CGFloat remainingTime = [self.progressBarDuration doubleValue] - playingTime;
 
-    if (self.creative.creativeModel.adConfiguration.isRewarded) {
+    if ([self shouldShowProgressBar]) {
         
         // Update progress bar
         if(remainingTime >= 0) {
@@ -878,6 +886,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
             if (self.progressBar.superview) {
                 [self.progressBar removeFromSuperview];
             }
+            self.progressBar = nil;
         }
     }
     

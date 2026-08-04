@@ -107,6 +107,12 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         get { adUnitConfig.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled = newValue }
     }
+
+    /// A Boolean value indicating whether the remaining-time indicator is visible for video ads.
+    public var isVideoProgressIndicatorVisible: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible = newValue }
+    }
     
     // MARK: Private properties
     
