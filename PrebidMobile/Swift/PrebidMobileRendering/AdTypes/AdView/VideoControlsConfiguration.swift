@@ -90,6 +90,9 @@ public class VideoControlsConfiguration: NSObject {
     
     /// This property indicates whether mute controls is visible on the screen.
     public var isSoundButtonVisible = false
+
+    /// This property indicates whether the remaining-time indicator is visible for full-screen video ads.
+    public var isVideoProgressIndicatorVisible = true
     
     /// Use to initialize video controls with server values.
     public func initialize(with ortbAdConfiguration: ORTBAdConfiguration?) {

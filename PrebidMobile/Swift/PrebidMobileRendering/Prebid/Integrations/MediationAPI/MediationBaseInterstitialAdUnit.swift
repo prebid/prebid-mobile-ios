@@ -45,6 +45,12 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
+
+    /// Indicates whether the remaining-time indicator is visible for video ads.
+    public var isVideoProgressIndicatorVisible: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible = newValue }
+    }
     
     /// The area for the close button in the video ad.
     public var closeButtonArea: Double {
