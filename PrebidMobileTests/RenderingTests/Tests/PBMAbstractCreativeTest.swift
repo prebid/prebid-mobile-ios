@@ -125,17 +125,46 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
             exitBlockCount += 1
         }
 
+        pbmAbstractCreative.clickthroughVisible = true
+
         let skadnController = SKStoreProductViewController()
         pbmAbstractCreative.productViewControllerDidFinish(skadnController)
 
         XCTAssertEqual(clickthroughDidCloseCount, 1)
+        XCTAssertFalse(pbmAbstractCreative.clickthroughVisible)
         XCTAssertEqual(exitBlockCount, 1)
         XCTAssertNil(pbmAbstractCreative.skStoreProductViewControllerExitBlock,
                      "Exit block should be released after being called")
 
         // A repeated delegate callback must not fire the exit block again
         pbmAbstractCreative.productViewControllerDidFinish(skadnController)
+        XCTAssertEqual(clickthroughDidCloseCount, 1)
         XCTAssertEqual(exitBlockCount, 1)
+    }
+
+    func testProductViewControllerDidFinish_completesDeferredCloseWhenClickthroughFlagConsumed() {
+        logToFile = .init()
+
+        let delegate = MockCreativeViewDelegate()
+        pbmAbstractCreative.creativeViewDelegate = delegate
+
+        var clickthroughDidCloseCount = 0
+        delegate.creativeClickthroughDidCloseHandler = { _ in
+            clickthroughDidCloseCount += 1
+        }
+
+        pbmAbstractCreative.clickthroughVisible = false
+        pbmAbstractCreative.pendingModalStatePop = Factory.createModalState(
+            view: PBMWebView(),
+            adConfiguration: AdConfiguration(),
+            displayProperties: InterstitialDisplayProperties())
+
+        let skadnController = SKStoreProductViewController()
+        pbmAbstractCreative.productViewControllerDidFinish(skadnController)
+
+        XCTAssertEqual(clickthroughDidCloseCount, 0)
+        XCTAssertNil(pbmAbstractCreative.pendingModalStatePop)
+        UtilitiesForTesting.checkLogContains(msgAbstractFunctionCalled)
     }
 
     func testHandleProductClickthrough_presentsOnTopmostViewController() {
@@ -159,6 +188,7 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
             XCTAssertTrue(modalVC.presentVC is SKStoreProductViewController)
             XCTAssertTrue(rootVC.presentVC === modalVC,
                           "Already presented view controller should not be replaced")
+            XCTAssertTrue(self.pbmAbstractCreative.clickthroughVisible)
             presentationExpectation.fulfill()
         }
         waitForExpectations(timeout: 4)
