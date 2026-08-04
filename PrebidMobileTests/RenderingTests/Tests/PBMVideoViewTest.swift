@@ -613,6 +613,84 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         XCTAssertEqual(result, expectedDuration)
     }
+
+    func testProgressIndicatorShownForInterstitialVideo() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isInterstitialAd = true
+
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        videoCreative = VideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+
+        videoCreative.videoView.updateProgressBar()
+
+        XCTAssertNotNil(videoCreative.videoView.progressBar)
+    }
+
+    func testProgressIndicatorUpdatesForInterstitialVideo() throws {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isInterstitialAd = true
+
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        videoCreative = VideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+
+        let videoView = videoCreative.videoView!
+        let videoURL = try XCTUnwrap(
+            Bundle(for: Self.self).url(forResource: "small", withExtension: "mp4")
+        )
+        videoView.avPlayer = AVPlayer(url: videoURL)
+        defer { videoView.avPlayer = nil }
+        videoView.progressBarDuration = 10
+        videoView.updateProgressBar()
+        videoView.progressBar?.value = -1
+
+        videoView.initTimeObserver()
+        let remainingTime = videoView.handlePeriodicTimeEvent()
+
+        XCTAssertEqual(videoView.progressBar?.duration, 10)
+        XCTAssertEqual(remainingTime, 10)
+        XCTAssertEqual(videoView.progressBar?.value, remainingTime)
+    }
+
+    func testProgressIndicatorCanBeHiddenForInterstitialVideo() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isInterstitialAd = true
+
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        videoCreative = VideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+
+        videoCreative.videoView.updateProgressBar()
+        XCTAssertNotNil(videoCreative.videoView.progressBar)
+
+        adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible = false
+        videoCreative.videoView.updateProgressBar()
+
+        XCTAssertNil(videoCreative.videoView.progressBar)
+    }
+
+    func testProgressIndicatorHiddenForOutstreamVideo() {
+        let model = CreativeModel(adConfiguration: AdConfiguration())
+        videoCreative = VideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+
+        videoCreative.videoView.updateProgressBar()
+
+        XCTAssertNil(videoCreative.videoView.progressBar)
+    }
     
     func testCalculateProgressBarDuration_whenPlaybackEventIsStart() {
         let postRewardTime: NSNumber = 5
