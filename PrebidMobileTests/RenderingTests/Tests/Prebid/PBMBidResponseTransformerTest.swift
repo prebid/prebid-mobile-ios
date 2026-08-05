@@ -167,10 +167,79 @@ class PBMBidResponseTransformerTest: XCTestCase {
     
     func testRemoveBidsWithoutSuccessfulCache_lowercaseVastXmlCacheBidRemains() {
         let bidResponse = BidResponse(jsonDictionary: Self.cachedBidResponseDictionary(cacheKey: "vastxml"))
-        
+
         XCTAssertEqual(bidResponse.removeBidsWithoutSuccessfulCache(), 0)
         XCTAssertEqual(bidResponse.allBids?.count, 1)
         XCTAssertNotNil(bidResponse.winningBid)
+    }
+
+    func testRemoveBidsWithoutSuccessfulCache_promotesRunnerUpWhenTopBidFiltered() {
+        // The PBS-designated winner carries the unsuffixed hb_bidder/hb_pb/hb_cache_id
+        // keys but has no ext.prebid.cache, so it fails the cache check.
+        let topBid: [String : Any] = [
+            "id": "top-bid-id",
+            "impid": "test-imp-id",
+            "price": 0.20,
+            "adm": "<html></html>",
+            "w": 300,
+            "h": 250,
+            "ext": [
+                "prebid": [
+                    "targeting": [
+                        "hb_bidder": "openx",
+                        "hb_pb": "0.20",
+                        "hb_cache_id": "cache-id"
+                    ],
+                    "type": "banner"
+                ]
+            ]
+        ]
+
+        // The runner-up carries only bidder-suffixed keys (as PBS does for non-winning
+        // bids) but does have a successful cache entry.
+        let runnerUpBid: [String : Any] = [
+            "id": "runner-up-bid-id",
+            "impid": "test-imp-id",
+            "price": 0.10,
+            "adm": "<html></html>",
+            "w": 300,
+            "h": 250,
+            "ext": [
+                "prebid": [
+                    "targeting": [
+                        "hb_bidder_appnexus": "appnexus",
+                        "hb_pb_appnexus": "0.10"
+                    ],
+                    "cache": [
+                        "bids": [
+                            "url": "https://prebid-cache/cache?uuid=runner-up-cache-id",
+                            "cacheId": "runner-up-cache-id"
+                        ]
+                    ],
+                    "type": "banner"
+                ]
+            ]
+        ]
+
+        let bidResponse = BidResponse(jsonDictionary: [
+            "id": "response-id",
+            "seatbid": [
+                [
+                    "bid": [topBid, runnerUpBid],
+                    "seat": "openx"
+                ]
+            ],
+            "cur": "USD"
+        ])
+
+        XCTAssertEqual(bidResponse.winningBid?.price, 0.20)
+        XCTAssertFalse(bidResponse.topBidWasFiltered)
+
+        XCTAssertEqual(bidResponse.removeBidsWithoutSuccessfulCache(), 1)
+        XCTAssertEqual(bidResponse.allBids?.count, 1)
+        XCTAssertEqual(bidResponse.winningBid?.price, 0.10)
+        XCTAssertTrue(bidResponse.topBidWasFiltered)
+        XCTAssertEqual(bidResponse.targetingInfo?["hb_bidder_appnexus"], "appnexus")
     }
     
     func testRealPrebidResponse() {

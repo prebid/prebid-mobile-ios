@@ -66,7 +66,12 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
             bidRequest.test = 1
         }
 
-        if Prebid.shared.useCacheForReportingWithRenderingAPI || Prebid.shared.requireServerSideBidCache {
+        // Note: filterOutUncachedBids is intentionally not checked here. It only controls
+        // whether uncached bids are filtered out of the response for Original API; it never
+        // requests caching on its own. Original API already asks PBS to cache bids via
+        // useCacheForReportingWithRenderingAPI (see AdUnit.init), so cache is always requested
+        // wherever filterOutUncachedBids could apply.
+        if Prebid.shared.useCacheForReportingWithRenderingAPI {
             let cache = NSMutableDictionary()
             cache["bids"] = NSMutableDictionary()
             cache["vastxml"] = NSMutableDictionary()

@@ -255,10 +255,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
         if let adObject {
             Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
         }
-        
-        return .prebidDemandFetchSuccess
+
+        return bidResponse.topBidWasFiltered ? .prebidDemandTopBidFiltered : .prebidDemandFetchSuccess
     }
-    
+
     private func cacheBidIfNeeded(_ winningBid: Bid) -> String? {
         let isNative = winningBid.adFormat == .native
         let isSkadnPresent = winningBid.skadn != nil && SkadnParametersManager
