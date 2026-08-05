@@ -30,7 +30,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     override func tearDown() {
         UtilitiesForTesting.resetTargeting(targeting)
-        sdkConfiguration.requireServerSideBidCache = false
+        sdkConfiguration.filterOutUncachedBids = false
         Prebid.reset()
     }
     
@@ -375,21 +375,19 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertNotNil(cache["vastxml"])
     }
     
-    func testRequireServerSideBidCacheEnablesCaching() {
-        sdkConfiguration.requireServerSideBidCache = true
+    func testFilterOutUncachedBidsAloneDoesNotEnableCaching() {
+        // filterOutUncachedBids only controls response-side filtering for Original API.
+        // It must not, by itself, trigger a cache request; Original API already asks PBS
+        // to cache via useCacheForReportingWithRenderingAPI (see testCachingForOriginalAPI).
+        sdkConfiguration.useCacheForReportingWithRenderingAPI = false
+        sdkConfiguration.filterOutUncachedBids = true
 
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
 
         let bidRequest = buildBidRequest(with: adUnitConfig)
-        
-        guard let cache = bidRequest.extPrebid.cache else {
-            XCTFail("Cache shouldn't be nil if requireServerSideBidCache is turned on.")
-            return
-        }
-        
-        XCTAssertNotNil(cache["bids"])
-        XCTAssertNotNil(cache["vastxml"])
+
+        XCTAssertNil(bidRequest.extPrebid.cache, "filterOutUncachedBids alone should not add a cache request object.")
     }
     
     func testCachingForOriginalAPI() {

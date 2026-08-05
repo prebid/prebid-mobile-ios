@@ -131,11 +131,17 @@
         BidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
         
         if (bidResponse && !trasformationError) {
-            if (self.sdkConfiguration.requireServerSideBidCache) {
+            // filterOutUncachedBids applies to Original API only. Rendering API renders
+            // creatives directly from the bid's own markup and never depends on Prebid
+            // Cache to display an ad, so a cache failure there is not a demand failure.
+            if (self.sdkConfiguration.filterOutUncachedBids && self.adUnitConfiguration.adConfiguration.isOriginalAPI) {
                 NSInteger bidCount = bidResponse.allBids.count;
                 NSInteger removedBids = [bidResponse removeBidsWithoutSuccessfulCache];
                 if (removedBids > 0) {
                     PBMLogWarn(@"Ignored %ld bids without successful Prebid Cache entries.", (long)removedBids);
+                }
+                if (bidResponse.topBidWasFiltered) {
+                    PBMLogWarn(@"Top bid was filtered due to failed Prebid Cache entry; promoted next best cached bid.");
                 }
                 if (!bidResponse.winningBid) {
                     NSError *error = bidCount > 0 && bidCount == removedBids ? PBMError.noCachedBids : PBMError.noWinningBid;
