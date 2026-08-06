@@ -91,7 +91,10 @@ public class VideoControlsConfiguration: NSObject {
     /// This property indicates whether mute controls is visible on the screen.
     public var isSoundButtonVisible = false
 
-    /// This property indicates whether a full-screen video without a companion ad closes automatically when playback completes.
+    /// Indicates whether a full-screen video without a companion ad closes automatically when playback completes.
+    ///
+    /// The default value is `true`, preserving the SDK's existing auto-close behavior. Set this property to `false`
+    /// to keep the interstitial open and display a **Watch Again** button until the user closes the ad.
     public var isAutoCloseOnCompletionEnabled = true
     
     /// Use to initialize video controls with server values.

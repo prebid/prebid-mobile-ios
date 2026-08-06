@@ -46,7 +46,8 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
 
-    /// Indicates whether video ads without an end card close when playback completes.
+    /// Controls whether full-screen video ads without an end card close when playback completes.
+    /// Set to `false` to keep the ad open with a **Watch Again** button. The default value is `true`.
     public var isAutoCloseOnCompletionEnabled: Bool {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled = newValue }
