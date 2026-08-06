@@ -17,6 +17,8 @@ import Foundation
 
 @objc(PBMRewardedConfig) @objcMembers
 public class RewardedConfig: NSObject {
+
+    static let fallbackCompletionTime: TimeInterval = 120
     
     // MARK: - Reward
     
@@ -67,15 +69,26 @@ public class RewardedConfig: NSObject {
     
     // MARK: - Default Values
     
-    /// The timeout duration for rewarded completion, measured in seconds.
-    public var defaultCompletionTime: NSNumber = 120
+    /// The fallback rewarded completion time, measured in seconds.
+    public let defaultCompletionTime: NSNumber
     
     /// The playback event when the SDK should send a signal to the application that the user has earned the reward
     public let defaultVideoPlaybackEvent = "complete"
     
     private let ortbRewarded: ORTBRewardedConfiguration?
     
-    public init(ortbRewarded: ORTBRewardedConfiguration?) {
+    public convenience init(ortbRewarded: ORTBRewardedConfiguration?) {
+        self.init(
+            ortbRewarded: ortbRewarded,
+            defaultCompletionTime: Self.fallbackCompletionTime
+        )
+    }
+
+    public init(
+        ortbRewarded: ORTBRewardedConfiguration?,
+        defaultCompletionTime: TimeInterval
+    ) {
         self.ortbRewarded = ortbRewarded
+        self.defaultCompletionTime = NSNumber(value: defaultCompletionTime)
     }
 }

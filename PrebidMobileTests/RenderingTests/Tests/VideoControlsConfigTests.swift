@@ -27,24 +27,24 @@ class VideoControlsConfigTests: XCTestCase {
         XCTAssertTrue(adConfiguration.isSoundButtonVisible == false)
     }
 
-    func testRewardedCompletionTimeout() {
-        let adConfiguration = VideoControlsConfiguration()
-        XCTAssertEqual(adConfiguration.rewardedCompletionTimeout, 120)
+    func testRewardedCompletionTime() {
+        let adConfiguration = AdConfiguration()
+        XCTAssertEqual(adConfiguration.rewardedCompletionTime, 120)
 
-        adConfiguration.rewardedCompletionTimeout = 15
-        XCTAssertEqual(adConfiguration.rewardedCompletionTimeout, 15)
+        adConfiguration.rewardedCompletionTime = 15
+        XCTAssertEqual(adConfiguration.rewardedCompletionTime, 15)
 
-        adConfiguration.rewardedCompletionTimeout = -1
-        XCTAssertEqual(adConfiguration.rewardedCompletionTimeout, 15)
+        adConfiguration.rewardedCompletionTime = -1
+        XCTAssertEqual(adConfiguration.rewardedCompletionTime, 15)
     }
 
-    func testInterstitialControllerPropagatesRewardedCompletionTimeout() {
+    func testInterstitialControllerPropagatesRewardedCompletionTime() {
         let adConfiguration = AdUnitConfig(configId: "test")
         let controller = InterstitialController(
             bid: makeBid(),
             adConfiguration: adConfiguration
         )
-        controller.rewardedCompletionTimeout = 15
+        controller.rewardedCompletionTime = 15
 
         controller.loadAd()
 
@@ -54,14 +54,14 @@ class VideoControlsConfigTests: XCTestCase {
         )
     }
 
-    func testDisplayViewPropagatesRewardedCompletionTimeout() {
+    func testDisplayViewPropagatesRewardedCompletionTime() {
         let adConfiguration = AdUnitConfig(configId: "test")
-        adConfiguration.adConfiguration.videoControlsConfig.rewardedCompletionTimeout = 20
         let displayView = DisplayView(
             frame: .zero,
             bid: makeBid(),
             adConfiguration: adConfiguration
         )
+        displayView.rewardedCompletionTime = 20
 
         displayView.loadAd()
 

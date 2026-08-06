@@ -19,6 +19,13 @@ import Foundation
 /// This class is a part of Mediation API.
 @objcMembers
 public class MediationRewardedAdUnit : MediationBaseInterstitialAdUnit {
+
+    /// The fallback completion time, in seconds, used when the bid omits rewarded completion criteria.
+    /// The default value is 120 seconds. Assigning a negative value is ignored.
+    public var rewardedCompletionTime: TimeInterval {
+        get { adUnitConfig.adConfiguration.rewardedCompletionTime }
+        set { adUnitConfig.adConfiguration.rewardedCompletionTime = newValue }
+    }
     
     // - MARK: Public Methods
     

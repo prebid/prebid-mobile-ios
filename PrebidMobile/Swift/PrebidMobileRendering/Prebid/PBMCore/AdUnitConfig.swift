@@ -151,6 +151,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.isBuiltInVideo = self.adConfiguration.isBuiltInVideo
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
         clone.adConfiguration.isRewarded = self.adConfiguration.isRewarded
+        clone.adConfiguration.rewardedCompletionTime = self.adConfiguration.rewardedCompletionTime
         clone.adConfiguration.forceInterstitialPresentation = self.adConfiguration.forceInterstitialPresentation
         clone.adConfiguration.interstitialLayout = self.adConfiguration.interstitialLayout
         clone.nativeAdConfiguration = self.nativeAdConfiguration

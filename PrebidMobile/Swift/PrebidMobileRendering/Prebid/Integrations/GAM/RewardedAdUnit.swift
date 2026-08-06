@@ -83,10 +83,11 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
 
-    /// The fallback completion timeout used when the bid omits rewarded completion criteria.
-    public var rewardedCompletionTimeout: TimeInterval {
-        get { adUnitConfig.adConfiguration.videoControlsConfig.rewardedCompletionTimeout }
-        set { adUnitConfig.adConfiguration.videoControlsConfig.rewardedCompletionTimeout = newValue }
+    /// The fallback completion time, in seconds, used when the bid omits rewarded completion criteria.
+    /// The default value is 120 seconds. Assigning a negative value is ignored.
+    public var rewardedCompletionTime: TimeInterval {
+        get { adUnitConfig.adConfiguration.rewardedCompletionTime }
+        set { adUnitConfig.adConfiguration.rewardedCompletionTime = newValue }
     }
     
     // MARK: Internal Properties

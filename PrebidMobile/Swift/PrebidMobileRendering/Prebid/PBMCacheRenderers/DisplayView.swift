@@ -28,6 +28,13 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         adViewManager?.isCreativeOpened ?? false
     }
 
+    /// The fallback completion time, in seconds, used when the bid omits rewarded completion criteria.
+    /// The default value is 120 seconds. Assigning a negative value is ignored.
+    public var rewardedCompletionTime: TimeInterval {
+        get { adConfiguration.adConfiguration.rewardedCompletionTime }
+        set { adConfiguration.adConfiguration.rewardedCompletionTime = newValue }
+    }
+
     // MARK: - Internal Properties
 
     let bid: Bid
@@ -60,9 +67,9 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         guard transactionFactory == nil else { return }
 
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
-        let rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
-        rewardedConfig.defaultCompletionTime = NSNumber(
-            value: adConfiguration.adConfiguration.videoControlsConfig.rewardedCompletionTimeout
+        let rewardedConfig = RewardedConfig(
+            ortbRewarded: bid.rewardedConfig,
+            defaultCompletionTime: rewardedCompletionTime
         )
         adConfiguration.adConfiguration.rewardedConfig = rewardedConfig
 

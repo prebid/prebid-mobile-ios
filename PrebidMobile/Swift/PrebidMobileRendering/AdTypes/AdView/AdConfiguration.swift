@@ -76,6 +76,21 @@ public class AdConfiguration: AutoRefreshCountConfig {
      Sets an ad unit as an rewarded
      */
     public var isRewarded = false
+
+    /// The fallback rewarded-ad completion time, in seconds, used when the bid does not provide
+    /// `completion.banner.time`, `completion.video.time`, or `completion.video.endcard.time`.
+    ///
+    /// The default value is 120 seconds. Assigning a negative value is ignored.
+    public var rewardedCompletionTime: TimeInterval {
+        get { _rewardedCompletionTime }
+        set {
+            if newValue >= 0 {
+                _rewardedCompletionTime = newValue
+            } else {
+                Log.warn("The rewarded completion time must not be negative.")
+            }
+        }
+    }
     
     /**
      Indicates whether the ad is built-in video e.g. 300x250.
@@ -134,6 +149,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     // MARK: Private properties
     
     private var _autoRefreshDelay: TimeInterval? = PrebidConstants.AUTO_REFRESH_DELAY_DEFAULT
+    private var _rewardedCompletionTime = RewardedConfig.fallbackCompletionTime
     
     public var impORTBConfig: String?
     public var globalORTBConfig: String?

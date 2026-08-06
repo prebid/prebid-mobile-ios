@@ -499,8 +499,10 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
     func testRewardEvent_EndcardUsesConfiguredFallback() {
         let exp = expectation(description: "Reward completion")
 
-        let rewardedConfig = RewardedConfig(ortbRewarded: ORTBRewardedConfiguration())
-        rewardedConfig.defaultCompletionTime = 1
+        let rewardedConfig = RewardedConfig(
+            ortbRewarded: ORTBRewardedConfiguration(),
+            defaultCompletionTime: 1
+        )
 
         let adConfiguration = AdConfiguration()
         adConfiguration.rewardedConfig = rewardedConfig
