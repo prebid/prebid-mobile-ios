@@ -106,4 +106,18 @@ NSString * const configId = @"1001-1";
     XCTAssert(rewardedVideoAdUnit.videoParameters == parameters);
 }
 
+- (void)testVideoParametersSkippableIsWritable {
+    VideoParameters *parameters = [[VideoParameters alloc] initWithMimes:@[@"video/mp4"]];
+
+    XCTAssertNil(parameters.rawSkippable);
+
+    [parameters setSkippable:YES];
+
+    XCTAssertEqualObjects(parameters.rawSkippable, @1);
+
+    [parameters setSkippable:NO];
+
+    XCTAssertEqualObjects(parameters.rawSkippable, @0);
+}
+
 @end
