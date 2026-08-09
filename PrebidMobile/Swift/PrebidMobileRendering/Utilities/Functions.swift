@@ -165,17 +165,42 @@ import UIKit
               upperBound: PrebidConstants.AUTO_REFRESH_DELAY_MAX)
     }
 
+    // DISPATCH_TIME_NOW / DISPATCH_TIME_FOREVER — the C macros are not exposed to Swift.
+    private static let dispatchTimeNow: UInt64 = 0
+    private static let dispatchTimeForever: UInt64 = .max
+
     @objc(dispatchTimeAfterTimeInterval:)
     public static func dispatchTimeAfterTimeInterval(_ timeInterval: TimeInterval) -> UInt64 {
-        dispatchTimeAfterTimeInterval(timeInterval, startTime: DispatchTime.now().rawValue)
+        dispatchTimeAfterTimeInterval(timeInterval, startTime: dispatchTimeNow)
     }
 
+    /// Swift equivalent of `dispatch_time(startTime, timeInterval * NSEC_PER_SEC)`.
+    ///
+    /// `startTime` is a raw `dispatch_time_t`. Values derived from `DISPATCH_TIME_NOW`
+    /// are expressed in **mach ticks**, not nanoseconds, so they must not be round-tripped
+    /// through `DispatchTime(uptimeNanoseconds:)` — that initialiser converts nanoseconds
+    /// to ticks and yields a bogus deadline wherever `mach_timebase_info` is not 1:1
+    /// (i.e. on arm64 devices; the simulator's 1:1 timebase hides the error).
     @objc(dispatchTimeAfterTimeInterval:startTime:)
     public static func dispatchTimeAfterTimeInterval(_ timeInterval: TimeInterval,
                                                      startTime: UInt64) -> UInt64 {
-        // dispatch_time_t is UInt64; use DispatchTime to avoid the deprecated C dispatch_time()
-        let base: DispatchTime = startTime == 0 ? .now() : DispatchTime(uptimeNanoseconds: startTime)
-        return (base + timeInterval).rawValue
+        switch startTime {
+        case dispatchTimeNow:
+            return (DispatchTime.now() + timeInterval).rawValue
+        case dispatchTimeForever:
+            return dispatchTimeForever
+        default:
+            return startTime &+ UInt64(bitPattern: machTicks(fromSeconds: timeInterval))
+        }
+    }
+
+    private static func machTicks(fromSeconds seconds: TimeInterval) -> Int64 {
+        var timebase = mach_timebase_info_data_t()
+        guard mach_timebase_info(&timebase) == KERN_SUCCESS, timebase.numer != 0 else {
+            return Int64(seconds * TimeInterval(NSEC_PER_SEC))
+        }
+        let nanoseconds = Int64(seconds * TimeInterval(NSEC_PER_SEC))
+        return nanoseconds * Int64(timebase.denom) / Int64(timebase.numer)
     }
 
     // MARK: - ObjC bridge (PBMFunctions+Private — JSON)

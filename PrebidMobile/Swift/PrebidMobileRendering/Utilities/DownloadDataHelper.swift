@@ -37,7 +37,12 @@ public class DownloadDataHelper: NSObject {
 
     @objc(downloadDataForURL:maxSize:completionClosure:)
     public func downloadData(for url: URL?, maxSize: Int, completionClosure: @escaping PBMDownloadDataCompletionClosure) {
-        serverConnection?.head(url?.absoluteString, timeout: PrebidConstants.FIRE_AND_FORGET_TIMEOUT) { [weak self] response in
+        // `self` is captured strongly on purpose, matching the ObjC original. Callers
+        // such as PBMCreativeFactoryJob create the helper as a bare local and return
+        // immediately; this capture is the only thing keeping it alive across the
+        // HEAD -> GET round trip. With a weak capture the GET below would silently
+        // no-op and `completionClosure` would never fire.
+        serverConnection?.head(url?.absoluteString, timeout: PrebidConstants.FIRE_AND_FORGET_TIMEOUT) { response in
             let strContentLength = response.responseHeaders?["Content-Length"]
             var contentLength: Int32 = 0
             let isInteger = strContentLength.map {
@@ -54,7 +59,7 @@ public class DownloadDataHelper: NSObject {
                 return
             }
 
-            self?.downloadData(for: url, completionClosure: completionClosure)
+            self.downloadData(for: url, completionClosure: completionClosure)
         }
     }
 }

@@ -278,6 +278,7 @@ Deleting `PBMORTBAbstract.m` removes:
 ## Validation checklist per PR
 
 - [ ] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean
+- [ ] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build of the working tree clean (catches header-visibility breakage the CocoaPods build masks — Gap S2.5-A)
 - [ ] `./scripts/testPrebidMobile.sh --latest --quick` — must pass on a clean run (re-run once if only `PBMBidRequesterTest.testBanner_300x250` fails)
 - [ ] Swift test files updated: no `'PBMORTBFoo' has been renamed` compiler errors
 - [ ] (Phase 1 & 3) JSON round-trip parity test passes (see S0.2 harness)
@@ -295,7 +296,39 @@ Deleting `PBMORTBAbstract.m` removes:
 
 ### Gap S2.1-C — dispatch_time() C function unavailable in Swift
 
-Replace `dispatch_time(startTime, delta)` with `(DispatchTime(uptimeNanoseconds: startTime) + timeInterval).rawValue`. Use `.now()` when `startTime == DISPATCH_TIME_NOW (== 0)`.
+The C function `dispatch_time(startTime, delta)` is not exposed to Swift, and neither are the
+`DISPATCH_TIME_NOW` / `DISPATCH_TIME_FOREVER` macros. The obvious translation is wrong:
+
+```swift
+// WRONG — do not use
+(DispatchTime(uptimeNanoseconds: startTime) + timeInterval).rawValue
+```
+
+`DispatchTime.rawValue` is a raw `dispatch_time_t`, expressed in **mach ticks**.
+`DispatchTime(uptimeNanoseconds:)` *converts* nanoseconds to ticks via `mach_timebase_info`.
+Round-tripping a `dispatch_time_t` through it therefore scales the value a second time and yields a
+bogus deadline. The simulator's timebase is 1:1 so the error is invisible there; on arm64 devices it
+is 125/3, so the deadline is off by ~41x.
+
+**Rule:** Branch on the sentinel values and do the tick conversion explicitly. Reference
+implementation in `Functions.swift`:
+
+```swift
+private static let dispatchTimeNow: UInt64 = 0
+private static let dispatchTimeForever: UInt64 = .max
+
+switch startTime {
+case dispatchTimeNow:     return (DispatchTime.now() + timeInterval).rawValue
+case dispatchTimeForever: return dispatchTimeForever
+default:                  return startTime &+ UInt64(bitPattern: machTicks(fromSeconds: timeInterval))
+}
+```
+
+where `machTicks(fromSeconds:)` applies `nanoseconds * denom / numer` from `mach_timebase_info`.
+
+**Corollary:** a simulator-only test suite cannot validate any API whose correctness depends on the
+mach timebase. Tests that only exercise `DISPATCH_TIME_NOW` prove nothing about the other branches
+— reason about the tick/nanosecond units at review time instead of relying on CI.
 
 ### Gap S2.1-D — UIInterfaceOrientationIsPortrait() unavailable in Swift
 
@@ -403,6 +436,44 @@ compiler error names the file. Then grep proactively: build the list of `@objc(P
 every Swift file this phase ported, and search all `*.swift` files for each name outside its own
 declaration line — this catches other stale references the build hasn't reached yet.
 
+## Phase 2 gaps (discovered in review, S2.5)
+
+### Gap S2.5-A — deleting an ObjC header can break the SPM build only
+
+When a migrated ObjC header is deleted, every `.m` that was getting UIKit *transitively* through it
+loses those types. Under CocoaPods/Xcode this is masked: the generated `PrebidMobile-Swift.h`
+(pulled in via `SwiftImport.h`) re-exports the umbrella headers, so `UIView` / `UIScreen` stay
+visible. Under SwiftPM the Swift half is consumed as `@import PrebidMobile;`, which does not
+re-export UIKit, and the same file fails with:
+
+> error: declaration of 'UIScreen' must be imported from module 'UIKit.UIScreen' before it is required
+
+Neither `buildPrebidMobile.sh` (CocoaPods) nor `buildPrebidSPM.sh` catches this —
+`buildPrebidSPM.sh` builds `PrebidDemoSPM`, which consumes the *published* package via
+`XCRemoteSwiftPackageReference` and never compiles the working tree.
+
+**Rule:** Any ObjC `.m` that references UIKit types must `#import <UIKit/UIKit.h>` explicitly; never
+rely on transitive visibility. Verify with `./scripts/buildPrebidMobilePackage.sh`, which compiles
+`Package.swift` directly for the iOS simulator triple and is wired into `PR_checks.yml` as the
+`build-spm-package` job.
+
+### Gap S2.5-B — ObjC blocks capture `self` strongly; do not add `[weak self]` reflexively
+
+An ObjC block with no `@weakify`/`__weak` dance captures `self` strongly, and that capture is
+sometimes the *only* thing keeping the object alive. Translating it to `{ [weak self] … }` is not a
+neutral safety improvement — it changes object lifetime and can silently turn the callback into a
+no-op.
+
+`PBMDownloadDataHelper.downloadDataForURL:maxSize:` is the concrete case: callers such as
+`PBMCreativeFactoryJob` create the helper as a bare local and return immediately, so a weak capture
+lets it deallocate between the HEAD and the GET, and the completion closure never fires. Unit tests
+do not catch it because they hold the helper in a scope that spans `waitForExpectations`.
+
+**Rule:** Port block capture semantics literally. Only introduce `[weak self]` where the ObjC
+original used `__weak`/`@weakify`, or where a retain cycle is demonstrable (`self` owns the object
+holding the block). When keeping a strong capture, leave a comment saying why, so the next reader
+does not "fix" it.
+
 ## General ObjC → Swift reference
 
 Not phase-specific. Adapted from the generic guides in `agents/ios/migration-patterns/`. Those
@@ -450,7 +521,7 @@ Quick reference for porting. Rows marked ⚠ are where the generic source is wro
 | `id` | `Any` | Prefer specific types |
 | `NS_ENUM` | `enum: Int` | ⚠ `NS_TYPED_ENUM` string constants cannot be bridged — keep a residual ObjC `.m` (Gap S2.1-A) |
 | `NS_OPTIONS` | `OptionSet` | Struct-based |
-| `dispatch_queue_t` + GCD | `DispatchQueue` | ⚠ **Not** `async`/`await` — iOS 13 floor. `dispatch_time()` becomes `(DispatchTime(uptimeNanoseconds:) + interval).rawValue` (Gap S2.1-C) |
+| `dispatch_queue_t` + GCD | `DispatchQueue` | ⚠ **Not** `async`/`await` — iOS 13 floor. `dispatch_time()` needs explicit mach-tick handling — **never** `DispatchTime(uptimeNanoseconds:)` on a `dispatch_time_t` (Gap S2.1-C) |
 | Category | Extension | ⚠ `@objc` extensions on Foundation types bridge via `PrebidMobile-Swift.h` (Gap S2.2-A) |
 | `@protocol` | `protocol` | ⚠ Reduce the ObjC header to a forward declaration (Gap S2.1-G) |
 | `#pragma mark -` | `// MARK: -` | |

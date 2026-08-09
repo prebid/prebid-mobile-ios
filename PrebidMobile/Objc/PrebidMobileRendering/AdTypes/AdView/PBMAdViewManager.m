@@ -13,6 +13,8 @@
  limitations under the License.
  */
 
+#import <UIKit/UIKit.h>
+
 #import "PBMAdLoadManagerProtocol.h"
 #import "PBMInterstitialLayoutConfigurator.h"
 #import "PBMVideoCreative.h"

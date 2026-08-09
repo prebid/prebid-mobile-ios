@@ -84,9 +84,45 @@ resolved as a union of intent (nothing from either side was dropped):
   entries (`ORTBBidRequestExtPrebid.swift`, `ORTBDeviceExtPrebidInterstitial.swift`); the
   conflict was purely adjacent-line positioning in the sorted list.
 
+## S2.5 — Review fixes (correctness blockers from PR review)
+
+Three defects found in review, all in Phase 2 utilities. Each is invisible to the current CI
+matrix, which is why they shipped — the fixes therefore include a new CI gate.
+
+- **`DownloadDataHelper.downloadData(for:maxSize:)` — `[weak self]` broke the download.**
+  The ObjC original captured `self` strongly, and that capture was the only thing keeping the
+  helper alive: callers such as `PBMCreativeFactoryJob` create it as a bare local and return
+  immediately. With a weak capture the helper deallocates between the HEAD and the GET, the GET
+  never runs, and the completion closure never fires (the video simply never preloads). Restored
+  the strong capture with a comment explaining why. Tests missed it because they hold the helper
+  in a scope spanning `waitForExpectations` (Gap S2.5-B).
+
+- **`Functions.dispatchTimeAfterTimeInterval` — mach ticks vs. nanoseconds.**
+  The port ran the incoming `dispatch_time_t` through `DispatchTime(uptimeNanoseconds:)`, which
+  *converts* nanoseconds to ticks, double-scaling an already-tick value. Correct in the simulator
+  (1:1 timebase) and off by ~41x on arm64 devices (125/3). Rewritten to branch on
+  `DISPATCH_TIME_NOW` / `DISPATCH_TIME_FOREVER` and convert explicitly via `mach_timebase_info`.
+  Playbook Gap S2.1-C prescribed the buggy pattern and has been corrected so later phases don't
+  repeat it.
+
+- **Three ObjC files no longer compiled under SwiftPM.**
+  `PBMPrebidParameterBuilder.m`, `PBMCreativeViewabilityTracker.m` and `PBMAdViewManager.m` were
+  getting UIKit transitively through headers this PR deleted. CocoaPods masks this (the generated
+  `PrebidMobile-Swift.h` re-exports the umbrella headers); SwiftPM's `@import PrebidMobile;` does
+  not. Added explicit `#import <UIKit/UIKit.h>` to each (Gap S2.5-A).
+
+- **New CI gate: `scripts/buildPrebidMobilePackage.sh` + `build-spm-package` job.**
+  No existing check compiles this working tree under SwiftPM — `buildPrebidSPM.sh` builds
+  `PrebidDemoSPM`, which consumes the *published* package via `XCRemoteSwiftPackageReference`. The
+  new script runs `swift build --target __PrebidMobileInternal` against the iOS simulator triple
+  (passing the SDK and the OMSDK xcframework slice explicitly, since SwiftPM resolves binary
+  targets against the host platform). Verified it reproduces the reviewer's exact error when the
+  UIKit import is removed.
+
 ## Test plan
 
 - [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks build clean (device + simulator)
+- [x] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build of the working tree clean
 - [x] `./scripts/testPrebidMobile.sh --latest --quick` — 727 tests, 0 failures
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite (1111 tests), run before merge
 - [ ] Reviewer: confirm gap decisions in `docs/migration/playbook.md`

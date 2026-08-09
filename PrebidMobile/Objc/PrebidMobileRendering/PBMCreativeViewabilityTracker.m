@@ -13,6 +13,8 @@
  limitations under the License.
  */
 
+#import <UIKit/UIKit.h>
+
 #import "PBMMacros.h"
 #import "PBMScheduledTimerFactory.h"
 
