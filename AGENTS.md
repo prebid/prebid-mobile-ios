@@ -53,7 +53,7 @@ Flags: `--latest` skips the legacy iOS 13 sanity test (always use locally); `--q
 
 Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1111 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 694 tests).
 
-**When adding new tests:** register every new test class in `PrebidMobileTests/PrebidMobilePRTests.xctestplan` so it runs on every PR. The full plan picks up all tests automatically; only the PR plan requires explicit registration.
+**When adding new tests:** both plans select by *exclusion*, so a new test class runs on every PR without any registration step. `PrebidMobilePRTests.xctestplan` trims the suite via a `skippedTests` list — check that a new class isn't (prefix-)matched there, and add an entry only if you deliberately want it excluded from the PR subset.
 
 To run a single test class:
 ```bash
@@ -147,6 +147,6 @@ GitHub Actions (Xcode 16.4.0, macOS 15):
 Migration docs live in `docs/migration/`. Keep them current throughout every working session:
 
 - **`docs/migration/playbook.md`** — per-class porting guide and gap decisions. Update when a new gap is discovered or a rule changes.
-- **`docs/migration/pr-phase-0.md`** (and future `pr-phase-N.md` files) — PR-level summary of what was done, with a test-plan checklist. Update the relevant PR doc at the end of each session: add an `S<phase>.<step>` entry for completed work, tick test-plan checkboxes, and note any open items for the reviewer.
+- **`docs/migration/pr-phase-<phases>.md`** — one file per *pull request*, not per phase (phases 0–2 shipped together as `pr-phase-012.md`). PR-level summary of what was done, with a test-plan checklist. Update it at the end of each session: add an `S<phase>.<step>` entry for completed work, tick test-plan checkboxes, and note any open items for the reviewer. Do not leave superseded drafts behind — the merged PR doc is the record.
 
-When starting work on a migration phase, read the relevant PR doc first to pick up prior context.
+When starting work on a migration phase, read the playbook and the most recent PR doc first to pick up prior context.

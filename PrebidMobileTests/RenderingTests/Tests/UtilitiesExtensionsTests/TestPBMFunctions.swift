@@ -276,14 +276,20 @@ class TestFunctions: XCTestCase {
     func testDictionaryFromDataWithInvalidData() {
         
         let data = UtilitiesForTesting.loadFileAsDataFromBundle("mraid.js")!
-    
+
         var dict: JsonDictionary?
         do {
             dict = try Functions.dictionaryFromData(data)
             XCTFail("Test method should throw exception")
         }
         catch {
-            XCTAssert(!error.localizedDescription.isEmpty)
+            // The ObjC original wrapped the parse failure in its own PBMError
+            // ("Could not convert json data to jsonObject:"); the Swift port lets
+            // JSONSerialization's error propagate unwrapped. Assert on domain/code rather
+            // than the message, which is localized.
+            let nsError = error as NSError
+            XCTAssertEqual(nsError.domain, NSCocoaErrorDomain)
+            XCTAssertEqual(nsError.code, 3840) // JSON parse failure
         }
         
         XCTAssertNil(dict)
@@ -292,14 +298,17 @@ class TestFunctions: XCTestCase {
     func testDictionaryFromDataWithInvalidJSON() {
         
         let data = "[\"A\", \"B\", \"C\"]".data(using: .utf8)!
-        
+
         var dict: JsonDictionary?
         do {
             dict = try Functions.dictionaryFromData(data)
             XCTFail("Test method should throw exception")
         }
         catch {
-            XCTAssert(!error.localizedDescription.isEmpty)
+            // Well-formed JSON whose top-level element is an array. ObjC said
+            // "Could not cast jsonObject to JsonDictionary:"; the Swift port reworded it.
+            XCTAssertTrue(error.localizedDescription.contains("Invalid JSON data"),
+                          "unexpected error: \(error.localizedDescription)")
         }
         
         XCTAssertNil(dict)

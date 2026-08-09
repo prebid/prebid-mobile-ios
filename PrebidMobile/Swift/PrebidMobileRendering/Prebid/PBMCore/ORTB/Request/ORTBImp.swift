@@ -27,10 +27,13 @@ public class ORTBImp: NSObject, PBMJsonCodable {
     @objc public var pmp: ORTBPmp = ORTBPmp()
     @objc public var displaymanager: String?
     @objc public var displaymanagerver: String?
-    @objc public var instl: NSNumber = 0
+    // Optional despite the nonnull ObjC declaration: `initWithJsonDictionary:` assigned the
+    // ivars directly and unconditionally, so an absent JSON key cleared the default back to
+    // nil and the key was then omitted on re-encode. See playbook Gap S2.5-C.
+    @objc public var instl: NSNumber? = 0
     @objc public var tagid: String?
-    @objc public var clickbrowser: NSNumber = 1
-    @objc public var secure: NSNumber = 0
+    @objc public var clickbrowser: NSNumber? = 1
+    @objc public var secure: NSNumber? = 0
     @objc public var rewarded: NSNumber?
     @objc public var extPrebid: ORTBImpExtPrebid = ORTBImpExtPrebid()
     @objc public var extSkadn: ORTBImpExtSkadn = ORTBImpExtSkadn()
@@ -55,10 +58,10 @@ public class ORTBImp: NSObject, PBMJsonCodable {
         pmp              = json[.pmp] ?? ORTBPmp()
         displaymanager   = json[.displaymanager]
         displaymanagerver = json[.displaymanagerver]
-        instl            = json[.instl] ?? 0
+        instl            = json[.instl]
         tagid            = json[.tagid]
-        clickbrowser     = json[.clickbrowser] ?? 1
-        secure           = json[.secure] ?? 0
+        clickbrowser     = json[.clickbrowser]
+        secure           = json[.secure]
         rewarded         = json[.rwdd]
 
         let ext = jsonDictionary["ext"] as? [String: Any]

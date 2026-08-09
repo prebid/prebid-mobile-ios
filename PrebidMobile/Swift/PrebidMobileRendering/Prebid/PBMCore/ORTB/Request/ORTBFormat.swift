@@ -58,6 +58,14 @@ public class ORTBFormat: NSObject, PBMJsonCodable {
 
     // MARK: - NSObject equality (Gap 3 — used in NSSet deduplication)
 
+    // Deliberate, documented divergence from the ObjC original. ObjC compared with
+    // `[self.w isEqual:other.w]`, and messaging `nil` returns `NO`, so two all-nil formats
+    // were *unequal* and `[NSSet setWithArray:]` kept both. Swift's `nil == nil` is `true`,
+    // so they now collapse to one. The only dedup callsite is `PBMPrebidParameterBuilder`,
+    // which builds every element through `+ortbFormatWithSize:` — `w` and `h` are always
+    // non-nil there — so the divergence is unreachable in production. Matching ObjC exactly
+    // would require `w != nil && h != nil && w == other.w && h == other.h`, which breaks
+    // the reflexivity `NSSet`/`Hashable` require. See playbook Gap S2.5-D.
     public override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? ORTBFormat else { return false }
         return w == other.w && h == other.h

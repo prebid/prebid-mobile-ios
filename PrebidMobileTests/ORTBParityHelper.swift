@@ -17,8 +17,16 @@ import XCTest
 
 // MARK: - Parity assertion
 
-/// Verifies that a Swift ORTB type produces expected JSON output for a given fixture.
-/// Used during Phase 1–3 of the ObjC → Swift migration to confirm JSON parity.
+/// Asserts that decode → encode is **idempotent** for a Swift ORTB type: encoding the
+/// decoded fixture and then decoding/re-encoding that output yields the same JSON.
+///
+/// Scope and limits — read before relying on this:
+/// - This is a Swift-internal self-consistency check. It does **not** compare against the
+///   ObjC original, and it does **not** assert the output matches the input fixture.
+/// - With a fully-populated fixture it cannot detect the class of bug where an *absent*
+///   JSON key resurrects a class default on encode (playbook Gap S2.5-C), because the
+///   default is stable across both round trips. Use `assertORTBNoResurrectedDefaults`
+///   with a partial fixture for that.
 ///
 /// Usage:
 /// ```swift
@@ -41,6 +49,33 @@ func assertORTBParity<T: PBMJsonCodable>(
         XCTAssertEqual(encoded, reEncoded, file: file, line: line)
     } catch {
         XCTFail("assertORTBParity error: \(error)", file: file, line: line)
+    }
+}
+
+/// Decodes `jsonString` and asserts the re-encoded dictionary contains exactly `expectedKeys`.
+///
+/// Guards playbook Gap S2.5-C: the ObjC `initWithJsonDictionary:` assigned ivars directly and
+/// unconditionally, so an absent key cleared the default seeded by `init` and the key was then
+/// omitted on re-encode. A Swift port that falls back to the default (`json[.k] ?? default`)
+/// silently adds keys the ObjC SDK never sent.
+func assertORTBNoResurrectedDefaults<T: PBMJsonCodable>(
+    jsonString: String,
+    swiftType: T.Type,
+    expectedKeys: Set<String>,
+    file: StaticString = #file,
+    line: UInt = #line
+) {
+    do {
+        guard let instance = try T(jsonString: jsonString) else {
+            XCTFail("\(T.self) init?(jsonString:) returned nil", file: file, line: line)
+            return
+        }
+        let keys = Set(instance.jsonDictionary.keys)
+        XCTAssertEqual(keys, expectedKeys,
+                       "\(T.self) re-encoded unexpected keys: \(keys.symmetricDifference(expectedKeys).sorted())",
+                       file: file, line: line)
+    } catch {
+        XCTFail("assertORTBNoResurrectedDefaults error: \(error)", file: file, line: line)
     }
 }
 
@@ -96,5 +131,29 @@ enum ORTBFixtures {
 
     static let deviceExtAtts = """
         {"atts":3,"ifv":"ifv-value"}
+        """
+
+    // MARK: Partial payloads (Gap S2.5-C regression coverage)
+
+    /// Only `id` present — every other `ORTBDeal` field must stay absent on re-encode even
+    /// though `init` seeds `bidfloor`, `bidfloorcur`, `wseat` and `wadomain`.
+    static let partialDeal = """
+        {"id":"deal-abc"}
+        """
+
+    /// Only `id` present — `instl`, `clickbrowser` and `secure` must stay absent even though
+    /// `init` seeds them. `ext` is still emitted: `ORTBImp` unconditionally writes `dlp`.
+    static let partialImp = """
+        {"id":"imp-1"}
+        """
+
+    /// No `imp` key — must not resurrect the one-element default impression.
+    static let partialBidRequest = """
+        {"id":"req-1"}
+        """
+
+    /// Explicitly empty `imp` — must stay empty rather than falling back to the default.
+    static let emptyImpBidRequest = """
+        {"id":"req-1","imp":[]}
         """
 }

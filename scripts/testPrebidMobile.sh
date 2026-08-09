@@ -40,6 +40,12 @@ echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
 cd ..
 
+if ! command -v pod >/dev/null 2>&1; then
+    echo "CocoaPods is required but 'pod' was not found on PATH." >&2
+    echo "GitHub Actions 'macos-15' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
+    exit 1
+fi
+
 pod install --repo-update
 
 echo -e "\n\n${GREEN}RUN PREBID MOBILE TESTS${NC}\n\n"

@@ -53,9 +53,11 @@ public class ORTBBidRequest: NSObject, PBMJsonCodable, NSCopying {
             jsonDictionary: (jsonDictionary["ext"] as? [String: Any])?["prebid"] as? [String: Any] ?? [:]
         )
 
-        if let impDicts = jsonDictionary["imp"] as? [[String: Any]], !impDicts.isEmpty {
-            imp = impDicts.map { ORTBImp(jsonDictionary: $0) }
-        }
+        // Assigned unconditionally, matching `initWithJsonDictionary:` — decoding a request
+        // with a missing or empty "imp" must clear the one-element default, not preserve it,
+        // or re-encoding invents a phantom impression. See playbook Gap S2.5-C.
+        let impDicts = jsonDictionary["imp"] as? [Any] ?? []
+        imp = impDicts.compactMap { ($0 as? [String: Any]).map { ORTBImp(jsonDictionary: $0) } }
     }
 
     // MARK: - PBMJsonEncodable

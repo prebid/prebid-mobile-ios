@@ -11,10 +11,15 @@ migration-checklist items; feature/fix PRs skip migration sections.
 ## Step 1 — Orient
 
 ```bash
-git log --oneline master..HEAD          # commits in this PR
-git diff --stat master..HEAD            # files changed
-git diff master..HEAD                   # full diff (read selectively)
+git fetch origin master                    # local master may be stale
+git log --oneline origin/master..HEAD      # commits in this PR
+git diff --stat origin/master...HEAD       # files changed
+git diff origin/master...HEAD              # full diff (read selectively)
 ```
+
+Use the **three-dot** range for `git diff`: it diffs against the merge base, so commits landed
+on `master` after the branch was cut don't show up as spurious reversions in the PR. (`git log`
+keeps the two-dot form — for `log` it already means "reachable from HEAD, not from master".)
 
 Identify the PR type:
 - **ObjC→Swift migration** — files under `PrebidMobile/Objc/` deleted and matching files under `PrebidMobile/Swift/...` added
@@ -79,8 +84,13 @@ If the full suite is warranted (final PR in a phase, or touching networking):
   Transparency enabled.
 
 **Tests**
-- New test class registered in `PrebidMobileTests/PrebidMobilePRTests.xctestplan`
-- Existing tests not weakened (no `assertForOverFulfill = false` added without comment)
+- New tests run in the PR plan. `PrebidMobilePRTests.xctestplan` selects by *exclusion*
+  (`skippedTests`), so new classes are picked up automatically — only verify the class isn't
+  listed there.
+- Existing tests not weakened. In particular, `assertForOverFulfill = false`, `XCTAssert(true)`,
+  and assertions relaxed to `!error.localizedDescription.isEmpty` hide the failure instead of
+  fixing it; prefer isolating the test (e.g. tagging fixtures per test instance so a shared
+  singleton's callbacks can be filtered).
 - No mocked database / network when a real one is feasible
 
 ### For ObjC→Swift migration PRs (additional checks)
@@ -126,11 +136,13 @@ If the full suite is warranted (final PR in a phase, or touching networking):
 - Swift test files use new `ORTBFoo` names (not `PBMORTBFoo`) — no `'has been renamed'` compiler errors
 - Used `perl -pi -e 's/PBMORTBFoo\b/ORTBFoo/g'` (not `sed`, which has unreliable `\b` on macOS)
 - `codeAndDecode<T: PBMORTBAbstract>` overload removed once `PBMORTBAbstract.m` is deleted
-- New test class registered in `PrebidMobilePRTests.xctestplan`
+- Decode coverage includes a **partial** JSON payload, not only a fully-populated fixture —
+  round-tripping a full fixture cannot catch a resurrected class default (Gap S2.5-C)
 
 **Docs**
 - `docs/migration/playbook.md` updated if a new gap was discovered
-- `docs/migration/pr-phase-N.md` updated with step summary and ticked test-plan boxes
+- The PR's `docs/migration/pr-phase-*.md` updated with step summary and ticked test-plan boxes,
+  and no superseded draft docs left alongside it
 
 ## Step 4 — Known flaky test
 

@@ -13,6 +13,12 @@ xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDevice
 cd ..
 echo $PWD
 
+if ! command -v pod >/dev/null 2>&1; then
+    echo "CocoaPods is required but 'pod' was not found on PATH." >&2
+    echo "GitHub Actions 'macos-15' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
+    exit 1
+fi
+
 pod deintegrate
 pod install --repo-update
 pod update

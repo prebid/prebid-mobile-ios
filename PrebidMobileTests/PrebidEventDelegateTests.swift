@@ -20,33 +20,40 @@ private typealias Callback = (Data?, Data?) -> Void
 
 class PrebidEventDelegateTests: XCTestCase {
     
-    let mockRequestData = "req".data(using: .utf8)
-    let mockResponseData = "res".data(using: .utf8)
-    
+    // `Prebid.shared.eventDelegate` is process-global, and `PBMBidRequester` fires it too, so
+    // an in-flight response from another test can reach this delegate. Tagging the payloads
+    // per test instance lets the callback ignore foreign invocations instead of relaxing the
+    // expectation with `assertForOverFulfill = false`, which would also mask a genuine
+    // double-call from the code under test.
+    private let tag = UUID().uuidString
+    private lazy var mockRequestData = "req-\(tag)".data(using: .utf8)
+    private lazy var mockResponseData = "res-\(tag)".data(using: .utf8)
+
     var delegate: PrebidEventDelegate?
-    
+
     override func tearDown() {
         super.tearDown()
-        
+
         Prebid.reset()
         delegate = nil
     }
-    
+
     func test_eventDelegate_isCalled() {
         let exp = expectation(description: "Expect PrebidEventDelegate to be called")
-        // PBMBidRequester also fires this delegate; other tests' in-flight responses can land here.
-        exp.assertForOverFulfill = false
+
+        let expectedRequestData = mockRequestData
+        let expectedResponseData = mockResponseData
 
         delegate = PrebidEventDelegateTestsMockDelegate(onRequestDidFinish: { requestData, responseData in
-            XCTAssertEqual(requestData, self.mockRequestData)
-            XCTAssertEqual(responseData, self.mockResponseData)
+            guard requestData == expectedRequestData else { return } // another test's request
+            XCTAssertEqual(responseData, expectedResponseData)
             XCTAssertFalse(Thread.isMainThread)
             exp.fulfill()
         })
-        
+
         Prebid.shared.eventDelegate = delegate
-        
-        Prebid.shared.callEventDelegateAsync_prebidBidRequestDidFinishWith(requestData: mockRequestData, responseData: mockResponseData)
+
+        Prebid.shared.callEventDelegateAsync_prebidBidRequestDidFinishWith(requestData: expectedRequestData, responseData: expectedResponseData)
         waitForExpectations(timeout: 1.0)
     }
     

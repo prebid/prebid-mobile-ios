@@ -119,10 +119,61 @@ matrix, which is why they shipped — the fixes therefore include a new CI gate.
   targets against the host platform). Verified it reproduces the reviewer's exact error when the
   UIKit import is removed.
 
+## S2.6 — Review fixes (round 2)
+
+**ORTB decode parity (Gap S2.5-C).** `initWithJsonDictionary:` writes ivars directly and
+unconditionally, so an absent key wipes the default seeded by `init` and the key is omitted on
+re-encode. Three ports used `json[.k] ?? default` instead and therefore invented wire keys:
+`ORTBDeal` (`bidfloor`, `bidfloorcur`, `wseat`, `wadomain`), `ORTBImp` (`instl`, `clickbrowser`,
+`secure`) and `ORTBBidRequest` (`imp` fell back to the one-element default when `"imp"` was absent
+or empty). All 24 request-side models were audited against the ObjC originals; the remaining `??`
+fallbacks are faithful — either ObjC substituted the same value explicitly (`ORTBPmp.deals`,
+`ORTBBanner.format`), or the property is never encoded / is guarded by a non-empty check
+(`ORTBPublisher.cat`, `ORTBApp.cat`/`sectioncat`/`pagecat`, `ORTBImpExtSkadn.skadnetids`).
+
+**Parity harness was dead code.** `assertORTBParity` and `ORTBFixtures` had no callers, and the
+doc comment claimed more than the assertion checked (it verifies Swift-internal encode/re-encode
+idempotence, not ObjC equivalence). Comment corrected, and both are now exercised from
+`ORTBAbstractTest`. Added `assertORTBNoResurrectedDefaults` plus partial-payload fixtures, which
+is the only shape of test that can catch the class of bug above — a fully-populated round trip
+cannot, because the resurrected default is stable across both encodes.
+
+**`ORTBFormat` equality.** ObjC's `[self.w isEqual:other.w]` returns `NO` for two all-nil formats;
+Swift's `nil == nil` is `true`, so `NSSet` dedup differs. Kept the Swift semantics — matching ObjC
+requires a non-reflexive `isEqual:` — and documented why it's unreachable in production (the only
+dedup callsite builds every element via `+ortbFormatWithSize:`). Codified as Gap S2.5-D.
+
+**Weakened tests restored.**
+- `PrebidEventDelegateTests`: replaced `assertForOverFulfill = false` with real isolation — the
+  payloads are tagged per test instance so the delegate can ignore another test's in-flight
+  response instead of silently tolerating a double-call from the code under test.
+- `TestPBMFunctions`: the two `!error.localizedDescription.isEmpty` assertions now check the
+  actual failure again (`NSCocoaErrorDomain` 3840 for malformed JSON; the `Invalid JSON data`
+  message for a non-object top level).
+
+**Tooling / docs.**
+- Restored a scoped `.claude/` ignore block: shared agent config stays tracked, per-developer
+  machine state (`settings.local.json`, `shell-snapshots/`, …) is ignored.
+- Added a `command -v pod` guard to the four scripts that lost the CircleCI `gem install
+  cocoapods` line, so a missing CocoaPods fails immediately with an actionable message rather
+  than mid-script.
+- `agents/review/SKILL.md`: three-dot `origin/master...HEAD` for `git diff` (two-dot shows
+  commits landed on master after the branch was cut as spurious reversions), and the "tests not
+  weakened" check now names the specific anti-patterns.
+- Corrected the test-plan claim in `AGENTS.md` and the review skill: both `.xctestplan`s select by
+  *exclusion* (`skippedTests`), so new test classes need no registration.
+- Narrowed the playbook's flaky-test section to the single allowlisted test with an explicit
+  three-point confirmation, replacing the general "re-run once and move on" framing.
+- Collapsed `docs/migration/` to one PR doc: deleted the five superseded drafts
+  (`pr-phase-0/1/1-review/2/2-description.md`), which described branches that no longer exist.
+
 ## Test plan
 
 - [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks build clean (device + simulator)
 - [x] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build of the working tree clean
-- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 727 tests, 0 failures
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 754 tests, 0 failures (727 + the three
+      new `ORTBAbstractTest` methods, re-run after S2.6)
+- [x] `PrebidEventDelegateTests` run separately — it is in the PR plan's `skippedTests`, so the
+      retagged isolation fix was verified with `-testPlan PrebidMobileTests -only-testing`
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite (1111 tests), run before merge
 - [ ] Reviewer: confirm gap decisions in `docs/migration/playbook.md`

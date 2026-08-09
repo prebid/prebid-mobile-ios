@@ -20,12 +20,16 @@ public class ORTBDeal: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
+    // `bidfloor` / `bidfloorcur` / `wseat` / `wadomain` are optional despite being declared
+    // nonnull in the ObjC header: `initWithJsonDictionary:` assigned the ivars directly and
+    // unconditionally, so an absent JSON key cleared the default back to nil and the key was
+    // then omitted on re-encode. See playbook Gap S2.5-C.
     @objc public var id: String?
-    @objc public var bidfloor: NSNumber = 0.0
-    @objc public var bidfloorcur: String = "USD"
+    @objc public var bidfloor: NSNumber? = 0.0
+    @objc public var bidfloorcur: String? = "USD"
     @objc public var at: NSNumber?
-    @objc public var wseat: [String] = []
-    @objc public var wadomain: [String] = []
+    @objc public var wseat: [String]? = []
+    @objc public var wadomain: [String]? = []
 
     // MARK: - Init
 
@@ -38,11 +42,11 @@ public class ORTBDeal: NSObject, PBMJsonCodable {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         id          = json[.id]
-        bidfloor    = json[.bidfloor] ?? 0.0
-        bidfloorcur = json[.bidfloorcur] ?? "USD"
+        bidfloor    = json[.bidfloor]
+        bidfloorcur = json[.bidfloorcur]
         at          = json[.at]
-        wseat       = (json[.wseat] as [String]?) ?? []
-        wadomain    = (json[.wadomain] as [String]?) ?? []
+        wseat       = json[.wseat]
+        wadomain    = json[.wadomain]
     }
 
     // MARK: - PBMJsonEncodable

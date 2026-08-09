@@ -73,7 +73,48 @@ class ORTBAbstractTest : XCTestCase {
         
         codeAndDecode(abstract: ORTBImpExtSkadn(), expectedString: "{}")
     }
-    
+
+    // MARK: - Decode/encode parity (playbook Gap S2.5-C)
+
+    /// Fully-populated fixtures: decode → encode must be idempotent.
+    func testORTBParityOnFullFixtures() {
+        assertORTBParity(jsonString: ORTBFixtures.format, swiftType: ORTBFormat.self)
+        assertORTBParity(jsonString: ORTBFixtures.publisher, swiftType: ORTBPublisher.self)
+        assertORTBParity(jsonString: ORTBFixtures.geo, swiftType: ORTBGeo.self)
+        assertORTBParity(jsonString: ORTBFixtures.deal, swiftType: ORTBDeal.self)
+        assertORTBParity(jsonString: ORTBFixtures.sourceExtOMID, swiftType: ORTBSourceExtOMID.self)
+        assertORTBParity(jsonString: ORTBFixtures.impExtSkadn, swiftType: ORTBImpExtSkadn.self)
+        assertORTBParity(jsonString: ORTBFixtures.deviceExtAtts, swiftType: ORTBDeviceExtAtts.self)
+    }
+
+    /// Partial payloads: an absent key must stay absent on re-encode. The ObjC
+    /// `initWithJsonDictionary:` assigned ivars directly, clearing the defaults seeded by
+    /// `init`; a Swift port that falls back to the default would invent wire keys.
+    func testDecodingPartialJSONDoesNotResurrectDefaults() {
+        assertORTBNoResurrectedDefaults(jsonString: ORTBFixtures.partialDeal,
+                                        swiftType: ORTBDeal.self,
+                                        expectedKeys: ["id"])
+
+        // `ext` is expected: ORTBImp always writes `dlp` when extPrebid is empty.
+        assertORTBNoResurrectedDefaults(jsonString: ORTBFixtures.partialImp,
+                                        swiftType: ORTBImp.self,
+                                        expectedKeys: ["id", "ext"])
+    }
+
+    /// A request decoded without `imp` (or with an empty one) must not re-encode the
+    /// one-element default impression `ORTBBidRequest.init` seeds.
+    func testDecodingRequestWithoutImpKeepsImpEmpty() {
+        for fixture in [ORTBFixtures.partialBidRequest, ORTBFixtures.emptyImpBidRequest] {
+            guard let request = try? ORTBBidRequest(jsonString: fixture) else {
+                XCTFail("ORTBBidRequest init?(jsonString:) returned nil for \(fixture)")
+                continue
+            }
+            XCTAssertTrue(request.imp.isEmpty, "phantom impression decoded from \(fixture)")
+            XCTAssertEqual((request.jsonDictionary["imp"] as? [Any])?.count, 0)
+            XCTAssertEqual(Set(request.jsonDictionary.keys), ["id", "imp"])
+        }
+    }
+
     func testCopying() {
         let initial = ORTBBidRequest()
         

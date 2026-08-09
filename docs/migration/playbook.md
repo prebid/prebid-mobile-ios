@@ -202,16 +202,33 @@ Files to scan after each migration step:
 
 Run after renaming: `xcodebuild ... build-for-testing 2>&1 | grep "error:" | grep "has been renamed"` to catch stragglers.
 
-## Known flaky test — do not over-investigate
+## Known flaky test — `PBMBidRequesterTest.testBanner_300x250` only
+
+This section is an allowlist of exactly one test. It is **not** a general "re-run and move on"
+policy: during a migration, a genuine regression is far more likely to present as an
+intermittent async failure than at any other time, so every other flaky-looking failure must be
+investigated.
 
 `PBMBidRequesterTest.testBanner_300x250` fails intermittently with:
 > Asynchronous wait failed: Exceeded timeout of 5 seconds, with unfulfilled expectations: "exp".
 
-This is a **pre-existing timing flakiness** unrelated to the Swift migration. It was present before Phase 1 and has appeared on both the first and second post-migration runs. On a clean re-run of `./scripts/testPrebidMobile.sh --latest --quick` it passes.
+This is a **pre-existing timing flakiness** unrelated to the Swift migration — it reproduces on
+`master` with no Swift twins present.
 
-**Rule:** If this is the only failing test after a migration step, re-run once. If it passes on the second run, proceed — do not investigate or modify the test. If it keeps failing across multiple full-suite runs **but passes when run in isolation** (`-only-testing PrebidMobileTests/PBMBidRequesterTest/testBanner_300x250`), that is still flakiness — move on. Only investigate if it fails in isolation too.
+**Rule (this test only):** a re-run passing is *not* sufficient evidence. Confirm all three:
 
-**Confirmed S1.3:** fails in 2 consecutive full-suite runs, passes immediately when run alone. Root cause is simulator resource pressure under full-suite load, not a regression.
+1. It is the only failure.
+2. It passes in isolation:
+   `-only-testing PrebidMobileTests/PBMBidRequesterTest/testBanner_300x250`.
+3. The step you just landed touched nothing in the bid-request or networking path (otherwise
+   treat it as a regression until proven otherwise, regardless of 1 and 2).
+
+If any check fails, investigate. Never silence it by relaxing the test (`assertForOverFulfill =
+false`, longer timeouts, weakened assertions) — that converts a real signal into a permanent
+blind spot.
+
+**Confirmed S1.3:** fails in 2 consecutive full-suite runs, passes immediately when run alone.
+Root cause is simulator resource pressure under full-suite load, not a regression.
 
 ### Non-`PBMJsonCodable` types (discovered S1.3)
 
@@ -282,6 +299,8 @@ Deleting `PBMORTBAbstract.m` removes:
 - [ ] `./scripts/testPrebidMobile.sh --latest --quick` — must pass on a clean run (re-run once if only `PBMBidRequesterTest.testBanner_300x250` fails)
 - [ ] Swift test files updated: no `'PBMORTBFoo' has been renamed` compiler errors
 - [ ] (Phase 1 & 3) JSON round-trip parity test passes (see S0.2 harness)
+- [ ] (Phase 1 & 3) Each migrated model has a **partial**-payload decode test asserting the
+      re-encoded key set — a full fixture cannot catch a resurrected default (Gap S2.5-C)
 - [ ] No `"app": {}` / `"device": {}` empty-object regressions in captured bid requests
 
 ## Phase 2 gaps (discovered S2.1)
@@ -473,6 +492,68 @@ do not catch it because they hold the helper in a scope that spans `waitForExpec
 original used `__weak`/`@weakify`, or where a retain cycle is demonstrable (`self` owns the object
 holding the block). When keeping a strong capture, leave a comment saying why, so the next reader
 does not "fix" it.
+
+### Gap S2.5-C — `initWithJsonDictionary:` destroys `init` defaults; `?? default` resurrects them
+
+Every ORTB model's JSON initializer is written as:
+
+```objc
+- (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
+    if (!(self = [self init])) { return nil; }   // seeds class defaults
+    _bidfloor = jsonDictionary[@"bidfloor"];     // direct ivar write, no setter
+    ...
+}
+```
+
+The ivar writes are **unconditional** and bypass the (sometimes coercing) setters. So when a key is
+absent, the default seeded by `init` is *overwritten with nil* — and `pbmCopyWithoutEmptyVals` then
+omits the key on re-encode. Decoding `{"id":"deal-1"}` and re-encoding it yields `{"id":"deal-1"}`,
+not the four extra defaults.
+
+The natural-looking Swift port is wrong:
+
+```swift
+// WRONG — invents wire keys the ObjC SDK never sent
+bidfloor = json[.bidfloor] ?? 0.0
+```
+
+**Rule:** In `init(jsonDictionary:)`, assign unconditionally — `x = json[.k]`, never
+`json[.k] ?? default`. Keep the default in the property declaration so the plain `init()` path still
+matches ObjC. This forces the property to be **optional even when the ObjC header declared it
+nonnull** under `NS_ASSUME_NONNULL_BEGIN`; the header was lying, and the JSON initializer is the
+proof. Same rule for collection properties: `ORTBBidRequest.imp` defaults to one `ORTBImp()` in
+`init()` but must be cleared to `[]` when `"imp"` is absent or empty.
+
+Two exceptions where `?? default` **is** faithful and should be kept:
+
+- The ObjC init explicitly substituted a value for a missing key
+  (`_deals = jsonDictionary[@"deals"] ? … : @[]`) — `ORTBPmp.deals`, `ORTBBanner.format`.
+- The property is never written by `toJsonDictionary` (`ORTBPublisher.cat`, `ORTBApp.cat` /
+  `sectioncat` / `pagecat`) or is guarded by a non-empty check (`ORTBImpExtSkadn.skadnetids`), so no
+  wire difference is observable. Child-object fallbacks (`json[.pmp] ?? ORTBPmp()`) are likewise
+  fine: ObjC allocated the child too, and empty child dicts are suppressed on encode (Gap 2).
+
+**Verification:** a fully-populated round-trip fixture cannot detect this — the resurrected default
+is stable across both encodes. Cover it with a *partial* payload and assert on the re-encoded key
+set (`assertORTBNoResurrectedDefaults` in `ORTBParityHelper.swift`).
+
+### Gap S2.5-D — `[nil isEqual:nil]` is `NO`; Swift `nil == nil` is `true`
+
+ObjC `isEqual:` implementations written as `[self.w isEqual:other.w] && [self.h isEqual:other.h]`
+return `NO` when both sides are nil, because messaging `nil` returns `NO`. The direct Swift
+translation `w == other.w && h == other.h` returns `true`. For a type used as an `NSSet` member
+this changes deduplication: all-nil instances used to be distinct and now collapse into one.
+
+`ORTBFormat` is the instance. The divergence was **accepted, not fixed**: the only dedup callsite
+(`PBMPrebidParameterBuilder`) builds every element via `+ortbFormatWithSize:`, which always sets `w`
+and `h`, so all-nil formats never reach the `NSSet`. Reproducing ObjC exactly would need
+`w != nil && h != nil && …`, which makes `isEqual:` non-reflexive and violates the contract
+`NSSet`/`Hashable` rely on.
+
+**Rule:** When porting an `isEqual:` built from `isEqual:` calls on optional properties, decide
+explicitly whether all-nil instances must stay distinct. If the ObjC semantics can't be reproduced
+without breaking reflexivity, keep the Swift semantics and leave a comment at the callsite
+justifying it — don't leave the difference silent.
 
 ## General ObjC → Swift reference
 
