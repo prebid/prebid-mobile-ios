@@ -70,6 +70,7 @@ class VideoControlsConfigTests: XCTestCase {
         ortbAdConfig.skipButtonPosition = "topleft"
         ortbAdConfig.closeButtonArea = 0.3
         ortbAdConfig.closeButtonPosition = "topleft"
+        ortbAdConfig.isAutoCloseOnCompletionEnabled = false
         
         adConfiguration.initialize(with: ortbAdConfig)
         
@@ -79,6 +80,7 @@ class VideoControlsConfigTests: XCTestCase {
         XCTAssertEqual(adConfiguration.skipButtonPosition, .topLeft)
         XCTAssertEqual(adConfiguration.closeButtonArea, 0.3)
         XCTAssertEqual(adConfiguration.closeButtonPosition, .topLeft)
+        XCTAssertFalse(adConfiguration.isAutoCloseOnCompletionEnabled)
         
     }
 }

@@ -204,10 +204,11 @@
     }
     
     if (self.creativeModel.adConfiguration.presentAsInterstitial) {
-        // No companion ads, so pass completion to the modal manager and
-        // close automatically unless the publisher disabled that behavior.
+        // No companion ads, so pass completion to the modal manager. Rewarded ads use
+        // rwdd.close.action; non-rewarded interstitials use the video controls setting.
         [self.modalManager creativeDisplayCompleted:self];
-        if (self.creativeModel.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled &&
+        if (!self.creativeModel.adConfiguration.isRewarded &&
+            self.creativeModel.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled &&
             self.dismissInterstitialModalState) {
             self.dismissInterstitialModalState();
         }

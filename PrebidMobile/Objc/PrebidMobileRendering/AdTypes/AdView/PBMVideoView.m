@@ -803,6 +803,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     
     BOOL shouldOfferReplay = self.adConfiguration.isBuiltInVideo ||
         (self.adConfiguration.presentAsInterstitial &&
+         !self.adConfiguration.isRewarded &&
          !self.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled);
     if (shouldOfferReplay && !self.creative.creativeModel.hasCompanionAd) {
         // UI: need to give some time to hide the interstitial before showing the Watch Again

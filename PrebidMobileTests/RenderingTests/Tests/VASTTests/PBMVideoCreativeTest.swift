@@ -283,11 +283,10 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         XCTAssertEqual(modalManager.modalStateStack.count, 1)
     }
 
-    func testRewardedCompletionIsReportedWhenAutoCloseIsDisabled() {
+    func testRewardedCompletionDefersDismissalToRewardedConfiguration() {
         let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = true
         adConfiguration.isRewarded = true
-        adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled = false
         let model = CreativeModel(adConfiguration: adConfiguration)
         model.hasCompanionAd = false
 

@@ -52,6 +52,13 @@ public class MediationInterstitialAdUnit: MediationBaseInterstitialAdUnit {
         get { adUnitConfig.adConfiguration.videoControlsConfig.skipDelay }
         set { adUnitConfig.adConfiguration.videoControlsConfig.skipDelay = newValue }
     }
+
+    /// Controls whether full-screen video ads without an end card close when playback completes.
+    /// Set to `false` to keep the ad open with a **Watch Again** button. The default value is `true`.
+    public var isAutoCloseOnCompletionEnabled: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled = newValue }
+    }
     
     // MARK: - Public Methods
     

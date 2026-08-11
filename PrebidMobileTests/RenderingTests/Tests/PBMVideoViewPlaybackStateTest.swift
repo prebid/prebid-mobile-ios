@@ -156,6 +156,19 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
         }
     }
 
+    func testRewardedVideoIgnoresInterstitialAutoCloseSetting() {
+        runWithStartedPlayback(
+            isInterstitial: true,
+            isRewarded: true,
+            autoCloseOnCompletion: false,
+            hasCompanionAd: false,
+            beforeAssertions: { $0.handleDidPlayToEndTime() },
+            delayBeforeAssertions: 0.6
+        ) { videoView in
+            XCTAssertNil(videoView.btnWatchAgain)
+        }
+    }
+
     // MARK: - App lifecycle transitions
 
     func testResignActiveWhilePlayingSetsPausedByBackground() {
@@ -392,6 +405,7 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
     // Loads the video creative, puts it on screen, starts playback and runs
     // assertions one second later, when the player is actually playing.
     private func runWithStartedPlayback(isInterstitial: Bool = false,
+                                        isRewarded: Bool = false,
                                         autoCloseOnCompletion: Bool = true,
                                         hasCompanionAd: Bool = true,
                                         beforeAssertions: ((PBMVideoView) -> Void)? = nil,
@@ -401,6 +415,7 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
                                         assertions: @escaping (PBMVideoView) -> Void) {
         setupVideoCreative(
             isInterstitial: isInterstitial,
+            isRewarded: isRewarded,
             autoCloseOnCompletion: autoCloseOnCompletion,
             hasCompanionAd: hasCompanionAd
         )
@@ -478,6 +493,7 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
     private func setupVideoCreative(videoFileURL: String = "http://get_video/small.mp4",
                                     localVideoFileName: String = "small.mp4",
                                     isInterstitial: Bool = false,
+                                    isRewarded: Bool = false,
                                     autoCloseOnCompletion: Bool = true,
                                     hasCompanionAd: Bool = true) {
         let rule = MockServerRule(urlNeedle: videoFileURL,
@@ -488,6 +504,7 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
 
         let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = isInterstitial
+        adConfiguration.isRewarded = isRewarded
         adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled = autoCloseOnCompletion
 
         let model = CreativeModel(adConfiguration: adConfiguration)
