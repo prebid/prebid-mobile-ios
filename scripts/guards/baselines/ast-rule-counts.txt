@@ -1,0 +1,3 @@
+main-thread-delegate-callbacks 60
+force-unwrap 33
+weak-delegate 3

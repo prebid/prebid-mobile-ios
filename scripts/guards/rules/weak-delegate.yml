@@ -1,0 +1,45 @@
+# Guard: weak-delegate (count-ratcheted via ast-rule-ratchet in run-guards.sh)
+#
+# A stored delegate property that is not `weak` is the classic retain-cycle
+# source: the publisher's object owns the ad view, the ad view strongly owns
+# its delegate (the publisher's object), and neither ever deallocates. The
+# rendering/lifecycle cluster in the 2026-08-11 issue analysis is the
+# motivating failure class.
+#
+# Count-ratcheted via ast-rule-ratchet in run-guards.sh: existing findings
+# are grandfathered as a count in baselines/ast-rule-counts.txt, which may
+# only shrink. Some strong delegate references are deliberate (e.g.
+# self-owned interceptors) — a justified baseline update covers those.
+#
+# Known limits (documented, acceptable for an advisory):
+#   - stored properties with didSet/willSet observers are not matched
+#   - `let` constants ARE matched (a strong constant delegate cycles too)
+#   - protocol requirements and computed properties are correctly skipped
+id: weak-delegate
+language: swift
+severity: warning
+message: Stored delegate property is not weak.
+note: Declare delegate references `weak var` (protocol must be AnyObject-constrained), or document why strong ownership is intended.
+files:
+  - "PrebidMobile/Swift/**"
+ignores:
+  - "**/*Tests*/**"
+rule:
+  kind: property_declaration
+  all:
+    # type members only — local `let delegate = ...` bindings are not storage
+    - inside:
+        kind: class_body
+    - has:
+        field: name
+        pattern: $NAME
+    - not:
+        has:
+          kind: ownership_modifier
+          stopBy: end
+    - not:
+        has:
+          kind: computed_property
+constraints:
+  NAME:
+    regex: '[dD]elegate$'

@@ -1,0 +1,3 @@
+# Explicitly granted new ObjC files (rare, unavoidable cases only — see docs/guards/README.md).
+# Each entry needs a justification comment above it, added in the same PR as the file.
+# Remove entries after their PR merges (the guard reports them as stale advisories).

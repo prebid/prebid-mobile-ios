@@ -1,0 +1,4 @@
+# Files with grandfathered replacement-less deprecation markers (shrink-only —
+# see docs/guards/README.md). The tree was fully compliant when this guard landed,
+# so this list starts empty; a new entry needs a justification comment above it
+# and a filed issue, added in the same PR.

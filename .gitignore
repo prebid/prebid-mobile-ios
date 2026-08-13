@@ -116,8 +116,13 @@ Pods/
 # Visual Studio Code
 .build/
 
-# Claude Code
-CLAUDE.md
-.claude/
+# Claude Code — shared config (CLAUDE.md, .claude/rules, .claude/skills,
+# .claude/agents) is tracked; only per-user local state stays ignored.
+.claude/settings.local.json
+.claude/agent-memory/
+.claude/notes/
 
 EventHandlers/Package.resolved
+
+# Python bytecode from the guard scripts
+__pycache__/

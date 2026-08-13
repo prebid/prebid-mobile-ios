@@ -1,0 +1,4 @@
+# Files with grandfathered raw print()/NSLog() calls (shrink-only — see docs/guards/README.md).
+# Issue for the two entries below: to be filed upstream by the maintainer (no tracker access from this environment).
+PrebidMobile/Swift/AdUnits/Utils.swift
+PrebidMobile/Swift/Addendum/IMAUtils.swift

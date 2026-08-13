@@ -1,0 +1,41 @@
+name: Structural guards
+
+# Fast, deterministic architecture checks (see docs/guards/README.md).
+# Runs on ubuntu in ~1 minute — intentionally separate from the macOS
+# build/test pipeline in PR_checks.yml so guard results land early and cheap.
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+concurrency:
+  group: guards-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history: swift-migration-direction diffs against the
+          # merge-base with master.
+          fetch-depth: 0
+
+      - name: Install ast-grep (pinned)
+        # Keep in sync with AST_GREP_PINNED in scripts/guards/run-guards.sh —
+        # version drift changes finding counts and breaks the ast-rule-ratchet.
+        run: npm install -g @ast-grep/cli@0.45.1
+
+      - name: Guard unit tests
+        # Self-tests for the guard implementations themselves — a weakened
+        # detector fails here rather than passing silently.
+        run: python3 -m unittest discover -s scripts/guards/tests
+
+      - name: Run guards
+        run: ./scripts/guards/run-guards.sh
