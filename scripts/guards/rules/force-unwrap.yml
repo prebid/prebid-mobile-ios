@@ -1,0 +1,26 @@
+# Guard: force-unwrap (count-ratcheted via ast-rule-ratchet in run-guards.sh)
+#
+# Force-unwraps in production code turn unexpected nil into publisher-visible
+# crashes — upstream issue #1273 (EXC_BREAKPOINT in DeviceAccessManager when
+# ASIdentifierManager returned nil) is the motivating failure.
+#
+# Existing findings are grandfathered as a count in
+# baselines/ast-rule-counts.txt; the count may only shrink.
+#
+# Deliberately NOT flagged: implicitly-unwrapped optional type declarations
+# (`var x: String!`), prefix negation (`!flag`), and `!=` — the patterns
+# below only match expression-position force operations.
+id: force-unwrap
+language: swift
+severity: warning
+message: Force-unwrap / force-try / force-cast in production code.
+note: Prefer guard-let, optional chaining, or throwing — a nil here crashes the host app (cf. upstream issue #1273).
+files:
+  - "PrebidMobile/Swift/**"
+ignores:
+  - "**/*Tests*/**"
+rule:
+  any:
+    - pattern: try! $EXPR
+    - pattern: $X as! $T
+    - pattern: $X!

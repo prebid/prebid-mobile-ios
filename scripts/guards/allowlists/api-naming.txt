@@ -1,0 +1,17 @@
+# PBM-prefixed names grandfathered in the public Swift surface (shrink-only —
+# see docs/guards/README.md). Fixing one means renaming the Swift symbol and
+# deprecating the old name (deprecation-hygiene guard applies).
+# Issue for the entries below: to be filed upstream by the maintainer (no tracker
+# access from this environment).
+# Note: PBMMediation* constants are NOT here — they are a permanent, documented
+# exception (publisher wire contract; see CLAUDE.md), encoded in the check itself.
+class PBMORTBNoBidReason
+let PBM_ORIGINAL_ADUNIT_KEY
+let PBM_PRECACHE_CONFIGURATION_KEY
+let PBM_TRACKING_URL_TEMPLATE
+let PBM_TRANSACTION_STATE_KEY
+parent PBMError
+parent PBMErrorType
+protocol PBMJsonDecodable
+protocol PBMJsonEncodable
+typealias PBMNetworkReachableBlock

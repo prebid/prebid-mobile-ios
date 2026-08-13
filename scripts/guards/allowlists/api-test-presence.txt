@@ -1,0 +1,40 @@
+# Public types not yet referenced by any PrebidMobileTests test (shrink-only —
+# see docs/guards/README.md). This list is the untested-public-API backlog:
+# fixing an entry means adding a test that exercises the type, then deleting
+# the line in the same PR.
+# Issue for the entries below: to be filed upstream by the maintainer (no tracker
+# access from this environment).
+AutoRefreshCountConfig
+BackgroundAwareTimer
+BannerEventInteractionDelegate
+BannerEventLoadingDelegate
+ClickbrowserType
+CreativeAttribute
+DefaultPluginEventDelegate
+DisplayViewVideoPlaybackDelegate
+HiddenWebViewManager
+IMAAdSlotSize
+ImageHelper
+InterstitialEventHandlerProtocol
+InterstitialEventInteractionDelegate
+InterstitialEventLoadingDelegate
+MediationBidInfoWrapper
+MediationNativeAdUnit
+MediationNativeUtils
+NativeAdConfiguration
+NativeAdEventDelegate
+NativeDataAssetType
+NativeImageAssetType
+OMSession
+OMSessionWrapper
+ORTBNoBidReasonCode
+PBMJsonDecodable
+PBMORTBNoBidReason
+Plcmnt
+PluginEventDelegate
+PrebidInitializationStatus
+PrebidServerEventTracker
+RewardedEventHandlerProtocol
+RewardedEventInteractionDelegate
+ServerEvent
+SkadnEventTracker
