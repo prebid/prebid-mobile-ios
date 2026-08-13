@@ -19,7 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
-BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "fixme-count.txt")
+BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "fixme-count.json")
 UPDATE_CMD = "./scripts/guards/run-guards.sh --update-fixme-baseline"
 _MARKER_RE = re.compile(r"(//|/\*).*(FIXME|TODO)", re.IGNORECASE)
 
@@ -37,8 +37,8 @@ def main(argv):
     current = count()
 
     if len(argv) > 1 and argv[1] == "--update":
-        guardlib.write_lines(BASELINE, [str(current)])
-        print(f"Recorded {current} FIXME/TODO marker(s) in scripts/guards/baselines/fixme-count.txt")
+        guardlib.write_count(BASELINE, current, guard="fixme-ratchet")
+        print(f"Recorded {current} FIXME/TODO marker(s) in scripts/guards/baselines/fixme-count.json")
         return 0
 
     code, messages = guardlib.check_count(
@@ -54,4 +54,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

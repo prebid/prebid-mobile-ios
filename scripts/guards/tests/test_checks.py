@@ -1,6 +1,6 @@
-"""Unit tests for the adapter-isolation and swift-migration-direction
-check logic (the parsing/classification parts; the git/filesystem walking
-is exercised by the guard suite itself)."""
+"""Unit tests for the adapter-isolation, ast-rule-ratchet and
+swift-migration-direction check logic (the parsing/classification parts;
+the git/filesystem walking is exercised by the guard suite itself)."""
 
 import os
 import sys
@@ -11,11 +11,48 @@ sys.path.insert(0, os.path.join(_HERE, "..", "checks"))
 sys.path.insert(0, os.path.join(_HERE, "..", "lib"))
 
 import adapter_isolation  # noqa: E402
+import ast_rule_ratchet  # noqa: E402
 import deprecation_hygiene  # noqa: E402
 import api_naming  # noqa: E402
 import api_test_presence  # noqa: E402
 import ortb_test_presence  # noqa: E402
 import swift_migration_direction  # noqa: E402
+
+
+class AstStreamParsingTests(unittest.TestCase):
+    RULES = ("force-unwrap", "weak-delegate")
+
+    def stream(self, *rule_ids):
+        return "\n".join('{"ruleId":"%s","file":"F.swift"}' % r for r in rule_ids)
+
+    def test_counts_per_rule(self):
+        got = ast_rule_ratchet.parse_stream(
+            self.stream("force-unwrap", "weak-delegate", "force-unwrap"),
+            self.RULES,
+        )
+        self.assertEqual(got, {"force-unwrap": 2, "weak-delegate": 1})
+
+    def test_known_rule_with_no_findings_is_zero_not_absent(self):
+        got = ast_rule_ratchet.parse_stream(self.stream("force-unwrap"), self.RULES)
+        self.assertEqual(got["weak-delegate"], 0)
+
+    def test_empty_scan_is_all_zero(self):
+        self.assertEqual(ast_rule_ratchet.parse_stream("", self.RULES),
+                         {"force-unwrap": 0, "weak-delegate": 0})
+
+    def test_unknown_rule_id_is_counted(self):
+        got = ast_rule_ratchet.parse_stream(self.stream("brand-new-rule"), self.RULES)
+        self.assertEqual(got["brand-new-rule"], 1)
+
+    def test_blank_lines_ignored(self):
+        got = ast_rule_ratchet.parse_stream(
+            self.stream("force-unwrap") + "\n\n", self.RULES)
+        self.assertEqual(got["force-unwrap"], 1)
+
+    def test_unparsable_line_raises_rather_than_undercounting(self):
+        # a changed output format must never read as "fewer findings"
+        with self.assertRaises(ast_rule_ratchet.ScanError):
+            ast_rule_ratchet.parse_stream("not json at all", self.RULES)
 
 
 class MigrationClassifyTests(unittest.TestCase):

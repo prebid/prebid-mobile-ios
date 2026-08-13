@@ -5,7 +5,7 @@
 # ASIdentifierManager returned nil) is the motivating failure.
 #
 # Existing findings are grandfathered as a count in
-# baselines/ast-rule-counts.txt; the count may only shrink.
+# baselines/ast-rule-counts.json; the count may only shrink.
 #
 # Deliberately NOT flagged: implicitly-unwrapped optional type declarations
 # (`var x: String!`), prefix negation (`!flag`), and `!=` — the patterns

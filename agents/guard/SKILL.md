@@ -18,7 +18,10 @@ Read `docs/guards/README.md` first — it defines the ratchet contract every gua
 | Committed-surface change control | lockfile check on `guardlib` | `api_baseline.py` |
 
 Python checks reuse `guardlib`'s three primitives (lockfile, allowlist ratchet, count
-ratchet) and get unit tests in `scripts/guards/tests/` (run in CI). `guardlib` is
+ratchet) and get unit tests in `scripts/guards/tests/` (run in CI). All committed data is
+JSON read through `guardlib` (schema-validated, so a malformed file FAILs instead of
+reading as "no findings"); wrap `main` in `guardlib.cli()` so that failure is actionable,
+and exit `guardlib.EXIT_SKIPPED` when a required external tool is absent. `guardlib` is
 platform-agnostic by design — it is the part that later ports to the Android repo.
 
 Prefer the simplest mechanism that has no false positives. False negatives are acceptable
@@ -29,15 +32,19 @@ they teach people to ignore guards.
 
 1. Write the rule or check. Checks: Python 3 stdlib only, self-locate `ROOT` like the
    existing checks, deterministic output (sorted), actionable FAIL message that says how
-   to fix — plus unit tests for any nontrivial parsing in `scripts/guards/tests/`.
+   to fix — plus unit tests for any nontrivial parsing in `scripts/guards/tests/`. Keep
+   parsing separate from I/O (see `ast_rule_ratchet.parse_stream`) so it is testable
+   without the tool installed.
 2. Run against the current tree. Existing violations → grandfather into
-   `scripts/guards/allowlists/<guard>.txt` (one `path:detail` per line) and implement the
-   ratchet: new violations fail, stale entries fail. Use `guardlib.ratchet()` (see
-   `adapter_isolation.py`).
-3. Each grandfathered entry gets a filed issue (cluster per module), referenced in a
-   comment line **above** the entry in the allowlist file — never inline on the entry
-   line (parsers match entries byte-exactly) and never as an in-code `FIXME` comment
-   (the `fixme-ratchet` guard blocks marker growth). No issue, no allowlist entry.
+   `scripts/guards/allowlists/<guard>.json` and implement the ratchet: new violations
+   fail, stale entries fail. Use `guardlib.read_allowlist()` + `guardlib.ratchet()` (see
+   `adapter_isolation.py`); report stale entries with `guardlib.describe_entries()` so
+   the failure states what each grant was for.
+3. Each grandfathered entry is a record — `entry` (the exact token your probe emits) and
+   `reason`. The schema is validated on read, so a missing or empty reason fails the run:
+   state the justification there, never as an in-code `FIXME` comment (the
+   `fixme-ratchet` guard blocks marker growth). Where the debt needs tracking, file an
+   issue per cluster and name it in the file's top-level `description`.
 
 ## 3. Prove it (mandatory, before committing)
 

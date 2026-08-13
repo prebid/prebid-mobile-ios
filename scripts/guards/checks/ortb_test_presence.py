@@ -20,8 +20,8 @@ exercised at all, not that coverage is good — the spec-grounding gate and
 review handle quality.
 
 Ratchet: pre-existing gaps are grandfathered in
-allowlists/ortb-test-presence.txt (one path per line, shrink-only). Stale
-entries fail the run and must be deleted in the same PR.
+allowlists/ortb-test-presence.json (one entry per model path, shrink-only).
+Stale entries fail the run and must be deleted in the same PR.
 """
 
 import os
@@ -33,7 +33,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
-ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "ortb-test-presence.txt")
+ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "ortb-test-presence.json")
 SOURCE_ROOT = "PrebidMobile"
 TESTS_ROOT = "PrebidMobileTests"
 _MODEL_FILE_RE = re.compile(r"^ORTB\w*\.swift$")
@@ -71,7 +71,7 @@ def main(_argv, root=ROOT):
         print("must not pass.")
         return 1
 
-    allow = guardlib.read_list(ALLOWLIST)
+    allow = guardlib.read_allowlist(ALLOWLIST)
     new, stale = guardlib.ratchet(violations(models, root), allow)
 
     fail = False
@@ -83,8 +83,8 @@ def main(_argv, root=ROOT):
         fail = True
     if stale:
         print("FAIL: stale allowlist entries (now tested, or the file is gone) — delete them")
-        print("from scripts/guards/allowlists/ortb-test-presence.txt in this PR:")
-        print("\n".join(stale))
+        print("from scripts/guards/allowlists/ortb-test-presence.json in this PR:")
+        print("\n".join(guardlib.describe_entries(ALLOWLIST, stale)))
         fail = True
 
     if not fail:
@@ -94,4 +94,4 @@ def main(_argv, root=ROOT):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

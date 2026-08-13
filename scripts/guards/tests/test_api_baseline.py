@@ -5,8 +5,10 @@ Also run in CI (guards.yml) so a weakened extractor fails there rather than
 silently narrowing the tracked surface.
 """
 
+import json
 import os
 import sys
+import tempfile
 import unittest
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
@@ -349,7 +351,27 @@ class SectionShapeTests(unittest.TestCase):
         self.assertFalse(api_baseline._valid_shape(flat_swift))
 
 
-class GuardlibTests(unittest.TestCase):
+class JSONDataTestCase(unittest.TestCase):
+    """Base for tests that need throwaway guard data files."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+
+    def write(self, payload, name="data.json"):
+        path = os.path.join(self._tmp.name, name)
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(payload, fh)
+        return path
+
+    def write_raw(self, text, name="data.json"):
+        path = os.path.join(self._tmp.name, name)
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(text)
+        return path
+
+
+class GuardlibTests(JSONDataTestCase):
     def test_ratchet_new_and_stale(self):
         new, stale = guardlib.ratchet(["a", "b"], ["b", "c"])
         self.assertEqual(new, ["a"])
@@ -366,25 +388,112 @@ class GuardlibTests(unittest.TestCase):
         self.assertEqual(drift, ["-func f"])
 
     def test_check_count_directions(self):
-        import tempfile
-        with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as fh:
-            fh.write("5\n")
-            path = fh.name
-        try:
-            code, _ = guardlib.check_count(5, path, "probe", "cmd", [])
-            self.assertEqual(code, 0)
-            code, msgs = guardlib.check_count(6, path, "probe", "cmd", ["hint"])
-            self.assertEqual(code, 1)
-            self.assertIn("grew", msgs[0])
-            code, msgs = guardlib.check_count(4, path, "probe", "cmd", [])
-            self.assertEqual(code, 1)
-            self.assertIn("shrank", msgs[0])
-        finally:
-            os.unlink(path)
+        path = self.write({"guard": "probe", "count": 5})
+        code, _ = guardlib.check_count(5, path, "probe", "cmd", [])
+        self.assertEqual(code, 0)
+        code, msgs = guardlib.check_count(6, path, "probe", "cmd", ["hint"])
+        self.assertEqual(code, 1)
+        self.assertIn("grew", msgs[0])
+        code, msgs = guardlib.check_count(4, path, "probe", "cmd", [])
+        self.assertEqual(code, 1)
+        self.assertIn("shrank", msgs[0])
+
+    def test_count_roundtrip_preserves_metadata(self):
+        path = self.write({"guard": "probe", "description": "why", "count": 5})
+        guardlib.write_count(path, 4)
+        self.assertEqual(guardlib.read_count(path), 4)
+        self.assertEqual(guardlib.load_json(path)["description"], "why")
+
+    def test_entries_roundtrip_is_sorted_and_deduped(self):
+        path = self.write({"guard": "probe", "entries": ["b", "a", "a"]})
+        self.assertEqual(guardlib.read_entries(path), ["a", "b"])
+        guardlib.write_entries(path, ["c", "a", "c"])
+        self.assertEqual(guardlib.read_entries(path), ["a", "c"])
+
+    # ── a malformed data file must never read as "no findings" ───────────
+
+    def test_missing_file_raises_with_update_command(self):
+        with self.assertRaises(guardlib.GuardDataError) as ctx:
+            guardlib.read_count(os.path.join(self._tmp.name, "nope.json"), "run --update")
+        self.assertIn("run --update", str(ctx.exception))
+
+    def test_invalid_json_raises(self):
+        path = self.write_raw("{not json")
+        with self.assertRaises(guardlib.GuardDataError):
+            guardlib.read_count(path)
+
+    def test_non_object_top_level_raises(self):
+        path = self.write_raw("[1, 2]")
+        with self.assertRaises(guardlib.GuardDataError):
+            guardlib.read_entries(path)
+
+    def test_missing_field_raises(self):
+        path = self.write({"guard": "probe"})
+        with self.assertRaises(guardlib.GuardDataError):
+            guardlib.read_count(path)
+
+    def test_wrong_field_type_raises(self):
+        path = self.write({"guard": "probe", "count": "5"})
+        with self.assertRaises(guardlib.GuardDataError):
+            guardlib.read_count(path)
+        path = self.write({"guard": "probe", "counts": {"a": "2"}}, "keyed.json")
+        with self.assertRaises(guardlib.GuardDataError):
+            guardlib.read_keyed_counts(path)
+
+    def test_cli_turns_data_error_into_fail_not_pass(self):
+        def boom(_argv):
+            raise guardlib.GuardDataError("bad file")
+        self.assertEqual(guardlib.cli(boom)(["x"]), 1)
 
 
-if __name__ == "__main__":
-    unittest.main()
+class AllowlistSchemaTests(JSONDataTestCase):
+    RECORD = {"entry": "Foo.swift", "reason": "grandfathered at landing time"}
+
+    def allowlist(self, *records):
+        return self.write({"guard": "probe", "description": "d",
+                           "entries": list(records)})
+
+    def test_valid_allowlist_reads_entry_tokens(self):
+        path = self.allowlist(self.RECORD, dict(self.RECORD, entry="Bar.swift"))
+        self.assertEqual(guardlib.read_allowlist(path), ["Bar.swift", "Foo.swift"])
+
+    def test_missing_reason_is_rejected(self):
+        record = {k: v for k, v in self.RECORD.items() if k != "reason"}
+        with self.assertRaises(guardlib.GuardDataError) as ctx:
+            guardlib.read_allowlist(self.allowlist(record))
+        self.assertIn("reason", str(ctx.exception))
+
+    def test_empty_reason_is_rejected(self):
+        with self.assertRaises(guardlib.GuardDataError):
+            guardlib.read_allowlist(self.allowlist(dict(self.RECORD, reason="  ")))
+
+    def test_unknown_field_is_rejected(self):
+        with self.assertRaises(guardlib.GuardDataError) as ctx:
+            guardlib.read_allowlist(self.allowlist(dict(self.RECORD, resaon="typo")))
+        self.assertIn("resaon", str(ctx.exception))
+
+    def test_retired_fields_are_rejected_as_unknown(self):
+        # `issue`/`granted` were dropped from the schema; a leftover file
+        # carrying them must fail loudly rather than be silently accepted
+        for field, value in (("issue", "org/repo#12"), ("granted", "2026-08-13")):
+            with self.assertRaises(guardlib.GuardDataError):
+                guardlib.read_allowlist(self.allowlist({**self.RECORD, field: value}))
+
+    def test_duplicate_entry_is_rejected(self):
+        with self.assertRaises(guardlib.GuardDataError):
+            guardlib.read_allowlist(self.allowlist(self.RECORD, self.RECORD))
+
+    def test_bare_string_entry_is_rejected(self):
+        # the pre-JSON format: a plain line with no reason or issue
+        with self.assertRaises(guardlib.GuardDataError):
+            guardlib.read_allowlist(self.allowlist("Foo.swift"))
+
+    def test_describe_entries_appends_reasons(self):
+        path = self.allowlist(self.RECORD)
+        self.assertEqual(
+            guardlib.describe_entries(path, ["Foo.swift", "Unknown.swift"]),
+            ["Foo.swift — grandfathered at landing time", "Unknown.swift"],
+        )
 
 
 class DocDetectionTests(unittest.TestCase):
@@ -428,26 +537,36 @@ class DocDetectionTests(unittest.TestCase):
         self.assertEqual(got, [("swift", "", "func", "f")])
 
 
-class KeyedCountTests(unittest.TestCase):
-    def test_roundtrip_and_verdicts(self):
-        import tempfile
-        with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as fh:
-            fh.write("a.swift 2\nb.swift 1\n")
-            path = fh.name
-        try:
-            self.assertEqual(guardlib.read_keyed_counts(path), {"a.swift": 2, "b.swift": 1})
-            code, _ = guardlib.check_keyed_counts({"a.swift": 2, "b.swift": 1}, path, "probe", "cmd", [])
-            self.assertEqual(code, 0)
-            code, msgs = guardlib.check_keyed_counts({"a.swift": 3, "b.swift": 1}, path, "probe", "cmd", ["hint"])
-            self.assertEqual(code, 1)
-            self.assertIn("a.swift: 2 → 3", "\n".join(msgs))
-            code, msgs = guardlib.check_keyed_counts({"a.swift": 2, "b.swift": 1, "c.swift": 1}, path, "probe", "cmd", [])
-            self.assertEqual(code, 1)  # new key = growth
-            code, msgs = guardlib.check_keyed_counts({"a.swift": 2}, path, "probe", "cmd", [])
-            self.assertEqual(code, 1)  # disappeared key = shrink, needs update
-            self.assertIn("shrank", msgs[0])
-        finally:
-            os.unlink(path)
+class KeyedCountTests(JSONDataTestCase):
+    def setUp(self):
+        super().setUp()
+        self.path = self.write({"guard": "probe",
+                                "counts": {"a.swift": 2, "b.swift": 1}})
 
-    def test_format_drops_zero_counts(self):
-        self.assertEqual(guardlib.format_keyed_counts({"a": 1, "b": 0}), ["a 1"])
+    def test_roundtrip_and_verdicts(self):
+        self.assertEqual(guardlib.read_keyed_counts(self.path),
+                         {"a.swift": 2, "b.swift": 1})
+        code, _ = guardlib.check_keyed_counts(
+            {"a.swift": 2, "b.swift": 1}, self.path, "probe", "cmd", [])
+        self.assertEqual(code, 0)
+        code, msgs = guardlib.check_keyed_counts(
+            {"a.swift": 3, "b.swift": 1}, self.path, "probe", "cmd", ["hint"])
+        self.assertEqual(code, 1)
+        self.assertIn("a.swift: 2 → 3", "\n".join(msgs))
+        code, _ = guardlib.check_keyed_counts(
+            {"a.swift": 2, "b.swift": 1, "c.swift": 1}, self.path, "probe", "cmd", [])
+        self.assertEqual(code, 1)  # new key = growth
+        code, msgs = guardlib.check_keyed_counts(
+            {"a.swift": 2}, self.path, "probe", "cmd", [])
+        self.assertEqual(code, 1)  # disappeared key = shrink, needs update
+        self.assertIn("shrank", msgs[0])
+
+    def test_write_drops_zero_counts_and_sorts(self):
+        guardlib.write_keyed_counts(self.path, {"b": 1, "a": 2, "z": 0})
+        written = guardlib.load_json(self.path)["counts"]
+        self.assertEqual(written, {"a": 2, "b": 1})
+        self.assertEqual(list(written), ["a", "b"])
+
+
+if __name__ == "__main__":
+    unittest.main()

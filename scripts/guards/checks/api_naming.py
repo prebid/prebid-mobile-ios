@@ -20,12 +20,11 @@ wire-contract keys, and renaming them would break publishers (see the
 known-trap note in CLAUDE.md).
 
 Ratchet: existing leftovers are grandfathered in
-allowlists/api-naming.txt (shrink-only; stale entries fail). Fixing one
+allowlists/api-naming.json (shrink-only; stale entries fail). Fixing one
 means renaming the Swift symbol and deprecating the old name per the
 deprecation-hygiene guard.
 """
 
-import json
 import os
 import sys
 
@@ -35,8 +34,9 @@ sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
 BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "public-api.json")
-ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "api-naming.txt")
+ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "api-naming.json")
 EXEMPT_PREFIX = "PBMMediation"  # deliberate publisher contract — see CLAUDE.md
+API_UPDATE_CMD = "./scripts/guards/run-guards.sh --update-api-baseline"
 
 
 def _is_pbm(name):
@@ -62,14 +62,9 @@ def violations(sections):
 
 
 def main(_argv):
-    if not os.path.exists(BASELINE):
-        print("FAIL: scripts/guards/baselines/public-api.json missing — run the")
-        print("public-api-baseline guard first (this guard reads its model).")
-        return 1
-    with open(BASELINE, encoding="utf-8") as fh:
-        sections = json.load(fh)
-
-    new, stale = guardlib.ratchet(violations(sections), guardlib.read_list(ALLOWLIST))
+    sections = guardlib.load_json(BASELINE, API_UPDATE_CMD)
+    allow = guardlib.read_allowlist(ALLOWLIST)
+    new, stale = guardlib.ratchet(violations(sections), allow)
 
     fail = False
     if new:
@@ -79,15 +74,14 @@ def main(_argv):
         fail = True
     if stale:
         print("FAIL: stale allowlist entries (symbol renamed or gone) — delete them from")
-        print("scripts/guards/allowlists/api-naming.txt in this PR (the list only shrinks):")
-        print("\n".join(stale))
+        print("scripts/guards/allowlists/api-naming.json in this PR (the list only shrinks):")
+        print("\n".join(guardlib.describe_entries(ALLOWLIST, stale)))
         fail = True
 
     if not fail:
-        allow = guardlib.read_list(ALLOWLIST)
         print(f"OK: no new PBM-prefixed public Swift names (allowlist: {len(allow)} grandfathered).")
     return 1 if fail else 0
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

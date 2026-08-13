@@ -7,7 +7,7 @@ test-integrity): the skipped-tests list may ONLY shrink; never add entries
 to make a run pass.
 
 The baseline enumerates every skipped test identifier
-(baselines/skiplist.txt, '<target>/<Class>/<test>()' per line), so a SWAP —
+(baselines/skiplist.json, '<target>/<Class>/<test>()' per entry), so a SWAP —
 un-skipping one test while skipping another — fails by name, which a bare
 count could never see.
 
@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
 PLAN = os.path.join(ROOT, "PrebidMobileTests", "PrebidMobilePRTests.xctestplan")
-BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "skiplist.txt")
+BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "skiplist.json")
 UPDATE_CMD = "./scripts/guards/run-guards.sh --update-skiplist-baseline"
 
 
@@ -50,16 +50,11 @@ def main(argv):
         return 1
 
     if len(argv) > 1 and argv[1] == "--update":
-        guardlib.write_lines(BASELINE, current)
-        print(f"Recorded {len(current)} skipped test(s) in scripts/guards/baselines/skiplist.txt")
+        guardlib.write_entries(BASELINE, current, guard="skiplist-ratchet")
+        print(f"Recorded {len(current)} skipped test(s) in scripts/guards/baselines/skiplist.json")
         return 0
 
-    if not os.path.exists(BASELINE):
-        print("FAIL: baseline missing. Record it with:")
-        print("      " + UPDATE_CMD)
-        return 1
-
-    new, removed = guardlib.ratchet(current, guardlib.read_list(BASELINE))
+    new, removed = guardlib.ratchet(current, guardlib.read_entries(BASELINE, UPDATE_CMD))
 
     fail = False
     if new:
@@ -81,4 +76,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

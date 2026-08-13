@@ -6,7 +6,7 @@
 # invocations that are not visibly wrapped in DispatchQueue.main.async.
 #
 # Existing findings are grandfathered as a count in
-# baselines/ast-rule-counts.txt; the count may only shrink. The rule is
+# baselines/ast-rule-counts.json; the count may only shrink. The rule is
 # still being calibrated against the codebase's idioms, so a growth failure
 # can be a false positive — a justified baseline update is the escape hatch.
 # Escalation path if it proves too coarse: a SwiftSyntax-based checker.

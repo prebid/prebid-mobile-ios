@@ -11,7 +11,7 @@ Structurally exempt: PrebidMobile/Swift/Logging/ — the console logger is
 the one sanctioned place that ultimately calls print().
 
 Ratchet: pre-existing violations are grandfathered per file in
-allowlists/logging-hygiene.txt (shrink-only; stale entries fail).
+allowlists/logging-hygiene.json (shrink-only; stale entries fail).
 """
 
 import os
@@ -23,7 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
-ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "logging-hygiene.txt")
+ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "logging-hygiene.json")
 EXEMPT_DIR = os.path.join("PrebidMobile", "Swift", "Logging")
 _CALL_RE = re.compile(r"(^|[^A-Za-z_.])(print|debugPrint|NSLog)\(")
 _COMMENT_RE = re.compile(r"^\s*(//|\*|/\*)")
@@ -53,7 +53,7 @@ def violations(root=ROOT):
 
 def main(_argv):
     found = violations()
-    allow = guardlib.read_list(ALLOWLIST)
+    allow = guardlib.read_allowlist(ALLOWLIST)
     new, stale = guardlib.ratchet(found.keys(), allow)
 
     fail = False
@@ -66,8 +66,8 @@ def main(_argv):
         fail = True
     if stale:
         print("FAIL: stale allowlist entries (file clean or gone) — delete them from")
-        print("scripts/guards/allowlists/logging-hygiene.txt in this PR:")
-        print("\n".join(stale))
+        print("scripts/guards/allowlists/logging-hygiene.json in this PR:")
+        print("\n".join(guardlib.describe_entries(ALLOWLIST, stale)))
         fail = True
 
     if not fail:
@@ -76,4 +76,4 @@ def main(_argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

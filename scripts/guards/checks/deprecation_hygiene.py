@@ -19,7 +19,7 @@ Scope: PrebidMobile/Swift/ and non-test EventHandlers/ sources — the
 surfaces publishers compile against. The current tree is fully compliant,
 so the allowlist starts empty and the guard purely polices the future.
 Rare, justified exceptions are grandfathered per file in
-allowlists/deprecation-hygiene.txt (shrink-only; stale entries fail).
+allowlists/deprecation-hygiene.json (shrink-only; stale entries fail).
 """
 
 import os
@@ -31,7 +31,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
-ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "deprecation-hygiene.txt")
+ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "deprecation-hygiene.json")
 SCOPES = (os.path.join("PrebidMobile", "Swift"), "EventHandlers")
 
 _ATTR_START_RE = re.compile(r"@available\s*\(")
@@ -91,7 +91,7 @@ def violations(root=ROOT):
 
 def main(_argv):
     found = violations()
-    allow = guardlib.read_list(ALLOWLIST)
+    allow = guardlib.read_allowlist(ALLOWLIST)
     new, stale = guardlib.ratchet(found.keys(), allow)
 
     fail = False
@@ -104,8 +104,8 @@ def main(_argv):
         fail = True
     if stale:
         print("FAIL: stale allowlist entries (file clean or gone) — delete them from")
-        print("scripts/guards/allowlists/deprecation-hygiene.txt in this PR:")
-        print("\n".join(stale))
+        print("scripts/guards/allowlists/deprecation-hygiene.json in this PR:")
+        print("\n".join(guardlib.describe_entries(ALLOWLIST, stale)))
         fail = True
 
     if not fail:
@@ -114,4 +114,4 @@ def main(_argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

@@ -19,7 +19,7 @@ approach as api_baseline._strip_noise, inverted to collect string contents
 from code): license headers and doc comments never count.
 
 Ratchet (keyed counts — {literal: file-count} in
-baselines/string-dup-counts.txt): a literal newly reaching 3 files, or an
+baselines/string-dup-counts.json): a literal newly reaching 3 files, or an
 existing duplicate spreading further, FAILS ("hoist it next to the existing
 constant"); consolidation shrinks the count and must update the baseline in
 the same PR — a visible ratchet win.
@@ -35,7 +35,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
-BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "string-dup-counts.txt")
+BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "string-dup-counts.json")
 UPDATE_CMD = "./scripts/guards/run-guards.sh --update-string-dup-baseline"
 MIN_LENGTH = 6
 MIN_FILES = 3
@@ -109,9 +109,9 @@ def main(argv):
     current = duplicate_counts()
 
     if len(argv) > 1 and argv[1] == "--update":
-        guardlib.write_lines(BASELINE, guardlib.format_keyed_counts(current))
+        guardlib.write_keyed_counts(BASELINE, current, guard="string-dup-ratchet")
         print(f"Recorded {len(current)} duplicated literal(s) in "
-              "scripts/guards/baselines/string-dup-counts.txt")
+              "scripts/guards/baselines/string-dup-counts.json")
         return 0
 
     code, messages = guardlib.check_keyed_counts(
@@ -126,4 +126,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

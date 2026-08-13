@@ -1,0 +1,5 @@
+{
+  "guard": "adapter-isolation",
+  "description": "Internal PBM symbols used by adapter code, grandfathered as '<path>:<symbol>' (shrink-only). Empty: the tree was clean when the guard landed. A new entry needs its reason, added in the same PR.",
+  "entries": []
+}

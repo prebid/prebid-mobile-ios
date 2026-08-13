@@ -32,7 +32,7 @@ sys.path.insert(0, _HERE)
 import guardlib  # noqa: E402
 import api_baseline  # noqa: E402
 
-BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "api-doc-counts.txt")
+BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "api-doc-counts.json")
 UPDATE_CMD = "./scripts/guards/run-guards.sh --update-api-doc-baseline"
 SKIP_KINDS = {"case", "extension"}
 
@@ -57,10 +57,10 @@ def main(argv):
     current = undocumented_counts()
 
     if len(argv) > 1 and argv[1] == "--update":
-        guardlib.write_lines(BASELINE, guardlib.format_keyed_counts(current))
+        guardlib.write_keyed_counts(BASELINE, current, guard="api-doc-coverage")
         total = sum(current.values())
         print(f"Recorded {total} undocumented public declaration(s) across "
-              f"{len(current)} file(s) in scripts/guards/baselines/api-doc-counts.txt")
+              f"{len(current)} file(s) in scripts/guards/baselines/api-doc-counts.json")
         return 0
 
     code, messages = guardlib.check_keyed_counts(
@@ -75,4 +75,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))
