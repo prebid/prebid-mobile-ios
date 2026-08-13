@@ -7,8 +7,8 @@ under PrebidMobile/Objc/. Modifying existing ObjC files is fine.
 
 Rare, genuinely unavoidable exceptions (e.g. a bridge shim Swift cannot
 express) are granted explicitly: add the file path to
-allowlists/swift-migration-direction.txt with a justification comment line
-above it, in the same PR — the grant is then part of the reviewed diff.
+allowlists/swift-migration-direction.json with its `reason`, in the same PR
+— the grant is then part of the reviewed diff.
 After the PR merges, the entry is no longer needed and should be removed
 (the guard nudges, but does not fail, on stale entries).
 
@@ -25,7 +25,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
-ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "swift-migration-direction.txt")
+ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "swift-migration-direction.json")
 _OBJC_SUFFIX_RE = re.compile(r"\.(h|m|mm)$")
 
 
@@ -64,22 +64,22 @@ def main(_argv):
                 f"{merge_base}..HEAD", "--", "PrebidMobile/Objc/")
     added = sorted(p for p in diff.stdout.splitlines() if _OBJC_SUFFIX_RE.search(p))
 
-    ungranted, used, stale = classify(added, guardlib.read_list(ALLOWLIST))
+    ungranted, used, stale = classify(added, guardlib.read_allowlist(ALLOWLIST))
 
     if ungranted:
         print("FAIL: new Objective-C files added under PrebidMobile/Objc/ — new code goes in PrebidMobile/Swift/:")
         print("\n".join(ungranted))
         print("If ObjC is genuinely unavoidable (rare — e.g. a bridge shim Swift cannot express),")
-        print("grant it explicitly: add the path to scripts/guards/allowlists/swift-migration-direction.txt")
-        print("with a justification comment above it, in this same PR, and call it out for review.")
+        print("grant it explicitly: add an entry to scripts/guards/allowlists/swift-migration-direction.json")
+        print("with its reason, in this same PR, and call it out for review.")
         return 1
 
     if used:
         print("NOTE: granted ObjC exception(s) in this branch — reviewers, check the justification:")
-        print("\n".join(used))
+        print("\n".join(guardlib.describe_entries(ALLOWLIST, used)))
     if stale:
         print("ADVISORY: allowlist entr(ies) no longer match a newly-added file (merged or gone) —")
-        print("remove them from scripts/guards/allowlists/swift-migration-direction.txt:")
+        print("remove them from scripts/guards/allowlists/swift-migration-direction.json:")
         print("\n".join(stale))
 
     print("OK: no ungranted Objective-C files added to the core.")
@@ -87,4 +87,4 @@ def main(_argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

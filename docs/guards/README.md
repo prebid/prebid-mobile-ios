@@ -19,13 +19,55 @@ that guard is skipped with a note — CI is authoritative.
 
 Guards enforce rules going **forward** without demanding the past be fixed first:
 
-- Pre-existing violations are *grandfathered* in `scripts/guards/allowlists/<guard>.txt`.
+- Pre-existing violations are *grandfathered* in `scripts/guards/allowlists/<guard>.json`.
 - Allowlists **only shrink**. A stale entry (the violation is gone) fails the run and must be
   deleted in the same PR — so the debt is monotonically decreasing.
 - New violations fail immediately.
 - Where sites are too numerous to enumerate, the same contract applies to a **count
   baseline** (`scripts/guards/baselines/`): growth fails, shrinkage must update the
   committed number in the same PR (`fixme-ratchet`, `ast-rule-ratchet`).
+
+## Data format
+
+Every committed allowlist and baseline is JSON with a `guard` field naming its owner and a
+`description` stating its contract. The schema is validated on **every** read, so a
+malformed or under-specified file fails the run instead of quietly reading as "no
+findings" — which would look like a ratchet win.
+
+An allowlist entry carries its justification with it, rather than in a comment no parser
+can see:
+
+```json
+{
+  "guard": "logging-hygiene",
+  "description": "Files with raw print()/NSLog() calls predating the Log facade rule…",
+  "entries": [
+    {
+      "entry": "PrebidMobile/Swift/AdUnits/Utils.swift",
+      "reason": "Raw console output predating the Log-facade rule."
+    }
+  ]
+}
+```
+
+`entry` is the exact violation token the guard's probe emits (a path, a `path:symbol` pair,
+a symbol name — each guard's section below says which). `reason` states why the violation
+is grandfathered. Both are required and must be non-empty, and any other field is rejected
+— so a typo (`resaon`) fails loudly instead of silently dropping the justification. A
+stale-entry failure prints each entry's `reason`, so the report says what the grant was
+for.
+
+Baselines come in three shapes, all with the same `guard`/`description` header:
+
+| Shape | Payload | Used by |
+|---|---|---|
+| count | `"count": 42` | `fixme-ratchet` |
+| keyed count | `"counts": {"<key>": 3}` | `api-doc-coverage`, `string-dup-ratchet`, `ast-rule-ratchet` |
+| entry list | `"entries": ["…"]` | `skiplist-ratchet` |
+
+`public-api.json` is its own richer structured model (see `public-api-baseline` below).
+Regenerating any baseline preserves the prose already in its `description`, and writes
+sorted keys with zero counts dropped, so a regeneration diff shows only real movement.
 
 ## Guards
 
@@ -106,9 +148,10 @@ The core is migrating Objective-C → Swift. Adding new `.h/.m/.mm` files under
 merge-base with `master`, so it ratchets by construction.
 
 Rare, genuinely unavoidable exceptions (e.g. a bridge shim Swift cannot express) are
-granted explicitly: add the path to `scripts/guards/allowlists/swift-migration-direction.txt`
-with a justification comment above it, **in the same PR** — the grant is then part of the
-reviewed diff, and the guard echoes it as a NOTE for reviewers. After the PR merges the
+granted explicitly: add an entry for the path to
+`scripts/guards/allowlists/swift-migration-direction.json` with its `reason`,
+**in the same PR** — the grant is then part of the reviewed diff, and the guard echoes it
+with its reason as a NOTE for reviewers. After the PR merges the
 entry is stale; the guard reports it as an advisory to remove (it does not fail, so
 unrelated PRs are never blocked by someone else's merged exception).
 
@@ -116,7 +159,7 @@ unrelated PRs are never blocked by someone else's merged exception).
 
 FIXME/TODO markers in core sources (`PrebidMobile/`) are deferred behavior decisions —
 upstream issue #1299 is a `FIXME` that shipped as user-visible behavior. The count is
-recorded in `scripts/guards/baselines/fixme-count.txt` and may only shrink. Growth fails
+recorded in `scripts/guards/baselines/fixme-count.json` and may only shrink. Growth fails
 (fix the marked issue, or file a GitHub issue and delete the marker); shrinkage fails
 until the baseline is updated in the same PR — a visible ratchet win:
 
@@ -134,7 +177,7 @@ passing on an empty scope. Motivated by a year of upstream issues concentrated o
 untested decode paths (#1300/#1255/#1259). The check is deliberately loose (name
 referenced anywhere in test sources); coverage *quality* is the spec-grounding gate's
 job. Pre-existing gaps are grandfathered in
-`scripts/guards/allowlists/ortb-test-presence.txt` (shrink-only; stale entries fail).
+`scripts/guards/allowlists/ortb-test-presence.json` (shrink-only; stale entries fail).
 
 **When it fails:** add a wire-format/decoding test exercising the type, citing the
 OpenRTB spec section in the docstring.
@@ -146,15 +189,15 @@ Publishers see the SDK's console output inside their apps — raw `print()`/`deb
 silenced or redirected (upstream #1295/#1279 are the failure class). All output goes through
 `Log.error/warn/info/debug/verbose`. `PrebidMobile/Swift/Logging/` is structurally exempt
 (the console logger is the sanctioned `print()` call site); two pre-existing violating
-files are grandfathered in `scripts/guards/allowlists/logging-hygiene.txt` (shrink-only).
+files are grandfathered in `scripts/guards/allowlists/logging-hygiene.json` (shrink-only).
 
 ### skiplist-ratchet (blocking)
 
 `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (the quick PR plan) skips slow and
 timing-sensitive tests. The test-integrity policy says its skip-list may **only shrink**
 — this guard makes that mechanical, and the baseline **enumerates every skipped test
-identifier** (`scripts/guards/baselines/skiplist.txt`, `<target>/<Class>/<test>()` per
-line), so a *swap* — un-skipping one test while skipping another — fails by name, which
+identifier** (`scripts/guards/baselines/skiplist.json`, `<target>/<Class>/<test>()` per
+entry), so a *swap* — un-skipping one test while skipping another — fails by name, which
 the earlier bare count could never see. A new skip fails naming the test ("never add
 entries to make CI pass"); a removed skip fails until the baseline is updated in the
 same PR — a visible ratchet win naming the exact test:
@@ -173,8 +216,8 @@ the replacement. Wrapped multi-line attributes are joined before checking. Bare
 `unavailable` is deliberately not flagged — its dominant use is the idiomatic
 private-init blocker, which has no replacement to name (removing public API is the
 api-baseline guard's territory). The tree was fully compliant when the guard landed, so
-`allowlists/deprecation-hygiene.txt` starts empty — a future exception needs a
-justification comment and a filed issue, in the same PR (shrink-only).
+`allowlists/deprecation-hygiene.json` starts empty — a future exception needs its
+`reason`, in the same PR (shrink-only).
 
 **When it fails:** add `message: "Use <replacement> instead"` (or `renamed:`) to the
 deprecation attribute.
@@ -185,7 +228,7 @@ deprecation attribute.
 upstream repo's inline review history (14 comments), and the rule already exists in
 prose (`.claude/rules/code-patterns.md`: public declarations carry doc comments — Jazzy
 publishes them). This guard makes it a per-file ratchet: the count of **undocumented**
-public declarations per file (`scripts/guards/baselines/api-doc-counts.txt`) may only
+public declarations per file (`scripts/guards/baselines/api-doc-counts.json`) may only
 shrink — new public API arrives documented, and a cross-file swap fails in the file
 that grew. Roughly half the surface was undocumented at landing time (817 declarations
 across 128 files); that debt is grandfathered, not demanded up front.
@@ -212,7 +255,7 @@ surface is a migration leftover. Reads the committed API baseline (the structure
 model), never re-parses source, so it cannot disagree with `public-api-baseline` about
 what the surface is. `PBMMediation*` constants are a permanent documented exception
 (publisher wire contract — see the known-trap note in CLAUDE.md), encoded in the check.
-Ten leftovers are grandfathered in `allowlists/api-naming.txt` (shrink-only).
+Ten leftovers are grandfathered in `allowlists/api-naming.json` (shrink-only).
 
 **When it fails:** name the Swift symbol without the prefix (add the `@objc(PBM…)`
 rename if ObjC callers need the old spelling); renames of already-shipped API deprecate
@@ -227,7 +270,7 @@ extends the same contract to the rest of the surface: every public type
 referenced by at least one test in `PrebidMobileTests`. The type list comes from the
 committed structured baseline, so it can never disagree with `public-api-baseline`.
 Same deliberately-loose "referenced at all" contract and the same empty-scope-fails
-safety. 34 pre-existing gaps are grandfathered in `allowlists/api-test-presence.txt`
+safety. 34 pre-existing gaps are grandfathered in `allowlists/api-test-presence.json`
 (shrink-only) — that list is the untested-public-API backlog.
 
 **When it fails:** add a test that exercises the type (or question whether it should
@@ -239,7 +282,7 @@ be public at all — an untestable public type is a design smell).
 (10 inline comments in the upstream PR history). A string literal (≥ 6 chars, no
 interpolation) appearing in **3 or more distinct files** of `PrebidMobile/Swift/` is a
 duplicated constant; the per-literal file counts are baselined in
-`scripts/guards/baselines/string-dup-counts.txt` and may only shrink. Thresholds were
+`scripts/guards/baselines/string-dup-counts.json` and may only shrink. Thresholds were
 tuned against the tree: at ≥ 2 files the findings are dominated by short JSON keys
 whose repetition is natural (false-positive territory); at ≥ 3 files only the real
 offenders remain (2 grandfathered at landing). Extraction is comment- and
@@ -256,7 +299,7 @@ the literal. On shrink (you consolidated): update the baseline — a ratchet win
 ### ast-rule-ratchet (blocking — per-rule finding count may not grow)
 
 Three ast-grep pattern rules whose grandfathered findings are recorded as **counts** in
-`scripts/guards/baselines/ast-rule-counts.txt` (the count-ratchet pattern: too many sites
+`scripts/guards/baselines/ast-rule-counts.json` (the count-ratchet pattern: too many sites
 to enumerate in an allowlist, so only the number is committed). A count that grows fails
 the run — fix the new site, or update the baseline with justification in the same PR. A
 count that shrinks also fails until the baseline is updated — a visible ratchet win:
@@ -300,8 +343,12 @@ graduate the remainder into a site-enumerating allowlist.
 3. Path or direction rule → git-diff-based check via `subprocess` (see
    `swift_migration_direction.py`).
 
-`guardlib.py` provides the three ratchet primitives (lockfile, allowlist, count) and is
-deliberately platform-agnostic — it is the layer that later ports to prebid-mobile-android.
+`guardlib.py` provides the three ratchet primitives (lockfile, allowlist, count), the
+validated JSON readers/writers every guard shares, and `cli()`, which turns a malformed
+data file into an actionable FAIL. It is deliberately platform-agnostic — the layer that
+later ports to prebid-mobile-android. A check that needs an external tool exits
+`guardlib.EXIT_SKIPPED` when the tool is missing, and the runner reports it as an
+advisory SKIP rather than a pass.
 
 Every new guard must: run green on `master` (grandfather via allowlist if needed), fail on
 a deliberately crafted violation (prove one true positive and one true negative), be

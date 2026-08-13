@@ -50,7 +50,6 @@ Unit tests: scripts/guards/tests/test_api_baseline.py
 """
 
 import glob
-import json
 import os
 import re
 import sys
@@ -61,6 +60,7 @@ sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
 BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "public-api.json")
+UPDATE_CMD = "./scripts/guards/run-guards.sh --update-api-baseline"
 MANIFESTS = ("Package.swift", "PrebidMobile/Package.swift", "EventHandlers/Package.swift")
 SECTIONS = ("swift", "swift-spi", "objc-header", "objc-internal", "spm-product")
 TOP_LEVEL = "(top-level)"
@@ -447,27 +447,13 @@ def main(argv):
     current = generate()
 
     if len(argv) > 1 and argv[1] == "--update":
-        os.makedirs(os.path.dirname(BASELINE), exist_ok=True)
-        with open(BASELINE, "w", encoding="utf-8") as fh:
-            json.dump(current, fh, indent=2, ensure_ascii=False)
-            fh.write("\n")
+        guardlib.dump_json(BASELINE, current)
         total = len(flatten(current))
         print(f"Regenerated {total} baseline entries in scripts/guards/baselines/public-api.json")
         print("Commit the diff in the same PR as the API change, and call it out for review.")
         return 0
 
-    if not os.path.exists(BASELINE):
-        print("FAIL: baseline file missing. Generate it with:")
-        print("      ./scripts/guards/run-guards.sh --update-api-baseline")
-        return 1
-
-    try:
-        with open(BASELINE, encoding="utf-8") as fh:
-            baseline_sections = json.load(fh)
-    except ValueError as exc:
-        print(f"FAIL: scripts/guards/baselines/public-api.json is not valid JSON ({exc}).")
-        print("Regenerate it with: ./scripts/guards/run-guards.sh --update-api-baseline")
-        return 1
+    baseline_sections = guardlib.load_json(BASELINE, UPDATE_CMD)
 
     try:
         if not _valid_shape(baseline_sections):
@@ -476,7 +462,7 @@ def main(argv):
     except (TypeError, AttributeError):
         print("FAIL: the baseline does not match the structured-model format")
         print("(section -> parent -> kind -> name -> count). Regenerate it with:")
-        print("      ./scripts/guards/run-guards.sh --update-api-baseline")
+        print("      " + UPDATE_CMD)
         return 1
 
     drift = guardlib.lockfile_diff(baseline_flat, flatten(current))
@@ -490,7 +476,7 @@ def main(argv):
         print("spm-product = exported targets. Overloads appear once per overload.")
         print()
         print("If this change is intentional, regenerate the baseline and commit it:")
-        print("      ./scripts/guards/run-guards.sh --update-api-baseline")
+        print("      " + UPDATE_CMD)
         print("If it is not intentional, adjust the access level (public/open → internal)")
         print("or revert the manifest/header change.")
         return 1
@@ -505,4 +491,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

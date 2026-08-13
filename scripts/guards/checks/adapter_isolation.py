@@ -13,8 +13,8 @@ identifiers that appear on public/open declaration lines in the core, plus
 @objc(PBM...) renames of public Swift types, plus PBM* types the adapters
 define themselves. Anything outside that vocabulary is an internal symbol.
 
-Ratchet: grandfathered violations live in allowlists/adapter-isolation.txt
-as "path:symbol" lines. The list may only shrink — stale entries fail the
+Ratchet: grandfathered violations live in allowlists/adapter-isolation.json
+as "path:symbol" entries. The list may only shrink — stale entries fail the
 run and must be deleted in the same PR that fixes them.
 """
 
@@ -27,7 +27,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
-ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "adapter-isolation.txt")
+ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "adapter-isolation.json")
 
 _SEAM_RE = re.compile(r"import __PrebidMobileInternal|@_spi\(|PrivateHeaders/")
 _PBM_RE = re.compile(r"\bPBM[A-Za-z0-9_]+")
@@ -106,15 +106,15 @@ def main(_argv):
         print("\n".join(seams))
         fail = True
 
-    new, stale = guardlib.ratchet(symbol_violations(), guardlib.read_list(ALLOWLIST))
+    new, stale = guardlib.ratchet(symbol_violations(), guardlib.read_allowlist(ALLOWLIST))
     if new:
         print("FAIL: new internal PBM symbol usage in adapters (fix, or discuss with maintainers):")
         print("\n".join(new))
         fail = True
     if stale:
-        print("FAIL: stale allowlist entries — the violation is gone; delete these lines from")
-        print("      scripts/guards/allowlists/adapter-isolation.txt (the list only shrinks):")
-        print("\n".join(stale))
+        print("FAIL: stale allowlist entries — the violation is gone; delete these entries from")
+        print("      scripts/guards/allowlists/adapter-isolation.json (the list only shrinks):")
+        print("\n".join(guardlib.describe_entries(ALLOWLIST, stale)))
         fail = True
 
     if not fail:
@@ -123,4 +123,4 @@ def main(_argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

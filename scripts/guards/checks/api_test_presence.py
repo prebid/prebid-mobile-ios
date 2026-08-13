@@ -16,11 +16,10 @@ exercised at all, not that coverage is good (review owns quality). Same
 safety property: an empty discovered scope FAILS instead of passing.
 
 Ratchet: pre-existing gaps are grandfathered in
-allowlists/api-test-presence.txt (shrink-only; stale entries fail). That
+allowlists/api-test-presence.json (shrink-only; stale entries fail). That
 list IS the untested-public-API backlog reviewers kept asking about.
 """
 
-import json
 import os
 import sys
 
@@ -30,7 +29,8 @@ sys.path.insert(0, os.path.join(ROOT, "scripts", "guards", "lib"))
 import guardlib  # noqa: E402
 
 BASELINE = os.path.join(ROOT, "scripts", "guards", "baselines", "public-api.json")
-ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "api-test-presence.txt")
+ALLOWLIST = os.path.join(ROOT, "scripts", "guards", "allowlists", "api-test-presence.json")
+API_UPDATE_CMD = "./scripts/guards/run-guards.sh --update-api-baseline"
 TESTS_ROOT = "PrebidMobileTests"
 TYPE_KINDS = ("class", "struct", "enum", "protocol", "actor")
 
@@ -55,19 +55,15 @@ def untested(types, root=ROOT):
 
 def main(_argv, root=ROOT):
     baseline_path = os.path.join(root, "scripts", "guards", "baselines", "public-api.json")
-    if not os.path.exists(baseline_path):
-        print("FAIL: scripts/guards/baselines/public-api.json missing — run the")
-        print("public-api-baseline guard first (this guard reads its model).")
-        return 1
-    with open(baseline_path, encoding="utf-8") as fh:
-        types = public_types(json.load(fh))
+    types = public_types(guardlib.load_json(baseline_path, API_UPDATE_CMD))
     if not types:
         print("FAIL: the baseline lists no public types — the guard lost its target.")
         print("A probe checking an empty scope must not pass; fix the baseline first.")
         return 1
 
-    allow = guardlib.read_list(os.path.join(root, "scripts", "guards",
-                                            "allowlists", "api-test-presence.txt"))
+    allowlist_path = os.path.join(root, "scripts", "guards",
+                                  "allowlists", "api-test-presence.json")
+    allow = guardlib.read_allowlist(allowlist_path)
     new, stale = guardlib.ratchet(untested(types, root), allow)
 
     fail = False
@@ -77,8 +73,8 @@ def main(_argv, root=ROOT):
         fail = True
     if stale:
         print("FAIL: stale allowlist entries (now tested, or no longer public) — delete them")
-        print("from scripts/guards/allowlists/api-test-presence.txt in this PR:")
-        print("\n".join(stale))
+        print("from scripts/guards/allowlists/api-test-presence.json in this PR:")
+        print("\n".join(guardlib.describe_entries(allowlist_path, stale)))
         fail = True
 
     if not fail:
@@ -88,4 +84,4 @@ def main(_argv, root=ROOT):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(guardlib.cli(main)(sys.argv))

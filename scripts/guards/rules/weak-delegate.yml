@@ -7,7 +7,7 @@
 # motivating failure class.
 #
 # Count-ratcheted via ast-rule-ratchet in run-guards.sh: existing findings
-# are grandfathered as a count in baselines/ast-rule-counts.txt, which may
+# are grandfathered as a count in baselines/ast-rule-counts.json, which may
 # only shrink. Some strong delegate references are deliberate (e.g.
 # self-owned interceptors) — a justified baseline update covers those.
 #

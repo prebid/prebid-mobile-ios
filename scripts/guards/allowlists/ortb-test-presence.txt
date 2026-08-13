@@ -1,5 +1,0 @@
-# ORTB model files not yet referenced by any test (shrink-only — see docs/guards/README.md).
-# Issue for the entries below: to be filed upstream by the maintainer (no tracker access from this environment).
-PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/ORTBExtensible.swift
-PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/ORTBNoBidReason.swift
-PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTBMacrosHelper.swift

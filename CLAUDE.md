@@ -40,7 +40,7 @@ The `public-api-baseline` guard snapshots this surface.
 1. **New core code is Swift.** No new `.h/.m/.mm` under `PrebidMobile/Objc/`
    (guard: `swift-migration-direction`). Rare, genuinely unavoidable exceptions
    (e.g. a bridge shim Swift cannot express) are granted explicitly in
-   `scripts/guards/allowlists/swift-migration-direction.txt` with a justification,
+   `scripts/guards/allowlists/swift-migration-direction.json` with its `reason`,
    in the same PR — never silently.
 2. **Adapters use only public API.** Nothing in `EventHandlers/` may `import
    __PrebidMobileInternal`, use `@_spi`, include `PrivateHeaders`, or reference non-public

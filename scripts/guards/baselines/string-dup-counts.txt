@@ -1,2 +1,0 @@
-SDK couldn't find a view controller to present the SKStoreProductViewController from. 3
-document.body.innerHTML 4
