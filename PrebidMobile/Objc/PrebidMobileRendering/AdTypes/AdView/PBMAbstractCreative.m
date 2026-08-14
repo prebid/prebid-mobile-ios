@@ -40,6 +40,8 @@
 @property (nonatomic, copy, nullable, readwrite) PBMVoidBlock dismissInterstitialModalState;
 @property (nonatomic, copy, nullable) PBMVoidBlock skStoreProductViewControllerExitBlock;
 
+@property (nonatomic, strong, nullable) id<PBMModalState> pendingModalStatePop;
+
 @property (nonatomic, assign) BOOL adWasShown;
 
 @property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
@@ -202,7 +204,11 @@
                                                 onStatePopFinished:^(id<PBMModalState> _Nonnull poppedState) {
         @strongify(self);
         if (!self) { return; }
-        
+
+        if (self.skStoreProductViewControllerExitBlock) {
+            self.pendingModalStatePop = poppedState;
+        }
+
         [self modalManagerDidFinishPop:poppedState];
     } onStateHasLeftApp:^(id<PBMModalState> _Nonnull leavingState) {
         @strongify(self);
@@ -395,6 +401,7 @@
 
             SKStoreProductViewController *skadnController = [SKStoreProductViewController new];
             skadnController.delegate = self;
+            self.clickthroughVisible = YES;
             [presentingController presentViewController:skadnController animated:YES completion:nil];
             [skadnController loadProductWithParameters:productParams completionBlock:^(BOOL result, NSError *error) {
                 if (error) {
@@ -483,7 +490,15 @@
 #pragma mark - SKStoreProductViewControllerDelegate
 
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
-    [self.creativeViewDelegate creativeClickthroughDidClose:self];
+    id<PBMModalState> pendingStatePop = self.pendingModalStatePop;
+    self.pendingModalStatePop = nil;
+
+    if (self.clickthroughVisible) {
+        self.clickthroughVisible = NO;
+        [self.creativeViewDelegate creativeClickthroughDidClose:self];
+    } else if (pendingStatePop) {
+        [self modalManagerDidFinishPop:pendingStatePop];
+    }
 
     if (self.skStoreProductViewControllerExitBlock) {
         self.skStoreProductViewControllerExitBlock();

@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
 @property (nonatomic, copy, nullable) PBMVoidBlock skStoreProductViewControllerExitBlock;
+@property (nonatomic, strong, nullable) id<PBMModalState> pendingModalStatePop;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
