@@ -6,6 +6,7 @@ DEMO_SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEMO_REPOSITORY_ROOT="$(cd "${DEMO_SCRIPT_DIRECTORY}/.." && pwd)"
 DEMO_SIMULATOR_NAME="iPhone-16-Pro-PrebidMobile"
 DEMO_TEST_RESULTS_DIRECTORY="${DEMO_REPOSITORY_ROOT}/TestResults"
+DEMO_COCOAPODS_VERSION="1.16.2"
 
 cd "${DEMO_REPOSITORY_ROOT}"
 
@@ -36,10 +37,15 @@ xcrun simctl bootstatus "${DEMO_SIMULATOR_UDID}" -b
 
 echo $PWD
 
-export PATH="/Users/distiller/.gem/ruby/2.7.0/bin:$PATH"
-gem install cocoapods -v 1.16.2 --no-document
+if ! gem install cocoapods -v "${DEMO_COCOAPODS_VERSION}" --no-document; then
+    echo "🔴 Failed to install CocoaPods ${DEMO_COCOAPODS_VERSION}"
+    exit 1
+fi
 
-pod install --repo-update --deployment
+if ! pod "_${DEMO_COCOAPODS_VERSION}_" install --repo-update --deployment; then
+    echo "🔴 CocoaPods dependency installation failed"
+    exit 1
+fi
 
 if [ "$1" == "-ui" ]; then
     echo -e "\n${GREEN}Running UI tests${NC} \n"
