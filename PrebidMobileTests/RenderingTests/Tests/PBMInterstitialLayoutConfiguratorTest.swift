@@ -85,27 +85,26 @@ class PBMInterstitialLayoutConfiguratorTest: XCTestCase {
         XCTAssertTrue(displayProperties.isRotationEnabled)
     }
     
-    // FIXME: - Auto rotation is enabled by default for now. 
-//    func testAdConfigurationNoLayoutWithSize() {
-//        let displayProperties = InterstitialDisplayProperties()
-//        let adConfig = AdConfiguration()
-//
-//        //test portrait size
-//        adConfig.size = CGSize(width: 360, height: 480)
-//        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
-//        XCTAssertEqual(displayProperties.interstitialLayout, .portrait)
-//        XCTAssertFalse(displayProperties.isRotationEnabled)
-//
-//        //test landscape size
-//        adConfig.size = CGSize(width: 1024, height: 768)
-//        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
-//        XCTAssertEqual(displayProperties.interstitialLayout, .landscape)
-//        XCTAssertFalse(displayProperties.isRotationEnabled)
-//
-//        //test aspectRatio size
-//        adConfig.size = CGSize(width: 400, height: 300)
-//        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
-//        XCTAssertEqual(displayProperties.interstitialLayout, .aspectRatio)
-//        XCTAssertTrue(displayProperties.isRotationEnabled)
-//    }
+    func testAdConfigurationNoLayoutWithSize() {
+        let displayProperties = InterstitialDisplayProperties()
+        let adConfig = AdConfiguration()
+
+        // test portrait size
+        adConfig.size = CGSize(width: 360, height: 480)
+        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        XCTAssertEqual(displayProperties.interstitialLayout, .portrait)
+        XCTAssertFalse(displayProperties.isRotationEnabled)
+
+        // test landscape size
+        adConfig.size = CGSize(width: 1024, height: 768)
+        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        XCTAssertEqual(displayProperties.interstitialLayout, .landscape)
+        XCTAssertFalse(displayProperties.isRotationEnabled)
+
+        // test unknown size
+        adConfig.size = CGSize(width: 400, height: 300)
+        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        XCTAssertEqual(displayProperties.interstitialLayout, .aspectRatio)
+        XCTAssertTrue(displayProperties.isRotationEnabled)
+    }
 }

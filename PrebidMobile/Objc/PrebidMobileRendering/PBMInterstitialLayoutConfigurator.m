@@ -29,8 +29,15 @@
     displayProperties.interstitialLayout = [self calculateLayoutFromSize:adConfiguration.size];
 }
 
-//FIXME: - Need to figure out how to determine orientation properly. Autorotate is enabled for now.
 + (PBMInterstitialLayout)calculateLayoutFromSize:(CGSize)size {
+    if ([self isPortrait:size]) {
+        return PBMInterstitialLayoutPortrait;
+    }
+
+    if ([self isLandscape:size]) {
+        return PBMInterstitialLayoutLandscape;
+    }
+
     return PBMInterstitialLayoutAspectRatio;
 }
 
