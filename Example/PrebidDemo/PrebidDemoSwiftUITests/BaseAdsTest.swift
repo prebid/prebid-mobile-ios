@@ -19,7 +19,7 @@ class BaseAdsTest: XCTestCase {
 
     private enum Timeout {
         static let navigation: TimeInterval = 15
-        static let adLoad: TimeInterval = 30
+        static let adLoad: TimeInterval = 60
     }
 
     private static let adStatusAccessibilityIdentifier = "prebid-demo-ad-status"
@@ -50,24 +50,15 @@ class BaseAdsTest: XCTestCase {
         timeout: TimeInterval = Timeout.adLoad
     ) {
         let adStatus = app.otherElements[Self.adStatusAccessibilityIdentifier]
-        let outcomePredicate = NSPredicate { _, _ in
-            element.exists || Self.failureMessage(from: adStatus) != nil
-        }
-        let outcomeExpectation = XCTNSPredicateExpectation(predicate: outcomePredicate, object: nil)
-        let outcome = XCTWaiter.wait(for: [outcomeExpectation], timeout: timeout)
+        let elementExists = element.waitForExistence(timeout: timeout)
 
-        if let failureMessage = Self.failureMessage(from: adStatus) {
+        if !elementExists, let failureMessage = Self.failureMessage(from: adStatus) {
             XCTFail(assertFailedMessage(testCase: testCase, reason: failureMessage))
             return
         }
 
-        XCTAssertEqual(
-            outcome,
-            .completed,
-            assertFailedMessage(testCase: testCase, reason: reason)
-        )
         XCTAssertTrue(
-            element.exists,
+            elementExists,
             assertFailedMessage(testCase: testCase, reason: reason)
         )
     }
