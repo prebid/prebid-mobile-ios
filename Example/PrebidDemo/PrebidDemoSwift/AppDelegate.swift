@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if CommandLine.arguments.contains("-uiTesting") {
             UIApplication.shared.getKeyWindow()?.layer.speed = 2
             UIView.setAnimationsEnabled(false)
+            UITestAdStatus.shared.reset()
         }
         
         // Set account id and custom Prebid server URL
@@ -81,4 +82,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
 }
-

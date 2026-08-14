@@ -36,12 +36,12 @@ class InterstitialVideoAds: BaseAdsTest {
     
     override func checkAd(testCase: String) {
         if testCase == testCases.gamOriginalVideoInterstitialCase {
-            XCTAssert(app.webViews.element.waitForExistence(timeout: 30),assertFailedMessage(testCase: testCase, reason: "Video is not displayed"))
-            XCTAssert(app.buttons["Close Advertisement"].waitForExistence(timeout: 15),assertFailedMessage(testCase: testCase, reason: "Close Button is not displayed"))
+            assertElementExists(app.webViews.element, testCase: testCase, reason: "Video is not displayed")
+            assertElementExists(app.buttons["Close Advertisement"], testCase: testCase, reason: "Close button is not displayed")
         } else {
-            XCTAssert(app.otherElements["PBMVideoView"].waitForExistence(timeout: 20),assertFailedMessage(testCase: testCase, reason: "Video is not displayed"))
-            XCTAssert(app.buttons["Learn More"].waitForExistence(timeout: 10),assertFailedMessage(testCase: testCase, reason: "Learn more button is not displayed"))
-            XCTAssert(app.buttons["PBMCloseButton"].waitForExistence(timeout: 15),assertFailedMessage(testCase: testCase, reason: "Video close button is not displayed"))
+            assertElementExists(app.otherElements["PBMVideoView"], testCase: testCase, reason: "Video is not displayed")
+            assertElementExists(app.buttons["Learn More"], testCase: testCase, reason: "Learn more button is not displayed")
+            assertElementExists(app.buttons["PBMCloseButton"], testCase: testCase, reason: "Video close button is not displayed")
         }
     }
 }
