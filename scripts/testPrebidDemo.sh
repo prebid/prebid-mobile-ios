@@ -39,13 +39,22 @@ xcrun simctl bootstatus "${DEMO_SIMULATOR_UDID}" -b
 
 echo $PWD
 
-if ! command -v pod >/dev/null 2>&1; then
-    echo "CocoaPods is required but 'pod' was not found on PATH." >&2
-    echo "GitHub Actions 'macos-26' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
+# Resolve pods with the CocoaPods version that generated Podfile.lock. A different preinstalled
+# `pod` can resolve the workspace differently, so install the locked version when it is missing.
+DEMO_COCOAPODS_VERSION="$(awk '/^COCOAPODS:/ { print $2 }' Podfile.lock)"
+if [[ -z "${DEMO_COCOAPODS_VERSION}" ]]; then
+    echo "🔴 Failed to read the CocoaPods version from Podfile.lock" >&2
     exit 1
 fi
 
-if ! pod install --repo-update --deployment; then
+if ! pod "_${DEMO_COCOAPODS_VERSION}_" --version > /dev/null 2>&1; then
+    if ! gem install cocoapods -v "${DEMO_COCOAPODS_VERSION}" --no-document; then
+        echo "🔴 Failed to install CocoaPods ${DEMO_COCOAPODS_VERSION}" >&2
+        exit 1
+    fi
+fi
+
+if ! pod "_${DEMO_COCOAPODS_VERSION}_" install --repo-update --deployment; then
     echo "🔴 CocoaPods dependency installation failed" >&2
     exit 1
 fi
