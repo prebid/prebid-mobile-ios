@@ -22,7 +22,7 @@ env:
 jobs:
   build:
     name: Build PrebidMobile Frameworks
-    if: ${{ !github.event.pull_request.draft }}
+    if: ${{ !github.event.pull_request.draft && !contains(github.head_ref, 'smoke-ui-tests') }}
     runs-on: macos-15
 
     steps:
@@ -44,7 +44,7 @@ jobs:
 
   unit-test-pr:
     name: Run Quick Unit Tests for Frameworks
-    if: ${{!github.event.pull_request.draft && !(contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+    if: ${{ !github.event.pull_request.draft && !contains(github.head_ref, 'smoke-ui-tests') && !(contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests')) }}
     runs-on: macos-15
 
     steps:
@@ -59,7 +59,7 @@ jobs:
           ./scripts/testPrebidMobile.sh --latest --quick
   unit-test-full:
     name: Run All Unit Tests for Frameworks
-    if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+    if: ${{ !github.event.pull_request.draft && !contains(github.head_ref, 'smoke-ui-tests') && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests')) }}
     runs-on: macos-15
 
     steps:
@@ -74,7 +74,7 @@ jobs:
 
   unit-test-adapters:
     name: Run Unit Tests for Adapters
-    if: ${{!github.event.pull_request.draft}}
+    if: ${{ !github.event.pull_request.draft && !contains(github.head_ref, 'smoke-ui-tests') }}
     runs-on: macos-15
 
     steps:
@@ -101,7 +101,7 @@ jobs:
 
   run-swift-demo-ui-tests:
     name: Run Smoke UI Tests - Swift Demo App
-    if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+    if: ${{ contains(github.head_ref, 'smoke-ui-tests') || (!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))) }}
     runs-on: macos-15
 
     steps:
@@ -123,7 +123,7 @@ jobs:
           retention-days: 3
   run-swift-demo-integration-tests:
     name: Run Integration Tests - Swift Demo App
-    if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+    if: ${{ !github.event.pull_request.draft && !contains(github.head_ref, 'smoke-ui-tests') && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests')) }}
     runs-on: macos-15
     steps:
       - name: Checkout
