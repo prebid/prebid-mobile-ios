@@ -35,13 +35,14 @@ evidence, not proof.
      audit side effect.
    - `UNSPECIFIED` — spec is silent and it's not a documented prebid extension; note it.
    - `PREBID-EXT` — intentional Prebid extension; cite the prebid-server doc instead.
-3. **Report** — the audit's only output: per model/test file, a summary table with the
-   tally (e.g. `41/44 CONFIRMED, 1 CONTRADICTS, 2 PREBID-EXT`), the audited date and
-   pinned spec commit, per-field classifications with permalinks, and discrepancies at
-   the top with their proposed issues. If run as part of an `/sdk-review` audit, merge
-   into that report; standalone, write
-   `docs/code-reviews/YYYY-MM-DD-spec-verification-<scope>.md`.
+3. **Report** — the audit's only output, written in the conversation, never to a file:
+   per model/test file, a summary table with the tally (e.g. `41/44 CONFIRMED,
+   1 CONTRADICTS, 2 PREBID-EXT`), the audited date and pinned spec commit, per-field
+   classifications with permalinks, and discrepancies at the top with their proposed
+   issues. When run as part of an `/sdk-review` audit, fold the findings into that
+   review's output.
 
-Strictly read-only — this skill never modifies source or test files, not even to add
-comments or verification headers. Permalink citations in code (per the spec-grounding
-gate in CLAUDE.md) are the job of the change that touches the code, guided by the report.
+Strictly read-only — this skill writes no files at all: it never modifies source or test
+files, not even to add comments or verification headers, and never commits a report.
+Permalink citations in code (per the spec-grounding gate in CLAUDE.md) are the job of the
+change that touches the code, guided by the report.

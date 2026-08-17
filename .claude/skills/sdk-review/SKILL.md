@@ -1,12 +1,16 @@
 ---
 name: sdk-review
-description: Review a branch/PR against master — or audit the full tree — with this repo's review checklist. Guards first, then the human-judgment items guards can't see (privacy logging, API stability, rendering/accessibility, test integrity), plus the ObjC→Swift migration checklist for migration PRs. Verdict-first structured review; audit runs produce a committed, re-runnable report with proposed issues and guard candidates.
+description: Review a branch/PR against master — or audit the full tree — with this repo's review checklist. Guards first, then the human-judgment items guards can't see (privacy logging, API stability, rendering/accessibility, test integrity), plus the ObjC→Swift migration checklist for migration PRs. Verdict-first structured review reported in the conversation, including guard candidates.
 ---
 
 # PR review / audit for prebid-mobile-ios
 
 `/sdk-review [target]` — `target` is a branch, a commit range (default `master...HEAD`),
-or `full` (audit the whole tree; always produces the committed report, see §7).
+or `full` (audit the whole tree).
+
+Findings are reported in the conversation, in the §6 format. This skill writes no files:
+it never commits a review report, and never edits source, tests, or guard data — fixes
+are a follow-up the maintainer asks for explicitly.
 
 Out of scope for this checklist: SwiftLint (the config is dormant — see
 `.claude/rules/code-patterns.md`) and build/test commands (the quality-gate ladder in
