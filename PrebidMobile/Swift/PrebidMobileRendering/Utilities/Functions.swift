@@ -131,11 +131,32 @@ import UIKit
         return bundleForSDK.object(forInfoDictionaryKey: key) as? String
     }
 
+    // MARK: - Shared application
+
+    /// `[UIApplication sharedApplication]` is `nil` whenever the SDK runs outside an
+    /// application process — e.g. in the unit-test bundle, which has no app host.
+    /// Swift imports `UIApplication.shared` as non-optional, so that `nil` becomes an
+    /// invalid reference that segfaults as soon as it is used (notably when boxed into
+    /// a `PBMUIApplicationProtocol` existential). Fetch it through the ObjC runtime
+    /// instead, so the `nil` stays observable — this is the Swift equivalent of the
+    /// `if (!uiApplication)` / `conformsToProtocol:` guards the ObjC original had.
+    static var sharedApplication: PBMUIApplicationProtocol? {
+        let selector = NSSelectorFromString("sharedApplication")
+        guard let applicationClass = UIApplication.self as AnyObject as? NSObjectProtocol,
+              applicationClass.responds(to: selector),
+              let application = applicationClass.perform(selector)?.takeUnretainedValue()
+        else { return nil }
+        return application as? PBMUIApplicationProtocol
+    }
+
     // MARK: - ObjC bridge (PBMFunctions+Private — URLs)
 
     @objc(attemptToOpen:)
     public static func attemptToOpen(_ url: URL) {
-        let app: PBMUIApplicationProtocol = Functions.application ?? UIApplication.shared
+        guard let app = Functions.application ?? sharedApplication else {
+            Log.warn("Cannot open \(url): the shared UIApplication is unavailable.")
+            return
+        }
         attemptToOpen(url, pbmUIApplication: app)
     }
 
@@ -224,7 +245,8 @@ import UIKit
     // MARK: - ObjC bridge (PBMFunctions+Private — UI)
 
     @objc public static var statusBarHeight: CGFloat {
-        statusBarHeight(application: UIApplication.shared)
+        guard let application = sharedApplication else { return 0 }
+        return statusBarHeight(application: application)
     }
 
     @objc(statusBarHeightForApplication:)
