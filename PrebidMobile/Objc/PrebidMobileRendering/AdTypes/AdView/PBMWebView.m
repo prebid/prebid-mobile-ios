@@ -325,19 +325,25 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     }
     
     //Prevent malicious auto-clicking
-    if ([self wasRecentlyTapped]) {
-        //Open clickthrough
-        @weakify(self);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            @strongify(self);
-            if (!self) { return; }
-            [self.delegate webView:self receivedClickthroughLink:url];
-        });
+    BOOL isMainFrame = navigationAction.targetFrame != nil && navigationAction.targetFrame.isMainFrame;
+    BOOL isLinkActivated = navigationAction.navigationType == WKNavigationTypeLinkActivated;
+    if (isMainFrame || isLinkActivated) {
+        if ([self wasRecentlyTapped]) {
+            //Open clickthrough
+            @weakify(self);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (!self) { return; }
+                [self.delegate webView:self receivedClickthroughLink:url];
+            });
+        } else {
+            PBMLogWarn(@"User has not recently tapped. Auto-click suppression is preventing navigation to: %@", url);
+        }
+        decisionHandler(WKNavigationActionPolicyCancel);
     } else {
-        PBMLogWarn(@"User has not recently tapped. Auto-click suppression is preventing navigation to: %@", url);
+        // Allow iframe navigations that aren't user-initiated link taps
+        decisionHandler(WKNavigationActionPolicyAllow);
     }
-    
-    decisionHandler(WKNavigationActionPolicyCancel);
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
