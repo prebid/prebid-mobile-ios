@@ -8,7 +8,7 @@
     "PrebidMobile/Swift/AdUnits/Native/NativeData.swift": 1,
     "PrebidMobile/Swift/AdUnits/Native/NativeEventTracker.swift": 5,
     "PrebidMobile/Swift/AdUnits/Parameters/SingleContainerInt.swift": 6,
-    "PrebidMobile/Swift/AdUnits/Parameters/VideoParameters.swift": 3,
+    "PrebidMobile/Swift/AdUnits/Parameters/VideoParameters.swift": 4,
     "PrebidMobile/Swift/AdUnits/VideoBasedAdUnitProtocol.swift": 2,
     "PrebidMobile/Swift/Addendum/IMAUtils.swift": 7,
     "PrebidMobile/Swift/CacheManagement/CacheManager.swift": 5,

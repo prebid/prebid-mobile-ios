@@ -1,5 +1,5 @@
 {
   "guard": "fixme-ratchet",
   "description": "FIXME/TODO markers in PrebidMobile/ sources. Deferred behavior decisions ship as behavior (upstream #1299): the count may only shrink. Update: ./scripts/guards/run-guards.sh --update-fixme-baseline",
-  "count": 42
+  "count": 41
 }

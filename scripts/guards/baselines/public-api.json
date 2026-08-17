@@ -2877,7 +2877,8 @@
     },
     "VideoParameters": {
       "func": {
-        "setSize": 1
+        "setSize": 1,
+        "setSkippable": 1
       },
       "init": {
         "init": 1
