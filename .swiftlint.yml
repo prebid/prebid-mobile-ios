@@ -7,7 +7,8 @@
 # ignore. One owner per rule: rules a guard already enforces are deliberately
 # absent from the list below (see "Owned by guards" at the end).
 #
-# It runs diff-scoped and advisory — only lines a branch ADDS are reported:
+# It runs diff-scoped and blocking — only lines a branch ADDS are judged, and
+# a violation on one of them fails the run:
 #
 #   ./scripts/lint/run-swiftlint.sh          # what this branch added
 #   ./scripts/lint/run-swiftlint.sh --all    # whole tree (exploration only)

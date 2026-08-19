@@ -39,9 +39,9 @@
 
 ## Comments and style
 
-- Match surrounding style; the repo has no enforced formatter. SwiftLint runs advisory and
-  **diff-scoped** (`./scripts/lint/run-swiftlint.sh`) — it judges the lines you add, never
-  the file around them. Reformatting untouched code as a side effect of another change
+- Match surrounding style; the repo has no enforced formatter. SwiftLint is **diff-scoped**
+  (`./scripts/lint/run-swiftlint.sh`) — it fails on the lines you add, and never judges the
+  file around them. Reformatting untouched code as a side effect of another change
   stays banned; `swiftlint --fix` is for files you are already editing.
 - Public declarations carry doc comments (Jazzy publishes them); internal code only needs
   comments for non-obvious constraints.

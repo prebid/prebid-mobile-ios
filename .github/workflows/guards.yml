@@ -1,4 +1,4 @@
-name: Structural guards
+name: Structural Guards
 
 # Fast, deterministic architecture checks (see docs/guards/README.md).
 # Runs on ubuntu in ~1 minute — intentionally separate from the macOS
@@ -10,7 +10,7 @@ on:
     branches: [master]
 
 concurrency:
-  group: guards-${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 permissions:
@@ -18,10 +18,12 @@ permissions:
 
 jobs:
   guards:
+    name: Run Structural Guards
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           # Full history: swift-migration-direction diffs against the
           # merge-base with master.
@@ -32,10 +34,10 @@ jobs:
         # version drift changes finding counts and breaks the ast-rule-ratchet.
         run: npm install -g @ast-grep/cli@0.45.1
 
-      - name: Guard unit tests
+      - name: Run Guard Unit Tests
         # Self-tests for the guard implementations themselves — a weakened
         # detector fails here rather than passing silently.
         run: python3 -m unittest discover -s scripts/guards/tests
 
-      - name: Run guards
+      - name: Run Structural Guards
         run: ./scripts/guards/run-guards.sh

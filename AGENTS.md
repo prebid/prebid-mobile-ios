@@ -123,7 +123,7 @@ Uncited protocol changes should be rejected in review.
 # …or have git run them automatically (opt-in, once per clone):
 git config core.hooksPath .githooks
 
-# Style lint on the lines this branch adds (advisory; see docs/lint/README.md)
+# Style lint — fails on violations in the lines this branch adds (docs/lint/README.md)
 ./scripts/lint/run-swiftlint.sh
 ```
 
@@ -248,7 +248,7 @@ Framework build uses `Lib-PrebidMobile`, `Lib-PrebidMobileGAMEventHandlers`, `Li
 ### CI
 
 GitHub Actions (Xcode 16.4.0, macOS 15):
-- Guards run on every PR (`guards.yml`, ubuntu), as does the advisory SwiftLint pass (`swiftlint.yml`, ubuntu)
+- Guards run on every PR (`guards.yml`, ubuntu), as does SwiftLint over the lines the PR adds (`swiftlint.yml`, ubuntu — blocking)
 - Build + quick unit tests (`--latest --quick`) run on every non-draft PR (`PR_checks.yml`, macos)
 - Full tests + demo/UI suites run when the PR has the `run-full-tests` label or the branch name contains `bump-to`
 
@@ -276,10 +276,11 @@ hook to the core (baseline update) — never reach into internals.
 
 - `scripts/testPrebidMobile.sh` installs pods and creates/deletes a named simulator; it
   needs macOS + Xcode.
-- SwiftLint is **advisory and diff-scoped** — it lints the lines a branch adds, nothing
-  else. A whole-tree run reports ~13k pre-existing violations; do not "fix" them as a
-  drive-by. It replaces no guard (`docs/lint/README.md` says which rules it deliberately
-  leaves to guards).
+- SwiftLint is **blocking but diff-scoped** — it fails on violations in the lines a branch
+  adds, and never reports the lines it didn't touch. A whole-tree run shows ~13k
+  pre-existing violations; do not "fix" them as a drive-by, and don't run `swiftlint --fix`
+  over a legacy file to clear one finding — it rewrites the whole file. It replaces no
+  guard (`docs/lint/README.md` says which rules it deliberately leaves to guards).
 - `PR_checks.yml`'s `unit-test-adapters` job computes `IS_RELEASE_PR` with inverted-looking
   logic — confirm intent with maintainers before touching it.
 - `.jazzy.yaml` excludes drift (deleted files stay listed) — the baseline guard reports this
@@ -297,7 +298,7 @@ hook to the core (baseline update) — never reach into internals.
 - `.claude/rules/quality-gates.md` — the gate ladder and completion standards
 - `.claude/rules/session-completion.md` — end-of-session checklist
 - `docs/guards/README.md` — every guard, its rationale, and how to add one
-- `docs/lint/README.md` — SwiftLint: why it is advisory, diff-scoped, and not a guard
+- `docs/lint/README.md` — SwiftLint: why it is diff-scoped, and why it is not a guard
 
 ## ObjC → Swift migration
 
