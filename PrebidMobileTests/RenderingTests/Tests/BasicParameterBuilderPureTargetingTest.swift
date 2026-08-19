@@ -31,7 +31,7 @@ class BasicParameterBuilderPureTargetingTest: XCTestCase {
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
         
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         //Check Regs

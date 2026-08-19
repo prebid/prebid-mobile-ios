@@ -16,9 +16,9 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
-class PBMORTBAbstractTest : XCTestCase {
+class ORTBAbstractTest : XCTestCase {
     
     private var sdkVersion: String {
         let infoDic = Bundle(for: BannerView.self).infoDictionary
@@ -26,7 +26,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     private var omidVersion: String {
-        return PBMFunctions.sdkVersion();
+        return Functions.sdkVersion;
     }
     
     private let userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 OpenXSDK/\(Prebid.shared.version)"
@@ -38,61 +38,91 @@ class PBMORTBAbstractTest : XCTestCase {
         super.tearDown()
     }
     
-    //Check default values of all objects decending from PBMORTBAbstract
+    //Check default values of all ORTB request objects
     func testDefaultToJsonString() {
         
-        codeAndDecode(abstract:PBMORTBBidRequest(), expectedString: "{\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
+        codeAndDecode(abstract:ORTBBidRequest(), expectedString: "{\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
         
         //Source not implemented
-        codeAndDecode(abstract:PBMORTBRegs(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBImp(), expectedString: "{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract:ORTBRegs(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBImp(), expectedString: "{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
         
         //Metric not implemented
-        codeAndDecode(abstract:PBMORTBBanner(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBVideo(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBBanner(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBVideo(), expectedString: "{}")
         
         //Audio not implemented
         //Native not implemented
-        codeAndDecode(abstract:PBMORTBFormat(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBPmp(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBDeal(), expectedString: "{\"bidfloor\":0,\"bidfloorcur\":\"USD\",\"wadomain\":[],\"wseat\":[]}")
+        codeAndDecode(abstract:ORTBFormat(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBPmp(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBDeal(), expectedString: "{\"bidfloor\":0,\"bidfloorcur\":\"USD\",\"wadomain\":[],\"wseat\":[]}")
         
         //Site not implemented
-        codeAndDecode(abstract:PBMORTBApp(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBApp(), expectedString: "{}")
         //Publisher not implemented
         //Content not implemented
         //Producer not implemented
-        codeAndDecode(abstract:PBMORTBDevice(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBGeo(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBUser(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBDevice(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBGeo(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBUser(), expectedString: "{}")
         //Data not implemented
         //Segment not implemented
         
-        codeAndDecode(abstract:PBMORTBBidRequestExtPrebid(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBImpExtPrebid(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBBidRequestExtPrebid(), expectedString: "{}")
+        codeAndDecode(abstract:ORTBImpExtPrebid(), expectedString: "{}")
         
-        codeAndDecode(abstract: PBMORTBImpExtSkadn(), expectedString: "{}")
+        codeAndDecode(abstract: ORTBImpExtSkadn(), expectedString: "{}")
     }
-    
-    func testAbstractMethods() {
-        logToFile = .init()
-        
-        let abstract = try! PBMORTBAbstract.from(jsonString: "")
-        let _ = try! abstract.toJsonString()
-        
-        let log = Log.getLogFileAsString() ?? ""
-        XCTAssert(log.contains("You should not initialize abstract class directly"))
-        XCTAssert(log.contains("You must override toJsonDictionary in a subclass"))
+
+    // MARK: - Decode/encode parity (playbook Gap S2.5-C)
+
+    /// Fully-populated fixtures: decode → encode must be idempotent.
+    func testORTBParityOnFullFixtures() {
+        assertORTBParity(jsonString: ORTBFixtures.format, swiftType: ORTBFormat.self)
+        assertORTBParity(jsonString: ORTBFixtures.publisher, swiftType: ORTBPublisher.self)
+        assertORTBParity(jsonString: ORTBFixtures.geo, swiftType: ORTBGeo.self)
+        assertORTBParity(jsonString: ORTBFixtures.deal, swiftType: ORTBDeal.self)
+        assertORTBParity(jsonString: ORTBFixtures.sourceExtOMID, swiftType: ORTBSourceExtOMID.self)
+        assertORTBParity(jsonString: ORTBFixtures.impExtSkadn, swiftType: ORTBImpExtSkadn.self)
+        assertORTBParity(jsonString: ORTBFixtures.deviceExtAtts, swiftType: ORTBDeviceExtAtts.self)
     }
-    
+
+    /// Partial payloads: an absent key must stay absent on re-encode. The ObjC
+    /// `initWithJsonDictionary:` assigned ivars directly, clearing the defaults seeded by
+    /// `init`; a Swift port that falls back to the default would invent wire keys.
+    func testDecodingPartialJSONDoesNotResurrectDefaults() {
+        assertORTBNoResurrectedDefaults(jsonString: ORTBFixtures.partialDeal,
+                                        swiftType: ORTBDeal.self,
+                                        expectedKeys: ["id"])
+
+        // `ext` is expected: ORTBImp always writes `dlp` when extPrebid is empty.
+        assertORTBNoResurrectedDefaults(jsonString: ORTBFixtures.partialImp,
+                                        swiftType: ORTBImp.self,
+                                        expectedKeys: ["id", "ext"])
+    }
+
+    /// A request decoded without `imp` (or with an empty one) must not re-encode the
+    /// one-element default impression `ORTBBidRequest.init` seeds.
+    func testDecodingRequestWithoutImpKeepsImpEmpty() {
+        for fixture in [ORTBFixtures.partialBidRequest, ORTBFixtures.emptyImpBidRequest] {
+            guard let request = try? ORTBBidRequest(jsonString: fixture) else {
+                XCTFail("ORTBBidRequest init?(jsonString:) returned nil for \(fixture)")
+                continue
+            }
+            XCTAssertTrue(request.imp.isEmpty, "phantom impression decoded from \(fixture)")
+            XCTAssertEqual((request.jsonDictionary["imp"] as? [Any])?.count, 0)
+            XCTAssertEqual(Set(request.jsonDictionary.keys), ["id", "imp"])
+        }
+    }
+
     func testCopying() {
-        let initial = PBMORTBBidRequest()
+        let initial = ORTBBidRequest()
         
-        initial.imp[0].banner = PBMORTBBanner()
-        initial.imp[0].video = PBMORTBVideo()
-        initial.imp[0].pmp.deals = [PBMORTBDeal()]
+        initial.imp[0].banner = ORTBBanner()
+        initial.imp[0].video = ORTBVideo()
+        initial.imp[0].pmp.deals = [ORTBDeal()]
         
-        initial.imp[0].banner?.format = [PBMORTBFormat()]
+        initial.imp[0].banner?.format = [ORTBFormat()]
         initial.imp[0].banner?.format[0].w = 640
         initial.imp[0].banner?.format[0].h = 480
         initial.imp[0].banner?.format[0].wratio = 4
@@ -105,7 +135,7 @@ class PBMORTBAbstractTest : XCTestCase {
         XCTAssertFalse(initial.imp[0].extPrebid.isRewardedInventory)
         initial.imp[0].extPrebid.isRewardedInventory = true
         
-        let copy = initial.copy() as! PBMORTBBidRequest
+        let copy = initial.copy() as! ORTBBidRequest
         
         XCTAssertNotEqual(initial, copy)
         
@@ -161,7 +191,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testBidRequestToJsonString() {
-        let pbmORTBBidRequest = PBMORTBBidRequest()
+        let pbmORTBBidRequest = ORTBBidRequest()
         let uuid = UUID().uuidString
         pbmORTBBidRequest.requestID = uuid
         
@@ -177,7 +207,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testBidRequestExtPrebidToJsonString() {
-        let extPrebid = PBMORTBBidRequestExtPrebid()
+        let extPrebid = ORTBBidRequestExtPrebid()
         extPrebid.storedRequestID = "b4eb1475-4e3d-4186-97b7-25b6a6cf8618"
         extPrebid.dataBidders = ["openx", "prebid", "thanatos"]
         extPrebid.storedAuctionResponse = "stored-auction-response-test"
@@ -185,14 +215,14 @@ class PBMORTBAbstractTest : XCTestCase {
         
         codeAndDecode(abstract: extPrebid, expectedString: "{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"sdk\":{\"renderers\":[{\"name\":\"MockRenderer1\",\"version\":\"0.0.1\"},{\"name\":\"MockRenderer2\",\"version\":\"0.0.2\"}]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}")
         
-        let pbmORTBBidRequest = PBMORTBBidRequest()
+        let pbmORTBBidRequest = ORTBBidRequest()
         pbmORTBBidRequest.extPrebid = extPrebid
         
         codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"ext\":{\"prebid\":{\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"sdk\":{\"renderers\":[{\"name\":\"MockRenderer1\",\"version\":\"0.0.1\"},{\"name\":\"MockRenderer2\",\"version\":\"0.0.2\"}]},\"storedauctionresponse\":{\"id\":\"stored-auction-response-test\"},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":1,\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}]}")
     }
     
     func testSourceToJsonString() {
-        let pbmORTBSource = PBMORTBSource()
+        let pbmORTBSource = ORTBSource()
         
         let tid = UUID().uuidString
         let pchain = "some_pchain_string"
@@ -205,7 +235,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testRegsToJsonString() {
-        let pbmORTBRegs = PBMORTBRegs()
+        let pbmORTBRegs = ORTBRegs()
         pbmORTBRegs.coppa = 1
         XCTAssertEqual(pbmORTBRegs.coppa, 1)
         codeAndDecode(abstract:pbmORTBRegs, expectedString:"{\"coppa\":1}")
@@ -222,18 +252,29 @@ class PBMORTBAbstractTest : XCTestCase {
         XCTAssertEqual(pbmORTBRegs.coppa, nil)
         codeAndDecode(abstract:pbmORTBRegs, expectedString:"{}")
     }
-    
+
+    func testRegsGppToJsonString() {
+        let regs = ORTBRegs()
+        regs.gpp = "DBACNYA~CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA~1YNN"
+        regs.gppSID = [2, 6]
+        codeAndDecode(abstract: regs, expectedString: "{\"gpp\":\"DBACNYA~CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA~1YNN\",\"gpp_sid\":[2,6]}")
+
+        let decoded = try! ORTBRegs.from(jsonString: try! regs.toJsonString())
+        XCTAssertEqual(decoded.gpp, regs.gpp)
+        XCTAssertEqual(decoded.gppSID, regs.gppSID)
+    }
+
     // MARK: PBMORTBImp
     
     func testImpToJsonString() {
-        let pbmORTBImp = PBMORTBImp()
+        let pbmORTBImp = ORTBImp()
         
         let uuid = UUID().uuidString
         pbmORTBImp.impID = uuid
-        pbmORTBImp.banner = PBMORTBBanner()
-        pbmORTBImp.video = PBMORTBVideo()
+        pbmORTBImp.banner = ORTBBanner()
+        pbmORTBImp.video = ORTBVideo()
         pbmORTBImp.native = ORTBNative()
-        pbmORTBImp.pmp = PBMORTBPmp()
+        pbmORTBImp.pmp = ORTBPmp()
         pbmORTBImp.displaymanager = "MOCK_SDK_NAME"
         pbmORTBImp.displaymanagerver = "MOCK_SDK_VERSION"
         pbmORTBImp.instl = 1
@@ -246,11 +287,11 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testPBMORTBImpExtSkadnToJsonString() { 
-        let skadn = PBMORTBImpExtSkadn()
+        let skadn = ORTBImpExtSkadn()
         skadn.sourceapp = "12345678"
         skadn.skadnetids = ["1", "2", "3"]
         
-        var expectedString = "{\"skadnetids\":[\"1\",\"2\",\"3\"],\"sourceapp\":\"12345678\",\"versions\":\(PBMFunctions.supportedSKAdNetworkVersions())}"
+        var expectedString = "{\"skadnetids\":[\"1\",\"2\",\"3\"],\"sourceapp\":\"12345678\",\"versions\":\(Functions.supportedSKAdNetworkVersions)}"
         expectedString.removeAll(where: { $0 == " "})
         
         codeAndDecode(abstract: skadn, expectedString: expectedString)
@@ -274,26 +315,26 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testImpExtPrebidToJsonString() {
-        let extPrebid = PBMORTBImpExtPrebid()
+        let extPrebid = ORTBImpExtPrebid()
         extPrebid.storedRequestID = "b4eb1475-4e3d-4186-97b7-25b6a6cf8618"
         XCTAssertFalse(extPrebid.isRewardedInventory)
         
         codeAndDecode(abstract: extPrebid, expectedString: "{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}")
         
-        let pbmORTBImp = PBMORTBImp()
+        let pbmORTBImp = ORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
         codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":1,\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
     }
     
     func testImpExtPrebidToJsonStringRewarded() {
-        let extPrebid = PBMORTBImpExtPrebid()
+        let extPrebid = ORTBImpExtPrebid()
         extPrebid.storedRequestID = "b4eb1475-4e3d-4186-97b7-25b6a6cf8618"
         extPrebid.isRewardedInventory = true
         
         codeAndDecode(abstract: extPrebid, expectedString: "{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}")
         
-        let pbmORTBImp = PBMORTBImp()
+        let pbmORTBImp = ORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
         codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":1,\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
@@ -302,20 +343,20 @@ class PBMORTBAbstractTest : XCTestCase {
     func testImpExtGPID() {
         let gpid = "/12345/home_screen#identifier"
         
-        let imp = PBMORTBImp()
+        let imp = ORTBImp()
         imp.extGPID = gpid
         
         codeAndDecode(abstract: imp, expectedString: "{\"clickbrowser\":1,\"ext\":{\"dlp\":1,\"gpid\":\"\\/12345\\/home_screen#identifier\"},\"instl\":0,\"secure\":0}")
     }
     
     func testBannerToJsonString() {
-        let pbmORTBBanner = PBMORTBBanner()
+        let pbmORTBBanner = ORTBBanner()
         pbmORTBBanner.pos = 1                   //Above the fold
         pbmORTBBanner.api = [2,5]
         
         codeAndDecode(abstract: pbmORTBBanner, expectedString: "{\"api\":[2,5],\"pos\":1}")
         
-        pbmORTBBanner.format = [PBMORTBFormat()]
+        pbmORTBBanner.format = [ORTBFormat()]
         pbmORTBBanner.format[0].w = 728
         pbmORTBBanner.format[0].h = 90
         
@@ -323,7 +364,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testVideoToJsonString() {
-        let pbmORTBVideo = PBMORTBVideo()
+        let pbmORTBVideo = ORTBVideo()
         
         pbmORTBVideo.minduration = 10
         pbmORTBVideo.maxduration = 100
@@ -343,7 +384,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testFormatToJsonString() {
-        let pbmORTBFormat = PBMORTBFormat()
+        let pbmORTBFormat = ORTBFormat()
         pbmORTBFormat.w = 320
         pbmORTBFormat.h = 50
         codeAndDecode(abstract: pbmORTBFormat, expectedString: "{\"h\":50,\"w\":320}")
@@ -357,16 +398,16 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testPmpToJsonString() {
-        let pbmORTBPmp = PBMORTBPmp()
+        let pbmORTBPmp = ORTBPmp()
         pbmORTBPmp.private_auction = 1
-        pbmORTBPmp.deals.append(PBMORTBDeal())
+        pbmORTBPmp.deals.append(ORTBDeal())
         pbmORTBPmp.deals.first?.bidfloor = 1.0
         
         codeAndDecode(abstract: pbmORTBPmp, expectedString: "{\"deals\":[{\"bidfloor\":1,\"bidfloorcur\":\"USD\",\"wadomain\":[],\"wseat\":[]}],\"private_auction\":1}")
     }
     
     func testDealToJsonString() {
-        let pbmORTBDeal = PBMORTBDeal()
+        let pbmORTBDeal = ORTBDeal()
         
         pbmORTBDeal.id = "id"
         pbmORTBDeal.bidfloor = 100.0
@@ -380,7 +421,7 @@ class PBMORTBAbstractTest : XCTestCase {
     
     func testAppToJsonString() {
         
-        let pbmORTBApp = PBMORTBApp()
+        let pbmORTBApp = ORTBApp()
         
         pbmORTBApp.id = "foo"
         pbmORTBApp.name = "PubApp"
@@ -392,7 +433,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBApp.paid = 1
         pbmORTBApp.keywords = "foo,bar,baz"
         pbmORTBApp.content = ORTBAppContent()
-        pbmORTBApp.content?.url = "https://corresponding.section.publishers.website"
+        pbmORTBApp.content.url = "https://corresponding.section.publishers.website"
         
         codeAndDecode(abstract: pbmORTBApp, expectedString: "{\"bundle\":\"com.PubApp\",\"content\":{\"url\":\"https:\\/\\/corresponding.section.publishers.website\"},\"domain\":\"pubapp.com\",\"id\":\"foo\",\"keywords\":\"foo,bar,baz\",\"name\":\"PubApp\",\"paid\":1,\"privacypolicy\":1,\"storeurl\":\"itunes.com?pubapp\",\"ver\":\"1.2\"}")
     }
@@ -442,7 +483,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testAppExtPrebidToJsonString() {
-        let pbmORTBApp = PBMORTBApp()
+        let pbmORTBApp = ORTBApp()
         let appExtPrebid = pbmORTBApp.ext.prebid
         
         codeAndDecode(abstract: appExtPrebid, expectedString: "{}")
@@ -481,7 +522,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testGeoToJsonString() {
-        let pbmORTBGeo = PBMORTBGeo()
+        let pbmORTBGeo = ORTBGeo()
         
         pbmORTBGeo.lat = 34.1477849
         pbmORTBGeo.lon = -118.1445155
@@ -500,7 +541,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testUserToJsonString() {
-        let pbmORTBUser = PBMORTBUser()
+        let pbmORTBUser = ORTBUser()
         
         pbmORTBUser.keywords = "key1,key2,key3"
         pbmORTBUser.geo.lat = 34.1477849
@@ -515,7 +556,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testUserEidsToJsonString() {
-        let user = PBMORTBUser()
+        let user = ORTBUser()
         
         user.appendEids([["key": ["key":"value"]]])
         
@@ -526,7 +567,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testUserEidsInExtToJsonString() {
-        let user = PBMORTBUser()
+        let user = ORTBUser()
         
         user.ext = ["eids":[["key": ["key":"value"]]]]
         
@@ -537,7 +578,7 @@ class PBMORTBAbstractTest : XCTestCase {
     }
     
     func testUserEidsAndExtToJsonString() {
-        let user = PBMORTBUser()
+        let user = ORTBUser()
         
         user.ext = ["eids":[["key": ["key":"value"]]]]
         user.appendEids([["key2": ["key2":"value2"]]])
@@ -550,8 +591,8 @@ class PBMORTBAbstractTest : XCTestCase {
     
     // MARK: - Utility
     
-    func initORTBDevice(ifa: String?) -> PBMORTBDevice {
-        let pbmORTBPDevice = PBMORTBDevice()
+    func initORTBDevice(ifa: String?) -> ORTBDevice {
+        let pbmORTBPDevice = ORTBDevice()
         pbmORTBPDevice.lmt = 1
         pbmORTBPDevice.devicetype = 1
         pbmORTBPDevice.make = "Apple"
@@ -577,27 +618,6 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBPDevice.macsha1 = "macsha1"
         pbmORTBPDevice.macmd5 = "macmd5"
         return pbmORTBPDevice
-    }
-    
-    func codeAndDecode<T : PBMORTBAbstract>(abstract:T, expectedString:String, file: StaticString = #file, line: UInt = #line) {
-        
-        guard #available(iOS 11.0, *) else {
-            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
-            return
-        }
-        
-        do {
-            //Make a copy of the object
-            let newCodable = abstract as PBMORTBAbstract
-            
-            //Convert it to json
-            let newJsonString = try newCodable.toJsonString()
-            
-            //Strings should match
-            PBMAssertEq(newJsonString, expectedString, file:file, line:line)
-        } catch {
-            XCTFail("\(error)", file:file, line:line)
-        }
     }
     
     func codeAndDecode<T : PBMJsonCodable>(abstract:T, expectedString:String, file: StaticString = #file, line: UInt = #line) {

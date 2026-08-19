@@ -15,9 +15,9 @@
 
 import UIKit
 import XCTest
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
-class TestPBMFunctions: XCTestCase {
+class TestFunctions: XCTestCase {
     
     // Source: https://github.com/semver/semver/issues/232
     let versionValidatorRegExpr = "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(\\.(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\\+[0-9a-zA-Z-]+(\\.[0-9a-zA-Z-]+)*)?$"
@@ -33,7 +33,7 @@ class TestPBMFunctions: XCTestCase {
             return true
         }
         
-        PBMFunctions.attempt(toOpen:url, pbmUIApplication:mockUIApplication)
+        Functions.attemptToOpen(url, pbmUIApplication: mockUIApplication)
         
         self.waitForExpectations(timeout: 1.0, handler:nil)
     }
@@ -46,27 +46,27 @@ class TestPBMFunctions: XCTestCase {
         
         //Simple
         expected = 5
-        actual = PBMFunctions.clampInt(5, lowerBound:1, upperBound:10)
+        actual = Functions.clampInt(5, lowerBound:1, upperBound:10)
         XCTAssert(expected == actual)
         
         //Lower than lowBound
         expected = 1
-        actual = PBMFunctions.clampInt(0, lowerBound:1, upperBound:10)
+        actual = Functions.clampInt(0, lowerBound:1, upperBound:10)
         XCTAssert(expected == actual)
         
         //Higher than upperBound
         expected = 10
-        actual = PBMFunctions.clampInt(1000, lowerBound:1, upperBound:10)
+        actual = Functions.clampInt(1000, lowerBound:1, upperBound:10)
         XCTAssert(expected == actual)
 
         //Equal to upperBound
         expected = 10
-        actual = PBMFunctions.clampInt(10, lowerBound:1, upperBound:10)
+        actual = Functions.clampInt(10, lowerBound:1, upperBound:10)
         XCTAssert(expected == actual)
         
         //Equal to lowerBound
         expected = 1
-        actual = PBMFunctions.clampInt(1, lowerBound:1, upperBound:10)
+        actual = Functions.clampInt(1, lowerBound:1, upperBound:10)
         XCTAssert(expected == actual)
         
         //////////////////
@@ -75,27 +75,27 @@ class TestPBMFunctions: XCTestCase {
         
         //Simple
         expected = -5
-        actual = PBMFunctions.clampInt(-5, lowerBound:-10, upperBound:-1)
+        actual = Functions.clampInt(-5, lowerBound:-10, upperBound:-1)
         XCTAssert(expected == actual)
         
         //Lower than lowBound
         expected = -10
-        actual = PBMFunctions.clampInt(-1000, lowerBound:-10, upperBound:-1)
+        actual = Functions.clampInt(-1000, lowerBound:-10, upperBound:-1)
         XCTAssert(expected == actual)
 
         //Higher than upperBound
         expected = -1
-        actual = PBMFunctions.clampInt(1000, lowerBound:-10, upperBound:-1)
+        actual = Functions.clampInt(1000, lowerBound:-10, upperBound:-1)
         XCTAssert(expected == actual)
         
         //Equal to lowerBound
         expected = -10
-        actual = PBMFunctions.clampInt(-10, lowerBound:-10, upperBound:-1)
+        actual = Functions.clampInt(-10, lowerBound:-10, upperBound:-1)
         XCTAssert(expected == actual)
 
         //Equal to upperBound
         expected = -1
-        actual = PBMFunctions.clampInt(-1, lowerBound:-10, upperBound:-1)
+        actual = Functions.clampInt(-1, lowerBound:-10, upperBound:-1)
         XCTAssert(expected == actual)
     }
     
@@ -106,27 +106,27 @@ class TestPBMFunctions: XCTestCase {
         
         //Simple
         expected = 5.1
-        actual = PBMFunctions.clamp(5.1, lowerBound:1.1, upperBound:10.1)
+        actual = Functions.clamp(5.1, lowerBound:1.1, upperBound:10.1)
         XCTAssert(expected == actual)
         
         //Lower than lowBound
         expected = 1.1
-        actual = PBMFunctions.clamp(0.1, lowerBound:1.1, upperBound:10.1)
+        actual = Functions.clamp(0.1, lowerBound:1.1, upperBound:10.1)
         XCTAssert(expected == actual)
         
         //Higher than upperBound
         expected = 10.1
-        actual = PBMFunctions.clamp(1000.1, lowerBound:1.1, upperBound:10.1)
+        actual = Functions.clamp(1000.1, lowerBound:1.1, upperBound:10.1)
         XCTAssert(expected == actual)
         
         //Equal to upperBound
         expected = 10.1
-        actual = PBMFunctions.clamp(10.1, lowerBound:1.1, upperBound:10.1)
+        actual = Functions.clamp(10.1, lowerBound:1.1, upperBound:10.1)
         XCTAssert(expected == actual)
         
         //Equal to lowerBound
         expected = 1.1
-        actual = PBMFunctions.clamp(1.1, lowerBound:1.1, upperBound:10.1)
+        actual = Functions.clamp(1.1, lowerBound:1.1, upperBound:10.1)
         XCTAssert(expected == actual)
         
         //////////////////
@@ -135,27 +135,27 @@ class TestPBMFunctions: XCTestCase {
         
         //Simple
         expected = -5.1
-        actual = PBMFunctions.clamp(-5.1, lowerBound:-10.1, upperBound:-1.1)
+        actual = Functions.clamp(-5.1, lowerBound:-10.1, upperBound:-1.1)
         XCTAssert(expected == actual)
         
         //Lower than lowBound
         expected = -10.1
-        actual = PBMFunctions.clamp(-1000.1, lowerBound:-10.1, upperBound:-1.1)
+        actual = Functions.clamp(-1000.1, lowerBound:-10.1, upperBound:-1.1)
         XCTAssert(expected == actual)
         
         //Higher than upperBound
         expected = -1.1
-        actual = PBMFunctions.clamp(1000.1, lowerBound:-10.1, upperBound:-1.1)
+        actual = Functions.clamp(1000.1, lowerBound:-10.1, upperBound:-1.1)
         XCTAssert(expected == actual)
         
         //Equal to lowerBound
         expected = -10.1
-        actual = PBMFunctions.clamp(-10.1, lowerBound:-10.1, upperBound:-1.1)
+        actual = Functions.clamp(-10.1, lowerBound:-10.1, upperBound:-1.1)
         XCTAssert(expected == actual)
         
         //Equal to upperBound
         expected = -1.1
-        actual = PBMFunctions.clamp(-1.1, lowerBound:-10.1, upperBound:-1.1)
+        actual = Functions.clamp(-1.1, lowerBound:-10.1, upperBound:-1.1)
         XCTAssert(expected == actual)
     }
     
@@ -163,7 +163,7 @@ class TestPBMFunctions: XCTestCase {
     func testDictionaryFromDataWithEmptyData() {
 
         do {
-            try _ = PBMFunctions.dictionaryFromData(Data())
+            try _ = Functions.dictionaryFromData(Data())
         } catch {
             return
         }
@@ -182,7 +182,7 @@ class TestPBMFunctions: XCTestCase {
                 continue
             }
 
-            guard let jsonDict = try? PBMFunctions.dictionaryFromData(data) else {
+            guard let jsonDict = try? Functions.dictionaryFromData(data) else {
                 XCTFail()
                 return
             }
@@ -194,7 +194,7 @@ class TestPBMFunctions: XCTestCase {
     func testDictionaryFromJSONString() {
         let jsonString = UtilitiesForTesting.loadFileAsStringFromBundle("ACJBanner.json")!
         
-        guard let dict = try? PBMFunctions.dictionaryFromJSONString(jsonString) else {
+        guard let dict = try? Functions.dictionaryFromJSONString(jsonString) else {
             XCTFail()
             return
         }
@@ -225,26 +225,26 @@ class TestPBMFunctions: XCTestCase {
     func testInfoPlistValue() {
         
         //Basic tests
-        var result = PBMFunctions.infoPlistValue("CFBundleExecutable")
+        var result = Functions.infoPlistValue("CFBundleExecutable")
         XCTAssert(result?.PBMdoesMatch("PrebidMobile") == true, "Got \(String(describing: result))")
         
-        result = PBMFunctions.infoPlistValue("CFBundleIdentifier")
+        result = Functions.infoPlistValue("CFBundleIdentifier")
         XCTAssert(result?.PBMdoesMatch("org.prebid.mobile") == true, "Got \(String(describing: result))")
         
         //Version number should start and end with an unbroken string of numbers or periods.
-        result = PBMFunctions.infoPlistValue("CFBundleShortVersionString")
+        result = Functions.infoPlistValue("CFBundleShortVersionString")
         XCTAssert(result?.PBMdoesMatch(versionValidatorRegExpr) == true, "Got \(String(describing: result))")
         
         //Expected failures
-        result = PBMFunctions.infoPlistValue("DERP")
+        result = Functions.infoPlistValue("DERP")
         XCTAssert(result?.PBMdoesMatch("^[0-9\\.]+$") == nil, "Got \(String(describing: result))")
         
-        result = PBMFunctions.infoPlistValue("aklhakfhadlskfhlkahf")
+        result = Functions.infoPlistValue("aklhakfhadlskfhlkahf")
         XCTAssert(result == nil, "Got \(String(describing: result))")
     }
     
     func testsdkVersion() {
-        let version = PBMFunctions.sdkVersion()
+        let version = PrebidConstants.PREBID_VERSION
         XCTAssert(version.count > 0)
         XCTAssert(version.PBMdoesMatch(versionValidatorRegExpr) == true, "Got \(String(describing: version))")
     }
@@ -255,19 +255,19 @@ class TestPBMFunctions: XCTestCase {
 
         //Test with default (visible status bar in portrait)
         var expected:CGFloat = 2.0
-        var actual = PBMFunctions.statusBarHeight(application:mockApplication)
+        var actual = Functions.statusBarHeight(application:mockApplication)
         XCTAssert(expected == actual, "Expected \(expected), got \(actual)")
         
         //Test with visible status bar in landscape
         mockApplication.statusBarOrientation = .landscapeLeft
         expected = 1.0
-        actual = PBMFunctions.statusBarHeight(application:mockApplication)
+        actual = Functions.statusBarHeight(application:mockApplication)
         XCTAssert(expected == actual, "Expected \(expected), got \(actual)")
 
         //Test with hidden status bar
         mockApplication.isStatusBarHidden = true
         expected = 0.0
-        actual = PBMFunctions.statusBarHeight(application:mockApplication)
+        actual = Functions.statusBarHeight(application:mockApplication)
         XCTAssert(expected == actual, "Expected \(expected), got \(actual)")
     }
     
@@ -276,14 +276,20 @@ class TestPBMFunctions: XCTestCase {
     func testDictionaryFromDataWithInvalidData() {
         
         let data = UtilitiesForTesting.loadFileAsDataFromBundle("mraid.js")!
-    
+
         var dict: JsonDictionary?
         do {
-            dict = try PBMFunctions.dictionaryFromData(data)
+            dict = try Functions.dictionaryFromData(data)
             XCTFail("Test method should throw exception")
         }
         catch {
-            XCTAssert(error.localizedDescription.contains("Could not convert json data to jsonObject:"))
+            // The ObjC original wrapped the parse failure in its own PBMError
+            // ("Could not convert json data to jsonObject:"); the Swift port lets
+            // JSONSerialization's error propagate unwrapped. Assert on domain/code rather
+            // than the message, which is localized.
+            let nsError = error as NSError
+            XCTAssertEqual(nsError.domain, NSCocoaErrorDomain)
+            XCTAssertEqual(nsError.code, 3840) // JSON parse failure
         }
         
         XCTAssertNil(dict)
@@ -292,14 +298,17 @@ class TestPBMFunctions: XCTestCase {
     func testDictionaryFromDataWithInvalidJSON() {
         
         let data = "[\"A\", \"B\", \"C\"]".data(using: .utf8)!
-        
+
         var dict: JsonDictionary?
         do {
-            dict = try PBMFunctions.dictionaryFromData(data)
+            dict = try Functions.dictionaryFromData(data)
             XCTFail("Test method should throw exception")
         }
         catch {
-            XCTAssert(error.localizedDescription.contains("Could not cast jsonObject to JsonDictionary:"))
+            // Well-formed JSON whose top-level element is an array. ObjC said
+            // "Could not cast jsonObject to JsonDictionary:"; the Swift port reworded it.
+            XCTAssertTrue(error.localizedDescription.contains("Invalid JSON data"),
+                          "unexpected error: \(error.localizedDescription)")
         }
         
         XCTAssertNil(dict)
@@ -309,7 +318,7 @@ class TestPBMFunctions: XCTestCase {
         
         let data = "{\"key\" : \"value\"}".data(using: .utf8)!
         
-        let dict = try! PBMFunctions.dictionaryFromData(data)
+        let dict = try! Functions.dictionaryFromData(data)
         
         XCTAssertEqual(dict["key"] as! String, "value")
     }
@@ -319,7 +328,7 @@ class TestPBMFunctions: XCTestCase {
         
         var jsonString: String?
         do {
-            jsonString = try PBMFunctions.toStringJsonDictionary(jsonDict)
+            jsonString = try Functions.toStringJsonDictionary(jsonDict)
             XCTFail("Test method should throw exception")
         }
         catch {
@@ -331,12 +340,12 @@ class TestPBMFunctions: XCTestCase {
     
     func testExtractVideoAdParamsFromTheURLString() {
         let urlCorrectString = "http://mobile-d.openx.net/v/1.0/av?auid=540851203"
-        let resultDict = PBMFunctions.extractVideoAdParams(fromTheURLString: urlCorrectString, forKeys: ["auid"])
+        let resultDict = Functions.extractVideoAdParams(fromURLString: urlCorrectString, forKeys: ["auid"])
         XCTAssertEqual(resultDict["domain"], "mobile-d.openx.net")
         XCTAssertEqual(resultDict["auid"], "540851203")
         
         let urlIncorrectString = "http./mobile-d.openx.net.auid.540851203"
-        let resultDict2 = PBMFunctions.extractVideoAdParams(fromTheURLString: urlIncorrectString, forKeys: ["auid"])
+        let resultDict2 = Functions.extractVideoAdParams(fromURLString: urlIncorrectString, forKeys: ["auid"])
         XCTAssertNil(resultDict2["domain"])
         XCTAssertNil(resultDict2["auid"])
     }

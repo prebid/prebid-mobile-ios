@@ -18,7 +18,7 @@
 
 #import "PBMVideoViewDelegate.h"
 #import "PBMVideoViewPlaybackState.h"
-#import "PBMCircularProgressBarView.h"
+@class PBMCircularProgressBarView; // moved to Swift (PrebidMobile-Swift.h)
 
 @class PBMEventManager;
 @class PBMVideoModel;

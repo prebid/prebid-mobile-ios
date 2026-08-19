@@ -14,6 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import "PBMConstants.h"
 #import "PBMCreativeFactory.h"

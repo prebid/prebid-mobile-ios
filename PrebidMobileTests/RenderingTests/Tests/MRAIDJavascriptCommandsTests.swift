@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 // This test case was created during porting SDK to Objective-C.
 // The purpose of these tests is to be sure that methods' parameters are converted to the output strings properly.
@@ -127,7 +127,7 @@ class MRAIDJavascriptCommandsTests: XCTestCase {
         let features = PBMMRAIDJavascriptCommands.updateSupportedFeatures()
         let matches = regexMatch(features, pattern: "mraid.allSupports = (\\{.+\\});")
         let jsonString = matches.count == 2 ? matches[1] : ""
-        if let actualFeatures = try? PBMFunctions.dictionaryFromJSONString(jsonString) {
+        if let actualFeatures = try? Functions.dictionaryFromJSONString(jsonString) {
             XCTAssertEqual(NSDictionary(dictionary: expectedFeatures), NSDictionary(dictionary: actualFeatures))
         } else {
             XCTFail("Supported features string did not contain a JSON substring")

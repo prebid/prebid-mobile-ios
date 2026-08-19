@@ -23,12 +23,12 @@ class DeviceInfoParameterBuilderTest: XCTestCase {
     let initialDict = [String:String]()
     var userDefaults: UserDefaults!
     var deviceInfoParameterBuilder: DeviceInfoParameterBuilder!
-    var bidRequest: PBMORTBBidRequest!
+    var bidRequest: ORTBBidRequest!
 
     override func setUp() {
         self.userDefaults = UserDefaults()
         self.deviceInfoParameterBuilder = DeviceInfoParameterBuilder(deviceAccessManager: MockDeviceAccessManager(rootViewController: nil))
-        self.bidRequest = PBMORTBBidRequest()
+        self.bidRequest = ORTBBidRequest()
     }
 
     override func tearDown() {

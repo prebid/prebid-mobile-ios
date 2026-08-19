@@ -21,7 +21,6 @@
 #import "PBMVastResponse.h"
 #import "PBMAdRequestResponseVAST.h"
 #import "PBMVastCreativeCompanionAds.h"
-#import "PBMFunctions+Private.h"
 
 #import "SwiftImport.h"
 

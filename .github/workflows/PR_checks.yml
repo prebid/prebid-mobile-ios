@@ -42,6 +42,21 @@ jobs:
           path: generated/log/prebid_mobile_build.log
           retention-days: 1
 
+  build-spm-package:
+    name: Build SPM Package
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Build SPM Package
+        run: ./scripts/buildPrebidMobilePackage.sh
+
   unit-test-pr:
     name: Run Quick Unit Tests for Frameworks
     if: ${{!github.event.pull_request.draft && !(contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}

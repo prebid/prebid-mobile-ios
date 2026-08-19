@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class MockAdLoadFlowControllerDelegate: NSObject, AdLoadFlowControllerDelegate {
     enum ExpectedCall {

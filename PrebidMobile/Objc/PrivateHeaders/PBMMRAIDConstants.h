@@ -47,85 +47,9 @@ FOUNDATION_EXPORT PBMMRAIDFeature const PBMMRAIDFeatureInlineVideo;
 FOUNDATION_EXPORT PBMMRAIDFeature const PBMMRAIDFeatureLocation;
 FOUNDATION_EXPORT PBMMRAIDFeature const PBMMRAIDFeatureVPAID;
 
-//MARK: MRAID Parse Keys
-@interface PBMMRAIDParseKeys : NSObject
-
-@property (class, readonly, nonnull) NSString *X                   NS_SWIFT_NAME(X);
-@property (class, readonly, nonnull) NSString *Y                   NS_SWIFT_NAME(Y);
-@property (class, readonly, nonnull) NSString *WIDTH               NS_SWIFT_NAME(WIDTH);
-@property (class, readonly, nonnull) NSString *HEIGHT              NS_SWIFT_NAME(HEIGHT);
-@property (class, readonly, nonnull) NSString *X_OFFSET            NS_SWIFT_NAME(X_OFFSET);
-@property (class, readonly, nonnull) NSString *Y_OFFSET            NS_SWIFT_NAME(Y_OFFSET);
-
-@property (class, readonly, nonnull) NSString *ALLOW_OFFSCREEN     NS_SWIFT_NAME(ALLOW_OFFSCREEN);
-
-@property (class, readonly, nonnull) NSString *FORCE_ORIENTATION   NS_SWIFT_NAME(FORCE_ORIENTATION);
-
-@end
-
-
-//MARK: MRAID Values
-@interface PBMMRAIDValues : NSObject
-
-@property (class, readonly, nonnull) NSString *LANDSCAPE           NS_SWIFT_NAME(LANDSCAPE);
-@property (class, readonly, nonnull) NSString *PORTRAIT            NS_SWIFT_NAME(PORTRAIT);
-
-@end
-
-
-// MRAID Close Button Positions
-@interface PBMMRAIDCloseButtonPosition : NSObject
-
-@property (class, readonly, nonnull) NSString *BOTTOM_CENTER       NS_SWIFT_NAME(BOTTOM_CENTER);
-@property (class, readonly, nonnull) NSString *BOTTOM_LEFT         NS_SWIFT_NAME(BOTTOM_LEFT);
-@property (class, readonly, nonnull) NSString *BOTTOM_RIGHT        NS_SWIFT_NAME(BOTTOM_RIGHT);
-@property (class, readonly, nonnull) NSString *CENTER              NS_SWIFT_NAME(CENTER);
-@property (class, readonly, nonnull) NSString *TOP_CENTER          NS_SWIFT_NAME(TOP_CENTER);
-@property (class, readonly, nonnull) NSString *TOP_LEFT            NS_SWIFT_NAME(TOP_LEFT);
-@property (class, readonly, nonnull) NSString *TOP_RIGHT           NS_SWIFT_NAME(TOP_RIGHT);
-
-@end
-
-
-// MRAID Close Button Size
-@interface PBMMRAIDCloseButtonSize : NSObject
-
-@property (class, readonly) float WIDTH                             NS_SWIFT_NAME(WIDTH);
-@property (class, readonly) float HEIGHT                            NS_SWIFT_NAME(HEIGHT);
-
-@end
-
-NS_SWIFT_NAME(MRAIDExpandProperties)
-@interface PBMMRAIDExpandProperties : NSObject
-
-@property (nonatomic, assign) NSInteger width;
-@property (nonatomic, assign) NSInteger height;
-
-- (nonnull instancetype)initWithWidth:(NSInteger)width height:(NSInteger)height;
-
-@end
-
-NS_SWIFT_NAME(MRAIDResizeProperties)
-@interface PBMMRAIDResizeProperties : NSObject
-
-@property (nonatomic, assign) NSInteger width;
-@property (nonatomic, assign) NSInteger height;
-@property (nonatomic, assign) NSInteger offsetX;
-@property (nonatomic, assign) NSInteger offsetY;
-@property (nonatomic, assign) BOOL allowOffscreen;
-
-- (nonnull instancetype)initWithWidth:(NSInteger)width
-                               height:(NSInteger)height
-                              offsetX:(NSInteger)offsetX
-                              offsetY:(NSInteger)offsetY
-                       allowOffscreen:(BOOL)allowOffscreen;
-
-@end
-
-//MARK: PBMMRAIDConstants
-@interface PBMMRAIDConstants : NSObject
-
-@property (class, readonly, nonnull) NSString *mraidURLScheme;
-@property (class, readonly, nonnull) NSArray <NSString *> *allCases;
-
-@end
+// Class interfaces moved to MRAIDConstants.swift (available via PrebidMobile-Swift.h).
+// Import SwiftImport.h to use PBMMRAIDParseKeys, PBMMRAIDValues,
+// PBMMRAIDCloseButtonPosition, PBMMRAIDCloseButtonSize,
+// PBMMRAIDExpandProperties (NS_SWIFT_NAME MRAIDExpandProperties),
+// PBMMRAIDResizeProperties (NS_SWIFT_NAME MRAIDResizeProperties),
+// and PBMMRAIDConstants.

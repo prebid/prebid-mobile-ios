@@ -15,7 +15,7 @@
 
 import Foundation
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 public class RawWinningBidFabricator {
     static func makeRawWinningBid(price: Double?, bidder: String?, cacheID: String?) -> ORTBBid<ORTBBidExt> {

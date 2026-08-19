@@ -14,7 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBMDownloadDataHelper.h"
+
+// Defined here since PBMDownloadDataHelper moved to Swift (PBMDownloadDataCompletionClosure is its Swift public typealias)
+typedef void (^PBMDownloadDataCompletionClosure)(NSData* _Nullable, NSError* _Nullable);
 
 @protocol PrebidServerConnectionProtocol;
 @protocol PBMTransaction;

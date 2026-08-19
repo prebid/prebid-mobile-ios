@@ -40,18 +40,28 @@ echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
 cd ..
 
-export PATH="/Users/distiller/.gem/ruby/2.7.0/bin:$PATH"
-gem install cocoapods
+if ! command -v pod >/dev/null 2>&1; then
+    echo "CocoaPods is required but 'pod' was not found on PATH." >&2
+    echo "GitHub Actions 'macos-15' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
+    exit 1
+fi
+
 pod install --repo-update
 
 echo -e "\n\n${GREEN}RUN PREBID MOBILE TESTS${NC}\n\n"
 
 echo -e "\n${GREEN}Creating simulator${NC} \n"
+# Remove any leftover simulator from a previous interrupted run so `create` doesn't fail.
+xcrun simctl delete iPhone-16-Pro-PrebidMobile 2>/dev/null || true
 xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
 
 if [ "$run_only_PR_tests" != "YES" ]; then
     echo -e "\n${GREEN}Clean build\n"
-    xcodebuild clean build
+    xcodebuild clean build \
+        -workspace PrebidMobile.xcworkspace \
+        -scheme PrebidMobileTests \
+        -sdk iphonesimulator \
+        -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest'
 fi
 
 if [ "$run_only_with_latest_ios" != "YES" ]
