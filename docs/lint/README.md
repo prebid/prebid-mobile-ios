@@ -1,15 +1,21 @@
 # SwiftLint
 
-Style and idiom linting for the Swift sources, scoped to the lines a branch **adds**.
+Style and idiom linting for the Swift sources, scoped to the lines a branch **adds**. A
+violation on one of those lines fails the run, locally and on the PR.
 
 ```bash
-./scripts/lint/run-swiftlint.sh              # what this branch added (advisory)
-./scripts/lint/run-swiftlint.sh --blocking   # same, exit 1 on findings
+./scripts/lint/run-swiftlint.sh              # what this branch added — exit 1 on findings
+./scripts/lint/run-swiftlint.sh --advisory   # same, report only
 ./scripts/lint/run-swiftlint.sh --all        # whole tree — exploration only
 ```
 
-Requires `swiftlint` (`brew install swiftlint`); CI pins **0.65.0**. Without it the script
-reports SKIPPED and exits 2 — advisory, never a pass, same convention the guards use.
+Blocking is the default so a local run gives the same verdict as CI. A check that is green
+on your machine and red on the PR teaches people to stop reading it.
+
+Requires `swiftlint` (`brew install swiftlint`); CI pins **0.65.0**, and the script warns
+when your local version differs, because a different version finds different things.
+Without swiftlint at all the script exits 2 rather than 0 — it never reports a skip as a
+pass, same convention the guards use.
 
 ## This is not a guard
 
@@ -21,12 +27,12 @@ the split is deliberate:
 | Enforces | architecture: API surface, adapter isolation, migration direction, test presence | per-file style and idiom |
 | Scope | cross-file, ObjC + Swift, git history, Mach-O bytes | one Swift file at a time |
 | Debt model | ratcheted — allowlists only shrink, a stale entry fails the run | none; legacy is simply out of scope |
-| Status | blocking | advisory |
+| Debt it can demand you fix | anything the rule matches | only lines you added |
 
-SwiftLint could express roughly two of the fourteen guards. The rest are cross-file
+SwiftLint could express roughly two of the thirteen guards. The rest are cross-file
 (`ortb-test-presence`, `api-test-presence`, `string-dup-ratchet`), ObjC (`swift-migration-
 direction` — half the core is still `.h/.m`), git-diff-based, or not source at all
-(`skiplist-ratchet` reads an xctestplan, `binary-size-ratchet` reads Mach-O segments).
+(`skiplist-ratchet` reads an xctestplan, not Swift).
 More importantly, SwiftLint has no equivalent of the ratchet: its baselines suppress
 pre-existing violations but never fail when an entry goes stale, so debt stops being
 monotonically decreasing. **Guards are not being migrated to SwiftLint.**
@@ -60,17 +66,23 @@ merge-base with `master`. Touching a file with 388 legacy violations reports onl
 wrote. New code arrives clean; old code is cleaned when someone has a reason to be there.
 
 Autocorrect the mechanical ones with `swiftlint --fix --config .swiftlint.yml <file>` — but
-run it on files **you are already changing**, and check the resulting diff, or the drive-by
-formatting ban applies to you too.
+note it rewrites the **whole file**, not your lines. On a legacy file that turns one finding
+into a few hundred unrelated reformatted lines, which the drive-by formatting ban forbids
+and which will bury your actual change in review. Check the resulting diff before staging
+it; on an old file it is usually faster to fix your own lines by hand.
 
 ## CI
 
 [`.github/workflows/swiftlint.yml`](../../.github/workflows/swiftlint.yml) — ubuntu, pinned
-binary, runs on every PR, **advisory**: findings go to the job summary, and the job's
-`continue-on-error: true` keeps them from blocking. It sits at job level rather than on the
-lint step so a failed install or checkout cannot block a PR either — an advisory check that
-can go red on infrastructure is not advisory. Promoting it to blocking is the deletion of
-that one line, once the noise floor is known from real PRs.
+binary, runs on every PR, **blocking**. Findings are echoed into the job summary so a
+contributor reads what to fix without opening the log.
+
+Nothing is skipped silently: a missing swiftlint, an unusable diff, or a failed install
+exits non-zero rather than passing. A gate that quietly turns itself off is worse than no
+gate, because the green check still claims the code was checked.
+
+The one thing the gate never does is demand you fix code you did not write — that is what
+keeps a blocking style check tolerable on a tree with 13k pre-existing violations.
 
 ## Changing the rule set
 

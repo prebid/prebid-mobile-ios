@@ -13,14 +13,18 @@
 # the merge-base with master: new code arrives clean, legacy lines stay silent
 # until someone edits them on purpose.
 #
-# Usage:
-#   ./scripts/lint/run-swiftlint.sh              # added lines only, advisory (exit 0)
-#   ./scripts/lint/run-swiftlint.sh --blocking   # added lines only, exit 1 on findings
-#   ./scripts/lint/run-swiftlint.sh --all        # whole tree, advisory (exploration)
+# Findings on added lines FAIL. The default is blocking so a local run gives
+# the same verdict as CI — a check that is green locally and red on the PR
+# teaches people to ignore it.
 #
-# Exit codes: 0 = clean (or advisory), 1 = findings with --blocking,
-#             2 = SKIPPED (swiftlint not installed) — advisory, never a pass.
-#             Matches the guards' EXIT_SKIPPED convention.
+# Usage:
+#   ./scripts/lint/run-swiftlint.sh              # added lines only — exit 1 on findings
+#   ./scripts/lint/run-swiftlint.sh --advisory   # same, report only (exit 0)
+#   ./scripts/lint/run-swiftlint.sh --all        # whole tree, report only (exploration)
+#
+# Exit codes: 0 = clean (or report-only mode), 1 = findings on added lines,
+#             2 = could not run (swiftlint missing, no master ref to diff).
+#             Matches the guards' EXIT_SKIPPED convention — never a silent pass.
 
 set -u
 
@@ -34,14 +38,14 @@ EXIT_SKIPPED=2
 SWIFTLINT_PINNED="0.65.0"
 
 MODE="diff"
-BLOCKING=0
+BLOCKING=1
 case "${1:-}" in
-    --all)      MODE="all" ;;
-    --blocking) BLOCKING=1 ;;
+    --all)      MODE="all"; BLOCKING=0 ;;
+    --advisory) BLOCKING=0 ;;
     "")         ;;
     *)
         echo "Unknown option: $1"
-        sed -n '16,19p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
+        sed -n '20,23p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
         exit 2
         ;;
 esac
@@ -53,7 +57,8 @@ fi
 
 INSTALLED="$(swiftlint version 2>/dev/null)"
 if [ "$INSTALLED" != "$SWIFTLINT_PINNED" ]; then
-    echo "NOTE: swiftlint $INSTALLED installed, CI pins $SWIFTLINT_PINNED — findings may differ."
+    echo "NOTE: swiftlint $INSTALLED installed, CI pins $SWIFTLINT_PINNED — findings may differ,"
+    echo "      so a clean local run is not proof CI will be clean. Match the pin to be sure."
 fi
 
 # ── whole-tree mode ─────────────────────────────────────────────────────────
@@ -164,10 +169,11 @@ echo "$FINDINGS"
 COUNT="$(echo "$FINDINGS" | wc -l | tr -d ' ')"
 echo ""
 echo "$COUNT finding(s) on lines this branch added."
-echo "Fix them, or run: swiftlint --fix --config .swiftlint.yml <file>  (then re-check the diff)."
+echo "Fix them, or run: swiftlint --fix --config .swiftlint.yml <file>  (then re-check the diff —"
+echo "--fix rewrites the whole file, and reformatting lines you did not touch is its own problem)."
 
 if [ "$BLOCKING" -eq 1 ]; then
     exit 1
 fi
-echo "Advisory: not failing the run."
+echo "Report-only mode: not failing the run."
 exit 0
