@@ -1,0 +1,58 @@
+name: SwiftLint
+
+# Style/idiom lint, scoped to the lines a PR ADDS (scripts/lint/run-swiftlint.sh).
+#
+# Deliberately NOT part of guards.yml: the structural guards are blocking
+# architecture checks with ratcheted baselines; this is an advisory style pass
+# that owns no baseline. Separate workflow, separate signal.
+#
+# Advisory today — findings appear in the step log and the job summary, and the
+# job's `continue-on-error` is the only thing keeping them from blocking.
+# Promoting to blocking is a one-line deletion once the noise floor is known.
+
+on:
+  pull_request:
+
+concurrency:
+  group: swiftlint-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Keep in sync with SWIFTLINT_PINNED in scripts/lint/run-swiftlint.sh —
+  # a version bump changes which rules exist and what they find.
+  SWIFTLINT_VERSION: "0.65.0"
+
+jobs:
+  swiftlint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history: the runner diffs against the merge-base with master.
+          fetch-depth: 0
+
+      - name: Install SwiftLint ${{ env.SWIFTLINT_VERSION }}
+        run: |
+          curl -sSLo /tmp/swiftlint.zip \
+            "https://github.com/realm/SwiftLint/releases/download/$SWIFTLINT_VERSION/swiftlint_linux_amd64.zip"
+          sudo unzip -qjo /tmp/swiftlint.zip -d /usr/local/bin
+          swiftlint version
+
+      - name: SwiftLint
+        run: |
+          # pipefail so tee cannot mask the runner's exit code; `|| status=$?`
+          # because Actions runs this with `set -e`, which would otherwise skip
+          # the closing fence and leave the job summary malformed.
+          set -o pipefail
+          status=0
+          echo '### SwiftLint — lines this PR adds' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          ./scripts/lint/run-swiftlint.sh --blocking 2>&1 \
+            | tee -a "$GITHUB_STEP_SUMMARY" || status=$?
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          exit $status

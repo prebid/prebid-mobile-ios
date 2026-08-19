@@ -12,8 +12,8 @@ Findings are reported in the conversation, in the §6 format. This skill writes 
 it never commits a review report, and never edits source, tests, or guard data — fixes
 are a follow-up the maintainer asks for explicitly.
 
-Out of scope for this checklist: SwiftLint (the config is dormant — see
-`.claude/rules/code-patterns.md`) and build/test commands (the quality-gate ladder in
+Out of scope for this checklist: SwiftLint (advisory and diff-scoped, and it reports for
+itself — see `docs/lint/README.md`) and build/test commands (the quality-gate ladder in
 `.claude/rules/quality-gates.md` owns rung sequencing).
 
 ## 1. Orient

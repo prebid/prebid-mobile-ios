@@ -110,5 +110,5 @@ fi
 echo -e "\n${GREEN}Removing simulator${NC} \n"
 xcrun simctl delete iPhone-16-Pro-PrebidMobile
 
-# echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
-# swiftlint --config .swiftlint.yml
+# Style lint is a separate step, not part of the test run:
+#   ./scripts/lint/run-swiftlint.sh   (see docs/lint/README.md)
