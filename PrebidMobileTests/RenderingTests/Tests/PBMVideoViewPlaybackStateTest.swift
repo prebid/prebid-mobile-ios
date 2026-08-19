@@ -133,6 +133,42 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
         }
     }
 
+    func testFullscreenVideoWithAutoCloseDisabledOffersReplay() {
+        runWithStartedPlayback(
+            isInterstitial: true,
+            autoCloseOnCompletion: false,
+            hasCompanionAd: false,
+            beforeAssertions: { $0.handleDidPlayToEndTime() },
+            delayBeforeAssertions: 0.6
+        ) { videoView in
+            XCTAssertNotNil(videoView.btnWatchAgain)
+        }
+    }
+
+    func testFullscreenVideoWithAutoCloseEnabledDoesNotOfferReplay() {
+        runWithStartedPlayback(
+            isInterstitial: true,
+            hasCompanionAd: false,
+            beforeAssertions: { $0.handleDidPlayToEndTime() },
+            delayBeforeAssertions: 0.6
+        ) { videoView in
+            XCTAssertNil(videoView.btnWatchAgain)
+        }
+    }
+
+    func testRewardedVideoIgnoresInterstitialAutoCloseSetting() {
+        runWithStartedPlayback(
+            isInterstitial: true,
+            isRewarded: true,
+            autoCloseOnCompletion: false,
+            hasCompanionAd: false,
+            beforeAssertions: { $0.handleDidPlayToEndTime() },
+            delayBeforeAssertions: 0.6
+        ) { videoView in
+            XCTAssertNil(videoView.btnWatchAgain)
+        }
+    }
+
     // MARK: - App lifecycle transitions
 
     func testResignActiveWhilePlayingSetsPausedByBackground() {
@@ -369,10 +405,20 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
     // Loads the video creative, puts it on screen, starts playback and runs
     // assertions one second later, when the player is actually playing.
     private func runWithStartedPlayback(isInterstitial: Bool = false,
+                                        isRewarded: Bool = false,
+                                        autoCloseOnCompletion: Bool = true,
+                                        hasCompanionAd: Bool = true,
+                                        beforeAssertions: ((PBMVideoView) -> Void)? = nil,
+                                        delayBeforeAssertions: TimeInterval = 0,
                                         file: StaticString = #file,
                                         line: UInt = #line,
                                         assertions: @escaping (PBMVideoView) -> Void) {
-        setupVideoCreative(isInterstitial: isInterstitial)
+        setupVideoCreative(
+            isInterstitial: isInterstitial,
+            isRewarded: isRewarded,
+            autoCloseOnCompletion: autoCloseOnCompletion,
+            hasCompanionAd: hasCompanionAd
+        )
         self.videoCreative.creativeModel.displayDurationInSeconds = 6
 
         self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
@@ -396,8 +442,11 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
         let expectationAssertionsCompleted = expectation(description: "expectationAssertionsCompleted")
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-            assertions(videoView)
-            expectationAssertionsCompleted.fulfill()
+            beforeAssertions?(videoView)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayBeforeAssertions) {
+                assertions(videoView)
+                expectationAssertionsCompleted.fulfill()
+            }
         })
 
         waitForExpectations(timeout: 5, handler: nil)
@@ -443,7 +492,10 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
 
     private func setupVideoCreative(videoFileURL: String = "http://get_video/small.mp4",
                                     localVideoFileName: String = "small.mp4",
-                                    isInterstitial: Bool = false) {
+                                    isInterstitial: Bool = false,
+                                    isRewarded: Bool = false,
+                                    autoCloseOnCompletion: Bool = true,
+                                    hasCompanionAd: Bool = true) {
         let rule = MockServerRule(urlNeedle: videoFileURL,
                                   mimeType: MockServerMimeType.MP4.rawValue,
                                   connectionID: connection.internalID,
@@ -452,8 +504,11 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
 
         let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = isInterstitial
+        adConfiguration.isRewarded = isRewarded
+        adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled = autoCloseOnCompletion
 
         let model = CreativeModel(adConfiguration: adConfiguration)
+        model.hasCompanionAd = hasCompanionAd
         model.videoFileURL = videoFileURL
 
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadCompleted")

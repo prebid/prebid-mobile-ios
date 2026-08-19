@@ -27,6 +27,14 @@ class VideoControlsConfigTests: XCTestCase {
         XCTAssertTrue(adConfiguration.isSoundButtonVisible == false)
     }
 
+    func testAutoCloseOnCompletion() {
+        let adConfiguration = VideoControlsConfiguration()
+        XCTAssertTrue(adConfiguration.isAutoCloseOnCompletionEnabled)
+
+        adConfiguration.isAutoCloseOnCompletionEnabled = false
+        XCTAssertFalse(adConfiguration.isAutoCloseOnCompletionEnabled)
+    }
+
     func testCloseButtonArea() {
         let adConfiguration = VideoControlsConfiguration()
         XCTAssertEqual(adConfiguration.closeButtonArea, PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue)
@@ -62,6 +70,7 @@ class VideoControlsConfigTests: XCTestCase {
         ortbAdConfig.skipButtonPosition = "topleft"
         ortbAdConfig.closeButtonArea = 0.3
         ortbAdConfig.closeButtonPosition = "topleft"
+        ortbAdConfig.isAutoCloseOnCompletionEnabled = false
         
         adConfiguration.initialize(with: ortbAdConfig)
         
@@ -71,6 +80,7 @@ class VideoControlsConfigTests: XCTestCase {
         XCTAssertEqual(adConfiguration.skipButtonPosition, .topLeft)
         XCTAssertEqual(adConfiguration.closeButtonArea, 0.3)
         XCTAssertEqual(adConfiguration.closeButtonPosition, .topLeft)
+        XCTAssertFalse(adConfiguration.isAutoCloseOnCompletionEnabled)
         
     }
 }

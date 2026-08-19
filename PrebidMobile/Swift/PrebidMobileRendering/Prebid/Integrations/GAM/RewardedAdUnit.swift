@@ -82,7 +82,7 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
-    
+
     // MARK: Internal Properties
     
     // Note: exposed for tests

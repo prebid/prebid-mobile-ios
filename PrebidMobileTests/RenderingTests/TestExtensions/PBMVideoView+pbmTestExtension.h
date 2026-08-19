@@ -20,6 +20,7 @@
 @property (nonatomic, weak, nullable) PBMVideoCreative *creative;
 @property (nonatomic, strong) PBMAdViewButtonDecorator * _Nonnull skipButtonDecorator;
 @property (nonatomic, strong, nonnull) NSNumber * progressBarDuration;
+@property (nonatomic, strong, nullable) UIButton *btnWatchAgain;
 
 - (void)updateControls;
 - (CGFloat)requiredVideoDuration;
