@@ -24,10 +24,10 @@ import Foundation
     @objc public var signature: String?
 
     /// An id unique to each ad response. Refer to Apple’s documentation for the proper UUID format requirements
-    @objc public var nonce: UUID?
+    @objc public var nonce: String?
 
     /// Unix time in millis string used at the time of signature
-    @objc public var timestamp: NSNumber?
+    @objc public var timestamp: String?
 
     private enum KeySet: String {
         case fidelity
@@ -43,9 +43,9 @@ import Foundation
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        fidelity    = json[.fidelity]
+        fidelity    = json.numberOrString(.fidelity)
         nonce       = json[.nonce]
-        timestamp   = json.numberOrString(.timestamp)
+        timestamp   = json.stringOrNumber(.timestamp)
         signature   = json[.signature]
     }
     

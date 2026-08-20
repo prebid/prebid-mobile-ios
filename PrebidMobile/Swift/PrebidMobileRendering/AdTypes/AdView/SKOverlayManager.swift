@@ -69,7 +69,7 @@ public class SKOverlayManager: NSObject {
             return nil
         }
         
-        guard let itunesitem = skadnInfo.itunesitem?.stringValue else {
+        guard let itunesitem = skadnInfo.itunesitem else {
             Log.warn("SDK failed to build SKOverlay configuration. `itunesitem` is nil.")
             return nil
         }

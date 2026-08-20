@@ -27,17 +27,17 @@ open class ORTBBidExtSkadn: NSObject, PBMJsonCodable {
     @objc public var network: String?
 
     /// Campaign ID compatible with Apple’s spec
-    @objc public var campaign: NSNumber?
+    @objc public var campaign: String?
 
     /// A four-digit integer that ad networks define to represent the ad campaign. Used in SKAdNetwork 4.0+,
     /// replaces Campaign ID `campaign`. DSPs must generate signatures in 4.0+ using the Source Identifier.
     @objc public var sourceidentifier: String?
 
     /// ID of advertiser’s app in Apple’s app store
-    @objc public var itunesitem: NSNumber?
+    @objc public var itunesitem: String?
 
     /// ID of publisher’s app in Apple’s app store
-    @objc public var sourceapp: NSNumber?
+    @objc public var sourceapp: String?
 
     /// Supports multiple fidelity types introduced in SKAdNetwork v2.2
     @objc public var fidelities: [ORTBSkadnFidelity]?
@@ -68,10 +68,10 @@ open class ORTBBidExtSkadn: NSObject, PBMJsonCodable {
 
         version             = json[.version]
         network             = json[.network]
-        campaign            = json[.campaign]
-        itunesitem          = json.numberOrString(.itunesitem)
-        sourceapp           = json.numberOrString(.sourceapp)
-        sourceidentifier    = json[.sourceidentifier]
+        campaign            = json.stringOrNumber(.campaign)
+        itunesitem          = json.stringOrNumber(.itunesitem)
+        sourceapp           = json.stringOrNumber(.sourceapp)
+        sourceidentifier    = json.stringOrNumber(.sourceidentifier)
         fidelities          = json[.fidelities]
         skoverlay           = json[.skoverlay]
     }

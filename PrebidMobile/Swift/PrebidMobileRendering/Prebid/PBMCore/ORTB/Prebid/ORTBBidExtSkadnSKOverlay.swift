@@ -45,10 +45,10 @@ import Foundation
     @objc public required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
-        delay           = json[.delay]
-        endcarddelay    = json[.endcarddelay]
-        dismissible     = json[.dismissible]
-        pos             = json[.pos]
+        delay           = json.numberOrString(.delay)
+        endcarddelay    = json.numberOrString(.endcarddelay)
+        dismissible     = json.numberOrString(.dismissible)
+        pos             = json.numberOrString(.pos)
     }
     
     @objc public var jsonDictionary: [String : Any] {

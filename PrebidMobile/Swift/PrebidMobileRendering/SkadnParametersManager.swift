@@ -30,28 +30,34 @@ public class SkadnParametersManager: NSObject {
         return nil
     }
     
+    private static func number(from string: String) -> NSNumber? {
+        Int64(string).map { NSNumber(value: $0) }
+    }
+    
     @available(iOS 14.5, *)
     public static func getSkadnImpression(for skadnInfo: ORTBBidExtSkadn) -> SKAdImpression? {
-        guard let fidelity = SkadnParametersManager.getFidelity(from: skadnInfo, fidelityType: 0) else { return nil }
+        guard let fidelity = getFidelity(from: skadnInfo, fidelityType: 0) else { return nil }
+        
+        let formatter = NumberFormatter()
         
         let imp = SKAdImpression()
-        if let itunesitem = skadnInfo.itunesitem,
+        if let itunesitem = skadnInfo.itunesitem, let numberItunesitem = formatter.number(from: itunesitem),
            let network = skadnInfo.network,
-           let sourceapp = skadnInfo.sourceapp,
+           let sourceapp = skadnInfo.sourceapp, let numberSourceapp = formatter.number(from: sourceapp),
            let nonce = fidelity.nonce,
-           let timestamp = fidelity.timestamp,
+           let timestamp = fidelity.timestamp, let numberTimestamp = formatter.number(from: timestamp),
            let signature = fidelity.signature,
            let version = skadnInfo.version {
-            imp.sourceAppStoreItemIdentifier = sourceapp
-            imp.advertisedAppStoreItemIdentifier = itunesitem
+            imp.sourceAppStoreItemIdentifier = numberSourceapp
+            imp.advertisedAppStoreItemIdentifier = numberItunesitem
             imp.adNetworkIdentifier = network
-            imp.adImpressionIdentifier = nonce.uuidString
-            imp.timestamp = timestamp
+            imp.adImpressionIdentifier = nonce
+            imp.timestamp = numberTimestamp
             imp.signature = signature
             imp.version = version
             
-            if let campaign = skadnInfo.campaign {
-                imp.adCampaignIdentifier = campaign
+            if let campaign = skadnInfo.campaign, let numberCampaign = formatter.number(from: campaign) {
+                imp.adCampaignIdentifier = numberCampaign
             }
             
             // For SKAdNetwork 4.0 add sourceidentifier that replaces campaign
@@ -69,40 +75,42 @@ public class SkadnParametersManager: NSObject {
     
     public static func getSkadnProductParameters(for skadnInfo: ORTBBidExtSkadn) -> Dictionary<String, Any>? {
         // >= SKAdNetwork 2.2
-        if #available(iOS 14.5, *) {
-            guard let fidelity = SkadnParametersManager.getFidelity(from: skadnInfo, fidelityType: 1) else { return nil }
+        guard #available(iOS 14.5, *) else { return nil }
+        
+        // >= SKAdNetwork 2.2
+        guard let fidelity = getFidelity(from: skadnInfo, fidelityType: 1) else { return nil }
+        
+        if let itunesitem = skadnInfo.itunesitem,
+           let network = skadnInfo.network,
+           let sourceapp = skadnInfo.sourceapp,
+           let version = skadnInfo.version,
+           let timestamp = fidelity.timestamp,
+           let nonce = fidelity.nonce,
+           let signature = fidelity.signature {
             
             var productParams = Dictionary<String, Any>()
             
-            if let itunesitem = skadnInfo.itunesitem,
-               let network = skadnInfo.network,
-               let sourceapp = skadnInfo.sourceapp,
-               let version = skadnInfo.version,
-               let timestamp = fidelity.timestamp,
-               let nonce = fidelity.nonce,
-               let signature = fidelity.signature {
-                
-                if let campaign = skadnInfo.campaign {
-                    productParams[SKStoreProductParameterAdNetworkCampaignIdentifier] = campaign
-                }
-                
-                if #available(iOS 16.1, *) {
-                    if let sourceIdentifier = skadnInfo.sourceidentifier, let sourceidentifierInteger = Int(sourceIdentifier) {
-                        productParams[SKStoreProductParameterAdNetworkSourceIdentifier] = NSNumber(value: sourceidentifierInteger)
-                    }
-                }
-                
-                productParams[SKStoreProductParameterITunesItemIdentifier] = itunesitem
-                productParams[SKStoreProductParameterAdNetworkIdentifier] = network
-                productParams[SKStoreProductParameterAdNetworkVersion] = version
-                productParams[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier] = sourceapp
-                productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
-                productParams[SKStoreProductParameterAdNetworkNonce] = nonce
-                productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
-                
-                return productParams
+            if let campaign = skadnInfo.campaign {
+                productParams[SKStoreProductParameterAdNetworkCampaignIdentifier] = campaign
             }
+            
+            if #available(iOS 16.1, *) {
+                if let sourceIdentifier = skadnInfo.sourceidentifier, let sourceidentifierInteger = Int(sourceIdentifier) {
+                    productParams[SKStoreProductParameterAdNetworkSourceIdentifier] = NSNumber(value: sourceidentifierInteger)
+                }
+            }
+            
+            productParams[SKStoreProductParameterITunesItemIdentifier] = itunesitem
+            productParams[SKStoreProductParameterAdNetworkIdentifier] = network
+            productParams[SKStoreProductParameterAdNetworkVersion] = version
+            productParams[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier] = sourceapp
+            productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
+            productParams[SKStoreProductParameterAdNetworkNonce] = nonce
+            productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
+            
+            return productParams
         }
+        
         return nil
     }
 }
