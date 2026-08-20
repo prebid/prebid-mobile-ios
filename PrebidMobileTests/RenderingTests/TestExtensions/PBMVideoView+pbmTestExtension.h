@@ -22,6 +22,7 @@
 @property (nonatomic, strong, nonnull) NSNumber * progressBarDuration;
 
 - (void)updateControls;
+- (void)updateProgressBar;
 - (CGFloat)requiredVideoDuration;
 - (void)handleSkipDelay:(NSTimeInterval)skipDelay videoDuration:(NSTimeInterval)videoDuration;
 - (NSNumber * _Nonnull)calculateProgressBarDuration;

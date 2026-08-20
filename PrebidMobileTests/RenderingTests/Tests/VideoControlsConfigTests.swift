@@ -27,6 +27,14 @@ class VideoControlsConfigTests: XCTestCase {
         XCTAssertTrue(adConfiguration.isSoundButtonVisible == false)
     }
 
+    func testVideoProgressIndicatorVisibility() {
+        let adConfiguration = VideoControlsConfiguration()
+        XCTAssertTrue(adConfiguration.isVideoProgressIndicatorVisible)
+
+        adConfiguration.isVideoProgressIndicatorVisible = false
+        XCTAssertFalse(adConfiguration.isVideoProgressIndicatorVisible)
+    }
+
     func testCloseButtonArea() {
         let adConfiguration = VideoControlsConfiguration()
         XCTAssertEqual(adConfiguration.closeButtonArea, PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue)
