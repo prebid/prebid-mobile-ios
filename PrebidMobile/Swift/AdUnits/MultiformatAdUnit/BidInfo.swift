@@ -40,7 +40,27 @@ public class BidInfo: NSObject {
     
     /// Events related to the bid
     public private(set) var events: [String: String]
-    
+
+    // MARK: - Winning-bid economics
+    // Exact economics of the winning bid, surfaced on the original (GAM) API. Prebid normally
+    // exposes only the bucketed `hb_pb` keyword; these read the winning bid's real values off the
+    // (module-internal) ORTB response inside `create(...)`.
+
+    /// Winning bid net price (exact CPM), if any.
+    public private(set) var cpm: Double?
+
+    /// Bid currency (ISO-4217), from the ORTB bid response.
+    public private(set) var currency: String?
+
+    /// Winning creative id (`crid`).
+    public private(set) var creativeId: String?
+
+    /// Auction id — the ORTB response id (falls back to the bidder response id `bidid`).
+    public private(set) var auctionId: String?
+
+    /// Winning ad id (`adid`).
+    public private(set) var adId: String?
+
     /// Initializes a new `BidInfo` instance with the specified parameters.
     /// - Parameters:
     ///   - resultCode: The result code of the bid request.
@@ -86,7 +106,17 @@ public class BidInfo: NSObject {
         if let impURL = bidResponse.winningBid?.events?.win {
             bidInfo.addEvent(key: BidInfo.EVENT_IMP, value: impURL)
         }
-        
+
+        // Surface exact economics of the winning bid (original-API analytics). These read the
+        // module-internal ORTB objects, which are only reachable here inside PrebidMobile.
+        if let winningBid = bidResponse.winningBid {
+            bidInfo.cpm = Double(winningBid.price)
+            bidInfo.creativeId = winningBid.bid.crid
+            bidInfo.adId = winningBid.bid.adid
+        }
+        bidInfo.currency = bidResponse.rawResponse?.cur
+        bidInfo.auctionId = bidResponse.rawResponse?.requestID ?? bidResponse.rawResponse?.bidid
+
         return bidInfo
     }
     
