@@ -17,7 +17,7 @@ import Foundation
 import UIKit
 
 import GoogleMobileAds
-import PrebidMobileGAMEventHandlers
+import VeonPrebidMobileGAMEventHandlers
 
 import PrebidMobile
 

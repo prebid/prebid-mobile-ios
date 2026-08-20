@@ -17,7 +17,7 @@
 
 @import AppLovinSDK;
 @import PrebidMobile;
-@import PrebidMobileMAXAdapters;
+@import VeonPrebidMobileMAXAdapters;
 
 NS_ASSUME_NONNULL_BEGIN
 

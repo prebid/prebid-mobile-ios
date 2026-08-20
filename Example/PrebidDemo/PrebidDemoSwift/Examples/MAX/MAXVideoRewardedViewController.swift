@@ -15,7 +15,7 @@
 
 import UIKit
 import PrebidMobile
-import PrebidMobileMAXAdapters
+import VeonPrebidMobileMAXAdapters
 import AppLovinSDK
 
 fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"

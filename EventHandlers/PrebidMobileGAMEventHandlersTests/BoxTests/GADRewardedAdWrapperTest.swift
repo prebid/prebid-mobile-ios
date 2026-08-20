@@ -15,7 +15,7 @@
 
 import XCTest
 import GoogleMobileAds
-@testable import PrebidMobileGAMEventHandlers
+@testable import VeonPrebidMobileGAMEventHandlers
 
 class GADRewardedAdWrapperTest: XCTestCase {
     

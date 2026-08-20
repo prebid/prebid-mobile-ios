@@ -16,7 +16,7 @@
 import XCTest
 import GoogleMobileAds
 import PrebidMobile
-@testable import PrebidMobileAdMobAdapters
+@testable import VeonPrebidMobileAdMobAdapters
 
 final class AdMobGMATests: XCTestCase {
     

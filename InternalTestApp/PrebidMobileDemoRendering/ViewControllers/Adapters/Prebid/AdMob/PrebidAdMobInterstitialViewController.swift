@@ -16,7 +16,7 @@
 import UIKit
 import GoogleMobileAds
 import PrebidMobile
-import PrebidMobileAdMobAdapters
+import VeonPrebidMobileAdMobAdapters
 
 class PrebidAdMobInterstitialViewController:
         NSObject,

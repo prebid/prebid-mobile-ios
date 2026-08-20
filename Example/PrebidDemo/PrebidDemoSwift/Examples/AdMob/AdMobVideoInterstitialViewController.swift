@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 import GoogleMobileAds
-import PrebidMobileAdMobAdapters
+import VeonPrebidMobileAdMobAdapters
 
 fileprivate let storedImpVideoInterstitial = "prebid-demo-video-interstitial-320-480"
 fileprivate let adMobAdUnitDisplayInterstitial = "ca-app-pub-5922967660082475/3383099861"

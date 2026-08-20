@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 import AppLovinSDK
-import PrebidMobileMAXAdapters
+import VeonPrebidMobileMAXAdapters
 
 class PrebidMAXNativeController: NSObject, AdaptedController {
     

@@ -19,9 +19,9 @@ import GoogleMobileAds
 import AppLovinSDK
 
 import PrebidMobile
-import PrebidMobileAdMobAdapters
-import PrebidMobileGAMEventHandlers
-import PrebidMobileMAXAdapters
+import VeonPrebidMobileAdMobAdapters
+import VeonPrebidMobileGAMEventHandlers
+import VeonPrebidMobileMAXAdapters
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

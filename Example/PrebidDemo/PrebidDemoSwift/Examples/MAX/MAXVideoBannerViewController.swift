@@ -15,7 +15,7 @@
 
 import UIKit
 import PrebidMobile
-import PrebidMobileMAXAdapters
+import VeonPrebidMobileMAXAdapters
 import AppLovinSDK
 
 fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream"

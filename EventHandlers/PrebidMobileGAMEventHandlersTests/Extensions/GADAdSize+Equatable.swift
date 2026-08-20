@@ -15,7 +15,7 @@
 
 import Foundation
 import GoogleMobileAds
-@testable import PrebidMobileGAMEventHandlers
+@testable import VeonPrebidMobileGAMEventHandlers
 
 extension GoogleMobileAds.AdSize: @retroactive Equatable {
     

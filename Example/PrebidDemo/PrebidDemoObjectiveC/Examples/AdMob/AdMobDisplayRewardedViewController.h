@@ -17,7 +17,7 @@
 
 @import GoogleMobileAds;
 @import PrebidMobile;
-@import PrebidMobileAdMobAdapters;
+@import VeonPrebidMobileAdMobAdapters;
 
 NS_ASSUME_NONNULL_BEGIN
 

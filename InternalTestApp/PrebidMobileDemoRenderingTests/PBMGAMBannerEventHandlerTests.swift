@@ -15,7 +15,7 @@
 
 import XCTest
 import GoogleMobileAds
-import PrebidMobileGAMEventHandlers
+import VeonPrebidMobileGAMEventHandlers
 
 class PBMGAMBannerEventHandlerTests: XCTestCase {
     

@@ -16,7 +16,7 @@
 import Foundation
 import GoogleMobileAds
 import PrebidMobile
-import PrebidMobileGAMEventHandlers
+import VeonPrebidMobileGAMEventHandlers
 
 class PrebidGAMBannerController:
         NSObject,

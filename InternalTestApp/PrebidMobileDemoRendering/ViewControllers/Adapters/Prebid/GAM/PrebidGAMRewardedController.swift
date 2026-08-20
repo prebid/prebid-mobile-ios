@@ -16,7 +16,7 @@
 import UIKit
 import GoogleMobileAds
 import PrebidMobile
-import PrebidMobileGAMEventHandlers
+import VeonPrebidMobileGAMEventHandlers
 
 class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurableController, RewardedAdUnitDelegate {
     

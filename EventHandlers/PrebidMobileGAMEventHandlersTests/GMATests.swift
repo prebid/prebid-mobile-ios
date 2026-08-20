@@ -16,7 +16,7 @@
 import XCTest
 import GoogleMobileAds
 import PrebidMobile
-@testable import PrebidMobileGAMEventHandlers
+@testable import VeonPrebidMobileGAMEventHandlers
 
 final class GMATests: XCTestCase {
     

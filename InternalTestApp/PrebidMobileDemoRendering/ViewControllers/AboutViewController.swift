@@ -21,8 +21,8 @@ import Eureka
 import GoogleMobileAds
 
 import PrebidMobile
-import PrebidMobileGAMEventHandlers
-import PrebidMobileAdMobAdapters
+import VeonPrebidMobileGAMEventHandlers
+import VeonPrebidMobileAdMobAdapters
 
 class AboutViewController : FormViewController {
     
