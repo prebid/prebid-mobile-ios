@@ -38,4 +38,26 @@ class PBMAdUnitConfigTest: XCTestCase {
         adUnitConfig.setPbAdSlot("test-ad-slot")
         XCTAssertEqual("test-ad-slot", adUnitConfig.getPbAdSlot())
     }
+
+    // MARK: - bidSelector
+
+    private final class StubBidSelector: PrebidBidSelecting {
+        func selectBid(from bids: [Bid]) -> Bid? { bids.first }
+    }
+
+    func testBidSelectorDefaultsToNil() {
+        XCTAssertNil(adUnitConfig.bidSelector)
+    }
+
+    func testBidSelectorSurvivesCopy() {
+        let selector = StubBidSelector()
+        adUnitConfig.bidSelector = selector
+
+        let copy = adUnitConfig.copy() as! AdUnitConfig
+
+        // Must be the *same* selector instance (strong retention through copy),
+        // not just a non-nil value -- a `weak` property would pass a naive nil-check
+        // here while still losing the selector once the caller's own reference goes away.
+        XCTAssertTrue(copy.bidSelector === selector)
+    }
 }

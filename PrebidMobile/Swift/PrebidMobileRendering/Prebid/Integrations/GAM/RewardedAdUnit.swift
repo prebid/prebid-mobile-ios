@@ -56,7 +56,13 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         get { adUnitConfig.adConfiguration.supportSKOverlay }
         set { adUnitConfig.adConfiguration.supportSKOverlay = newValue }
     }
-    
+
+    /// A publisher-supplied strategy for choosing the winning bid. See `PrebidBidSelecting`.
+    public var bidSelector: PrebidBidSelecting? {
+        get { adUnitConfig.bidSelector }
+        set { adUnitConfig.bidSelector = newValue }
+    }
+
     // MARK: - Video controls configuration
     
     /// The area of the close button in the video controls as a percentage.
