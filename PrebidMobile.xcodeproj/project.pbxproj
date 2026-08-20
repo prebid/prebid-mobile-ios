@@ -708,6 +708,7 @@
 		925D5DB52737C57C00A8A2B5 /* MockPrimaryAdRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DB42737C57C00A8A2B5 /* MockPrimaryAdRequester.swift */; };
 		925D5DB72737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DB62737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift */; };
 		925D5E092737DF5F00A8A2B5 /* BannerViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E082737DF5F00A8A2B5 /* BannerViewTest.swift */; };
+		C0D3A0020000000000000001 /* BannerViewTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D3A0010000000000000001 /* BannerViewTestHelpers.swift */; };
 		925D5E0E2737DFCC00A8A2B5 /* RawWinningBidFabricator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E0D2737DFCC00A8A2B5 /* RawWinningBidFabricator.swift */; };
 		925D5E102737DFDE00A8A2B5 /* WinningBidResponseFabricator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E0F2737DFDE00A8A2B5 /* WinningBidResponseFabricator.swift */; };
 		925D5E122737E04B00A8A2B5 /* PBMBidRequesterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E112737E04B00A8A2B5 /* PBMBidRequesterTest.swift */; };
@@ -783,10 +784,12 @@
 		92C85D6E27A983150080BAC5 /* NativeAdMarkup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6D27A983150080BAC5 /* NativeAdMarkup.swift */; };
 		92C85D7027A987260080BAC5 /* NativeEventTrackerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6F27A987260080BAC5 /* NativeEventTrackerResponse.swift */; };
 		92C85D9627A9DC9D0080BAC5 /* NativeAdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */; };
+		C0D3A0060000000000000001 /* NativeAdTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D3A0050000000000000001 /* NativeAdTestHelpers.swift */; };
 		92D43D3E273A80060037DD20 /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AADC57CCCE64C374E101 /* mraid.js */; };
 		92D8BEB22747B464006BD78E /* MediationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D8BEB12747B464006BD78E /* MediationConstants.swift */; };
 		92EE5A0D27F9D292003D7691 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE5A0C27F9D292003D7691 /* Position.swift */; };
 		92F6720827F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F6720727F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift */; };
+		C0D3A0040000000000000001 /* BaseInterstitialAdUnitTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D3A0030000000000000001 /* BaseInterstitialAdUnitTestHelpers.swift */; };
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
@@ -1588,6 +1591,7 @@
 		925D5DB42737C57C00A8A2B5 /* MockPrimaryAdRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPrimaryAdRequester.swift; sourceTree = "<group>"; };
 		925D5DB62737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMBidResponseTransformer+TestExtension.swift"; sourceTree = "<group>"; };
 		925D5E082737DF5F00A8A2B5 /* BannerViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewTest.swift; sourceTree = "<group>"; };
+		C0D3A0010000000000000001 /* BannerViewTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewTestHelpers.swift; sourceTree = "<group>"; };
 		925D5E0D2737DFCC00A8A2B5 /* RawWinningBidFabricator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawWinningBidFabricator.swift; sourceTree = "<group>"; };
 		925D5E0F2737DFDE00A8A2B5 /* WinningBidResponseFabricator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningBidResponseFabricator.swift; sourceTree = "<group>"; };
 		925D5E112737E04B00A8A2B5 /* PBMBidRequesterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMBidRequesterTest.swift; sourceTree = "<group>"; };
@@ -1667,9 +1671,11 @@
 		92C85D6D27A983150080BAC5 /* NativeAdMarkup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdMarkup.swift; sourceTree = "<group>"; };
 		92C85D6F27A987260080BAC5 /* NativeEventTrackerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerResponse.swift; sourceTree = "<group>"; };
 		92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdTests.swift; sourceTree = "<group>"; };
+		C0D3A0050000000000000001 /* NativeAdTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdTestHelpers.swift; sourceTree = "<group>"; };
 		92D8BEB12747B464006BD78E /* MediationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationConstants.swift; sourceTree = "<group>"; };
 		92EE5A0C27F9D292003D7691 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		92F6720727F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInterstitialAdUnitTest.swift; sourceTree = "<group>"; };
+		C0D3A0030000000000000001 /* BaseInterstitialAdUnitTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInterstitialAdUnitTestHelpers.swift; sourceTree = "<group>"; };
 		9720387B2358771600F8025A /* NativeRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRequestTests.swift; sourceTree = "<group>"; };
 		9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetTests.swift; sourceTree = "<group>"; };
 		9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerTests.swift; sourceTree = "<group>"; };
@@ -3256,6 +3262,7 @@
 				925D5DA92737C4E800A8A2B5 /* AdLoadFlow */,
 				3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */,
 				925D5E082737DF5F00A8A2B5 /* BannerViewTest.swift */,
+				C0D3A0010000000000000001 /* BannerViewTestHelpers.swift */,
 				925D5E112737E04B00A8A2B5 /* PBMBidRequesterTest.swift */,
 				925D5E132737E74C00A8A2B5 /* PBMBidResponseTransformerTest.swift */,
 				925D5E152737E77200A8A2B5 /* DemandResponseInfoTest.swift */,
@@ -3264,6 +3271,7 @@
 				925D5E1D2737E8BF00A8A2B5 /* PBMBaseInterstitialAdUnit_DelegationTest.swift */,
 				925D5E2C2737ECEA00A8A2B5 /* PBMWinNotifierTest.swift */,
 				92F6720727F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift */,
+				C0D3A0030000000000000001 /* BaseInterstitialAdUnitTestHelpers.swift */,
 				53514CC52D01B5AF00A480C0 /* InterstitialRenderingAdUnitTest.swift */,
 				53514CC72D01B5F200A480C0 /* RewardedAdUnitTest.swift */,
 				533135C5282A869800AA1E4D /* BidTest.swift */,
@@ -3412,6 +3420,7 @@
 				9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */,
 				9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */,
 				92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */,
+				C0D3A0050000000000000001 /* NativeAdTestHelpers.swift */,
 				9285B46B27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift */,
 				929638B927AB1FE900D30F3D /* NativeAssetObjectsTests */,
 				929638C427ABB64300D30F3D /* NativeAdMarkupAssetTests.swift */,
@@ -3990,6 +3999,7 @@
 				925D5D912737C0A300A8A2B5 /* PBMUIViewTests.swift in Sources */,
 				9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */,
 				92C85D9627A9DC9D0080BAC5 /* NativeAdTests.swift in Sources */,
+				C0D3A0060000000000000001 /* NativeAdTestHelpers.swift in Sources */,
 				922AFCE42735573900732C53 /* ServerConnectionTest.swift in Sources */,
 				925D5D9F2737C33800A8A2B5 /* NetworkParameterBuilderTest.swift in Sources */,
 				53169F1B2D424289007355E8 /* ExternalUserIdTests.swift in Sources */,
@@ -4131,6 +4141,7 @@
 				925D5E642737F45600A8A2B5 /* PBMVastCreativeNonLinearAdsTest.swift in Sources */,
 				922AFD0E273715F600732C53 /* PBMAbstractCreativeTest.swift in Sources */,
 				925D5E092737DF5F00A8A2B5 /* BannerViewTest.swift in Sources */,
+				C0D3A0020000000000000001 /* BannerViewTestHelpers.swift in Sources */,
 				E5D88C022F4517FA00E801C3 /* ViewExposureCheckerSystemUITests.swift in Sources */,
 				47D9AE45E21A81900408A396 /* MockNSThread.swift in Sources */,
 				47D9AE6C09857CB297B6D8EA /* MockPBMAdLoadManagerVAST.swift in Sources */,
@@ -4165,6 +4176,7 @@
 				53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */,
 				53C9250729915466009E6F94 /* PrebidServerStatusRequesterTests.swift in Sources */,
 				92F6720827F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift in Sources */,
+				C0D3A0040000000000000001 /* BaseInterstitialAdUnitTestHelpers.swift in Sources */,
 				925D5D9D2737C2FA00A8A2B5 /* DeviceInfoParameterBuilderTest.swift in Sources */,
 				533135C6282A869800AA1E4D /* BidTest.swift in Sources */,
 				539897A12CE498A20075234B /* InterstitialObserverTests.swift in Sources */,

@@ -69,6 +69,7 @@ class BaseInterstitialAdUnit:
     private var currentAdBlock: ((UIViewController?) -> Void)?
     private var isReadyBlock: (() -> Bool)?
     private var adLoader: InterstitialAdLoader?
+    private var isExpired = false
     
     private weak var targetController: UIViewController?
     
@@ -119,6 +120,10 @@ class BaseInterstitialAdUnit:
     // MARK: - Public Methods
     
     func loadAd() {
+        objc_sync_enter(blocksLockToken)
+        isExpired = false
+        objc_sync_exit(blocksLockToken)
+        
         adLoadFlowController.refresh()
     }
     
@@ -152,6 +157,7 @@ class BaseInterstitialAdUnit:
         isReadyBlock: @escaping () -> Bool
     ) {
         objc_sync_enter(blocksLockToken)
+        isExpired = false
         self.showBlock = showBlock
         self.isReadyBlock = isReadyBlock
         objc_sync_exit(blocksLockToken)
@@ -164,6 +170,10 @@ class BaseInterstitialAdUnit:
         createdInterstitialController interstitialController: InterstitialController
     ) {
         interstitialController.interactionDelegate = self
+    }
+    
+    public func interstitialAdLoaderAdDidExpire(_ interstitialAdLoader: InterstitialAdLoader) {
+        expireAd()
     }
     
     // MARK: - AdLoadFlowControllerDelegate
@@ -269,6 +279,21 @@ class BaseInterstitialAdUnit:
     private func reportLoadingFailed(with error: Error?) {
         DispatchQueue.main.async {
             self.delegate?.callDelegate_didFailToReceiveAd(with: error)
+        }
+    }
+    
+    private func expireAd() {
+        objc_sync_enter(blocksLockToken)
+        guard !isExpired else {
+            objc_sync_exit(blocksLockToken)
+            return
+        }
+        
+        isExpired = true
+        objc_sync_exit(blocksLockToken)
+        
+        DispatchQueue.main.async {
+            self.delegate?.callDelegate_adDidExpire?()
         }
     }
 }

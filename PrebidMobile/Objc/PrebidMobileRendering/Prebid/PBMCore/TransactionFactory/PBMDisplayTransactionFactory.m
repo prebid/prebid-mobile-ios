@@ -108,6 +108,7 @@
     model.html = adMarkup;
     model.width = bid.size.width;
     model.height = bid.size.height;
+    model.expirationInterval = bid.exp;
     return model;
 }
 

@@ -24,6 +24,13 @@ class CreativeModelTest: XCTestCase {
     
     var fireAndForgetExpectation:XCTestExpectation!
     
+    func testExpirationInterval() {
+        let creativeModel = CreativeModel(adConfiguration: AdConfiguration())
+        creativeModel.expirationInterval = 30
+        
+        XCTAssertEqual(creativeModel.expirationInterval, 30)
+    }
+    
     func testTrackEvent() {
         
         self.fireAndForgetExpectation = self.expectation(description: "Expected PrebidServerConnection to talk to the server")
