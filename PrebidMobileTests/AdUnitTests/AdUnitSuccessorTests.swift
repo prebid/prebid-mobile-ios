@@ -93,12 +93,32 @@ class AdUnitSuccessorTests: XCTestCase {
         //then
         checkDefault(adUnit: adUnit)
         XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isRewarded)
         XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
         XCTAssertTrue(adUnit.adUnitConfig.adFormats == [.video])
     }
     
     func testVideoRewardedAdUnitConvenienceCreation() {
         let adUnit = RewardedVideoAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
+        XCTAssertTrue(adUnit.adUnitConfig.minSizePerc?.cgSizeValue.width == 50 && adUnit.adUnitConfig.minSizePerc?.cgSizeValue.height == 70)
+    }
+    
+    // MARK: - RewardedDisplayAdUnit
+    
+    func testRewardedDisplayAdUnitCreation() {
+        //when
+        let adUnit = RewardedDisplayAdUnit(configId: Constants.configID1)
+        
+        //then
+        checkDefault(adUnit: adUnit)
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isRewarded)
+        XCTAssertTrue(adUnit.adUnitConfig.adPosition == .fullScreen)
+        XCTAssertTrue(adUnit.adUnitConfig.adFormats == [.banner])
+    }
+    
+    func testRewardedDisplayAdUnitConvenienceCreation() {
+        let adUnit = RewardedDisplayAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
         XCTAssertTrue(adUnit.adUnitConfig.minSizePerc?.cgSizeValue.width == 50 && adUnit.adUnitConfig.minSizePerc?.cgSizeValue.height == 70)
     }
     
