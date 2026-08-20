@@ -30,10 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        let isUITesting = CommandLine.arguments.contains("-uiTesting")
+
         // ===== INIT: Prebid
-        if CommandLine.arguments.contains("-uiTesting") {
+        if isUITesting {
             UIApplication.shared.getKeyWindow()?.layer.speed = 2
             UIView.setAnimationsEnabled(false)
+            UITestAdStatus.shared.reset()
+            configureUITestTimeouts()
         }
         
         // Set account id and custom Prebid server URL
@@ -44,6 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             serverURL: "https://prebid-server-test-j.prebid.org/openrtb2/auction",
             gadMobileAdsVersion: string(for: MobileAds.shared.versionNumber)
         ) { status, error in
+            if isUITesting {
+                self.configureUITestTimeouts()
+            }
+
             if let error = error {
                 print("Initialization Error: \(error.localizedDescription)")
             }
@@ -72,6 +80,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+
+    private func configureUITestTimeouts() {
+        Prebid.shared.timeoutMillis = 10_000
+        Prebid.shared.creativeFactoryTimeout = 30
+        Prebid.shared.creativeFactoryTimeoutPreRenderContent = 60
+    }
     
     // MARK: UISceneSession Lifecycle
     
@@ -81,4 +95,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
 }
-

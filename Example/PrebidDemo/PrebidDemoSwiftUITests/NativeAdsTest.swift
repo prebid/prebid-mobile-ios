@@ -34,6 +34,10 @@ class NativeAdsTest: BaseAdsTest {
     }
     
     override func checkAd(testCase: String) {
-        XCTAssert(app.staticTexts["Prebid (Title)"].waitForExistence(timeout: 10),assertFailedMessage(testCase: testCase, reason: "Prebid title is not displayed"))
+        assertElementExists(
+            app.staticTexts["Prebid (Title)"],
+            testCase: testCase,
+            reason: "Prebid title is not displayed"
+        )
     }
 }
