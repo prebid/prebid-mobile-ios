@@ -132,7 +132,26 @@ public class AdUnit: NSObject, DispatcherDelegate {
             }
         }
     }
-    
+
+    /// Makes a bid request for a specific ad object and provides the full `BidInfo`. Like
+    /// `fetchDemand(adObject:completion:)` it sets up the Prebid targeting keywords into `adObject`
+    /// for ad serving, but returns the full `BidInfo` (including the winning-bid economics) instead
+    /// of only the result code.
+    ///
+    /// - Parameters:
+    ///   - adObject: The ad object for which demand is being fetched.
+    ///   - completionBidInfo: A closure called with a `BidInfo` object representing the fetched demand.
+    dynamic public func fetchDemand(
+        adObject: AnyObject,
+        completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void
+    ) {
+        baseFetchDemand(adObject: adObject) { bidInfo in
+            DispatchQueue.main.async {
+                completionBidInfo(bidInfo)
+            }
+        }
+    }
+
     // SDK internal
     func baseFetchDemand(
         adObject: AnyObject? = nil,

@@ -513,4 +513,38 @@ class ResponseParsingTests: XCTestCase {
         XCTAssertTrue(passthrough.sdkConfiguration is CustomSDKConfiguration)
         XCTAssertTrue(bidExt.skadn!.fidelities![0] is CustomSkadnFidelity)
     }
+
+    // MARK: - BidInfo winning-bid economics (original/GAM API)
+
+    // `BidInfo.create` should surface the winning bid's exact economics (cpm/currency/creativeId/
+    // adId/auctionId) alongside the targeting keywords, so integrators on the original API can read
+    // them without switching to the Rendering API or issuing a second auction.
+    func testBidInfoSurfacesWinningBidEconomics() {
+        let bidResponse = WinningBidResponseFabricator.makeWinningBidResponse(bidPrice: 3.14)
+        guard let winningBid = bidResponse.winningBid else {
+            return XCTFail("Fabricated response should have a winning bid")
+        }
+
+        let bidInfo = BidInfo.create(resultCode: .prebidDemandFetchSuccess, bidResponse: bidResponse)
+
+        XCTAssertEqual(bidInfo.resultCode, .prebidDemandFetchSuccess)
+        XCTAssertEqual(bidInfo.cpm, Double(winningBid.price))
+        XCTAssertEqual(bidInfo.currency, bidResponse.rawResponse?.cur)
+        XCTAssertEqual(bidInfo.creativeId, winningBid.bid.crid)
+        XCTAssertEqual(bidInfo.adId, winningBid.bid.adid)
+        XCTAssertEqual(bidInfo.auctionId,
+                       bidResponse.rawResponse?.requestID ?? bidResponse.rawResponse?.bidid)
+    }
+
+    // With no winning bid the economics must stay nil (e.g. a no-bid response).
+    func testBidInfoEconomicsAreNilWithoutWinningBid() {
+        let bidResponse = BidResponse(jsonDictionary: [:])
+        XCTAssertNil(bidResponse.winningBid)
+
+        let bidInfo = BidInfo.create(resultCode: .prebidDemandNoBids, bidResponse: bidResponse)
+
+        XCTAssertNil(bidInfo.cpm)
+        XCTAssertNil(bidInfo.creativeId)
+        XCTAssertNil(bidInfo.adId)
+    }
 }
