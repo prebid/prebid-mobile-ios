@@ -1,0 +1,3453 @@
+{
+  "swift": {
+    "(top-level)": {
+      "class": {
+        "AdConfiguration": 1,
+        "AdDetails": 1,
+        "AdFormat": 1,
+        "AdUnit": 1,
+        "AdUnitConfig": 1,
+        "AdViewButtonDecorator": 1,
+        "AdViewUtils": 1,
+        "ArbitraryORTBService": 1,
+        "AutoRefreshCountConfig": 1,
+        "BackgroundAwareTimer": 1,
+        "BannerAdUnit": 1,
+        "BannerEventHandlerStandalone": 1,
+        "BannerParameters": 1,
+        "BannerView": 1,
+        "Bid": 1,
+        "BidInfo": 1,
+        "BidResponse": 1,
+        "CacheManager": 1,
+        "ContextSubType": 1,
+        "ContextType": 1,
+        "CustomModelObjects": 1,
+        "DateFormatService": 1,
+        "DefaultPluginEventDelegate": 1,
+        "DemandResponseInfo": 1,
+        "DeviceAccessManager": 1,
+        "DisplayView": 1,
+        "EventManager": 1,
+        "EventTracking": 1,
+        "EventType": 1,
+        "ExternalUserId": 1,
+        "HiddenWebViewManager": 1,
+        "Host": 1,
+        "IMAAdSlotSize": 1,
+        "IMAUtils": 1,
+        "ImageAsset": 1,
+        "ImageHelper": 1,
+        "ImpressionTasksExecutor": 1,
+        "InstreamVideoAdUnit": 1,
+        "InterstitialAdUnit": 1,
+        "InterstitialController": 1,
+        "InterstitialDisplayProperties": 1,
+        "InterstitialEventHandlerStandalone": 1,
+        "InterstitialRenderingAdUnit": 1,
+        "LocationManager": 1,
+        "Log": 1,
+        "LogLevel": 1,
+        "MediationBannerAdUnit": 1,
+        "MediationBaseInterstitialAdUnit": 1,
+        "MediationBidInfoWrapper": 1,
+        "MediationInterstitialAdUnit": 1,
+        "MediationNativeAdUnit": 1,
+        "MediationNativeUtils": 1,
+        "MediationRewardedAdUnit": 1,
+        "MediationUtils": 1,
+        "ModalViewController": 1,
+        "NativeAd": 1,
+        "NativeAdConfiguration": 1,
+        "NativeAdMarkup": 1,
+        "NativeAdMarkupAsset": 1,
+        "NativeAsset": 1,
+        "NativeAssetData": 1,
+        "NativeAssetImage": 1,
+        "NativeAssetTitle": 1,
+        "NativeData": 1,
+        "NativeEventTracker": 1,
+        "NativeEventTrackerResponse": 1,
+        "NativeImage": 1,
+        "NativeLink": 1,
+        "NativeMarkupRequestObject": 1,
+        "NativeParameters": 1,
+        "NativeRequest": 1,
+        "NativeTitle": 1,
+        "ORTBAdConfiguration": 1,
+        "ORTBAppContent": 1,
+        "ORTBBidExtSkadn": 1,
+        "ORTBBidExtSkadnSKOverlay": 1,
+        "ORTBBidResponseExt": 1,
+        "ORTBBidResponseExtPrebid": 1,
+        "ORTBContentData": 1,
+        "ORTBContentProducer": 1,
+        "ORTBContentSegment": 1,
+        "ORTBExtPrebidEvents": 1,
+        "ORTBExtPrebidPassthrough": 1,
+        "ORTBNative": 1,
+        "ORTBRewardedClose": 1,
+        "ORTBRewardedCompletion": 1,
+        "ORTBRewardedCompletionBanner": 1,
+        "ORTBRewardedCompletionVideo": 1,
+        "ORTBRewardedCompletionVideoEndcard": 1,
+        "ORTBRewardedConfiguration": 1,
+        "ORTBRewardedReward": 1,
+        "ORTBSDKConfiguration": 1,
+        "ORTBSkadnFidelity": 1,
+        "PBMORTBNoBidReason": 1,
+        "PathBuilder": 1,
+        "PlacementType": 1,
+        "PluginRendererFactory": 1,
+        "Prebid": 1,
+        "PrebidAdUnit": 1,
+        "PrebidConstants": 1,
+        "PrebidImagesRepository": 1,
+        "PrebidJSLibrary": 1,
+        "PrebidJSLibraryManager": 1,
+        "PrebidMobilePluginRegister": 1,
+        "PrebidRenderer": 1,
+        "PrebidRequest": 1,
+        "PrebidReward": 1,
+        "PrebidServerConnection": 1,
+        "PrebidServerEventTracker": 1,
+        "PrebidServerResponse": 1,
+        "Reachability": 1,
+        "RewardedAdUnit": 1,
+        "RewardedConfig": 1,
+        "RewardedEventHandlerStandalone": 1,
+        "RewardedVideoAdUnit": 1,
+        "SDKConsoleLogger": 1,
+        "SKOverlayManager": 1,
+        "ServerEvent": 1,
+        "Signals": 1,
+        "SingleContainerInt": 1,
+        "SkadnEventTracker": 1,
+        "SkadnParametersManager": 1,
+        "Targeting": 1,
+        "UserAgentService": 1,
+        "UserUniqueID": 1,
+        "Utils": 1,
+        "VastTrackingEvents": 1,
+        "VideoControlsConfiguration": 1,
+        "VideoParameters": 1,
+        "VideoVerificationParameters": 1,
+        "VideoVerificationResource": 1
+      },
+      "enum": {
+        "AdPosition": 1,
+        "ClickbrowserType": 1,
+        "DataAsset": 1,
+        "InterstitialLayout": 1,
+        "NativeDataAssetType": 1,
+        "NativeImageAssetType": 1,
+        "NetworkType": 1,
+        "ORTBNoBidReasonCode": 1,
+        "OpenMeasurementFriendlyObstructionPurpose": 1,
+        "Position": 1,
+        "PrebidInitializationStatus": 1,
+        "ResultCode": 1,
+        "TrackingEvent": 1
+      },
+      "extension": {
+        "Bid": 1,
+        "NSString": 1,
+        "Prebid": 1
+      },
+      "let": {
+        "PBMMediationAdNativeResponseKey": 1,
+        "PBMMediationAdUnitBidKey": 1,
+        "PBMMediationConfigIdKey": 1,
+        "PBMMediationTargetingInfoKey": 1,
+        "PBMMediationVideoAdConfiguration": 1,
+        "PBMMediationVideoParameters": 1,
+        "PREBID_MOBILE_RENDERER_NAME": 1,
+        "PrebidLocalCacheIdKey": 1,
+        "refreshIntervalDefault": 1,
+        "refreshIntervalMax": 1,
+        "refreshIntervalMin": 1
+      },
+      "protocol": {
+        "AdViewManagerDelegate": 1,
+        "BannerBasedAdUnitProtocol": 1,
+        "BannerEventHandler": 1,
+        "BannerEventInteractionDelegate": 1,
+        "BannerEventLoadingDelegate": 1,
+        "BannerViewDelegate": 1,
+        "BannerViewVideoPlaybackDelegate": 1,
+        "DisplayViewInteractionDelegate": 1,
+        "DisplayViewLoadingDelegate": 1,
+        "DisplayViewVideoPlaybackDelegate": 1,
+        "EventTrackerProtocol": 1,
+        "InterstitialAd": 1,
+        "InterstitialAdUnitDelegate": 1,
+        "InterstitialControllerInteractionDelegate": 1,
+        "InterstitialControllerLoadingDelegate": 1,
+        "InterstitialEventHandlerProtocol": 1,
+        "InterstitialEventInteractionDelegate": 1,
+        "InterstitialEventLoadingDelegate": 1,
+        "ModalManagerDelegate": 1,
+        "NativeAdDelegate": 1,
+        "NativeAdEventDelegate": 1,
+        "OMSession": 1,
+        "OMSessionWrapper": 1,
+        "PBMJsonDecodable": 1,
+        "PBMJsonEncodable": 1,
+        "PluginEventDelegate": 1,
+        "PrebidEventDelegate": 1,
+        "PrebidLogger": 1,
+        "PrebidMediationDelegate": 1,
+        "PrebidMobileDisplayViewProtocol": 1,
+        "PrebidMobileInterstitialControllerProtocol": 1,
+        "PrebidMobilePluginRenderer": 1,
+        "PrebidServerConnectionProtocol": 1,
+        "PrimaryAdRequesterProtocol": 1,
+        "RewardedAdUnitDelegate": 1,
+        "RewardedEventHandlerProtocol": 1,
+        "RewardedEventInteractionDelegate": 1,
+        "VideoBasedAdUnitProtocol": 1
+      },
+      "typealias": {
+        "AdMarkupStringHandler": 1,
+        "PBMNetworkReachableBlock": 1,
+        "PrebidInitializationCallback": 1,
+        "PrebidJSLibraryContentsCallback": 1,
+        "PrebidServerResponseCallback": 1,
+        "VoidBlock": 1,
+        "WinNotifierBlock": 1
+      }
+    },
+    "AdConfiguration": {
+      "var": {
+        "adFormats": 1,
+        "autoRefreshDelay": 1,
+        "bannerParameters": 1,
+        "clickHandlerOverride": 1,
+        "forceInterstitialPresentation": 1,
+        "globalORTBConfig": 1,
+        "impORTBConfig": 1,
+        "interstitialLayout": 1,
+        "isBuiltInVideo": 1,
+        "isInterstitialAd": 1,
+        "isOriginalAPI": 1,
+        "isRewarded": 1,
+        "pollFrequency": 1,
+        "presentAsInterstitial": 1,
+        "rewardedConfig": 1,
+        "size": 1,
+        "supportSKOverlay": 1,
+        "videoControlsConfig": 1,
+        "videoParameters": 1,
+        "viewableArea": 1,
+        "viewableDuration": 1,
+        "winningBidAdFormat": 1
+      }
+    },
+    "AdDetails": {
+      "let": {
+        "rawResponse": 1,
+        "transactionId": 1
+      }
+    },
+    "AdFormat": {
+      "init": {
+        "init": 2
+      },
+      "let": {
+        "banner": 1,
+        "native": 1,
+        "rawValue": 1,
+        "video": 1
+      },
+      "typealias": {
+        "RawValue": 1
+      },
+      "var": {
+        "allCases": 1,
+        "stringEquivalent": 1
+      }
+    },
+    "AdLoadFlowController": {
+      "func": {
+        "adLoader": 3,
+        "adLoaderDidWinPrebid": 1,
+        "adLoaderLoadedPrebidAd": 1
+      }
+    },
+    "AdModelEventTracker": {
+      "func": {
+        "trackEvent": 1,
+        "trackStartVideo": 1,
+        "trackVideoAdLoaded": 1,
+        "trackVolumeChanged": 1
+      },
+      "init": {
+        "init": 1
+      }
+    },
+    "AdPosition": {
+      "case": {
+        "aboveTheFold": 1,
+        "belowTheFold": 1,
+        "footer": 1,
+        "fullScreen": 1,
+        "header": 1,
+        "locked": 1,
+        "sidebar": 1,
+        "undefined": 1,
+        "unknown": 1
+      }
+    },
+    "AdUnit": {
+      "func": {
+        "fetchDemand": 2,
+        "getGPID": 1,
+        "getGlobalOrtbConfig": 1,
+        "getImpORTBConfig": 1,
+        "resumeAutoRefresh": 1,
+        "setAutoRefreshMillis": 1,
+        "setGPID": 1,
+        "setGlobalOrtbConfig": 1,
+        "setImpORTBConfig": 1,
+        "stopAutoRefresh": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "adPosition": 1,
+        "pbAdSlot": 1
+      }
+    },
+    "AdUnitConfig": {
+      "func": {
+        "copy": 1,
+        "getPbAdSlot": 1,
+        "setPbAdSlot": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "let": {
+        "adConfiguration": 1
+      },
+      "var": {
+        "adFormats": 1,
+        "adPosition": 1,
+        "adSize": 1,
+        "additionalSizes": 1,
+        "configId": 1,
+        "globalORTBConfig": 1,
+        "gpid": 1,
+        "impORTBConfig": 1,
+        "minSizePerc": 1,
+        "nativeAdConfiguration": 1,
+        "refreshInterval": 1
+      }
+    },
+    "AdViewButtonDecorator": {
+      "func": {
+        "addButton": 1,
+        "bringButtonToFront": 1,
+        "buttonTappedAction": 1,
+        "getButtonConstraintConstant": 1,
+        "getButtonSize": 1,
+        "removeButtonFromSuperview": 1,
+        "sendSubviewToBack": 1,
+        "setImage": 1,
+        "updateButtonConstraints": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "button": 1,
+        "buttonArea": 1,
+        "buttonPosition": 1,
+        "buttonTouchUpInsideBlock": 1,
+        "customButtonPosition": 1,
+        "isMRAID": 1
+      }
+    },
+    "AdViewManagerDelegate": {
+      "func": {
+        "adClickthroughDidClose": 1,
+        "adDidClose": 1,
+        "adDidCollapse": 1,
+        "adDidComplete": 1,
+        "adDidDisplay": 1,
+        "adDidExpand": 1,
+        "adDidLeaveApp": 1,
+        "adDidSendRewardedEvent": 1,
+        "adLoaded": 1,
+        "adViewWasClicked": 1,
+        "adWasClicked": 1,
+        "failedToLoad": 1,
+        "videoAdDidFinish": 1,
+        "videoAdDidPause": 1,
+        "videoAdDidResume": 1,
+        "videoAdWasMuted": 1,
+        "videoAdWasUnmuted": 1,
+        "viewControllerForModalPresentation": 1
+      },
+      "var": {
+        "displayView": 1,
+        "interstitialDisplayProperties": 1
+      }
+    },
+    "AdViewUtils": {
+      "func": {
+        "findPrebidCreativeSize": 1
+      }
+    },
+    "ArbitraryORTBService": {
+      "func": {
+        "merge": 1
+      }
+    },
+    "AutoRefreshCountConfig": {
+      "var": {
+        "autoRefreshDelay": 1,
+        "autoRefreshMax": 1,
+        "numRefreshes": 1
+      }
+    },
+    "BackgroundAwareTimer": {
+      "func": {
+        "invalidateTimer": 1,
+        "startTimer": 1
+      },
+      "init": {
+        "init": 1
+      }
+    },
+    "BannerAdLoader": {
+      "func": {
+        "adServerDidWin": 1,
+        "createPrebidAd": 1,
+        "displayView": 1,
+        "displayViewDidLoadAd": 1,
+        "failedWithError": 1,
+        "prebidDidWin": 1,
+        "reportSuccess": 1
+      },
+      "var": {
+        "flowDelegate": 1,
+        "primaryAdRequester": 1
+      }
+    },
+    "BannerAdUnit": {
+      "func": {
+        "activatePrebidImpressionTracker": 1,
+        "activatePrebidSKAdNetworkStoreKitAdsFlow": 1,
+        "addAdditionalSize": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "adFormats": 1,
+        "bannerParameters": 1,
+        "videoParameters": 1
+      }
+    },
+    "BannerBasedAdUnitProtocol": {
+      "var": {
+        "bannerParameters": 1
+      }
+    },
+    "BannerEventHandler": {
+      "func": {
+        "trackImpression": 1
+      },
+      "var": {
+        "adSizes": 1,
+        "interactionDelegate": 1,
+        "loadingDelegate": 1
+      }
+    },
+    "BannerEventHandlerStandalone": {
+      "func": {
+        "requestAd": 1,
+        "trackImpression": 1
+      },
+      "var": {
+        "adSizes": 1,
+        "interactionDelegate": 1,
+        "loadingDelegate": 1
+      }
+    },
+    "BannerEventInteractionDelegate": {
+      "func": {
+        "didDismissModal": 1,
+        "didDisplayAd": 1,
+        "willLeaveApp": 1,
+        "willPresentModal": 1
+      },
+      "var": {
+        "viewControllerForPresentingModal": 1
+      }
+    },
+    "BannerEventLoadingDelegate": {
+      "func": {
+        "adServerDidWin": 1,
+        "failedWithError": 1,
+        "prebidDidWin": 1
+      }
+    },
+    "BannerParameters": {
+      "var": {
+        "adSizes": 1,
+        "api": 1,
+        "interstitialMinHeightPerc": 1,
+        "interstitialMinWidthPerc": 1,
+        "rawAPI": 1
+      }
+    },
+    "BannerView": {
+      "func": {
+        "adLoadFlowController": 1,
+        "adLoadFlowControllerShouldContinue": 1,
+        "adLoadFlowControllerWillRequestPrimaryAd": 1,
+        "adLoadFlowControllerWillSendBidRequest": 1,
+        "didDismissModal": 2,
+        "didDisplayAd": 1,
+        "didLeaveApp": 1,
+        "getGlobalORTBConfig": 1,
+        "getImpORTBConfig": 1,
+        "loadAd": 1,
+        "setGlobalORTBConfig": 1,
+        "setImpORTBConfig": 1,
+        "setPluginEventDelegate": 1,
+        "setStoredAuctionResponse": 1,
+        "stopRefresh": 1,
+        "trackImpression": 1,
+        "videoPlaybackDidComplete": 1,
+        "videoPlaybackDidPause": 1,
+        "videoPlaybackDidResume": 1,
+        "videoPlaybackWasMuted": 1,
+        "videoPlaybackWasUnmuted": 1,
+        "viewControllerForModalPresentation": 1,
+        "willLeaveApp": 1,
+        "willPresentModal": 2
+      },
+      "init": {
+        "init": 3
+      },
+      "let": {
+        "adUnitConfig": 1,
+        "eventHandler": 1
+      },
+      "var": {
+        "adFormat": 1,
+        "adPosition": 1,
+        "additionalSizes": 1,
+        "bannerParameters": 1,
+        "configID": 1,
+        "delegate": 1,
+        "lastBidResponse": 1,
+        "refreshInterval": 1,
+        "videoParameters": 1,
+        "videoPlaybackDelegate": 1,
+        "viewControllerForPresentingModal": 1
+      }
+    },
+    "BannerViewDelegate": {
+      "func": {
+        "bannerView": 2,
+        "bannerViewDidDismissModal": 1,
+        "bannerViewDidDisplay": 1,
+        "bannerViewPresentationController": 1,
+        "bannerViewWillLeaveApplication": 1,
+        "bannerViewWillPresentModal": 1
+      }
+    },
+    "BannerViewVideoPlaybackDelegate": {
+      "func": {
+        "videoPlaybackDidComplete": 1,
+        "videoPlaybackDidPause": 1,
+        "videoPlaybackDidResume": 1,
+        "videoPlaybackWasMuted": 1,
+        "videoPlaybackWasUnmuted": 1
+      }
+    },
+    "BaseInterstitialAdUnit": {
+      "func": {
+        "adLoadFlowController": 1,
+        "adLoadFlowControllerShouldContinue": 1,
+        "adLoadFlowControllerWillRequestPrimaryAd": 1,
+        "adLoadFlowControllerWillSendBidRequest": 1,
+        "didClickAd": 1,
+        "didDismissAd": 1,
+        "interstitialAdLoader": 2,
+        "interstitialControllerDidClickAd": 1,
+        "interstitialControllerDidCloseAd": 1,
+        "interstitialControllerDidComplete": 1,
+        "interstitialControllerDidDisplay": 1,
+        "interstitialControllerDidLeaveApp": 1,
+        "trackImpression": 1,
+        "trackUserReward": 1,
+        "viewControllerForModalPresentation": 1,
+        "willLeaveApp": 1,
+        "willPresentAd": 1
+      }
+    },
+    "Bid": {
+      "let": {
+        "KEY_RENDERER_NAME": 1,
+        "KEY_RENDERER_VERSION": 1
+      },
+      "var": {
+        "adFormat": 1,
+        "adm": 1,
+        "burl": 1,
+        "events": 1,
+        "hasSuccessfulServerCache": 1,
+        "impressionTrackingURLs": 1,
+        "isWinning": 1,
+        "meta": 1,
+        "nurl": 1,
+        "pluginRendererName": 1,
+        "pluginRendererVersion": 1,
+        "price": 1,
+        "rewardedConfig": 1,
+        "size": 1,
+        "skadn": 1,
+        "targetingInfo": 1,
+        "testVideoAdConfiguration": 1,
+        "videoAdConfiguration": 1
+      }
+    },
+    "BidInfo": {
+      "func": {
+        "getExp": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "let": {
+        "EVENT_IMP": 1,
+        "EVENT_WIN": 1
+      },
+      "var": {
+        "events": 1,
+        "exp": 1,
+        "nativeAdCacheId": 1,
+        "resultCode": 1,
+        "targetingKeywords": 1
+      }
+    },
+    "BidResponse": {
+      "func": {
+        "addTargetingInfoValue": 1,
+        "removeBidsWithoutSuccessfulCache": 1,
+        "setTargetingInfo": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "adUnitId": 1,
+        "allBids": 1,
+        "ext": 1,
+        "targetingInfo": 1,
+        "tmaxrequest": 1,
+        "winningBid": 1
+      }
+    },
+    "CacheManager": {
+      "func": {
+        "get": 1,
+        "isValid": 1,
+        "save": 1
+      },
+      "let": {
+        "cacheManagerExpireInterval": 1,
+        "shared": 1
+      }
+    },
+    "ClickbrowserType": {
+      "case": {
+        "embedded": 1,
+        "native": 1
+      }
+    },
+    "ContextSubType": {
+      "let": {
+        "AppStore": 1,
+        "Article": 1,
+        "Audio": 1,
+        "Custom": 1,
+        "General": 1,
+        "Image": 1,
+        "ReviewSite": 1,
+        "SellingProduct": 1,
+        "Social": 1,
+        "UserGenerated": 1,
+        "Video": 1,
+        "chatIM": 1,
+        "email": 1
+      }
+    },
+    "ContextType": {
+      "let": {
+        "Content": 1,
+        "Custom": 1,
+        "Product": 1,
+        "Social": 1
+      }
+    },
+    "CreativeModel": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "adConfiguration": 1,
+        "adDetails": 1,
+        "adTrackingTemplateURL": 1,
+        "clickThroughURL": 1,
+        "displayDurationInSeconds": 1,
+        "eventTracker": 1,
+        "hasCompanionAd": 1,
+        "height": 1,
+        "html": 1,
+        "isCompanionAd": 1,
+        "postRewardTime": 1,
+        "revenue": 1,
+        "rewardTime": 1,
+        "skipOffset": 1,
+        "targetURL": 1,
+        "trackingURLs": 1,
+        "userHasEarnedReward": 1,
+        "userPostRewardEventSent": 1,
+        "verificationParameters": 1,
+        "videoFileURL": 1,
+        "width": 1
+      }
+    },
+    "CustomModelObjects": {
+      "func": {
+        "registerCustomType": 16,
+        "unregisterCustomType": 1
+      }
+    },
+    "DataAsset": {
+      "case": {
+        "Custom": 1,
+        "address": 1,
+        "ctatext": 1,
+        "description": 1,
+        "description2": 1,
+        "displayurl": 1,
+        "downloads": 1,
+        "likes": 1,
+        "phone": 1,
+        "price": 1,
+        "rating": 1,
+        "saleprice": 1,
+        "sponsored": 1
+      },
+      "var": {
+        "exchangeID": 1
+      }
+    },
+    "DateFormatService": {
+      "func": {
+        "formatISO8601": 1
+      },
+      "let": {
+        "shared": 1
+      }
+    },
+    "DefaultPluginEventDelegate": {
+      "func": {
+        "getPluginName": 1
+      }
+    },
+    "DemandResponseInfo": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "bid": 1,
+        "fetchDemandResult": 1
+      }
+    },
+    "DeviceAccessManager": {
+      "func": {
+        "advertisingIdentifier": 1,
+        "advertisingTrackingEnabled": 1,
+        "appTrackingTransparencyStatus": 1,
+        "screenSize": 1
+      },
+      "init": {
+        "init": 3
+      },
+      "var": {
+        "OSVersion": 1,
+        "deviceMake": 1,
+        "deviceModel": 1,
+        "deviceOS": 1,
+        "identifierForVendor": 1,
+        "locale": 1,
+        "platformString": 1,
+        "rootViewController": 1,
+        "userLangaugeCode": 1
+      }
+    },
+    "DisplayView": {
+      "func": {
+        "adClickthroughDidClose": 1,
+        "adDidClose": 1,
+        "adDidCollapse": 1,
+        "adDidComplete": 1,
+        "adDidDisplay": 1,
+        "adDidExpand": 1,
+        "adDidLeaveApp": 1,
+        "adLoaded": 1,
+        "adViewWasClicked": 1,
+        "adWasClicked": 1,
+        "failedToLoad": 1,
+        "loadAd": 1,
+        "modalManagerDidDismissModal": 1,
+        "modalManagerWillPresentModal": 1,
+        "videoAdDidFinish": 1,
+        "videoAdDidPause": 1,
+        "videoAdDidResume": 1,
+        "videoAdWasMuted": 1,
+        "videoAdWasUnmuted": 1,
+        "viewControllerForModalPresentation": 1
+      },
+      "init": {
+        "init": 3
+      },
+      "var": {
+        "displayView": 1,
+        "interactionDelegate": 1,
+        "interstitialDisplayProperties": 1,
+        "isCreativeOpened": 1,
+        "loadingDelegate": 1
+      }
+    },
+    "DisplayViewInteractionDelegate": {
+      "func": {
+        "didDismissModal": 1,
+        "didLeaveApp": 1,
+        "trackImpression": 1,
+        "viewControllerForModalPresentation": 1,
+        "willPresentModal": 1
+      }
+    },
+    "DisplayViewLoadingDelegate": {
+      "func": {
+        "displayView": 1,
+        "displayViewDidLoadAd": 1
+      }
+    },
+    "DisplayViewVideoPlaybackDelegate": {
+      "func": {
+        "videoPlaybackDidComplete": 1,
+        "videoPlaybackDidPause": 1,
+        "videoPlaybackDidResume": 1,
+        "videoPlaybackWasMuted": 1,
+        "videoPlaybackWasUnmuted": 1
+      }
+    },
+    "EventManager": {
+      "func": {
+        "registerTracker": 1,
+        "trackEvent": 1,
+        "trackStartVideo": 1,
+        "trackVideoAdLoaded": 1,
+        "trackVolumeChanged": 1,
+        "unregisterAllTrackers": 1,
+        "unregisterTracker": 1
+      }
+    },
+    "EventTrackerProtocol": {
+      "func": {
+        "trackEvent": 1,
+        "trackStartVideo": 1,
+        "trackVideoAdLoaded": 1,
+        "trackVolumeChanged": 1
+      }
+    },
+    "EventTracking": {
+      "let": {
+        "Custom": 1,
+        "Image": 1,
+        "js": 1
+      }
+    },
+    "EventType": {
+      "let": {
+        "Custom": 1,
+        "Impression": 1,
+        "ViewableImpression100": 1,
+        "ViewableImpression50": 1,
+        "ViewableVideoImpression50": 1
+      }
+    },
+    "ExternalUserId": {
+      "func": {
+        "toJSONDictionary": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "ext": 1,
+        "source": 1,
+        "uids": 1
+      }
+    },
+    "Factory": {
+      "func": {
+        "createAdViewManager": 1,
+        "createBidRequester": 1,
+        "createCreativeViewabilityTracker": 2,
+        "createModalState": 1,
+        "createTransaction": 1,
+        "createTransactionFactory": 1,
+        "createViewExposure": 1,
+        "createWinNotifier": 1
+      },
+      "let": {
+        "AdViewManagerType": 1,
+        "CreativeViewabilityTrackerType": 1,
+        "ModalStateType": 1,
+        "OMSDKVersionProviderType": 1,
+        "TransactionFactoryType": 1,
+        "TransactionType": 1,
+        "ViewExposureType": 1,
+        "WinNotifierType": 1
+      }
+    },
+    "Functions": {
+      "func": {
+        "checkCertificateChallenge": 1
+      }
+    },
+    "HiddenWebViewManager": {
+      "func": {
+        "openHiddenWebView": 1
+      },
+      "init": {
+        "init": 1
+      }
+    },
+    "Host": {
+      "func": {
+        "getHostURL": 1,
+        "setHostURL": 1,
+        "verifyUrl": 1
+      },
+      "let": {
+        "shared": 1
+      }
+    },
+    "IMAAdSlotSize": {
+      "let": {
+        "Size320x480": 1,
+        "Size400x300": 1,
+        "Size640x480": 1
+      }
+    },
+    "IMAUtils": {
+      "func": {
+        "generateInstreamUriForGAM": 1
+      },
+      "let": {
+        "shared": 1
+      }
+    },
+    "ImageAsset": {
+      "let": {
+        "Custom": 1,
+        "Icon": 1,
+        "Main": 1
+      }
+    },
+    "ImageHelper": {
+      "func": {
+        "downloadImageAsync": 1,
+        "downloadImageSync": 1
+      }
+    },
+    "InstreamVideoAdUnit": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "videoParameters": 1
+      }
+    },
+    "InterstitialAd": {
+      "func": {
+        "show": 1,
+        "trackImpression": 1
+      },
+      "var": {
+        "isReady": 1
+      }
+    },
+    "InterstitialAdUnit": {
+      "func": {
+        "activatePrebidImpressionTracker": 1,
+        "activatePrebidSKAdNetworkStoreKitAdsFlow": 1,
+        "activateSKOverlayIfAvailable": 1,
+        "dismissSKOverlayIfAvailable": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "adFormats": 1,
+        "bannerParameters": 1,
+        "supportSKOverlay": 1,
+        "videoParameters": 1
+      }
+    },
+    "InterstitialAdUnitDelegate": {
+      "func": {
+        "interstitial": 1,
+        "interstitialDidClickAd": 1,
+        "interstitialDidDismissAd": 1,
+        "interstitialDidReceiveAd": 1,
+        "interstitialWillLeaveApplication": 1,
+        "interstitialWillPresentAd": 1
+      }
+    },
+    "InterstitialController": {
+      "func": {
+        "adClickthroughDidClose": 1,
+        "adDidClose": 1,
+        "adDidCollapse": 1,
+        "adDidComplete": 1,
+        "adDidDisplay": 1,
+        "adDidExpand": 1,
+        "adDidLeaveApp": 1,
+        "adDidSendRewardedEvent": 1,
+        "adLoaded": 1,
+        "adViewWasClicked": 1,
+        "adWasClicked": 1,
+        "failedToLoad": 1,
+        "loadAd": 1,
+        "reportFailureWithError": 1,
+        "show": 1,
+        "viewControllerForModalPresentation": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "adFormats": 1,
+        "interactionDelegate": 1,
+        "interstitialDisplayProperties": 1,
+        "isRewarded": 1,
+        "loadingDelegate": 1,
+        "videoControlsConfig": 1,
+        "videoParameters": 1
+      }
+    },
+    "InterstitialControllerInteractionDelegate": {
+      "func": {
+        "interstitialControllerDidClickAd": 1,
+        "interstitialControllerDidCloseAd": 1,
+        "interstitialControllerDidComplete": 1,
+        "interstitialControllerDidDisplay": 1,
+        "interstitialControllerDidLeaveApp": 1,
+        "trackImpression": 1,
+        "trackUserReward": 1,
+        "viewControllerForModalPresentation": 1
+      }
+    },
+    "InterstitialControllerLoadingDelegate": {
+      "func": {
+        "interstitialController": 1,
+        "interstitialControllerDidLoadAd": 1
+      }
+    },
+    "InterstitialDisplayProperties": {
+      "func": {
+        "copy": 1,
+        "getCloseButtonImage": 1,
+        "setButtonImageHidden": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "closeDelay": 1,
+        "closeDelayLeft": 1,
+        "contentFrame": 1,
+        "contentViewColor": 1,
+        "interstitialLayout": 1,
+        "isRotationEnabled": 1
+      }
+    },
+    "InterstitialEventHandlerProtocol": {
+      "var": {
+        "interactionDelegate": 1,
+        "loadingDelegate": 1
+      }
+    },
+    "InterstitialEventHandlerStandalone": {
+      "func": {
+        "requestAd": 1,
+        "show": 1
+      },
+      "var": {
+        "interactionDelegate": 1,
+        "isReady": 1,
+        "loadingDelegate": 1
+      }
+    },
+    "InterstitialEventInteractionDelegate": {
+      "func": {
+        "didClickAd": 1,
+        "didDismissAd": 1,
+        "willLeaveApp": 1,
+        "willPresentAd": 1
+      }
+    },
+    "InterstitialEventLoadingDelegate": {
+      "func": {
+        "adServerDidWin": 1,
+        "failed": 1,
+        "prebidDidWin": 1
+      }
+    },
+    "InterstitialLayout": {
+      "case": {
+        "aspectRatio": 1,
+        "landscape": 1,
+        "portrait": 1,
+        "undefined": 1
+      }
+    },
+    "InterstitialRenderingAdUnit": {
+      "func": {
+        "getGlobalORTBConfig": 1,
+        "getImpORTBConfig": 1,
+        "loadAd": 1,
+        "setGlobalORTBConfig": 1,
+        "setImpORTBConfig": 1,
+        "show": 1
+      },
+      "init": {
+        "init": 4
+      },
+      "var": {
+        "adFormats": 1,
+        "adPosition": 1,
+        "bannerParameters": 1,
+        "closeButtonArea": 1,
+        "closeButtonPosition": 1,
+        "delegate": 1,
+        "isMuted": 1,
+        "isReady": 1,
+        "isSoundButtonVisible": 1,
+        "skipButtonArea": 1,
+        "skipButtonPosition": 1,
+        "skipDelay": 1,
+        "supportSKOverlay": 1,
+        "videoParameters": 1
+      }
+    },
+    "LocationManager": {
+      "func": {
+        "locationManager": 3
+      },
+      "let": {
+        "shared": 1
+      },
+      "var": {
+        "coordinates": 1,
+        "coordinatesAreValid": 1,
+        "horizontalAccuracy": 1,
+        "locationUpdatesEnabled": 1,
+        "timestamp": 1
+      }
+    },
+    "Log": {
+      "func": {
+        "clearLogFile": 1,
+        "debug": 1,
+        "error": 1,
+        "getLogFileAsString": 1,
+        "info": 1,
+        "serialWriteToLog": 1,
+        "setCustomLogger": 1,
+        "severe": 1,
+        "verbose": 1,
+        "warn": 1,
+        "whereAmI": 1
+      },
+      "var": {
+        "logLevel": 1,
+        "logToFile": 1
+      }
+    },
+    "LogLevel": {
+      "init": {
+        "init": 2
+      },
+      "let": {
+        "debug": 1,
+        "error": 1,
+        "info": 1,
+        "severe": 1,
+        "verbose": 1,
+        "warn": 1
+      },
+      "typealias": {
+        "RawValue": 1
+      },
+      "var": {
+        "rawValue": 1,
+        "stringValue": 1
+      }
+    },
+    "MRAIDState": {
+      "func": {
+        "isEqual": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "let": {
+        "defaultState": 1,
+        "expanded": 1,
+        "hidden": 1,
+        "loading": 1,
+        "notEnabled": 1,
+        "resized": 1
+      },
+      "typealias": {
+        "RawValue": 1
+      },
+      "var": {
+        "debugDescription": 1,
+        "description": 1,
+        "rawValue": 1
+      }
+    },
+    "MediationBannerAdUnit": {
+      "func": {
+        "adObjectDidFailToLoadAd": 1,
+        "fetchDemand": 1,
+        "getGlobalORTBConfig": 1,
+        "getImpORTBConfig": 1,
+        "setGlobalORTBConfig": 1,
+        "setImpORTBConfig": 1,
+        "stopRefresh": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "let": {
+        "mediationDelegate": 1
+      },
+      "var": {
+        "adFormat": 1,
+        "adPosition": 1,
+        "additionalSizes": 1,
+        "bannerParameters": 1,
+        "configID": 1,
+        "refreshInterval": 1,
+        "videoParameters": 1
+      }
+    },
+    "MediationBaseInterstitialAdUnit": {
+      "func": {
+        "fetchDemand": 1,
+        "getGlobalORTBConfig": 1,
+        "getImpORTBConfig": 1,
+        "setGlobalORTBConfig": 1,
+        "setImpORTBConfig": 1
+      },
+      "var": {
+        "adPosition": 1,
+        "bannerParameters": 1,
+        "closeButtonArea": 1,
+        "closeButtonPosition": 1,
+        "configId": 1,
+        "isMuted": 1,
+        "isSoundButtonVisible": 1,
+        "videoParameters": 1
+      }
+    },
+    "MediationBidInfoWrapper": {
+      "var": {
+        "keywords": 1,
+        "localExtras": 1
+      }
+    },
+    "MediationInterstitialAdUnit": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "adFormats": 1,
+        "additionalSizes": 1,
+        "configId": 1,
+        "skipButtonArea": 1,
+        "skipButtonPosition": 1,
+        "skipDelay": 1
+      }
+    },
+    "MediationNativeAdUnit": {
+      "func": {
+        "addEventTracker": 1,
+        "addNativeAssets": 1,
+        "fetchDemand": 1,
+        "getGlobalORTBConfig": 1,
+        "getImpORTBConfig": 1,
+        "setAssetURLSupport": 1,
+        "setContextSubType": 1,
+        "setContextType": 1,
+        "setDURLSupport": 1,
+        "setExt": 1,
+        "setGlobalORTBConfig": 1,
+        "setImpORTBConfig": 1,
+        "setPlacementCount": 1,
+        "setPlacementType": 1,
+        "setPrivacy": 1,
+        "setSequence": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "nativeAdUnit": 1
+      }
+    },
+    "MediationNativeUtils": {
+      "func": {
+        "findNative": 1
+      }
+    },
+    "MediationRewardedAdUnit": {
+      "init": {
+        "init": 1
+      }
+    },
+    "MediationUtils": {
+      "func": {
+        "isServerParameterDictInTargetingInfoDict": 1,
+        "isServerParameterInTargetingInfo": 1,
+        "isServerParameterInTargetingInfoDict": 1
+      }
+    },
+    "ModalManager": {
+      "func": {
+        "creativeDisplayCompleted": 1,
+        "forceOrientation": 1,
+        "modalViewControllerCloseButtonTapped": 1,
+        "modalViewControllerDidLeaveApp": 1,
+        "pushModal": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "modalViewController": 1
+      }
+    },
+    "ModalManagerDelegate": {
+      "func": {
+        "modalManagerDidDismissModal": 1,
+        "modalManagerWillPresentModal": 1
+      }
+    },
+    "ModalPresentationController": {
+      "func": {
+        "containerViewWillLayoutSubviews": 1,
+        "presentationTransitionWillBegin": 1
+      },
+      "var": {
+        "frameOfPresentedViewInContainerView": 1,
+        "objc_frameOfPresentedView": 1
+      }
+    },
+    "ModalViewController": {
+      "func": {
+        "addFriendlyObstructions": 1,
+        "viewDidLoad": 1,
+        "viewWillAppear": 1,
+        "viewWillDisappear": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "prefersStatusBarHidden": 1,
+        "shouldAutorotate": 1,
+        "supportedInterfaceOrientations": 1
+      }
+    },
+    "NSString": {
+      "var": {
+        "base64DecodedImage": 1
+      }
+    },
+    "NativeAd": {
+      "func": {
+        "create": 1,
+        "dataObjects": 1,
+        "images": 1,
+        "registerView": 1
+      },
+      "var": {
+        "callToAction": 1,
+        "clickURL": 1,
+        "dataObjects": 1,
+        "delegate": 1,
+        "eventTrackers": 1,
+        "iconUrl": 1,
+        "imageUrl": 1,
+        "images": 1,
+        "nativeAdMarkup": 1,
+        "privacyUrl": 1,
+        "sponsoredBy": 1,
+        "text": 1,
+        "title": 1,
+        "titles": 1
+      }
+    },
+    "NativeAdConfiguration": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "markupRequestObject": 1,
+        "version": 1
+      }
+    },
+    "NativeAdDelegate": {
+      "func": {
+        "nativeAdLoaded": 1,
+        "nativeAdNotFound": 1,
+        "nativeAdNotValid": 1
+      }
+    },
+    "NativeAdEventDelegate": {
+      "func": {
+        "adDidExpire": 1,
+        "adDidLogImpression": 1,
+        "adWasClicked": 1
+      }
+    },
+    "NativeAdMarkup": {
+      "init": {
+        "init": 3
+      },
+      "var": {
+        "assets": 1,
+        "assetsurl": 1,
+        "dcourl": 1,
+        "eventtrackers": 1,
+        "ext": 1,
+        "imptrackers": 1,
+        "jstracker": 1,
+        "link": 1,
+        "privacy": 1,
+        "version": 1
+      }
+    },
+    "NativeAdMarkupAsset": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "data": 1,
+        "ext": 1,
+        "id": 1,
+        "img": 1,
+        "link": 1,
+        "required": 1,
+        "title": 1
+      }
+    },
+    "NativeAsset": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "required": 1
+      }
+    },
+    "NativeAssetData": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "ext": 1,
+        "length": 1
+      }
+    },
+    "NativeAssetImage": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "ext": 1,
+        "height": 1,
+        "heightMin": 1,
+        "mimes": 1,
+        "type": 1,
+        "width": 1,
+        "widthMin": 1
+      }
+    },
+    "NativeAssetTitle": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "ext": 1
+      }
+    },
+    "NativeData": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "ext": 1,
+        "length": 1,
+        "type": 1,
+        "value": 1
+      }
+    },
+    "NativeDataAssetType": {
+      "case": {
+        "address": 1,
+        "ctaText": 1,
+        "custom": 1,
+        "desc": 1,
+        "desc2": 1,
+        "displayURL": 1,
+        "downloads": 1,
+        "likes": 1,
+        "phone": 1,
+        "price": 1,
+        "rating": 1,
+        "salePrice": 1,
+        "sponsored": 1,
+        "undefined": 1
+      }
+    },
+    "NativeEventTracker": {
+      "init": {
+        "init": 1
+      }
+    },
+    "NativeEventTrackerResponse": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "customdata": 1,
+        "event": 1,
+        "ext": 1,
+        "method": 1,
+        "url": 1
+      }
+    },
+    "NativeImage": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "ext": 1,
+        "height": 1,
+        "type": 1,
+        "url": 1,
+        "width": 1
+      }
+    },
+    "NativeImageAssetType": {
+      "case": {
+        "custom": 1,
+        "icon": 1,
+        "main": 1
+      }
+    },
+    "NativeLink": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "clicktrackers": 1,
+        "ext": 1,
+        "fallback": 1,
+        "url": 1
+      }
+    },
+    "NativeMarkupRequestObject": {
+      "func": {
+        "copy": 1,
+        "toJsonString": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "assets": 1,
+        "aurlsupport": 1,
+        "context": 1,
+        "contextsubtype": 1,
+        "durlsupport": 1,
+        "eventtrackers": 1,
+        "ext": 1,
+        "jsonDictionary": 1,
+        "plcmtcnt": 1,
+        "plcmttype": 1,
+        "privacy": 1,
+        "seq": 1
+      }
+    },
+    "NativeParameters": {
+      "var": {
+        "assets": 1,
+        "asseturlsupport": 1,
+        "context": 1,
+        "contextSubType": 1,
+        "durlsupport": 1,
+        "eventtrackers": 1,
+        "ext": 1,
+        "placementCount": 1,
+        "placementType": 1,
+        "privacy": 1,
+        "sequence": 1,
+        "version": 1
+      }
+    },
+    "NativeRequest": {
+      "func": {
+        "addNativeAssets": 1,
+        "addNativeEventTracker": 1,
+        "getNativeRequestObject": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "assets": 1,
+        "asseturlsupport": 1,
+        "configId": 1,
+        "context": 1,
+        "contextSubType": 1,
+        "durlsupport": 1,
+        "eventtrackers": 1,
+        "ext": 1,
+        "placementCount": 1,
+        "placementType": 1,
+        "privacy": 1,
+        "sequence": 1,
+        "version": 1
+      }
+    },
+    "NativeTitle": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "ext": 1,
+        "length": 1,
+        "text": 1
+      }
+    },
+    "NetworkType": {
+      "case": {
+        "celluar": 1,
+        "offline": 1,
+        "unknown": 1,
+        "wifi": 1
+      },
+      "var": {
+        "description": 1
+      }
+    },
+    "OMSession": {
+      "func": {
+        "addFriendlyObstruction": 1,
+        "start": 1
+      },
+      "var": {
+        "eventTracker": 1
+      }
+    },
+    "OMSessionWrapper": {
+      "func": {
+        "initializeNativeDisplaySession": 1,
+        "initializeNativeVideoSession": 1,
+        "initializeWebViewSession": 1,
+        "injectJSLib": 1
+      }
+    },
+    "ORTBAdConfiguration": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "closeButtonArea": 1,
+        "closeButtonPosition": 1,
+        "isMuted": 1,
+        "jsonDictionary": 1,
+        "maxVideoDuration": 1,
+        "skipButtonArea": 1,
+        "skipButtonPosition": 1,
+        "skipDelay": 1
+      }
+    },
+    "ORTBAppContent": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "album": 1,
+        "artist": 1,
+        "cat": 1,
+        "contentrating": 1,
+        "context": 1,
+        "data": 1,
+        "embeddable": 1,
+        "episode": 1,
+        "ext": 1,
+        "genre": 1,
+        "id": 1,
+        "isrc": 1,
+        "jsonDictionary": 1,
+        "keywords": 1,
+        "language": 1,
+        "len": 1,
+        "livestream": 1,
+        "prodq": 1,
+        "producer": 1,
+        "qagmediarating": 1,
+        "season": 1,
+        "series": 1,
+        "sourcerelationship": 1,
+        "title": 1,
+        "url": 1,
+        "userrating": 1
+      }
+    },
+    "ORTBBid": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "jsonDictionary": 1
+      }
+    },
+    "ORTBBidExtSkadn": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "campaign": 1,
+        "fidelities": 1,
+        "itunesitem": 1,
+        "jsonDictionary": 1,
+        "network": 1,
+        "skoverlay": 1,
+        "sourceapp": 1,
+        "sourceidentifier": 1,
+        "version": 1
+      }
+    },
+    "ORTBBidExtSkadnSKOverlay": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "delay": 1,
+        "dismissible": 1,
+        "endcarddelay": 1,
+        "jsonDictionary": 1,
+        "pos": 1
+      }
+    },
+    "ORTBBidResponseExt": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "extPrebid": 1,
+        "jsonDictionary": 1,
+        "responsetimemillis": 1,
+        "tmaxrequest": 1
+      }
+    },
+    "ORTBBidResponseExtPrebid": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "jsonDictionary": 1,
+        "passthrough": 1
+      }
+    },
+    "ORTBContentData": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "ext": 1,
+        "id": 1,
+        "jsonDictionary": 1,
+        "name": 1,
+        "segment": 1
+      }
+    },
+    "ORTBContentProducer": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "cat": 1,
+        "domain": 1,
+        "ext": 1,
+        "id": 1,
+        "jsonDictionary": 1,
+        "name": 1
+      }
+    },
+    "ORTBContentSegment": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "ext": 1,
+        "id": 1,
+        "jsonDictionary": 1,
+        "name": 1,
+        "value": 1
+      }
+    },
+    "ORTBExtPrebidEvents": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "imp": 1,
+        "jsonDictionary": 1,
+        "win": 1
+      }
+    },
+    "ORTBExtPrebidPassthrough": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "adConfiguration": 1,
+        "jsonDictionary": 1,
+        "rewardedConfiguration": 1,
+        "sdkConfiguration": 1,
+        "type": 1
+      }
+    },
+    "ORTBMacrosHelper": {
+      "func": {
+        "replaceMacros": 1
+      },
+      "init": {
+        "init": 1
+      }
+    },
+    "ORTBNative": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "api": 1,
+        "battr": 1,
+        "jsonDictionary": 1,
+        "request": 1,
+        "ver": 1
+      }
+    },
+    "ORTBNoBidReasonCode": {
+      "case": {
+        "blockedPublisherOrSite": 1,
+        "cloudDataCenterOrProxyIP": 1,
+        "dailyDomainCapMet": 1,
+        "dailyReaderCapMet": 1,
+        "invalidRequest": 1,
+        "knownWebSpider": 1,
+        "suspectedNonHumanTraffic": 1,
+        "technicalError": 1,
+        "unknownError": 1,
+        "unmatchedUser": 1,
+        "unsupportedDevice": 1
+      }
+    },
+    "ORTBRewardedClose": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "action": 1,
+        "jsonDictionary": 1,
+        "postrewardtime": 1
+      }
+    },
+    "ORTBRewardedCompletion": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "banner": 1,
+        "jsonDictionary": 1,
+        "video": 1
+      }
+    },
+    "ORTBRewardedCompletionBanner": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "event": 1,
+        "jsonDictionary": 1,
+        "time": 1
+      }
+    },
+    "ORTBRewardedCompletionVideo": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "endcard": 1,
+        "jsonDictionary": 1,
+        "playbackevent": 1,
+        "time": 1
+      }
+    },
+    "ORTBRewardedCompletionVideoEndcard": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "event": 1,
+        "jsonDictionary": 1,
+        "time": 1
+      }
+    },
+    "ORTBRewardedConfiguration": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "close": 1,
+        "completion": 1,
+        "jsonDictionary": 1,
+        "reward": 1
+      }
+    },
+    "ORTBRewardedReward": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "count": 1,
+        "ext": 1,
+        "jsonDictionary": 1,
+        "type": 1
+      }
+    },
+    "ORTBSDKConfiguration": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "cftBanner": 1,
+        "cftPreRender": 1,
+        "jsonDictionary": 1
+      }
+    },
+    "ORTBSkadnFidelity": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "fidelity": 1,
+        "jsonDictionary": 1,
+        "nonce": 1,
+        "signature": 1,
+        "timestamp": 1
+      }
+    },
+    "OpenMeasurementFriendlyObstructionPurpose": {
+      "case": {
+        "modalViewControllerClose": 1,
+        "modalViewControllerView": 1,
+        "purposesCount": 1,
+        "videoViewLearnMoreButton": 1,
+        "videoViewProgressBar": 1,
+        "windowLockerActivityIndicator": 1,
+        "windowLockerBackground": 1
+      }
+    },
+    "PBMError": {
+      "func": {
+        "blankResponse": 1,
+        "createError": 3,
+        "error": 3,
+        "jsonDictNotFound": 1,
+        "noCachedBids": 1,
+        "noWinningBid": 1,
+        "prebidInvalidAccountId": 1,
+        "prebidInvalidConfigId": 1,
+        "prebidInvalidSize": 1,
+        "prebidNoVastTagInMediaData": 1,
+        "prebidServerURLInvalid": 1,
+        "requestInProgress": 1,
+        "responseDeserializationFailed": 1,
+        "serverError": 1
+      },
+      "var": {
+        "message": 1
+      }
+    },
+    "PBMErrorType": {
+      "init": {
+        "init": 1
+      },
+      "let": {
+        "initError": 1,
+        "internalError": 1,
+        "invalidRequest": 1,
+        "rawValue": 1,
+        "serverError": 1
+      },
+      "typealias": {
+        "RawValue": 1
+      }
+    },
+    "PBMJsonDecodable": {
+      "init": {
+        "init": 2
+      }
+    },
+    "PBMJsonEncodable": {
+      "func": {
+        "toJsonString": 1
+      },
+      "var": {
+        "jsonDictionary": 1
+      }
+    },
+    "PBMORTBNoBidReason": {
+      "func": {
+        "noBidReason": 1
+      }
+    },
+    "PathBuilder": {
+      "func": {
+        "buildURL": 1
+      }
+    },
+    "PlacementType": {
+      "let": {
+        "AtomicContent": 1,
+        "Custom": 1,
+        "FeedContent": 1,
+        "OutsideContent": 1,
+        "RecommendationWidget": 1
+      }
+    },
+    "PluginEventDelegate": {
+      "func": {
+        "getPluginName": 1
+      }
+    },
+    "PluginRendererFactory": {
+      "func": {
+        "createBannerView": 1,
+        "createInterstitialController": 1
+      }
+    },
+    "Position": {
+      "case": {
+        "bottomCenter": 1,
+        "bottomLeft": 1,
+        "bottomRight": 1,
+        "center": 1,
+        "custom": 1,
+        "topCenter": 1,
+        "topLeft": 1,
+        "topRight": 1,
+        "undefined": 1
+      },
+      "func": {
+        "getPositionByStringLiteral": 1
+      }
+    },
+    "Prebid": {
+      "func": {
+        "addCustomHeader": 1,
+        "addStoredBidResponse": 1,
+        "callEventDelegateAsync_prebidBidRequestDidFinishWith": 1,
+        "clearCustomHeaders": 1,
+        "clearStoredBidResponses": 1,
+        "containsPluginRenderer": 1,
+        "getStoredBidResponses": 1,
+        "initializeSDK": 6,
+        "registerPluginRenderer": 1,
+        "unregisterPluginRenderer": 1
+      },
+      "let": {
+        "shared": 1
+      },
+      "var": {
+        "auctionSettingsId": 1,
+        "creativeFactoryTimeout": 1,
+        "creativeFactoryTimeoutPreRenderContent": 1,
+        "customHeaders": 1,
+        "customStatusEndpoint": 1,
+        "debugLogFileEnabled": 1,
+        "eventDelegate": 1,
+        "includeBidderKeys": 1,
+        "includeWinners": 1,
+        "locationUpdatesEnabled": 1,
+        "logLevel": 1,
+        "omsdkVersion": 1,
+        "pbsDebug": 1,
+        "prebidServerAccountId": 1,
+        "requireServerSideBidCache": 1,
+        "shareGeoLocation": 1,
+        "shouldAssignNativeAssetID": 1,
+        "shouldDisableStatusCheck": 1,
+        "storedAuctionResponse": 1,
+        "storedBidResponses": 1,
+        "timeoutMillis": 1,
+        "timeoutMillisDynamic": 1,
+        "timeoutUpdated": 1,
+        "useCacheForReportingWithRenderingAPI": 1,
+        "version": 1
+      }
+    },
+    "PrebidAdUnit": {
+      "func": {
+        "activatePrebidAdViewImpressionTracker": 1,
+        "activatePrebidBannerSKAdNetworkStoreKitAdsFlow": 1,
+        "activatePrebidInterstitialImpressionTracker": 1,
+        "activatePrebidInterstitialSKAdNetworkStoreKitAdsFlow": 1,
+        "activateSKOverlayIfAvailable": 1,
+        "dismissSKOverlayIfAvailable": 1,
+        "fetchDemand": 2,
+        "resumeAutoRefresh": 1,
+        "setAutoRefreshMillis": 1,
+        "stopAutoRefresh": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "pbAdSlot": 1
+      }
+    },
+    "PrebidConstants": {
+      "let": {
+        "ACCESSIBILITY_BANNER_VIEW": 1,
+        "ACCESSIBILITY_CLOSE_BUTTON_CLICK_THROUGH_BROWSER_IDENTIFIER": 1,
+        "ACCESSIBILITY_CLOSE_BUTTON_CLICK_THROUGH_BROWSER_LABEL": 1,
+        "ACCESSIBILITY_CLOSE_BUTTON_IDENTIFIER": 1,
+        "ACCESSIBILITY_CLOSE_BUTTON_LABEL": 1,
+        "ACCESSIBILITY_VIDEO_AD_VIEW": 1,
+        "ACCESSIBILITY_WEB_VIEW_LABEL": 1,
+        "AD_CLICKED_ALLOWED_INTERVAL": 1,
+        "AD_PREFETCH_TIME": 1,
+        "APP_STORE_URL_SCHEME": 1,
+        "AUTO_REFRESH_DELAY_DEFAULT": 1,
+        "AUTO_REFRESH_DELAY_MAX": 1,
+        "AUTO_REFRESH_DELAY_MIN": 1,
+        "BUTTON_AREA_DEFAULT": 1,
+        "BUTTON_CONSTRAINT": 1,
+        "CLOSE_DELAY_MAX": 1,
+        "CLOSE_DELAY_MIN": 1,
+        "CONNECTION_TIMEOUT_DEFAULT": 1,
+        "DISTANCE_FILTER": 1,
+        "DOMAIN_KEY": 1,
+        "FETCH_DEMAND_RESULT_KEY": 1,
+        "FIRE_AND_FORGET_TIMEOUT": 1,
+        "LOCATION_SOURCE_GPS": 1,
+        "LOCATION_SOURCE_IPAddress": 1,
+        "LOCATION_SOURCE_USER_REGISTRATION": 1,
+        "OPEN_RTB_SCHEME": 1,
+        "PBM_ORIGINAL_ADUNIT_KEY": 1,
+        "PBM_PRECACHE_CONFIGURATION_KEY": 1,
+        "PBM_TRACKING_URL_TEMPLATE": 1,
+        "PBM_TRANSACTION_STATE_KEY": 1,
+        "PREBID_VERSION": 1,
+        "SDK_NAME": 1,
+        "SERVER_ENDPOINTS_STATUS": 1,
+        "SKIP_DELAY_DEFAULT": 1,
+        "SUPPORTED_VIDEO_MIME_TYPES": 1,
+        "TRACKING_PATTERN_BO": 1,
+        "TRACKING_PATTERN_RC": 1,
+        "TRACKING_PATTERN_RDF": 1,
+        "TRACKING_PATTERN_RI": 1,
+        "TRACKING_PATTERN_RR": 1,
+        "URL_SCHEMES_FOR_APP_STORE_AND_ITUNES": 1,
+        "URL_SCHEMES_NOT_SUPPORTED_ON_CLICKTHROUGH_BROWSER": 1,
+        "URL_SCHEMES_NOT_SUPPORTED_ON_SIMULATOR": 1,
+        "VAST_LOADER_TIMEOUT": 1,
+        "VIDEO_TIMESCALE": 1
+      },
+      "var": {
+        "companionHTMLTemplate": 1,
+        "supportedRenderingBannerAPISignals": 1
+      }
+    },
+    "PrebidEventDelegate": {
+      "func": {
+        "prebidBidRequestDidFinish": 1
+      }
+    },
+    "PrebidImagesRepository": {
+      "let": {
+        "closeButton": 1,
+        "muteDisabled": 1,
+        "muteEnabled": 1,
+        "skipButton": 1
+      }
+    },
+    "PrebidInitializationStatus": {
+      "case": {
+        "failed": 1,
+        "serverStatusSkipped": 1,
+        "serverStatusWarning": 1,
+        "succeeded": 1
+      }
+    },
+    "PrebidJSLibrary": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "downloadURLString": 1,
+        "name": 1
+      }
+    },
+    "PrebidJSLibraryManager": {
+      "func": {
+        "downloadLibraries": 1,
+        "getMRAIDLibrary": 1,
+        "getOMSDKLibrary": 1
+      },
+      "let": {
+        "shared": 1
+      }
+    },
+    "PrebidLogger": {
+      "func": {
+        "debug": 1,
+        "error": 1,
+        "info": 1,
+        "severe": 1,
+        "verbose": 1,
+        "warn": 1,
+        "whereAmI": 1
+      }
+    },
+    "PrebidMediationDelegate": {
+      "func": {
+        "cleanUpAdObject": 1,
+        "getAdView": 1,
+        "setUpAdObject": 1
+      }
+    },
+    "PrebidMobileDisplayViewProtocol": {
+      "func": {
+        "loadAd": 1
+      }
+    },
+    "PrebidMobileInterstitialControllerProtocol": {
+      "func": {
+        "loadAd": 1,
+        "show": 1
+      }
+    },
+    "PrebidMobilePluginRegister": {
+      "func": {
+        "containsPlugin": 1,
+        "getAllPlugins": 1,
+        "getAllPluginsJSONRepresentation": 1,
+        "getPluginForPreferredRenderer": 1,
+        "registerEventDelegate": 1,
+        "registerPlugin": 1,
+        "unregisterEventDelegate": 1,
+        "unregisterPlugin": 1
+      },
+      "let": {
+        "shared": 1
+      },
+      "var": {
+        "sdkRenderer": 1
+      }
+    },
+    "PrebidMobilePluginRenderer": {
+      "func": {
+        "createBannerView": 1,
+        "createInterstitialController": 1,
+        "didInjectView": 1,
+        "jsonDictionary": 1,
+        "registerEventDelegate": 1,
+        "unregisterEventDelegate": 1
+      },
+      "var": {
+        "data": 1,
+        "name": 1,
+        "version": 1
+      }
+    },
+    "PrebidRenderer": {
+      "func": {
+        "createBannerView": 1,
+        "createInterstitialController": 1
+      },
+      "let": {
+        "name": 1,
+        "version": 1
+      },
+      "var": {
+        "data": 1
+      }
+    },
+    "PrebidRequest": {
+      "func": {
+        "getGlobalORTBConfig": 1,
+        "getImpORTBConfig": 1,
+        "setGPID": 1,
+        "setGlobalORTBConfig": 1,
+        "setImpORTBConfig": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "adPosition": 1,
+        "supportSKOverlayForInterstitial": 1
+      }
+    },
+    "PrebidReward": {
+      "var": {
+        "count": 1,
+        "ext": 1,
+        "type": 1
+      }
+    },
+    "PrebidServerConnection": {
+      "func": {
+        "download": 1,
+        "fireAndForget": 1,
+        "get": 1,
+        "head": 1,
+        "post": 2,
+        "urlSession": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "let": {
+        "shared": 1
+      },
+      "var": {
+        "contentTypeKey": 1,
+        "contentTypeVal": 1,
+        "internalIDKey": 1,
+        "isPBMRequestKey": 1,
+        "protocolClasses": 1,
+        "userAgentHeaderKey": 1,
+        "userAgentService": 1
+      }
+    },
+    "PrebidServerConnectionProtocol": {
+      "func": {
+        "download": 1,
+        "fireAndForget": 1,
+        "get": 1,
+        "head": 1,
+        "post": 2
+      },
+      "var": {
+        "userAgentService": 1
+      }
+    },
+    "PrebidServerEventTracker": {
+      "func": {
+        "addServerEvents": 1,
+        "trackEvent": 1,
+        "trackStartVideo": 1,
+        "trackVideoAdLoaded": 1,
+        "trackVolumeChanged": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "serverEvents": 1
+      }
+    },
+    "PrebidServerResponse": {
+      "var": {
+        "error": 1,
+        "isOKStatusCode": 1,
+        "jsonDict": 1,
+        "rawData": 1,
+        "requestHeaders": 1,
+        "requestURL": 1,
+        "responseHeaders": 1,
+        "statusCode": 1
+      }
+    },
+    "PrimaryAdRequesterProtocol": {
+      "func": {
+        "requestAd": 1
+      }
+    },
+    "Reachability": {
+      "func": {
+        "onNetworkRestored": 1,
+        "stopNotifier": 1
+      },
+      "let": {
+        "shared": 1
+      },
+      "var": {
+        "currentReachabilityStatus": 1,
+        "isNetworkReachable": 1
+      }
+    },
+    "ResultCode": {
+      "case": {
+        "prebidDemandFetchSuccess": 1,
+        "prebidDemandNoBids": 1,
+        "prebidDemandNoCachedBids": 1,
+        "prebidDemandTimedOut": 1,
+        "prebidInternalSDKError": 1,
+        "prebidInvalidAccountId": 1,
+        "prebidInvalidConfigId": 1,
+        "prebidInvalidRequest": 1,
+        "prebidInvalidResponseStructure": 1,
+        "prebidInvalidSize": 1,
+        "prebidNetworkError": 1,
+        "prebidNoVastTagInMediaData": 1,
+        "prebidSDKMisuse": 1,
+        "prebidSDKMisusePreviousFetchNotCompletedYet": 1,
+        "prebidServerError": 1,
+        "prebidServerNotSpecified": 1,
+        "prebidServerURLInvalid": 1,
+        "prebidUnknownError": 1,
+        "prebidWrongArguments": 1
+      },
+      "func": {
+        "name": 1
+      }
+    },
+    "RewardedAdUnit": {
+      "func": {
+        "getGlobalORTBConfig": 1,
+        "getImpORTBConfig": 1,
+        "loadAd": 1,
+        "setGlobalORTBConfig": 1,
+        "setImpORTBConfig": 1,
+        "show": 1
+      },
+      "init": {
+        "init": 4
+      },
+      "var": {
+        "adFormats": 1,
+        "adPosition": 1,
+        "bannerParameters": 1,
+        "closeButtonArea": 1,
+        "closeButtonPosition": 1,
+        "delegate": 1,
+        "isMuted": 1,
+        "isReady": 1,
+        "isSoundButtonVisible": 1,
+        "supportSKOverlay": 1,
+        "videoParameters": 1
+      }
+    },
+    "RewardedAdUnitDelegate": {
+      "func": {
+        "rewardedAd": 1,
+        "rewardedAdDidClickAd": 1,
+        "rewardedAdDidDismissAd": 1,
+        "rewardedAdDidReceiveAd": 1,
+        "rewardedAdUserDidEarnReward": 1,
+        "rewardedAdWillLeaveApplication": 1,
+        "rewardedAdWillPresentAd": 1
+      }
+    },
+    "RewardedConfig": {
+      "init": {
+        "init": 1
+      },
+      "let": {
+        "defaultCompletionTime": 1,
+        "defaultVideoPlaybackEvent": 1
+      },
+      "var": {
+        "bannerEvent": 1,
+        "bannerTime": 1,
+        "closeAction": 1,
+        "endcardEvent": 1,
+        "endcardTime": 1,
+        "postRewardTime": 1,
+        "reward": 1,
+        "videoPlaybackevent": 1,
+        "videoTime": 1
+      }
+    },
+    "RewardedEventHandlerProtocol": {
+      "var": {
+        "interactionDelegate": 1,
+        "loadingDelegate": 1
+      }
+    },
+    "RewardedEventHandlerStandalone": {
+      "func": {
+        "requestAd": 1,
+        "show": 1
+      },
+      "var": {
+        "interactionDelegate": 1,
+        "isReady": 1,
+        "loadingDelegate": 1
+      }
+    },
+    "RewardedEventInteractionDelegate": {
+      "func": {
+        "userDidEarnReward": 1
+      }
+    },
+    "RewardedVideoAdUnit": {
+      "func": {
+        "activateSKOverlayIfAvailable": 1,
+        "dismissSKOverlayIfAvailable": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "supportSKOverlay": 1,
+        "videoParameters": 1
+      }
+    },
+    "SDKConsoleLogger": {
+      "func": {
+        "debug": 1,
+        "error": 1,
+        "info": 1,
+        "severe": 1,
+        "verbose": 1,
+        "warn": 1,
+        "whereAmI": 1
+      }
+    },
+    "SKOverlayManager": {
+      "func": {
+        "dismissSKOverlay": 1,
+        "presentSKOverlay": 1
+      },
+      "init": {
+        "init": 1
+      }
+    },
+    "ServerEvent": {
+      "init": {
+        "init": 1
+      }
+    },
+    "Signals": {
+      "class": {
+        "Api": 1,
+        "CreativeAttribute": 1,
+        "Placement": 1,
+        "PlaybackMethod": 1,
+        "Plcmnt": 1,
+        "Protocols": 1,
+        "StartDelay": 1
+      }
+    },
+    "Signals.Api": {
+      "let": {
+        "MRAID_1": 1,
+        "MRAID_2": 1,
+        "MRAID_3": 1,
+        "OMID_1": 1,
+        "ORMMA": 1,
+        "VPAID_1": 1,
+        "VPAID_2": 1
+      }
+    },
+    "Signals.CreativeAttribute": {
+      "let": {
+        "AdobeFlash": 1,
+        "AlertStyle": 1,
+        "AudioAd_Autoplay": 1,
+        "AudioAd_UserInitiated": 1,
+        "AudioButton": 1,
+        "Expandable_Automatic": 1,
+        "Expandable_Click": 1,
+        "Expandable_Rollover": 1,
+        "ExtremeAnimation": 1,
+        "Flashing": 1,
+        "Flickering": 1,
+        "InBanner_Autoplay": 1,
+        "InBanner_UserInitiated": 1,
+        "Pop": 1,
+        "Provocative": 1,
+        "Shaky": 1,
+        "SkipButton": 1,
+        "Smileys": 1,
+        "SuggestiveImagery": 1,
+        "Surveys": 1,
+        "TextOnly": 1,
+        "UserInteractive": 1,
+        "WindowsDialog": 1
+      }
+    },
+    "Signals.Placement": {
+      "func": {
+        "getPlacementByRawValue": 1
+      },
+      "let": {
+        "Floating": 1,
+        "InArticle": 1,
+        "InBanner": 1,
+        "InFeed": 1,
+        "InStream": 1,
+        "Interstitial": 1,
+        "Slider": 1
+      }
+    },
+    "Signals.PlaybackMethod": {
+      "let": {
+        "AutoPlaySoundOff": 1,
+        "AutoPlaySoundOn": 1,
+        "ClickToPlay": 1,
+        "EnterSoundOff": 1,
+        "EnterSoundOn": 1,
+        "MouseOver": 1
+      }
+    },
+    "Signals.Plcmnt": {
+      "func": {
+        "getPlacementByRawValue": 1
+      },
+      "let": {
+        "AccompanyingContent": 1,
+        "Instream": 1,
+        "Interstitial": 1,
+        "NoContent": 1,
+        "Standalone": 1
+      }
+    },
+    "Signals.Protocols": {
+      "let": {
+        "DAAST_1_0": 1,
+        "DAAST_1_0_WRAPPER": 1,
+        "VAST_1_0": 1,
+        "VAST_1_0_Wrapper": 1,
+        "VAST_2_0": 1,
+        "VAST_2_0_Wrapper": 1,
+        "VAST_3_0": 1,
+        "VAST_3_0_Wrapper": 1,
+        "VAST_4_0": 1,
+        "VAST_4_0_Wrapper": 1
+      }
+    },
+    "Signals.StartDelay": {
+      "let": {
+        "GenericMidRoll": 1,
+        "GenericPostRoll": 1,
+        "PreRoll": 1
+      }
+    },
+    "SingleContainerInt": {
+      "func": {
+        "isEqual": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "let": {
+        "value": 1
+      },
+      "typealias": {
+        "IntegerLiteralType": 1
+      },
+      "var": {
+        "hash": 1
+      }
+    },
+    "SkadnEventTracker": {
+      "func": {
+        "trackEvent": 1,
+        "trackStartVideo": 1,
+        "trackVideoAdLoaded": 1,
+        "trackVolumeChanged": 1
+      },
+      "init": {
+        "init": 1
+      }
+    },
+    "SkadnParametersManager": {
+      "func": {
+        "getSkadnImpression": 1,
+        "getSkadnProductParameters": 1
+      }
+    },
+    "Targeting": {
+      "func": {
+        "addAppExtData": 1,
+        "addAppKeyword": 1,
+        "addAppKeywords": 1,
+        "addBidderToAccessControlList": 1,
+        "addParam": 1,
+        "addUserKeyword": 1,
+        "addUserKeywords": 1,
+        "clearAccessControlList": 1,
+        "clearAppExtData": 1,
+        "clearAppKeywords": 1,
+        "clearUserKeywords": 1,
+        "getAccessControlList": 1,
+        "getAppExtData": 1,
+        "getAppKeywords": 1,
+        "getDeviceAccessConsent": 1,
+        "getDeviceAccessConsentObjc": 1,
+        "getExternalUserIds": 1,
+        "getGlobalORTBConfig": 1,
+        "getPurposeConsent": 1,
+        "getSubjectToGDPR": 1,
+        "getUserKeywords": 1,
+        "isAllowedAccessDeviceData": 1,
+        "removeAppExtData": 1,
+        "removeAppKeyword": 1,
+        "removeBidderFromAccessControlList": 1,
+        "removeUserKeyword": 1,
+        "resetSharedId": 1,
+        "setExternalUserIds": 1,
+        "setGlobalORTBConfig": 1,
+        "setLatitude": 1,
+        "setSubjectToGDPR": 1,
+        "updateAppExtData": 1
+      },
+      "var": {
+        "accessControlList": 1,
+        "contentUrl": 1,
+        "coordinate": 1,
+        "coppa": 1,
+        "domain": 1,
+        "forceSdkToChooseWinner": 1,
+        "gdprConsentString": 1,
+        "itunesID": 1,
+        "location": 1,
+        "locationPrecision": 1,
+        "omidPartnerName": 1,
+        "omidPartnerVersion": 1,
+        "parameterDictionary": 1,
+        "publisherName": 1,
+        "purposeConsents": 1,
+        "sendSharedId": 1,
+        "shared": 1,
+        "sharedId": 1,
+        "sourceapp": 1,
+        "storeURL": 1,
+        "subjectToCOPPA": 1,
+        "subjectToGDPR": 1,
+        "userExt": 1
+      }
+    },
+    "TrackingEvent": {
+      "case": {
+        "acceptInvitation": 1,
+        "click": 1,
+        "closeLinear": 1,
+        "closeOverlay": 1,
+        "collapse": 1,
+        "companionClick": 1,
+        "complete": 1,
+        "creativeView": 1,
+        "error": 1,
+        "exitFullscreen": 1,
+        "expand": 1,
+        "firstQuartile": 1,
+        "fullscreen": 1,
+        "impression": 1,
+        "loaded": 1,
+        "midpoint": 1,
+        "mute": 1,
+        "normal": 1,
+        "overlayClick": 1,
+        "pause": 1,
+        "play": 1,
+        "prebidWin": 1,
+        "request": 1,
+        "resume": 1,
+        "rewind": 1,
+        "skip": 1,
+        "start": 1,
+        "thirdQuartile": 1,
+        "unknown": 1,
+        "unmute": 1
+      }
+    },
+    "TrackingEventDescription": {
+      "func": {
+        "getDescription": 1,
+        "getEvent": 1
+      }
+    },
+    "UIView": {
+      "func": {
+        "allSubViewsOf": 1
+      }
+    },
+    "UserAgentService": {
+      "func": {
+        "fetchUserAgent": 1
+      },
+      "let": {
+        "shared": 1
+      },
+      "var": {
+        "userAgent": 1
+      }
+    },
+    "UserUniqueID": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "aType": 1,
+        "ext": 1,
+        "uniqueId": 1
+      }
+    },
+    "Utils": {
+      "func": {
+        "findNative": 1,
+        "round": 1
+      },
+      "let": {
+        "shared": 1
+      },
+      "var": {
+        "delegate": 1
+      }
+    },
+    "VastTrackingEvents": {
+      "func": {
+        "addTrackingEvents": 1,
+        "addTrackingURL": 1,
+        "trackingURLs": 1
+      },
+      "var": {
+        "progressOffsets": 1,
+        "trackingEvents": 1
+      }
+    },
+    "VideoBasedAdUnitProtocol": {
+      "var": {
+        "videoParameters": 1
+      }
+    },
+    "VideoControlsConfiguration": {
+      "func": {
+        "initialize": 1
+      },
+      "var": {
+        "closeButtonArea": 1,
+        "closeButtonPosition": 1,
+        "isMuted": 1,
+        "isSoundButtonVisible": 1,
+        "skipButtonArea": 1,
+        "skipButtonPosition": 1,
+        "skipDelay": 1
+      }
+    },
+    "VideoParameters": {
+      "func": {
+        "setSize": 1,
+        "setSkippable": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "adSize": 1,
+        "api": 1,
+        "battr": 1,
+        "isSkippable": 1,
+        "linearity": 1,
+        "maxBitrate": 1,
+        "maxDuration": 1,
+        "mimes": 1,
+        "minBitrate": 1,
+        "minDuration": 1,
+        "placement": 1,
+        "playbackMethod": 1,
+        "plcmnt": 1,
+        "protocols": 1,
+        "rawAPI": 1,
+        "rawBattrs": 1,
+        "rawPlaybackMethod": 1,
+        "rawProtocols": 1,
+        "rawSkippable": 1,
+        "startDelay": 1
+      }
+    },
+    "VideoVerificationParameters": {
+      "var": {
+        "autoPlay": 1,
+        "verificationResources": 1
+      }
+    },
+    "VideoVerificationResource": {
+      "var": {
+        "apiFramework": 1,
+        "params": 1,
+        "trackingEvents": 1,
+        "url": 1,
+        "vendorKey": 1
+      }
+    },
+    "[String": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "jsonDictionary": 1
+      }
+    }
+  },
+  "swift-spi": {
+    "(top-level)": {
+      "class": {
+        "AdLoadFlowController": 1,
+        "AdModelEventTracker": 1,
+        "AutoRefreshManager": 1,
+        "BannerAdLoader": 1,
+        "CreativeModel": 1,
+        "Factory": 1,
+        "Functions": 1,
+        "MRAIDState": 1,
+        "ModalManager": 1,
+        "ModalPresentationController": 1,
+        "ORTBMacrosHelper": 1,
+        "PBMError": 1,
+        "PBMErrorType": 1,
+        "TrackingEventDescription": 1
+      },
+      "enum": {
+        "PBMErrorCode": 1
+      },
+      "protocol": {
+        "AbstractCreative": 1,
+        "AdLoadFlowControllerDelegate": 1,
+        "AdLoaderFlowDelegate": 1,
+        "AdLoaderProtocol": 1,
+        "AdViewManager": 1,
+        "BannerAdLoaderDelegate": 1,
+        "BidRequester": 1,
+        "BidRequesterProtocol": 1,
+        "CreativeResolutionDelegate": 1,
+        "CreativeViewDelegate": 1,
+        "CreativeViewabilityTracker": 1,
+        "DeferredModalState": 1,
+        "ModalState": 1,
+        "ModalViewControllerDelegate": 1,
+        "OMSDKVersionProvider": 1,
+        "PBMSwiftMigrationHelper": 1,
+        "ThreadProtocol": 1,
+        "Transaction": 1,
+        "TransactionDelegate": 1,
+        "TransactionFactory": 1,
+        "ViewExposure": 1,
+        "WebView_Protocol": 1,
+        "WinNotifier": 1
+      },
+      "typealias": {
+        "AdUnitConfigValidationBlock": 1,
+        "ModalStateAppLeavingHandler": 1,
+        "ModalStatePopHandler": 1,
+        "TransactionFactoryCallback": 1,
+        "ViewExposureChangeHandler": 1,
+        "WinNotifierFactoryBlock": 1
+      }
+    },
+    "AbstractCreative": {
+      "func": {
+        "createOpenMeasurementSession": 1,
+        "display": 1,
+        "handleClickthrough": 1,
+        "modalManagerDidFinishPop": 1,
+        "modalManagerDidLeaveApp": 1,
+        "mute": 1,
+        "onResolutionCompleted": 1,
+        "onResolutionFailed": 1,
+        "onViewabilityChanged": 1,
+        "pause": 1,
+        "resume": 1,
+        "setupView": 1,
+        "showAsInterstitial": 1,
+        "unmute": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "clickthroughVisible": 1,
+        "creativeModel": 1,
+        "creativeResolutionDelegate": 1,
+        "creativeViewDelegate": 1,
+        "dismissInterstitialModalState": 1,
+        "dispatchQueue": 1,
+        "displayInterval": 1,
+        "eventManager": 1,
+        "isDownloaded": 1,
+        "isMuted": 1,
+        "isOpened": 1,
+        "modalManager": 1,
+        "skOverlayManager": 1,
+        "transaction": 1,
+        "view": 1,
+        "viewControllerForPresentingModals": 1,
+        "viewabilityTracker": 1
+      }
+    },
+    "AdLoadFlowControllerDelegate": {
+      "func": {
+        "adLoadFlowController": 1,
+        "adLoadFlowControllerShouldContinue": 1,
+        "adLoadFlowControllerWillRequestPrimaryAd": 1,
+        "adLoadFlowControllerWillSendBidRequest": 1
+      }
+    },
+    "AdLoaderFlowDelegate": {
+      "func": {
+        "adLoader": 3,
+        "adLoaderDidWinPrebid": 1,
+        "adLoaderLoadedPrebidAd": 1
+      }
+    },
+    "AdLoaderProtocol": {
+      "func": {
+        "createPrebidAd": 1,
+        "reportSuccess": 1
+      },
+      "var": {
+        "flowDelegate": 1,
+        "primaryAdRequester": 1
+      }
+    },
+    "AdViewManager": {
+      "func": {
+        "handleExternalTransaction": 1,
+        "isAbleToShowCurrentCreative": 1,
+        "mute": 1,
+        "pause": 1,
+        "resume": 1,
+        "revenueForNextCreative": 1,
+        "setupCreative": 2,
+        "show": 1,
+        "unmute": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "adConfiguration": 1,
+        "adViewManagerDelegate": 1,
+        "autoDisplayOnLoad": 1,
+        "currentCreative": 1,
+        "externalTransaction": 1,
+        "isCreativeOpened": 1,
+        "isMuted": 1,
+        "modalManager": 1
+      }
+    },
+    "BannerAdLoaderDelegate": {
+      "func": {
+        "bannerAdLoader": 1
+      },
+      "var": {
+        "eventHandler": 1
+      }
+    },
+    "BannerView": {
+      "func": {
+        "bannerAdLoader": 1
+      }
+    },
+    "BidRequester": {
+      "init": {
+        "init": 1
+      }
+    },
+    "BidRequesterProtocol": {
+      "func": {
+        "requestBids": 1
+      }
+    },
+    "CreativeResolutionDelegate": {
+      "func": {
+        "creativeFailed": 1,
+        "creativeReady": 1
+      }
+    },
+    "CreativeViewDelegate": {
+      "func": {
+        "creativeClickthroughDidClose": 1,
+        "creativeDidComplete": 1,
+        "creativeDidDisplay": 1,
+        "creativeDidSendRewardedEvent": 1,
+        "creativeFullScreenDidFinish": 1,
+        "creativeInterstitialDidClose": 1,
+        "creativeInterstitialDidLeaveApp": 1,
+        "creativeMraidDidCollapse": 1,
+        "creativeMraidDidExpand": 1,
+        "creativeReadyToReimplant": 1,
+        "creativeViewWasClicked": 1,
+        "creativeWasClicked": 1,
+        "videoCreativeDidComplete": 1,
+        "videoDidPause": 1,
+        "videoDidResume": 1,
+        "videoWasMuted": 1,
+        "videoWasUnmuted": 1
+      }
+    },
+    "CreativeViewabilityTracker": {
+      "func": {
+        "checkExposure": 1,
+        "checkViewability": 1,
+        "start": 1,
+        "stop": 1
+      },
+      "init": {
+        "init": 2
+      }
+    },
+    "DeferredModalState": {
+      "func": {
+        "prepareAndPush": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "modalState": 1
+      }
+    },
+    "ModalState": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "adConfiguration": 1,
+        "displayProperties": 1,
+        "isRotationEnabled": 1,
+        "mraidState": 1,
+        "nextOnStateHasLeftApp": 1,
+        "nextOnStatePopFinished": 1,
+        "onModalPushedBlock": 1,
+        "onStateHasLeftApp": 1,
+        "onStatePopFinished": 1,
+        "view": 1
+      }
+    },
+    "ModalViewControllerDelegate": {
+      "func": {
+        "modalViewControllerCloseButtonTapped": 1,
+        "modalViewControllerDidLeaveApp": 1
+      }
+    },
+    "OMSDKVersionProvider": {
+      "var": {
+        "omSDKVersionString": 1
+      }
+    },
+    "PBMErrorCode": {
+      "case": {
+        "fileNotFound": 1,
+        "general": 1,
+        "generalLinear": 1,
+        "generalNonLinearAds": 1,
+        "undefined": 1
+      }
+    },
+    "ThreadProtocol": {
+      "var": {
+        "isMainThread": 1
+      }
+    },
+    "Transaction": {
+      "func": {
+        "getAdDetails": 1,
+        "getCreative": 1,
+        "getFirstCreative": 1,
+        "resetAdConfiguration": 1,
+        "revenueForCreative": 1,
+        "startCreativeFactory": 1,
+        "updateAdConfiguration": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "adConfiguration": 1,
+        "bid": 1,
+        "creativeModels": 1,
+        "creatives": 1,
+        "delegate": 1,
+        "measurementSession": 1,
+        "measurementWrapper": 1
+      }
+    },
+    "TransactionDelegate": {
+      "func": {
+        "transactionFailedToLoad": 1,
+        "transactionReadyForDisplay": 1
+      }
+    },
+    "TransactionFactory": {
+      "func": {
+        "load": 1
+      },
+      "init": {
+        "init": 1
+      }
+    },
+    "UIView": {
+      "func": {
+        "addConstraints": 1,
+        "addFillSuperviewConstraints": 1,
+        "isVisible": 2
+      }
+    },
+    "ViewExposure": {
+      "func": {
+        "serialize": 1,
+        "zeroExposure": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "exposedPercentage": 1,
+        "exposureFactor": 1,
+        "occlusionRectangles": 1,
+        "visibleRectangle": 1
+      }
+    },
+    "WebView_Protocol": {
+      "var": {
+        "isMRAID": 1
+      }
+    },
+    "WinNotifier": {
+      "func": {
+        "cacheUrl": 1,
+        "notifyThroughConnection": 1,
+        "winNotifierBlock": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "factoryBlock": 1
+      }
+    }
+  },
+  "objc-header": [],
+  "objc-internal": {
+    "interface": {
+      "InternalUserConsentDataManager": 1,
+      "NSBundle()": 1,
+      "NSDictionary(PBMExtensions)": 1,
+      "NSException(PBMExtensions)": 1,
+      "NSMutableDictionary(Clear)": 1,
+      "NSString(PBMExtensions)": 1,
+      "NSTimer(PBMScheduledTimerFactory)": 1,
+      "NSTimer(PBMTimerInterface)": 1,
+      "NSURL(PBMExtensions)": 1,
+      "PBMAbstractCreative_Objc": 1,
+      "PBMAbstractCreative_Objc(Protected)": 1,
+      "PBMAdLoadFlowController_Objc": 1,
+      "PBMAdLoadManagerBase": 1,
+      "PBMAdLoadManagerVAST": 1,
+      "PBMAdRequestResponseVAST": 1,
+      "PBMAdRequesterVAST": 1,
+      "PBMAppInfoParameterBuilder": 1,
+      "PBMBasicParameterBuilder": 1,
+      "PBMBidRequester": 1,
+      "PBMBidRequesterFactory": 1,
+      "PBMBidResponseTransformer": 1,
+      "PBMCircularProgressBarLayer": 1,
+      "PBMCircularProgressBarView": 1,
+      "PBMCreativeFactory": 1,
+      "PBMCreativeFactoryJob": 1,
+      "PBMCreativeModelCollectionMakerVAST": 1,
+      "PBMDeepLinkPlus": 1,
+      "PBMDeepLinkPlusHelper": 1,
+      "PBMDeepLinkPlusHelper()": 1,
+      "PBMDeepLinkPlusHelper(Testing)": 1,
+      "PBMDeviceAccessManagerKeys": 1,
+      "PBMDeviceInfoParameterBuilder": 1,
+      "PBMDisplayTransactionFactory": 1,
+      "PBMDownloadDataHelper": 1,
+      "PBMExternalLinkHandler": 1,
+      "PBMExternalURLOpenCallbacks": 1,
+      "PBMExternalURLOpeners": 1,
+      "PBMFunctions": 1,
+      "PBMFunctions()": 1,
+      "PBMFunctions(Testing)": 1,
+      "PBMGeoLocationParameterBuilder": 1,
+      "PBMHTMLCreative": 1,
+      "PBMHTMLFormatter": 1,
+      "PBMInterstitialLayoutConfigurator": 1,
+      "PBMMRAIDCloseButtonPosition": 1,
+      "PBMMRAIDCloseButtonSize": 1,
+      "PBMMRAIDCommand": 1,
+      "PBMMRAIDConstants": 1,
+      "PBMMRAIDController": 1,
+      "PBMMRAIDExpandProperties": 1,
+      "PBMMRAIDJavascriptCommands": 1,
+      "PBMMRAIDParseKeys": 1,
+      "PBMMRAIDResizeProperties": 1,
+      "PBMMRAIDValues": 1,
+      "PBMNetworkParameterBuilder": 1,
+      "PBMORTBAbstract": 1,
+      "PBMORTBAbstract()": 1,
+      "PBMORTBApp": 1,
+      "PBMORTBAppExt": 1,
+      "PBMORTBAppExtPrebid": 1,
+      "PBMORTBBanner": 1,
+      "PBMORTBBidRequest": 1,
+      "PBMORTBBidRequestExtPrebid": 1,
+      "PBMORTBDeal": 1,
+      "PBMORTBDevice": 1,
+      "PBMORTBDeviceExtAtts": 1,
+      "PBMORTBDeviceExtPrebid": 1,
+      "PBMORTBDeviceExtPrebidInterstitial": 1,
+      "PBMORTBFormat": 1,
+      "PBMORTBGeo": 1,
+      "PBMORTBImp": 1,
+      "PBMORTBImpExtPrebid": 1,
+      "PBMORTBImpExtSkadn": 1,
+      "PBMORTBParameterBuilder": 1,
+      "PBMORTBPmp": 1,
+      "PBMORTBPublisher": 1,
+      "PBMORTBRegs": 1,
+      "PBMORTBRendererConfig": 1,
+      "PBMORTBSource": 1,
+      "PBMORTBSourceExtOMID": 1,
+      "PBMORTBUser": 1,
+      "PBMORTBVideo": 1,
+      "PBMOpenMeasurementEventTracker": 1,
+      "PBMOpenMeasurementFriendlyObstructionTypeBridge": 1,
+      "PBMOpenMeasurementSession": 1,
+      "PBMOpenMeasurementWrapper": 1,
+      "PBMParameterBuilderService": 1,
+      "PBMPrebidParameterBuilder": 1,
+      "PBMSKAdNetworksParameterBuilder": 1,
+      "PBMSafariVCOpener": 1,
+      "PBMTrackingRecord": 1,
+      "PBMTrackingURLVisitors": 1,
+      "PBMURLComponents": 1,
+      "PBMUserConsentParameterBuilder": 1,
+      "PBMVastAbstractAd": 1,
+      "PBMVastAdsBuilder": 1,
+      "PBMVastCreativeAbstract": 1,
+      "PBMVastCreativeCompanionAds": 1,
+      "PBMVastCreativeCompanionAdsCompanion": 1,
+      "PBMVastCreativeLinear": 1,
+      "PBMVastCreativeNonLinearAds": 1,
+      "PBMVastCreativeNonLinearAdsNonLinear": 1,
+      "PBMVastIcon": 1,
+      "PBMVastInlineAd": 1,
+      "PBMVastMediaFile": 1,
+      "PBMVastParser": 1,
+      "PBMVastParser(Private)": 1,
+      "PBMVastRequester": 1,
+      "PBMVastResponse": 1,
+      "PBMVastTransactionFactory": 1,
+      "PBMVastWrapperAd": 1,
+      "PBMVideoCreative": 1,
+      "PBMVideoView": 1,
+      "PBMViewExposureChecker": 1,
+      "PBMWKScriptMessageHandlerLeakAvoider": 1,
+      "PBMWeakTimerTargetBox": 1,
+      "PBMWebView": 1,
+      "PBMWebView()": 1,
+      "PBMWindowLocker": 1,
+      "Prebid(Test)": 1,
+      "SDGeocoder": 1,
+      "SDLocationManager": 1,
+      "UIApplication(PBMUIApplicationProtocol)": 1,
+      "UIView(PBMExtensions)": 1,
+      "UIView(PBMViewExposure)": 1,
+      "UIWindow(PBMExtensions)": 1,
+      "WKNavigationAction(PBMWKNavigationActionCompatible)": 1,
+      "WKWebView(PBMWKWebViewCompatible)": 1
+    },
+    "protocol": {
+      "PBMAdLoadManagerDelegate": 1,
+      "PBMAdLoadManagerProtocol": 1,
+      "PBMBundleProtocol": 1,
+      "PBMExposureChangeDelegate": 1,
+      "PBMParameterBuilder": 1,
+      "PBMTimerInterface": 1,
+      "PBMUIApplicationProtocol": 1,
+      "PBMVastResourceContainerProtocol": 1,
+      "PBMVideoViewDelegate": 1,
+      "PBMWKNavigationActionCompatible": 1,
+      "PBMWKWebViewCompatible": 1,
+      "PBMWebViewDelegate": 1,
+      "SDGeocoderDelegate": 1
+    }
+  },
+  "spm-product": {
+    "EventHandlers/Package.swift": {
+      "PrebidMobileAdMobAdapters": [
+        "PrebidMobileAdMobAdapters"
+      ],
+      "PrebidMobileGAMEventHandlers": [
+        "PrebidMobileGAMEventHandlers"
+      ],
+      "PrebidMobileMAXAdapters": [
+        "PrebidMobileMAXAdapters"
+      ]
+    },
+    "Package.swift": {
+      "PrebidMobile": [
+        "PrebidMobile",
+        "__PrebidMobileInternal"
+      ],
+      "PrebidMobileAdMobAdapters": [
+        "PrebidMobileAdMobAdapters"
+      ],
+      "PrebidMobileGAMEventHandlers": [
+        "PrebidMobileGAMEventHandlers"
+      ],
+      "PrebidMobileMAXAdapters": [
+        "PrebidMobileMAXAdapters"
+      ]
+    },
+    "PrebidMobile/Package.swift": {
+      "PrebidMobile": [
+        "PrebidMobile",
+        "__PrebidMobileInternal"
+      ]
+    }
+  }
+}

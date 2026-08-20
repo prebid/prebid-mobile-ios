@@ -1,0 +1,142 @@
+{
+  "guard": "api-test-presence",
+  "description": "Public types not yet referenced by any PrebidMobileTests test (shrink-only). This list is the untested-public-API backlog: fixing an entry means adding a test that exercises the type, then deleting the entry in the same PR.",
+  "entries": [
+    {
+      "entry": "AutoRefreshCountConfig",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "BackgroundAwareTimer",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "BannerEventInteractionDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "BannerEventLoadingDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "ClickbrowserType",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "CreativeAttribute",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "DefaultPluginEventDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "DisplayViewVideoPlaybackDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "HiddenWebViewManager",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "IMAAdSlotSize",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "ImageHelper",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "InterstitialEventHandlerProtocol",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "InterstitialEventInteractionDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "InterstitialEventLoadingDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "MediationBidInfoWrapper",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "MediationNativeAdUnit",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "MediationNativeUtils",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "NativeAdConfiguration",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "NativeAdEventDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "NativeDataAssetType",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "NativeImageAssetType",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "OMSession",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "OMSessionWrapper",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "ORTBNoBidReasonCode",
+      "reason": "ORTB response enum with no test reference; the no-bid path is untested overall."
+    },
+    {
+      "entry": "PBMJsonDecodable",
+      "reason": "Internal-shaped protocol that is public only for ObjC bridging; also grandfathered in api-naming."
+    },
+    {
+      "entry": "PBMORTBNoBidReason",
+      "reason": "ORTB response model with no test reference; also grandfathered in ortb-test-presence."
+    },
+    {
+      "entry": "Plcmnt",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "PluginEventDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "PrebidInitializationStatus",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "PrebidServerEventTracker",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "RewardedEventHandlerProtocol",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "RewardedEventInteractionDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "ServerEvent",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "SkadnEventTracker",
+      "reason": "Public type with no test reference when the guard landed."
+    }
+  ]
+}

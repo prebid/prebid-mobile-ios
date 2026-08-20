@@ -1,0 +1,9 @@
+{
+  "guard": "ast-rule-ratchet",
+  "description": "Findings per ast-grep rule in scripts/guards/rules/, scanned over PrebidMobile/Swift/. Grandfathered as counts because the sites are too numerous to enumerate; per-rule so one rule's win cannot mask another's regression. Update: ./scripts/guards/run-guards.sh --update-ast-rule-baseline",
+  "counts": {
+    "force-unwrap": 33,
+    "main-thread-delegate-callbacks": 60,
+    "weak-delegate": 3
+  }
+}
