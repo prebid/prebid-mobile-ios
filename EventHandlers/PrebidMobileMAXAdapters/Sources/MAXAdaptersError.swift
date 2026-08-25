@@ -20,7 +20,7 @@ enum MAXAdaptersError {
     case noServerParameter
     case wrongServerParameter
     case noBidInLocalExtraParameters
-    case noConfigIdInLocalExtraParameters
+    case noConfigIdInLocalExtraParameters 
 }
 
 extension MAXAdaptersError: LocalizedError {
