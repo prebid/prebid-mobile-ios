@@ -49,16 +49,6 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
         }
     }
     
-    subscript(_ key: Key) -> UUID? {
-        get {
-            (dict[key.rawValue] as? String).flatMap { UUID(uuidString: $0) }
-        }
-        
-        set {
-            dict[key.rawValue] = newValue?.uuidString
-        }
-    }
-    
     subscript<T: PBMJsonCodable>(_ key: Key) -> T? {
         get {
             (dict[key.rawValue] as? [String : Any]).flatMap { CustomModelObjects.instantiate(json: $0) }
