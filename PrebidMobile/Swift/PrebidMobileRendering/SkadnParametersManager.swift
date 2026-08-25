@@ -30,6 +30,9 @@ public class SkadnParametersManager: NSObject {
         return nil
     }
     
+    /// The ORTB SKAdNetwork extension types these identifiers as strings of digits, so they are
+    /// parsed strictly: `Int64` is locale-independent - unlike `NumberFormatter`, which follows
+    /// `Locale.current` - and rejects both non-numeric and out-of-range values.
     private static func number(from string: String) -> NSNumber? {
         Int64(string).map { NSNumber(value: $0) }
     }
@@ -38,14 +41,12 @@ public class SkadnParametersManager: NSObject {
     public static func getSkadnImpression(for skadnInfo: ORTBBidExtSkadn) -> SKAdImpression? {
         guard let fidelity = getFidelity(from: skadnInfo, fidelityType: 0) else { return nil }
         
-        let formatter = NumberFormatter()
-        
         let imp = SKAdImpression()
-        if let itunesitem = skadnInfo.itunesitem, let numberItunesitem = formatter.number(from: itunesitem),
+        if let itunesitem = skadnInfo.itunesitem, let numberItunesitem = number(from: itunesitem),
            let network = skadnInfo.network,
-           let sourceapp = skadnInfo.sourceapp, let numberSourceapp = formatter.number(from: sourceapp),
+           let sourceapp = skadnInfo.sourceapp, let numberSourceapp = number(from: sourceapp),
            let nonce = fidelity.nonce,
-           let timestamp = fidelity.timestamp, let numberTimestamp = formatter.number(from: timestamp),
+           let timestamp = fidelity.timestamp, let numberTimestamp = number(from: timestamp),
            let signature = fidelity.signature,
            let version = skadnInfo.version {
             imp.sourceAppStoreItemIdentifier = numberSourceapp
@@ -56,7 +57,7 @@ public class SkadnParametersManager: NSObject {
             imp.signature = signature
             imp.version = version
             
-            if let campaign = skadnInfo.campaign, let numberCampaign = formatter.number(from: campaign) {
+            if let campaign = skadnInfo.campaign, let numberCampaign = number(from: campaign) {
                 imp.adCampaignIdentifier = numberCampaign
             }
             

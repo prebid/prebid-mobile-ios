@@ -319,19 +319,49 @@ class SkadnParametersManagerTest: XCTestCase {
         XCTAssertNil(SkadnParametersManager.getSkadnProductParameters(for: skadn))
     }
 
-    /// Documents a known limitation rather than an intended behaviour: `NumberFormatter` accepts an
-    /// identifier too wide for an integer and degrades it to a `Double`, so the impression is built
-    /// with `1e+20` instead of being rejected. The product parameters forward the digits untouched.
     @available(iOS 14.5, *)
-    func testGetSkadnImpression_withOverflowingIdentifier() {
+    func testGetSkadnImpression_withOverflowingIdentifier_isNil() {
         let skadn = SkadnUtilities.createSkadnExtWithFidelities()
         skadn.itunesitem = "99999999999999999999"
 
-        let imp = SkadnParametersManager.getSkadnImpression(for: skadn)
-        XCTAssertEqual(imp?.advertisedAppStoreItemIdentifier, NSNumber(value: 1e20))
+        XCTAssertNil(SkadnParametersManager.getSkadnImpression(for: skadn))
 
         let params = SkadnParametersManager.getSkadnProductParameters(for: skadn)
         XCTAssertEqual(params?[SKStoreProductParameterITunesItemIdentifier] as? String, "99999999999999999999")
+    }
+
+    @available(iOS 14.5, *)
+    func testGetSkadnImpression_withLocaleFormattedIdentifiers_isNil() {
+        for malformed in ["1,234", "1.234", "1 234", "1\u{00a0}234"] {
+            let skadn = SkadnUtilities.createSkadnExtWithFidelities()
+            skadn.itunesitem = malformed
+
+            XCTAssertNil(
+                SkadnParametersManager.getSkadnImpression(for: skadn),
+                "expected \(malformed) to be rejected as an itunesitem"
+            )
+
+            let bySourceapp = SkadnUtilities.createSkadnExtWithFidelities()
+            bySourceapp.sourceapp = malformed
+
+            XCTAssertNil(
+                SkadnParametersManager.getSkadnImpression(for: bySourceapp),
+                "expected \(malformed) to be rejected as a sourceapp"
+            )
+        }
+    }
+
+    @available(iOS 14.5, *)
+    func testGetSkadnImpression_withLocaleFormattedCampaign_skipsCampaign() throws {
+        let skadn = SkadnUtilities.createSkadnExtWithFidelities()
+        skadn.campaign = "1,234"
+
+        let imp = try XCTUnwrap(SkadnParametersManager.getSkadnImpression(for: skadn))
+
+        XCTAssertNil(imp.value(forKey: "adCampaignIdentifier"))
+
+        let params = SkadnParametersManager.getSkadnProductParameters(for: skadn)
+        XCTAssertEqual(params?[SKStoreProductParameterAdNetworkCampaignIdentifier] as? String, "1,234")
     }
 
     /// `sourceidentifier` is absent below SKAdNetwork 4.0 - it must not be defaulted.
