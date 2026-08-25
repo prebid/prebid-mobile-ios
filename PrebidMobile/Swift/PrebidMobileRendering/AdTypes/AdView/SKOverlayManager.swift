@@ -63,7 +63,7 @@ public class SKOverlayManager: NSObject {
     }
     
     @available(iOS 14.0, *)
-    private func buildConfig(with skadnInfo: ORTBBidExtSkadn) -> SKOverlay.AppConfiguration? {
+    func buildConfig(with skadnInfo: ORTBBidExtSkadn) -> SKOverlay.AppConfiguration? {
         guard let skoverlay = skadnInfo.skoverlay else {
             Log.warn("SDK failed to build SKOverlay configuration. `skoverlay` dictionary is nil.")
             return nil
@@ -74,10 +74,15 @@ public class SKOverlayManager: NSObject {
             return nil
         }
         
+        guard let appIdentifier = itunesitem.strictNumberValue?.stringValue else {
+            Log.warn("SDK failed to build SKOverlay configuration. `itunesitem` is not a valid App Store item identifier: \(itunesitem).")
+            return nil
+        }
+        
         let position: SKOverlay.Position = skoverlay.pos == 0 ? .bottom : .bottomRaised
         
         let config = SKOverlay.AppConfiguration(
-            appIdentifier: itunesitem,
+            appIdentifier: appIdentifier,
             position: position
         )
         

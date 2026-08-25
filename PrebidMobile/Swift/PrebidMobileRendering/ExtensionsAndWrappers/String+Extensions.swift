@@ -45,6 +45,19 @@ extension String {
         return self.trimmingCharacters(in: characterSet).count == 0
     }
     
+    /// The value parsed as a whole number, or `nil` when it is not one.
+    ///
+    /// Parsing is independent of `Locale.current`: only a plain run of digits is accepted, where
+    /// `NumberFormatter` would read `"1,234"` as `1.234` on a comma-decimal device and as nothing
+    /// at all on a period-decimal one. Values too wide for an `Int64` are rejected rather than
+    /// degraded to an approximate `Double`.
+    ///
+    /// Use it for fields a spec types as a string of digits - the ORTB SKAdNetwork identifiers,
+    /// for instance - where the same response must resolve identically on every device.
+    var strictNumberValue: NSNumber? {
+        Int64(self).map { NSNumber(value: $0) }
+    }
+    
     /// Returns the last component of a file path, typically the file name.
     ///
     /// - Returns: The file name as a `String`, or an empty string if the path is empty.

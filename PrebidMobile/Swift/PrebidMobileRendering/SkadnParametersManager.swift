@@ -30,23 +30,16 @@ public class SkadnParametersManager: NSObject {
         return nil
     }
     
-    /// The ORTB SKAdNetwork extension types these identifiers as strings of digits, so they are
-    /// parsed strictly: `Int64` is locale-independent - unlike `NumberFormatter`, which follows
-    /// `Locale.current` - and rejects both non-numeric and out-of-range values.
-    private static func number(from string: String) -> NSNumber? {
-        Int64(string).map { NSNumber(value: $0) }
-    }
-    
     @available(iOS 14.5, *)
     public static func getSkadnImpression(for skadnInfo: ORTBBidExtSkadn) -> SKAdImpression? {
         guard let fidelity = getFidelity(from: skadnInfo, fidelityType: 0) else { return nil }
         
         let imp = SKAdImpression()
-        if let itunesitem = skadnInfo.itunesitem, let numberItunesitem = number(from: itunesitem),
+        if let numberItunesitem = skadnInfo.itunesitem?.strictNumberValue,
            let network = skadnInfo.network,
-           let sourceapp = skadnInfo.sourceapp, let numberSourceapp = number(from: sourceapp),
+           let numberSourceapp = skadnInfo.sourceapp?.strictNumberValue,
            let nonce = fidelity.nonce,
-           let timestamp = fidelity.timestamp, let numberTimestamp = number(from: timestamp),
+           let numberTimestamp = fidelity.timestamp?.strictNumberValue,
            let signature = fidelity.signature,
            let version = skadnInfo.version {
             imp.sourceAppStoreItemIdentifier = numberSourceapp
@@ -57,14 +50,14 @@ public class SkadnParametersManager: NSObject {
             imp.signature = signature
             imp.version = version
             
-            if let campaign = skadnInfo.campaign, let numberCampaign = number(from: campaign) {
+            if let numberCampaign = skadnInfo.campaign?.strictNumberValue {
                 imp.adCampaignIdentifier = numberCampaign
             }
             
             // For SKAdNetwork 4.0 add sourceidentifier that replaces campaign
             if #available(iOS 16.1, *) {
-                if let sourceidentifier = skadnInfo.sourceidentifier, let sourceidentifierInteger = Int(sourceidentifier) {
-                    imp.sourceIdentifier = NSNumber(value: sourceidentifierInteger)
+                if let numberSourceidentifier = skadnInfo.sourceidentifier?.strictNumberValue {
+                    imp.sourceIdentifier = numberSourceidentifier
                 }
             }
             
@@ -96,8 +89,8 @@ public class SkadnParametersManager: NSObject {
             }
             
             if #available(iOS 16.1, *) {
-                if let sourceIdentifier = skadnInfo.sourceidentifier, let sourceidentifierInteger = Int(sourceIdentifier) {
-                    productParams[SKStoreProductParameterAdNetworkSourceIdentifier] = NSNumber(value: sourceidentifierInteger)
+                if let numberSourceidentifier = skadnInfo.sourceidentifier?.strictNumberValue {
+                    productParams[SKStoreProductParameterAdNetworkSourceIdentifier] = numberSourceidentifier
                 }
             }
             

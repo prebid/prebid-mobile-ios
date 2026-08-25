@@ -128,7 +128,7 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
     // (e.g. `fidelity`, `delay`) which bid servers are known to send as JSON strings.
     func numberOrString(_ key: Key) -> NSNumber? {
         if let value = dict[key.rawValue] as? String {
-            return Int64(value).map { NSNumber(value: $0) }
+            return value.strictNumberValue
         }
 
         return number(key)
