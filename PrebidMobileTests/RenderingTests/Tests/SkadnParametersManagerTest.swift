@@ -43,13 +43,13 @@ class SkadnParametersManagerTest: XCTestCase {
         let skadn = SkadnUtilities.createSkadnExtWithFidelities()
         let actual = SkadnParametersManager.getSkadnProductParameters(for: skadn)!
         let expected: [String: Any] = SkadnUtilities.createSkadnProductParameters(from: skadn)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterITunesItemIdentifier]!, expected: expected[SKStoreProductParameterITunesItemIdentifier]!)
+        PBMAssertEq(type: NSNumber.self, actual: actual[SKStoreProductParameterITunesItemIdentifier]!, expected: expected[SKStoreProductParameterITunesItemIdentifier]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkIdentifier]!)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkCampaignIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkCampaignIdentifier]!)
+        PBMAssertEq(type: NSNumber.self, actual: actual[SKStoreProductParameterAdNetworkCampaignIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkCampaignIdentifier]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkVersion]!, expected: expected[SKStoreProductParameterAdNetworkVersion]!)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkTimestamp]!, expected: expected[SKStoreProductParameterAdNetworkTimestamp]!)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkNonce]!, expected: expected[SKStoreProductParameterAdNetworkNonce]!)
+        PBMAssertEq(type: NSNumber.self, actual: actual[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!)
+        PBMAssertEq(type: NSNumber.self, actual: actual[SKStoreProductParameterAdNetworkTimestamp]!, expected: expected[SKStoreProductParameterAdNetworkTimestamp]!)
+        PBMAssertEq(type: UUID.self, actual: actual[SKStoreProductParameterAdNetworkNonce]!, expected: expected[SKStoreProductParameterAdNetworkNonce]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkAttributionSignature]!, expected: expected[SKStoreProductParameterAdNetworkAttributionSignature]!)
     }
     @available(iOS 16.1, *)
@@ -71,13 +71,13 @@ class SkadnParametersManagerTest: XCTestCase {
         let skadn = SkadnUtilities.createSkadnExtWithFidelities_version_4_0()
         let actual = SkadnParametersManager.getSkadnProductParameters(for: skadn)!
         let expected: [String: Any] = SkadnUtilities.createSkadnProductParameters_version_4_0(from: skadn)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterITunesItemIdentifier]!, expected: expected[SKStoreProductParameterITunesItemIdentifier]!)
+        PBMAssertEq(type: NSNumber.self, actual: actual[SKStoreProductParameterITunesItemIdentifier]!, expected: expected[SKStoreProductParameterITunesItemIdentifier]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkIdentifier]!)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkSourceIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkSourceIdentifier]!)
+        PBMAssertEq(type: NSNumber.self, actual: actual[SKStoreProductParameterAdNetworkSourceIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkSourceIdentifier]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkVersion]!, expected: expected[SKStoreProductParameterAdNetworkVersion]!)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkTimestamp]!, expected: expected[SKStoreProductParameterAdNetworkTimestamp]!)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkNonce]!, expected: expected[SKStoreProductParameterAdNetworkNonce]!)
+        PBMAssertEq(type: NSNumber.self, actual: actual[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!)
+        PBMAssertEq(type: NSNumber.self, actual: actual[SKStoreProductParameterAdNetworkTimestamp]!, expected: expected[SKStoreProductParameterAdNetworkTimestamp]!)
+        PBMAssertEq(type: UUID.self, actual: actual[SKStoreProductParameterAdNetworkNonce]!, expected: expected[SKStoreProductParameterAdNetworkNonce]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkAttributionSignature]!, expected: expected[SKStoreProductParameterAdNetworkAttributionSignature]!)
 
         // `campaign` is replaced by `sourceidentifier` in 4.0
@@ -85,9 +85,8 @@ class SkadnParametersManagerTest: XCTestCase {
     }
 
     // MARK: - StoreKit value type
-    /// The two surfaces deliberately differ: `SKAdImpression` has typed `NSNumber` properties that
-    /// force a conversion, while the product parameters dictionary forwards the ORTB values as the
-    /// strings the spec types them as. `sourceidentifier` is the one product parameter converted.
+    /// StoreKit documents a value type per `SKStoreProductParameter*` key: the identifiers and the
+    /// timestamp are `NSNumber`, and the nonce is `NSUUID`.
     @available(iOS 16.1, *)
     func testGetProductParameters_valueTypes() {
         let skadn = SkadnUtilities.createSkadnExtWithFidelities_version_4_0()
@@ -95,16 +94,16 @@ class SkadnParametersManagerTest: XCTestCase {
 
         let params = SkadnParametersManager.getSkadnProductParameters(for: skadn)!
 
-        XCTAssertTrue(params[SKStoreProductParameterITunesItemIdentifier] is String)
-        XCTAssertTrue(params[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier] is String)
-        XCTAssertTrue(params[SKStoreProductParameterAdNetworkCampaignIdentifier] is String)
-        XCTAssertTrue(params[SKStoreProductParameterAdNetworkTimestamp] is String)
-        XCTAssertTrue(params[SKStoreProductParameterAdNetworkNonce] is String)
+        XCTAssertTrue(params[SKStoreProductParameterITunesItemIdentifier] is NSNumber)
+        XCTAssertTrue(params[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier] is NSNumber)
+        XCTAssertTrue(params[SKStoreProductParameterAdNetworkCampaignIdentifier] is NSNumber)
+        XCTAssertTrue(params[SKStoreProductParameterAdNetworkTimestamp] is NSNumber)
+        XCTAssertTrue(params[SKStoreProductParameterAdNetworkNonce] is UUID)
         XCTAssertTrue(params[SKStoreProductParameterAdNetworkIdentifier] is String)
         XCTAssertTrue(params[SKStoreProductParameterAdNetworkVersion] is String)
         XCTAssertTrue(params[SKStoreProductParameterAdNetworkAttributionSignature] is String)
 
-        XCTAssertTrue(params[SKStoreProductParameterAdNetworkSourceIdentifier] is String)
+        XCTAssertTrue(params[SKStoreProductParameterAdNetworkSourceIdentifier] is NSNumber)
     }
 
     @available(iOS 16.1, *)
@@ -120,8 +119,6 @@ class SkadnParametersManagerTest: XCTestCase {
         XCTAssertEqual(imp.sourceIdentifier, NSNumber(value: 1234))
         XCTAssertEqual(imp.timestamp, NSNumber(value: 1594406342))
 
-        // `adImpressionIdentifier` is a `String`, so the nonce is forwarded verbatim - it must keep
-        // the casing the exchange signed.
         XCTAssertEqual(imp.adImpressionIdentifier, SkadnUtilities.nonce0)
     }
 
@@ -214,8 +211,8 @@ class SkadnParametersManagerTest: XCTestCase {
         XCTAssertEqual(imp.timestamp, NSNumber(value: Int64(SkadnUtilities.timestamp0)!))
 
         let params = try XCTUnwrap(SkadnParametersManager.getSkadnProductParameters(for: skadn))
-        XCTAssertEqual(params[SKStoreProductParameterAdNetworkNonce] as? String, SkadnUtilities.nonce1)
-        XCTAssertEqual(params[SKStoreProductParameterAdNetworkTimestamp] as? String, SkadnUtilities.timestamp1)
+        XCTAssertEqual(params[SKStoreProductParameterAdNetworkNonce] as? UUID, UUID(uuidString: SkadnUtilities.nonce1))
+        XCTAssertEqual(params[SKStoreProductParameterAdNetworkTimestamp] as? NSNumber, NSNumber(value: Int64(SkadnUtilities.timestamp1)!))
     }
 
     // MARK: - Malformed responses
@@ -245,17 +242,14 @@ class SkadnParametersManagerTest: XCTestCase {
         XCTAssertNil(SkadnParametersManager.getSkadnProductParameters(for: skadn))
     }
 
-    /// The impression cannot represent a non-numeric identifier, so it is dropped. The product
-    /// parameters do no conversion, so the value is forwarded for StoreKit to reject.
+    /// Neither surface can represent a non-numeric identifier, so both are dropped.
     @available(iOS 14.5, *)
     func testGetSkadnImpression_withNonNumericIdentifiers_isNil() {
         let skadn = SkadnUtilities.createSkadnExtWithFidelities()
         skadn.itunesitem = "not-a-number"
 
         XCTAssertNil(SkadnParametersManager.getSkadnImpression(for: skadn))
-
-        let params = SkadnParametersManager.getSkadnProductParameters(for: skadn)
-        XCTAssertEqual(params?[SKStoreProductParameterITunesItemIdentifier] as? String, "not-a-number")
+        XCTAssertNil(SkadnParametersManager.getSkadnProductParameters(for: skadn))
     }
 
     @available(iOS 14.5, *)
@@ -264,9 +258,7 @@ class SkadnParametersManagerTest: XCTestCase {
         skadn.fidelities?.forEach { $0.timestamp = "1,594,406,342" }
 
         XCTAssertNil(SkadnParametersManager.getSkadnImpression(for: skadn))
-
-        let params = SkadnParametersManager.getSkadnProductParameters(for: skadn)
-        XCTAssertEqual(params?[SKStoreProductParameterAdNetworkTimestamp] as? String, "1,594,406,342")
+        XCTAssertNil(SkadnParametersManager.getSkadnProductParameters(for: skadn))
     }
 
     /// A non-numeric `campaign` must not drop the whole impression - it is optional in 4.0+.
@@ -278,17 +270,17 @@ class SkadnParametersManagerTest: XCTestCase {
         XCTAssertNotNil(SkadnParametersManager.getSkadnImpression(for: skadn))
 
         let params = SkadnParametersManager.getSkadnProductParameters(for: skadn)
-        XCTAssertEqual(params?[SKStoreProductParameterAdNetworkCampaignIdentifier] as? String, "not-a-number")
+        XCTAssertNotNil(params)
+        XCTAssertNil(params?[SKStoreProductParameterAdNetworkCampaignIdentifier])
     }
 
-    /// The nonce is forwarded verbatim rather than parsed, so its format is StoreKit's to validate.
+    /// StoreKit types the nonce as `NSUUID`, so a nonce that does not parse drops the parameters.
     @available(iOS 14.5, *)
-    func testGetProductParameters_withMalformedNonce_forwardsItVerbatim() {
+    func testGetProductParameters_withMalformedNonce_isNil() {
         let skadn = SkadnUtilities.createSkadnExtWithFidelities()
         skadn.fidelities?.forEach { $0.nonce = "not-a-uuid" }
 
-        let params = SkadnParametersManager.getSkadnProductParameters(for: skadn)
-        XCTAssertEqual(params?[SKStoreProductParameterAdNetworkNonce] as? String, "not-a-uuid")
+        XCTAssertNil(SkadnParametersManager.getSkadnProductParameters(for: skadn))
     }
 
     @available(iOS 14.5, *)
@@ -325,9 +317,7 @@ class SkadnParametersManagerTest: XCTestCase {
         skadn.itunesitem = "99999999999999999999"
 
         XCTAssertNil(SkadnParametersManager.getSkadnImpression(for: skadn))
-
-        let params = SkadnParametersManager.getSkadnProductParameters(for: skadn)
-        XCTAssertEqual(params?[SKStoreProductParameterITunesItemIdentifier] as? String, "99999999999999999999")
+        XCTAssertNil(SkadnParametersManager.getSkadnProductParameters(for: skadn))
     }
 
     @available(iOS 14.5, *)
@@ -361,7 +351,8 @@ class SkadnParametersManagerTest: XCTestCase {
         XCTAssertNil(imp.value(forKey: "adCampaignIdentifier"))
 
         let params = SkadnParametersManager.getSkadnProductParameters(for: skadn)
-        XCTAssertEqual(params?[SKStoreProductParameterAdNetworkCampaignIdentifier] as? String, "1,234")
+        XCTAssertNotNil(params)
+        XCTAssertNil(params?[SKStoreProductParameterAdNetworkCampaignIdentifier])
     }
 
     /// `sourceidentifier` is absent below SKAdNetwork 4.0 - it must not be defaulted.
@@ -476,19 +467,17 @@ class SkadnUtilities {
         ]
     }
 
-    // `getSkadnProductParameters` forwards the ORTB values as the strings the spec types them as.
-    // Only `sourceidentifier` is converted, to the `NSNumber` StoreKit documents for that key.
     @available(iOS 14.5, *)
     class func createSkadnProductParameters(from skadn: ORTBBidExtSkadn) -> [String: Any] {
         let fidelity1 = skadn.fidelities!.filter({ $0.fidelity == 1 }).first!
         return [
-            SKStoreProductParameterITunesItemIdentifier : skadn.itunesitem!,
+            SKStoreProductParameterITunesItemIdentifier : NSNumber(value: Int64(skadn.itunesitem!)!),
             SKStoreProductParameterAdNetworkIdentifier : skadn.network!,
-            SKStoreProductParameterAdNetworkCampaignIdentifier : skadn.campaign!,
+            SKStoreProductParameterAdNetworkCampaignIdentifier : NSNumber(value: Int64(skadn.campaign!)!),
             SKStoreProductParameterAdNetworkVersion : skadn.version!,
-            SKStoreProductParameterAdNetworkSourceAppStoreIdentifier : skadn.sourceapp!,
-            SKStoreProductParameterAdNetworkTimestamp : fidelity1.timestamp!,
-            SKStoreProductParameterAdNetworkNonce : fidelity1.nonce!,
+            SKStoreProductParameterAdNetworkSourceAppStoreIdentifier : NSNumber(value: Int64(skadn.sourceapp!)!),
+            SKStoreProductParameterAdNetworkTimestamp : NSNumber(value: Int64(fidelity1.timestamp!)!),
+            SKStoreProductParameterAdNetworkNonce : UUID(uuidString: fidelity1.nonce!)!,
             SKStoreProductParameterAdNetworkAttributionSignature : fidelity1.signature!
         ]
 
@@ -498,13 +487,13 @@ class SkadnUtilities {
     class func createSkadnProductParameters_version_4_0(from skadn: ORTBBidExtSkadn) -> [String: Any] {
         let fidelity1 = skadn.fidelities!.filter({ $0.fidelity == 1 }).first!
         return [
-            SKStoreProductParameterITunesItemIdentifier : skadn.itunesitem!,
+            SKStoreProductParameterITunesItemIdentifier : NSNumber(value: Int64(skadn.itunesitem!)!),
             SKStoreProductParameterAdNetworkIdentifier : skadn.network!,
-            SKStoreProductParameterAdNetworkSourceIdentifier : skadn.sourceidentifier!,
+            SKStoreProductParameterAdNetworkSourceIdentifier : NSNumber(value: Int64(skadn.sourceidentifier!)!),
             SKStoreProductParameterAdNetworkVersion : skadn.version!,
-            SKStoreProductParameterAdNetworkSourceAppStoreIdentifier : skadn.sourceapp!,
-            SKStoreProductParameterAdNetworkTimestamp : fidelity1.timestamp!,
-            SKStoreProductParameterAdNetworkNonce : fidelity1.nonce!,
+            SKStoreProductParameterAdNetworkSourceAppStoreIdentifier : NSNumber(value: Int64(skadn.sourceapp!)!),
+            SKStoreProductParameterAdNetworkTimestamp : NSNumber(value: Int64(fidelity1.timestamp!)!),
+            SKStoreProductParameterAdNetworkNonce : UUID(uuidString: fidelity1.nonce!)!,
             SKStoreProductParameterAdNetworkAttributionSignature : fidelity1.signature!
         ]
 

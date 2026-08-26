@@ -74,34 +74,34 @@ public class SkadnParametersManager: NSObject {
         // >= SKAdNetwork 2.2
         guard let fidelity = getFidelity(from: skadnInfo, fidelityType: 1) else { return nil }
         
-        if let itunesitem = skadnInfo.itunesitem,
+        if let numberItunesitem = skadnInfo.itunesitem?.strictNumberValue,
            let network = skadnInfo.network,
-           let sourceapp = skadnInfo.sourceapp,
+           let numberSourceapp = skadnInfo.sourceapp?.strictNumberValue,
            let version = skadnInfo.version,
-           let timestamp = fidelity.timestamp,
-           let nonce = fidelity.nonce,
+           let numberTimestamp = fidelity.timestamp?.strictNumberValue,
+           let nonceUUID = fidelity.nonce.flatMap(UUID.init(uuidString:)),
            let signature = fidelity.signature {
-            
-            var productParams = Dictionary<String, Any>()
-            
-            if let campaign = skadnInfo.campaign {
-                productParams[SKStoreProductParameterAdNetworkCampaignIdentifier] = campaign
+
+            var productParams = [String: Any]()
+
+            if let numberCampaign = skadnInfo.campaign?.strictNumberValue {
+                productParams[SKStoreProductParameterAdNetworkCampaignIdentifier] = numberCampaign
             }
-            
+
             if #available(iOS 16.1, *) {
-                if let sourceidentifier = skadnInfo.sourceidentifier {
+                if let sourceidentifier = skadnInfo.sourceidentifier?.strictNumberValue {
                     productParams[SKStoreProductParameterAdNetworkSourceIdentifier] = sourceidentifier
                 }
             }
-            
-            productParams[SKStoreProductParameterITunesItemIdentifier] = itunesitem
+
+            productParams[SKStoreProductParameterITunesItemIdentifier] = numberItunesitem
             productParams[SKStoreProductParameterAdNetworkIdentifier] = network
             productParams[SKStoreProductParameterAdNetworkVersion] = version
-            productParams[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier] = sourceapp
-            productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
-            productParams[SKStoreProductParameterAdNetworkNonce] = nonce
+            productParams[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier] = numberSourceapp
+            productParams[SKStoreProductParameterAdNetworkTimestamp] = numberTimestamp
+            productParams[SKStoreProductParameterAdNetworkNonce] = nonceUUID
             productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
-            
+
             return productParams
         }
         
