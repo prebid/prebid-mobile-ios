@@ -308,6 +308,77 @@ class PBMBidRequesterTest: XCTestCase {
         waitForExpectations(timeout: 5)
     }
 
+    // MARK: - Regression Tests for Issue #1323
+
+    /// Regression test for GitHub issue #1323: `timeoutMillisDynamic` is a millisecond value
+    /// (same unit as `timeoutMillis`), so it must be divided by 1000 before being used as the
+    /// `NSTimeInterval` passed to the network layer. Previously it was passed through unconverted,
+    /// turning a 500ms timeout into a 500 second one.
+    func testTimeoutMillisDynamic_ConvertedFromMillisecondsToSecondsForRequest() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+
+        // Simulates `Prebid.shared.timeoutMillis = 500` (or a previously-stored adaptive timeout).
+        sdkConfiguration.timeoutMillisDynamic = NSNumber(value: 500)
+
+        var capturedTimeout: TimeInterval = -1
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            capturedTimeout = timeout
+            callback(PBMBidResponseTransformer.someValidResponse)
+        }])
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
+
+        let exp = expectation(description: "exp")
+        requester.requestBids { (_, _) in
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 5)
+
+        XCTAssertEqual(capturedTimeout, 0.5, accuracy: 0.0001)
+    }
+
+    /// Regression test for GitHub issue #1323: the adaptive timeout computed from the bid
+    /// response's `tmaxrequest` must be stored back into `timeoutMillisDynamic` in milliseconds,
+    /// consistent with every other place that property is read/written. Previously it was stored
+    /// as a raw seconds value (e.g. `0.5` instead of `500`).
+    func testAdaptiveTimeout_StoredInMillisecondsAfterBidResponse() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+
+        sdkConfiguration.timeoutMillis = 5000
+        // `timeoutMillisDynamic` must be nil for the adaptive-timeout branch to run.
+        sdkConfiguration.timeoutMillisDynamic = nil
+
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(PBMBidResponseTransformer.makeValidResponseWithTmax(bidPrice: 0.1, tmaxrequest: 300))
+        }])
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
+
+        let exp = expectation(description: "exp")
+        requester.requestBids { (_, _) in
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 5)
+
+        guard let dynamicTimeout = sdkConfiguration.timeoutMillisDynamic else {
+            XCTFail("Expected an adaptive timeout to be set")
+            return
+        }
+
+        // With `tmaxrequest` = 300ms, the adaptive timeout should be on the order of hundreds of
+        // milliseconds. If it were mistakenly stored in seconds (pre-fix behavior) it would be < 1.
+        XCTAssertGreaterThan(dynamicTimeout.doubleValue, 100)
+        XCTAssertLessThan(dynamicTimeout.doubleValue, 5000)
+    }
+
     // MARK: - Regression Tests for Issue #1195
 
     /// Regression test for GitHub issue #1195 crash fix.
