@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 import GoogleMobileAds
-import PrebidMobileAdMobAdapters
+import VeonPrebidMobileAdMobAdapters
 
 fileprivate let storedImpVideoRewarded = "prebid-demo-video-rewarded-endcard-time"
 fileprivate let adMobAdUnitRewardedId = "ca-app-pub-5922967660082475/5628505938"

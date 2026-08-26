@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 import GoogleMobileAds
-import PrebidMobileAdMobAdapters
+import VeonPrebidMobileAdMobAdapters
 
 fileprivate let nativeStoredImpression = "prebid-demo-banner-native-styles"
 fileprivate let admobRenderingNativeAdUnitId = "ca-app-pub-5922967660082475/8634069303"
