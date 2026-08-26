@@ -73,7 +73,7 @@ class SkadnParametersManagerTest: XCTestCase {
         let expected: [String: Any] = SkadnUtilities.createSkadnProductParameters_version_4_0(from: skadn)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterITunesItemIdentifier]!, expected: expected[SKStoreProductParameterITunesItemIdentifier]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkIdentifier]!)
-        PBMAssertEq(type: NSNumber.self, actual: actual[SKStoreProductParameterAdNetworkSourceIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkSourceIdentifier]!)
+        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkSourceIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkSourceIdentifier]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkVersion]!, expected: expected[SKStoreProductParameterAdNetworkVersion]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkTimestamp]!, expected: expected[SKStoreProductParameterAdNetworkTimestamp]!)
@@ -104,7 +104,7 @@ class SkadnParametersManagerTest: XCTestCase {
         XCTAssertTrue(params[SKStoreProductParameterAdNetworkVersion] is String)
         XCTAssertTrue(params[SKStoreProductParameterAdNetworkAttributionSignature] is String)
 
-        XCTAssertTrue(params[SKStoreProductParameterAdNetworkSourceIdentifier] is NSNumber)
+        XCTAssertTrue(params[SKStoreProductParameterAdNetworkSourceIdentifier] is String)
     }
 
     @available(iOS 16.1, *)
@@ -374,18 +374,6 @@ class SkadnParametersManagerTest: XCTestCase {
             SkadnParametersManager.getSkadnProductParameters(for: skadn)?[SKStoreProductParameterAdNetworkSourceIdentifier]
         )
     }
-
-    /// A non-numeric `sourceidentifier` must not drop the whole impression - it is optional.
-    @available(iOS 16.1, *)
-    func testGetProductParameters_withNonNumericSourceIdentifier_skipsSourceIdentifier() {
-        let skadn = SkadnUtilities.createSkadnExtWithFidelities_version_4_0()
-        skadn.sourceidentifier = "not-a-number"
-
-        XCTAssertNotNil(SkadnParametersManager.getSkadnImpression(for: skadn))
-        XCTAssertNil(
-            SkadnParametersManager.getSkadnProductParameters(for: skadn)?[SKStoreProductParameterAdNetworkSourceIdentifier]
-        )
-    }
 }
 
 class SkadnUtilities {
@@ -512,7 +500,7 @@ class SkadnUtilities {
         return [
             SKStoreProductParameterITunesItemIdentifier : skadn.itunesitem!,
             SKStoreProductParameterAdNetworkIdentifier : skadn.network!,
-            SKStoreProductParameterAdNetworkSourceIdentifier : NSNumber(value: Int64(skadn.sourceidentifier!)!),
+            SKStoreProductParameterAdNetworkSourceIdentifier : skadn.sourceidentifier!,
             SKStoreProductParameterAdNetworkVersion : skadn.version!,
             SKStoreProductParameterAdNetworkSourceAppStoreIdentifier : skadn.sourceapp!,
             SKStoreProductParameterAdNetworkTimestamp : fidelity1.timestamp!,

@@ -74,15 +74,10 @@ public class SKOverlayManager: NSObject {
             return nil
         }
         
-        guard let appIdentifier = itunesitem.strictNumberValue?.stringValue else {
-            Log.warn("SDK failed to build SKOverlay configuration. `itunesitem` is not a valid App Store item identifier: \(itunesitem).")
-            return nil
-        }
-        
         let position: SKOverlay.Position = skoverlay.pos == 0 ? .bottom : .bottomRaised
         
         let config = SKOverlay.AppConfiguration(
-            appIdentifier: appIdentifier,
+            appIdentifier: itunesitem,
             position: position
         )
         

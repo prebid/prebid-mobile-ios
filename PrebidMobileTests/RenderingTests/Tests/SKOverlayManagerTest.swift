@@ -68,34 +68,6 @@ class SKOverlayManagerTest: XCTestCase {
 
     // MARK: - `itunesitem` validation
 
-    /// The ORTB extension types `itunesitem` as a string, so a malformed value survives decoding.
-    /// It must not reach `SKOverlay.AppConfiguration`, which would take it verbatim.
-    func testBuildConfig_withNonNumericItunesitem_isNil() {
-        for malformed in ["", " ", "not-a-number", "123abc", "-", "99999999999999999999"] {
-            let skadn = SKOverlayUtilities.skadn()
-            skadn.itunesitem = malformed
-
-            XCTAssertNil(
-                manager.buildConfig(with: skadn),
-                "expected \(malformed) to be rejected as an itunesitem"
-            )
-        }
-    }
-
-    /// Parsing is independent of `Locale.current` - the same response must be rejected on every
-    /// device, not only on a period-decimal one.
-    func testBuildConfig_withLocaleFormattedItunesitem_isNil() {
-        for malformed in ["1,234", "1.234", "1 234", "1\u{00a0}234"] {
-            let skadn = SKOverlayUtilities.skadn()
-            skadn.itunesitem = malformed
-
-            XCTAssertNil(
-                manager.buildConfig(with: skadn),
-                "expected \(malformed) to be rejected as an itunesitem"
-            )
-        }
-    }
-
     /// Bid servers are known to send `itunesitem` as a JSON number, which decodes to its digits.
     func testBuildConfig_isIndifferentToJsonValueType() throws {
         let fromString = ORTBBidExtSkadn(jsonDictionary: SKOverlayUtilities.skadnJson(useNumbers: false))
