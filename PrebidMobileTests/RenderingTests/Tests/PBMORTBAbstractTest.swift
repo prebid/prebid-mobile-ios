@@ -115,6 +115,19 @@ class ORTBAbstractTest : XCTestCase {
         }
     }
 
+    /// Malformed elements inside `imp` are dropped individually; the valid impressions
+    /// survive. ObjC's unchecked `NSArray<NSDictionary *> *` cast lost the whole array.
+    func testDecodingRequestWithMalformedImpElements() {
+        guard let request = try? ORTBBidRequest(jsonString: ORTBFixtures.malformedImpBidRequest) else {
+            XCTFail("ORTBBidRequest init?(jsonString:) returned nil")
+            return
+        }
+
+        XCTAssertEqual(request.imp.count, 2)
+        XCTAssertEqual(request.imp.compactMap { $0.impID }, ["imp-1", "imp-2"])
+        XCTAssertEqual((request.jsonDictionary["imp"] as? [Any])?.count, 2)
+    }
+
     func testCopying() {
         let initial = ORTBBidRequest()
         

@@ -2,6 +2,9 @@ if [ -d "scripts" ]; then
 cd scripts/
 fi
 
+# Set bash script to exit immediately if any commands fail.
+set -e
+
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 

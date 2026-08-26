@@ -56,6 +56,11 @@ public class ORTBBidRequest: NSObject, PBMJsonCodable, NSCopying {
         // Assigned unconditionally, matching `initWithJsonDictionary:` — decoding a request
         // with a missing or empty "imp" must clear the one-element default, not preserve it,
         // or re-encoding invents a phantom impression. See playbook Gap S2.5-C.
+        //
+        // Deliberate divergence from ObjC: the cast to `NSArray<NSDictionary *> *` was
+        // unchecked, so one non-dictionary element corrupted every impression in the
+        // request. Dropping only the malformed elements keeps the valid ones usable.
+        // Pinned by `testDecodingRequestWithMalformedImpElements`.
         let impDicts = jsonDictionary["imp"] as? [Any] ?? []
         imp = impDicts.compactMap { ($0 as? [String: Any]).map { ORTBImp(jsonDictionary: $0) } }
     }

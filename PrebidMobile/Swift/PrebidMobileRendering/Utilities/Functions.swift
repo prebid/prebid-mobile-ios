@@ -140,13 +140,23 @@ import UIKit
     /// a `PBMUIApplicationProtocol` existential). Fetch it through the ObjC runtime
     /// instead, so the `nil` stays observable — this is the Swift equivalent of the
     /// `if (!uiApplication)` / `conformsToProtocol:` guards the ObjC original had.
-    static var sharedApplication: PBMUIApplicationProtocol? {
+    ///
+    /// Deliberately not memoized: `sharedApplication` is `nil` until `UIApplicationMain`
+    /// has run, so a cached `nil` could outlive the condition that produced it.
+    private static var resolvedUIApplication: UIApplication? {
         let selector = NSSelectorFromString("sharedApplication")
         guard let applicationClass = UIApplication.self as AnyObject as? NSObjectProtocol,
               applicationClass.responds(to: selector),
               let application = applicationClass.perform(selector)?.takeUnretainedValue()
         else { return nil }
-        return application as? PBMUIApplicationProtocol
+        return application as? UIApplication
+    }
+
+    /// The shared application as the narrow protocol the SDK actually depends on.
+    /// Prefer `Functions.application ?? sharedApplication` at call sites, so the
+    /// test-injection seam in `Functions+Testing.swift` keeps priority.
+    static var sharedApplication: PBMUIApplicationProtocol? {
+        resolvedUIApplication
     }
 
     // MARK: - ObjC bridge (PBMFunctions+Private — URLs)
@@ -202,26 +212,64 @@ import UIKit
     /// through `DispatchTime(uptimeNanoseconds:)` — that initialiser converts nanoseconds
     /// to ticks and yields a bogus deadline wherever `mach_timebase_info` is not 1:1
     /// (i.e. on arm64 devices; the simulator's 1:1 timebase hides the error).
+    /// A negative `timeInterval` yields a deadline in the past (saturating at
+    /// `DISPATCH_TIME_NOW`) rather than wrapping around to "almost forever", and
+    /// non-finite or out-of-range intervals saturate instead of trapping.
     @objc(dispatchTimeAfterTimeInterval:startTime:)
     public static func dispatchTimeAfterTimeInterval(_ timeInterval: TimeInterval,
                                                      startTime: UInt64) -> UInt64 {
         switch startTime {
         case dispatchTimeNow:
-            return (DispatchTime.now() + timeInterval).rawValue
+            return (DispatchTime.now() + representableSeconds(timeInterval)).rawValue
         case dispatchTimeForever:
             return dispatchTimeForever
         default:
-            return startTime &+ UInt64(bitPattern: machTicks(fromSeconds: timeInterval))
+            let ticks = machTicks(fromSeconds: timeInterval)
+            if ticks >= 0 {
+                let (deadline, overflow) = startTime.addingReportingOverflow(UInt64(ticks))
+                return overflow ? dispatchTimeForever : deadline
+            }
+            // Deadline already in the past: clamp at DISPATCH_TIME_NOW on underflow.
+            let elapsed = UInt64(ticks.magnitude)
+            return elapsed > startTime ? dispatchTimeNow : startTime - elapsed
         }
     }
 
-    private static func machTicks(fromSeconds seconds: TimeInterval) -> Int64 {
+    /// `numer`/`denom` is a hardware constant for the lifetime of the process, so it is
+    /// resolved once rather than on every conversion. `nil` when unavailable, in which
+    /// case ticks are treated as nanoseconds (the 1:1 timebase of the simulator).
+    private static let machTimebase: mach_timebase_info_data_t? = {
         var timebase = mach_timebase_info_data_t()
         guard mach_timebase_info(&timebase) == KERN_SUCCESS, timebase.numer != 0 else {
-            return Int64(seconds * TimeInterval(NSEC_PER_SEC))
+            return nil
         }
-        let nanoseconds = Int64(seconds * TimeInterval(NSEC_PER_SEC))
-        return nanoseconds * Int64(timebase.denom) / Int64(timebase.numer)
+        return timebase
+    }()
+
+    /// Largest delay expressible as a `dispatch_time_t` nanosecond offset (~292 years).
+    /// Derived by integer division so that `seconds * NSEC_PER_SEC` stays strictly inside
+    /// `Int64` — `TimeInterval(Int64.max)` itself rounds up to 2^63 and would overflow.
+    private static let maxRepresentableSeconds = TimeInterval(Int64.max / Int64(NSEC_PER_SEC))
+
+    /// Maps `NaN` to no delay and clamps magnitudes that `Int64` nanoseconds cannot hold,
+    /// so neither `DispatchTime`'s precondition nor the conversion below can trap.
+    private static func representableSeconds(_ seconds: TimeInterval) -> TimeInterval {
+        guard !seconds.isNaN else { return 0 }
+        return clamp(seconds,
+                     lowerBound: -maxRepresentableSeconds,
+                     upperBound: maxRepresentableSeconds)
+    }
+
+    private static func machTicks(fromSeconds seconds: TimeInterval) -> Int64 {
+        // In range by construction: `representableSeconds` clamps the magnitude so the
+        // nanosecond product cannot leave `Int64`.
+        let nanoseconds = Int64(representableSeconds(seconds) * TimeInterval(NSEC_PER_SEC))
+        guard let timebase = machTimebase else { return nanoseconds }
+        // The product can exceed Int64 before the division does, for intervals of ~97
+        // years and up on a 125/3 timebase; saturate rather than trap.
+        let (ticks, overflow) = nanoseconds.multipliedReportingOverflow(by: Int64(timebase.denom))
+        guard !overflow else { return nanoseconds < 0 ? .min : .max }
+        return ticks / Int64(timebase.numer)
     }
 
     // MARK: - ObjC bridge (PBMFunctions+Private — JSON)
@@ -245,7 +293,7 @@ import UIKit
     // MARK: - ObjC bridge (PBMFunctions+Private — UI)
 
     @objc public static var statusBarHeight: CGFloat {
-        guard let application = sharedApplication else { return 0 }
+        guard let application = Functions.application ?? sharedApplication else { return 0 }
         return statusBarHeight(application: application)
     }
 
@@ -271,8 +319,10 @@ import UIKit
                       height: screenSize.height - statusBarHeight - saInsets.top - saInsets.bottom)
     }
 
+    // `UIApplication.shared` traps when the SDK runs host-less, so resolve it through
+    // the ObjC runtime here too — `deviceMaxSize` reaches this from production code.
     @objc public static var safeAreaInsets: UIEdgeInsets {
-        UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero
+        resolvedUIApplication?.keyWindow?.safeAreaInsets ?? .zero
     }
 
     @objc public static var isSimulator: Bool {

@@ -167,12 +167,66 @@ dedup callsite builds every element via `+ortbFormatWithSize:`). Codified as Gap
 - Collapsed `docs/migration/` to one PR doc: deleted the five superseded drafts
   (`pr-phase-0/1/1-review/2/2-description.md`), which described branches that no longer exist.
 
+## S2.7 — second review round (13 findings)
+
+Fixed:
+
+- **`Functions.safeAreaInsets`** read `UIApplication.shared.keyWindow` directly — the crash class the
+  previous round closed in `attemptToOpen`/`statusBarHeight`, and reachable from production via
+  `deviceMaxSize` → `PBMMRAIDController`/`PBMWebView`. Now resolved through the ObjC runtime.
+  `Functions.swift` no longer reads `UIApplication.shared` anywhere. New playbook Gap S2.5-E.
+- **`Functions.statusBarHeight`** consulted only `sharedApplication`, bypassing the
+  `Functions.application` test seam. Now `Functions.application ?? sharedApplication`, matching
+  `attemptToOpen`, pinned by `testStatusBarHeightUsesInjectedApplication`.
+- **`dispatchTimeAfterTimeInterval(_:startTime:)`** — three edge-case defects in the branch this PR
+  added: a negative interval wrapped to near-`UInt64.max` ("almost forever") instead of a past
+  deadline; `Int64(seconds * NSEC_PER_SEC)` trapped on `.nan`/`.infinity`; and `nanoseconds * denom`
+  could overflow before the division on a 125/3 timebase. Now sign-branched with saturating
+  arithmetic and a clamped interval. `mach_timebase_info` is resolved once into a `static let`.
+- **Coverage for that branch**, which had none: the only 2-arg test lives in `PBMFunctionsPrivateTest`,
+  a class the PR plan skips entirely. Eight tests added to `TestFunctions` (in the PR plan) covering
+  the tick round trip, negative/underflow, the `FOREVER` sentinel and non-finite saturation.
+- **`ORTBBidRequest` `imp` decoding** — the lenient `compactMap` is intentional (ObjC's unchecked
+  `NSArray<NSDictionary *> *` cast corrupted the whole array on one bad element); now documented as a
+  deliberate divergence and pinned by `testDecodingRequestWithMalformedImpElements` with a new
+  mixed-type fixture.
+- **`agents/xcodebuild/SKILL.md`** still mapped the `'dispatch_time' has been replaced` error to the
+  `DispatchTime(uptimeNanoseconds:)` pattern the playbook labels "WRONG — do not use", which would
+  have led a contributor straight back into the ~41x arm64 bug. Row now points at
+  `Functions.dispatchTimeAfterTimeInterval`.
+- **Playbook Gap S2.1-C** reference implementation refreshed — it still showed the superseded
+  `&+ UInt64(bitPattern:)` default branch — plus the signed-arithmetic and saturation rules.
+- **`scripts/testPrebidDemo.sh`** was the only one of the four scripts without `set -e`, so a failed
+  `pod install` fell through into `xcodebuild` against a partial Pods checkout. Added, matching the
+  siblings' plain `set -e` (not `-euo pipefail`, which would break the unguarded `"$1"` check).
+- **`.gitignore`** — added `.claude/worktrees/`, per-developer state the scoped list missed.
+- **Test-count arithmetic** in this doc corrected against a measured run.
+
+Deferred, with rationale (replied on the PR rather than fixed here):
+
+- **The remaining `UIApplication.shared` reads** — 10 files / 15 call sites, all pre-existing and
+  outside this PR's diff. Enumerated in playbook Gap S2.5-E with a re-measure command, to be fixed
+  when those files are touched. Closing them here would widen an already large PR.
+- **Memoizing `sharedApplication`** — declined, not deferred. The resolution is `nil` until
+  `UIApplicationMain` runs, so a cache must be mutable and non-nil-only, adding a staleness hazard
+  and a shared-mutable-state race to save one selector lookup plus an `objc_msgSend`. The
+  `mach_timebase_info` caching in the same review round *was* applied: that value is an immutable
+  hardware constant, so it carries none of the same risk.
+- **Factoring the duplicated `command -v pod` guard** into a shared sourced script — a real
+  improvement, but it touches all four scripts and the CI paths that call them; better as its own PR
+  than bundled into a migration PR.
+- **Redesigning `PrebidEventDelegateTests` isolation** to filter by delegate identity instead of the
+  UUID tag — agreed it is less machinery, but the current mechanism is tested and working, and the
+  class is skipped in the PR plan, so a rewrite would be verified only in the full suite.
+
 ## Test plan
 
 - [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks build clean (device + simulator)
 - [x] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build of the working tree clean
-- [x] `./scripts/testPrebidMobile.sh --latest --quick` — 754 tests, 0 failures (727 + the three
-      new `ORTBAbstractTest` methods, re-run after S2.6)
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — **763 tests, 0 failures**, re-run after the
+      S2.7 review-fix round, which adds 9: eight dispatch-time / application-seam tests in
+      `TestFunctions` and `ORTBAbstractTest.testDecodingRequestWithMalformedImpElements`
+      (the earlier "754 (727 + three new)" note was arithmetically wrong; this figure is measured)
 - [x] `PrebidEventDelegateTests` run separately — it is in the PR plan's `skippedTests`, so the
       retagged isolation fix was verified with `-testPlan PrebidMobileTests -only-testing`
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite (1111 tests), run before merge

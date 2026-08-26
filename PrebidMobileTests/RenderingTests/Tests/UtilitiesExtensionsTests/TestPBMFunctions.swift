@@ -270,9 +270,95 @@ class TestFunctions: XCTestCase {
         actual = Functions.statusBarHeight(application:mockApplication)
         XCTAssert(expected == actual, "Expected \(expected), got \(actual)")
     }
-    
+
+    // The no-argument overload must resolve through the `Functions.application`
+    // injection seam before falling back to the real shared application.
+    func testStatusBarHeightUsesInjectedApplication() {
+        let mockApplication = MockUIApplication()
+        mockApplication.statusBarFrame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 4.0)
+
+        Functions.application = mockApplication
+        defer { Functions.application = nil }
+
+        XCTAssertEqual(Functions.statusBarHeight, 4.0)
+
+        mockApplication.isStatusBarHidden = true
+        XCTAssertEqual(Functions.statusBarHeight, 0.0)
+    }
+
+    // `safeAreaInsets` and its caller `deviceMaxSize` must stay reachable when the
+    // SDK runs without an application host, where `UIApplication.shared` is nil.
+    func testSafeAreaInsetsWithoutApplicationHost() {
+        XCTAssertGreaterThanOrEqual(Functions.safeAreaInsets.top, 0.0)
+
+        let maxSize = Functions.deviceMaxSize
+        XCTAssertFalse(maxSize.width.isNaN)
+        XCTAssertFalse(maxSize.height.isNaN)
+    }
+
+    // MARK: Dispatch time
+
+    // The explicit-startTime branch converts to mach ticks, so a round trip through
+    // `mach_timebase_info` must come back out as the requested nanosecond delay. This is
+    // the invariant the 1:1-timebase simulator hides and arm64 devices (125/3) break.
+    func testDispatchTimeAfterTimeIntervalWithExplicitStartTime() {
+        var timebase = mach_timebase_info_data_t()
+        XCTAssertEqual(mach_timebase_info(&timebase), KERN_SUCCESS)
+        XCTAssertNotEqual(timebase.numer, 0)
+
+        let startTime: UInt64 = 1_000_000_000
+        let deadline = Functions.dispatchTimeAfterTimeInterval(1.0, startTime: startTime)
+        XCTAssertGreaterThan(deadline, startTime)
+
+        let ticks = deadline - startTime
+        let nanoseconds = ticks * UInt64(timebase.numer) / UInt64(timebase.denom)
+        XCTAssertEqual(Double(nanoseconds),
+                       Double(NSEC_PER_SEC),
+                       accuracy: Double(NSEC_PER_SEC) / 1000.0)
+    }
+
+    // A negative interval must land in the past, not wrap around to near-UInt64.max.
+    func testDispatchTimeAfterTimeIntervalWithNegativeInterval() {
+        let startTime: UInt64 = 1_000_000_000
+        let deadline = Functions.dispatchTimeAfterTimeInterval(-1.0, startTime: startTime)
+        XCTAssertLessThan(deadline, startTime)
+    }
+
+    // Underflow clamps at DISPATCH_TIME_NOW (0) rather than wrapping.
+    func testDispatchTimeAfterTimeIntervalUnderflowClampsToNow() {
+        XCTAssertEqual(Functions.dispatchTimeAfterTimeInterval(-1.0, startTime: 1_000), 0)
+    }
+
+    func testDispatchTimeAfterTimeIntervalWithForeverStartTime() {
+        XCTAssertEqual(Functions.dispatchTimeAfterTimeInterval(1.0, startTime: UInt64.max),
+                       UInt64.max)
+    }
+
+    // Non-finite and out-of-range intervals saturate instead of trapping.
+    func testDispatchTimeAfterTimeIntervalWithNonFiniteIntervals() {
+        let startTime: UInt64 = 1_000_000_000
+
+        XCTAssertEqual(Functions.dispatchTimeAfterTimeInterval(.nan, startTime: startTime),
+                       startTime)
+        XCTAssertGreaterThan(Functions.dispatchTimeAfterTimeInterval(.infinity, startTime: startTime),
+                             startTime)
+        XCTAssertEqual(Functions.dispatchTimeAfterTimeInterval(-.infinity, startTime: startTime), 0)
+        XCTAssertGreaterThan(Functions.dispatchTimeAfterTimeInterval(.greatestFiniteMagnitude,
+                                                                    startTime: startTime),
+                             startTime)
+
+        // The DISPATCH_TIME_NOW branch shares the same guards.
+        XCTAssertNotEqual(Functions.dispatchTimeAfterTimeInterval(.nan), 0)
+        XCTAssertNotEqual(Functions.dispatchTimeAfterTimeInterval(.infinity), 0)
+    }
+
+    func testDispatchTimeAfterTimeIntervalFromNow() {
+        let deadline = Functions.dispatchTimeAfterTimeInterval(10.0)
+        XCTAssertGreaterThan(deadline, DispatchTime.now().rawValue)
+    }
+
     // MARK: JSON
-    
+
     func testDictionaryFromDataWithInvalidData() {
         
         let data = UtilitiesForTesting.loadFileAsDataFromBundle("mraid.js")!

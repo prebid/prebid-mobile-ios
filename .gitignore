@@ -123,5 +123,6 @@ Pods/
 .claude/todos/
 .claude/statsig/
 .claude/projects/
+.claude/worktrees/
 
 EventHandlers/Package.resolved

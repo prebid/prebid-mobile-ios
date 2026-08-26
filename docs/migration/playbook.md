@@ -337,17 +337,35 @@ private static let dispatchTimeNow: UInt64 = 0
 private static let dispatchTimeForever: UInt64 = .max
 
 switch startTime {
-case dispatchTimeNow:     return (DispatchTime.now() + timeInterval).rawValue
-case dispatchTimeForever: return dispatchTimeForever
-default:                  return startTime &+ UInt64(bitPattern: machTicks(fromSeconds: timeInterval))
+case dispatchTimeNow:
+    return (DispatchTime.now() + representableSeconds(timeInterval)).rawValue
+case dispatchTimeForever:
+    return dispatchTimeForever
+default:
+    let ticks = machTicks(fromSeconds: timeInterval)
+    if ticks >= 0 {
+        let (deadline, overflow) = startTime.addingReportingOverflow(UInt64(ticks))
+        return overflow ? dispatchTimeForever : deadline
+    }
+    let elapsed = UInt64(ticks.magnitude)
+    return elapsed > startTime ? dispatchTimeNow : startTime - elapsed
 }
 ```
 
 where `machTicks(fromSeconds:)` applies `nanoseconds * denom / numer` from `mach_timebase_info`.
 
+**The signed arithmetic matters.** `dispatch_time_t` is unsigned, mach ticks from a negative
+interval are not. `startTime &+ UInt64(bitPattern: negativeTicks)` wraps to just under `UInt64.max`
+— i.e. "almost forever" instead of "already past". Branch on the sign and subtract, saturating at
+`DISPATCH_TIME_NOW`. Likewise, clamp the interval before converting: `Int64(seconds * NSEC_PER_SEC)`
+traps on `.nan`/`.infinity`, and `nanoseconds * denom` can overflow before the division for
+intervals beyond ~97 years on a 125/3 timebase.
+
 **Corollary:** a simulator-only test suite cannot validate any API whose correctness depends on the
-mach timebase. Tests that only exercise `DISPATCH_TIME_NOW` prove nothing about the other branches
-— reason about the tick/nanosecond units at review time instead of relying on CI.
+mach timebase — its timebase is 1:1, so the tick conversion is an identity there. Tests that only
+exercise `DISPATCH_TIME_NOW` prove nothing about the other branches. Cover the sign, sentinel and
+saturation behaviour explicitly (`TestFunctions.testDispatchTimeAfterTimeInterval*`), and still
+reason about the tick/nanosecond units at review time rather than relying on CI.
 
 ### Gap S2.1-D — UIInterfaceOrientationIsPortrait() unavailable in Swift
 
@@ -554,6 +572,46 @@ and `h`, so all-nil formats never reach the `NSSet`. Reproducing ObjC exactly wo
 explicitly whether all-nil instances must stay distinct. If the ObjC semantics can't be reproduced
 without breaking reflexivity, keep the Swift semantics and leave a comment at the callsite
 justifying it — don't leave the difference silent.
+
+### Gap S2.5-E — `UIApplication.shared` is non-optional in Swift but nil host-less
+
+`[UIApplication sharedApplication]` returns `nil` whenever the SDK runs outside an application
+process — most importantly the unit-test bundle, which has no app host. ObjC code guarded this with
+`if (!uiApplication)` / `conformsToProtocol:`. Swift imports the property as **non-optional**
+`UIApplication`, so the `nil` becomes an invalid reference that cannot be tested for and crashes at
+first use — typically when boxed into a `PBMUIApplicationProtocol` existential.
+
+**Rule:** Never read `UIApplication.shared` directly in ported code. Resolve it through the ObjC
+runtime so the `nil` stays observable:
+
+```swift
+private static var resolvedUIApplication: UIApplication? {
+    let selector = NSSelectorFromString("sharedApplication")
+    guard let applicationClass = UIApplication.self as AnyObject as? NSObjectProtocol,
+          applicationClass.responds(to: selector),
+          let application = applicationClass.perform(selector)?.takeUnretainedValue()
+    else { return nil }
+    return application as? UIApplication
+}
+```
+
+Two follow-on rules:
+
+- **Honour the injection seam.** Call sites read `Functions.application ?? sharedApplication`, in
+  that order — `Functions.application` (`Functions+Testing.swift`) is how tests substitute a mock.
+  Consulting only `sharedApplication` silently ignores the mock and resolves the real singleton.
+- **Do not memoize.** The resolution is `nil` until `UIApplicationMain` has run, so a cached `nil`
+  can outlive the condition that produced it. The runtime lookup is a selector resolution plus one
+  `objc_msgSend` — not worth trading for a staleness hazard and mutable global state.
+
+**Scope:** applied in `Functions.swift` (`attemptToOpen`, `statusBarHeight`, `safeAreaInsets`), which
+no longer reads `UIApplication.shared` directly. **10 other Swift files still do, across 15 call
+sites** (`rg -c 'UIApplication\.shared' --glob '*.swift' PrebidMobile/Swift/` to re-measure):
+`LocationManager.swift` (4), `UIApplication+Extensions.swift` (2), `AdViewButtonDecorator.swift` (2),
+then one each in `UIWindow+PBMExtensions.swift`, `UIWindow+Extensions.swift`,
+`ViewExposureChecker.swift`, `ModalViewController.swift`, `AutoRefreshManager.swift`, `Host.swift`,
+`NativeAd.swift`. All predate this PR and are tracked as follow-up — apply this rule when touching
+them.
 
 ## General ObjC → Swift reference
 

@@ -156,4 +156,10 @@ enum ORTBFixtures {
     static let emptyImpBidRequest = """
         {"id":"req-1","imp":[]}
         """
+
+    /// Mixed-type `imp` array — the non-dictionary elements are dropped and the two valid
+    /// impressions survive. ObjC's unchecked cast would have corrupted the whole array.
+    static let malformedImpBidRequest = """
+        {"id":"req-1","imp":[{"id":"imp-1"},"not-an-object",7,null,{"id":"imp-2"}]}
+        """
 }

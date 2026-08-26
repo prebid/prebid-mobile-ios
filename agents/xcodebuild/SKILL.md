@@ -218,7 +218,7 @@ public override init() { super.init() }
 | `missing arguments for parameters 'width', 'height'` | Swift init lacks no-arg form | Add `public override init() { super.init() }` with defaulted properties |
 | `cannot declare conformance to 'NSObjectProtocol'` | Mock class missing NSObject | Add `: NSObject` superclass |
 | `@objc method name provides N argument names, but method has N+1` | `throws` method needs `:error:` in explicit name | Use `@objc(name:error:)` not `@objc(name:)` |
-| `'dispatch_time' has been replaced` | C function unavailable in Swift | `(DispatchTime(uptimeNanoseconds: t) + interval).rawValue` |
+| `'dispatch_time' has been replaced` | C function unavailable in Swift | Call `Functions.dispatchTimeAfterTimeInterval(_:startTime:)`. **Never** `DispatchTime(uptimeNanoseconds:)` on a `dispatch_time_t` — off by ~41x on arm64 (playbook Gap S2.1-C) |
 | `'UIInterfaceOrientationIsPortrait' has been replaced` | C macro unavailable in Swift | `orientation.isPortrait` |
 | `initializer for conditional binding must have Optional type` | Callback `PrebidServerResponse` is non-optional | Remove `if let` / `guard let`; use directly |
 | `expected a type` in ObjC header | UIKit missing after header removal | Add `#import <UIKit/UIKit.h>` to affected header |
