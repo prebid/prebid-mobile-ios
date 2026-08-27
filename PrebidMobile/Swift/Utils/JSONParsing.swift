@@ -49,16 +49,6 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
         }
     }
     
-    subscript(_ key: Key) -> UUID? {
-        get {
-            (dict[key.rawValue] as? String).flatMap { UUID(uuidString: $0) }
-        }
-        
-        set {
-            dict[key.rawValue] = newValue?.uuidString
-        }
-    }
-    
     subscript<T: PBMJsonCodable>(_ key: Key) -> T? {
         get {
             (dict[key.rawValue] as? [String : Any]).flatMap { CustomModelObjects.instantiate(json: $0) }
@@ -107,10 +97,32 @@ struct JSONObject<Key: RawRepresentable> where Key.RawValue == String {
         }
     }
     
-    // For fields where the IAB spec defines strings but Apple APIs require NSNumber.
+    // JSON booleans bridge to `NSNumber`, so `true` would otherwise decode as the number 1.
+    private func number(_ key: Key) -> NSNumber? {
+        guard let value = dict[key.rawValue] as? NSNumber,
+              CFGetTypeID(value) != CFBooleanGetTypeID() else { return nil }
+
+        return value
+    }
+
+    // For fields the IAB spec defines as strings, but which bid servers are known
+    // to send as JSON numbers (e.g. `itunesitem`, `sourceapp`, `campaign`, `timestamp`).
+    func stringOrNumber(_ key: Key) -> String? {
+        if let value = dict[key.rawValue] as? String {
+            return value
+        }
+
+        return number(key)?.stringValue
+    }
+
+    // The mirror of `stringOrNumber`, for fields the IAB spec defines as integers
+    // (e.g. `fidelity`, `delay`) which bid servers are known to send as JSON strings.
     func numberOrString(_ key: Key) -> NSNumber? {
-        let raw = dict[key.rawValue]
-        return (raw as? String).flatMap { Int64($0) }.map { NSNumber(value: $0) } ?? (raw as? NSNumber)
+        if let value = dict[key.rawValue] as? String {
+            return value.strictNumberValue
+        }
+
+        return number(key)
     }
 
     func backwardsCompatiblePassthrough(key: Key) -> [ORTBExtPrebidPassthrough]? {

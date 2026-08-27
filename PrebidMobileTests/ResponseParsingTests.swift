@@ -120,15 +120,29 @@ class ResponseParsingTests: XCTestCase {
             ]
         }
         
+
         static func bidExtSkadn() -> [String : Any] {
+            [
+                "version" : "_version",
+                "network" : "_network",
+                "campaign" : "1",
+                "itunesitem" : "2",
+                "sourceapp" : "3",
+                "sourceidentifier" : "_sourceidentifier",
+                "fidelities" : [skadnFidelity()],
+                "skoverlay" : bidExtSkadnSKOverlay(),
+            ]
+        }
+
+        static func bidExtSkadnWithNumbers() -> [String : Any] {
             [
                 "version" : "_version",
                 "network" : "_network",
                 "campaign" : 1,
                 "itunesitem" : 2,
                 "sourceapp" : 3,
-                "sourceidentifier" : "_sourceidentifier",
-                "fidelities" : [skadnFidelity()],
+                "sourceidentifier" : 4321,
+                "fidelities" : [skadnFidelityWithNumbers()],
                 "skoverlay" : bidExtSkadnSKOverlay(),
             ]
         }
@@ -235,6 +249,15 @@ class ResponseParsingTests: XCTestCase {
             [
                 "fidelity" : 1,
                 "nonce" : "12345678-ABCD-1234-ABCD-1234567890AB",
+                "timestamp" : "2",
+                "signature" : "_signature",
+            ]
+        }
+
+        static func skadnFidelityWithNumbers() -> [String : Any] {
+            [
+                "fidelity" : 1,
+                "nonce" : "12345678-ABCD-1234-ABCD-1234567890AB",
                 "timestamp" : 2,
                 "signature" : "_signature",
             ]
@@ -318,16 +341,143 @@ class ResponseParsingTests: XCTestCase {
         let entity = ORTBBidExtSkadn(jsonDictionary: json)
         XCTAssertEqual(entity.version, "_version")
         XCTAssertEqual(entity.network, "_network")
-        XCTAssertEqual(entity.campaign, 1)
-        XCTAssertEqual(entity.itunesitem, 2)
-        XCTAssertEqual(entity.sourceapp, 3)
+        XCTAssertEqual(entity.campaign, "1")
+        XCTAssertEqual(entity.itunesitem, "2")
+        XCTAssertEqual(entity.sourceapp, "3")
         XCTAssertEqual(entity.sourceidentifier, "_sourceidentifier")
         XCTAssertTrue(compare(entity.fidelities, [JSON.skadnFidelity()]))
         XCTAssertTrue(compare(entity.skoverlay, JSON.bidExtSkadnSKOverlay()))
-        
+
         XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
+
+
+    func testBidExtSkadnWithNumbers() {
+        let entity = ORTBBidExtSkadn(jsonDictionary: JSON.bidExtSkadnWithNumbers())
+        XCTAssertEqual(entity.campaign, "1")
+        XCTAssertEqual(entity.itunesitem, "2")
+        XCTAssertEqual(entity.sourceapp, "3")
+        XCTAssertEqual(entity.sourceidentifier, "4321")
+        XCTAssertEqual(entity.fidelities?.first?.timestamp, "2")
+
+        var expectedJson = JSON.bidExtSkadn()
+        expectedJson["sourceidentifier"] = "4321"
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, expectedJson as NSDictionary)
+    }
+
+    func testBidExtSkadnWithUnexpectedValueTypes() {
+        let entity = ORTBBidExtSkadn(jsonDictionary: [
+            "version" : 1,
+            "network" : ["_network"],
+            "campaign" : ["campaign" : 1],
+            "itunesitem" : [2],
+            "sourceapp" : NSNull(),
+            "sourceidentifier" : ["4321"],
+            "fidelities" : "_fidelities",
+            "skoverlay" : "_skoverlay",
+        ])
+        XCTAssertNil(entity.version)
+        XCTAssertNil(entity.network)
+        XCTAssertNil(entity.campaign)
+        XCTAssertNil(entity.itunesitem)
+        XCTAssertNil(entity.sourceapp)
+        XCTAssertNil(entity.sourceidentifier)
+        XCTAssertNil(entity.fidelities)
+        XCTAssertNil(entity.skoverlay)
+    }
+
+    func testBidExtSkadnWithEmptyJson() {
+        let entity = ORTBBidExtSkadn(jsonDictionary: [:])
+        XCTAssertNil(entity.version)
+        XCTAssertNil(entity.network)
+        XCTAssertNil(entity.campaign)
+        XCTAssertNil(entity.itunesitem)
+        XCTAssertNil(entity.sourceapp)
+        XCTAssertNil(entity.sourceidentifier)
+        XCTAssertNil(entity.fidelities)
+        XCTAssertNil(entity.skoverlay)
+
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, [:] as NSDictionary)
+    }
+
+
+    func testBidExtSkadnDecodedFromRawJSON() throws {
+        let raw = """
+        {
+            "version": "4.0",
+            "network": "cDkw7geQsH.skadnetwork",
+            "campaign": 45,
+            "sourceidentifier": 1234,
+            "itunesitem": 123456789,
+            "sourceapp": 880047117,
+            "fidelities": [
+                {
+                    "fidelity": 1,
+                    "nonce": "473b1a16-b4ef-43ad-9591-fcf3aefa82a7",
+                    "timestamp": 1594406342000,
+                    "signature": "_signature"
+                }
+            ],
+            "skoverlay": { "delay": 5, "endcarddelay": 10, "dismissible": 1, "pos": 0 }
+        }
+        """
+
+        let entity = ORTBBidExtSkadn(jsonDictionary: try jsonObject(from: raw))
+        XCTAssertEqual(entity.version, "4.0")
+        XCTAssertEqual(entity.network, "cDkw7geQsH.skadnetwork")
+        XCTAssertEqual(entity.campaign, "45")
+        XCTAssertEqual(entity.sourceidentifier, "1234")
+        XCTAssertEqual(entity.itunesitem, "123456789")
+        XCTAssertEqual(entity.sourceapp, "880047117")
+        XCTAssertEqual(entity.skoverlay?.delay, 5)
+
+        let fidelity = try XCTUnwrap(entity.fidelities?.first)
+        XCTAssertEqual(fidelity.fidelity, 1)
+        XCTAssertEqual(fidelity.nonce, "473b1a16-b4ef-43ad-9591-fcf3aefa82a7")
     
+        XCTAssertEqual(fidelity.timestamp, "1594406342000")
+        XCTAssertEqual(fidelity.signature, "_signature")
+    }
+
+
+    func testBidExtSkadnWithJSONBooleans() throws {
+        let raw = """
+        {
+            "campaign": true,
+            "itunesitem": true,
+            "sourceapp": false,
+            "sourceidentifier": true,
+            "fidelities": [{ "fidelity": true, "timestamp": true }],
+            "skoverlay": { "delay": true, "dismissible": false }
+        }
+        """
+
+        let entity = ORTBBidExtSkadn(jsonDictionary: try jsonObject(from: raw))
+        XCTAssertNil(entity.campaign)
+        XCTAssertNil(entity.itunesitem)
+        XCTAssertNil(entity.sourceapp)
+        XCTAssertNil(entity.sourceidentifier)
+        XCTAssertNil(entity.fidelities?.first?.fidelity)
+        XCTAssertNil(entity.fidelities?.first?.timestamp)
+        XCTAssertNil(entity.skoverlay?.delay)
+        XCTAssertNil(entity.skoverlay?.dismissible)
+    }
+
+
+    func testBidExtSkadnWithMalformedFidelities() {
+        let entity = ORTBBidExtSkadn(jsonDictionary: [
+            "fidelities" : [JSON.skadnFidelity(), "_fidelity", 1, [JSON.skadnFidelity()]],
+        ])
+
+        XCTAssertTrue(compare(entity.fidelities, [JSON.skadnFidelity()]))
+    }
+
+    func testBidExtSkadnWithEmptyFidelities() {
+        let entity = ORTBBidExtSkadn(jsonDictionary: ["fidelities" : []])
+
+        XCTAssertEqual(entity.fidelities?.count, 0)
+    }
+
     func testBidExtSkadnSKOverlay() {
         let json = JSON.bidExtSkadnSKOverlay()
         let entity = ORTBBidExtSkadnSKOverlay(jsonDictionary: json)
@@ -335,10 +485,49 @@ class ResponseParsingTests: XCTestCase {
         XCTAssertEqual(entity.endcarddelay, 2)
         XCTAssertEqual(entity.dismissible, 3)
         XCTAssertEqual(entity.pos, 4)
-        
+
         XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
-    
+
+
+    func testBidExtSkadnSKOverlayWithStrings() {
+        let entity = ORTBBidExtSkadnSKOverlay(jsonDictionary: [
+            "delay" : "1",
+            "endcarddelay" : "2",
+            "dismissible" : "3",
+            "pos" : "4",
+        ])
+        XCTAssertEqual(entity.delay, 1)
+        XCTAssertEqual(entity.endcarddelay, 2)
+        XCTAssertEqual(entity.dismissible, 3)
+        XCTAssertEqual(entity.pos, 4)
+
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, JSON.bidExtSkadnSKOverlay() as NSDictionary)
+    }
+
+    func testBidExtSkadnSKOverlayWithUnexpectedValueTypes() {
+        let entity = ORTBBidExtSkadnSKOverlay(jsonDictionary: [
+            "delay" : "_delay",
+            "endcarddelay" : [2],
+            "dismissible" : ["dismissible" : 3],
+            "pos" : NSNull(),
+        ])
+        XCTAssertNil(entity.delay)
+        XCTAssertNil(entity.endcarddelay)
+        XCTAssertNil(entity.dismissible)
+        XCTAssertNil(entity.pos)
+    }
+
+    func testBidExtSkadnSKOverlayWithEmptyJson() {
+        let entity = ORTBBidExtSkadnSKOverlay(jsonDictionary: [:])
+        XCTAssertNil(entity.delay)
+        XCTAssertNil(entity.endcarddelay)
+        XCTAssertNil(entity.dismissible)
+        XCTAssertNil(entity.pos)
+
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, [:] as NSDictionary)
+    }
+
     func testBidResponseExt() {
         let json = JSON.bidResponseExt()
         let entity = ORTBBidResponseExt(jsonDictionary: json)
@@ -464,13 +653,71 @@ class ResponseParsingTests: XCTestCase {
         let json = JSON.skadnFidelity()
         let entity = ORTBSkadnFidelity(jsonDictionary: json)
         XCTAssertEqual(entity.fidelity, 1)
-        XCTAssertEqual(entity.nonce, UUID(uuidString: "12345678-ABCD-1234-ABCD-1234567890AB"))
-        XCTAssertEqual(entity.timestamp, 2)
+        XCTAssertEqual(entity.nonce, "12345678-ABCD-1234-ABCD-1234567890AB")
+        XCTAssertEqual(entity.timestamp, "2")
         XCTAssertEqual(entity.signature, "_signature")
-        
+
         XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
-    
+
+    func testSkadnFidelityWithNumbers() {
+        let entity = ORTBSkadnFidelity(jsonDictionary: JSON.skadnFidelityWithNumbers())
+        XCTAssertEqual(entity.fidelity, 1)
+        XCTAssertEqual(entity.nonce, "12345678-ABCD-1234-ABCD-1234567890AB")
+        XCTAssertEqual(entity.timestamp, "2")
+        XCTAssertEqual(entity.signature, "_signature")
+
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, JSON.skadnFidelity() as NSDictionary)
+    }
+
+    func testSkadnFidelityWithStringFidelity() {
+        var json = JSON.skadnFidelity()
+        json["fidelity"] = "1"
+
+        let entity = ORTBSkadnFidelity(jsonDictionary: json)
+        XCTAssertEqual(entity.fidelity, 1)
+
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, JSON.skadnFidelity() as NSDictionary)
+    }
+
+    func testSkadnFidelityWithUnexpectedValueTypes() {
+        let entity = ORTBSkadnFidelity(jsonDictionary: [
+            "fidelity" : "_fidelity",
+            "nonce" : 1,
+            "timestamp" : ["2"],
+            "signature" : NSNull(),
+        ])
+        XCTAssertNil(entity.fidelity)
+        XCTAssertNil(entity.nonce)
+        XCTAssertNil(entity.timestamp)
+        XCTAssertNil(entity.signature)
+    }
+
+
+    func testSkadnFidelityKeepsNonUUIDNonce() {
+        var json = JSON.skadnFidelity()
+        json["nonce"] = "not-a-uuid"
+
+        let entity = ORTBSkadnFidelity(jsonDictionary: json)
+        XCTAssertEqual(entity.nonce, "not-a-uuid")
+
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
+    }
+
+    func testSkadnFidelityWithEmptyJson() {
+        let entity = ORTBSkadnFidelity(jsonDictionary: [:])
+        XCTAssertNil(entity.fidelity)
+        XCTAssertNil(entity.nonce)
+        XCTAssertNil(entity.timestamp)
+        XCTAssertNil(entity.signature)
+
+        XCTAssertEqual(entity.jsonDictionary as NSDictionary, [:] as NSDictionary)
+    }
+
+    func jsonObject(from string: String) throws -> [String : Any] {
+        try XCTUnwrap(JSONSerialization.jsonObject(with: Data(string.utf8)) as? [String : Any])
+    }
+
     func compare(_ entity: PBMJsonEncodable?, _ object: [String : Any]) -> Bool {
         guard let entity else {
             return false
