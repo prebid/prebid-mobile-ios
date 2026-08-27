@@ -82,6 +82,7 @@ class ResponseParsingTests: XCTestCase {
                 "skipbuttonarea" : 4,
                 "skipbuttonposition" : "_skipbuttonposition",
                 "skipdelay" : 5,
+                "isautocloseoncompletionenabled" : false,
             ]
         }
         
@@ -249,6 +250,7 @@ class ResponseParsingTests: XCTestCase {
         XCTAssertEqual(entity.skipButtonArea, 4)
         XCTAssertEqual(entity.skipButtonPosition, "_skipbuttonposition")
         XCTAssertEqual(entity.skipDelay, 5)
+        XCTAssertEqual(entity.isAutoCloseOnCompletionEnabled?.boolValue, false)
         
         XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }

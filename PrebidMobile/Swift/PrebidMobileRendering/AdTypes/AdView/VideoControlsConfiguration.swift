@@ -90,6 +90,14 @@ public class VideoControlsConfiguration: NSObject {
     
     /// This property indicates whether mute controls is visible on the screen.
     public var isSoundButtonVisible = false
+
+    /// Indicates whether a non-rewarded full-screen video without a companion ad closes automatically when playback completes.
+    ///
+    /// The default value is `true`, preserving the SDK's existing auto-close behavior. Set this property to `false`
+    /// to keep the interstitial open and display a **Watch Again** button until the user closes the ad. Rewarded ads
+    /// use the `rwdd.close.action` configuration instead.
+    /// Obtained from `ext.prebid.passthrough[].adConfiguration.isautocloseoncompletionenabled` or set by the user.
+    public var isAutoCloseOnCompletionEnabled = true
     
     /// Use to initialize video controls with server values.
     public func initialize(with ortbAdConfiguration: ORTBAdConfiguration?) {
@@ -126,6 +134,10 @@ public class VideoControlsConfiguration: NSObject {
         
         if let ortbSkipDelay = ortbAdConfiguration.skipDelay {
             skipDelay = ortbSkipDelay.doubleValue
+        }
+
+        if let ortbIsAutoCloseOnCompletionEnabled = ortbAdConfiguration.isAutoCloseOnCompletionEnabled {
+            isAutoCloseOnCompletionEnabled = ortbIsAutoCloseOnCompletionEnabled.boolValue
         }
     }
     

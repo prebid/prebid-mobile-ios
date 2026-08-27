@@ -799,7 +799,11 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         self.progressBar.hidden = YES;
     }
     
-    if (self.adConfiguration.isBuiltInVideo && !self.creative.creativeModel.hasCompanionAd) {
+    BOOL shouldOfferReplay = self.adConfiguration.isBuiltInVideo ||
+        (self.adConfiguration.presentAsInterstitial &&
+         !self.adConfiguration.isRewarded &&
+         !self.adConfiguration.videoControlsConfig.isAutoCloseOnCompletionEnabled);
+    if (shouldOfferReplay && !self.creative.creativeModel.hasCompanionAd) {
         // UI: need to give some time to hide the interstitial before showing the Watch Again
         if (self.adConfiguration.presentAsInterstitial) {
             @weakify(self);

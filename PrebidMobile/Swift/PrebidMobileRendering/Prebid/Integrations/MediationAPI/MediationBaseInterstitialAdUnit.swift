@@ -45,7 +45,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
-    
+
     /// The area for the close button in the video ad.
     public var closeButtonArea: Double {
         get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea }

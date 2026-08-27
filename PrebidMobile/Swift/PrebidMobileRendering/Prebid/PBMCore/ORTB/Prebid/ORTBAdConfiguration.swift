@@ -24,6 +24,7 @@ import Foundation
     @objc public var skipButtonArea: NSNumber?
     @objc public var skipButtonPosition: String?
     @objc public var skipDelay: NSNumber?
+    @objc public var isAutoCloseOnCompletionEnabled: NSNumber?
 
     private enum KeySet: String {
         case maxvideoduration
@@ -33,6 +34,7 @@ import Foundation
         case skipbuttonarea
         case skipbuttonposition
         case skipdelay
+        case isautocloseoncompletionenabled
     }
 
     @objc public override init() {
@@ -48,6 +50,7 @@ import Foundation
         skipButtonArea      = json[.skipbuttonarea]
         skipButtonPosition  = json[.skipbuttonposition]
         skipDelay           = json[.skipdelay]
+        isAutoCloseOnCompletionEnabled = json[.isautocloseoncompletionenabled]
     }
     
     @objc public var jsonDictionary: [String : Any] {
@@ -60,6 +63,7 @@ import Foundation
         json[.skipbuttonarea]       = skipButtonArea
         json[.skipbuttonposition]   = skipButtonPosition
         json[.skipdelay]            = skipDelay
+        json[.isautocloseoncompletionenabled] = isAutoCloseOnCompletionEnabled
 
         return json.dict
     }
