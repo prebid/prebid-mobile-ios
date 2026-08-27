@@ -84,8 +84,10 @@
     
     const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.timeoutMillis;
     NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.timeoutMillisDynamic;
-    
-    const NSTimeInterval postTimeout = (dynamicTimeout_onRead ? dynamicTimeout_onRead.doubleValue : (rawTimeoutMS_onRead / 1000.0));
+
+    // `timeoutMillisDynamic` is stored in milliseconds (same unit as `timeoutMillis`),
+    // so it must be converted to seconds before being used as an NSTimeInterval.
+    const NSTimeInterval postTimeout = (dynamicTimeout_onRead ? (dynamicTimeout_onRead.doubleValue / 1000.0) : (rawTimeoutMS_onRead / 1000.0));
     
     NSData *rtbRequestData = [requestString dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -157,7 +159,9 @@
                     const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.timeoutMillis;
                     const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;
                     const NSTimeInterval updatedTimeout = MIN(remoteTimeout, appTimeout);
-                    self.sdkConfiguration.timeoutMillisDynamic = @(updatedTimeout);
+                    // `timeoutMillisDynamic` must be stored in milliseconds (same unit as
+                    // `timeoutMillis`), so convert the seconds-based `updatedTimeout` back to ms.
+                    self.sdkConfiguration.timeoutMillisDynamic = @(updatedTimeout * 1000.0);
                     self.sdkConfiguration.timeoutUpdated = true;
                 };
             }
