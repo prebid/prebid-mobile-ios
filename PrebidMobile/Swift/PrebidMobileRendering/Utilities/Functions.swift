@@ -13,9 +13,9 @@
 // limitations under the License.
 //
 
-import Foundation
+import UIKit
 
-@objc @_spi(PBMInternal) public class Functions: NSObject {
+@objc(PBMFunctions) @_spi(PBMInternal) public class Functions: NSObject {
     
     private override init() {
         super.init()
@@ -75,8 +75,277 @@ import Foundation
         return string.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
-    // MARK: - 
-    
+    // MARK: - ObjC bridge (PBMFunctions public API)
+
+    @objc public static var sdkVersion: String {
+        PrebidConstants.PREBID_VERSION
+    }
+
+    @objc public static var supportedSKAdNetworkVersions: [String] {
+        var versions: [String] = []
+        if #available(iOS 14.5, *) { versions.append("2.2") }
+        if #available(iOS 14.6, *) { versions.append("3.0") }
+        if #available(iOS 16.2, *) { versions.append("4.0") }
+        return versions
+    }
+
+    @objc(extractVideoAdParamsFromTheURLString:forKeys:)
+    public static func extractVideoAdParams(fromURLString urlString: String, forKeys keys: [Any]) -> [String: String] {
+        var result: [String: String] = [:]
+        guard let components = URLComponents(string: urlString) else { return result }
+        if let host = components.host { result[PrebidConstants.DOMAIN_KEY] = host }
+        for key in keys {
+            guard let keyStr = key as? String else { continue }
+            if let item = components.queryItems?.first(where: { $0.name == keyStr }), let value = item.value {
+                result[keyStr] = value
+            }
+        }
+        return result
+    }
+
+    @objc(canLoadVideoAdWithDomain:adUnitID:adUnitGroupID:)
+    public static func canLoadVideoAd(withDomain domain: String?,
+                                      adUnitID: String?,
+                                      adUnitGroupID: String?) -> Bool {
+        guard domain != nil else { return false }
+        return adUnitID != nil || adUnitGroupID != nil
+    }
+
+    @objc(dictionariesForPassthrough:)
+    public static func dictionariesForPassthrough(_ passthrough: Any) -> [[String: Any]]? {
+        if let array = passthrough as? [[String: Any]] { return array }
+        if let dict  = passthrough as? [String: Any]   { return [dict] }
+        return nil
+    }
+
+    @objc public static var bundleForSDK: Bundle {
+        let main = Bundle(for: Functions.self)
+        if let path = main.path(forResource: "PrebidSDKCoreResources", ofType: "bundle"),
+           let bundle = Bundle(path: path) { return bundle }
+        return main
+    }
+
+    @objc(infoPlistValueFor:)
+    public static func infoPlistValue(_ key: String) -> String? {
+        guard !key.isEmpty else { return nil }
+        return bundleForSDK.object(forInfoDictionaryKey: key) as? String
+    }
+
+    // MARK: - Shared application
+
+    /// `[UIApplication sharedApplication]` is `nil` whenever the SDK runs outside an
+    /// application process — e.g. in the unit-test bundle, which has no app host.
+    /// Swift imports `UIApplication.shared` as non-optional, so that `nil` becomes an
+    /// invalid reference that segfaults as soon as it is used (notably when boxed into
+    /// a `PBMUIApplicationProtocol` existential). Fetch it through the ObjC runtime
+    /// instead, so the `nil` stays observable — this is the Swift equivalent of the
+    /// `if (!uiApplication)` / `conformsToProtocol:` guards the ObjC original had.
+    ///
+    /// Deliberately not memoized: `sharedApplication` is `nil` until `UIApplicationMain`
+    /// has run, so a cached `nil` could outlive the condition that produced it.
+    static var sharedApplication: UIApplication? {
+        let selector = NSSelectorFromString("sharedApplication")
+        guard let applicationClass = UIApplication.self as AnyObject as? NSObjectProtocol,
+              applicationClass.responds(to: selector),
+              let application = applicationClass.perform(selector)?.takeUnretainedValue()
+        else { return nil }
+        return application as? UIApplication
+    }
+
+    /// The application every call site in this file must read: the one injected by
+    /// `Functions+Testing.swift` when a test provides it, the real shared application
+    /// otherwise, and `nil` when the SDK runs host-less. Resolve it once and pass it
+    /// down when a caller needs more than one application-derived value.
+    static var resolvedApplication: PBMUIApplicationProtocol? {
+        Functions.application ?? sharedApplication
+    }
+
+    // MARK: - ObjC bridge (PBMFunctions+Private — URLs)
+
+    @objc(attemptToOpen:)
+    public static func attemptToOpen(_ url: URL) {
+        guard let app = resolvedApplication else {
+            Log.warn("Cannot open \(url): the shared UIApplication is unavailable.")
+            return
+        }
+        attemptToOpen(url, pbmUIApplication: app)
+    }
+
+    @objc(attemptToOpen:pbmUIApplication:)
+    public static func attemptToOpen(_ url: URL, pbmUIApplication: PBMUIApplicationProtocol) {
+        pbmUIApplication.open(url, options: [:], completionHandler: nil)
+    }
+
+    // MARK: - ObjC bridge (PBMFunctions+Private — Time)
+
+    @objc(clamp:lowerBound:upperBound:)
+    public static func clamp(_ value: TimeInterval,
+                              lowerBound: TimeInterval,
+                              upperBound: TimeInterval) -> TimeInterval {
+        min(max(value, lowerBound), upperBound)
+    }
+
+    @objc(clampInt:lowerBound:upperBound:)
+    public static func clampInt(_ value: Int, lowerBound: Int, upperBound: Int) -> Int {
+        min(max(value, lowerBound), upperBound)
+    }
+
+    @objc(clampAutoRefresh:)
+    public static func clampAutoRefresh(_ value: TimeInterval) -> TimeInterval {
+        clamp(value,
+              lowerBound: PrebidConstants.AUTO_REFRESH_DELAY_MIN,
+              upperBound: PrebidConstants.AUTO_REFRESH_DELAY_MAX)
+    }
+
+    // DISPATCH_TIME_NOW / DISPATCH_TIME_FOREVER — the C macros are not exposed to Swift.
+    private static let dispatchTimeNow: UInt64 = 0
+    private static let dispatchTimeForever: UInt64 = .max
+
+    @objc(dispatchTimeAfterTimeInterval:)
+    public static func dispatchTimeAfterTimeInterval(_ timeInterval: TimeInterval) -> UInt64 {
+        dispatchTimeAfterTimeInterval(timeInterval, startTime: dispatchTimeNow)
+    }
+
+    /// Swift equivalent of `dispatch_time(startTime, timeInterval * NSEC_PER_SEC)`.
+    ///
+    /// `startTime` is a raw `dispatch_time_t`. Values derived from `DISPATCH_TIME_NOW`
+    /// are expressed in **mach ticks**, not nanoseconds, so they must not be round-tripped
+    /// through `DispatchTime(uptimeNanoseconds:)` — that initialiser converts nanoseconds
+    /// to ticks and yields a bogus deadline wherever `mach_timebase_info` is not 1:1
+    /// (i.e. on arm64 devices; the simulator's 1:1 timebase hides the error).
+    /// A negative `timeInterval` yields a deadline in the past (saturating at
+    /// `DISPATCH_TIME_NOW`) rather than wrapping around to "almost forever", and
+    /// non-finite or out-of-range intervals saturate instead of trapping.
+    @objc(dispatchTimeAfterTimeInterval:startTime:)
+    public static func dispatchTimeAfterTimeInterval(_ timeInterval: TimeInterval,
+                                                     startTime: UInt64) -> UInt64 {
+        switch startTime {
+        case dispatchTimeNow:
+            return (DispatchTime.now() + representableSeconds(timeInterval)).rawValue
+        case dispatchTimeForever:
+            return dispatchTimeForever
+        default:
+            let ticks = machTicks(fromSeconds: timeInterval)
+            if ticks >= 0 {
+                let (deadline, overflow) = startTime.addingReportingOverflow(UInt64(ticks))
+                return overflow ? dispatchTimeForever : deadline
+            }
+            // Deadline already in the past: clamp at DISPATCH_TIME_NOW on underflow.
+            let elapsed = UInt64(ticks.magnitude)
+            return elapsed > startTime ? dispatchTimeNow : startTime - elapsed
+        }
+    }
+
+    /// `numer`/`denom` is a hardware constant for the lifetime of the process, so it is
+    /// resolved once rather than on every conversion. `nil` when unavailable, in which
+    /// case ticks are treated as nanoseconds (the 1:1 timebase of the simulator).
+    private static let machTimebase: mach_timebase_info_data_t? = {
+        var timebase = mach_timebase_info_data_t()
+        guard mach_timebase_info(&timebase) == KERN_SUCCESS, timebase.numer != 0 else {
+            return nil
+        }
+        return timebase
+    }()
+
+    /// Largest delay expressible as a `dispatch_time_t` nanosecond offset (~292 years).
+    /// Derived by integer division so that `seconds * NSEC_PER_SEC` stays strictly inside
+    /// `Int64` — `TimeInterval(Int64.max)` itself rounds up to 2^63 and would overflow.
+    private static let maxRepresentableSeconds = TimeInterval(Int64.max / Int64(NSEC_PER_SEC))
+
+    /// Maps `NaN` to no delay and clamps magnitudes that `Int64` nanoseconds cannot hold,
+    /// so neither `DispatchTime`'s precondition nor the conversion below can trap.
+    private static func representableSeconds(_ seconds: TimeInterval) -> TimeInterval {
+        guard !seconds.isNaN else { return 0 }
+        return clamp(seconds,
+                     lowerBound: -maxRepresentableSeconds,
+                     upperBound: maxRepresentableSeconds)
+    }
+
+    private static func machTicks(fromSeconds seconds: TimeInterval) -> Int64 {
+        // In range by construction: `representableSeconds` clamps the magnitude so the
+        // nanosecond product cannot leave `Int64`.
+        let nanoseconds = Int64(representableSeconds(seconds) * TimeInterval(NSEC_PER_SEC))
+        guard let timebase = machTimebase else { return nanoseconds }
+        // The product can exceed Int64 before the division does, for intervals of ~97
+        // years and up on a 125/3 timebase; saturate rather than trap.
+        let (ticks, overflow) = nanoseconds.multipliedReportingOverflow(by: Int64(timebase.denom))
+        guard !overflow else { return nanoseconds < 0 ? .min : .max }
+        return ticks / Int64(timebase.numer)
+    }
+
+    // MARK: - ObjC bridge (PBMFunctions+Private — JSON)
+
+    // Throwing methods: @objc name must include `:error:` — Swift does not auto-append it when explicit.
+    @objc(dictionaryFromJSONString:error:)
+    public static func dictionaryFromJSONString(_ jsonString: String) throws -> [String: Any] {
+        try dictionary(from: jsonString)
+    }
+
+    @objc(dictionaryFromData:error:)
+    public static func dictionaryFromData(_ jsonData: Data) throws -> [String: Any] {
+        try dictionary(from: jsonData)
+    }
+
+    @objc(toStringJsonDictionary:error:)
+    public static func toStringJsonDictionary(_ jsonDictionary: [String: Any]) throws -> String {
+        try jsonString(from: jsonDictionary)
+    }
+
+    // MARK: - ObjC bridge (PBMFunctions+Private — UI)
+
+    @objc public static var statusBarHeight: CGFloat {
+        guard let application = resolvedApplication else { return 0 }
+        return statusBarHeight(application: application)
+    }
+
+    @objc(statusBarHeightForApplication:)
+    public static func statusBarHeight(application: PBMUIApplicationProtocol) -> CGFloat {
+        guard !application.isStatusBarHidden else { return 0 }
+        if application.statusBarOrientation.isPortrait {
+            return application.statusBarFrame.size.height
+        }
+        return application.statusBarFrame.size.width
+    }
+
+    // MARK: - ObjC bridge (PBMFunctions+Private — Device Info)
+
+    @objc public static var deviceScreenSize: CGSize {
+        UIScreen.main.bounds.size
+    }
+
+    @objc public static var deviceMaxSize: CGSize {
+        let screenSize = deviceScreenSize
+        // One resolution for both derived values: each accessor would otherwise repeat the
+        // ObjC-runtime lookup, and this runs on the viewability path.
+        let application = resolvedApplication
+        let saInsets    = application.map(safeAreaInsets(application:))  ?? .zero
+        let statusBar   = application.map(statusBarHeight(application:)) ?? 0
+        return CGSize(width:  screenSize.width  - saInsets.left - saInsets.right,
+                      height: screenSize.height - statusBar - saInsets.top - saInsets.bottom)
+    }
+
+    // `UIApplication.shared` traps when the SDK runs host-less, so this goes through
+    // `resolvedApplication` like every other application read — `deviceMaxSize` reaches
+    // it from production code, and tests need the `Functions.application` seam to apply.
+    @objc public static var safeAreaInsets: UIEdgeInsets {
+        resolvedApplication.map(safeAreaInsets(application:)) ?? .zero
+    }
+
+    @objc(safeAreaInsetsForApplication:)
+    public static func safeAreaInsets(application: PBMUIApplicationProtocol) -> UIEdgeInsets {
+        application.pbmKeyWindow?.safeAreaInsets ?? .zero
+    }
+
+    @objc public static var isSimulator: Bool {
+        #if targetEnvironment(simulator)
+        return true
+        #else
+        return false
+        #endif
+    }
+
+    // MARK: -
+
     @objc
     public static func checkCertificateChallenge(_ challenge: URLAuthenticationChallenge,
                                                  completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

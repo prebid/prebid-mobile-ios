@@ -121,7 +121,7 @@ final class SharedIdTests: XCTestCase {
             )
             
             let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME]!
-            let bidRequest = try! PBMORTBBidRequest.from(jsonString:strORTB)
+            let bidRequest = try! ORTBBidRequest.from(jsonString:strORTB)
             
             let eids = bidRequest.user.ext?["eids"] as? [[String : Any]]
             let sharedId = eids?.first { $0["source"] as? String == "pubcid.org" }

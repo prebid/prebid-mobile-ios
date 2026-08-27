@@ -17,8 +17,12 @@ echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
 cd ..
 
-export PATH="/Users/distiller/.gem/ruby/2.7.0/bin:$PATH"
-gem install cocoapods
+if ! command -v pod >/dev/null 2>&1; then
+    echo "CocoaPods is required but 'pod' was not found on PATH." >&2
+    echo "GitHub Actions 'macos-15' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
+    exit 1
+fi
+
 pod install --repo-update
 
 echo -e "\n\n${GREEN}RUN PREBID MOBILE ADAPTER TESTS${NC}\n\n"
@@ -32,6 +36,9 @@ xcodebuild clean build
 function testAdapters () {
   local SCHEME="$1"
 
+    # Callers invoke this as `testAdapters … || TEST_STATUS=$?`, which suspends `set -e`
+    # for the whole body — so a build failure has to short-circuit explicitly, or the
+    # test run below would go ahead against stale products.
     xcodebuild \
         -workspace PrebidMobile.xcworkspace \
         -scheme "${SCHEME}" \
@@ -39,7 +46,7 @@ function testAdapters () {
         -configuration Debug \
         -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
         -destination-timeout 60 \
-        build-for-testing
+        build-for-testing || return $?
 
     xcodebuild \
         -workspace PrebidMobile.xcworkspace \
@@ -52,9 +59,12 @@ function testAdapters () {
 
 echo -e "\n${GREEN}Running PrebidMobileGAMEventHandlers unit tests${NC} \n"
 
-testAdapters "PrebidMobileGAMEventHandlersTests"
+# `set -e` would abort the script on a failing xcodebuild before the report below runs,
+# so take the exit status explicitly and keep the diagnostic reachable.
+TEST_STATUS=0
+testAdapters "PrebidMobileGAMEventHandlersTests" || TEST_STATUS=$?
 
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
+if [[ ${TEST_STATUS} == 0 ]]; then
     echo "✅ PrebidMobileGAMEventHandlers Unit Tests Passed"
 else
     echo "🔴 PrebidMobileGAMEventHandlers Unit Tests Failed"
@@ -63,9 +73,10 @@ fi
 
 echo -e "\n${GREEN}Running PrebidMobileAdMobAdapters unit tests${NC} \n"
 
-testAdapters "PrebidMobileAdMobAdaptersTests"
+TEST_STATUS=0
+testAdapters "PrebidMobileAdMobAdaptersTests" || TEST_STATUS=$?
 
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
+if [[ ${TEST_STATUS} == 0 ]]; then
     echo "✅ PrebidMobileAdMobAdapters Unit Tests Passed"
 else
     echo "🔴 PrebidMobileAdMobAdapters Unit Tests Failed"
@@ -74,9 +85,10 @@ fi
 
 echo -e "\n${GREEN}Running PrebidMobileMAXAdapters unit tests${NC} \n"
 
-testAdapters "PrebidMobileMAXAdaptersTests"
+TEST_STATUS=0
+testAdapters "PrebidMobileMAXAdaptersTests" || TEST_STATUS=$?
 
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
+if [[ ${TEST_STATUS} == 0 ]]; then
     echo "✅ PrebidMobileMAXAdapters Unit Tests Passed"
 else
     echo "🔴 PrebidMobileMAXAdapters Unit Tests Failed"

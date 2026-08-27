@@ -19,7 +19,7 @@ class PBMDeepLinkPlusTest: XCTestCase {
     func testDemoLinkParsing() {
         let demoURLString = "deeplink+://navigate?primaryUrl=twitter%3A%2F%2Ftimeline&primaryTrackingUrl=http%3A%2F%2Fmopub.com%2Fclicktracking&primaryTrackingUrl=http%3A%2F%2Fmopub.com%2Fmopubtracking&fallbackUrl=http%3A%2F%2Fmobile.twitter.com";
         
-        guard let demoURL = URL(string: demoURLString), let deepLink = PBMDeepLinkPlus(url: demoURL) else {
+        guard let demoURL = URL(string: demoURLString), let deepLink = DeepLinkPlus(url: demoURL) else {
             XCTFail("Failed to parse demo URL")
             return
         }
@@ -35,7 +35,7 @@ class PBMDeepLinkPlusTest: XCTestCase {
     func testAppSettingsLinkParsing() {
         let settingsURLString = "deeplink+://navigate?primaryUrl=app-settings%3A"
         
-        guard let settingsURL = URL(string: settingsURLString), let deepLink = PBMDeepLinkPlus(url: settingsURL) else {
+        guard let settingsURL = URL(string: settingsURLString), let deepLink = DeepLinkPlus(url: settingsURL) else {
             XCTFail("Failed to parse settings deep link")
             return
         }
@@ -51,7 +51,7 @@ class PBMDeepLinkPlusTest: XCTestCase {
         
         let url: URL! = URL(string: brokenURLString)
         
-        let deepLink = PBMDeepLinkPlus(url: url)
+        let deepLink = DeepLinkPlus(url: url)
         XCTAssertNil(deepLink)
     }
 }

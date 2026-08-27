@@ -18,11 +18,11 @@ import XCTest
 class PBMCircularProgressBarViewTests: XCTestCase {
     
     func testInit() {
-        var circularProgressBarView = PBMCircularProgressBarView()
+        var circularProgressBarView = CircularProgressBarView()
         XCTAssertNotNil(circularProgressBarView)
         
         let viewRect = CGRect(x: 0, y: 0, width: 50, height: 50)
-        circularProgressBarView = PBMCircularProgressBarView(frame: viewRect)
+        circularProgressBarView = CircularProgressBarView(frame: viewRect)
         XCTAssertNotNil(circularProgressBarView)
     }
     
@@ -47,7 +47,7 @@ class PBMCircularProgressBarViewTests: XCTestCase {
         let countdown = true
         let duration: CGFloat = 10
         
-        let circularProgressBarView = PBMCircularProgressBarView()
+        let circularProgressBarView = CircularProgressBarView()
         XCTAssertNotNil(circularProgressBarView)
         
         // Setters
@@ -95,7 +95,7 @@ class PBMCircularProgressBarViewTests: XCTestCase {
     
     func testUpdateProgress() {
         let duration: CGFloat = 10
-        let circularProgressBarView = PBMCircularProgressBarView()
+        let circularProgressBarView = CircularProgressBarView()
         XCTAssertNotNil(circularProgressBarView)
         
         XCTAssertEqual(circularProgressBarView.value, 0)
@@ -115,9 +115,9 @@ class PBMCircularProgressBarViewTests: XCTestCase {
     }
     
     func testDataObject() {
-        let data = NSKeyedArchiver.archivedData(withRootObject: PBMCircularProgressBarView())
+        let data = NSKeyedArchiver.archivedData(withRootObject: CircularProgressBarView())
         XCTAssertNotNil(data)
         let object = NSKeyedUnarchiver.unarchiveObject(with: data)
-        XCTAssert(object is PBMCircularProgressBarView)
+        XCTAssert(object is CircularProgressBarView)
     }
 }

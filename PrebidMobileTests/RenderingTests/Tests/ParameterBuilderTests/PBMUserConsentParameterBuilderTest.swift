@@ -38,7 +38,7 @@ class PBMUserConsentParameterBuilderTest: XCTestCase {
         
         let builder = PBMUserConsentParameterBuilder()
         
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         XCTAssertEqual(bidRequest.regs.ext?["gdpr"] as? Int, 0)
@@ -51,7 +51,7 @@ class PBMUserConsentParameterBuilderTest: XCTestCase {
         
         let builder = PBMUserConsentParameterBuilder()
         
-        let bidRequest = PBMORTBBidRequest()
+        let bidRequest = ORTBBidRequest()
         builder.build(bidRequest)
         
         XCTAssertEqual(bidRequest.regs.ext?["gdpr"] as? Int, 1)

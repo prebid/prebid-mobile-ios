@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 typealias JsonDictionary = [String:Any]
 
@@ -189,10 +189,10 @@ typealias JsonDictionary = [String:Any]
     class func compareJSON(expected:String, actual:String, file:StaticString = #file, line:UInt = #line) {
         
         do {
-            let dictExpected = try PBMFunctions.dictionaryFromJSONString(expected)
+            let dictExpected = try Functions.dictionaryFromJSONString(expected)
             let nsDictExpected = NSDictionary(dictionary: dictExpected)
             
-            let dictActual = try PBMFunctions.dictionaryFromJSONString(actual)
+            let dictActual = try Functions.dictionaryFromJSONString(actual)
             let nsDictActual = NSDictionary(dictionary: dictActual)
             
             XCTAssertEqual(nsDictExpected, nsDictActual, file:file, line:line)

@@ -16,7 +16,7 @@
 import XCTest
 import UIKit
 
-@testable @_spi(PBMInternal) import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
     
@@ -285,7 +285,7 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         self.expectationBlockForAWhile = nil
         self.htmlCreative = nil
         logToFile = nil
-        PBMFunctions.application = nil
+        Functions.application = nil
         super.tearDown()
     }
     
@@ -328,7 +328,7 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
     }
     
     func testClickthrough() {
-        PBMFunctions.application = nil
+        Functions.application = nil
         self.expectationDownloadCompleted = self.expectation(description: "expectationCreativeReady")
         self.expectationCreativeWasClicked = self.expectation(description: "Expected creativeWasClicked to be called")
         
@@ -365,7 +365,7 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
             webView: mockWebView,
             sdkConfiguration: sdkConfiguration
         )
-        PBMFunctions.application = mockApplication
+        Functions.application = mockApplication
         
         htmlCreative.webView(mockWebView, receivedClickthroughLink:self.clickThroughURL)
         
