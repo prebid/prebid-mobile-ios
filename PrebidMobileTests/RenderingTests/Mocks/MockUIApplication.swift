@@ -13,14 +13,15 @@
   limitations under the License.
   */
 
-import Foundation
+import UIKit
 
 class MockUIApplication: NSObject, PBMUIApplicationProtocol {
-    
+
     var statusBarFrame = CGRect(x: 0.0, y: 0.0, width: 1.0, height:2.0)
     var isStatusBarHidden = false
     var statusBarOrientation = UIInterfaceOrientation.portrait
-    
+    var pbmKeyWindow: UIWindow?
+
     var openURLClosure:((URL)->Bool)?
     
     func openURL(url: URL) -> Bool {
@@ -33,4 +34,14 @@ class MockUIApplication: NSObject, PBMUIApplicationProtocol {
         let result = openURL(url: url)
         completion?(result)
     }
+}
+
+/// `UIWindow.safeAreaInsets` is read-only and reflects the real device, so a window whose
+/// insets are dictated by the test is the only way to assert what `Functions.safeAreaInsets`
+/// read from the application it resolved.
+class MockKeyWindow: UIWindow {
+
+    var mockSafeAreaInsets: UIEdgeInsets = .zero
+
+    override var safeAreaInsets: UIEdgeInsets { mockSafeAreaInsets }
 }

@@ -218,11 +218,23 @@ public override init() { super.init() }
 | `missing arguments for parameters 'width', 'height'` | Swift init lacks no-arg form | Add `public override init() { super.init() }` with defaulted properties |
 | `cannot declare conformance to 'NSObjectProtocol'` | Mock class missing NSObject | Add `: NSObject` superclass |
 | `@objc method name provides N argument names, but method has N+1` | `throws` method needs `:error:` in explicit name | Use `@objc(name:error:)` not `@objc(name:)` |
-| `'dispatch_time' has been replaced` | C function unavailable in Swift | Call `Functions.dispatchTimeAfterTimeInterval(_:startTime:)`. **Never** `DispatchTime(uptimeNanoseconds:)` on a `dispatch_time_t` — off by ~41x on arm64 (playbook Gap S2.1-C) |
+| `'dispatch_time' has been replaced` | C function unavailable in Swift | Call `Functions.dispatchTimeAfterTimeInterval(_:startTime:)` — SDK-internal, see note below. **Never** `DispatchTime(uptimeNanoseconds:)` on a `dispatch_time_t` — off by ~41x on arm64 (playbook Gap S2.1-C) |
 | `'UIInterfaceOrientationIsPortrait' has been replaced` | C macro unavailable in Swift | `orientation.isPortrait` |
 | `initializer for conditional binding must have Optional type` | Callback `PrebidServerResponse` is non-optional | Remove `if let` / `guard let`; use directly |
 | `expected a type` in ObjC header | UIKit missing after header removal | Add `#import <UIKit/UIKit.h>` to affected header |
 | `(PBMInternal)  import PrebidMobile` in source | Perl `@` interpolation corrupted import | Run Python recovery script (see §7) |
+
+### `Functions` is only reachable inside the SDK
+
+`Functions` is declared `@objc(PBMFunctions) @_spi(PBMInternal) public class`, so
+`Functions.dispatchTimeAfterTimeInterval` needs no ceremony from SDK sources and needs
+`@_spi(PBMInternal) @testable import PrebidMobile` from `PrebidMobileTests` — but it is **not
+available to a different module at all**. Sample apps are the case that bites: the two raw
+`dispatch_time()` calls left in `Example/PrebidDemo/PrebidDemoObjectiveC/Examples/AdMob/` cannot
+adopt this row, and applying it there produces an accessibility error rather than a fix. Those
+call sites are plain `dispatch_after(dispatch_time(DISPATCH_TIME_NOW, …))` in ObjC, which is
+correct as written — the Gap S2.1-C hazard is the Swift-side `DispatchTime(uptimeNanoseconds:)`
+misconversion, not `dispatch_time` itself. Leave them alone.
 
 ## Running a single test class (raw xcodebuild)
 

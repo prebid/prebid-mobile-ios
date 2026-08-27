@@ -49,6 +49,9 @@ xcodebuild \
 
 echo -e "\n\n${GREEN}Testing ${SCHEME}${NC}\n\n"
 
+# `set -e` would abort the script on a failing xcodebuild before the report below runs,
+# so take the exit status explicitly and keep the diagnostic reachable.
+TEST_STATUS=0
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
     -scheme $SCHEME \
@@ -57,9 +60,9 @@ xcodebuild \
     -destination-timeout 60 \
     -test-iterations 2 \
     -retry-tests-on-failure \
-    test-without-building
+    test-without-building || TEST_STATUS=$?
 
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
+if [[ ${TEST_STATUS} == 0 ]]; then
     echo "✅ ${TEST} Tests Passed"
 else
     echo "🔴 ${TEST} Tests Failed"

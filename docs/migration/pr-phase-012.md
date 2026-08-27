@@ -167,14 +167,13 @@ dedup callsite builds every element via `+ortbFormatWithSize:`). Codified as Gap
 - Collapsed `docs/migration/` to one PR doc: deleted the five superseded drafts
   (`pr-phase-0/1/1-review/2/2-description.md`), which described branches that no longer exist.
 
-## S2.7 — second review round (13 findings)
-
-Fixed:
+## S2.7 — Review fixes (round 3)
 
 - **`Functions.safeAreaInsets`** read `UIApplication.shared.keyWindow` directly — the crash class the
   previous round closed in `attemptToOpen`/`statusBarHeight`, and reachable from production via
   `deviceMaxSize` → `PBMMRAIDController`/`PBMWebView`. Now resolved through the ObjC runtime.
   `Functions.swift` no longer reads `UIApplication.shared` anywhere. New playbook Gap S2.5-E.
+  (Incomplete — the resolution skipped the `Functions.application` seam; closed in round 4.)
 - **`Functions.statusBarHeight`** consulted only `sharedApplication`, bypassing the
   `Functions.application` test seam. Now `Functions.application ?? sharedApplication`, matching
   `attemptToOpen`, pinned by `testStatusBarHeightUsesInjectedApplication`.
@@ -201,32 +200,82 @@ Fixed:
   siblings' plain `set -e` (not `-euo pipefail`, which would break the unguarded `"$1"` check).
 - **`.gitignore`** — added `.claude/worktrees/`, per-developer state the scoped list missed.
 - **Test-count arithmetic** in this doc corrected against a measured run.
-
-Deferred, with rationale (replied on the PR rather than fixed here):
-
-- **The remaining `UIApplication.shared` reads** — 10 files / 15 call sites, all pre-existing and
-  outside this PR's diff. Enumerated in playbook Gap S2.5-E with a re-measure command, to be fixed
-  when those files are touched. Closing them here would widen an already large PR.
-- **Memoizing `sharedApplication`** — declined, not deferred. The resolution is `nil` until
-  `UIApplicationMain` runs, so a cache must be mutable and non-nil-only, adding a staleness hazard
-  and a shared-mutable-state race to save one selector lookup plus an `objc_msgSend`. The
+- **Deferred — the remaining `UIApplication.shared` reads.** All pre-existing and outside this PR's
+  diff. Enumerated in playbook Gap S2.5-E with a re-measure command, to be fixed when those files
+  are touched. Closing them here would widen an already large PR.
+- **Declined — memoizing `sharedApplication`.** The resolution is `nil` until `UIApplicationMain`
+  runs, so a cache must be mutable and non-nil-only, adding a staleness hazard and a
+  shared-mutable-state race to save one selector lookup plus an `objc_msgSend`. The
   `mach_timebase_info` caching in the same review round *was* applied: that value is an immutable
   hardware constant, so it carries none of the same risk.
-- **Factoring the duplicated `command -v pod` guard** into a shared sourced script — a real
-  improvement, but it touches all four scripts and the CI paths that call them; better as its own PR
-  than bundled into a migration PR.
-- **Redesigning `PrebidEventDelegateTests` isolation** to filter by delegate identity instead of the
-  UUID tag — agreed it is less machinery, but the current mechanism is tested and working, and the
-  class is skipped in the PR plan, so a rewrite would be verified only in the full suite.
+- **Deferred — factoring the duplicated `command -v pod` guard** into a shared sourced script. A
+  real improvement, but it touches all four scripts and the CI paths that call them; better as its
+  own PR than bundled into a migration PR.
+- **Deferred — redesigning `PrebidEventDelegateTests` isolation** to filter by delegate identity
+  instead of the UUID tag. Agreed it is less machinery, but the current mechanism is tested and
+  working, and the class is skipped in the PR plan, so a rewrite would be verified only in the full
+  suite.
+
+## S2.8 — Review fixes (round 4)
+
+Round 3's own fixes, reviewed. The theme: a rule applied to three call sites but not expressed in
+one place drifts at the site nobody looked at twice.
+
+- **`safeAreaInsets` still bypassed the injection seam** — the defect round 3 claimed to have
+  closed. It resolved the application through the ObjC runtime (so it no longer trapped host-less)
+  but read `Functions.application` nowhere, because `PBMUIApplicationProtocol` had no way to
+  express a key window. A test setting `Functions.application` saw the mock in `statusBarHeight`
+  and the real singleton in `safeAreaInsets` — and `deviceMaxSize` mixes both. Added
+  `pbmKeyWindow` to the protocol, implemented on `UIApplication` via `connectedScenes`. Named
+  `pbmKeyWindow`, not `keyWindow`: the latter would bind the conformance to the property
+  deprecated since iOS 13, whose result is undefined under multiple scenes — the case that matters
+  for an SDK rendering inside a host app's window.
+- **One resolution point instead of three.** `resolvedUIApplication` and `sharedApplication` were
+  two accessors performing the same runtime lookup with duplicated doc comments, and each call
+  site re-spelled the `Functions.application ?? …` precedence. Collapsed to a single
+  `sharedApplication` plus `resolvedApplication`, which every call site now reads. That is also
+  the efficiency fix: `deviceMaxSize` resolves once and passes the application into
+  `safeAreaInsets(application:)` and `statusBarHeight(application:)` rather than paying the
+  lookup twice on the viewability path.
+- **Three weak assertions in `TestPBMFunctions`.** `testSafeAreaInsetsWithoutApplicationHost`
+  asserted `insets.top >= 0`, which `.zero` satisfies — i.e. the test passed *because of* the bug
+  above. Replaced with `testSafeAreaInsetsUsesInjectedApplication` (a `MockKeyWindow` with
+  dictated insets, asserted through both `safeAreaInsets` and `deviceMaxSize`),
+  `testSafeAreaInsetsWithoutKeyWindow`, and a host-less test that now pins the exact `.zero` /
+  `deviceScreenSize` values. The non-finite dispatch-time assertions checked only `!= 0` and
+  `> startTime`, both of which a wrapping `&*` in the tick conversion would also satisfy; they now
+  assert the deadline lands more than a century out (a floor expressed through `DispatchTime`, so
+  it holds on any `mach_timebase_info` rather than only the simulator's 1:1), and the
+  `DISPATCH_TIME_NOW` NaN case is bracketed by a `now` window taken before and after the call.
+- **Playbook Gap S2.5-E** corrected: the literal re-measure command returned 11 files / 17 matches,
+  not the 10 / 15 claimed, because `Functions.swift` names the API twice in prose. The count is now
+  stated net of comments, and the gap gained the "one resolution point" and "route every
+  application-derived read through the protocol" rules that round 3 followed only partially. A CI
+  ratchet over those counts was prototyped and dropped: during an active migration the per-file
+  budget needs an edit on every conversion, which redlights CI on good changes for a rule that
+  belongs in SwiftLint `custom_rules` once SwiftLint is actually wired into a workflow
+  (`scripts/swiftLint.sh` still pins 0.31.0 and is invoked by nobody).
+- **`agents/xcodebuild/SKILL.md`**: the `dispatch_time` row points at `Functions`, which is
+  `@_spi(PBMInternal)` and therefore unreachable from another module. Added the caveat, and noted
+  that the remaining raw `dispatch_time()` calls in the ObjC sample app are correct as written —
+  the Gap S2.1-C hazard is the Swift-side misconversion, not the C function.
+- **Dead failure diagnostics under `set -e`.** Round 3 added `set -e` to `testPrebidDemo.sh`,
+  which made its trailing `if [[ ${PIPESTATUS[0]} == 0 ]]` report unreachable. Fixed there and in
+  the two siblings that had the same latent pattern before this PR (`testPrebidMobile.sh`,
+  `testPrebidMobileAdapters.sh`): the status is captured with `|| TEST_STATUS=$?`. In
+  `testPrebidMobileAdapters.sh` that also required an explicit `|| return $?` after
+  `build-for-testing`, since invoking the function in a `||` list suspends `set -e` inside it.
 
 ## Test plan
 
 - [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks build clean (device + simulator)
 - [x] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build of the working tree clean
-- [x] `./scripts/testPrebidMobile.sh --latest --quick` — **763 tests, 0 failures**, re-run after the
-      S2.7 review-fix round, which adds 9: eight dispatch-time / application-seam tests in
-      `TestFunctions` and `ORTBAbstractTest.testDecodingRequestWithMalformedImpElements`
-      (the earlier "754 (727 + three new)" note was arithmetically wrong; this figure is measured)
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — **765 tests, 0 failures**, re-run after the
+      S2.8 round. S2.7 took the count to 763 by adding 9 (eight dispatch-time / application-seam
+      tests in `TestFunctions` plus `ORTBAbstractTest.testDecodingRequestWithMalformedImpElements`;
+      the earlier "754 (727 + three new)" note was arithmetically wrong). S2.8 nets +2: the weak
+      `testSafeAreaInsetsWithoutApplicationHost` is replaced by three real ones. The only retried
+      test was the allowlisted flake `PBMBidRequesterTest.testBanner_300x250` (green on retry 2)
 - [x] `PrebidEventDelegateTests` run separately — it is in the PR plan's `skippedTests`, so the
       retagged isolation fix was verified with `-testPlan PrebidMobileTests -only-testing`
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite (1111 tests), run before merge

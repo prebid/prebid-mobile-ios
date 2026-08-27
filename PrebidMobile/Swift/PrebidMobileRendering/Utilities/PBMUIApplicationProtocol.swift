@@ -20,10 +20,27 @@ import UIKit
     var statusBarOrientation: UIInterfaceOrientation { get }
     var statusBarFrame: CGRect { get }
 
+    /// The window the SDK measures safe-area insets against.
+    ///
+    /// Part of the protocol so that `Functions.safeAreaInsets` can resolve it through the
+    /// `Functions.application` test-injection seam like every other application read.
+    /// Deliberately not named `keyWindow`: that would bind the `UIApplication` conformance
+    /// to the property deprecated since iOS 13, whose result is undefined for multi-scene
+    /// apps — the case that matters for an SDK rendering inside a host app's window.
+    var pbmKeyWindow: UIWindow? { get }
+
     @objc(openURL:options:completionHandler:)
     func open(_ url: URL,
               options: [UIApplication.OpenExternalURLOptionsKey: Any],
               completionHandler: ((Bool) -> Void)?)
 }
 
-extension UIApplication: PBMUIApplicationProtocol {}
+extension UIApplication: PBMUIApplicationProtocol {
+
+    public var pbmKeyWindow: UIWindow? {
+        connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .last { $0.isKeyWindow }
+    }
+}

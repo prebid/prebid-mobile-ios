@@ -143,7 +143,7 @@ import UIKit
     ///
     /// Deliberately not memoized: `sharedApplication` is `nil` until `UIApplicationMain`
     /// has run, so a cached `nil` could outlive the condition that produced it.
-    private static var resolvedUIApplication: UIApplication? {
+    static var sharedApplication: UIApplication? {
         let selector = NSSelectorFromString("sharedApplication")
         guard let applicationClass = UIApplication.self as AnyObject as? NSObjectProtocol,
               applicationClass.responds(to: selector),
@@ -152,18 +152,19 @@ import UIKit
         return application as? UIApplication
     }
 
-    /// The shared application as the narrow protocol the SDK actually depends on.
-    /// Prefer `Functions.application ?? sharedApplication` at call sites, so the
-    /// test-injection seam in `Functions+Testing.swift` keeps priority.
-    static var sharedApplication: PBMUIApplicationProtocol? {
-        resolvedUIApplication
+    /// The application every call site in this file must read: the one injected by
+    /// `Functions+Testing.swift` when a test provides it, the real shared application
+    /// otherwise, and `nil` when the SDK runs host-less. Resolve it once and pass it
+    /// down when a caller needs more than one application-derived value.
+    static var resolvedApplication: PBMUIApplicationProtocol? {
+        Functions.application ?? sharedApplication
     }
 
     // MARK: - ObjC bridge (PBMFunctions+Private — URLs)
 
     @objc(attemptToOpen:)
     public static func attemptToOpen(_ url: URL) {
-        guard let app = Functions.application ?? sharedApplication else {
+        guard let app = resolvedApplication else {
             Log.warn("Cannot open \(url): the shared UIApplication is unavailable.")
             return
         }
@@ -293,7 +294,7 @@ import UIKit
     // MARK: - ObjC bridge (PBMFunctions+Private — UI)
 
     @objc public static var statusBarHeight: CGFloat {
-        guard let application = Functions.application ?? sharedApplication else { return 0 }
+        guard let application = resolvedApplication else { return 0 }
         return statusBarHeight(application: application)
     }
 
@@ -314,15 +315,25 @@ import UIKit
 
     @objc public static var deviceMaxSize: CGSize {
         let screenSize = deviceScreenSize
-        let saInsets   = safeAreaInsets
+        // One resolution for both derived values: each accessor would otherwise repeat the
+        // ObjC-runtime lookup, and this runs on the viewability path.
+        let application = resolvedApplication
+        let saInsets    = application.map(safeAreaInsets(application:))  ?? .zero
+        let statusBar   = application.map(statusBarHeight(application:)) ?? 0
         return CGSize(width:  screenSize.width  - saInsets.left - saInsets.right,
-                      height: screenSize.height - statusBarHeight - saInsets.top - saInsets.bottom)
+                      height: screenSize.height - statusBar - saInsets.top - saInsets.bottom)
     }
 
-    // `UIApplication.shared` traps when the SDK runs host-less, so resolve it through
-    // the ObjC runtime here too — `deviceMaxSize` reaches this from production code.
+    // `UIApplication.shared` traps when the SDK runs host-less, so this goes through
+    // `resolvedApplication` like every other application read — `deviceMaxSize` reaches
+    // it from production code, and tests need the `Functions.application` seam to apply.
     @objc public static var safeAreaInsets: UIEdgeInsets {
-        resolvedUIApplication?.keyWindow?.safeAreaInsets ?? .zero
+        resolvedApplication.map(safeAreaInsets(application:)) ?? .zero
+    }
+
+    @objc(safeAreaInsetsForApplication:)
+    public static func safeAreaInsets(application: PBMUIApplicationProtocol) -> UIEdgeInsets {
+        application.pbmKeyWindow?.safeAreaInsets ?? .zero
     }
 
     @objc public static var isSimulator: Bool {

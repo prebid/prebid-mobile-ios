@@ -585,7 +585,7 @@ first use — typically when boxed into a `PBMUIApplicationProtocol` existential
 runtime so the `nil` stays observable:
 
 ```swift
-private static var resolvedUIApplication: UIApplication? {
+static var sharedApplication: UIApplication? {
     let selector = NSSelectorFromString("sharedApplication")
     guard let applicationClass = UIApplication.self as AnyObject as? NSObjectProtocol,
           applicationClass.responds(to: selector),
@@ -593,25 +593,50 @@ private static var resolvedUIApplication: UIApplication? {
     else { return nil }
     return application as? UIApplication
 }
+
+/// The application every call site must read.
+static var resolvedApplication: PBMUIApplicationProtocol? {
+    Functions.application ?? sharedApplication
+}
 ```
 
-Two follow-on rules:
+Three follow-on rules:
 
-- **Honour the injection seam.** Call sites read `Functions.application ?? sharedApplication`, in
-  that order — `Functions.application` (`Functions+Testing.swift`) is how tests substitute a mock.
-  Consulting only `sharedApplication` silently ignores the mock and resolves the real singleton.
+- **Honour the injection seam, in one place.** `Functions.application`
+  (`Functions+Testing.swift`) is how tests substitute a mock, so it must be consulted first —
+  reading `sharedApplication` alone silently ignores the mock and resolves the real singleton.
+  Express that precedence once, in `resolvedApplication`; a second accessor spelling out the
+  same `??` chain is a place for the two to drift apart.
+- **Route every application-derived read through the protocol.** A value the SDK reads off the
+  application — including `safeAreaInsets`, which needs the key window — belongs on
+  `PBMUIApplicationProtocol` so it resolves through the same seam. `safeAreaInsets` reaching
+  around it to `UIApplication.shared.…` reintroduces both the host-less trap and the untestable
+  path the rule exists to prevent. Where a caller needs more than one such value (`deviceMaxSize`
+  needs insets *and* the status-bar height), resolve the application once and pass it down rather
+  than repeating the runtime lookup per accessor.
 - **Do not memoize.** The resolution is `nil` until `UIApplicationMain` has run, so a cached `nil`
   can outlive the condition that produced it. The runtime lookup is a selector resolution plus one
   `objc_msgSend` — not worth trading for a staleness hazard and mutable global state.
 
 **Scope:** applied in `Functions.swift` (`attemptToOpen`, `statusBarHeight`, `safeAreaInsets`), which
-no longer reads `UIApplication.shared` directly. **10 other Swift files still do, across 15 call
-sites** (`rg -c 'UIApplication\.shared' --glob '*.swift' PrebidMobile/Swift/` to re-measure):
-`LocationManager.swift` (4), `UIApplication+Extensions.swift` (2), `AdViewButtonDecorator.swift` (2),
-then one each in `UIWindow+PBMExtensions.swift`, `UIWindow+Extensions.swift`,
-`ViewExposureChecker.swift`, `ModalViewController.swift`, `AutoRefreshManager.swift`, `Host.swift`,
-`NativeAd.swift`. All predate this PR and are tracked as follow-up — apply this rule when touching
-them.
+no longer reads `UIApplication.shared` in code. **10 other Swift files still do, across 17 call
+sites**: `LocationManager.swift` (4), `UIApplication+Extensions.swift` (2),
+`AdViewButtonDecorator.swift` (2), then one each in `UIWindow+PBMExtensions.swift`,
+`UIWindow+Extensions.swift`, `ViewExposureChecker.swift`, `ModalViewController.swift`,
+`AutoRefreshManager.swift`, `Host.swift`, `NativeAd.swift`. All predate this PR and are tracked as
+follow-up — apply this rule when touching them.
+
+To re-measure, grep the SDK sources and discount comment lines — a raw count is high, because
+`Functions.swift` names the API twice in prose while reading it nowhere:
+
+```bash
+grep -rn --include='*.swift' -F 'UIApplication.shared' PrebidMobile
+```
+
+The counts above are a snapshot, not an enforced budget: nothing in CI gates them. SwiftLint
+`custom_rules` would be the natural home for a ban, but SwiftLint runs in no CI workflow
+(`scripts/swiftLint.sh` still pins 0.31.0 and is invoked by nobody), so such a rule would be
+invisible today. Enforcement is worth revisiting once SwiftLint is actually wired into a workflow.
 
 ## General ObjC → Swift reference
 

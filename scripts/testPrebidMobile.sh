@@ -67,13 +67,16 @@ fi
 if [ "$run_only_with_latest_ios" != "YES" ]
 then
  echo -e "\n${GREEN}Running some unit tests for iOS 13${NC} \n"
+ # `set -e` would abort the script on a failing xcodebuild before the report below runs,
+ # so take the exit status explicitly and keep the diagnostic reachable.
+ TEST_STATUS=0
  xcodebuild test \
     -workspace PrebidMobile.xcworkspace \
     -scheme "PrebidMobileTests" \
     -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.7' \
-    -only-testing PrebidMobileTests/RequestBuilderTests/testPostData
+    -only-testing PrebidMobileTests/RequestBuilderTests/testPostData || TEST_STATUS=$?
 
- if [[ ${PIPESTATUS[0]} == 0 ]]; then
+ if [[ ${TEST_STATUS} == 0 ]]; then
      echo "✅ unit tests for iOS 13 Passed"
  else
      echo "🔴 unit tests for iOS 13 Failed"
@@ -100,6 +103,7 @@ xcodebuild \
     -destination-timeout 60 \
     build-for-testing
 
+TEST_STATUS=0
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
     -scheme PrebidMobileTests \
@@ -108,9 +112,9 @@ xcodebuild \
     -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
     -destination-timeout 60 \
     -retry-tests-on-failure \
-    test-without-building
+    test-without-building || TEST_STATUS=$?
 
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
+if [[ ${TEST_STATUS} == 0 ]]; then
     echo "✅ PrebidMobile Unit Tests Passed"
 else
     echo "🔴 PrebidMobile Unit Tests Failed"

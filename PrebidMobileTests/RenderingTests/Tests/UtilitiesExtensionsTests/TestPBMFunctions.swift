@@ -286,14 +286,47 @@ class TestFunctions: XCTestCase {
         XCTAssertEqual(Functions.statusBarHeight, 0.0)
     }
 
+    // `safeAreaInsets` resolves through the same `Functions.application` seam as
+    // `statusBarHeight`, and `deviceMaxSize` subtracts what it returns.
+    func testSafeAreaInsetsUsesInjectedApplication() {
+        let keyWindow = MockKeyWindow()
+        keyWindow.mockSafeAreaInsets = UIEdgeInsets(top: 11.0, left: 5.0, bottom: 7.0, right: 3.0)
+
+        let mockApplication = MockUIApplication()
+        mockApplication.pbmKeyWindow = keyWindow
+        mockApplication.statusBarFrame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 4.0)
+
+        Functions.application = mockApplication
+        defer { Functions.application = nil }
+
+        XCTAssertEqual(Functions.safeAreaInsets, keyWindow.mockSafeAreaInsets)
+
+        let screenSize = Functions.deviceScreenSize
+        XCTAssertEqual(Functions.deviceMaxSize,
+                       CGSize(width:  screenSize.width  - 5.0 - 3.0,
+                              height: screenSize.height - 4.0 - 11.0 - 7.0))
+    }
+
+    // An application with no key window contributes no insets rather than crashing —
+    // the shape of the host-less case, where the SDK resolves no application at all.
+    func testSafeAreaInsetsWithoutKeyWindow() {
+        let mockApplication = MockUIApplication()
+        mockApplication.pbmKeyWindow = nil
+
+        Functions.application = mockApplication
+        defer { Functions.application = nil }
+
+        XCTAssertEqual(Functions.safeAreaInsets, .zero)
+    }
+
     // `safeAreaInsets` and its caller `deviceMaxSize` must stay reachable when the
     // SDK runs without an application host, where `UIApplication.shared` is nil.
+    // The test bundle has no app host, so nothing is resolved and the insets are zero.
     func testSafeAreaInsetsWithoutApplicationHost() {
-        XCTAssertGreaterThanOrEqual(Functions.safeAreaInsets.top, 0.0)
-
-        let maxSize = Functions.deviceMaxSize
-        XCTAssertFalse(maxSize.width.isNaN)
-        XCTAssertFalse(maxSize.height.isNaN)
+        XCTAssertNil(Functions.application)
+        XCTAssertNil(Functions.sharedApplication)
+        XCTAssertEqual(Functions.safeAreaInsets, .zero)
+        XCTAssertEqual(Functions.deviceMaxSize, Functions.deviceScreenSize)
     }
 
     // MARK: Dispatch time
@@ -334,22 +367,43 @@ class TestFunctions: XCTestCase {
                        UInt64.max)
     }
 
-    // Non-finite and out-of-range intervals saturate instead of trapping.
+    // Non-finite and out-of-range intervals saturate instead of trapping. The deadline
+    // must land at the ceiling, not merely somewhere above `startTime`: a wrapping
+    // multiplication in the tick conversion would also produce "greater than startTime",
+    // just with a tiny, wrong delay.
     func testDispatchTimeAfterTimeIntervalWithNonFiniteIntervals() {
         let startTime: UInt64 = 1_000_000_000
+        let aCentury: TimeInterval = 100.0 * 365.0 * 24.0 * 60.0 * 60.0
+
+        // A saturated deadline lands ~292 years out; a wrapped one lands next to
+        // `startTime`. A century is the floor between the two. `DispatchTime` does the
+        // seconds → ticks conversion, so the bound holds on any `mach_timebase_info`
+        // rather than only the simulator's 1:1.
+        let now = DispatchTime.now()
+        let aCenturyInTicks = (now + aCentury).rawValue - now.rawValue
 
         XCTAssertEqual(Functions.dispatchTimeAfterTimeInterval(.nan, startTime: startTime),
                        startTime)
-        XCTAssertGreaterThan(Functions.dispatchTimeAfterTimeInterval(.infinity, startTime: startTime),
-                             startTime)
+        XCTAssertGreaterThan(
+            Functions.dispatchTimeAfterTimeInterval(.infinity, startTime: startTime),
+            startTime + aCenturyInTicks
+        )
         XCTAssertEqual(Functions.dispatchTimeAfterTimeInterval(-.infinity, startTime: startTime), 0)
-        XCTAssertGreaterThan(Functions.dispatchTimeAfterTimeInterval(.greatestFiniteMagnitude,
-                                                                    startTime: startTime),
-                             startTime)
+        XCTAssertGreaterThan(
+            Functions.dispatchTimeAfterTimeInterval(.greatestFiniteMagnitude, startTime: startTime),
+            startTime + aCenturyInTicks
+        )
 
-        // The DISPATCH_TIME_NOW branch shares the same guards.
-        XCTAssertNotEqual(Functions.dispatchTimeAfterTimeInterval(.nan), 0)
-        XCTAssertNotEqual(Functions.dispatchTimeAfterTimeInterval(.infinity), 0)
+        // The DISPATCH_TIME_NOW branch shares the same guards: NaN means no delay, and an
+        // infinite interval must still be far in the future rather than wrapped to near-now.
+        let before = DispatchTime.now().rawValue
+        let nanDeadline = Functions.dispatchTimeAfterTimeInterval(.nan)
+        let after = DispatchTime.now().rawValue
+        XCTAssertGreaterThanOrEqual(nanDeadline, before)
+        XCTAssertLessThanOrEqual(nanDeadline, after)
+
+        XCTAssertGreaterThan(Functions.dispatchTimeAfterTimeInterval(.infinity),
+                             (DispatchTime.now() + aCentury).rawValue)
     }
 
     func testDispatchTimeAfterTimeIntervalFromNow() {
