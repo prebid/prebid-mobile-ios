@@ -14,6 +14,7 @@
   */
 
 import XCTest
+@testable import PrebidMobile
 
 class PBMAppInfoParameterBuilderTest: XCTestCase {
     
@@ -21,7 +22,7 @@ class PBMAppInfoParameterBuilderTest: XCTestCase {
     let publisherName = "publisherName"
     var bidRequest: ORTBBidRequest!
     var mockBundle: MockBundle!
-    var builder: PBMAppInfoParameterBuilder!
+    var builder: AppInfoParameterBuilder!
     var targeting: Targeting!
     
     override func setUp() {
@@ -31,7 +32,7 @@ class PBMAppInfoParameterBuilderTest: XCTestCase {
         targeting = Targeting.shared
         targeting.publisherName = publisherName
         
-        builder = PBMAppInfoParameterBuilder(bundle: mockBundle, targeting: targeting)
+        builder = AppInfoParameterBuilder(bundle: mockBundle, targeting: targeting)
     }
     
     func testAddsAppInfoToORTBBidRequest() {

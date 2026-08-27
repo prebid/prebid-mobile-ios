@@ -64,7 +64,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         UserConsentDataManager.shared.gdprConsentString = "consentstring"
         UserConsentDataManager.shared.subjectToGDPR = false
         
-        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+        let paramsDict = ParameterBuilderService.buildParamsDict(
             with: adConfiguration,
             bundle:mockBundle,
             pbmLocationManager: mockLocationManagerSuccessful,
@@ -91,7 +91,7 @@ class ParameterBuilderServiceTest : XCTestCase {
             return
         }
         
-        //Verify PBMBasicParameterBuilder
+        //Verify BasicParameterBuilder
         PBMAssertEq(bidRequest.imp.count, 1)
         PBMAssertEq(bidRequest.imp.first?.displaymanager, "prebid-mobile")
         PBMAssertEq(bidRequest.imp.first?.displaymanagerver, "MOCK_SDK_VERSION")
@@ -102,7 +102,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         PBMAssertEq(bidRequest.device.geo.lat!.doubleValue, mockLocationManagerSuccessful.coordinates.latitude)
         PBMAssertEq(bidRequest.device.geo.lon!.doubleValue, mockLocationManagerSuccessful.coordinates.longitude)
         
-        //Verify PBMAppInfoParameterBuilder
+        //Verify AppInfoParameterBuilder
         PBMAssertEq(bidRequest.app.name, mockBundle.mockBundleDisplayName)
         PBMAssertEq(bidRequest.app.bundle, mockBundle.mockBundleIdentifier)
         PBMAssertEq(bidRequest.app.publisher?.name, publisherName)
@@ -178,7 +178,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
-        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+        let paramsDict = ParameterBuilderService.buildParamsDict(
             with: adConfiguration,
             bundle:mockBundle,
             pbmLocationManager: mockLocationManagerSuccessful,
@@ -257,7 +257,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
-        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+        let paramsDict = ParameterBuilderService.buildParamsDict(
             with: adConfiguration,
             bundle:mockBundle,
             pbmLocationManager: mockLocationManagerSuccessful,
@@ -334,7 +334,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
-        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+        let paramsDict = ParameterBuilderService.buildParamsDict(
             with: adConfiguration,
             bundle:mockBundle,
             pbmLocationManager: mockLocationManagerSuccessful,
@@ -411,7 +411,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
-        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+        let paramsDict = ParameterBuilderService.buildParamsDict(
             with: adConfiguration,
             bundle:mockBundle,
             pbmLocationManager: mockLocationManagerSuccessful,
@@ -488,7 +488,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
-        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+        let paramsDict = ParameterBuilderService.buildParamsDict(
             with: adConfiguration,
             bundle:mockBundle,
             pbmLocationManager: mockLocationManagerSuccessful,
@@ -565,7 +565,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
-        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+        let paramsDict = ParameterBuilderService.buildParamsDict(
             with: adConfiguration,
             bundle:mockBundle,
             pbmLocationManager: mockLocationManagerUnSuccessful,
@@ -641,7 +641,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         let mockCTTelephonyNetworkInfo = MockCTTelephonyNetworkInfo()
         let mockReachability = MockReachability.shared
         
-        let paramsDict = PBMParameterBuilderService.buildParamsDict(
+        let paramsDict = ParameterBuilderService.buildParamsDict(
             with: adConfiguration,
             bundle:mockBundle,
             pbmLocationManager: mockLocationManagerUnSuccessful,

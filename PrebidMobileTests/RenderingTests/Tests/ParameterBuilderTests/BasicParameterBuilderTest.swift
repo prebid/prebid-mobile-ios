@@ -47,7 +47,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         adConfiguration.isInterstitialAd = false
         
         let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
@@ -85,7 +85,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         adConfiguration.isOriginalAPI = true
         let sdkConfiguration = Prebid.mock
         
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
@@ -107,7 +107,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         adConfiguration.isOriginalAPI = false
         let sdkConfiguration = Prebid.mock
         
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
@@ -149,7 +149,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         adConfiguration.isInterstitialAd = false
         
         let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
@@ -178,7 +178,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         }
         
         let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
@@ -197,7 +197,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         let sdkConfiguration = Prebid.mock
         let bidRequest = ORTBBidRequest()
         
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
@@ -263,7 +263,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         }
         
         let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
@@ -293,7 +293,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         // Create Builder
         let adConfiguration = AdConfiguration()
         let sdkConfiguration = Prebid.mock
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
@@ -313,7 +313,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     func checkDefaultParametersForAdUnit(adConfiguration: AdConfiguration) {
         let sdkConfiguration = Prebid.mock
         
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
                                                sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)

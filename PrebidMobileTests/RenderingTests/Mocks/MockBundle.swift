@@ -18,7 +18,7 @@ import Foundation
 
 @testable import PrebidMobile
 
-class MockBundle: PBMBundleProtocol {
+class MockBundle: BundleProtocol {
     var mockBundleIdentifier: String? = "Mock.Bundle.Identifier"
     var mockBundleName: String? = "MockBundleName"
     var mockBundleDisplayName: String? = "MockBundleDisplayName"
@@ -38,12 +38,12 @@ class MockBundle: PBMBundleProtocol {
         var dict = [String: Any]()
         
         if let mockBundleName = mockBundleName {
-            dict[PBMAppInfoParameterBuilder.bundleNameKey] = mockBundleName
+            dict[AppInfoParameterBuilder.bundleNameKey] = mockBundleName
             
         }
         
         if let mockBundleDisplayName = mockBundleDisplayName {
-            dict[PBMAppInfoParameterBuilder.bundleDisplayNameKey] = mockBundleDisplayName
+            dict[AppInfoParameterBuilder.bundleDisplayNameKey] = mockBundleDisplayName
         }
         
         return dict

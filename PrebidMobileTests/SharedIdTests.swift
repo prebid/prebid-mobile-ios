@@ -107,7 +107,7 @@ final class SharedIdTests: XCTestCase {
         let mockReachability = MockReachability.shared
         
         func constructRequestEids() -> [String : Any]? {
-            let paramsDict = PBMParameterBuilderService.buildParamsDict(
+            let paramsDict = ParameterBuilderService.buildParamsDict(
                 with: AdConfiguration(),
                 bundle:mockBundle,
                 pbmLocationManager: mockLocationManagerSuccessful,

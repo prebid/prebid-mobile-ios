@@ -114,7 +114,7 @@ class InternalUserConsentDataManagerTests: XCTestCase {
         XCTAssertEqual(InternalUserConsentDataManager.gppHDRString, gppString)
     }
     
-    func assertIABGPPSID(_ gppSID: NSMutableArray?) {
+    func assertIABGPPSID(_ gppSID: [NSNumber]) {
         XCTAssertEqual(InternalUserConsentDataManager.gppSID, gppSID)
     }
 }

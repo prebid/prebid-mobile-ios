@@ -1037,7 +1037,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func buildBidRequest(with adUnitConfig: AdUnitConfig) -> ORTBBidRequest {
         let bidRequest = ORTBBidRequest()
-        PBMBasicParameterBuilder(
+        BasicParameterBuilder(
             adConfiguration: adUnitConfig.adConfiguration,
             sdkConfiguration: sdkConfiguration,
             sdkVersion: "MOCK_SDK_VERSION",

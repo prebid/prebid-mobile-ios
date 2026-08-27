@@ -14,6 +14,7 @@
   */
 
 import XCTest
+@testable import PrebidMobile
 
 // MARK: Test Properties
 
@@ -31,7 +32,7 @@ class PBMORTBParameterBuilderTest: XCTestCase {
     }
     
     func testAppendBuilderParameters() {
-        let res = PBMORTBParameterBuilder.buildOpenRTB(for: [:])!
+        let res = ORTBParameterBuilder.buildOpenRTB(for: [:])
         
         XCTAssertEqual(res.keys.count, 1)
         XCTAssertNotNil(res["openrtb"])
@@ -41,7 +42,7 @@ class PBMORTBParameterBuilderTest: XCTestCase {
         logToFile = .init()
         
         class Dummy {}
-        PBMORTBParameterBuilder.buildOpenRTB(for: ["key": Dummy()])
+        _ = ORTBParameterBuilder.buildOpenRTB(for: ["key": Dummy()])
         
         let log = Log.getLogFileAsString() ?? ""
         XCTAssert(log.contains(errorMessage))

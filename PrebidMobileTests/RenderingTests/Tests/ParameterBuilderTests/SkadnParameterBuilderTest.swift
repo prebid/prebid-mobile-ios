@@ -20,9 +20,9 @@ fileprivate let skAdNetworkIdsMock = ["cstr6suwn9.skadnetwork", "4fzdc2evr5.skad
 fileprivate let sourceappMock = "MockTestApp"
 fileprivate let sdkVersionMock = "1.0.0"
 
-class MockSKAdNetworksParameterBuilder: PBMSKAdNetworksParameterBuilder {
+fileprivate class MockSKAdNetworksParameterBuilder: SKAdNetworksParameterBuilder {
     
-    override func skAdNetworkIds() -> [String] {
+    override func skAdNetworkIds() -> [String]? {
         skAdNetworkIdsMock
     }
 }
@@ -33,14 +33,14 @@ class SkadnParameterBuilderTest: XCTestCase {
         let adConfiguration = AdConfiguration()
         let mockTargeting = Targeting()
         
-        let basicBuilder = PBMBasicParameterBuilder(
+        let basicBuilder = BasicParameterBuilder(
             adConfiguration: adConfiguration,
             sdkConfiguration: Prebid.shared,
             sdkVersion: sdkVersionMock,
             targeting: mockTargeting
         )
         
-        let skadnBuilder = PBMSKAdNetworksParameterBuilder(
+        let skadnBuilder = SKAdNetworksParameterBuilder(
             bundle: Bundle.main,
             targeting: mockTargeting,
             adConfiguration: adConfiguration
@@ -65,7 +65,7 @@ class SkadnParameterBuilderTest: XCTestCase {
         mockTargeting.sourceapp = sourceappMock
         adConfiguration.supportSKOverlay = true
         
-        let basicBuilder = PBMBasicParameterBuilder(
+        let basicBuilder = BasicParameterBuilder(
             adConfiguration: adConfiguration,
             sdkConfiguration: Prebid.shared,
             sdkVersion: sdkVersionMock,
