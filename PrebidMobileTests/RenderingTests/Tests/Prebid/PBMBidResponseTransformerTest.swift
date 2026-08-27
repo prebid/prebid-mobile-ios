@@ -173,6 +173,34 @@ class PBMBidResponseTransformerTest: XCTestCase {
         XCTAssertNotNil(bidResponse.winningBid)
     }
 
+    func testRemoveBidsWithoutSuccessfulCache_urlWithoutCacheIdIsRemoved() {
+        // cacheId is what PUC actually needs to retrieve the creative (GET /cache?uuid=).
+        // A cache object with only `url` and no `cacheId` cannot be retrieved and must not
+        // be treated as cache-successful.
+        var response = Self.cachedBidResponseDictionary()
+        var seatbid = (response["seatbid"] as? [[String : Any]])?[0] ?? [:]
+        var bids = seatbid["bid"] as? [[String : Any]] ?? []
+        var bid = bids[0]
+        var ext = bid["ext"] as? [String : Any] ?? [:]
+        var prebid = ext["prebid"] as? [String : Any] ?? [:]
+        var cache = prebid["cache"] as? [String : Any] ?? [:]
+        var cacheBids = cache["bids"] as? [String : Any] ?? [:]
+        cacheBids["cacheId"] = nil
+        cache["bids"] = cacheBids
+        prebid["cache"] = cache
+        ext["prebid"] = prebid
+        bid["ext"] = ext
+        bids[0] = bid
+        seatbid["bid"] = bids
+        response["seatbid"] = [seatbid]
+
+        let bidResponse = BidResponse(jsonDictionary: response)
+
+        XCTAssertEqual(bidResponse.removeBidsWithoutSuccessfulCache(), 1)
+        XCTAssertEqual(bidResponse.allBids?.count, 0)
+        XCTAssertNil(bidResponse.winningBid)
+    }
+
     func testRemoveBidsWithoutSuccessfulCache_promotesRunnerUpWhenTopBidFiltered() {
         // The PBS-designated winner carries the unsuffixed hb_bidder/hb_pb/hb_cache_id
         // keys but has no ext.prebid.cache, so it fails the cache check.
