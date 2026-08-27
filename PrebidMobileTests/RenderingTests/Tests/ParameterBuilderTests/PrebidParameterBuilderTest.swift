@@ -30,6 +30,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     override func tearDown() {
         UtilitiesForTesting.resetTargeting(targeting)
+        sdkConfiguration.requireServerSideBidCache = false
         Prebid.reset()
     }
     
@@ -367,6 +368,23 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         guard let cache = bidRequest.extPrebid.cache else {
             XCTFail("Cache shouldn't be nil if useCacheForReportingWithRenderingAPI is turned on.")
+            return
+        }
+        
+        XCTAssertNotNil(cache["bids"])
+        XCTAssertNotNil(cache["vastxml"])
+    }
+    
+    func testRequireServerSideBidCacheEnablesCaching() {
+        sdkConfiguration.requireServerSideBidCache = true
+
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+
+        let bidRequest = buildBidRequest(with: adUnitConfig)
+        
+        guard let cache = bidRequest.extPrebid.cache else {
+            XCTFail("Cache shouldn't be nil if requireServerSideBidCache is turned on.")
             return
         }
         

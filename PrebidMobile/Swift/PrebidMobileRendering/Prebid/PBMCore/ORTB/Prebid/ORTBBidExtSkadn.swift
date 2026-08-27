@@ -69,8 +69,8 @@ open class ORTBBidExtSkadn: NSObject, PBMJsonCodable {
         version             = json[.version]
         network             = json[.network]
         campaign            = json[.campaign]
-        itunesitem          = json[.itunesitem]
-        sourceapp           = json[.sourceapp]
+        itunesitem          = json.numberOrString(.itunesitem)
+        sourceapp           = json.numberOrString(.sourceapp)
         sourceidentifier    = json[.sourceidentifier]
         fidelities          = json[.fidelities]
         skoverlay           = json[.skoverlay]

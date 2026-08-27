@@ -61,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             case .serverStatusSkipped:
                 print("Prebid status check skipped")
+
             default:
                 break
             }            

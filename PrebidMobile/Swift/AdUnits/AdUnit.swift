@@ -169,7 +169,8 @@ public class AdUnit: NSObject, DispatcherDelegate {
         lastFetchDemandCompletion = completion
         adServerObject = adObject
         
-        let timeoutHandler = DispatchWorkItem {
+        let timeoutHandler = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
                 completion(BidInfo(resultCode: .prebidDemandTimedOut))

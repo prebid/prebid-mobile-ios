@@ -86,6 +86,9 @@
     NSNumber *lmt = @(!self.deviceAccessManager.advertisingTrackingEnabled);
     
     NSString *ifa = [Targeting.shared isAllowedAccessDeviceData] ? self.deviceAccessManager.advertisingIdentifier : nil;
+    if (ifa.length == 0) {
+        ifa = nil;
+    }
     
     bidRequest.device.lmt = lmt;
     bidRequest.device.ifa = ifa;

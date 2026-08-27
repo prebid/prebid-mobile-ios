@@ -19,13 +19,14 @@ import CoreGraphics
 @testable import PrebidMobile
 
 fileprivate let advertisingTrackingEnabledDefault = true
+fileprivate let advertisingIdentifierDefault = "abc123"
 fileprivate let defaultUserLanguageCode = "ml"
 
 class MockDeviceAccessManager: DeviceAccessManager {
     
     static let nullUUID = "00000000-0000-0000-0000-000000000000"
     static let mockIdentifierForVendor = "B78D99E3-5BD1-49AF-A669-0D77B464C5B9"
-    static let mockAdvertisingIdentifier = "abc123"
+    static var mockAdvertisingIdentifier = advertisingIdentifierDefault
     static var mockAdvertisingTrackingEnabled = advertisingTrackingEnabledDefault
     @available(iOS 14, *)
     static var mockAppTrackingTransparencyStatus = ATTrackingManager.AuthorizationStatus.notDetermined
@@ -84,6 +85,7 @@ class MockDeviceAccessManager: DeviceAccessManager {
     }
     
     class func reset() {
+        self.mockAdvertisingIdentifier = advertisingIdentifierDefault
         self.mockAdvertisingTrackingEnabled = advertisingTrackingEnabledDefault
         self.mockUserLanguageCode = defaultUserLanguageCode
     }

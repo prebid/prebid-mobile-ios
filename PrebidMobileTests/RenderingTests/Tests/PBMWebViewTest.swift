@@ -365,7 +365,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         //Fake a tap on the webview
         if (sendTap) {
-            webView.recordTapEvent(webView.tapdownGestureRecognizer)
+            webView.recordTapEvent(webView.tapGestureRecognizer)
         }
         
         self.expectationWebViewShouldOpenExternalLink = expectation(description: "expectationWebViewShouldOpenExternalLink")
@@ -456,7 +456,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         navigationAction.mockedRequest = URLRequest(url: URL(string: "mraid://test")!)
         
         webView.state = .loaded
-        webView.recordTapEvent(webView.tapdownGestureRecognizer)
+        webView.recordTapEvent(webView.tapGestureRecognizer)
         
         webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
             XCTAssertEqual(policy, .cancel)
@@ -477,7 +477,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         navigationAction.mockedRequest = URLRequest(url: openxURL)
         
         webView.state = .loaded
-        webView.recordTapEvent(webView.tapdownGestureRecognizer)
+        webView.recordTapEvent(webView.tapGestureRecognizer)
         
         webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
             XCTAssertEqual(policy, .cancel)
@@ -542,7 +542,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         XCTAssertFalse(webView.wasRecentlyTapped())
         
         // Test: change internal state
-        webView.recordTapEvent(webView.tapdownGestureRecognizer)
+        webView.recordTapEvent(webView.tapGestureRecognizer)
         XCTAssertTrue(webView.wasRecentlyTapped())
     }
     

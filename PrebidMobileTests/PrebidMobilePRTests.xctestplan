@@ -417,8 +417,6 @@
         "PBMRewardedVideoViewTest\/testHandlePeriodicTimeEvent_NoAvPlayer()",
         "PBMRewardedVideoViewTest\/testLearnMoreButtonReadyAndWorks()",
         "PBMRewardedVideoViewTest\/testRequiredVideoDuration()",
-        "PBMTouchDownRecognizerTests",
-        "PBMTouchDownRecognizerTests\/testBasic()",
         "PBMTouchForwardingViewTest",
         "PBMUIViewTests",
         "PBMUIViewTests\/testAddConstraintWithoutSuperview()",

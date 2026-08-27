@@ -126,6 +126,10 @@ public class Bid: NSObject {
         return true
     }
     
+    public var hasSuccessfulServerCache: Bool {
+        bid.ext?.prebid?.cache?.hasSuccessfulServerCache ?? false
+    }
+    
     public var events: ORTBExtPrebidEvents? {
         bid.ext?.prebid?.events
     }

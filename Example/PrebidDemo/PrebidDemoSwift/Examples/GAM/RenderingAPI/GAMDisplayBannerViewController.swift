@@ -62,6 +62,18 @@ class GAMDisplayBannerViewController: BannerBaseViewController, PrebidMobile.Ban
         self
     }
     
+    func bannerViewDidDisplay(_ bannerView: PrebidMobile.BannerView) {
+        PrebidDemoLogger.shared.info("Banner view did display (impression recorded)")
+    }
+    
+    func bannerViewWillLeaveApplication(_ bannerView: PrebidMobile.BannerView) {
+        PrebidDemoLogger.shared.info("Banner view will leave application (click recorded)")
+    }
+
+    func bannerViewWillPresentModal(_ bannerView: PrebidMobile.BannerView) {
+        PrebidDemoLogger.shared.info("Banner view will present modal (click recorded)")
+    }
+
     func bannerView(_ bannerView: PrebidMobile.BannerView, didFailToReceiveAdWith error: Error) {
         PrebidDemoLogger.shared.error("Banner view did fail to receive ad with error: \(error)")
     }

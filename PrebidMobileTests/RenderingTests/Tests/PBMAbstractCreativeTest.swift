@@ -14,6 +14,7 @@
  */
 
 import XCTest
+import StoreKit
 
 @testable @_spi(PBMInternal) import PrebidMobile
 
@@ -106,5 +107,105 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
         logToFile = .init()
         self.pbmAbstractCreative.createOpenMeasurementSession()
         UtilitiesForTesting.checkLogContains("Abstract function called")
+    }
+
+    //MARK - SKStoreProductViewControllerDelegate
+
+    func testProductViewControllerDidFinish_notifiesDelegateAndCallsExitBlockOnce() {
+        let delegate = MockCreativeViewDelegate()
+        pbmAbstractCreative.creativeViewDelegate = delegate
+
+        var clickthroughDidCloseCount = 0
+        delegate.creativeClickthroughDidCloseHandler = { _ in
+            clickthroughDidCloseCount += 1
+        }
+
+        var exitBlockCount = 0
+        pbmAbstractCreative.skStoreProductViewControllerExitBlock = {
+            exitBlockCount += 1
+        }
+
+        pbmAbstractCreative.clickthroughVisible = true
+
+        let skadnController = SKStoreProductViewController()
+        pbmAbstractCreative.productViewControllerDidFinish(skadnController)
+
+        XCTAssertEqual(clickthroughDidCloseCount, 1)
+        XCTAssertFalse(pbmAbstractCreative.clickthroughVisible)
+        XCTAssertEqual(exitBlockCount, 1)
+        XCTAssertNil(pbmAbstractCreative.skStoreProductViewControllerExitBlock,
+                     "Exit block should be released after being called")
+
+        // A repeated delegate callback must not fire the exit block again
+        pbmAbstractCreative.productViewControllerDidFinish(skadnController)
+        XCTAssertEqual(clickthroughDidCloseCount, 1)
+        XCTAssertEqual(exitBlockCount, 1)
+    }
+
+    func testProductViewControllerDidFinish_completesDeferredCloseWhenClickthroughFlagConsumed() {
+        logToFile = .init()
+
+        let delegate = MockCreativeViewDelegate()
+        pbmAbstractCreative.creativeViewDelegate = delegate
+
+        var clickthroughDidCloseCount = 0
+        delegate.creativeClickthroughDidCloseHandler = { _ in
+            clickthroughDidCloseCount += 1
+        }
+
+        pbmAbstractCreative.clickthroughVisible = false
+        pbmAbstractCreative.pendingModalStatePop = Factory.createModalState(
+            view: PBMWebView(),
+            adConfiguration: AdConfiguration(),
+            displayProperties: InterstitialDisplayProperties())
+
+        let skadnController = SKStoreProductViewController()
+        pbmAbstractCreative.productViewControllerDidFinish(skadnController)
+
+        XCTAssertEqual(clickthroughDidCloseCount, 0)
+        XCTAssertNil(pbmAbstractCreative.pendingModalStatePop)
+        UtilitiesForTesting.checkLogContains(msgAbstractFunctionCalled)
+    }
+
+    func testHandleProductClickthrough_presentsOnTopmostViewController() {
+        let rootVC = MockPresentedViewController()
+        let modalVC = MockPresentedViewController()
+        rootVC.presentVC = modalVC
+
+        pbmAbstractCreative.viewControllerForPresentingModals = rootVC
+
+        let handled = pbmAbstractCreative.handleProductClickthrough(
+            URL(string: "https://example.com")!,
+            productParams: [SKStoreProductParameterITunesItemIdentifier: "12345"],
+            onExit: {}
+        )
+
+        XCTAssertTrue(handled)
+        XCTAssertNotNil(pbmAbstractCreative.skStoreProductViewControllerExitBlock)
+
+        let presentationExpectation = expectation(description: "SKStoreProductViewController presented from topmost view controller")
+        DispatchQueue.main.async {
+            XCTAssertTrue(modalVC.presentVC is SKStoreProductViewController)
+            XCTAssertTrue(rootVC.presentVC === modalVC,
+                          "Already presented view controller should not be replaced")
+            XCTAssertTrue(self.pbmAbstractCreative.clickthroughVisible)
+            presentationExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 4)
+    }
+
+    func testHandleProductClickthrough_withoutViewController_returnsFalse() {
+        logToFile = .init()
+
+        pbmAbstractCreative.viewControllerForPresentingModals = nil
+
+        let handled = pbmAbstractCreative.handleProductClickthrough(
+            URL(string: "https://example.com")!,
+            productParams: [SKStoreProductParameterITunesItemIdentifier: "12345"],
+            onExit: {}
+        )
+
+        XCTAssertFalse(handled)
+        XCTAssertNil(pbmAbstractCreative.skStoreProductViewControllerExitBlock)
     }
 }

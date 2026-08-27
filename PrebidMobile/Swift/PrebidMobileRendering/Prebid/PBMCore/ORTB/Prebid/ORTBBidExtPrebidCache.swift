@@ -20,11 +20,18 @@ class ORTBBidExtPrebidCache: PBMJsonCodable {
     var key: String?
     var url: String?
     var bids: ORTBBidExtPrebidCacheBids?
+    var vastXml: ORTBBidExtPrebidCacheBids?
+    
+    var hasSuccessfulServerCache: Bool {
+        (bids?.hasCacheData ?? false) || (vastXml?.hasCacheData ?? false)
+    }
 
     private enum KeySet: String {
         case url
         case key
         case bids
+        case vastXml
+        case vastxml
     }
     
     init() {
@@ -36,6 +43,11 @@ class ORTBBidExtPrebidCache: PBMJsonCodable {
         url     = json[.url]
         key     = json[.key]
         bids    = json[.bids]
+        vastXml = json[.vastXml]
+        // PBS uses "vastxml" in cache requests and may return it in responses, while older/typed models use "vastXml".
+        if vastXml?.hasCacheData != true {
+            vastXml = json[.vastxml]
+        }
     }
     
     var jsonDictionary: [String : Any] {
@@ -44,6 +56,7 @@ class ORTBBidExtPrebidCache: PBMJsonCodable {
         json[.key]  = key
         json[.url]  = url
         json[.bids] = bids
+        json[.vastXml] = vastXml
 
         return json.dict
     }

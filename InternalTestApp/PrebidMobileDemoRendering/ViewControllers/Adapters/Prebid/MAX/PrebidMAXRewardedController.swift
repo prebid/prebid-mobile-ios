@@ -21,11 +21,14 @@ import PrebidMobileMAXAdapters
 class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurableController {
     
     var prebidConfigId: String = ""
+    var storedAuctionResponse: String?
+    var useSampleCustomRenderer = false
     
     var maxAdUnitId = ""
     
     private var adUnit: MediationRewardedAdUnit?
     private var mediationDelegate: MAXMediationRewardedUtils?
+    private var sampleCustomRenderer: SampleRenderer?
     
     private var rewarded: MARewardedAd?
     
@@ -52,11 +55,19 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         setupAdapterController()
     }
     
+    deinit {
+        if let sampleCustomRenderer = sampleCustomRenderer {
+            Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        }
+    }
+
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
     
     func loadAd() {
+        registerSampleCustomRendererIfNeeded()
+
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
@@ -66,7 +77,15 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         mediationDelegate = MAXMediationRewardedUtils(rewardedAd: rewarded!)
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
+        if let storedAuctionResponse = storedAuctionResponse {
+            Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        }
+        
         adUnit?.fetchDemand { [weak self] result in
+            if self?.storedAuctionResponse != nil {
+                Prebid.shared.storedAuctionResponse = nil
+            }
+
             guard let self = self else { return }
             
             if result != .prebidDemandFetchSuccess {
@@ -121,6 +140,14 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
             adapterViewController?.showButton.isEnabled = false
             rewarded.show()
         }
+    }
+
+    private func registerSampleCustomRendererIfNeeded() {
+        guard useSampleCustomRenderer, sampleCustomRenderer == nil else { return }
+
+        let renderer = SampleRenderer()
+        Prebid.registerPluginRenderer(renderer)
+        sampleCustomRenderer = renderer
     }
 }
 

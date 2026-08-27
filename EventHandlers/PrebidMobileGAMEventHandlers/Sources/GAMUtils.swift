@@ -52,6 +52,25 @@ public class GAMUtils: NSObject {
         mergedTargeting.merge(bidTargeting) { $1 }
         boxedRequest.customTargeting = mergedTargeting
     }
+
+    static func configureRequest(
+        _ request: GAMRequestWrapper,
+        bidResponse: BidResponse?,
+        adManagerRequestConfiguration: ((AdManagerRequest) -> Void)?
+    ) {
+        adManagerRequestConfiguration?(request.request)
+
+        guard let bidTargeting = bidResponse?.targetingInfo else {
+            return
+        }
+
+        var targeting = request.customTargeting ?? [:]
+        targeting.merge(bidTargeting) { $1 }
+
+        if !targeting.isEmpty {
+            request.customTargeting = targeting
+        }
+    }
         
     class func log(error: GAMEventHandlerError) {
         Log.error(error.localizedDescription)
@@ -61,14 +80,14 @@ public class GAMUtils: NSObject {
     static func latestTestedGMAVersion() -> GoogleMobileAds.VersionNumber {
         GoogleMobileAds.VersionNumber(
             majorVersion: 13,
-            minorVersion: 1,
+            minorVersion: 7,
             patchVersion: 0
         )
     }
     
     // MARK: Private Methods
     
-    private func getPrebidTargeting(from request: GAMRequestWrapper) -> [String: String] {
+    private func getPrebidTargeting(from request: GAMRequestWrapper) -> [String: Any] {
         guard let requestTargeting = request.customTargeting else {
             return [:]
         }

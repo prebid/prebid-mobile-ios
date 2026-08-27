@@ -20,7 +20,8 @@ enum MAXAdaptersError {
     case noServerParameter
     case wrongServerParameter
     case noBidInLocalExtraParameters
-    case noConfigIdInLocalExtraParameters 
+    case noConfigIdInLocalExtraParameters
+    case rendererCreationFailed
 }
 
 extension MAXAdaptersError: LocalizedError {
@@ -37,6 +38,8 @@ extension MAXAdaptersError: LocalizedError {
             return "Bid object is absent in the local extra parameters"
         case .noConfigIdInLocalExtraParameters:
             return "Config id is absent in the local extra parameters"
+        case .rendererCreationFailed:
+            return "Failed to create ad renderer"
         }
     }
 }

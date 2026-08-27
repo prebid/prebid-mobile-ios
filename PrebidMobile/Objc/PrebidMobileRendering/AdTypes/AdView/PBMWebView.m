@@ -24,7 +24,6 @@
 #import "PBMMacros.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMORTB.h"
-#import "PBMTouchDownRecognizer.h"
 #import "PBMWKScriptMessageHandlerLeakAvoider.h"
 #import "UIView+PBMExtensions.h"
 #import "Log+Extensions.h"
@@ -870,21 +869,21 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 - (void)setupTapRecognizer {
-    if (self.tapdownGestureRecognizer) {
-        [self.internalWebView removeGestureRecognizer:self.tapdownGestureRecognizer];
+    if (self.tapGestureRecognizer) {
+        [self.internalWebView removeGestureRecognizer:self.tapGestureRecognizer];
     }
-    
-    self.tapdownGestureRecognizer = [[PBMTouchDownRecognizer alloc] initWithTarget:self action:@selector(recordTapEvent:)];
-    [self.tapdownGestureRecognizer setCancelsTouchesInView:YES];
-    [self.internalWebView addGestureRecognizer:self.tapdownGestureRecognizer];
-    self.tapdownGestureRecognizer.delegate = self;
+
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recordTapEvent:)];
+    [self.tapGestureRecognizer setCancelsTouchesInView:NO];
+    [self.internalWebView addGestureRecognizer:self.tapGestureRecognizer];
+    self.tapGestureRecognizer.delegate = self;
 }
 
 - (void)recordTapEvent:(UITapGestureRecognizer *)tap {
-    if (self.tapdownGestureRecognizer != tap) {
+    if (self.tapGestureRecognizer != tap) {
         return;
     }
-    
+
     self.lastTapTimestamp = [NSDate new];
 }
 

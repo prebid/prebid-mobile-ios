@@ -53,6 +53,9 @@ import Foundation
     /// An unknown error occurred within the Prebid SDK.
     case prebidUnknownError
     
+    /// The Prebid Server returned bids, but none had successful cache entries.
+    case prebidDemandNoCachedBids = 11
+    
     /// The structure of the response received is invalid.
     case prebidInvalidResponseStructure = 1000
     
@@ -99,6 +102,8 @@ import Foundation
             return "Prebid server url is invalid"
         case .prebidUnknownError:
             return "Prebid unknown error occurred"
+        case .prebidDemandNoCachedBids:
+            return "Prebid Server returned no cached bids"
         case .prebidInvalidResponseStructure:
             return "Response structure is invalid"
         case .prebidInternalSDKError:

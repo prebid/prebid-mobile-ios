@@ -19,6 +19,10 @@ import Foundation
 class ORTBBidExtPrebidCacheBids: PBMJsonCodable {
     var url: String?
     var cacheId: String?
+    
+    var hasCacheData: Bool {
+        !(url?.isEmpty ?? true) || !(cacheId?.isEmpty ?? true)
+    }
 
     private enum KeySet: String {
         case url

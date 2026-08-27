@@ -26,6 +26,7 @@ class PrebidAdMobInterstitialViewController:
     
     var prebidConfigId = ""
     var storedAuctionResponse: String?
+    var useSampleCustomRenderer = false
 
     var adMobAdUnitId = ""
     
@@ -46,6 +47,7 @@ class PrebidAdMobInterstitialViewController:
     
     private var adUnit: MediationInterstitialAdUnit?
     private var mediationDelegate: AdMobMediationInterstitialUtils?
+    private var sampleCustomRenderer: SampleRenderer?
     
     var request = Request()
     
@@ -64,6 +66,12 @@ class PrebidAdMobInterstitialViewController:
         setupAdapterController()
     }
     
+    deinit {
+        if let sampleCustomRenderer = sampleCustomRenderer {
+            Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        }
+    }
+
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -72,10 +80,8 @@ class PrebidAdMobInterstitialViewController:
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        if let storedAuctionResponse = storedAuctionResponse {
-            Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        }
-        
+        registerSampleCustomRendererIfNeeded()
+
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: request)
         adUnit = MediationInterstitialAdUnit(
             configId: prebidConfigId,
@@ -112,7 +118,15 @@ class PrebidAdMobInterstitialViewController:
             adUnit?.adFormats = adFormats
         }
         
+        if let storedAuctionResponse = storedAuctionResponse {
+            Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        }
+        
         adUnit?.fetchDemand { [weak self] result in
+            if self?.storedAuctionResponse != nil {
+                Prebid.shared.storedAuctionResponse = nil
+            }
+
             guard let self = self else { return }
             InterstitialAd.load(with: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
@@ -192,5 +206,13 @@ class PrebidAdMobInterstitialViewController:
             adapterViewController.showButton.isEnabled = false
             interstitial?.present(from: adapterViewController)
         }
+    }
+
+    private func registerSampleCustomRendererIfNeeded() {
+        guard useSampleCustomRenderer, sampleCustomRenderer == nil else { return }
+
+        let renderer = SampleRenderer()
+        Prebid.registerPluginRenderer(renderer)
+        sampleCustomRenderer = renderer
     }
 }

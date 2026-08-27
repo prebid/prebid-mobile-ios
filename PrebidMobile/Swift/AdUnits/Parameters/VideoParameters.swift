@@ -105,6 +105,13 @@ public class VideoParameters: NSObject {
             return NSNumber(value: isSkippable ? 1 : 0)
         }
     }
+
+    /// Objective-C API for setting the OpenRTB video skip attribute.
+    @available(swift, obsoleted: 1.0)
+    @objc(setSkippable:)
+    public func setSkippable(_ isSkippable: Bool) {
+        self.isSkippable = isSkippable
+    }
     
     /// - Parameter mimes: supported MIME types
     public init(mimes: [String]) {

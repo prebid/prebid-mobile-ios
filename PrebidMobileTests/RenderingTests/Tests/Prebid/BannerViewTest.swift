@@ -23,6 +23,22 @@ class MockBannerView: BannerView {
     }
 }
 
+// Returns a bid response whose winning bid references a named plugin renderer.
+private class MockBannerViewWithCustomRenderer: BannerView {
+    var mockRendererName: String = ""
+    var mockRendererVersion: String = ""
+
+    override var lastBidResponse: BidResponse? {
+        let rawBid = RawSampleCustomRendererBidFabricator.makeSampleCustomRendererBid(
+            rendererName: mockRendererName,
+            rendererVersion: mockRendererVersion
+        )
+        let rawResponse = ORTBBidResponse<ORTBBidResponseExt, [String: Any], ORTBBidExt>(requestID: "")
+        rawResponse.seatbid = [.init(bid: [rawBid])]
+        return BidResponse(jsonDictionary: rawResponse.jsonDictionary)
+    }
+}
+
 class BannerViewTest: XCTestCase {
     override func tearDown() {
         Prebid.reset()
@@ -169,5 +185,108 @@ class BannerViewTest: XCTestCase {
         func videoPlaybackDidComplete(_ banner: PrebidMobile.BannerView) {
             events.insert(.complete)
         }
+    }
+}
+
+class BannerViewDidInjectViewTests: XCTestCase {
+
+    private let pluginName = "SampleRenderer"
+    private let pluginVersion = "1.0.0"
+    private let adSize = CGSize(width: 320, height: 50)
+
+    override func setUp() {
+        super.setUp()
+        PrebidMobilePluginRegister.shared.unregisterAllPlugins()
+    }
+
+    override func tearDown() {
+        PrebidMobilePluginRegister.shared.unregisterAllPlugins()
+        Prebid.reset()
+        super.tearDown()
+    }
+
+    // MARK: - Happy path
+
+    func testDidInjectViewIsCalledOnMatchingPlugin() {
+        let renderer = makeMockRenderer()
+        PrebidMobilePluginRegister.shared.registerPlugin(renderer)
+
+        let bannerView = makeRendererBannerView()
+        bannerView.deployView(UIView())
+
+        flushMainQueue()
+
+        XCTAssertEqual(renderer.didInjectViewCallCount, 1)
+    }
+
+    func testDidInjectViewReceivesCorrectViewAndBannerView() {
+        let renderer = makeMockRenderer()
+        PrebidMobilePluginRegister.shared.registerPlugin(renderer)
+
+        let bannerView = makeRendererBannerView()
+        let injectedView = UIView()
+        bannerView.deployView(injectedView)
+
+        flushMainQueue()
+
+        XCTAssertIdentical(renderer.capturedInjectedView, injectedView)
+        XCTAssertIdentical(renderer.capturedBannerView, bannerView)
+    }
+
+    func testDidInjectViewCalledAgainOnSubsequentDeploy() {
+        let renderer = makeMockRenderer()
+        PrebidMobilePluginRegister.shared.registerPlugin(renderer)
+
+        let bannerView = makeRendererBannerView()
+        bannerView.deployView(UIView())
+        flushMainQueue()
+        bannerView.deployView(UIView())
+        flushMainQueue()
+
+        XCTAssertEqual(renderer.didInjectViewCallCount, 2)
+    }
+
+    // MARK: - No-op cases
+
+    func testDidInjectViewNotCalledWhenBidResponseIsNil() {
+        let renderer = makeMockRenderer()
+        PrebidMobilePluginRegister.shared.registerPlugin(renderer)
+
+        // Plain BannerView — lastBidResponse is nil because no ad has loaded.
+        let bannerView = BannerView(
+            frame: CGRect(origin: .zero, size: adSize),
+            configID: "test-id",
+            adSize: adSize
+        )
+        bannerView.deployView(UIView())
+
+        flushMainQueue()
+
+        XCTAssertEqual(renderer.didInjectViewCallCount, 0)
+    }
+
+    // MARK: - Helpers
+
+    private func makeMockRenderer() -> MockPrebidMobilePluginRenderer {
+        MockPrebidMobilePluginRenderer(name: pluginName, version: pluginVersion)
+    }
+
+    private func makeRendererBannerView() -> MockBannerViewWithCustomRenderer {
+        let bannerView = MockBannerViewWithCustomRenderer(
+            frame: CGRect(origin: .zero, size: adSize),
+            configID: "test-id",
+            adSize: adSize,
+            eventHandler: BannerEventHandlerStandalone()
+        )
+        bannerView.mockRendererName = pluginName
+        bannerView.mockRendererVersion = pluginVersion
+        return bannerView
+    }
+
+    // Processes all pending main-queue work queued before this call.
+    private func flushMainQueue() {
+        let exp = expectation(description: "main queue flush")
+        DispatchQueue.main.async { exp.fulfill() }
+        waitForExpectations(timeout: 1.0)
     }
 }

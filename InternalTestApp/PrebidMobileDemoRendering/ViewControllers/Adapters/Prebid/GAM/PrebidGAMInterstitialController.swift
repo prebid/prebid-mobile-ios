@@ -65,10 +65,7 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitId)
-        
-        if let storedAuctionResponse = storedAuctionResponse {
-            Prebid.shared.storedAuctionResponse = storedAuctionResponse
-        }
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
                                                              minSizePercentage: CGSize(width: 30, height: 30),
@@ -105,6 +102,10 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
         }
         
         interstitialController?.loadAd()
+
+        if storedAuctionResponse != nil {
+            Prebid.shared.storedAuctionResponse = nil
+        }
     }
     
     // MARK: - GADInterstitialDelegate
