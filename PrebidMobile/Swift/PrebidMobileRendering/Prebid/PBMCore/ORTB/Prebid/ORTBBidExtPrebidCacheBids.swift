@@ -20,8 +20,14 @@ class ORTBBidExtPrebidCacheBids: PBMJsonCodable {
     var url: String?
     var cacheId: String?
     
+    // cacheId is the field PUC actually needs to retrieve a creative from Prebid Cache
+    // (GET /cache?uuid=<cacheId>, surfaced to the creative via the hb_cache_id targeting
+    // key). `url` is only a pre-assembled convenience string built from cacheId plus the
+    // cache host/path; it is never consumed independently, so it does not count on its own.
+    // See https://docs.prebid.org/prebid-server/endpoints/pbs-endpoints-pbc.html and
+    // https://docs.prebid.org/prebid-server/use-cases/pbs-sdk.html.
     var hasCacheData: Bool {
-        !(url?.isEmpty ?? true) || !(cacheId?.isEmpty ?? true)
+        !(cacheId?.isEmpty ?? true)
     }
 
     private enum KeySet: String {
