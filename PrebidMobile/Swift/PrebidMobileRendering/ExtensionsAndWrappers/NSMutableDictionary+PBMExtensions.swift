@@ -34,16 +34,6 @@ extension NSMutableDictionary {
         }
         return result
     }
-
-    /// Mirrors the Objective-C `dict[key] = value` semantics, where assigning `nil` removes the key.
-    /// A plain Swift subscript assignment would instead store a boxed `Optional.none`.
-    func pbmSetValue(_ value: Any?, forKey key: String) {
-        if let value = value {
-            self[key] = value
-        } else {
-            removeObject(forKey: key)
-        }
-    }
 }
 
 private func isEmptyVal(_ value: Any?) -> Bool {

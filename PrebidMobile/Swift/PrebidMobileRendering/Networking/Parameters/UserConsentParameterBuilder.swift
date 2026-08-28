@@ -21,10 +21,10 @@ class UserConsentParameterBuilder: NSObject, ParameterBuilder {
 
     func build(_ bidRequest: ORTBBidRequest) {
         // GDPR
-        bidRequest.regs.ext?.pbmSetValue(Targeting.shared.getSubjectToGDPR(), forKey: "gdpr")
-        bidRequest.user.ext?.pbmSetValue(Targeting.shared.gdprConsentString, forKey: "consent")
+        bidRequest.regs.ext?["gdpr"] = Targeting.shared.getSubjectToGDPR()
+        bidRequest.user.ext?["consent"] = Targeting.shared.gdprConsentString
 
         // CCPA
-        bidRequest.regs.ext?.pbmSetValue(InternalUserConsentDataManager.usPrivacyString, forKey: "us_privacy")
+        bidRequest.regs.ext?["us_privacy"] = InternalUserConsentDataManager.usPrivacyString
     }
 }

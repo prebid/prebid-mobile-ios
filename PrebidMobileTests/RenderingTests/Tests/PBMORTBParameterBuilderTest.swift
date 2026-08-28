@@ -42,8 +42,10 @@ class PBMORTBParameterBuilderTest: XCTestCase {
         logToFile = .init()
         
         class Dummy {}
-        _ = ORTBParameterBuilder.buildOpenRTB(for: ["key": Dummy()])
-        
+        let res = ORTBParameterBuilder.buildOpenRTB(for: ["key": Dummy()])
+
+        XCTAssert(res.isEmpty)
+
         let log = Log.getLogFileAsString() ?? ""
         XCTAssert(log.contains(errorMessage))
     }

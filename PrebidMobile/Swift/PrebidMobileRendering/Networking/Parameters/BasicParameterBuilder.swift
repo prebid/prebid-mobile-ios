@@ -69,7 +69,7 @@ class BasicParameterBuilder: NSObject, ParameterBuilder {
         }
 
         bidRequest.regs.coppa = targeting?.coppa
-        bidRequest.regs.ext?.pbmSetValue(targeting?.getSubjectToGDPR(), forKey: "gdpr")
+        bidRequest.regs.ext?["gdpr"] = targeting?.getSubjectToGDPR()
         bidRequest.regs.gpp = InternalUserConsentDataManager.gppHDRString
 
         let gppSID = InternalUserConsentDataManager.gppSID

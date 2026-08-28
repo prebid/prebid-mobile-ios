@@ -648,7 +648,7 @@ invisible today. Enforcement is worth revisiting once SwiftLint is actually wire
 
 ## Phase 3 gaps (discovered S3.1/S3.2)
 
-### Gap S3.1-A — ObjC `dict[key] = nil` removes the key; the Swift subscript boxes `Optional.none`
+### Gap S3.1-A — **withdrawn**: the Swift subscript already matches ObjC `dict[key] = nil`
 
 `PBMBasicParameterBuilder.m` and `PBMUserConsentParameterBuilder.m` write nullable values straight
 into an `NSMutableDictionary`:
@@ -657,18 +657,22 @@ into an `NSMutableDictionary`:
 bidRequest.regs.ext[@"gdpr"] = self.targeting.getSubjectToGDPR;   // nil ⇒ key removed
 ```
 
-The literal Swift translation `dict["gdpr"] = value` where `value` is `T?` **stores a boxed
-`Optional.none`**, which serializes as a present key. The bug is silent: the type checker is happy
-and only a wire-format diff catches it.
+This entry originally claimed the literal Swift translation `dict["gdpr"] = value`, where `value` is
+`T?`, stores a boxed `Optional.none` and therefore serializes as a present key. **That is false** —
+corrected in review of #1328, re-verified under `swiftc -swift-version 5`:
 
-**Rule:** Never assign an optional through the `NSMutableDictionary` subscript. Use the helper added
-in `NSMutableDictionary+PBMExtensions.swift`:
+- `NSMutableDictionary` *and* `[String: Any]` remove the key when a single-level optional
+  (`String?`, `NSNumber?`) with value `nil` is assigned through the subscript.
+- Optional chaining flattens: `targeting?.getSubjectToGDPR()`, an optional base whose method returns
+  `NSNumber?`, is statically `NSNumber?` — not `NSNumber??` — and behaves the same.
+- Only an *explicitly nested* optional (`String??` holding `.some(nil)`) stores a boxed nil, and
+  that assignment emits `warning: expression implicitly coerced from 'String??' to 'Any?'`, so it
+  cannot land silently.
 
-```swift
-func pbmSetValue(_ value: Any?, forKey key: String) {
-    if let value = value { self[key] = value } else { removeObject(forKey: key) }
-}
-```
+**Rule:** Translate ObjC `dict[key] = maybeNil` literally as `dict[key] = maybeNil`. No helper is
+needed — the `pbmSetValue(_:forKey:)` this gap introduced has been removed again. If the
+`coerced … to 'Any?'` warning ever appears, do not silence it with `as Any?`: it means the value is
+a double optional, and flattening it (`?? nil`, or a `guard let`) is the fix.
 
 ### Gap S3.1-B — a protocol that Swift test mocks conform to cannot be `@objc`
 

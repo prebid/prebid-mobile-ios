@@ -18,8 +18,8 @@ import Foundation
 class SKAdNetworksParameterBuilder: NSObject, ParameterBuilder {
 
     // Keys into Bundle info Dict
-    private static var SKAdNetworkItemsKey: String { "SKAdNetworkItems" }
-    private static var SKAdNetworkIdentifierKey: String { "SKAdNetworkIdentifier" }
+    static var SKAdNetworkItemsKey: String { "SKAdNetworkItems" }
+    static var SKAdNetworkIdentifierKey: String { "SKAdNetworkIdentifier" }
 
     private let bundle: BundleProtocol
     private let targeting: Targeting

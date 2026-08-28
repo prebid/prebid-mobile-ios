@@ -92,20 +92,29 @@ These are intentional and reviewer-visible:
    The ObjC version built an `NSMutableArray` and called `addObject:` with the result of
    `numberFromString:`, which returns `nil` for an unparseable component — an
    `NSInvalidArgumentException` crash on malformed `IABGPP_GppSID`. The Swift version skips the
-   bad component. `InternalUserConsentDataManagerTests.assertIABGPPSID` was retyped accordingly.
+   bad component. `InternalUserConsentDataManagerTests.assertIABGPPSID` was retyped accordingly,
+   and `testIABGPPSID_Malformed` covers the new skip behaviour.
 2. **`SKAdNetworksParameterBuilder.skAdNetworkIds()` uses `compactMap`** over the
    `SKAdNetworkItems` plist array, likewise skipping malformed entries instead of inserting `nil`.
+   `SkadnParameterBuilderTest.testSKAdNetworkIds_SkipsMalformedEntries` exercises the real parse
+   (not the mock override) through `MockBundle.mockSKAdNetworkItems`.
 3. **`ORTBParameterBuilder.buildOpenRTB(for:)` returns a non-optional `[String: String]`.**
-   The ObjC signature was nullable but every path returned a dictionary; the error path returns
-   `["openrtb": ""]` as before, after logging "Not valid JSON object".
+   The ObjC signature was nullable but every path returned a dictionary. As in the original, the
+   error path returns an **empty** dictionary — the `openrtb` key is inserted only when
+   serialization succeeds — after logging "Not valid JSON object";
+   `testAppendBuilderParametersWitError` now asserts that.
 4. **`PBMAssert` nil-guards dropped** in the six builders whose initializer parameters are
    non-optional in Swift. `BasicParameterBuilder` is the exception: its four properties stay
    optional `var`s (the test extension header used to set them to `nil`) and its
    `Log.error("Invalid properties")` guard is retained, because three tests assert on that log
    line. A `TODO` marks the cleanup.
-5. **`NSMutableDictionary` nil-assignment semantics** — ObjC `dict[key] = nil` removes the key;
-   the naive Swift subscript stores a boxed `Optional.none`. All such sites go through a new
-   `NSMutableDictionary.pbmSetValue(_:forKey:)` helper (Gap S3.1-A).
+5. ~~**`NSMutableDictionary` nil-assignment semantics.**~~ **Withdrawn in review.** The claim that
+   the Swift subscript stores a boxed `Optional.none` where ObjC `dict[key] = nil` removes the key
+   is wrong: single-level optionals — including the flattened result of optional chaining such as
+   `targeting?.getSubjectToGDPR()` — remove the key, exactly as in ObjC. The
+   `NSMutableDictionary.pbmSetValue(_:forKey:)` helper this introduced has been removed and its
+   four call sites are plain subscript assignments again. Gap S3.1-A is marked withdrawn in the
+   playbook, with the verified semantics recorded so no future port repeats the mistake.
 
 Everything else was diffed line-by-line against `git show HEAD:…` for
 `PBMParameterBuilderService.m`, `PBMBasicParameterBuilder.m` and `PBMDeviceInfoParameterBuilder.m`
@@ -114,7 +123,8 @@ fallbacks, and the iOS 14 `atts` override of `lmt`.
 
 ### Playbook updates
 
-- Seven new Phase 3 gaps (**S3.1-A** … **S3.1-G**) and **S3.2-A**.
+- Seven new Phase 3 gaps (**S3.1-A** … **S3.1-G**) and **S3.2-A**. **S3.1-A is recorded as
+  withdrawn** — see divergence 5 above.
 - **Gap 4 and Gap 6 corrected.** Both claimed "after Phase 3 all ObjC consumers are gone", so the
   `@objc public` ORTB twins could be demoted to `internal`. That is false:
   `PBMPrebidParameterBuilder.m`, `PBMBidRequester.m`, `PBMBidResponseTransformer.m` and
@@ -133,16 +143,41 @@ fallbacks, and the iOS 14 `atts` override of `lmt`.
       "Skipping duplicate build file" warnings for the GAM AdLoading sources)
 - [x] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build of the working tree clean
       (`__PrebidMobileInternal` complete)
-- [x] `./scripts/testPrebidMobile.sh --latest --quick` — **811 tests, 0 failures, no retries**.
-      This PR adds and removes no test methods; the count differs from the 765 recorded in
-      `pr-phase-012.md` because of the three upstream PRs merged since `b21cbc2b` (#1301, #1305,
-      #1325). Verified no test *class* was renamed by the `PBM`-prefix symbol sweep, so the
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — **811 tests, 0 failures, no retries**
+      (before the review round; the count differs from the 765 recorded in `pr-phase-012.md`
+      because of the three upstream PRs merged since `b21cbc2b` — #1301, #1305, #1325). Verified
+      no test *class* was renamed by the `PBM`-prefix symbol sweep, so the
       `PrebidMobilePRTests.xctestplan` `skippedTests` prefix matches are unaffected.
+- [x] Review round 1: `-only-testing` re-run of the six parameter-builder classes on the full test
+      plan (`InternalUserConsentDataManagerTests`, `SkadnParameterBuilderTest`,
+      `PBMORTBParameterBuilderTest`, `BasicParameterBuilderTest`,
+      `PBMUserConsentParameterBuilderTest`, `ParameterBuilderServiceTest`) — **0 failures**,
+      including the four new cases
+- [x] Review round 1: `PrebidMobilePRTests` plan re-run after the fixes — **813 tests, 0
+      failures**. 811 + the two new `SkadnParameterBuilderTest` cases; the two new
+      `InternalUserConsentDataManagerTests` cases are skipped by that plan (see note below)
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite, run before merge
 - [ ] Reviewer: confirm the phase boundary in "Scope" above — is Phase 3 complete, or is
       `PBMTrackingRecord` / `PBMURLComponents` an S3.3?
-- [ ] Reviewer: confirm the five deliberate divergences above
+- [ ] Reviewer: confirm the four remaining deliberate divergences above (the fifth is withdrawn)
 - [ ] Reviewer: confirm the playbook's orphan-header inventory against the phase plan
+
+### Note on the two new tests and the PR test plan
+
+`InternalUserConsentDataManagerTests` is skipped wholesale by `PrebidMobilePRTests.xctestplan`
+(class-level `skippedTests` entry, pre-existing), so `testIABGPPSID_Malformed` and
+`testIABGPPSID_EmptyString` run in the full plan only. No plan edit was made: adding them to the
+quick subset would mean un-skipping a class that was deliberately excluded.
+`SkadnParameterBuilderTest` is not skipped, so its two new tests run on every PR.
+
+## Review round 1 — #1328 comments addressed
+
+| Comment | Resolution |
+|---------|------------|
+| Gap S3.1-A describes a nonexistent Swift bug | Verified under `swiftc -swift-version 5`: assigning a nil single-level optional through the `NSMutableDictionary` / `[String: Any]` subscript removes the key, and optional chaining flattens, so `targeting?.getSubjectToGDPR()` is `NSNumber?` and behaves identically. Gap marked **withdrawn** in the playbook with the measured semantics; `pbmSetValue(_:forKey:)` deleted and its four call sites reverted to plain subscript assignment. |
+| `buildOpenRTB(for:)` error path returns `[:]`, not `["openrtb": ""]` | Divergence 3 corrected; `testAppendBuilderParametersWitError` now captures the result and asserts `isEmpty`. |
+| `gppSID` crash-to-skip needs a regression test; `testIABGPPSID_Unset` asserted the wrong property | Added `testIABGPPSID_Malformed` (`"2_bad_5"` → `[2, 5]`) and `testIABGPPSID_EmptyString` (covers the `isEmpty` early return). `testIABGPPSID_Unset` called `assertIABGPPString(nil)` — a copy-paste of the `gppHDRString` test that never touched `gppSID`; it now asserts `assertIABGPPSID([])`. |
+| `skAdNetworkIds()` divergence is only covered through the mock override | Added `testSKAdNetworkIds_SkipsMalformedEntries`, which drives the real parse via a new `MockBundle.mockSKAdNetworkItems` seam over a plist array holding a valid entry, an empty entry, a wrong-type (`Int`) identifier and a wrong-key entry, and asserts both `skAdNetworkIds()` and the resulting `imp.ext.skadn.skadnetids`. Also `testSKAdNetworkIds_NilInfoDictionary` for the `infoDictionary == nil` branch. `SKAdNetworkItemsKey` / `SKAdNetworkIdentifierKey` lost their `private` so the mock can key off them, matching `AppInfoParameterBuilder.bundleNameKey`. |
 
 ## Notes for the reviewer
 

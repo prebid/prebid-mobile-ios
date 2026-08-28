@@ -79,7 +79,7 @@ class InternalUserConsentDataManagerTests: XCTestCase {
     }
     
     func testIABGPPSID_Unset() {
-        assertIABGPPString(nil)
+        assertIABGPPSID([])
     }
     
     func testIABGPPSID_withString() {
@@ -87,6 +87,19 @@ class InternalUserConsentDataManagerTests: XCTestCase {
         
         setIABGPPSIDString(val: gppSID)
         assertIABGPPSID([2, 3, 4, 5])
+    }
+
+    /// The ObjC original passed the result of `numberFromString:` straight to `addObject:`,
+    /// crashing with `NSInvalidArgumentException` on an unparseable component. The Swift port
+    /// skips it instead.
+    func testIABGPPSID_Malformed() {
+        setIABGPPSIDString(val: "2_bad_5")
+        assertIABGPPSID([2, 5])
+    }
+
+    func testIABGPPSID_EmptyString() {
+        setIABGPPSIDString(val: "")
+        assertIABGPPSID([])
     }
     
     func setAndLoadPrivacyString(usPrivacyString: String?, file: StaticString = #file, line: UInt = #line) {
