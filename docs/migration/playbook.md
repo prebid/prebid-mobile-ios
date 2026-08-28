@@ -872,9 +872,9 @@ constants before it disappears.
 
 ## General ObjC → Swift reference
 
-Not phase-specific. Adapted from the generic guides in `agents/ios/migration-patterns/`. Those
+Not phase-specific. Adapted from the generic guides in `agents/migration-patterns/`. Those
 guides conflict with this playbook on four significant points — read
-`agents/ios/migration-patterns/SKILL.md` before consulting them directly.
+`agents/migration-patterns/SKILL.md` before consulting them directly.
 
 ### `NSNull` from `JSONSerialization` is not `nil`
 
