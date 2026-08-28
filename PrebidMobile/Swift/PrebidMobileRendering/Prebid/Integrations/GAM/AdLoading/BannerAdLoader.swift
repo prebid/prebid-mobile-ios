@@ -97,29 +97,16 @@ class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, Ba
 
     // MARK: - Private
 
-    private func createBannerView(with bid: Bid, adUnitConfig: AdUnitConfig) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+    private func createBannerView(with bid: Bid, adUnitConfig: AdUnitConfig) -> PrebidMobileDisplayViewProtocol? {
         guard let delegate else { return nil }
-        
-        
-        let renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
-        Log.info("Renderer: \(String(describing: renderer))")
 
         let displayFrame = CGRect(origin: .zero, size: bid.size)
-
-        if let view = renderer.createBannerView(with: displayFrame,
-                                                bid: bid,
-                                                adConfiguration: adUnitConfig,
-                                                loadingDelegate: self,
-                                                interactionDelegate: delegate) {
-            return view
-        }
-
-        Log.warn("SDK couldn't retrieve an implementation of PrebidMobileDisplayViewManagerProtocol. Using fallback renderer.")
-        let fallbackRenderer = PrebidMobilePluginRegister.shared.sdkRenderer
-        return fallbackRenderer.createBannerView(with: displayFrame,
-                                                 bid: bid,
-                                                 adConfiguration: adUnitConfig,
-                                                 loadingDelegate: self,
-                                                 interactionDelegate: delegate)
+        return PluginRendererFactory.createBannerView(
+            with: displayFrame,
+            bid: bid,
+            adConfiguration: adUnitConfig,
+            loadingDelegate: self,
+            interactionDelegate: delegate
+        )
     }
 }

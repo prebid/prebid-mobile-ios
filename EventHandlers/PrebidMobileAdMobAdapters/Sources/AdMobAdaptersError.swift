@@ -26,6 +26,7 @@ enum AdMobAdaptersError {
     case noAd
     case adNotValid
     case adExpired
+    case rendererCreationFailed
 }
 
 extension AdMobAdaptersError: LocalizedError {
@@ -42,6 +43,7 @@ extension AdMobAdaptersError: LocalizedError {
         case .noAd                          : return "No ad available"
         case .adNotValid                    : return "Ad is not valid"
         case .adExpired                     : return "Ad expired"
+        case .rendererCreationFailed        : return "Failed to create ad renderer"
         }
     }
 }

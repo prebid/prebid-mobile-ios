@@ -16,6 +16,7 @@
 #import "PBMAbstractCreative.h"
 #import "PBMSafariVCOpener.h"
 
+@class SKStoreProductViewController;
 @protocol PBMThreadProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -23,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMAbstractCreative_Objc (PBMTestExpose)
 
 @property (nonatomic, strong, nullable) PBMSafariVCOpener * safariOpener;
+@property (nonatomic, copy, nullable) PBMVoidBlock skStoreProductViewControllerExitBlock;
+@property (nonatomic, strong, nullable) id<PBMModalState> pendingModalStatePop;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
@@ -33,6 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)handleNormalClickthrough:(NSURL *)url
                 sdkConfiguration:(Prebid *)sdkConfiguration
                           onExit:(PBMVoidBlock)onClickthroughExitBlock;
+
+- (BOOL)handleProductClickthrough:(NSURL *)url
+                    productParams:(NSDictionary<NSString *, id> *)productParams
+                           onExit:(PBMVoidBlock)onClickthroughExitBlock;
+
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController;
 
 - (void)modalManagerDidFinishPop:(id<PBMModalState>)state;
 - (void)modalManagerDidLeaveApp:(id<PBMModalState>)state;

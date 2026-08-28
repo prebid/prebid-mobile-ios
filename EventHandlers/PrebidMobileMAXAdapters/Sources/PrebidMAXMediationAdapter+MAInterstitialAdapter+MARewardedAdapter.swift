@@ -29,7 +29,7 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
     ) {
         interstitialDelegate = delegate
         
-        switch createInterstitialController(with: parameters) {
+        switch createInterstitialController(with: parameters, isRewarded: false) {
         case .success(let controller):
             self.interstitialController = controller
             interstitialController?.loadAd()
@@ -43,7 +43,7 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
         if interstitialAdAvailable {
             interstitialController?.show()
         } else {
-            interstitialDelegate?.didFailToLoadInterstitialAdWithError(MAAdapterError.adNotReady)
+            interstitialDelegate?.didFailToDisplayInterstitialAdWithError(MAAdapterError.adNotReady)
         }
     }
     
@@ -52,10 +52,9 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
     public func loadRewardedAd(for parameters: MAAdapterResponseParameters, andNotify delegate: MARewardedAdapterDelegate) {
         rewardedDelegate = delegate
         
-        switch createInterstitialController(with: parameters) {
+        switch createInterstitialController(with: parameters, isRewarded: true) {
         case .success(let controller):
             interstitialController = controller
-            interstitialController?.isRewarded = true
             interstitialController?.loadAd()
         case .failure(let error):
             let maError = MAAdapterError(nsError: error)
@@ -70,13 +69,14 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
         if interstitialAdAvailable {
             interstitialController?.show()
         } else {
-            interstitialDelegate?.didFailToLoadInterstitialAdWithError(MAAdapterError.adNotReady)
+            rewardedDelegate?.didFailToDisplayRewardedAdWithError(MAAdapterError.adNotReady)
         }
     }
     
     private func createInterstitialController(
-        with parameters: MAAdapterResponseParameters
-    ) -> Result<InterstitialController, Error> {
+        with parameters: MAAdapterResponseParameters,
+        isRewarded: Bool
+    ) -> Result<PrebidMobileInterstitialControllerProtocol, Error> {
         
         guard let serverParameter = parameters
             .serverParameters[MAXCustomParametersKey] as? [String: String] else {
@@ -102,21 +102,32 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
             return .failure(MAXAdaptersError.noConfigIdInLocalExtraParameters)
         }
         
-        let interstitialController = InterstitialController(bid: bid, configId: configId)
-        interstitialController.loadingDelegate = self
-        interstitialController.interactionDelegate = self
+        let videoControlsConfig = parameters
+            .localExtraParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration
+        let videoParameters = parameters
+            .localExtraParameters[PBMMediationVideoParameters] as? VideoParameters
+        let renderingConfig = AdUnitConfig(configId: configId)
+        renderingConfig.adConfiguration.isInterstitialAd = true
+        renderingConfig.adConfiguration.isRewarded = isRewarded
         
-        if let videoAdConfig = parameters
-            .localExtraParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
-            interstitialController.videoControlsConfig = videoAdConfig
+        if let videoControlsConfig = videoControlsConfig {
+            renderingConfig.adConfiguration.videoControlsConfig = videoControlsConfig
         }
         
-        if let videoParameters = parameters
-            .localExtraParameters[PBMMediationVideoParameters] as? VideoParameters {
-            interstitialController.videoParameters = videoParameters
+        if let videoParameters = videoParameters {
+            renderingConfig.adConfiguration.videoParameters = videoParameters
         }
         
-        return .success(interstitialController)
+        guard let controller = PluginRendererFactory.createInterstitialController(
+            bid: bid,
+            adConfiguration: renderingConfig,
+            loadingDelegate: self,
+            interactionDelegate: self
+        ) else {
+            return .failure(MAXAdaptersError.rendererCreationFailed)
+        }
+
+        return .success(controller)
     }
     
     // MARK: - InterstitialControllerLoadingDelegate

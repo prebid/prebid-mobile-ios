@@ -25,12 +25,12 @@ public class PrebidMAXMediationAdapter: ALMediationAdapter {
     // MARK: - Banner
     
     public weak var bannerDelegate: MAAdViewAdapterDelegate?
-    var displayView: DisplayView?
+    var displayView: PrebidMobileDisplayViewProtocol?
     
     // MARK: - Interstitial
     
     public weak var interstitialDelegate: MAInterstitialAdapterDelegate?
-    public var interstitialController: InterstitialController?
+    public var interstitialController: PrebidMobileInterstitialControllerProtocol?
     public var interstitialAdAvailable = false
     
     // MARK: - Rewarded

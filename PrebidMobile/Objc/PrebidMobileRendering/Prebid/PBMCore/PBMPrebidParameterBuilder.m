@@ -83,7 +83,7 @@
         bidRequest.test = @1;
     }
     
-    if (Prebid.shared.useCacheForReportingWithRenderingAPI) {
+    if (Prebid.shared.useCacheForReportingWithRenderingAPI || Prebid.shared.requireServerSideBidCache) {
         PBMMutableJsonDictionary * const cache = [PBMMutableJsonDictionary new];
         cache[@"bids"] = [PBMMutableJsonDictionary new];
         cache[@"vastxml"] = [PBMMutableJsonDictionary new];

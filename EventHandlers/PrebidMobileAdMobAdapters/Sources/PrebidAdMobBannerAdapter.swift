@@ -28,7 +28,7 @@ public class PrebidAdMobBannerAdapter:
         displayView ?? UIView()
     }
     
-    var displayView: DisplayView?
+    var displayView: PrebidMobileDisplayViewProtocol?
     
     weak var delegate: GoogleMobileAds.MediationBannerAdEventDelegate?
     var adConfiguration: GoogleMobileAds.MediationBannerAdConfiguration?
@@ -80,11 +80,21 @@ public class PrebidAdMobBannerAdapter:
         }
         
         let frame = CGRect(origin: .zero, size: bid.size)
+        let renderingConfig = AdUnitConfig(configId: configId, size: bid.size)
         
-        displayView = DisplayView(frame: frame, bid: bid, configId: configId)
-        displayView?.interactionDelegate = self
-        displayView?.loadingDelegate = self
+        guard let view = PluginRendererFactory.createBannerView(
+            with: frame,
+            bid: bid,
+            adConfiguration: renderingConfig,
+            loadingDelegate: self,
+            interactionDelegate: self
+        ) else {
+            let error = AdMobAdaptersError.rendererCreationFailed
+            delegate = completionHandler(nil, error)
+            return
+        }
         
+        displayView = view
         displayView?.loadAd()
     }
     

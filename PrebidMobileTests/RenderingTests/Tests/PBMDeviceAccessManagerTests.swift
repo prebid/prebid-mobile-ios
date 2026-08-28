@@ -16,6 +16,8 @@
 import Foundation
 import XCTest
 import UIKit
+import AdSupport
+import ObjectiveC
 
 @testable import PrebidMobile
 
@@ -42,6 +44,27 @@ class PBMDeviceAccessManagerTests : XCTestCase {
     func testAdvertisingIdentifier() {
         let adID = deviceAccessManager.advertisingIdentifier()
         XCTAssert(adID.count > 0)
+    }
+    
+    func testAdvertisingIdentifierWhenASIdentifierManagerReturnsNil() {
+        let selector = #selector(getter: ASIdentifierManager.advertisingIdentifier)
+        guard let managerClass = object_getClass(ASIdentifierManager.shared()),
+              let method = class_getInstanceMethod(managerClass, selector) else {
+            XCTFail("Expected ASIdentifierManager to respond to advertisingIdentifier")
+            return
+        }
+        
+        let originalImplementation = method_getImplementation(method)
+        let nilAdvertisingIdentifier: @convention(block) (AnyObject) -> NSUUID? = { _ in nil }
+        let nilImplementation = imp_implementationWithBlock(nilAdvertisingIdentifier)
+        
+        method_setImplementation(method, nilImplementation)
+        defer {
+            method_setImplementation(method, originalImplementation)
+            imp_removeBlock(nilImplementation)
+        }
+        
+        XCTAssertEqual(deviceAccessManager.advertisingIdentifier(), "")
     }
     
     func testAdvertisingTrackingEnabled() {

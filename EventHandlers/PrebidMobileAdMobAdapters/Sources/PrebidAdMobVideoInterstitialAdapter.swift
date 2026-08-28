@@ -26,7 +26,7 @@ public class PrebidAdMobVideoInterstitialAdapter:
     
     // MARK: - Private Properties
     
-    var interstitialController: InterstitialController?
+    var interstitialController: PrebidMobileInterstitialControllerProtocol?
     weak var rootViewController: UIViewController?
     var adAvailable = false
     
@@ -77,19 +77,33 @@ public class PrebidAdMobVideoInterstitialAdapter:
             return
         }
         
-        interstitialController = InterstitialController(bid: bid, configId: configId)
-        interstitialController?.loadingDelegate = self
-        interstitialController?.interactionDelegate = self
-        interstitialController?.adFormats = [.video]
+        let videoControlsConfig = eventExtrasDictionary[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration
+        let videoParameters = eventExtrasDictionary[PBMMediationVideoParameters] as? VideoParameters
+        let renderingConfig = AdUnitConfig(configId: configId)
+        renderingConfig.adConfiguration.isInterstitialAd = true
+        renderingConfig.adConfiguration.isRewarded = false
+        renderingConfig.adFormats = [.video]
         
-        if let videoAdConfig = eventExtrasDictionary[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
-            interstitialController?.videoControlsConfig = videoAdConfig
+        if let videoControlsConfig = videoControlsConfig {
+            renderingConfig.adConfiguration.videoControlsConfig = videoControlsConfig
         }
         
-        if let videoParameters = eventExtrasDictionary[PBMMediationVideoParameters] as? VideoParameters {
-            interstitialController?.videoParameters = videoParameters
+        if let videoParameters = videoParameters {
+            renderingConfig.adConfiguration.videoParameters = videoParameters
         }
         
+        guard let controller = PluginRendererFactory.createInterstitialController(
+            bid: bid,
+            adConfiguration: renderingConfig,
+            loadingDelegate: self,
+            interactionDelegate: self
+        ) else {
+            let error = AdMobAdaptersError.rendererCreationFailed
+            delegate = completionHandler(nil, error)
+            return
+        }
+
+        interstitialController = controller
         interstitialController?.loadAd()
     }
     

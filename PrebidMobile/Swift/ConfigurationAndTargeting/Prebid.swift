@@ -120,6 +120,10 @@ public class Prebid: NSObject {
     /// the impression event respectively to the legacy analytic setup.
     public var useCacheForReportingWithRenderingAPI = false
     
+    /// Indicates whether the SDK should ignore bids that don't contain a successful
+    /// server-side Prebid Cache entry in bid.ext.prebid.cache.
+    public var requireServerSideBidCache = false
+    
     /// Controls how long each creative has to load before it is considered a failure.
     public var creativeFactoryTimeout: TimeInterval = 6.0
     

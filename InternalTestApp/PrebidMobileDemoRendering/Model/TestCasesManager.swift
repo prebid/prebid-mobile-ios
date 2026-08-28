@@ -886,7 +886,7 @@ struct TestCaseManager {
                     source: "liveramp.com",
                     uids: [
                         UserUniqueID(
-                            id: "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM",
+                            uniqueId: "XY1000bIVBVah9ium-sZ3ykhPiXQbEcUpn4GjCtxrrw2BRDGM",
                             aType: 1
                         )
                     ]
@@ -2715,7 +2715,25 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: admobBannerController.prebidConfigId)
             }),
-            
+
+            TestCase(title: "Banner 320x50 (AdMob, Custom Renderer)",
+                     tags: [.banner, .admob, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+
+                let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
+                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
+                admobBannerController.adUnitSize = CGSize(width: 320, height: 50)
+                admobBannerController.prebidConfigId = "prebid-demo-display-banner-320-50-custom-ad-view-renderer"
+                admobBannerController.useSampleCustomRenderer = true
+                adapterVC.setup(adapter: admobBannerController)
+
+                setupCustomParams(for: admobBannerController.prebidConfigId)
+            }),
+
             TestCase(title: "Banner 320x50 Events (AdMob) [OK, OXB Adapter]",
                      tags: [.banner, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -2841,7 +2859,25 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
             }),
-            
+
+            TestCase(title: "Display Interstitial 320x480 (AdMob, Custom Renderer)",
+                     tags: [.interstitial, .admob, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+
+                let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
+                admobInterstitialController.adFormats = [.banner]
+                admobInterstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-custom-interstitial-renderer"
+                admobInterstitialController.useSampleCustomRenderer = true
+                adapterVC.setup(adapter: admobInterstitialController)
+
+                setupCustomParams(for: admobInterstitialController.prebidConfigId)
+            }),
+
             TestCase(title: "Display Interstitial 320x480 (AdMob) [noBids, AdMob Ad]",
                      tags: [.interstitial, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -3461,7 +3497,25 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: maxBannerController.prebidConfigId)
             }),
-            
+
+            TestCase(title: "Banner 320x50 (MAX, Custom Renderer)",
+                     tags: [.banner, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+
+                let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
+                maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
+                maxBannerController.adUnitSize = CGSize(width: 320, height: 50)
+                maxBannerController.prebidConfigId = "prebid-demo-display-banner-320-50-custom-ad-view-renderer"
+                maxBannerController.useSampleCustomRenderer = true
+                adapterVC.setup(adapter: maxBannerController)
+
+                setupCustomParams(for: maxBannerController.prebidConfigId)
+            }),
+
             TestCase(title: "Banner 320x50 Events (MAX) [OK, OXB Adapter]",
                      tags: [.banner, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -3586,7 +3640,25 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: maxInterstitialController.prebidConfigId)
             }),
-            
+
+            TestCase(title: "Display Interstitial 320x480 (MAX, Custom Renderer)",
+                     tags: [.interstitial, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+
+                let maxInterstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
+                maxInterstitialController.adFormats = [.banner]
+                maxInterstitialController.maxAdUnitId = "78f9d445b8a1add7"
+                maxInterstitialController.prebidConfigId = "prebid-demo-display-interstitial-320-480-custom-interstitial-renderer"
+                maxInterstitialController.useSampleCustomRenderer = true
+                adapterVC.setup(adapter: maxInterstitialController)
+
+                setupCustomParams(for: maxInterstitialController.prebidConfigId)
+            }),
+
             TestCase(title: "Display Interstitial 320x480 (MAX) [noBids, MAX Ad]",
                      tags: [.interstitial, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",

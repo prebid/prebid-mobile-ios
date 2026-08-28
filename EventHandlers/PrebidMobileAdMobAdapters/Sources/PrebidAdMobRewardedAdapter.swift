@@ -25,7 +25,7 @@ public class PrebidAdMobRewardedAdapter:
     
     // MARK: - Private Properties
     
-    var interstitialController: InterstitialController?
+    var interstitialController: PrebidMobileInterstitialControllerProtocol?
     weak var rootViewController: UIViewController?
     var adAvailable = false
     
@@ -53,7 +53,7 @@ public class PrebidAdMobRewardedAdapter:
     
     func createInterstitialController(
         with adConfiguration: GoogleMobileAds.MediationRewardedAdConfiguration
-    ) -> Result<InterstitialController, Error> {
+    ) -> Result<PrebidMobileInterstitialControllerProtocol, Error> {
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
             return .failure(AdMobAdaptersError.noServerParameter)
         }
@@ -80,20 +80,30 @@ public class PrebidAdMobRewardedAdapter:
             return .failure(AdMobAdaptersError.noConfigIDInEventExtras)
         }
         
-        let interstitialController = InterstitialController(bid: bid, configId: configId)
-        interstitialController.loadingDelegate = self
-        interstitialController.interactionDelegate = self
-        interstitialController.isRewarded = true
+        let videoControlsConfig = eventExtrasDictionary[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration
+        let videoParameters = eventExtrasDictionary[PBMMediationVideoParameters] as? VideoParameters
+        let renderingConfig = AdUnitConfig(configId: configId)
+        renderingConfig.adConfiguration.isInterstitialAd = true
+        renderingConfig.adConfiguration.isRewarded = true
         
-        if let videoAdConfig = eventExtrasDictionary[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
-            interstitialController.videoControlsConfig = videoAdConfig
+        if let videoControlsConfig = videoControlsConfig {
+            renderingConfig.adConfiguration.videoControlsConfig = videoControlsConfig
         }
         
-        if let videoParameters = eventExtrasDictionary[PBMMediationVideoParameters] as? VideoParameters {
-            interstitialController.videoParameters = videoParameters
+        if let videoParameters = videoParameters {
+            renderingConfig.adConfiguration.videoParameters = videoParameters
         }
         
-        return .success(interstitialController)
+        guard let controller = PluginRendererFactory.createInterstitialController(
+            bid: bid,
+            adConfiguration: renderingConfig,
+            loadingDelegate: self,
+            interactionDelegate: self
+        ) else {
+            return .failure(AdMobAdaptersError.rendererCreationFailed)
+        }
+
+        return .success(controller)
     }
     
     // MARK: - GADMediationRewardedAd

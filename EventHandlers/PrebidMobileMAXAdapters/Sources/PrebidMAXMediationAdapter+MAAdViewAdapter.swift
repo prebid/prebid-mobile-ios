@@ -58,10 +58,21 @@ extension PrebidMAXMediationAdapter:
         }
         
         let frame = CGRect(origin: .zero, size: bid.size)
-        displayView = DisplayView(frame: frame, bid: bid, configId: configId)
-        displayView?.interactionDelegate = self
-        displayView?.loadingDelegate = self
+        let renderingConfig = AdUnitConfig(configId: configId, size: bid.size)
         
+        guard let view = PluginRendererFactory.createBannerView(
+            with: frame,
+            bid: bid,
+            adConfiguration: renderingConfig,
+            loadingDelegate: self,
+            interactionDelegate: self
+        ) else {
+            let error = MAAdapterError(nsError: MAXAdaptersError.rendererCreationFailed)
+            bannerDelegate?.didFailToLoadAdViewAdWithError(error)
+            return
+        }
+
+        displayView = view
         displayView?.loadAd()
     }
     

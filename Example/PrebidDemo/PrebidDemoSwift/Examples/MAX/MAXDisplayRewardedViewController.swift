@@ -15,7 +15,7 @@
 
 import UIKit
 import PrebidMobile
-import PrebidMobileMAXAdapters
+import VeonPrebidMobileMAXAdapters
 import AppLovinSDK
 
 fileprivate let storedImpDisplayRewarded = "prebid-demo-banner-rewarded-time"

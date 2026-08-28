@@ -48,8 +48,8 @@ class GAMRequestWrapper {
     
     // MARK: - Public Wrappers (Properties)
 
-    var customTargeting: [String: String]? {
-        get { request.customTargeting as? [String: String] }
+    var customTargeting: [String: Any]? {
+        get { request.customTargeting as? [String: Any] }
         set { request.customTargeting = newValue }
     }
  

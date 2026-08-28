@@ -68,8 +68,10 @@ public class ExternalUserId: NSObject, JSONConvertible {
 @objcMembers
 public class UserUniqueID: NSObject, JSONConvertible {
     
+    // MARK: - Properties
+
     /// Cookie or platform-native identifier.
-    public var id: String
+    public var uniqueId: String
     
     /// Type of user agent the match is from. It is highly recommended to set this, as many DSPs separate app-native IDs from browser-based IDs and require a type value for ID resolution.
     public var aType: NSNumber
@@ -77,14 +79,16 @@ public class UserUniqueID: NSObject, JSONConvertible {
     /// Optional vendor-specific extensions.
     public var ext: [String: Any]?
     
+    // MARK: - Initialization
+
     /// Initializes a new UserUniqueID object.
     ///
     /// - Parameters:
-    ///   - id: Cookie or platform-native identifier.
+    ///   - uniqueId: Cookie or platform-native identifier.
     ///   - aType: Type of user agent the match is from. Recommended for DSP ID resolution.
     ///   - ext: Optional vendor-specific extensions. Default is `nil`.
-    public init(id: String, aType: NSNumber, ext: [String : Any]? = nil) {
-        self.id = id
+    public init(uniqueId: String, aType: NSNumber, ext: [String : Any]? = nil) {
+        self.uniqueId = uniqueId
         self.aType = aType
         self.ext = ext
     }
@@ -92,7 +96,7 @@ public class UserUniqueID: NSObject, JSONConvertible {
     func toJSONDictionary() -> [String: Any] {
         var ret = [String: Any]()
         
-        ret["id"] = id
+        ret["id"] = uniqueId
         ret["atype"] = aType
         ret["ext"] = ext
         

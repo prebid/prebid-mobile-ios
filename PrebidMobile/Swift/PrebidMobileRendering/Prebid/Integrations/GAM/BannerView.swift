@@ -287,6 +287,7 @@ public class BannerView:
               }
         
         eventHandler.trackImpression()
+        didDisplayAd()
     }
     
     public func viewControllerForModalPresentation(
@@ -328,7 +329,13 @@ public class BannerView:
         
         invokeDelegateSelector(#selector(BannerViewDelegate.bannerViewWillLeaveApplication))
     }
-    
+
+    public func didDisplayAd() {
+        assert(Thread.isMainThread, assertionMessageMainThread)
+        
+        invokeDelegateSelector(#selector(BannerViewDelegate.bannerViewDidDisplay))
+    }
+
     public var viewControllerForPresentingModal: UIViewController? {
         guard let delegate = self.delegate,
               delegate.responds(to: #selector(BannerViewDelegate.bannerViewPresentationController)) else {
@@ -369,6 +376,7 @@ public class BannerView:
             if let displayView = self.deployedView as? DisplayView {
                 displayView.videoPlaybackDelegate = self
             }
+            self.notifyRendererDidInjectView(view)
         }
     }
     
@@ -412,6 +420,19 @@ public class BannerView:
         centerY.priority = .defaultHigh
         
         NSLayoutConstraint.activate([widthConstraint, heightConstraint, centerX, centerY])
+    }
+    
+    // MARK: Renderer notification
+    
+    private func notifyRendererDidInjectView(_ injectedView: UIView) {
+        guard let bid = lastBidResponse?.winningBid else {
+            Log.debug("Failed to find last bid. Skipped final rendering phase.")
+            return
+        }
+        
+        // Notify plugin if it implements this method
+        let plugin = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
+        plugin.didInjectView?(injectedView, into: self)
     }
 }
 

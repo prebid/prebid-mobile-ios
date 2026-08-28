@@ -20,7 +20,6 @@
 #import "PBMMacros.h"
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"
-#import "PBMTouchDownRecognizer.h"
 #import "PBMVideoCreative.h"
 #import "PBMVideoView.h"
 #import "UIView+PBMExtensions.h"
@@ -46,7 +45,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 @property (nonatomic, weak) PBMVideoCreative *creative;
 @property (nonatomic, strong) PBMEventManager *eventManager;
-@property (nonatomic, strong) PBMTouchDownRecognizer *tapdownGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 #pragma mark UI
 
@@ -74,8 +73,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 // This property holds the amount of data that was sent to the player.
 @property (atomic, assign) NSInteger requestedDataLength;
 
-@property (nonatomic, assign) BOOL isPlaybackStarted;
-@property (nonatomic, assign) BOOL isPlaybackFinished;
+@property (nonatomic, assign, readwrite) PBMVideoViewPlaybackState playbackState;
 
 @property (nonatomic, strong, nonnull) NSNumber * progressBarDuration;
 
@@ -152,9 +150,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)setupWithEventManager:(PBMEventManager *)eventManager {
-    self.isPlaybackFinished = NO;
     self.showLearnMore = NO;
-    self.isPlaybackStarted = NO;
+    self.playbackState = PBMVideoViewPlaybackStateUnstarted;
     self.eventManager = eventManager;
     self.accessibilityIdentifier = @"PBMVideoView";
     
@@ -568,10 +565,9 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)btnWatchAgainClick {
-    self.isPlaybackFinished = NO;
-
     [self.avPlayer seekToTime:kCMTimeZero toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
     [self.avPlayer play];
+    self.playbackState = PBMVideoViewPlaybackStatePlaying;
     
     [self.btnWatchAgain removeFromSuperview];
     self.btnWatchAgain = nil;
@@ -610,13 +606,15 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     [self updateControls];
     [self initTimeObserver];
 
+    BOOL isFirstPlayback = self.playbackState == PBMVideoViewPlaybackStateUnstarted;
+
     [self.avPlayer play];
-    
+    self.playbackState = PBMVideoViewPlaybackStatePlaying;
+
     [self handleSkipDelay:self.adConfiguration.videoControlsConfig.skipDelay
             videoDuration:self.creative.creativeModel.displayDurationInSeconds.doubleValue];
 
-    if (!self.isPlaybackStarted) {
-        self.isPlaybackStarted = YES;
+    if (isFirstPlayback) {
         [self trackStartPlaybackEvents];
     }
 }
@@ -646,11 +644,12 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
 
-    if (self.avPlayer.error || self.isPlaybackFinished) {
+    if (self.avPlayer.error || self.playbackState == PBMVideoViewPlaybackStateFinished) {
         return;
     }
-    
+
     [self.avPlayer pause];
+    self.playbackState = PBMVideoViewPlaybackStatePaused;
     [self.eventManager trackEvent:PBMTrackingEventPause];
     if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoDidPause:)]) {
         [self.creative.creativeViewDelegate videoDidPause:self.creative];
@@ -663,15 +662,33 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
 
-    if (self.avPlayer.error || self.isPlaybackFinished) {
+    if (self.avPlayer.error || self.playbackState == PBMVideoViewPlaybackStateFinished) {
         return;
     }
-    
+
     [self.avPlayer play];
+    self.playbackState = PBMVideoViewPlaybackStatePlaying;
     [self.eventManager trackEvent:PBMTrackingEventResume];
     if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoDidResume:)]) {
         [self.creative.creativeViewDelegate videoDidResume:self.creative];
     }
+}
+
+- (void)pauseForVisibilityChange {
+    if (self.playbackState != PBMVideoViewPlaybackStatePlaying) {
+        return;
+    }
+
+    [self pause];
+    self.playbackState = PBMVideoViewPlaybackStatePausedByVisibility;
+}
+
+- (void)resumeAfterVisibilityChange {
+    if (self.playbackState != PBMVideoViewPlaybackStatePausedByVisibility) {
+        return;
+    }
+
+    [self resume];
 }
 
 - (void)stop {
@@ -685,6 +702,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
     
     [self.avPlayer pause];
+    self.playbackState = PBMVideoViewPlaybackStateFinished;
     [self.eventManager trackEvent:trackingEvent];
     [self.videoViewDelegate videoViewCompletedDisplay];
 }
@@ -724,6 +742,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
     
     [self.avPlayer pause];
+    self.playbackState = PBMVideoViewPlaybackStatePaused;
     [self.eventManager trackEvent:trackingEvent];
 }
 
@@ -750,11 +769,20 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)observer_UIApplicationWillResignActive:(NSNotification *)notification {
+    // If the video is not playing (e.g. already paused for a clickthrough overlay),
+    // leave its state untouched - it will be resumed by whoever paused it.
+    if (self.playbackState != PBMVideoViewPlaybackStatePlaying) {
+        return;
+    }
+
     [self pause];
+    self.playbackState = PBMVideoViewPlaybackStatePausedByBackground;
 }
 
 - (void)observer_UIApplicationDidBecomeActive:(NSNotification *)notification {
-    [self resume];
+    if (self.playbackState == PBMVideoViewPlaybackStatePausedByBackground) {
+        [self resume];
+    }
 }
 
 - (void)observer_AVPlayerItemDidPlayToEndTimeNotification:(NSNotification *)notification {
@@ -762,9 +790,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)completeVideoViewDisplayWith:(PBMTrackingEvent)trackingEvent {
-
-    if (!self.isPlaybackFinished ) {
-        self.isPlaybackFinished = YES;
+    if (self.playbackState != PBMVideoViewPlaybackStateFinished) {
+        self.playbackState = PBMVideoViewPlaybackStateFinished;
         [self.eventManager trackEvent:trackingEvent];
     }
     
@@ -791,7 +818,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)handleDidPlayToEndTime {
-    if (self.isPlaybackFinished) {
+    if (self.playbackState == PBMVideoViewPlaybackStateFinished) {
         return;
     }
     
@@ -881,8 +908,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 // pause avPlayer and notify videoViewCompletedDisplay if video reached the VAST Duration
 - (void)stopAdIfNeeded {
-    
-    if (self.isPlaybackFinished) {
+
+    if (self.playbackState == PBMVideoViewPlaybackStateFinished) {
         return;
     }
     
@@ -971,6 +998,22 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     return YES;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (gestureRecognizer != self.tapGestureRecognizer) {
+        return YES;
+    }
+
+    // The video controls (mute, Learn More, Watch Again) handle their own taps
+    // and must not be reported as a click on the ad.
+    for (UIView *view = touch.view; view && view != self; view = view.superview) {
+        if ([view isKindOfClass:[UIControl class]]) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
 #pragma mark - Utilities
 
 - (NSString *)getStringFromCMTime:(CMTime)time {
@@ -999,21 +1042,21 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)setupTapRecognizer {
-    if (self.tapdownGestureRecognizer) {
-        [self removeGestureRecognizer:self.tapdownGestureRecognizer];
+    if (self.tapGestureRecognizer) {
+        [self removeGestureRecognizer:self.tapGestureRecognizer];
     }
     
-    self.tapdownGestureRecognizer = [[PBMTouchDownRecognizer alloc] initWithTarget:self action:@selector(recordTapEvent:)];
-    [self.tapdownGestureRecognizer setCancelsTouchesInView:YES];
-    [self addGestureRecognizer:self.tapdownGestureRecognizer];
-    self.tapdownGestureRecognizer.delegate = self;
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recordTapEvent:)];
+    [self.tapGestureRecognizer setCancelsTouchesInView:NO];
+    [self addGestureRecognizer:self.tapGestureRecognizer];
+    self.tapGestureRecognizer.delegate = self;
 }
 
 - (void)recordTapEvent:(UITapGestureRecognizer *)tap {
-    if (self.tapdownGestureRecognizer != tap) {
+    if (self.tapGestureRecognizer != tap) {
         return;
     }
-    
+
     if (ENABLE_OUTSTREAM_TAP_TO_EXPAND) {
         [self.videoViewDelegate videoViewWasTapped];
     } else {
@@ -1086,6 +1129,5 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     // Return video duration by default
     return [NSNumber numberWithDouble:[self requiredVideoDuration]];
 }
-
 
 @end

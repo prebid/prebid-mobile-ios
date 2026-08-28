@@ -17,6 +17,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "PBMVideoViewDelegate.h"
+#import "PBMVideoViewPlaybackState.h"
 #import "PBMCircularProgressBarView.h"
 
 @class PBMEventManager;
@@ -37,9 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, getter=isMuted) BOOL muted;
 @property (nonatomic, assign) BOOL showLearnMore;
 
-// Indicates that video reached the VAST Duration
-// We must use this flag instead of player’s state to prevent double-stopping of the video due to async work of observers.
-@property (nonatomic, assign, readonly) BOOL isPlaybackFinished;
+@property (nonatomic, assign, readonly) PBMVideoViewPlaybackState playbackState;
 
 @property (nonatomic, assign) BOOL isSoundButtonVisible;
 
@@ -54,6 +53,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startPlayback;
 - (void)pause;
 - (void)resume;
+
+/// Pauses playback because the ad view left the viewport.
+/// Does nothing unless the video is currently playing, so that a pause
+/// made for another reason (clickthrough, background) is not overwritten.
+- (void)pauseForVisibilityChange;
+
+/// Resumes playback that was paused by `pauseForVisibilityChange`.
+/// Does nothing if the video was paused for any other reason.
+- (void)resumeAfterVisibilityChange;
+
 - (void)stop;
 - (void)stopWithTrackingEvent:(PBMTrackingEvent)trackingEvent;
 

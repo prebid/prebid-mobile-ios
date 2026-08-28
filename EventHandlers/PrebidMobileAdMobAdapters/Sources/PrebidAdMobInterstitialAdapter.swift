@@ -26,7 +26,7 @@ public class PrebidAdMobInterstitialAdapter:
     
     // MARK: - Private Properties
     
-    var interstitialController: InterstitialController?
+    var interstitialController: PrebidMobileInterstitialControllerProtocol?
     weak var rootViewController: UIViewController?
     var adAvailable = false
     
@@ -77,10 +77,22 @@ public class PrebidAdMobInterstitialAdapter:
             return
         }
         
-        interstitialController = InterstitialController(bid: bid, configId: configId)
-        interstitialController?.loadingDelegate = self
-        interstitialController?.interactionDelegate = self
+        let renderingConfig = AdUnitConfig(configId: configId)
+        renderingConfig.adConfiguration.isInterstitialAd = true
+        renderingConfig.adConfiguration.isRewarded = false
         
+        guard let controller = PluginRendererFactory.createInterstitialController(
+            bid: bid,
+            adConfiguration: renderingConfig,
+            loadingDelegate: self,
+            interactionDelegate: self
+        ) else {
+            let error = AdMobAdaptersError.rendererCreationFailed
+            delegate = completionHandler(nil, error)
+            return
+        }
+
+        interstitialController = controller
         interstitialController?.loadAd()
     }
     

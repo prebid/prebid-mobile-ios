@@ -129,6 +129,21 @@
         BidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
         
         if (bidResponse && !trasformationError) {
+            if (self.sdkConfiguration.requireServerSideBidCache) {
+                NSInteger bidCount = bidResponse.allBids.count;
+                NSInteger removedBids = [bidResponse removeBidsWithoutSuccessfulCache];
+                if (removedBids > 0) {
+                    PBMLogWarn(@"Ignored %ld bids without successful Prebid Cache entries.", (long)removedBids);
+                }
+                if (!bidResponse.winningBid) {
+                    NSError *error = bidCount > 0 && bidCount == removedBids ? PBMError.noCachedBids : PBMError.noWinningBid;
+                    completion(nil, error);
+                    [Prebid.shared callEventDelegateAsync_prebidBidRequestDidFinishWithRequestData:rtbRequestData
+                                                                                       responseData:serverResponse.rawData];
+                    return;
+                }
+            }
+            
             NSNumber * const tmaxrequest = bidResponse.tmaxrequest;
             if (tmaxrequest) {
                 NSDate * const responseDate = [NSDate date];

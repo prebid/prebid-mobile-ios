@@ -16,7 +16,7 @@
 import UIKit
 import PrebidMobile
 import GoogleMobileAds
-import PrebidMobileAdMobAdapters
+import VeonPrebidMobileAdMobAdapters
 
 fileprivate let storedImpVideoBanner = "prebid-demo-video-outstream"
 fileprivate let adMobAdUnitDisplayBannerRendering = "ca-app-pub-5922967660082475/9483570409"

@@ -25,6 +25,8 @@ class PrebidAdMobRewardedViewController:
         FullScreenContentDelegate {
     
     var prebidConfigId = ""
+    var storedAuctionResponse: String?
+    var useSampleCustomRenderer = false
 
     var adMobAdUnitId = ""
     
@@ -43,6 +45,7 @@ class PrebidAdMobRewardedViewController:
     
     private var adUnit: MediationRewardedAdUnit?
     private var mediationDelegate: AdMobMediationRewardedUtils?
+    private var sampleCustomRenderer: SampleRenderer?
     
     var request = Request()
     
@@ -52,18 +55,34 @@ class PrebidAdMobRewardedViewController:
         setupAdapterController()
     }
     
+    deinit {
+        if let sampleCustomRenderer = sampleCustomRenderer {
+            Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        }
+    }
+
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
     
     func loadAd() {
+        registerSampleCustomRendererIfNeeded()
+
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
+        if let storedAuctionResponse = storedAuctionResponse {
+            Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        }
+        
         adUnit?.fetchDemand { [weak self] result in
+            if self?.storedAuctionResponse != nil {
+                Prebid.shared.storedAuctionResponse = nil
+            }
+
             guard let self = self else { return }
             RewardedAd.load(with: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
@@ -149,5 +168,13 @@ class PrebidAdMobRewardedViewController:
                 print("User rewarded")
             })
         }
+    }
+
+    private func registerSampleCustomRendererIfNeeded() {
+        guard useSampleCustomRenderer, sampleCustomRenderer == nil else { return }
+
+        let renderer = SampleRenderer()
+        Prebid.registerPluginRenderer(renderer)
+        sampleCustomRenderer = renderer
     }
 }
