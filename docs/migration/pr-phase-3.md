@@ -156,6 +156,9 @@ fallbacks, and the iOS 14 `atts` override of `lmt`.
 - [x] Review round 1: `PrebidMobilePRTests` plan re-run after the fixes — **813 tests, 0
       failures**. 811 + the two new `SkadnParameterBuilderTest` cases; the two new
       `InternalUserConsentDataManagerTests` cases are skipped by that plan (see note below)
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` re-run after the `SetupTests` user-agent
+      seeding (see "CI flake fixed in passing" below) — **813 tests, 0 failures, no retries** on a
+      simulator the script creates from scratch, i.e. the same cold-WebKit state as CI
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite, run before merge
 - [ ] Reviewer: confirm the phase boundary in "Scope" above — is Phase 3 complete, or is
       `PBMTrackingRecord` / `PBMURLComponents` an S3.3?
@@ -178,6 +181,44 @@ quick subset would mean un-skipping a class that was deliberately excluded.
 | `buildOpenRTB(for:)` error path returns `[:]`, not `["openrtb": ""]` | Divergence 3 corrected; `testAppendBuilderParametersWitError` now captures the result and asserts `isEmpty`. |
 | `gppSID` crash-to-skip needs a regression test; `testIABGPPSID_Unset` asserted the wrong property | Added `testIABGPPSID_Malformed` (`"2_bad_5"` → `[2, 5]`) and `testIABGPPSID_EmptyString` (covers the `isEmpty` early return). `testIABGPPSID_Unset` called `assertIABGPPString(nil)` — a copy-paste of the `gppHDRString` test that never touched `gppSID`; it now asserts `assertIABGPPSID([])`. |
 | `skAdNetworkIds()` divergence is only covered through the mock override | Added `testSKAdNetworkIds_SkipsMalformedEntries`, which drives the real parse via a new `MockBundle.mockSKAdNetworkItems` seam over a plist array holding a valid entry, an empty entry, a wrong-type (`Int`) identifier and a wrong-key entry, and asserts both `skAdNetworkIds()` and the resulting `imp.ext.skadn.skadnetids`. Also `testSKAdNetworkIds_NilInfoDictionary` for the `infoDictionary == nil` branch. `SKAdNetworkItemsKey` / `SKAdNetworkIdentifierKey` lost their `private` so the mock can key off them, matching `AppInfoParameterBuilder.bundleNameKey`. |
+
+## CI flake fixed in passing — `SetupTests` user-agent seeding
+
+The first CI run of this branch failed `PBMBidRequesterTest` (9 cases × 3 retry iterations) plus
+`PBMVastLoaderCheckForAds.testNegativeThreeResponsesNoAdsOnLast`, all with
+`Asynchronous wait failed: Exceeded timeout of 5 seconds`. **Not caused by this PR** — nothing here
+touches `PBMBidRequester`'s request path or `PBMBidRequesterTest` (`git diff master...HEAD` on that
+test file is empty). The mechanism, from the job log
+([run 33369608203](https://github.com/prebid/prebid-mobile-ios/actions/runs/33369608203/job/99422686045)):
+
+- `PBMBidRequester -requestBidsWithCompletion:` awaits `PBMUserAgentService.shared`
+  `fetchUserAgentWithCompletion:` before **every** request — including the ones that only return a
+  validation error, which is why `testBanner_invalidConfigID_noRequest` timed out too.
+- `UserAgentService.fetchUserAgent` resolves the UA by creating a `WKWebView` and calling
+  `evaluateJavaScript("navigator.userAgent")`, with no timeout and no de-duplication.
+- On that runner WebKit's helper processes stalled: `GPU process took 173.98 seconds to launch`,
+  `Networking process took 177.86 seconds`, and 30 `WebContent process took N seconds` lines. The
+  suite started at 08:09:16 and the UA only resolved at 08:11:26; the first case to run *after*
+  that passed in 0.029 s.
+- The same stall is present in the **passing** phase-012 run (`GPU process took 56.79 seconds`) —
+  there it merely finished before `PBMBidRequesterTest` was reached. So the pass/fail outcome is a
+  race between WebKit warm-up and how fast the runner reaches the suite.
+
+Fix, in `PrebidMobileTests/RenderingTests/SetupTests.swift` (the test bundle's `NSPrincipalClass`,
+instantiated before any test runs):
+
+1. **Seed the persisted user agent** via `UserAgentDefaults` when it is empty, so
+   `UserAgentService.shared` starts with a non-empty `userAgent` and `fetchUserAgent` returns
+   synchronously without ever touching WebKit. No test asserts on
+   `UserAgentService.shared.userAgent` (the parameter-builder tests use `MockUserAgentService`), and
+   `UserAgentServiceTest` still exercises the real `WKWebView` path through its own instances.
+2. **Keep the WebKit warm-up** with a throwaway fire-and-forget `WKWebView`. Seeding otherwise
+   removes the side effect — `UserAgentService.shared`'s initializer creating a `WKWebView` at
+   bundle load — that the WebKit-dependent suites were implicitly relying on; without it
+   `UserAgentServiceTest.testMultipleCalls` (10 s budget) started failing on a cold simulator.
+
+Verified by erasing the simulator between runs to reproduce a cold WebKit: before the change the
+9 CI-failing cases time out locally too, after it they pass in 1–75 ms each.
 
 ## Notes for the reviewer
 
