@@ -31,6 +31,10 @@
       "reason": "Public type with no test reference when the guard landed."
     },
     {
+      "entry": "DeviceAccessManagerKeys",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
       "entry": "DisplayViewVideoPlaybackDelegate",
       "reason": "Public type with no test reference when the guard landed."
     },
@@ -56,6 +60,22 @@
     },
     {
       "entry": "InterstitialEventLoadingDelegate",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "MRAIDCloseButtonPosition",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "MRAIDCloseButtonSize",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "MRAIDParseKeys",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "MRAIDValues",
       "reason": "Public type with no test reference when the guard landed."
     },
     {
@@ -95,12 +115,28 @@
       "reason": "Public type with no test reference when the guard landed."
     },
     {
+      "entry": "ORTBAppExt",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "ORTBAppExtPrebid",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "ORTBDeviceExtPrebid",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "ORTBDeviceExtPrebidInterstitial",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
       "entry": "ORTBNoBidReasonCode",
       "reason": "ORTB response enum with no test reference; the no-bid path is untested overall."
     },
     {
-      "entry": "PBMJsonDecodable",
-      "reason": "Internal-shaped protocol that is public only for ObjC bridging; also grandfathered in api-naming."
+      "entry": "ORTBRendererConfig",
+      "reason": "Public type with no test reference when the guard landed."
     },
     {
       "entry": "PBMORTBNoBidReason",
@@ -136,6 +172,18 @@
     },
     {
       "entry": "SkadnEventTracker",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "TimerInterface",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "WKScriptMessageHandlerLeakAvoider",
+      "reason": "Public type with no test reference when the guard landed."
+    },
+    {
+      "entry": "WeakTimerTargetBox",
       "reason": "Public type with no test reference when the guard landed."
     }
   ]

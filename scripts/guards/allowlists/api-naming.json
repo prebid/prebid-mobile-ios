@@ -7,6 +7,54 @@
       "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
     },
     {
+      "entry": "func PBMAddBottomLeftConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddBottomRightConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddBottomRightConstraintsWithMarginSize",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddCropAndCenterConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddTopLeftConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddTopRightConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMdoesMatch",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMnumberOfMatches",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMstringByReplacingRegex",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMsubstringFromIndex",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMsubstringFromString",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMsubstringToString",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
       "entry": "let PBM_ORIGINAL_ADUNIT_KEY",
       "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
     },
@@ -36,6 +84,14 @@
     },
     {
       "entry": "protocol PBMJsonEncodable",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "protocol PBMUIApplicationProtocol",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "typealias PBMDownloadDataCompletionClosure",
       "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
     },
     {

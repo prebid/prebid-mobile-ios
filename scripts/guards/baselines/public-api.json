@@ -20,14 +20,19 @@
         "BidInfo": 1,
         "BidResponse": 1,
         "CacheManager": 1,
+        "CircularProgressBarLayer": 1,
+        "CircularProgressBarView": 1,
         "ContextSubType": 1,
         "ContextType": 1,
         "CustomModelObjects": 1,
         "DateFormatService": 1,
+        "DeepLinkPlus": 1,
         "DefaultPluginEventDelegate": 1,
         "DemandResponseInfo": 1,
         "DeviceAccessManager": 1,
+        "DeviceAccessManagerKeys": 1,
         "DisplayView": 1,
+        "DownloadDataHelper": 1,
         "EventManager": 1,
         "EventTracking": 1,
         "EventType": 1,
@@ -48,6 +53,13 @@
         "LocationManager": 1,
         "Log": 1,
         "LogLevel": 1,
+        "MRAIDCloseButtonPosition": 1,
+        "MRAIDCloseButtonSize": 1,
+        "MRAIDConstants": 1,
+        "MRAIDExpandProperties": 1,
+        "MRAIDParseKeys": 1,
+        "MRAIDResizeProperties": 1,
+        "MRAIDValues": 1,
         "MediationBannerAdUnit": 1,
         "MediationBaseInterstitialAdUnit": 1,
         "MediationBidInfoWrapper": 1,
@@ -75,17 +87,37 @@
         "NativeRequest": 1,
         "NativeTitle": 1,
         "ORTBAdConfiguration": 1,
+        "ORTBApp": 1,
         "ORTBAppContent": 1,
+        "ORTBAppExt": 1,
+        "ORTBAppExtPrebid": 1,
+        "ORTBBanner": 1,
         "ORTBBidExtSkadn": 1,
         "ORTBBidExtSkadnSKOverlay": 1,
+        "ORTBBidRequest": 1,
+        "ORTBBidRequestExtPrebid": 1,
         "ORTBBidResponseExt": 1,
         "ORTBBidResponseExtPrebid": 1,
         "ORTBContentData": 1,
         "ORTBContentProducer": 1,
         "ORTBContentSegment": 1,
+        "ORTBDeal": 1,
+        "ORTBDevice": 1,
+        "ORTBDeviceExtAtts": 1,
+        "ORTBDeviceExtPrebid": 1,
+        "ORTBDeviceExtPrebidInterstitial": 1,
         "ORTBExtPrebidEvents": 1,
         "ORTBExtPrebidPassthrough": 1,
+        "ORTBFormat": 1,
+        "ORTBGeo": 1,
+        "ORTBImp": 1,
+        "ORTBImpExtPrebid": 1,
+        "ORTBImpExtSkadn": 1,
         "ORTBNative": 1,
+        "ORTBPmp": 1,
+        "ORTBPublisher": 1,
+        "ORTBRegs": 1,
+        "ORTBRendererConfig": 1,
         "ORTBRewardedClose": 1,
         "ORTBRewardedCompletion": 1,
         "ORTBRewardedCompletionBanner": 1,
@@ -95,6 +127,10 @@
         "ORTBRewardedReward": 1,
         "ORTBSDKConfiguration": 1,
         "ORTBSkadnFidelity": 1,
+        "ORTBSource": 1,
+        "ORTBSourceExtOMID": 1,
+        "ORTBUser": 1,
+        "ORTBVideo": 1,
         "PBMORTBNoBidReason": 1,
         "PathBuilder": 1,
         "PlacementType": 1,
@@ -132,7 +168,9 @@
         "VideoControlsConfiguration": 1,
         "VideoParameters": 1,
         "VideoVerificationParameters": 1,
-        "VideoVerificationResource": 1
+        "VideoVerificationResource": 1,
+        "WKScriptMessageHandlerLeakAvoider": 1,
+        "WeakTimerTargetBox": 1
       },
       "enum": {
         "AdPosition": 1,
@@ -193,6 +231,7 @@
         "OMSessionWrapper": 1,
         "PBMJsonDecodable": 1,
         "PBMJsonEncodable": 1,
+        "PBMUIApplicationProtocol": 1,
         "PluginEventDelegate": 1,
         "PrebidEventDelegate": 1,
         "PrebidLogger": 1,
@@ -205,10 +244,12 @@
         "RewardedAdUnitDelegate": 1,
         "RewardedEventHandlerProtocol": 1,
         "RewardedEventInteractionDelegate": 1,
+        "TimerInterface": 1,
         "VideoBasedAdUnitProtocol": 1
       },
       "typealias": {
         "AdMarkupStringHandler": 1,
+        "PBMDownloadDataCompletionClosure": 1,
         "PBMNetworkReachableBlock": 1,
         "PrebidInitializationCallback": 1,
         "PrebidJSLibraryContentsCallback": 1,
@@ -666,6 +707,61 @@
         "shared": 1
       }
     },
+    "CircularProgressBarLayer": {
+      "func": {
+        "draw": 1,
+        "needsDisplay": 1
+      },
+      "var": {
+        "animationDuration": 1,
+        "countdown": 1,
+        "emptyLineColor": 1,
+        "emptyLineStrokeColor": 1,
+        "emptyLineWidth": 1,
+        "fontColor": 1,
+        "maxValue": 1,
+        "progressAngle": 1,
+        "progressColor": 1,
+        "progressLinePadding": 1,
+        "progressLineWidth": 1,
+        "progressRotationAngle": 1,
+        "showValueString": 1,
+        "unitFontSize": 1,
+        "value": 1,
+        "valueFontName": 1,
+        "valueFontSize": 1
+      }
+    },
+    "CircularProgressBarView": {
+      "func": {
+        "updateProgress": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "borderPadding": 1,
+        "countdown": 1,
+        "duration": 1,
+        "emptyCapType": 1,
+        "emptyLineColor": 1,
+        "emptyLineStrokeColor": 1,
+        "emptyLineWidth": 1,
+        "fontColor": 1,
+        "layerClass": 1,
+        "maxValue": 1,
+        "progressAngle": 1,
+        "progressColor": 1,
+        "progressLinePadding": 1,
+        "progressLineWidth": 1,
+        "progressRotationAngle": 1,
+        "showValueString": 1,
+        "textOffset": 1,
+        "value": 1,
+        "valueFontName": 1,
+        "valueFontSize": 1
+      }
+    },
     "ClickbrowserType": {
       "case": {
         "embedded": 1,
@@ -759,6 +855,20 @@
         "shared": 1
       }
     },
+    "DeepLinkPlus": {
+      "func": {
+        "deepLinkPlus": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "let": {
+        "fallbackTrackingURLs": 1,
+        "fallbackURL": 1,
+        "primaryTrackingURLs": 1,
+        "primaryURL": 1
+      }
+    },
     "DefaultPluginEventDelegate": {
       "func": {
         "getPluginName": 1
@@ -793,6 +903,29 @@
         "platformString": 1,
         "rootViewController": 1,
         "userLangaugeCode": 1
+      }
+    },
+    "DeviceAccessManagerKeys": {
+      "let": {
+        "DAILY": 1,
+        "DAYS_IN_MONTH": 1,
+        "DAYS_IN_WEEK": 1,
+        "DAYS_IN_YEAR": 1,
+        "DESCRIPTION": 1,
+        "END": 1,
+        "EXPIRES": 1,
+        "FREQUENCY": 1,
+        "INTERVAL": 1,
+        "LOCATION": 1,
+        "MONTHLY": 1,
+        "MONTHS_IN_YEAR": 1,
+        "RECURRENCE": 1,
+        "REMINDER": 1,
+        "START": 1,
+        "SUMMARY": 1,
+        "TRANSPARENCY": 1,
+        "TRANSPARENT": 1,
+        "WEEKLY": 1
       }
     },
     "DisplayView": {
@@ -851,6 +984,14 @@
         "videoPlaybackDidResume": 1,
         "videoPlaybackWasMuted": 1,
         "videoPlaybackWasUnmuted": 1
+      }
+    },
+    "DownloadDataHelper": {
+      "func": {
+        "downloadData": 2
+      },
+      "init": {
+        "init": 1
       }
     },
     "EventManager": {
@@ -925,7 +1066,32 @@
     },
     "Functions": {
       "func": {
-        "checkCertificateChallenge": 1
+        "attemptToOpen": 2,
+        "canLoadVideoAd": 1,
+        "checkCertificateChallenge": 1,
+        "clamp": 1,
+        "clampAutoRefresh": 1,
+        "clampInt": 1,
+        "dictionariesForPassthrough": 1,
+        "dictionaryFromData": 1,
+        "dictionaryFromJSONString": 1,
+        "dispatchTimeAfterTimeInterval": 2,
+        "extractVideoAdParams": 1,
+        "infoPlistValue": 1,
+        "safeAreaInsets": 1,
+        "statusBarHeight": 1,
+        "toStringJsonDictionary": 1
+      },
+      "var": {
+        "application": 1,
+        "bundleForSDK": 1,
+        "deviceMaxSize": 1,
+        "deviceScreenSize": 1,
+        "isSimulator": 1,
+        "safeAreaInsets": 1,
+        "sdkVersion": 1,
+        "statusBarHeight": 1,
+        "supportedSKAdNetworkVersions": 1
       }
     },
     "HiddenWebViewManager": {
@@ -1145,6 +1311,7 @@
         "closeButtonArea": 1,
         "closeButtonPosition": 1,
         "delegate": 1,
+        "isAutoCloseOnCompletionEnabled": 1,
         "isMuted": 1,
         "isReady": 1,
         "isSoundButtonVisible": 1,
@@ -1209,6 +1376,64 @@
         "stringValue": 1
       }
     },
+    "MRAIDCloseButtonPosition": {
+      "let": {
+        "BOTTOM_CENTER": 1,
+        "BOTTOM_LEFT": 1,
+        "BOTTOM_RIGHT": 1,
+        "CENTER": 1,
+        "TOP_CENTER": 1,
+        "TOP_LEFT": 1,
+        "TOP_RIGHT": 1
+      }
+    },
+    "MRAIDCloseButtonSize": {
+      "let": {
+        "HEIGHT": 1,
+        "WIDTH": 1
+      }
+    },
+    "MRAIDConstants": {
+      "let": {
+        "mraidURLScheme": 1
+      },
+      "var": {
+        "allCases": 1
+      }
+    },
+    "MRAIDExpandProperties": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "height": 1,
+        "width": 1
+      }
+    },
+    "MRAIDParseKeys": {
+      "let": {
+        "ALLOW_OFFSCREEN": 1,
+        "FORCE_ORIENTATION": 1,
+        "HEIGHT": 1,
+        "WIDTH": 1,
+        "X": 1,
+        "X_OFFSET": 1,
+        "Y": 1,
+        "Y_OFFSET": 1
+      }
+    },
+    "MRAIDResizeProperties": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "allowOffscreen": 1,
+        "height": 1,
+        "offsetX": 1,
+        "offsetY": 1,
+        "width": 1
+      }
+    },
     "MRAIDState": {
       "func": {
         "isEqual": 1
@@ -1231,6 +1456,12 @@
         "debugDescription": 1,
         "description": 1,
         "rawValue": 1
+      }
+    },
+    "MRAIDValues": {
+      "let": {
+        "LANDSCAPE": 1,
+        "PORTRAIT": 1
       }
     },
     "MediationBannerAdUnit": {
@@ -1292,6 +1523,7 @@
         "adFormats": 1,
         "additionalSizes": 1,
         "configId": 1,
+        "isAutoCloseOnCompletionEnabled": 1,
         "skipButtonArea": 1,
         "skipButtonPosition": 1,
         "skipDelay": 1
@@ -1387,9 +1619,38 @@
         "supportedInterfaceOrientations": 1
       }
     },
+    "NSDictionary": {
+      "func": {
+        "nullIfEmpty": 1
+      }
+    },
+    "NSException": {
+      "func": {
+        "pbmException": 1
+      }
+    },
+    "NSMutableDictionary": {
+      "func": {
+        "pbmCopyWithoutEmptyVals": 1,
+        "pbmRemoveEmptyVals": 1
+      }
+    },
     "NSString": {
+      "func": {
+        "PBMdoesMatch": 1,
+        "PBMnumberOfMatches": 1,
+        "PBMstringByReplacingRegex": 1,
+        "PBMsubstringFromIndex": 1,
+        "PBMsubstringFromString": 2,
+        "PBMsubstringToString": 1
+      },
       "var": {
         "base64DecodedImage": 1
+      }
+    },
+    "NSURL": {
+      "func": {
+        "pbmURLWithoutEncoding": 1
       }
     },
     "NativeAd": {
@@ -1694,12 +1955,36 @@
       "var": {
         "closeButtonArea": 1,
         "closeButtonPosition": 1,
+        "isAutoCloseOnCompletionEnabled": 1,
         "isMuted": 1,
         "jsonDictionary": 1,
         "maxVideoDuration": 1,
         "skipButtonArea": 1,
         "skipButtonPosition": 1,
         "skipDelay": 1
+      }
+    },
+    "ORTBApp": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "bundle": 1,
+        "cat": 1,
+        "content": 1,
+        "domain": 1,
+        "ext": 1,
+        "id": 1,
+        "jsonDictionary": 1,
+        "keywords": 1,
+        "name": 1,
+        "pagecat": 1,
+        "paid": 1,
+        "privacypolicy": 1,
+        "publisher": 1,
+        "sectioncat": 1,
+        "storeurl": 1,
+        "ver": 1
       }
     },
     "ORTBAppContent": {
@@ -1733,6 +2018,37 @@
         "title": 1,
         "url": 1,
         "userrating": 1
+      }
+    },
+    "ORTBAppExt": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "data": 1,
+        "jsonDictionary": 1,
+        "prebid": 1
+      }
+    },
+    "ORTBAppExtPrebid": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "jsonDictionary": 1,
+        "source": 1,
+        "version": 1
+      }
+    },
+    "ORTBBanner": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "api": 1,
+        "format": 1,
+        "jsonDictionary": 1,
+        "pos": 1
       }
     },
     "ORTBBid": {
@@ -1769,6 +2085,42 @@
         "endcarddelay": 1,
         "jsonDictionary": 1,
         "pos": 1
+      }
+    },
+    "ORTBBidRequest": {
+      "func": {
+        "copy": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "app": 1,
+        "device": 1,
+        "extPrebid": 1,
+        "imp": 1,
+        "jsonDictionary": 1,
+        "regs": 1,
+        "requestID": 1,
+        "source": 1,
+        "test": 1,
+        "tmax": 1,
+        "user": 1
+      }
+    },
+    "ORTBBidRequestExtPrebid": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "cache": 1,
+        "dataBidders": 1,
+        "jsonDictionary": 1,
+        "sdkRenderers": 1,
+        "storedAuctionResponse": 1,
+        "storedBidResponses": 1,
+        "storedRequestID": 1,
+        "targeting": 1
       }
     },
     "ORTBBidResponseExt": {
@@ -1828,6 +2180,86 @@
         "value": 1
       }
     },
+    "ORTBDeal": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "at": 1,
+        "bidfloor": 1,
+        "bidfloorcur": 1,
+        "id": 1,
+        "jsonDictionary": 1,
+        "wadomain": 1,
+        "wseat": 1
+      }
+    },
+    "ORTBDevice": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "carrier": 1,
+        "connectiontype": 1,
+        "devicetype": 1,
+        "didmd5": 1,
+        "didsha1": 1,
+        "dpidmd5": 1,
+        "dpidsha1": 1,
+        "extAtts": 1,
+        "extPrebid": 1,
+        "flashver": 1,
+        "geo": 1,
+        "geofetch": 1,
+        "h": 1,
+        "hwv": 1,
+        "ifa": 1,
+        "js": 1,
+        "jsonDictionary": 1,
+        "language": 1,
+        "lmt": 1,
+        "macmd5": 1,
+        "macsha1": 1,
+        "make": 1,
+        "mccmnc": 1,
+        "model": 1,
+        "os": 1,
+        "osv": 1,
+        "ppi": 1,
+        "pxratio": 1,
+        "ua": 1,
+        "w": 1
+      }
+    },
+    "ORTBDeviceExtAtts": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "atts": 1,
+        "ifv": 1,
+        "jsonDictionary": 1
+      }
+    },
+    "ORTBDeviceExtPrebid": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "interstitial": 1,
+        "jsonDictionary": 1
+      }
+    },
+    "ORTBDeviceExtPrebidInterstitial": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "jsonDictionary": 1,
+        "minheightperc": 1,
+        "minwidthperc": 1
+      }
+    },
     "ORTBExtPrebidEvents": {
       "init": {
         "init": 2
@@ -1848,6 +2280,90 @@
         "rewardedConfiguration": 1,
         "sdkConfiguration": 1,
         "type": 1
+      }
+    },
+    "ORTBFormat": {
+      "func": {
+        "isEqual": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "h": 1,
+        "hash": 1,
+        "hratio": 1,
+        "jsonDictionary": 1,
+        "w": 1,
+        "wmin": 1,
+        "wratio": 1
+      }
+    },
+    "ORTBGeo": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "accuracy": 1,
+        "city": 1,
+        "country": 1,
+        "jsonDictionary": 1,
+        "lastfix": 1,
+        "lat": 1,
+        "lon": 1,
+        "metro": 1,
+        "region": 1,
+        "regionfips104": 1,
+        "type": 1,
+        "utcoffset": 1,
+        "zip": 1
+      }
+    },
+    "ORTBImp": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "banner": 1,
+        "clickbrowser": 1,
+        "displaymanager": 1,
+        "displaymanagerver": 1,
+        "extData": 1,
+        "extGPID": 1,
+        "extKeywords": 1,
+        "extPrebid": 1,
+        "extSkadn": 1,
+        "impID": 1,
+        "instl": 1,
+        "jsonDictionary": 1,
+        "native": 1,
+        "pmp": 1,
+        "rewarded": 1,
+        "secure": 1,
+        "tagid": 1,
+        "video": 1
+      }
+    },
+    "ORTBImpExtPrebid": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "isRewardedInventory": 1,
+        "jsonDictionary": 1,
+        "storedAuctionResponse": 1,
+        "storedRequestID": 1
+      }
+    },
+    "ORTBImpExtSkadn": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "jsonDictionary": 1,
+        "skadnetids": 1,
+        "skoverlay": 1,
+        "sourceapp": 1
       }
     },
     "ORTBMacrosHelper": {
@@ -1883,6 +2399,50 @@
         "unknownError": 1,
         "unmatchedUser": 1,
         "unsupportedDevice": 1
+      }
+    },
+    "ORTBPmp": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "deals": 1,
+        "jsonDictionary": 1,
+        "private_auction": 1
+      }
+    },
+    "ORTBPublisher": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "cat": 1,
+        "domain": 1,
+        "jsonDictionary": 1,
+        "name": 1,
+        "publisherID": 1
+      }
+    },
+    "ORTBRegs": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "coppa": 1,
+        "ext": 1,
+        "gpp": 1,
+        "gppSID": 1,
+        "jsonDictionary": 1
+      }
+    },
+    "ORTBRendererConfig": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "data": 1,
+        "name": 1,
+        "version": 1
       }
     },
     "ORTBRewardedClose": {
@@ -1980,6 +2540,72 @@
         "timestamp": 1
       }
     },
+    "ORTBSource": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "extOMID": 1,
+        "fd": 1,
+        "jsonDictionary": 1,
+        "pchain": 1,
+        "tid": 1
+      }
+    },
+    "ORTBSourceExtOMID": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "jsonDictionary": 1,
+        "omidpn": 1,
+        "omidpv": 1
+      }
+    },
+    "ORTBUser": {
+      "func": {
+        "appendEids": 1
+      },
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "customdata": 1,
+        "data": 1,
+        "ext": 1,
+        "geo": 1,
+        "jsonDictionary": 1,
+        "keywords": 1,
+        "userid": 1
+      }
+    },
+    "ORTBVideo": {
+      "init": {
+        "init": 2
+      },
+      "var": {
+        "api": 1,
+        "battr": 1,
+        "delivery": 1,
+        "h": 1,
+        "jsonDictionary": 1,
+        "linearity": 1,
+        "maxbitrate": 1,
+        "maxduration": 1,
+        "mimes": 1,
+        "minbitrate": 1,
+        "minduration": 1,
+        "placement": 1,
+        "playbackend": 1,
+        "playbackmethod": 1,
+        "plcmt": 1,
+        "pos": 1,
+        "protocols": 1,
+        "skip": 1,
+        "startdelay": 1,
+        "w": 1
+      }
+    },
     "OpenMeasurementFriendlyObstructionPurpose": {
       "case": {
         "modalViewControllerClose": 1,
@@ -2043,6 +2669,17 @@
     "PBMORTBNoBidReason": {
       "func": {
         "noBidReason": 1
+      }
+    },
+    "PBMUIApplicationProtocol": {
+      "func": {
+        "open": 1
+      },
+      "var": {
+        "isStatusBarHidden": 1,
+        "pbmKeyWindow": 1,
+        "statusBarFrame": 1,
+        "statusBarOrientation": 1
       }
     },
     "PathBuilder": {
@@ -2767,6 +3404,16 @@
         "userExt": 1
       }
     },
+    "Timer": {
+      "func": {
+        "pbmScheduledTimerFactory": 1
+      }
+    },
+    "TimerInterface": {
+      "func": {
+        "invalidate": 1
+      }
+    },
     "TrackingEvent": {
       "case": {
         "acceptInvitation": 1,
@@ -2807,9 +3454,29 @@
         "getEvent": 1
       }
     },
+    "UIApplication": {
+      "var": {
+        "pbmKeyWindow": 1
+      }
+    },
     "UIView": {
       "func": {
-        "allSubViewsOf": 1
+        "PBMAddBottomLeftConstraints": 1,
+        "PBMAddBottomRightConstraints": 1,
+        "PBMAddBottomRightConstraintsWithMarginSize": 1,
+        "PBMAddCropAndCenterConstraints": 1,
+        "PBMAddTopLeftConstraints": 1,
+        "PBMAddTopRightConstraints": 1,
+        "allSubViewsOf": 1,
+        "logViewHierarchy": 1,
+        "pbmIsVisibleInView": 1
+      }
+    },
+    "UIWindow": {
+      "func": {
+        "appVisibleViewController": 1,
+        "getVisibleViewControllerFrom": 1,
+        "visibleViewController": 1
       }
     },
     "UserAgentService": {
@@ -2868,6 +3535,7 @@
       "var": {
         "closeButtonArea": 1,
         "closeButtonPosition": 1,
+        "isAutoCloseOnCompletionEnabled": 1,
         "isMuted": 1,
         "isSoundButtonVisible": 1,
         "skipButtonArea": 1,
@@ -2921,6 +3589,57 @@
         "vendorKey": 1
       }
     },
+    "ViewExposureChecker": {
+      "func": {
+        "exposure": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "exposure": 1
+      }
+    },
+    "ViewExposureImpl": {
+      "func": {
+        "isEqual": 1,
+        "serialize": 1,
+        "zeroExposure": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "let": {
+        "exposureFactor": 1,
+        "occlusionRectangles": 1,
+        "visibleRectangle": 1
+      },
+      "var": {
+        "description": 1,
+        "exposedPercentage": 1,
+        "hash": 1
+      }
+    },
+    "WKScriptMessageHandlerLeakAvoider": {
+      "func": {
+        "userContentController": 1
+      },
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "delegate": 1
+      }
+    },
+    "WeakTimerTargetBox": {
+      "func": {
+        "onTimerFired": 1,
+        "scheduledTimerFactory": 1
+      },
+      "init": {
+        "init": 1
+      }
+    },
     "[String": {
       "init": {
         "init": 1
@@ -2946,7 +3665,9 @@
         "ORTBMacrosHelper": 1,
         "PBMError": 1,
         "PBMErrorType": 1,
-        "TrackingEventDescription": 1
+        "TrackingEventDescription": 1,
+        "ViewExposureChecker": 1,
+        "ViewExposureImpl": 1
       },
       "enum": {
         "PBMErrorCode": 1
@@ -3232,6 +3953,9 @@
         "addConstraints": 1,
         "addFillSuperviewConstraints": 1,
         "isVisible": 2
+      },
+      "var": {
+        "viewExposure": 1
       }
     },
     "ViewExposure": {
@@ -3273,13 +3997,6 @@
     "interface": {
       "InternalUserConsentDataManager": 1,
       "NSBundle()": 1,
-      "NSDictionary(PBMExtensions)": 1,
-      "NSException(PBMExtensions)": 1,
-      "NSMutableDictionary(Clear)": 1,
-      "NSString(PBMExtensions)": 1,
-      "NSTimer(PBMScheduledTimerFactory)": 1,
-      "NSTimer(PBMTimerInterface)": 1,
-      "NSURL(PBMExtensions)": 1,
       "PBMAbstractCreative_Objc": 1,
       "PBMAbstractCreative_Objc(Protected)": 1,
       "PBMAdLoadFlowController_Objc": 1,
@@ -3292,67 +4009,28 @@
       "PBMBidRequester": 1,
       "PBMBidRequesterFactory": 1,
       "PBMBidResponseTransformer": 1,
-      "PBMCircularProgressBarLayer": 1,
-      "PBMCircularProgressBarView": 1,
       "PBMCreativeFactory": 1,
       "PBMCreativeFactoryJob": 1,
       "PBMCreativeModelCollectionMakerVAST": 1,
-      "PBMDeepLinkPlus": 1,
       "PBMDeepLinkPlusHelper": 1,
       "PBMDeepLinkPlusHelper()": 1,
       "PBMDeepLinkPlusHelper(Testing)": 1,
-      "PBMDeviceAccessManagerKeys": 1,
       "PBMDeviceInfoParameterBuilder": 1,
       "PBMDisplayTransactionFactory": 1,
-      "PBMDownloadDataHelper": 1,
       "PBMExternalLinkHandler": 1,
       "PBMExternalURLOpenCallbacks": 1,
       "PBMExternalURLOpeners": 1,
-      "PBMFunctions": 1,
-      "PBMFunctions()": 1,
-      "PBMFunctions(Testing)": 1,
       "PBMGeoLocationParameterBuilder": 1,
       "PBMHTMLCreative": 1,
       "PBMHTMLFormatter": 1,
       "PBMInterstitialLayoutConfigurator": 1,
-      "PBMMRAIDCloseButtonPosition": 1,
-      "PBMMRAIDCloseButtonSize": 1,
       "PBMMRAIDCommand": 1,
-      "PBMMRAIDConstants": 1,
       "PBMMRAIDController": 1,
-      "PBMMRAIDExpandProperties": 1,
       "PBMMRAIDJavascriptCommands": 1,
-      "PBMMRAIDParseKeys": 1,
-      "PBMMRAIDResizeProperties": 1,
-      "PBMMRAIDValues": 1,
       "PBMNetworkParameterBuilder": 1,
       "PBMORTBAbstract": 1,
       "PBMORTBAbstract()": 1,
-      "PBMORTBApp": 1,
-      "PBMORTBAppExt": 1,
-      "PBMORTBAppExtPrebid": 1,
-      "PBMORTBBanner": 1,
-      "PBMORTBBidRequest": 1,
-      "PBMORTBBidRequestExtPrebid": 1,
-      "PBMORTBDeal": 1,
-      "PBMORTBDevice": 1,
-      "PBMORTBDeviceExtAtts": 1,
-      "PBMORTBDeviceExtPrebid": 1,
-      "PBMORTBDeviceExtPrebidInterstitial": 1,
-      "PBMORTBFormat": 1,
-      "PBMORTBGeo": 1,
-      "PBMORTBImp": 1,
-      "PBMORTBImpExtPrebid": 1,
-      "PBMORTBImpExtSkadn": 1,
       "PBMORTBParameterBuilder": 1,
-      "PBMORTBPmp": 1,
-      "PBMORTBPublisher": 1,
-      "PBMORTBRegs": 1,
-      "PBMORTBRendererConfig": 1,
-      "PBMORTBSource": 1,
-      "PBMORTBSourceExtOMID": 1,
-      "PBMORTBUser": 1,
-      "PBMORTBVideo": 1,
       "PBMOpenMeasurementEventTracker": 1,
       "PBMOpenMeasurementFriendlyObstructionTypeBridge": 1,
       "PBMOpenMeasurementSession": 1,
@@ -3384,19 +4062,12 @@
       "PBMVastWrapperAd": 1,
       "PBMVideoCreative": 1,
       "PBMVideoView": 1,
-      "PBMViewExposureChecker": 1,
-      "PBMWKScriptMessageHandlerLeakAvoider": 1,
-      "PBMWeakTimerTargetBox": 1,
       "PBMWebView": 1,
       "PBMWebView()": 1,
       "PBMWindowLocker": 1,
       "Prebid(Test)": 1,
       "SDGeocoder": 1,
       "SDLocationManager": 1,
-      "UIApplication(PBMUIApplicationProtocol)": 1,
-      "UIView(PBMExtensions)": 1,
-      "UIView(PBMViewExposure)": 1,
-      "UIWindow(PBMExtensions)": 1,
       "WKNavigationAction(PBMWKNavigationActionCompatible)": 1,
       "WKWebView(PBMWKWebViewCompatible)": 1
     },
@@ -3406,8 +4077,6 @@
       "PBMBundleProtocol": 1,
       "PBMExposureChangeDelegate": 1,
       "PBMParameterBuilder": 1,
-      "PBMTimerInterface": 1,
-      "PBMUIApplicationProtocol": 1,
       "PBMVastResourceContainerProtocol": 1,
       "PBMVideoViewDelegate": 1,
       "PBMWKNavigationActionCompatible": 1,
