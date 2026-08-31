@@ -36,6 +36,14 @@ files under `.claude/`.
 | Generic iOS/Swift background (not repo-specific; playbook wins on conflicts) | `agents/ios-development/SKILL.md` |
 | Generic ObjC → Swift / XCTest migration background (playbook wins on conflicts) | `agents/migration-patterns/SKILL.md` |
 
+Claude Code additionally loads `.claude/`: the rules linked under Deeper guidance, four
+skills (`/guard` authors a new structural guard, `/sdk-review` runs this repo's review
+checklist, `/verify-spec` audits ORTB models against the OpenRTB spec, `/benchmark`
+measures SDK size and hot-path timing), and the `qc-validator` subagent that checks
+finished work against the quality gates. All of it is plain markdown under
+`.claude/skills/` and `.claude/agents/` — other agents can read and follow the same
+procedures directly.
+
 ## Repo map
 
 | Path | Role |
@@ -112,6 +120,16 @@ authoritative source **before** the code changes:
 Other SDKs (prebid-mobile-android, prebid.js) are cross-checks, **not** the authority.
 Uncited protocol changes should be rejected in review.
 
+## Environment: what can run where
+
+- **Any OS (including Linux CI)**: guards (`python3` + [ast-grep](https://ast-grep.github.io)
+  on PATH — a missing tool makes that guard exit 2 = SKIPPED, which is *not* a pass) and
+  SwiftLint (`brew install swiftlint`; the script warns when your version differs from CI's pin).
+- **macOS only**: build and every test rung — Xcode + CocoaPods.
+
+When the environment can't run a check, report it as SKIPPED with the reason — never as
+passed (see the test-integrity policy below).
+
 ## Commands
 
 ### Guards
@@ -126,6 +144,13 @@ git config core.hooksPath .githooks
 # Style lint — fails on violations in the lines this branch adds (docs/lint/README.md)
 ./scripts/lint/run-swiftlint.sh
 ```
+
+When a guard fails legitimately, its failure message names the fix: ratchet wins and
+intentional surface changes re-record a baseline (`./scripts/guards/run-guards.sh
+--update-<name>-baseline`; the script header lists them all), and grandfathered exceptions
+live in `scripts/guards/allowlists/*.json` — shrink-only, one entry per exception with its
+`reason`. Commit baseline/allowlist diffs in the same PR and call them out. The full
+catalog of guards is in `docs/guards/README.md`.
 
 ### Build
 
@@ -271,6 +296,11 @@ quick plan; if the fix touches shared test infra or rendering, run the full plan
 
 **Adapter feature** → public API only. If the core lacks the hook you need, add the public
 hook to the core (baseline update) — never reach into internals.
+
+## Commits and PRs
+
+Commit subjects use release-note-quality language and reference issues (`Fix #1296: …`).
+The PR title becomes a release-note line; the PR template's checklist mirrors the guards.
 
 ## Known traps
 
