@@ -7,9 +7,9 @@ Fast, deterministic architecture checks for prebid-mobile-ios. They run on every
 ./scripts/guards/run-guards.sh
 ```
 
-To run them automatically before every commit (opt-in, one-time per clone):
-`git config core.hooksPath .githooks` — the hook (`.githooks/pre-commit`) runs this same
-suite and blocks the commit on failure (`--no-verify` bypasses; CI still catches it).
+To run them automatically before every push (opt-in, one-time per clone):
+`git config core.hooksPath .githooks` — the hook (`.githooks/pre-push`) runs this same
+suite and blocks the push on failure (`--no-verify` bypasses; CI still catches it).
 
 Requirements: bash + git. The `ast-rule-ratchet` guard additionally needs
 [ast-grep](https://ast-grep.github.io/) (`brew install ast-grep`); when it's missing locally,

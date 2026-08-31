@@ -38,14 +38,14 @@ PR carries the `run-full-tests` label or the branch name contains `bump-to`.
 
 ## Quality guards
 
-Optionally, run the guards automatically before every commit (one-time, per clone):
+Optionally, run the guards automatically before every push (one-time, per clone):
 
 ```bash
 git config core.hooksPath .githooks
 ```
 
 The hook runs the same checks CI runs — failing locally just fails faster; bypass a
-genuine emergency with `git commit --no-verify` (CI still catches it).
+genuine emergency with `git push --no-verify` (CI still catches it).
 
 `./scripts/guards/run-guards.sh` runs fast, deterministic structural checks (architecture
 rules such as adapter isolation and public-API baselining). They run on every PR in CI and

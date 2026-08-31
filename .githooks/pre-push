@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Opt-in pre-commit hook: runs the structural guards before every commit.
+# Opt-in pre-push hook: runs the structural guards before every push.
 #
 # Enable (one-time, per clone):
 #   git config core.hooksPath .githooks
@@ -11,15 +11,15 @@
 # SKIPPED here and still run in CI.
 #
 # Bypass for a genuine emergency (CI will still catch it):
-#   git commit --no-verify
+#   git push --no-verify
 
 set -u
 ROOT="$(git rev-parse --show-toplevel)"
 
-echo "pre-commit: running structural guards (bypass with --no-verify)…"
+echo "pre-push: running structural guards (bypass with --no-verify)…"
 if ! "$ROOT/scripts/guards/run-guards.sh"; then
     echo ""
-    echo "pre-commit: commit blocked — a structural guard failed."
+    echo "pre-push: push blocked — a structural guard failed."
     echo "See docs/guards/README.md for how to fix each guard."
     exit 1
 fi

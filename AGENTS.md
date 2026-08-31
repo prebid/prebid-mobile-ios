@@ -138,7 +138,7 @@ passed (see the test-integrity policy below).
 # Structural guards (seconds — run before every commit)
 ./scripts/guards/run-guards.sh
 
-# …or have git run them automatically (opt-in, once per clone):
+# …or have git run them automatically before every push (opt-in, once per clone):
 git config core.hooksPath .githooks
 
 # Style lint — fails on violations in the lines this branch adds (docs/lint/README.md)
