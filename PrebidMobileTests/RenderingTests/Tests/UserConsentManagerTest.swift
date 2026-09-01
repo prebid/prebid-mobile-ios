@@ -117,14 +117,17 @@ class UserConsentDataManagerTest: XCTestCase {
         self.assertExpectedConsent(subjectToGDPR: false, consentString: nil)
     }
     
-    func testIABConsent_IsSubjectToGDPR_withStringBool() {
-        self.setSubjectToGDPR(string: "YES")
-        self.assertExpectedConsent(subjectToGDPR: true, consentString: nil)
+    func testIABConsent_SubjectToGDPR_ignoresUnrecognizedString() {
+        // IABTCF_gdprApplies is defined as 0, 1, or unset — anything else is treated as unset
+        for malformed in ["YES", "NO", "true", "false", "garbage"] {
+            self.setSubjectToGDPR(string: malformed)
+            self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+        }
     }
-    
-    func testIABConsent_IsNotSubjectToGDPR_withStringBool() {
-        self.setSubjectToGDPR(string: "NO")
-        self.assertExpectedConsent(subjectToGDPR: false, consentString: nil)
+
+    func testIABConsent_SubjectToGDPR_ignoresEmptyString() {
+        self.setSubjectToGDPR(string: "")
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
     }
     
     func testIABConsent_IsSubjectToGDPR_withInt() {
@@ -294,6 +297,20 @@ class UserConsentDataManagerTest: XCTestCase {
 
         // deviceAccessConsent 0 -> YES (GDPR explicitly does not apply)
         XCTAssertTrue(UserConsentDataManager.shared.isAllowedAccessDeviceData())
+    }
+
+    func testCanAccessDeviceData_MalformedGDPRApplies_PurposeConsent0() {
+        // A malformed or empty IABTCF_gdprApplies value is treated as unset, not as
+        // "GDPR does not apply" — so denied Purpose 1 must still block device access
+        self.setPurposeConsentsString(val: purposeConsentsString0)
+
+        for malformed in ["", "garbage", "YES", "true"] {
+            self.setSubjectToGDPR(tcf: TCF.v2, string: malformed)
+            XCTAssertFalse(
+                UserConsentDataManager.shared.isAllowedAccessDeviceData(),
+                "stored IABTCF_gdprApplies value: \"\(malformed)\""
+            )
+        }
     }
 
     func testCanAccessDeviceDataGDPRFalse_APIProvidedOverIAB() {

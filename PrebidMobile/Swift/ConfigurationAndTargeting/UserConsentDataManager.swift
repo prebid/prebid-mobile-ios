@@ -62,10 +62,20 @@ class UserConsentDataManager: NSObject {
                 return _subjectToGDPR
             }
             
+            // IABTCF_gdprApplies is defined by the TCF spec as 0, 1, or unset —
+            // treat any other stored value as unset
             if let iabValue = UserDefaults.standard.string(forKey: IABTCF_SubjectToGDPR) {
-                return NSString(string: iabValue).boolValue
+                switch iabValue {
+                case "0":
+                    return false
+                case "1":
+                    return true
+                default:
+                    Log.warn("Ignoring unrecognized \(IABTCF_SubjectToGDPR) value: \(iabValue)")
+                    return nil
+                }
             }
-            
+
             return nil
         }
     }
