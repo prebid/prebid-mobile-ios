@@ -129,23 +129,23 @@ class UserConsentDataManager: NSObject {
     //truth table
     /*
                         deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
-     gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+     gdprApplies=false        Yes, read IDFA       Yes, read IDFA                Yes, read IDFA
      gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
      gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
      */
     func isAllowedAccessDeviceData() -> Bool {
+        // GDPR explicitly does not apply — TCF consent signals are out of scope.
+        if subjectToGDPR == false {
+            return true
+        }
+
         let deviceAccessConsent = getDeviceAccessConsent()
-        
+
         // deviceAccess undefined and gdprApplies undefined
         if deviceAccessConsent == nil && subjectToGDPR == nil {
             return true
         }
-        
-        // deviceAccess undefined and gdprApplies false
-        if deviceAccessConsent == nil && subjectToGDPR == false {
-            return true
-        }
-        
+
         // gdprApplies = true
         // deviceAccess is set (true/false) or still is nil (i.e. false)
         return deviceAccessConsent ?? false

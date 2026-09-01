@@ -234,21 +234,21 @@ class UserConsentDataManagerTest: XCTestCase {
     //truth table
     /*
      deviceAccessConsent=true   deviceAccessConsent=false  deviceAccessConsent undefined
-     gdprApplies=false        Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
+     gdprApplies=false        Yes, read IDFA             Yes, read IDFA                Yes, read IDFA
      gdprApplies=true         Yes, read IDFA             No, don’t read IDFA           No, don’t read IDFA
      gdprApplies=undefined    Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
      */
     func testCanAccessDeviceDataGDPRFalse() {
         self.setSubjectToGDPR(tcf: TCF.v2, bool: false)
-        
+
         let userConsentManager = UserConsentDataManager.shared
-        
+
         // deviceAccessConsent undefined -> YES
         XCTAssertTrue(userConsentManager.isAllowedAccessDeviceData())
-        
-        // deviceAccessConsent 0 -> NO
+
+        // deviceAccessConsent 0 -> YES (GDPR explicitly does not apply, TCF consent is out of scope)
         self.setPurposeConsentsString(val: purposeConsentsString0)
-        XCTAssertFalse(userConsentManager.isAllowedAccessDeviceData())
+        XCTAssertTrue(userConsentManager.isAllowedAccessDeviceData())
         
         // deviceAccessConsent 1 -> YES
         self.setPurposeConsentsString(val: purposeConsentsString1)
@@ -286,7 +286,26 @@ class UserConsentDataManagerTest: XCTestCase {
         self.setPurposeConsentsString(val: purposeConsentsString1)
         XCTAssertTrue(userConsentManager.isAllowedAccessDeviceData())
     }
-    
+
+    func testCanAccessDeviceDataGDPRFalse_IABStoredAsInt() {
+        // CMPs store IABTCF_gdprApplies as a Number per the TCF spec
+        self.setSubjectToGDPR(tcf: TCF.v2, int: 0)
+        self.setPurposeConsentsString(val: purposeConsentsString0)
+
+        // deviceAccessConsent 0 -> YES (GDPR explicitly does not apply)
+        XCTAssertTrue(UserConsentDataManager.shared.isAllowedAccessDeviceData())
+    }
+
+    func testCanAccessDeviceDataGDPRFalse_APIProvidedOverIAB() {
+        // API-provided subjectToGDPR takes precedence over IAB storage
+        self.setSubjectToGDPR(tcf: TCF.v2, string: "1")
+        self.setPurposeConsentsString(val: purposeConsentsString0)
+
+        UserConsentDataManager.shared.subjectToGDPR = false
+
+        XCTAssertTrue(UserConsentDataManager.shared.isAllowedAccessDeviceData())
+    }
+
     // MARK: - PurposeConsents
     func testPurposeConsentsPB() throws {
         //given
