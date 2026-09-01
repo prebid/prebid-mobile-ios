@@ -109,9 +109,23 @@ class DeviceInfoParameterBuilderTest: XCTestCase {
     
     func testDisabledAccessDeviceData() {
         disableAccessDeviceData()
-        
+
         deviceInfoParameterBuilder.build(bidRequest)
         XCTAssertNil(bidRequest.device.ifa)
+    }
+
+    func testIfaSentWhenGDPRDoesNotApplyAndPurpose1Denied() {
+        userDefaults.set(42, forKey: cmpSDKIDKey)
+        userDefaults.set("0", forKey: subjectToGDPRKey)
+        userDefaults.set("0000", forKey: purposeConsentsStringKey)
+
+        MockDeviceAccessManager.mockAdvertisingTrackingEnabled = true
+        if #available(iOS 14, *) {
+            MockDeviceAccessManager.mockAppTrackingTransparencyStatus = .authorized
+        }
+
+        deviceInfoParameterBuilder.build(bidRequest)
+        PBMAssertEq(bidRequest.device.ifa, MockDeviceAccessManager.mockAdvertisingIdentifier)
     }
     
     // MARK: - private helpers
