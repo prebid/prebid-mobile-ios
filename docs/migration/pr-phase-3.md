@@ -191,6 +191,10 @@ fallbacks, and the iOS 14 `atts` override of `lmt`.
       `ParameterBuilderServiceTest`, `SkadnParameterBuilderTest`, `PBMORTBParameterBuilderTest`,
       `PBMAppInfoParameterBuilderTest`, `PrebidParameterBuilderTest`, `UtilsTests`) — **133 tests,
       0 failures**
+- [x] Review round 2: `./scripts/testPrebidMobile.sh --latest --quick` — **812 tests, 0 failures,
+      no retries**. 813 − 1: `testInvalidProperties` is deleted, and nothing else moved.
+- [x] Review round 2: `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks build clean (same
+      pre-existing GAM "Skipping duplicate build file" and iOS 13 deprecation warnings as before)
 - [x] Review round 2: `swiftlint --config .swiftlint.yml` — no new violations from this round. The
       repo baseline is 25 616 violations / 152 error-severity, and SwiftLint is not wired into CI
       (no reference to it anywhere under `.github/`), so it is advisory here. Of the files this PR
