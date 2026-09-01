@@ -511,7 +511,6 @@
         "UserAgentServiceTest\/testMultipleCalls()",
         "UserAgentServiceTest\/testSharedCreation()",
         "UserAgentServiceTest\/testUserAgentService()",
-        "UserConsentDataManagerTest",
         "VastEventTrackingTest",
         "VastEventTrackingTest\/testEvents()",
         "VastTrackingEventsTest",
