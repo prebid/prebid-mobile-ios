@@ -29,8 +29,8 @@ final class SharedIdTests: XCTestCase {
     }
     
     func setLocalStorageAccessAllowed(_ allowed: Bool) {
-        // Set gdpr to true to make sure we are testing the purpose-1 consent
-        UserDefaults.standard.set("true", forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
+        // Set gdprApplies to 1 to make sure we are testing the purpose-1 consent
+        UserDefaults.standard.set("1", forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
         
         let purpose1 = allowed ? "1" : "0"
         UserDefaults.standard.set("\(purpose1)0000000", forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
@@ -53,6 +53,18 @@ final class SharedIdTests: XCTestCase {
         XCTAssertNotEqual(targeting.sharedId.uids.first?.uniqueId, "abc123")
     }
     
+    func testUsesLocalStorageWhenGDPRDoesNotApplyAndPurpose1Denied() {
+        // When gdprApplies=0, TCF signals are out of scope — a denied Purpose 1
+        // does not block persistent SharedID storage
+        UserDefaults.standard.set("0", forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
+        UserDefaults.standard.set("00000000", forKey: UserConsentDataManager.shared.IABTCF_PurposeConsents)
+        UserDefaults.standard.set("abc123", forKey: StorageUtils.PB_SharedIdKey)
+
+        let identifier = targeting.sharedId.uids.first?.uniqueId
+        XCTAssertEqual(identifier, "abc123")
+        XCTAssertEqual(StorageUtils.sharedId, identifier)
+    }
+
     func testGeneratedIdWrittenToLocalStorageIfAllowed() {
         setLocalStorageAccessAllowed(true)
         
