@@ -17,28 +17,16 @@ import Foundation
 
 class BasicParameterBuilder: NSObject, ParameterBuilder {
 
-    static var platformKey: String { "sp" }
-    static var platformValue: String { "iOS" }
-    static var allowRedirectsKey: String { "dr" }
-    static var allowRedirectsVal: String { "true" }
-    static var sdkVersionKey: String { "sv" }
-    static var urlKey: String { PrebidConstants.APP_STORE_URL_SCHEME }
-    static var rewardedVideoKey: String { "vrw" }
-    static var rewardedVideoValue: String { "1" }
-
-    // Note: properties below are optional for UnitTests to be able to write 'nil' into them.
-    // TODO: Prove that 'init' arguments are never nil; convert to 'let'; remove redundant checks and tests.
-
-    var adConfiguration: AdConfiguration?
-    var sdkConfiguration: Prebid?
-    var targeting: Targeting?
-    var sdkVersion: String?
+    private let adConfiguration: AdConfiguration
+    private let sdkConfiguration: Prebid
+    private let targeting: Targeting
+    private let sdkVersion: String
 
     init(
-        adConfiguration: AdConfiguration?,
-        sdkConfiguration: Prebid?,
-        sdkVersion: String?,
-        targeting: Targeting?
+        adConfiguration: AdConfiguration,
+        sdkConfiguration: Prebid,
+        sdkVersion: String,
+        targeting: Targeting
     ) {
         self.adConfiguration = adConfiguration
         self.sdkConfiguration = sdkConfiguration
@@ -48,11 +36,6 @@ class BasicParameterBuilder: NSObject, ParameterBuilder {
     }
 
     func build(_ bidRequest: ORTBBidRequest) {
-        guard let adConfiguration = adConfiguration, sdkConfiguration != nil, let sdkVersion = sdkVersion else {
-            Log.error("Invalid properties")
-            return
-        }
-
         // Add an impression if none exist
         if bidRequest.imp.isEmpty {
             bidRequest.imp = [ORTBImp()]
@@ -68,8 +51,8 @@ class BasicParameterBuilder: NSObject, ParameterBuilder {
             rtbImp.secure = 1
         }
 
-        bidRequest.regs.coppa = targeting?.coppa
-        bidRequest.regs.ext?["gdpr"] = targeting?.getSubjectToGDPR()
+        bidRequest.regs.coppa = targeting.coppa
+        // `regs.ext["gdpr"]` is owned by `UserConsentParameterBuilder`, which runs after this one.
         bidRequest.regs.gpp = InternalUserConsentDataManager.gppHDRString
 
         let gppSID = InternalUserConsentDataManager.gppSID
@@ -81,9 +64,7 @@ class BasicParameterBuilder: NSObject, ParameterBuilder {
     }
 
     private func appendFormatSpecificParameters(for bidRequest: ORTBBidRequest) {
-        guard let adFormats = adConfiguration?.adFormats else {
-            return
-        }
+        let adFormats = adConfiguration.adFormats
 
         if adFormats.contains(.banner) {
             appendDisplayParameters(for: bidRequest)

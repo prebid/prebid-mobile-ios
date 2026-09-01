@@ -18,13 +18,6 @@ import Foundation
 
 class DeviceInfoParameterBuilder: NSObject, ParameterBuilder {
 
-    static var ifaKey: String { "ifa" }
-    static var lmtKey: String { "lmt" }
-    static var ifvKey: String { "ifv" }
-    static var attsKey: String { "atts" }
-
-    private static let zeroedIFA = "00000000-0000-0000-0000-000000000000"
-
     private let deviceAccessManager: DeviceAccessManager
 
     init(deviceAccessManager: DeviceAccessManager) {
@@ -55,7 +48,7 @@ class DeviceInfoParameterBuilder: NSObject, ParameterBuilder {
         bidRequest.device.ifa = ifa
 
         // Only passed when IDFA (BidRequest.device.ifa) is unavailable or all zeros.
-        if ifa == nil || ifa == DeviceInfoParameterBuilder.zeroedIFA {
+        if ifa == nil || ifa == String.kIFASentinelValue {
             bidRequest.device.extAtts.ifv = deviceAccessManager.identifierForVendor
         }
 

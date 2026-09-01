@@ -142,14 +142,10 @@ public class ParameterBuilderService: NSObject {
         }
 
         if let coordObj = targeting.coordinate {
-            // Rounds with the precision defined in Targeting, or returns the original coordinates if precision is nil.
-            let coord2d = Utils.shared.round(
-                coordinates: coordObj.mkCoordinateValue,
+            bidRequest.user.geo.setRoundedCoordinates(
+                coordObj.mkCoordinateValue,
                 precision: Targeting.shared.locationPrecision
             )
-
-            bidRequest.user.geo.lat = NSNumber(value: coord2d.latitude)
-            bidRequest.user.geo.lon = NSNumber(value: coord2d.longitude)
         }
 
         return bidRequest

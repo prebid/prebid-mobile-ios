@@ -19,8 +19,6 @@ import XCTest
 
 class PBMBasicParameterBuilderTest: XCTestCase {
     
-    private var logToFile: LogToFileLock?
-    
     private var targeting: Targeting!
     
     override func setUp() {
@@ -31,7 +29,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     override func tearDown() {
-        logToFile = nil
         targeting.coppa = nil
         
         UserDefaults.standard.removeObject(forKey: InternalUserConsentDataManager.IABGPP_HDR_GppString)
@@ -189,46 +186,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         builder.build(bidRequest)
         
         PBMAssertEq(bidRequest.regs.coppa, expectedRegValue)
-    }
-    
-    func testInvalidProperties() {
-        let adConfiguration = AdConfiguration()
-        
-        let sdkConfiguration = Prebid.mock
-        let bidRequest = ORTBBidRequest()
-        
-        let builder = BasicParameterBuilder(adConfiguration:adConfiguration,
-                                               sdkConfiguration:sdkConfiguration,
-                                               sdkVersion:"MOCK_SDK_VERSION",
-                                               targeting: targeting)
-        
-        
-        builder.build(bidRequest)
-        
-        logToFile = .init()
-        
-        builder.adConfiguration = nil
-        builder.build(bidRequest)
-        var log = Log.getLogFileAsString() ?? ""
-        XCTAssertTrue(log.contains("Invalid properties"))
-        
-        logToFile = nil
-        logToFile = .init()
-        
-        builder.adConfiguration = adConfiguration
-        builder.sdkConfiguration = nil
-        builder.build(bidRequest)
-        log = Log.getLogFileAsString() ?? ""
-        XCTAssertTrue(log.contains("Invalid properties"))
-        
-        logToFile = nil
-        logToFile = .init()
-        
-        builder.sdkConfiguration = sdkConfiguration
-        builder.sdkVersion = nil
-        builder.build(bidRequest)
-        log = Log.getLogFileAsString() ?? ""
-        XCTAssertTrue(log.contains("Invalid properties"))
     }
     
     func testParameterBuilderVideoPlacement() {

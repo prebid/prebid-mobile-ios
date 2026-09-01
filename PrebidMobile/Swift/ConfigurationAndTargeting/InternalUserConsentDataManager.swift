@@ -15,8 +15,11 @@
 
 import Foundation
 
-@objcMembers
-class InternalUserConsentDataManager: NSObject {
+/// Reads the IAB consent signals the host app writes into `UserDefaults`.
+///
+/// No ObjC consumer remains, so the type carries no `@objc` exposure: it would otherwise be
+/// emitted into the generated `-Swift.h` for nothing.
+final class InternalUserConsentDataManager {
 
     static var IABUSPrivacy_StringKey: String {
         "IABUSPrivacy_String"
@@ -44,7 +47,8 @@ class InternalUserConsentDataManager: NSObject {
             return []
         }
 
-        let numberFormatter = NumberFormatter()
-        return gppSID.components(separatedBy: "_").compactMap { numberFormatter.number(from: $0) }
+        // `strictNumberValue` rather than `NumberFormatter`: the section IDs are a spec-defined run
+        // of digits and must resolve identically regardless of `Locale.current`'s separators.
+        return gppSID.components(separatedBy: "_").compactMap { $0.strictNumberValue }
     }
 }

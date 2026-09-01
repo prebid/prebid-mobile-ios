@@ -34,14 +34,27 @@ class GeoLocationParameterBuilder: NSObject, ParameterBuilder {
             return
         }
 
-        // Rounds with the precision defined in Targeting, or returns the original coordinates if precision is nil.
-        let coordinates = Utils.shared.round(
-            coordinates: locationManager.coordinates,
+        bidRequest.device.geo.type = NSNumber(value: PrebidConstants.LOCATION_SOURCE_GPS)
+        bidRequest.device.geo.setRoundedCoordinates(
+            locationManager.coordinates,
             precision: Targeting.shared.locationPrecision
         )
+    }
+}
 
-        bidRequest.device.geo.type = NSNumber(value: PrebidConstants.LOCATION_SOURCE_GPS)
-        bidRequest.device.geo.lat = NSNumber(value: coordinates.latitude)
-        bidRequest.device.geo.lon = NSNumber(value: coordinates.longitude)
+extension ORTBGeo {
+
+    /// Writes `coordinates` into `lat`/`lon`, rounded to `precision`.
+    ///
+    /// Shared by `GeoLocationParameterBuilder` (`device.geo`) and
+    /// `ParameterBuilderService.createORTBBidRequest(with:)` (`user.geo`) so that a change to the
+    /// rounding rule lands in one place rather than two.
+    ///
+    /// - Parameter precision: the number of decimal places to keep; `nil` leaves the coordinates
+    ///                        unrounded.
+    func setRoundedCoordinates(_ coordinates: CLLocationCoordinate2D, precision: NSNumber?) {
+        let rounded = Utils.shared.round(coordinates: coordinates, precision: precision)
+        lat = NSNumber(value: rounded.latitude)
+        lon = NSNumber(value: rounded.longitude)
     }
 }

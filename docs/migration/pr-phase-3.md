@@ -38,7 +38,7 @@ protocol, the eight builders, the service, and their two support types — is do
 | ObjC | Swift | Notes |
 |------|-------|-------|
 | `PBMParameterBuilderProtocol.h` | `ParameterBuilder.swift` | `@objc(PBMParameterBuilder) public protocol`, `@objc(buildBidRequest:) func build(_:)` |
-| `PBMBasicParameterBuilder` | `BasicParameterBuilder.swift` | keeps optional stored properties — see Gap S3.1-C |
+| `PBMBasicParameterBuilder` | `BasicParameterBuilder.swift` | non-optional `let` properties — see Gap S3.1-C |
 | `PBMGeoLocationParameterBuilder` | `GeoLocationParameterBuilder.swift` | |
 | `PBMAppInfoParameterBuilder` | `AppInfoParameterBuilder.swift` | |
 | `PBMDeviceInfoParameterBuilder` | `DeviceInfoParameterBuilder.swift` | |
@@ -94,6 +94,12 @@ These are intentional and reviewer-visible:
    `NSInvalidArgumentException` crash on malformed `IABGPP_GppSID`. The Swift version skips the
    bad component. `InternalUserConsentDataManagerTests.assertIABGPPSID` was retyped accordingly,
    and `testIABGPPSID_Malformed` covers the new skip behaviour.
+   *Round 2:* the parse is now `String.strictNumberValue` (`Int64(self).map(NSNumber.init)`)
+   rather than `NumberFormatter`. GPP section IDs are a spec-defined run of digits, and
+   `NumberFormatter` resolves against `Locale.current` — under a grouping-separator locale it will
+   read `"1,2"` as `12`, and it accepts decimals and signs the spec does not define. This is a
+   *narrowing* relative to both the ObjC original and the first Swift draft; no test changed,
+   because every existing input is a plain integer string.
 2. **`SKAdNetworksParameterBuilder.skAdNetworkIds()` uses `compactMap`** over the
    `SKAdNetworkItems` plist array, likewise skipping malformed entries instead of inserting `nil`.
    `SkadnParameterBuilderTest.testSKAdNetworkIds_SkipsMalformedEntries` exercises the real parse
@@ -103,11 +109,17 @@ These are intentional and reviewer-visible:
    error path returns an **empty** dictionary — the `openrtb` key is inserted only when
    serialization succeeds — after logging "Not valid JSON object";
    `testAppendBuilderParametersWitError` now asserts that.
-4. **`PBMAssert` nil-guards dropped** in the six builders whose initializer parameters are
-   non-optional in Swift. `BasicParameterBuilder` is the exception: its four properties stay
-   optional `var`s (the test extension header used to set them to `nil`) and its
-   `Log.error("Invalid properties")` guard is retained, because three tests assert on that log
-   line. A `TODO` marks the cleanup.
+4. **`PBMAssert` nil-guards dropped** in **all** the builders, whose initializer parameters are
+   non-optional in Swift. As of round 2 `BasicParameterBuilder` is no longer an exception: its four
+   properties are non-optional `let`s, the `Log.error("Invalid properties")` guard is gone, and
+   `testInvalidProperties` — which reached the guard only by nilling the properties through the
+   deleted ObjC test-extension header — is deleted with it.
+   The behaviour-class change this implies is recorded as **Gap S3.1-H**: `PBMAssert` is compiled
+   out in Release, so an ObjC caller passing `nil` logged and continued, whereas a Swift
+   non-optional parameter traps unconditionally. Safe here because all eight builders are
+   constructed only by `ParameterBuilderService`, in Swift, with non-optional arguments — the gap
+   records the grep to re-run and the rule to re-introduce an explicit `Log.error` + early return
+   if that ever stops holding.
 5. ~~**`NSMutableDictionary` nil-assignment semantics.**~~ **Withdrawn in review.** The claim that
    the Swift subscript stores a boxed `Optional.none` where ObjC `dict[key] = nil` removes the key
    is wrong: single-level optionals — including the flattened result of optional chaining such as
@@ -115,6 +127,16 @@ These are intentional and reviewer-visible:
    `NSMutableDictionary.pbmSetValue(_:forKey:)` helper this introduced has been removed and its
    four call sites are plain subscript assignments again. Gap S3.1-A is marked withdrawn in the
    playbook, with the verified semantics recorded so no future port repeats the mistake.
+6. **`AppInfoParameterBuilder` type-checks the two `CFBundle*Name` reads.** *Raised in review
+   round 2 — it was in the original diff but not on this list.* The ObjC line was an unchecked
+   static cast (`NSString *bundleDisplayName = bundleDict[…];`), so a plist whose
+   `CFBundleDisplayName` is not a string handed that object straight through to
+   `bidRequest.app.name` (typed `NSString *`), surfacing later as an unrecognized selector or a
+   mistyped JSON value. Swift's `bundleDict[…] as? String` yields `nil` for the same input, so a
+   mistyped `CFBundleDisplayName` now **falls back to `CFBundleName`**, and a mistyped pair leaves
+   `app.name` unset. Swift offers no way to reproduce the ObjC behaviour without an unsafe cast
+   that would trap at first use, so this is not optional — but it is a real change and belongs on
+   this list.
 
 Everything else was diffed line-by-line against `git show HEAD:…` for
 `PBMParameterBuilderService.m`, `PBMBasicParameterBuilder.m` and `PBMDeviceInfoParameterBuilder.m`
@@ -123,8 +145,12 @@ fallbacks, and the iOS 14 `atts` override of `lmt`.
 
 ### Playbook updates
 
-- Seven new Phase 3 gaps (**S3.1-A** … **S3.1-G**) and **S3.2-A**. **S3.1-A is recorded as
-  withdrawn** — see divergence 5 above.
+- Eight new Phase 3 gaps (**S3.1-A** … **S3.1-H**) and **S3.2-A**. **S3.1-A is recorded as
+  withdrawn** — see divergence 5 above. **S3.1-H** is new in review round 2 (dropping `PBMAssert`
+  converts a Release-mode log into a Release-mode trap); **S3.1-C** was rewritten in the same round
+  (deleting the ObjC test-extension header means deleting the looseness it existed to serve, not
+  preserving it behind a `TODO`); **S3.2-A** gained the "grep before you reach for `@objc`" rule
+  and its `InternalUserConsentDataManager` example.
 - **Gap 4 and Gap 6 corrected.** Both claimed "after Phase 3 all ObjC consumers are gone", so the
   `@objc public` ORTB twins could be demoted to `internal`. That is false:
   `PBMPrebidParameterBuilder.m`, `PBMBidRequester.m`, `PBMBidResponseTransformer.m` and
@@ -159,10 +185,29 @@ fallbacks, and the iOS 14 `atts` override of `lmt`.
 - [x] `./scripts/testPrebidMobile.sh --latest --quick` re-run after the `SetupTests` user-agent
       seeding (see "CI flake fixed in passing" below) — **813 tests, 0 failures, no retries** on a
       simulator the script creates from scratch, i.e. the same cold-WebKit state as CI
+- [x] Review round 2: `-only-testing` re-run of the nine parameter-builder / consent / `Utils`
+      classes on the full test plan (`PBMBasicParameterBuilderTest`,
+      `InternalUserConsentDataManagerTests`, `PBMUserConsentParameterBuilderTest`,
+      `ParameterBuilderServiceTest`, `SkadnParameterBuilderTest`, `PBMORTBParameterBuilderTest`,
+      `PBMAppInfoParameterBuilderTest`, `PrebidParameterBuilderTest`, `UtilsTests`) — **133 tests,
+      0 failures**
+- [x] Review round 2: `swiftlint --config .swiftlint.yml` — no new violations from this round. The
+      repo baseline is 25 616 violations / 152 error-severity, and SwiftLint is not wired into CI
+      (no reference to it anywhere under `.github/`), so it is advisory here. Of the files this PR
+      touches, exactly one carries an error-severity violation:
+      `ParameterBuilderService.buildParamsDict(with:bundle:…)` trips `function_parameter_count`
+      (10 > 5). That is the ObjC signature ported 1:1 and it is the seam
+      `ParameterBuilderServiceTest` injects its seven mocks through — collapsing it into a
+      parameter object is a real refactor, not a lint fix, and is out of scope here. Everything
+      else in the touched files is pre-existing `trailing_whitespace` / `colon` noise inherited
+      from the ObjC-era test formatting.
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite, run before merge
 - [ ] Reviewer: confirm the phase boundary in "Scope" above — is Phase 3 complete, or is
       `PBMTrackingRecord` / `PBMURLComponents` an S3.3?
-- [ ] Reviewer: confirm the four remaining deliberate divergences above (the fifth is withdrawn)
+- [ ] Reviewer: confirm the five remaining deliberate divergences above (1–4 and 6; the fifth is
+      withdrawn)
+- [ ] Reviewer: call the `BasicParameterBuilder.sdkConfiguration` question at the end of
+      "Review round 2" — remove the now-dead property and its initializer parameter, or leave it?
 - [ ] Reviewer: confirm the playbook's orphan-header inventory against the phase plan
 
 ### Note on the two new tests and the PR test plan
@@ -181,6 +226,32 @@ quick subset would mean un-skipping a class that was deliberately excluded.
 | `buildOpenRTB(for:)` error path returns `[:]`, not `["openrtb": ""]` | Divergence 3 corrected; `testAppendBuilderParametersWitError` now captures the result and asserts `isEmpty`. |
 | `gppSID` crash-to-skip needs a regression test; `testIABGPPSID_Unset` asserted the wrong property | Added `testIABGPPSID_Malformed` (`"2_bad_5"` → `[2, 5]`) and `testIABGPPSID_EmptyString` (covers the `isEmpty` early return). `testIABGPPSID_Unset` called `assertIABGPPString(nil)` — a copy-paste of the `gppHDRString` test that never touched `gppSID`; it now asserts `assertIABGPPSID([])`. |
 | `skAdNetworkIds()` divergence is only covered through the mock override | Added `testSKAdNetworkIds_SkipsMalformedEntries`, which drives the real parse via a new `MockBundle.mockSKAdNetworkItems` seam over a plist array holding a valid entry, an empty entry, a wrong-type (`Int`) identifier and a wrong-key entry, and asserts both `skAdNetworkIds()` and the resulting `imp.ext.skadn.skadnetids`. Also `testSKAdNetworkIds_NilInfoDictionary` for the `infoDictionary == nil` branch. `SKAdNetworkItemsKey` / `SKAdNetworkIdentifierKey` lost their `private` so the mock can key off them, matching `AppInfoParameterBuilder.bundleNameKey`. |
+
+## Review round 2 — #1328 comments addressed
+
+All nine comments accepted. Seven are code changes, two are documentation.
+
+| Comment | Resolution |
+|---------|------------|
+| `@objcMembers` on `InternalUserConsentDataManager` is unnecessary | Confirmed by grep: no `.h`/`.m`/`.mm` in the repo names the type; its only consumers are `BasicParameterBuilder`, `UserConsentParameterBuilder` and a `@testable` test. Dropped `@objcMembers` **and** the `NSObject` base — an internal `NSObject` subclass is still emitted as an `@interface` into the generated header, so removing only the attribute would not have achieved the stated goal. Now `final class`. |
+| `zeroedIFA` duplicates `String.kIFASentinelValue` | Correct — `Constants.swift:24` already holds the same literal. Deleted the local copy; the guard now reads `ifa == String.kIFASentinelValue`. |
+| `NumberFormatter` for `gppSID` is locale-sensitive | Correct. Switched to `String.strictNumberValue`, whose doc comment exists for exactly this reason. See divergence 1. |
+| `regs.ext["gdpr"]` write in `BasicParameterBuilder` is dead | Confirmed against `ParameterBuilderService`'s builder order (Basic … **UserConsent** …), which unconditionally overwrites the key. Removed, leaving a comment naming the owner. **One qualification worth recording:** the claim holds for the production pipeline but not for `PrebidParameterBuilderTest.buildBidRequest(with:)`, a test-only pipeline that runs Basic + DeviceInfo + `PBMPrebidParameterBuilder` and was silently depending on the duplicate write — `testSubjectToGDPR` failed on removal. Fixed by adding `UserConsentParameterBuilder()` to that helper in its production-relative position, which is what the helper should have done all along. |
+| `BasicParameterBuilder`'s mutable optionals exist only for `testInvalidProperties` | Correct. Four `var`s → `private let`, initializer parameters non-optional, `Log.error("Invalid properties")` guard removed, `testInvalidProperties` and the test class's now-unused `logToFile` lock deleted. Playbook Gap S3.1-C rewritten to prescribe this instead of the `TODO`. |
+| Dropping `PBMAssert` is a latent behaviour-class change; note it | Agreed — `PBMAssert` is compiled out in Release, so ObjC logged and continued where Swift now traps. Recorded as **Gap S3.1-H** with the measure-the-callers grep and the fallback rule, and divergence 4 rewritten to point at it. |
+| `as? String` in `AppInfoParameterBuilder` is an undisclosed divergence | Agreed — it was in the diff but not on the list. Added as **divergence 6**, including the ObjC behaviour it replaces (unchecked static cast → mistyped object propagated into `app.name`) and the new fallback path. |
+| 12 unused static key constants | Verified unused repo-wide and deleted: 8 from `BasicParameterBuilder` (`platformKey`, `platformValue`, `allowRedirectsKey`, `allowRedirectsVal`, `sdkVersionKey`, `urlKey`, `rewardedVideoKey`, `rewardedVideoValue`) and 4 from `DeviceInfoParameterBuilder` (`ifaKey`, `lmtKey`, `ifvKey`, `attsKey`). `AppInfoParameterBuilder.bundleNameKey` / `bundleDisplayNameKey` are **kept** — `MockBundle.swift:42,47` reads both. |
+| Coordinate rounding duplicated between `GeoLocationParameterBuilder` and `ParameterBuilderService` | Extracted `ORTBGeo.setRoundedCoordinates(_:precision:)`, used by both (`device.geo` and `user.geo`). Placed in `GeoLocationParameterBuilder.swift` rather than `ORTBGeo.swift` to keep the ORTB twins pure data, and rather than a new file to avoid a `.pbxproj` edit for six lines. |
+
+**One finding surfaced by the above, left for the reviewer to call.**
+`BasicParameterBuilder.sdkConfiguration` is now an unused stored property. It was already unused in
+substance in ObjC — `git show master:…/PBMBasicParameterBuilder.m` shows `_sdkConfiguration` read
+only by the `PBMAssert` and the `Invalid properties` guard, both of which this round deletes. It is
+not removed here because the initializer has 13 call sites across four test files, and dropping it
+would also strand the `sdkConfiguration:` parameter of
+`ParameterBuilderService.buildParamsDict(with:bundle:…)` — the seam `ParameterBuilderServiceTest`
+injects through. That is a wider change than the comment asked for, so it is flagged rather than
+taken; say the word and it is a separate commit.
 
 ## CI flake fixed in passing — `SetupTests` user-agent seeding
 

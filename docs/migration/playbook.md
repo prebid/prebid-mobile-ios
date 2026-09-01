@@ -704,10 +704,19 @@ as `readwrite` so tests could nil them out. An ObjC class extension can only re-
 `@implementation`; there is no equivalent for a Swift class, and Swift extensions cannot add stored
 properties or change a property's access.
 
-**Rule:** Delete the test-extension header and declare the properties directly on the Swift twin
-with the access the tests need — here, four optional `var`s plus the original `Log.error("Invalid
-properties")` guard, which three tests assert on. Mark the resulting looseness with a `TODO` rather
-than tightening it silently: dropping the optionality also deletes the tests that cover the guard.
+**Rule:** Delete the test-extension header **and the looseness it existed to serve**. The header's
+only client was `testInvalidProperties`, which nilled each property in turn to drive the
+`Log.error("Invalid properties")` guard. Widening the Swift twin's properties to optional `var`s to
+keep that test alive inverts the dependency — production state is loosened so a test can reach an
+error path that the type system otherwise makes unreachable.
+
+The first cut of this port did exactly that, with a `TODO` marking it; corrected in review of #1328.
+The properties are non-optional `let`s, the guard is gone, and `testInvalidProperties` is deleted:
+with non-optional parameters there is no Swift call that can reach the log line, so the test would
+only have been asserting on code kept alive for its benefit. Check the call sites first — here all
+of them are Swift (`ParameterBuilderService`), and the seven sibling builders were already
+non-optional `let`s, so the change also made the eight symmetric. See Gap S3.1-H for the behaviour
+class this trades away.
 
 ### Gap S3.1-D — `@objcMembers` fails if any member signature contains a non-ObjC type
 
@@ -765,6 +774,30 @@ conversion.
 **Rule:** Compare through `NSNumber.uintValue`:
 `atts.uintValue == ATTrackingManager.AuthorizationStatus.authorized.rawValue`.
 
+### Gap S3.1-H — dropping `PBMAssert` converts a Release-mode log into a Release-mode trap
+
+Every Phase 3 builder's ObjC initializer opened with `PBMAssert(a && b && c)`, which expands to
+`NSAssert`-style logging that is **compiled out in Release** — a `nil` argument produced a log line
+in Debug and was silently accepted in Release, leaving a partially-populated builder that ran on.
+The Swift twins take non-optional `let`s and carry no guard, so the same `nil` is now a compile
+error from Swift and an unconditional trap from ObjC, in *every* configuration.
+
+For today's call sites this is strictly better and costs nothing: all eight builders are constructed
+only by `ParameterBuilderService`, in Swift, where the compiler proves the arguments non-nil. Record
+it anyway, because the class of change is invisible in the diff — an assertion disappearing looks
+like cleanup, not like a Release-behaviour change.
+
+**Rule:** Before dropping a `PBMAssert` in favour of non-optional parameters, measure the callers:
+
+```bash
+grep -rn --include='*.m' --include='*.h' 'initWith…\|alloc] init' PrebidMobile EventHandlers
+```
+
+If every constructor call is Swift, drop the assert. If an ObjC caller survives — an EventHandler,
+an adapter, or an `@objc` factory reachable from a publisher app — keep the parameter optional-free
+but re-introduce the degrade-gracefully path explicitly (`Log.error` + early return), because a
+publisher passing `nil` through a bridged initializer must not crash their app.
+
 ### Gap S3.2-A — Gap 4 / Gap 6 do not apply to the Phase 3 builders themselves
 
 The parameter builders have **no** surviving ObjC consumers: `PBMParameterBuilderService.m` was
@@ -773,7 +806,22 @@ and therefore need `@objc public` — `ParameterBuilder` (implemented by the sti
 `PBMPrebidParameterBuilder`) and `ParameterBuilderService` (called by `PBMBidRequester.m`). The
 eight builders are plain `internal` Swift classes.
 
-**Rule:** Apply Gap 4 / Gap 6 per type, based on a measured importer check — not per phase.
+The same check applies to the support types the builders drag along, and it is easy to skip when the
+ObjC original *was* ObjC-visible. `InternalUserConsentDataManager` was ported `@objcMembers` on that
+reflex; measured after the port deletes the old `.h`/`.m` and the bridging-header line, its only
+consumers are two Swift builders and a `@testable` test, so the annotation exported every member
+into the generated `-Swift.h` for nobody. Corrected in review of #1328 — the type is now a plain
+`final class` with no `NSObject` base, which keeps it out of the header entirely.
+
+**Rule:** Apply Gap 4 / Gap 6 per type, based on a measured importer check — not per phase, and not
+by inheriting whatever visibility the ObjC original had:
+
+```bash
+grep -rn --include='*.h' --include='*.m' --include='*.mm' 'Foo' PrebidMobile EventHandlers PrebidMobileTests
+```
+
+Empty output ⇒ no `@objc`, no `@objcMembers`, and no `NSObject` base unless the type needs one for
+another reason (`ParameterBuilder` conformance, KVO, `NSCopying`).
 
 ## Orphan headers — the `.h` files with no `.m` (inventoried S3.2)
 
