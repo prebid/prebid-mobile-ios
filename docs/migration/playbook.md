@@ -832,6 +832,31 @@ grep -rn --include='*.h' --include='*.m' --include='*.mm' 'Foo' PrebidMobile Eve
 Empty output ⇒ no `@objc`, no `@objcMembers`, and no `NSObject` base unless the type needs one for
 another reason (`ParameterBuilder` conformance, KVO, `NSCopying`).
 
+## Phase 3 gaps (discovered S3.3)
+
+### Gap S3.3-A — `PBMURLComponents` keeps its ObjC prefix: naming convention has a Foundation-collision exception
+
+The S1.1 naming convention (above) says `PBMFoo` → Swift `Foo`, with `@objc(PBMFoo)` preserving the
+ObjC-visible name. `PBMURLComponents` cannot follow this: `Foundation` already exports a type
+literally named `URLComponents` (a struct), and the test suite already exercises that stdlib type
+directly and separately (`URLComponentsTests.swift`, distinct from `PBMURLComponentsTest.swift`).
+Renaming the twin to `URLComponents` would shadow the stdlib type for every file in the module.
+
+**Rule:** When the de-prefixed name collides with an existing Foundation/UIKit type, keep the
+`PBM`-prefixed name on both sides of the bridge — `@objc(PBMURLComponents) public class
+PBMURLComponents: NSObject` — and skip the rename. Grep before assuming a collision:
+
+```bash
+rg -n '\bFoo\b' PrebidMobile PrebidMobileTests
+```
+
+If a bare, non-PBM-prefixed hit for the target name already exists (stdlib or SDK), that is the
+signal to keep the prefix. This is a one-off exception to the S1.1 rule, not a reversal of it —
+every other Phase 1–3 twin still drops the prefix. `TrackingRecord` (ported in the same PR) has no
+such collision and follows S1.1 normally; it also has zero non-test consumers (its header lived
+under `PrivateHeaders/`, i.e. it was never part of the public podspec surface either), so per Gap
+S3.2-A it stays a plain `final class` — no `@objc`, no `NSObject`, no `public`.
+
 ## Orphan headers — the `.h` files with no `.m` (inventoried S3.2)
 
 The per-class recipe at the top of this playbook assumes a `Foo.h` + `Foo.m` pair. **39 headers
