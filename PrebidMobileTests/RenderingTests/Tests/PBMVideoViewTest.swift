@@ -460,9 +460,26 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         XCTAssertEqual(result, expectedDuration)
     }
 
-    func testProgressIndicatorShownForInterstitialVideo() {
+    func testProgressIndicatorHiddenByDefaultForInterstitialVideo() {
         let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = true
+
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        videoCreative = PBMVideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+
+        videoCreative.videoView.updateProgressBar()
+
+        XCTAssertNil(videoCreative.videoView.progressBar)
+    }
+
+    func testProgressIndicatorCanBeShownForInterstitialVideo() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isInterstitialAd = true
+        adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible = true
 
         let model = CreativeModel(adConfiguration: adConfiguration)
         videoCreative = PBMVideoCreative(
@@ -476,9 +493,10 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         XCTAssertNotNil(videoCreative.videoView.progressBar)
     }
 
-    func testProgressIndicatorUpdatesForInterstitialVideo() throws {
+    func testProgressIndicatorUpdatesForInterstitialVideoWhenExplicitlyShown() throws {
         let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = true
+        adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible = true
 
         let model = CreativeModel(adConfiguration: adConfiguration)
         videoCreative = PBMVideoCreative(
@@ -505,9 +523,25 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         XCTAssertEqual(videoView.progressBar?.value, remainingTime)
     }
 
-    func testProgressIndicatorCanBeHiddenForInterstitialVideo() {
+    func testProgressIndicatorShownByDefaultForRewardedVideo() {
         let adConfiguration = AdConfiguration()
-        adConfiguration.isInterstitialAd = true
+        adConfiguration.isRewarded = true
+
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        videoCreative = PBMVideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+
+        videoCreative.videoView.updateProgressBar()
+
+        XCTAssertNotNil(videoCreative.videoView.progressBar)
+    }
+
+    func testProgressIndicatorCanBeHiddenForRewardedVideo() {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isRewarded = true
 
         let model = CreativeModel(adConfiguration: adConfiguration)
         videoCreative = PBMVideoCreative(

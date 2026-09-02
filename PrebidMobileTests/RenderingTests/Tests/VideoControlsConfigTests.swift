@@ -38,9 +38,11 @@ class VideoControlsConfigTests: XCTestCase {
     func testVideoProgressIndicatorVisibility() {
         let adConfiguration = VideoControlsConfiguration()
         XCTAssertTrue(adConfiguration.isVideoProgressIndicatorVisible)
+        XCTAssertNil(adConfiguration.isVideoProgressIndicatorVisibleOverride)
 
         adConfiguration.isVideoProgressIndicatorVisible = false
         XCTAssertFalse(adConfiguration.isVideoProgressIndicatorVisible)
+        XCTAssertEqual(adConfiguration.isVideoProgressIndicatorVisibleOverride, false)
     }
 
     func testCloseButtonArea() {
@@ -79,9 +81,10 @@ class VideoControlsConfigTests: XCTestCase {
         ortbAdConfig.closeButtonArea = 0.3
         ortbAdConfig.closeButtonPosition = "topleft"
         ortbAdConfig.isAutoCloseOnCompletionEnabled = false
-        
+        ortbAdConfig.isVideoProgressIndicatorVisible = true
+
         adConfiguration.initialize(with: ortbAdConfig)
-        
+
         XCTAssertEqual(adConfiguration.isMuted, false)
         XCTAssertEqual(adConfiguration.maxVideoDuration?.doubleValue, 40)
         XCTAssertEqual(adConfiguration.skipButtonArea, 0.3)
@@ -89,6 +92,8 @@ class VideoControlsConfigTests: XCTestCase {
         XCTAssertEqual(adConfiguration.closeButtonArea, 0.3)
         XCTAssertEqual(adConfiguration.closeButtonPosition, .topLeft)
         XCTAssertFalse(adConfiguration.isAutoCloseOnCompletionEnabled)
-        
+        XCTAssertTrue(adConfiguration.isVideoProgressIndicatorVisible)
+        XCTAssertEqual(adConfiguration.isVideoProgressIndicatorVisibleOverride, true)
+
     }
 }

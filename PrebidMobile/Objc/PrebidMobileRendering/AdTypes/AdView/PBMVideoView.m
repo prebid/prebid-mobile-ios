@@ -379,8 +379,20 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 - (BOOL)shouldShowProgressBar {
     PBMAdConfiguration *adConfiguration = self.creative.creativeModel.adConfiguration;
-    return adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible &&
-        (adConfiguration.isRewarded || adConfiguration.presentAsInterstitial);
+    PBMVideoControlsConfiguration *videoControlsConfig = adConfiguration.videoControlsConfig;
+    NSNumber *override = videoControlsConfig.isVideoProgressIndicatorVisibleOverride;
+
+    if (adConfiguration.isRewarded) {
+        // Preserve the SDK's existing behavior: shown by default, opt-out via an explicit override.
+        return override ? override.boolValue : YES;
+    }
+
+    if (adConfiguration.presentAsInterstitial) {
+        // Preserve the SDK's existing behavior: hidden by default, opt-in via an explicit override.
+        return override != nil && override.boolValue;
+    }
+
+    return NO;
 }
 
 - (void)updateWatchAgainButton {
