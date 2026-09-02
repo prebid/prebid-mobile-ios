@@ -616,7 +616,10 @@ static PBMError *extracted(NSString *errorMessage) {
 - (void)setupVolumeObserver {
     if (!self.isVolumeObserverSetup) {
         self.isVolumeObserverSetup = YES;
-        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+        // Note: intentionally not calling `setActive:YES` here. Activating the shared audio session
+        // is a synchronous call that can block the main thread and interrupts audio already playing
+        // in other apps, even though this is only needed to observe `outputVolume` via KVO, which
+        // works without activating the session.
         [[AVAudioSession sharedInstance] addObserver:self
                                           forKeyPath:KeyPathOutputVolume
                                              options:NSKeyValueObservingOptionNew
