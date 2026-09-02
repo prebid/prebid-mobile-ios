@@ -381,8 +381,19 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     private func shouldShowProgressBar() -> Bool {
         guard let adConfiguration else { return false }
-        return adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible &&
-            (adConfiguration.isRewarded || adConfiguration.presentAsInterstitial)
+        let visibilityOverride = adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisibleOverride
+
+        if adConfiguration.isRewarded {
+            // Preserve the SDK's existing behavior: shown by default, opt-out via an explicit override.
+            return visibilityOverride?.boolValue ?? true
+        }
+
+        if adConfiguration.presentAsInterstitial {
+            // Preserve the SDK's existing behavior: hidden by default, opt-in via an explicit override.
+            return visibilityOverride?.boolValue ?? false
+        }
+
+        return false
     }
 
     private func updateWatchAgainButton() {
