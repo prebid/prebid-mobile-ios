@@ -790,13 +790,22 @@ like cleanup, not like a Release-behaviour change.
 **Rule:** Before dropping a `PBMAssert` in favour of non-optional parameters, measure the callers:
 
 ```bash
-grep -rn --include='*.m' --include='*.h' 'initWith…\|alloc] init' PrebidMobile EventHandlers
+grep -rn --include='*.m' --include='*.h' 'initWith\|alloc] init' PrebidMobile EventHandlers
 ```
 
 If every constructor call is Swift, drop the assert. If an ObjC caller survives — an EventHandler,
 an adapter, or an `@objc` factory reachable from a publisher app — keep the parameter optional-free
 but re-introduce the degrade-gracefully path explicitly (`Log.error` + early return), because a
 publisher passing `nil` through a bridged initializer must not crash their app.
+
+*Round 3 correction:* `SKAdNetworksParameterBuilder`'s `adConfiguration` parameter shipped as
+`AdConfiguration?` — the "eight symmetric non-optional `let`s" claim above was true for seven
+builders, not eight. The deleted ObjC header (`PBMSKAdNetworksParameterBuilder.h`) declared this
+parameter under `NS_ASSUME_NONNULL_BEGIN`, i.e. non-nullable, so the optional was a silent
+loosening introduced by the port, not a deliberate exception. Fixed to match the other seven;
+no call site passed `nil`. Lesson for future ports: when a class is one of a set ported together,
+diff its initializer's nullability annotations individually — "the sibling builders are already
+non-optional" is not evidence for the one you have not checked yet.
 
 ### Gap S3.2-A — Gap 4 / Gap 6 do not apply to the Phase 3 builders themselves
 

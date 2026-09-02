@@ -97,9 +97,15 @@ These are intentional and reviewer-visible:
    *Round 2:* the parse is now `String.strictNumberValue` (`Int64(self).map(NSNumber.init)`)
    rather than `NumberFormatter`. GPP section IDs are a spec-defined run of digits, and
    `NumberFormatter` resolves against `Locale.current` — under a grouping-separator locale it will
-   read `"1,2"` as `12`, and it accepts decimals and signs the spec does not define. This is a
-   *narrowing* relative to both the ObjC original and the first Swift draft; no test changed,
-   because every existing input is a plain integer string.
+   read `"1,2"` as `12`, and it accepts decimals and signs the spec does not define.
+   *Round 3 correction:* this is **not a pure narrowing**, as originally claimed here. A
+   whitespace-padded component (`" 5"`) is narrower — `NumberFormatter` trims and accepts it,
+   `Int64(_:)` rejects it — but a leading `+` is *wider*: `Int64("+5") == 5` while
+   `NumberFormatter().number(from: "+5")` is `nil` under `Locale.current` parsing. Both directions
+   are now covered by `testIABGPPSID_WhitespaceComponent_Skipped` and
+   `testIABGPPSID_LeadingPlus_Accepted`. The same swap underlies every `strictNumberValue` call in
+   `SkadnParametersManager`, so the same two-directional caveat applies there, though no spec input
+   observed in practice carries a sign or padding.
 2. **`SKAdNetworksParameterBuilder.skAdNetworkIds()` uses `compactMap`** over the
    `SKAdNetworkItems` plist array, likewise skipping malformed entries instead of inserting `nil`.
    `SkadnParameterBuilderTest.testSKAdNetworkIds_SkipsMalformedEntries` exercises the real parse
@@ -309,3 +315,77 @@ Verified by erasing the simulator between runs to reproduce a cold WebKit: befor
   `AdLoadFlowController.swift`; the latter is referenced only by a stale `.pbxproj` entry).
   Left in place in this PR to keep the diff scoped to Phase 3; recorded in the playbook
   inventory as deletable at any time.
+
+## Review round 3 — triage (open, to be addressed next session)
+
+Twelve comments from `mdanylov-sigma` on 2026-09-01T09:32Z, all unanswered (corrected from the
+initial "eleven" count — verified against the PR comments API). Triaged by whether they
+are *migration fidelity* (the ObjC→Swift port changed or misdocumented behaviour) or *improvement*
+(pre-existing debt the port merely made visible). **No comment in this round is a correctness
+blocker** — none identifies a production regression.
+
+### Migration-relevant — do in this PR
+
+| Comment | Item | Why it is migration, not polish |
+|---------|------|--------------------------------|
+| [3902764122](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764122) | `InternalUserConsentDataManager.swift:52` — `strictNumberValue` vs `NumberFormatter` | The only real ObjC→Swift behaviour delta in the batch: `" 5"` parsed under `NumberFormatter`, now silently dropped by `Int64(_:)`. And **divergence 1 in this doc is factually wrong** — it calls the swap a narrowing, but `Int64("+5") == 5` while `NumberFormatter().number(from: "+5") == nil`, so a leading `+` is a *widening*. Also propagates to `SkadnParametersManager`'s field parses. Minimum: correct divergence 1. Cheap extra: add `" 5"` / `"+5"` cases to `InternalUserConsentDataManagerTests`. |
+| [3902764187](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764187) | `SKAdNetworksParameterBuilder.swift:26` — `AdConfiguration?` | The deleted ObjC header declared this init parameter non-nullable under `NS_ASSUME_NONNULL_BEGIN`. The port silently loosened the contract — fidelity, not taste. Also inconsistent with the `BasicParameterBuilder` optional-elimination done in round 2. One-line fix; no call site passes nil. |
+| [3902764195](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764195) | `playbook.md:793` — literal `…` in the grep | The measure-the-callers grep prescribed by Gap S3.1-H can never match `initWith…`, so half of the documented safety check is a no-op. One character. Fix, because the playbook is the artifact the rest of the migration leans on. |
+
+### Improvements — acknowledge and defer
+
+| Comment | Item | Category |
+|---------|------|----------|
+| [3902764106](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764106) | `user.ext["consent"]` written by both `UserConsentParameterBuilder` and `PBMPrebidParameterBuilder` | Same shape as the `regs.ext["gdpr"]` fix, but the second writer is ObjC and **not in this diff**. Currently benign (extras always run last; both read `Targeting.shared`). Follow-up. |
+| [3902764133](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764133) | `AppInfoParameterBuilder.swift:46` publisher-name guard is unreachable | Faithful port of ObjC dead code. Removing it is cleanup. |
+| [3902764142](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764142) | `ParameterBuilderService.swift:63` builder array has no ownership comment | Doc improvement. Fair point that the `gdpr` note lives 100+ lines away. |
+| [3902764151](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764151) | Test pipelines hand-copy the builder list (`PrebidParameterBuilderTest`, `SkadnParameterBuilderTest` ×2) | Test refactor. The drift risk is real and it *did* bite in round 2, but it is pre-existing and `SkadnParameterBuilderTest` was already like this on master. |
+| [3902764164](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764164) | Remove dead `BasicParameterBuilder.sdkConfiguration` (answers the open question above) | Already dead in ObjC. ~21 call sites plus a change to `buildParamsDict`'s signature — scope creep on a migration PR. Follow-up, unless the reviewer insists. |
+| [3902764175](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764175) | Use `getObjectFromUserDefaults` in `InternalUserConsentDataManager` | Style consistency with the sibling `UserConsentDataManager`. |
+| [3902764203](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764203) | Unit test asserting the 8 builders stay non-`@objc` (enforcing Gap S3.1-H) | New safety net for a hypothetical future caller. Out of scope. |
+| [3902764220](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764220) | Document the "extras always run last" guarantee on `buildParamsDict` | Doc improvement on the `@objc` surface. |
+| [3902764210](https://github.com/prebid/prebid-mobile-ios/pull/1328#discussion_r3902764210) | ATT comparison in `DeviceInfoParameterBuilder.swift:59` duplicates `Host.swift:32` | DRY refactor touching a file outside this diff. |
+
+## Review round 3 — #1328 comments addressed
+
+All three migration-relevant comments fixed in code; the nine improvement comments acknowledged
+and deferred (reply posted on the PR for each).
+
+| Comment | Resolution |
+|---------|------------|
+| `strictNumberValue` vs `NumberFormatter` — divergence 1 mis-stated as a narrowing | Corrected divergence 1 above: the swap is two-directional, not a narrowing. Whitespace-padded components (`" 5"`) are now rejected (narrower); a leading `+` (`"+5"`) is now accepted (wider). Added `testIABGPPSID_WhitespaceComponent_Skipped` and `testIABGPPSID_LeadingPlus_Accepted` to `InternalUserConsentDataManagerTests`, exercising both directions. |
+| `SKAdNetworksParameterBuilder.swift:26` — `adConfiguration: AdConfiguration?` loosened a non-nullable ObjC contract | `AdConfiguration?` → `AdConfiguration`; `adConfiguration?.supportSKOverlay == true` → `adConfiguration.supportSKOverlay`. No call site (production or test) passed `nil`. Playbook Gap S3.1-H gained a round-3 correction: the "eight symmetric non-optional `let`s" claim was only true for seven builders before this fix. |
+| `playbook.md:793` — literal `…` in the `PBMAssert`-callers grep never matches `initWith…` selectors | `'initWith…\|alloc] init'` → `'initWith\|alloc] init'`. Verified the corrected pattern actually matches `initWith`-prefixed selectors in the repo. |
+
+### Improvements — acknowledged and deferred (replies posted on the PR)
+
+None of these are taken in this PR; each reply on GitHub says so and states the reason from the
+table below. A follow-up issue covers the five with real substance (marked *) once this PR merges.
+
+| Comment | Reason deferred |
+|---------|------------------|
+| `user.ext["consent"]` written by both `UserConsentParameterBuilder` and `PBMPrebidParameterBuilder`* | Second writer is ObjC and outside this diff; currently benign (extras run last). |
+| `AppInfoParameterBuilder.swift:46` publisher-name guard is unreachable* | Faithful port of pre-existing ObjC dead code; removing it is cleanup, not a migration-fidelity fix. |
+| `ParameterBuilderService.swift:63` builder array has no ownership comment | Doc improvement, not a behaviour change; noted for the follow-up. |
+| Test pipelines hand-copy the builder list* | Pre-existing on master (`SkadnParameterBuilderTest` already did this); real drift risk but a test refactor, not migration fidelity. |
+| Remove dead `BasicParameterBuilder.sdkConfiguration`* | Already dead in ObjC; ~21 call sites plus a `buildParamsDict` signature change — scope creep on a migration PR. |
+| Use `getObjectFromUserDefaults` in `InternalUserConsentDataManager` | Style consistency with `UserConsentDataManager`; no behaviour change, deferred with the doc-only items. |
+| Unit test asserting the 8 builders stay non-`@objc` | New safety net for a hypothetical future caller; out of scope for this PR. |
+| Document the "extras always run last" guarantee on `buildParamsDict` | Doc improvement on the `@objc` surface. |
+| ATT comparison in `DeviceInfoParameterBuilder.swift:59` duplicates `Host.swift:32`* | DRY refactor touching a file outside this diff. |
+
+### Test plan — round 3
+
+- [x] `-only-testing` re-run of `InternalUserConsentDataManagerTests`, `SkadnParameterBuilderTest`,
+      `PrebidParameterBuilderTest` on the full test plan after the two fixes — **0 failures**,
+      including the two new `InternalUserConsentDataManagerTests` cases
+- [x] `./scripts/testPrebidMobile.sh --latest --quick` — **812 tests, 0 failures, no retries**
+      (unchanged from round 2: the two new whitespace/sign tests live in
+      `InternalUserConsentDataManagerTests`, skipped wholesale by the PR plan per the existing
+      note above; the `SKAdNetworksParameterBuilder` fix added no new test)
+- [x] `swiftlint lint --config .swiftlint.yml` on the touched files — no new violations; the
+      pre-existing `trailing_whitespace` noise in `InternalUserConsentDataManagerTests.swift` is
+      unrelated to the added lines
+- [x] Posted a consolidated reply on the PR covering the three fixes and the nine
+      acknowledged-and-deferred items:
+      [#1328#issuecomment-5506835667](https://github.com/prebid/prebid-mobile-ios/pull/1328#issuecomment-5506835667)

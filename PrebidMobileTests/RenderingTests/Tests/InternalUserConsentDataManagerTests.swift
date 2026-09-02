@@ -101,6 +101,22 @@ class InternalUserConsentDataManagerTests: XCTestCase {
         setIABGPPSIDString(val: "")
         assertIABGPPSID([])
     }
+
+    /// `NumberFormatter` trims surrounding whitespace before parsing; `strictNumberValue`
+    /// (`Int64(self)`) does not, so a component with leading/trailing whitespace is now skipped
+    /// rather than accepted.
+    func testIABGPPSID_WhitespaceComponent_Skipped() {
+        setIABGPPSIDString(val: "2_ 3_5")
+        assertIABGPPSID([2, 5])
+    }
+
+    /// `Int64("+5") == 5`, whereas `NumberFormatter().number(from: "+5")` is `nil` under the
+    /// default `Locale.current` parsing this code used before Gap S3.1 round 2 — a leading `+`
+    /// is accepted where it previously was not.
+    func testIABGPPSID_LeadingPlus_Accepted() {
+        setIABGPPSIDString(val: "2_+5")
+        assertIABGPPSID([2, 5])
+    }
     
     func setAndLoadPrivacyString(usPrivacyString: String?, file: StaticString = #file, line: UInt = #line) {
         setUSPrivacyString(val: usPrivacyString)

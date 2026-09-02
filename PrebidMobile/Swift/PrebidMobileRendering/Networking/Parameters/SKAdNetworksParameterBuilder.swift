@@ -23,9 +23,9 @@ class SKAdNetworksParameterBuilder: NSObject, ParameterBuilder {
 
     private let bundle: BundleProtocol
     private let targeting: Targeting
-    private let adConfiguration: AdConfiguration?
+    private let adConfiguration: AdConfiguration
 
-    init(bundle: BundleProtocol, targeting: Targeting, adConfiguration: AdConfiguration?) {
+    init(bundle: BundleProtocol, targeting: Targeting, adConfiguration: AdConfiguration) {
         self.bundle = bundle
         self.targeting = targeting
         self.adConfiguration = adConfiguration
@@ -46,7 +46,7 @@ class SKAdNetworksParameterBuilder: NSObject, ParameterBuilder {
             imp.extSkadn.sourceapp = sourceapp
             imp.extSkadn.skadnetids = skadnetids
 
-            if adConfiguration?.supportSKOverlay == true {
+            if adConfiguration.supportSKOverlay {
                 imp.extSkadn.skoverlay = 1
             }
         }
