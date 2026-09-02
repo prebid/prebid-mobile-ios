@@ -12,6 +12,10 @@ Prebid Mobile iOS SDK — an open-source header bidding SDK that integrates with
 Detailed procedures live in `agents/` as plain markdown, readable by any agent. Read the relevant
 file before acting rather than improvising the commands.
 
+Claude Code additionally loads these as Agent Skills through the committed `.claude/skills`
+symlink, which points at `agents/`. `agents/` remains the single source of truth — do not duplicate
+files under `.claude/`.
+
 | Task | Read |
 |------|------|
 | Build the 4 XCFrameworks | `agents/build-sdk/SKILL.md` |
@@ -19,7 +23,8 @@ file before acting rather than improvising the commands.
 | Review a PR on this repo | `agents/review/SKILL.md` |
 | Run SwiftLint | `agents/lint/SKILL.md` |
 | CocoaPods install | `agents/pod-install/SKILL.md` |
-| Generic iOS/Swift background (not repo-specific; playbook wins on conflicts) | `agents/ios/SKILL.md` |
+| Generic iOS/Swift background (not repo-specific; playbook wins on conflicts) | `agents/ios-development/SKILL.md` |
+| Generic ObjC → Swift / XCTest migration background (playbook wins on conflicts) | `agents/migration-patterns/SKILL.md` |
 
 ## Commands
 

@@ -79,7 +79,7 @@ class InternalUserConsentDataManagerTests: XCTestCase {
     }
     
     func testIABGPPSID_Unset() {
-        assertIABGPPString(nil)
+        assertIABGPPSID([])
     }
     
     func testIABGPPSID_withString() {
@@ -87,6 +87,35 @@ class InternalUserConsentDataManagerTests: XCTestCase {
         
         setIABGPPSIDString(val: gppSID)
         assertIABGPPSID([2, 3, 4, 5])
+    }
+
+    /// The ObjC original passed the result of `numberFromString:` straight to `addObject:`,
+    /// crashing with `NSInvalidArgumentException` on an unparseable component. The Swift port
+    /// skips it instead.
+    func testIABGPPSID_Malformed() {
+        setIABGPPSIDString(val: "2_bad_5")
+        assertIABGPPSID([2, 5])
+    }
+
+    func testIABGPPSID_EmptyString() {
+        setIABGPPSIDString(val: "")
+        assertIABGPPSID([])
+    }
+
+    /// `NumberFormatter` trims surrounding whitespace before parsing; `strictNumberValue`
+    /// (`Int64(self)`) does not, so a component with leading/trailing whitespace is now skipped
+    /// rather than accepted.
+    func testIABGPPSID_WhitespaceComponent_Skipped() {
+        setIABGPPSIDString(val: "2_ 3_5")
+        assertIABGPPSID([2, 5])
+    }
+
+    /// `Int64("+5") == 5`, whereas `NumberFormatter().number(from: "+5")` is `nil` under the
+    /// default `Locale.current` parsing this code used before Gap S3.1 round 2 — a leading `+`
+    /// is accepted where it previously was not.
+    func testIABGPPSID_LeadingPlus_Accepted() {
+        setIABGPPSIDString(val: "2_+5")
+        assertIABGPPSID([2, 5])
     }
     
     func setAndLoadPrivacyString(usPrivacyString: String?, file: StaticString = #file, line: UInt = #line) {
@@ -114,7 +143,7 @@ class InternalUserConsentDataManagerTests: XCTestCase {
         XCTAssertEqual(InternalUserConsentDataManager.gppHDRString, gppString)
     }
     
-    func assertIABGPPSID(_ gppSID: NSMutableArray?) {
+    func assertIABGPPSID(_ gppSID: [NSNumber]) {
         XCTAssertEqual(InternalUserConsentDataManager.gppSID, gppSID)
     }
 }

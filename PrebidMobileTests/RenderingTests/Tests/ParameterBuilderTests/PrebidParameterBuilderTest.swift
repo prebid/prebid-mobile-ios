@@ -1037,7 +1037,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func buildBidRequest(with adUnitConfig: AdUnitConfig) -> ORTBBidRequest {
         let bidRequest = ORTBBidRequest()
-        PBMBasicParameterBuilder(
+        BasicParameterBuilder(
             adConfiguration: adUnitConfig.adConfiguration,
             sdkConfiguration: sdkConfiguration,
             sdkVersion: "MOCK_SDK_VERSION",
@@ -1049,7 +1049,12 @@ class PrebidParameterBuilderTest: XCTestCase {
             deviceAccessManager: MockDeviceAccessManager(rootViewController: nil)
         )
         .build(bidRequest)
-        
+
+        // Owns regs.ext["gdpr"] / regs.ext["us_privacy"] / user.ext["consent"]. Kept in the same
+        // position relative to the other builders as in ParameterBuilderService.
+        UserConsentParameterBuilder()
+            .build(bidRequest)
+
         PBMPrebidParameterBuilder(
             adConfiguration: adUnitConfig,
             sdkConfiguration: sdkConfiguration,

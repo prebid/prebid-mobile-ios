@@ -20,9 +20,9 @@ fileprivate let skAdNetworkIdsMock = ["cstr6suwn9.skadnetwork", "4fzdc2evr5.skad
 fileprivate let sourceappMock = "MockTestApp"
 fileprivate let sdkVersionMock = "1.0.0"
 
-class MockSKAdNetworksParameterBuilder: PBMSKAdNetworksParameterBuilder {
+fileprivate class MockSKAdNetworksParameterBuilder: SKAdNetworksParameterBuilder {
     
-    override func skAdNetworkIds() -> [String] {
+    override func skAdNetworkIds() -> [String]? {
         skAdNetworkIdsMock
     }
 }
@@ -33,14 +33,14 @@ class SkadnParameterBuilderTest: XCTestCase {
         let adConfiguration = AdConfiguration()
         let mockTargeting = Targeting()
         
-        let basicBuilder = PBMBasicParameterBuilder(
+        let basicBuilder = BasicParameterBuilder(
             adConfiguration: adConfiguration,
             sdkConfiguration: Prebid.shared,
             sdkVersion: sdkVersionMock,
             targeting: mockTargeting
         )
         
-        let skadnBuilder = PBMSKAdNetworksParameterBuilder(
+        let skadnBuilder = SKAdNetworksParameterBuilder(
             bundle: Bundle.main,
             targeting: mockTargeting,
             adConfiguration: adConfiguration
@@ -65,7 +65,7 @@ class SkadnParameterBuilderTest: XCTestCase {
         mockTargeting.sourceapp = sourceappMock
         adConfiguration.supportSKOverlay = true
         
-        let basicBuilder = PBMBasicParameterBuilder(
+        let basicBuilder = BasicParameterBuilder(
             adConfiguration: adConfiguration,
             sdkConfiguration: Prebid.shared,
             sdkVersion: sdkVersionMock,
@@ -88,5 +88,56 @@ class SkadnParameterBuilderTest: XCTestCase {
             XCTAssert(imp.extSkadn.sourceapp == sourceappMock)
             XCTAssert(imp.extSkadn.skoverlay == 1)
         })
+    }
+
+    /// Exercises the real `skAdNetworkIds()` parse — not the `MockSKAdNetworksParameterBuilder`
+    /// override. The ObjC original inserted the result of `objectForKey:` unconditionally; the
+    /// Swift port `compactMap`s, so an entry with a missing or wrong-type identifier is skipped
+    /// instead of becoming a `nil` element.
+    func testSKAdNetworkIds_SkipsMalformedEntries() {
+        let identifierKey = SKAdNetworksParameterBuilder.SKAdNetworkIdentifierKey
+
+        let mockBundle = MockBundle()
+        mockBundle.mockSKAdNetworkItems = [
+            [identifierKey: skAdNetworkIdsMock[0]],
+            [:],
+            [identifierKey: 42],
+            ["SomeOtherKey": "not.an.id"],
+            [identifierKey: skAdNetworkIdsMock[1]]
+        ]
+
+        let mockTargeting = Targeting()
+        mockTargeting.sourceapp = sourceappMock
+
+        let skadnBuilder = SKAdNetworksParameterBuilder(
+            bundle: mockBundle,
+            targeting: mockTargeting,
+            adConfiguration: AdConfiguration()
+        )
+
+        XCTAssertEqual(skadnBuilder.skAdNetworkIds(), skAdNetworkIdsMock)
+
+        let bidRequest = ORTBBidRequest()
+        bidRequest.imp = [ORTBImp()]
+
+        skadnBuilder.build(bidRequest)
+
+        bidRequest.imp.forEach({ imp in
+            XCTAssert(imp.extSkadn.skadnetids == skAdNetworkIdsMock)
+            XCTAssert(imp.extSkadn.sourceapp == sourceappMock)
+        })
+    }
+
+    func testSKAdNetworkIds_NilInfoDictionary() {
+        let mockBundle = MockBundle()
+        mockBundle.mockShouldNilInfoDictionary = true
+
+        let skadnBuilder = SKAdNetworksParameterBuilder(
+            bundle: mockBundle,
+            targeting: Targeting(),
+            adConfiguration: AdConfiguration()
+        )
+
+        XCTAssertNil(skadnBuilder.skAdNetworkIds())
     }
 }

@@ -14,7 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBMParameterBuilderProtocol.h"
+#import "SwiftImport.h"
 
 @class AdUnitConfig;
 @class Prebid;
@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
                        sdkConfiguration:(Prebid *)sdkConfiguration
                               targeting:(Targeting *)targeting
                        userAgentService:(PBMUserAgentService *)userAgentService NS_DESIGNATED_INITIALIZER;
+
+- (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest NS_SWIFT_NAME(build(_:));
 
 @end
 

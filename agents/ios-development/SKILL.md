@@ -1,6 +1,6 @@
 ---
 name: ios-development
-description: Generic iOS/Swift reference material — Swift idioms, architecture notes, accessibility and HIG checklists, size-class handling, and framework migration guides. Background reading only; not specific to this SDK.
+description: Generic iOS/Swift reference material — Swift idioms, architecture notes, accessibility and HIG checklists, and size-class handling. Background reading only; not specific to this SDK. For ObjC → Swift migration, use the migration-patterns skill instead.
 allowed-tools: [Read, Glob, Grep, WebFetch]
 ---
 
@@ -8,19 +8,14 @@ allowed-tools: [Read, Glob, Grep, WebFetch]
 
 Generic iOS guidance retained as background reading. **This is not repo-specific.** For anything
 concerning this SDK, the authoritative sources are `AGENTS.md`, `docs/migration/playbook.md`, and
-the runbooks in `agents/` — see the routing table in `AGENTS.md`.
+the runbooks in `agents/` — see the routing table in `AGENTS.md`. Migration material lives in its
+own skill, `agents/migration-patterns/`.
 
 Much of the original third-party bundle was removed as inapplicable: this is a header-bidding ad
 SDK (a UIKit library, iOS 13+), not an app. It has no SwiftUI, no Core Data, no navigation
 hierarchy, no App Store presence. What remains below is the subset with some bearing on the code.
 
 ## Available modules
-
-### `migration-patterns/`
-- `objc-to-swift.md` — generic ObjC → Swift reference. **Read `migration-patterns/SKILL.md`
-  first**: it lists four points where this file contradicts `docs/migration/playbook.md`, which is
-  authoritative for the migration in progress.
-- `xctest-to-swift-testing.md` — reference only; this repo stays on XCTest.
 
 ### `coding-best-practices/`
 - `swift-patterns.md` — Swift idioms: optionals, type safety, collections, error handling. Its

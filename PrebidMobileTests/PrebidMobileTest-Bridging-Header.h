@@ -25,16 +25,12 @@
 #import "PBMAdLoadManagerProtocol.h"
 #import "PBMAdLoadManagerVAST.h"
 #import "PBMAdLoadManagerDelegate.h"
-#import "PBMAppInfoParameterBuilder.h"
-#import "PBMBasicParameterBuilder.h"
 #import "PBMConstants.h"
 #import "PBMCreativeFactory.h"
 #import "PBMCreativeFactoryJob.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMDeepLinkPlusHelper+Testing.h"
-#import "PBMDeviceInfoParameterBuilder.h"
-#import "PBMGeoLocationParameterBuilder.h"
 #import "PBMHTMLCreative.h"
 #import "PBMHTMLFormatter.h"
 #import "PBMMacros.h"
@@ -43,15 +39,10 @@
 #import "PBMMRAIDConstants.h"
 #import "PBMMRAIDController.h"
 #import "PBMMRAIDJavascriptCommands.h"
-#import "PBMNetworkParameterBuilder.h"
 #import "PBMORTB.h"
-#import "PBMORTBParameterBuilder.h"
-#import "PBMParameterBuilderProtocol.h"
-#import "PBMParameterBuilderService.h"
 #import "PBMTrackingRecord.h"
 #import "PBMUIApplicationProtocol.h"
 #import "PBMURLComponents.h"
-#import "PBMUserConsentParameterBuilder.h"
 #import "PBMAdRequesterVAST.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMVideoCreative.h"
@@ -62,7 +53,6 @@
 #import "PBMAdRequestResponseVAST.h"
 // PBMCircularProgressBarLayer moved to Swift — available via module import
 #import "PBMInterstitialLayoutConfigurator.h"
-#import "PBMSKAdNetworksParameterBuilder.h"
 
 // Extensions
 #import "WKNavigationAction+PBMWKNavigationActionCompatible.h"
@@ -106,7 +96,6 @@
 #import "PBMOpenMeasurementEventTracker+PBMTestExtension.h"
 #import "PBMVideoCreative+PBMTestExtension.h"
 #import "PBMVideoView+PBMTestExtension.h"
-#import "PBMBasicParameterBuilder+PBMTestExtension.h"
 #import "PBMMRAIDController+PBMTestExtension.h"
 #import "PBMSafariVCOpener+PBMTestExtensions.h"
 
@@ -118,4 +107,3 @@
 #import "MediationInterstitialAdUnit+TestExtension.h"
 #import "MediationBannerAdUnit+TestExtension.h"
 
-#import "InternalUserConsentDataManager.h"
