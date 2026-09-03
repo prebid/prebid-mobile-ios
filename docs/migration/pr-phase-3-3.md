@@ -103,6 +103,33 @@ Everything else is a line-for-line port, verified by hand-tracing the existing
   documented exception to the S1.1 "no PBM prefix" rule for names that collide with a stdlib/UIKit
   type, plus the note that `TrackingRecord`'s zero-consumer visibility decision is a straightforward
   application of the existing Gap S3.2-A, not a new gap.
+- **Round S3.3 correction to Gap S3.1-H** (from review of this PR): "keep the parameter
+  optional-free but re-introduce the degrade-gracefully path" cannot work once a real ObjC caller
+  survives — ObjC bridging traps on `nil` for a non-optional Swift parameter before the guard
+  clause ever runs. Corrected rule: the bridged parameter must be `Optional` in that case,
+  regardless of the header's `NS_ASSUME_NONNULL` annotation (compile-time only, not runtime-enforced).
+
+### Review fixes (PR #1336)
+
+- **`PBMURLComponents.init` nil-safety** — `url`/`paramsDict` were non-optional, so a future ObjC
+  caller passing `nil` would trap during bridging instead of getting `nil` back the way
+  `PBMURLComponents.m` did. Reverted to `String?` / `[String: String]?` with an explicit
+  guard + `Log.error`, per the Gap S3.1-H correction above.
+- **Dedup comparison + algorithm** — the nested `contains(where:)` port compared query-item names
+  with Swift's `==` (Unicode canonical-equivalence), not ObjC's `isEqualToString:` (literal UTF-16),
+  a real behavioral divergence for differently-normalized duplicate names. Replaced the
+  reverse/scan/reverse dance with a single pass building `[NSString: Int]` of each name's last
+  index, then filtering — same "last occurrence wins, survivors keep original order" result,
+  verified by hand against `PBMURLComponentsTest.testPositive`'s fixture and the general case, but
+  now `NSString`-keyed (literal comparison, matching the ObjC original) and O(n) instead of O(n²).
+- **`urlString` double string build** — `nsUrlComponents.string` was called twice on the no-`?`
+  fallback path; bound to a local once.
+- **`NSURLComponents` → `URLComponents`** — the private backing store never crossed the `@objc`
+  boundary itself, so swapped the ObjC bridging class for Swift's native `URLComponents` struct;
+  same API, gives real compiler-enforced immutability on the `let`.
+- **`TrackingRecord` → `struct`** — two `let`s and a pass-through init, no identity semantics, no
+  subclassing; value semantics fit better than the previous `final class`. Playbook's `TrackingRecord`
+  note updated to match.
 
 ## Test plan
 
@@ -115,7 +142,7 @@ Everything else is a line-for-line port, verified by hand-tracing the existing
       `generated/log/prebid_mobile_build.log`
 - [x] `swiftlint lint --config .swiftlint.yml` on `TrackingRecord.swift` and
       `PBMURLComponents.swift` — **0 violations**
+- [x] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build of the working tree, per the
+      playbook's unconditional per-PR checklist item; flagged as missing in review since this PR
+      deletes ObjC headers and their imports from surviving consumers — **build succeeded**
 - [ ] `./scripts/testPrebidMobile.sh --latest` — full suite, run before merge
-- [ ] Reviewer: confirm the Gap S3.3-A naming exception (keeping the `PBM` prefix on
-      `PBMURLComponents`) is the right call versus, e.g., naming the Swift type something else
-      entirely to allow dropping the prefix

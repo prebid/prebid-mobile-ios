@@ -20,49 +20,59 @@ import Foundation
 @objc(PBMURLComponents)
 public class PBMURLComponents: NSObject {
 
-    private let nsUrlComponents: NSURLComponents
+    private let urlComponents: URLComponents
 
+    // `url`/`paramsDict` stay Optional even though the deleted ObjC header declared them
+    // `NS_ASSUME_NONNULL` — that annotation is compile-time only, and this initializer is
+    // `public`/`@objc`, so a future ObjC caller that passes `nil` must get `nil` back
+    // gracefully (matching `PBMURLComponents.m`'s `if (!urlComponents || !paramsDict)`)
+    // instead of trapping during Swift/ObjC bridging.
     @objc(initWithUrl:paramsDict:)
-    public init?(url: String, paramsDict: [String: String]) {
-        guard let urlComponents = NSURLComponents(string: url) else {
+    public init?(url: String?, paramsDict: [String: String]?) {
+        guard let url = url, let paramsDict = paramsDict,
+              var components = URLComponents(string: url) else {
+            Log.error("Failed to create PBMURLComponents: invalid url or paramsDict")
             return nil
         }
 
-        // Convert existing query items to a mutable list.
-        var queryItems = urlComponents.queryItems ?? []
+        var queryItems = components.queryItems ?? []
 
         // Add query items from paramsDict. This may result in some keys appearing twice.
         for key in paramsDict.keys.sorted() {
             queryItems.append(URLQueryItem(name: key, value: paramsDict[key]))
         }
 
-        // Remove dupes. Items added later have higher precedence, so we reverse the list first.
-        queryItems.reverse()
-
-        // If the accumulator array contains an item that has the same name,
-        // ignore the current item we are examining.
-        // Otherwise, append the item we are examining to the accumulator.
-        var filteredItems: [URLQueryItem] = []
-        for item in queryItems where !filteredItems.contains(where: { $0.name == item.name }) {
-            filteredItems.append(item)
+        // Keep the last occurrence of each name — a paramsDict key beats an existing
+        // query-string key with the same name — while leaving the surviving items in
+        // their original relative order. Compared as `NSString` (literal UTF-16
+        // comparison) rather than Swift's `==` (Unicode canonical-equivalence
+        // comparison), so two names that are the same grapheme cluster under different
+        // Unicode normalization forms are still treated as distinct, matching ObjC's
+        // `isEqualToString:`.
+        var lastIndexByName: [NSString: Int] = [:]
+        for (index, item) in queryItems.enumerated() {
+            lastIndexByName[item.name as NSString] = index
         }
+        queryItems = queryItems.enumerated()
+            .filter { lastIndexByName[$0.element.name as NSString] == $0.offset }
+            .map { $0.element }
 
-        filteredItems.reverse()
-        urlComponents.queryItems = filteredItems
-        self.nsUrlComponents = urlComponents
+        components.queryItems = queryItems
+        self.urlComponents = components
 
         super.init()
     }
 
     @objc public var fullURL: String {
-        nsUrlComponents.string ?? ""
+        urlComponents.string ?? ""
     }
 
     @objc public var urlString: String {
-        nsUrlComponents.string?.PBMsubstringToString("?") ?? nsUrlComponents.string ?? ""
+        let fullURLString = urlComponents.string
+        return fullURLString?.PBMsubstringToString("?") ?? fullURLString ?? ""
     }
 
     @objc public var argumentsString: String {
-        nsUrlComponents.percentEncodedQuery ?? ""
+        urlComponents.percentEncodedQuery ?? ""
     }
 }

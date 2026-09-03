@@ -15,13 +15,7 @@
 
 import Foundation
 
-final class TrackingRecord {
-
+struct TrackingRecord {
     let trackingType: String
     let trackingURL: String
-
-    init(trackingType: String, trackingURL: String) {
-        self.trackingType = trackingType
-        self.trackingURL = trackingURL
-    }
 }

@@ -807,6 +807,24 @@ no call site passed `nil`. Lesson for future ports: when a class is one of a set
 diff its initializer's nullability annotations individually — "the sibling builders are already
 non-optional" is not evidence for the one you have not checked yet.
 
+*Round S3.3 correction:* "keep the parameter optional-free but re-introduce the degrade-gracefully
+path" (the rule two paragraphs up) is not achievable as written once a real ObjC caller survives.
+Objective-C bridging traps on `nil` for a non-optional Swift parameter *before* any Swift code
+runs — there is no way to `Log.error` + early-return from inside the initializer body if the
+parameter itself is declared non-optional, because the trap happens at the bridge, ahead of the
+body. `PBMURLComponents` hit this for real: `PBMVastRequester.m` is a surviving ObjC caller (see
+Gap S3.3-A), so the initial port's non-optional `url: String, paramsDict: [String: String]`
+signature would crash instead of degrade for any future ObjC caller careless enough to pass `nil`
+— exactly the failure mode this rule exists to prevent, and exactly what its own text failed to
+prevent in practice.
+
+**Corrected rule:** when an ObjC caller survives, the bridged parameter must be **Optional**
+(`String?`, not `String`) regardless of the header's `NS_ASSUME_NONNULL` annotation — that
+annotation is compile-time-only and does not stop a runtime `nil`. Guard-unwrap at the top of the
+initializer and `Log.error` + `return nil` (or the type's equivalent failure path) on the nil case,
+reproducing the ObjC original's defensive check. Only drop to a true non-optional parameter, with
+no guard, when the caller-measurement grep comes back Swift-only.
+
 ### Gap S3.2-A — Gap 4 / Gap 6 do not apply to the Phase 3 builders themselves
 
 The parameter builders have **no** surviving ObjC consumers: `PBMParameterBuilderService.m` was
@@ -847,7 +865,7 @@ Renaming the twin to `URLComponents` would shadow the stdlib type for every file
 PBMURLComponents: NSObject` — and skip the rename. Grep before assuming a collision:
 
 ```bash
-rg -n '\bFoo\b' PrebidMobile PrebidMobileTests
+rg -n '\bFoo\b' PrebidMobile EventHandlers PrebidMobileTests
 ```
 
 If a bare, non-PBM-prefixed hit for the target name already exists (stdlib or SDK), that is the
@@ -855,7 +873,9 @@ signal to keep the prefix. This is a one-off exception to the S1.1 rule, not a r
 every other Phase 1–3 twin still drops the prefix. `TrackingRecord` (ported in the same PR) has no
 such collision and follows S1.1 normally; it also has zero non-test consumers (its header lived
 under `PrivateHeaders/`, i.e. it was never part of the public podspec surface either), so per Gap
-S3.2-A it stays a plain `final class` — no `@objc`, no `NSObject`, no `public`.
+S3.2-A it needs no `@objc`, no `NSObject`, no `public`. Review of #1336 further tightened it from
+a plain `final class` to a `struct` — two `let`s and a pass-through init, no identity semantics,
+no subclassing, so value semantics fit better than a reference type.
 
 ## Orphan headers — the `.h` files with no `.m` (inventoried S3.2)
 
