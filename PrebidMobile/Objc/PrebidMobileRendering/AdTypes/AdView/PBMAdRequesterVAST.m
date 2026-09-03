@@ -17,7 +17,6 @@
 #import "PBMAdRequesterVAST.h"
 #import "PBMConstants.h"
 #import "PBMMacros.h"
-#import "PBMURLComponents.h"
 #import "PBMVastAdsBuilder.h"
 #import "PBMVastRequester.h"
 #import "Log+Extensions.h"
