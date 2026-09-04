@@ -117,14 +117,143 @@ class UserConsentDataManagerTest: XCTestCase {
         self.assertExpectedConsent(subjectToGDPR: false, consentString: nil)
     }
     
-    func testIABConsent_IsSubjectToGDPR_withStringBool() {
+    // IABTCF_gdprApplies is defined by the TCF spec as 0, 1, or unset.
+    // Any other stored value must be treated as unset rather than coerced via boolValue.
+    func testIABConsent_SubjectToGDPR_withStringBool_isIgnored() {
         self.setSubjectToGDPR(string: "YES")
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+        
+        self.setSubjectToGDPR(string: "NO")
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+    }
+    
+    func testIABConsent_SubjectToGDPR_withMalformedString_isIgnored() {
+        let malformedValues = ["true", "false", "yes", "no", "2", "-1", "01", "10",
+                               " 1", "1 ", "0 ", "", " ", "1.0", "0.0", "null", "undefined"]
+        
+        for value in malformedValues {
+            self.setSubjectToGDPR(string: value)
+            XCTAssertNil(UserConsentDataManager.shared.subjectToGDPR,
+                         "Expected nil for IABTCF_gdprApplies = \"\(value)\"")
+            XCTAssertNil(UserConsentDataManager.shared.subjectToGDPR_NSNumber,
+                         "Expected nil NSNumber for IABTCF_gdprApplies = \"\(value)\"")
+        }
+    }
+    
+    func testIABConsent_SubjectToGDPR_withOutOfRangeInt_isIgnored() {
+        self.setSubjectToGDPR(int: 2)
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+        
+        self.setSubjectToGDPR(int: -1)
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+    }
+    
+    func testIABConsent_SubjectToGDPR_withNonStringConvertibleValue_isIgnored() {
+        // string(forKey:) returns nil for values that are neither String nor NSNumber
+        UserDefaults.standard.set(["1"], forKey: TCF.v2.subjectToGDPRKey)
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+        
+        UserDefaults.standard.set(["applies": "1"], forKey: TCF.v2.subjectToGDPRKey)
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+    }
+    
+    func testIABConsent_SubjectToGDPR_removedFromUserDefaults_returnsNil() {
+        self.setSubjectToGDPR(string: "1")
+        self.assertExpectedConsent(subjectToGDPR: true, consentString: nil)
+        
+        UserDefaults.standard.removeObject(forKey: TCF.v2.subjectToGDPRKey)
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+    }
+    
+    func testIABConsent_SubjectToGDPR_malformedThenValid_recovers() {
+        self.setSubjectToGDPR(string: "YES")
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+        
+        self.setSubjectToGDPR(string: "1")
+        self.assertExpectedConsent(subjectToGDPR: true, consentString: nil)
+        
+        self.setSubjectToGDPR(string: "garbage")
+        self.assertExpectedConsent(subjectToGDPR: nil, consentString: nil)
+        
+        self.setSubjectToGDPR(string: "0")
+        self.assertExpectedConsent(subjectToGDPR: false, consentString: nil)
+    }
+    
+    // MARK: API value precedence over IAB
+    func testAPIProvidedOverIAB_subjectToGDPR_true() {
+        self.setSubjectToGDPR(string: "0")
+        
+        UserConsentDataManager.shared.subjectToGDPR = true
         self.assertExpectedConsent(subjectToGDPR: true, consentString: nil)
     }
     
-    func testIABConsent_IsNotSubjectToGDPR_withStringBool() {
-        self.setSubjectToGDPR(string: "NO")
+    func testAPIProvidedOverIAB_subjectToGDPR_overridesMalformedIABValue() {
+        self.setSubjectToGDPR(string: "YES")
+        
+        UserConsentDataManager.shared.subjectToGDPR = true
+        self.assertExpectedConsent(subjectToGDPR: true, consentString: nil)
+        
+        UserConsentDataManager.shared.subjectToGDPR = false
         self.assertExpectedConsent(subjectToGDPR: false, consentString: nil)
+    }
+    
+    func testAPIProvidedOverIAB_subjectToGDPR_whenIABUnset() {
+        UserConsentDataManager.shared.subjectToGDPR = true
+        self.assertExpectedConsent(subjectToGDPR: true, consentString: nil)
+        
+        UserConsentDataManager.shared.subjectToGDPR = false
+        self.assertExpectedConsent(subjectToGDPR: false, consentString: nil)
+    }
+    
+    func testAPIResetToNil_fallsBackToIAB() {
+        self.setSubjectToGDPR(string: "1")
+        
+        UserConsentDataManager.shared.subjectToGDPR = false
+        self.assertExpectedConsent(subjectToGDPR: false, consentString: nil)
+        
+        UserConsentDataManager.shared.subjectToGDPR = nil
+        self.assertExpectedConsent(subjectToGDPR: true, consentString: nil)
+    }
+    
+    // MARK: subjectToGDPR_NSNumber
+    func testSubjectToGDPR_NSNumber_fromAPI() {
+        UserConsentDataManager.shared.subjectToGDPR = true
+        XCTAssertEqual(UserConsentDataManager.shared.subjectToGDPR_NSNumber, NSNumber(value: 1))
+        
+        UserConsentDataManager.shared.subjectToGDPR = false
+        XCTAssertEqual(UserConsentDataManager.shared.subjectToGDPR_NSNumber, NSNumber(value: 0))
+        
+        UserConsentDataManager.shared.subjectToGDPR = nil
+        XCTAssertNil(UserConsentDataManager.shared.subjectToGDPR_NSNumber)
+    }
+    
+    func testSubjectToGDPR_NSNumber_fromIAB() {
+        self.setSubjectToGDPR(string: "1")
+        XCTAssertEqual(UserConsentDataManager.shared.subjectToGDPR_NSNumber, NSNumber(value: 1))
+        
+        self.setSubjectToGDPR(string: "0")
+        XCTAssertEqual(UserConsentDataManager.shared.subjectToGDPR_NSNumber, NSNumber(value: 0))
+        
+        self.setSubjectToGDPR(string: "YES")
+        XCTAssertNil(UserConsentDataManager.shared.subjectToGDPR_NSNumber)
+    }
+    
+    // MARK: Device access with malformed gdprApplies
+    func testCanAccessDeviceDataGDPRMalformed_behavesAsUndefined() {
+        self.setSubjectToGDPR(string: "YES")
+        
+        let userConsentManager = UserConsentDataManager.shared
+        
+        // deviceAccessConsent undefined -> YES
+        XCTAssertTrue(userConsentManager.isAllowedAccessDeviceData())
+        
+        // deviceAccessConsent 0 -> NO
+        self.setPurposeConsentsString(val: purposeConsentsString0)
+        XCTAssertFalse(userConsentManager.isAllowedAccessDeviceData())
+        
+        // deviceAccessConsent 1 -> YES
+        self.setPurposeConsentsString(val: purposeConsentsString1)
+        XCTAssertTrue(userConsentManager.isAllowedAccessDeviceData())
     }
     
     func testIABConsent_IsSubjectToGDPR_withInt() {
