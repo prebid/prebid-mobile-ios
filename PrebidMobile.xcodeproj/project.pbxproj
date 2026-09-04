@@ -55,6 +55,7 @@
 		38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B322576624C00E026A2 /* TrackerManagerTests.swift */; };
 		3A0A862B5156CD6CF42044C6 /* ORTBParameterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59DEE29F49C3AD4461CFD10 /* ORTBParameterBuilder.swift */; };
 		3CD0ADEE2C5125E9006CDA6B /* PluginRegisterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */; };
+		EF2B35888B83456EBD687FE4 /* PluginRendererAPISignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B827D1CEBD344188D788540 /* PluginRendererAPISignatureTests.swift */; };
 		3CD0ADF32C512E5E006CDA6B /* RawSampleCustomRendererBidFabricator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD0ADF22C512E5E006CDA6B /* RawSampleCustomRendererBidFabricator.swift */; };
 		3EF4A8B3806B35F5BE9BC556 /* BasicParameterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47DBB24DFB7C7D21C787483 /* BasicParameterBuilder.swift */; };
 		405DA0B2E60CB75B5479CAE6 /* ORTBBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A2D673C8D00CE5C8F2D254 /* ORTBBanner.swift */; };
@@ -857,6 +858,7 @@
 		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
 		3996B77BA1A2119C714F103A /* ORTBApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBApp.swift; sourceTree = "<group>"; };
 		3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginRegisterTest.swift; sourceTree = "<group>"; };
+		3B827D1CEBD344188D788540 /* PluginRendererAPISignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginRendererAPISignatureTests.swift; sourceTree = "<group>"; };
 		3CD0ADF22C512E5E006CDA6B /* RawSampleCustomRendererBidFabricator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawSampleCustomRendererBidFabricator.swift; sourceTree = "<group>"; };
 		4404B3DFFA15E3C0EA70A691 /* ORTBBidRequestExtPrebid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBBidRequestExtPrebid.swift; sourceTree = "<group>"; };
 		47D9A0396ABC8830B365D7DD /* MockLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
@@ -3053,6 +3055,7 @@
 				53CDA48C2D11AFD5004766F8 /* MediationAPI */,
 				925D5DA92737C4E800A8A2B5 /* AdLoadFlow */,
 				3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */,
+				3B827D1CEBD344188D788540 /* PluginRendererAPISignatureTests.swift */,
 				925D5E082737DF5F00A8A2B5 /* BannerViewTest.swift */,
 				925D5E112737E04B00A8A2B5 /* PBMBidRequesterTest.swift */,
 				925D5E132737E74C00A8A2B5 /* PBMBidResponseTransformerTest.swift */,
@@ -3847,6 +3850,7 @@
 				925D5DB72737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift in Sources */,
 				922AFCF42736FDD500732C53 /* PBMFunctionsObjCTest.m in Sources */,
 				3CD0ADEE2C5125E9006CDA6B /* PluginRegisterTest.swift in Sources */,
+				EF2B35888B83456EBD687FE4 /* PluginRendererAPISignatureTests.swift in Sources */,
 				47D9AC0B7F63CB839FB2C751 /* MockCTCarrier.swift in Sources */,
 				922AFD6F2737333A00732C53 /* PBMORTBParameterBuilderTest.swift in Sources */,
 				925D5D9B2737C2A800A8A2B5 /* GeoLocationParameterBuilderTest.swift in Sources */,
