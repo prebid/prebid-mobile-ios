@@ -463,6 +463,25 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
     }
     
+    func testDisplayRewardedMediationBidRequest() {
+        let adUnit = MediationRewardedAdUnit(
+            configId: "configId",
+            mediationDelegate: MockMediationUtils(adObject: MockAdObject()),
+            adFormats: [.banner]
+        )
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        PBMAssertEq(bidRequest.imp.count, 1)
+        let imp = bidRequest.imp[0]
+        
+        XCTAssertNotNil(imp.banner)
+        XCTAssertNil(imp.video)
+        PBMAssertEq(imp.rewarded, 1)
+        XCTAssertTrue(imp.extPrebid.isRewardedInventory)
+        PBMAssertEq(imp.instl, 1)
+    }
+    
     func testDefaultBannerParameters_DisplayBanner_OriginalAPI() {
         let adUnit = BannerAdUnit(configId: "test", size: CGSize(width: 300, height: 250))
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)

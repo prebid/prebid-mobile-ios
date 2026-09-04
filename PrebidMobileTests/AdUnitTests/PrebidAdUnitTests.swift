@@ -239,6 +239,47 @@ class PrebidAdUnitTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
+    func testAdUnitConfiguration_displayRewarded() {
+        let testObject: AnyObject = () as AnyObject
+        let expectation = expectation(description: "\(#function)")
+        expectation.expectedFulfillmentCount = 2
+
+        var adUnit = PrebidAdUnit(configId: "test-config-id")
+
+        let bannerParameters = BannerParameters()
+        bannerParameters.api = [.MRAID_2]
+        bannerParameters.adSizes = [CGSize(width: 320, height: 480)]
+
+        let request = PrebidRequest(bannerParameters: bannerParameters, isRewarded: true)
+        
+        var config = adUnit.getConfiguration()
+
+        // fetchDemand(request:completion)
+        adUnit.fetchDemand(request: request) { _ in
+            XCTAssertEqual(config.adFormats, [.banner])
+            XCTAssertEqual(config.adSize, CGSize(width: 320, height: 480))
+            XCTAssertTrue(config.adConfiguration.isInterstitialAd)
+            XCTAssertTrue(config.adConfiguration.isRewarded)
+            XCTAssertEqual(config.adPosition, .fullScreen)
+            expectation.fulfill()
+        }
+
+        adUnit = PrebidAdUnit(configId: "test-config-id")
+        config = adUnit.getConfiguration()
+
+        // fetchDemand(adObject:request:completion)
+        adUnit.fetchDemand(adObject: testObject, request: request) { _ in
+            XCTAssertEqual(config.adFormats, [.banner])
+            XCTAssertEqual(config.adSize, CGSize(width: 320, height: 480))
+            XCTAssertTrue(config.adConfiguration.isInterstitialAd)
+            XCTAssertTrue(config.adConfiguration.isRewarded)
+            XCTAssertEqual(config.adPosition, .fullScreen)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
     func testAdUnitConfiguration_gpid() {
         let expectation = expectation(description: "\(#function)")
         expectation.expectedFulfillmentCount = 2
