@@ -1,11 +1,111 @@
-disabled_rules: # rule identifiers to exclude from running
-  - force_cast
-  - force_try
-  - identifier_name
-  - control_statement
-  - nesting
-  - file_length
+# SwiftLint configuration for prebid-mobile-ios.
+#
+# SwiftLint is NOT a guard, and does not replace one. The structural guards
+# (scripts/guards/, docs/guards/README.md) own the architecture rules — API
+# surface, adapter isolation, migration direction, test presence, ratcheted
+# debt. SwiftLint owns the per-file style/idiom layer the guards deliberately
+# ignore. One owner per rule: rules a guard already enforces are deliberately
+# absent from the list below (see "Owned by guards" at the end).
+#
+# It runs diff-scoped and blocking — only lines a branch ADDS are judged, and
+# a violation on one of them fails the run:
+#
+#   ./scripts/lint/run-swiftlint.sh          # what this branch added
+#   ./scripts/lint/run-swiftlint.sh --all    # whole tree (exploration only)
+#
+# Whole-tree linting reports ~13.5k pre-existing violations. That backlog is
+# deliberately NOT being fixed: .claude/rules/code-patterns.md forbids
+# formatting churn as a side effect of other changes. New code arrives clean;
+# old code is left alone until someone touches it on purpose.
+#
+# `only_rules` is used rather than disabled_rules/opt_in_rules so a SwiftLint
+# version bump cannot silently add a rule — same determinism requirement that
+# pins ast-grep for the guards.
 
-line_length: 250
-function_body_length: 100
-type_body_length: 100
+only_rules:
+  # ── correctness-adjacent ──────────────────────────────────────────────
+  - compiler_protocol_init
+  - discouraged_direct_init
+  - duplicate_imports
+  - implicit_getter
+  - non_optional_string_data_conversion
+  - notification_center_detachment
+  - nsobject_prefer_isequal
+  - unused_closure_parameter
+  - unused_optional_binding
+  - unused_setter_value
+  # ── idiom / redundancy ────────────────────────────────────────────────
+  - computed_accessors_order
+  - control_statement
+  - empty_parameters
+  - empty_parentheses_with_trailing_closure
+  - for_where
+  - implicit_optional_initialization
+  - large_tuple
+  - private_over_fileprivate
+  - redundant_discardable_let
+  - redundant_objc_attribute
+  - redundant_void_return
+  - syntactic_sugar
+  - void_return
+  # ── naming (shape only — see api-naming guard for policy) ─────────────
+  - generic_type_name
+  - type_name
+  # ── tests ─────────────────────────────────────────────────────────────
+  - xctfail_message
+  # ── layout / whitespace ───────────────────────────────────────────────
+  - attribute_name_spacing
+  - closing_brace
+  - colon
+  - comma
+  - comment_spacing
+  - function_name_whitespace
+  - line_length
+  - mark
+  - opening_brace
+  - return_arrow_whitespace
+  - statement_position
+  - switch_case_alignment
+  - trailing_comma
+  - trailing_newline
+  - trailing_semicolon
+  - trailing_whitespace
+  - vertical_parameter_alignment
+  - vertical_whitespace
+
+included:
+  - PrebidMobile
+  - EventHandlers
+  - PrebidMobileTests
+
+excluded:
+  - Pods
+  - generated
+  - build
+  - .build
+  # SPM manifests are configuration, not source
+  - PrebidMobile/Package.swift
+  - EventHandlers/Package.swift
+
+line_length:
+  warning: 250   # the repo's long-standing limit; not a target to grow into
+  error: 400
+type_name:
+  max_length: 60 # PBM-era names are long; flag only the runaway ones
+
+# ── Deliberately NOT enabled ───────────────────────────────────────────────
+#
+# Owned by guards — enabling them here would produce a second, disagreeing
+# count for a rule that already has an owner and a ratchet:
+#   force_cast / force_try / force_unwrapping  → ast-rule-ratchet (force-unwrap)
+#   weak_delegate                              → ast-rule-ratchet (weak-delegate)
+#   todo                                       → fixme-ratchet
+#   missing_docs                               → api-doc-coverage
+#
+# Metrics rules (file_length, type_body_length, function_body_length,
+# cyclomatic_complexity, nesting) are omitted because they report at the
+# declaration line, which a diff-scoped run usually has not touched — they
+# would fire by association with a big file rather than with the change.
+#
+# identifier_name is omitted: 153 pre-existing hits are legacy naming, and
+# naming policy belongs to the api-naming guard, which reads the API baseline.

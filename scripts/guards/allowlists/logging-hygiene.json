@@ -1,0 +1,14 @@
+{
+  "guard": "logging-hygiene",
+  "description": "Files with raw print()/NSLog() calls predating the Log facade rule (shrink-only). Fixing one means routing the calls through Log.error/warn/info/debug/verbose, then deleting the entry.",
+  "entries": [
+    {
+      "entry": "PrebidMobile/Swift/AdUnits/Utils.swift",
+      "reason": "Raw console output predating the Log-facade rule."
+    },
+    {
+      "entry": "PrebidMobile/Swift/Addendum/IMAUtils.swift",
+      "reason": "Raw console output predating the Log-facade rule."
+    }
+  ]
+}
