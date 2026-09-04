@@ -132,6 +132,8 @@
         "ORTBUser": 1,
         "ORTBVideo": 1,
         "PBMORTBNoBidReason": 1,
+        "PBMURLComponents": 1,
+        "ParameterBuilderService": 1,
         "PathBuilder": 1,
         "PlacementType": 1,
         "PluginRendererFactory": 1,
@@ -232,6 +234,7 @@
         "PBMJsonDecodable": 1,
         "PBMJsonEncodable": 1,
         "PBMUIApplicationProtocol": 1,
+        "ParameterBuilder": 1,
         "PluginEventDelegate": 1,
         "PrebidEventDelegate": 1,
         "PrebidLogger": 1,
@@ -2682,6 +2685,26 @@
         "statusBarOrientation": 1
       }
     },
+    "PBMURLComponents": {
+      "init": {
+        "init": 1
+      },
+      "var": {
+        "argumentsString": 1,
+        "fullURL": 1,
+        "urlString": 1
+      }
+    },
+    "ParameterBuilder": {
+      "func": {
+        "build": 1
+      }
+    },
+    "ParameterBuilderService": {
+      "func": {
+        "buildParamsDict": 2
+      }
+    },
     "PathBuilder": {
       "func": {
         "buildURL": 1
@@ -3995,8 +4018,6 @@
   "objc-header": [],
   "objc-internal": {
     "interface": {
-      "InternalUserConsentDataManager": 1,
-      "NSBundle()": 1,
       "PBMAbstractCreative_Objc": 1,
       "PBMAbstractCreative_Objc(Protected)": 1,
       "PBMAdLoadFlowController_Objc": 1,
@@ -4004,8 +4025,6 @@
       "PBMAdLoadManagerVAST": 1,
       "PBMAdRequestResponseVAST": 1,
       "PBMAdRequesterVAST": 1,
-      "PBMAppInfoParameterBuilder": 1,
-      "PBMBasicParameterBuilder": 1,
       "PBMBidRequester": 1,
       "PBMBidRequesterFactory": 1,
       "PBMBidResponseTransformer": 1,
@@ -4015,34 +4034,25 @@
       "PBMDeepLinkPlusHelper": 1,
       "PBMDeepLinkPlusHelper()": 1,
       "PBMDeepLinkPlusHelper(Testing)": 1,
-      "PBMDeviceInfoParameterBuilder": 1,
       "PBMDisplayTransactionFactory": 1,
       "PBMExternalLinkHandler": 1,
       "PBMExternalURLOpenCallbacks": 1,
       "PBMExternalURLOpeners": 1,
-      "PBMGeoLocationParameterBuilder": 1,
       "PBMHTMLCreative": 1,
       "PBMHTMLFormatter": 1,
       "PBMInterstitialLayoutConfigurator": 1,
       "PBMMRAIDCommand": 1,
       "PBMMRAIDController": 1,
       "PBMMRAIDJavascriptCommands": 1,
-      "PBMNetworkParameterBuilder": 1,
       "PBMORTBAbstract": 1,
       "PBMORTBAbstract()": 1,
-      "PBMORTBParameterBuilder": 1,
       "PBMOpenMeasurementEventTracker": 1,
       "PBMOpenMeasurementFriendlyObstructionTypeBridge": 1,
       "PBMOpenMeasurementSession": 1,
       "PBMOpenMeasurementWrapper": 1,
-      "PBMParameterBuilderService": 1,
       "PBMPrebidParameterBuilder": 1,
-      "PBMSKAdNetworksParameterBuilder": 1,
       "PBMSafariVCOpener": 1,
-      "PBMTrackingRecord": 1,
       "PBMTrackingURLVisitors": 1,
-      "PBMURLComponents": 1,
-      "PBMUserConsentParameterBuilder": 1,
       "PBMVastAbstractAd": 1,
       "PBMVastAdsBuilder": 1,
       "PBMVastCreativeAbstract": 1,
@@ -4074,9 +4084,7 @@
     "protocol": {
       "PBMAdLoadManagerDelegate": 1,
       "PBMAdLoadManagerProtocol": 1,
-      "PBMBundleProtocol": 1,
       "PBMExposureChangeDelegate": 1,
-      "PBMParameterBuilder": 1,
       "PBMVastResourceContainerProtocol": 1,
       "PBMVideoViewDelegate": 1,
       "PBMWKNavigationActionCompatible": 1,

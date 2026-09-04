@@ -7,6 +7,10 @@
       "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
     },
     {
+      "entry": "class PBMURLComponents",
+      "reason": "Shipped public on master by the phase-3.3 migration (#1336) before this guard landed. Renaming is a breaking public-API change — follow-up: rename to URLComponents-style name with @objc(PBMURLComponents) and deprecate the old one."
+    },
+    {
       "entry": "func PBMAddBottomLeftConstraints",
       "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
     },
