@@ -33,16 +33,17 @@ files under `.claude/`.
 | Author a new structural guard | `agents/guard/SKILL.md` |
 | Review a branch/PR with this repo's checklist, or audit the full tree | `agents/sdk-review/SKILL.md` |
 | Audit ORTB models/tests against the OpenRTB spec (read-only) | `agents/verify-spec/SKILL.md` |
+| Measure SDK download size or time a hot path | `agents/benchmark/SKILL.md` |
 | Generic iOS/Swift background (not repo-specific; playbook wins on conflicts) | `agents/ios-development/SKILL.md` |
 | Generic ObjC → Swift / XCTest migration background (playbook wins on conflicts) | `agents/migration-patterns/SKILL.md` |
 
-Claude Code additionally loads `.claude/`: the rules linked under Deeper guidance, four
-skills (`/guard` authors a new structural guard, `/sdk-review` runs this repo's review
-checklist, `/verify-spec` audits ORTB models against the OpenRTB spec, `/benchmark`
-measures SDK size and hot-path timing), and the `qc-validator` subagent that checks
-finished work against the quality gates. All of it is plain markdown under
-`.claude/skills/` and `.claude/agents/` — other agents can read and follow the same
-procedures directly.
+Claude Code additionally loads `.claude/`: the rules linked under Deeper guidance, the
+runbooks above as skills via the `.claude/skills` symlink (`/guard` authors a new structural
+guard, `/sdk-review` runs this repo's review checklist, `/verify-spec` audits ORTB models
+against the OpenRTB spec, `/benchmark` measures SDK size and hot-path timing), and the
+`qc-validator` subagent that checks finished work against the quality gates. All of it is
+plain markdown under `agents/` and `.claude/agents/` — other agents can read and follow the
+same procedures directly.
 
 ## Repo map
 
