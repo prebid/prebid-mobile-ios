@@ -38,7 +38,7 @@ class PBMBidRequesterTest: XCTestCase {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(PBMBidResponseTransformer.someValidResponse)
+            callback(BidResponseTransformer.someValidResponse)
         }])
         let requester = Factory.createBidRequester(connection: connection,
                                                    sdkConfiguration: sdkConfiguration,
@@ -62,7 +62,7 @@ class PBMBidRequesterTest: XCTestCase {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.1))
+            callback(BidResponseTransformer.makeValidResponse(bidPrice: 0.1))
         }])
         let requester = Factory.createBidRequester(connection: connection,
                                                    sdkConfiguration: sdkConfiguration,
@@ -84,7 +84,7 @@ class PBMBidRequesterTest: XCTestCase {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(PBMBidResponseTransformer.noWinningBidResponse)
+            callback(BidResponseTransformer.noWinningBidResponse)
         }])
         let requester = Factory.createBidRequester(connection: connection,
                                                    sdkConfiguration: sdkConfiguration,
@@ -106,7 +106,7 @@ class PBMBidRequesterTest: XCTestCase {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.1))
+            callback(BidResponseTransformer.makeValidResponse(bidPrice: 0.1))
         }])
         let requester = Factory.createBidRequester(connection: connection,
                                                    sdkConfiguration: sdkConfiguration,
@@ -132,7 +132,7 @@ class PBMBidRequesterTest: XCTestCase {
                 XCTFail("Expected cached_bid_response.json fixture.")
                 return
             }
-            callback(PBMBidResponseTransformer.buildResponse(responseBody))
+            callback(BidResponseTransformer.buildResponse(responseBody))
         }])
         let requester = Factory.createBidRequester(connection: connection,
                                                    sdkConfiguration: sdkConfiguration,
@@ -178,7 +178,7 @@ class PBMBidRequesterTest: XCTestCase {
         let accountID = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(PBMBidResponseTransformer.invalidAccountIDResponse(accountID: accountID))
+            callback(BidResponseTransformer.invalidAccountIDResponse(accountID: accountID))
         }])
         let requester = Factory.createBidRequester(connection: connection,
                                                    sdkConfiguration: sdkConfiguration,
@@ -219,7 +219,7 @@ class PBMBidRequesterTest: XCTestCase {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(PBMBidResponseTransformer.invalidConfigIdResponse(configId: configId))
+            callback(BidResponseTransformer.invalidConfigIdResponse(configId: configId))
         }])
         let requester = Factory.createBidRequester(connection: connection,
                                                    sdkConfiguration: sdkConfiguration,
@@ -279,7 +279,7 @@ class PBMBidRequesterTest: XCTestCase {
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                callback(PBMBidResponseTransformer.someValidResponse)
+                callback(BidResponseTransformer.someValidResponse)
             }
         }])
         let requester = Factory.createBidRequester(connection: connection,
@@ -324,7 +324,7 @@ class PBMBidRequesterTest: XCTestCase {
         var capturedTimeout: TimeInterval = -1
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             capturedTimeout = timeout
-            callback(PBMBidResponseTransformer.someValidResponse)
+            callback(BidResponseTransformer.someValidResponse)
         }])
         let requester = Factory.createBidRequester(connection: connection,
                                                    sdkConfiguration: sdkConfiguration,
@@ -354,7 +354,7 @@ class PBMBidRequesterTest: XCTestCase {
         sdkConfiguration.timeoutMillisDynamic = nil
 
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(PBMBidResponseTransformer.makeValidResponseWithTmax(bidPrice: 0.1, tmaxrequest: 300))
+            callback(BidResponseTransformer.makeValidResponseWithTmax(bidPrice: 0.1, tmaxrequest: 300))
         }])
         let requester = Factory.createBidRequester(connection: connection,
                                                    sdkConfiguration: sdkConfiguration,
@@ -395,12 +395,12 @@ class PBMBidRequesterTest: XCTestCase {
         // Mock connection that calls the callback TWICE to simulate the race condition
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             NSLog("[TEST] First callback invocation")
-            callback(PBMBidResponseTransformer.someValidResponse)
+            callback(BidResponseTransformer.someValidResponse)
 
             // Simulate duplicate callback after a small delay (like redirect or retry)
             DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + 0.1) {
                 NSLog("[TEST] Second callback invocation (DUPLICATE - should be handled safely)")
-                callback(PBMBidResponseTransformer.someValidResponse)
+                callback(BidResponseTransformer.someValidResponse)
             }
         }])
 
@@ -446,7 +446,7 @@ class PBMBidRequesterTest: XCTestCase {
 
         // Mock connection that calls callback from multiple threads simultaneously
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            let response = PBMBidResponseTransformer.someValidResponse
+            let response = BidResponseTransformer.someValidResponse
 
             // Call from multiple threads at nearly the same time
             DispatchQueue.global(qos: .userInitiated).async {

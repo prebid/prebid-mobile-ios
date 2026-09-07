@@ -14,9 +14,9 @@
   */
 
 import Foundation
-import PrebidMobile
+@_spi(PBMInternal) import PrebidMobile
 
-extension PBMBidResponseTransformer {
+extension BidResponseTransformer {
     static func invalidAccountIDResponse(accountID: String) -> PrebidServerResponse {
         return buildResponse("Invalid request: Stored Request with ID=\"\(accountID)\" not found.")
     }

@@ -20,10 +20,10 @@ import XCTest
 class PBMBidResponseTransformerTest: XCTestCase {
     
     func testInvalidAccountID() {
-        let response = PBMBidResponseTransformer.invalidAccountIDResponse(accountID: "0689a263-318d-448b-a3d4-b02e8a709d9d")
+        let response = BidResponseTransformer.invalidAccountIDResponse(accountID: "0689a263-318d-448b-a3d4-b02e8a709d9d")
         
         do {
-            let _ = try PBMBidResponseTransformer.transform(response)
+            let _ = try BidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
             XCTAssertEqual(error as NSError, PBMError.prebidInvalidAccountId() as NSError)
@@ -31,10 +31,10 @@ class PBMBidResponseTransformerTest: XCTestCase {
     }
     
     func testInvalidConfigId() {
-        let response = PBMBidResponseTransformer.invalidConfigIdResponse(configId: "b6260e2b-bc4c-4d10-bdb5-d1c2b6c0c97a")
+        let response = BidResponseTransformer.invalidConfigIdResponse(configId: "b6260e2b-bc4c-4d10-bdb5-d1c2b6c0c97a")
         
         do {
-            let _ = try PBMBidResponseTransformer.transform(response)
+            let _ = try BidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
             XCTAssertEqual(error as NSError, PBMError.prebidInvalidConfigId() as NSError)
@@ -42,10 +42,10 @@ class PBMBidResponseTransformerTest: XCTestCase {
     }
     
     func testInvalidSize() {
-        let response = PBMBidResponseTransformer.invalidSizeResponse(impIndex: 0, formatIndex: 0)
+        let response = BidResponseTransformer.invalidSizeResponse(impIndex: 0, formatIndex: 0)
         
         do {
-            let _ = try PBMBidResponseTransformer.transform(response)
+            let _ = try BidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
             XCTAssertEqual(error as NSError, PBMError.prebidInvalidSize() as NSError)
@@ -54,10 +54,10 @@ class PBMBidResponseTransformerTest: XCTestCase {
     
     func testServerError() {
         let messageBody = "Invalid request: some server reason, probably"
-        let response = PBMBidResponseTransformer.serverErrorResponse
+        let response = BidResponseTransformer.serverErrorResponse
         
         do {
-            let _ = try PBMBidResponseTransformer.transform(response)
+            let _ = try BidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
             XCTAssertEqual(error as NSError, PBMError.serverError(messageBody) as NSError)
@@ -65,10 +65,10 @@ class PBMBidResponseTransformerTest: XCTestCase {
     }
     
     func testNoJsonDic() {
-        let response = PBMBidResponseTransformer.nonJsonDicResponse
+        let response = BidResponseTransformer.nonJsonDicResponse
         
         do {
-            let _ = try PBMBidResponseTransformer.transform(response)
+            let _ = try BidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
             XCTAssertEqual(error as NSError, PBMError.jsonDictNotFound() as NSError)
@@ -77,9 +77,9 @@ class PBMBidResponseTransformerTest: XCTestCase {
     
     func testOk() {
         let bidPrice: Float = 0.1091000000051168
-        let response = PBMBidResponseTransformer.makeValidResponse(bidPrice: bidPrice)
+        let response = BidResponseTransformer.makeValidResponse(bidPrice: bidPrice)
         
-        let bidResponse = try! PBMBidResponseTransformer.transform(response)
+        let bidResponse = try! BidResponseTransformer.transform(response)
         XCTAssertNotNil(bidResponse)
         XCTAssertNotNil(bidResponse.winningBid)
         XCTAssertEqual(bidResponse.winningBid?.price, bidPrice)
@@ -88,9 +88,9 @@ class PBMBidResponseTransformerTest: XCTestCase {
     }
     
     func testZeroPriceBid() {
-        let response = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0)
+        let response = BidResponseTransformer.makeValidResponse(bidPrice: 0)
         
-        let bidResponse = try! PBMBidResponseTransformer.transform(response)
+        let bidResponse = try! BidResponseTransformer.transform(response)
         XCTAssertNotNil(bidResponse)
         XCTAssertEqual(bidResponse.allBids?.count, 1)
         XCTAssertNotNil(bidResponse.winningBid)
@@ -176,8 +176,8 @@ class PBMBidResponseTransformerTest: XCTestCase {
     func testRealPrebidResponse() {
         let realResponseBody = "{\"id\":\"CCF0B31C-1813-43C5-A365-C12C785BA3D2\",\"seatbid\":[{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"62B86D48-D7FA-4190-8F4E-65A170A731E6\",\"price\":0.10903999999610946,\"adm\":\"<html><div>You Won! This is a test bid<\\/div><\\/html>\",\"adid\":\"test-ad-id-12345\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"cache\":{\"key\":\"\",\"url\":\"\",\"bids\":{\"url\":\"prebid.devint.openx.net\\/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe\",\"cacheId\":\"32541b8f-5d49-446d-ae26-18629273a6fe\"}},\"targeting\":{\"hb_bidder\":\"openx\",\"hb_bidder_openx\":\"openx\",\"hb_cache_host\":\"prebid.devint.openx.net\",\"hb_cache_host_openx\":\"prebid.devint.openx.net\",\"hb_cache_id\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"hb_cache_id_openx\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"hb_cache_path\":\"\\/cache\",\"hb_cache_path_openx\":\"\\/cache\",\"hb_env\":\"mobile-app\",\"hb_env_openx\":\"mobile-app\",\"hb_pb\":\"0.10\",\"hb_pb_openx\":\"0.10\",\"hb_size\":\"300x250\",\"hb_size_openx\":\"300x250\"},\"type\":\"banner\"},\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099}}}],\"seat\":\"openx\"}],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":16},\"tmaxrequest\":3000}}"
         
-        let serverResponse = PBMBidResponseTransformer.buildResponse(realResponseBody)
-        let response = try! PBMBidResponseTransformer.transform(serverResponse)
+        let serverResponse = BidResponseTransformer.buildResponse(realResponseBody)
+        let response = try! BidResponseTransformer.transform(serverResponse)
         let serializedResponse = try! response.rawResponse!.toJsonString()
         
         let sortedResponseBody = try! String(
@@ -205,8 +205,8 @@ class PBMBidResponseTransformerTest: XCTestCase {
         
         let responseBody = "{\"id\":\"CCF0B31C-1813-43C5-A365-C12C785BA3D2\",\"seatbid\":[{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"62B86D48-D7FA-4190-8F4E-65A170A731E6\",\"price\":\(rawPrice),\"adm\":\(rawAdm),\"nurl\":\(rawNurl),\"adid\":\"test-ad-id-12345\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"cache\":{\"key\":\"\",\"url\":\"\",\"bids\":{\"url\":\"prebid.devint.openx.net\\/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe\",\"cacheId\":\"32541b8f-5d49-446d-ae26-18629273a6fe\"}},\"targeting\":{\"hb_bidder\":\"openx\",\"hb_bidder_openx\":\"openx\",\"hb_cache_host\":\"prebid.devint.openx.net\",\"hb_cache_host_openx\":\"prebid.devint.openx.net\",\"hb_cache_id\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"hb_cache_id_openx\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"hb_cache_path\":\"\\/cache\",\"hb_cache_path_openx\":\"\\/cache\",\"hb_env\":\"mobile-app\",\"hb_env_openx\":\"mobile-app\",\"hb_pb\":\"0.10\",\"hb_pb_openx\":\"0.10\",\"hb_size\":\"300x250\",\"hb_size_openx\":\"300x250\"},\"type\":\"banner\"},\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099}}}],\"seat\":\"openx\"}],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":16},\"tmaxrequest\":3000}}"
         
-        let serverResponse = PBMBidResponseTransformer.buildResponse(responseBody)
-        let response = try! PBMBidResponseTransformer.transform(serverResponse)
+        let serverResponse = BidResponseTransformer.buildResponse(responseBody)
+        let response = try! BidResponseTransformer.transform(serverResponse)
         
         func checkReplacements(keyPath: KeyPath<Bid, String?>, src: String) {
             var expectedResult = src

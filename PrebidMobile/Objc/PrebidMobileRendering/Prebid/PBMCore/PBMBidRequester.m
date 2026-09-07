@@ -13,8 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMBidResponseTransformer.h"
-
 #import "PBMPrebidParameterBuilder.h"
 #import "Log+Extensions.h"
 #import <UIKit/UIKit.h>

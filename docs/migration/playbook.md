@@ -8,35 +8,22 @@ See the full phasing plan in the TaskNotes task "[PI][PREBID] Develop a plan to 
 For each `Foo.m` + `Foo.h`:
 
 1. Create `Foo.swift` at the mirrored path under `PrebidMobile/Swift/...`.
-2. Declare `@objc class PBMORTBFoo: NSObject, PBMJsonCodable` — see §Gap 4 below for why.
+2. Declare `@objc class PBMORTBFoo: NSObject, PBMJsonCodable` — see Gap 4.
 3. Port property declarations 1:1, preserving exact JSON key strings.
-4. Implement `init?(jsonDictionary:)` using `JSONObject<KeySet>` subscripts (see pattern in `ORTBBid.swift`).
-5. Implement `var jsonDictionary: [String: Any]` using `JSONObject<KeySet>` — the subscript setter for `PBMJsonCodable` values already suppresses empty child dicts (see §Gap 2); no `nullIfEmpty` needed.
-6. `fromJsonString:`/`toJsonStringWithError:` — do **not** reimplement; they are inherited from `PBMJsonDecodable`/`PBMJsonEncodable` default extensions.
+4. Implement `init?(jsonDictionary:)` using `JSONObject<KeySet>` subscripts (pattern in `ORTBBid.swift`).
+5. Implement `var jsonDictionary: [String: Any]` using `JSONObject<KeySet>` — the subscript setter for `PBMJsonCodable` values already suppresses empty child dicts (Gap 2); no `nullIfEmpty` needed.
+6. `fromJsonString:`/`toJsonStringWithError:` — do **not** reimplement; inherited from `PBMJsonDecodable`/`PBMJsonEncodable` default extensions.
 7. Replace `PBMJsonDictionary` typedef with `[String: Any]` at every site touched.
-8. Do **not** add `NSCopying` — see §Gap 1.
-9. Update ObjC consumers to import `PrebidMobile-Swift.h` (they bridge automatically once the `.h`/`.m` are deleted).
+8. Do **not** add `NSCopying` (Gap 1).
+9. Update ObjC consumers to import `PrebidMobile-Swift.h` (automatic once the `.h`/`.m` are deleted).
 10. Delete `Foo.m`, `Foo.h`, and any matching entry in `PrebidMobile/Objc/PrivateHeaders/`.
 11. Verify: `./scripts/testPrebidMobile.sh --latest --quick`.
 
 ## Gap audit findings (S0.1)
 
-### Gap 1 — `NSCopying`: Drop it entirely
+**Gap 1 — no `NSCopying`.** `PBMORTBAbstract`'s `<NSCopying>` (JSON-round-trip `copyWithZone:`) has zero callers on ORTB model objects. Swift twins do not implement `NSCopying` (exception: root containers actually `.copy()`d in tests — see S1.4 below).
 
-`PBMORTBAbstract` declares `<NSCopying>` and implements `copyWithZone:` via a JSON round-trip.
-Grep confirms **no callsite in the codebase calls `.copy()` on any ORTB model object**.
-All `.copy()` calls found are on blocks, plain strings, NSArrays, or NSError — standard Swift value semantics handle those without any protocol conformance.
-
-**Rule:** Swift ORTB twins do not implement `NSCopying` or any equivalent.
-
-### Gap 2 — Empty child dict suppression (`nullIfEmpty` pattern): one-line fix in `JSONObject`
-
-ObjC composite ORTB types call `[[child toJsonDictionary] nullIfEmpty]` when writing child objects into the parent dict. `nullIfEmpty` converts an empty `{}` to `NSNull`, and `pbmCopyWithoutEmptyVals` then strips it, so no `"app": {}` appears in JSON output.
-
-Swift `JSONObject`'s subscript setter for `PBMJsonCodable` values naively assigns `newValue?.jsonDictionary`, which stores an empty `[:]` as-is — this would produce `"app": {}` in serialized output.
-
-**Fix applied** (see `JSONParsing.swift`): the `PBMJsonCodable` subscript setter now skips empty dicts:
-
+**Gap 2 — empty child dict suppression.** ObjC calls `[[child toJsonDictionary] nullIfEmpty]` so an empty child never serializes as `"app": {}`. Swift `JSONObject`'s `PBMJsonCodable` subscript setter replicates this by nil-ing out an empty dict before storing:
 ```swift
 set {
     let childDict = newValue?.jsonDictionary
@@ -44,93 +31,46 @@ set {
 }
 ```
 
-### Gap 3 — `PBMORTBFormat` must be `Equatable`/`Hashable` (NSObject overrides)
-
-`PBMORTBFormat` is deduplicated via `NSSet setWithArray:` in `PBMPrebidParameterBuilder.m:197`.
-Its ObjC `isEqual:` / `hash` are based on the `w` and `h` fields.
-
-**Rule:** The `PBMORTBFormat` Swift twin (an `NSObject` subclass — see §Gap 4) overrides `isEqual(_:)` and `hash` based on `w` and `h`. This is the only Phase 1 type requiring this treatment.
-
+**Gap 3 — `ORTBFormat` needs `isEqual`/`hash`.** Deduplicated via `NSSet` in `PBMPrebidParameterBuilder.m:197`, keyed on `w`/`h`. The Swift twin (an `NSObject` subclass, Gap 4) overrides both:
 ```swift
 override func isEqual(_ object: Any?) -> Bool {
     guard let other = object as? PBMORTBFormat else { return false }
     return w == other.w && h == other.h
 }
-
 override var hash: Int { (w?.hashValue ?? 0) ^ (h?.hashValue ?? 0) }
 ```
 
-### Gap 4 — Phase 1–3 Swift twins must be `@objc NSObject` subclasses
+**Gap 4 — Phase 1–3 twins are `@objc NSObject` subclasses.** Response-side ORTB types are plain Swift classes (Swift-only consumers). Request-side (Phase 1) models are still read by ObjC parameter builders, which need `NSObject` to bridge. *Correction (S3.2):* "gone after Phase 3" was wrong — `PBMPrebidParameterBuilder.m`, `PBMBidRequester.m`, `PBMBidResponseTransformer.m`, `PBMWebView.m` still consume ORTB twins post-Phase-3. Keep `NSObject` until all four are ported; revisit in S9.x.
 
-The response-side Swift ORTB types (`ORTBBid`, `ORTBBidResponse`, etc.) are plain Swift `class` because they are consumed exclusively by Swift code.
+**Gap 5 — `init?(jsonDictionary:)` returns `nil` on failure**, unlike ObjC's broken-instance fallback (`[PBMORTBAbstract new]`) — semantically correct, no code change needed. Audit tests that relied on the broken instance.
 
-The **request-side** ORTB models (Phase 1) are consumed by ObjC parameter builders that remain in ObjC until Phase 3. Once we delete a `PBMORTBFoo.m`/`.h`, those ObjC files import `PrebidMobile-Swift.h` and use the Swift type. For ObjC bridging to work, the Swift type must inherit from `NSObject`.
+**Gap 6 — framework build visibility.** `internal` Swift types appear only as `@class` stubs in `PrebidMobile-Swift.h` under a framework archive build ⇒ ObjC consumers get "forward declaration" errors. All Phase 1–3 twins must be `@objc public class` with `@objc public var` properties. Demote to `internal` only in S9.2 (see Gap 4 correction for what's still blocking that).
 
-**Rule:** Phase 1–3 Swift twins are declared `@objc class PBMORTBFoo: NSObject, PBMJsonCodable`.
+**Gap 7 — explicit ObjC selector bridges required.** Non-`@objc`-protocol requirements (`PBMJsonDecodable.init?`, `PBMJsonEncodable.jsonDictionary`) do not get automatic `@objc` inference, even on `public NSObject` subclasses:
+```swift
+@objc(initWithJsonDictionary:) public required init(jsonDictionary: [String: Any]) { super.init(); ... }
+@objc(toJsonDictionary) public var jsonDictionary: [String: Any] { ... }
+```
 
-**Corrected in S3.2.** The original wording — "after Phase 3 all ObjC consumers are gone" — is wrong.
-Phase 3 removes the ObjC parameter *builders*, but four ObjC files still consume ORTB Swift twins
-after it: `PBMPrebidParameterBuilder.m`, `PBMBidRequester.m`, `PBMBidResponseTransformer.m` and
-`PBMWebView.m`. Keep `NSObject` until all four are ported; revisit dropping it in S9.x cleanup.
+**Gap 8 — ObjC private headers invisible to Swift in framework builds.** Never call ObjC private-header functions (e.g. `PBMFunctions.h`) from Swift twins — inline the logic instead (e.g. `PBMORTBImpExtSkadn` inlines `supportedSKAdNetworkVersions` with `#available` guards).
 
-### Gap 5 — `initWithJsonDictionary:` broken-instance fallback vs. `init?`
+**Gap 9 — empty arrays are preserved.** `pbmCopyWithoutEmptyVals`/`pbmRemoveEmptyVals` strip only `nil`/`NSNull`, never `[]`. Do not add `.isEmpty ? nil : array` guards on `[String]` properties.
 
-`PBMORTBAbstract.initWithJsonDictionary:` logs an error and returns `[PBMORTBAbstract new]` (a broken abstract instance). The Swift `init?(jsonDictionary:)` protocol requirement returns `nil` on failure — semantically correct.
-
-**Rule:** No change to `PBMJsonCoding.swift` needed. During S1.1, audit test code for any test that depended on the broken-instance behavior and update to expect `nil`.
-
-### Gap 6 — Framework build visibility: `public` required (discovered S1.1)
-
-In a framework archive build, Swift types with `internal` access only appear as `@class` forward stubs in `PrebidMobile-Swift.h`. ObjC consumers in the same target get "receiver type is a forward declaration" errors when trying to alloc/init or call methods.
-
-**Rule:** All Phase 1–3 Swift twins must be `@objc public class` with `@objc public var` properties. Demote to `internal` in S9.2 — **not** after Phase 3; see the correction under Gap 4 for the four ObjC files that still consume ORTB twins past Phase 3.
-
-### Gap 7 — ObjC selector bridge: explicit annotations required (discovered S1.1)
-
-Protocol requirements from non-`@objc` protocols (`PBMJsonDecodable.init?`, `PBMJsonEncodable.jsonDictionary`) do NOT get automatic `@objc` selector inference even on `public NSObject` subclasses. ObjC consumers get "no visible @interface declares the selector" errors.
-
-**Rule:** Use explicit ObjC bridge annotations on both required members:
-- `@objc(initWithJsonDictionary:) public required init(jsonDictionary:)` — non-optional (a non-failable init satisfies the failable protocol requirement); call `super.init()` as first statement.
-- `@objc(toJsonDictionary) public var jsonDictionary: [String: Any]`
-
-This matches the existing pattern in `ORTBAppContent.swift`.
-
-### Gap 8 — ObjC private headers not visible to Swift in framework builds (discovered S1.1)
-
-ObjC private headers (e.g. `PBMFunctions.h`) are not bridged into the Swift compilation context during a framework archive build. Any Swift file that calls `PBMFunctions.*` will fail with "cannot find in scope".
-
-**Rule:** Do not call ObjC private-header functions from Swift migration twins. Inline the logic in Swift instead. Example: `PBMORTBImpExtSkadn` inlines `supportedSKAdNetworkVersions` as a `private static var` with `#available` guards, removing the `PBMFunctions` dependency.
-
-### Gap 9 — Empty arrays are preserved by `pbmCopyWithoutEmptyVals` (discovered S1.1)
-
-`pbmCopyWithoutEmptyVals` and `pbmRemoveEmptyVals` only strip `nil` / `NSNull` — **empty arrays `[]` are kept**. Swift twins must not suppress empty `[String]` arrays. Pass them through as-is; do not apply `.isEmpty ? nil : array` guards.
-
-### Naming convention — no PBM prefix on Swift types (applied S1.1)
-
-Swift class names and filenames drop the `PBM` namespace prefix. The ObjC bridge name is preserved via `@objc(PBMORTBFoo)` on the class declaration so all ObjC consumers continue to see the original `PBMORTBFoo` name unchanged.
-
-**Rule:** Swift class = `ORTBFoo`, filename = `ORTBFoo.swift`, ObjC bridge = `@objc(PBMORTBFoo)`. This mirrors the existing response-side pattern (`ORTBAppContent`, `ORTBBid`, etc.). Applies to every Swift twin from Phase 1 onward.
+**Naming convention — no `PBM` prefix (applied S1.1).** Swift class = `ORTBFoo` (file `ORTBFoo.swift`), ObjC bridge name preserved via `@objc(PBMORTBFoo)` on the declaration. Mirrors the existing response-side pattern. Applies Phase 1 onward — **exception:** Gap S3.3-A.
 
 ## Canonical Swift twin template
 
 ```swift
 // PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/Request/ORTBFoo.swift
-
 import Foundation
 
 @objc(PBMORTBFoo)
 public class ORTBFoo: NSObject, PBMJsonCodable {
 
-    // MARK: - Properties
-
     @objc public var someField: NSNumber?
     @objc public var anotherField: String?
 
-    // MARK: - Init
-
-    public override init() {
-        super.init()
-    }
+    public override init() { super.init() }
 
     @objc(initWithJsonDictionary:)
     public required init(jsonDictionary: [String: Any]) {
@@ -140,8 +80,6 @@ public class ORTBFoo: NSObject, PBMJsonCodable {
         anotherField = json[.anotherField]
     }
 
-    // MARK: - PBMJsonEncodable
-
     @objc(toJsonDictionary)
     public var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
@@ -150,8 +88,6 @@ public class ORTBFoo: NSObject, PBMJsonCodable {
         return json.dict
     }
 
-    // MARK: - Keys
-
     private enum Key: String {
         case someField    = "somefield"
         case anotherField = "anotherfield"
@@ -159,30 +95,15 @@ public class ORTBFoo: NSObject, PBMJsonCodable {
 }
 ```
 
-Key points:
-- **Filename / Swift class name**: `ORTBFoo` / `ORTBFoo.swift` — no `PBM` prefix.
-- **ObjC bridge name**: `@objc(PBMORTBFoo)` on the class — ObjC consumers unchanged.
-- `@objc public class` + `@objc public var` — required for framework build ObjC bridge (Gap 6).
-- `@objc(initWithJsonDictionary:)` + non-optional `public required init` — exposes the init selector to ObjC (Gap 7).
-- `@objc(toJsonDictionary)` — exposes the encode selector to ObjC (Gap 7).
-- `super.init()` as first statement in the JSON init.
-- No `toJsonStringWithError:` / `fromJsonString:` implementations — inherited.
-- No `NSCopying`.
-- For child ORTB objects, use `json[.childKey] = self.childObj` — empty-dict suppression is automatic (Gap 2).
-- Empty `[String]` arrays: include as-is, never suppress (Gap 9).
-- When you need to inject a key not part of the typed `Key` enum (e.g. a dynamic `ext` sub-dict), use `var result = json.dict; result["ext"] = ext; return result` — `JSONObject.dict` has `private(set)` and cannot be written from outside the struct directly.
+Key points: no `PBM` prefix on the Swift name/file; `@objc(PBMORTBFoo)` bridge; `@objc public class` + `@objc public var` (Gap 6); explicit `@objc(initWithJsonDictionary:)` / `@objc(toJsonDictionary)` (Gap 7); `super.init()` first in the JSON init; no `NSCopying`; no `toJsonStringWithError:`/`fromJsonString:` (inherited); child `PBMJsonCodable` objects get automatic empty-dict suppression (Gap 2); empty `[String]` arrays pass through as-is (Gap 9). For a key not in the typed `Key` enum (dynamic `ext` sub-dict), mutate the dict returned by `json.dict` — it's `private(set)` and can't be written into directly from outside the struct (see Gap 10 below).
 
-### Encoding pattern for untyped sub-dicts (Gap 10 — discovered S1.2)
-
-`JSONObject.dict` is `private(set)`, so you cannot do `json.dict["ext"] = ext` from outside the struct. When the serialized form requires injecting a raw `[String: Any]` dict that does not fit a typed `Key` (e.g. `ORTBImp.ext` which is built from several heterogeneous sub-fields), build via subscripts first then mutate the returned dict:
-
+**Gap 10 (S1.2) — untyped sub-dict encoding.** When the wire format needs a raw `[String: Any]` that doesn't fit the typed `Key` enum (e.g. `ORTBImp.ext` built from several heterogeneous sub-fields):
 ```swift
-@objc(toJsonDictionary)
 public var jsonDictionary: [String: Any] {
     var json = JSONObject<Key>()
     // ... typed subscript assignments
     var result = json.dict
-    let ext = extDictionary          // private [String: Any] helper
+    let ext = extDictionary
     if !ext.isEmpty { result["ext"] = ext }
     return result
 }
@@ -190,167 +111,69 @@ public var jsonDictionary: [String: Any] {
 
 ## Swift test file updates after each migration step
 
-When a Swift test file references a migrated type by its old `PBMORTBFoo` name, the Swift compiler emits `'PBMORTBFoo' has been renamed to 'ORTBFoo'`. Fix with a bulk rename using `perl -pi`:
-
+`'PBMORTBFoo' has been renamed to 'ORTBFoo'` compiler errors ⇒ bulk-rename with `perl -pi` (BSD `sed -i ''` does not reliably handle `\b` word boundaries):
 ```bash
 perl -pi -e 's/PBMORTBFoo\b/ORTBFoo/g' PrebidMobileTests/path/to/TestFile.swift
 ```
-
-**Use `perl -pi` not `sed -i ''` for word-boundary replacements** — BSD `sed` on macOS does not reliably handle `\b` word boundaries; `perl` does.
-
-Files to scan after each migration step:
-- `PrebidMobileTests/RenderingTests/Tests/PBMORTBAbstractTest.swift`
-- `PrebidMobileTests/RenderingTests/Tests/PBMORTBBidRequestTest.swift`
-- `PrebidMobileTests/RenderingTests/Tests/ParameterBuilderTests/PrebidParameterBuilderTest.swift`
-- Any other Swift test file that imports or instantiates the migrated types
-
-Run after renaming: `xcodebuild ... build-for-testing 2>&1 | grep "error:" | grep "has been renamed"` to catch stragglers.
+Scan at minimum: `PBMORTBAbstractTest.swift`, `PBMORTBBidRequestTest.swift`, `PrebidParameterBuilderTest.swift`, and any other Swift test importing/instantiating the migrated types. Catch stragglers with:
+```bash
+xcodebuild ... build-for-testing 2>&1 | grep "error:" | grep "has been renamed"
+```
 
 ## Known flaky test — `PBMBidRequesterTest.testBanner_300x250` only
 
-This section is an allowlist of exactly one test. It is **not** a general "re-run and move on"
-policy: during a migration, a genuine regression is far more likely to present as an
-intermittent async failure than at any other time, so every other flaky-looking failure must be
-investigated.
+Allowlist of exactly this one test — not a general "re-run and move on" policy; during a migration a genuine regression is more likely to look like an intermittent async failure than at any other time. Pre-existing timing flakiness (`Asynchronous wait failed`), reproducible on `master` with no Swift twins present. Confirmed S1.3: fails in 2 consecutive full-suite runs, passes in isolation — root cause is simulator resource pressure under full-suite load, not a regression.
 
-`PBMBidRequesterTest.testBanner_300x250` fails intermittently with:
-> Asynchronous wait failed: Exceeded timeout of 5 seconds, with unfulfilled expectations: "exp".
+**Rule:** before dismissing a failure as this flake, confirm all three: (1) it's the only failure, (2) it passes run alone (`-only-testing .../testBanner_300x250`), (3) your step touched nothing in the bid-request/networking path. Any other flaky-looking failure must be investigated. Never silence it by relaxing the test (`assertForOverFulfill = false`, longer timeouts, weaker assertions).
 
-This is a **pre-existing timing flakiness** unrelated to the Swift migration — it reproduces on
-`master` with no Swift twins present.
+## S1.3/S1.4 porting notes
 
-**Rule (this test only):** a re-run passing is *not* sufficient evidence. Confirm all three:
+**Non-`PBMJsonCodable` types.** Some `PrebidMobile/Objc/PrebidMobileRendering/ORTB/` classes are plain `NSObject` subclasses (custom designated init, no `toJsonDictionary`/`initWithJsonDictionary:`) — check the superclass before porting. Port these as plain `@objc public class ORTBFoo: NSObject` with the custom init; no `PBMJsonCodable`, no JSON-bridge selectors. Example: `ORTBRendererConfig`.
 
-1. It is the only failure.
-2. It passes in isolation:
-   `-only-testing PrebidMobileTests/PBMBidRequesterTest/testBanner_300x250`.
-3. The step you just landed touched nothing in the bid-request or networking path (otherwise
-   treat it as a regression until proven otherwise, regardless of 1 and 2).
+**Typed generic dicts.** A parameterized ObjC `NSDictionary<KeyType, ValueType>*` needs the matching concrete Swift type, not `[String: Any]` — e.g. `PBMORTBAppExt.data` (`NSDictionary<NSString*, NSArray<NSString*>*>*`) → `[String: [String]]?`. `[String: Any]?` compiles but breaks test code calling `.sorted()` on values.
 
-If any check fails, investigate. Never silence it by relaxing the test (`assertForOverFulfill =
-false`, longer timeouts, weakened assertions) — that converts a real signal into a permanent
-blind spot.
+**Non-optional ObjC properties in test code.** A non-`nullable` ObjC property ported to `NSNumber?` needs `?.` chains in test code changed to `.`. Catch with: `grep "cannot use optional chaining on non-optional"` in the build-for-testing output.
 
-**Confirmed S1.3:** fails in 2 consecutive full-suite runs, passes immediately when run alone.
-Root cause is simulator resource pressure under full-suite load, not a regression.
-
-### Non-`PBMJsonCodable` types (discovered S1.3)
-
-Not every type in `PrebidMobile/Objc/PrebidMobileRendering/ORTB/` inherits from `PBMORTBAbstract`. Some are plain `NSObject` subclasses with custom designated initializers and no `toJsonDictionary`/`initWithJsonDictionary:`. These do NOT conform to `PBMJsonCodable`.
-
-**Rule:** Check each file's superclass before starting. If it inherits from `NSObject` (not `PBMORTBAbstract`), port as a plain `@objc public class ORTBFoo: NSObject` with the custom designated init — no `PBMJsonCodable`, no `@objc(initWithJsonDictionary:)`, no `@objc(toJsonDictionary)`.
-
-Example: `ORTBRendererConfig` — plain `NSObject`, designated init `initWithName:version:data:`.
-
-### Typed ObjC generic dicts (discovered S1.3)
-
-When an ObjC property uses a parameterized `NSDictionary<KeyType, ValueType>`, declare the Swift equivalent with the correct concrete types — not `[String: Any]`. The type matters for test code that calls methods on the values.
-
-Example: `PBMORTBAppExt.data` is `NSDictionary<NSString*, NSArray<NSString*>*>*` → Swift `[String: [String]]?`. Using `[String: Any]?` compiles but breaks tests that call `.sorted()` on the values.
-
-### Non-optional ObjC properties in test code (discovered S1.3)
-
-When an ObjC property is declared without `nullable` (e.g. `@property (nonatomic, strong) NSNumber *pos`) but made `NSNumber?` in Swift, test code that used `?.` chains on the property needs the optional chain removed (`.` instead of `?.`).
-
-Catch with: `xcodebuild ... build-for-testing 2>&1 | grep "cannot use optional chaining on non-optional"`.
-
-### NSCopying on root containers (discovered S1.4)
-
-`PBMORTBAbstract` implemented `<NSCopying>` via a JSON round-trip. Swift twins that inherit from `NSObject` do NOT get `NSCopying` automatically — `obj.copy()` crashes at runtime.
-
-**Rule:** Any Swift twin that replaces an `NSCopying`-conforming ObjC type must explicitly add `NSCopying`. Implement via JSON round-trip to match the ObjC behaviour:
-
+**`NSCopying` on root containers.** `NSObject` subclasses do NOT inherit `NSCopying` — `.copy()` crashes at runtime if not added explicitly. Any Swift twin whose ObjC original was `<NSCopying>` **and is actually `.copy()`'d** needs it added back via JSON round-trip:
 ```swift
-public func copy(with zone: NSZone? = nil) -> Any {
-    Self(jsonDictionary: jsonDictionary)
-}
+public func copy(with zone: NSZone? = nil) -> Any { Self(jsonDictionary: jsonDictionary) }
 ```
+Phase 1: only `ORTBBidRequest` needed this (its `.copy()` is called by test code) — check other phases as they land.
 
-For Phase 1 only `ORTBBidRequest` needs this (it's the only type whose `.copy()` is called by test code). Check other phases as they land.
-
-### NSMutableDictionary from JSON decode (discovered S1.4)
-
-When an ObjC property is `NSMutableDictionary *` (e.g. `PBMORTBUser.ext`, `PBMORTBRegs.ext`), `JSONSerialization` always returns an immutable `NSDictionary`. The cast `jsonDictionary["ext"] as? NSMutableDictionary` silently returns `nil`, leaving the property nil even when the JSON contained data.
-
-**Rule:** Decode mutable dict properties by wrapping in `NSMutableDictionary(dictionary:)`:
-
+**`NSMutableDictionary` from JSON decode.** `JSONSerialization` always returns immutable `NSDictionary`, so `jsonDictionary["ext"] as? NSMutableDictionary` silently yields `nil` for a property declared `NSMutableDictionary *` in ObjC (`PBMORTBUser.ext`, `PBMORTBRegs.ext`). Decode via:
 ```swift
 if let extDict = jsonDictionary["ext"] as? [String: Any] {
     ext = NSMutableDictionary(dictionary: extDict)
 }
 ```
+Forgetting this silently drops round-tripped `ext` contents (e.g. EIDs disappear after serialize/deserialize).
 
-This applies to any property declared `NSMutableDictionary *` in ObjC that is decoded from JSON. Forgetting this silently breaks any code that reads back a round-tripped `ext` (e.g. EIDs disappear after `ORTBBidRequest` serialization/deserialization).
-
-### Deleting PBMORTBAbstract — cascade effects (discovered S1.4)
-
-Deleting `PBMORTBAbstract.m` removes:
-- The `from(jsonString:)` ObjC class method (bridged as `try SomeClass.from(jsonString:)` in Swift tests)
-- The `copyWithZone:` NSCopying implementation
-- The `toJsonDictionary`/`initWithJsonDictionary:` abstract fallback implementations
-
-**Action items when deleting `PBMORTBAbstract.m`:**
-1. Search tests for `PBMORTBAbstract.from(jsonString:)` and `SomeType.from(jsonString:)` — replace with the `PBMJsonDecodable.from(jsonString:)` shim (defined in `ORTBParityHelper.swift`).
-2. Remove any `extension PBMORTBAbstract: SomeProtocol` blocks in test files.
-3. Remove `codeAndDecode<T: PBMORTBAbstract>` overloads — the `PBMJsonCodable` overload handles all Swift types.
-4. Remove any `testAbstractMethods()` test that calls `PBMORTBAbstract.from(jsonString:)` directly.
-5. Keep `PBMORTBAbstract.h` and `PBMORTBAbstract+Protected.h` — Phase 3/4 ObjC parameter builders still import them.
+**Deleting `PBMORTBAbstract` — cascade.** Removes the `from(jsonString:)` class method, `copyWithZone:`, and the abstract fallback impls. Checklist: (1) replace `PBMORTBAbstract.from(jsonString:)`/`SomeType.from(jsonString:)` test calls with the `PBMJsonDecodable.from(jsonString:)` shim in `ORTBParityHelper.swift`; (2) remove `extension PBMORTBAbstract: SomeProtocol` test blocks; (3) remove `codeAndDecode<T: PBMORTBAbstract>` overloads (the `PBMJsonCodable` overload covers all Swift types); (4) delete `testAbstractMethods()` tests calling `PBMORTBAbstract.from(jsonString:)` directly; (5) **keep** `PBMORTBAbstract.h`/`+Protected.h` — Phase 3/4 ObjC parameter builders still import them.
 
 ## Validation checklist per PR
 
 - [ ] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean
-- [ ] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build of the working tree clean (catches header-visibility breakage the CocoaPods build masks — Gap S2.5-A)
-- [ ] `./scripts/testPrebidMobile.sh --latest --quick` — must pass on a clean run (re-run once if only `PBMBidRequesterTest.testBanner_300x250` fails)
-- [ ] Swift test files updated: no `'PBMORTBFoo' has been renamed` compiler errors
-- [ ] (Phase 1 & 3) JSON round-trip parity test passes (see S0.2 harness)
-- [ ] (Phase 1 & 3) Each migrated model has a **partial**-payload decode test asserting the
-      re-encoded key set — a full fixture cannot catch a resurrected default (Gap S2.5-C)
+- [ ] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build clean (catches header-visibility breakage the CocoaPods build masks — Gap S2.5-A)
+- [ ] `./scripts/testPrebidMobile.sh --latest --quick` — clean pass (re-run once if only `PBMBidRequesterTest.testBanner_300x250` fails)
+- [ ] Swift test files updated: no `'PBMORTBFoo' has been renamed` errors
+- [ ] (Phase 1 & 3) JSON round-trip parity test passes (S0.2 harness)
+- [ ] (Phase 1 & 3) Each migrated model has a **partial**-payload decode test asserting the re-encoded key set — a full fixture can't catch a resurrected default (Gap S2.5-C)
 - [ ] No `"app": {}` / `"device": {}` empty-object regressions in captured bid requests
-- [ ] The PR doc states its **scope boundary** — which `S<phase>.<step>`s it lands, and which ObjC
-      files in the same area it deliberately leaves behind. The authoritative step list lives in
-      the migration TaskNotes, not in this repo, so a PR titled "Phase N" is not self-evidently the
-      whole of Phase N; say so explicitly or the reviewer cannot tell (added S3.2)
+- [ ] PR doc states its **scope boundary** — which `S<phase>.<step>`s it lands and which ObjC files it deliberately leaves behind. The authoritative step list lives in the migration TaskNotes, not this repo — a PR titled "Phase N" is not self-evidently all of Phase N (added S3.2)
 
-## Phase 2 gaps (discovered S2.1)
+## Phase 2 gaps (S2.1)
 
-### Gap S2.1-A — NS_TYPED_ENUM constants cannot be bridged as free-standing ObjC constants from Swift
+**S2.1-A — `NS_TYPED_ENUM` constants can't bridge as free-standing ObjC constants from Swift.** Keep a residual ObjC `.m` with only the constant assignments; port the class implementations to Swift separately. Delete the residual `.m` once its last ObjC consumer is ported.
 
-`FOUNDATION_EXPORT NSString * const PBMFooAction = @"foo"` style global constants have no Swift equivalent that bridges to C-level symbols. Keep a residual ObjC `.m` file containing ONLY the constant assignments; port the class implementations to Swift separately. Delete the residual `.m` when the last ObjC consumer of those constants is ported.
+**S2.1-B — `@_spi(PBMInternal)` needs `@_spi` import in test files.** Any test accessing `Functions.*` (`@_spi(PBMInternal) public class`) directly needs `@_spi(PBMInternal) @testable import PrebidMobile`.
 
-### Gap S2.1-B — @_spi(PBMInternal) class requires @_spi import in test files
-
-`Functions` (`PBMFunctions`) is declared `@_spi(PBMInternal) public class`. Any Swift test file that accesses `Functions.*` directly must use `@_spi(PBMInternal) @testable import PrebidMobile` instead of just `@testable import PrebidMobile`.
-
-### Gap S2.1-C — dispatch_time() C function unavailable in Swift
-
-The C function `dispatch_time(startTime, delta)` is not exposed to Swift, and neither are the
-`DISPATCH_TIME_NOW` / `DISPATCH_TIME_FOREVER` macros. The obvious translation is wrong:
-
+**S2.1-C — `dispatch_time()` unavailable in Swift; do not use `DispatchTime(uptimeNanoseconds:)` on a raw `dispatch_time_t`.** That initializer *converts* ns→mach-ticks, so round-tripping an already-tick value scales it again (invisible on simulator, ~41x off on arm64 devices where the timebase is 125/3). Branch on sentinels and convert explicitly (see `Functions.swift`):
 ```swift
-// WRONG — do not use
-(DispatchTime(uptimeNanoseconds: startTime) + timeInterval).rawValue
-```
-
-`DispatchTime.rawValue` is a raw `dispatch_time_t`, expressed in **mach ticks**.
-`DispatchTime(uptimeNanoseconds:)` *converts* nanoseconds to ticks via `mach_timebase_info`.
-Round-tripping a `dispatch_time_t` through it therefore scales the value a second time and yields a
-bogus deadline. The simulator's timebase is 1:1 so the error is invisible there; on arm64 devices it
-is 125/3, so the deadline is off by ~41x.
-
-**Rule:** Branch on the sentinel values and do the tick conversion explicitly. Reference
-implementation in `Functions.swift`:
-
-```swift
-private static let dispatchTimeNow: UInt64 = 0
-private static let dispatchTimeForever: UInt64 = .max
-
 switch startTime {
-case dispatchTimeNow:
-    return (DispatchTime.now() + representableSeconds(timeInterval)).rawValue
-case dispatchTimeForever:
-    return dispatchTimeForever
+case dispatchTimeNow:     return (DispatchTime.now() + representableSeconds(timeInterval)).rawValue
+case dispatchTimeForever: return dispatchTimeForever
 default:
-    let ticks = machTicks(fromSeconds: timeInterval)
+    let ticks = machTicks(fromSeconds: timeInterval)   // nanoseconds * denom / numer
     if ticks >= 0 {
         let (deadline, overflow) = startTime.addingReportingOverflow(UInt64(ticks))
         return overflow ? dispatchTimeForever : deadline
@@ -359,239 +182,55 @@ default:
     return elapsed > startTime ? dispatchTimeNow : startTime - elapsed
 }
 ```
+Signed arithmetic matters: `startTime &+ UInt64(bitPattern: negativeTicks)` wraps to "almost forever" instead of "already past" — branch on sign and subtract, saturating at `DISPATCH_TIME_NOW`. Clamp the interval before converting (`Int64(seconds * NSEC_PER_SEC)` traps on `.nan`/`.infinity`; `nanoseconds * denom` can overflow beyond ~97 years at a 125/3 timebase). Simulator timebase is 1:1, so only device testing validates the tick-conversion branches — reason about units at review time, don't rely on CI (`TestFunctions.testDispatchTimeAfterTimeInterval*`).
 
-where `machTicks(fromSeconds:)` applies `nanoseconds * denom / numer` from `mach_timebase_info`.
+**S2.1-D** — `UIInterfaceOrientationIsPortrait()` → `orientation.isPortrait`.
 
-**The signed arithmetic matters.** `dispatch_time_t` is unsigned, mach ticks from a negative
-interval are not. `startTime &+ UInt64(bitPattern: negativeTicks)` wraps to just under `UInt64.max`
-— i.e. "almost forever" instead of "already past". Branch on the sign and subtract, saturating at
-`DISPATCH_TIME_NOW`. Likewise, clamp the interval before converting: `Int64(seconds * NSEC_PER_SEC)`
-traps on `.nan`/`.infinity`, and `nanoseconds * denom` can overflow before the division for
-intervals beyond ~97 years on a 125/3 timebase.
+**S2.1-E** — `@objc(name:)` on a `throws` method must include the error label: `@objc(dictionaryFromJSONString:error:)`, not `...:)`.
 
-**Corollary:** a simulator-only test suite cannot validate any API whose correctness depends on the
-mach timebase — its timebase is 1:1, so the tick conversion is an identity there. Tests that only
-exercise `DISPATCH_TIME_NOW` prove nothing about the other branches. Cover the sign, sentinel and
-saturation behaviour explicitly (`TestFunctions.testDispatchTimeAfterTimeInterval*`), and still
-reason about the tick/nanosecond units at review time rather than relying on CI.
+**S2.1-F** — ObjC `@dynamic value;` (CALayer) → Swift `@NSManaged var value: CGFloat`.
 
-### Gap S2.1-D — UIInterfaceOrientationIsPortrait() unavailable in Swift
+**S2.1-G — porting an `@objc protocol`:** reduce the ObjC private header to a forward declaration (`@protocol PBMFoo;`); the full definition comes from `PrebidMobile-Swift.h` via `SwiftImport.h`. Any `.m` calling methods on `id<PBMFoo>` needs `#import "SwiftImport.h"`.
 
-Replace with `orientation.isPortrait` (Swift property on `UIInterfaceOrientation`).
+## Phase 2 gaps (S2.2)
 
-### Gap S2.1-E — @objc(selector:) on throws methods must include :error: label
+**S2.2-A** — `@objc extension NSDictionary/NSString/...` with `@objc public func` members appear as ObjC categories in `PrebidMobile-Swift.h`; consumers importing `SwiftImport.h` get them for free once the original `.h` is deleted.
 
-For `@objc(name:)` on a Swift `throws` method, the explicit name must include the `:error:` label or the compiler emits "provides N argument names, but method has N+1 parameters (including the error parameter)". Use `@objc(dictionaryFromJSONString:error:)` not `@objc(dictionaryFromJSONString:)`.
+**S2.2-B — string nil-guard preservation.** ObjC `nil` → `nonnull NSString *` bridges to Swift `""`, not `nil`. If the ObjC code had a nil guard, declare the Swift parameter `String?` (even if the header said `nonnull`) so `nil` actually passes through.
 
-### Gap S2.1-F — CALayer @dynamic → @NSManaged in Swift
+**S2.2-C** — a class conforming to an `@_spi(PBMInternal)` protocol must itself be `@_spi(PBMInternal)` (and so must any property/method returning that type), or the compiler errors "it is SPI".
 
-`@dynamic value;` in ObjC CALayer subclasses maps to `@NSManaged var value: CGFloat` in Swift.
+**S2.2-D** — always call `@_spi` classes by their Swift name (`Factory`), never the ObjC bridge name (`PBMFactory`), from Swift code.
 
-### Gap S2.1-G — ObjC protocol migration: reduce header to forward declaration
+**S2.2-E — capitalized ObjC method names.** `LogViewHierarchy` imports to Swift as `logViewHierarchy()`. If both ObjC and Swift callers exist, name the Swift method lowercase and add `@objc(LogViewHierarchy)` to preserve the ObjC selector.
 
-When porting an `@objc protocol` to Swift, change the ObjC private header to just `@protocol PBMFoo;` (forward declaration). The full definition comes from `PrebidMobile-Swift.h` via `SwiftImport.h`. Any ObjC `.m` file that calls methods on `id<PBMFoo>` needs `#import "SwiftImport.h"`.
+**S2.2-F — DEBUG-only category properties** (e.g. `Prebid.forcedIsViewable` in `Prebid+TestExtension.h`) aren't visible to Swift (Gap 8) — access via KVC inside `#if DEBUG`: `Prebid.shared.value(forKey: "forcedIsViewable") as? Bool ?? false`.
 
-## Phase 2 gaps (discovered S2.2)
+## Phase 2 gaps (S2.3)
 
-### Gap S2.2-A — @objc extensions on Foundation types bridge to ObjC via PrebidMobile-Swift.h
+**S2.3-A** — `NSInvocationOperation` has no Swift equivalent; replace with `target.perform(selector, with: argument)` guarded by `target.responds(to: selector)`.
 
-`@objc extension NSDictionary`, `@objc extension NSString`, etc. with `@objc public func` methods appear in `PrebidMobile-Swift.h` as ObjC categories. ObjC consumers that import `SwiftImport.h` can call these methods without any additional header imports after the original `.h` is deleted.
+**S2.3-B — ObjC block typedefs can't export as a named ObjC-visible Swift type.** For a header-only typedef `.h` (no `.m`), keep the header in place; the Swift implementation just uses a structurally-matching closure type (e.g. `(TimeInterval, AnyObject, Selector, Any?, Bool) -> ProtocolType`) — no cast needed, block types are structural.
 
-**Rule:** When porting ObjC categories on Foundation types (`NSDictionary`, `NSString`, `NSURL`, etc.), create a Swift `extension SomeClass` with `@objc public` methods. Remove the ObjC header import from all consumers; they get the methods automatically via `PrebidMobile-Swift.h`.
+**S2.3-C — reducing a header to a forward declaration can break its importers transitively.** E.g. reducing `PBMTimerInterface.h` (dropped `@import Foundation;`) broke `PBMScheduledTimerFactory.h`'s use of Foundation types. After any such reduction, check every importing header for Foundation-type usage and add `#import <Foundation/Foundation.h>` where needed.
 
-### Gap S2.2-B — NSString nil-param bridging: use String? to preserve nil guards
+## Phase 2 gaps (S2.4 — rebase hazards)
 
-ObjC `nil` passed to a `nonnull NSString *` parameter bridges to Swift `String` as `""` (empty string), not `nil`. If the original ObjC code had a nil guard (`if (!param) { return self; }`), the Swift equivalent must use `String?` parameters so the nil passes through correctly.
+**S2.4-A — rebasing onto a commit that independently deleted the ported class.** A clean auto-merge only means no *overlapping lines* — it does not mean the port is still wanted. (`PBMTouchDownRecognizer`: master replaced it with `UITapGestureRecognizer` on different lines than the migration touched, so the port sailed through as dead code.) **Rule:** after every rebase, diff the upstream commits against this phase's ported classes; for any ObjC class deleted upstream (not just modified), delete the Swift port + test after confirming no post-rebase code still references it.
 
-**Rule:** For methods that had ObjC nil guards on string parameters, declare those parameters as `String?` in Swift (even if the ObjC header said `nonnull`). This is a backwards-compatible relaxation (`_Nullable` vs `_Nonnull` in the ObjC bridge).
+**S2.4-B — post-migration commits can reintroduce stale ObjC-name references in tests** (copy-paste from an older test). Not caught by the migration's own history. **Rule:** after rebasing, build once (`'PBMFoo' has been renamed` errors name the file), then proactively grep every `@objc(PBMFoo)` name this phase ported against all `*.swift` files outside its declaration line.
 
-### Gap S2.2-C — SPI protocol conformers must inherit @_spi
+## Phase 2 gaps (review, S2.5)
 
-A Swift class that conforms to an `@_spi(PBMInternal)` protocol (e.g. `ViewExposure`) must itself be declared `@_spi(PBMInternal)`. Otherwise the compiler emits "cannot use protocol 'Foo' here; it is SPI".
+**S2.5-A — deleting an ObjC header can break the SPM build only.** A `.m` that got UIKit transitively through a deleted header still compiles under CocoaPods (the generated `-Swift.h` re-exports the umbrella headers) but fails under SwiftPM (`@import PrebidMobile;` doesn't re-export UIKit): `error: declaration of 'UIScreen' must be imported from module 'UIKit.UIScreen'...`. Neither `buildPrebidMobile.sh` nor `buildPrebidSPM.sh` (builds the *published* package, not the working tree) catches this. **Rule:** any `.m` referencing UIKit types must `#import <UIKit/UIKit.h>` explicitly. Verify with `./scripts/buildPrebidMobilePackage.sh` (compiles `Package.swift` directly; wired into `PR_checks.yml` as `build-spm-package`).
 
-**Rule:** When implementing a `@_spi` protocol, add `@_spi(PBMInternal)` to the conforming class/struct declaration. Similarly, properties/methods that return a `@_spi` type must themselves be marked `@_spi`.
+**S2.5-B — don't reflexively add `[weak self]` when porting ObjC blocks.** An ObjC block with no `__weak`/`@weakify` captures `self` strongly — sometimes the *only* thing keeping it alive. (`PBMDownloadDataHelper`: callers create it as a bare local; a weak capture lets it deallocate between the HEAD and GET, silently dropping the completion.) **Rule:** port capture semantics literally; only add `[weak self]` where ObjC used `__weak`/`@weakify`, or where a retain cycle is demonstrable. Comment strong captures kept deliberately.
 
-### Gap S2.2-D — Swift name vs ObjC name for Factory and other @_spi classes
+**S2.5-C — `?? default` in `init(jsonDictionary:)` resurrects defaults the wire format never sent.** ObjC's `initWithJsonDictionary:` calls `[self init]` first (seeding class defaults) then writes ivars **unconditionally** — an absent key overwrites the default with `nil`, and `pbmCopyWithoutEmptyVals` omits it on re-encode. `bidfloor = json[.bidfloor] ?? 0.0` is wrong; it invents a wire key ObjC never sent. **Rule:** assign unconditionally (`x = json[.k]`, never `?? default`) in the JSON init; keep the default only in the property declaration/plain `init()`. This forces the property optional even under `NS_ASSUME_NONNULL_BEGIN` — the header was lying; the JSON initializer is the proof. Same for collections (`ORTBBidRequest.imp` seeds one `ORTBImp()` in `init()` but must clear to `[]` if `"imp"` is absent/empty). **Exceptions where `?? default` is faithful:** the ObjC init explicitly substituted a value for a missing key (`ORTBPmp.deals`, `ORTBBanner.format`), or the property is never written by `toJsonDictionary`/is guarded by a non-empty check (no wire difference observable) — child-object fallbacks (`json[.pmp] ?? ORTBPmp()`) are fine since empty child dicts are suppressed on encode (Gap 2). A full round-trip fixture can't detect this bug — cover with a *partial* payload asserting the re-encoded key set (`assertORTBNoResurrectedDefaults` in `ORTBParityHelper.swift`).
 
-`Factory` (Swift name) is `PBMFactory` (ObjC bridge name via `@objc(PBMFactory)`). When writing Swift code that calls methods on the class, always use the Swift name `Factory`, never `PBMFactory`. Applies to all `@_spi` classes that have `@objc(PBMFoo)` bridge names.
+**S2.5-D — `[nil isEqual:nil]` is `NO`; Swift `nil == nil` is `true`.** An `isEqual:` built from `[self.w isEqual:other.w] && ...` returns `NO` for all-nil vs. Swift's direct `w == other.w` translation returning `true` — changes `NSSet` dedup behavior for all-nil instances. `ORTBFormat`: accepted as-is (not fixed) because the only dedup callsite always populates `w`/`h` via `+ortbFormatWithSize:`, so all-nil never reaches the `NSSet`; reproducing ObjC exactly would require `w != nil && h != nil && ...`, breaking `isEqual:` reflexivity. **Rule:** when porting an `isEqual:` built from optional-property `isEqual:` calls, explicitly decide whether all-nil instances must stay distinct; if ObjC semantics can't be reproduced without breaking reflexivity, keep Swift semantics and comment the callsite justifying it.
 
-### Gap S2.2-E — logViewHierarchy naming: @objc(LogViewHierarchy) with lowercase Swift name
-
-ObjC method `- (void)LogViewHierarchy` (capital L) imports to Swift test code as `logViewHierarchy()` (lowercase). Swift callers use the lowercase name. Fix: name the Swift method `logViewHierarchy()` and add `@objc(LogViewHierarchy)` to preserve the ObjC selector for ObjC consumers.
-
-**Rule:** When an ObjC method name starts with a capital letter, Swift automatically lowercases the first letter when importing. If both ObjC and Swift callers exist, name the Swift method in lowercase and use the explicit `@objc(UppercaseName)` annotation to maintain the ObjC selector.
-
-### Gap S2.2-F — DEBUG-only ObjC category properties: KVC in Swift
-
-`Prebid.forcedIsViewable` is defined in a private `#ifdef DEBUG` ObjC category (`Prebid+TestExtension.h`). Since private headers are not visible to Swift (Gap 8), access it via KVC: `Prebid.shared.value(forKey: "forcedIsViewable") as? Bool ?? false`. Only safe inside `#if DEBUG` blocks.
-
-## Phase 2 gaps (discovered S2.3)
-
-### Gap S2.3-A — NSInvocationOperation not available in Swift
-
-`NSInvocationOperation` is an ObjC-only class. Replace with `NSObject.perform(_:with:)` for synchronous target/selector invocation:
-
-```swift
-// ObjC: NSInvocationOperation(target: obj, selector: sel, object: arg).start()
-// Swift:
-if target.responds(to: selector) {
-    target.perform(selector, with: argument)
-}
-```
-
-### Gap S2.3-B — ObjC block typedef cannot be exported from Swift as a named type
-
-ObjC `typedef id<Foo>(^PBMBar)(NSTimeInterval, id, SEL, id?, BOOL)` cannot be reproduced in Swift as a named ObjC-visible type. Options:
-1. Keep the typedef `.h` file (no `.m` to delete — it's header-only). ObjC consumers continue importing it.
-2. The Swift closure `(TimeInterval, AnyObject, Selector, Any?, Bool) -> ProtocolType` generates an ObjC block type with the same signature. ObjC assignment is compatible without explicit casts (block types are structurally typed).
-
-**Rule:** For header-only ObjC typedef files (`.h` with no corresponding `.m`), there is nothing to "port" — keep them in place. The Swift implementation uses a matching closure type; structural compatibility with the ObjC typedef is sufficient.
-
-### Gap S2.3-C — Header chain: reducing one header breaks its importers
-
-When `PBMTimerInterface.h` was reduced to a forward declaration `@protocol PBMTimerInterface;` (removing `@import Foundation;`), `PBMScheduledTimerFactory.h` lost Foundation types it was getting transitively. Fix: add `#import <Foundation/Foundation.h>` directly to any header that loses types via a reduced dependency.
-
-**Rule:** After reducing a private header to a forward declaration, check every header that `#import`s it for Foundation-type usage (`NSTimeInterval`, `BOOL`, `NS_ASSUME_NONNULL_BEGIN`, etc.) and add `#import <Foundation/Foundation.h>` or `@import Foundation;` as needed.
-
-### Gap S2.4-A — Rebasing a migration commit onto an upstream commit that deletes the ported class
-
-When rebasing a migration branch onto `master` and the *ported* ObjC class was independently
-deleted upstream (its whole feature replaced, not just tweaked), the migration's Swift port
-becomes dead code even if the rebase auto-merges cleanly — a clean auto-merge only means git found
-no *overlapping lines*, not that the port is still wanted. This happened with
-`PBMTouchDownRecognizer`: `master` deleted it in favor of `UITapGestureRecognizer` in the same
-commit range being rebased onto, and the deletion touched different lines than the migration's
-port, so `PBMWebView.m`/`PBMVideoView.m` auto-merged onto master's replacement while
-`TouchDownRecognizer.swift` and its test sailed through unchanged.
-
-**Rule:** After any rebase of a migration branch onto `master`, diff the upstream commits being
-rebased onto against the set of classes ported in this phase. For any ObjC class deleted upstream
-(not just modified), delete the corresponding Swift port and its test rather than reconciling —
-check first whether any production code (post-rebase) still references it.
-
-### Gap S2.4-B — Post-migration upstream commits can reintroduce ObjC-name references in tests
-
-A test file can be modified by an upstream commit *after* a class was already migrated to Swift,
-adding a fresh reference to the old ObjC name (the author copy-pasted from an older test or wasn't
-aware of the port). This isn't caught by the migration's own history — grep the full test suite
-for stale ObjC-prefixed names after every rebase, not just the files touched by rebase conflicts.
-
-**Rule:** After rebasing onto `master`, run the build once; any `'PBMFoo' has been renamed to 'Foo'`
-compiler error names the file. Then grep proactively: build the list of `@objc(PBMFoo)` names from
-every Swift file this phase ported, and search all `*.swift` files for each name outside its own
-declaration line — this catches other stale references the build hasn't reached yet.
-
-## Phase 2 gaps (discovered in review, S2.5)
-
-### Gap S2.5-A — deleting an ObjC header can break the SPM build only
-
-When a migrated ObjC header is deleted, every `.m` that was getting UIKit *transitively* through it
-loses those types. Under CocoaPods/Xcode this is masked: the generated `PrebidMobile-Swift.h`
-(pulled in via `SwiftImport.h`) re-exports the umbrella headers, so `UIView` / `UIScreen` stay
-visible. Under SwiftPM the Swift half is consumed as `@import PrebidMobile;`, which does not
-re-export UIKit, and the same file fails with:
-
-> error: declaration of 'UIScreen' must be imported from module 'UIKit.UIScreen' before it is required
-
-Neither `buildPrebidMobile.sh` (CocoaPods) nor `buildPrebidSPM.sh` catches this —
-`buildPrebidSPM.sh` builds `PrebidDemoSPM`, which consumes the *published* package via
-`XCRemoteSwiftPackageReference` and never compiles the working tree.
-
-**Rule:** Any ObjC `.m` that references UIKit types must `#import <UIKit/UIKit.h>` explicitly; never
-rely on transitive visibility. Verify with `./scripts/buildPrebidMobilePackage.sh`, which compiles
-`Package.swift` directly for the iOS simulator triple and is wired into `PR_checks.yml` as the
-`build-spm-package` job.
-
-### Gap S2.5-B — ObjC blocks capture `self` strongly; do not add `[weak self]` reflexively
-
-An ObjC block with no `@weakify`/`__weak` dance captures `self` strongly, and that capture is
-sometimes the *only* thing keeping the object alive. Translating it to `{ [weak self] … }` is not a
-neutral safety improvement — it changes object lifetime and can silently turn the callback into a
-no-op.
-
-`PBMDownloadDataHelper.downloadDataForURL:maxSize:` is the concrete case: callers such as
-`PBMCreativeFactoryJob` create the helper as a bare local and return immediately, so a weak capture
-lets it deallocate between the HEAD and the GET, and the completion closure never fires. Unit tests
-do not catch it because they hold the helper in a scope that spans `waitForExpectations`.
-
-**Rule:** Port block capture semantics literally. Only introduce `[weak self]` where the ObjC
-original used `__weak`/`@weakify`, or where a retain cycle is demonstrable (`self` owns the object
-holding the block). When keeping a strong capture, leave a comment saying why, so the next reader
-does not "fix" it.
-
-### Gap S2.5-C — `initWithJsonDictionary:` destroys `init` defaults; `?? default` resurrects them
-
-Every ORTB model's JSON initializer is written as:
-
-```objc
-- (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
-    if (!(self = [self init])) { return nil; }   // seeds class defaults
-    _bidfloor = jsonDictionary[@"bidfloor"];     // direct ivar write, no setter
-    ...
-}
-```
-
-The ivar writes are **unconditional** and bypass the (sometimes coercing) setters. So when a key is
-absent, the default seeded by `init` is *overwritten with nil* — and `pbmCopyWithoutEmptyVals` then
-omits the key on re-encode. Decoding `{"id":"deal-1"}` and re-encoding it yields `{"id":"deal-1"}`,
-not the four extra defaults.
-
-The natural-looking Swift port is wrong:
-
-```swift
-// WRONG — invents wire keys the ObjC SDK never sent
-bidfloor = json[.bidfloor] ?? 0.0
-```
-
-**Rule:** In `init(jsonDictionary:)`, assign unconditionally — `x = json[.k]`, never
-`json[.k] ?? default`. Keep the default in the property declaration so the plain `init()` path still
-matches ObjC. This forces the property to be **optional even when the ObjC header declared it
-nonnull** under `NS_ASSUME_NONNULL_BEGIN`; the header was lying, and the JSON initializer is the
-proof. Same rule for collection properties: `ORTBBidRequest.imp` defaults to one `ORTBImp()` in
-`init()` but must be cleared to `[]` when `"imp"` is absent or empty.
-
-Two exceptions where `?? default` **is** faithful and should be kept:
-
-- The ObjC init explicitly substituted a value for a missing key
-  (`_deals = jsonDictionary[@"deals"] ? … : @[]`) — `ORTBPmp.deals`, `ORTBBanner.format`.
-- The property is never written by `toJsonDictionary` (`ORTBPublisher.cat`, `ORTBApp.cat` /
-  `sectioncat` / `pagecat`) or is guarded by a non-empty check (`ORTBImpExtSkadn.skadnetids`), so no
-  wire difference is observable. Child-object fallbacks (`json[.pmp] ?? ORTBPmp()`) are likewise
-  fine: ObjC allocated the child too, and empty child dicts are suppressed on encode (Gap 2).
-
-**Verification:** a fully-populated round-trip fixture cannot detect this — the resurrected default
-is stable across both encodes. Cover it with a *partial* payload and assert on the re-encoded key
-set (`assertORTBNoResurrectedDefaults` in `ORTBParityHelper.swift`).
-
-### Gap S2.5-D — `[nil isEqual:nil]` is `NO`; Swift `nil == nil` is `true`
-
-ObjC `isEqual:` implementations written as `[self.w isEqual:other.w] && [self.h isEqual:other.h]`
-return `NO` when both sides are nil, because messaging `nil` returns `NO`. The direct Swift
-translation `w == other.w && h == other.h` returns `true`. For a type used as an `NSSet` member
-this changes deduplication: all-nil instances used to be distinct and now collapse into one.
-
-`ORTBFormat` is the instance. The divergence was **accepted, not fixed**: the only dedup callsite
-(`PBMPrebidParameterBuilder`) builds every element via `+ortbFormatWithSize:`, which always sets `w`
-and `h`, so all-nil formats never reach the `NSSet`. Reproducing ObjC exactly would need
-`w != nil && h != nil && …`, which makes `isEqual:` non-reflexive and violates the contract
-`NSSet`/`Hashable` rely on.
-
-**Rule:** When porting an `isEqual:` built from `isEqual:` calls on optional properties, decide
-explicitly whether all-nil instances must stay distinct. If the ObjC semantics can't be reproduced
-without breaking reflexivity, keep the Swift semantics and leave a comment at the callsite
-justifying it — don't leave the difference silent.
-
-### Gap S2.5-E — `UIApplication.shared` is non-optional in Swift but nil host-less
-
-`[UIApplication sharedApplication]` returns `nil` whenever the SDK runs outside an application
-process — most importantly the unit-test bundle, which has no app host. ObjC code guarded this with
-`if (!uiApplication)` / `conformsToProtocol:`. Swift imports the property as **non-optional**
-`UIApplication`, so the `nil` becomes an invalid reference that cannot be tested for and crashes at
-first use — typically when boxed into a `PBMUIApplicationProtocol` existential.
-
-**Rule:** Never read `UIApplication.shared` directly in ported code. Resolve it through the ObjC
-runtime so the `nil` stays observable:
-
+**S2.5-E — `UIApplication.shared` is non-optional in Swift but nil host-less** (e.g. unit-test bundle). ObjC guarded with `if (!uiApplication)`; the non-optional Swift import can't be tested for nil and crashes at first use (typically boxed into `PBMUIApplicationProtocol`). **Rule:** never read `UIApplication.shared` directly in ported code — resolve via the ObjC runtime so nil stays observable:
 ```swift
 static var sharedApplication: UIApplication? {
     let selector = NSSelectorFromString("sharedApplication")
@@ -601,314 +240,71 @@ static var sharedApplication: UIApplication? {
     else { return nil }
     return application as? UIApplication
 }
-
-/// The application every call site must read.
-static var resolvedApplication: PBMUIApplicationProtocol? {
-    Functions.application ?? sharedApplication
-}
+static var resolvedApplication: PBMUIApplicationProtocol? { Functions.application ?? sharedApplication }
 ```
+Three follow-ons: (1) always consult the `Functions.application` test seam **first**, in one place (`resolvedApplication`) — a second `??` spelling invites drift; (2) route every application-derived read (e.g. `safeAreaInsets`, which needs the key window) through the protocol, not around it, and resolve once per call if multiple values are needed; (3) do not memoize — resolution is `nil` until `UIApplicationMain` runs, so a cached `nil` can outlive its cause; the lookup is cheap (one selector + `objc_msgSend`).
 
-Three follow-on rules:
+Scope: applied in `Functions.swift` only. **10 other files / 17 call sites still read `UIApplication.shared` directly** (`LocationManager.swift` ×4, `UIApplication+Extensions.swift` ×2, `AdViewButtonDecorator.swift` ×2, one each in `UIWindow+PBMExtensions.swift`, `UIWindow+Extensions.swift`, `ViewExposureChecker.swift`, `ModalViewController.swift`, `AutoRefreshManager.swift`, `Host.swift`, `NativeAd.swift`) — apply this rule when touching them. Re-measure: `grep -rn --include='*.swift' -F 'UIApplication.shared' PrebidMobile` (not CI-gated; SwiftLint isn't wired into any workflow today).
 
-- **Honour the injection seam, in one place.** `Functions.application`
-  (`Functions+Testing.swift`) is how tests substitute a mock, so it must be consulted first —
-  reading `sharedApplication` alone silently ignores the mock and resolves the real singleton.
-  Express that precedence once, in `resolvedApplication`; a second accessor spelling out the
-  same `??` chain is a place for the two to drift apart.
-- **Route every application-derived read through the protocol.** A value the SDK reads off the
-  application — including `safeAreaInsets`, which needs the key window — belongs on
-  `PBMUIApplicationProtocol` so it resolves through the same seam. `safeAreaInsets` reaching
-  around it to `UIApplication.shared.…` reintroduces both the host-less trap and the untestable
-  path the rule exists to prevent. Where a caller needs more than one such value (`deviceMaxSize`
-  needs insets *and* the status-bar height), resolve the application once and pass it down rather
-  than repeating the runtime lookup per accessor.
-- **Do not memoize.** The resolution is `nil` until `UIApplicationMain` has run, so a cached `nil`
-  can outlive the condition that produced it. The runtime lookup is a selector resolution plus one
-  `objc_msgSend` — not worth trading for a staleness hazard and mutable global state.
+## Phase 3 gaps (S3.1/S3.2)
 
-**Scope:** applied in `Functions.swift` (`attemptToOpen`, `statusBarHeight`, `safeAreaInsets`), which
-no longer reads `UIApplication.shared` in code. **10 other Swift files still do, across 17 call
-sites**: `LocationManager.swift` (4), `UIApplication+Extensions.swift` (2),
-`AdViewButtonDecorator.swift` (2), then one each in `UIWindow+PBMExtensions.swift`,
-`UIWindow+Extensions.swift`, `ViewExposureChecker.swift`, `ModalViewController.swift`,
-`AutoRefreshManager.swift`, `Host.swift`, `NativeAd.swift`. All predate this PR and are tracked as
-follow-up — apply this rule when touching them.
+**S3.1-A — withdrawn.** Originally claimed `dict[key] = maybeNil` (Swift optional) stores a boxed `Optional.none` instead of removing the key, unlike ObjC. **False**, re-verified under `swiftc -swift-version 5`: `NSMutableDictionary`/`[String: Any]` remove the key for a single-level-optional `nil`, and optional chaining flattens (`targeting?.getSubjectToGDPR()` is `NSNumber?`, not `NSNumber??`). Only an explicitly *nested* optional (`String??` holding `.some(nil)`) boxes — and that assignment triggers a `coerced ... to 'Any?'` warning, so it can't land silently. **Rule:** translate literally, `dict[key] = maybeNil`; no helper needed. If the coercion warning appears, flatten (`?? nil` / `guard let`) rather than silence with `as Any?`.
 
-To re-measure, grep the SDK sources and discount comment lines — a raw count is high, because
-`Functions.swift` names the API twice in prose while reading it nowhere:
+**S3.1-B — a protocol Swift test mocks must conform to can't be `@objc`.** `@objc protocol BundleProtocol` would force `@objc` onto every conformer, including a plain-Swift `MockBundle`. **Rule:** injection-seam protocols consumed only by Swift stay plain `protocol Foo: AnyObject`, with the real type conformed retroactively (`extension Bundle: BundleProtocol {}`). Knock-on: S3.1-D.
 
-```bash
-grep -rn --include='*.swift' -F 'UIApplication.shared' PrebidMobile
-```
+**S3.1-C — an ObjC `Foo+pbmTestExtension.h` class extension can't re-open a Swift class.** (It re-declared `readonly` builder properties `readwrite` so a test could nil them.) Swift extensions can't add stored properties or loosen access. **Rule:** delete the test-extension header **and the looseness it existed to serve** — don't widen production properties to optional just to keep an error-path test alive; check call sites first (if all-Swift and already non-optional, the guard is unreachable and the test should be deleted, not preserved via a `TODO`). See S3.1-H for the behavior class this trades away.
 
-The counts above are a snapshot, not an enforced budget: nothing in CI gates them. SwiftLint
-`custom_rules` would be the natural home for a ban, but SwiftLint runs in no CI workflow
-(`scripts/swiftLint.sh` still pins 0.31.0 and is invoked by nobody), so such a rule would be
-invisible today. Enforcement is worth revisiting once SwiftLint is actually wired into a workflow.
+**S3.1-D — `@objcMembers` fails if any member's signature has a non-ObjC type** (e.g. a `BundleProtocol` parameter, S3.1-B). **Rule:** don't reach for `@objcMembers` on a mixed-surface class; annotate only the ObjC-called members with the explicit selector: `@objc(buildParamsDictWithAdConfiguration:extraParameterBuilders:)`.
 
-## Phase 3 gaps (discovered S3.1/S3.2)
+**S3.1-E — a Swift *test* subclass of a now-internal SDK Swift class breaks `<Module>Tests-Swift.h`.** Swift emits every internal-or-wider `NSObject`-derived test class into the generated test header, including its `@interface : Superclass` line — which doesn't compile if the superclass is internal/non-`@objc` in the main module. Surfaces at the *end* of the build, looks like a stale-header artifact (isn't). **Rule:** mark test-only SDK subclasses `fileprivate`/`private` (excluded from the generated header) rather than widening the SDK class to `@objc public`.
 
-### Gap S3.1-A — **withdrawn**: the Swift subscript already matches ObjC `dict[key] = nil`
+**S3.1-F — an ObjC class conforming to a Swift `@objc protocol` doesn't inherit the Swift method spelling.** `@objc(buildBidRequest:) func build(_:)` on the protocol; an ObjC conformer implementing `buildBidRequest:` satisfies ObjC but Swift callers only see `buildBidRequest(_:)`, not `build(_:)`. **Rule:** re-declare the method in the ObjC conformer's header with `NS_SWIFT_NAME`: `- (void)buildBidRequest:(...)bidRequest NS_SWIFT_NAME(build(_:));`.
 
-`PBMBasicParameterBuilder.m` and `PBMUserConsentParameterBuilder.m` write nullable values straight
-into an `NSMutableDictionary`:
+**S3.1-G** — `ATTrackingManager.AuthorizationStatus.rawValue` is `UInt`; compare via `atts.uintValue == ATTrackingManager.AuthorizationStatus.authorized.rawValue`, not `.intValue`.
 
-```objc
-bidRequest.regs.ext[@"gdpr"] = self.targeting.getSubjectToGDPR;   // nil ⇒ key removed
-```
-
-This entry originally claimed the literal Swift translation `dict["gdpr"] = value`, where `value` is
-`T?`, stores a boxed `Optional.none` and therefore serializes as a present key. **That is false** —
-corrected in review of #1328, re-verified under `swiftc -swift-version 5`:
-
-- `NSMutableDictionary` *and* `[String: Any]` remove the key when a single-level optional
-  (`String?`, `NSNumber?`) with value `nil` is assigned through the subscript.
-- Optional chaining flattens: `targeting?.getSubjectToGDPR()`, an optional base whose method returns
-  `NSNumber?`, is statically `NSNumber?` — not `NSNumber??` — and behaves the same.
-- Only an *explicitly nested* optional (`String??` holding `.some(nil)`) stores a boxed nil, and
-  that assignment emits `warning: expression implicitly coerced from 'String??' to 'Any?'`, so it
-  cannot land silently.
-
-**Rule:** Translate ObjC `dict[key] = maybeNil` literally as `dict[key] = maybeNil`. No helper is
-needed — the `pbmSetValue(_:forKey:)` this gap introduced has been removed again. If the
-`coerced … to 'Any?'` warning ever appears, do not silence it with `as Any?`: it means the value is
-a double optional, and flattening it (`?? nil`, or a `guard let`) is the fix.
-
-### Gap S3.1-B — a protocol that Swift test mocks conform to cannot be `@objc`
-
-`PBMBundleProtocol` exists so `PBMParameterBuilderService` can be handed a `MockBundle` in tests.
-Porting it as `@objc protocol BundleProtocol` compiles, but `MockBundle` is a plain Swift class, and
-an `@objc` protocol drags `@objc` requirements onto every conformer — including the retroactive
-`extension Bundle`, where `infoDictionary` and `bundleIdentifier` already exist with non-`@objc`
-Swift signatures.
-
-**Rule:** Injection-seam protocols consumed only by Swift are declared plain
-`protocol Foo: AnyObject`, with the real type conformed retroactively:
-
-```swift
-protocol BundleProtocol: AnyObject {
-    var infoDictionary: [String: Any]? { get }
-    var bundleIdentifier: String? { get }
-}
-
-extension Bundle: BundleProtocol {}
-```
-
-The knock-on is Gap S3.1-D: any method whose signature mentions such a protocol is not
-ObjC-representable.
-
-### Gap S3.1-C — `Foo+pbmTestExtension.h` class extensions cannot re-open a Swift class
-
-`PBMBasicParameterBuilder+pbmTestExtension.h` re-declared the builder's four `readonly` properties
-as `readwrite` so tests could nil them out. An ObjC class extension can only re-open an ObjC
-`@implementation`; there is no equivalent for a Swift class, and Swift extensions cannot add stored
-properties or change a property's access.
-
-**Rule:** Delete the test-extension header **and the looseness it existed to serve**. The header's
-only client was `testInvalidProperties`, which nilled each property in turn to drive the
-`Log.error("Invalid properties")` guard. Widening the Swift twin's properties to optional `var`s to
-keep that test alive inverts the dependency — production state is loosened so a test can reach an
-error path that the type system otherwise makes unreachable.
-
-The first cut of this port did exactly that, with a `TODO` marking it; corrected in review of #1328.
-The properties are non-optional `let`s, the guard is gone, and `testInvalidProperties` is deleted:
-with non-optional parameters there is no Swift call that can reach the log line, so the test would
-only have been asserting on code kept alive for its benefit. Check the call sites first — here all
-of them are Swift (`ParameterBuilderService`), and the seven sibling builders were already
-non-optional `let`s, so the change also made the eight symmetric. See Gap S3.1-H for the behaviour
-class this trades away.
-
-### Gap S3.1-D — `@objcMembers` fails if any member signature contains a non-ObjC type
-
-`ParameterBuilderService` has an internal overload taking a `BundleProtocol` (Gap S3.1-B).
-`@objcMembers` tries to expose every member and fails to compile on that one.
-
-**Rule:** Do not reach for `@objcMembers` on a class with a mixed surface. Annotate only the members
-ObjC actually calls, with the original selector spelled out:
-
-```swift
-@objc(buildParamsDictWithAdConfiguration:extraParameterBuilders:)
-public static func buildParamsDict(with:extraParameterBuilders:) -> [String: String]
-```
-
-### Gap S3.1-E — a Swift test subclass of a now-internal Swift SDK class breaks `<TestModule>-Swift.h`
-
-```
-PrebidMobileTests-Swift.h:1605: cannot find interface declaration for
-'SKAdNetworksParameterBuilder', superclass of 'MockSKAdNetworksParameterBuilder'
-```
-
-Swift emits every `internal`-or-wider `NSObject`-derived class in the **test** module into
-`PrebidMobileTests-Swift.h`, including its `@interface … : Superclass` line. When the superclass is
-an `internal`, non-`@objc` Swift class in `PrebidMobile`, no ObjC declaration for it exists and the
-generated header does not compile. The error surfaces at the *end* of the test build and looks like
-a stale-header artefact — it is not, and it will not clear on a clean build.
-
-**Rule:** Mark test-only subclasses of SDK Swift classes `fileprivate` (or `private`). File-scoped
-types are excluded from the generated header. Making the SDK class `@objc public` also works but
-widens the shipped surface for a test's benefit — prefer `fileprivate`.
-
-### Gap S3.1-F — an ObjC class conforming to a Swift `@objc protocol` does not inherit the Swift method name
-
-`PBMParameterBuilder` became a Swift protocol declaring
-`@objc(buildBidRequest:) func build(_ bidRequest: ORTBBidRequest)`. `PBMPrebidParameterBuilder` (an
-ObjC class not yet ported) declares `<PBMParameterBuilder>` and implements `buildBidRequest:` — the
-ObjC side is satisfied, but Swift callers see only `buildBidRequest(_:)`. The `build(_:)` spelling
-comes from the Swift declaration, and conformance does not propagate it back into the imported ObjC
-interface. Swift test code calling `builder.build(bidRequest)` fails with "has no member 'build'".
-
-**Rule:** When a Swift protocol replaces an ObjC one, re-declare the method in each surviving ObjC
-conformer's header with the matching `NS_SWIFT_NAME`:
-
-```objc
-- (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest NS_SWIFT_NAME(build(_:));
-```
-
-### Gap S3.1-G — `ATTrackingManager.AuthorizationStatus.rawValue` is `UInt`
-
-`PBMDeviceInfoParameterBuilder.m` compared the `atts` `NSNumber` against
-`ATTrackingManagerAuthorizationStatusAuthorized` with `==`. In Swift the enum's `RawValue` is
-`UInt`, so `atts.intValue == ...rawValue` does not type-check and `Int(...rawValue)` is a needless
-conversion.
-
-**Rule:** Compare through `NSNumber.uintValue`:
-`atts.uintValue == ATTrackingManager.AuthorizationStatus.authorized.rawValue`.
-
-### Gap S3.1-H — dropping `PBMAssert` converts a Release-mode log into a Release-mode trap
-
-Every Phase 3 builder's ObjC initializer opened with `PBMAssert(a && b && c)`, which expands to
-`NSAssert`-style logging that is **compiled out in Release** — a `nil` argument produced a log line
-in Debug and was silently accepted in Release, leaving a partially-populated builder that ran on.
-The Swift twins take non-optional `let`s and carry no guard, so the same `nil` is now a compile
-error from Swift and an unconditional trap from ObjC, in *every* configuration.
-
-For today's call sites this is strictly better and costs nothing: all eight builders are constructed
-only by `ParameterBuilderService`, in Swift, where the compiler proves the arguments non-nil. Record
-it anyway, because the class of change is invisible in the diff — an assertion disappearing looks
-like cleanup, not like a Release-behaviour change.
-
-**Rule:** Before dropping a `PBMAssert` in favour of non-optional parameters, measure the callers:
-
+**S3.1-H — dropping `PBMAssert` turns a Release-mode log into a Release-mode trap.** ObjC's `PBMAssert(a && b && c)` compiles out in Release — a `nil` logged and continued. A Swift non-optional `let` makes the same `nil` a compile error (Swift caller) or an unconditional trap (ObjC caller), in every configuration. Fine when every constructor call is provably Swift (measure, don't assume — a set of "sibling" builders being non-optional isn't evidence for the one you haven't checked; `SKAdNetworksParameterBuilder`'s `adConfiguration` shipped as an undocumented `AdConfiguration?` for exactly this reason, later fixed to match its non-nullable ObjC header). **Rule:** measure first —
 ```bash
 grep -rn --include='*.m' --include='*.h' 'initWith\|alloc] init' PrebidMobile EventHandlers
 ```
+Swift-only ⇒ drop the assert, non-optional parameter, no guard. **If an ObjC caller survives, the bridged parameter must be `Optional`** (`String?`, not `String`) regardless of the header's `NS_ASSUME_NONNULL` annotation (compile-time only, doesn't stop a runtime `nil`) — ObjC→Swift bridging traps on `nil` for a non-optional parameter *before* the initializer body runs, so "keep it non-optional but add a graceful guard inside" is not achievable; the guard must live behind an `Optional` parameter. Guard-unwrap at the top and `Log.error` + `return nil` (or equivalent) on the nil case. (`PBMURLComponents` hit this for real via the surviving `PBMVastRequester.m` caller — see S3.3-A.)
 
-If every constructor call is Swift, drop the assert. If an ObjC caller survives — an EventHandler,
-an adapter, or an `@objc` factory reachable from a publisher app — keep the parameter optional-free
-but re-introduce the degrade-gracefully path explicitly (`Log.error` + early return), because a
-publisher passing `nil` through a bridged initializer must not crash their app.
-
-*Round 3 correction:* `SKAdNetworksParameterBuilder`'s `adConfiguration` parameter shipped as
-`AdConfiguration?` — the "eight symmetric non-optional `let`s" claim above was true for seven
-builders, not eight. The deleted ObjC header (`PBMSKAdNetworksParameterBuilder.h`) declared this
-parameter under `NS_ASSUME_NONNULL_BEGIN`, i.e. non-nullable, so the optional was a silent
-loosening introduced by the port, not a deliberate exception. Fixed to match the other seven;
-no call site passed `nil`. Lesson for future ports: when a class is one of a set ported together,
-diff its initializer's nullability annotations individually — "the sibling builders are already
-non-optional" is not evidence for the one you have not checked yet.
-
-*Round S3.3 correction:* "keep the parameter optional-free but re-introduce the degrade-gracefully
-path" (the rule two paragraphs up) is not achievable as written once a real ObjC caller survives.
-Objective-C bridging traps on `nil` for a non-optional Swift parameter *before* any Swift code
-runs — there is no way to `Log.error` + early-return from inside the initializer body if the
-parameter itself is declared non-optional, because the trap happens at the bridge, ahead of the
-body. `PBMURLComponents` hit this for real: `PBMVastRequester.m` is a surviving ObjC caller (see
-Gap S3.3-A), so the initial port's non-optional `url: String, paramsDict: [String: String]`
-signature would crash instead of degrade for any future ObjC caller careless enough to pass `nil`
-— exactly the failure mode this rule exists to prevent, and exactly what its own text failed to
-prevent in practice.
-
-**Corrected rule:** when an ObjC caller survives, the bridged parameter must be **Optional**
-(`String?`, not `String`) regardless of the header's `NS_ASSUME_NONNULL` annotation — that
-annotation is compile-time-only and does not stop a runtime `nil`. Guard-unwrap at the top of the
-initializer and `Log.error` + `return nil` (or the type's equivalent failure path) on the nil case,
-reproducing the ObjC original's defensive check. Only drop to a true non-optional parameter, with
-no guard, when the caller-measurement grep comes back Swift-only.
-
-### Gap S3.2-A — Gap 4 / Gap 6 do not apply to the Phase 3 builders themselves
-
-The parameter builders have **no** surviving ObjC consumers: `PBMParameterBuilderService.m` was
-their only non-test caller and is ported in the same PR. Only two Phase 3 types cross the ObjC seam
-and therefore need `@objc public` — `ParameterBuilder` (implemented by the still-ObjC
-`PBMPrebidParameterBuilder`) and `ParameterBuilderService` (called by `PBMBidRequester.m`). The
-eight builders are plain `internal` Swift classes.
-
-The same check applies to the support types the builders drag along, and it is easy to skip when the
-ObjC original *was* ObjC-visible. `InternalUserConsentDataManager` was ported `@objcMembers` on that
-reflex; measured after the port deletes the old `.h`/`.m` and the bridging-header line, its only
-consumers are two Swift builders and a `@testable` test, so the annotation exported every member
-into the generated `-Swift.h` for nobody. Corrected in review of #1328 — the type is now a plain
-`final class` with no `NSObject` base, which keeps it out of the header entirely.
-
-**Rule:** Apply Gap 4 / Gap 6 per type, based on a measured importer check — not per phase, and not
-by inheriting whatever visibility the ObjC original had:
-
+**S3.2-A — Gap 4/Gap 6 don't apply per-phase, apply per-type, by measured importer check.** The Phase 3 builders have no surviving ObjC consumers (`PBMParameterBuilderService.m` was the only one, ported in the same PR) — only `ParameterBuilder` (still-ObjC conformer) and `ParameterBuilderService` (`PBMBidRequester.m` caller) need `@objc public`; the eight builders are plain `internal`. Same check applies to dragged-along support types — don't inherit whatever visibility the ObjC original had "on reflex" (`InternalUserConsentDataManager` was ported `@objcMembers` this way; measured, its only consumers are two Swift builders + a `@testable` test, so it's now a plain `final class`, no `NSObject` base). **Rule:**
 ```bash
 grep -rn --include='*.h' --include='*.m' --include='*.mm' 'Foo' PrebidMobile EventHandlers PrebidMobileTests
 ```
+Empty output ⇒ no `@objc`/`@objcMembers`/`NSObject` base unless needed for another reason (protocol conformance, KVO, `NSCopying`).
 
-Empty output ⇒ no `@objc`, no `@objcMembers`, and no `NSObject` base unless the type needs one for
-another reason (`ParameterBuilder` conformance, KVO, `NSCopying`).
+## Phase 3 gaps (S3.3)
 
-## Phase 3 gaps (discovered S3.3)
+**S3.3-A — `PBMURLComponents` keeps its ObjC prefix: Foundation-collision exception to the S1.1 naming rule.** `Foundation` already exports `URLComponents` (a struct), independently exercised by `URLComponentsTests.swift`; renaming the twin would shadow the stdlib type module-wide. **Rule:** when the de-prefixed name collides with an existing Foundation/UIKit (or SDK) type, keep the `PBM`-prefixed name on *both* sides of the bridge (`@objc(PBMURLComponents) public class PBMURLComponents: NSObject`) and skip the rename. Grep first: `rg -n '\bFoo\b' PrebidMobile EventHandlers PrebidMobileTests` — a bare non-PBM hit is the collision signal. One-off exception, not a reversal of S1.1. (`TrackingRecord`, ported alongside it, has no collision and follows S1.1 normally; per S3.2-A it also needs no `@objc`/`NSObject`/`public` — zero non-test consumers — and is a `struct`, not a class: two `let`s, pass-through init, no identity semantics.)
 
-### Gap S3.3-A — `PBMURLComponents` keeps its ObjC prefix: naming convention has a Foundation-collision exception
+## Phase 4 gaps (S4.1)
 
-The S1.1 naming convention (above) says `PBMFoo` → Swift `Foo`, with `@objc(PBMFoo)` preserving the
-ObjC-visible name. `PBMURLComponents` cannot follow this: `Foundation` already exports a type
-literally named `URLComponents` (a struct), and the test suite already exercises that stdlib type
-directly and separately (`URLComponentsTests.swift`, distinct from `PBMURLComponentsTest.swift`).
-Renaming the twin to `URLComponents` would shadow the stdlib type for every file in the module.
+**S4.1-A — a non-failable Swift initializer can retire an ObjC nil-check as unreachable, not just make it unreachable-but-harmless.** `PBMBidResponseTransformer`'s ObjC implementation nil-checked the result of `[[BidResponse alloc] initWithJsonDictionary:]` and returned `PBMError.responseDeserializationFailed()` on nil. The Swift twin (`BidResponse.init(jsonDictionary:)`) is a non-failable `convenience init` — it always succeeds — so the check can never trigger. **Rule:** verify the twin's initializer signature first (`grep -n 'init(jsonDictionary' BidResponse.swift`); if non-failable, drop the dead branch entirely rather than porting a defensive check that can't fire (don't keep it "just in case" — an unreachable branch has no test coverage and misrepresents the real error surface to a reader). This is the mirror image of S3.1-H: there, a dropped assert could turn a live path into a trap; here, the ObjC check was already provably dead once the callee stopped being able to fail.
 
-**Rule:** When the de-prefixed name collides with an existing Foundation/UIKit type, keep the
-`PBM`-prefixed name on both sides of the bridge — `@objc(PBMURLComponents) public class
-PBMURLComponents: NSObject` — and skip the rename. Grep before assuming a collision:
+**S4.1-B — plan-inventoried steps (S4.1-S4.5) don't cover 100% of a phase's files; re-measure the directory before splitting into PRs.** `find PrebidMobile/Objc/.../Prebid/PBMCore -name '*.m'` turned up 13 files against 10 named in the plan's step breakdown — `PBMBidRequesterFactory.m`, `PBMSafariVCOpener.m`, `PBMWinNotifier.m` were unaccounted for. Consumer analysis (`grep -rn 'PBMSafariVCOpener\|PBMWinNotifier\|PBMBidRequesterFactory' PrebidMobile EventHandlers`) resolved the three: `PBMBidRequesterFactory` folds into S4.3 (only consumer is `PBMPrebidParameterBuilder.m`, same PR); `PBMWinNotifier` becomes a new S4.3b (its Swift protocol `WinNotifier.swift` already exists, unimplemented — same PR as S4.3 for locality); `PBMSafariVCOpener` defers to Phase 7 (its only consumer, `PBMAbstractCreative.m`, isn't migrated yet — porting it now would leave an orphaned Swift type with no real caller to verify against). **Rule:** re-run the file-count measurement per-phase before committing to a step/PR split; treat the plan document's step list as a first draft, not a checksum.
 
-```bash
-rg -n '\bFoo\b' PrebidMobile EventHandlers PrebidMobileTests
-```
+**S4.1-C — `@testable import` does not unlock `@_spi`-restricted symbols; the importer needs its own `@_spi(GroupName)` annotation.** After renaming `PBMBidResponseTransformer` → `BidResponseTransformer` (declared `@_spi(PBMInternal) public class`, per S1.1's cross-module-visibility rule), the full test target failed with "cannot find type 'BidResponseTransformer' in scope" — but only in files importing with a bare `@testable import PrebidMobile` or a bare `import PrebidMobile`; files already spelling `@_spi(PBMInternal) @testable import PrebidMobile` compiled fine. The failure was file-local and cascaded: `PBMBidResponseTransformer+TestExtension.swift` (a bare `import PrebidMobile`) failed first, and every test file consuming its static factory methods (`.someValidResponse`, `.makeValidResponse`, etc.) then reported "type 'BidResponseTransformer' has no member 'X'" instead of the real "type not found" error one file over — a classic single-root-cause-many-symptoms trap. **Rule:** whenever an SPI-restricted type gains new consumers (or an existing consumer is renamed to match it), grep every importer for the pattern first: `rg -n 'import PrebidMobile' <files>` and confirm each one reads `@_spi(GroupName) import PrebidMobile` or `@_spi(GroupName) @testable import PrebidMobile` — a plain `@testable import` is not sufficient, `@testable` and `@_spi` are independent, both-required visibility unlocks. When debugging a "cannot find type/member in scope" error that doesn't match the file you're looking at, check for cascading failures from a same-symbol producer file (e.g. a `+TestExtension.swift`) before chasing build-system/caching theories.
 
-If a bare, non-PBM-prefixed hit for the target name already exists (stdlib or SDK), that is the
-signal to keep the prefix. This is a one-off exception to the S1.1 rule, not a reversal of it —
-every other Phase 1–3 twin still drops the prefix. `TrackingRecord` (ported in the same PR) has no
-such collision and follows S1.1 normally; it also has zero non-test consumers (its header lived
-under `PrivateHeaders/`, i.e. it was never part of the public podspec surface either), so per Gap
-S3.2-A it needs no `@objc`, no `NSObject`, no `public`. Review of #1336 further tightened it from
-a plain `final class` to a `struct` — two `let`s and a pass-through init, no identity semantics,
-no subclassing, so value semantics fit better than a reference type.
+## Orphan headers — `.h` files with no `.m` (inventoried S3.2)
 
-## Orphan headers — the `.h` files with no `.m` (inventoried S3.2)
+**39 headers under `PrebidMobile/Objc/` have no matching `.m`**: block typedefs, `@protocol`s, macro headers, `+Protected`/`+Internal`/`+Private` class-continuation headers, `NS_ENUM`s, umbrella headers, categories on system classes. None is itself "ported" — each is **retired when its last importer is ported**. 2 dead + 28 tied to a named `.m` + 5 tied to the test bridging header + 4 shared-infrastructure = 39.
 
-The per-class recipe at the top of this playbook assumes a `Foo.h` + `Foo.m` pair. **39 headers
-under `PrebidMobile/Objc/` have no matching `.m`**: block typedefs, `@protocol` declarations, macro
-headers, `+Protected` / `+Internal` / `+Private` class-continuation headers, `NS_ENUM`s, umbrella
-headers, and categories on system classes. None of them is *ported*; each is **retired when its
-last importer is ported**, and without this inventory they are invisible to the phase plan.
-Grouped below as 2 dead + 28 tied to a named `.m` + 5 tied to the test bridging header +
-4 shared-infrastructure = 39.
-
-Re-measure at any time:
-
+Re-measure:
 ```bash
 comm -23 \
   <(find PrebidMobile/Objc -name '*.h' | sed 's|.*/||; s|\.h$||' | sort -u) \
   <(find PrebidMobile/Objc -name '*.m' | sed 's|.*/||; s|\.m$||' | sort -u)
 ```
 
-### A — already dead (zero `#import`s anywhere)
+**A — already dead** (zero `#import`s anywhere; deletable any time, left in place only to keep prior diffs scoped):
 
 | Header | Kind | Note |
 |--------|------|------|
-| `PBMAdLoadFlowController.h` | `@interface` | Swift twin `AdLoadFlowController.swift` already ships; the header was left behind |
+| `PBMAdLoadFlowController.h` | `@interface` | Swift twin `AdLoadFlowController.swift` already ships |
 | `PBMORTB_NotImplemented.h` | macros | referenced only by a stale `.pbxproj` entry |
 
-Deletable at any time; not deleted in the Phase 3 PR only to keep that diff scoped.
-
-### B — retired with a named `.m`
-
-Measured at S3.2. A header imported only by another header is resolved down the chain to the `.m`
-at its root; for the deeper block-typedef chains the list names the roots reached, so re-run the
-grep (`grep -rl '"Foo.h"' PrebidMobile PrebidMobileTests`) before acting on a row.
+**B — retired with a named `.m`** (measured S3.2; a header imported only by another header is resolved to the root `.m` — re-run `grep -rl '"Foo.h"' PrebidMobile PrebidMobileTests` before acting on a row):
 
 | Header | Kind | Retired with |
 |--------|------|--------------|
@@ -928,7 +324,7 @@ grep (`grep -rl '"Foo.h"' PrebidMobile PrebidMobileTests`) before acting on a ro
 | `PBMTimerInterface.h` | forward decl | via `PBMScheduledTimerFactory.h` → `PBMCreativeViewabilityTracker.m` |
 | `PBMTrackingURLVisitorBlock.h` | block typedef | `PBMTrackingURLVisitors.m`, `PBMExternalLinkHandler.m` |
 | `PBMTransactionFactoryCallback.h` | block typedef | `PBMDisplayTransactionFactory.m`, `PBMVastTransactionFactory.m` |
-| `PBMUIApplicationProtocol.h` | forward decl | `PBMExternalURLOpeners.m`, `PBMDeepLinkPlusHelper+Testing.m`, `PBMHTMLCreative+pbmTestExtension.h` (Gap S2.5-E's seam type) |
+| `PBMUIApplicationProtocol.h` | forward decl | `PBMExternalURLOpeners.m`, `PBMDeepLinkPlusHelper+Testing.m`, `PBMHTMLCreative+pbmTestExtension.h` (S2.5-E's seam type) |
 | `PBMURLOpenAttempterBlock.h` | block typedef | `PBMDeepLinkPlusHelper.m`, `PBMExternalLinkHandler.m` |
 | `PBMURLOpenResultHandlerBlock.h` | block typedef | `PBMExternalURLOpenCallbacks.m`, `PBMExternalURLOpeners.m` |
 | `PBMVastResourceContainerProtocol.h` | `@protocol` | `PBMVastParser.m`, `PBMVastIcon.m`, `PBMVastCreativeNonLinearAdsNonLinear.m`, `PBMVastCreativeCompanionAdsCompanion.m` |
@@ -941,13 +337,9 @@ grep (`grep -rl '"Foo.h"' PrebidMobile PrebidMobileTests`) before acting on a ro
 | `PBMWinNotifierBlock.h` | block typedef | `PBMWinNotifier.m`, `PBMPrebidParameterBuilder.m` |
 | `PBMWinNotifierFactoryBlock.h` | block typedef | `PBMWinNotifier.m` |
 
-Reducing rather than deleting is sometimes the right move mid-phase — see Gap S2.1-G
-(`@protocol` → forward declaration) and Gap S2.3-C (a reduced header breaks its importers).
+Reducing rather than deleting is sometimes right mid-phase — see S2.1-G (`@protocol` → forward declaration) and S2.3-C (a reduced header breaks its importers).
 
-### C — retired with the test bridging header
-
-Imported by `PrebidMobileTest-Bridging-Header.h` and nothing else in the SDK. They go when the
-corresponding Swift test files stop needing the ObjC symbol.
+**C — retired with the test bridging header** (imported only by `PrebidMobileTest-Bridging-Header.h`; go when the corresponding Swift test files stop needing the ObjC symbol):
 
 | Header | Kind |
 |--------|------|
@@ -957,13 +349,9 @@ corresponding Swift test files stop needing the ObjC symbol.
 | `PBMWKNavigationActionCompatible.h` | `@protocol` (imported only by the category above) |
 | `PBMWKWebViewCompatible.h` | `@protocol` (imported only by the category above) |
 
-The two `WK*Compatible` protocols look like SDK types but are not: no SDK `.m` names them. They
-exist purely so Swift tests can substitute a fake navigation action / web view.
+The two `WK*Compatible` protocols look like SDK types but aren't — no SDK `.m` names them; they exist so Swift tests can substitute a fake navigation action/web view.
 
-### D — shared infrastructure, last to go
-
-Imported by most of the remaining ObjC tree; they can only be deleted once the tree is empty, in
-S9.x. Do **not** attempt to port them incrementally.
+**D — shared infrastructure, last to go** (imported by most of the remaining ObjC tree; deletable only once that tree is empty, in S9.x — do **not** port incrementally):
 
 | Header | Kind | Direct importers (S3.2) |
 |--------|------|-------------------------|
@@ -972,79 +360,43 @@ S9.x. Do **not** attempt to port them incrementally.
 | `Log+Extensions.h` | macros (`PBMLogError` family) | 24 |
 | `PBMConstants.h` | typedefs + constants (`PBMJsonDictionary`) | 15 |
 
-`PBMConstants.h` is the one with a real Swift answer available today: every `PBMJsonDictionary` use
-becomes `[String: Any]` as its importer is ported (per-class step 7), so the header shrinks to its
-constants before it disappears.
+`PBMConstants.h` has a real Swift answer today: every `PBMJsonDictionary` use becomes `[String: Any]` as its importer is ported (step 7), shrinking the header to its constants before it disappears.
 
 ## General ObjC → Swift reference
 
-Not phase-specific. Adapted from the generic guides in `agents/migration-patterns/`. Those
-guides conflict with this playbook on four significant points — read
-`agents/migration-patterns/SKILL.md` before consulting them directly.
+Not phase-specific. Adapted from `agents/migration-patterns/`; that guide conflicts with this playbook on four points — read `agents/migration-patterns/SKILL.md` before consulting it directly.
 
-### `NSNull` from `JSONSerialization` is not `nil`
+**`NSNull` from `JSONSerialization` is not `nil`.** Typed reads are inherently safe (`NSNull as? String/NSNumber/[String: Any]` all yield `nil`), so every typed `JSONObject` subscript and `case let value as ...` pattern in `JSONParsing.swift` already rejects it. The hazard is confined to **untyped existence checks** — one instance exists (`ORTBImpExtPrebid.swift:37`, `jsonDictionary["is_rewarded_inventory"] != nil`, `true` for a JSON `null`); it matches the ObjC original's `!= nil` test so it's not a regression, but don't add more. **Rule:** never test presence with `dict[key] != nil` / bare `if let`; read through a type (`as? NSNumber`), or guard explicitly like `NSMutableDictionary+PBMExtensions.swift:40`: `value == nil || value is NSNull`.
 
-`JSONSerialization` decodes a JSON `null` to `NSNull`, not to an absent key. **Typed reads are
-inherently safe**: `NSNull as? String`, `as? NSNumber`, and `as? [String: Any]` all yield `nil`, so
-every typed `JSONObject` subscript and every `case let value as …` pattern match in
-`JSONParsing.swift` already rejects it. `numberOrString` (`JSONParsing.swift:111`) and
-`backwardsCompatiblePassthrough` (`:116`) are both safe for this reason.
-
-The hazard is confined to **untyped existence checks**. One instance exists:
-
-```swift
-// ORTBImpExtPrebid.swift:37
-isRewardedInventory = jsonDictionary["is_rewarded_inventory"] != nil
-```
-
-Given `"is_rewarded_inventory": null` this yields `true`. The ObjC original used the same `!= nil`
-test, so wire-format parity is preserved and this is **not** a migration regression — but do not
-introduce further instances.
-
-**Rule:** Never test presence with `jsonDictionary[key] != nil` or a bare
-`if let value = jsonDictionary[key]`. Read through a type (`as? NSNumber`, `as? String`), or guard
-explicitly the way `NSMutableDictionary+PBMExtensions.swift:40` does: `value == nil || value is NSNull`.
-
-### ObjC ↔ Swift concept mapping
-
-Quick reference for porting. Rows marked ⚠ are where the generic source is wrong for this repo.
+**ObjC ↔ Swift concept mapping** (⚠ = generic guidance is wrong for this repo):
 
 | Objective-C | Swift | Notes |
 |-------------|-------|-------|
-| `@interface` / `@implementation` | `class` | ⚠ **Not `struct`** for Phase 1–3 twins — ObjC parameter builders consume them (Gap 4) |
+| `@interface`/`@implementation` | `class` | ⚠ Not `struct` for Phase 1–3 twins — ObjC builders consume them (Gap 4) |
 | `@property (nonatomic, strong)` | `var` | `let` for readonly equivalents |
-| `@property (nonatomic, copy)` | `var` | ⚠ If the ObjC type conformed to `<NSCopying>`, the Swift twin must implement it explicitly or `.copy()` crashes (see S1.4) |
-| `@property (nonatomic, readonly)` | `let` or `private(set) var` | Note `JSONObject.dict` is `private(set)` — see Gap 10 |
-| `NSString` | `String` | ⚠ Use `String?` where the ObjC param was nullable, to preserve nil guards (Gap S2.2-B) |
-| `NSArray` / `NSDictionary` | `[Element]` / `[Key: Value]` | ⚠ `NSMutableDictionary` properties must be decoded as `NSMutableDictionary(dictionary:)`, not `as?` (S1.4) |
-| `NSNumber` | `NSNumber` for ORTB fields | Keep `NSNumber` where the ORTB model needs optional numerics and JSON-key parity |
-| `NSError **` | `throws` | ⚠ `@objc` name must include the label: `@objc(name:error:)` (Gap S2.1-E) |
-| Block (`^`) | Closure | ⚠ A block *typedef* cannot be exported from Swift as a named type (Gap S2.3-B) |
+| `@property (nonatomic, copy)` | `var` | ⚠ If `<NSCopying>`, twin must implement it explicitly or `.copy()` crashes (S1.4) |
+| `@property (nonatomic, readonly)` | `let` / `private(set) var` | `JSONObject.dict` is `private(set)` — Gap 10 |
+| `NSString` | `String` | ⚠ Use `String?` where the ObjC param was nullable (S2.2-B) |
+| `NSArray`/`NSDictionary` | `[Element]`/`[Key: Value]` | ⚠ `NSMutableDictionary` props decode via `NSMutableDictionary(dictionary:)`, not `as?` (S1.4) |
+| `NSNumber` | `NSNumber` for ORTB fields | Keep `NSNumber` for optional numerics + JSON-key parity |
+| `NSError **` | `throws` | ⚠ `@objc` name needs the label: `@objc(name:error:)` (S2.1-E) |
+| Block (`^`) | Closure | ⚠ A block *typedef* can't export as a named Swift type (S2.3-B) |
 | `id` | `Any` | Prefer specific types |
-| `NS_ENUM` | `enum: Int` | ⚠ `NS_TYPED_ENUM` string constants cannot be bridged — keep a residual ObjC `.m` (Gap S2.1-A) |
+| `NS_ENUM` | `enum: Int` | ⚠ `NS_TYPED_ENUM` string constants can't bridge — keep a residual `.m` (S2.1-A) |
 | `NS_OPTIONS` | `OptionSet` | Struct-based |
-| `dispatch_queue_t` + GCD | `DispatchQueue` | ⚠ **Not** `async`/`await` — iOS 13 floor. `dispatch_time()` needs explicit mach-tick handling — **never** `DispatchTime(uptimeNanoseconds:)` on a `dispatch_time_t` (Gap S2.1-C) |
-| Category | Extension | ⚠ `@objc` extensions on Foundation types bridge via `PrebidMobile-Swift.h` (Gap S2.2-A) |
-| `@protocol` | `protocol` | ⚠ Reduce the ObjC header to a forward declaration (Gap S2.1-G) |
+| `dispatch_queue_t` + GCD | `DispatchQueue` | ⚠ Not `async`/`await` — iOS 13 floor. `dispatch_time()` needs explicit mach-tick handling (S2.1-C) |
+| Category | Extension | ⚠ `@objc` extensions on Foundation types bridge via `-Swift.h` (S2.2-A) |
+| `@protocol` | `protocol` | ⚠ Reduce the ObjC header to a forward declaration (S2.1-G) |
 | `#pragma mark -` | `// MARK: -` | |
 | `@selector` | `#selector` | Compile-time checked |
-| `@try` / `@catch` | `do` / `try` / `catch` | Swift cannot catch ObjC exceptions |
+| `@try`/`@catch` | `do`/`try`/`catch` | Swift can't catch ObjC exceptions |
 | `instancetype` | `Self` | |
-| `nullable` / `nonnull` | `Optional` / non-optional | |
-| `@dynamic` (CALayer) | `@NSManaged` | Gap S2.1-F |
+| `nullable`/`nonnull` | `Optional`/non-optional | |
+| `@dynamic` (CALayer) | `@NSManaged` | S2.1-F |
 
-### `NS_SWIFT_NAME` / `NS_REFINED_FOR_SWIFT` on surviving ObjC APIs
-
-The reverse of `@objc(PBMFoo)`: these improve how *remaining* ObjC declarations appear to Swift,
-which still matters while ObjC parameter builders survive into Phase 3/4.
-
+**`NS_SWIFT_NAME`/`NS_REFINED_FOR_SWIFT` on surviving ObjC APIs** — the reverse of `@objc(PBMFoo)`: improves how remaining ObjC declarations appear to Swift while ObjC parameter builders survive into Phase 3/4.
 ```objc
-// Rename for Swift without touching the ObjC interface
-- (void)fetchRecordsOfType:(PBMRecordType)type NS_SWIFT_NAME(fetchRecords(ofType:));
-
-// Hide the ObjC form (exposed as __countForType:) and wrap it in a Swift extension
-- (NSInteger)countForType:(NSString *)type NS_REFINED_FOR_SWIFT;
+- (void)fetchRecordsOfType:(PBMRecordType)type NS_SWIFT_NAME(fetchRecords(ofType:));   // rename for Swift only
+- (NSInteger)countForType:(NSString *)type NS_REFINED_FOR_SWIFT;                        // hide the ObjC form, wrap in a Swift extension
 ```
-
-Use sparingly — a rename that is not obvious from the ObjC selector makes the two layers harder to
-cross-reference during review.
+Use sparingly — a rename not obvious from the ObjC selector makes the two layers harder to reconcile at a glance.

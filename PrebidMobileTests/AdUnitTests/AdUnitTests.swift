@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class AdUnitTests: XCTestCase {
 
@@ -129,7 +129,7 @@ class AdUnitTests: XCTestCase {
         //We need to disabled to not look for cache id for winning bid
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
-        let rawWinningBid = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.75)
+        let rawWinningBid = BidResponseTransformer.makeValidResponse(bidPrice: 0.75)
         let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
@@ -151,7 +151,7 @@ class AdUnitTests: XCTestCase {
         //We need to disabled to not look for cache id for winning bid
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
-        let rawWinningBid = PBMBidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
+        let rawWinningBid = BidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
         let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
@@ -173,7 +173,7 @@ class AdUnitTests: XCTestCase {
         //We need to disabled to not look for cache id for winning bid
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
-        let rawWinningBid = PBMBidResponseTransformer.makeValidResponse(bidPrice: 0.75)
+        let rawWinningBid = BidResponseTransformer.makeValidResponse(bidPrice: 0.75)
         let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
@@ -196,7 +196,7 @@ class AdUnitTests: XCTestCase {
         //We need to disabled to not look for cache id for winning bid
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
-        let rawWinningBid = PBMBidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
+        let rawWinningBid = BidResponseTransformer.makeValidResponseWithNonWinningTargetingInfo()
         let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
@@ -221,7 +221,7 @@ class AdUnitTests: XCTestCase {
         //We need to disabled to not look for cache id for winning bid
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
-        let rawWinningBid = PBMBidResponseTransformer.makeNativeValidResponse(bidPrice: 0.75)
+        let rawWinningBid = BidResponseTransformer.makeNativeValidResponse(bidPrice: 0.75)
         let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         
@@ -247,7 +247,7 @@ class AdUnitTests: XCTestCase {
         //We need to disabled to not look for cache id for winning bid
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         let adObject = NSMutableDictionary()
-        let rawWinningBid = PBMBidResponseTransformer.makeNativeValidResponse(bidPrice: 0.75)
+        let rawWinningBid = BidResponseTransformer.makeNativeValidResponse(bidPrice: 0.75)
         let jsonDict = rawWinningBid.jsonDict
         let bidResponse = BidResponse(jsonDictionary: jsonDict ?? [:])
         

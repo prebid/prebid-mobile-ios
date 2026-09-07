@@ -98,7 +98,6 @@
 #import "PBMSafariVCOpener+PBMTestExtensions.h"
 
 // Prebid
-#import "PBMBidResponseTransformer.h"
 #import "PBMPrebidParameterBuilder.h"
 
 
