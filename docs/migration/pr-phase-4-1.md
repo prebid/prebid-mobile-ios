@@ -105,4 +105,4 @@ coverage and misrepresents the real error surface).
 - [x] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build of the working tree — **succeeded**
 - [x] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks — **succeeded**
 - [x] `swiftlint lint --config .swiftlint.yml` on `BidResponseTransformer.swift` — **0 violations**
-- [ ] `./scripts/testPrebidMobile.sh --latest` — full suite, run before merge
+- [x] `./scripts/testPrebidMobile.sh --latest` — full suite, run locally, all passed
