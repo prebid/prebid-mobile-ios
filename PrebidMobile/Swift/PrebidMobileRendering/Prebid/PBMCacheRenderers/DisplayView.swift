@@ -60,6 +60,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         guard transactionFactory == nil else { return }
 
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
+        adConfiguration.adConfiguration.isBuiltInVideo = bid.adFormat == .video
         adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
 
         transactionFactory = Factory.createTransactionFactory(
@@ -170,10 +171,6 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
 
         manager.adViewManagerDelegate = self
         manager.adConfiguration = adConfiguration.adConfiguration
-
-        if adConfiguration.adConfiguration.winningBidAdFormat == .video {
-            adConfiguration.adConfiguration.isBuiltInVideo = true
-        }
 
         self.adViewManager = manager
         manager.handleExternalTransaction(transaction)

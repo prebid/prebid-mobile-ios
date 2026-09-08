@@ -173,6 +173,44 @@ class BannerViewTest: XCTestCase {
         displayView.videoAdDidFinish()
         XCTAssertTrue(delegate.events.contains(.complete))
     }
+
+    // Regression: `AdUnitConfig` is shared across refreshes of a multiformat
+    // banner, so `isBuiltInVideo` must be derived from the current bid on every
+    // load rather than latched to `true` once a video creative has won.
+    func testIsBuiltInVideoTracksWinningBidFormatAcrossRefreshes() {
+        let size = CGSize(width: 300, height: 250)
+        let frame = CGRect(origin: .zero, size: size)
+        let config = AdUnitConfig(configId: "configID", size: size)
+        config.adFormats = [.banner, .video]
+        
+        XCTAssertFalse(config.adConfiguration.isBuiltInVideo)
+        
+        // Auction 1: video wins
+        let videoView = DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config)
+        videoView.loadAd()
+        XCTAssertEqual(config.adConfiguration.winningBidAdFormat, .video)
+        XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
+        
+        // Auction 2 (refresh, same config): HTML banner wins
+        let bannerView = DisplayView(frame: frame, bid: makeBid(type: "banner"), adConfiguration: config)
+        bannerView.loadAd()
+        XCTAssertEqual(config.adConfiguration.winningBidAdFormat, .banner)
+        XCTAssertFalse(config.adConfiguration.isBuiltInVideo,
+                       "isBuiltInVideo must be cleared when a non-video creative wins on refresh")
+        
+        // Auction 3: video wins again
+        let videoView2 = DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config)
+        videoView2.loadAd()
+        XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
+    }
+    
+    private func makeBid(type: String) -> Bid {
+        let rawBid = ORTBBid<ORTBBidExt>(bidID: "", impid: "", price: 0.1)
+        rawBid.ext = .init()
+        rawBid.ext?.prebid = .init()
+        rawBid.ext?.prebid?.type = type
+        return Bid(bid: rawBid)
+    }
     
     @objc private class TestBannerDelegate: NSObject, BannerViewDelegate {
         let exp: XCTestExpectation
