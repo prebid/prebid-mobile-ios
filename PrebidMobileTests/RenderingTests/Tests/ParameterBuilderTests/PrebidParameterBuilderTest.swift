@@ -840,7 +840,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         let bidRequest = buildBidRequest(with: bannerView.adUnitConfig)
         
-        // PBS must echo hb_format so the SDK knows which creative type won
+        // includeformat makes PBS return hb_format so ad server line items can target the winning format
         XCTAssertEqual(bidRequest.extPrebid.targeting["includeformat"] as? Bool, true)
         
         PBMAssertEq(bidRequest.imp.count, 1)
