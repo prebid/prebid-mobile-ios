@@ -483,6 +483,12 @@ extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
         loadedAdView adView: UIView,
         adSize: CGSize
     ) {
+        // The refresh timer is armed before the primary ad server answers, so the winning
+        // format can only be honoured here. A video creative must not be torn down mid-playback.
+        if lastBidResponse?.winningBid?.adFormat == .video {
+            autoRefreshManager?.cancelRefreshTimer()
+        }
+        
         deployView(adView)
         reportLoadingSuccess(with: adSize)
     }

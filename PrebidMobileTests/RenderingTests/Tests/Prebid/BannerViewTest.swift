@@ -39,6 +39,19 @@ private class MockBannerViewWithCustomRenderer: BannerView {
     }
 }
 
+// Returns a bid response whose winning bid is of the given format (banner or video).
+private class MockBannerViewWithBidFormat: BannerView {
+    var mockBidFormat = "banner"
+    
+    override var lastBidResponse: BidResponse? {
+        let rawBid = RawWinningBidFabricator.makeRawWinningBid(price: 0.85, bidder: "some bidder", cacheID: "some-cache-id")
+        rawBid.ext?.prebid?.type = mockBidFormat
+        let rawResponse = ORTBBidResponse<ORTBBidResponseExt, [String: Any], ORTBBidExt>(requestID: "")
+        rawResponse.seatbid = [.init(bid: [rawBid])]
+        return BidResponse(jsonDictionary: rawResponse.jsonDictionary)
+    }
+}
+
 class BannerViewTest: XCTestCase {
     override func tearDown() {
         Prebid.reset()
@@ -202,6 +215,44 @@ class BannerViewTest: XCTestCase {
         let videoView2 = DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config)
         videoView2.loadAd()
         XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
+    }
+    
+    // MARK: - Auto-refresh vs. video creatives
+    
+    func testVideoWinningBidCancelsAutoRefresh() {
+        let bannerView = makeBannerView(bidFormat: "video")
+        armRefreshTimer(bannerView)
+        
+        bannerView.bannerAdLoader(BannerAdLoader(delegate: bannerView), loadedAdView: UIView(frame: bannerView.bounds), adSize: bannerView.bounds.size)
+        
+        XCTAssertNil(bannerView.autoRefreshManager?.delayedBlock, "A video winning bid must cancel the pending auto-refresh")
+    }
+    
+    func testBannerWinningBidKeepsAutoRefresh() {
+        let bannerView = makeBannerView(bidFormat: "banner")
+        armRefreshTimer(bannerView)
+        
+        bannerView.bannerAdLoader(BannerAdLoader(delegate: bannerView), loadedAdView: UIView(frame: bannerView.bounds), adSize: bannerView.bounds.size)
+        
+        XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "An HTML banner keeps the configured auto-refresh")
+    }
+    
+    private func makeBannerView(bidFormat: String) -> MockBannerViewWithBidFormat {
+        let size = CGSize(width: 300, height: 250)
+        let bannerView = MockBannerViewWithBidFormat(frame: CGRect(origin: .zero, size: size),
+                                                     configID: "configID",
+                                                     adSize: size,
+                                                     eventHandler: BannerEventHandlerStandalone())
+        bannerView.mockBidFormat = bidFormat
+        return bannerView
+    }
+    
+    private func armRefreshTimer(_ bannerView: BannerView) {
+        guard let controller = bannerView.adLoadFlowController else {
+            return XCTFail("BannerView must own an AdLoadFlowController")
+        }
+        bannerView.adLoadFlowControllerWillRequestPrimaryAd(controller)
+        XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "Sanity: the timer is armed when the primary ad is requested")
     }
     
     private func makeBid(type: String) -> Bid {
