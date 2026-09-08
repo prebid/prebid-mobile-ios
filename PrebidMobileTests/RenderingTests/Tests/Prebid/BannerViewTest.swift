@@ -133,6 +133,57 @@ class BannerViewTest: XCTestCase {
         XCTAssertTrue(bannerView.adFormats.contains(bannerView.adFormat))
     }
     
+    func testAdFormatsRejectsEmptySet() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        let adUnitConfig = bannerView.adUnitConfig
+        
+        bannerView.adFormats = [.banner, .video]
+        
+        bannerView.adFormats = []
+        
+        XCTAssertEqual(bannerView.adFormats, [.banner, .video], "Empty set must be ignored")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    func testAdFormatsRejectsUnsupportedFormats() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        let adUnitConfig = bannerView.adUnitConfig
+        
+        // Unsupported only
+        bannerView.adFormats = [.native]
+        XCTAssertEqual(bannerView.adFormats, [.banner], "Native-only set must be ignored")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // Mixed supported + unsupported must be rejected as a whole
+        bannerView.adFormats = [.banner, .video, .native]
+        XCTAssertEqual(bannerView.adFormats, [.banner], "Set containing native must be ignored entirely")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // A valid set is still accepted afterwards
+        bannerView.adFormats = [.banner, .video]
+        XCTAssertEqual(bannerView.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    @available(*, deprecated, message: "Covers the deprecated `adFormat` property.")
+    func testDeprecatedAdFormatRejectsUnsupportedFormat() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        
+        bannerView.adFormat = .video
+        bannerView.adFormat = .native
+        
+        XCTAssertEqual(bannerView.adFormat, .video, "Legacy setter must go through the same validation")
+        XCTAssertEqual(bannerView.adFormats, [.video])
+        XCTAssertEqual(bannerView.adUnitConfig.adFormats, [.video])
+    }
+    
     func testAccountErrorPropagation() {
         let testID = "auid"
         

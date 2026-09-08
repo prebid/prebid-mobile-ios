@@ -108,6 +108,54 @@ class MediationBannerAdUnitTest: XCTestCase {
         XCTAssertTrue(bannerAdUnit.adFormats.contains(bannerAdUnit.adFormat))
     }
     
+    func testAdFormatsRejectsEmptySet() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let adUnitConfig = bannerAdUnit.adUnitConfig
+        
+        bannerAdUnit.adFormats = [.banner, .video]
+        
+        bannerAdUnit.adFormats = []
+        
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner, .video], "Empty set must be ignored")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    func testAdFormatsRejectsUnsupportedFormats() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let adUnitConfig = bannerAdUnit.adUnitConfig
+        
+        // Unsupported only
+        bannerAdUnit.adFormats = [.native]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner], "Native-only set must be ignored")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // Mixed supported + unsupported must be rejected as a whole
+        bannerAdUnit.adFormats = [.banner, .video, .native]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner], "Set containing native must be ignored entirely")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // A valid set is still accepted afterwards
+        bannerAdUnit.adFormats = [.banner, .video]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    @available(*, deprecated, message: "Covers the deprecated `adFormat` property.")
+    func testDeprecatedAdFormatRejectsUnsupportedFormat() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        
+        bannerAdUnit.adFormat = .video
+        bannerAdUnit.adFormat = .native
+        
+        XCTAssertEqual(bannerAdUnit.adFormat, .video, "Legacy setter must go through the same validation")
+        XCTAssertEqual(bannerAdUnit.adFormats, [.video])
+        XCTAssertEqual(bannerAdUnit.adUnitConfig.adFormats, [.video])
+    }
+    
     func testAdObjectSetUpCleanUp() {
        
         //a good response with a bid

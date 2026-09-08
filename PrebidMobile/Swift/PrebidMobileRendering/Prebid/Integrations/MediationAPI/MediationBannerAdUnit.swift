@@ -54,16 +54,25 @@ public class MediationBannerAdUnit : NSObject {
     /// Only `.banner` and `.video` can be rendered by the banner mediation adapters.
     public var adFormats: Set<AdFormat> {
         get { adUnitConfig.adFormats }
-        set { adUnitConfig.adFormats = newValue }
+        set {
+            guard let formats = AdFormat.validated(newValue, supported: Self.supportedAdFormats) else {
+                return
+            }
+            
+            adUnitConfig.adFormats = formats
+        }
     }
+    
     
     /// The ad format for the ad unit.
     ///
     /// - Note: Deprecated. Use `adFormats` instead, which supports multiformat requests.
+    ///   Assigning goes through `adFormats`, so unsupported values such as `.native`
+    ///   are ignored with a warning.
     @available(*, deprecated, message: "Use `adFormats` instead.")
     public var adFormat: AdFormat {
         get { adUnitConfig.adFormats.first ?? .banner }
-        set { adUnitConfig.adFormats = [newValue] }
+        set { adFormats = [newValue] }
     }
     
     /// The position of the ad on the screen.
@@ -180,6 +189,11 @@ public class MediationBannerAdUnit : NSObject {
             self.adRequestError = error
         }
     }
+    
+    // MARK: - Private Properties
+    
+    /// Formats that the banner mediation adapters are able to render.
+    private static let supportedAdFormats: [AdFormat] = [.banner, .video]
     
     // MARK: Private functions
     
