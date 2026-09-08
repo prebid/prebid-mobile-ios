@@ -118,7 +118,7 @@ class PrebidAdMobBannerViewController:
         }
         
         if let adFormat = adFormat {
-            adUnit?.adFormat = adFormat
+            adUnit?.adFormats = [adFormat]
         }
         
         if let storedAuctionResponse = storedAuctionResponse {

@@ -59,7 +59,7 @@ NSString * const adMobAdUnitVideoBannerRendering = @"ca-app-pub-5922967660082475
     self.prebidAdMobMediaitonAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:storedImpVideoBannerAdMob size:self.adSize mediationDelegate:self.mediationDelegate];
     
     // 5. Set ad format
-    self.prebidAdMobMediaitonAdUnit.adFormat = AdFormat.video;
+    self.prebidAdMobMediaitonAdUnit.adFormats = [NSSet setWithObject:AdFormat.video];
     
     // 6. Make a bid request to Prebid Server
     @weakify(self);

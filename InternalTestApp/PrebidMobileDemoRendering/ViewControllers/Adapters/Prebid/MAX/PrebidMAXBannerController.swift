@@ -103,7 +103,7 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
         }
         
         if let adFormat = adFormat {
-            adUnit?.adFormat = adFormat
+            adUnit?.adFormats = [adFormat]
         }
         
         if let storedAuctionResponse = storedAuctionResponse {

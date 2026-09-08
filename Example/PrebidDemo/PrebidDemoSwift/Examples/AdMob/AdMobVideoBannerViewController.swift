@@ -63,7 +63,7 @@ class AdMobVideoBannerViewController:
         )
         
         // 5. Set ad format
-        prebidAdMobMediaitonAdUnit.adFormat = .video
+        prebidAdMobMediaitonAdUnit.adFormats = [.video]
         
         // 6. Make a bid request to Prebid Server
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in

@@ -64,7 +64,21 @@ public class BannerView:
         set { adUnitConfig.additionalSizes = newValue }
     }
     
+    /// The set of ad formats requested for this ad unit.
+    ///
+    /// Defaults to `[.banner]`. Set `[.video]` for an outstream video banner, or
+    /// `[.banner, .video]` for a multiformat request.
+    ///
+    /// Only `.banner` and `.video` can be rendered by `BannerView`.
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
+    }
+    
     /// The ad format (e.g., banner, video).
+    ///
+    /// - Note: Deprecated. Use `adFormats` instead, which supports multiformat requests.
+    @available(*, deprecated, message: "Use `adFormats` instead.")
     public var adFormat: AdFormat {
         get { adUnitConfig.adFormats.first ?? .banner }
         set { adUnitConfig.adFormats = [newValue] }

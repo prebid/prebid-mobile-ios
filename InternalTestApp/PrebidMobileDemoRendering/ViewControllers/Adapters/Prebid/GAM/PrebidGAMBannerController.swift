@@ -80,7 +80,7 @@ class PrebidGAMBannerController:
         }
         
         if let adFormat = adFormat {
-            adBannerView?.adFormat = adFormat
+            adBannerView?.adFormats = [adFormat]
             
             if adFormat == .video {
                 adBannerView?.videoParameters.placement = AppConfiguration.shared.videoPlacementType ?? .InBanner

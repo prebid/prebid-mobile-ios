@@ -65,6 +65,49 @@ class MediationBannerAdUnitTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.refreshInterval, refreshInterval)
     }
     
+    func testAdFormats() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let adUnitConfig = bannerAdUnit.adUnitConfig
+        
+        // Default: display banner only
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // Single format
+        bannerAdUnit.adFormats = [.video]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.video])
+        
+        // Multiformat
+        bannerAdUnit.adFormats = [.banner, .video]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    @available(*, deprecated, message: "Covers the deprecated `adFormat` property.")
+    func testDeprecatedAdFormatIsBackedByAdFormats() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        
+        XCTAssertEqual(bannerAdUnit.adFormat, .banner)
+        
+        // Legacy setter replaces the whole set
+        bannerAdUnit.adFormat = .video
+        XCTAssertEqual(bannerAdUnit.adFormat, .video)
+        XCTAssertEqual(bannerAdUnit.adFormats, [.video])
+        XCTAssertEqual(bannerAdUnit.adUnitConfig.adFormats, [.video])
+        
+        // New setter is visible through the legacy getter
+        bannerAdUnit.adFormats = [.banner]
+        XCTAssertEqual(bannerAdUnit.adFormat, .banner)
+        
+        // Legacy getter returns a member of a multiformat set
+        bannerAdUnit.adFormats = [.banner, .video]
+        XCTAssertTrue(bannerAdUnit.adFormats.contains(bannerAdUnit.adFormat))
+    }
+    
     func testAdObjectSetUpCleanUp() {
        
         //a good response with a bid

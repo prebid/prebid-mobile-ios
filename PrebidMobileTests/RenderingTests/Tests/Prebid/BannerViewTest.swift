@@ -75,6 +75,51 @@ class BannerViewTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.refreshInterval, refreshInterval)
     }
     
+    func testAdFormats() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        let adUnitConfig = bannerView.adUnitConfig
+        
+        // Default: display banner only
+        XCTAssertEqual(bannerView.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // Single format
+        bannerView.adFormats = [.video]
+        XCTAssertEqual(bannerView.adFormats, [.video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.video])
+        
+        // Multiformat
+        bannerView.adFormats = [.banner, .video]
+        XCTAssertEqual(bannerView.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    @available(*, deprecated, message: "Covers the deprecated `adFormat` property.")
+    func testDeprecatedAdFormatIsBackedByAdFormats() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        
+        XCTAssertEqual(bannerView.adFormat, .banner)
+        
+        // Legacy setter replaces the whole set
+        bannerView.adFormat = .video
+        XCTAssertEqual(bannerView.adFormat, .video)
+        XCTAssertEqual(bannerView.adFormats, [.video])
+        XCTAssertEqual(bannerView.adUnitConfig.adFormats, [.video])
+        
+        // New setter is visible through the legacy getter
+        bannerView.adFormats = [.banner]
+        XCTAssertEqual(bannerView.adFormat, .banner)
+        
+        // Legacy getter returns a member of a multiformat set
+        bannerView.adFormats = [.banner, .video]
+        XCTAssertTrue(bannerView.adFormats.contains(bannerView.adFormat))
+    }
+    
     func testAccountErrorPropagation() {
         let testID = "auid"
         
