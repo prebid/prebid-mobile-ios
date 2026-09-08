@@ -37,4 +37,50 @@ class AdFormatTest: XCTestCase {
         XCTAssertNil(AdFormat.validated([.banner, .native], supported: supported),
                      "Partially unsupported set must be rejected as a whole")
     }
+    
+    // MARK: - Equality
+    
+    func testEqualityIsBasedOnRawValue() {
+        XCTAssertEqual(AdFormat(rawValue: 1 << 0), AdFormat.banner)
+        XCTAssertEqual(AdFormat(rawValue: 1 << 1), AdFormat.video)
+        XCTAssertEqual(AdFormat(rawValue: 1 << 2), AdFormat.native)
+        XCTAssertNotEqual(AdFormat.banner, AdFormat.video)
+        XCTAssertTrue(AdFormat.banner.isEqual(AdFormat(rawValue: 1 << 0)))
+        XCTAssertFalse(AdFormat.banner.isEqual(nil))
+        XCTAssertFalse(AdFormat.banner.isEqual(NSNumber(value: 1)))
+    }
+    
+    func testHashMatchesForEqualValues() {
+        XCTAssertEqual(AdFormat(rawValue: 1 << 0).hash, AdFormat.banner.hash)
+        XCTAssertEqual(AdFormat(rawValue: 1 << 0).hashValue, AdFormat.banner.hashValue)
+    }
+    
+    func testSetTreatsEqualRawValuesAsOneElement() {
+        let set: Set<AdFormat> = [AdFormat(rawValue: 1 << 0), AdFormat(rawValue: 1 << 0), .banner]
+        XCTAssertEqual(set.count, 1)
+        XCTAssertTrue(set.contains(.banner))
+        
+        let publisherSet: Set<AdFormat> = [AdFormat(rawValue: 1 << 0), AdFormat(rawValue: 1 << 1)]
+        XCTAssertTrue(publisherSet.contains(.banner))
+        XCTAssertTrue(publisherSet.contains(.video))
+        XCTAssertEqual(publisherSet, [.banner, .video])
+    }
+    
+    func testNSSetContainsObjectUsesRawValue() {
+        let nsSet = NSSet(array: [AdFormat(rawValue: 1 << 1)])
+        XCTAssertTrue(nsSet.contains(AdFormat.video))
+        XCTAssertFalse(nsSet.contains(AdFormat.banner))
+    }
+    
+    func testValidatedAcceptsPublisherConstructedFormats() {
+        XCTAssertEqual(AdFormat.validated([AdFormat(rawValue: 1 << 1)], supported: supported), [.video])
+    }
+    
+    func testCombinedRawValueIsNotASingleFormat() {
+        let combined = AdFormat.banner.union(.video)
+        XCTAssertNotEqual(combined, AdFormat.banner)
+        XCTAssertNotEqual(combined, AdFormat.video)
+        XCTAssertNil(AdFormat.validated([combined], supported: supported),
+                     "A combined bitmask is not a supported single format and must be rejected")
+    }
 }

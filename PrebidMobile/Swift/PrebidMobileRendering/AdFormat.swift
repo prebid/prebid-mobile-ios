@@ -57,6 +57,15 @@ public class AdFormat: NSObject, OptionSet {
     public static var allCases: [AdFormat] {
         [.banner, .video, .native]
     }
+    
+    public override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? AdFormat else { return false }
+        return rawValue == other.rawValue
+    }
+    
+    public override var hash: Int {
+        rawValue
+    }
 }
 
 // MARK: - Internal helpers
