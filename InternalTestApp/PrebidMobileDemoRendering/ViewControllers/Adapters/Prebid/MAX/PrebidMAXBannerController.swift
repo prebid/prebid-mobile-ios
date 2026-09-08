@@ -23,7 +23,7 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
     private weak var rootController: AdapterViewController?
     
     var refreshInterval: TimeInterval = 0
-    var adFormat: AdFormat?
+    var adFormats: Set<AdFormat>?
     var additionalAdSizes = [CGSize]()
     
     var prebidConfigId = ""
@@ -102,8 +102,8 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
             adUnit?.additionalSizes = additionalAdSizes
         }
         
-        if let adFormat = adFormat {
-            adUnit?.adFormats = [adFormat]
+        if let adFormats {
+            adUnit?.adFormats = adFormats
         }
         
         if let storedAuctionResponse = storedAuctionResponse {

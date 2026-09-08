@@ -1905,7 +1905,7 @@ struct TestCaseManager {
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "prebid-ita-video-outstream"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
-                bannerController.adFormat = .video
+                bannerController.adFormats = [.video]
                         
                 adapterVC.setup(adapter: bannerController)
                         
@@ -1923,7 +1923,7 @@ struct TestCaseManager {
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "prebid-demo-no-bids"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
-                bannerController.adFormat = .video
+                bannerController.adFormats = [.video]
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)
@@ -1939,7 +1939,7 @@ struct TestCaseManager {
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
-                bannerController.adFormat = .video
+                bannerController.adFormats = [.video]
                         
                 bannerController.prebidConfigId = "prebid-demo-video-outstream-with-end-card"
                  
@@ -2010,8 +2010,28 @@ struct TestCaseManager {
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "prebid-demo-video-300-250-skadn-v4"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
-                bannerController.adFormat = .video
+                bannerController.adFormats = [.video]
                 
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Multiformat Banner (In-App) ----
+            
+            TestCase(title: "Multiformat Banner 300x250 (In-App)",
+                     tags: [.banner, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                let configIds = ["prebid-ita-banner-300-250", "prebid-ita-video-outstream"]
+                bannerController.prebidConfigId = configIds.randomElement()!
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                bannerController.adFormats = [.banner, .video]
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)
@@ -2030,7 +2050,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
                 gamBannerController.validAdSizes = [AdSizeMediumRectangle]
-                gamBannerController.adFormat = .video
+                gamBannerController.adFormats = [.video]
                 gamBannerController.prebidConfigId = "prebid-ita-video-outstream"
                  
                 adapterVC.setup(adapter: gamBannerController)
@@ -2048,7 +2068,7 @@ struct TestCaseManager {
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
                 gamBannerController.validAdSizes = [AdSizeMediumRectangle]
-                gamBannerController.adFormat = .video
+                gamBannerController.adFormats = [.video]
                 gamBannerController.prebidConfigId = "prebid-demo-video-outstream-with-end-card"
                  
                 adapterVC.setup(adapter: gamBannerController)
@@ -2068,7 +2088,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "prebid-ita-video-outstream"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
                 gamBannerController.validAdSizes = [AdSizeMediumRectangle]
-                gamBannerController.adFormat = .video
+                gamBannerController.adFormats = [.video]
                 adapterVC.setup(adapter: gamBannerController)
                         
                 setupCustomParams(for: gamBannerController.prebidConfigId)
@@ -2086,7 +2106,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "prebid-demo-no-bids"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outsream_video"
                 gamBannerController.validAdSizes = [AdSizeMediumRectangle]
-                gamBannerController.adFormat = .video
+                gamBannerController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -2144,6 +2164,27 @@ struct TestCaseManager {
                     TestCaseManager.createDummyTableCell(for: tableView),
                     TestCaseManager.createDummyTableCell(for: tableView),
                 ];
+            }),
+            
+            // MARK: ---- Multiformat Banner (GAM) ----
+            
+            TestCase(title: "Multiformat Banner 300x250 (GAM)",
+                     tags: [.banner, .video, .gam, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
+                let configIds = ["prebid-ita-banner-300-250", "prebid-ita-video-outstream"]
+                gamBannerController.prebidConfigId = configIds.randomElement()!
+                gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
+                gamBannerController.validAdSizes = [AdSizeMediumRectangle]
+                gamBannerController.adFormats = [.banner, .video]
+                adapterVC.setup(adapter: gamBannerController)
+                        
+                setupCustomParams(for: gamBannerController.prebidConfigId)
             }),
             
             // MARK: ---- Rewarded (In-App) ----
@@ -2890,6 +2931,27 @@ struct TestCaseManager {
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 admobBannerController.additionalAdSizes = [CGSize(width: 728, height: 90)]
                 admobBannerController.gadAdSizeType = .adaptiveAnchored
+                adapterVC.setup(adapter: admobBannerController)
+                        
+                setupCustomParams(for: admobBannerController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Multiformat Banner (AdMob) ----
+            
+            TestCase(title: "Multiformat Banner 300x250 (AdMob)",
+                     tags: [.banner, .video, .admob, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
+                let configIds = ["prebid-ita-banner-300-250", "prebid-ita-video-outstream"]
+                admobBannerController.prebidConfigId = configIds.randomElement()!
+                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
+                admobBannerController.adUnitSize = CGSize(width: 300, height: 250)
+                admobBannerController.adFormats = [.banner, .video]
                 adapterVC.setup(adapter: admobBannerController)
                         
                 setupCustomParams(for: admobBannerController.prebidConfigId)
@@ -3677,6 +3739,27 @@ struct TestCaseManager {
                 setupCustomParams(for: maxBannerController.prebidConfigId)
             }),
             
+            // MARK: ---- Multiformat Banner (MAX) ----
+            
+            TestCase(title: "Multiformat Banner 300x250 (MAX)",
+                     tags: [.banner, .video, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
+                let configIds = ["prebid-ita-banner-300-250", "prebid-ita-video-outstream"]
+                maxBannerController.prebidConfigId = configIds.randomElement()!
+                maxBannerController.maxAdUnitId = "7715f9965a065152"
+                maxBannerController.adUnitSize = CGSize(width: 300, height: 250)
+                maxBannerController.adFormats = [.banner, .video]
+                adapterVC.setup(adapter: maxBannerController)
+                        
+                setupCustomParams(for: maxBannerController.prebidConfigId)
+            }),
+            
             // MARK: ---- Interstitial (MAX) ----
             
             TestCase(title: "Display Interstitial 320x480 (MAX) [OK, OXB Adapter]",
@@ -3892,7 +3975,6 @@ struct TestCaseManager {
                     return
                 }
                          
-                let randomId = [0, 1].randomElement() ?? 0
                 let interstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
                 let configIds = ["prebid-ita-display-interstitial-320-480", "prebid-ita-video-interstitial-320-480"]
                 interstitialController.prebidConfigId = configIds.randomElement()!
