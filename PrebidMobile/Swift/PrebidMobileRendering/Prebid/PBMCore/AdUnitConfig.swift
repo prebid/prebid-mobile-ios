@@ -31,7 +31,7 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var adFormats: Set<AdFormat> {
         didSet {
-            updateAdFormat()
+            adConfiguration.adFormats = adFormats
         }
     }
     
@@ -164,15 +164,5 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.viewableDuration = self.adConfiguration.viewableDuration
         
         return clone
-    }
-    
-    // MARK: - Private Methods
-
-    private func updateAdFormat() {
-        if adConfiguration.adFormats == adFormats {
-            return
-        }
-        
-        self.adConfiguration.adFormats = adFormats
     }
 }
