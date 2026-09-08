@@ -45,8 +45,8 @@
           "ext": {
             "prebid": {
               "events": {
-                "win": "https://prebid.org/",
-                "imp": "https://prebid.org/"
+                "win": "https://prebid.org/win",
+                "imp": "https://prebid.org/imp"
               },
               "cache": {
                 "key": "cacheKey",

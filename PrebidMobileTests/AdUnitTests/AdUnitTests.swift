@@ -285,8 +285,10 @@ class AdUnitTests: XCTestCase {
             XCTAssertNotNil(bidInfo.targetingKeywords)
             XCTAssertNotNil(bidInfo.exp)
             XCTAssertNotNil(bidInfo.nativeAdCacheId)
-            XCTAssertNotNil(bidInfo.events[BidInfo.EVENT_WIN], "There is no win event in bid response.")
-            XCTAssertNotNil(bidInfo.events[BidInfo.EVENT_IMP], "There is no imp event in bid response.")
+            XCTAssertEqual(bidInfo.events[BidInfo.EVENT_WIN], "https://prebid.org/win",
+                           "The win event must come from `ext.prebid.events.win`.")
+            XCTAssertEqual(bidInfo.events[BidInfo.EVENT_IMP], "https://prebid.org/imp",
+                           "The imp event must come from `ext.prebid.events.imp`.")
             XCTAssertFalse(bidInfo.events.isEmpty)
         }
         

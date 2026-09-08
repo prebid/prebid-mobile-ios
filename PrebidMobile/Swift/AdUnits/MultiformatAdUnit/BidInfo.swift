@@ -83,7 +83,7 @@ public class BidInfo: NSObject {
             bidInfo.addEvent(key: BidInfo.EVENT_WIN, value: winURL)
         }
         
-        if let impURL = bidResponse.winningBid?.events?.win {
+        if let impURL = bidResponse.winningBid?.events?.imp {
             bidInfo.addEvent(key: BidInfo.EVENT_IMP, value: impURL)
         }
         
