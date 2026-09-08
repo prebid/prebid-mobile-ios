@@ -256,7 +256,12 @@ public class AdUnit: NSObject, DispatcherDelegate {
             Utils.shared.validateAndAttachKeywords(adObject: adObject, bidResponse: bidResponse)
         }
 
-        return bidResponse.topBidWasFiltered ? .prebidDemandTopBidFiltered : .prebidDemandFetchSuccess
+        // A promoted runner-up is still successfully returned demand: the winning bid is
+        // cached and its targeting is attached to the ad object. Reporting anything other
+        // than prebidDemandFetchSuccess here would make the standard
+        // `resultCode == .prebidDemandFetchSuccess` integration check drop usable demand.
+        // The yield signal is surfaced separately via `BidInfo.topBidFiltered`.
+        return .prebidDemandFetchSuccess
     }
 
     private func cacheBidIfNeeded(_ winningBid: Bid) -> String? {

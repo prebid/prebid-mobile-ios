@@ -41,6 +41,15 @@ public class BidInfo: NSObject {
     /// Events related to the bid
     public private(set) var events: [String: String]
     
+    /// True when `Prebid.shared.filterOutUncachedBids` removed the bid Prebid Server
+    /// designated as the winner because it had no successful Prebid Cache entry, and a
+    /// lower-priced cached bid was promoted in its place.
+    ///
+    /// The demand is still valid and its targeting is attached to the ad object, so
+    /// `resultCode` remains `.prebidDemandFetchSuccess`. This flag exists purely so
+    /// publishers can track the yield impact of the filtering.
+    public private(set) var topBidFiltered: Bool
+
     /// Initializes a new `BidInfo` instance with the specified parameters.
     /// - Parameters:
     ///   - resultCode: The result code of the bid request.
@@ -48,13 +57,17 @@ public class BidInfo: NSObject {
     ///   - exp: Optional expiration time of the bid.
     ///   - nativeAdCacheId: Optional cache ID for native ads.
     ///   - events: Optional dictionary of events related to the bid.
+    ///   - topBidFiltered: Whether the PBS-designated winning bid was filtered out for
+    ///   lacking a cache entry and a lower-priced cached bid was promoted in its place.
     public init(resultCode: ResultCode, targetingKeywords: [String : String]? = nil, exp: Double? = nil,
-                nativeAdCacheId: String? = nil, events: [String: String] = [:]) {
+                nativeAdCacheId: String? = nil, events: [String: String] = [:],
+                topBidFiltered: Bool = false) {
         self.resultCode = resultCode
         self.targetingKeywords = targetingKeywords
         self.exp = exp
         self.nativeAdCacheId = nativeAdCacheId
         self.events = events
+        self.topBidFiltered = topBidFiltered
         
         super.init()
     }
@@ -76,7 +89,8 @@ public class BidInfo: NSObject {
             resultCode: resultCode,
             targetingKeywords: bidResponse.targetingInfo,
             exp: bidResponse.winningBid?.bid.exp?.doubleValue,
-            nativeAdCacheId: bidResponse.targetingInfo?[PrebidLocalCacheIdKey]
+            nativeAdCacheId: bidResponse.targetingInfo?[PrebidLocalCacheIdKey],
+            topBidFiltered: bidResponse.topBidWasFiltered
         )
         
         if let winURL = bidResponse.winningBid?.events?.win {

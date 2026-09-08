@@ -57,11 +57,6 @@ import Foundation
     /// This is the "all bids filtered" outcome of `Prebid.shared.filterOutUncachedBids`.
     case prebidDemandNoCachedBids = 11
 
-    /// The Prebid Server's designated winning bid lacked a successful cache entry and was
-    /// filtered out, but a lower-priced bid with a successful cache entry was promoted to
-    /// winner. Demand was still returned; this flags a yield impact for publisher tracking.
-    case prebidDemandTopBidFiltered = 12
-
     /// The structure of the response received is invalid.
     case prebidInvalidResponseStructure = 1000
     
@@ -110,8 +105,6 @@ import Foundation
             return "Prebid unknown error occurred"
         case .prebidDemandNoCachedBids:
             return "Prebid Server returned no cached bids"
-        case .prebidDemandTopBidFiltered:
-            return "Top bid was filtered for failed cache, next best cached bid was promoted"
         case .prebidInvalidResponseStructure:
             return "Response structure is invalid"
         case .prebidInternalSDKError:
