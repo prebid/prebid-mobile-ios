@@ -49,6 +49,7 @@ protocol AdViewManagerDelegate: NSObjectProtocol {
     //TODO: Verify whether the instantiation of an object should be inside the delegate.
     @objc optional var interstitialDisplayProperties: InterstitialDisplayProperties { get }
     
+    @objc optional func videoAdDidStart()
     @objc optional func videoAdDidFinish()
     @objc optional func videoAdWasMuted()
     @objc optional func videoAdWasUnmuted()

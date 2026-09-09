@@ -27,6 +27,10 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     public var isCreativeOpened: Bool {
         adViewManager?.isCreativeOpened ?? false
     }
+    
+    /// Whether the rendered video creative is currently playing:
+    /// `true` between `videoAdDidStart` and `videoAdDidFinish`.
+    public private(set) var isVideoPlaying = false
 
     // MARK: - Internal Properties
 
@@ -200,7 +204,12 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         videoPlaybackDelegate?.videoPlaybackWasUnmuted()
     }
     
+    public func videoAdDidStart() {
+        isVideoPlaying = true
+    }
+    
     public func videoAdDidFinish() {
+        isVideoPlaying = false
         videoPlaybackDelegate?.videoPlaybackDidComplete()
     }
     

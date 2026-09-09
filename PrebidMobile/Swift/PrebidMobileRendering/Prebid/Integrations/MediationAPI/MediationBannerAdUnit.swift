@@ -142,27 +142,31 @@ public class MediationBannerAdUnit : NSObject {
         self.mediationDelegate = mediationDelegate
         super.init()
         
-        autoRefreshManager = AutoRefreshManager(prefetchTime: PrebidConstants.AD_PREFETCH_TIME,
-                                                lockingQueue: nil,
-                                                lockProvider: nil,
-                                                refreshDelayBlock: { [weak self] in
-            (self?.adUnitConfig.refreshInterval ?? 0) as NSNumber
-        },
-                                                           mayRefreshNowBlock: { [weak self] in
-            guard let self = self else { return false }
-            return self.isAdObjectVisible() || self.adRequestError != nil
-        }, refreshBlock: { [weak self] in
-            guard let self = self,
-                  self.lastAdView != nil,
-                  let completion = self.lastCompletion else {
-                return
+        autoRefreshManager = AutoRefreshManager(
+            prefetchTime: PrebidConstants.AD_PREFETCH_TIME,
+            lockingQueue: nil,
+            lockProvider: nil,
+            refreshDelayBlock: { [weak self] in
+                (self?.adUnitConfig.refreshInterval ?? 0) as NSNumber
+            },
+            mayRefreshNowBlock: { [weak self] in
+                (self?.isAdObjectVisible() == true && self?.isVideoPlaying == false) || self?.adRequestError != nil
+            },
+            refreshBlock: { [weak self] in
+                guard let self = self,
+                      self.lastAdView != nil,
+                      let completion = self.lastCompletion else {
+                    return
+                }
+                
+                self.fetchDemand(
+                    connection: PrebidServerConnection.shared,
+                    sdkConfiguration: Prebid.shared,
+                    targeting: Targeting.shared,
+                    completion: completion
+                )
             }
-            
-            self.fetchDemand(connection: PrebidServerConnection.shared,
-                             sdkConfiguration: Prebid.shared,
-                             targeting: Targeting.shared,
-                             completion: completion)
-        })
+        )
     }
     
     /// Makes bid request and setups mediation parameters.
@@ -194,6 +198,16 @@ public class MediationBannerAdUnit : NSObject {
     
     /// Formats that the banner mediation adapters are able to render.
     private static let supportedAdFormats: [AdFormat] = [.banner, .video]
+    
+    /// Whether a Prebid video creative rendered inside the mediated ad view is playing.
+    ///
+    /// The adapters hand the `DisplayView` they render to the host SDK, which embeds it in the
+    /// ad view returned by `PrebidMediationDelegate.getAdView()`. Reading the state off that
+    /// view on every refresh tick means the gate follows whatever is actually on screen: it
+    /// clears when the video finishes or when the host SDK replaces the creative.
+    var isVideoPlaying: Bool {
+        lastAdView?.firstDescendant(of: DisplayView.self)?.isVideoPlaying ?? false
+    }
     
     // MARK: Private functions
     

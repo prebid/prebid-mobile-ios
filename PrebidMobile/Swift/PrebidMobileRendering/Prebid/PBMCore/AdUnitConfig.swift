@@ -57,7 +57,7 @@ public class AdUnitConfig: NSObject, NSCopying {
     /// The publisher-configured auto-refresh interval.
     ///
     /// Pure configuration: independent of `adFormats` and of the winning bid's format.
-    /// `BannerView` cancels auto-refresh at render time when the winning bid is a video.
+    /// `BannerView` skips refresh ticks while a Prebid video creative is playing.
     public var refreshInterval: TimeInterval {
         get { _refreshInterval }
         set {

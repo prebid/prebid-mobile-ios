@@ -107,6 +107,7 @@ public class BannerView:
     var adLoadFlowController: AdLoadFlowController?
     
     // MARK: Externally observable
+    
     var deployedView: UIView?
     var isRefreshStopped = false
     var isAdOpened = false
@@ -123,7 +124,7 @@ public class BannerView:
             return  true
         }
         
-        if isAdOpened || !isVisible() || isCreativeOpened {
+        if isAdOpened || !isVisible() || isCreativeOpened || isVideoPlaying {
             return false
         }
         
@@ -136,6 +137,13 @@ public class BannerView:
         }
         
         return false
+    }
+    
+    /// Whether the deployed Prebid creative is a video that is currently playing.
+    /// Read on every refresh tick so a video is never torn down mid-playback, while a
+    /// creative that never reports playback (HTML, ad server, plugin) keeps refreshing.
+    var isVideoPlaying: Bool {
+        (deployedView as? DisplayView)?.isVideoPlaying ?? false
     }
     
     // MARK: - Public Methods
@@ -496,12 +504,6 @@ extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
         loadedAdView adView: UIView,
         adSize: CGSize
     ) {
-        // The refresh timer is armed before the primary ad server answers, so the winning
-        // format can only be honoured here. A video creative must not be torn down mid-playback.
-        if lastBidResponse?.winningBid?.adFormat == .video {
-            autoRefreshManager?.cancelRefreshTimer()
-        }
-        
         deployView(adView)
         reportLoadingSuccess(with: adSize)
     }
@@ -509,6 +511,7 @@ extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
 
 @_spi(PBMInternal)
 extension BannerView: DisplayViewVideoPlaybackDelegate {
+    
     public func videoPlaybackDidPause() {
         videoPlaybackDelegate?.videoPlaybackDidPause(self)
     }

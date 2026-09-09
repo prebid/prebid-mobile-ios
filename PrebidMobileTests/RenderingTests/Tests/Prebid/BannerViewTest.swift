@@ -270,13 +270,22 @@ class BannerViewTest: XCTestCase {
     
     // MARK: - Auto-refresh vs. video creatives
     
-    func testVideoWinningBidCancelsAutoRefresh() {
+    // Regression: the primary ad server can win over a Prebid video bid (no matching line item,
+    // app event timeout). `lastBidResponse` still holds the losing video bid, so the timer must
+    // not be cancelled based on it - the GAM creative on screen must keep refreshing.
+    func testAdServerWinOverVideoBidKeepsAutoRefresh() {
         let bannerView = makeBannerView(bidFormat: "video")
+        let window = makeVisible(bannerView)
+        defer { window.isHidden = true }
         armRefreshTimer(bannerView)
         
-        bannerView.bannerAdLoader(BannerAdLoader(delegate: bannerView), loadedAdView: UIView(frame: bannerView.bounds), adSize: bannerView.bounds.size)
+        let adServerCreative = UIView(frame: bannerView.bounds)
+        bannerView.bannerAdLoader(BannerAdLoader(delegate: bannerView), loadedAdView: adServerCreative, adSize: bannerView.bounds.size)
         
-        XCTAssertNil(bannerView.autoRefreshManager?.delayedBlock, "A video winning bid must cancel the pending auto-refresh")
+        XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "Loading an ad must never cancel the refresh timer")
+        waitForDeploy(of: adServerCreative, in: bannerView)
+        XCTAssertFalse(bannerView.isVideoPlaying)
+        XCTAssertTrue(bannerView.mayRefreshNow, "The ad server creative on screen must keep refreshing")
     }
     
     func testBannerWinningBidKeepsAutoRefresh() {
@@ -286,6 +295,60 @@ class BannerViewTest: XCTestCase {
         bannerView.bannerAdLoader(BannerAdLoader(delegate: bannerView), loadedAdView: UIView(frame: bannerView.bounds), adSize: bannerView.bounds.size)
         
         XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "An HTML banner keeps the configured auto-refresh")
+    }
+    
+    // The gate is driven by the creative's own playback callbacks, evaluated on every tick,
+    // so it self-recovers once playback ends and protects a replay ("watch again") too.
+    func testRefreshIsSkippedWhileVideoIsPlaying() {
+        let bannerView = makeBannerView(bidFormat: "video")
+        let window = makeVisible(bannerView)
+        defer { window.isHidden = true }
+        
+        let videoCreative = DisplayView(frame: bannerView.bounds, bid: makeBid(type: "video"), adConfiguration: bannerView.adUnitConfig)
+        bannerView.deployView(videoCreative)
+        waitForDeploy(of: videoCreative, in: bannerView)
+        XCTAssertTrue(bannerView.mayRefreshNow, "Sanity: nothing is playing yet")
+        
+        videoCreative.videoAdDidStart()
+        XCTAssertTrue(bannerView.isVideoPlaying)
+        XCTAssertFalse(bannerView.mayRefreshNow, "A video creative in flight must not be torn down by auto-refresh")
+        
+        videoCreative.videoAdDidFinish()
+        XCTAssertFalse(bannerView.isVideoPlaying)
+        XCTAssertTrue(bannerView.mayRefreshNow, "Once the video has finished the next tick must proceed")
+        
+        // Watch again
+        videoCreative.videoAdDidStart()
+        XCTAssertFalse(bannerView.mayRefreshNow, "A replay is protected like the first playback")
+    }
+    
+    // HTML creatives and plugin-rendered views never report playback, so they keep refreshing.
+    func testCreativeWithoutPlaybackEventsDoesNotBlockRefresh() {
+        let bannerView = makeBannerView(bidFormat: "video")
+        let window = makeVisible(bannerView)
+        defer { window.isHidden = true }
+        
+        let pluginCreative = MockDisplayView(frame: bannerView.bounds)
+        bannerView.deployView(pluginCreative)
+        waitForDeploy(of: pluginCreative, in: bannerView)
+        
+        XCTAssertFalse(bannerView.isVideoPlaying)
+        XCTAssertTrue(bannerView.mayRefreshNow)
+    }
+    
+    private func makeVisible(_ bannerView: BannerView) -> UIWindow {
+        let window = UIWindow(frame: CGRect(origin: .zero, size: CGSize(width: 320, height: 480)))
+        window.addSubview(bannerView)
+        window.isHidden = false
+        return window
+    }
+    
+    // `deployView` installs the view on the main queue asynchronously.
+    private func waitForDeploy(of view: UIView, in bannerView: BannerView) {
+        let predicate = NSPredicate { obj, _ in
+            (obj as? BannerView)?.deployedView === view
+        }
+        wait(for: [expectation(for: predicate, evaluatedWith: bannerView, handler: nil)], timeout: 3.0)
     }
     
     private func makeBannerView(bidFormat: String) -> MockBannerViewWithBidFormat {

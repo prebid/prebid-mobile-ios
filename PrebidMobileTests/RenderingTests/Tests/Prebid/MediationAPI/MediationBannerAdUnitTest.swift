@@ -214,4 +214,57 @@ class MediationBannerAdUnitTest: XCTestCase {
         waitForExpectations(timeout: 0.1)
     }
     
+    // MARK: - Auto-refresh vs. video creatives
+    
+    // The adapters hand the rendered `DisplayView` to AdMob / MAX, which embed it somewhere
+    // inside the publisher's ad view. The gate must find it there and follow its playback state.
+    func testRefreshIsSkippedWhileMediatedVideoIsPlaying() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        guard let mayRefreshNow = adUnit.autoRefreshManager?.mayRefreshNowBlock else {
+            return XCTFail("The ad unit must own an AutoRefreshManager")
+        }
+        
+        let window = UIWindow(frame: CGRect(origin: .zero, size: CGSize(width: 320, height: 480)))
+        window.addSubview(adObject!)
+        window.isHidden = false
+        defer { window.isHidden = true }
+        adUnit.lastAdView = adObject
+        
+        // An HTML creative, or nothing yet: refresh as usual
+        let hostWrapper = UIView(frame: adObject!.bounds)
+        adObject!.addSubview(hostWrapper)
+        hostWrapper.addSubview(UIView(frame: hostWrapper.bounds))
+        XCTAssertFalse(adUnit.isVideoPlaying)
+        XCTAssertTrue(mayRefreshNow(), "Sanity: a visible ad object without a playing video may refresh")
+        
+        // The host SDK embeds the Prebid-rendered creative below its own wrapper views
+        let displayView = DisplayView(frame: hostWrapper.bounds, bid: Bid(bid: ORTBBid(bidID: "", impid: "", price: 0.1)), configId: testID)
+        hostWrapper.addSubview(displayView)
+        
+        displayView.videoAdDidStart()
+        XCTAssertTrue(adUnit.isVideoPlaying)
+        XCTAssertFalse(mayRefreshNow(), "A mediated video creative in flight must not be torn down by auto-refresh")
+        
+        displayView.videoAdDidFinish()
+        XCTAssertFalse(adUnit.isVideoPlaying)
+        XCTAssertTrue(mayRefreshNow(), "Once the video has finished the next tick must proceed")
+    }
+    
+    func testVideoStateFollowsTheCreativeOnScreen() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        adUnit.lastAdView = adObject
+        
+        let displayView = DisplayView(frame: adObject!.bounds, bid: Bid(bid: ORTBBid(bidID: "", impid: "", price: 0.1)), configId: testID)
+        adObject!.addSubview(displayView)
+        displayView.videoAdDidStart()
+        XCTAssertTrue(adUnit.isVideoPlaying)
+        
+        // The host SDK replaces the creative (its own ad, or the next Prebid creative)
+        displayView.removeFromSuperview()
+        XCTAssertFalse(adUnit.isVideoPlaying, "A creative that is no longer on screen must not block refresh")
+        
+        // A new fetch cycle starts: nothing is tracked until a creative is on screen again
+        adUnit.lastAdView = nil
+        XCTAssertFalse(adUnit.isVideoPlaying)
+    }
 }
