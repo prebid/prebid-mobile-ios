@@ -17,7 +17,8 @@ import Foundation
 
 @objc(PBMBidResponseTransformer) @_spi(PBMInternal) public class BidResponseTransformer: NSObject {
 
-    private override init() {
+    @available(*, unavailable)
+    override init() {
         super.init()
     }
 
