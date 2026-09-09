@@ -28,9 +28,18 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     }
     
     /// The set of ad formats supported by this ad unit.
+    ///
+    /// Only `.banner` and `.video` can be rendered by `RewardedAdUnit`.
+    /// Empty sets and sets containing unsupported formats are ignored.
     public var adFormats: Set<AdFormat> {
         get { adUnitConfig.adFormats }
-        set { adUnitConfig.adFormats = newValue }
+        set {
+            guard let formats = AdFormat.validated(newValue, supported: Self.supportedAdFormats) else {
+                return
+            }
+            
+            adUnitConfig.adFormats = formats
+        }
     }
     
     /// The position of the ad on the screen.
@@ -91,6 +100,9 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
     }
     
     // MARK: Private properties
+    
+    /// Formats that `RewardedAdUnit` is able to render.
+    private static let supportedAdFormats: [AdFormat] = [.banner, .video]
     
     private let baseAdUnit: BaseRewardedAdUnit
     
