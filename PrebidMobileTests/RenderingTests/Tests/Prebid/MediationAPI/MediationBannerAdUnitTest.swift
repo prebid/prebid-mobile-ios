@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class MediationBannerAdUnitTest: XCTestCase {
     
@@ -69,7 +69,7 @@ class MediationBannerAdUnitTest: XCTestCase {
        
         //a good response with a bid
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(PBMBidResponseTransformer.someValidResponse)
+            callback(BidResponseTransformer.someValidResponse)
         }])
         let initialKeywords = "key1,key2"
         
@@ -102,7 +102,7 @@ class MediationBannerAdUnitTest: XCTestCase {
         //a bad response with the same ad object without bids
         
         let noBidConnection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(PBMBidResponseTransformer.serverErrorResponse)
+            callback(BidResponseTransformer.serverErrorResponse)
         }])
         
         let asyncExpectation2 = expectation(description: "fetchDemand executed")
