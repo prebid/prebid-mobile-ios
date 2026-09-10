@@ -409,15 +409,18 @@ public class BannerView:
     private func reportAdExpired() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            
+
+            // A non-refreshable banner keeps showing its creative; the app is only notified.
+            guard self.adUnitConfig.refreshInterval > 0, !self.isRefreshStopped else {
+                self.delegate?.bannerViewDidExpire?(self)
+                return
+            }
+
             self.autoRefreshManager?.cancelRefreshTimer()
             self.deployedView?.removeFromSuperview()
             self.deployedView = nil
             self.delegate?.bannerViewDidExpire?(self)
-            
-            if self.adUnitConfig.refreshInterval > 0, !self.isRefreshStopped {
-                self.adLoadFlowController?.refresh()
-            }
+            self.adLoadFlowController?.refresh()
         }
     }
     
