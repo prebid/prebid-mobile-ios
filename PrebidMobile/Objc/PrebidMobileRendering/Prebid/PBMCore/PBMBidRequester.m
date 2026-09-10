@@ -127,7 +127,7 @@
         NSError *trasformationError = nil;
         BidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
         
-        if (bidResponse && !trasformationError) {
+        if (bidResponse) {
             if (self.sdkConfiguration.requireServerSideBidCache) {
                 NSInteger bidCount = bidResponse.allBids.count;
                 NSInteger removedBids = [bidResponse removeBidsWithoutSuccessfulCache];
