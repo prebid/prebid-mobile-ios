@@ -326,9 +326,16 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     }
     
     //Prevent malicious auto-clicking
-    BOOL isMainFrame = navigationAction.targetFrame != nil && navigationAction.targetFrame.isMainFrame;
-    BOOL isLinkActivated = navigationAction.navigationType == WKNavigationTypeLinkActivated;
-    if (isMainFrame || isLinkActivated) {
+    BOOL hasTargetFrame = navigationAction.targetFrame != nil;
+    BOOL isMainFrame = hasTargetFrame && navigationAction.targetFrame.isMainFrame;
+    BOOL isSafeSubframeNavigation = [PBMWebView isSafeSubframeNavigationWithTargetFrame:hasTargetFrame
+                                                                                  isMainFrame:isMainFrame
+                                                                               navigationType:navigationAction.navigationType
+                                                                                          url:url];
+    if (isSafeSubframeNavigation) {
+        // Real subframe content (e.g. iframes) loading on their own, not a user tap or a popup/new-window navigation.
+        decisionHandler(WKNavigationActionPolicyAllow);
+    } else {
         if ([self wasRecentlyTapped]) {
             //Open clickthrough
             @weakify(self);
@@ -341,10 +348,24 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
             PBMLogWarn(@"User has not recently tapped. Auto-click suppression is preventing navigation to: %@", url);
         }
         decisionHandler(WKNavigationActionPolicyCancel);
-    } else {
-        // Allow iframe navigations that aren't user-initiated link taps
-        decisionHandler(WKNavigationActionPolicyAllow);
     }
+}
+
+// Only unambiguous subframe content navigations bypass click-gating: a nil targetFrame is a popup/new-window
+// navigation (not an iframe), and a restricted scheme allowlist keeps unexpected URL types (e.g. custom schemes)
+// out of the bypass, since relying on navigationType alone isn't a safe signal (redirects/meta-refresh also report as .other).
++ (BOOL)isSafeSubframeNavigationWithTargetFrame:(BOOL)hasTargetFrame
+                                         isMainFrame:(BOOL)isMainFrame
+                                      navigationType:(WKNavigationType)navigationType
+                                                 url:(nonnull NSURL *)url {
+    if (!hasTargetFrame || isMainFrame) {
+        return NO;
+    }
+    if (navigationType == WKNavigationTypeLinkActivated) {
+        return NO;
+    }
+    NSString * const scheme = [url.scheme lowercaseString];
+    return [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"];
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {

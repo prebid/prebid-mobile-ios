@@ -22,15 +22,41 @@ import AdSupport
 
 // MARK: - Mocks
 
+class MockWKFrameInfo : WKFrameInfo {
+    override var isMainFrame: Bool {
+        return mockedIsMainFrame
+    }
+
+    private let mockedIsMainFrame: Bool
+
+    init(isMainFrame: Bool) {
+        self.mockedIsMainFrame = isMainFrame
+    }
+}
+
 class MockWKNavigationAction : WKNavigationAction {
     override var request: URLRequest {
         return mockedRequest ?? URLRequest(url: URL(string: "openx.com")!)
     }
-    
+
+    override var targetFrame: WKFrameInfo? {
+        return mockedTargetFrame
+    }
+
+    override var navigationType: WKNavigationType {
+        return mockedNavigationType
+    }
+
     var mockedRequest: URLRequest?
-    
-    init(mockedRequest: URLRequest? = nil) {
+    var mockedTargetFrame: WKFrameInfo?
+    var mockedNavigationType: WKNavigationType = .other
+
+    init(mockedRequest: URLRequest? = nil,
+         mockedTargetFrame: WKFrameInfo? = nil,
+         mockedNavigationType: WKNavigationType = .other) {
         self.mockedRequest = mockedRequest
+        self.mockedTargetFrame = mockedTargetFrame
+        self.mockedNavigationType = mockedNavigationType
     }
 }
 
@@ -485,7 +511,125 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         waitForExpectations(timeout: 3, handler: nil)
     }
-    
+
+    // MARK: - Test WKNavigationDelegate: subframe (iframe) navigations
+
+    // A genuine subframe content load (e.g. an iframe) must bypass click-gating even with no recent tap,
+    // otherwise its own navigation can be mistaken for an inadvertent clickout (see SDK-iframe-clickout fix).
+    func testDecidePolicyForNavigationActionAllowsSubframeContentWithoutTap() {
+        let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        webView.delegate = self
+
+        expectationWebViewShouldOpenExternalLink = expectation(description: "expectationWebViewShouldOpenExternal")
+        expectationWebViewShouldOpenExternalLink?.isInverted = true
+
+        let navigationAction = MockWKNavigationAction(
+            mockedRequest: URLRequest(url: URL(string: "https://openx.com")!),
+            mockedTargetFrame: MockWKFrameInfo(isMainFrame: false),
+            mockedNavigationType: .other
+        )
+
+        webView.state = .loaded
+
+        webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
+            XCTAssertEqual(policy, .allow)
+        })
+
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+
+    // A nil targetFrame is a popup/new-window navigation, not an iframe, and must stay click-gated.
+    func testDecidePolicyForNavigationActionRejectsPopupWithNilTargetFrame() {
+        let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        webView.delegate = self
+
+        expectationWebViewShouldOpenExternalLink = expectation(description: "expectationWebViewShouldOpenExternal")
+        expectationWebViewShouldOpenExternalLink?.isInverted = true
+
+        let navigationAction = MockWKNavigationAction(
+            mockedRequest: URLRequest(url: openxURL),
+            mockedTargetFrame: nil,
+            mockedNavigationType: .other
+        )
+
+        webView.state = .loaded
+
+        webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
+            XCTAssertEqual(policy, .cancel)
+        })
+
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+
+    // Unexpected schemes (e.g. custom/deep-link schemes) must not bypass suppression even from a subframe.
+    func testDecidePolicyForNavigationActionRejectsSubframeWithUnexpectedScheme() {
+        let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        webView.delegate = self
+
+        expectationWebViewShouldOpenExternalLink = expectation(description: "expectationWebViewShouldOpenExternal")
+        expectationWebViewShouldOpenExternalLink?.isInverted = true
+
+        let navigationAction = MockWKNavigationAction(
+            mockedRequest: URLRequest(url: URL(string: "customscheme://example.com/widget.html")!),
+            mockedTargetFrame: MockWKFrameInfo(isMainFrame: false),
+            mockedNavigationType: .other
+        )
+
+        webView.state = .loaded
+
+        webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
+            XCTAssertEqual(policy, .cancel)
+        })
+
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+
+    // An explicit user tap inside a subframe must still be click-gated, not treated as passive iframe content.
+    func testDecidePolicyForNavigationActionRejectsSubframeLinkActivated() {
+        let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        webView.delegate = self
+
+        expectationWebViewShouldOpenExternalLink = expectation(description: "expectationWebViewShouldOpenExternal")
+        expectationWebViewShouldOpenExternalLink?.isInverted = true
+
+        let navigationAction = MockWKNavigationAction(
+            mockedRequest: URLRequest(url: openxURL),
+            mockedTargetFrame: MockWKFrameInfo(isMainFrame: false),
+            mockedNavigationType: .linkActivated
+        )
+
+        webView.state = .loaded
+
+        webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
+            XCTAssertEqual(policy, .cancel)
+        })
+
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+
+    // A main-frame navigation must stay click-gated even if it otherwise looks like a passive ("other") load.
+    func testDecidePolicyForNavigationActionRejectsMainFrame() {
+        let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        webView.delegate = self
+
+        expectationWebViewShouldOpenExternalLink = expectation(description: "expectationWebViewShouldOpenExternal")
+        expectationWebViewShouldOpenExternalLink?.isInverted = true
+
+        let navigationAction = MockWKNavigationAction(
+            mockedRequest: URLRequest(url: openxURL),
+            mockedTargetFrame: MockWKFrameInfo(isMainFrame: true),
+            mockedNavigationType: .other
+        )
+
+        webView.state = .loaded
+
+        webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
+            XCTAssertEqual(policy, .cancel)
+        })
+
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+
     func testDidFinishNavigationReadyToDisplay() {
         let webView = PBMWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self

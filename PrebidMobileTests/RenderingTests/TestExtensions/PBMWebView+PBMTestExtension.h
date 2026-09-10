@@ -31,4 +31,9 @@
 - (void)expand:(nonnull NSURL *)url
  currentThread:(nonnull id<PBMThreadProtocol>)currentThread;
 
++ (BOOL)isSafeSubframeNavigationWithTargetFrame:(BOOL)hasTargetFrame
+                                         isMainFrame:(BOOL)isMainFrame
+                                      navigationType:(WKNavigationType)navigationType
+                                                 url:(nonnull NSURL *)url;
+
 @end

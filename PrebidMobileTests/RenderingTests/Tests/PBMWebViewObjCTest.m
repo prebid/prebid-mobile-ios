@@ -14,6 +14,7 @@
   */
 #import <XCTest/XCTest.h>
 #import "PBMWebView.h"
+#import "PBMWebView+PBMTestExtension.h"
 #import "PrebidMobileTests-Swift.h"
 
 @interface PBMWebView (Testable)
@@ -91,8 +92,53 @@
     
     NSString *str = nil;
     [webView evaluateJavaScript:str];
-    
+
     [self waitForExpectationsWithTimeout:10.0 handler:nil];
+}
+
+#pragma mark - isSafeSubframeNavigationWithTargetFrame
+
+// Real iframe content: has a subframe target, isn't a user tap, and is a plain web URL.
+- (void)testIsSafeSubframeNavigation_AllowsSubframeContentLoad {
+    BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
+                                                                isMainFrame:NO
+                                                             navigationType:WKNavigationTypeOther
+                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]];
+    XCTAssertTrue(result);
+}
+
+// A nil targetFrame represents a popup/new-window navigation, not an iframe, and must stay click-gated.
+- (void)testIsSafeSubframeNavigation_RejectsNilTargetFrame {
+    BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:NO
+                                                                isMainFrame:NO
+                                                             navigationType:WKNavigationTypeOther
+                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]];
+    XCTAssertFalse(result);
+}
+
+- (void)testIsSafeSubframeNavigation_RejectsMainFrame {
+    BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
+                                                                isMainFrame:YES
+                                                             navigationType:WKNavigationTypeOther
+                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]];
+    XCTAssertFalse(result);
+}
+
+- (void)testIsSafeSubframeNavigation_RejectsLinkActivatedSubframeTap {
+    BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
+                                                                isMainFrame:NO
+                                                             navigationType:WKNavigationTypeLinkActivated
+                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]];
+    XCTAssertFalse(result);
+}
+
+// Unexpected schemes (e.g. custom/deep-link schemes) must not bypass suppression even from a subframe.
+- (void)testIsSafeSubframeNavigation_RejectsUnexpectedScheme {
+    BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
+                                                                isMainFrame:NO
+                                                             navigationType:WKNavigationTypeOther
+                                                                        url:[NSURL URLWithString:@"customscheme://example.com/widget.html"]];
+    XCTAssertFalse(result);
 }
 
 #pragma mark - WKNavigationDelegate
