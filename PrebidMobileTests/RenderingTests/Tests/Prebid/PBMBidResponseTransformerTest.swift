@@ -51,6 +51,28 @@ class PBMBidResponseTransformerTest: XCTestCase {
             XCTAssertEqual(error as NSError, PBMError.prebidInvalidSize() as NSError)
         }
     }
+
+    func testInvalidSizeForNonFirstImp() {
+        let response = BidResponseTransformer.invalidSizeResponse(impIndex: 1, formatIndex: 2)
+
+        do {
+            let _ = try BidResponseTransformer.transform(response)
+            XCTFail("Expected error not thrown")
+        } catch {
+            XCTAssertEqual(error as NSError, PBMError.prebidInvalidSize() as NSError)
+        }
+    }
+
+    func testInvalidSizeFromPrebidServerJava() {
+        let response = BidResponseTransformer.buildResponse("Invalid request format: request.imp[0].banner.format[0] should define *either* {w, h} (for static size requirements) *or* {wmin, wratio, hratio} (for flexible sizes) to be non-zero positive")
+
+        do {
+            let _ = try BidResponseTransformer.transform(response)
+            XCTFail("Expected error not thrown")
+        } catch {
+            XCTAssertEqual(error as NSError, PBMError.prebidInvalidSize() as NSError)
+        }
+    }
     
     func testServerError() {
         let messageBody = "Invalid request: some server reason, probably"
@@ -62,6 +84,15 @@ class PBMBidResponseTransformerTest: XCTestCase {
         } catch {
             XCTAssertEqual(error as NSError, PBMError.serverError(messageBody) as NSError)
         }
+    }
+
+    func testValidBidWithInvalidRequestInMarkup() throws {
+        let adm = "<html><div>Invalid request format detected</div></html>"
+        let response = BidResponseTransformer.buildResponse("{\"id\":\"B4A2D3F4-41B6-4D37-B68B-EE8893E85C31\",\"seatbid\":[{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":0.1,\"adm\":\"\(adm)\",\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"openx\",\"hb_pb\":\"0.10\"},\"type\":\"banner\"}}}],\"seat\":\"openx\"}],\"cur\":\"USD\"}")
+
+        let bidResponse = try BidResponseTransformer.transform(response)
+        XCTAssertEqual(bidResponse.allBids?.count, 1)
+        XCTAssertEqual(bidResponse.winningBid?.adm, adm)
     }
     
     func testNoJsonDic() {
