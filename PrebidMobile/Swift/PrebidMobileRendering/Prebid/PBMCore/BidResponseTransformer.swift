@@ -31,7 +31,12 @@ import Foundation
         guard let jsonDict = response.jsonDict else {
             throw PBMError.jsonDictNotFound()
         }
-        return BidResponse(jsonDictionary: jsonDict)
+        let bidResponse = BidResponse(jsonDictionary: jsonDict)
+        // BidResponse leaves rawResponse nil when the body is not an ORTB bid response (no top-level "id").
+        guard bidResponse.rawResponse != nil else {
+            throw PBMError.responseDeserializationFailed()
+        }
+        return bidResponse
     }
 
     private static func classifyRequestError(_ responseBody: String) -> NSError {

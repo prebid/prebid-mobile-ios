@@ -36,6 +36,10 @@ extension BidResponseTransformer {
     static var nonJsonDicResponse: PrebidServerResponse {
         return buildResponse("Some texty (non-JSON-ish) response here")
     }
+
+    static var missingIdResponse: PrebidServerResponse {
+        return buildResponse("{\"seatbid\":[{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":0.1,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"openx\",\"hb_pb\":\"0.10\"},\"type\":\"banner\"}}}],\"seat\":\"openx\"}],\"cur\":\"USD\"}")
+    }
     
     static var someValidResponse: PrebidServerResponse {
         return makeValidResponse(bidPrice: 0.1091000000051168)
