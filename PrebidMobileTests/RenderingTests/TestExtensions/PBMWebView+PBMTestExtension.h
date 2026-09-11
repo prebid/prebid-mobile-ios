@@ -34,6 +34,7 @@
 + (BOOL)isSafeSubframeNavigationWithTargetFrame:(BOOL)hasTargetFrame
                                          isMainFrame:(BOOL)isMainFrame
                                       navigationType:(WKNavigationType)navigationType
-                                                 url:(nonnull NSURL *)url;
+                                                 url:(nonnull NSURL *)url
+                                          isExpanded:(BOOL)isExpanded;
 
 @end

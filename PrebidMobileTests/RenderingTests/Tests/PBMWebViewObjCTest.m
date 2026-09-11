@@ -98,13 +98,24 @@
 
 #pragma mark - isSafeSubframeNavigationWithTargetFrame
 
-// Real iframe content: has a subframe target, isn't a user tap, and is a plain web URL.
+// Real iframe content: has a subframe target, isn't a user tap, and is a plain web URL, inside expanded state.
 - (void)testIsSafeSubframeNavigation_AllowsSubframeContentLoad {
     BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
                                                                 isMainFrame:NO
                                                              navigationType:WKNavigationTypeOther
-                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]];
+                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]
+                                                                 isExpanded:YES];
     XCTAssertTrue(result);
+}
+
+// Test that iframe navigation is still click-gated when the ad is not expanded, even if it would otherwise qualify as safe content.
+- (void)testIsSafeSubframeNavigation_RejectsWhenNotExpanded {
+    BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
+                                                                isMainFrame:NO
+                                                             navigationType:WKNavigationTypeOther
+                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]
+                                                                 isExpanded:NO];
+    XCTAssertFalse(result);
 }
 
 // A nil targetFrame represents a popup/new-window navigation, not an iframe, and must stay click-gated.
@@ -112,7 +123,8 @@
     BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:NO
                                                                 isMainFrame:NO
                                                              navigationType:WKNavigationTypeOther
-                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]];
+                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]
+                                                                 isExpanded:YES];
     XCTAssertFalse(result);
 }
 
@@ -120,7 +132,8 @@
     BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
                                                                 isMainFrame:YES
                                                              navigationType:WKNavigationTypeOther
-                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]];
+                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]
+                                                                 isExpanded:YES];
     XCTAssertFalse(result);
 }
 
@@ -128,7 +141,8 @@
     BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
                                                                 isMainFrame:NO
                                                              navigationType:WKNavigationTypeLinkActivated
-                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]];
+                                                                        url:[NSURL URLWithString:@"https://example.com/widget.html"]
+                                                                 isExpanded:YES];
     XCTAssertFalse(result);
 }
 
@@ -137,9 +151,40 @@
     BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
                                                                 isMainFrame:NO
                                                              navigationType:WKNavigationTypeOther
-                                                                        url:[NSURL URLWithString:@"customscheme://example.com/widget.html"]];
+                                                                        url:[NSURL URLWithString:@"customscheme://example.com/widget.html"]
+                                                                 isExpanded:YES];
     XCTAssertFalse(result);
 }
+
+// about:/data:/blob: are common ad-tech iframe patterns (e.g. create an iframe, then document.write into it)
+// and, like http(s), WKWebView renders them entirely inline with no possibility of an OS-level hand-off.
+- (void)testIsSafeSubframeNavigation_AllowsAboutBlank {
+    BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
+                                                                isMainFrame:NO
+                                                             navigationType:WKNavigationTypeOther
+                                                                        url:[NSURL URLWithString:@"about:blank"]
+                                                                 isExpanded:YES];
+    XCTAssertTrue(result);
+}
+
+- (void)testIsSafeSubframeNavigation_AllowsDataScheme {
+    BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
+                                                                isMainFrame:NO
+                                                             navigationType:WKNavigationTypeOther
+                                                                        url:[NSURL URLWithString:@"data:text/html,<p>hi</p>"]
+                                                                 isExpanded:YES];
+    XCTAssertTrue(result);
+}
+
+- (void)testIsSafeSubframeNavigation_AllowsBlobScheme {
+    BOOL result = [PBMWebView isSafeSubframeNavigationWithTargetFrame:YES
+                                                                isMainFrame:NO
+                                                             navigationType:WKNavigationTypeOther
+                                                                        url:[NSURL URLWithString:@"blob:https://example.com/12345"]
+                                                                 isExpanded:YES];
+    XCTAssertTrue(result);
+}
+
 
 #pragma mark - WKNavigationDelegate
 

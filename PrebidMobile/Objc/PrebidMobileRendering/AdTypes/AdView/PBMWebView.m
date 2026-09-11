@@ -331,9 +331,11 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     BOOL isSafeSubframeNavigation = [PBMWebView isSafeSubframeNavigationWithTargetFrame:hasTargetFrame
                                                                                   isMainFrame:isMainFrame
                                                                                navigationType:navigationAction.navigationType
-                                                                                          url:url];
+                                                                                          url:url
+                                                                                   isExpanded:self.mraidState == PBMMRAIDState.expanded];
+
     if (isSafeSubframeNavigation) {
-        // Real subframe content (e.g. iframes) loading on their own, not a user tap or a popup/new-window navigation.
+        // Allow iframes to load when in an expanded state
         decisionHandler(WKNavigationActionPolicyAllow);
     } else {
         if ([self wasRecentlyTapped]) {
@@ -351,21 +353,25 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     }
 }
 
-// Only unambiguous subframe content navigations bypass click-gating: a nil targetFrame is a popup/new-window
-// navigation (not an iframe), and a restricted scheme allowlist keeps unexpected URL types (e.g. custom schemes)
-// out of the bypass, since relying on navigationType alone isn't a safe signal (redirects/meta-refresh also report as .other).
+// Identify iframe navigations that should be allowed versus treated as a clickthrough.
 + (BOOL)isSafeSubframeNavigationWithTargetFrame:(BOOL)hasTargetFrame
                                          isMainFrame:(BOOL)isMainFrame
                                       navigationType:(WKNavigationType)navigationType
-                                                 url:(nonnull NSURL *)url {
+                                                 url:(nonnull NSURL *)url
+                                          isExpanded:(BOOL)isExpanded {
+    if (!isExpanded) {
+        return NO;
+    }
     if (!hasTargetFrame || isMainFrame) {
         return NO;
     }
     if (navigationType == WKNavigationTypeLinkActivated) {
         return NO;
     }
-    NSString * const scheme = [url.scheme lowercaseString];
-    return [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"];
+
+    // Use WKWebView's built-in URL scheme handling to determine if the URL should load
+    BOOL shouldAllowUrlScheme = [WKWebView handlesURLScheme:url.scheme];
+    return shouldAllowUrlScheme;
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
