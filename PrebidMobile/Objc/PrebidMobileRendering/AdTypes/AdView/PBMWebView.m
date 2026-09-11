@@ -328,11 +328,12 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     //Prevent malicious auto-clicking
     BOOL hasTargetFrame = navigationAction.targetFrame != nil;
     BOOL isMainFrame = hasTargetFrame && navigationAction.targetFrame.isMainFrame;
+    BOOL isExpanded = self.mraidState == PBMMRAIDState.expanded;
     BOOL isSafeSubframeNavigation = [PBMWebView isSafeSubframeNavigationWithTargetFrame:hasTargetFrame
                                                                                   isMainFrame:isMainFrame
                                                                                navigationType:navigationAction.navigationType
                                                                                           url:url
-                                                                                   isExpanded:self.mraidState == PBMMRAIDState.expanded];
+                                                                                   isExpanded:isExpanded];
 
     if (isSafeSubframeNavigation) {
         // Allow iframes to load when in an expanded state
@@ -353,7 +354,14 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     }
 }
 
-// Identify iframe navigations that should be allowed versus treated as a clickthrough.
+/**
+ Identify iframe navigations that should be allowed versus treated as a clickthrough.
+ 
+ Known limitation: A button inside an iframe with onclick="location.href=clickTag" shows up as a WKNavigationType type .other.
+ This causes an issue since we have no reliable way to know if the URL should be handled as a clickout or loaded within the iframe,
+ which would manifest in an iframe loading content inside the button instead of being handled as a clickout. For now, limiting the scope
+ of this issue to when `mraidState == .expanded`.
+ */
 + (BOOL)isSafeSubframeNavigationWithTargetFrame:(BOOL)hasTargetFrame
                                          isMainFrame:(BOOL)isMainFrame
                                       navigationType:(WKNavigationType)navigationType

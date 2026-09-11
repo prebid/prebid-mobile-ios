@@ -535,11 +535,8 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
 
         expectationWebViewShouldOpenExternalLink = expectation(description: "expectationWebViewShouldOpenExternal")
 
-        let navigationAction = MockWKNavigationAction(
-            mockedRequest: URLRequest(url: openxURL),
-            mockedTargetFrame: nil,
-            mockedNavigationType: .other
-        )
+        let navigationAction = MockWKNavigationAction()
+        navigationAction.mockedRequest = URLRequest(url: openxURL)
 
         webView.state = .loaded
         webView.mraidState = .defaultState
