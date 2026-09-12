@@ -286,9 +286,13 @@ Empty output ⇒ no `@objc`/`@objcMembers`/`NSObject` base unless needed for ano
 
 **S4.1-C — `@testable import` does not unlock `@_spi`-restricted symbols; the importer needs its own `@_spi(GroupName)` annotation.** After renaming `PBMBidResponseTransformer` → `BidResponseTransformer` (declared `@_spi(PBMInternal) public class`, per S1.1's cross-module-visibility rule), the full test target failed with "cannot find type 'BidResponseTransformer' in scope" — but only in files importing with a bare `@testable import PrebidMobile` or a bare `import PrebidMobile`; files already spelling `@_spi(PBMInternal) @testable import PrebidMobile` compiled fine. The failure was file-local and cascaded: `PBMBidResponseTransformer+TestExtension.swift` (a bare `import PrebidMobile`) failed first, and every test file consuming its static factory methods (`.someValidResponse`, `.makeValidResponse`, etc.) then reported "type 'BidResponseTransformer' has no member 'X'" instead of the real "type not found" error one file over — a classic single-root-cause-many-symptoms trap. **Rule:** whenever an SPI-restricted type gains new consumers (or an existing consumer is renamed to match it), grep every importer for the pattern first: `rg -n 'import PrebidMobile' <files>` and confirm each one reads `@_spi(GroupName) import PrebidMobile` or `@_spi(GroupName) @testable import PrebidMobile` — a plain `@testable import` is not sufficient, `@testable` and `@_spi` are independent, both-required visibility unlocks. When debugging a "cannot find type/member in scope" error that doesn't match the file you're looking at, check for cascading failures from a same-symbol producer file (e.g. a `+TestExtension.swift`) before chasing build-system/caching theories.
 
+## Phase 4 gaps (S4.3/S4.3b)
+
+**S4.3-A — `@objc(Name)` on a class exposes the class to Objective-C, but does not by itself expose a custom (non-protocol-witness) initializer or method; only `@objc`-protocol witnesses get automatic inference.** `PrebidParameterBuilder`'s `build(_:)` needed no explicit `@objc` because it satisfies `ParameterBuilder`'s `@objc(buildBidRequest:)` requirement (protocol is `@objc(PBMParameterBuilder) public protocol ParameterBuilder`) — that inference is real (Gap 7 already covers protocol-witness methods). But the class's own 4-parameter designated initializer is not a protocol requirement, and was silently dropped from the generated `PrebidMobile-Swift.h` (only the `SWIFT_UNAVAILABLE`-marked default `init` appeared). The surviving ObjC caller (`PBMBidRequester.m`'s `[[PBMPrebidParameterBuilder alloc] initWithAdConfiguration:sdkConfiguration:targeting:userAgentService:]`) failed to link: `no visible @interface for 'PBMPrebidParameterBuilder' declares the selector 'initWithAdConfiguration:...'`. **Rule:** any custom `init` on an `@objc(Name)`-bridged `NSObject` subclass that a surviving ObjC caller must construct needs its own explicit `@objc` (`@objc public init(...)`), or the whole class needs `@objcMembers` (only viable if every member's signature is ObjC-representable — S3.1-D). Diagnose by reading the generated `<Target>-Swift.h` under DerivedData directly — it is the ground truth for what ObjC actually sees, faster than guessing from the Swift source. Don't assume "one method on this class already bridges automatically" implies "every method/init on this class bridges automatically" — check protocol-witness status per-member. Contrast case: `WinNotifierImpl` (S4.3b) needed no member-level `@objc` at all — its ObjC-side identity is resolved once via `NSClassFromString("PBMWinNotifier_Objc")` (class-level bridge only, per `Factory.WinNotifierType`), and every actual call site (`notifyThroughConnection`, `winNotifierBlock`, `factoryBlock`) is Swift-only; no ObjC code ever calls a member by selector.
+
 ## Orphan headers — `.h` files with no `.m` (inventoried S3.2)
 
-**39 headers under `PrebidMobile/Objc/` have no matching `.m`**: block typedefs, `@protocol`s, macro headers, `+Protected`/`+Internal`/`+Private` class-continuation headers, `NS_ENUM`s, umbrella headers, categories on system classes. None is itself "ported" — each is **retired when its last importer is ported**. 2 dead + 28 tied to a named `.m` + 5 tied to the test bridging header + 4 shared-infrastructure = 39.
+**35 headers under `PrebidMobile/Objc/` have no matching `.m`** (was 39 as of S3.2; S4.3/S4.3b deleted 4 — `PBMAdMarkupStringHandler.h`, `PBMBidRequesterFactoryBlock.h`, `PBMWinNotifierBlock.h`, `PBMWinNotifierFactoryBlock.h` — once their last importers, `PBMWinNotifier.m`/`PBMPrebidParameterBuilder.m`/`PBMBidRequesterFactory.m`, were ported/removed): block typedefs, `@protocol`s, macro headers, `+Protected`/`+Internal`/`+Private` class-continuation headers, `NS_ENUM`s, umbrella headers, categories on system classes. None is itself "ported" — each is **retired when its last importer is ported**. 2 dead + 24 tied to a named `.m` + 5 tied to the test bridging header + 4 shared-infrastructure = 35.
 
 Re-measure:
 ```bash
@@ -311,13 +315,11 @@ comm -23 \
 | `PBMAbstractCreative+Protected.h` | class continuation | `PBMAbstractCreative.m`, `PBMHTMLCreative.m`, `PBMVideoCreative.m` |
 | `PBMAdLoadManagerDelegate.h` | `@protocol` | `PBMAdLoadManagerBase.m`, `PBMAdViewManager.m` |
 | `PBMAdLoadManagerProtocol.h` | `@protocol` | `PBMAdLoadManagerBase.m`, `PBMAdViewManager.m` |
-| `PBMAdMarkupStringHandler.h` | block typedef | via `PBMWinNotifierBlock.h` → `PBMWinNotifier.m`, `PBMPrebidParameterBuilder.m` |
-| `PBMBidRequesterFactoryBlock.h` | block typedef | `PBMBidRequesterFactory.m`, `PBMPrebidParameterBuilder.m` |
 | `PBMCreativeModelMakerResult.h` | block typedef | `PBMCreativeModelCollectionMakerVAST.m` |
 | `PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h` | class continuation | `PBMDeepLinkPlusHelper.m` |
 | `PBMExposureChangeDelegate.h` | `@protocol` | `PBMWebView.m`, `PBMMRAIDController.m` |
 | `PBMExternalURLOpenerBlock.h` | block typedef | `PBMExternalURLOpeners.m`, `PBMExternalLinkHandler.m`, `PBMDeepLinkPlusHelper.m` |
-| `PBMORTB.h` | umbrella | `PBMPrebidParameterBuilder.m`, `PBMWebView.m` |
+| `PBMORTB.h` | umbrella | `PBMWebView.m` |
 | `PBMORTBAbstract.h` | `@interface` | via `PBMORTBAbstract+Protected.h` → `PBMBidResponseTransformer.m` |
 | `PBMORTBAbstract+Protected.h` | class continuation | `PBMBidResponseTransformer.m` |
 | `PBMScheduledTimerFactory.h` | block typedef | `PBMCreativeViewabilityTracker.m` |
@@ -334,8 +336,6 @@ comm -23 \
 | `PBMVoidBlock.h` | block typedef | `PBMOpenMeasurementWrapper.m`, `PBMSafariVCOpener.m`, `PBMDeferredModalState.m`, `PBMExternalURLOpenCallbacks.m`, `PBMAbstractCreative.m` |
 | `PBMWebView+Internal.h` | class continuation | `PBMWebView.m` |
 | `PBMWebViewDelegate.h` | `@protocol` | `PBMWebView.m`, `PBMMRAIDController.m` |
-| `PBMWinNotifierBlock.h` | block typedef | `PBMWinNotifier.m`, `PBMPrebidParameterBuilder.m` |
-| `PBMWinNotifierFactoryBlock.h` | block typedef | `PBMWinNotifier.m` |
 
 Reducing rather than deleting is sometimes right mid-phase — see S2.1-G (`@protocol` → forward declaration) and S2.3-C (a reduced header breaks its importers).
 

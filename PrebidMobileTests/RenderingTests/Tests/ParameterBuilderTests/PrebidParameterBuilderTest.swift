@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PrebidParameterBuilderTest: XCTestCase {
     
@@ -1055,7 +1055,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         UserConsentParameterBuilder()
             .build(bidRequest)
 
-        PBMPrebidParameterBuilder(
+        PrebidParameterBuilder(
             adConfiguration: adUnitConfig,
             sdkConfiguration: sdkConfiguration,
             targeting: targeting,
