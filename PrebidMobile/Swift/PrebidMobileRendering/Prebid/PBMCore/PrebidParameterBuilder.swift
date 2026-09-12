@@ -178,7 +178,7 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
                         nextBanner.format = uniqueFormats
                     }
 
-                    if let api = bannerParameters.api, !api.isEmpty {
+                    if bannerParameters.api?.isEmpty == false {
                         nextBanner.api = bannerParameters.rawAPI?.map { NSNumber(value: $0) }
                     }
 
@@ -207,7 +207,7 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
 
                     let videoParameters = adConfiguration.adConfiguration.videoParameters
 
-                    if let api = videoParameters.api, !api.isEmpty {
+                    if videoParameters.api?.isEmpty == false {
                         nextVideo.api = videoParameters.rawAPI?.map { NSNumber(value: $0) }
                     }
 
@@ -231,11 +231,11 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
                         nextVideo.mimes = videoParameters.mimes
                     }
 
-                    if let playbackMethod = videoParameters.playbackMethod, !playbackMethod.isEmpty {
+                    if videoParameters.playbackMethod?.isEmpty == false {
                         nextVideo.playbackmethod = videoParameters.rawPlaybackMethod?.map { NSNumber(value: $0) }
                     }
 
-                    if let protocols = videoParameters.protocols, !protocols.isEmpty {
+                    if videoParameters.protocols?.isEmpty == false {
                         nextVideo.protocols = videoParameters.rawProtocols?.map { NSNumber(value: $0) }
                     }
 
@@ -255,7 +255,7 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
                         nextVideo.linearity = NSNumber(value: linearity.value)
                     }
 
-                    if let battr = videoParameters.battr, !battr.isEmpty {
+                    if videoParameters.battr?.isEmpty == false {
                         nextVideo.battr = videoParameters.rawBattrs?.map { NSNumber(value: $0) }
                     }
 

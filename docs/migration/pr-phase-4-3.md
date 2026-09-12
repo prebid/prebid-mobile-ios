@@ -53,6 +53,20 @@ of win/uuid/cache-URL notification `download` calls via nested closures, falling
 `hb_cache_host`/`hb_cache_path`/`hb_uuid`/`hb_cache_id`-keyed `cacheUrl(fromTargeting:idKey:)`
 helper and `adMarkupString(fromResponse:)` JSON-`"adm"` extraction helper.
 
+### Deliberate divergences from the ObjC originals
+
+Both ports are otherwise line-for-line, but three places tighten types that ObjC left unchecked.
+In each case the ObjC code relied on an implicitly-unsound `id` → `NSString *` assignment; Swift
+cannot express that, and the type-safe form changes behaviour only on inputs that would have
+produced a latent bug (a non-`NSString` masquerading as one, crashing later at an arbitrary
+`NSString` message send). No existing test exercises these paths.
+
+| Site | ObjC | Swift | Behaviour on malformed input |
+|------|------|-------|------------------------------|
+| `PrebidParameterBuilder.swift:91` | `bidRequest.app.ver = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]` — `id` stored into `NSString *` unchecked | `Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String` | A non-string `CFBundleShortVersionString` now yields `app.ver == nil` instead of a type-punned object |
+| `WinNotifierImpl.swift:47-49` | `[[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding]` passed straight into `adMarkupStringFromResponse:`, which could receive `nil` | `guard let rawData = ..., let rawResponseString = String(data:encoding:)` before calling the helper | Non-UTF8 / nil body now short-circuits to `adMarkupFromResponse == nil` rather than calling the helper with `nil` |
+| `WinNotifierImpl.swift:98` | `return jsonResponse[@"adm"];` — `id` returned as `NSString *` | `jsonResponse["adm"] as? String` | A non-string `adm` (e.g. a nested object) now yields `nil` instead of a type-punned object |
+
 ### Consumer re-pointing
 
 - **`PBMBidRequester.m`** — dropped `#import "PBMPrebidParameterBuilder.h"`; the one call site
@@ -66,7 +80,12 @@ helper and `adMarkupString(fromResponse:)` JSON-`"adm"` extraction helper.
   and Sources build phase), via the `xcodeproj` gem (same procedure as S4.1).
 - **`PrebidParameterBuilderTest.swift`** — `PBMPrebidParameterBuilder(...)` → `PrebidParameterBuilder(...)`;
   `@testable import PrebidMobile` → `@testable @_spi(PBMInternal) import PrebidMobile` (Gap S4.1-C —
-  the type is `@_spi(PBMInternal)`, a bare `@testable import` doesn't unlock it).
+  the type is `@_spi(PBMInternal)`, a bare `@testable import` doesn't unlock it). Added
+  `testPbAdSlotIsOmittedWhenNil()` — the builder writes `nextImp.extData?["pbadslot"] =
+  adConfiguration.getPbAdSlot()`, and a `nil` there must *remove* the key rather than insert a boxed
+  nil. That depends on Swift picking the optional-to-optional conversion for `NSMutableDictionary`'s
+  `Any?` subscript; the existing `testPbAdSlot()` only covered the non-nil case, so the nil case was
+  an untested silent-behaviour-change risk.
 
 ### Deleted (9 files)
 
@@ -115,3 +134,21 @@ SwiftLint build phase in `project.pbxproj`, no SwiftLint step in `.github/workfl
 - [x] `swiftlint lint --config .swiftlint.yml` on both new Swift files — 1 non-blocking
       `type_body_length` warning, 0 errors
 - [x] Repo-wide `rg` for the 7 deleted class/header names — zero remaining references
+
+### Post-review follow-ups (need a re-run of the suite)
+
+Applied after the test plan above was executed:
+
+- `testPbAdSlotIsOmittedWhenNil()` added (see "Consumer re-pointing") — **not yet executed**.
+- The five `if let x = params.x, !x.isEmpty` guards in `build(_:)` collapsed to
+  `if params.x?.isEmpty == false`. Each bound a value it never used — the body reads the parallel
+  `rawX` property — so the binding was dead and invited a future edit to use the wrong one.
+  Semantics are unchanged (`nil` and `[]` both fail the check, as before).
+- `ORTBFormat.swift`'s Gap S2.5-D comment re-pointed from `PBMPrebidParameterBuilder` /
+  `+ortbFormatWithSize:` to the new Swift names.
+
+Re-verified after these edits: `swiftlint lint --config .swiftlint.yml` on the three changed Swift
+files (1 non-blocking `type_body_length` warning, 0 errors) and `xcodebuild -scheme Lib-PrebidMobile
+… build` (**BUILD SUCCEEDED**). The `PrebidMobileTests` target cannot be built on a local Xcode 26.x
+toolchain — it fails with ~790 `cannot find type … in scope` errors for `@_spi(PBMInternal)` symbols
+**on `master` as well as on this branch**, so the new test needs CI (Xcode 16.4.0) to run.
