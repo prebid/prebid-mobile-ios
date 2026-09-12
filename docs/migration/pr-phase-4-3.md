@@ -119,6 +119,15 @@ SwiftLint build phase in `project.pbxproj`, no SwiftLint step in `.github/workfl
   to rule out `@_spi` as the cause, `AdUnitConfig`'s `@objcMembers` as the working counter-example,
   and the contrast with `WinNotifierImpl`, which needed no member-level `@objc` since its only
   ObjC touchpoint is a class-level `NSClassFromString` lookup).
+- New **Gap S4.3-B**: the rationale for Phase 4's non-numeric step order (`S4.1 → S4.3 + S4.3b →
+  S4.4 → S4.2 → S4.5`), which until now was recorded only as "per the user-approved step order".
+  S4.2 (`PBMBidRequester.m`) is the last surviving ObjC caller of both S4.1's and S4.3's output, so
+  keeping it in ObjC turns it into a free compile-time check of each port's `@objc` surface — which
+  is how S4.3-A was caught. Its own port is low-risk (already an `_Objc` shim behind a Swift
+  protocol, no ObjC callers), so deferring it costs nothing.
+- New **Gap S4.3-C**: `PrivateHeaders/PBMBidRequester.h` is dead but invisible to the orphan-header
+  sweep, because it *has* a matching `.m` — the `.m` just implements `PBMBidRequester_Objc` and
+  never imports it. Should be deleted with S4.2.
 - Orphan-header inventory (S3.2) updated: 39 → 35 headers with no matching `.m`. Removed 4 rows
   now actually deleted (`PBMAdMarkupStringHandler.h`, `PBMBidRequesterFactoryBlock.h`,
   `PBMWinNotifierBlock.h`, `PBMWinNotifierFactoryBlock.h`) and dropped the now-stale
