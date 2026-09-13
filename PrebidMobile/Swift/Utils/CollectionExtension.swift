@@ -142,6 +142,22 @@ extension Array where Element: Hashable {
     }
 }
 
+extension Array where Element == AnyHashable {
+
+    /// Removes duplicates, comparing JSON numbers by value rather than by boxing type.
+    ///
+    /// SDK-built ORTB holds `NSNumber`, while publisher ORTB parsed by
+    /// `Functions.dictionaryPreservingDecimals` holds `NSDecimalNumber`, and `AnyHashable`
+    /// doesn't equate the two: `[3] + [1, 3]` would otherwise keep both `3`s.
+    func removingDuplicateJSONValues() -> [Element] {
+        var addedKeys = Set<AnyHashable>()
+
+        return filter {
+            addedKeys.insert(jsonComparisonKey(for: $0)).inserted
+        }
+    }
+}
+
 extension Dictionary where Key == String {
     
     /// Merges the current dictionary with another dictionary recursively,
@@ -171,7 +187,7 @@ extension Dictionary where Key == String {
                     if let existingArray = existingValue as? [Any], let newArray = value as? [Any] {
                         let mergedArray = existingArray + newArray
                         if let hashableMergedArray = mergedArray as? [AnyHashable] {
-                            result[key] = hashableMergedArray.removingDuplicates()
+                            result[key] = hashableMergedArray.removingDuplicateJSONValues()
                         } else {
                             result[key] = mergedArray
                         }
@@ -211,6 +227,14 @@ extension Array where Element: SingleContainerInt {
 }
 
 //MARK: - private block
+
+// JSON booleans bridge to `NSNumber`, so `true` would otherwise compare equal to the number 1.
+private func jsonComparisonKey(for value: AnyHashable) -> AnyHashable {
+    guard let number = value.base as? NSNumber,
+          CFGetTypeID(number) != CFBooleanGetTypeID() else { return value }
+
+    return AnyHashable(number.decimalValue)
+}
 
 private func removeEntryWithoutValue(_ array: inout [Any]) {
     for (index, value) in array.enumerated().reversed() {
