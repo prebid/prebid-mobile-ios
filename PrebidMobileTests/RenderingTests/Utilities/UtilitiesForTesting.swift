@@ -302,6 +302,8 @@ typealias JsonDictionary = [String:Any]
         targeting.clearUserKeywords()
         targeting.clearAccessControlList()
         targeting.resetSharedId()
+        targeting.setExternalUserIds([])
+        targeting.setGlobalORTBConfig(nil)
         
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_ConsentString)
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR)
@@ -330,6 +332,8 @@ typealias JsonDictionary = [String:Any]
         XCTAssertTrue(targeting.getUserKeywords().isEmpty)
         XCTAssertTrue(targeting.accessControlList.isEmpty)
         XCTAssertFalse(targeting.sendSharedId)
+        XCTAssertNil(targeting.getExternalUserIds())
+        XCTAssertNil(targeting.getGlobalORTBConfig())
         
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_ConsentString))
         XCTAssertNil(UserDefaults.standard.object(forKey: UserConsentDataManager.shared.IABTCF_SubjectToGDPR))

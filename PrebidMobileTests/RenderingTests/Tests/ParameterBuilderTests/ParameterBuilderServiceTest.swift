@@ -30,6 +30,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     
     override func tearDown() {
         UtilitiesForTesting.resetTargeting(.shared)
+        Prebid.reset()
     }
     
     var sdkVersion: String { return Bundle(for: BannerView.self).infoDictionary!["CFBundleShortVersionString"] as! String }
@@ -724,5 +725,151 @@ class ParameterBuilderServiceTest : XCTestCase {
         // The global config is merged into the app object built by the SDK rather than replacing it.
         XCTAssertEqual(content?["url"] as? String, "https://example.com/article")
         XCTAssertEqual(app?["bundle"] as? String, "Mock.Bundle.Identifier")
+    }
+
+    // MARK: - EIDs placement
+
+    private let sdkEid: NSDictionary = [
+        "source": "id5-sync.com",
+        "uids": [["id": "id5-uid", "atype": 1]],
+        "inserter": "prebid.org",
+        "matcher": "id5-sync.com",
+        "mm": 3
+    ]
+
+    private let publisherEid: NSDictionary = [
+        "source": "publisher.com",
+        "uids": [["id": "publisher-uid", "atype": 3]]
+    ]
+
+    private var sdkExternalUserId: ExternalUserId {
+        let externalUserId = ExternalUserId(source: "id5-sync.com", uids: [UserUniqueID(uniqueId: "id5-uid", aType: 1)])
+        externalUserId.inserter = "prebid.org"
+        externalUserId.matcher = "id5-sync.com"
+        externalUserId.mm = 3
+        return externalUserId
+    }
+
+    func testEidsPlacementDefaultsToCompatible() {
+        XCTAssertEqual(Prebid().eidsPlacement, .compatible)
+    }
+
+    func testEidsPlacementCompatible() throws {
+        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+
+        let user = try buildUser(eidsPlacement: .compatible)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+        XCTAssertEqual(userExt(user)?["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testEidsPlacementOpenRTB26() throws {
+        Targeting.shared.userExt = ["custom": "value"]
+        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+        XCTAssertEqual(userExt(user) as NSDictionary?, ["custom": "value"])
+    }
+
+    func testEidsPlacementOpenRTB25() throws {
+        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+
+        let user = try buildUser(eidsPlacement: .openRTB25)
+
+        XCTAssertNil(user["eids"])
+        XCTAssertEqual(userExt(user)?["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testEidsPlacementWithoutEids() throws {
+        for placement in [EidsPlacement.openRTB26, .openRTB25, .compatible] {
+            let user = try buildUser(eidsPlacement: placement)
+
+            XCTAssertNil(user["eids"])
+            XCTAssertNil(userExt(user)?["eids"])
+        }
+    }
+
+    func testEidsPlacementChangeLeavesNoStaleEids() throws {
+        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+
+        var user = try buildUser(eidsPlacement: .openRTB25)
+        XCTAssertNil(user["eids"])
+        XCTAssertNotNil(userExt(user)?["eids"])
+
+        user = try buildUser(eidsPlacement: .openRTB26)
+        XCTAssertNotNil(user["eids"])
+        XCTAssertNil(userExt(user)?["eids"])
+
+        user = try buildUser(eidsPlacement: .openRTB25)
+        XCTAssertNil(user["eids"])
+        XCTAssertNotNil(userExt(user)?["eids"])
+    }
+
+    func testEidsPlacementOpenRTB26IncludesUserExtEids() throws {
+        Targeting.shared.userExt = ["eids": NSArray(object: publisherEid)]
+        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [publisherEid, sdkEid])
+        XCTAssertNil(userExt(user)?["eids"])
+    }
+
+    func testEidsPlacementOpenRTB26IncludesGlobalORTBConfigEids() throws {
+        Targeting.shared.setGlobalORTBConfig("{\"user\":{\"ext\":{\"eids\":[{\"source\":\"publisher.com\",\"uids\":[{\"id\":\"publisher-uid\",\"atype\":3}]}]}}}")
+        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid, publisherEid])
+        XCTAssertNil(userExt(user)?["eids"])
+    }
+
+    func testPlaceEidsDoesNotDuplicateEidsPresentInBothLocations() {
+        let ortb: [String: Any] = [
+            "user": ["eids": [publisherEid], "ext": ["eids": [publisherEid, sdkEid]]] as [String: Any]
+        ]
+
+        let user = ParameterBuilderService.placeEids(in: ortb, placement: .compatible)["user"] as? [String: Any] ?? [:]
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [publisherEid, sdkEid])
+        XCTAssertEqual(userExt(user)?["eids"] as? [NSDictionary], [publisherEid, sdkEid])
+    }
+
+    func testPlaceEidsIsIdempotent() {
+        let ortb: [String: Any] = ["user": ["ext": ["eids": [sdkEid]]]]
+
+        let once = ParameterBuilderService.placeEids(in: ortb, placement: .compatible)
+        let twice = ParameterBuilderService.placeEids(in: once, placement: .compatible)
+
+        XCTAssertEqual(once as NSDictionary, twice as NSDictionary)
+    }
+
+    private func buildUser(eidsPlacement: EidsPlacement) throws -> [String: Any] {
+        let sdkConfiguration = Prebid.mock
+        sdkConfiguration.eidsPlacement = eidsPlacement
+
+        let paramsDict = ParameterBuilderService.buildParamsDict(
+            with: AdConfiguration(),
+            bundle: MockBundle(),
+            pbmLocationManager: MockLocationManagerSuccessful.sharedMock,
+            pbmDeviceAccessManager: MockDeviceAccessManager(rootViewController: nil),
+            ctTelephonyNetworkInfo: MockCTTelephonyNetworkInfo(),
+            reachability: MockReachability.shared,
+            sdkConfiguration: sdkConfiguration,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: .shared,
+            extraParameterBuilders: nil
+        )
+
+        let ortbData = try XCTUnwrap(paramsDict[PrebidConstants.OPEN_RTB_SCHEME]?.data(using: .utf8))
+        let ortb = try XCTUnwrap(JSONSerialization.jsonObject(with: ortbData) as? [String: Any])
+        return ortb["user"] as? [String: Any] ?? [:]
+    }
+
+    private func userExt(_ user: [String: Any]) -> [String: Any]? {
+        user["ext"] as? [String: Any]
     }
 }

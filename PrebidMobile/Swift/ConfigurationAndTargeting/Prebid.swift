@@ -149,6 +149,11 @@ public class Prebid: NSObject {
 
     /// If true, the sdk will add `includebidderkeys` flag inside the targeting object described in [PBS Documentation](https://docs.prebid.org/prebid-server/endpoints/openrtb2/pbs-endpoint-auction.html#targeting)
     public var includeBidderKeys = false
+
+    /// Where the SDK places Extended Identifiers (EIDs) in the bid request: `user.eids` (OpenRTB 2.6),
+    /// `user.ext.eids` (OpenRTB 2.5), or both. Prebid Server uses `user.eids` when both are present.
+    /// Defaults to `.compatible`.
+    public var eidsPlacement: EidsPlacement = .compatible
     
     /**
      * If true, the SDK will not check the PBS status during initialization. This will save initialization time
