@@ -83,6 +83,7 @@ class ResponseParsingTests: XCTestCase {
                 "skipbuttonposition" : "_skipbuttonposition",
                 "skipdelay" : 5,
                 "isautocloseoncompletionenabled" : false,
+                "isvideoprogressindicatorvisible" : true,
             ]
         }
         
@@ -274,10 +275,11 @@ class ResponseParsingTests: XCTestCase {
         XCTAssertEqual(entity.skipButtonPosition, "_skipbuttonposition")
         XCTAssertEqual(entity.skipDelay, 5)
         XCTAssertEqual(entity.isAutoCloseOnCompletionEnabled?.boolValue, false)
-        
+        XCTAssertEqual(entity.isVideoProgressIndicatorVisible?.boolValue, true)
+
         XCTAssertEqual(entity.jsonDictionary as NSDictionary, json as NSDictionary)
     }
-    
+
     func testBidExt() {
         let json = JSON.bidExt()
         let entity = ORTBBidExt(jsonDictionary: json)
