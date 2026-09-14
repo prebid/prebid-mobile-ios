@@ -34,5 +34,6 @@ protocol BaseInterstitialAdUnitProtocol: NSObjectProtocol {
     @objc func callEventHandler_show(from controller: UIViewController?)
     @objc func callEventHandler_trackImpression()
     
+    @objc optional func callDelegate_adDidExpire()
     @objc optional func callDelegate_rewardedAdUserDidEarnReward(reward: PrebidReward)
 }

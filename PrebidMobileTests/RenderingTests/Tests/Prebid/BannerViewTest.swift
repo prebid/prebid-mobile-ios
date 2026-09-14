@@ -17,12 +17,6 @@ import XCTest
 
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MockBannerView: BannerView {
-    override var lastBidResponse: BidResponse? {
-        return WinningBidResponseFabricator.makeWinningBidResponse(bidPrice: 0.85)
-    }
-}
-
 // Returns a bid response whose winning bid references a named plugin renderer.
 private class MockBannerViewWithCustomRenderer: BannerView {
     var mockRendererName: String = ""
@@ -129,63 +123,118 @@ class BannerViewTest: XCTestCase {
         XCTAssertTrue(delegate.events.contains(.complete))
     }
     
-    @objc private class TestBannerDelegate: NSObject, BannerViewDelegate {
-        let exp: XCTestExpectation
-        
-        init(exp: XCTestExpectation) {
-            self.exp = exp
+    func testBannerViewReportsExpirationAndKeepsDeployedViewWhenRefreshStopped() {
+        let bannerView = MockBannerView(
+            frame: CGRect(origin: .zero, size: CGSize(width: 320, height: 50)),
+            configID: "auid",
+            adSize: CGSize(width: 320, height: 50),
+            eventHandler: BannerEventHandlerStandalone()
+        )
+        bannerView.isRefreshStopped = true
+
+        assertExpirationKeepsDeployedView(of: bannerView)
+    }
+
+    func testBannerViewReportsExpirationAndKeepsDeployedViewWhenRefreshIsDisabled() {
+        let bannerView = MockBannerView(
+            frame: CGRect(origin: .zero, size: CGSize(width: 320, height: 50)),
+            configID: "auid",
+            adSize: CGSize(width: 320, height: 50),
+            eventHandler: BannerEventHandlerStandalone()
+        )
+        // Outstream video is not refreshable: the interval is forced to 0.
+        bannerView.adUnitConfig.adConfiguration.winningBidAdFormat = .video
+        bannerView.refreshInterval = 0
+        XCTAssertEqual(bannerView.refreshInterval, 0)
+
+        assertExpirationKeepsDeployedView(of: bannerView)
+    }
+
+    private func assertExpirationKeepsDeployedView(
+        of bannerView: MockBannerView,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        let adLoadFlowController = TestAdLoadFlowController(adUnitConfig: bannerView.adUnitConfig)
+        bannerView.adLoadFlowController = adLoadFlowController
+        let autoRefreshManager = AutoRefreshManager(
+            prefetchTime: PrebidConstants.AD_PREFETCH_TIME,
+            lockingQueue: nil,
+            lockProvider: nil,
+            refreshDelayBlock: { 30 },
+            mayRefreshNowBlock: { true },
+            refreshBlock: {}
+        )
+        autoRefreshManager.setupRefreshTimer()
+        XCTAssertNotNil(autoRefreshManager.delayedBlock, file: file, line: line)
+        bannerView.autoRefreshManager = autoRefreshManager
+        let deployedView = UIView()
+        bannerView.deployView(deployedView)
+        let expirationExpectation = expectation(description: "Banner expiration callback")
+        let delegate = TestBannerDelegate(expireExp: expirationExpectation)
+        delegate.onExpire = { bannerView in
+            XCTAssertTrue(bannerView.deployedView === deployedView, file: file, line: line)
         }
-        
-        func bannerViewPresentationController() -> UIViewController? {
-            return nil
-        }
-        
-        func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
-            XCTAssertEqual(error as NSError?, PBMError.prebidInvalidAccountId() as NSError?)
-            XCTAssertNotNil(bannerView.lastBidResponse)
-            exp.fulfill()
-        }
-        
-        func bannerView(_ bannerView: BannerView, didReceiveAdWithAdSize adSize: CGSize) {
-            XCTFail("Ad unexpectedly loaded successfully...")
-            exp.fulfill()
-        }
+        bannerView.delegate = delegate
+
+        let adLoader = BannerAdLoader(delegate: bannerView)
+        bannerView.bannerAdLoaderDidExpire(adLoader)
+
+        waitForExpectations(timeout: 1.0)
+        XCTAssertTrue(bannerView.deployedView === deployedView, file: file, line: line)
+        XCTAssertTrue(deployedView.superview === bannerView, file: file, line: line)
+        XCTAssertNotNil(autoRefreshManager.delayedBlock, file: file, line: line)
+        XCTAssertEqual(adLoadFlowController.refreshCallCount, 0, file: file, line: line)
+        XCTAssertEqual(delegate.failCallCount, 0, file: file, line: line)
+
+        autoRefreshManager.cancelRefreshTimer()
     }
     
-    @objc private class TestBannerViewVideoPlaybackDelegate: NSObject, BannerViewVideoPlaybackDelegate {
-        
-        struct BannerViewVideoPlaybackDelegateEvents: OptionSet {
-            let rawValue: Int8
-            
-            static let pause = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 0)
-            static let resume = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 1)
-            static let mute = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 2)
-            static let unmute = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 3)
-            static let complete = BannerViewVideoPlaybackDelegateEvents(rawValue: 1 << 4)
+    func testBannerViewReportsExpirationAndRemovesDeployedViewWithoutFailureWhenRefreshIsConfigured() {
+        let bannerView = MockBannerView(
+            frame: CGRect(origin: .zero, size: CGSize(width: 320, height: 50)),
+            configID: "auid",
+            adSize: CGSize(width: 320, height: 50),
+            eventHandler: BannerEventHandlerStandalone()
+        )
+        bannerView.refreshInterval = 30
+        let adLoadFlowController = TestAdLoadFlowController(adUnitConfig: bannerView.adUnitConfig)
+        let autoRefreshManager = AutoRefreshManager(
+            prefetchTime: PrebidConstants.AD_PREFETCH_TIME,
+            lockingQueue: nil,
+            lockProvider: nil,
+            refreshDelayBlock: { 30 },
+            mayRefreshNowBlock: { true },
+            refreshBlock: {}
+        )
+        autoRefreshManager.setupRefreshTimer()
+        XCTAssertNotNil(autoRefreshManager.delayedBlock)
+        bannerView.autoRefreshManager = autoRefreshManager
+        let refreshExpectation = expectation(description: "Banner expiration refreshes ad load flow")
+        adLoadFlowController.refreshHandler = {
+            XCTAssertNil(autoRefreshManager.delayedBlock)
+            refreshExpectation.fulfill()
         }
-        
-        var events: BannerViewVideoPlaybackDelegateEvents = []
-        
-        func videoPlaybackDidPause(_ banner: PrebidMobile.BannerView) {
-            events.insert(.pause)
+        bannerView.adLoadFlowController = adLoadFlowController
+        let expirationExpectation = expectation(description: "Banner expiration callback")
+        let delegate = TestBannerDelegate(expireExp: expirationExpectation)
+        delegate.onExpire = { bannerView in
+            XCTAssertNil(bannerView.deployedView)
+            XCTAssertNil(autoRefreshManager.delayedBlock)
         }
+        bannerView.delegate = delegate
+        let deployedView = UIView()
+        bannerView.deployView(deployedView)
         
-        func videoPlaybackDidResume(_ banner: PrebidMobile.BannerView) {
-            events.insert(.resume)
-        }
+        let adLoader = BannerAdLoader(delegate: bannerView)
+        bannerView.bannerAdLoaderDidExpire(adLoader)
         
-        func videoPlaybackWasMuted(_ banner: PrebidMobile.BannerView) {
-            events.insert(.mute)
-        }
-        
-        func videoPlaybackWasUnmuted(_ banner: PrebidMobile.BannerView) {
-            events.insert(.unmute)
-        }
-        
-        func videoPlaybackDidComplete(_ banner: PrebidMobile.BannerView) {
-            events.insert(.complete)
-        }
+        waitForExpectations(timeout: 1.0)
+        XCTAssertNil(bannerView.deployedView)
+        XCTAssertEqual(delegate.failCallCount, 0)
+        XCTAssertEqual(adLoadFlowController.refreshCallCount, 1)
     }
+    
 }
 
 class BannerViewDidInjectViewTests: XCTestCase {

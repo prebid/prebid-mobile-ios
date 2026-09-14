@@ -56,6 +56,11 @@ public class Bid: NSObject {
             
     }
     
+    /// Advisory number of seconds the bidder is willing to wait between auction and impression.
+    @objc public var exp: NSNumber? {
+        bid.exp
+    }
+    
     /// Targeting information that needs to be passed to the ad server SDK.
     public var targetingInfo: [String : String]? {
         bid.ext?.prebid?.targeting?.compactMapValues { $0 as? String }

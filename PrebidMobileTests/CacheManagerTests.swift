@@ -47,6 +47,21 @@ class CacheManagerTests: XCTestCase {
         XCTAssertTrue(CacheManager.shared.isValid(cacheId: cacheId3!))
         XCTAssertEqual(content3, CacheManager.shared.get(cacheId: cacheId3!))
     }
+    
+    func testCacheManagerSaveWithExpireIntervalInvalidatesCachedContent() {
+        let cacheId = CacheManager.shared.save(content: "Prebid Native Ad", expireInterval: 0.1)!
+        XCTAssertTrue(CacheManager.shared.isValid(cacheId: cacheId))
+        
+        let expireExpectation = expectation(description: "Cached content expired")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            XCTAssertFalse(CacheManager.shared.isValid(cacheId: cacheId))
+            XCTAssertNil(CacheManager.shared.get(cacheId: cacheId))
+            expireExpectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1.0)
+    }
 
     func testCacheManagerMultipleNativeAdDelegates() {
         let nativeContent = "{\"adm\":\"{\\\"assets\\\":[{\\\"required\\\":1,\\\"title\\\":{\\\"text\\\":\\\"Prebid (Title)\\\"}},{\\\"id\\\":2,\\\"required\\\":1,\\\"img\\\":{\\\"type\\\":3,\\\"url\\\":\\\"https:\\/\\/s3.amazonaws.com\\/files.prebid.org\\/creatives\\/prebid728x90.png\\\"}},{\\\"id\\\":3,\\\"required\\\":1,\\\"data\\\":{\\\"type\\\":1,\\\"value\\\":\\\"Prebid (Brand)\\\"}}],\\\"link\\\":{\\\"url\\\":\\\"https:\\/\\/prebid.org\\/\\\"}}\",\"ext\":{\"prebid\":{\"cache\":{\"bids\":{\"cacheId\":\"0064e6b4-e051-4b6c-ab96-0b32af9dd7d0\",\"url\":\"https:\\/\\/prebid-server-test-j.prebid.org\\/cache?uuid=0064e6b4-e051-4b6c-ab96-0b32af9dd7d0\"}},\"targeting\":{\"hb_bidder\":\"prebid\",\"hb_bidder_prebid\":\"prebid\",\"hb_cache_host\":\"prebid-server-test-j.prebid.org\",\"hb_cache_host_prebid\":\"prebid-server-test-j.prebid.org\",\"hb_cache_id\":\"0064e6b4-e051-4b6c-ab96-0b32af9dd7d0\",\"hb_cache_id_prebid\":\"0064e6b4-e051-4b6c-ab96-0b32af9dd7d0\",\"hb_cache_path\":\"\\/cache\",\"hb_cache_path_prebid\":\"\\/cache\",\"hb_env\":\"mobile-app\",\"hb_env_prebid\":\"mobile-app\",\"hb_pb\":\"0.10\",\"hb_pb_prebid\":\"0.10\"},\"type\":\"native\"}},\"id\":\"prebid-ita-response-banner-native-styles\",\"impid\":\"58C2A794-C3F0-4D3D-B19D-4D1E1908CB09\",\"price\":0.10000000000000001}"

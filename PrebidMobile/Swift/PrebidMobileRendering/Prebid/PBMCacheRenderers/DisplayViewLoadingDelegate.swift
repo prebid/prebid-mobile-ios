@@ -32,4 +32,7 @@ public protocol DisplayViewLoadingDelegate: NSObjectProtocol {
     ///   - displayView: The `UIView` instance where the ad was intended to load.
     ///   - error: An `Error` instance describing the issue that occurred during the ad loading.
     @objc func displayView(_ displayView: UIView, didFailWithError error: Error)
+    
+    /// Notifies that the currently loaded ad in the display view expired.
+    @objc optional func displayViewDidExpire(_ displayView: UIView)
 }

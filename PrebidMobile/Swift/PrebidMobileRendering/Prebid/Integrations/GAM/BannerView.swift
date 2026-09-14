@@ -406,6 +406,24 @@ public class BannerView:
         }
     }
     
+    private func reportAdExpired() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+
+            // A non-refreshable banner keeps showing its creative; the app is only notified.
+            guard self.adUnitConfig.refreshInterval > 0, !self.isRefreshStopped else {
+                self.delegate?.bannerViewDidExpire?(self)
+                return
+            }
+
+            self.autoRefreshManager?.cancelRefreshTimer()
+            self.deployedView?.removeFromSuperview()
+            self.deployedView = nil
+            self.delegate?.bannerViewDidExpire?(self)
+            self.adLoadFlowController?.refresh()
+        }
+    }
+    
     private func installDeployedViewConstraints(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -471,6 +489,10 @@ extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
     ) {
         deployView(adView)
         reportLoadingSuccess(with: adSize)
+    }
+    
+    public func bannerAdLoaderDidExpire(_ bannerAdLoader: BannerAdLoader) {
+        reportAdExpired()
     }
 }
 
