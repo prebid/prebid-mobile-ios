@@ -693,4 +693,36 @@ class ParameterBuilderServiceTest : XCTestCase {
         
         PBMAssertEq(strORTB, expectedOrtb)
     }
+
+    func testGlobalORTBConfigAppContentUrlInParamsDict() {
+        let targeting = Targeting.shared
+        targeting.setGlobalORTBConfig("{\"app\":{\"content\":{\"url\":\"https://example.com/article\"}}}")
+        defer { targeting.setGlobalORTBConfig(nil) }
+
+        let paramsDict = ParameterBuilderService.buildParamsDict(
+            with: AdConfiguration(),
+            bundle: MockBundle(),
+            pbmLocationManager: MockLocationManagerSuccessful.sharedMock,
+            pbmDeviceAccessManager: MockDeviceAccessManager(rootViewController: nil),
+            ctTelephonyNetworkInfo: MockCTTelephonyNetworkInfo(),
+            reachability: MockReachability.shared,
+            sdkConfiguration: Prebid.mock,
+            sdkVersion: "MOCK_SDK_VERSION",
+            targeting: targeting,
+            extraParameterBuilders: nil
+        )
+
+        guard let strORTB = paramsDict[PrebidConstants.OPEN_RTB_SCHEME] else {
+            XCTFail("No ORTB string in parameter keys")
+            return
+        }
+
+        let ortb = try? JSONSerialization.jsonObject(with: Data(strORTB.utf8)) as? [String: Any]
+        let app = ortb?["app"] as? [String: Any]
+        let content = app?["content"] as? [String: Any]
+
+        // The global config is merged into the app object built by the SDK rather than replacing it.
+        XCTAssertEqual(content?["url"] as? String, "https://example.com/article")
+        XCTAssertEqual(app?["bundle"] as? String, "Mock.Bundle.Identifier")
+    }
 }

@@ -158,6 +158,10 @@ public class Targeting: NSObject {
     // MARK: - Application Information
     
     /// This is the deep-link URL for the app screen that is displaying the ad. This can be an iOS universal link.
+    ///
+    /// - Warning: Deprecated, will be removed in 4.0. This value is not sent in the bid request.
+    ///   Set `app.content.url` with `setGlobalORTBConfig(_:)` instead.
+    @available(*, deprecated, message: "This property is deprecated and will be removed in 4.0. It is not sent in the bid request; use `setGlobalORTBConfig(_:)` to set `app.content.url` instead.")
     public var contentUrl: String?
     
     /// App's publisher name.
