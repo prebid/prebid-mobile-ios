@@ -1830,4 +1830,31 @@ class ArbitraryORTBServiceTests: XCTestCase {
         XCTAssertFalse(jsonString.contains("0.050000000000000003"), jsonString)
         XCTAssertFalse(jsonString.contains("0.10000000000000001"), jsonString)
     }
+
+    // MARK: - Issue #1318 regression
+
+    func testMergeImpORTB_deduplicatesNumbersAlreadySetBySDK_issue1318() throws {
+        let impORTB = """
+        {
+          "video": {
+            "delivery": [1, 3]
+          }
+        }
+        """
+
+        // `JSONSerialization` boxes numbers as `NSNumber`, as the SDK-built request does
+        // for the hardcoded `delivery = @[@(3)]`.
+        let sdkORTB = #"{"imp": [{"id": "1", "video": {"delivery": [3]}}]}"#
+
+        let merged = ArbitraryORTBService.merge(
+            sdkORTB: try Functions.dictionaryFromJSONString(sdkORTB),
+            impORTB: impORTB,
+            globalAdUnitORTB: nil,
+            globalORTB: nil
+        )
+
+        let jsonString = try Functions.jsonString(from: merged)
+
+        XCTAssertEqual(jsonString, #"{"imp":[{"id":"1","video":{"delivery":[3,1]}}]}"#)
+    }
 }

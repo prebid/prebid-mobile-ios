@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class CollectionExtensionTest: XCTestCase {
     
@@ -309,6 +309,35 @@ class CollectionExtensionTest: XCTestCase {
         XCTAssertEqual(merged as NSDictionary, expected as NSDictionary)
     }
     
+    // MARK: - Issue #1318 regression
+
+    // The SDK-built request boxes numbers as `NSNumber`, like `JSONSerialization` does, while
+    // publisher ORTB parsed by `Functions.dictionaryPreservingDecimals` boxes them as `NSDecimalNumber`.
+    func testDeepMergeArraysWithDuplicates_numbersWithDifferentBoxing() throws {
+        let sdkDict = try Functions.dictionaryFromJSONString(#"{"key1": [3], "key2": [0.5]}"#)
+        let publisherDict = try Functions.dictionaryPreservingDecimals(from: #"{"key1": [1, 3], "key2": [0.5, 2.5]}"#)
+
+        let merged = sdkDict.deepMerging(with: publisherDict)
+
+        XCTAssertEqual(try jsonArrayString(merged["key1"]), "[3,1]")
+        XCTAssertEqual(try jsonArrayString(merged["key2"]), "[0.5,2.5]")
+    }
+
+    // JSON booleans bridge to `NSNumber` too, but must stay distinct from 1 and 0.
+    func testDeepMergeArraysWithDuplicates_booleansAreNotNumbers() throws {
+        let sdkDict = try Functions.dictionaryFromJSONString(#"{"key1": [true, 0]}"#)
+        let publisherDict = try Functions.dictionaryPreservingDecimals(from: #"{"key1": [1, false, 0, true]}"#)
+
+        let merged = sdkDict.deepMerging(with: publisherDict)
+
+        XCTAssertEqual(try jsonArrayString(merged["key1"]), "[true,0,1,false]")
+    }
+
+    private func jsonArrayString(_ array: Any?) throws -> String? {
+        let jsonData = try JSONSerialization.data(withJSONObject: XCTUnwrap(array))
+        return String(data: jsonData, encoding: .utf8)
+    }
+
     private func collectionToString(_ dict: [AnyHashable: Any]) -> String {
         let jsonData = try! JSONSerialization.data(withJSONObject: dict, options: [])
         let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
