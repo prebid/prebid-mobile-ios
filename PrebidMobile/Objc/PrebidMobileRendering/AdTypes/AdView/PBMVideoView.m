@@ -574,6 +574,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     self.btnWatchAgain = nil;
     
     [self trackStartPlaybackEvents];
+    [self notifyVideoDidStart];
 }
 
 - (void)btnMuteClick:(UIButton *)button {
@@ -617,6 +618,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
     if (isFirstPlayback) {
         [self trackStartPlaybackEvents];
+        [self notifyVideoDidStart];
     }
 }
 
@@ -909,6 +911,12 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
                                             volume:self.avPlayer.volume];
     
     PBMLogInfo(@"Video Playback Progress: PBMTrackingEventCreativeView/PBMTrackingEventStart");
+}
+
+- (void)notifyVideoDidStart {
+    if ([self.creative.creativeViewDelegate respondsToSelector:@selector(videoDidStart:)]) {
+        [self.creative.creativeViewDelegate videoDidStart:self.creative];
+    }
 }
 
 // pause avPlayer and notify videoViewCompletedDisplay if video reached the VAST Duration

@@ -147,3 +147,13 @@ extension UIView {
         return false
     }
 }
+
+extension UIView {
+    
+    /// Depth-first search of the view hierarchy below the receiver for the first view of the given type.
+    func firstDescendant<T: UIView>(of type: T.Type) -> T? {
+        subviews.lazy
+            .compactMap { ($0 as? T) ?? $0.firstDescendant(of: type) }
+            .first
+    }
+}

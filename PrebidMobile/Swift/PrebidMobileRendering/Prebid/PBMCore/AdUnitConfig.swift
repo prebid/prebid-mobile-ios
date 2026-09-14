@@ -31,7 +31,7 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public var adFormats: Set<AdFormat> {
         didSet {
-            updateAdFormat()
+            adConfiguration.adFormats = adFormats
         }
     }
     
@@ -53,14 +53,14 @@ public class AdUnitConfig: NSObject, NSCopying {
     let fingerprint = UUID().uuidString
     
     var _refreshInterval: TimeInterval = refreshIntervalDefault
+
+    /// The publisher-configured auto-refresh interval.
+    ///
+    /// Pure configuration: independent of `adFormats` and of the winning bid's format.
+    /// `BannerView` skips refresh ticks while a Prebid video creative is playing.
     public var refreshInterval: TimeInterval {
         get { _refreshInterval }
         set {
-            if adConfiguration.winningBidAdFormat == .video {
-                Log.warn("'refreshInterval' property is not assignable for Outstream Video ads")
-                _refreshInterval = 0
-                return
-            }
             if newValue < 0 {
                 _refreshInterval  = 0
             } else {
@@ -164,16 +164,5 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.viewableDuration = self.adConfiguration.viewableDuration
         
         return clone
-    }
-    
-    // MARK: - Private Methods
-
-    private func updateAdFormat() {
-        if adConfiguration.adFormats == adFormats {
-            return
-        }
-        
-        self.adConfiguration.adFormats = adFormats
-        self.refreshInterval = (adConfiguration.winningBidAdFormat == .video) ? 0 : refreshIntervalDefault;
     }
 }

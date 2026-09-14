@@ -39,6 +39,19 @@ private class MockBannerViewWithCustomRenderer: BannerView {
     }
 }
 
+// Returns a bid response whose winning bid is of the given format (banner or video).
+private class MockBannerViewWithBidFormat: BannerView {
+    var mockBidFormat = "banner"
+    
+    override var lastBidResponse: BidResponse? {
+        let rawBid = RawWinningBidFabricator.makeRawWinningBid(price: 0.85, bidder: "some bidder", cacheID: "some-cache-id")
+        rawBid.ext?.prebid?.type = mockBidFormat
+        let rawResponse = ORTBBidResponse<ORTBBidResponseExt, [String: Any], ORTBBidExt>(requestID: "")
+        rawResponse.seatbid = [.init(bid: [rawBid])]
+        return BidResponse(jsonDictionary: rawResponse.jsonDictionary)
+    }
+}
+
 class BannerViewTest: XCTestCase {
     override func tearDown() {
         Prebid.reset()
@@ -73,6 +86,102 @@ class BannerViewTest: XCTestCase {
         
         bannerView.refreshInterval = refreshInterval
         XCTAssertEqual(adUnitConfig.refreshInterval, refreshInterval)
+    }
+    
+    func testAdFormats() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        let adUnitConfig = bannerView.adUnitConfig
+        
+        // Default: display banner only
+        XCTAssertEqual(bannerView.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // Single format
+        bannerView.adFormats = [.video]
+        XCTAssertEqual(bannerView.adFormats, [.video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.video])
+        
+        // Multiformat
+        bannerView.adFormats = [.banner, .video]
+        XCTAssertEqual(bannerView.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    @available(*, deprecated, message: "Covers the deprecated `adFormat` property.")
+    func testDeprecatedAdFormatIsBackedByAdFormats() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        
+        XCTAssertEqual(bannerView.adFormat, .banner)
+        
+        // Legacy setter replaces the whole set
+        bannerView.adFormat = .video
+        XCTAssertEqual(bannerView.adFormat, .video)
+        XCTAssertEqual(bannerView.adFormats, [.video])
+        XCTAssertEqual(bannerView.adUnitConfig.adFormats, [.video])
+        
+        // New setter is visible through the legacy getter
+        bannerView.adFormats = [.banner]
+        XCTAssertEqual(bannerView.adFormat, .banner)
+        
+        // Legacy getter returns a member of a multiformat set
+        bannerView.adFormats = [.banner, .video]
+        XCTAssertTrue(bannerView.adFormats.contains(bannerView.adFormat))
+    }
+    
+    func testAdFormatsRejectsEmptySet() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        let adUnitConfig = bannerView.adUnitConfig
+        
+        bannerView.adFormats = [.banner, .video]
+        
+        bannerView.adFormats = []
+        
+        XCTAssertEqual(bannerView.adFormats, [.banner, .video], "Empty set must be ignored")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    func testAdFormatsRejectsUnsupportedFormats() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        let adUnitConfig = bannerView.adUnitConfig
+        
+        // Unsupported only
+        bannerView.adFormats = [.native]
+        XCTAssertEqual(bannerView.adFormats, [.banner], "Native-only set must be ignored")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // Mixed supported + unsupported must be rejected as a whole
+        bannerView.adFormats = [.banner, .video, .native]
+        XCTAssertEqual(bannerView.adFormats, [.banner], "Set containing native must be ignored entirely")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // A valid set is still accepted afterwards
+        bannerView.adFormats = [.banner, .video]
+        XCTAssertEqual(bannerView.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    @available(*, deprecated, message: "Covers the deprecated `adFormat` property.")
+    func testDeprecatedAdFormatRejectsUnsupportedFormat() {
+        let primarySize = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+        
+        bannerView.adFormat = .video
+        bannerView.adFormat = .native
+        
+        XCTAssertEqual(bannerView.adFormat, .video, "Legacy setter must go through the same validation")
+        XCTAssertEqual(bannerView.adFormats, [.video])
+        XCTAssertEqual(bannerView.adUnitConfig.adFormats, [.video])
     }
     
     func testAccountErrorPropagation() {
@@ -127,6 +236,145 @@ class BannerViewTest: XCTestCase {
         
         displayView.videoAdDidFinish()
         XCTAssertTrue(delegate.events.contains(.complete))
+    }
+
+    // Regression: `AdUnitConfig` is shared across refreshes of a multiformat
+    // banner, so `isBuiltInVideo` must be derived from the current bid on every
+    // load rather than latched to `true` once a video creative has won.
+    func testIsBuiltInVideoTracksWinningBidFormatAcrossRefreshes() {
+        let size = CGSize(width: 300, height: 250)
+        let frame = CGRect(origin: .zero, size: size)
+        let config = AdUnitConfig(configId: "configID", size: size)
+        config.adFormats = [.banner, .video]
+        
+        XCTAssertFalse(config.adConfiguration.isBuiltInVideo)
+        
+        // Auction 1: video wins
+        let videoView = DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config)
+        videoView.loadAd()
+        XCTAssertEqual(config.adConfiguration.winningBidAdFormat, .video)
+        XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
+        
+        // Auction 2 (refresh, same config): HTML banner wins
+        let bannerView = DisplayView(frame: frame, bid: makeBid(type: "banner"), adConfiguration: config)
+        bannerView.loadAd()
+        XCTAssertEqual(config.adConfiguration.winningBidAdFormat, .banner)
+        XCTAssertFalse(config.adConfiguration.isBuiltInVideo,
+                       "isBuiltInVideo must be cleared when a non-video creative wins on refresh")
+        
+        // Auction 3: video wins again
+        let videoView2 = DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config)
+        videoView2.loadAd()
+        XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
+    }
+    
+    // MARK: - Auto-refresh vs. video creatives
+    
+    // Regression: the primary ad server can win over a Prebid video bid (no matching line item,
+    // app event timeout). `lastBidResponse` still holds the losing video bid, so the timer must
+    // not be cancelled based on it - the GAM creative on screen must keep refreshing.
+    func testAdServerWinOverVideoBidKeepsAutoRefresh() {
+        let bannerView = makeBannerView(bidFormat: "video")
+        let window = makeVisible(bannerView)
+        defer { window.isHidden = true }
+        armRefreshTimer(bannerView)
+        
+        let adServerCreative = UIView(frame: bannerView.bounds)
+        bannerView.bannerAdLoader(BannerAdLoader(delegate: bannerView), loadedAdView: adServerCreative, adSize: bannerView.bounds.size)
+        
+        XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "Loading an ad must never cancel the refresh timer")
+        waitForDeploy(of: adServerCreative, in: bannerView)
+        XCTAssertFalse(bannerView.isVideoPlaying)
+        XCTAssertTrue(bannerView.mayRefreshNow, "The ad server creative on screen must keep refreshing")
+    }
+    
+    func testBannerWinningBidKeepsAutoRefresh() {
+        let bannerView = makeBannerView(bidFormat: "banner")
+        armRefreshTimer(bannerView)
+        
+        bannerView.bannerAdLoader(BannerAdLoader(delegate: bannerView), loadedAdView: UIView(frame: bannerView.bounds), adSize: bannerView.bounds.size)
+        
+        XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "An HTML banner keeps the configured auto-refresh")
+    }
+    
+    // The gate is driven by the creative's own playback callbacks, evaluated on every tick,
+    // so it self-recovers once playback ends and protects a replay ("watch again") too.
+    func testRefreshIsSkippedWhileVideoIsPlaying() {
+        let bannerView = makeBannerView(bidFormat: "video")
+        let window = makeVisible(bannerView)
+        defer { window.isHidden = true }
+        
+        let videoCreative = DisplayView(frame: bannerView.bounds, bid: makeBid(type: "video"), adConfiguration: bannerView.adUnitConfig)
+        bannerView.deployView(videoCreative)
+        waitForDeploy(of: videoCreative, in: bannerView)
+        XCTAssertTrue(bannerView.mayRefreshNow, "Sanity: nothing is playing yet")
+        
+        videoCreative.videoAdDidStart()
+        XCTAssertTrue(bannerView.isVideoPlaying)
+        XCTAssertFalse(bannerView.mayRefreshNow, "A video creative in flight must not be torn down by auto-refresh")
+        
+        videoCreative.videoAdDidFinish()
+        XCTAssertFalse(bannerView.isVideoPlaying)
+        XCTAssertTrue(bannerView.mayRefreshNow, "Once the video has finished the next tick must proceed")
+        
+        // Watch again
+        videoCreative.videoAdDidStart()
+        XCTAssertFalse(bannerView.mayRefreshNow, "A replay is protected like the first playback")
+    }
+    
+    // HTML creatives and plugin-rendered views never report playback, so they keep refreshing.
+    func testCreativeWithoutPlaybackEventsDoesNotBlockRefresh() {
+        let bannerView = makeBannerView(bidFormat: "video")
+        let window = makeVisible(bannerView)
+        defer { window.isHidden = true }
+        
+        let pluginCreative = MockDisplayView(frame: bannerView.bounds)
+        bannerView.deployView(pluginCreative)
+        waitForDeploy(of: pluginCreative, in: bannerView)
+        
+        XCTAssertFalse(bannerView.isVideoPlaying)
+        XCTAssertTrue(bannerView.mayRefreshNow)
+    }
+    
+    private func makeVisible(_ bannerView: BannerView) -> UIWindow {
+        let window = UIWindow(frame: CGRect(origin: .zero, size: CGSize(width: 320, height: 480)))
+        window.addSubview(bannerView)
+        window.isHidden = false
+        return window
+    }
+    
+    // `deployView` installs the view on the main queue asynchronously.
+    private func waitForDeploy(of view: UIView, in bannerView: BannerView) {
+        let predicate = NSPredicate { obj, _ in
+            (obj as? BannerView)?.deployedView === view
+        }
+        wait(for: [expectation(for: predicate, evaluatedWith: bannerView, handler: nil)], timeout: 3.0)
+    }
+    
+    private func makeBannerView(bidFormat: String) -> MockBannerViewWithBidFormat {
+        let size = CGSize(width: 300, height: 250)
+        let bannerView = MockBannerViewWithBidFormat(frame: CGRect(origin: .zero, size: size),
+                                                     configID: "configID",
+                                                     adSize: size,
+                                                     eventHandler: BannerEventHandlerStandalone())
+        bannerView.mockBidFormat = bidFormat
+        return bannerView
+    }
+    
+    private func armRefreshTimer(_ bannerView: BannerView) {
+        guard let controller = bannerView.adLoadFlowController else {
+            return XCTFail("BannerView must own an AdLoadFlowController")
+        }
+        bannerView.adLoadFlowControllerWillRequestPrimaryAd(controller)
+        XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "Sanity: the timer is armed when the primary ad is requested")
+    }
+    
+    private func makeBid(type: String) -> Bid {
+        let rawBid = ORTBBid<ORTBBidExt>(bidID: "", impid: "", price: 0.1)
+        rawBid.ext = .init()
+        rawBid.ext?.prebid = .init()
+        rawBid.ext?.prebid?.type = type
+        return Bid(bid: rawBid)
     }
     
     @objc private class TestBannerDelegate: NSObject, BannerViewDelegate {

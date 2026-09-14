@@ -57,4 +57,50 @@ public class AdFormat: NSObject, OptionSet {
     public static var allCases: [AdFormat] {
         [.banner, .video, .native]
     }
+    
+    public override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? AdFormat else { return false }
+        return rawValue == other.rawValue
+    }
+    
+    public override var hash: Int {
+        rawValue
+    }
+}
+
+// MARK: - Internal helpers
+
+extension AdFormat {
+    
+    /// Validates a publisher-provided set of formats against the formats an ad unit can render.
+    ///
+    /// Returns `formats` when it is non-empty and every element is in `supported`.
+    /// Otherwise logs a warning and returns `nil`, so the caller keeps its current value.
+    /// - Parameters:
+    ///   - formats: The requested set of ad formats.
+    ///   - supported: The formats the calling ad unit is able to render.
+    static func validated(_ formats: Set<AdFormat>, supported: [AdFormat]) -> Set<AdFormat>? {
+        guard formats.isEmpty == false else {
+            Log.warn("Attempted to set empty adFormats. The current value is kept.")
+            return nil
+        }
+        
+        let unsupported = formats.filter { !supported.contains($0) }
+        guard unsupported.isEmpty else {
+            Log.warn("Unsupported ad formats: [\(unsupported.formatNames)]. Only [\(supported.formatNames)] are supported. The current value is kept.")
+            return nil
+        }
+        
+        return formats
+    }
+}
+
+extension Sequence where Element == AdFormat {
+    
+    /// Comma-separated, sorted, human-readable names for logging (e.g. `banner, video`).
+    var formatNames: String {
+        map { $0.stringEquivalent ?? String($0.rawValue) }
+            .sorted()
+            .joined(separator: ", ")
+    }
 }

@@ -27,6 +27,10 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     public var isCreativeOpened: Bool {
         adViewManager?.isCreativeOpened ?? false
     }
+    
+    /// Whether the rendered video creative is currently playing:
+    /// `true` between `videoAdDidStart` and `videoAdDidFinish`.
+    public private(set) var isVideoPlaying = false
 
     // MARK: - Internal Properties
 
@@ -60,6 +64,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         guard transactionFactory == nil else { return }
 
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
+        adConfiguration.adConfiguration.isBuiltInVideo = bid.adFormat == .video
         adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
 
         transactionFactory = Factory.createTransactionFactory(
@@ -171,10 +176,6 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         manager.adViewManagerDelegate = self
         manager.adConfiguration = adConfiguration.adConfiguration
 
-        if adConfiguration.adConfiguration.winningBidAdFormat == .video {
-            adConfiguration.adConfiguration.isBuiltInVideo = true
-        }
-
         self.adViewManager = manager
         manager.handleExternalTransaction(transaction)
     }
@@ -203,7 +204,12 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         videoPlaybackDelegate?.videoPlaybackWasUnmuted()
     }
     
+    public func videoAdDidStart() {
+        isVideoPlaying = true
+    }
+    
     public func videoAdDidFinish() {
+        isVideoPlaying = false
         videoPlaybackDelegate?.videoPlaybackDidComplete()
     }
     

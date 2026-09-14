@@ -45,7 +45,7 @@ NSString * const gamAdUnitVideoRendering = @"/21808260008/prebid_oxb_300x250_ban
     self.prebidBannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height) configID:storedImpVideoGAMRendering adSize:self.adSize eventHandler:eventHandler];
     
     // 3. Configure the BannerView
-    self.prebidBannerView.adFormat = AdFormat.video;
+    self.prebidBannerView.adFormats = [NSSet setWithObject:AdFormat.video];
     self.prebidBannerView.videoParameters.placement = PBPlacement.InBanner;
     self.prebidBannerView.delegate = self;
     

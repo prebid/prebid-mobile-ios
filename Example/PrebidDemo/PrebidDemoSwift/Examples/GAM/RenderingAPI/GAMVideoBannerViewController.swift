@@ -48,7 +48,7 @@ class GAMVideoBannerViewController: BannerBaseViewController, PrebidMobile.Banne
         )
         
         // 3. Configure the BannerView
-        prebidBannerView.adFormat = .video
+        prebidBannerView.adFormats = [.video]
         prebidBannerView.videoParameters.placement = .InBanner
         prebidBannerView.delegate = self
         

@@ -110,7 +110,7 @@ class BaseInterstitialAdUnit:
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adConfiguration.adFormats = [.banner, .video]
+        adUnitConfig.adFormats = [.banner, .video]
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
         videoParameters.placement = .Interstitial
         videoParameters.plcmnt = .Interstitial

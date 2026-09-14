@@ -56,7 +56,7 @@ class MAXVideoBannerViewController: BannerBaseViewController, MAAdViewAdDelegate
         maxAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: adSize, mediationDelegate: maxMediationDelegate)
         
         // 5. Set ad format
-        maxAdUnit.adFormat = .video
+        maxAdUnit.adFormats = [.video]
         
         // 6. Make a bid request to Prebid Server
         maxAdUnit.fetchDemand { [weak self] result in

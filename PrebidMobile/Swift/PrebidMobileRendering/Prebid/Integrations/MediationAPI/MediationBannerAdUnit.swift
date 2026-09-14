@@ -46,10 +46,33 @@ public class MediationBannerAdUnit : NSObject {
         adUnitConfig.configId
     }
     
+    /// The set of ad formats requested for this ad unit.
+    ///
+    /// Defaults to `[.banner]`. Set `[.video]` for an outstream video banner, or
+    /// `[.banner, .video]` for a multiformat request.
+    ///
+    /// Only `.banner` and `.video` can be rendered by the banner mediation adapters.
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set {
+            guard let formats = AdFormat.validated(newValue, supported: Self.supportedAdFormats) else {
+                return
+            }
+            
+            adUnitConfig.adFormats = formats
+        }
+    }
+    
+    
     /// The ad format for the ad unit.
+    ///
+    /// - Note: Deprecated. Use `adFormats` instead, which supports multiformat requests.
+    ///   Assigning goes through `adFormats`, so unsupported values such as `.native`
+    ///   are ignored with a warning.
+    @available(*, deprecated, message: "Use `adFormats` instead.")
     public var adFormat: AdFormat {
         get { adUnitConfig.adFormats.first ?? .banner }
-        set { adUnitConfig.adFormats = [newValue] }
+        set { adFormats = [newValue] }
     }
     
     /// The position of the ad on the screen.
@@ -119,27 +142,31 @@ public class MediationBannerAdUnit : NSObject {
         self.mediationDelegate = mediationDelegate
         super.init()
         
-        autoRefreshManager = AutoRefreshManager(prefetchTime: PrebidConstants.AD_PREFETCH_TIME,
-                                                lockingQueue: nil,
-                                                lockProvider: nil,
-                                                refreshDelayBlock: { [weak self] in
-            (self?.adUnitConfig.refreshInterval ?? 0) as NSNumber
-        },
-                                                           mayRefreshNowBlock: { [weak self] in
-            guard let self = self else { return false }
-            return self.isAdObjectVisible() || self.adRequestError != nil
-        }, refreshBlock: { [weak self] in
-            guard let self = self,
-                  self.lastAdView != nil,
-                  let completion = self.lastCompletion else {
-                return
+        autoRefreshManager = AutoRefreshManager(
+            prefetchTime: PrebidConstants.AD_PREFETCH_TIME,
+            lockingQueue: nil,
+            lockProvider: nil,
+            refreshDelayBlock: { [weak self] in
+                (self?.adUnitConfig.refreshInterval ?? 0) as NSNumber
+            },
+            mayRefreshNowBlock: { [weak self] in
+                (self?.isAdObjectVisible() == true && self?.isVideoPlaying == false) || self?.adRequestError != nil
+            },
+            refreshBlock: { [weak self] in
+                guard let self = self,
+                      self.lastAdView != nil,
+                      let completion = self.lastCompletion else {
+                    return
+                }
+                
+                self.fetchDemand(
+                    connection: PrebidServerConnection.shared,
+                    sdkConfiguration: Prebid.shared,
+                    targeting: Targeting.shared,
+                    completion: completion
+                )
             }
-            
-            self.fetchDemand(connection: PrebidServerConnection.shared,
-                             sdkConfiguration: Prebid.shared,
-                             targeting: Targeting.shared,
-                             completion: completion)
-        })
+        )
     }
     
     /// Makes bid request and setups mediation parameters.
@@ -165,6 +192,21 @@ public class MediationBannerAdUnit : NSObject {
         if adObject === self.adView || adObject === self.lastAdView {
             self.adRequestError = error
         }
+    }
+    
+    // MARK: - Private Properties
+    
+    /// Formats that the banner mediation adapters are able to render.
+    private static let supportedAdFormats: [AdFormat] = [.banner, .video]
+    
+    /// Whether a Prebid video creative rendered inside the mediated ad view is playing.
+    ///
+    /// The adapters hand the `DisplayView` they render to the host SDK, which embeds it in the
+    /// ad view returned by `PrebidMediationDelegate.getAdView()`. Reading the state off that
+    /// view on every refresh tick means the gate follows whatever is actually on screen: it
+    /// clears when the video finishes or when the host SDK replaces the creative.
+    var isVideoPlaying: Bool {
+        lastAdView?.firstDescendant(of: DisplayView.self)?.isVideoPlaying ?? false
     }
     
     // MARK: Private functions
