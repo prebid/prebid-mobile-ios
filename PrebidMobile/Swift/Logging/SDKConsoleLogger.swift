@@ -16,8 +16,20 @@
 import Foundation
 
 /// A logger implementation for Prebid SDK that logs messages to the console.
+///
+/// Messages are printed to the console only when the SDK is compiled with the `DEBUG` flag.
+/// When `Log.logToFile` is enabled, they are written to the log file in any build configuration.
 @objc
 public class SDKConsoleLogger: NSObject, PrebidLogger {
+
+    /// Whether the SDK was compiled with the `DEBUG` flag. Internal so tests can exercise release-build behavior.
+    var isDebugBuild: Bool = {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }()
     
     public func error(_ object: Any, filename: String, line: Int, function: String) {
         log(object, logLevel: .error, filename: filename, line: line, function: function)
@@ -58,15 +70,12 @@ public class SDKConsoleLogger: NSObject, PrebidLogger {
     // MARK: - Private methods
     
     private func isLoggingEnabled(for currentLevel: LogLevel) -> Bool {
-        #if !(DEBUG)
-        return false
-        #endif
-        
         if currentLevel.rawValue < Log.logLevel.rawValue {
             return false
         }
-        
-        return true
+
+        // Without DEBUG, print() is a no-op, so skip formatting unless the message goes to the log file.
+        return isDebugBuild || Log.logToFile
     }
 }
 

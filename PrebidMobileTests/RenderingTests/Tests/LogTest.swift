@@ -182,7 +182,34 @@ class LogTest: XCTestCase {
         checkLogAndClean(level: .warn)
     }
     
+    func testLogToFileInReleaseBuild() {
+        logToFile = .init()
+        Log.setCustomLogger(makeReleaseBuildLogger())
+
+        Log.info(message)
+        checkLogAndClean(level: .info)
+    }
+
+    func testLogLevelInReleaseBuild() {
+        logToFile = .init()
+        Log.setCustomLogger(makeReleaseBuildLogger())
+        Log.logLevel = .error
+        defer { Log.logLevel = .debug }
+
+        Log.warn(message)
+        XCTAssertEqual(Log.getLogFileAsString() ?? "", "")
+
+        Log.error(message)
+        checkLogAndClean(level: .error)
+    }
+
     // MARK: Internal Methods
+
+    func makeReleaseBuildLogger() -> SDKConsoleLogger {
+        let logger = SDKConsoleLogger()
+        logger.isDebugBuild = false
+        return logger
+    }
 
     func checkLogAndClean(level: LogLevel, file: StaticString = #file, line: UInt = #line) {
         let log = Log.getLogFileAsString() ?? ""
