@@ -98,8 +98,6 @@
 #import "PBMSafariVCOpener+PBMTestExtensions.h"
 
 // Prebid
-#import "PBMPrebidParameterBuilder.h"
-
 
 #import "MediationInterstitialAdUnit+TestExtension.h"
 #import "MediationBannerAdUnit+TestExtension.h"

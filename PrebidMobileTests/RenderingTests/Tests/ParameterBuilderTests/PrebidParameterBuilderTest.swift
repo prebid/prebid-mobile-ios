@@ -14,7 +14,7 @@
   */
 
 import XCTest
-@testable import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 class PrebidParameterBuilderTest: XCTestCase {
     
@@ -209,6 +209,29 @@ class PrebidParameterBuilderTest: XCTestCase {
             }
 
             XCTAssertEqual(extData["pbadslot"] as? String, testAdSlot)
+        }
+    }
+
+    /// A nil `pbAdSlot` must *remove* the key from `imp.ext.data`, not store a boxed nil.
+    /// The builder writes `nextImp.extData?["pbadslot"] = adConfiguration.getPbAdSlot()`;
+    /// assigning a `String?` through `NSMutableDictionary`'s `Any?` subscript relies on
+    /// Swift's optional-to-optional conversion to delete the entry, matching the ObjC
+    /// original. Injecting the optional into `Any` instead would silently insert a key.
+    func testPbAdSlotIsOmittedWhenNil() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+
+        XCTAssertNil(adUnitConfig.getPbAdSlot())
+
+        let bidRequest = buildBidRequest(with: adUnitConfig)
+
+        bidRequest.imp.forEach { imp in
+            guard let extData = imp.extData as? [String: Any] else {
+                XCTFail("ext.data dictionary is nil.")
+                return
+            }
+
+            XCTAssertFalse(extData.keys.contains("pbadslot"))
         }
     }
 
@@ -1055,7 +1078,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         UserConsentParameterBuilder()
             .build(bidRequest)
 
-        PBMPrebidParameterBuilder(
+        PrebidParameterBuilder(
             adConfiguration: adUnitConfig,
             sdkConfiguration: sdkConfiguration,
             targeting: targeting,
