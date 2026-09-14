@@ -173,7 +173,7 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
                         }
                     }
 
-                    let uniqueFormats = Array(Set(mergedFormats))
+                    let uniqueFormats = NSSet(array: mergedFormats).allObjects.compactMap { $0 as? ORTBFormat }
                     if !uniqueFormats.isEmpty {
                         nextBanner.format = uniqueFormats
                     }
