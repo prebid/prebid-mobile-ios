@@ -14,7 +14,10 @@
  */
 
 #import "PBMDeepLinkPlusHelper.h"
-#import "PBMExternalLinkHandler.h"
+
+// PBMExternalLinkHandler has been moved to Swift.
+// Full definition is available via SwiftImport.h (PrebidMobile-Swift.h).
+@class PBMExternalLinkHandler;
 
 NS_ASSUME_NONNULL_BEGIN
 
