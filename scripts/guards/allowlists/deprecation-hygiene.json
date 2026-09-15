@@ -1,0 +1,5 @@
+{
+  "guard": "deprecation-hygiene",
+  "description": "Files with replacement-less deprecation markers (shrink-only). Empty: the tree was fully compliant when the guard landed. A new entry needs its reason, added in the same PR.",
+  "entries": []
+}
