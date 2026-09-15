@@ -89,6 +89,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM (Original API) Display Rewarded 320x480",
+            integrationKind: .gamOriginal,
+            adFormat: .displayRewarded,
+            configurationClosure: {
+                GAMOriginalAPIDisplayRewardedViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "GAM (Original API) Native",
             integrationKind: .gamOriginal,
             adFormat: .native,
@@ -397,7 +406,7 @@ struct IntegrationCaseManager {
         IntegrationCase(
             title: "MAX Display Rewarded 320x480",
             integrationKind: .max,
-            adFormat: .videoRewarded,
+            adFormat: .displayRewarded,
             configurationClosure: {
                 MAXDisplayRewardedViewController()
             }
