@@ -16,7 +16,8 @@ limitations under the License.
 import UIKit
 
 /// Defines the User Id Object from an External Thrid Party Source
-/// https://github.com/InteractiveAdvertisingBureau/openrtb/blob/main/extensions/2.x_official_extensions/eids.md
+/// OpenRTB 2.6 `user.eids`: https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/main/2.6.md#3227---object-eid-
+/// OpenRTB 2.5 `user.ext.eids`: https://github.com/InteractiveAdvertisingBureau/openrtb/blob/main/extensions/2.x_official_extensions/eids.md
 @objcMembers
 public class ExternalUserId: NSObject, JSONConvertible {
     
@@ -30,6 +31,15 @@ public class ExternalUserId: NSObject, JSONConvertible {
     
     /// Additional attributes related to the external user ID, represented as an optional dictionary.
     public var ext: [String: Any]?
+
+    /// Canonical domain of the entity that added this ID to the request. ORTB: `user.eids[].inserter`
+    public var inserter: String?
+
+    /// Technology that provided the match method in `mm`. ORTB: `user.eids[].matcher`
+    public var matcher: String?
+
+    /// Match method used by `matcher`, from the AdCOM 1.0 list "ID Match Methods". ORTB: `user.eids[].mm`
+    public var mm: NSNumber?
 
     // MARK: - Initialization
     
@@ -56,6 +66,9 @@ public class ExternalUserId: NSObject, JSONConvertible {
         
         var transformedEUIdDic = [String: Any]()
         transformedEUIdDic["source"] = source
+        transformedEUIdDic["inserter"] = inserter
+        transformedEUIdDic["matcher"] = matcher
+        transformedEUIdDic["mm"] = mm
         transformedEUIdDic["ext"] = ext
         
         let uniqueUserIdArray = uids.map { $0.toJSONDictionary() }

@@ -41,4 +41,25 @@ class ExternalUserIdTests: XCTestCase {
         XCTAssertEqual(json["uids"] as? [NSDictionary], [["id": "uid1", "atype": 1]] as [NSDictionary])
         XCTAssertEqual((json["ext"] as? [String: Any])?["key"] as? String, "value")
     }
+
+    func testToJSONDictionaryWithProvenanceFields() {
+        let externalUserId = ExternalUserId(source: "id5-sync.com", uids: [UserUniqueID(uniqueId: "uid1", aType: 1)])
+        externalUserId.inserter = "prebid.org"
+        externalUserId.matcher = "id5-sync.com"
+        externalUserId.mm = 3
+
+        let json = externalUserId.toJSONDictionary()
+
+        XCTAssertEqual(json["inserter"] as? String, "prebid.org")
+        XCTAssertEqual(json["matcher"] as? String, "id5-sync.com")
+        XCTAssertEqual(json["mm"] as? NSNumber, 3)
+    }
+
+    func testToJSONDictionaryOmitsUnsetProvenanceFields() {
+        let externalUserId = ExternalUserId(source: "source1", uids: [UserUniqueID(uniqueId: "uid1", aType: 1)])
+
+        let json = externalUserId.toJSONDictionary()
+
+        XCTAssertEqual(Set(json.keys), ["source", "uids"])
+    }
 }

@@ -601,6 +601,26 @@ class ORTBAbstractTest : XCTestCase {
             expectedString: "{\"ext\":{\"eids\":[{\"key\":{\"key\":\"value\"}},{\"key2\":{\"key2\":\"value2\"}}]}}"
         )
     }
+
+    func testUserEids26ToJsonString() {
+        let user = ORTBUser()
+
+        user.eids = [["source": "pubcid.org", "uids": [["id": "abc", "atype": 1]]]]
+
+        codeAndDecode(
+            abstract: user,
+            expectedString: "{\"eids\":[{\"source\":\"pubcid.org\",\"uids\":[{\"atype\":1,\"id\":\"abc\"}]}]}"
+        )
+    }
+
+    func testUserEids26FromJson() throws {
+        let user = try XCTUnwrap(ORTBUser(jsonString: "{\"eids\":[{\"source\":\"pubcid.org\",\"uids\":[{\"atype\":1,\"id\":\"abc\"}]}]}"))
+
+        XCTAssertEqual(user.eids?.count, 1)
+        XCTAssertEqual(user.eids?.first?["source"] as? String, "pubcid.org")
+
+        assertORTBNoResurrectedDefaults(jsonString: "{\"keywords\":\"key1\"}", swiftType: ORTBUser.self, expectedKeys: ["keywords"])
+    }
     
     // MARK: - Utility
     
