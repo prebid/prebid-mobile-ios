@@ -24,11 +24,13 @@ import Foundation
 
     @objc(transformResponse:error:)
     public static func transform(_ response: PrebidServerResponse) throws -> BidResponse {
-        let responseBody = String(data: response.rawData ?? Data(), encoding: .utf8) ?? ""
-        if responseBody.contains("Invalid request") {
-            throw classifyRequestError(responseBody)
-        }
         guard let jsonDict = response.jsonDict else {
+            // Prebid Server rejects a request with a plaintext body, so only a non-JSON body is classified.
+            // A valid bid whose markup happens to contain "Invalid request" must not be reported as an error.
+            let responseBody = String(data: response.rawData ?? Data(), encoding: .utf8) ?? ""
+            if responseBody.contains("Invalid request") {
+                throw classifyRequestError(responseBody)
+            }
             throw PBMError.jsonDictNotFound()
         }
         return BidResponse(jsonDictionary: jsonDict)
@@ -41,8 +43,7 @@ import Foundation
         if responseBody.contains("Stored Request with ID") || responseBody.contains("No stored request found") {
             return PBMError.prebidInvalidAccountId()
         }
-        if responseBody.contains("Invalid request: Request imp[0].banner.format")
-            || responseBody.contains("Request imp[0].banner.format")
+        if responseBody.range(of: #"imp\[\d+\]\.banner\.format"#, options: .regularExpression) != nil
             || responseBody.contains("Unable to set interstitial size list") {
             return PBMError.prebidInvalidSize()
         }
