@@ -40,6 +40,7 @@
 		0012D8CF2E214EBE007013F3 /* GAMDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C614E2CB7F20A0026119A /* GAMDisplayRewardedViewController.swift */; };
 		0012D8D02E214EBE007013F3 /* MAXNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C42922AC2C00A1F582 /* MAXNativeViewController.swift */; };
 		0012D8D12E214EBE007013F3 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA4291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift */; };
+		0012D8E12E214EBE007013F4 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */; };
 		0012D8D22E214EBE007013F3 /* GAMOriginalAPIMultiformatInAppNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A368F72AB8482300A03B3E /* GAMOriginalAPIMultiformatInAppNativeViewController.swift */; };
 		0012D8D32E214EBE007013F3 /* AdMobVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AE2922885200A1F582 /* AdMobVideoBannerViewController.swift */; };
 		0012D8D42E214EBE007013F3 /* AdMobNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6B629228CE600A1F582 /* AdMobNativeViewController.swift */; };
@@ -212,6 +213,7 @@
 		53B03DA1291BC8C4000117E1 /* BannerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */; };
 		53B03DA2291BC8C4000117E1 /* BannerBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */; };
 		53B03DA5291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA4291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift */; };
+		53B03DB5291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */; };
 		53B03DA7291BF2C2000117E1 /* PrebidDemoLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA6291BF2C2000117E1 /* PrebidDemoLogger.swift */; };
 		53BA02B4292531D000BE6015 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA02B3292531D000BE6015 /* AppDelegate.m */; };
 		53BA02B7292531D000BE6015 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA02B6292531D000BE6015 /* SceneDelegate.m */; };
@@ -474,6 +476,7 @@
 		53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerBaseViewController.swift; sourceTree = "<group>"; };
 		53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerBaseViewController.xib; sourceTree = "<group>"; };
 		53B03DA4291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIDisplayBannerViewController.swift; sourceTree = "<group>"; };
+		53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIFilterUncachedBidsBannerViewController.swift; sourceTree = "<group>"; };
 		53B03DA6291BF2C2000117E1 /* PrebidDemoLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidDemoLogger.swift; sourceTree = "<group>"; };
 		53BA02B0292531D000BE6015 /* PrebidDemoObjectiveC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoObjectiveC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53BA02B2292531D000BE6015 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -766,6 +769,7 @@
 			isa = PBXGroup;
 			children = (
 				53B03DA4291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift */,
+				53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */,
 				53072B552921021B00228462 /* GAMOriginalAPIDisplayInterstitialViewController.swift */,
 				539F960029DEE1DA0061E7A5 /* GAMOriginalAPIMultiformatBannerViewController.swift */,
 				53A368F72AB8482300A03B3E /* GAMOriginalAPIMultiformatInAppNativeViewController.swift */,
@@ -1720,6 +1724,7 @@
 				0012D8CF2E214EBE007013F3 /* GAMDisplayRewardedViewController.swift in Sources */,
 				0012D8D02E214EBE007013F3 /* MAXNativeViewController.swift in Sources */,
 				0012D8D12E214EBE007013F3 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */,
+				0012D8E12E214EBE007013F4 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift in Sources */,
 				0012D8D22E214EBE007013F3 /* GAMOriginalAPIMultiformatInAppNativeViewController.swift in Sources */,
 				0012D8D32E214EBE007013F3 /* AdMobVideoBannerViewController.swift in Sources */,
 				0012D8D42E214EBE007013F3 /* AdMobNativeViewController.swift in Sources */,
@@ -1790,6 +1795,7 @@
 				534C614F2CB7F20A0026119A /* GAMDisplayRewardedViewController.swift in Sources */,
 				5344E6C52922AC2C00A1F582 /* MAXNativeViewController.swift in Sources */,
 				53B03DA5291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */,
+				53B03DB5291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift in Sources */,
 				53A368F82AB8482300A03B3E /* GAMOriginalAPIMultiformatInAppNativeViewController.swift in Sources */,
 				5344E6AF2922885200A1F582 /* AdMobVideoBannerViewController.swift in Sources */,
 				5344E6B729228CE600A1F582 /* AdMobNativeViewController.swift in Sources */,

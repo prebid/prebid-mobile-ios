@@ -54,8 +54,9 @@ import Foundation
     case prebidUnknownError
     
     /// The Prebid Server returned bids, but none had successful cache entries.
+    /// This is the "all bids filtered" outcome of `Prebid.shared.filterOutUncachedBids`.
     case prebidDemandNoCachedBids = 11
-    
+
     /// The structure of the response received is invalid.
     case prebidInvalidResponseStructure = 1000
     
