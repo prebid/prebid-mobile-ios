@@ -240,6 +240,13 @@ Allowlist of exactly this one test, not a general "re-run and move on" policy. P
 
 **35 headers under `PrebidMobile/Objc/` have no matching `.m`** (was 39; S4.3/S4.3b deleted 4 once their last importers were ported): block typedefs, `@protocol`s, macro headers, class-continuation headers, `NS_ENUM`s, umbrella headers, categories on system classes. None is "ported" individually — each is **retired when its last importer is ported**. 2 dead + 24 tied to a named `.m` + 5 tied to the test bridging header + 4 shared-infrastructure = 35.
 
+S4.4 deleted `PBMExternalLinkHandler.{h,m}`, `PBMExternalURLOpenCallbacks.{h,m}`,
+`PBMExternalURLOpeners.{h,m}`, `PBMTrackingURLVisitors.{h,m}` (all had matching `.m`s — not part of
+this orphan-header count) but left the count at 35: the 4 block-typedef headers below
+(`PBMExternalURLOpenerBlock.h`, `PBMTrackingURLVisitorBlock.h`, `PBMURLOpenAttempterBlock.h`,
+`PBMURLOpenResultHandlerBlock.h`) still have a live importer — `PBMDeepLinkPlusHelper.m`, deferred —
+so none retire yet.
+
 Re-measure:
 ```bash
 comm -23 \
@@ -264,22 +271,22 @@ comm -23 \
 | `PBMCreativeModelMakerResult.h` | block typedef | `PBMCreativeModelCollectionMakerVAST.m` |
 | `PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h` | class continuation | `PBMDeepLinkPlusHelper.m` |
 | `PBMExposureChangeDelegate.h` | `@protocol` | `PBMWebView.m`, `PBMMRAIDController.m` |
-| `PBMExternalURLOpenerBlock.h` | block typedef | `PBMExternalURLOpeners.m`, `PBMExternalLinkHandler.m`, `PBMDeepLinkPlusHelper.m` |
+| `PBMExternalURLOpenerBlock.h` | block typedef | `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMExternalURLOpeners.m`/`PBMExternalLinkHandler.m` — both ported to Swift) |
 | `PBMORTB.h` | umbrella | `PBMWebView.m` |
 | `PBMORTBAbstract.h` | `@interface` | via `+Protected.h` → `PBMBidResponseTransformer.m` |
 | `PBMORTBAbstract+Protected.h` | class continuation | `PBMBidResponseTransformer.m` |
 | `PBMScheduledTimerFactory.h` | block typedef | `PBMCreativeViewabilityTracker.m` |
 | `PBMTimerInterface.h` | forward decl | via `PBMScheduledTimerFactory.h` → `PBMCreativeViewabilityTracker.m` |
-| `PBMTrackingURLVisitorBlock.h` | block typedef | `PBMTrackingURLVisitors.m`, `PBMExternalLinkHandler.m` |
+| `PBMTrackingURLVisitorBlock.h` | block typedef | `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMTrackingURLVisitors.m`/`PBMExternalLinkHandler.m` — both ported to Swift; added a direct import here since it was previously pulled in transitively) |
 | `PBMTransactionFactoryCallback.h` | block typedef | `PBMDisplayTransactionFactory.m`, `PBMVastTransactionFactory.m` |
-| `PBMUIApplicationProtocol.h` | forward decl | `PBMExternalURLOpeners.m`, `PBMDeepLinkPlusHelper+Testing.m`, `PBMHTMLCreative+pbmTestExtension.h` (S2.5-E seam) |
-| `PBMURLOpenAttempterBlock.h` | block typedef | `PBMDeepLinkPlusHelper.m`, `PBMExternalLinkHandler.m` |
-| `PBMURLOpenResultHandlerBlock.h` | block typedef | `PBMExternalURLOpenCallbacks.m`, `PBMExternalURLOpeners.m` |
+| `PBMUIApplicationProtocol.h` | forward decl | via `PBMDeepLinkPlusHelper+Testing.h` → `PBMDeepLinkPlusHelper.m`, `PBMHTMLCreative+pbmTestExtension.h` (S2.5-E seam) (S4.4: dropped `PBMExternalURLOpeners.m` — ported to Swift) |
+| `PBMURLOpenAttempterBlock.h` | block typedef | `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMExternalLinkHandler.m` — ported to Swift) |
+| `PBMURLOpenResultHandlerBlock.h` | block typedef | (S4.4: dropped `PBMExternalURLOpenCallbacks.m`/`PBMExternalURLOpeners.m` — both ported to Swift; only imported transitively via `PBMExternalURLOpenerBlock.h` now, no direct `.m` importer left) |
 | `PBMVastResourceContainerProtocol.h` | `@protocol` | `PBMVastParser.m`, `PBMVastIcon.m`, `PBMVastCreativeNonLinearAdsNonLinear.m`, `PBMVastCreativeCompanionAdsCompanion.m` |
 | `PBMVideoViewDelegate.h` | `@protocol` | `PBMVideoView.m`, `PBMVideoCreative.m` |
 | `PBMVideoViewPlaybackState.h` | `NS_ENUM` | `PBMVideoView.m` |
 | `PBMViewControllerProvider.h` | block typedef | `PBMSafariVCOpener.m` |
-| `PBMVoidBlock.h` | block typedef | `PBMOpenMeasurementWrapper.m`, `PBMSafariVCOpener.m`, `PBMDeferredModalState.m`, `PBMExternalURLOpenCallbacks.m`, `PBMAbstractCreative.m` |
+| `PBMVoidBlock.h` | block typedef | `PBMOpenMeasurementWrapper.m`, `PBMSafariVCOpener.m`, `PBMDeferredModalState.m`, `PBMAbstractCreative.m`, plus via `PBMExternalURLOpenerBlock.h` → `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMExternalURLOpenCallbacks.m` — ported to Swift) |
 | `PBMWebView+Internal.h` | class continuation | `PBMWebView.m` |
 | `PBMWebViewDelegate.h` | `@protocol` | `PBMWebView.m`, `PBMMRAIDController.m` |
 

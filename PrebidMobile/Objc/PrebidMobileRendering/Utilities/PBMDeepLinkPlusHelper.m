@@ -15,10 +15,8 @@
 
 @import UIKit;
 
-#import "PBMExternalLinkHandler.h"
-#import "PBMExternalURLOpeners.h"
-#import "PBMTrackingURLVisitors.h"
 #import "PBMURLOpenAttempterBlock.h"
+#import "PBMTrackingURLVisitorBlock.h"
 #import "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"
 
 #import "PBMDeepLinkPlusHelper.h"

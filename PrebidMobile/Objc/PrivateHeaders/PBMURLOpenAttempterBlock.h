@@ -14,7 +14,10 @@
  */
 
 #import "PBMExternalURLOpenerBlock.h"
-#import "PBMExternalURLOpenCallbacks.h"
+
+// PBMExternalURLOpenCallbacks has been moved to Swift.
+// Full definition is available via SwiftImport.h (PrebidMobile-Swift.h).
+@class PBMExternalURLOpenCallbacks;
 
 NS_ASSUME_NONNULL_BEGIN
 
