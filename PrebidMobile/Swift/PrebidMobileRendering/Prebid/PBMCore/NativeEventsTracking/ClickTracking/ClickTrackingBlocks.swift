@@ -15,6 +15,13 @@
 
 import Foundation
 
+// Swift-facing closure typealiases for the ObjC block typedefs declared in
+// `PBMURLOpenResultHandlerBlock.h`, `PBMTrackingURLVisitorBlock.h`,
+// `PBMExternalURLOpenerBlock.h` and `PBMURLOpenAttempterBlock.h`.
+// Block typedefs bridge structurally rather than nominally (playbook Gap S2.3-B), so those
+// headers stay ObjC while `PBMDeepLinkPlusHelper.m` still uses them; they retire together
+// once that file is ported, and this file becomes the sole declaration site.
+
 @_spi(PBMInternal) public
 typealias URLOpenResultHandlerBlock = (_ urlOpened: Bool) -> Void
 

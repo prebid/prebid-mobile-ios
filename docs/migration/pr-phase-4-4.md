@@ -8,7 +8,7 @@ S4.1 (landed) → S4.3 + S4.3b (landed) → **S4.4 (this)** → S4.2 → S4.5.
 | File | Non-test consumers |
 |------|---------------------|
 | `NativeEventsTracking/ClickTracking/PBMExternalLinkHandler.{h,m}` | `PBMDeepLinkPlusHelper.m` (`deepLinkPlusHandlerWithExternalLinkHandler:` + `openExternalUrl:trackingUrls:completion:onClickthroughExitBlock:` + `asDeepLinkHandler` + `handlerByAddingUrlOpenAttempter:`) |
-| `PBMExternalURLOpenCallbacks.{h,m}` | `PBMExternalLinkHandler.m` only (now Swift) |
+| `PBMExternalURLOpenCallbacks.{h,m}` | `PBMExternalLinkHandler.m` (also ported here), `PBMDeepLinkPlusHelper.m` (`urlOpenedCallback` / `onClickthroughExitBlock` reads at `:73-75`) |
 | `PBMExternalURLOpeners.{h,m}` | `PBMDeepLinkPlusHelper.m` (`applicationAsExternalUrlOpener:`) |
 | `PBMTrackingURLVisitors.{h,m}` | `PBMDeepLinkPlusHelper.m` (`connectionAsTrackingURLVisitor:`) |
 
