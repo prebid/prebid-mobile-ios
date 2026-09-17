@@ -48,6 +48,10 @@
 }
 
 - (void)makeCreativesWithCreativeModels:(NSArray<PBMCreativeModel *> *)creativeModels {
+    for (PBMCreativeModel *model in creativeModels) {
+        model.expirationInterval = self.bid.exp;
+    }
+    
     // Create the transaction(s)
     // Currently, we only handle one transaction.
     self.currentTransaction = [PBMFactory createTransactionWithServerConnection:self.connection

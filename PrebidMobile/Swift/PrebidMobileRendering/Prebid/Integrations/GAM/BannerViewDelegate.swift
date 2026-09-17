@@ -54,4 +54,8 @@ import UIKit
     /// Notifies the delegate that the banner ad has been displayed and an impression has been tracked.
     /// - Parameter bannerView: The BannerView instance sending the message.
     @objc optional func bannerViewDidDisplay(_ bannerView: BannerView)
+
+    /// Notifies the delegate that the loaded ad expires before an impression is tracked.
+    /// - Parameter bannerView: The BannerView instance sending the message.
+    @objc optional func bannerViewDidExpire(_ bannerView: BannerView)
 }

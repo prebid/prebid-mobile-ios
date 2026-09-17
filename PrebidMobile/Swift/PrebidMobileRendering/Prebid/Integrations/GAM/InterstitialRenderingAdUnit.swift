@@ -271,6 +271,10 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         delegate?.interstitialDidClickAd?(self)
     }
     
+    func callDelegate_adDidExpire() {
+        delegate?.interstitialDidExpireAd?(self)
+    }
+    
     func callEventHandler_isReady() -> Bool {
         (eventHandler as? InterstitialEventHandlerProtocol)?.isReady ?? false
     }

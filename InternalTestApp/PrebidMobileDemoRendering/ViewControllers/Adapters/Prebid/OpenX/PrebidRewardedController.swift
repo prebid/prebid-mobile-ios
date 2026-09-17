@@ -35,6 +35,7 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
     private let rewardedAdWillLeaveApplicationButton = EventReportContainer()
     private let rewardedAdDidClickAdButton = EventReportContainer()
     private let rewardedAdUserDidEarnRewardButton = EventReportContainer()
+    private let rewardedAdDidExpireButton = EventReportContainer()
     
     private let configIdLabel = UILabel()
     
@@ -97,6 +98,11 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
         print("Did receive reward: type - \(reward.type ?? ""), count - \(reward.count ?? 0)")
     }
     
+    func rewardedAdDidExpire(_ rewardedAd: RewardedAdUnit) {
+        adapterViewController?.showButton.isEnabled = false
+        rewardedAdDidExpireButton.isEnabled = true
+    }
+    
     // MARK: - Private Methods
     private func setupAdapterController() {
         adapterViewController?.bannerView.isHidden = true
@@ -121,6 +127,7 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
         adapterViewController?.setupAction(rewardedAdWillLeaveApplicationButton, "rewardedAdWillLeaveApplication called")
         adapterViewController?.setupAction(rewardedAdDidClickAdButton, "rewardedAdDidClickAd called")
         adapterViewController?.setupAction(rewardedAdUserDidEarnRewardButton, "rewardedAdUserDidEarnReward called")
+        adapterViewController?.setupAction(rewardedAdDidExpireButton, "rewardedAdDidExpire called")
     }
     
     @IBAction func showButtonClicked() {

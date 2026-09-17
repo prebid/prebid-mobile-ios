@@ -34,6 +34,7 @@ class CreativeModel: NSObject {
     @objc public var adConfiguration: AdConfiguration?
     @objc public var eventTracker: AdModelEventTracker?
     @objc public var displayDurationInSeconds: NSNumber?
+    @objc public var expirationInterval: NSNumber?
     @objc public var skipOffset: NSNumber?
     @objc public var width: Int = 0
     @objc public var height: Int = 0

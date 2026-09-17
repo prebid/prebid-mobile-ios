@@ -36,4 +36,9 @@ public protocol InterstitialControllerLoadingDelegate: NSObjectProtocol {
         _ interstitialController: PrebidMobileInterstitialControllerProtocol,
         didFailWithError error: Error
     )
+    
+    /// Notifies that the loaded interstitial ad expired before it could be displayed.
+    @objc optional func interstitialControllerDidExpire(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol
+    )
 }

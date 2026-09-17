@@ -50,6 +50,10 @@ public class InterstitialController:
     
     var transactionFactory: TransactionFactory?
     var adViewManager: AdViewManager?
+    private var expirationWorkItem: DispatchWorkItem?
+    private(set) var isExpired = false
+    private var isDisplayed = false
+    private var expirationInterval: NSNumber?
     
     // MARK: - Life cycle
     
@@ -66,8 +70,12 @@ public class InterstitialController:
         self.init(bid: bid, adConfiguration: adConfig)
     }
     
+    deinit {
+        expirationWorkItem?.cancel()
+    }
+    
     public func loadAd() {
-        guard transactionFactory == nil else {
+        guard transactionFactory == nil, !isExpired else {
             return
         }
         
@@ -127,12 +135,17 @@ public class InterstitialController:
     }
     
     func reportSuccess() {
+        scheduleExpirationIfNeeded()
         if let loadingDelegate = loadingDelegate {
             loadingDelegate.interstitialControllerDidLoadAd(self)
         }
     }
     
     private func display(transaction: Transaction) {
+        guard !isExpired else { return }
+        
+        expirationInterval = transaction.creativeModels.first?.expirationInterval ?? bid.exp
+        
         adViewManager = Factory.createAdViewManager(
             connection: PrebidServerConnection.shared,
             modalManagerDelegate: nil
@@ -141,6 +154,32 @@ public class InterstitialController:
         adViewManager?.adConfiguration.isInterstitialAd = true
         adViewManager?.adConfiguration.isRewarded = adConfiguration.adConfiguration.isRewarded
         adViewManager?.handleExternalTransaction(transaction)
+    }
+    
+    private func scheduleExpirationIfNeeded() {
+        guard expirationWorkItem == nil,
+              let exp = expirationInterval ?? bid.exp,
+              exp.doubleValue > 0 else {
+            return
+        }
+        
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.expireAd()
+        }
+        expirationWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + exp.doubleValue, execute: workItem)
+    }
+    
+    private func expireAd() {
+        guard !isExpired, !isDisplayed else { return }
+        
+        isExpired = true
+        loadingDelegate?.interstitialControllerDidExpire?(self)
+    }
+
+    private func cancelExpiration() {
+        expirationWorkItem?.cancel()
+        expirationWorkItem = nil
     }
 }
 
@@ -167,6 +206,8 @@ extension InterstitialController: AdViewManagerDelegate {
     }
     
     public func adDidDisplay() {
+        isDisplayed = true
+        cancelExpiration()
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidDisplay(self)
         }
