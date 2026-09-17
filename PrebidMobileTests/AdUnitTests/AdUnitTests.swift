@@ -261,6 +261,97 @@ class AdUnitTests: XCTestCase {
         XCTAssertEqual(resultCode, expected)
     }
     
+    // A promoted runner-up is still delivered demand, so publishers gating on
+    // `resultCode == .prebidDemandFetchSuccess` must not drop it.
+    func testPromotedWinnerAfterFilteringReportsFetchSuccess() {
+        //given
+        Targeting.shared.forceSdkToChooseWinner = true
+
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        //This needs to after AdUnit init as the AdUnit enables this value.
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        let adObject = NSMutableDictionary()
+        let bidResponse = BidResponse(jsonDictionary: Self.topBidUncachedRunnerUpCachedResponse())
+
+        //when
+        XCTAssertEqual(bidResponse.removeBidsWithoutSuccessfulCache(), 1)
+        let resultCode = adUnit.setUp(adObject, with: bidResponse)
+
+        //then
+        XCTAssertTrue(bidResponse.topBidWasFiltered)
+        XCTAssertEqual(bidResponse.winningBid?.price, 0.10)
+        XCTAssertEqual(resultCode, .prebidDemandFetchSuccess)
+        XCTAssertTrue((adObject.allKeys as? [String])?.contains("hb_bidder_appnexus") ?? false)
+    }
+
+    func testBidInfoCarriesTopBidFilteredFlag() {
+        let filtered = BidResponse(jsonDictionary: Self.topBidUncachedRunnerUpCachedResponse())
+        filtered.removeBidsWithoutSuccessfulCache()
+
+        let filteredInfo = BidInfo.create(resultCode: .prebidDemandFetchSuccess, bidResponse: filtered)
+        XCTAssertTrue(filteredInfo.topBidFiltered)
+
+        let untouched = BidResponse(jsonDictionary: Self.topBidUncachedRunnerUpCachedResponse())
+        let untouchedInfo = BidInfo.create(resultCode: .prebidDemandFetchSuccess, bidResponse: untouched)
+        XCTAssertFalse(untouchedInfo.topBidFiltered)
+    }
+
+    /// PBS-designated winner (unsuffixed hb_* keys, no cache entry) plus a cached runner-up.
+    private static func topBidUncachedRunnerUpCachedResponse() -> [String : Any] {
+        let topBid: [String : Any] = [
+            "id": "top-bid-id",
+            "impid": "test-imp-id",
+            "price": 0.20,
+            "adm": "<html></html>",
+            "w": 300,
+            "h": 250,
+            "ext": [
+                "prebid": [
+                    "targeting": [
+                        "hb_bidder": "openx",
+                        "hb_pb": "0.20"
+                    ],
+                    "type": "banner"
+                ]
+            ]
+        ]
+
+        let runnerUpBid: [String : Any] = [
+            "id": "runner-up-bid-id",
+            "impid": "test-imp-id",
+            "price": 0.10,
+            "adm": "<html></html>",
+            "w": 300,
+            "h": 250,
+            "ext": [
+                "prebid": [
+                    "targeting": [
+                        "hb_bidder_appnexus": "appnexus",
+                        "hb_pb_appnexus": "0.10"
+                    ],
+                    "cache": [
+                        "bids": [
+                            "url": "https://prebid-cache/cache?uuid=runner-up-cache-id",
+                            "cacheId": "runner-up-cache-id"
+                        ]
+                    ],
+                    "type": "banner"
+                ]
+            ]
+        ]
+
+        return [
+            "id": "response-id",
+            "seatbid": [
+                [
+                    "bid": [topBid, runnerUpBid],
+                    "seat": "openx"
+                ]
+            ],
+            "cur": "USD"
+        ]
+    }
+
     func testBidInfoCompletion() {
         Prebid.shared.prebidServerAccountId = "test-account-id"
         

@@ -167,10 +167,107 @@ class PBMBidResponseTransformerTest: XCTestCase {
     
     func testRemoveBidsWithoutSuccessfulCache_lowercaseVastXmlCacheBidRemains() {
         let bidResponse = BidResponse(jsonDictionary: Self.cachedBidResponseDictionary(cacheKey: "vastxml"))
-        
+
         XCTAssertEqual(bidResponse.removeBidsWithoutSuccessfulCache(), 0)
         XCTAssertEqual(bidResponse.allBids?.count, 1)
         XCTAssertNotNil(bidResponse.winningBid)
+    }
+
+    func testRemoveBidsWithoutSuccessfulCache_urlWithoutCacheIdIsRemoved() {
+        // cacheId is what PUC actually needs to retrieve the creative (GET /cache?uuid=).
+        // A cache object with only `url` and no `cacheId` cannot be retrieved and must not
+        // be treated as cache-successful.
+        var response = Self.cachedBidResponseDictionary()
+        var seatbid = (response["seatbid"] as? [[String : Any]])?[0] ?? [:]
+        var bids = seatbid["bid"] as? [[String : Any]] ?? []
+        var bid = bids[0]
+        var ext = bid["ext"] as? [String : Any] ?? [:]
+        var prebid = ext["prebid"] as? [String : Any] ?? [:]
+        var cache = prebid["cache"] as? [String : Any] ?? [:]
+        var cacheBids = cache["bids"] as? [String : Any] ?? [:]
+        cacheBids["cacheId"] = nil
+        cache["bids"] = cacheBids
+        prebid["cache"] = cache
+        ext["prebid"] = prebid
+        bid["ext"] = ext
+        bids[0] = bid
+        seatbid["bid"] = bids
+        response["seatbid"] = [seatbid]
+
+        let bidResponse = BidResponse(jsonDictionary: response)
+
+        XCTAssertEqual(bidResponse.removeBidsWithoutSuccessfulCache(), 1)
+        XCTAssertEqual(bidResponse.allBids?.count, 0)
+        XCTAssertNil(bidResponse.winningBid)
+    }
+
+    func testRemoveBidsWithoutSuccessfulCache_promotesRunnerUpWhenTopBidFiltered() {
+        // The PBS-designated winner carries the unsuffixed hb_bidder/hb_pb/hb_cache_id
+        // keys but has no ext.prebid.cache, so it fails the cache check.
+        let topBid: [String : Any] = [
+            "id": "top-bid-id",
+            "impid": "test-imp-id",
+            "price": 0.20,
+            "adm": "<html></html>",
+            "w": 300,
+            "h": 250,
+            "ext": [
+                "prebid": [
+                    "targeting": [
+                        "hb_bidder": "openx",
+                        "hb_pb": "0.20",
+                        "hb_cache_id": "cache-id"
+                    ],
+                    "type": "banner"
+                ]
+            ]
+        ]
+
+        // The runner-up carries only bidder-suffixed keys (as PBS does for non-winning
+        // bids) but does have a successful cache entry.
+        let runnerUpBid: [String : Any] = [
+            "id": "runner-up-bid-id",
+            "impid": "test-imp-id",
+            "price": 0.10,
+            "adm": "<html></html>",
+            "w": 300,
+            "h": 250,
+            "ext": [
+                "prebid": [
+                    "targeting": [
+                        "hb_bidder_appnexus": "appnexus",
+                        "hb_pb_appnexus": "0.10"
+                    ],
+                    "cache": [
+                        "bids": [
+                            "url": "https://prebid-cache/cache?uuid=runner-up-cache-id",
+                            "cacheId": "runner-up-cache-id"
+                        ]
+                    ],
+                    "type": "banner"
+                ]
+            ]
+        ]
+
+        let bidResponse = BidResponse(jsonDictionary: [
+            "id": "response-id",
+            "seatbid": [
+                [
+                    "bid": [topBid, runnerUpBid],
+                    "seat": "openx"
+                ]
+            ],
+            "cur": "USD"
+        ])
+
+        XCTAssertEqual(bidResponse.winningBid?.price, 0.20)
+        XCTAssertFalse(bidResponse.topBidWasFiltered)
+
+        XCTAssertEqual(bidResponse.removeBidsWithoutSuccessfulCache(), 1)
+        XCTAssertEqual(bidResponse.allBids?.count, 1)
+        XCTAssertEqual(bidResponse.winningBid?.price, 0.10)
+        XCTAssertTrue(bidResponse.topBidWasFiltered)
+        XCTAssertEqual(bidResponse.targetingInfo?["hb_bidder_appnexus"], "appnexus")
     }
     
     func testRealPrebidResponse() {

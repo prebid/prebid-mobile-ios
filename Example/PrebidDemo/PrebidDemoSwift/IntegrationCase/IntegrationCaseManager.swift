@@ -35,6 +35,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "GAM (Original API) Display Banner 320x50 [Filter Uncached Bids]",
+            integrationKind: .gamOriginal,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                GAMOriginalAPIFilterUncachedBidsBannerViewController()
+            }
+        ),
+
+        IntegrationCase(
             title: "GAM (Original API) Video Banner 300x250",
             integrationKind: .gamOriginal,
             adFormat: .videoBanner,
