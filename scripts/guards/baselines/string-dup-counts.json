@@ -1,0 +1,9 @@
+{
+  "guard": "string-dup-ratchet",
+  "description": "String literals duplicated across 3+ files in PrebidMobile/Swift/, with the number of files each appears in. Copying one into a further file fails; consolidating it shrinks the count. Update: ./scripts/guards/run-guards.sh --update-string-dup-baseline",
+  "counts": {
+    "SDK couldn't find a view controller to present the SKStoreProductViewController from.": 3,
+    "document.body.innerHTML": 4,
+    "prebid": 4
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "guard": "api-naming",
+  "description": "PBM-prefixed names grandfathered in the public Swift surface (shrink-only). Fixing one means renaming the Swift symbol and deprecating the old name (deprecation-hygiene applies). PBMMediation* constants are NOT here — they are a permanent, documented exception encoded in the check itself.",
+  "entries": [
+    {
+      "entry": "class PBMORTBNoBidReason",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "class PBMURLComponents",
+      "reason": "Shipped public on master by the phase-3.3 migration (#1336) before this guard landed. Renaming is a breaking public-API change — follow-up: rename to URLComponents-style name with @objc(PBMURLComponents) and deprecate the old one."
+    },
+    {
+      "entry": "func PBMAddBottomLeftConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddBottomRightConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddBottomRightConstraintsWithMarginSize",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddCropAndCenterConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddTopLeftConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMAddTopRightConstraints",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMdoesMatch",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMnumberOfMatches",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMstringByReplacingRegex",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMsubstringFromIndex",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMsubstringFromString",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "func PBMsubstringToString",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "let PBM_ORIGINAL_ADUNIT_KEY",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "let PBM_PRECACHE_CONFIGURATION_KEY",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "let PBM_TRACKING_URL_TEMPLATE",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "let PBM_TRANSACTION_STATE_KEY",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "parent PBMError",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "parent PBMErrorType",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "protocol PBMJsonDecodable",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "protocol PBMJsonEncodable",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "protocol PBMUIApplicationProtocol",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "typealias PBMDownloadDataCompletionClosure",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    },
+    {
+      "entry": "typealias PBMNetworkReachableBlock",
+      "reason": "Migration leftover: public Swift name still carries the ObjC PBM prefix. Renaming it is a breaking public-API change."
+    }
+  ]
+}
