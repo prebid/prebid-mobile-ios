@@ -64,10 +64,32 @@ public class BannerView:
         set { adUnitConfig.additionalSizes = newValue }
     }
     
+    /// The set of ad formats requested for this ad unit.
+    ///
+    /// Defaults to `[.banner]`. Set `[.video]` for an outstream video banner, or
+    /// `[.banner, .video]` for a multiformat request.
+    ///
+    /// Only `.banner` and `.video` can be rendered by `BannerView`.
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set {
+            guard let formats = AdFormat.validated(newValue, supported: Self.supportedAdFormats) else {
+                return
+            }
+            
+            adUnitConfig.adFormats = formats
+        }
+    }
+    
     /// The ad format (e.g., banner, video).
+    ///
+    /// - Note: Deprecated. Use `adFormats` instead, which supports multiformat requests.
+    ///   Assigning goes through `adFormats`, so unsupported values such as `.native`
+    ///   are ignored with a warning.
+    @available(*, deprecated, message: "Use `adFormats` instead.")
     public var adFormat: AdFormat {
         get { adUnitConfig.adFormats.first ?? .banner }
-        set { adUnitConfig.adFormats = [newValue] }
+        set { adFormats = [newValue] }
     }
     
     /// The position of the ad on the screen.
@@ -85,6 +107,7 @@ public class BannerView:
     var adLoadFlowController: AdLoadFlowController?
     
     // MARK: Externally observable
+    
     var deployedView: UIView?
     var isRefreshStopped = false
     var isAdOpened = false
@@ -101,7 +124,7 @@ public class BannerView:
             return  true
         }
         
-        if isAdOpened || !isVisible() || isCreativeOpened {
+        if isAdOpened || !isVisible() || isCreativeOpened || isVideoPlaying {
             return false
         }
         
@@ -114,6 +137,13 @@ public class BannerView:
         }
         
         return false
+    }
+    
+    /// Whether the deployed Prebid creative is a video that is currently playing.
+    /// Read on every refresh tick so a video is never torn down mid-playback, while a
+    /// creative that never reports playback (HTML, ad server, plugin) keeps refreshing.
+    var isVideoPlaying: Bool {
+        (deployedView as? DisplayView)?.isVideoPlaying ?? false
     }
     
     // MARK: - Public Methods
@@ -345,6 +375,11 @@ public class BannerView:
         return delegate.bannerViewPresentationController()
     }
     
+    // MARK: - Private Properties
+    
+    /// Formats that `BannerView` is able to render.
+    private static let supportedAdFormats: [AdFormat] = [.banner, .video]
+    
     // MARK: - Private Methods
     
     private func invokeDelegateSelector(_ selector: Selector) {
@@ -476,6 +511,7 @@ extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
 
 @_spi(PBMInternal)
 extension BannerView: DisplayViewVideoPlaybackDelegate {
+    
     public func videoPlaybackDidPause() {
         videoPlaybackDelegate?.videoPlaybackDidPause(self)
     }

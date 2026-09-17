@@ -37,6 +37,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     
     weak var videoWasMutedExpectation: XCTestExpectation?
     weak var videoWasUnmutedExpectation: XCTestExpectation?
+    weak var videoDidStartExpectation: XCTestExpectation?
     weak var videoDidPauseExpectation: XCTestExpectation?
     weak var videoDidResumeExpectation: XCTestExpectation?
 
@@ -350,6 +351,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     }
         
     func testVideoCreativePlaybackEvents() {
+        videoDidStartExpectation = expectation(description: "Expected a delegate function videoAdDidStart to fire")
         videoWasMutedExpectation = expectation(description: "Expected a delegate function videoAdWasMuted to fire")
         videoWasUnmutedExpectation = expectation(description: "Expected a delegate function videoAdWasUnmuted to fire")
         videoDidPauseExpectation = expectation(description: "Expected a delegate function videoAdDidPause to fire")
@@ -368,6 +370,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         adViewManager.currentCreative = videoCreative
         adViewManager.adViewManagerDelegate = self
  
+        videoCreative?.videoView.startPlayback()
         adViewManager.pause()
         adViewManager.resume()
         adViewManager.mute()
@@ -446,6 +449,10 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     
     func videoAdWasUnmuted() {
         fulfillOrFail(videoWasUnmutedExpectation, "videoWasUnmutedExpectation")
+    }
+    
+    func videoAdDidStart() {
+        fulfillOrFail(videoDidStartExpectation, "videoDidStartExpectation")
     }
     
     func videoAdDidPause() {

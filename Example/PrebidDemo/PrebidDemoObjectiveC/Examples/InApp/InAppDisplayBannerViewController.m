@@ -39,7 +39,7 @@ NSString * const storedImpDisplayBannerInApp = @"prebid-demo-banner-320-50";
     
     // 2. Configure the BannerView
     self.prebidBannerView.delegate = self;
-    self.prebidBannerView.adFormat = AdFormat.banner;
+    self.prebidBannerView.adFormats = [NSSet setWithObject:AdFormat.banner];
     self.prebidBannerView.videoParameters.placement = PBPlacement.InBanner;
     
     // Add Prebid banner view to the app UI

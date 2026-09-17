@@ -65,6 +65,97 @@ class MediationBannerAdUnitTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.refreshInterval, refreshInterval)
     }
     
+    func testAdFormats() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let adUnitConfig = bannerAdUnit.adUnitConfig
+        
+        // Default: display banner only
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // Single format
+        bannerAdUnit.adFormats = [.video]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.video])
+        
+        // Multiformat
+        bannerAdUnit.adFormats = [.banner, .video]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    @available(*, deprecated, message: "Covers the deprecated `adFormat` property.")
+    func testDeprecatedAdFormatIsBackedByAdFormats() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        
+        XCTAssertEqual(bannerAdUnit.adFormat, .banner)
+        
+        // Legacy setter replaces the whole set
+        bannerAdUnit.adFormat = .video
+        XCTAssertEqual(bannerAdUnit.adFormat, .video)
+        XCTAssertEqual(bannerAdUnit.adFormats, [.video])
+        XCTAssertEqual(bannerAdUnit.adUnitConfig.adFormats, [.video])
+        
+        // New setter is visible through the legacy getter
+        bannerAdUnit.adFormats = [.banner]
+        XCTAssertEqual(bannerAdUnit.adFormat, .banner)
+        
+        // Legacy getter returns a member of a multiformat set
+        bannerAdUnit.adFormats = [.banner, .video]
+        XCTAssertTrue(bannerAdUnit.adFormats.contains(bannerAdUnit.adFormat))
+    }
+    
+    func testAdFormatsRejectsEmptySet() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let adUnitConfig = bannerAdUnit.adUnitConfig
+        
+        bannerAdUnit.adFormats = [.banner, .video]
+        
+        bannerAdUnit.adFormats = []
+        
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner, .video], "Empty set must be ignored")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    func testAdFormatsRejectsUnsupportedFormats() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let adUnitConfig = bannerAdUnit.adUnitConfig
+        
+        // Unsupported only
+        bannerAdUnit.adFormats = [.native]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner], "Native-only set must be ignored")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // Mixed supported + unsupported must be rejected as a whole
+        bannerAdUnit.adFormats = [.banner, .video, .native]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner], "Set containing native must be ignored entirely")
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner])
+        
+        // A valid set is still accepted afterwards
+        bannerAdUnit.adFormats = [.banner, .video]
+        XCTAssertEqual(bannerAdUnit.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adFormats, [.banner, .video])
+        XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.banner, .video])
+    }
+    
+    @available(*, deprecated, message: "Covers the deprecated `adFormat` property.")
+    func testDeprecatedAdFormatRejectsUnsupportedFormat() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        
+        bannerAdUnit.adFormat = .video
+        bannerAdUnit.adFormat = .native
+        
+        XCTAssertEqual(bannerAdUnit.adFormat, .video, "Legacy setter must go through the same validation")
+        XCTAssertEqual(bannerAdUnit.adFormats, [.video])
+        XCTAssertEqual(bannerAdUnit.adUnitConfig.adFormats, [.video])
+    }
+    
     func testAdObjectSetUpCleanUp() {
        
         //a good response with a bid
@@ -123,4 +214,57 @@ class MediationBannerAdUnitTest: XCTestCase {
         waitForExpectations(timeout: 0.1)
     }
     
+    // MARK: - Auto-refresh vs. video creatives
+    
+    // The adapters hand the rendered `DisplayView` to AdMob / MAX, which embed it somewhere
+    // inside the publisher's ad view. The gate must find it there and follow its playback state.
+    func testRefreshIsSkippedWhileMediatedVideoIsPlaying() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        guard let mayRefreshNow = adUnit.autoRefreshManager?.mayRefreshNowBlock else {
+            return XCTFail("The ad unit must own an AutoRefreshManager")
+        }
+        
+        let window = UIWindow(frame: CGRect(origin: .zero, size: CGSize(width: 320, height: 480)))
+        window.addSubview(adObject!)
+        window.isHidden = false
+        defer { window.isHidden = true }
+        adUnit.lastAdView = adObject
+        
+        // An HTML creative, or nothing yet: refresh as usual
+        let hostWrapper = UIView(frame: adObject!.bounds)
+        adObject!.addSubview(hostWrapper)
+        hostWrapper.addSubview(UIView(frame: hostWrapper.bounds))
+        XCTAssertFalse(adUnit.isVideoPlaying)
+        XCTAssertTrue(mayRefreshNow(), "Sanity: a visible ad object without a playing video may refresh")
+        
+        // The host SDK embeds the Prebid-rendered creative below its own wrapper views
+        let displayView = DisplayView(frame: hostWrapper.bounds, bid: Bid(bid: ORTBBid(bidID: "", impid: "", price: 0.1)), configId: testID)
+        hostWrapper.addSubview(displayView)
+        
+        displayView.videoAdDidStart()
+        XCTAssertTrue(adUnit.isVideoPlaying)
+        XCTAssertFalse(mayRefreshNow(), "A mediated video creative in flight must not be torn down by auto-refresh")
+        
+        displayView.videoAdDidFinish()
+        XCTAssertFalse(adUnit.isVideoPlaying)
+        XCTAssertTrue(mayRefreshNow(), "Once the video has finished the next tick must proceed")
+    }
+    
+    func testVideoStateFollowsTheCreativeOnScreen() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        adUnit.lastAdView = adObject
+        
+        let displayView = DisplayView(frame: adObject!.bounds, bid: Bid(bid: ORTBBid(bidID: "", impid: "", price: 0.1)), configId: testID)
+        adObject!.addSubview(displayView)
+        displayView.videoAdDidStart()
+        XCTAssertTrue(adUnit.isVideoPlaying)
+        
+        // The host SDK replaces the creative (its own ad, or the next Prebid creative)
+        displayView.removeFromSuperview()
+        XCTAssertFalse(adUnit.isVideoPlaying, "A creative that is no longer on screen must not block refresh")
+        
+        // A new fetch cycle starts: nothing is tracked until a creative is on screen again
+        adUnit.lastAdView = nil
+        XCTAssertFalse(adUnit.isVideoPlaying)
+    }
 }

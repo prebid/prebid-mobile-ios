@@ -50,7 +50,7 @@ class InAppDisplayBannerPluginRendererViewController:
         
         // 3. Configure the BannerView
         prebidBannerView.delegate = self
-        prebidBannerView.adFormat = .banner
+        prebidBannerView.adFormats = [.banner]
         prebidBannerView.videoParameters.placement = .InBanner
         
         // Add Prebid banner view to the app UI

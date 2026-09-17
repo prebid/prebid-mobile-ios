@@ -31,7 +31,7 @@ class PrebidGAMBannerController:
 
     var gamAdUnitId = ""
     var validAdSizes = [AdSize]()
-    var adFormat: PrebidMobile.AdFormat?
+    var adFormats: Set<PrebidMobile.AdFormat>?
     
     var adBannerView: PrebidMobile.BannerView?
     
@@ -79,10 +79,10 @@ class PrebidGAMBannerController:
             adBannerView?.refreshInterval = refreshInterval
         }
         
-        if let adFormat = adFormat {
-            adBannerView?.adFormat = adFormat
+        if let adFormats {
+            adBannerView?.adFormats = adFormats
             
-            if adFormat == .video {
+            if adFormats.contains(.video) {
                 adBannerView?.videoParameters.placement = AppConfiguration.shared.videoPlacementType ?? .InBanner
             }
         }

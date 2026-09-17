@@ -27,11 +27,21 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         baseAdUnit.isReady
     }
     
-    /// The set of ad formats supported by this ad unit.
+    /// The set of ad formats requested for this ad unit.
+    ///
+    /// Only `.banner` and `.video` can be rendered by `InterstitialRenderingAdUnit`.
+    /// Empty sets and sets containing unsupported formats are ignored.
     public var adFormats: Set<AdFormat> {
         get { adUnitConfig.adFormats }
-        set { adUnitConfig.adFormats = newValue }
+        set {
+            guard let formats = AdFormat.validated(newValue, supported: Self.supportedAdFormats) else {
+                return
+            }
+            
+            adUnitConfig.adFormats = formats
+        }
     }
+    
     
     /// The position of the ad on the screen.
     public var adPosition: AdPosition {
@@ -109,6 +119,9 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
     }
     
     // MARK: Private properties
+    
+    /// Formats that `InterstitialRenderingAdUnit` is able to render.
+    private static let supportedAdFormats: [AdFormat] = [.banner, .video]
     
     private let baseAdUnit: BaseInterstitialAdUnit
     

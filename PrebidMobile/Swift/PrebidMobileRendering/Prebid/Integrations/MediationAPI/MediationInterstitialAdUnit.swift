@@ -23,11 +23,21 @@ public class MediationInterstitialAdUnit: MediationBaseInterstitialAdUnit {
     
     // MARK: - Public Properties
     
-    /// The ad format for the ad unit.
+    /// The set of ad formats requested for this ad unit.
+    ///
+    /// Only `.banner` and `.video` can be rendered by the interstitial mediation adapters.
+    /// Empty sets and sets containing unsupported formats are ignored.
     public var adFormats: Set<AdFormat> {
         get { adUnitConfig.adFormats }
-        set { adUnitConfig.adFormats = newValue }
+        set {
+            guard let formats = AdFormat.validated(newValue, supported: Self.supportedAdFormats) else {
+                return
+            }
+            
+            adUnitConfig.adFormats = formats
+        }
     }
+    
     
     /// Additional sizes for the ad unit.
     public var additionalSizes: [CGSize]? {
@@ -89,4 +99,9 @@ public class MediationInterstitialAdUnit: MediationBaseInterstitialAdUnit {
     public override var configId: String {
         adUnitConfig.configId
     }
+    
+    // MARK: - Private Properties
+    
+    /// Formats that the interstitial mediation adapters are able to render.
+    private static let supportedAdFormats: [AdFormat] = [.banner, .video]
 }

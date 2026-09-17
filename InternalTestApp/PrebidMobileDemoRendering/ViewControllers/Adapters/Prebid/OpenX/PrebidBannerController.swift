@@ -23,7 +23,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     var prebidConfigId = ""
 
     var adSizes = [CGSize]()
-    var adFormat: AdFormat?
+    var adFormats: Set<AdFormat>?
     
     var adBannerView: BannerView?
     
@@ -84,10 +84,11 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         if adSizes.count > 1 {
             adBannerView?.additionalSizes = Array(adSizes.suffix(from: 1))
         }
-        if let adFormat = adFormat {
-            adBannerView?.adFormat = adFormat
+        
+        if let adFormats {
+            adBannerView?.adFormats = adFormats
             
-            if adFormat == .video  {
+            if adFormats.contains(.video) {
                 adBannerView?.videoParameters.placement = AppConfiguration.shared.videoPlacementType ?? .InBanner
             }
         }

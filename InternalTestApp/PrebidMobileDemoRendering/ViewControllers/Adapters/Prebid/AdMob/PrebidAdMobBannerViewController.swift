@@ -37,7 +37,7 @@ class PrebidAdMobBannerViewController:
     var adMobAdUnitId = ""
     var adUnitSize = CGSize()
     var additionalAdSizes = [CGSize]()
-    var adFormat: PrebidMobile.AdFormat?
+    var adFormats: Set<PrebidMobile.AdFormat>?
     var storedAuctionResponse: String?
     var useSampleCustomRenderer = false
     
@@ -117,8 +117,8 @@ class PrebidAdMobBannerViewController:
             adUnit?.additionalSizes = additionalAdSizes
         }
         
-        if let adFormat = adFormat {
-            adUnit?.adFormat = adFormat
+        if let adFormats {
+            adUnit?.adFormats = adFormats
         }
         
         if let storedAuctionResponse = storedAuctionResponse {

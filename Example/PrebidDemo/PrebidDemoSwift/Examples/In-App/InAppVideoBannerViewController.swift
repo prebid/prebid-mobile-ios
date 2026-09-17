@@ -35,7 +35,7 @@ class InAppVideoBannerViewController: BannerBaseViewController, BannerViewDelega
         
         // 2. Configure the BannerView
         prebidBannerView.delegate = self
-        prebidBannerView.adFormat = .video
+        prebidBannerView.adFormats = [.video]
         prebidBannerView.videoParameters.placement = .InBanner
         
         // Add Prebid banner view to the app UI

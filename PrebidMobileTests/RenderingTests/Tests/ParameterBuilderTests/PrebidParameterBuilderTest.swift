@@ -630,7 +630,7 @@ class PrebidParameterBuilderTest: XCTestCase {
 
     func testDefaultVideoParameters_RenderingAPI() {
         let adUnit = BannerView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 250)), configID: "configId", adSize: CGSize(width: 300, height: 250))
-        adUnit.adFormat = .video
+        adUnit.adFormats = [.video]
         let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
 
         //Check that this is counted as an interstitial
@@ -831,6 +831,71 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssert(bidRequest.extPrebid.targeting["includeformat"] as! Bool == true)
     }
 
+    func testMultiformatBannerView() {
+        let size = CGSize(width: 300, height: 250)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: size), configID: "configID", adSize: size)
+        bannerView.adFormats = [.banner, .video]
+        
+        let bidRequest = buildBidRequest(with: bannerView.adUnitConfig)
+        
+        // includeformat makes PBS return hb_format so ad server line items can target the winning format
+        XCTAssertEqual(bidRequest.extPrebid.targeting["includeformat"] as? Bool, true)
+        
+        PBMAssertEq(bidRequest.imp.count, 1)
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+        PBMAssertEq(imp.instl, 0)
+        XCTAssertNil(imp.native)
+        
+        // imp.banner carries the ad size and rendering API signals
+        guard let banner = imp.banner else {
+            XCTFail("No banner object!")
+            return
+        }
+        PBMAssertEq(banner.format.count, 1)
+        PBMAssertEq(banner.format.first?.w, 300)
+        PBMAssertEq(banner.format.first?.h, 250)
+        PBMAssertEq(banner.api, PrebidConstants.supportedRenderingBannerAPISignals.map { NSNumber(value: $0.value) })
+        
+        // imp.video carries the outstream defaults for the same size
+        guard let video = imp.video else {
+            XCTFail("No video object!")
+            return
+        }
+        PBMAssertEq(video.w, 300)
+        PBMAssertEq(video.h, 250)
+        PBMAssertEq(video.mimes, PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES)
+        PBMAssertEq(video.protocols, [2,5])
+        PBMAssertEq(video.delivery!, [3])
+        PBMAssertEq(video.pos, 7)
+        PBMAssertEq(video.playbackend, 2)
+    }
+    
+    func testMultiformatMediationBannerAdUnit() {
+        let size = CGSize(width: 320, height: 50)
+        let adUnit = MediationBannerAdUnit(configID: "configID", size: size, mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
+        adUnit.adFormats = [.banner, .video]
+        
+        let bidRequest = buildBidRequest(with: adUnit.adUnitConfig)
+        
+        XCTAssertEqual(bidRequest.extPrebid.targeting["includeformat"] as? Bool, true)
+        
+        PBMAssertEq(bidRequest.imp.count, 1)
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+        XCTAssertNotNil(imp.banner)
+        XCTAssertNotNil(imp.video)
+        XCTAssertNil(imp.native)
+        PBMAssertEq(imp.banner?.format.first?.w, 320)
+        PBMAssertEq(imp.banner?.format.first?.h, 50)
+        PBMAssertEq(imp.video?.w, 320)
+        PBMAssertEq(imp.video?.h, 50)
+    }
+    
     func testIncludewinnersAndIncludeBidderKeysAreNil() {
         //Default value
         Prebid.shared.includeWinners = false

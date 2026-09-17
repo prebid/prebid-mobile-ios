@@ -31,6 +31,29 @@ class PBMAdUnitConfigTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.refreshInterval, 120)
     }
     
+    func testRefreshIntervalIsNotResetByAdFormats() {
+        adUnitConfig.refreshInterval = 30
+        
+        adUnitConfig.adFormats = [.banner, .video]
+        XCTAssertEqual(adUnitConfig.refreshInterval, 30, "Changing adFormats must not discard a configured interval")
+        
+        adUnitConfig.adFormats = [.video]
+        XCTAssertEqual(adUnitConfig.refreshInterval, 30)
+        
+        adUnitConfig.adFormats = [.banner]
+        XCTAssertEqual(adUnitConfig.refreshInterval, 30)
+    }
+    
+    func testRefreshIntervalIsIndependentOfWinningBidFormat() {
+        adUnitConfig.adConfiguration.winningBidAdFormat = .video
+        
+        adUnitConfig.refreshInterval = 45
+        XCTAssertEqual(adUnitConfig.refreshInterval, 45, "refreshInterval is publisher configuration, not render state")
+        
+        adUnitConfig.adConfiguration.winningBidAdFormat = .banner
+        XCTAssertEqual(adUnitConfig.refreshInterval, 45)
+    }
+    
     // MARK: - The Prebid Ad Slot
     
     func testSetPbAdSlot() {        

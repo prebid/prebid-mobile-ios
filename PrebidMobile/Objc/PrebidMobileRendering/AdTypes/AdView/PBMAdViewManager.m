@@ -151,6 +151,12 @@
 
 #pragma mark - PBMCreativeViewDelegate
 
+- (void)videoDidStart:(id<PBMAbstractCreative>)creative {
+    if ([self.adViewManagerDelegate respondsToSelector:@selector(videoAdDidStart)]) {
+        [self.adViewManagerDelegate videoAdDidStart];
+    }
+}
+
 - (void)videoCreativeDidComplete:(id<PBMAbstractCreative>)creative {
     if ([self.adViewManagerDelegate respondsToSelector:@selector(videoAdDidFinish)]) {
         [self.adViewManagerDelegate videoAdDidFinish];
