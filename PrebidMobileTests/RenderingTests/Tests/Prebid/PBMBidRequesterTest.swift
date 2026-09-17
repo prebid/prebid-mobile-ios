@@ -265,6 +265,26 @@ class PBMBidRequesterTest: XCTestCase {
         waitForExpectations(timeout: 5)
     }
     
+    func testBanner_missingResponseId_returnsDeserializationError() {
+        let adUnitConfig = AdUnitConfig(configId: "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4", size: CGSize(width: 300, height: 250))
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(BidResponseTransformer.missingIdResponse)
+        }])
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
+
+        let exp = expectation(description: "exp")
+
+        requester.requestBids { (bidResponse, error) in
+            XCTAssertNil(bidResponse)
+            XCTAssertEqual(error as NSError?, PBMError.responseDeserializationFailed() as NSError?)
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 5)
+    }
+
     func testBanner_invalidSize() {
         let adUnitConfig = AdUnitConfig(configId: "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4", size: CGSize(width: -300, height: 250))
         let connection = MockServerConnection()

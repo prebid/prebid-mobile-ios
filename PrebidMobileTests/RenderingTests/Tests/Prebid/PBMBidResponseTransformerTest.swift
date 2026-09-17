@@ -74,6 +74,17 @@ class PBMBidResponseTransformerTest: XCTestCase {
             XCTAssertEqual(error as NSError, PBMError.jsonDictNotFound() as NSError)
         }
     }
+
+    func testMissingResponseId() {
+        let response = BidResponseTransformer.missingIdResponse
+
+        do {
+            let _ = try BidResponseTransformer.transform(response)
+            XCTFail("Expected error not thrown")
+        } catch {
+            XCTAssertEqual(error as NSError, PBMError.responseDeserializationFailed() as NSError)
+        }
+    }
     
     func testOk() {
         let bidPrice: Float = 0.1091000000051168
