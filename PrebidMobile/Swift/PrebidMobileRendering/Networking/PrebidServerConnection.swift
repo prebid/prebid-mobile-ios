@@ -66,6 +66,13 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     // Only bounds requests that don't set their own `timeoutInterval`; see `session`.
     private static let sessionTimeout: TimeInterval = 60
     
+    // `URLSession` allows 6 per host by default. HTTP/2 multiplexes, so this only has any
+    // effect against an HTTP/1.1 endpoint — but there it caps how many auctions can be in
+    // flight at once, and `AdUnit.baseFetchDemand` arms its demand timeout in wall-clock
+    // time from the call, so a request still waiting for a connection is already spending
+    // that budget. 12 keeps a realistic number of simultaneous ad units in a single wave.
+    private static let maxConnectionsPerHost = 12
+    
     private let sessionLock = NSLock()
     
     private var cachedSession: URLSession?
@@ -245,6 +252,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         // value, so the session-level timeout only has to be permissive enough not to
         // pre-empt them.
         config.timeoutIntervalForRequest = PrebidServerConnection.sessionTimeout
+        config.httpMaximumConnectionsPerHost = PrebidServerConnection.maxConnectionsPerHost
         config.protocolClasses = protocolClasses
         
         #if DEBUG
