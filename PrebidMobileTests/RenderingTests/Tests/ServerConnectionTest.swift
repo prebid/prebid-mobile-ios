@@ -745,6 +745,16 @@ extension ServerConnectionTest {
             .contains { $0 == MockServerURLProtocol.self } == true)
     }
     
+    /// Requests to one host share the session's connection pool now, so the per-host cap
+    /// bounds how many auctions can be in flight at once against an HTTP/1.1 endpoint.
+    /// `AdUnit` arms its demand timeout in wall-clock time from the `fetchDemand` call, so
+    /// a request queued for a connection is already spending that budget.
+    func testSessionAllowsMoreThanTheDefaultConnectionsPerHost() {
+        let connection = PrebidServerConnection()
+        
+        XCTAssertEqual(connection.session.configuration.httpMaximumConnectionsPerHost, 12)
+    }
+    
     /// The timeout moved from the session configuration onto the request, so every entry
     /// point has to set it — otherwise it silently inherits the session-wide value.
     func testFireAndForgetAndDownloadCarryTheirOwnTimeout() {
