@@ -26,6 +26,7 @@ public class ORTBUser: NSObject, PBMJsonCodable {
     @objc public var data: [ORTBContentData]?
     @objc public var ext: NSMutableDictionary? = NSMutableDictionary()
     @objc public var userid: String?
+    @objc public var eids: [[String: Any]]?
 
     // MARK: - Init
 
@@ -40,6 +41,7 @@ public class ORTBUser: NSObject, PBMJsonCodable {
         keywords   = json[.keywords]
         customdata = json[.customdata]
         userid     = json[.id]
+        eids       = jsonDictionary["eids"] as? [[String: Any]]
         if let extDict = jsonDictionary["ext"] as? [String: Any] {
             ext = NSMutableDictionary(dictionary: extDict)
         }
@@ -68,6 +70,9 @@ public class ORTBUser: NSObject, PBMJsonCodable {
         }
 
         var result = json.dict
+        if let eids, !eids.isEmpty {
+            result["eids"] = eids
+        }
         if let ext = ext, ext.count > 0 {
             result["ext"] = ext
         }

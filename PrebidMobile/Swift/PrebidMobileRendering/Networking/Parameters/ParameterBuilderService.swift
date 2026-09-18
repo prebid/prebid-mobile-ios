@@ -99,7 +99,53 @@ public class ParameterBuilderService: NSObject {
             globalORTB: targeting.getGlobalORTBConfig()
         )
 
-        return ORTBParameterBuilder.buildOpenRTB(for: arbitraryORTB)
+        return ORTBParameterBuilder.buildOpenRTB(
+            for: placeEids(in: arbitraryORTB, placement: sdkConfiguration.eidsPlacement)
+        )
+    }
+
+    /// Places EIDs in `user.eids` (OpenRTB 2.6), `user.ext.eids` (OpenRTB 2.5), or both.
+    ///
+    /// Runs after the arbitrary ORTB merge because EIDs reach both locations from different sources:
+    /// the SDK and `Targeting.userExt` fill `user.ext.eids`, while an ORTB config can add to either.
+    /// Prebid Server drops `user.ext.eids` whenever `user.eids` is present, so each enabled location
+    /// receives the same combined list rather than only its own entries.
+    static func placeEids(in ortb: [String: Any], placement: EidsPlacement) -> [String: Any] {
+        guard var user = ortb["user"] as? [String: Any] else {
+            return ortb
+        }
+
+        var userExt = user["ext"] as? [String: Any] ?? [:]
+        let userEids = user["eids"] as? [[String: Any]] ?? []
+        let userExtEids = userExt["eids"] as? [[String: Any]] ?? []
+
+        // Entries already in `user.eids` are not added twice, so a request that holds the same list
+        // in both locations comes out unchanged.
+        let eids = userEids + userExtEids.filter { extEid in
+            !userEids.contains { NSDictionary(dictionary: $0).isEqual(to: extEid) }
+        }
+
+        guard !eids.isEmpty else {
+            return ortb
+        }
+
+        switch placement {
+        case .openRTB26:
+            user["eids"] = eids
+            userExt["eids"] = nil
+        case .openRTB25:
+            user["eids"] = nil
+            userExt["eids"] = eids
+        case .compatible:
+            user["eids"] = eids
+            userExt["eids"] = eids
+        }
+
+        user["ext"] = userExt.isEmpty ? nil : userExt
+
+        var result = ortb
+        result["user"] = user
+        return result
     }
 
     static func createORTBBidRequest(with targeting: Targeting) -> ORTBBidRequest {
