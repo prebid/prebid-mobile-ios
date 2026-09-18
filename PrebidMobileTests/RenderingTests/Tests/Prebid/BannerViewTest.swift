@@ -390,9 +390,9 @@ class BannerViewTest: XCTestCase {
             adSize: CGSize(width: 320, height: 50),
             eventHandler: BannerEventHandlerStandalone()
         )
-        // Outstream video is not refreshable: the interval is forced to 0.
-        bannerView.adUnitConfig.adConfiguration.winningBidAdFormat = .video
-        bannerView.refreshInterval = 0
+        // Refresh is disabled by a negative interval: the setter clamps anything
+        // non-negative up to `refreshIntervalMin`, so assigning 0 would yield 15.
+        bannerView.refreshInterval = -1
         XCTAssertEqual(bannerView.refreshInterval, 0)
 
         assertExpirationKeepsDeployedView(of: bannerView)

@@ -718,3 +718,66 @@ func getMockedServerConnection() -> PrebidServerConnection {
 
     return serverConnection
 }
+
+// MARK: - Connection reuse (issue #1339)
+
+extension ServerConnectionTest {
+    
+    /// A session per request gives every request its own connection pool, which costs a
+    /// fresh DNS + TCP + TLS handshake each time. The session has to be reused.
+    func testSessionIsReusedAcrossRequests() {
+        let connection = PrebidServerConnection()
+        
+        XCTAssert(connection.session === connection.session)
+    }
+    
+    /// `protocolClasses` is copied into the session's configuration when the session is
+    /// created, so changing it after the fact has to rebuild the session — otherwise the
+    /// mock protocol the tests install would never take effect.
+    func testChangingProtocolClassesRebuildsSession() {
+        let connection = PrebidServerConnection()
+        let initialSession = connection.session
+        
+        connection.protocolClasses.append(MockServerURLProtocol.self)
+        
+        XCTAssert(initialSession !== connection.session)
+        XCTAssert(connection.session.configuration.protocolClasses?
+            .contains { $0 == MockServerURLProtocol.self } == true)
+    }
+    
+    /// Requests to one host share the session's connection pool now, so the per-host cap
+    /// bounds how many auctions can be in flight at once against an HTTP/1.1 endpoint.
+    /// `AdUnit` arms its demand timeout in wall-clock time from the `fetchDemand` call, so
+    /// a request queued for a connection is already spending that budget.
+    func testSessionAllowsMoreThanTheDefaultConnectionsPerHost() {
+        let connection = PrebidServerConnection()
+        
+        XCTAssertEqual(connection.session.configuration.httpMaximumConnectionsPerHost, 12)
+    }
+    
+    /// The timeout moved from the session configuration onto the request, so every entry
+    /// point has to set it — otherwise it silently inherits the session-wide value.
+    func testFireAndForgetAndDownloadCarryTheirOwnTimeout() {
+        let connection = getMockedServerConnection()
+        var observedTimeouts = [TimeInterval]()
+        
+        MockServer.shared.reset()
+        let rule = MockServerRule(urlNeedle: "foo.com", mimeType: MockServerMimeType.JSON.rawValue,
+                                  connectionID: connection.internalID, strResponse: strResponse)
+        rule.mockServerReceivedRequestHandler = { request in
+            observedTimeouts.append(request.timeoutInterval)
+        }
+        MockServer.shared.resetRules([rule])
+        
+        let downloaded = expectation(description: "downloaded")
+        connection.fireAndForget("https://foo.com/fire")
+        connection.download("https://foo.com/download") { _ in downloaded.fulfill() }
+        
+        wait(for: [downloaded], timeout: 5)
+        
+        XCTAssertFalse(observedTimeouts.isEmpty)
+        for timeout in observedTimeouts {
+            XCTAssertEqual(timeout, PrebidConstants.FIRE_AND_FORGET_TIMEOUT)
+        }
+    }
+}
