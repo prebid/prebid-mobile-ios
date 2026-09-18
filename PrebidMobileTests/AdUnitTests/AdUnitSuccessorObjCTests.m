@@ -72,7 +72,18 @@ NSString * const configId = @"1001-1";
 //MARK: - RewardedVideoAdUnit
 - (void)testRewardedVideoAdUnitCreation {
     //when
-    AdUnit *adunit = [[RewardedVideoAdUnit alloc] initWithConfigId:configId];
+    RewardedVideoAdUnit *adunit = [[RewardedVideoAdUnit alloc] initWithConfigId:configId];
+    XCTAssertNotNil(adunit);
+}
+
+//MARK: - RewardedDisplayAdUnit
+- (void)testRewardedDisplayAdUnitCreation {
+    RewardedDisplayAdUnit *adunit = [[RewardedDisplayAdUnit alloc] initWithConfigId:configId];
+    XCTAssertNotNil(adunit);
+}
+
+- (void)testRewardedDisplayAdUnitConvenienceCreation {
+    AdUnit *adunit = [[RewardedDisplayAdUnit alloc] initWithConfigId:configId minWidthPerc:50 minHeightPerc:70];
     XCTAssertNotNil(adunit);
 }
 
