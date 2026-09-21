@@ -295,6 +295,9 @@ public class BannerView:
     public func stopRefresh() {
         adLoadFlowController?.enqueueGatedBlock { [weak self] in
             self?.isRefreshStopped = true
+            // A refresh scheduled for the ad on screen would otherwise still run,
+            // and starting that load clears `isRefreshStopped` again.
+            self?.autoRefreshManager?.cancelRefreshTimer()
         }
     }
     

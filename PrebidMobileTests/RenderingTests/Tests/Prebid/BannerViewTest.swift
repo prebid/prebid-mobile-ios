@@ -291,6 +291,23 @@ class BannerViewTest: XCTestCase {
         XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "An HTML banner keeps the configured auto-refresh")
     }
     
+    // A refresh is already scheduled while an ad is on screen. If `stopRefresh()` leaves it in
+    // place, the tick runs, the new load clears `isRefreshStopped` and refreshing never stops.
+    func testStopRefreshCancelsTheScheduledRefresh() {
+        let bannerView = makeBannerView(bidFormat: "banner")
+        armRefreshTimer(bannerView)
+        
+        bannerView.stopRefresh()
+        
+        // `stopRefresh()` is applied on the ad load flow queue
+        let applied = expectation(description: "stopRefresh applied")
+        bannerView.adLoadFlowController?.enqueueGatedBlock { applied.fulfill() }
+        wait(for: [applied], timeout: 1)
+        
+        XCTAssertTrue(bannerView.isRefreshStopped)
+        XCTAssertNil(bannerView.autoRefreshManager?.delayedBlock, "A stopped banner must not keep a scheduled refresh")
+    }
+    
     // The gate is driven by the creative's own playback callbacks, evaluated on every tick,
     // so it self-recovers once playback ends and protects a replay ("watch again") too.
     func testRefreshIsSkippedWhileVideoIsPlaying() {
