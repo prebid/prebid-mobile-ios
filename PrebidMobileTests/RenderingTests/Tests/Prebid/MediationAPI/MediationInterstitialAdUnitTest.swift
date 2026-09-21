@@ -181,4 +181,35 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
         XCTAssertEqual(adUnitConfig.adPosition, .footer)
     }
+    
+    func testFetchDemandWhileRequestIsInProgressCallsBack() {
+        let adUnit = MediationInterstitialAdUnit(
+            configId: "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4",
+            minSizePercentage: CGSize(width: 30, height: 30),
+            mediationDelegate: mediationDelegate!
+        )
+        
+        let requestSent = expectation(description: "The first bid request is sent")
+        var respond: PrebidServerResponseCallback?
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            respond = callback
+            requestSent.fulfill()
+        }])
+        
+        let firstCompletion = expectation(description: "The request in progress completes")
+        adUnit.fetchDemand(connection: connection, sdkConfiguration: sdkConfiguration, targeting: targeting) { result in
+            XCTAssertEqual(result, .prebidDemandFetchSuccess)
+            firstCompletion.fulfill()
+        }
+        
+        let secondCompletion = expectation(description: "The rejected request still calls back")
+        adUnit.fetchDemand(connection: connection, sdkConfiguration: sdkConfiguration, targeting: targeting) { result in
+            XCTAssertEqual(result, .prebidSDKMisusePreviousFetchNotCompletedYet)
+            secondCompletion.fulfill()
+        }
+        wait(for: [requestSent, secondCompletion], timeout: 1)
+        
+        respond?(BidResponseTransformer.someValidResponse)
+        wait(for: [firstCompletion], timeout: 1)
+    }
 }
