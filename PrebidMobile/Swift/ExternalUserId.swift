@@ -19,7 +19,7 @@ import UIKit
 /// OpenRTB 2.6 `user.eids`: https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/main/2.6.md#3227---object-eid-
 /// OpenRTB 2.5 `user.ext.eids`: https://github.com/InteractiveAdvertisingBureau/openrtb/blob/main/extensions/2.x_official_extensions/eids.md
 @objcMembers
-public class ExternalUserId: NSObject, JSONConvertible {
+public class ExternalUserId: NSObject, JSONConvertible, ExtendedId {
     
     // MARK: - Properties
     
