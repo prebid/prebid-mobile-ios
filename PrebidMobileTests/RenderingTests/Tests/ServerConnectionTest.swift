@@ -728,7 +728,7 @@ extension ServerConnectionTest {
     func testSessionIsReusedAcrossRequests() {
         let connection = PrebidServerConnection()
         
-        XCTAssert(connection.session === connection.session)
+        XCTAssert(connection.currentSession === connection.currentSession)
     }
     
     /// `protocolClasses` is copied into the session's configuration when the session is
@@ -736,12 +736,12 @@ extension ServerConnectionTest {
     /// mock protocol the tests install would never take effect.
     func testChangingProtocolClassesRebuildsSession() {
         let connection = PrebidServerConnection()
-        let initialSession = connection.session
+        let initialSession = connection.currentSession
         
         connection.protocolClasses.append(MockServerURLProtocol.self)
         
-        XCTAssert(initialSession !== connection.session)
-        XCTAssert(connection.session.configuration.protocolClasses?
+        XCTAssert(initialSession !== connection.currentSession)
+        XCTAssert(connection.currentSession.configuration.protocolClasses?
             .contains { $0 == MockServerURLProtocol.self } == true)
     }
     
@@ -752,7 +752,7 @@ extension ServerConnectionTest {
     func testSessionAllowsMoreThanTheDefaultConnectionsPerHost() {
         let connection = PrebidServerConnection()
         
-        XCTAssertEqual(connection.session.configuration.httpMaximumConnectionsPerHost, 12)
+        XCTAssertEqual(connection.currentSession.configuration.httpMaximumConnectionsPerHost, 12)
     }
     
     /// The timeout moved from the session configuration onto the request, so every entry

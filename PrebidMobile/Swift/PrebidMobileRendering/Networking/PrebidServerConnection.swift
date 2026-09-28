@@ -123,7 +123,11 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         }
         
         request.httpMethod = HTTPMethodPOST
-        request.setTimeoutInterval(timeout)
+        // `get(_:timeout:)` and its callers pass 0 for "no explicit timeout"; leave the
+        // `URLRequest` default in place rather than relying on how URLSession reads a 0.
+        if timeout > 0 {
+            request.timeoutInterval = timeout
+        }
         request.setValue(contentType, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
         let task = session.uploadTask(with: request, from: data) { [weak self] data, response, error in
@@ -158,7 +162,9 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         }
         
         request.httpMethod = headersOnly ? HTTPMethodHEAD : HTTPMethodGET
-        request.setTimeoutInterval(timeout)
+        if timeout > 0 {
+            request.timeoutInterval = timeout
+        }
         request.setValue(PrebidServerConnection.contentTypeVal, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
         let task = session.dataTask(with: request) { [weak self] data, response, error in
@@ -230,14 +236,18 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         fullServerCallback(serverResponse)
     }
     
+    /// The session backing every request, exposed so tests can assert its identity is
+    /// stable across requests.
+    var currentSession: URLSession {
+        session
+    }
+    
     /// A single session shared by every request this connection makes.
     ///
     /// `URLSession` keeps its connection pool per session, so creating one per request
     /// forced a fresh DNS + TCP + TLS handshake every time. Reusing one session lets
     /// consecutive requests to the same host ride an already-open connection.
-    ///
-    /// Internal rather than private so tests can assert the identity is stable.
-    var session: URLSession {
+    private var session: URLSession {
         sessionLock.lock()
         defer { sessionLock.unlock() }
         
@@ -313,16 +323,4 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         Functions.checkCertificateChallenge(challenge, completionHandler: completionHandler)
     }
     #endif
-}
-
-// MARK: - Helpers
-
-fileprivate extension URLRequest {
-    
-    /// Applies `timeout` only when it is a real value, leaving the `URLRequest`
-    /// default in place otherwise.
-    mutating func setTimeoutInterval(_ timeout: TimeInterval) {
-        guard timeout > 0 else { return }
-        timeoutInterval = timeout
-    }
 }
