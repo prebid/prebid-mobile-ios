@@ -21,7 +21,7 @@ echo -e "\n\n${GREEN}BUILD LOCAL SPM PACKAGE${NC}\n\n"
 # passed explicitly to both swiftc and clang.
 
 SDK_PATH="$(xcrun --sdk iphonesimulator --show-sdk-path)"
-TRIPLE="arm64-apple-ios13.0-simulator"
+TRIPLE="arm64-apple-ios15.0-simulator"
 
 # SwiftPM resolves binaryTarget xcframework slices against the *host* platform, so
 # cross-compiling this way it never adds a framework search path for OMSDK. Point

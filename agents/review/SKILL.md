@@ -64,7 +64,7 @@ If the full suite is warranted (final PR in a phase, or touching networking):
 **iOS SDK specifics**
 - No changes to public API surface without explicit intent (check `PrebidMobile/Swift/` public types)
 - `fetchDemand` call sites and ad unit lifecycle unaffected
-- Min deployment target stays iOS 13.0 — no API calls that require higher
+- Min deployment target stays iOS 15.0 — no API calls that require higher
 - No new ObjC dependency added to the Swift layer without justification
 - Never log consent strings, IDFA, or EIDs (`ORTBUser.ext`) — this SDK handles all three
 

@@ -337,7 +337,7 @@ Not phase-specific. Adapted from `agents/migration-patterns/`; that guide confli
 | `id` | `Any` | Prefer specific types |
 | `NS_ENUM` | `enum: Int` | ⚠ `NS_TYPED_ENUM` string constants can't bridge — keep a residual `.m` (S2.1-A) |
 | `NS_OPTIONS` | `OptionSet` | Struct-based |
-| `dispatch_queue_t` + GCD | `DispatchQueue` | ⚠ Not `async`/`await` — iOS 13 floor. `dispatch_time()` needs explicit mach-tick handling (S2.1-C) |
+| `dispatch_queue_t` + GCD | `DispatchQueue` | ⚠ Not `async`/`await` — keep GCD so the port stays 1:1 with the ObjC original. `dispatch_time()` needs explicit mach-tick handling (S2.1-C) |
 | Category | Extension | ⚠ `@objc` extensions on Foundation types bridge via `-Swift.h` (S2.2-A) |
 | `@protocol` | `protocol` | ⚠ Reduce the ObjC header to a forward declaration (S2.1-G) |
 | `#pragma mark -` | `// MARK: -` | |
