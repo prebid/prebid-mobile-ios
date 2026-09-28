@@ -892,7 +892,7 @@ struct TestCaseManager {
                     ]
                 )
                
-                Targeting.shared.setExternalUserIds([eid])
+                Targeting.shared.addExternalUserId(eid)
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "prebid-ita-banner-320-50"
