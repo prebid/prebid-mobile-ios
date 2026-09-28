@@ -120,14 +120,48 @@ public class Targeting: NSObject {
     
     // MARK: - External User Ids
     
-    /// Sets the external user ID.
-    public func setExternalUserIds(_ externalUserIds: [ExternalUserId]) {
-        self.externalUserIds = externalUserIds
+    /// Adds a static external user ID, replacing the IDs that have the same `source`.
+    ///
+    /// IDs from other sources stay in place, so independent integrations can each manage their own ID.
+    /// Prefer this over `setExternalUserIds(_:)`, which replaces the whole list.
+    ///
+    /// For IDs that change during the session (e.g. an identity SDK that refreshes tokens), implement
+    /// `ExtendedIdProvider` and register it with `Prebid.registerExtendedIdProvider(_:)`. Identity
+    /// vendors may ship ready-made providers.
+    public func addExternalUserId(_ externalUserId: ExternalUserId) {
+        extendedIdRegistry.staticProvider.addUserId(externalUserId)
     }
     
-    /// Retrieves the external user IDs in a dictionary format suitable for use in JSON.
+    /// Removes the static external user IDs with the given `source`.
+    /// IDs from registered providers are not affected.
+    public func removeExternalUserId(_ source: String) {
+        extendedIdRegistry.staticProvider.removeUserId(source: source)
+    }
+    
+    /// Removes all static external user IDs. IDs from registered providers are not affected.
+    public func clearExternalUserIds() {
+        extendedIdRegistry.staticProvider.clear()
+    }
+    
+    /// Replaces all static external user IDs with the given list.
+    @available(*, deprecated, message: "Replaces the whole list, so it can overwrite IDs set by other integrations. Use `addExternalUserId(_:)`, `removeExternalUserId(_:)` or `clearExternalUserIds()` instead.")
+    public func setExternalUserIds(_ externalUserIds: [ExternalUserId]) {
+        extendedIdRegistry.staticProvider.setUserIds(externalUserIds)
+    }
+    
+    /// Retrieves the static external user IDs in a dictionary format suitable for use in JSON.
+    /// IDs from registered providers, including SharedID, are not included.
+    @available(*, deprecated, message: "Returns only the static IDs. Use `getExtendedIds()` to get every ID sent in bid requests.")
     public func getExternalUserIds() -> [[String: Any]]? {
-        externalUserIds.isEmpty ? nil : externalUserIds.map { $0.toJSONDictionary() }
+        let externalUserIds = extendedIdRegistry.staticProvider.externalUserIds
+        return externalUserIds.isEmpty ? nil : externalUserIds.map { $0.toJSONDictionary() }
+    }
+    
+    /// Returns every external user ID sent in bid requests: the static IDs, then the IDs of each
+    /// registered `ExtendedIdProvider` (including SharedID when `sendSharedId` is `true`)
+    /// in registration order. Calls `getExtendedIds()` on every provider.
+    public func getExtendedIds() -> [ExtendedId] {
+        extendedIdRegistry.getAllExtendedIds()
     }
     
     // MARK: - SharedId
@@ -136,7 +170,20 @@ public class Targeting: NSObject {
     /// encouraged to consult with their legal team before enabling this feature.
     ///
     /// See `Targeting.sharedId` for details.
-    public var sendSharedId: Bool = false
+    public var sendSharedId: Bool {
+        get { extendedIdRegistry.hasProvider(SharedId.sharedInstance) }
+        set {
+            guard newValue != sendSharedId else {
+                return
+            }
+    
+            if newValue {
+                extendedIdRegistry.addProvider(SharedId.sharedInstance)
+            } else {
+                extendedIdRegistry.removeProvider(SharedId.sharedInstance)
+            }
+        }
+    }
     
     /// A randomly generated Prebid-owned first-party identifier
     ///
@@ -400,8 +447,6 @@ public class Targeting: NSObject {
         
     private var globalORTBConfig: String?
     
-    /// Array of external user IDs.
-    ///
-    /// This property holds the external user IDs associated with the user.
-    private var externalUserIds = [ExternalUserId]()
+    /// The static external user IDs and the registered `ExtendedIdProvider`s.
+    let extendedIdRegistry = ExtendedIdRegistry()
 }
