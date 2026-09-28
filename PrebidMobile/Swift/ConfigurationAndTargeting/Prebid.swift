@@ -355,4 +355,26 @@ public class Prebid: NSObject {
     public static func containsPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) -> Bool {
         PrebidMobilePluginRegister.shared.containsPlugin(pluginRenderer)
     }
+    
+    // MARK: - Extended ID Providers
+    
+    /// Registers an extended ID provider and calls its `onRegister()`. The provider's IDs
+    /// (`getExtendedIds()`) are then included in every bid request.
+    ///
+    /// A provider whose `providerInfo` equals an already registered one is ignored.
+    /// For IDs that don't change during the session, use `Targeting.addExternalUserId(_:)` instead.
+    public static func registerExtendedIdProvider(_ provider: ExtendedIdProvider) {
+        Targeting.shared.extendedIdRegistry.addProvider(provider)
+    }
+    
+    /// Unregisters the provider whose `providerInfo` equals `provider`'s and calls its `onUnregister()`.
+    /// Its IDs are no longer included in bid requests.
+    public static func unregisterExtendedIdProvider(_ provider: ExtendedIdProvider) {
+        Targeting.shared.extendedIdRegistry.removeProvider(provider)
+    }
+    
+    /// Returns whether a provider whose `providerInfo` equals `provider`'s is registered.
+    public static func containsExtendedIdProvider(_ provider: ExtendedIdProvider) -> Bool {
+        Targeting.shared.extendedIdRegistry.hasProvider(provider)
+    }
 }
