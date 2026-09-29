@@ -20,7 +20,7 @@ public class ImpressionTasksExecutor {
     
     static let shared = ImpressionTasksExecutor()
     
-    private let queue = DispatchQueue(label: "impressionQueue", qos: .background)
+    private let queue = DispatchQueue(label: "impressionQueue", qos: .utility)
     
     private(set) var arrayOfTasks = [ImpressionTask]()
     

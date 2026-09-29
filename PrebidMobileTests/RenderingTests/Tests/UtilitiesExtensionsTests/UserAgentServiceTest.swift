@@ -62,7 +62,7 @@ class UserAgentServiceTest: XCTestCase {
     func testFromBackgroundThread() {
         let expectationCheckThread = self.expectation(description: "Check thread expectation")
         
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .utility).async {
             print(self.service.userAgent)
             expectationCheckThread.fulfill()
         }

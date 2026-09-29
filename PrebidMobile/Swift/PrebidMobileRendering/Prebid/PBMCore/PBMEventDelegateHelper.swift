@@ -17,7 +17,7 @@ import Foundation
 
 @objc public extension Prebid {
     func callEventDelegateAsync_prebidBidRequestDidFinishWith(requestData: Data?, responseData: Data?) {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .utility).async {
             if let delegate = self.eventDelegate {
                 delegate.prebidBidRequestDidFinish(requestData: requestData, responseData: responseData)
             }

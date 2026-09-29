@@ -407,7 +407,7 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         
         logToFile = .init()
 
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .utility).async {
             self.videoCreative.createOpenMeasurementSession();
             UtilitiesForTesting.checkLogContains("Open Measurement session can only be created on the main thread")
             expectation.fulfill()
