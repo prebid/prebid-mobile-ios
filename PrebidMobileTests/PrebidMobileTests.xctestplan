@@ -17,8 +17,6 @@
       "skippedTests" : [
         "AdUnitTests\/testFetchDemandAutoRefresh()",
         "AdUnitTests\/testFetchDemandBidsAutoRefresh()",
-        "AdViewUtilsTests\/testFailureFindASizeInNilHtmlCode()",
-        "AdViewUtilsTests\/testFindPrebidCacheIDFailureNoCacheID()",
         "AutoRefreshManagerTest\/testPostponeWithSetupRefresh()",
         "PBMAutoRefreshManagerTest\/testAllowRefreshOnSecondAtempt()",
         "PBMCreativeFactoryTest\/testCreativeFactorySuccess()",
