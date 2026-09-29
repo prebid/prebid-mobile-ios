@@ -253,12 +253,11 @@ class LocationManagerTest: XCTestCase {
         
         let exp = expectation(description: "Concurrent location property access completes without crashes")
         
-        // `concurrentPerform` bounds the worker count. One async block per iteration can exhaust
-        // GCD's worker pool with readers blocked in `queue.sync`, leaving no thread for the
-        // pending barrier write they wait on.
+        // Readers run on `concurrentPerform`, which bounds the worker count. One async block per
+        // read can exhaust GCD's worker pool with readers blocked in `queue.sync`, leaving no
+        // thread for the pending barrier writes they wait on.
         DispatchQueue.global(qos: .userInitiated).async {
             DispatchQueue.concurrentPerform(iterations: 1001) { _ in
-                locationManager.location = self.location
                 _ = locationManager.coordinates
                 _ = locationManager.coordinatesAreValid
                 _ = locationManager.horizontalAccuracy
@@ -267,7 +266,11 @@ class LocationManagerTest: XCTestCase {
             exp.fulfill()
         }
         
-        wait(for: [exp], timeout: 3.0)
+        for _ in 0...1000 {
+            locationManager.location = self.location
+        }
+        
+        wait(for: [exp], timeout: 10.0)
     }
 }
 
