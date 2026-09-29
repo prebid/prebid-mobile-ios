@@ -42,14 +42,6 @@ final class UITestAdStatus {
         CommandLine.arguments.contains("-uiTesting")
     }
 
-    func reset() {
-        guard isEnabled else { return }
-
-        DispatchQueue.main.async { [weak self] in
-            self?.updateStatus("loading")
-        }
-    }
-
     func reportFailure(_ message: String) {
         guard isEnabled else { return }
 
@@ -70,7 +62,6 @@ final class UITestAdStatus {
         view.isAccessibilityElement = true
         view.accessibilityIdentifier = Self.accessibilityIdentifier
         view.accessibilityLabel = "Ad load status"
-        view.accessibilityValue = "loading"
         window.addSubview(view)
         statusView = view
         return view
