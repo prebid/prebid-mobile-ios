@@ -12,7 +12,7 @@ the runbooks in `agents/` — see the routing table in `AGENTS.md`. Migration ma
 own skill, `agents/migration-patterns/`.
 
 Much of the original third-party bundle was removed as inapplicable: this is a header-bidding ad
-SDK (a UIKit library, iOS 13+), not an app. It has no SwiftUI, no Core Data, no navigation
+SDK (a UIKit library, iOS 15+), not an app. It has no SwiftUI, no Core Data, no navigation
 hierarchy, no App Store presence. What remains below is the subset with some bearing on the code.
 
 ## Available modules

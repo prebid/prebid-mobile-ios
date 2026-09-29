@@ -3,9 +3,9 @@ cd scripts/
 fi
 
 # Flags:
-# --latest:             run tests only for the latest iOS.
-#                       It is needed for the GitHub Actions builds.
-#                       Do not use this flag locally to keep everything updated.
+# --latest:             accepted for backward compatibility; it used to skip a sanity test on the
+#                       oldest supported iOS (13). That run was removed when the minimum became
+#                       iOS 15, since Xcode 27 hosts cannot run an iOS 15 simulator runtime.
 # --quick:              run only quick set of tests for PR.
 #                       It is needed for the GitHub Actions builds on every PR to avoid running all tests.
 
@@ -62,26 +62,6 @@ if [ "$run_only_PR_tests" != "YES" ]; then
         -scheme PrebidMobileTests \
         -sdk iphonesimulator \
         -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest'
-fi
-
-if [ "$run_only_with_latest_ios" != "YES" ]
-then
- echo -e "\n${GREEN}Running some unit tests for iOS 13${NC} \n"
- # `set -e` would abort the script on a failing xcodebuild before the report below runs,
- # so take the exit status explicitly and keep the diagnostic reachable.
- TEST_STATUS=0
- xcodebuild test \
-    -workspace PrebidMobile.xcworkspace \
-    -scheme "PrebidMobileTests" \
-    -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.7' \
-    -only-testing PrebidMobileTests/RequestBuilderTests/testPostData || TEST_STATUS=$?
-
- if [[ ${TEST_STATUS} == 0 ]]; then
-     echo "✅ unit tests for iOS 13 Passed"
- else
-     echo "🔴 unit tests for iOS 13 Failed"
-     exit 1
- fi
 fi
 
 TESTPLAN=""

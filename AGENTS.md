@@ -5,7 +5,7 @@ read this file directly; Claude Code reaches it via the `@AGENTS.md` import in `
 
 ## Overview
 
-Prebid Mobile iOS SDK — an open-source header bidding SDK that integrates with Prebid Server to increase ad yield. Version 3.3.0, supports iOS 13+, Swift 5.0+. Distributed via CocoaPods, SPM, and Carthage.
+Prebid Mobile iOS SDK — an open-source header bidding SDK that integrates with Prebid Server to increase ad yield. Version 3.3.0, supports iOS 15+, Swift 5.0+. Distributed via CocoaPods, SPM, and Carthage.
 
 ## Agent runbooks (`agents/`)
 
@@ -54,7 +54,7 @@ Requires CocoaPods installed (`pod` on PATH — GHA `macos-15` ships with it pre
 ./scripts/testPrebidMobileAdapters.sh
 ```
 
-Flags: `--latest` skips the legacy iOS 13 sanity test (always use locally); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-16-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator. Any pre-existing simulator with that name is deleted first.
+Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 sanity run is gone); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-16-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator. Any pre-existing simulator with that name is deleted first.
 
 Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1111 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 694 tests).
 

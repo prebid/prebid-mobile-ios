@@ -7,7 +7,7 @@ let package = Package(
     
     name: "PrebidMobile",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v15),
     ],
     products: [
         .library(
