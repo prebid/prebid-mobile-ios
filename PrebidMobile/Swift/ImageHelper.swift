@@ -49,10 +49,11 @@ public class ImageHelper {
             return
         }
 
-        session.dataTask(with: url) { data, _, error in
+        session.dataTask(with: url) { data, response, error in
             let result: Result<UIImage, Error>
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 200
 
-            if error != nil {
+            if error != nil || statusCode >= 400 {
                 result = .failure(PBMError.init(message: "Error while receiving data by url"))
             } else if let data, let image = UIImage(data: data) {
                 result = .success(image)

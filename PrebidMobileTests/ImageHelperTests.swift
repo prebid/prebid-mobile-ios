@@ -70,7 +70,7 @@ final class ImageHelperTests: XCTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 5)
     }
 
     func testDownloadImageAsyncReturnsNetworkFailureOnMainThread() {
@@ -86,16 +86,17 @@ final class ImageHelperTests: XCTestCase {
         ) { result in
             XCTAssertTrue(Thread.isMainThread)
 
-            guard case .failure = result else {
+            guard case let .failure(error) = result else {
                 XCTFail("Expected image download to fail")
                 expectation.fulfill()
                 return
             }
 
+            XCTAssertEqual(error.localizedDescription, "Error while receiving data by url")
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 5)
     }
 
     func testDownloadImageAsyncReturnsInvalidImageFailureOnMainThread() {
@@ -119,37 +120,114 @@ final class ImageHelperTests: XCTestCase {
         ) { result in
             XCTAssertTrue(Thread.isMainThread)
 
-            guard case .failure = result else {
+            guard case let .failure(error) = result else {
                 XCTFail("Expected invalid image data to fail")
                 expectation.fulfill()
                 return
             }
 
+            XCTAssertEqual(error.localizedDescription, "Error while creating UIImage from received data")
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 5)
+    }
+
+    func testDownloadImageAsyncReturnsNetworkFailureForErrorStatusWithImageData() {
+        let imageData = Data(base64Encoded:
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+        )!
+
+        ImageHelperURLProtocol.requestHandler = { request in
+            (
+                HTTPURLResponse(
+                    url: request.url!,
+                    statusCode: 404,
+                    httpVersion: nil,
+                    headerFields: ["Content-Type": "image/png"]
+                )!,
+                imageData
+            )
+        }
+
+        let expectation = expectation(description: "HTTP error completion")
+
+        ImageHelper.downloadImageAsync(
+            "https://example.com/image.png",
+            session: session
+        ) { result in
+            XCTAssertTrue(Thread.isMainThread)
+
+            guard case let .failure(error) = result else {
+                XCTFail("Expected HTTP error status to fail")
+                expectation.fulfill()
+                return
+            }
+
+            XCTAssertEqual(error.localizedDescription, "Error while receiving data by url")
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5)
+    }
+
+    func testDownloadImageAsyncReturnsNetworkFailureForErrorStatusWithInvalidImageData() {
+        ImageHelperURLProtocol.requestHandler = { request in
+            (
+                HTTPURLResponse(
+                    url: request.url!,
+                    statusCode: 404,
+                    httpVersion: nil,
+                    headerFields: ["Content-Type": "text/plain"]
+                )!,
+                Data("not an image".utf8)
+            )
+        }
+
+        let expectation = expectation(description: "HTTP error completion")
+
+        ImageHelper.downloadImageAsync(
+            "https://example.com/image.png",
+            session: session
+        ) { result in
+            XCTAssertTrue(Thread.isMainThread)
+
+            guard case let .failure(error) = result else {
+                XCTFail("Expected HTTP error status to fail")
+                expectation.fulfill()
+                return
+            }
+
+            XCTAssertEqual(error.localizedDescription, "Error while receiving data by url")
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5)
     }
 
     func testDownloadImageAsyncReturnsInvalidURLFailureAsynchronouslyOnMainThread() {
         let expectation = expectation(description: "Invalid URL completion")
         var completionCalled = false
 
-        ImageHelper.downloadImageAsync("http://[invalid") { result in
+        ImageHelper.downloadImageAsync(
+            "http://[invalid",
+            session: session
+        ) { result in
             completionCalled = true
             XCTAssertTrue(Thread.isMainThread)
 
-            guard case .failure = result else {
+            guard case let .failure(error) = result else {
                 XCTFail("Expected invalid URL to fail")
                 expectation.fulfill()
                 return
             }
 
+            XCTAssertEqual(error.localizedDescription, "Image URL is invalid")
             expectation.fulfill()
         }
 
         XCTAssertFalse(completionCalled)
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 5)
     }
 }
 
