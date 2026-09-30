@@ -201,7 +201,9 @@ public class BannerView:
                 self?.mayRefreshNow ?? false
             },
             refreshBlock: { [weak self] in
-                self?.adLoadFlowController?.refresh()
+                // Checks `isRefreshStopped` on the ad load flow queue, so a tick that was
+                // already in flight when `stopRefresh()` was called does not start a load.
+                self?.adLoadFlowController?.enqueueNextStepAttempt()
             })
     }
     
