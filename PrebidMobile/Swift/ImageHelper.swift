@@ -31,24 +31,48 @@ public class ImageHelper {
             return .failure(PBMError.init(message: "Error while receiving data by url"))
         }
     }
-    
+
     public static func downloadImageAsync(_ urlString: String, completion: @escaping(Result<UIImage, Error>) -> Void) {
+        downloadImageAsync(urlString, session: .shared, completion: completion)
+    }
+
+    static func downloadImageAsync(
+        _ urlString: String,
+        session: URLSession,
+        completion: @escaping(Result<UIImage, Error>) -> Void
+    ) {
         guard let url = URL(string: urlString) else {
-            completion(.failure(PBMError.init(message: "Image URL is invalid")))
+            completeOnMain(
+                with: .failure(PBMError.init(message: "Image URL is invalid")),
+                completion: completion
+            )
             return
         }
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: url) {
-                DispatchQueue.main.async {
-                    if let image = UIImage(data:data) {
-                        completion(.success(image))
-                    } else {
-                        return completion(.failure(PBMError.init(message: "Error while creating UIImage from received data")))
-                    }
-                }
+
+        session.dataTask(with: url) { data, response, error in
+            let result: Result<UIImage, Error>
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 200
+
+            if error != nil || statusCode >= 400 {
+                result = .failure(PBMError.init(message: "Error while receiving data by url"))
+            } else if let data, let image = UIImage(data: data) {
+                result = .success(image)
+            } else if data == nil {
+                result = .failure(PBMError.init(message: "Error while receiving data by url"))
             } else {
-                return completion(.failure(PBMError.init(message: "Error while receiving data by url")))
+                result = .failure(PBMError.init(message: "Error while creating UIImage from received data"))
             }
+
+            completeOnMain(with: result, completion: completion)
+        }.resume()
+    }
+
+    private static func completeOnMain(
+        with result: Result<UIImage, Error>,
+        completion: @escaping(Result<UIImage, Error>) -> Void
+    ) {
+        DispatchQueue.main.async {
+            completion(result)
         }
     }
 }
