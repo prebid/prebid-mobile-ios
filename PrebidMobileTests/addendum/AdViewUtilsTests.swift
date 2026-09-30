@@ -40,7 +40,7 @@ class AdViewUtilsTests: XCTestCase {
     func testFailureFindASizeInNilHtmlCode() {
         let exp = expectation(description: "findPrebidCreativeSize should fail")
         
-        AdViewUtils.findPrebidCreativeSize(WKWebView()) { size in
+        AdViewUtils.findPrebidCreativeSize(StubWKWebView(innerHTML: "")) { size in
             XCTFail("Expected to fail but found creative size.")
         } failure: { error in
             exp.fulfill()
@@ -77,7 +77,7 @@ class AdViewUtilsTests: XCTestCase {
     }
     
     func testFailureFindSizeInViewIfWkWebViewWithoutHTML() {
-        let wkWebView = WKWebView()
+        let wkWebView = StubWKWebView(innerHTML: "")
         findSizeInViewFailureHelper(wkWebView, expectedErrorCode: PbWebViewSearchErrorFactory.noHtmlCode)
     }
     
@@ -87,8 +87,7 @@ class AdViewUtilsTests: XCTestCase {
     }
     
     func testFindPrebidCacheIDSuccess() {
-        let webView = WKWebView()
-        setHtmlIntoWkWebView(successHtmlWithSize728x90, webView)
+        let webView = StubWKWebView(innerHTML: successHtmlWithSize728x90)
         
         let adView = UIView()
         adView.addSubview(webView)
@@ -110,8 +109,7 @@ class AdViewUtilsTests: XCTestCase {
     
     func testFindPrebidCacheIDFailureNoCacheID() {
         let html = "<div>No cache ID here</div>"
-        let webView = WKWebView()
-        setHtmlIntoWkWebView(html, webView)
+        let webView = StubWKWebView(innerHTML: html)
         
         let adView = UIView()
         adView.addSubview(webView)
@@ -132,8 +130,7 @@ class AdViewUtilsTests: XCTestCase {
     }
     
     func testFindPrebidLocalCacheIDSuccess() {
-        let webView = WKWebView()
-        setHtmlIntoWkWebView(successHtmlWithSize728x90, webView)
+        let webView = StubWKWebView(innerHTML: successHtmlWithSize728x90)
         
         let adView = UIView()
         adView.addSubview(webView)
@@ -155,8 +152,7 @@ class AdViewUtilsTests: XCTestCase {
     
     func testFindPrebidLocalCacheIDFailureNoLocalCacheID() {
         let html = "<div>No cache ID here</div>"
-        let webView = WKWebView()
-        setHtmlIntoWkWebView(html, webView)
+        let webView = StubWKWebView(innerHTML: html)
         
         let adView = UIView()
         adView.addSubview(webView)
@@ -177,26 +173,35 @@ class AdViewUtilsTests: XCTestCase {
     }
     
     func testSuccessFindSizeInWkWebView() {
-        let wkWebView = WKWebView()
-        
-        setHtmlIntoWkWebView(successHtmlWithSize728x90, wkWebView)
+        let wkWebView = StubWKWebView(innerHTML: successHtmlWithSize728x90)
         findSizeInViewSuccessHelper(wkWebView, expectedSize: CGSize(width: 728, height: 90))
     }
     
-    private class TestingWKNavigationDelegate: NSObject, WKNavigationDelegate {
-        let loadSuccesfulException: XCTestExpectation
+    /// Answers `evaluateJavaScript` with fixed HTML instead of asking a web content process.
+    ///
+    /// `PrebidMobileTests` has no host app, so RunningBoard treats the test process as a background
+    /// process and WebKit can suspend a real `WKWebView`'s web content process mid-load. The load
+    /// then stalls for 45 s or more, which made these tests fail at random.
+    private class StubWKWebView: WKWebView {
+        private let innerHTML: String
         
-        init(_ loadSuccesfulException: XCTestExpectation) {
-            self.loadSuccesfulException = loadSuccesfulException
+        init(innerHTML: String) {
+            self.innerHTML = innerHTML
+            super.init(frame: .zero, configuration: WKWebViewConfiguration())
         }
         
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            webView.evaluateJavaScript("document.body.innerHTML") { innerHTML, error in
-                
-                if error != nil {
-                    XCTFail("TestingWKNavigationDelegate error: \(error?.localizedDescription ?? "some error")")
-                }
-                self.loadSuccesfulException.fulfill()
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func evaluateJavaScript(
+            _ javaScriptString: String,
+            completionHandler: (@MainActor @Sendable (Any?, Error?) -> Void)? = nil
+        ) {
+            XCTAssertEqual(javaScriptString, AdViewUtils.innerHtmlScript)
+            let innerHTML = innerHTML
+            DispatchQueue.main.async {
+                completionHandler?(innerHTML, nil)
             }
         }
     }
@@ -216,18 +221,6 @@ class AdViewUtilsTests: XCTestCase {
           }
         </script></div><div style="bottom:0;right:0;width:100px;height:100px;background:initial !important;position:absolute !important;max-width:100% !important;max-height:100% !important;pointer-events:none !important;image-rendering:pixelated !important;background-repeat:no-repeat !important;z-index:2147483647;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkBAMAAACCzIhnAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAAEZSURBVFjD7VRJksQwCIMf8P/XjgMS4OXSh7nhdKXawbEsoUjk96ExZF1aM4sh6zLhjMX19BuGP5hpbOc/3NbdgCLA8AJn3+6O4cswY7GqDnRU/bDHRoWiTxR7oyQHs4vLp8jFpRQLjFOxwNgUy2FxirsH72dEEHKxpkZ0RoxLpYTsjFLzjVEsVRDYqPhrRQbElCdBBc4ADDaBiQCTSzXezlPQRlbdJSUtxdEZI0gpxxZvyuXxNcEkvQupIMzt5GDC07L7quWAw8lSLmwekzLsy8nsiW2fBPvQ6DYna+nRnGxp1svJJvVhppNV6sN8OLnZozm5Oel28iTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzL8nzB8ivkq1hG7lNQAAAABJRU5ErkJggg==') !important;"></div><script src="https://pagead2.googlesyndication.com/omsdk/releases/live/omid_session_bin.js"></script><script type="text/javascript">(function() {var omidSession = new OmidCreativeSession([]);})();</script></body></html>
     """
-    
-    private func setHtmlIntoWkWebView(_ html: String, _ wkWebView: WKWebView) {
-        let loadSuccesfulException = expectation(description: "\(#function)")
-        
-        let testingWKNavigationDelegate = TestingWKNavigationDelegate(loadSuccesfulException)
-        wkWebView.navigationDelegate = testingWKNavigationDelegate
-        
-        wkWebView.loadHTMLString(html, baseURL: nil)
-        
-        waitForExpectations(timeout: 45)
-        wkWebView.navigationDelegate = nil
-    }
     
     private func findSizeInViewFailureHelper(_ view: UIView, expectedErrorCode: Int) {
         let loadSuccesfulException = expectation(description: "\(#function)")

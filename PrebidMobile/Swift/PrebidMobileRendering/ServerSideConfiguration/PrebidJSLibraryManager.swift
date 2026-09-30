@@ -87,7 +87,9 @@ public class PrebidJSLibraryManager: NSObject {
             return
         }
         
-        DispatchQueue.global(qos: .background).async {
+        // Not `.background`: HTML creatives can't render until mraid.js is cached, and the OS
+        // defers `.background` work and network tasks by tens of seconds under load.
+        DispatchQueue.global(qos: .utility).async {
             connection.download(urlString) { [weak self] response in
                 guard let data = response.rawData, response.error == nil else {
                     completion?(nil)
