@@ -23,7 +23,10 @@ jobs:
           xcode-version: ${{ env.XCODE_VERSION }}
     - name: Install Jazzy
       run: |
-        gem install jazzy
+        # mustache 1.1.3 breaks jazzy 0.15.4 at startup (realm/jazzy#1435).
+        # Remove the pin once a fixed jazzy or mustache is released.
+        gem install mustache -v 1.1.2
+        gem install jazzy --minimal-deps
     - name: Generate docs
       run: |
         jazzy
