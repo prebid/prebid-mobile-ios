@@ -56,7 +56,7 @@ Requires CocoaPods installed (`pod` on PATH — GHA `macos-15` ships with it pre
 ./scripts/testPrebidMobileAdapters.sh
 ```
 
-Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 sanity run is gone); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-16-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator. Any pre-existing simulator with that name is deleted first.
+Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 sanity run is gone); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-17-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator. Any pre-existing simulator with that name is deleted first.
 
 Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1111 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 694 tests).
 
@@ -69,7 +69,7 @@ xcodebuild \
   -workspace PrebidMobile.xcworkspace \
   -scheme PrebidMobileTests \
   -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+  -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
   build-for-testing
 
 # Step 2 — run (repeat as needed without rebuilding)
@@ -77,7 +77,7 @@ xcodebuild \
   -workspace PrebidMobile.xcworkspace \
   -scheme PrebidMobileTests \
   -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+  -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
   -only-testing PrebidMobileTests/TargetingTests \
   test-without-building
 ```

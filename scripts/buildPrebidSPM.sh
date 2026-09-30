@@ -6,13 +6,13 @@ echo -e "\n\n${GREEN}RUN PREBID DEMO SPM${NC}\n\n"
 echo $PWD
 
 echo -e "\n${GREEN}Creating simulator${NC} \n"
-xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
+xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
 
 # Any arguments are passed on to xcodebuild.
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
     -scheme PrebidDemoSPM \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
     "$@"
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
@@ -23,4 +23,4 @@ else
 fi
 
 echo -e "\n${GREEN}Removing simulator${NC} \n"
-xcrun simctl delete iPhone-16-Pro-PrebidMobile
+xcrun simctl delete iPhone-17-Pro-PrebidMobile
