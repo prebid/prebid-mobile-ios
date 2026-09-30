@@ -11,14 +11,14 @@ NC='\033[0m' # No Color
 echo -e "\n\n${GREEN}RUN PREBID DEMO TESTS${NC}\n\n"
 
 echo -e "\n${GREEN}Creating simulator${NC} \n"
-xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
+xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
 
 cd ..
 echo $PWD
 
 if ! command -v pod >/dev/null 2>&1; then
     echo "CocoaPods is required but 'pod' was not found on PATH." >&2
-    echo "GitHub Actions 'macos-15' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
+    echo "GitHub Actions 'macos-26' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
     exit 1
 fi
 
@@ -43,7 +43,7 @@ xcodebuild \
     -scheme $SCHEME \
     -sdk iphonesimulator \
     -configuration Debug \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
     -destination-timeout 60 \
     build-for-testing
 
@@ -56,7 +56,7 @@ xcodebuild \
     -workspace PrebidMobile.xcworkspace \
     -scheme $SCHEME \
     -sdk iphonesimulator \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
     -destination-timeout 60 \
     -test-iterations 2 \
     -retry-tests-on-failure \
@@ -70,4 +70,4 @@ else
 fi
 
 echo -e "\n${GREEN}Removing simulator${NC} \n"
-xcrun simctl delete iPhone-16-Pro-PrebidMobile
+xcrun simctl delete iPhone-17-Pro-PrebidMobile

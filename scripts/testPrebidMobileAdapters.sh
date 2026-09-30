@@ -19,7 +19,7 @@ cd ..
 
 if ! command -v pod >/dev/null 2>&1; then
     echo "CocoaPods is required but 'pod' was not found on PATH." >&2
-    echo "GitHub Actions 'macos-15' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
+    echo "GitHub Actions 'macos-26' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
     exit 1
 fi
 
@@ -28,7 +28,7 @@ pod install --repo-update
 echo -e "\n\n${GREEN}RUN PREBID MOBILE ADAPTER TESTS${NC}\n\n"
 
 echo -e "\n${GREEN}Creating simulator${NC} \n"
-xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
+xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
 
 echo -e "\n${GREEN}Clean build\n"
 xcodebuild clean build
@@ -44,7 +44,7 @@ function testAdapters () {
         -scheme "${SCHEME}" \
         -sdk iphonesimulator \
         -configuration Debug \
-        -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+        -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
         -destination-timeout 60 \
         build-for-testing || return $?
 
@@ -52,7 +52,7 @@ function testAdapters () {
         -workspace PrebidMobile.xcworkspace \
         -scheme "${SCHEME}" \
         -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+        -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
         -destination-timeout 60 \
         test-without-building
 }
@@ -96,4 +96,4 @@ else
 fi
 
 echo -e "\n${GREEN}Removing simulator${NC} \n"
-xcrun simctl delete iPhone-16-Pro-PrebidMobile
+xcrun simctl delete iPhone-17-Pro-PrebidMobile

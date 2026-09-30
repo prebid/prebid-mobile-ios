@@ -34,12 +34,14 @@ files under `.claude/`.
 # Build all XCFrameworks (PrebidMobile, GAM, AdMob, MAX) into generated/output/
 ./scripts/buildPrebidMobile.sh
 
-# Build and publish the SPM release
-./scripts/buildPrebidSPM.sh
-./scripts/publishSPM.sh
+# SPM release (run by .github/workflows/SPM.yml on version tags, in this order)
+./scripts/verifySPM.sh      # build the SPM demo against local copies of both packages; pushes nothing
+./scripts/syncSPM.sh        # copy the package sources into a checkout of an SPM repo
+./scripts/publishSPM.sh     # commit, push and tag that checkout
+./scripts/buildPrebidSPM.sh # build the SPM demo against the published packages
 ```
 
-Requires CocoaPods installed (`pod` on PATH — GHA `macos-15` ships with it pre-installed). Build output goes to `generated/output/` as `XC<name>.xcframework` (e.g. `XCPrebidMobile.xcframework`). Logs go to `generated/log/prebid_mobile_build.log`. Build uses `Lib-`-prefixed scheme names (`Lib-PrebidMobile`, etc.) to avoid colliding with auto-generated SPM schemes.
+Requires CocoaPods installed (`pod` on PATH — GHA `macos-26` ships with it pre-installed). Build output goes to `generated/output/` as `XC<name>.xcframework` (e.g. `XCPrebidMobile.xcframework`). Logs go to `generated/log/prebid_mobile_build.log`. Build uses `Lib-`-prefixed scheme names (`Lib-PrebidMobile`, etc.) to avoid colliding with auto-generated SPM schemes.
 
 ### Tests
 
@@ -54,7 +56,7 @@ Requires CocoaPods installed (`pod` on PATH — GHA `macos-15` ships with it pre
 ./scripts/testPrebidMobileAdapters.sh
 ```
 
-Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 sanity run is gone); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-16-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator. Any pre-existing simulator with that name is deleted first.
+Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 sanity run is gone); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-17-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator. Any pre-existing simulator with that name is deleted first.
 
 Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1111 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 694 tests).
 
@@ -67,7 +69,7 @@ xcodebuild \
   -workspace PrebidMobile.xcworkspace \
   -scheme PrebidMobileTests \
   -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+  -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
   build-for-testing
 
 # Step 2 — run (repeat as needed without rebuilding)
@@ -75,7 +77,7 @@ xcodebuild \
   -workspace PrebidMobile.xcworkspace \
   -scheme PrebidMobileTests \
   -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+  -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
   -only-testing PrebidMobileTests/TargetingTests \
   test-without-building
 ```
@@ -143,9 +145,10 @@ Framework build uses `Lib-PrebidMobile`, `Lib-PrebidMobileGAMEventHandlers`, `Li
 
 ### CI
 
-GitHub Actions (Xcode 16.4.0, macOS 15):
+GitHub Actions (Xcode 26.5.0, macOS 26):
 - PRs run quick tests (`--latest --quick`) unless labeled `run-full-tests`
 - Branch names starting with `bump-to` trigger full test suite + UI/integration tests
+- Version tags run the SPM sync (`SPM.yml`): the SPM demo must build against local copies of both packages before anything is pushed to `prebid-mobile-ios-sdk` and `prebid-mobile-ios-adapters`, and GitHub releases are created only after the demo also builds against the published packages
 
 ## ObjC → Swift migration
 

@@ -12,7 +12,7 @@ Run xcodebuild tests for this iOS project. The workspace is `PrebidMobile.xcwork
 - `PrebidMobileAdMobAdaptersTests` — AdMob adapter tests
 - `PrebidMobileMAXAdaptersTests` — MAX adapter tests
 
-Default simulator destination: `platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest`
+Default simulator destination: `platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest`
 
 ## Running the full suite via the wrapper scripts (preferred)
 
@@ -243,8 +243,8 @@ Use the two-step approach so you can iterate without rebuilding:
 ### Step 1 — ensure the simulator exists
 
 ```bash
-xcrun simctl delete iPhone-16-Pro-PrebidMobile 2>/dev/null || true
-xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
+xcrun simctl delete iPhone-17-Pro-PrebidMobile 2>/dev/null || true
+xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
 ```
 
 ### Step 2 — build for testing (once)
@@ -255,7 +255,7 @@ xcodebuild \
   -scheme PrebidMobileTests \
   -sdk iphonesimulator \
   -configuration Debug \
-  -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+  -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
   -destination-timeout 60 \
   build-for-testing
 ```
@@ -267,7 +267,7 @@ xcodebuild \
   -workspace PrebidMobile.xcworkspace \
   -scheme PrebidMobileTests \
   -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+  -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
   -destination-timeout 60 \
   -only-testing PrebidMobileTests/<TestClass> \
   test-without-building

@@ -42,7 +42,7 @@ cd ..
 
 if ! command -v pod >/dev/null 2>&1; then
     echo "CocoaPods is required but 'pod' was not found on PATH." >&2
-    echo "GitHub Actions 'macos-15' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
+    echo "GitHub Actions 'macos-26' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
     exit 1
 fi
 
@@ -52,8 +52,8 @@ echo -e "\n\n${GREEN}RUN PREBID MOBILE TESTS${NC}\n\n"
 
 echo -e "\n${GREEN}Creating simulator${NC} \n"
 # Remove any leftover simulator from a previous interrupted run so `create` doesn't fail.
-xcrun simctl delete iPhone-16-Pro-PrebidMobile 2>/dev/null || true
-xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
+xcrun simctl delete iPhone-17-Pro-PrebidMobile 2>/dev/null || true
+xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
 
 if [ "$run_only_PR_tests" != "YES" ]; then
     echo -e "\n${GREEN}Clean build\n"
@@ -61,7 +61,7 @@ if [ "$run_only_PR_tests" != "YES" ]; then
         -workspace PrebidMobile.xcworkspace \
         -scheme PrebidMobileTests \
         -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest'
+        -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest'
 fi
 
 TESTPLAN=""
@@ -79,7 +79,7 @@ xcodebuild \
     -scheme PrebidMobileTests \
     -sdk iphonesimulator \
     -configuration Debug \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
     -destination-timeout 60 \
     build-for-testing
 
@@ -89,7 +89,7 @@ xcodebuild \
     -scheme PrebidMobileTests \
     -sdk iphonesimulator \
     -testPlan "${TESTPLAN}" \
-    -destination 'platform=iOS Simulator,name=iPhone-16-Pro-PrebidMobile,OS=latest' \
+    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
     -destination-timeout 60 \
     -retry-tests-on-failure \
     test-without-building || TEST_STATUS=$?
@@ -102,7 +102,7 @@ else
 fi
 
 echo -e "\n${GREEN}Removing simulator${NC} \n"
-xcrun simctl delete iPhone-16-Pro-PrebidMobile
+xcrun simctl delete iPhone-17-Pro-PrebidMobile
 
 # echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
 # swiftlint --config .swiftlint.yml

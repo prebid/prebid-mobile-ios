@@ -18,7 +18,7 @@ import Foundation
 class PrebidGAMVersionChecker {
     
     var latestTestedGMAVersion: (Int, Int, Int) {
-        (13, 10, 0)
+        (13, 11, 0)
     }
     
     var currentGMAVersion: (Int, Int, Int)?
