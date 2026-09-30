@@ -18,87 +18,38 @@ import XCTest
 @_spi(PBMInternal) @testable import PrebidMobile
 
 class CreativeModelCollectionMakerVASTTests: XCTestCase {
-    
-    var vastServerResponse: PBMAdRequestResponseVAST?
-    
-    var successfulExpectation: XCTestExpectation?
-    
-    override func tearDown() {
-        successfulExpectation = nil
-    }
-    
-    func testMakeCompanionAd() {
+
+    private let connection = UtilitiesForTesting.createConnectionForMockedTest()
+
+    private let adConfiguration: AdConfiguration = {
         let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
-        
-        let conn = UtilitiesForTesting.createConnectionForMockedTest()
-        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
-        
-        successfulExpectation = expectation(description: "Expected VAST Load to be successful")
-        
-        adLoadManager.mock_requestCompletedSuccess = { response in
-            self.vastServerResponse = response
-            self.successfulExpectation?.fulfill()
-        }
-        
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
-        requester.adLoadManager = adLoadManager
-        
-        if let data = UtilitiesForTesting.loadFileAsDataFromBundle("VAST_with_companion.xml") {
-            requester.buildAdsArray(data)
-        }
-        
-        self.waitForExpectations(timeout: 2)
-        
-        XCTAssertNotNil(vastServerResponse)
-        
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
-        
-        let successCallbackExpectation = expectation(description: "makeModels successCallback called")
-        
-        modelMaker.makeModels(vastServerResponse!,
-                              successCallback: { models in
-            successCallbackExpectation.fulfill()
-            
-            XCTAssertEqual(models.count, 2)
-            XCTAssertTrue(models[0].hasCompanionAd)
-            XCTAssertFalse(models[0].isCompanionAd)
-            XCTAssertFalse(models[1].hasCompanionAd)
-            XCTAssertTrue(models[1].isCompanionAd)
-        },
-                              failureCallback: { error in
-            XCTFail(error.localizedDescription)
-        })
-        
-        waitForExpectations(timeout: 3)
+        return adConfiguration
+    }()
+
+    func testMakeCompanionAd() throws {
+        let data = try XCTUnwrap(UtilitiesForTesting.loadFileAsDataFromBundle("VAST_with_companion.xml"))
+
+        let response = try loadResponse(fromVAST: data).get()
+        let models = try makeModels(from: response).get()
+
+        XCTAssertEqual(models.count, 2)
+        XCTAssertTrue(models[0].hasCompanionAd)
+        XCTAssertFalse(models[0].isCompanionAd)
+        XCTAssertFalse(models[1].hasCompanionAd)
+        XCTAssertTrue(models[1].isCompanionAd)
     }
-    
+
     // Regression: a CompanionAds creative listed before the Linear one used to crash with
     // -[PBMVastCreativeCompanionAds bestMediaFile]: unrecognized selector.
-    func testMakeCompanionAd_companionBeforeLinear() {
-        let adConfiguration = AdConfiguration()
-        adConfiguration.adFormats = [.video]
-
-        let conn = UtilitiesForTesting.createConnectionForMockedTest()
-        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
-
-        successfulExpectation = expectation(description: "Expected VAST Load to be successful")
-
-        adLoadManager.mock_requestCompletedSuccess = { response in
-            self.vastServerResponse = response
-            self.successfulExpectation?.fulfill()
-        }
-
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
-        requester.adLoadManager = adLoadManager
-
+    func testMakeCompanionAd_companionBeforeLinear() throws {
         // Reuse VAST_with_companion.xml, swapping its two <Creative> blocks so CompanionAds comes first.
         guard let data = UtilitiesForTesting.loadFileAsDataFromBundle("VAST_with_companion.xml"),
               let xml = String(data: data, encoding: .utf8),
               let linearStart = xml.range(of: "<Creative id=\"540069340\">"),
               let companionStart = xml.range(of: "<Creative id=\"540069343\">"),
               let creativesEnd = xml.range(of: "</Creatives>") else {
-            XCTFail("Could not load VAST_with_companion.xml")
+            XCTFail("VAST_with_companion.xml is missing or its Creative ids changed")
             return
         }
         let head = String(xml[..<linearStart.lowerBound])
@@ -107,74 +58,29 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         let tail = String(xml[creativesEnd.lowerBound...])
         let reordered = head + companionBlock + "\n" + linearBlock + tail
 
-        requester.buildAdsArray(Data(reordered.utf8))
+        let response = try loadResponse(fromVAST: Data(reordered.utf8)).get()
 
-        waitForExpectations(timeout: 2)
+        // The swap depends on the creative order in the shared fixture. Make sure CompanionAds really comes first.
+        XCTAssertTrue((response.ads?.first as? PBMVastInlineAd)?.creatives.firstObject is PBMVastCreativeCompanionAds)
 
-        XCTAssertNotNil(vastServerResponse)
+        let models = try makeModels(from: response).get()
 
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
-
-        let successCallbackExpectation = expectation(description: "makeModels successCallback called")
-
-        modelMaker.makeModels(vastServerResponse!,
-                              successCallback: { models in
-            successCallbackExpectation.fulfill()
-
-            XCTAssertEqual(models.count, 2)
-            XCTAssertTrue(models[0].hasCompanionAd)
-            XCTAssertFalse(models[0].isCompanionAd)
-            XCTAssertFalse(models[1].hasCompanionAd)
-            XCTAssertTrue(models[1].isCompanionAd)
-        },
-                              failureCallback: { error in
-            XCTFail(error.localizedDescription)
-        })
-
-        waitForExpectations(timeout: 3)
+        XCTAssertEqual(models.count, 2)
+        XCTAssertTrue(models[0].hasCompanionAd)
+        XCTAssertFalse(models[0].isCompanionAd)
+        XCTAssertFalse(models[1].hasCompanionAd)
+        XCTAssertTrue(models[1].isCompanionAd)
     }
 
-    func testMakeCompanionAd_empty() {
-        let adConfiguration = AdConfiguration()
-        adConfiguration.adFormats = [.video]
-        
-        let conn = UtilitiesForTesting.createConnectionForMockedTest()
-        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
-        
-        successfulExpectation = expectation(description: "Expected VAST Load to be successful")
-        
-        adLoadManager.mock_requestCompletedSuccess = { response in
-            self.vastServerResponse = response
-            self.successfulExpectation?.fulfill()
-        }
-        
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
-        requester.adLoadManager = adLoadManager
-        
-        if let data = UtilitiesForTesting.loadFileAsDataFromBundle("VAST_with_empty_companion.xml") {
-            requester.buildAdsArray(data)
-        }
-        
-        waitForExpectations(timeout: 2)
-        
-        XCTAssertNotNil(vastServerResponse)
-        
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
-        
-        let successCallbackExpectation = expectation(description: "makeModels successCallback called")
-        
-        modelMaker.makeModels(vastServerResponse!,
-                              successCallback: { models in
-            XCTAssertEqual(models.count, 1)
-            XCTAssertFalse(models.first!.hasCompanionAd)
-            XCTAssertFalse(models.first!.isCompanionAd)
-            successCallbackExpectation.fulfill()
-        },
-                              failureCallback: { error in
-            XCTFail(error.localizedDescription)
-        })
-        
-        waitForExpectations(timeout: 3)
+    func testMakeCompanionAd_empty() throws {
+        let data = try XCTUnwrap(UtilitiesForTesting.loadFileAsDataFromBundle("VAST_with_empty_companion.xml"))
+
+        let response = try loadResponse(fromVAST: data).get()
+        let models = try makeModels(from: response).get()
+
+        XCTAssertEqual(models.count, 1)
+        XCTAssertFalse(models.first!.hasCompanionAd)
+        XCTAssertFalse(models.first!.isCompanionAd)
     }
 
     // MARK: - Linear creative selection
@@ -259,8 +165,24 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         XCTAssertEqual(error.localizedDescription, "No Valid Media")
     }
 
-    // The maker can also be called without the validation step. "No creative" means that no ad has a
-    // Linear creative, "No suitable media file" that there is a Linear one but none of them is playable.
+    // The maker can also be called without the validation step, so it reports these cases on its own.
+    func testMakeModels_noLinearCreative() {
+        let ad = PBMVastInlineAd()
+        ad.creatives.add(PBMVastCreativeCompanionAds())
+        let response = PBMAdRequestResponseVAST()
+        response.ads = [ad]
+
+        guard case .failure(let error) = makeModels(from: response) else {
+            XCTFail("Expected a failure for an ad without a Linear creative")
+            return
+        }
+
+        XCTAssertEqual(error.code, PBMErrorCode.generalLinear.rawValue)
+        XCTAssertEqual(error.localizedDescription, "No creative")
+    }
+
+    // "No creative" means that no ad has a Linear creative, "No suitable media file" that there is
+    // a Linear one but none of them is playable.
     func testMakeModels_makerErrors() {
         let unsupportedMediaFile = PBMVastMediaFile()
         unsupportedMediaFile.type = "application/javascript"
@@ -279,78 +201,61 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         let cases: [(ads: [PBMVastAbstractAd], code: PBMErrorCode, message: String)] = [
             ([], .generalLinear, "No creative"),
             ([PBMVastInlineAd()], .generalLinear, "No creative"),
-            ([companionOnlyAd], .generalLinear, "No creative"),
+            ([companionOnlyAd, PBMVastInlineAd()], .generalLinear, "No creative"),
             ([unplayableAd], .fileNotFound, "No suitable media file"),
             ([companionOnlyAd, unplayableAd], .fileNotFound, "No suitable media file"),
         ]
-
-        let adConfiguration = AdConfiguration()
-        adConfiguration.adFormats = [.video]
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection: UtilitiesForTesting.createConnectionForMockedTest(),
-                                                             adConfiguration: adConfiguration)
 
         for (index, testCase) in cases.enumerated() {
             let response = PBMAdRequestResponseVAST()
             response.ads = testCase.ads
 
-            let failureCallbackExpectation = expectation(description: "makeModels failureCallback called, case \(index)")
-
-            modelMaker.makeModels(response,
-                                  successCallback: { _ in
+            guard case .failure(let error) = makeModels(from: response) else {
                 XCTFail("Case \(index): expected makeModels to fail")
-            },
-                                  failureCallback: { error in
-                XCTAssertEqual((error as NSError).code, testCase.code.rawValue, "case \(index)")
-                XCTAssertEqual(error.localizedDescription, testCase.message, "case \(index)")
-                failureCallbackExpectation.fulfill()
-            })
+                continue
+            }
 
-            waitForExpectations(timeout: 3)
+            XCTAssertEqual(error.code, testCase.code.rawValue, "case \(index)")
+            XCTAssertEqual(error.localizedDescription, testCase.message, "case \(index)")
         }
     }
 
     // MARK: - Helpers
 
-    /// Runs inline VAST through the two steps `PBMAdLoadManagerVAST` chains:
-    /// `PBMAdRequesterVAST` (parsing and validation), then `PBMCreativeModelCollectionMakerVAST`.
-    private func makeModels(fromVAST xml: String) -> Result<[CreativeModel], NSError> {
-        let adConfiguration = AdConfiguration()
-        adConfiguration.adFormats = [.video]
+    /// Parses and validates VAST with `PBMAdRequesterVAST`, the first step of `PBMAdLoadManagerVAST`.
+    private func loadResponse(fromVAST data: Data) -> Result<PBMAdRequestResponseVAST, NSError> {
+        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection: connection, adConfiguration: adConfiguration)
 
-        let conn = UtilitiesForTesting.createConnectionForMockedTest()
-        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
-
-        var validationError: NSError?
-        vastServerResponse = nil
-
+        var result: Result<PBMAdRequestResponseVAST, NSError>?
         let requestCompletedExpectation = expectation(description: "Expected VAST Load to complete")
 
         adLoadManager.mock_requestCompletedSuccess = { response in
-            self.vastServerResponse = response
+            result = .success(response)
             requestCompletedExpectation.fulfill()
         }
 
         adLoadManager.mock_requestCompletedFailure = { error in
-            validationError = error as NSError
+            result = .failure(error as NSError)
             requestCompletedExpectation.fulfill()
         }
 
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = PBMAdRequesterVAST(serverConnection: connection, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
-        requester.buildAdsArray(Data(xml.utf8))
+        requester.buildAdsArray(data)
 
         waitForExpectations(timeout: 2)
 
-        guard let vastServerResponse else {
-            return .failure(validationError ?? NSError(domain: "CreativeModelCollectionMakerVASTTests", code: 0))
-        }
+        return result ?? .failure(Self.noCallbackError)
+    }
 
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+    /// Builds the creative models with `PBMCreativeModelCollectionMakerVAST`, the second step of `PBMAdLoadManagerVAST`.
+    private func makeModels(from response: PBMAdRequestResponseVAST) -> Result<[CreativeModel], NSError> {
+        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection: connection, adConfiguration: adConfiguration)
 
         var result: Result<[CreativeModel], NSError>?
         let makeModelsExpectation = expectation(description: "makeModels callback called")
 
-        modelMaker.makeModels(vastServerResponse,
+        modelMaker.makeModels(response,
                               successCallback: { models in
             result = .success(models)
             makeModelsExpectation.fulfill()
@@ -362,8 +267,15 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
 
         waitForExpectations(timeout: 3)
 
-        return result ?? .failure(NSError(domain: "CreativeModelCollectionMakerVASTTests", code: 0))
+        return result ?? .failure(Self.noCallbackError)
     }
+
+    /// Runs inline VAST through both steps.
+    private func makeModels(fromVAST xml: String) -> Result<[CreativeModel], NSError> {
+        loadResponse(fromVAST: Data(xml.utf8)).flatMap(makeModels(from:))
+    }
+
+    private static let noCallbackError = NSError(domain: "CreativeModelCollectionMakerVASTTests", code: 0)
 
     private static func vast(ads: [String]) -> String {
         "<VAST version=\"3.0\">\(ads.joined())</VAST>"
