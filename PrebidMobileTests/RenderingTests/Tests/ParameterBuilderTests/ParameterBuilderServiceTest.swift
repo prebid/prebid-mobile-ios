@@ -755,7 +755,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     }
 
     func testEidsPlacementCompatible() throws {
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .compatible)
 
@@ -765,7 +765,7 @@ class ParameterBuilderServiceTest : XCTestCase {
 
     func testEidsPlacementOpenRTB26() throws {
         Targeting.shared.userExt = ["custom": "value"]
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .openRTB26)
 
@@ -774,7 +774,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     }
 
     func testEidsPlacementOpenRTB25() throws {
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .openRTB25)
 
@@ -792,7 +792,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     }
 
     func testEidsPlacementChangeLeavesNoStaleEids() throws {
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         var user = try buildUser(eidsPlacement: .openRTB25)
         XCTAssertNil(user["eids"])
@@ -809,7 +809,7 @@ class ParameterBuilderServiceTest : XCTestCase {
 
     func testEidsPlacementOpenRTB26IncludesUserExtEids() throws {
         Targeting.shared.userExt = ["eids": NSArray(object: publisherEid)]
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .openRTB26)
 
@@ -819,7 +819,7 @@ class ParameterBuilderServiceTest : XCTestCase {
 
     func testEidsPlacementOpenRTB26IncludesGlobalORTBConfigEids() throws {
         Targeting.shared.setGlobalORTBConfig("{\"user\":{\"ext\":{\"eids\":[{\"source\":\"publisher.com\",\"uids\":[{\"id\":\"publisher-uid\",\"atype\":3}]}]}}}")
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .openRTB26)
 
@@ -845,6 +845,56 @@ class ParameterBuilderServiceTest : XCTestCase {
         let twice = ParameterBuilderService.placeEids(in: once, placement: .compatible)
 
         XCTAssertEqual(once as NSDictionary, twice as NSDictionary)
+    }
+
+    // MARK: - Extended ID providers
+
+    func testProviderEidsReachUserEidsWithProvenanceFields() throws {
+        Prebid.registerExtendedIdProvider(MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId]))
+
+        let user = try buildUser(eidsPlacement: .compatible)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+        XCTAssertEqual(userExt(user)?["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testStaticEidsPrecedeProviderEids() throws {
+        Targeting.shared.addExternalUserId(
+            ExternalUserId(source: "publisher.com", uids: [UserUniqueID(uniqueId: "publisher-uid", aType: 3)])
+        )
+        Prebid.registerExtendedIdProvider(MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId]))
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [publisherEid, sdkEid])
+    }
+
+    func testRawExtendedIdIsSentAsIs() throws {
+        let rawEid = try XCTUnwrap(RawExtendedId(json: try XCTUnwrap(sdkEid as? [String: Any])))
+        Prebid.registerExtendedIdProvider(MockExtendedIdProvider(name: "test", extendedIds: [rawEid]))
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testEidThatCantBeEncodedIsSkipped() throws {
+        Prebid.registerExtendedIdProvider(
+            MockExtendedIdProvider(name: "test", extendedIds: [MockInvalidExtendedId(), sdkExternalUserId])
+        )
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testExternalUserIdWithEmptySourceIsSkipped() throws {
+        Targeting.shared.addExternalUserId(ExternalUserId(source: "", uids: [UserUniqueID(uniqueId: "uid", aType: 1)]))
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
     }
 
     private func buildUser(eidsPlacement: EidsPlacement) throws -> [String: Any] {

@@ -157,12 +157,9 @@ public class ParameterBuilderService: NSObject {
             bidRequest.user.ext = existingUserExt
         }
 
-        if let externalUserIds = targeting.getExternalUserIds() {
-            bidRequest.user.appendEids(externalUserIds)
-        }
-
-        if targeting.sendSharedId {
-            bidRequest.user.appendEids([targeting.sharedId.toJSONDictionary()])
+        let eids = targeting.getExtendedIds().compactMap(eidJSON)
+        if !eids.isEmpty {
+            bidRequest.user.appendEids(eids)
         }
 
         let userKeywords = targeting.getUserKeywords()
@@ -195,5 +192,21 @@ public class ParameterBuilderService: NSObject {
         }
 
         return bidRequest
+    }
+
+    /// Returns the JSON of `eid`, or `nil` if it is empty or can't be encoded. EIDs are checked one by
+    /// one because a single EID that can't be encoded would make the whole bid request fail to encode.
+    private static func eidJSON(_ eid: ExtendedId) -> [String: Any]? {
+        let json = eid.toJSONDictionary()
+        guard !json.isEmpty else {
+            return nil
+        }
+
+        guard JSONSerialization.isValidJSONObject(json) else {
+            Log.warn("Skipping extended ID from source \(eid.source): its JSON can't be encoded.")
+            return nil
+        }
+
+        return json
     }
 }
