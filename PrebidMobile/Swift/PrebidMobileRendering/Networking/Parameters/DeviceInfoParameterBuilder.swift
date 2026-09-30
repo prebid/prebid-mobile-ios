@@ -26,7 +26,7 @@ class DeviceInfoParameterBuilder: NSObject, ParameterBuilder {
     }
 
     func build(_ bidRequest: ORTBBidRequest) {
-        let screenSize = deviceAccessManager.screenSize()
+        let screenSize = deviceAccessManager.screenSizeInPixels()
 
         bidRequest.device.w = NSNumber(value: Double(screenSize.width))
         bidRequest.device.h = NSNumber(value: Double(screenSize.height))
