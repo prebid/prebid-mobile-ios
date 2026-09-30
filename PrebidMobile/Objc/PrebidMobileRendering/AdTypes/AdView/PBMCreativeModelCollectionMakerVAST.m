@@ -70,7 +70,15 @@
     }
     
     // Create the Linear Creative Model
-    PBMVastCreativeLinear *creative = (PBMVastCreativeLinear*)vastAd.creatives.firstObject;
+    // VAST does not mandate creative order: CompanionAds / NonLinearAds may precede the Linear creative,
+    // so pick the first Linear rather than assuming it's firstObject.
+    PBMVastCreativeLinear *creative = nil;
+    for (PBMVastCreativeAbstract *item in vastAd.creatives) {
+        if ([item isKindOfClass:[PBMVastCreativeLinear class]]) {
+            creative = (PBMVastCreativeLinear *)item;
+            break;
+        }
+    }
     if (creative == nil) {
         [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneralLinear];
         return nil;
