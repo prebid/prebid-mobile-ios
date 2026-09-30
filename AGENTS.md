@@ -41,7 +41,7 @@ files under `.claude/`.
 ./scripts/buildPrebidSPM.sh # build the SPM demo against the published packages
 ```
 
-Requires CocoaPods installed (`pod` on PATH — GHA `macos-15` ships with it pre-installed). Build output goes to `generated/output/` as `XC<name>.xcframework` (e.g. `XCPrebidMobile.xcframework`). Logs go to `generated/log/prebid_mobile_build.log`. Build uses `Lib-`-prefixed scheme names (`Lib-PrebidMobile`, etc.) to avoid colliding with auto-generated SPM schemes.
+Requires CocoaPods installed (`pod` on PATH — GHA `macos-26` ships with it pre-installed). Build output goes to `generated/output/` as `XC<name>.xcframework` (e.g. `XCPrebidMobile.xcframework`). Logs go to `generated/log/prebid_mobile_build.log`. Build uses `Lib-`-prefixed scheme names (`Lib-PrebidMobile`, etc.) to avoid colliding with auto-generated SPM schemes.
 
 ### Tests
 
@@ -145,7 +145,7 @@ Framework build uses `Lib-PrebidMobile`, `Lib-PrebidMobileGAMEventHandlers`, `Li
 
 ### CI
 
-GitHub Actions (Xcode 16.4.0, macOS 15):
+GitHub Actions (Xcode 26.5.0, macOS 26):
 - PRs run quick tests (`--latest --quick`) unless labeled `run-full-tests`
 - Branch names starting with `bump-to` trigger full test suite + UI/integration tests
 - Version tags run the SPM sync (`SPM.yml`): the SPM demo must build against local copies of both packages before anything is pushed to `prebid-mobile-ios-sdk` and `prebid-mobile-ios-adapters`, and GitHub releases are created only after the demo also builds against the published packages

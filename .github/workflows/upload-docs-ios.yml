@@ -10,12 +10,12 @@ on:
   workflow_dispatch:
 
 env:
-  XCODE_VERSION: "16.4.0"
+  XCODE_VERSION: "26.5.0"
 
 jobs:
   upload-docs:
 
-    runs-on: macos-15
+    runs-on: macos-26
 
     steps:
     - name: Checkout current branch

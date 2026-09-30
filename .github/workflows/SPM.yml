@@ -29,7 +29,7 @@ env:
   TARGET_BRANCH: main
   GH_TOKEN_PREBID_MOBILE: ${{ github.token }}
 
-  XCODE_VERSION: "16.4.0"
+  XCODE_VERSION: "26.5.0"
 
 jobs:
   resolve_version:
@@ -85,7 +85,7 @@ jobs:
     name: Verify SPM packages before publishing
     needs: resolve_version
     if: needs.resolve_version.outputs.should_run == 'true'
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -306,7 +306,7 @@ jobs:
   build:
     name: Build PrebidMobile SPM demo
     needs: [sync_adapters]
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - name: Checkout
         uses: actions/checkout@v4

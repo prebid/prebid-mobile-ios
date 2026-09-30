@@ -12,7 +12,7 @@ Build all Prebid Mobile XCFrameworks for distribution. Run from the repo root:
 ## What it does
 
 1. Deletes any previous `generated/` directory.
-2. Runs `pod install --repo-update` (CocoaPods is pre-installed on GHA macos-15).
+2. Runs `pod install --repo-update` (CocoaPods is pre-installed on GHA macos-26).
 3. For each of four frameworks — `PrebidMobile`, `PrebidMobileGAMEventHandlers`,
    `PrebidMobileAdMobAdapters`, `PrebidMobileMAXAdapters` — it:
    - Archives for device (`iphoneos`, arm64) using scheme `Lib-<name>`
