@@ -1,0 +1,5 @@
+{
+  "guard": "swift-migration-direction",
+  "description": "Explicitly granted new Objective-C files in the core (rare, genuinely unavoidable cases only — e.g. a bridge shim Swift cannot express). Each grant is part of the reviewed diff of the PR that adds the file, and is removed once that PR merges.",
+  "entries": []
+}

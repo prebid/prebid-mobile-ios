@@ -1,0 +1,34 @@
+# Guard G4: main-thread-callbacks (count-ratcheted via ast-rule-ratchet
+# in run-guards.sh)
+#
+# SDK convention: delegate callbacks that publishers implement must be
+# delivered on the main queue. This rule flags optional-chained delegate
+# invocations that are not visibly wrapped in DispatchQueue.main.async.
+#
+# Existing findings are grandfathered as a count in
+# baselines/ast-rule-counts.json; the count may only shrink. The rule is
+# still being calibrated against the codebase's idioms, so a growth failure
+# can be a false positive — a justified baseline update is the escape hatch.
+# Escalation path if it proves too coarse: a SwiftSyntax-based checker.
+id: main-thread-delegate-callbacks
+language: swift
+severity: warning
+message: Delegate callback not visibly dispatched to the main queue.
+note: Wrap the call in DispatchQueue.main.async { ... }, or document why off-main delivery is intended.
+files:
+  - "PrebidMobile/Swift/**"
+ignores:
+  - "**/*Tests*/**"
+rule:
+  any:
+    - pattern: $DELEGATE?.$METHOD($$$)
+    - pattern: self.$DELEGATE?.$METHOD($$$)
+  not:
+    inside:
+      stopBy: end
+      any:
+        - pattern: DispatchQueue.main.async($$$)
+        - pattern: DispatchQueue.main.async { $$$ }
+constraints:
+  DELEGATE:
+    regex: '[dD]elegate$'

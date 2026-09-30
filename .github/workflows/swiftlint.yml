@@ -1,0 +1,60 @@
+name: SwiftLint
+
+# Style/idiom lint, scoped to the lines a PR ADDS (scripts/lint/run-swiftlint.sh).
+#
+# Deliberately NOT part of guards.yml: the structural guards are blocking
+# architecture checks with ratcheted baselines; this is a style pass that owns
+# no baseline. Separate workflow, separate signal.
+#
+# Blocking: a violation on a line the PR ADDS fails this job. Violations on
+# lines the PR did not touch are never reported, so the gate only ever asks for
+# the code in the diff. Nothing is skipped silently either — a missing swiftlint
+# or an unusable diff exits non-zero rather than passing.
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Keep in sync with SWIFTLINT_PINNED in scripts/lint/run-swiftlint.sh —
+  # a version bump changes which rules exist and what they find.
+  SWIFTLINT_VERSION: "0.65.0"
+
+jobs:
+  swiftlint:
+    name: Run SwiftLint on Added Lines
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history: the runner diffs against the merge-base with master.
+          fetch-depth: 0
+
+      - name: Install SwiftLint ${{ env.SWIFTLINT_VERSION }}
+        run: |
+          curl -sSLo /tmp/swiftlint.zip \
+            "https://github.com/realm/SwiftLint/releases/download/$SWIFTLINT_VERSION/swiftlint_linux_amd64.zip"
+          sudo unzip -qjo /tmp/swiftlint.zip -d /usr/local/bin
+          swiftlint version
+
+      - name: Run SwiftLint
+        run: |
+          # pipefail so tee cannot mask the runner's exit code; `|| status=$?`
+          # because Actions runs this with `set -e`, which would otherwise skip
+          # the closing fence and leave the job summary malformed.
+          set -o pipefail
+          status=0
+          echo '### SwiftLint — lines this PR adds' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          ./scripts/lint/run-swiftlint.sh 2>&1 \
+            | tee -a "$GITHUB_STEP_SUMMARY" || status=$?
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          exit $status

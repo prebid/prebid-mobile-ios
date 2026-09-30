@@ -124,5 +124,9 @@ Pods/
 .claude/statsig/
 .claude/projects/
 .claude/worktrees/
+.claude/agent-memory/
 
 EventHandlers/Package.resolved
+
+# Python bytecode from the guard scripts
+__pycache__/

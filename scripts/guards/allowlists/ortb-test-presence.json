@@ -1,0 +1,38 @@
+{
+  "guard": "ortb-test-presence",
+  "description": "ORTB model files not referenced by any test (shrink-only). Fixing one means adding a decoding/wire-format test that cites the OpenRTB spec section, then deleting the entry.",
+  "entries": [
+    {
+      "entry": "PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/Request/ORTBAppExt.swift",
+      "reason": "ORTB model with no test reference when the guard landed."
+    },
+    {
+      "entry": "PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/Request/ORTBAppExtPrebid.swift",
+      "reason": "ORTB model with no test reference when the guard landed."
+    },
+    {
+      "entry": "PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/Request/ORTBDeviceExtPrebid.swift",
+      "reason": "ORTB model with no test reference when the guard landed."
+    },
+    {
+      "entry": "PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/Request/ORTBDeviceExtPrebidInterstitial.swift",
+      "reason": "ORTB model with no test reference when the guard landed."
+    },
+    {
+      "entry": "PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/Request/ORTBRendererConfig.swift",
+      "reason": "ORTB model with no test reference when the guard landed."
+    },
+    {
+      "entry": "PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/Response/ORTBExtensible.swift",
+      "reason": "ORTB model with no test reference when the guard landed."
+    },
+    {
+      "entry": "PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTB/Response/ORTBNoBidReason.swift",
+      "reason": "ORTB model with no test reference when the guard landed."
+    },
+    {
+      "entry": "PrebidMobile/Swift/PrebidMobileRendering/Prebid/PBMCore/ORTBMacrosHelper.swift",
+      "reason": "ORTB model with no test reference when the guard landed."
+    }
+  ]
+}
