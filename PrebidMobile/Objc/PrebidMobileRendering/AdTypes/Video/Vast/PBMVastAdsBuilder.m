@@ -21,7 +21,6 @@
 #import "PBMVastResponse.h"
 #import "PBMVastRequester.h"
 #import "PBMVastWrapperAd.h"
-#import "PBMVastCreativeLinear.h"
 #import "PBMMacros.h"
 #import "Log+Extensions.h"
 
@@ -271,13 +270,8 @@ typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
 
 -(BOOL)hasValidMedia:(NSArray *)ads {
     for (PBMVastInlineAd *ad in ads) {
-        for (PBMVastCreativeAbstract *creative in ad.creatives) {
-            if ([creative isKindOfClass:[PBMVastCreativeLinear class]]) {
-                PBMVastCreativeLinear *pbmVastCreativeLinear = (PBMVastCreativeLinear*) creative;
-                if ([pbmVastCreativeLinear bestMediaFile]) {
-                    return true;
-                }
-            }
+        if ([ad playableLinearCreative]) {
+            return true;
         }
     }
     return false;

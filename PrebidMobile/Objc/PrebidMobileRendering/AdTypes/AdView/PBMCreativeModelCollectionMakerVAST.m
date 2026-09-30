@@ -60,38 +60,31 @@
 
 - (NSArray<PBMCreativeModel *> *)createCreativeModelsFromResponse:(NSArray<PBMVastAbstractAd *> *)ads
                                                             error:(NSError **)error {
-    NSString *errorMessage = @"No creative";
     NSMutableArray <PBMCreativeModel *> *creatives = [NSMutableArray <PBMCreativeModel *> new];
-    PBMVastInlineAd *vastAd = (PBMVastInlineAd *)ads.firstObject;
-    
-    if (vastAd.creatives == nil || vastAd.creatives.count == 0) {
-        [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneralLinear];
-        return nil;
-    }
     
     // Create the Linear Creative Model
     // VAST does not mandate creative order: CompanionAds / NonLinearAds may precede the Linear creative,
-    // so pick the first Linear rather than assuming it's firstObject.
+    // and a response may carry several ads or several Linear creatives. Pick the first Linear that has
+    // a playable media file, the same creative -[PBMVastAdsBuilder hasValidMedia:] accepts the response for.
+    PBMVastInlineAd *vastAd = nil;
     PBMVastCreativeLinear *creative = nil;
-    for (PBMVastCreativeAbstract *item in vastAd.creatives) {
-        if ([item isKindOfClass:[PBMVastCreativeLinear class]]) {
-            creative = (PBMVastCreativeLinear *)item;
+    for (PBMVastInlineAd *ad in ads) {
+        creative = [ad playableLinearCreative];
+        if (creative != nil) {
+            vastAd = ad;
             break;
         }
     }
     if (creative == nil) {
-        [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneralLinear];
+        if ([self hasLinearCreative:ads]) {
+            [PBMError createError:error description:@"No suitable media file" statusCode:PBMErrorCodeFileNotFound];
+        } else {
+            [PBMError createError:error description:@"No creative" statusCode:PBMErrorCodeGeneralLinear];
+        }
         return nil;
     }
     
-    PBMVastMediaFile *bestMediaFile = [creative bestMediaFile];
-    if (bestMediaFile == nil) {
-        errorMessage = @"No suitable media file";
-        [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeFileNotFound];
-        return nil;
-    }
-    
-    PBMCreativeModel *creativeModel = [self createCreativeModelWithAd:vastAd creative:creative mediaFile:bestMediaFile error:error];
+    PBMCreativeModel *creativeModel = [self createCreativeModelWithAd:vastAd creative:creative mediaFile:[creative bestMediaFile] error:error];
     if (creativeModel == nil) {
         return nil;
     }
@@ -123,6 +116,17 @@
     }
     
     return creatives;
+}
+
+- (BOOL)hasLinearCreative:(NSArray<PBMVastAbstractAd *> *)ads {
+    for (PBMVastAbstractAd *ad in ads) {
+        for (PBMVastCreativeAbstract *creative in ad.creatives) {
+            if ([creative isKindOfClass:[PBMVastCreativeLinear class]]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
 }
 
 - (PBMCreativeModel *)createCreativeModelWithAd:(PBMVastInlineAd *)vastAd

@@ -176,4 +176,235 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         
         waitForExpectations(timeout: 3)
     }
+
+    // MARK: - Linear creative selection
+
+    // Validation (-[PBMVastAdsBuilder hasValidMedia:]) accepts a response if any Linear creative is playable,
+    // so the maker has to render that creative rather than fail on the first Linear it sees.
+    func testMakeModels_unsupportedLinearBeforeSupportedLinear() throws {
+        let xml = Self.vast(ads: [
+            Self.inlineAd(id: "1", creatives: [
+                Self.linear(mimeType: "application/javascript", mediaURL: "https://example.com/vpaid.js", duration: "00:00:10"),
+                Self.linear(mimeType: "video/mp4", mediaURL: "https://example.com/video.mp4", duration: "00:00:15"),
+            ])
+        ])
+
+        let models = try makeModels(fromVAST: xml).get()
+
+        XCTAssertEqual(models.count, 1)
+        XCTAssertEqual(models.first?.videoFileURL, "https://example.com/video.mp4")
+        XCTAssertEqual(models.first?.displayDurationInSeconds, 15)
+    }
+
+    func testMakeModels_supportedLinearBeforeUnsupportedLinear() throws {
+        let xml = Self.vast(ads: [
+            Self.inlineAd(id: "1", creatives: [
+                Self.linear(mimeType: "video/mp4", mediaURL: "https://example.com/video.mp4", duration: "00:00:15"),
+                Self.linear(mimeType: "application/javascript", mediaURL: "https://example.com/vpaid.js", duration: "00:00:10"),
+            ])
+        ])
+
+        let models = try makeModels(fromVAST: xml).get()
+
+        XCTAssertEqual(models.count, 1)
+        XCTAssertEqual(models.first?.videoFileURL, "https://example.com/video.mp4")
+        XCTAssertEqual(models.first?.displayDurationInSeconds, 15)
+    }
+
+    // The same disagreement across ads: the first ad has no playable Linear, the second one does.
+    // Everything in the models has to come from the ad that gets rendered.
+    func testMakeModels_unplayableAdBeforePlayableAd() throws {
+        let xml = Self.vast(ads: [
+            Self.inlineAd(id: "1", creatives: [
+                Self.linear(mimeType: "application/javascript", mediaURL: "https://example.com/vpaid.js", duration: "00:00:10"),
+                Self.companion(imageURL: "https://example.com/companion-1.png"),
+            ]),
+            Self.inlineAd(id: "2", creatives: [
+                Self.linear(mimeType: "video/mp4", mediaURL: "https://example.com/video.mp4", duration: "00:00:15"),
+                Self.companion(imageURL: "https://example.com/companion-2.png"),
+            ]),
+        ])
+
+        let models = try makeModels(fromVAST: xml).get()
+
+        XCTAssertEqual(models.count, 2)
+        XCTAssertEqual(models.first?.videoFileURL, "https://example.com/video.mp4")
+        XCTAssertEqual(models.first?.displayDurationInSeconds, 15)
+
+        let impressionKey = TrackingEventDescription.getDescription(.impression)
+        XCTAssertEqual(models.first?.trackingURLs[impressionKey], ["https://example.com/imp/2"])
+
+        let companionHTML = try XCTUnwrap(models.last?.html)
+        XCTAssertEqual(models.last?.isCompanionAd, true)
+        XCTAssertTrue(companionHTML.contains("https://example.com/companion-2.png"))
+        XCTAssertFalse(companionHTML.contains("https://example.com/companion-1.png"))
+    }
+
+    func testMakeModels_noSupportedMediaIsRejectedByValidation() {
+        let xml = Self.vast(ads: [
+            Self.inlineAd(id: "1", creatives: [
+                Self.linear(mimeType: "application/javascript", mediaURL: "https://example.com/vpaid.js"),
+            ]),
+            Self.inlineAd(id: "2", creatives: [
+                Self.linear(mimeType: "video/x-flv", mediaURL: "https://example.com/video.flv"),
+            ]),
+        ])
+
+        guard case .failure(let error) = makeModels(fromVAST: xml) else {
+            XCTFail("Expected the response to be rejected")
+            return
+        }
+
+        XCTAssertEqual(error.code, PBMErrorCode.fileNotFound.rawValue)
+        XCTAssertEqual(error.localizedDescription, "No Valid Media")
+    }
+
+    // The maker can also be called without the validation step. "No creative" means that no ad has a
+    // Linear creative, "No suitable media file" that there is a Linear one but none of them is playable.
+    func testMakeModels_makerErrors() {
+        let unsupportedMediaFile = PBMVastMediaFile()
+        unsupportedMediaFile.type = "application/javascript"
+        unsupportedMediaFile.mediaURI = "https://example.com/vpaid.js"
+
+        let unplayableLinear = PBMVastCreativeLinear()
+        unplayableLinear.duration = 15
+        unplayableLinear.mediaFiles.add(unsupportedMediaFile)
+
+        let unplayableAd = PBMVastInlineAd()
+        unplayableAd.creatives.add(unplayableLinear)
+
+        let companionOnlyAd = PBMVastInlineAd()
+        companionOnlyAd.creatives.add(PBMVastCreativeCompanionAds())
+
+        let cases: [(ads: [PBMVastAbstractAd], code: PBMErrorCode, message: String)] = [
+            ([], .generalLinear, "No creative"),
+            ([PBMVastInlineAd()], .generalLinear, "No creative"),
+            ([companionOnlyAd], .generalLinear, "No creative"),
+            ([unplayableAd], .fileNotFound, "No suitable media file"),
+            ([companionOnlyAd, unplayableAd], .fileNotFound, "No suitable media file"),
+        ]
+
+        let adConfiguration = AdConfiguration()
+        adConfiguration.adFormats = [.video]
+        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection: UtilitiesForTesting.createConnectionForMockedTest(),
+                                                             adConfiguration: adConfiguration)
+
+        for (index, testCase) in cases.enumerated() {
+            let response = PBMAdRequestResponseVAST()
+            response.ads = testCase.ads
+
+            let failureCallbackExpectation = expectation(description: "makeModels failureCallback called, case \(index)")
+
+            modelMaker.makeModels(response,
+                                  successCallback: { _ in
+                XCTFail("Case \(index): expected makeModels to fail")
+            },
+                                  failureCallback: { error in
+                XCTAssertEqual((error as NSError).code, testCase.code.rawValue, "case \(index)")
+                XCTAssertEqual(error.localizedDescription, testCase.message, "case \(index)")
+                failureCallbackExpectation.fulfill()
+            })
+
+            waitForExpectations(timeout: 3)
+        }
+    }
+
+    // MARK: - Helpers
+
+    /// Runs inline VAST through the two steps `PBMAdLoadManagerVAST` chains:
+    /// `PBMAdRequesterVAST` (parsing and validation), then `PBMCreativeModelCollectionMakerVAST`.
+    private func makeModels(fromVAST xml: String) -> Result<[CreativeModel], NSError> {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.adFormats = [.video]
+
+        let conn = UtilitiesForTesting.createConnectionForMockedTest()
+        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
+
+        var validationError: NSError?
+        vastServerResponse = nil
+
+        let requestCompletedExpectation = expectation(description: "Expected VAST Load to complete")
+
+        adLoadManager.mock_requestCompletedSuccess = { response in
+            self.vastServerResponse = response
+            requestCompletedExpectation.fulfill()
+        }
+
+        adLoadManager.mock_requestCompletedFailure = { error in
+            validationError = error as NSError
+            requestCompletedExpectation.fulfill()
+        }
+
+        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        requester.adLoadManager = adLoadManager
+        requester.buildAdsArray(Data(xml.utf8))
+
+        waitForExpectations(timeout: 2)
+
+        guard let vastServerResponse else {
+            return .failure(validationError ?? NSError(domain: "CreativeModelCollectionMakerVASTTests", code: 0))
+        }
+
+        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+
+        var result: Result<[CreativeModel], NSError>?
+        let makeModelsExpectation = expectation(description: "makeModels callback called")
+
+        modelMaker.makeModels(vastServerResponse,
+                              successCallback: { models in
+            result = .success(models)
+            makeModelsExpectation.fulfill()
+        },
+                              failureCallback: { error in
+            result = .failure(error as NSError)
+            makeModelsExpectation.fulfill()
+        })
+
+        waitForExpectations(timeout: 3)
+
+        return result ?? .failure(NSError(domain: "CreativeModelCollectionMakerVASTTests", code: 0))
+    }
+
+    private static func vast(ads: [String]) -> String {
+        "<VAST version=\"3.0\">\(ads.joined())</VAST>"
+    }
+
+    private static func inlineAd(id: String, creatives: [String]) -> String {
+        """
+        <Ad id="\(id)">
+          <InLine>
+            <AdSystem>test</AdSystem>
+            <AdTitle>t</AdTitle>
+            <Impression><![CDATA[https://example.com/imp/\(id)]]></Impression>
+            <Creatives>\(creatives.joined())</Creatives>
+          </InLine>
+        </Ad>
+        """
+    }
+
+    private static func linear(mimeType: String, mediaURL: String, duration: String = "00:00:15") -> String {
+        """
+        <Creative>
+          <Linear>
+            <Duration>\(duration)</Duration>
+            <MediaFiles>
+              <MediaFile delivery="progressive" type="\(mimeType)" width="640" height="480"><![CDATA[\(mediaURL)]]></MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+        """
+    }
+
+    private static func companion(imageURL: String) -> String {
+        """
+        <Creative>
+          <CompanionAds>
+            <Companion width="300" height="250">
+              <StaticResource creativeType="image/png"><![CDATA[\(imageURL)]]></StaticResource>
+              <CompanionClickThrough><![CDATA[https://example.com/click]]></CompanionClickThrough>
+            </Companion>
+          </CompanionAds>
+        </Creative>
+        """
+    }
 }
