@@ -762,4 +762,86 @@ class ResponseParsingTests: XCTestCase {
         XCTAssertTrue(passthrough.sdkConfiguration is CustomSDKConfiguration)
         XCTAssertTrue(bidExt.skadn!.fidelities![0] is CustomSkadnFidelity)
     }
+
+    // MARK: - BidInfo winning-bid economics (original/GAM API)
+
+    // A response whose winning bid carries distinct crid/adid/id, parsed from JSON *text* so the
+    // exact-price path (JSON number -> NSNumber, no Float narrowing) is exercised end to end.
+    private func winningBidResponseJSON(cur: String?) -> String {
+        let curLine = cur.map { "\"cur\": \"\($0)\"," } ?? ""
+        return """
+        {
+          "id": "req-abc",
+          \(curLine)
+          "seatbid": [{
+            "seat": "seat-1",
+            "bid": [{
+              "id": "bid-1",
+              "impid": "imp-1",
+              "price": 3.14,
+              "crid": "creative-xyz",
+              "adid": "ad-123",
+              "ext": { "prebid": {
+                "targeting": { "hb_pb": "3.10", "hb_bidder": "somebidder", "hb_cache_id": "cache-1" },
+                "type": "banner"
+              }}
+            }]
+          }]
+        }
+        """
+    }
+
+    private func parseBidResponse(_ json: String) -> BidResponse {
+        let dict = try! JSONSerialization.jsonObject(with: Data(json.utf8)) as! [String: Any]
+        return BidResponse(jsonDictionary: dict)
+    }
+
+    // `BidInfo.create` surfaces the winning bid's exact economics (cpm/currency/creativeId/adId) and
+    // the response-level requestId, so integrators on the original API can read them without the
+    // Rendering API or a second auction.
+    func testBidInfoSurfacesWinningBidEconomics() {
+        // cur omitted -> currency falls back to the ORTB default "USD".
+        let bidResponse = parseBidResponse(winningBidResponseJSON(cur: nil))
+        guard let winningBid = bidResponse.winningBid else {
+            return XCTFail("Fixture should produce a winning bid")
+        }
+
+        let bidInfo = BidInfo.create(resultCode: .prebidDemandFetchSuccess, bidResponse: bidResponse)
+
+        XCTAssertEqual(bidInfo.resultCode, .prebidDemandFetchSuccess)
+        // Exact price — no Float rounding. `3.14` survives the JSON-text round-trip.
+        XCTAssertEqual(bidInfo.cpm, winningBid.bid.price)
+        XCTAssertEqual(bidInfo.cpm?.doubleValue, 3.14)
+        XCTAssertEqual(bidInfo.currency, "USD")
+        XCTAssertEqual(bidInfo.creativeId, "creative-xyz")
+        XCTAssertEqual(bidInfo.adId, "ad-123")
+        XCTAssertEqual(bidInfo.requestId, "req-abc")
+    }
+
+    // When the response carries `cur`, it is used verbatim (not the "USD" fallback).
+    func testBidInfoUsesResponseCurrencyWhenPresent() {
+        let bidResponse = parseBidResponse(winningBidResponseJSON(cur: "EUR"))
+        XCTAssertNotNil(bidResponse.winningBid)
+
+        let bidInfo = BidInfo.create(resultCode: .prebidDemandFetchSuccess, bidResponse: bidResponse)
+
+        XCTAssertEqual(bidInfo.currency, "EUR")
+    }
+
+    // A response that parses and has a `cur` and bids but NO designated winner (its bid's targeting
+    // lacks `hb_bidder`) must leave the winning-bid fields nil — in particular it must not report a
+    // `currency` for a nonexistent price — while `requestId` still reports the response id.
+    func testBidInfoEconomicsAreNilWhenResponseHasNoWinner() {
+        let bidResponse = BidResponse(jsonDictionary: JSON.bidResponse())
+        XCTAssertNil(bidResponse.winningBid)
+        XCTAssertEqual(bidResponse.rawResponse?.cur, "_cur")
+
+        let bidInfo = BidInfo.create(resultCode: .prebidDemandFetchSuccess, bidResponse: bidResponse)
+
+        XCTAssertNil(bidInfo.cpm)
+        XCTAssertNil(bidInfo.currency)
+        XCTAssertNil(bidInfo.creativeId)
+        XCTAssertNil(bidInfo.adId)
+        XCTAssertEqual(bidInfo.requestId, "_id")
+    }
 }
