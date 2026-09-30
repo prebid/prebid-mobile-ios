@@ -232,10 +232,8 @@ class VastAdsBuilder: NSObject {
     }
 
     private func hasValidMedia(_ ads: [VastAbstractAd]) -> Bool {
-        for case let ad as VastInlineAd in ads {
-            for case let linearCreative as VastCreativeLinear in ad.creatives where linearCreative.bestMediaFile() != nil {
-                return true
-            }
+        for case let ad as VastInlineAd in ads where ad.playableLinearCreative() != nil {
+            return true
         }
         return false
     }
