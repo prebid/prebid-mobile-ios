@@ -1,9 +1,0 @@
-{
-    "ext": {
-        "prebid": {
-            "storedauctionresponse": {
-                "id": "prebid-demo-response-banner-native-styles"
-            }
-        }
-    }
-}
