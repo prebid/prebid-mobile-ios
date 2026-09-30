@@ -14,6 +14,7 @@
  */
 
 #import "PBMVastInlineAd.h"
+#import "PBMVastCreativeLinear.h"
 
 #import "SwiftImport.h"
 
@@ -26,6 +27,19 @@
     }
     
     return self;
+}
+
+- (PBMVastCreativeLinear *)playableLinearCreative {
+    for (PBMVastCreativeAbstract *creative in self.creatives) {
+        if ([creative isKindOfClass:[PBMVastCreativeLinear class]]) {
+            PBMVastCreativeLinear *linearCreative = (PBMVastCreativeLinear *)creative;
+            if ([linearCreative bestMediaFile]) {
+                return linearCreative;
+            }
+        }
+    }
+
+    return nil;
 }
 
 @end
