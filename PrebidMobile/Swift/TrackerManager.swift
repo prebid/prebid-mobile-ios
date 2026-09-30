@@ -87,6 +87,11 @@ class TrackerManager: NSObject {
             isNetworkReachable: isNetworkReachable
         )
     }
+
+    /// Trackers waiting for the retry timer, exposed so tests can simulate expiration.
+    var queuedTrackerInfosForTesting: [TrackerInfo] {
+        trackerArray.map(\.trackerInfo)
+    }
     #endif
     
     deinit {

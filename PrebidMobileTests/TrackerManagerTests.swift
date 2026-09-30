@@ -313,6 +313,79 @@ class TrackerManagerTests: XCTestCase {
         XCTAssertTrue(networkRequester.requests.isEmpty)
     }
 
+    func testExpiredTrackerCompletesWithFailureAndStopsRetryTimerWhileOffline() {
+        var results = [Bool]()
+
+        let timerScheduler = MockTrackerRetryTimerScheduler()
+        let networkRequester = MockTrackerNetworkRequester()
+        let trackerManager = makeTrackerManager(
+            networkRequester: networkRequester,
+            timerScheduler: timerScheduler,
+            isNetworkReachable: { false }
+        )
+
+        trackerManager.fireTrackerURLArray(
+            arrayWithURLs: ["https://tracker.example/1"]
+        ) { results.append($0) }
+
+        trackerManager.queuedTrackerInfosForTesting.forEach { $0.expired = true }
+
+        let retryTimer = timerScheduler.timers[0]
+        retryTimer.fire()
+
+        XCTAssertEqual(results, [false])
+        XCTAssertFalse(retryTimer.isValid)
+        XCTAssertTrue(trackerManager.queuedTrackerInfosForTesting.isEmpty)
+        XCTAssertTrue(networkRequester.requests.isEmpty)
+    }
+
+    func testExpiredTrackerIsRemovedWhileRemainingTrackerKeepsRetryTimerAlive() throws {
+        let expiredURL = "https://tracker.example/expired"
+        let pendingURL = "https://tracker.example/pending"
+        var networkIsReachable = false
+        var expiredTrackerResults = [Bool]()
+        var pendingTrackerResults = [Bool]()
+
+        let timerScheduler = MockTrackerRetryTimerScheduler()
+        let networkRequester = MockTrackerNetworkRequester()
+        let trackerManager = makeTrackerManager(
+            networkRequester: networkRequester,
+            timerScheduler: timerScheduler,
+            isNetworkReachable: { networkIsReachable }
+        )
+
+        trackerManager.fireTrackerURLArray(
+            arrayWithURLs: [expiredURL]
+        ) { expiredTrackerResults.append($0) }
+
+        trackerManager.fireTrackerURLArray(
+            arrayWithURLs: [pendingURL]
+        ) { pendingTrackerResults.append($0) }
+
+        let expiredTracker = try XCTUnwrap(
+            trackerManager.queuedTrackerInfosForTesting.first { $0.URL == expiredURL }
+        )
+        expiredTracker.expired = true
+
+        let retryTimer = timerScheduler.timers[0]
+        retryTimer.fire()
+
+        XCTAssertEqual(expiredTrackerResults, [false])
+        XCTAssertTrue(pendingTrackerResults.isEmpty)
+        XCTAssertTrue(retryTimer.isValid)
+        XCTAssertEqual(trackerManager.queuedTrackerInfosForTesting.map(\.URL), [pendingURL])
+        XCTAssertTrue(networkRequester.requests.isEmpty)
+
+        networkIsReachable = true
+        retryTimer.fire()
+
+        XCTAssertEqual(networkRequester.requests.compactMap { $0.url?.absoluteString }, [pendingURL])
+        XCTAssertEqual(expiredTrackerResults, [false])
+        XCTAssertEqual(pendingTrackerResults, [true])
+        XCTAssertFalse(retryTimer.isValid)
+        XCTAssertEqual(timerScheduler.timers.count, 1)
+    }
+
     private func makeTrackerManager(
         networkRequester: MockTrackerNetworkRequester,
         timerScheduler: MockTrackerRetryTimerScheduler,
