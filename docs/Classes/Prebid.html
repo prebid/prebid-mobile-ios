@@ -17,7 +17,7 @@
     <a title="Prebid Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 3.3.4 Docs</a> (87% documented)</p>
+        <p><a href="../index.html">PrebidMobile 3.4.0 Docs</a> (84% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -229,6 +229,9 @@
               <li class="nav-group-task">
                 <a href="../Classes/VideoParameters.html">VideoParameters</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WeakTimerTargetBox.html">WeakTimerTargetBox</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -239,6 +242,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/DataAsset.html">DataAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EidsPlacement.html">EidsPlacement</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/NativeDataAssetType.html">NativeDataAssetType</a>
@@ -257,6 +263,35 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/TrackingEvent.html">TrackingEvent</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSDictionary.html">NSDictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSException.html">NSException</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSMutableDictionary.html">NSMutableDictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSString.html">NSString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSURL.html">NSURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Timer.html">Timer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIView.html">UIView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIWindow.html">UIWindow</a>
               </li>
             </ul>
           </li>
@@ -304,6 +339,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TimerInterface.html">TimerInterface</a>
               </li>
             </ul>
           </li>
@@ -865,9 +903,9 @@ the impression event respectively to the legacy analytic setup.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(py)requireServerSideBidCache"></a>
-                    <a name="//apple_ref/swift/Property/requireServerSideBidCache" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(py)requireServerSideBidCache">requireServerSideBidCache</a>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(py)filterOutUncachedBids"></a>
+                    <a name="//apple_ref/swift/Property/filterOutUncachedBids" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(py)filterOutUncachedBids">filterOutUncachedBids</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -875,15 +913,17 @@ the impression event respectively to the legacy analytic setup.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Indicates whether the SDK should ignore bids that don&rsquo;t contain a successful
-server-side Prebid Cache entry in bid.ext.prebid.cache.</p>
+                        <p>Indicates whether the SDK should filter out bids that don&rsquo;t contain a successful
+server-side Prebid Cache entry in bid.ext.prebid.cache before passing them to the
+ad server. Applies to Original API only: Rendering API renders creatives directly
+from the bid&rsquo;s own markup and never depends on Prebid Cache to display an ad.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">requireServerSideBidCache</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">filterOutUncachedBids</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1046,6 +1086,35 @@ server-side Prebid Cache entry in bid.ext.prebid.cache.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">includeBidderKeys</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PrebidMobile@objc(cs)Prebid(py)eidsPlacement"></a>
+                    <a name="//apple_ref/swift/Property/eidsPlacement" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)Prebid(py)eidsPlacement">eidsPlacement</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Where the SDK places Extended Identifiers (EIDs) in the bid request: <code>user.eids</code> (OpenRTB 2.6),
+<code>user.ext.eids</code> (OpenRTB 2.5), or both. Prebid Server uses <code>user.eids</code> when both are present.
+Defaults to <code>.compatible</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">eidsPlacement</span><span class="p">:</span> <span class="kt"><a href="../Enums/EidsPlacement.html">EidsPlacement</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1891,7 +1960,7 @@ If <code><a href="../Classes/Prebid.html#/c:@M@PrebidMobile@objc(cs)Prebid(py)cu
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2026-08-14)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2026-09-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

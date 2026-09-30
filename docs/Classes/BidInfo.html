@@ -17,7 +17,7 @@
     <a title="BidInfo Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PrebidMobile 3.3.4 Docs</a> (87% documented)</p>
+        <p><a href="../index.html">PrebidMobile 3.4.0 Docs</a> (84% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -229,6 +229,9 @@
               <li class="nav-group-task">
                 <a href="../Classes/VideoParameters.html">VideoParameters</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WeakTimerTargetBox.html">WeakTimerTargetBox</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -239,6 +242,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/DataAsset.html">DataAsset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EidsPlacement.html">EidsPlacement</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/NativeDataAssetType.html">NativeDataAssetType</a>
@@ -257,6 +263,35 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/TrackingEvent.html">TrackingEvent</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSDictionary.html">NSDictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSException.html">NSException</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSMutableDictionary.html">NSMutableDictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSString.html">NSString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSURL.html">NSURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Timer.html">Timer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIView.html">UIView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIWindow.html">UIWindow</a>
               </li>
             </ul>
           </li>
@@ -304,6 +339,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RewardedEventHandlerProtocol.html">RewardedEventHandlerProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TimerInterface.html">TimerInterface</a>
               </li>
             </ul>
           </li>
@@ -528,9 +566,42 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:12PrebidMobile7BidInfoC10resultCode17targetingKeywords3exp15nativeAdCacheId6eventsAcA06ResultF0O_SDyS2SGSgSdSgSSSgAKtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(resultCode:targetingKeywords:exp:nativeAdCacheId:events:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:12PrebidMobile7BidInfoC10resultCode17targetingKeywords3exp15nativeAdCacheId6eventsAcA06ResultF0O_SDyS2SGSgSdSgSSSgAKtcfc">init(resultCode:<wbr>targetingKeywords:<wbr>exp:<wbr>nativeAdCacheId:<wbr>events:<wbr>)</a>
+                    <a name="/c:@M@PrebidMobile@objc(cs)PBMBidInfo(py)topBidFiltered"></a>
+                    <a name="//apple_ref/swift/Property/topBidFiltered" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PrebidMobile@objc(cs)PBMBidInfo(py)topBidFiltered">topBidFiltered</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>True when <code>Prebid.shared.filterOutUncachedBids</code> removed the bid Prebid Server
+designated as the winner because it had no successful Prebid Cache entry, and a
+lower-priced cached bid was promoted in its place.</p>
+
+<p>The demand is still valid and its targeting is attached to the ad object, so
+<code><a href="../Classes/BidInfo.html#/c:@M@PrebidMobile@objc(cs)PBMBidInfo(py)resultCode">resultCode</a></code> remains <code>.prebidDemandFetchSuccess</code>. This flag exists purely so
+publishers can track the yield impact of the filtering.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">topBidFiltered</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PrebidMobile7BidInfoC10resultCode17targetingKeywords3exp15nativeAdCacheId6events03topC8FilteredAcA06ResultF0O_SDyS2SGSgSdSgSSSgALSbtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(resultCode:targetingKeywords:exp:nativeAdCacheId:events:topBidFiltered:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PrebidMobile7BidInfoC10resultCode17targetingKeywords3exp15nativeAdCacheId6events03topC8FilteredAcA06ResultF0O_SDyS2SGSgSdSgSSSgALSbtcfc">init(resultCode:<wbr>targetingKeywords:<wbr>exp:<wbr>nativeAdCacheId:<wbr>events:<wbr>topBidFiltered:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -546,7 +617,8 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">resultCode</span><span class="p">:</span> <span class="kt"><a href="../Enums/ResultCode.html">ResultCode</a></span><span class="p">,</span> <span class="nv">targetingKeywords</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">exp</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-            <span class="nv">nativeAdCacheId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">events</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span></code></pre>
+            <span class="nv">nativeAdCacheId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">events</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:],</span>
+            <span class="nv">topBidFiltered</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -614,6 +686,19 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>topBidFiltered</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether the PBS-designated winning bid was filtered out for
+lacking a cache entry and a lower-priced cached bid was promoted in its place.</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -652,7 +737,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2026-08-14)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.prebid.org" target="_blank" rel="external noopener">Prebid</a>. All rights reserved. (Last updated: 2026-09-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

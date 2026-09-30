@@ -198,21 +198,21 @@
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/ConfigurationAndTargeting/Prebid.swift",
-      "line": 340,
+      "line": 347,
       "symbol": "Prebid.registerPluginRenderer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/ConfigurationAndTargeting/Prebid.swift",
-      "line": 344,
+      "line": 351,
       "symbol": "Prebid.unregisterPluginRenderer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/ConfigurationAndTargeting/Prebid.swift",
-      "line": 348,
+      "line": 355,
       "symbol": "Prebid.containsPluginRenderer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -236,6 +236,20 @@
       "line": 67,
       "symbol": "Host.getHostURL()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/AdFormat.swift",
+      "line": 61,
+      "symbol": "AdFormat.isEqual(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/AdFormat.swift",
+      "line": 66,
+      "symbol": "AdFormat.hash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -547,6 +561,216 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSDictionary+PBMExtensions.swift",
+      "line": 19,
+      "symbol": "NSDictionary.nullIfEmpty()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSException+PBMExtensions.swift",
+      "line": 20,
+      "symbol": "NSException.pbmException(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSMutableDictionary+PBMExtensions.swift",
+      "line": 20,
+      "symbol": "NSMutableDictionary.pbmRemoveEmptyVals()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSMutableDictionary+PBMExtensions.swift",
+      "line": 28,
+      "symbol": "NSMutableDictionary.pbmCopyWithoutEmptyVals()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSString+PBMExtensions.swift",
+      "line": 21,
+      "symbol": "NSString.PBMdoesMatch(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSString+PBMExtensions.swift",
+      "line": 26,
+      "symbol": "NSString.PBMnumberOfMatches(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSString+PBMExtensions.swift",
+      "line": 37,
+      "symbol": "NSString.PBMsubstringToString(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSString+PBMExtensions.swift",
+      "line": 45,
+      "symbol": "NSString.PBMsubstringFromString(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSString+PBMExtensions.swift",
+      "line": 57,
+      "symbol": "NSString.PBMsubstringFromString(_:toString:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSString+PBMExtensions.swift",
+      "line": 68,
+      "symbol": "NSString.PBMstringByReplacingRegex(_:replaceWith:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSString+PBMExtensions.swift",
+      "line": 82,
+      "symbol": "NSString.PBMsubstringFromIndex(_:toIndex:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSTimer+PBMScheduledTimerFactory.swift",
+      "line": 20,
+      "symbol": "Timer.pbmScheduledTimerFactory()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/NSURL+PBMExtensions.swift",
+      "line": 20,
+      "symbol": "NSURL.pbmURLWithoutEncoding(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/TimerInterface.swift",
+      "line": 18,
+      "symbol": "TimerInterface",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/TimerInterface.swift",
+      "line": 19,
+      "symbol": "TimerInterface.invalidate()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIView+PBMExtensions.swift",
+      "line": 21,
+      "symbol": "UIView.PBMAddCropAndCenterConstraints(initialWidth:initialHeight:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIView+PBMExtensions.swift",
+      "line": 39,
+      "symbol": "UIView.PBMAddBottomRightConstraintsWithMarginSize(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIView+PBMExtensions.swift",
+      "line": 50,
+      "symbol": "UIView.PBMAddBottomRightConstraints(viewSize:marginSize:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIView+PBMExtensions.swift",
+      "line": 63,
+      "symbol": "UIView.PBMAddBottomLeftConstraints(viewSize:marginSize:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIView+PBMExtensions.swift",
+      "line": 76,
+      "symbol": "UIView.PBMAddTopRightConstraints(viewSize:marginSize:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIView+PBMExtensions.swift",
+      "line": 89,
+      "symbol": "UIView.PBMAddTopLeftConstraints(viewSize:marginSize:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIView+PBMExtensions.swift",
+      "line": 102,
+      "symbol": "UIView.logViewHierarchy()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIView+PBMExtensions.swift",
+      "line": 108,
+      "symbol": "UIView.pbmIsVisibleInView(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIWindow+PBMExtensions.swift",
+      "line": 20,
+      "symbol": "UIWindow.appVisibleViewController()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIWindow+PBMExtensions.swift",
+      "line": 24,
+      "symbol": "UIWindow.visibleViewController()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/UIWindow+PBMExtensions.swift",
+      "line": 30,
+      "symbol": "UIWindow.getVisibleViewControllerFrom(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/WeakTimerTargetBox.swift",
+      "line": 19,
+      "symbol": "WeakTimerTargetBox",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/WeakTimerTargetBox.swift",
+      "line": 25,
+      "symbol": "WeakTimerTargetBox.init(weakTarget:selector:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/WeakTimerTargetBox.swift",
+      "line": 32,
+      "symbol": "WeakTimerTargetBox.onTimerFired(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/ExtensionsAndWrappers/WeakTimerTargetBox.swift",
+      "line": 45,
+      "symbol": "WeakTimerTargetBox.scheduledTimerFactory(withWeakifiedTarget:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/PluginRenderer/PluginEventDelegate.swift",
       "line": 18,
       "symbol": "PluginEventDelegate",
@@ -618,49 +842,49 @@
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 79,
+      "line": 101,
       "symbol": "BannerView.delegate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 80,
+      "line": 102,
       "symbol": "BannerView.videoPlaybackDelegate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 313,
+      "line": 343,
       "symbol": "BannerView.willPresentModal()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 320,
+      "line": 350,
       "symbol": "BannerView.didDismissModal()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 327,
+      "line": 357,
       "symbol": "BannerView.willLeaveApp()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 333,
+      "line": 363,
       "symbol": "BannerView.didDisplayAd()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/prebid-mobile-ios/prebid-mobile-ios/PrebidMobile/Swift/PrebidMobileRendering/Prebid/Integrations/GAM/BannerView.swift",
-      "line": 339,
+      "line": 369,
       "symbol": "BannerView.viewControllerForPresentingModal",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
