@@ -8,6 +8,11 @@ echo $PWD
 echo -e "\n${GREEN}Creating simulator${NC} \n"
 xcrun simctl create iPhone-16-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro
 
+# The committed Package.resolved pins the Prebid packages to an older release.
+# Drop it so the demo is built against the packages that were just published.
+echo -e "\n${GREEN}Removing pinned package versions${NC} \n"
+rm -f PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
     -scheme PrebidDemoSPM \
