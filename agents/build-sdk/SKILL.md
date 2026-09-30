@@ -41,9 +41,16 @@ script prints the log path and exits non-zero.
 
 ## SPM
 
-To build or publish the SPM release instead:
+The SPM release is run by `.github/workflows/SPM.yml` on version tags. It uses these
+scripts, in this order:
 
 ```bash
-./scripts/buildPrebidSPM.sh
-./scripts/publishSPM.sh
+./scripts/verifySPM.sh      # build the SPM demo against local copies of both packages; pushes nothing
+./scripts/syncSPM.sh        # copy the package sources into a checkout of an SPM repo
+./scripts/publishSPM.sh     # commit, push and tag that checkout
+./scripts/buildPrebidSPM.sh # build the SPM demo against the published packages
 ```
+
+`verifySPM.sh` is meant for CI runners. SwiftPM records the local commit of each version
+in its fingerprint store (`~/.swiftpm/security/fingerprints`) and then refuses that
+version at any other commit on the same machine.

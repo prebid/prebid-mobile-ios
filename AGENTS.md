@@ -34,9 +34,11 @@ files under `.claude/`.
 # Build all XCFrameworks (PrebidMobile, GAM, AdMob, MAX) into generated/output/
 ./scripts/buildPrebidMobile.sh
 
-# Build and publish the SPM release
-./scripts/buildPrebidSPM.sh
-./scripts/publishSPM.sh
+# SPM release (run by .github/workflows/SPM.yml on version tags, in this order)
+./scripts/verifySPM.sh      # build the SPM demo against local copies of both packages; pushes nothing
+./scripts/syncSPM.sh        # copy the package sources into a checkout of an SPM repo
+./scripts/publishSPM.sh     # commit, push and tag that checkout
+./scripts/buildPrebidSPM.sh # build the SPM demo against the published packages
 ```
 
 Requires CocoaPods installed (`pod` on PATH — GHA `macos-15` ships with it pre-installed). Build output goes to `generated/output/` as `XC<name>.xcframework` (e.g. `XCPrebidMobile.xcframework`). Logs go to `generated/log/prebid_mobile_build.log`. Build uses `Lib-`-prefixed scheme names (`Lib-PrebidMobile`, etc.) to avoid colliding with auto-generated SPM schemes.
@@ -146,6 +148,7 @@ Framework build uses `Lib-PrebidMobile`, `Lib-PrebidMobileGAMEventHandlers`, `Li
 GitHub Actions (Xcode 16.4.0, macOS 15):
 - PRs run quick tests (`--latest --quick`) unless labeled `run-full-tests`
 - Branch names starting with `bump-to` trigger full test suite + UI/integration tests
+- Version tags run the SPM sync (`SPM.yml`): the SPM demo must build against local copies of both packages before anything is pushed to `prebid-mobile-ios-sdk` and `prebid-mobile-ios-adapters`, and GitHub releases are created only after the demo also builds against the published packages
 
 ## ObjC → Swift migration
 

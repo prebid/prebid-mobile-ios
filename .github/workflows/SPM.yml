@@ -79,8 +79,25 @@ jobs:
           echo "version=$v" >> "$GITHUB_OUTPUT"
           echo "should_run=true" >> "$GITHUB_OUTPUT"
 
-  sync_core:
+  ### Builds the SPM demo against local copies of both packages.
+  ### Nothing is pushed to the SPM repos unless this job passes.
+  verify:
+    name: Verify SPM packages before publishing
     needs: resolve_version
+    if: needs.resolve_version.outputs.should_run == 'true'
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Build Prebid SPM Demo against the local packages
+        run: ./scripts/verifySPM.sh "${{ needs.resolve_version.outputs.version }}"
+
+  sync_core:
+    needs: [resolve_version, verify]
     if: needs.resolve_version.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -111,15 +128,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          rsync -a --delete "source/Frameworks/"  "core/Frameworks/"
-          rsync -a --delete "source/PrebidMobile/" "core/PrebidMobile/"
-
-          rm -f "core/PrebidMobile/Package.swift"
-          rm -f "core/PrebidMobile/README-SPM.md"
-
-          cp -f "source/PrebidMobile/Package.swift" "core/Package.swift"
-          cp -f "source/LICENSE" "core/LICENSE"
-          cp -f "source/PrebidMobile/README-SPM.md" "core/README.md"
+          "source/scripts/syncSPM.sh" core source core
 
       - name: Commit & tag PrebidMobile Core SDK
         shell: bash
@@ -166,13 +175,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          rsync -a --delete "source/EventHandlers/PrebidMobileAdMobAdapters/" "adapters/PrebidMobileAdMobAdapters/"
-          rsync -a --delete "source/EventHandlers/PrebidMobileMAXAdapters/"   "adapters/PrebidMobileMAXAdapters/"
-          rsync -a --delete "source/EventHandlers/PrebidMobileGAMEventHandlers/" "adapters/PrebidMobileGAMEventHandlers/"
-
-          cp -f "source/EventHandlers/Package.swift" "adapters/Package.swift"
-          cp -f "source/LICENSE" "adapters/LICENSE"
-          cp -f "source/EventHandlers/README-SPM.md" "adapters/README.md"
+          "source/scripts/syncSPM.sh" adapters source adapters
 
       - name: Commit & tag PrebidMobile Adapters SDK
         shell: bash
@@ -187,9 +190,10 @@ jobs:
           "${{ needs.resolve_version.outputs.version }}" \
           "${{ env.TARGET_BRANCH }}"
   
+  ### Releases are created only after the published packages have been built.
   release_notes:
     runs-on: ubuntu-latest
-    needs: [resolve_version, sync_adapters]
+    needs: [resolve_version, sync_adapters, build]
     env:
       VERSION: ${{ needs.resolve_version.outputs.version }}
     steps:
@@ -298,6 +302,7 @@ jobs:
           else
             gh release create "$TAG" --repo "$ADAPTERS_REPO" --title "$TAG" --notes-file release_notes.md
           fi
+  ### Builds the SPM demo against the packages that were just published.
   build:
     name: Build PrebidMobile SPM demo
     needs: [sync_adapters]
