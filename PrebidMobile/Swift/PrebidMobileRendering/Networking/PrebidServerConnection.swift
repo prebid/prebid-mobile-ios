@@ -26,7 +26,11 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     
     public private(set) var userAgentService = UserAgentService.shared
     
-    public var protocolClasses: [URLProtocol.Type] = []
+    public var protocolClasses: [URLProtocol.Type] = [] {
+        didSet {
+            invalidateSession()
+        }
+    }
     
     public static let shared = PrebidServerConnection()
     
@@ -59,6 +63,49 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     // The unique identifier of connection. Predominantly uses in tests.
     let internalID = UUID()
     
+    private static let sessionTimeout: TimeInterval = 60
+    private let sessionLock = NSLock()
+    private var _session: URLSession?
+    
+    var currentSession: URLSession {
+        session
+    }
+    
+    private var session: URLSession {
+        sessionLock.lock()
+        defer { sessionLock.unlock() }
+        
+        if let session = _session {
+            return session
+        }
+        
+        let config = URLSessionConfiguration.ephemeral
+        config.httpCookieAcceptPolicy = .never
+        config.httpCookieStorage = nil
+        config.timeoutIntervalForRequest = Self.sessionTimeout
+        config.protocolClasses = protocolClasses
+        
+        #if DEBUG
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 5
+        let newSession = URLSession(configuration: config, delegate: self, delegateQueue: queue)
+        #else
+        let newSession = URLSession(configuration: config)
+        #endif
+        
+        _session = newSession
+        return newSession
+    }
+    
+    private func invalidateSession() {
+        sessionLock.lock()
+        let oldSession = _session
+        _session = nil
+        sessionLock.unlock()
+        
+        oldSession?.finishTasksAndInvalidate()
+    }
+    
     // MARK: Init
     
     public convenience init(userAgentService: UserAgentService) {
@@ -74,8 +121,8 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         }
         
         request.httpMethod = HTTPMethodGET
+        request.timeoutInterval = PrebidConstants.FIRE_AND_FORGET_TIMEOUT
         
-        let session = createSession(PrebidConstants.FIRE_AND_FORGET_TIMEOUT)
         let task = session.dataTask(with: request)
         task.resume()
     }
@@ -101,10 +148,11 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         }
         
         request.httpMethod = HTTPMethodPOST
-        request.timeoutInterval = timeout
+        if timeout > 0 {
+            request.timeoutInterval = timeout
+        }
         request.setValue(contentType, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
-        let session = createSession(timeout)
         let task = session.uploadTask(with: request, from: data) { [weak self] data, response, error in
             self?.proccessResponse(request, urlResponse: response, responseData: data, error: error, fullServerCallback: callback)
         }
@@ -117,9 +165,9 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
             return
         }
         
+        request.timeoutInterval = PrebidConstants.FIRE_AND_FORGET_TIMEOUT
         request.setValue(PrebidServerConnection.contentTypeVal, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
-        let session = createSession(PrebidConstants.FIRE_AND_FORGET_TIMEOUT)
         let task = session.dataTask(with: request) { [weak self] data, response, error in
             self?.proccessResponse(request, urlResponse: response,
                                    responseData: data, error: error, fullServerCallback: callback)
@@ -137,10 +185,11 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         }
         
         request.httpMethod = headersOnly ? HTTPMethodHEAD : HTTPMethodGET
-        request.timeoutInterval = timeout
+        if timeout > 0 {
+            request.timeoutInterval = timeout
+        }
         request.setValue(PrebidServerConnection.contentTypeVal, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
-        let session = createSession(timeout)
         let task = session.dataTask(with: request) { [weak self] data, response, error in
             self?.proccessResponse(request, urlResponse: response,
                                    responseData: data, error: error, fullServerCallback: callback)
@@ -208,22 +257,6 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         }
         
         fullServerCallback(serverResponse)
-    }
-    
-    private func createSession(_ timeout: TimeInterval) -> URLSession {
-        let config = URLSessionConfiguration.ephemeral
-        config.httpCookieAcceptPolicy = .never
-        config.httpCookieStorage = nil
-        config.timeoutIntervalForRequest = timeout
-        config.protocolClasses = protocolClasses
-        
-        #if DEBUG
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 5
-        return URLSession(configuration: config, delegate: self, delegateQueue: queue)
-        #else
-        return URLSession(configuration: config)
-        #endif
     }
     
     private func createRequest(_ strUrl: String?) -> URLRequest? {
