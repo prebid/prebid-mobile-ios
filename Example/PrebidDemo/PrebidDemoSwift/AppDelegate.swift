@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if CommandLine.arguments.contains("-uiTesting") {
             UIApplication.shared.getKeyWindow()?.layer.speed = 2
             UIView.setAnimationsEnabled(false)
-            configureUITestTimeouts()
         }
         
         // Set account id and custom Prebid server URL
@@ -73,14 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
-    /// Gives slow CI WebKit startup more room. A bid response with a `prebidmobilesdk` passthrough
-    /// (`cftbanner` / `cftprerender`) still overrides the creative factory timeouts afterwards.
-    private func configureUITestTimeouts() {
-        Prebid.shared.timeoutMillis = 10_000
-        Prebid.shared.creativeFactoryTimeout = 30
-        Prebid.shared.creativeFactoryTimeoutPreRenderContent = 60
-    }
     
     // MARK: UISceneSession Lifecycle
     
@@ -90,3 +81,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
 }
+
