@@ -15,6 +15,7 @@
 
 import OSLog
 import UIKit
+import PrebidMobile
 
 struct PrebidDemoLogger {
     static let shared = PrebidDemoLogger()
@@ -22,11 +23,20 @@ struct PrebidDemoLogger {
     private let logger = Logger()
 
     func info(_ message: String) {
-        logger.info("\(message, privacy: .public)")
+        // Only UI test runs make messages public, so collected simulator logs stay readable.
+        if UITestAdStatus.isEnabled {
+            logger.info("\(message, privacy: .public)")
+        } else {
+            logger.info("\(message)")
+        }
     }
 
     func error(_ message: String) {
-        logger.error("\(message, privacy: .public)")
+        if UITestAdStatus.isEnabled {
+            logger.error("\(message, privacy: .public)")
+        } else {
+            logger.error("\(message)")
+        }
         UITestAdStatus.shared.reportFailure(message)
     }
 }
@@ -36,17 +46,22 @@ final class UITestAdStatus {
     static let shared = UITestAdStatus()
     static let accessibilityIdentifier = "prebid-demo-ad-status"
 
-    private weak var statusView: UIView?
-
-    private var isEnabled: Bool {
+    static var isEnabled: Bool {
         CommandLine.arguments.contains("-uiTesting")
     }
 
+    private weak var statusView: UIView?
+
     func reportFailure(_ message: String) {
-        guard isEnabled else { return }
+        guard Self.isEnabled else { return }
+
+        // A bid response can override these through a `prebidmobilesdk` passthrough before the
+        // creative factory reads them, so report the values in effect when the ad failed.
+        let timeouts = "creativeFactoryTimeout: \(Prebid.shared.creativeFactoryTimeout)s, "
+            + "creativeFactoryTimeoutPreRenderContent: \(Prebid.shared.creativeFactoryTimeoutPreRenderContent)s"
 
         DispatchQueue.main.async { [weak self] in
-            self?.updateStatus("failed: \(message)")
+            self?.updateStatus("failed: \(message) [\(timeouts)]")
         }
     }
 
