@@ -28,7 +28,7 @@ public class PrebidAdMobBannerAdapter:
         displayView ?? UIView()
     }
     
-    var displayView: PrebidMobileDisplayViewProtocol?
+    var displayView: (UIView & PrebidMobileDisplayViewProtocol)?
     
     weak var delegate: GoogleMobileAds.MediationBannerAdEventDelegate?
     var adConfiguration: GoogleMobileAds.MediationBannerAdConfiguration?

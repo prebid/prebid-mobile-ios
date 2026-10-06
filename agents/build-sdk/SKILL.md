@@ -18,7 +18,11 @@ Build all Prebid Mobile XCFrameworks for distribution. Run from the repo root:
    - Archives for device (`iphoneos`, arm64) using scheme `Lib-<name>`
    - Archives for simulator (`iphonesimulator`, arm64 + x86_64) using scheme `Lib-<name>`
    - Bundles both archives + dSYMs into `generated/output/XC<name>.xcframework`
-4. Prints the output path when done.
+4. Runs `scripts/verifyXCFrameworkInterfaces.sh`, which typechecks every `.swiftinterface`
+   in `generated/output/` with an empty module cache, the way a consumer's compiler
+   rebuilds the module. `xcodebuild` passes `-no-verify-emitted-module-interface`, so an
+   interface that doesn't compile still archives cleanly; this step fails the build instead.
+5. Prints the output path when done.
 
 The `Lib-` prefix on scheme names avoids collision with auto-generated SPM schemes.
 

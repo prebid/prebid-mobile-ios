@@ -139,7 +139,7 @@ Allowlist of exactly this one test, not a general "re-run and move on" policy. P
 
 ## Validation checklist per PR
 
-- [ ] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean
+- [ ] `./scripts/buildPrebidMobile.sh` — all 4 XCFrameworks clean, and their `.swiftinterface` files typecheck (the script's last step)
 - [ ] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build clean (catches header-visibility breakage the CocoaPods build masks — Gap S2.5-A)
 - [ ] `./scripts/testPrebidMobile.sh --latest --quick` — clean pass (re-run once if only `PBMBidRequesterTest.testBanner_300x250` fails)
 - [ ] Swift test files updated: no `'PBMORTBFoo' has been renamed` errors

@@ -13,10 +13,15 @@
 // limitations under the License.
 //
     
-import UIKit
+import Foundation
+
+// Don't add `where Self: UIView` here. Swift prints that constraint on an @objc protocol
+// into the .swiftinterface as `: UIKit.UIView`, which doesn't compile, so importing the
+// XCFramework fails. APIs that need a view use `UIView & PrebidMobileDisplayViewProtocol`.
 
 /// This protocol is used to load and display the ad content in a view.
-@objc public protocol PrebidMobileDisplayViewProtocol where Self: UIView {
+/// Conforming types are expected to be `UIView` subclasses.
+@objc public protocol PrebidMobileDisplayViewProtocol {
     
     /// Loads the ad content into the display view.
     /// - Important: This method is expected to call the `loadingDelegate` once the
