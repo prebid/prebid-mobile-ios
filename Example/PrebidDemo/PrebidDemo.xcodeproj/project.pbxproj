@@ -40,7 +40,6 @@
 		0012D8CF2E214EBE007013F3 /* GAMDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C614E2CB7F20A0026119A /* GAMDisplayRewardedViewController.swift */; };
 		0012D8D02E214EBE007013F3 /* MAXNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6C42922AC2C00A1F582 /* MAXNativeViewController.swift */; };
 		0012D8D12E214EBE007013F3 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA4291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift */; };
-		0012D8E12E214EBE007013F4 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */; };
 		0012D8D22E214EBE007013F3 /* GAMOriginalAPIMultiformatInAppNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A368F72AB8482300A03B3E /* GAMOriginalAPIMultiformatInAppNativeViewController.swift */; };
 		0012D8D32E214EBE007013F3 /* AdMobVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6AE2922885200A1F582 /* AdMobVideoBannerViewController.swift */; };
 		0012D8D42E214EBE007013F3 /* AdMobNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6B629228CE600A1F582 /* AdMobNativeViewController.swift */; };
@@ -57,6 +56,7 @@
 		0012D8DF2E214EBE007013F3 /* GAMVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6A229227DE100A1F582 /* GAMVideoBannerViewController.swift */; };
 		0012D8E02E214EBE007013F3 /* MAXVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5344E6BC2922A67D00A1F582 /* MAXVideoBannerViewController.swift */; };
 		0012D8E12E214EBE007013F3 /* InterstitialBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B572921023E00228462 /* InterstitialBaseViewController.swift */; };
+		0012D8E12E214EBE007013F4 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */; };
 		0012D8E22E214EBE007013F3 /* GAMOriginalAPINativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B662921726C00228462 /* GAMOriginalAPINativeViewController.swift */; };
 		0012D8E32E214EBE007013F3 /* GAMOriginalAPIVideoBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53072B722922621600228462 /* GAMOriginalAPIVideoBannerViewController.swift */; };
 		0012D8E42E214EBE007013F3 /* MAXDisplayRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61542CB7F32D0026119A /* MAXDisplayRewardedViewController.swift */; };
@@ -213,8 +213,8 @@
 		53B03DA1291BC8C4000117E1 /* BannerBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */; };
 		53B03DA2291BC8C4000117E1 /* BannerBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */; };
 		53B03DA5291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA4291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift */; };
-		53B03DB5291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */; };
 		53B03DA7291BF2C2000117E1 /* PrebidDemoLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DA6291BF2C2000117E1 /* PrebidDemoLogger.swift */; };
+		53B03DB5291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */; };
 		53BA02B4292531D000BE6015 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA02B3292531D000BE6015 /* AppDelegate.m */; };
 		53BA02B7292531D000BE6015 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA02B6292531D000BE6015 /* SceneDelegate.m */; };
 		53BA02BA292531D000BE6015 /* ExamplesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA02B9292531D000BE6015 /* ExamplesViewController.m */; };
@@ -476,8 +476,8 @@
 		53B03D9F291BC8C4000117E1 /* BannerBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerBaseViewController.swift; sourceTree = "<group>"; };
 		53B03DA0291BC8C4000117E1 /* BannerBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerBaseViewController.xib; sourceTree = "<group>"; };
 		53B03DA4291BCCE1000117E1 /* GAMOriginalAPIDisplayBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIDisplayBannerViewController.swift; sourceTree = "<group>"; };
-		53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIFilterUncachedBidsBannerViewController.swift; sourceTree = "<group>"; };
 		53B03DA6291BF2C2000117E1 /* PrebidDemoLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidDemoLogger.swift; sourceTree = "<group>"; };
+		53B03DB4291BCCE1000117E2 /* GAMOriginalAPIFilterUncachedBidsBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMOriginalAPIFilterUncachedBidsBannerViewController.swift; sourceTree = "<group>"; };
 		53BA02B0292531D000BE6015 /* PrebidDemoObjectiveC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoObjectiveC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53BA02B2292531D000BE6015 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		53BA02B3292531D000BE6015 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
