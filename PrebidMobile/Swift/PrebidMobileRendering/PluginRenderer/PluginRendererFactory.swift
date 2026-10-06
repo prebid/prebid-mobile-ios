@@ -40,7 +40,7 @@ public class PluginRendererFactory: NSObject {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> PrebidMobileDisplayViewProtocol? {
+    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
         let renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
         Log.info("PluginRendererFactory banner renderer: \(renderer.name)")
 

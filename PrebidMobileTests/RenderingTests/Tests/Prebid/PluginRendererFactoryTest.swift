@@ -439,7 +439,7 @@ extension PluginRendererFactoryTest {
         configId: String,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> PrebidMobileDisplayViewProtocol? {
+    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
         let adConfiguration = AdUnitConfig(configId: configId, size: bid.size)
         return createBannerView(
             with: frame,
@@ -456,7 +456,7 @@ extension PluginRendererFactoryTest {
         adConfiguration: AdUnitConfig,
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
-    ) -> PrebidMobileDisplayViewProtocol? {
+    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
         PluginRendererFactory.createBannerView(
             with: frame,
             bid: bid,

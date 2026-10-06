@@ -113,6 +113,10 @@ do
 
 done
 
+echo -e "\n\n${GREEN}VERIFY SWIFT INTERFACES${NC}\n\n"
+
+./scripts/verifyXCFrameworkInterfaces.sh "$OUTPUT_DIR"
+
 echo -e "\n${GREEN}Done!${NC} \n"
 echo -e "XCFrameworks are located: "$OUTPUT_DIR_ABSOLUTE" \n"
 echo -e "Build logs path is: "$LOG_FILE_FRAMEWORK_ABSOLUTE" \n"
