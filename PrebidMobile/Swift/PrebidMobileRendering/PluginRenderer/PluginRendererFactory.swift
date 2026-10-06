@@ -22,6 +22,11 @@ import UIKit
 /// factory only handles renderer resolution and SDK-renderer fallback, so
 /// caller-owned configuration such as banner size, interstitial flags, rewarded
 /// flags, video controls, and video parameters is preserved.
+///
+/// When a plugin renderer creates the ad, the factory sends the win notice for the bid:
+/// `nurl`, the Prebid Cache URLs and `ext.prebid.events.win`. It skips the notice when the
+/// renderer reports `sendsWinNotice` as `true`. Prebid's own `DisplayView` and
+/// `InterstitialController` send it themselves when they load.
 @objcMembers
 public class PluginRendererFactory: NSObject {
 
@@ -41,6 +46,24 @@ public class PluginRendererFactory: NSObject {
         loadingDelegate: DisplayViewLoadingDelegate,
         interactionDelegate: DisplayViewInteractionDelegate
     ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
+        createBannerView(
+            with: frame,
+            bid: bid,
+            adConfiguration: adConfiguration,
+            loadingDelegate: loadingDelegate,
+            interactionDelegate: interactionDelegate,
+            connection: PrebidServerConnection.shared
+        )
+    }
+
+    static func createBannerView(
+        with frame: CGRect,
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        loadingDelegate: DisplayViewLoadingDelegate,
+        interactionDelegate: DisplayViewInteractionDelegate,
+        connection: PrebidServerConnectionProtocol
+    ) -> (UIView & PrebidMobileDisplayViewProtocol)? {
         let renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
         Log.info("PluginRendererFactory banner renderer: \(renderer.name)")
 
@@ -51,6 +74,10 @@ public class PluginRendererFactory: NSObject {
             loadingDelegate: loadingDelegate,
             interactionDelegate: interactionDelegate
         ) {
+            // `DisplayView.loadAd()` sends the win notice itself.
+            if !(view is DisplayView) {
+                notifyWin(for: bid, renderedBy: renderer, connection: connection)
+            }
             return view
         }
 
@@ -79,6 +106,22 @@ public class PluginRendererFactory: NSObject {
         loadingDelegate: InterstitialControllerLoadingDelegate,
         interactionDelegate: InterstitialControllerInteractionDelegate
     ) -> PrebidMobileInterstitialControllerProtocol? {
+        createInterstitialController(
+            bid: bid,
+            adConfiguration: adConfiguration,
+            loadingDelegate: loadingDelegate,
+            interactionDelegate: interactionDelegate,
+            connection: PrebidServerConnection.shared
+        )
+    }
+
+    static func createInterstitialController(
+        bid: Bid,
+        adConfiguration: AdUnitConfig,
+        loadingDelegate: InterstitialControllerLoadingDelegate,
+        interactionDelegate: InterstitialControllerInteractionDelegate,
+        connection: PrebidServerConnectionProtocol
+    ) -> PrebidMobileInterstitialControllerProtocol? {
         let renderer = PrebidMobilePluginRegister.shared.getPluginForPreferredRenderer(bid: bid)
         Log.info("PluginRendererFactory interstitial renderer: \(renderer.name)")
 
@@ -88,6 +131,10 @@ public class PluginRendererFactory: NSObject {
             loadingDelegate: loadingDelegate,
             interactionDelegate: interactionDelegate
         ) {
+            // `InterstitialController.loadAd()` sends the win notice itself.
+            if !(controller is InterstitialController) {
+                notifyWin(for: bid, renderedBy: renderer, connection: connection)
+            }
             return controller
         }
 
@@ -99,5 +146,31 @@ public class PluginRendererFactory: NSObject {
             loadingDelegate: loadingDelegate,
             interactionDelegate: interactionDelegate
         )
+    }
+
+    // MARK: - Private
+
+    /// Sends the win notice for an ad that a plugin renderer draws.
+    ///
+    /// Prebid's own renderer sends `nurl` and the Prebid Cache URLs through `WinNotifier`
+    /// when its view or controller loads, and `ext.prebid.events.win` from its creative.
+    /// A plugin renderer replaces both, so nothing else sends the notice for its ad,
+    /// unless the renderer reports that it sends the notice itself.
+    /// The ad is created only after Prebid wins, so the requests are fire and forget.
+    private static func notifyWin(
+        for bid: Bid,
+        renderedBy renderer: PrebidMobilePluginRenderer,
+        connection: PrebidServerConnectionProtocol
+    ) {
+        guard renderer.sendsWinNotice != true else {
+            Log.info("\(renderer.name) sends the win notice itself. Prebid does not send it.")
+            return
+        }
+
+        Factory.WinNotifierType.notifyThroughConnection(connection, winningBid: bid) { _ in }
+
+        if let winURL = bid.events?.win {
+            connection.fireAndForget(winURL)
+        }
     }
 }
