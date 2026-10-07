@@ -69,6 +69,9 @@ class BidRequesterImpl: NSObject, BidRequester {
         do {
             requestServerURL = try Host.shared.getHostURL()
         } catch {
+            // Fix for GitHub Issue #1381: release the completion stored above, or every later
+            // request on this instance fails with requestInProgress
+            _ = takeCompletion()
             completion(nil, error)
             return
         }
