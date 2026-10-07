@@ -30,6 +30,14 @@ public protocol PrebidMobilePluginRenderer: AnyObject {
     /// Custom data to be included in the ORTB request.
     @objc var data: [String: Any]? { get }
     
+    /// Whether the renderer sends the win notice for its ads itself.
+    ///
+    /// When a plugin renderer creates the ad, Prebid sends the bid's win notice: `nurl`,
+    /// the Prebid Cache URLs and `ext.prebid.events.win`. Return `true` if the renderer,
+    /// or the ad SDK it wraps, sends the win notice itself, so that Prebid does not send it
+    /// a second time. If this property is not implemented, Prebid sends the win notice.
+    @objc optional var sendsWinNotice: Bool { get }
+    
     /// Register a listener related to a specific ad unit config fingerprint in order to dispatch specific ad events.
     @objc optional func registerEventDelegate(
         pluginEventDelegate: PluginEventDelegate,
