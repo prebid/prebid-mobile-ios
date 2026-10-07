@@ -48,13 +48,17 @@ class AdMobDisplayRewardedViewController:
         // 3. Create a MediationRewardedAdUnit
         admobRewardedAdUnit = MediationRewardedAdUnit(
             configId: storedImpDisplayRewarded,
-            mediationDelegate: mediationDelegate
+            mediationDelegate: mediationDelegate,
+            adFormats: [.banner]
         )
         
         // 4. Make a bid request to Prebid Server
         admobRewardedAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
             PrebidDemoLogger.shared.info("Prebid demand fetch for AdMob \(result.name())")
+            if result != .prebidDemandFetchSuccess {
+                PrebidDemoLogger.shared.info("Continuing with AdMob waterfall fallback.")
+            }
             
             // 5. Load the rewarded ad
             RewardedAd.load(with: adMobAdUnitRewardedId, request: request) { [weak self] ad, error in
@@ -68,7 +72,7 @@ class AdMobDisplayRewardedViewController:
                 // 6. Present the rewarded ad
                 self.gadRewardedAd = ad
                 self.gadRewardedAd?.fullScreenContentDelegate = self
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+                DispatchQueue.main.async {
                     self.gadRewardedAd?.present(from: self, userDidEarnRewardHandler: {
                         print("User did earn reward.")
                     })
