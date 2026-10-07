@@ -357,11 +357,11 @@ class PBMBidRequesterTest: XCTestCase {
         waitForExpectations(timeout: 5)
     }
 
-    // MARK: - Regression Tests for Issue #1381
+    // MARK: - Host URL lookup failure
 
-    /// Regression test for GitHub issue #1381: when the host URL lookup fails, the requester must
-    /// not keep the request "in progress". Original API ad units reuse one requester, so the next
-    /// `fetchDemand` after the host URL is set has to reach the server.
+    /// When the host URL lookup fails, the requester must not keep the request "in progress".
+    /// Original API ad units reuse one requester, so the next `fetchDemand` after the host URL
+    /// is set has to reach the server.
     func testHostURLMissing_NextRequestSucceedsOnceHostURLIsSet() {
         Host.shared.reset()
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
