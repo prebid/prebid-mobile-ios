@@ -107,7 +107,7 @@ Orphan-header count: 35 → **36** (`PBMModalState.h` is now header-only; `PBMIn
 - [ ] `verifySPM.sh` — **not run**: documented as CI-only (records SwiftPM fingerprints against a local commit of the current version). Needs CI
 - [x] `plutil -lint` on `project.pbxproj` — OK
 - [x] `swiftlint` on the 3 new files, `WebView.swift`, and the touched test — 0 errors in new code; warnings: `type_body_length` + 3 `todo` on `AdViewManagerImpl`, trailing whitespace in the test (pre-existing: 12 lines in HEAD). `WebView.swift` shows the pre-existing `type_name` error on `WebView_Protocol` (not introduced here)
-- [x] `testPrebidMobile.sh --latest --quick` (clean DerivedData) — 966 tests, 0 failures
+- [x] `testPrebidMobile.sh --latest --quick` (clean DerivedData) — 967 tests, 0 failures after retry. `PrebidServerStatusRequesterTests.testRequestStatus_Success` timed out once and passed on retry: it makes a live HTTPS call to `prebid-server-test-j.prebid.org` and this PR touches nothing in that path. Not on the playbook's flaky allowlist; noted, not added
 - [x] Full-plan-only classes with `-only-testing` (ModalManagerTest*, ModalViewControllerTest, ModalPresentationControllerTest, PBMAbstractCreativeTest, PBMHTMLCreativeTest + `_*` variants, VideoCreativeDelegateTest, AdViewManagerTest, BaseInterstitialAdUnitTest, PBMInterstitialLayoutConfiguratorTest) — 138 tests, 0 failures
 - [x] `testPrebidMobile.sh --latest` (full) — 1378 tests, 0 failures
-- [x] `testPrebidMobileAdapters.sh` — GAM, AdMob and MAX adapter suites all passed (exit 0)
+- [x] `testPrebidMobileAdapters.sh` — exit 0. GAM and AdMob suites passed; the MAX scheme ran **0 tests** (`PrebidMobileMAXAdaptersTests` has no test sources on `master` either, so this is not caused by this PR)
