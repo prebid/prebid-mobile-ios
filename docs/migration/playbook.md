@@ -1,8 +1,9 @@
 # Swift Migration Playbook
 
 Per-class file-level porting guide for migrating `PrebidMobile/Objc/` to Swift.
-Full phasing plan: TaskNotes task "[PI][PREBID] Develop a plan to migrate the iOS SDK to Swift"
-(authoritative step list — a PR titled "Phase N" is not self-evidently all of Phase N).
+Full phasing plan: https://github.com/prebid/prebid-mobile-ios/issues/396 — a first draft whose file lists
+predate the work (see S4.1-B, S5.x-scope); where it disagrees with this playbook or the `pr-phase-*.md`
+docs, those win. A PR titled "Phase N" is not self-evidently all of Phase N.
 
 ## Per-class steps
 
@@ -241,19 +242,80 @@ Allowlist of exactly this one test, not a general "re-run and move on" policy. P
 - **S4.5-A — a plan step that names N sibling files can be blocked by a transitive ObjC dependency; port the unblocked subset and record the rest.** S4.5 listed the three `TransactionFactory/` files, but `PBMVastTransactionFactory.m` drives `PBMAdLoadManagerVAST` (ObjC subclass of `PBMAdLoadManagerBase`, no Swift protocol or `Factory` seam), and `PBMTransactionFactory_Objc` constructs the Vast factory directly. Porting them would need a new Swift `AdLoadManagerVAST` seam that Phase 6 deletes again. **Rule:** before starting a step, trace each file's ObjC-only dependencies (`rg -n '#import "PBM' <file>`); if one has no Swift twin and isn't in the step, port only the files whose dependencies are all Swift-visible (here `PBMDisplayTransactionFactory`, which only needs `PBMFactory`, `Bid`, `CreativeModel`) and defer the rest to the phase that ports the blocker. Related: S4.1-B.
 - **S4.5-B — Phase 4 is intentionally closed with two files left in ObjC; reviewers should not ask to complete it.** Deferred to **Phase 6** (`AdLoadManager` port): `PBMVastTransactionFactory.{h,m}` and `PBMTransactionFactory.m`. Completing them in Phase 4 was evaluated and rejected:
   1. *Throwaway seam* — a Swift `AdLoadManagerVAST` protocol plus a `Factory.swift` `NSClassFromString` lookup, written, reviewed and deleted again in Phase 6.
-  2. *Scope creep into Phase 6* — a Swift class can't conform across the SPM module boundary (`PrebidMobile` Swift target ← `__PrebidMobileInternal` ObjC target) to the ObjC `PBMAdLoadManagerDelegate`/`PBMAdLoadManagerProtocol`; they would have to become Swift `@objc` protocols first, touching `PBMAdLoadManagerBase.m`, `PBMAdViewManager.m` and `PBMAdLoadManagerVAST.m`.
+  2. *Scope creep into Phase 6* — a Swift class can't conform across the SPM module boundary (`PrebidMobile` Swift target ← `__PrebidMobileInternal` ObjC target) to the ObjC `PBMAdLoadManagerDelegate`/`PBMAdLoadManagerProtocol`; they would have to become Swift `@objc` protocols first, touching `PBMAdLoadManagerBase.m`, `PBMAdViewManager.m` (ported in Phase 5 — it no longer imports either protocol header, so only `PBMAdLoadManagerBase.m`, `PBMAdLoadManagerVAST.m` and the test mocks remain) and `PBMAdLoadManagerVAST.m`.
   3. *Unverifiable test churn* — `MockPBMAdLoadManagerVAST` and ~10 VAST tests reach `PBMAdLoadManagerVAST` through the test bridging header; `PrebidMobileTests` cannot be built locally (pre-existing `@_spi` toolchain issue), so breakage would only surface in CI.
   4. *Weakens S4.3-B* — the call into `PBMAdLoadManagerVAST` would resolve at runtime via the seam, so a missing `@objc`/selector would no longer be a compile error.
 
   A middle option (port only the dispatcher behind a smaller `Factory` lookup) was also rejected: one throwaway seam to retire one file. **Rule:** when a phase's last files depend on a blocker scheduled for a later phase, close the phase without them and list them here under the blocking phase; do not add temporary seams just to reach 100%. **Phase 6 must pick these up:** port `PBMVastTransactionFactory` + `PBMTransactionFactory_Objc` right after `AdLoadManager`, then delete `PBMVastTransactionFactory.h`, `PBMTransactionFactoryCallback.h`, and the `PBMTransactionFactory_Objc` `NSClassFromString` target in `Factory.swift`.
 
+## Phase 5 gaps (S5.0/S5.1/S5.2)
+
+- **S5.x-scope — the plan's Phase 5 file list was stale; only three of 17 `.m` files were portable.** Re-measured (S4.1-B) at the start of Phase 5: of the 17 remaining `.m` files under the Phase 5 directories, only `PBMModalState`, `PBMAdViewManager` and `PBMInterstitialLayoutConfigurator` (added as S5.0, not in the plan) had all-Swift-visible dependencies. The rest were re-assigned rather than ported behind throwaway seams (S4.5-B):
+
+  | Files | Re-assigned to | Why |
+  |-------|----------------|-----|
+  | VAST cluster, `PBMAdLoadManagerBase`/`PBMAdLoadManagerVAST`, `PBMVideoCreative`, `PBMVideoView` | Phase 6 | one connected ObjC cluster; `PBMAdLoadManagerBase` alone needs `PBMAdLoadManagerProtocol`/`PBMAdLoadManagerDelegate` moved to Swift `@objc` protocols, which rewrites `MockPBMAdLoadManagerVAST` and `PBMAdLoadManager+pbmTestExtension.h` and still doesn't unblock `PBMVastTransactionFactory`/`PBMTransactionFactory_Objc` |
+  | `PBMWebView`, `PBMMRAIDController`, `PBMMRAIDJavascriptCommands`, `PBMAbstractCreative` | Phase 7 | blocked: `PBMAbstractCreative` is subclassed by `PBMHTMLCreative`/`PBMVideoCreative` (ObjC), and imports `PBMSafariVCOpener`/OMSDK wrappers |
+  | `PBMCreativeFactoryJob` | after `PBMHTMLCreative`/`PBMVideoCreative` exist in Swift, then `PBMCreativeFactory`, then `PBMTransaction` | each one's last ObjC dependency is the next one's port |
+
+  Refines S4.5-B: once the two ad-load-manager protocols are Swift `@objc` protocols, ObjC `PBMAdLoadManagerVAST` should be able to subclass a Swift `@objc public` non-final `AdLoadManagerBase` (inferred, **not compiled** — verify before relying on it). **Rule:** a "Phase N" step list written before Phase N-1 landed is a first draft; re-run the S4.1-B measurement plus the S4.5-A dependency trace (`rg -n '#import "PBM' <file>`) for every file before splitting PRs.
+- **S5.0-A — a surviving ObjC caller of a static ObjC method needs an explicit `@objc(selector:)`, and ObjC truthiness has to be translated by hand.** `PBMInterstitialLayoutConfigurator` was ported first (S5.0) because `PBMAdViewManager.m` still called its `+configurePropertiesWithAdConfiguration:displayProperties:`. A Swift `static func configureProperties(with:displayProperties:)` would have imported under a different selector, so each of the four class methods carries `@objc(configurePropertiesWithAdConfiguration:displayProperties:)`, `@objc(calculateLayoutFromSize:)`, `@objc(isPortrait:)`, `@objc(isLandscape:)` (S4.3-A). The ObjC `if (layout && layout != PBMInterstitialLayoutUndefined)` collapses to `layout != .undefined`: `.undefined` is raw value 0, so the truthiness test was redundant. `NSSet<NSValue *>` of `CGSize`s becomes `[CGSize]` with `contains` (same membership semantics for these finite, positive sizes). **Not `Set<CGSize>`:** `CGSize: Hashable` is `@available(iOS 18.0, *)`; with an iOS 15 deployment target Swift 5 mode only warns, the conformance descriptor is weak-linked, and the first use crashes on iOS 15–17 — CI runs iOS 26 only and cannot catch it. **Rule:** a Swift collection that needs a system type to be `Hashable` must be checked against the deployment target (`swiftc -typecheck -target arm64-apple-ios15.0-simulator` and look for `only available in iOS`); `Equatable` types go in an array.
+- **S5.1-A — `isKindOfClass:[ConcreteObjCClass]` becomes `as? SomeProtocol`, with the property added to the protocol; `getter=isFoo` needs `@objc(isFoo)`.** `PBMModalState_Objc.isRotationEnabled` checked `[lastView isKindOfClass:[PBMWebView class]]` and read `webView.rotationEnabled`. `PBMWebView` is still ObjC and not visible to the Swift twin, so the check goes through the existing `WebView_Protocol` (`PBMWebView` already conforms), and `rotationEnabled` is added to that protocol. The ObjC property is declared `getter=isRotationEnabled`, so the protocol requirement is `@objc(isRotationEnabled) var rotationEnabled: Bool { get }` — without the explicit name the conformance check against `PBMWebView` fails to find the selector. Behavior is identical as long as `WebView_Protocol` has exactly one conformer; re-check when `PBMWebView` is ported (Phase 7). The block-typedef header `PBMModalState.h` (two typedefs) survives: seven ObjC files import it (see orphan table).
+- **S5.2-A — ObjC passing `nil` to a callback whose Swift parameter is non-optional: don't skip the call.** `PBMAdViewManager_Objc` calls `[delegate adLoaded:[transaction getAdDetails]]`, and `getAdDetails` may return `nil`. The Swift delegate method is `adLoaded(_ adDetails: AdDetails)`, non-optional. Writing `if let adDetails = ... { delegate.adLoaded(adDetails) }` silently drops the callback and hangs the publisher's load flow. **Rule:** when the ObjC original made an unconditional call with a possibly-nil argument, supply a neutral value (`AdDetails(rawResponse: "", transactionId: "")`) and call anyway; record it as a deviation in the PR doc. Related to S3.1-H (the other direction: a non-optional parameter turns `nil` into a trap).
+- **S5.2-B — a protocol's `#if DEBUG` requirements force `public` members in every configuration.** `AdViewManager` declares `currentCreative`, `externalTransaction` and both `setupCreative` overloads under `#if DEBUG` ("exposed for tests"). The conforming class is `@_spi(PBMInternal) public`, so in a Release/framework archive build, where the requirements vanish, the members are still `public`; making them `internal`/`#if DEBUG`-only in the class would break the Debug conformance. Accepted: they are `@_spi`-scoped, so not visible to SDK clients. Clean-up belongs to S9.2 along with the rest of the visibility demotions (Gap 6).
+- **S5.2-C — port the fixed-point of ObjC message-to-nil, not just the branch structure.** ObjC `self.adConfiguration = creative.creativeModel.adConfiguration;` assigns `nil` into a nonnull-annotated property, and `[self setupCreative:[transaction getFirstCreative]]` passes `nil`. Swift's non-optional types make both impossible; see the PR doc for how each was resolved (`setupCreative` keeps the previous `adConfiguration` when the model has none; `onTransactionIsReady` replays `autoDisplayOnLoad = true; show()` when there is no first creative). **Rule:** for every nonnull-by-annotation ObjC site, ask what `nil` did at runtime; if the Swift type forbids it, reproduce the observable effect rather than only the types.
+
+## Hand-off: what Phases 6 and 7 inherit
+
+Phases 4 and 5 were closed without everything the plan assigned to them (S4.5-B, S5.x-scope). Nothing below is
+new scope — it is the deferred work, gathered so the next implementor does not have to reconstruct it. Per S4.1-B,
+re-measure and re-trace dependencies before splitting into PRs; the list below is the state at the end of Phase 5.
+
+**Phase 6 (VAST/video) inherits**
+
+- `PBMAdLoadManagerBase` + `PBMAdLoadManagerVAST` — port the pair together. Porting `Base` alone means moving
+  `PBMAdLoadManagerProtocol` / `PBMAdLoadManagerDelegate` to Swift `@objc` protocols and rewriting
+  `MockPBMAdLoadManagerVAST` and `PBMAdLoadManager+pbmTestExtension.h` (a class extension cannot re-open a Swift class, S3.1-C),
+  without unblocking anything on its own.
+- The VAST cluster: `PBMAdRequesterVAST`, `PBMAdRequestResponseVAST`, `PBMCreativeModelCollectionMakerVAST`
+  (they import the unported `PBMVast*` parser/response classes).
+- `PBMVideoCreative`, `PBMVideoView` (with `PBMVideoViewDelegate.h`, `PBMVideoViewPlaybackState.h`).
+- From Phase 4, **right after `AdLoadManager`:** `PBMVastTransactionFactory` and `PBMTransactionFactory_Objc`; then delete
+  `PBMVastTransactionFactory.h`, `PBMTransactionFactoryCallback.h` and the `PBMTransactionFactory_Objc` `NSClassFromString`
+  target in `Factory.swift` (S4.5-B).
+- `PBMVideoCreative` is a prerequisite for `PBMCreativeFactoryJob` (it instantiates it and calls
+  `PBMVideoCreative.maxSizeForPreRenderContent`).
+
+**Phase 7 (HTML/MRAID) inherits**
+
+- `PBMWebView` (+ `PBMWebView+Internal.h`, `PBMWebViewDelegate.h`), `PBMMRAIDController`, `PBMMRAIDJavascriptCommands`,
+  `PBMExposureChangeDelegate.h`. `PBMWebView` also keeps Gap 4 alive (it still reads the Phase 1 ORTB models).
+- `PBMSafariVCOpener` (deferred from Phase 4, S4.1-B; its only consumer is `PBMAbstractCreative.m`).
+- `PBMAbstractCreative`: the base class of `PBMHTMLCreative` and `PBMVideoCreative`, so it cannot move before both
+  subclasses can move with it. It also imports `PBMSafariVCOpener`, `PBMDeepLinkPlusHelper`, `PBMWindowLocker` and the OMSDK
+  wrappers (Phase 8 owns the `PBMOpenMeasurementWrapper.shared` singleton).
+
+**Last in the chain (after Phases 6 and 7 — each file's last ObjC dependency is the next one's port)**
+
+`PBMCreativeFactoryJob` → `PBMCreativeFactory` → `PBMTransaction`. `PBMTransaction` constructs `PBMCreativeFactory` directly,
+and the Job instantiates `PBMHTMLCreative` and `PBMVideoCreative`.
+
+**Already prepared by Phase 5:** `ModalStateImpl` and `AdViewManagerImpl` are Swift, `WebView_Protocol.rotationEnabled`
+exists, and ObjC callers still reach `ModalState`/`AdViewManager` through `PBMFactory`. Once `PBMWebView` is ported,
+`ModalStateImpl`'s `as? WebView_Protocol` cast (S5.1-A) should be revisited and `PBMModalState.h` deleted
+(see Post-migration cleanup list).
+
+**Caveats.** The claim that an ObjC `PBMAdLoadManagerVAST` can subclass a Swift `AdLoadManagerBase` is inferred and
+**not compiled** (S5.x-scope) — prove it with a spike before depending on it. `PBMDeferredModalState` is dead code and is
+not part of any phase; leave it for the cleanup list.
+
 ## Orphan headers — `.h` files with no `.m` (inventoried S3.2)
 
-**35 headers under `PrebidMobile/Objc/` have no matching `.m`** (was 39; S4.3/S4.3b deleted 4 once their last importers were ported): block typedefs, `@protocol`s, macro headers, class-continuation headers, `NS_ENUM`s, umbrella headers, categories on system classes. None is "ported" individually — each is **retired when its last importer is ported**. 2 dead + 24 tied to a named `.m` + 5 tied to the test bridging header + 4 shared-infrastructure = 35.
+**36 headers under `PrebidMobile/Objc/` have no matching `.m`** (was 39; S4.3/S4.3b deleted 4 once their last importers were ported; S5.1 added `PBMModalState.h` when its `.m` was ported, S5.0 deleted `PBMInterstitialLayoutConfigurator.h` with its `.m`): block typedefs, `@protocol`s, macro headers, class-continuation headers, `NS_ENUM`s, umbrella headers, categories on system classes. None is "ported" individually — each is **retired when its last importer is ported**. 2 dead + 25 tied to a named `.m` + 5 tied to the test bridging header + 4 shared-infrastructure = 36.
 
 S4.4 deleted `PBMExternalLinkHandler.{h,m}`, `PBMExternalURLOpenCallbacks.{h,m}`,
 `PBMExternalURLOpeners.{h,m}`, `PBMTrackingURLVisitors.{h,m}` (all had matching `.m`s — not part of
-this orphan-header count) but left the count at 35: the 4 block-typedef headers below
+this orphan-header count) but left the count at 35 (S5.1 then raised it to 36): the 4 block-typedef headers below
 (`PBMExternalURLOpenerBlock.h`, `PBMTrackingURLVisitorBlock.h`, `PBMURLOpenAttempterBlock.h`,
 `PBMURLOpenResultHandlerBlock.h`) still have a live importer — `PBMDeepLinkPlusHelper.m`, deferred —
 so none retire yet.
@@ -277,12 +339,13 @@ comm -23 \
 | Header | Kind | Retired with |
 |--------|------|--------------|
 | `PBMAbstractCreative+Protected.h` | class continuation | `PBMAbstractCreative.m`, `PBMHTMLCreative.m`, `PBMVideoCreative.m` |
-| `PBMAdLoadManagerDelegate.h` | `@protocol` | `PBMAdLoadManagerBase.m`, `PBMAdViewManager.m` |
-| `PBMAdLoadManagerProtocol.h` | `@protocol` | `PBMAdLoadManagerBase.m`, `PBMAdViewManager.m` |
+| `PBMAdLoadManagerDelegate.h` | `@protocol` | `PBMAdLoadManagerBase.m` (S5.2: dropped `PBMAdViewManager.m` — ported to Swift; also still imported by the test bridging header) |
+| `PBMAdLoadManagerProtocol.h` | `@protocol` | `PBMAdLoadManagerBase.m` (S5.2: dropped `PBMAdViewManager.m` — ported to Swift; also still imported by the test bridging header) |
 | `PBMCreativeModelMakerResult.h` | block typedef | `PBMCreativeModelCollectionMakerVAST.m` |
 | `PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h` | class continuation | `PBMDeepLinkPlusHelper.m` |
 | `PBMExposureChangeDelegate.h` | `@protocol` | `PBMWebView.m`, `PBMMRAIDController.m` |
 | `PBMExternalURLOpenerBlock.h` | block typedef | `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMExternalURLOpeners.m`/`PBMExternalLinkHandler.m` — both ported to Swift) |
+| `PBMModalState.h` | block typedefs (`PBMModalStatePopHandler`, `PBMModalStateAppLeavingHandler`) | `PBMHTMLCreative.m`, `PBMVideoCreative.m`, `PBMAbstractCreative.m`, `PBMMRAIDController.m`, `PBMVideoView.m`, `PBMSafariVCOpener.h`, `PBMDeferredModalState.m` (S5.1: dropped `PBMModalState.m` — ported to Swift; also the test bridging header) |
 | `PBMORTB.h` | umbrella | `PBMWebView.m` |
 | `PBMORTBAbstract.h` | `@interface` | via `+Protected.h` → `PBMBidResponseTransformer.m` |
 | `PBMORTBAbstract+Protected.h` | class continuation | `PBMBidResponseTransformer.m` |
@@ -297,7 +360,7 @@ comm -23 \
 | `PBMVideoViewDelegate.h` | `@protocol` | `PBMVideoView.m`, `PBMVideoCreative.m` |
 | `PBMVideoViewPlaybackState.h` | `NS_ENUM` | `PBMVideoView.m` |
 | `PBMViewControllerProvider.h` | block typedef | `PBMSafariVCOpener.m` |
-| `PBMVoidBlock.h` | block typedef | `PBMOpenMeasurementWrapper.m`, `PBMSafariVCOpener.m`, `PBMDeferredModalState.m`, `PBMAbstractCreative.m`, plus via `PBMExternalURLOpenerBlock.h` → `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMExternalURLOpenCallbacks.m` — ported to Swift) |
+| `PBMVoidBlock.h` | block typedef | `PBMOpenMeasurementWrapper.m`, `PBMSafariVCOpener.m`, `PBMDeferredModalState.m` (dead — see Post-migration cleanup), `PBMAbstractCreative.m`, plus via `PBMExternalURLOpenerBlock.h` → `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMExternalURLOpenCallbacks.m` — ported to Swift) |
 | `PBMWebView+Internal.h` | class continuation | `PBMWebView.m` |
 | `PBMWebViewDelegate.h` | `@protocol` | `PBMWebView.m`, `PBMMRAIDController.m` |
 
@@ -325,6 +388,15 @@ The two `WK*Compatible` protocols look like SDK types but aren't — no SDK `.m`
 | `PBMConstants.h` | typedefs + constants (`PBMJsonDictionary`) | 15 |
 
 `PBMConstants.h` has a real Swift answer today: every `PBMJsonDictionary` use becomes `[String: Any]` as its importer is ported (step 7), shrinking the header to its constants before it disappears.
+
+## Post-migration cleanup list
+
+Items that are not worth porting and should be deleted once the migration is over (do not port them, do not extend them):
+
+- **`PBMDeferredModalState` is dead code.** `Factory.swift` has no lookup for it, nothing calls `NSClassFromString("PBMDeferredModalState...")`, and nothing calls `pushDeferredModal`. Delete `PBMDeferredModalState.m`, the Swift `DeferredModalState` protocol and the `ModalManager` hooks that reference it. Deliberately left untouched in Phase 5 (decision: not worth a port, and deleting it is a behavior-surface change that belongs in a cleanup PR, not a line-for-line migration PR).
+- **`PBMModalState.h`** (two block typedefs, orphan table row B) — delete when its last ObjC importer is ported (`PBMHTMLCreative.m`, `PBMVideoCreative.m`, `PBMAbstractCreative.m`, `PBMMRAIDController.m`, `PBMVideoView.m`, `PBMSafariVCOpener.h`, plus `PBMDeferredModalState.m` if still present) and the test bridging header import is dropped.
+- **S5.2-B follow-up:** the `AdViewManager` DEBUG-only protocol requirements and the `public` members they force on `AdViewManagerImpl` (visibility demotion, S9.2).
+- No `PBMInterstitialLayoutConfigurator` leftovers remain: header and `.m` were deleted in S5.0, and the `@objc(PBMInterstitialLayoutConfigurator)` bridge name has no ObjC caller anymore (kept so the runtime name is stable; may be dropped in S9.x).
 
 ## General ObjC → Swift reference
 
