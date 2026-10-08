@@ -25,7 +25,7 @@ Everything else from the original Phase 5 is deferred, and the reason is not "ra
 | `PBMWebView`, `PBMMRAIDController`, `PBMMRAIDJavascriptCommands`, `PBMAbstractCreative` | Phase 7 | blocked: `PBMAbstractCreative` is subclassed by `PBMHTMLCreative`/`PBMVideoCreative`, and imports `PBMSafariVCOpener`/OMSDK |
 | `PBMCreativeFactoryJob` | after `HTMLCreative`/`VideoCreative` exist, then `CreativeFactory`, then `Transaction` | chain of last-ObjC-dependency |
 
-Do not ask to complete these here; see playbook "Phase 5 gaps".
+Do not ask to complete these here; see playbook "Phase 5 gaps". What Phases 6 and 7 inherit is listed in the playbook section "Hand-off: what Phases 6 and 7 inherit".
 
 ## S5.0 — `PBMInterstitialLayoutConfigurator`
 

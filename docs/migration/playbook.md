@@ -1,8 +1,9 @@
 # Swift Migration Playbook
 
 Per-class file-level porting guide for migrating `PrebidMobile/Objc/` to Swift.
-Full phasing plan: TaskNotes task "[PI][PREBID] Develop a plan to migrate the iOS SDK to Swift"
-(authoritative step list — a PR titled "Phase N" is not self-evidently all of Phase N).
+Full phasing plan: https://github.com/prebid/prebid-mobile-ios/issues/396 — a first draft whose file lists
+predate the work (see S4.1-B, S5.x-scope); where it disagrees with this playbook or the `pr-phase-*.md`
+docs, those win. A PR titled "Phase N" is not self-evidently all of Phase N.
 
 ## Per-class steps
 
@@ -263,6 +264,50 @@ Allowlist of exactly this one test, not a general "re-run and move on" policy. P
 - **S5.2-A — ObjC passing `nil` to a callback whose Swift parameter is non-optional: don't skip the call.** `PBMAdViewManager_Objc` calls `[delegate adLoaded:[transaction getAdDetails]]`, and `getAdDetails` may return `nil`. The Swift delegate method is `adLoaded(_ adDetails: AdDetails)`, non-optional. Writing `if let adDetails = ... { delegate.adLoaded(adDetails) }` silently drops the callback and hangs the publisher's load flow. **Rule:** when the ObjC original made an unconditional call with a possibly-nil argument, supply a neutral value (`AdDetails(rawResponse: "", transactionId: "")`) and call anyway; record it as a deviation in the PR doc. Related to S3.1-H (the other direction: a non-optional parameter turns `nil` into a trap).
 - **S5.2-B — a protocol's `#if DEBUG` requirements force `public` members in every configuration.** `AdViewManager` declares `currentCreative`, `externalTransaction` and both `setupCreative` overloads under `#if DEBUG` ("exposed for tests"). The conforming class is `@_spi(PBMInternal) public`, so in a Release/framework archive build, where the requirements vanish, the members are still `public`; making them `internal`/`#if DEBUG`-only in the class would break the Debug conformance. Accepted: they are `@_spi`-scoped, so not visible to SDK clients. Clean-up belongs to S9.2 along with the rest of the visibility demotions (Gap 6).
 - **S5.2-C — port the fixed-point of ObjC message-to-nil, not just the branch structure.** ObjC `self.adConfiguration = creative.creativeModel.adConfiguration;` assigns `nil` into a nonnull-annotated property, and `[self setupCreative:[transaction getFirstCreative]]` passes `nil`. Swift's non-optional types make both impossible; see the PR doc for how each was resolved (`setupCreative` keeps the previous `adConfiguration` when the model has none; `onTransactionIsReady` replays `autoDisplayOnLoad = true; show()` when there is no first creative). **Rule:** for every nonnull-by-annotation ObjC site, ask what `nil` did at runtime; if the Swift type forbids it, reproduce the observable effect rather than only the types.
+
+## Hand-off: what Phases 6 and 7 inherit
+
+Phases 4 and 5 were closed without everything the plan assigned to them (S4.5-B, S5.x-scope). Nothing below is
+new scope — it is the deferred work, gathered so the next implementor does not have to reconstruct it. Per S4.1-B,
+re-measure and re-trace dependencies before splitting into PRs; the list below is the state at the end of Phase 5.
+
+**Phase 6 (VAST/video) inherits**
+
+- `PBMAdLoadManagerBase` + `PBMAdLoadManagerVAST` — port the pair together. Porting `Base` alone means moving
+  `PBMAdLoadManagerProtocol` / `PBMAdLoadManagerDelegate` to Swift `@objc` protocols and rewriting
+  `MockPBMAdLoadManagerVAST` and `PBMAdLoadManager+pbmTestExtension.h` (a class extension cannot re-open a Swift class, S3.1-C),
+  without unblocking anything on its own.
+- The VAST cluster: `PBMAdRequesterVAST`, `PBMAdRequestResponseVAST`, `PBMCreativeModelCollectionMakerVAST`
+  (they import the unported `PBMVast*` parser/response classes).
+- `PBMVideoCreative`, `PBMVideoView` (with `PBMVideoViewDelegate.h`, `PBMVideoViewPlaybackState.h`).
+- From Phase 4, **right after `AdLoadManager`:** `PBMVastTransactionFactory` and `PBMTransactionFactory_Objc`; then delete
+  `PBMVastTransactionFactory.h`, `PBMTransactionFactoryCallback.h` and the `PBMTransactionFactory_Objc` `NSClassFromString`
+  target in `Factory.swift` (S4.5-B).
+- `PBMVideoCreative` is a prerequisite for `PBMCreativeFactoryJob` (it instantiates it and calls
+  `PBMVideoCreative.maxSizeForPreRenderContent`).
+
+**Phase 7 (HTML/MRAID) inherits**
+
+- `PBMWebView` (+ `PBMWebView+Internal.h`, `PBMWebViewDelegate.h`), `PBMMRAIDController`, `PBMMRAIDJavascriptCommands`,
+  `PBMExposureChangeDelegate.h`. `PBMWebView` also keeps Gap 4 alive (it still reads the Phase 1 ORTB models).
+- `PBMSafariVCOpener` (deferred from Phase 4, S4.1-B; its only consumer is `PBMAbstractCreative.m`).
+- `PBMAbstractCreative`: the base class of `PBMHTMLCreative` and `PBMVideoCreative`, so it cannot move before both
+  subclasses can move with it. It also imports `PBMSafariVCOpener`, `PBMDeepLinkPlusHelper`, `PBMWindowLocker` and the OMSDK
+  wrappers (Phase 8 owns the `PBMOpenMeasurementWrapper.shared` singleton).
+
+**Last in the chain (after Phases 6 and 7 — each file's last ObjC dependency is the next one's port)**
+
+`PBMCreativeFactoryJob` → `PBMCreativeFactory` → `PBMTransaction`. `PBMTransaction` constructs `PBMCreativeFactory` directly,
+and the Job instantiates `PBMHTMLCreative` and `PBMVideoCreative`.
+
+**Already prepared by Phase 5:** `ModalStateImpl` and `AdViewManagerImpl` are Swift, `WebView_Protocol.rotationEnabled`
+exists, and ObjC callers still reach `ModalState`/`AdViewManager` through `PBMFactory`. Once `PBMWebView` is ported,
+`ModalStateImpl`'s `as? WebView_Protocol` cast (S5.1-A) should be revisited and `PBMModalState.h` deleted
+(see Post-migration cleanup list).
+
+**Caveats.** The claim that an ObjC `PBMAdLoadManagerVAST` can subclass a Swift `AdLoadManagerBase` is inferred and
+**not compiled** (S5.x-scope) — prove it with a spike before depending on it. `PBMDeferredModalState` is dead code and is
+not part of any phase; leave it for the cleanup list.
 
 ## Orphan headers — `.h` files with no `.m` (inventoried S3.2)
 

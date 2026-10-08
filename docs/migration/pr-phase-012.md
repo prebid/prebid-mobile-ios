@@ -1,7 +1,7 @@
 # [swift-migration] Phases 0–2 — Setup, ORTB request models, Utilities & extensions
 
 Squashed `swift-migration-phase-0/1/2` into three commits on `master`, per the migration plan
-(TaskNotes "[PI][PREBID] Develop a plan to migrate the iOS SDK to Swift"). Part of an ObjC → Swift
+(https://github.com/prebid/prebid-mobile-ios/issues/396). Part of an ObjC → Swift
 migration of `PrebidMobile/Objc/` (~119 `.m` + 152 `.h` across 9 phases); this PR lands the first three.
 
 ## Summary
