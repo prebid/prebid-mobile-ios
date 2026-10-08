@@ -364,6 +364,21 @@ class ServerConnectionTest : XCTestCase {
         self.waitForExpectations(timeout: 4.0, handler: nil)
     }
 
+    func testSessionReuse() {
+        let connection = getMockedServerConnection()
+        let session1 = connection.currentSession
+        let session2 = connection.currentSession
+        XCTAssertTrue(session1 === session2, "Expected currentSession to return the same URLSession instance for connection reuse")
+    }
+
+    func testProtocolClassesInvalidation() {
+        let connection = getMockedServerConnection()
+        let session1 = connection.currentSession
+        connection.protocolClasses.append(MockServerURLProtocol.self)
+        let session2 = connection.currentSession
+        XCTAssertFalse(session1 === session2, "Expected session to be rebuilt when protocolClasses are modified")
+    }
+
 }
 
 //Make a request for some arbitrary JSON and make sure it gets parsed.
