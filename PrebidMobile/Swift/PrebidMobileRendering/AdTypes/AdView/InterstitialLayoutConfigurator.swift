@@ -57,7 +57,7 @@ class InterstitialLayoutConfigurator: NSObject {
         landscapeSizes.contains(size)
     }
 
-    private static let portraitSizes: Set<CGSize> = [
+    private static let portraitSizes: [CGSize] = [
         CGSize(width: 270, height: 480),
         CGSize(width: 300, height: 1050),
         CGSize(width: 320, height: 480),
@@ -72,7 +72,7 @@ class InterstitialLayoutConfigurator: NSObject {
         CGSize(width: 1440, height: 1920)
     ]
 
-    private static let landscapeSizes: Set<CGSize> = [
+    private static let landscapeSizes: [CGSize] = [
         CGSize(width: 480, height: 320),
         CGSize(width: 480, height: 360),
         CGSize(width: 1024, height: 768)
