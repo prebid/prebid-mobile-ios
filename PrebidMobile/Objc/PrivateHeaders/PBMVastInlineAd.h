@@ -16,6 +16,7 @@
 #import "PBMVastAbstractAd.h"
 
 @class PBMVideoVerificationParameters;
+@class PBMVastCreativeLinear;
 
 //See PBMVastAbstractAd for VAST structure details
 
@@ -26,5 +27,8 @@
 
 @property (nonatomic, strong, nonnull) PBMVideoVerificationParameters *verificationParameters;
 
+// The first Linear creative that has a media file the SDK can play, or nil if there is none.
+// VAST validation and creative model creation both select the creative through this method.
+- (nullable PBMVastCreativeLinear *)playableLinearCreative;
 
 @end
