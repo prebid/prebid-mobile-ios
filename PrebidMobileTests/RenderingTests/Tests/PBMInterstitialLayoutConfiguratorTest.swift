@@ -14,39 +14,39 @@
  */
 
 import XCTest
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMInterstitialLayoutConfiguratorTest: XCTestCase {
     
     func testAdSizeConstants() {
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 1000, height: 200)))
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 480, height: 320)))
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 1000, height: 35000)))
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 22, height: 22)))
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isPortrait(CGSize.zero))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 1000, height: 200)))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 480, height: 320)))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 1000, height: 35000)))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 22, height: 22)))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isPortrait(CGSize.zero))
 
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isLandscape(CGSize(width: 300, height: 400)))
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isLandscape(CGSize(width: 270, height: 480)))
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isLandscape(CGSize(width: 25000, height: 20)))
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isLandscape(CGSize(width: 66, height: 66)))
-        XCTAssertFalse(PBMInterstitialLayoutConfigurator.isLandscape(CGSize.zero))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isLandscape(CGSize(width: 300, height: 400)))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isLandscape(CGSize(width: 270, height: 480)))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isLandscape(CGSize(width: 25000, height: 20)))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isLandscape(CGSize(width: 66, height: 66)))
+        XCTAssertFalse(InterstitialLayoutConfigurator.isLandscape(CGSize.zero))
         
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 270, height: 480)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 300, height: 1050)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 320, height: 480)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 360, height: 480)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 360, height: 640)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 480, height: 640)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 576, height: 1024)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 720, height: 1280)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 768, height: 1024)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 960, height: 1280)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 1080, height: 1920)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isPortrait(CGSize(width: 1440, height: 1920)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 270, height: 480)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 300, height: 1050)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 320, height: 480)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 360, height: 480)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 360, height: 640)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 480, height: 640)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 576, height: 1024)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 720, height: 1280)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 768, height: 1024)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 960, height: 1280)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 1080, height: 1920)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isPortrait(CGSize(width: 1440, height: 1920)))
         
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isLandscape(CGSize(width: 480, height: 320)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isLandscape(CGSize(width: 480, height: 360)))
-        XCTAssertTrue(PBMInterstitialLayoutConfigurator.isLandscape(CGSize(width: 1024, height: 768)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isLandscape(CGSize(width: 480, height: 320)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isLandscape(CGSize(width: 480, height: 360)))
+        XCTAssertTrue(InterstitialLayoutConfigurator.isLandscape(CGSize(width: 1024, height: 768)))
     }
     
     func testDefaultAdConfiguration() {
@@ -54,7 +54,7 @@ class PBMInterstitialLayoutConfiguratorTest: XCTestCase {
         let adConfig = AdConfiguration()
         XCTAssertEqual(displayProperties.interstitialLayout, .undefined)
         
-        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        InterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
         
         XCTAssertEqual(displayProperties.interstitialLayout, .aspectRatio)
         XCTAssertTrue(displayProperties.isRotationEnabled)
@@ -65,22 +65,22 @@ class PBMInterstitialLayoutConfiguratorTest: XCTestCase {
         let adConfig = AdConfiguration()
         
         adConfig.interstitialLayout = .portrait
-        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        InterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
         XCTAssertEqual(displayProperties.interstitialLayout, adConfig.interstitialLayout)
         XCTAssertFalse(displayProperties.isRotationEnabled)
         
         adConfig.interstitialLayout = .landscape
-        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        InterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
         XCTAssertEqual(displayProperties.interstitialLayout, adConfig.interstitialLayout)
         XCTAssertFalse(displayProperties.isRotationEnabled)
         
         adConfig.interstitialLayout = .aspectRatio
-        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        InterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
         XCTAssertEqual(displayProperties.interstitialLayout, adConfig.interstitialLayout)
         XCTAssertTrue(displayProperties.isRotationEnabled)
         
         adConfig.interstitialLayout = .undefined
-        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        InterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
         XCTAssertEqual(displayProperties.interstitialLayout, .aspectRatio)
         XCTAssertTrue(displayProperties.isRotationEnabled)
     }
@@ -91,19 +91,19 @@ class PBMInterstitialLayoutConfiguratorTest: XCTestCase {
 
         // test portrait size
         adConfig.size = CGSize(width: 360, height: 480)
-        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        InterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
         XCTAssertEqual(displayProperties.interstitialLayout, .portrait)
         XCTAssertFalse(displayProperties.isRotationEnabled)
 
         // test landscape size
         adConfig.size = CGSize(width: 1024, height: 768)
-        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        InterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
         XCTAssertEqual(displayProperties.interstitialLayout, .landscape)
         XCTAssertFalse(displayProperties.isRotationEnabled)
 
         // test unknown size
         adConfig.size = CGSize(width: 400, height: 300)
-        PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
+        InterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
         XCTAssertEqual(displayProperties.interstitialLayout, .aspectRatio)
         XCTAssertTrue(displayProperties.isRotationEnabled)
     }

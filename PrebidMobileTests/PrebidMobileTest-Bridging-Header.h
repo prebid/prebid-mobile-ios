@@ -50,7 +50,6 @@
 #import "PBMWebViewDelegate.h"
 #import "PBMAdRequestResponseVAST.h"
 // PBMCircularProgressBarLayer moved to Swift — available via module import
-#import "PBMInterstitialLayoutConfigurator.h"
 
 // Extensions
 #import "WKNavigationAction+PBMWKNavigationActionCompatible.h"

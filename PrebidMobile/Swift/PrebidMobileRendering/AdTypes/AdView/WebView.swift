@@ -19,4 +19,7 @@ import Foundation
 @objc(PBMWebView_Protocol) @_spi(PBMInternal) public
 protocol WebView_Protocol {
     var isMRAID: Bool { get }
+
+    // PBMWebView declares the getter as isRotationEnabled
+    @objc(isRotationEnabled) var rotationEnabled: Bool { get }
 }
