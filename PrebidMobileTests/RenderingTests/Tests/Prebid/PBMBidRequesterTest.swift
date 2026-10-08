@@ -357,6 +357,42 @@ class PBMBidRequesterTest: XCTestCase {
         waitForExpectations(timeout: 5)
     }
 
+    // MARK: - Host URL lookup failure
+
+    /// When the host URL lookup fails, the requester must not keep the request "in progress".
+    /// Original API ad units reuse one requester, so the next `fetchDemand` after the host URL
+    /// is set has to reach the server.
+    func testHostURLMissing_NextRequestSucceedsOnceHostURLIsSet() {
+        Host.shared.reset()
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(BidResponseTransformer.someValidResponse)
+        }])
+        let requester = Factory.createBidRequester(connection: connection,
+                                                   sdkConfiguration: sdkConfiguration,
+                                                   targeting: targeting,
+                                                   adUnitConfiguration: adUnitConfig)
+
+        let expNoHost = expectation(description: "exp_no_host")
+        requester.requestBids { (bidResponse, error) in
+            XCTAssertNil(bidResponse)
+            XCTAssertNotNil(error)
+            expNoHost.fulfill()
+        }
+        wait(for: [expNoHost], timeout: 5)
+
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
+
+        let expWithHost = expectation(description: "exp_with_host")
+        requester.requestBids { (bidResponse, error) in
+            XCTAssertNil(error, "Expected the request to reach the server, got: \(String(describing: error))")
+            XCTAssertNotNil(bidResponse)
+            expWithHost.fulfill()
+        }
+        wait(for: [expWithHost], timeout: 5)
+    }
+
     // MARK: - Regression Tests for Issue #1323
 
     /// Regression test for GitHub issue #1323: `timeoutMillisDynamic` is a millisecond value
