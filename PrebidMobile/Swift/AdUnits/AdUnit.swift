@@ -126,13 +126,34 @@ public class AdUnit: NSObject, DispatcherDelegate {
         adObject: AnyObject,
         completion: @escaping(_ result: ResultCode) -> Void
     ) {
+        // Forward to the BidInfo variant so the main-queue dispatch lives in one place.
+        fetchDemandBidInfo(adObject: adObject) { bidInfo in
+            completion(bidInfo.resultCode)
+        }
+    }
+
+    /// Makes a bid request for a specific ad object and provides the full `BidInfo`. Like
+    /// `fetchDemand(adObject:completion:)` it sets up the Prebid targeting keywords into `adObject`
+    /// for ad serving, but returns the full `BidInfo` (including the winning-bid economics) instead
+    /// of only the result code.
+    ///
+    /// - Parameters:
+    ///   - adObject: The ad object for which demand is being fetched.
+    ///   - completion: A closure called with a `BidInfo` object representing the fetched demand.
+    // Named `fetchDemandBidInfo` rather than a `fetchDemand` overload on purpose: with a trailing
+    // closure Swift ignores the argument label, so a second `fetchDemand(adObject:…)` differing only
+    // by the closure's parameter type makes existing trailing-closure call sites ambiguous.
+    public func fetchDemandBidInfo(
+        adObject: AnyObject,
+        completion: @escaping (_ bidInfo: BidInfo) -> Void
+    ) {
         baseFetchDemand(adObject: adObject) { bidInfo in
             DispatchQueue.main.async {
-                completion(bidInfo.resultCode)
+                completion(bidInfo)
             }
         }
     }
-    
+
     // SDK internal
     func baseFetchDemand(
         adObject: AnyObject? = nil,
