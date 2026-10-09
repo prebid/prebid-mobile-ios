@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVastParserTests: XCTestCase {
     
@@ -80,7 +80,7 @@ class PBMVastParserTests: XCTestCase {
         let parser = PBMVastParser()
         let creative = PBMVastCreativeCompanionAds()
         
-        creative.companions = [PBMVastCreativeCompanionAdsCompanion()]
+        creative.companions = [VastCreativeCompanionAdsCompanion()]
         parser.currentElementAttributes = ["creativeType" : "test"]
         
         parser.creative = creative
@@ -100,7 +100,7 @@ class PBMVastParserTests: XCTestCase {
         let parser = PBMVastParser()
         let creative = PBMVastCreativeCompanionAds()
         
-        creative.companions = [PBMVastCreativeCompanionAdsCompanion()]
+        creative.companions = [VastCreativeCompanionAdsCompanion()]
         parser.currentElementAttributes = ["creativeType" : "test"]
         
         parser.creative = creative
@@ -120,7 +120,7 @@ class PBMVastParserTests: XCTestCase {
         let parser = PBMVastParser()
         let creative = PBMVastCreativeLinear()
         
-        creative.icons = [PBMVastIcon()]
+        creative.icons = [VastIcon()]
         
         parser.creative = creative
         
@@ -138,7 +138,7 @@ class PBMVastParserTests: XCTestCase {
         let parser = PBMVastParser()
         let creative = PBMVastCreativeNonLinearAds()
         
-        creative.nonLinears = [PBMVastCreativeNonLinearAdsNonLinear()]
+        creative.nonLinears = [VastCreativeNonLinearAdsNonLinear()]
         
         parser.creative = creative
         
@@ -207,7 +207,7 @@ class PBMVastParserTests: XCTestCase {
         self.checkErrorLog( { parser in
             let creative = PBMVastCreativeNonLinearAds()
             
-            creative.nonLinears = [PBMVastCreativeCompanionAdsCompanion()]
+            creative.nonLinears = [VastCreativeCompanionAdsCompanion()]
             
             parser.creative = creative
             

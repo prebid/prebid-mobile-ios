@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVastCreativeNonLinearAdsTest: XCTestCase {
     
@@ -24,7 +24,7 @@ class PBMVastCreativeNonLinearAdsTest: XCTestCase {
         let ad1 = PBMVastCreativeNonLinearAds()
         ad1.id = "111111"
         
-        let nonLinear1 = PBMVastCreativeNonLinearAdsNonLinear()
+        let nonLinear1 = VastCreativeNonLinearAdsNonLinear()
         nonLinear1.clickThroughURI = "URI_1"
         nonLinear1.clickTrackingURIs = ["URI_1a", "URI_1b"]
         ad1.nonLinears.add(nonLinear1)
@@ -32,13 +32,13 @@ class PBMVastCreativeNonLinearAdsTest: XCTestCase {
         let ad2 = PBMVastCreativeNonLinearAds()
         ad2.id = "222222"
         
-        let nonLinear2 = PBMVastCreativeNonLinearAdsNonLinear()
+        let nonLinear2 = VastCreativeNonLinearAdsNonLinear()
         nonLinear2.clickThroughURI = "URI_2"
         nonLinear2.clickTrackingURIs = ["URI_2a", "URI_2b"]
         ad2.nonLinears.add(nonLinear2)
         
         // precondition: should contain only 2
-        var nonLinear = ad1.nonLinears[0] as! PBMVastCreativeNonLinearAdsNonLinear
+        var nonLinear = ad1.nonLinears[0] as! VastCreativeNonLinearAdsNonLinear
         XCTAssert(nonLinear.clickTrackingURIs.contains("URI_1a"))
         XCTAssert(nonLinear.clickTrackingURIs.contains("URI_1b"))
         XCTAssert(nonLinear.clickTrackingURIs.count == 2)
@@ -47,7 +47,7 @@ class PBMVastCreativeNonLinearAdsTest: XCTestCase {
         
         // URIs in ad1 should contain all 4 URIs: "URI_1a", "URI_1b", "URI_2a", "URI_2b"
         
-        nonLinear = ad1.nonLinears[0] as! PBMVastCreativeNonLinearAdsNonLinear
+        nonLinear = ad1.nonLinears[0] as! VastCreativeNonLinearAdsNonLinear
         XCTAssert(nonLinear.clickTrackingURIs.contains("URI_1a"))
         XCTAssert(nonLinear.clickTrackingURIs.contains("URI_1b"))
         XCTAssert(nonLinear.clickTrackingURIs.contains("URI_2a"))

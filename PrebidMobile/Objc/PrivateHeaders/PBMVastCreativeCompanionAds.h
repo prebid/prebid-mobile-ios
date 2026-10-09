@@ -15,7 +15,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PBMVastCreativeAbstract.h"
-#import "PBMVastCreativeCompanionAdsCompanion.h"
+#import "SwiftImport.h"
 
 //TODO: make sure that clickThroughURI and adParameters always return nil. Use Optionals.
 

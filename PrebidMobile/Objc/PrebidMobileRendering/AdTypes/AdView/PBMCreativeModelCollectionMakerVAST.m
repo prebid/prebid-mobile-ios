@@ -14,7 +14,6 @@
  */
 
 #import "PBMCreativeModelCollectionMakerVAST.h"
-#import "PBMVastCreativeCompanionAdsCompanion.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMVastInlineAd.h"
 #import "PBMVastParser.h"
