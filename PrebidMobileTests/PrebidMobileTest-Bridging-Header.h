@@ -22,9 +22,7 @@
 
 //Imports
 #import "PBMAdLoadManagerBase.h"
-#import "PBMAdLoadManagerProtocol.h"
 #import "PBMAdLoadManagerVAST.h"
-#import "PBMAdLoadManagerDelegate.h"
 #import "PBMConstants.h"
 #import "PBMCreativeFactory.h"
 #import "PBMCreativeFactoryJob.h"
@@ -83,12 +81,10 @@
 // Tests
 #import "PBMCreativeFactoryJob+PBMTestExtension.h"
 #import "PBMAbstractCreative+PBMTestExtension.h"
-#import "PBMAdLoadManager+PBMTestExtension.h"
 #import "PBMCreativeFactoryJob+PBMTestExtension.h"
 #import "PBMHTMLCreative+PBMTestExtension.h"
 #import "PBMOpenMeasurementWrapper+PBMTestExtension.h"
 #import "PBMOpenMeasurementSession+PBMTestExtension.h"
-#import "PBMAdLoadManager+PBMTestExtension.h"
 #import "PBMWebView+PBMTestExtension.h"
 #import "PBMOpenMeasurementEventTracker+PBMTestExtension.h"
 #import "PBMVideoCreative+PBMTestExtension.h"

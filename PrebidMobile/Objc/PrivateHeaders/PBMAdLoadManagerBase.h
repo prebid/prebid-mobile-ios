@@ -15,8 +15,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PBMAdLoadManagerDelegate.h"
-#import "PBMAdLoadManagerProtocol.h"
 
 #import "SwiftImport.h"
 

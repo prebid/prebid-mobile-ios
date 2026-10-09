@@ -14,8 +14,9 @@
   */
 
 import XCTest
+@_spi(PBMInternal) @testable import PrebidMobile
 
-class PBMVASTFailToLoadTest: XCTestCase, PBMAdLoadManagerDelegate {
+class PBMVASTFailToLoadTest: XCTestCase, AdLoadManagerDelegate {
     
     var failedToLoadAdExpectation:XCTestExpectation?
     
@@ -52,13 +53,13 @@ class PBMVASTFailToLoadTest: XCTestCase, PBMAdLoadManagerDelegate {
         self.waitForExpectations(timeout: 2)
     }
     
-    //MARK: PBMAdLoadManagerDelegate
+    //MARK: AdLoadManagerDelegate
     
-    func loadManager(_ loadManager: PBMAdLoadManagerProtocol, didLoad transaction: Transaction) {
+    func loadManager(_ loadManager: AdLoadManagerProtocol, didLoad transaction: Transaction) {
         XCTFail()
     }
     
-    func loadManager(_ loadManager: PBMAdLoadManagerProtocol, failedToLoad transaction: Transaction?, error: Error) {
+    func loadManager(_ loadManager: AdLoadManagerProtocol, failedToLoad transaction: Transaction?, error: Error) {
         failedToLoadAdExpectation?.fulfill()
     }
 }
