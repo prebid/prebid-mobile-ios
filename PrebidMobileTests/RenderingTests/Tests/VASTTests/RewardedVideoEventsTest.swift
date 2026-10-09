@@ -99,7 +99,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
             return // to avoid crash on force unwrap
         }
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
         
         var creativeFactory: PBMCreativeFactory?
         

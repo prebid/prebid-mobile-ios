@@ -135,7 +135,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         
         let vastRequestErrorExpectation = self.expectation(description: "Expected wrapper limit")
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         modelMaker.makeModels(self.vastServerResponse!,
                               successCallback: { models in
@@ -183,7 +183,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         
         let vastRequestErrorExpectation = self.expectation(description: "Expected fail due to video duration value that is bigger than max value set in adConfiguration.")
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         modelMaker.makeModels(self.vastServerResponse!,
                               successCallback: { models in
