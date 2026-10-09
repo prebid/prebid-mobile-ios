@@ -41,7 +41,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
             self.successfulExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("VAST_with_companion.xml") {
@@ -89,7 +89,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
             self.successfulExpectation?.fulfill()
         }
 
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
 
         // Reuse VAST_with_companion.xml, swapping its two <Creative> blocks so CompanionAds comes first.
@@ -148,7 +148,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
             self.successfulExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("VAST_with_empty_companion.xml") {

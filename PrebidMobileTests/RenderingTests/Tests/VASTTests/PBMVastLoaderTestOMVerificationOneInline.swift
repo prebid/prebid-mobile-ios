@@ -52,7 +52,7 @@ class PBMVastLoaderTestOMVerificationOneInline: XCTestCase {
             XCTFail("\(error)")
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("vast_om_verification_one_inline_ad.xml") {

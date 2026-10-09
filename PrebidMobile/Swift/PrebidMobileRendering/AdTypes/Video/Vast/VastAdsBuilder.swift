@@ -15,7 +15,7 @@
 
 import Foundation
 
-// ObjC name preserved for the bridge; still called from PBMAdRequesterVAST.m
+// ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
 @objc(PBMVastAdsBuilder) @_spi(PBMInternal) public
 class VastAdsBuilder: NSObject {
 
