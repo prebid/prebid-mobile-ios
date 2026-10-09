@@ -14,8 +14,7 @@
  */
 
 #import "PBMVastCreativeAbstract.h"
-#import "PBMVastMediaFile.h"
-#import "PBMVastIcon.h"
+#import "SwiftImport.h"
 
 @class PBMVastTrackingEvents;
 

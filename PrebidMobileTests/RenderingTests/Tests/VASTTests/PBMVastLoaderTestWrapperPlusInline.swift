@@ -174,7 +174,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         
         PBMAssertEq(pbmVastCreativeLinear.mediaFiles.count, 1)
         
-        let mediaFile = pbmVastCreativeLinear.mediaFiles.firstObject as! PBMVastMediaFile
+        let mediaFile = pbmVastCreativeLinear.mediaFiles.firstObject as! VastMediaFile
         PBMAssertEq(mediaFile.id, "firstFile")
         PBMAssertEq(mediaFile.streamingDeliver, false)
         PBMAssertEq(mediaFile.type, "video/mp4")
@@ -192,7 +192,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         PBMAssertEq(pbmVastCreativeCompanionAds.companions.count, 2)
         
         //First Companion
-        let pbmVastCreativeCompanionAdsCompanion = pbmVastCreativeCompanionAds.companions[0] as! PBMVastCreativeCompanionAdsCompanion
+        let pbmVastCreativeCompanionAdsCompanion = pbmVastCreativeCompanionAds.companions[0] as! VastCreativeCompanionAdsCompanion
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.companionIdentifier, "big_box")
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.width, 300)
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.height, 250)
@@ -200,7 +200,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resource, "http://demo.tremormedia.com/proddev/vast/Blistex1.jpg")
         
         //TODO: change from "staticResource" to "jpeg" or something?
-        PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resourceType, PBMVastResourceType.staticResource)
+        PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resourceType, VastResourceType.staticResource)
         let trackingEvents = pbmVastCreativeCompanionAdsCompanion.trackingEvents.trackingEvents
         PBMAssertEq(trackingEvents.count, 2)
         PBMAssertEq(trackingEvents["creativeView"], ["http://myTrackingURL/inline/firstCompanionCreativeView"])

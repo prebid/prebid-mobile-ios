@@ -23,10 +23,6 @@
 #import "PBMVastCreativeLinear.h"
 #import "PBMVastCreativeNonLinearAds.h"
 #import "PBMVastCreativeCompanionAds.h"
-#import "PBMVastResourceContainerProtocol.h"
-#import "PBMVastIcon.h"
-#import "PBMVastCreativeCompanionAdsCompanion.h"
-#import "PBMVastCreativeNonLinearAdsNonLinear.h"
 #import "Log+Extensions.h"
 
 #import "SwiftImport.h"

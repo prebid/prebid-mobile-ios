@@ -14,7 +14,7 @@
  */
 
 #import "PBMVastCreativeAbstract.h"
-#import "PBMVastCreativeNonLinearAdsNonLinear.h"
+#import "SwiftImport.h"
 
 @interface PBMVastCreativeNonLinearAds : PBMVastCreativeAbstract <PBMVastResourceContainerProtocol>
 
