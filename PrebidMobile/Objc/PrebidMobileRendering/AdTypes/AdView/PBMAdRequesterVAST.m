@@ -17,7 +17,6 @@
 #import "PBMConstants.h"
 #import "PBMMacros.h"
 #import "PBMVastAdsBuilder.h"
-#import "PBMVastRequester.h"
 #import "Log+Extensions.h"
 
 #import "SwiftImport.h"

@@ -18,7 +18,6 @@
 #import "PBMConstants.h"
 #import "PBMVastParser.h"
 #import "PBMVastResponse.h"
-#import "PBMVastRequester.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMMacros.h"
 #import "Log+Extensions.h"
