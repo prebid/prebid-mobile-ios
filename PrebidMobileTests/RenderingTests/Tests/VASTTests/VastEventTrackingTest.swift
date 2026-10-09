@@ -255,7 +255,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
             //Once we've reached the midpoint, force a tap on the Learn More Button.
             //This should pause the video and summon the clickthrough.
             DispatchQueue.main.async {
-                guard let videoView = self.videoCreative.view as? PBMVideoView else {
+                guard let videoView = self.videoCreative.view as? VideoView else {
                     XCTFail("Couldn't get Video View")
                     return
                 }

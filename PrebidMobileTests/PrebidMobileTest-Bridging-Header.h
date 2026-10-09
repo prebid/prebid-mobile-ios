@@ -44,8 +44,6 @@
 #import "PBMAdRequesterVAST.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMVideoCreative.h"
-#import "PBMVideoView.h"
-#import "PBMVideoViewDelegate.h"
 #import "PBMWebView.h"
 #import "PBMWebViewDelegate.h"
 #import "PBMAdRequestResponseVAST.h"
@@ -92,7 +90,6 @@
 #import "PBMWebView+PBMTestExtension.h"
 #import "PBMOpenMeasurementEventTracker+PBMTestExtension.h"
 #import "PBMVideoCreative+PBMTestExtension.h"
-#import "PBMVideoView+PBMTestExtension.h"
 #import "PBMMRAIDController+PBMTestExtension.h"
 #import "PBMSafariVCOpener+PBMTestExtensions.h"
 

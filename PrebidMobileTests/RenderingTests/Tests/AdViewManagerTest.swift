@@ -15,6 +15,7 @@
 
 import Foundation
 import XCTest
+import AVFoundation
 
 @_spi(PBMInternal) @testable import PrebidMobile
 

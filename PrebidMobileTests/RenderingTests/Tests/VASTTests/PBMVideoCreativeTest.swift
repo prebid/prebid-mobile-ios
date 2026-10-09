@@ -27,7 +27,7 @@ private final class CompletionTrackingModalManager: MockModalManager {
     }
 }
 
-class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, PBMVideoViewDelegate {
+class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, VideoViewDelegate {
    
     var videoCreative:PBMVideoCreative!
     let connection = UtilitiesForTesting.createConnectionForMockedTest()
@@ -130,7 +130,7 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         self.videoCreative.creativeResolutionDelegate = self
         self.videoCreative.creativeViewDelegate = self
         
-        let state = Factory.createModalState(view: PBMVideoView(),
+        let state = Factory.createModalState(view: VideoView(),
                                              adConfiguration:AdConfiguration(),
                                              displayProperties:InterstitialDisplayProperties())
         self.videoCreative.modalManagerDidLeaveApp(state)
@@ -157,7 +157,7 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         
         self.videoCreative?.display(rootViewController: UIViewController())
         
-        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+        guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
             return
         }
@@ -194,7 +194,7 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         
         self.videoCreative?.display(rootViewController: UIViewController())
         
-        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+        guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
             return
         }
@@ -539,7 +539,7 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
     func creativeDidDisplay(_ creative: AbstractCreative) {}
     func creativeFullScreenDidFinish(_ creative: AbstractCreative) {}
     
-    // MARK: - PBMVideoViewDelegate
+    // MARK: - VideoViewDelegate
     
     func videoViewFailedWithError(_ error: Error) {
         self.expectationVideoDidComplete.fulfill()
