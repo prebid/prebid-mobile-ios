@@ -54,7 +54,6 @@
 // VAST
 #import "PBMVastAdsBuilder.h"
 #import "PBMVastGlobals.h"
-#import "PBMVastParser+Private.h"
 
 // 3dPartyWrappers
 #import "PBMOpenMeasurementSession.h"
