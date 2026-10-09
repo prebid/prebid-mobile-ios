@@ -16,7 +16,7 @@
 import XCTest
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, PBMVideoViewDelegate {
+class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, VideoViewDelegate {
     
     var vc: UIViewController?
     let connection = UtilitiesForTesting.createConnectionForMockedTest()
@@ -79,7 +79,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
                 return
             }
             
-            guard let videoView = strongSelf.videoCreative.view as? PBMVideoView else {
+            guard let videoView = strongSelf.videoCreative.view as? VideoView else {
                 XCTFail("Couldn't get Video View")
                 return
             }
@@ -125,7 +125,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         self.videoCreative?.display(rootViewController: UIViewController())
         
-        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+        guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
             return
         }
@@ -161,7 +161,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         self.videoCreative?.display(rootViewController: UIViewController())
         
-        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+        guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
             return
         }
@@ -201,7 +201,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
 
         self.videoCreative?.display(rootViewController: UIViewController())
 
-        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+        guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
             return
         }
@@ -253,7 +253,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
 
         self.videoCreative?.display(rootViewController: UIViewController())
 
-        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+        guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
             return
         }
@@ -304,7 +304,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         self.videoCreative?.display(rootViewController: UIViewController())
         
-        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+        guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
             return
         }
@@ -341,7 +341,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         self.videoCreative?.display(rootViewController: UIViewController())
         
-        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+        guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
             return
         }
@@ -652,7 +652,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
     
     func creativeFailed(_ error:Error) {}
     
-    // MARK: - PBMVideoViewDelegate
+    // MARK: - VideoViewDelegate
     
     
     func videoViewFailedWithError(_ error: Error) {}
@@ -736,7 +736,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         self.videoCreative?.display(rootViewController: UIViewController())
         
-        guard let videoView = self.videoCreative.view as? PBMVideoView else {
+        guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
             return
         }

@@ -14,9 +14,9 @@
   */
 
 import Foundation
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
-class MockVideoView: PBMVideoView {
+class MockVideoView: VideoView {
     
     var mockRequiredVideoDuration: CGFloat = 10
     
