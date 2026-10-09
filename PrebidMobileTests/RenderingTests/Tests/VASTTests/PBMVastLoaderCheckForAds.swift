@@ -32,7 +32,7 @@ class PBMVastLoaderCheckForAds : XCTestCase {
     var response2:VastResponse!
     var response3:VastResponse!
     
-    var vastAdsBuilder:PBMVastAdsBuilder?
+    var vastAdsBuilder:VastAdsBuilder?
     
     var expectationResponse1ErrorURICalled:XCTestExpectation!
     var expectationResponse2ErrorURICalled:XCTestExpectation!
@@ -41,7 +41,7 @@ class PBMVastLoaderCheckForAds : XCTestCase {
     override func setUp() {
         
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
-        self.vastAdsBuilder = PBMVastAdsBuilder(connection: connection)
+        self.vastAdsBuilder = VastAdsBuilder(connection: connection)
         
         wrapper1 = VastWrapperAd()
         wrapper2 = VastWrapperAd()
