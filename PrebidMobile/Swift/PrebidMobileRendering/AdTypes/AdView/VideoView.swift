@@ -285,10 +285,11 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         // Get the subset of data to send.
         // Typically the first request wants the first 2 bytes, then a subsequent request will ask for all the bytes.
         let start = Int(dataRequest.requestedOffset)
-        let end = start + dataRequest.requestedLength
+        let (end, didOverflow) = start.addingReportingOverflow(dataRequest.requestedLength)
         let range = NSRange(location: start, length: dataRequest.requestedLength)
 
-        if end > dataLength {
+        // ObjC wrapped on overflow and then failed the `end > dataLength` check; Swift would trap instead.
+        if didOverflow || end > dataLength {
             let message = "Requested range of \(NSStringFromRange(range)) goes past the end of preloadedData (length is \(dataLength))"
             loadingRequest.finishLoading(with: PBMError.error(description: message))
             return false
