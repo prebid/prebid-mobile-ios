@@ -100,4 +100,14 @@ Retired: `PBMAdLoadManagerDelegate.h`, `PBMAdLoadManagerProtocol.h`, `PBMCreativ
 
 ## Test plan
 
-TEST_PLAN_PLACEHOLDER
+- [x] `buildPrebidMobile.sh` (clean `generated/`) — all 4 XCFrameworks built; "All 24 Swift interfaces typecheck" (Gap 6 check)
+- [x] `buildPrebidMobilePackage.sh` — SwiftPM package build succeeded (also run after every merged wave; this is the check that catches Swift-cannot-see-ObjC-target breakage)
+- [ ] `verifySPM.sh` — **not run**: documented as CI-only. Needs CI
+- [ ] `buildPrebidSPM.sh` — **not run**: it builds the *published* packages, so it would not exercise this branch
+- [x] `plutil -lint` on `project.pbxproj` — OK after every merge; `xcodeproj` gem check: no dangling build files, no references to missing files
+- [x] `testPrebidMobile.sh --latest --quick` — 967 tests (baseline on `master`), 972 after wave 2, 973 after wave 5, 0 failures each time
+- [x] `testPrebidMobile.sh --latest` (full, final tree) — **1385 tests, 0 failures** (the script runs with `-retry-tests-on-failure`; no failed-test lines in the log)
+- [x] `testPrebidMobileAdapters.sh` — exit 0. GAM (10 tests) and AdMob (4 tests) suites passed; the MAX scheme ran **0 tests** (`PrebidMobileMAXAdaptersTests` has no test sources on `master` either, so this is not caused by this PR)
+- [x] `VastParserParityTests` — Swift parser output matches the ObjC parser's captured output on 23 inputs
+- [x] `swiftlint` on every new file — 0 serious violations; warnings listed under Open items
+- [ ] Manual playback check of a VAST video ad in the demo app — **not done**; `VideoView` (AVPlayer/KVO/resource loader) is covered by `PBMVideoViewTest`/`PBMVideoViewPlaybackStateTest` and the reviewer's line-by-line comparison, but not by a device run. Recommended before merge
