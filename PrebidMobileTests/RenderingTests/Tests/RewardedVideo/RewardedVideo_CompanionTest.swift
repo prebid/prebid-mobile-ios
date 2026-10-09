@@ -23,7 +23,7 @@ class RewardedVideo_CompanionTest: XCTestCase  {
     
     var vastRequestSuccessfulExpectation:XCTestExpectation!
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     
     var expectationCreativeWasClicked:XCTestExpectation!
     var expectationCreativeClickthroughDidClose:XCTestExpectation!

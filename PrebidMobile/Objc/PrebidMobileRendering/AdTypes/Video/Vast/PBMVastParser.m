@@ -17,9 +17,6 @@
 
 #import "PBMVastGlobals.h"
 #import "PBMVastResponse.h"
-#import "PBMVastInlineAd.h"
-#import "PBMVastWrapperAd.h"
-#import "PBMVastAbstractAd.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMVastCreativeNonLinearAds.h"
 #import "PBMVastCreativeCompanionAds.h"

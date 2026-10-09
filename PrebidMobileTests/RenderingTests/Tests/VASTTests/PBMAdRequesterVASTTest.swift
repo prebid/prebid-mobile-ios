@@ -22,7 +22,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
     var successfulExpectation:XCTestExpectation?
     var failedExpectation:XCTestExpectation?
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     
     override func setUp() {
         MockServer.shared.reset()

@@ -22,7 +22,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
     var didFetchInline:XCTestExpectation!
     var vastRequestSuccessfulExpectation:XCTestExpectation!
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     
     override func setUp() {
         self.continueAfterFailure = true
@@ -115,7 +115,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
     // MARK: - Check result
     
     func check(_ response: NSObject) {
-        guard let vastResponse = response as? PBMAdRequestResponseVAST else {
+        guard let vastResponse = response as? AdRequestResponseVAST else {
             XCTFail()
             return
         }

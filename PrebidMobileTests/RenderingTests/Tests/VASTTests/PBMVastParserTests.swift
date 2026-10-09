@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVastParserTests: XCTestCase {
     
@@ -36,7 +36,7 @@ class PBMVastParserTests: XCTestCase {
     func testVastParserDidEndElementAd() {
 
         //Create an ad
-        let ad = PBMVastAbstractAd()
+        let ad = VastAbstractAd()
         ad.creatives = [PBMVastCreativeAbstract()]
         
         //Set up an PBMVastParser
@@ -50,7 +50,7 @@ class PBMVastParserTests: XCTestCase {
         
         //The parser's PBMVastResponse should contain the ad we created with an appropriate sequence number.
         XCTAssert(pbmVastParser.parsedResponse!.vastAbstractAds.count == 1)
-        XCTAssert(pbmVastParser.parsedResponse!.vastAbstractAds.firstObject as! PBMVastAbstractAd === ad)
+        XCTAssert(pbmVastParser.parsedResponse!.vastAbstractAds.firstObject as! VastAbstractAd === ad)
         XCTAssert(ad.sequence == 0)
         
         //The parser should tidy up after the Ad tag is done parsing.

@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "PBMAdRequestResponseVAST.h"
 #import "PBMAdRequesterVAST.h"
 #import "PBMConstants.h"
 #import "PBMMacros.h"
