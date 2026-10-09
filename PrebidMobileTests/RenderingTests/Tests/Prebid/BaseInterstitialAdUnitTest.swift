@@ -257,6 +257,33 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         XCTAssertTrue(showCalled)
     }
     
+
+    // The same ad unit must show a new ad after the previous one was shown and closed:
+    // load, show, close, load, show. Closes from Prebid's renderer and plugin renderers
+    // arrive through interstitialControllerDidCloseAd.
+    func testShowAfterCloseShowsTheNextAdOnTheSameAdUnit() {
+        let adUnit = BaseInterstitialAdUnit(
+            configID: "test",
+            minSizePerc: nil,
+            eventHandler: InterstitialEventHandlerStandalone()
+        )
+        let delegate = BaseInterstitialDelegate()
+        adUnit.delegate = delegate
+        let adLoader = InterstitialAdLoader(delegate: adUnit, eventHandler: InterstitialEventHandlerStandalone())
+        var firstAdShows = 0
+        var secondAdShows = 0
+
+        adUnit.interstitialAdLoader(adLoader, loadedAd: { _ in firstAdShows += 1 }, isReadyBlock: { true })
+        adUnit.show(from: UIViewController())
+        adUnit.interstitialControllerDidCloseAd(MockInterstitialController())
+
+        adUnit.interstitialAdLoader(adLoader, loadedAd: { _ in secondAdShows += 1 }, isReadyBlock: { true })
+        XCTAssertTrue(adUnit.isReady)
+        adUnit.show(from: UIViewController())
+
+        XCTAssertEqual(firstAdShows, 1)
+        XCTAssertEqual(secondAdShows, 1, "show(from:) after a close must show the next ad")
+    }
 }
 
 private class BaseInterstitialDelegate: NSObject, BaseInterstitialAdUnitProtocol {
