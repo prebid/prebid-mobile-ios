@@ -131,17 +131,13 @@ class Factory: NSObject {
     
     // MARK: PBMTransactionFactory
     
-    @objc public static let TransactionFactoryType: TransactionFactory.Type = {
-        NSClassFromString("PBMTransactionFactory_Objc") as! TransactionFactory.Type
-    }()
-    
     @objc public static func createTransactionFactory(
         bid: Bid,
         adConfiguration: AdUnitConfig,
         connection: PrebidServerConnectionProtocol,
         callback: @escaping TransactionFactoryCallback
     ) -> TransactionFactory {
-        TransactionFactoryType.init(
+        TransactionFactoryImpl(
             bid: bid,
             adConfiguration: adConfiguration,
             connection: connection,

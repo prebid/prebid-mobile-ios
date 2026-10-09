@@ -17,7 +17,7 @@ import UIKit
 
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MockPBMAdLoadManagerVAST: PBMAdLoadManagerVAST {
+class MockPBMAdLoadManagerVAST: AdLoadManagerVAST {
     
     var mock_requestCompletedSuccess: ((AdRequestResponseVAST) -> Void)?
     override func requestCompletedSuccess(_ adRequestResponse: AdRequestResponseVAST) {

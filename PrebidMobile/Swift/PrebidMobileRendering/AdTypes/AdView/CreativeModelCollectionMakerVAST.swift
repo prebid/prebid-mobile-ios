@@ -15,7 +15,7 @@
 
 import Foundation
 
-// ObjC name preserved for the bridge; still called from PBMAdLoadManagerVAST.m
+// ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
 @objc(PBMCreativeModelCollectionMakerVAST) @_spi(PBMInternal) public
 class CreativeModelCollectionMakerVAST: NSObject {
 

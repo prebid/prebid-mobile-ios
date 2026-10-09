@@ -85,7 +85,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
             XCTFail(error.localizedDescription)
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:connection, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:connection, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_wrapper_ad.xml") {

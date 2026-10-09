@@ -57,7 +57,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
             self.failedExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_wrapper_ad.xml")  {
@@ -88,7 +88,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
             self.failedExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("VAST_Empty_Response.xml")  {
@@ -119,7 +119,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
             self.failedExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("inline_with_padding_on_urls.xml") {
@@ -169,7 +169,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
             self.failedExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("inline_with_padding_on_urls.xml") {

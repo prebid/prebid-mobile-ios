@@ -43,7 +43,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     weak var videoDidResumeExpectation: XCTestExpectation?
 
     var adViewManager:AdViewManager!
-    var adLoadManager:PBMAdLoadManagerBase!
+    var adLoadManager:AdLoadManagerBase!
     var videoCreative: PBMVideoCreative?
     var testDisplayView: UIView!
     var adLoadedHandler: (() -> Void)?
