@@ -39,8 +39,8 @@ class PBMVastParserTests: XCTestCase {
         let ad = VastAbstractAd()
         ad.creatives = [VastCreativeAbstract()]
         
-        //Set up an PBMVastParser
-        let pbmVastParser = PBMVastParser()
+        //Set up an VastParser
+        let pbmVastParser = VastParser()
         pbmVastParser.parsedResponse = VastResponse()
         pbmVastParser.ad = ad
         pbmVastParser.adAttributes = ["id":"12345"]
@@ -67,7 +67,7 @@ class PBMVastParserTests: XCTestCase {
             XCTFail("Could not load video")
             return
         }
-        let pbmVastParser = PBMVastParser()
+        let pbmVastParser = VastParser()
         
         XCTAssertNotNil(pbmVastParser.parseAdsResponse(xmlData))
     }
@@ -77,7 +77,7 @@ class PBMVastParserTests: XCTestCase {
     func testParseResourceCreativeCompanionStaticType() {
         
         // Prepare
-        let parser = PBMVastParser()
+        let parser = VastParser()
         let creative = VastCreativeCompanionAds()
         
         creative.companions = [VastCreativeCompanionAdsCompanion()]
@@ -97,7 +97,7 @@ class PBMVastParserTests: XCTestCase {
     func testParseResourceCreativeCompanionFrameType() {
         
         // Prepare
-        let parser = PBMVastParser()
+        let parser = VastParser()
         let creative = VastCreativeCompanionAds()
         
         creative.companions = [VastCreativeCompanionAdsCompanion()]
@@ -117,7 +117,7 @@ class PBMVastParserTests: XCTestCase {
     func testParseResourceCreativeLinear() {
         
         // Prepare
-        let parser = PBMVastParser()
+        let parser = VastParser()
         let creative = VastCreativeLinear()
         
         creative.icons = [VastIcon()]
@@ -135,7 +135,7 @@ class PBMVastParserTests: XCTestCase {
     func testParseResourceCreativeNonLinearAds() {
         
         // Prepare
-        let parser = PBMVastParser()
+        let parser = VastParser()
         let creative = VastCreativeNonLinearAds()
         
         creative.nonLinears = [VastCreativeNonLinearAdsNonLinear()]
@@ -223,27 +223,27 @@ class PBMVastParserTests: XCTestCase {
     func testParseTimeInterval() {
         
         // Valid interval
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:00:00"), 0)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:00:30"), 30)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:00:60"), 60)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:00:61"), 61)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:00:99"), 99)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:01:00"), 60)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:01:60"), 120)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:01:61"), 121)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:60:00"), 3600)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:99:00"), 5940)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("01:00:00"), 3600)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("01:01:00"), 3660)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("01:01:01"), 3661)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("99:99:99"), 362439)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:00:00"), 0)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:00:30"), 30)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:00:60"), 60)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:00:61"), 61)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:00:99"), 99)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:01:00"), 60)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:01:60"), 120)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:01:61"), 121)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:60:00"), 3600)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:99:00"), 5940)
+        XCTAssertEqual(VastParser().parseTimeInterval("01:00:00"), 3600)
+        XCTAssertEqual(VastParser().parseTimeInterval("01:01:00"), 3660)
+        XCTAssertEqual(VastParser().parseTimeInterval("01:01:01"), 3661)
+        XCTAssertEqual(VastParser().parseTimeInterval("99:99:99"), 362439)
         
         // Strange but also correct
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("00:30"), 30)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval(":30"), 30)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("30"), 30)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval(""), 0)
-        XCTAssertEqual(PBMVastParser().parseTimeInterval("0"), 0)
+        XCTAssertEqual(VastParser().parseTimeInterval("00:30"), 30)
+        XCTAssertEqual(VastParser().parseTimeInterval(":30"), 30)
+        XCTAssertEqual(VastParser().parseTimeInterval("30"), 30)
+        XCTAssertEqual(VastParser().parseTimeInterval(""), 0)
+        XCTAssertEqual(VastParser().parseTimeInterval("0"), 0)
 
         // Invalid interval
         self.checkErrorLog({parser in
@@ -253,11 +253,11 @@ class PBMVastParserTests: XCTestCase {
     
     // MARK: - Helper Methods
     
-    func checkErrorLog(_ parse: (PBMVastParser) -> Void, expectedLog: String, file: StaticString = #file, line: UInt = #line) {
+    func checkErrorLog(_ parse: (VastParser) -> Void, expectedLog: String, file: StaticString = #file, line: UInt = #line) {
         
         logToFile = .init()
         
-        parse(PBMVastParser())
+        parse(VastParser())
         
         let log = Log.getLogFileAsString() ?? ""
         
