@@ -28,9 +28,9 @@ class PBMVastLoaderCheckForAds : XCTestCase {
     var wrapper2:VastWrapperAd! = nil
     var inline:VastInlineAd! = nil
     
-    var response1:PBMVastResponse!
-    var response2:PBMVastResponse!
-    var response3:PBMVastResponse!
+    var response1:VastResponse!
+    var response2:VastResponse!
+    var response3:VastResponse!
     
     var vastAdsBuilder:PBMVastAdsBuilder?
     
@@ -47,9 +47,9 @@ class PBMVastLoaderCheckForAds : XCTestCase {
         wrapper2 = VastWrapperAd()
         inline = VastInlineAd()
         
-        response1 = PBMVastResponse()
-        response2 = PBMVastResponse()
-        response3 = PBMVastResponse()
+        response1 = VastResponse()
+        response2 = VastResponse()
+        response3 = VastResponse()
         
         response1.noAdsResponseURI = "http://response1/noAds"
         response2.noAdsResponseURI = "http://response2/noAds"

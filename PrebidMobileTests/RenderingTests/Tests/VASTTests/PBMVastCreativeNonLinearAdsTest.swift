@@ -18,10 +18,10 @@ import XCTest
 
 class PBMVastCreativeNonLinearAdsTest: XCTestCase {
     
-    // Verify PBMVastCreativeNonLinearAds.copyTracking() copies over the correct number of URIs
+    // Verify VastCreativeNonLinearAds.copyTracking() copies over the correct number of URIs
     func testCopyTracking() {
         
-        let ad1 = PBMVastCreativeNonLinearAds()
+        let ad1 = VastCreativeNonLinearAds()
         ad1.id = "111111"
         
         let nonLinear1 = VastCreativeNonLinearAdsNonLinear()
@@ -29,7 +29,7 @@ class PBMVastCreativeNonLinearAdsTest: XCTestCase {
         nonLinear1.clickTrackingURIs = ["URI_1a", "URI_1b"]
         ad1.nonLinears.add(nonLinear1)
         
-        let ad2 = PBMVastCreativeNonLinearAds()
+        let ad2 = VastCreativeNonLinearAds()
         ad2.id = "222222"
         
         let nonLinear2 = VastCreativeNonLinearAdsNonLinear()

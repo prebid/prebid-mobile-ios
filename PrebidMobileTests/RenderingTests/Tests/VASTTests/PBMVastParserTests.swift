@@ -37,18 +37,18 @@ class PBMVastParserTests: XCTestCase {
 
         //Create an ad
         let ad = VastAbstractAd()
-        ad.creatives = [PBMVastCreativeAbstract()]
+        ad.creatives = [VastCreativeAbstract()]
         
         //Set up an PBMVastParser
         let pbmVastParser = PBMVastParser()
-        pbmVastParser.parsedResponse = PBMVastResponse()
+        pbmVastParser.parsedResponse = VastResponse()
         pbmVastParser.ad = ad
         pbmVastParser.adAttributes = ["id":"12345"]
         
         //Force the end of an "Ad" element
         pbmVastParser.parser(XMLParser(), didEndElement: "Ad", namespaceURI: nil, qualifiedName:nil)
         
-        //The parser's PBMVastResponse should contain the ad we created with an appropriate sequence number.
+        //The parser's VastResponse should contain the ad we created with an appropriate sequence number.
         XCTAssert(pbmVastParser.parsedResponse!.vastAbstractAds.count == 1)
         XCTAssert(pbmVastParser.parsedResponse!.vastAbstractAds.firstObject as! VastAbstractAd === ad)
         XCTAssert(ad.sequence == 0)
@@ -78,7 +78,7 @@ class PBMVastParserTests: XCTestCase {
         
         // Prepare
         let parser = PBMVastParser()
-        let creative = PBMVastCreativeCompanionAds()
+        let creative = VastCreativeCompanionAds()
         
         creative.companions = [VastCreativeCompanionAdsCompanion()]
         parser.currentElementAttributes = ["creativeType" : "test"]
@@ -98,7 +98,7 @@ class PBMVastParserTests: XCTestCase {
         
         // Prepare
         let parser = PBMVastParser()
-        let creative = PBMVastCreativeCompanionAds()
+        let creative = VastCreativeCompanionAds()
         
         creative.companions = [VastCreativeCompanionAdsCompanion()]
         parser.currentElementAttributes = ["creativeType" : "test"]
@@ -118,7 +118,7 @@ class PBMVastParserTests: XCTestCase {
         
         // Prepare
         let parser = PBMVastParser()
-        let creative = PBMVastCreativeLinear()
+        let creative = VastCreativeLinear()
         
         creative.icons = [VastIcon()]
         
@@ -136,7 +136,7 @@ class PBMVastParserTests: XCTestCase {
         
         // Prepare
         let parser = PBMVastParser()
-        let creative = PBMVastCreativeNonLinearAds()
+        let creative = VastCreativeNonLinearAds()
         
         creative.nonLinears = [VastCreativeNonLinearAdsNonLinear()]
         
@@ -162,22 +162,22 @@ class PBMVastParserTests: XCTestCase {
 
         // not particular creative
         self.checkErrorLog( { parser in
-            parser.creative = PBMVastCreativeAbstract()
+            parser.creative = VastCreativeAbstract()
             parser.parseResource(for: .staticResource)
         }, expectedLog: logErrorNAContainer)
 
         // Linear
         self.checkErrorLog( { parser in
-            parser.creative = PBMVastCreativeLinear()
+            parser.creative = VastCreativeLinear()
             parser.parseResource(for: .staticResource)
         }, expectedLog: logErrorNAContainer)
         
         // missmatch between creative and container
-        // PBMVastCreativeCompanionAds
+        // VastCreativeCompanionAds
         self.checkErrorLog( { parser in
-            let creative = PBMVastCreativeCompanionAds()
+            let creative = VastCreativeCompanionAds()
             
-            creative.companions = [PBMVastCreativeNonLinearAds()]
+            creative.companions = [VastCreativeNonLinearAds()]
             
             parser.creative = creative
             
@@ -188,11 +188,11 @@ class PBMVastParserTests: XCTestCase {
         }, expectedLog: logErrorNAContainer)
         
         // missmatch between creative and container
-        // PBMVastCreativeLinear
+        // VastCreativeLinear
         self.checkErrorLog( { parser in
-            let creative = PBMVastCreativeLinear()
+            let creative = VastCreativeLinear()
             
-            creative.icons = [PBMVastCreativeNonLinearAds()]
+            creative.icons = [VastCreativeNonLinearAds()]
             
             parser.creative = creative
             
@@ -203,9 +203,9 @@ class PBMVastParserTests: XCTestCase {
         }, expectedLog: logErrorNAContainer)
         
         // missmatch between creative and container
-        // PBMVastCreativeNonLinearAds
+        // VastCreativeNonLinearAds
         self.checkErrorLog( { parser in
-            let creative = PBMVastCreativeNonLinearAds()
+            let creative = VastCreativeNonLinearAds()
             
             creative.nonLinears = [VastCreativeCompanionAdsCompanion()]
             

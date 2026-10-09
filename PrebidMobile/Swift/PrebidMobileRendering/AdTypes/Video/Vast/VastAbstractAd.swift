@@ -18,8 +18,7 @@ import Foundation
 @objc(PBMVastAbstractAd)
 @_spi(PBMInternal) public class VastAbstractAd: NSObject {
 
-    // Typed `AnyObject?` because `PBMVastResponse` is still Objective-C and not visible to Swift.
-    @objc public weak var ownerResponse: AnyObject?
+    @objc public weak var ownerResponse: VastResponse?
 
     @objc public var identifier = ""
     @objc public var sequence = 0
@@ -31,7 +30,7 @@ import Foundation
     @objc public var impressionURIs = NSMutableArray()
     @objc public var errorURIs = NSMutableArray()
 
-    // Elements are `PBMVastCreativeAbstract` (still Objective-C).
+    // Elements are `VastCreativeAbstract`; untyped for the same reason as above.
     @objc public var creatives = NSMutableArray()
 
     @objc public override init() {
