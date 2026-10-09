@@ -15,23 +15,23 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMAdRequestResponseVASTTests: XCTestCase {
     
     func testAds() {
         
-        let response = PBMAdRequestResponseVAST()
+        let response = AdRequestResponseVAST()
         XCTAssertNotNil(response)
         XCTAssertNil(response.ads)
         
-        response.ads = [PBMVastAbstractAd]()
+        response.ads = [VastAbstractAd]()
         XCTAssertNotNil(response.ads)
         XCTAssertTrue(response.ads!.isEmpty)
         
-        response.ads?.append(PBMVastInlineAd())
+        response.ads?.append(VastInlineAd())
         XCTAssertFalse(response.ads!.isEmpty)
         
-        XCTAssert(response.ads!.first?.superclass === PBMVastAbstractAd.self)
+        XCTAssert(response.ads!.first?.superclass === VastAbstractAd.self)
     }
 }

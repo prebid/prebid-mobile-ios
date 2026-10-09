@@ -15,10 +15,8 @@
 
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMVastCreativeLinear.h"
-#import "PBMVastInlineAd.h"
 #import "PBMVastParser.h"
 #import "PBMVastResponse.h"
-#import "PBMAdRequestResponseVAST.h"
 #import "PBMVastCreativeCompanionAds.h"
 
 #import "SwiftImport.h"

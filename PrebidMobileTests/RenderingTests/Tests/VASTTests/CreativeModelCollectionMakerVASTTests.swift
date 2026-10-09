@@ -19,7 +19,7 @@ import XCTest
 
 class CreativeModelCollectionMakerVASTTests: XCTestCase {
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     
     var successfulExpectation: XCTestExpectation?
     

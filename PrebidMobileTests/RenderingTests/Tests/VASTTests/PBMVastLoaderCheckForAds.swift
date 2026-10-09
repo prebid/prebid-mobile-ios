@@ -18,15 +18,15 @@ import Foundation
 import XCTest
 import CoreFoundation
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVastLoaderCheckForAds : XCTestCase {
     
     let sdkConfiguration = Prebid.mock
     
-    var wrapper1:PBMVastWrapperAd! = nil
-    var wrapper2:PBMVastWrapperAd! = nil
-    var inline:PBMVastInlineAd! = nil
+    var wrapper1:VastWrapperAd! = nil
+    var wrapper2:VastWrapperAd! = nil
+    var inline:VastInlineAd! = nil
     
     var response1:PBMVastResponse!
     var response2:PBMVastResponse!
@@ -43,9 +43,9 @@ class PBMVastLoaderCheckForAds : XCTestCase {
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
         self.vastAdsBuilder = PBMVastAdsBuilder(connection: connection)
         
-        wrapper1 = PBMVastWrapperAd()
-        wrapper2 = PBMVastWrapperAd()
-        inline = PBMVastInlineAd()
+        wrapper1 = VastWrapperAd()
+        wrapper2 = VastWrapperAd()
+        inline = VastInlineAd()
         
         response1 = PBMVastResponse()
         response2 = PBMVastResponse()

@@ -15,13 +15,13 @@
 
 import Foundation
 import XCTest
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVastLoaderMultiWrapperTest: XCTestCase {
     
     var vastRequestFailureExpectation:XCTestExpectation!
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     override func setUp() {
         self.continueAfterFailure = true
         MockServer.shared.reset()

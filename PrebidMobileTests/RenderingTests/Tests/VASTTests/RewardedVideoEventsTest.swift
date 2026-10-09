@@ -26,7 +26,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
     
     var vastRequestSuccessfulExpectation:XCTestExpectation!
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     
     var expectationCreativeWasClicked:XCTestExpectation!
     var expectationCreativeClickthroughDidClose:XCTestExpectation!

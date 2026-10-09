@@ -31,7 +31,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
     
     var expectations = [XCTestExpectation]()
 
-    var vastServerRespose: PBMAdRequestResponseVAST?
+    var vastServerRespose: AdRequestResponseVAST?
     var videoCreative: PBMVideoCreative!
     
     override func setUp() {
