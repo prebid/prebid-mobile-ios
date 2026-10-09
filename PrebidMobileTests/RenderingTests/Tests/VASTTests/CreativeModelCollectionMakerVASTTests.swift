@@ -74,7 +74,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
     }
     
     // Regression: a CompanionAds creative listed before the Linear one used to crash with
-    // -[PBMVastCreativeCompanionAds bestMediaFile]: unrecognized selector.
+    // -[VastCreativeCompanionAds bestMediaFile]: unrecognized selector.
     func testMakeCompanionAd_companionBeforeLinear() {
         let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]

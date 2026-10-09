@@ -146,8 +146,8 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         PBMAssertEq(ad.creatives.count, 3)
         
         //Creative 1  - Linear
-        let pbmVastCreativeLinear = ad.creatives[0] as! PBMVastCreativeLinear
-        PBMAssertEq(pbmVastCreativeLinear.AdId, "601364")
+        let pbmVastCreativeLinear = ad.creatives[0] as! VastCreativeLinear
+        PBMAssertEq(pbmVastCreativeLinear.adId, "601364")
         PBMAssertEq(pbmVastCreativeLinear.id, "6012")
         PBMAssertEq(pbmVastCreativeLinear.sequence, 1)
         PBMAssertEq(pbmVastCreativeLinear.duration, 6)
@@ -188,7 +188,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         
         
         //Creative 2 - CompanionAds
-        let pbmVastCreativeCompanionAds = ad.creatives[1] as! PBMVastCreativeCompanionAds
+        let pbmVastCreativeCompanionAds = ad.creatives[1] as! VastCreativeCompanionAds
         PBMAssertEq(pbmVastCreativeCompanionAds.companions.count, 2)
         
         //First Companion
