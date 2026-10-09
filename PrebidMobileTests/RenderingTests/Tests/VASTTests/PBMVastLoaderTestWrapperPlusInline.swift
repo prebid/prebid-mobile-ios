@@ -95,7 +95,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         
         let inlineVastRequestSuccessfulExpectation = self.expectation(description: "Expected Inline VAST Load to be successful")
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         
         modelMaker.makeModels(response,

@@ -52,7 +52,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         
         XCTAssertNotNil(vastServerResponse)
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         let successCallbackExpectation = expectation(description: "makeModels successCallback called")
         
@@ -113,7 +113,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
 
         XCTAssertNotNil(vastServerResponse)
 
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
 
         let successCallbackExpectation = expectation(description: "makeModels successCallback called")
 
@@ -159,7 +159,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         
         XCTAssertNotNil(vastServerResponse)
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         let successCallbackExpectation = expectation(description: "makeModels successCallback called")
         

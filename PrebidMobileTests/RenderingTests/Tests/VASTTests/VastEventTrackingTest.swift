@@ -103,7 +103,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
         
         let inlineVastRequestSuccessfulExpectation = self.expectation(description: "Expected Inline VAST Load to be successful")
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
         
         modelMaker.makeModels(self.vastServerRespose!, successCallback: { models in
             let totalModels = 2     // For video interstitials with End Card, count is 2. Includes all companions.

@@ -83,7 +83,7 @@ class RewardedVideo_CompanionTest: XCTestCase  {
             return // to avoid crash on force unwrap
         }
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
         
         modelMaker.makeModels(self.vastServerResponse!,
                               successCallback: { models in
