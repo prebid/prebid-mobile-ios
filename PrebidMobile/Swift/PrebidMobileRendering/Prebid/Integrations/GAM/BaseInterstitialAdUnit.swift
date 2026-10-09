@@ -215,6 +215,10 @@ class BaseInterstitialAdUnit:
     /// Called when the ad in the interstitial controller is closed.
     public func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
+        // The ad is gone, so the next show(from:) may present the next loaded ad.
+        objc_sync_enter(blocksLockToken)
+        currentAdBlock = nil
+        objc_sync_exit(blocksLockToken)
         delegate?.callDelegate_didDismissAd()
     }
     
