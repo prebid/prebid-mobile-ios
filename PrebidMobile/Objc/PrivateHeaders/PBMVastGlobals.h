@@ -15,42 +15,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, PBMVastResourceType) {
-    PBMVastResourceTypeStaticResource,
-    PBMVastResourceTypeIFrameResource,
-    PBMVastResourceTypeHtmlResource,
-};
+// PBMVastResourceType and PBMVASTError moved to Swift (VastGlobals.swift). Only the NS_TYPED_ENUM string
+// constants stay here: Swift cannot export free-standing ObjC constants (playbook S2.1-A).
 
 typedef NSString * const _Nonnull PBMVastRequiredMode NS_TYPED_ENUM;
 FOUNDATION_EXPORT PBMVastRequiredMode const PBMVastRequiredModeAll;
 FOUNDATION_EXPORT PBMVastRequiredMode const PBMVastRequiredModeAny;
 FOUNDATION_EXPORT PBMVastRequiredMode const PBMVastRequiredModeNone;
-
-typedef NS_ENUM(NSInteger, PBMVASTError) {
-    PBMVASTErrorParsing = 100,
-    PBMVASTErrorValidation,
-    PBMVASTErrorUnsupportedVersion,
-    PBMVASTErrorUnexpectedAdType = 200,
-    PBMVASTErrorUnexpectedCreativeType,
-    PBMVASTErrorUnexpectedDuration,
-    PBMVASTErrorUnexpectedSize,
-    PBMVASTErrorGenericWrapperError = 300,
-    PBMVASTErrorWrapperTimeout,
-    PBMVASTErrorWrapperLimitReached,
-    PBMVASTErrorNoAdsResponse,
-    PBMVASTErrorGenericLinearError = 400,
-    PBMVASTErrorLinearMediaNotFound,
-    PBMVASTErrorMediaFileTimeout,
-    PBMVASTErrorLinearMediaUnsupported,
-    PBMVASTErrorMediaFilePlayback,
-    PBMVASTErrorGenericNonLinearError = 500,
-    PBMVASTErrorNonLinearDimensions,
-    PBMVASTErrorNonLinearMediaNotFound,
-    PBMVASTErrorNonLinearResourceUnsupported,
-    PBMVASTErrorGenericCompanionError = 600,
-    PBMVASTErrorCompanionDimensions,
-    PBMVASTErrorRequiredCompanionUnavailable,
-    PBMVASTErrorCompanionMediaNotFound,
-    PBMVASTErrorCompanionResourceUnsupported,
-    PBMVASTErrorUndefinedError = 900
-};

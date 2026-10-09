@@ -22,7 +22,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
     var successfulExpectation:XCTestExpectation?
     var failedExpectation:XCTestExpectation?
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     
     override func setUp() {
         MockServer.shared.reset()
@@ -57,7 +57,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
             self.failedExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_wrapper_ad.xml")  {
@@ -88,7 +88,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
             self.failedExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("VAST_Empty_Response.xml")  {
@@ -119,7 +119,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
             self.failedExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("inline_with_padding_on_urls.xml") {
@@ -135,7 +135,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         
         let vastRequestErrorExpectation = self.expectation(description: "Expected wrapper limit")
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         modelMaker.makeModels(self.vastServerResponse!,
                               successCallback: { models in
@@ -169,7 +169,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
             self.failedExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("inline_with_padding_on_urls.xml") {
@@ -183,7 +183,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         
         let vastRequestErrorExpectation = self.expectation(description: "Expected fail due to video duration value that is bigger than max value set in adConfiguration.")
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         modelMaker.makeModels(self.vastServerResponse!,
                               successCallback: { models in

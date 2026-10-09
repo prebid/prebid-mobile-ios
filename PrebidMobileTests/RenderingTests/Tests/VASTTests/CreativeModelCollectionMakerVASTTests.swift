@@ -19,7 +19,7 @@ import XCTest
 
 class CreativeModelCollectionMakerVASTTests: XCTestCase {
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     
     var successfulExpectation: XCTestExpectation?
     
@@ -41,7 +41,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
             self.successfulExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("VAST_with_companion.xml") {
@@ -52,7 +52,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         
         XCTAssertNotNil(vastServerResponse)
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         let successCallbackExpectation = expectation(description: "makeModels successCallback called")
         
@@ -74,7 +74,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
     }
     
     // Regression: a CompanionAds creative listed before the Linear one used to crash with
-    // -[PBMVastCreativeCompanionAds bestMediaFile]: unrecognized selector.
+    // -[VastCreativeCompanionAds bestMediaFile]: unrecognized selector.
     func testMakeCompanionAd_companionBeforeLinear() {
         let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
@@ -89,7 +89,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
             self.successfulExpectation?.fulfill()
         }
 
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
 
         // Reuse VAST_with_companion.xml, swapping its two <Creative> blocks so CompanionAds comes first.
@@ -113,7 +113,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
 
         XCTAssertNotNil(vastServerResponse)
 
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
 
         let successCallbackExpectation = expectation(description: "makeModels successCallback called")
 
@@ -148,7 +148,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
             self.successfulExpectation?.fulfill()
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("VAST_with_empty_companion.xml") {
@@ -159,7 +159,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         
         XCTAssertNotNil(vastServerResponse)
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         let successCallbackExpectation = expectation(description: "makeModels successCallback called")
         

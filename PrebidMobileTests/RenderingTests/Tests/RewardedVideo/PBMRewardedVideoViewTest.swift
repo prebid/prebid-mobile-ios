@@ -14,9 +14,10 @@
   */
 
 import XCTest
+import AVFoundation
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class PBMRewardedVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, PBMVideoViewDelegate {
+class PBMRewardedVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, VideoViewDelegate {
     
     var vc = UIViewController()
     var videoCreative:PBMVideoCreative!
@@ -119,7 +120,7 @@ class PBMRewardedVideoViewTest: XCTestCase, CreativeResolutionDelegate, Creative
     }
     
     
-    // MARK: - PBMVideoViewDelegate
+    // MARK: - VideoViewDelegate
     
     func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
     func videoViewFailedWithError(_ error: Error) {}
@@ -193,7 +194,7 @@ class PBMRewardedVideoViewTest: XCTestCase, CreativeResolutionDelegate, Creative
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             
-            guard let videoView = self.videoCreative.view as? PBMVideoView else {
+            guard let videoView = self.videoCreative.view as? VideoView else {
                 XCTFail("Couldn't get Video View")
                 return
             }

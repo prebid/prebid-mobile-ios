@@ -265,32 +265,49 @@ Allowlist of exactly this one test, not a general "re-run and move on" policy. P
 - **S5.2-B — a protocol's `#if DEBUG` requirements force `public` members in every configuration.** `AdViewManager` declares `currentCreative`, `externalTransaction` and both `setupCreative` overloads under `#if DEBUG` ("exposed for tests"). The conforming class is `@_spi(PBMInternal) public`, so in a Release/framework archive build, where the requirements vanish, the members are still `public`; making them `internal`/`#if DEBUG`-only in the class would break the Debug conformance. Accepted: they are `@_spi`-scoped, so not visible to SDK clients. Clean-up belongs to S9.2 along with the rest of the visibility demotions (Gap 6).
 - **S5.2-C — port the fixed-point of ObjC message-to-nil, not just the branch structure.** ObjC `self.adConfiguration = creative.creativeModel.adConfiguration;` assigns `nil` into a nonnull-annotated property, and `[self setupCreative:[transaction getFirstCreative]]` passes `nil`. Swift's non-optional types make both impossible; see the PR doc for how each was resolved (`setupCreative` keeps the previous `adConfiguration` when the model has none; `onTransactionIsReady` replays `autoDisplayOnLoad = true; show()` when there is no first creative). **Rule:** for every nonnull-by-annotation ObjC site, ask what `nil` did at runtime; if the Swift type forbids it, reproduce the observable effect rather than only the types.
 
-## Hand-off: what Phases 6 and 7 inherit
+## Phase 6 gaps (S6.x)
+
+- **S6.1-A — an ObjC class cannot subclass a Swift class, `open` or not (spike, decisive).** `PrebidMobile-Swift.h` stamps `objc_subclassing_restricted` on every Swift class, so
+  `@interface PBMVastCreativeLinear : PBMVastCreativeAbstract` fails with "cannot subclass a class that was declared with the 'objc_subclassing_restricted' attribute" once the base is Swift.
+  This **disproves** the S5.x-scope assumption that an ObjC `PBMAdLoadManagerVAST` could subclass a Swift `AdLoadManagerBase`. **Rule:** a Swift base class moves in the same step as all of its ObjC subclasses
+  (here: `AdLoadManagerBase` + `AdLoadManagerVAST`; `VastCreativeAbstract` + `Linear`/`CompanionAds`/`NonLinearAds`; `VastAbstractAd` + `Inline`/`Wrapper`). The reverse (a Swift subclass of an ObjC class) is untested in the SPM layout: the Swift target cannot see `__PrebidMobileInternal`, which is why `PBMVideoCreative` stays ObjC (see the hand-off).
+- **S6.1-B — `NSMutableArray` properties that surviving ObjC mutates in place stay `NSMutableArray`.** Swift arrays are value types. Waves 2D–5I kept `impressionURIs`, `errorURIs`, `creatives`, `vastAbstractAds`, `icons`, `mediaFiles`, `companions`, `nonLinears`
+  and the click-tracking arrays untyped. All ObjC mutators are gone now; retyping touches about 246 sites and the 23-input parity dumps, so it is a separate follow-up (see the cleanup list).
+- **S6.1-C — `@objc(PBMFoo) enum` keeps the ObjC constant names `PBMFooCase`; the Swift cases are lowerCamel.** `NS_TYPED_ENUM` string constants (`PBMVastRequiredMode`) stay in ObjC (S2.1-A); Swift code compares against the `"all"`/`"any"` literals.
+- **S6.x-A — `Foo+pbmTestExtension.h` for a ported class becomes plain `internal` + `@testable`.** Delete the header and its bridging import (S3.1-C confirmed on `VideoView`, `VastParser`). `PBMAdLoadManager+pbmTestExtension.h` was dead (nothing read `currentTransaction`).
+- **S6.x-B — deleting an ObjC header can remove transitive system imports.** Two Swift tests lost `AVFoundation`/`CoreMedia` when `PBMVideoView.h` left the bridging header and needed an explicit `import AVFoundation` (same hazard as S2.5-A for `.m` files).
+- **S6.x-D-A / F-A — `AnyObject?` stands in for a back-reference to a not-yet-ported ObjC type; retire it in the same commit that ports the referent.** Used for `VastAbstractAd.ownerResponse`/`vastResponse` in wave 2D, retyped in wave 3F.
+- **S6.x-D-B — a blanket `PBMFoo` → `Foo` rename also rewrites `@objc(PBMFoo)` in newly written Swift files** and ObjC then fails with "unknown receiver". Exclude new files or re-check `@objc(` after renaming.
+- **S6.x-D-C — import-removal regexes: use `[ \t]*`, not `\s*`** (`\s*` swallows the following blank line).
+- **S6.x-F-B — `NSErrorPointer` out-param → `throws` with an explicit `@objc(nameAndReturnError:)`-style selector.** ObjC callers that pass `&error` need no edit. Used for `VastResponse.flattenResponse`.
+- **S6.x-F-C — `NSMutableArray` is not convertible to `[Any]` with `as`;** use `Array(x)`.
+- **S6.x-G-A — a throwaway ObjC-era dump is the parity oracle for a delegate/state-machine port.** Write a deterministic text dump of the parsed model (printing `nil` and `""` differently, or S5.2-C regressions hide), run it against the ObjC class on every fixture plus synthetic inputs, commit the output as literal expectations, then re-run the same dump on the Swift port and `diff -r`. `VastParser`: 23 inputs, byte-identical.
+- **S6.x-G-B — ObjC attribute parsing keeps `NSString.integerValue`/`floatValue`/`intValue`.** They are prefix-lenient and never fail; `Int(_:)`/`Double(_:)` are strict.
+- **S6.x-H-A — a `.m`-private block typedef becomes a `private typealias`; a public one becomes a nested `public typealias Completion`.** Both bridge to the same block type, so ObjC call sites keep their literal blocks.
+- **S6.x-H-B — a dead `@strongify` nil-check inside a synchronous block is not ported;** record it as unreachable.
+- **S6.x-J-A — a non-final Swift base with a protocol `init` requirement needs `required init`.** Subclasses that add no designated initializers (`AdLoadManagerVAST`, the test mock) inherit it.
+- **S6.x-J-C — a `*_Objc` class behind a `Factory.swift` `NSClassFromString` lookup becomes an internal `final` Swift class constructed directly by the factory method.** The `@objc` name, the `TransactionFactoryType` static and the `as!` force-cast disappear. Only valid when no ObjC code looks the name up (measured). Done for `TransactionFactoryImpl` + `VastTransactionFactory`.
+- **S6.x-J-D — `@objc(PBM...)` bridge names on now-Swift-only classes** (`AdLoadManagerBase`/`VAST`, `AdRequesterVAST`, the VAST models) are kept for runtime-name stability, as for `InterstitialLayoutConfigurator`. Candidates to drop in S9.x.
+
+**Phase 6 closed with `PBMVideoCreative` (and `PBMVastGlobals.{h,m}`) left in ObjC — do not ask to complete it here.** `PBMVideoCreative` subclasses `PBMAbstractCreative_Objc`, which lives in the ObjC SPM target `__PrebidMobileInternal`; the Swift `PrebidMobile` target cannot see it, so a Swift subclass would break `buildPrebidMobilePackage.sh`.
+It also depends on `PBMOpenMeasurementWrapper`/`PBMOpenMeasurementSession` (Phase 8) and the `PBMAbstractCreative+Protected.h` continuation. A composition wrapper would be a throwaway seam of the kind S4.5-B rejects. `PBMVastGlobals.m` keeps only the `NS_TYPED_ENUM` `PBMVastRequiredMode` constants (S6.1-C).
+
+## Hand-off: what Phase 7 inherits (Phase 6 closed)
 
 Phases 4 and 5 were closed without everything the plan assigned to them (S4.5-B, S5.x-scope). Nothing below is
 new scope — it is the deferred work, gathered so the next implementor does not have to reconstruct it. Per S4.1-B,
 re-measure and re-trace dependencies before splitting into PRs; the list below is the state at the end of Phase 5.
 
-**Phase 6 (VAST/video) inherits**
-
-- `PBMAdLoadManagerBase` + `PBMAdLoadManagerVAST` — port the pair together. Porting `Base` alone means moving
-  `PBMAdLoadManagerProtocol` / `PBMAdLoadManagerDelegate` to Swift `@objc` protocols and rewriting
-  `MockPBMAdLoadManagerVAST` and `PBMAdLoadManager+pbmTestExtension.h` (a class extension cannot re-open a Swift class, S3.1-C),
-  without unblocking anything on its own.
-- The VAST cluster: `PBMAdRequesterVAST`, `PBMAdRequestResponseVAST`, `PBMCreativeModelCollectionMakerVAST`
-  (they import the unported `PBMVast*` parser/response classes).
-- `PBMVideoCreative`, `PBMVideoView` (with `PBMVideoViewDelegate.h`, `PBMVideoViewPlaybackState.h`).
-- From Phase 4, **right after `AdLoadManager`:** `PBMVastTransactionFactory` and `PBMTransactionFactory_Objc`; then delete
-  `PBMVastTransactionFactory.h`, `PBMTransactionFactoryCallback.h` and the `PBMTransactionFactory_Objc` `NSClassFromString`
-  target in `Factory.swift` (S4.5-B).
-- `PBMVideoCreative` is a prerequisite for `PBMCreativeFactoryJob` (it instantiates it and calls
-  `PBMVideoCreative.maxSizeForPreRenderContent`).
+**Phase 6 outcome.** Done: the whole VAST cluster (models, parser, requester, ads builder, model maker), `AdLoadManagerBase`/`AdLoadManagerVAST`/`AdRequesterVAST`,
+the two load-manager protocols, `VastTransactionFactory` + `TransactionFactoryImpl` (the `Factory.swift` `NSClassFromString` lookup is gone), and `VideoView` with its delegate and playback state.
+The S4.5-B list ("Phase 6 must pick these up") is fulfilled. Deferred to Phase 7: `PBMVideoCreative` (S6 hand-off below).
 
 **Phase 7 (HTML/MRAID) inherits**
 
 - `PBMWebView` (+ `PBMWebView+Internal.h`, `PBMWebViewDelegate.h`), `PBMMRAIDController`, `PBMMRAIDJavascriptCommands`,
   `PBMExposureChangeDelegate.h`. `PBMWebView` also keeps Gap 4 alive (it still reads the Phase 1 ORTB models).
 - `PBMSafariVCOpener` (deferred from Phase 4, S4.1-B; its only consumer is `PBMAbstractCreative.m`).
+- `PBMVideoCreative` (deferred from Phase 6): port it with `PBMAbstractCreative`/`PBMHTMLCreative` (S6 gaps). It is the last ObjC user of `VideoView`; once it moves, call `VideoView(eventManager:)`/`VideoView(creative:)` directly, drop the `@objc` annotations on the view's members and delete the six `videoView…` selectors re-declared in `PBMVideoCreative.h`. `PBMMRAIDController.m` also still calls `PBMVideoView`.
 - `PBMAbstractCreative`: the base class of `PBMHTMLCreative` and `PBMVideoCreative`, so it cannot move before both
   subclasses can move with it. It also imports `PBMSafariVCOpener`, `PBMDeepLinkPlusHelper`, `PBMWindowLocker` and the OMSDK
   wrappers (Phase 8 owns the `PBMOpenMeasurementWrapper.shared` singleton).
@@ -305,13 +322,11 @@ exists, and ObjC callers still reach `ModalState`/`AdViewManager` through `PBMFa
 `ModalStateImpl`'s `as? WebView_Protocol` cast (S5.1-A) should be revisited and `PBMModalState.h` deleted
 (see Post-migration cleanup list).
 
-**Caveats.** The claim that an ObjC `PBMAdLoadManagerVAST` can subclass a Swift `AdLoadManagerBase` is inferred and
-**not compiled** (S5.x-scope) — prove it with a spike before depending on it. `PBMDeferredModalState` is dead code and is
-not part of any phase; leave it for the cleanup list.
+**Caveat (resolved).** The S5.x-scope claim that an ObjC class could subclass a Swift `AdLoadManagerBase` was disproved by the Phase 6 spike (S6.1-A). `PBMDeferredModalState` is dead code and is not part of any phase; leave it for the cleanup list.
 
 ## Orphan headers — `.h` files with no `.m` (inventoried S3.2)
 
-**36 headers under `PrebidMobile/Objc/` have no matching `.m`** (was 39; S4.3/S4.3b deleted 4 once their last importers were ported; S5.1 added `PBMModalState.h` when its `.m` was ported, S5.0 deleted `PBMInterstitialLayoutConfigurator.h` with its `.m`): block typedefs, `@protocol`s, macro headers, class-continuation headers, `NS_ENUM`s, umbrella headers, categories on system classes. None is "ported" individually — each is **retired when its last importer is ported**. 2 dead + 25 tied to a named `.m` + 5 tied to the test bridging header + 4 shared-infrastructure = 36.
+**28 headers under `PrebidMobile/Objc/` have no matching `.m`** (was 36 before Phase 6, which retired 8: `PBMAdLoadManagerDelegate.h`, `PBMAdLoadManagerProtocol.h`, `PBMCreativeModelMakerResult.h`, `PBMTransactionFactoryCallback.h`, `PBMVastResourceContainerProtocol.h`, `PBMVideoViewDelegate.h`, `PBMVideoViewPlaybackState.h`, `PBMVastParser+Private.h`; was 39 before Phase 4; S4.3/S4.3b deleted 4 once their last importers were ported; S5.1 added `PBMModalState.h` when its `.m` was ported, S5.0 deleted `PBMInterstitialLayoutConfigurator.h` with its `.m`): block typedefs, `@protocol`s, macro headers, class-continuation headers, `NS_ENUM`s, umbrella headers, categories on system classes. None is "ported" individually — each is **retired when its last importer is ported**. 2 dead + 18 tied to a named `.m` + 4 tied to the test bridging header + 4 shared-infrastructure = 28.
 
 S4.4 deleted `PBMExternalLinkHandler.{h,m}`, `PBMExternalURLOpenCallbacks.{h,m}`,
 `PBMExternalURLOpeners.{h,m}`, `PBMTrackingURLVisitors.{h,m}` (all had matching `.m`s — not part of
@@ -339,9 +354,6 @@ comm -23 \
 | Header | Kind | Retired with |
 |--------|------|--------------|
 | `PBMAbstractCreative+Protected.h` | class continuation | `PBMAbstractCreative.m`, `PBMHTMLCreative.m`, `PBMVideoCreative.m` |
-| `PBMAdLoadManagerDelegate.h` | `@protocol` | `PBMAdLoadManagerBase.m` (S5.2: dropped `PBMAdViewManager.m` — ported to Swift; also still imported by the test bridging header) |
-| `PBMAdLoadManagerProtocol.h` | `@protocol` | `PBMAdLoadManagerBase.m` (S5.2: dropped `PBMAdViewManager.m` — ported to Swift; also still imported by the test bridging header) |
-| `PBMCreativeModelMakerResult.h` | block typedef | `PBMCreativeModelCollectionMakerVAST.m` |
 | `PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h` | class continuation | `PBMDeepLinkPlusHelper.m` |
 | `PBMExposureChangeDelegate.h` | `@protocol` | `PBMWebView.m`, `PBMMRAIDController.m` |
 | `PBMExternalURLOpenerBlock.h` | block typedef | `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMExternalURLOpeners.m`/`PBMExternalLinkHandler.m` — both ported to Swift) |
@@ -352,13 +364,9 @@ comm -23 \
 | `PBMScheduledTimerFactory.h` | block typedef | `PBMCreativeViewabilityTracker.m` |
 | `PBMTimerInterface.h` | forward decl | via `PBMScheduledTimerFactory.h` → `PBMCreativeViewabilityTracker.m` |
 | `PBMTrackingURLVisitorBlock.h` | block typedef | `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMTrackingURLVisitors.m`/`PBMExternalLinkHandler.m` — both ported to Swift; added a direct import here since it was previously pulled in transitively) |
-| `PBMTransactionFactoryCallback.h` | block typedef | `PBMVastTransactionFactory.m` (S4.5: dropped `PBMDisplayTransactionFactory.m` — ported to Swift) |
 | `PBMUIApplicationProtocol.h` | forward decl | via `PBMDeepLinkPlusHelper+Testing.h` → `PBMDeepLinkPlusHelper.m`, `PBMHTMLCreative+pbmTestExtension.h` (S2.5-E seam) (S4.4: dropped `PBMExternalURLOpeners.m` — ported to Swift) |
 | `PBMURLOpenAttempterBlock.h` | block typedef | `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMExternalLinkHandler.m` — ported to Swift) |
 | `PBMURLOpenResultHandlerBlock.h` | block typedef | (S4.4: dropped `PBMExternalURLOpenCallbacks.m`/`PBMExternalURLOpeners.m` — both ported to Swift; only imported transitively via `PBMExternalURLOpenerBlock.h` now, no direct `.m` importer left) |
-| `PBMVastResourceContainerProtocol.h` | `@protocol` | `PBMVastParser.m`, `PBMVastIcon.m`, `PBMVastCreativeNonLinearAdsNonLinear.m`, `PBMVastCreativeCompanionAdsCompanion.m` |
-| `PBMVideoViewDelegate.h` | `@protocol` | `PBMVideoView.m`, `PBMVideoCreative.m` |
-| `PBMVideoViewPlaybackState.h` | `NS_ENUM` | `PBMVideoView.m` |
 | `PBMViewControllerProvider.h` | block typedef | `PBMSafariVCOpener.m` |
 | `PBMVoidBlock.h` | block typedef | `PBMOpenMeasurementWrapper.m`, `PBMSafariVCOpener.m`, `PBMDeferredModalState.m` (dead — see Post-migration cleanup), `PBMAbstractCreative.m`, plus via `PBMExternalURLOpenerBlock.h` → `PBMDeepLinkPlusHelper.m` (S4.4: dropped `PBMExternalURLOpenCallbacks.m` — ported to Swift) |
 | `PBMWebView+Internal.h` | class continuation | `PBMWebView.m` |
@@ -370,7 +378,6 @@ Reducing rather than deleting is sometimes right mid-phase — see S2.1-G (`@pro
 
 | Header | Kind |
 |--------|------|
-| `PBMVastParser+Private.h` | class continuation |
 | `WKNavigationAction+PBMWKNavigationActionCompatible.h` | category on a system class |
 | `WKWebView+PBMWKWebViewCompatible.h` | category on a system class |
 | `PBMWKNavigationActionCompatible.h` | `@protocol` (imported only by the category above) |

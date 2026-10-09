@@ -15,7 +15,6 @@
 
 //Superclass
 #import "PBMAbstractCreative.h"
-#import "PBMVideoViewDelegate.h"
 
 @class PBMCreativeModel;
 @class PBMRewardedConfig;
@@ -28,6 +27,13 @@
 - (nonnull instancetype)initWithCreativeModel:(nonnull PBMCreativeModel *)creativeModel
                                   transaction:(nonnull id<PBMTransaction>)transaction
                                     videoData:(nonnull NSData *)data;
+
+- (void)videoViewFailedWithError:(NSError *)error NS_SWIFT_NAME(videoViewFailedWithError(_:));
+- (void)videoViewReadyToDisplay;
+- (void)videoViewCompletedDisplay;
+- (void)videoViewWasTapped;
+- (void)videoViewCurrentPlayingTime:(NSNumber *)currentPlayingTime NS_SWIFT_NAME(videoViewCurrentPlayingTime(_:));
+- (void)learnMoreWasClicked;
 
 - (void)close;
 

@@ -18,21 +18,21 @@ import Foundation
 import XCTest
 import CoreFoundation
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVastLoaderCheckForAds : XCTestCase {
     
     let sdkConfiguration = Prebid.mock
     
-    var wrapper1:PBMVastWrapperAd! = nil
-    var wrapper2:PBMVastWrapperAd! = nil
-    var inline:PBMVastInlineAd! = nil
+    var wrapper1:VastWrapperAd! = nil
+    var wrapper2:VastWrapperAd! = nil
+    var inline:VastInlineAd! = nil
     
-    var response1:PBMVastResponse!
-    var response2:PBMVastResponse!
-    var response3:PBMVastResponse!
+    var response1:VastResponse!
+    var response2:VastResponse!
+    var response3:VastResponse!
     
-    var vastAdsBuilder:PBMVastAdsBuilder?
+    var vastAdsBuilder:VastAdsBuilder?
     
     var expectationResponse1ErrorURICalled:XCTestExpectation!
     var expectationResponse2ErrorURICalled:XCTestExpectation!
@@ -41,15 +41,15 @@ class PBMVastLoaderCheckForAds : XCTestCase {
     override func setUp() {
         
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
-        self.vastAdsBuilder = PBMVastAdsBuilder(connection: connection)
+        self.vastAdsBuilder = VastAdsBuilder(connection: connection)
         
-        wrapper1 = PBMVastWrapperAd()
-        wrapper2 = PBMVastWrapperAd()
-        inline = PBMVastInlineAd()
+        wrapper1 = VastWrapperAd()
+        wrapper2 = VastWrapperAd()
+        inline = VastInlineAd()
         
-        response1 = PBMVastResponse()
-        response2 = PBMVastResponse()
-        response3 = PBMVastResponse()
+        response1 = VastResponse()
+        response2 = VastResponse()
+        response3 = VastResponse()
         
         response1.noAdsResponseURI = "http://response1/noAds"
         response2.noAdsResponseURI = "http://response2/noAds"
