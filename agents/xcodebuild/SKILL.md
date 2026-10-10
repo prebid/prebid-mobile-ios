@@ -7,7 +7,7 @@ Run xcodebuild tests for this iOS project. The workspace is `PrebidMobile.xcwork
 
 ## Available schemes
 
-- `PrebidMobileTests` — core SDK unit tests (694 tests in PR plan, 1111 in full plan)
+- `PrebidMobileTests` — core SDK unit tests (982 tests in PR plan, 1394 in full plan)
 - `PrebidMobileGAMEventHandlersTests` — GAM adapter tests
 - `PrebidMobileAdMobAdaptersTests` — AdMob adapter tests
 - `PrebidMobileMAXAdaptersTests` — MAX adapter tests
@@ -22,10 +22,10 @@ Always use the project scripts, not raw xcodebuild, for build and test:
 # Build all 4 XCFrameworks — run first after every migration step
 ./scripts/buildPrebidMobile.sh
 
-# PR subset — 694 tests, gate for migration PRs
+# PR subset — 982 tests, gate for migration PRs
 ./scripts/testPrebidMobile.sh --latest --quick
 
-# Full suite — 1111 tests, run on final commit of each phase
+# Full suite — 1394 tests, run on final commit of each phase
 ./scripts/testPrebidMobile.sh --latest
 ```
 
