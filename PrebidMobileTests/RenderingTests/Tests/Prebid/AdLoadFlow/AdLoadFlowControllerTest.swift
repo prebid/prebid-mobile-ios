@@ -19,7 +19,7 @@ import XCTest
 @_spi(PBMInternal) @testable import PrebidMobile
 
 class AdLoadFlowControllerTest: XCTestCase {
-    private typealias CompositeMock = PBMAdLoadFlowControllerTest_CompositeMock
+    private typealias CompositeMock = AdLoadFlowControllerTest_CompositeMock
     
     override func setUp() {
         super.setUp()
