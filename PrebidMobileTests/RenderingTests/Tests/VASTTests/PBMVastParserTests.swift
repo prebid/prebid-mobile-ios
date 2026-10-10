@@ -72,6 +72,18 @@ class PBMVastParserTests: XCTestCase {
         XCTAssertNotNil(pbmVastParser.parseAdsResponse(xmlData))
     }
     
+    func testVastParserNoAdsResponseErrorURI() {
+        let xmlString = """
+        <VAST version="3.0">
+            <Error><![CDATA[https://example.com/vast-error]]></Error>
+        </VAST>
+        """
+        let parser = VastParser()
+        let response = parser.parseAdsResponse(Data(xmlString.utf8))
+        XCTAssertNotNil(response)
+        XCTAssertEqual(response?.noAdsResponseURI, "https://example.com/vast-error")
+    }
+    
     // MARK: - Test Parse Resource
     
     func testParseResourceCreativeCompanionStaticType() {

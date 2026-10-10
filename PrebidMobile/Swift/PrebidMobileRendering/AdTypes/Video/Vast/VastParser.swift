@@ -321,7 +321,7 @@ import Foundation
         case "Error":
             if Array(elementPath.prefix(2)) == ["VAST", "Ad"] {
                 ad?.errorURIs.add(currentElementContent)
-            } else if elementPath == ["VAST", "Ad"] {
+            } else if elementPath == ["VAST", "Error"] {
                 parsedResponse?.noAdsResponseURI = currentElementContent
             }
 
