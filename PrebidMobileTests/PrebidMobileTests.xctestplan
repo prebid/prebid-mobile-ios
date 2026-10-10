@@ -18,11 +18,8 @@
         "AdUnitTests\/testFetchDemandAutoRefresh()",
         "AdUnitTests\/testFetchDemandBidsAutoRefresh()",
         "AutoRefreshManagerTest\/testPostponeWithSetupRefresh()",
-        "PBMAutoRefreshManagerTest\/testAllowRefreshOnSecondAtempt()",
         "PBMCreativeFactoryTest\/testCreativeFactorySuccess()",
-        "PBMWebViewTest\/testDecidePolicyForNavigationActionUnprocessingCases()",
-        "RequestBuilderTests\/testPostDataWithShareLocationOff()",
-        "RequestBuilderTests\/testPostDataWithShareLocationOn()"
+        "PBMWebViewTest\/testDecidePolicyForNavigationActionUnprocessingCases()"
       ],
       "target" : {
         "containerPath" : "container:PrebidMobile.xcodeproj",
