@@ -50,6 +50,11 @@ class GADRewardedAdWrapper {
         set { rewardedAd?.adMetadataDelegate = newValue }
     }
     
+    public var fullScreenContentDelegate: GoogleMobileAds.FullScreenContentDelegate? {
+        get { rewardedAd?.fullScreenContentDelegate }
+        set { rewardedAd?.fullScreenContentDelegate = newValue }
+    }
+    
     public var reward: GoogleMobileAds.AdReward? {
         rewardedAd?.adReward
     }
@@ -105,6 +110,8 @@ class GADRewardedAdWrapper {
         let selectors = [
             #selector(getter: GoogleMobileAds.RewardedAd.adMetadataDelegate),
             #selector(setter: GoogleMobileAds.RewardedAd.adMetadataDelegate),
+            #selector(getter: GoogleMobileAds.RewardedAd.fullScreenContentDelegate),
+            #selector(setter: GoogleMobileAds.RewardedAd.fullScreenContentDelegate),
             #selector(getter: GoogleMobileAds.RewardedAd.adMetadata),
             #selector(getter: GoogleMobileAds.RewardedAd.adReward),
             #selector(GoogleMobileAds.RewardedAd.present(from:userDidEarnRewardHandler:)),

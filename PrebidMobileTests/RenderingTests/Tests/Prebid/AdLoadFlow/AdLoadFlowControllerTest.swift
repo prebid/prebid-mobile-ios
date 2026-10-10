@@ -878,4 +878,87 @@ class AdLoadFlowControllerTest: XCTestCase {
         XCTAssertEqual(compositeMock.getProgress().done, 13)
         compositeMock.checkIsFinished()
     }
+    
+    // One flow controller serves every load of an ad unit (banner refreshes, interstitial
+    // and rewarded reloads), so a load won by Prebid must not report the ad of an earlier
+    // load won by the primary ad server.
+    func testPrimaryWinThenPrebidWinReportsPrebidAd() {
+        let adUnitConfig = AdUnitConfig(configId: "configID")
+        var flowController: AdLoadFlowController!
+        var compositeMock: CompositeMock!
+        let primaryAd = NSObject()
+        let prebidAd = NSObject()
+        var secondReported: AnyObject?
+        let firstReported = expectation(description: "first success")
+        let secondReportedExpectation = expectation(description: "second success")
+        
+        compositeMock = CompositeMock(expectedCalls: [
+            // Load 1: the primary ad server wins
+            .configValidation(call: { _, renderWithPrebid in
+                XCTAssertFalse(renderWithPrebid)
+                return true
+            }),
+            .flowControllerDelegate(call: .willSendBidRequest(handler: { _ in })),
+            .makeBidRequester(handler: { _, mockRequester in mockRequester }),
+            .bidRequester(call: (requesterOffset: 0, { completion in
+                completion(try! BidResponseTransformer.transform(BidResponseTransformer.someValidResponse), nil)
+            })),
+            .flowControllerDelegate(call: .shouldContinue(handler: { _ in true })),
+            .flowControllerDelegate(call: .willRequestPrimaryAd(handler: { _ in })),
+            .adLoader(call: .setFlowDelegate(handler: { _ in })),
+            .adLoader(call: .primaryAdRequester(provider: { compositeMock.mockPrimaryAdRequester })),
+            .primaryAdRequester(call: { _ in
+                flowController.adLoader(compositeMock.mockAdLoader, loadedPrimaryAd: primaryAd, adSize: nil)
+            }),
+            .flowControllerDelegate(call: .shouldContinue(handler: { _ in true })),
+            .adLoader(call: .reportSuccess(handler: { ad, _ in
+                XCTAssertIdentical(ad, primaryAd)
+                firstReported.fulfill()
+                flowController.refresh()
+            })),
+            // Load 2: Prebid wins
+            .configValidation(call: { _, renderWithPrebid in
+                XCTAssertFalse(renderWithPrebid)
+                return true
+            }),
+            .flowControllerDelegate(call: .willSendBidRequest(handler: { _ in })),
+            .makeBidRequester(handler: { _, mockRequester in mockRequester }),
+            .bidRequester(call: (requesterOffset: 1, { completion in
+                completion(try! BidResponseTransformer.transform(BidResponseTransformer.someValidResponse), nil)
+            })),
+            .flowControllerDelegate(call: .shouldContinue(handler: { _ in true })),
+            .flowControllerDelegate(call: .willRequestPrimaryAd(handler: { _ in })),
+            .adLoader(call: .setFlowDelegate(handler: { _ in })),
+            .adLoader(call: .primaryAdRequester(provider: { compositeMock.mockPrimaryAdRequester })),
+            .primaryAdRequester(call: { _ in
+                flowController.adLoaderDidWinPrebid(compositeMock.mockAdLoader)
+            }),
+            .configValidation(call: { _, renderWithPrebid in
+                XCTAssertTrue(renderWithPrebid)
+                return true
+            }),
+            .adLoader(call: .createPrebidAd(handler: { _, _, adSaver, adLoadHandler in
+                adSaver(prebidAd)
+                adLoadHandler {
+                    flowController.adLoaderLoadedPrebidAd(compositeMock.mockAdLoader)
+                }
+            })),
+            .flowControllerDelegate(call: .shouldContinue(handler: { _ in true })),
+            .adLoader(call: .reportSuccess(handler: { ad, _ in
+                secondReported = ad
+                secondReportedExpectation.fulfill()
+            })),
+        ])
+        
+        flowController = AdLoadFlowController(bidRequesterFactory: compositeMock.mockRequesterFactory,
+                                              adLoader: compositeMock.mockAdLoader,
+                                              adUnitConfig: adUnitConfig,
+                                              delegate: compositeMock.mockFlowControllerDelegate,
+                                              configValidationBlock: compositeMock.mockConfigValidator)
+        flowController.refresh()
+        wait(for: [firstReported, secondReportedExpectation], timeout: 3)
+        
+        XCTAssertIdentical(secondReported, prebidAd)
+        compositeMock.checkIsFinished()
+    }
 }
