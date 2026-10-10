@@ -603,6 +603,7 @@
 		925D5DA32737C3C900A8A2B5 /* PBMAppInfoParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA22737C3C900A8A2B5 /* PBMAppInfoParameterBuilderTest.swift */; };
 		925D5DA52737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA42737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift */; };
 		925D5DA72737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DA62737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift */; };
+		925D5DAB2737C4F600A8A2B5 /* AdLoadFlowControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DAA2737C4F600A8A2B5 /* AdLoadFlowControllerTest.swift */; };
 		925D5DAD2737C51800A8A2B5 /* AdLoadFlowControllerTest_CompositeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DAC2737C51800A8A2B5 /* AdLoadFlowControllerTest_CompositeMock.swift */; };
 		925D5DAF2737C53200A8A2B5 /* MockAdLoadFlowControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DAE2737C53200A8A2B5 /* MockAdLoadFlowControllerDelegate.swift */; };
 		925D5DB12737C54500A8A2B5 /* MockAdLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5DB02737C54500A8A2B5 /* MockAdLoader.swift */; };
@@ -3790,6 +3791,7 @@
 				925D5DA72737C44B00A8A2B5 /* PrebidParameterBuilderTest.swift in Sources */,
 				925D5DA52737C3EA00A8A2B5 /* PBMUserConsentParameterBuilderTest.swift in Sources */,
 				922AFD002737103200732C53 /* PBMWebViewObjCTest.m in Sources */,
+				925D5DAB2737C4F600A8A2B5 /* AdLoadFlowControllerTest.swift in Sources */,
 				925D5DAD2737C51800A8A2B5 /* AdLoadFlowControllerTest_CompositeMock.swift in Sources */,
 				53019E6127E9E40700D509C1 /* LogTest.swift in Sources */,
 				FAEE4DBA262DCBB800AD9966 /* Swizzling.swift in Sources */,
