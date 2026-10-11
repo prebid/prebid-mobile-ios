@@ -674,6 +674,7 @@
 		A908694629E05F7900B37479 /* PrebidRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A908694529E05F7900B37479 /* PrebidRenderer.swift */; };
 		A9D01DE1E7594F359AF84A11 /* ORTBParityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E618F8CC072D420CBB717375 /* ORTBParityHelper.swift */; };
 		AC62751CA69E420B30402C86 /* ViewExposureChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8812D3C5C59838EE2DDB8F3A /* ViewExposureChecker.swift */; };
+		ACB14E40DFDCA4341A35FC3A /* VastCreativeLinearTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53EA1DFD25E0E22EFF42EE2 /* VastCreativeLinearTest.swift */; };
 		ADD3585F76171F02AD580598 /* ORTBDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D31DE1AFA14ABA663192C /* ORTBDevice.swift */; };
 		B125F3F2B9BC171A76DEB367 /* ORTBFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68664B988D627C36D0583E20 /* ORTBFormat.swift */; };
 		B23ACFDEF40CC3F2FA412FFB /* VastParserParityCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B25906363BD07BFC5BD7643 /* VastParserParityCases.swift */; };
@@ -693,8 +694,10 @@
 		C0D3A0060000000000000001 /* NativeAdTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D3A0050000000000000001 /* NativeAdTestHelpers.swift */; };
 		C164DD4EE669226113915B4D /* VastAdsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B589B983A66F5068DF59A31 /* VastAdsBuilder.swift */; };
 		C26ACE8901E12109F3D13107 /* AdLoadManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC5F69315CB8E2BBB2B65A /* AdLoadManagerProtocol.swift */; };
+		C762B0BDCF449839A116C400 /* VastResponseFlattenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154530B7BDB688C5495E0AA2 /* VastResponseFlattenTest.swift */; };
 		CAB9AEF3BC5540C81D635275 /* UIView+PBMViewExposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABD5E3359D7378A5ABF80E9 /* UIView+PBMViewExposure.swift */; };
 		CB42362D09DAFEF27BAE4C16 /* ExternalLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4888B94D24C64BB4FB166C4B /* ExternalLinkHandler.swift */; };
+		CC9CE64F5531E0D742C06C2C /* TransactionFactoryImplTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAF9ACA9EF527765CC38A2A /* TransactionFactoryImplTest.swift */; };
 		CFEC221403DFC8920408C374 /* ORTBPmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3871C59520F7BB233C8E9387 /* ORTBPmp.swift */; };
 		D33B948606516DBD28289FF3 /* WeakTimerTargetBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ECD8AB93F68F7FE8ED363D /* WeakTimerTargetBox.swift */; };
 		D35849A4D9C64564D88398B5 /* ClickTrackingBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C887C73587A3DFEA520FEBA7 /* ClickTrackingBlocks.swift */; };
@@ -821,6 +824,7 @@
 		0F1079EFFA07871AF2F2B2E8 /* VastParserParityExpectations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastParserParityExpectations.swift; sourceTree = "<group>"; };
 		11D5DA2A315BDB51BC521E9F /* VastCreativeCompanionAdsCompanion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastCreativeCompanionAdsCompanion.swift; sourceTree = "<group>"; };
 		153E6501E30543AE6EF3B80F /* VastResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastResponse.swift; sourceTree = "<group>"; };
+		154530B7BDB688C5495E0AA2 /* VastResponseFlattenTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastResponseFlattenTest.swift; sourceTree = "<group>"; };
 		1E2522632FC00923D8008E59 /* VastWrapperAd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastWrapperAd.swift; sourceTree = "<group>"; };
 		1F12838B16AF520EC1E7FB80 /* Functions+Testing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Functions+Testing.swift"; sourceTree = "<group>"; };
 		20DA26A93B47D46056A9D579 /* InternalUserConsentDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InternalUserConsentDataManager.swift; sourceTree = "<group>"; };
@@ -843,6 +847,7 @@
 		3996B77BA1A2119C714F103A /* ORTBApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBApp.swift; sourceTree = "<group>"; };
 		3CD0ADED2C5125E9006CDA6B /* PluginRegisterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginRegisterTest.swift; sourceTree = "<group>"; };
 		3CD0ADF22C512E5E006CDA6B /* RawSampleCustomRendererBidFabricator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawSampleCustomRendererBidFabricator.swift; sourceTree = "<group>"; };
+		3DAF9ACA9EF527765CC38A2A /* TransactionFactoryImplTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TransactionFactoryImplTest.swift; sourceTree = "<group>"; };
 		4147DBDA12F19627E087C958 /* ExternalURLOpenCallbacks.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ExternalURLOpenCallbacks.swift; sourceTree = "<group>"; };
 		41BE7BE833C871ED33B7D670 /* ModalStateImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ModalStateImpl.swift; sourceTree = "<group>"; };
 		4404B3DFFA15E3C0EA70A691 /* ORTBBidRequestExtPrebid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBBidRequestExtPrebid.swift; sourceTree = "<group>"; };
@@ -1514,6 +1519,7 @@
 		ED245A104A112F097C6593E5 /* ORTBAppExt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBAppExt.swift; sourceTree = "<group>"; };
 		F075B5FDD474004A94EDC6E2 /* AdViewManagerImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdViewManagerImpl.swift; sourceTree = "<group>"; };
 		F0FF808E2429C7F22C8C7888 /* AdRequestResponseVAST.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdRequestResponseVAST.swift; sourceTree = "<group>"; };
+		F53EA1DFD25E0E22EFF42EE2 /* VastCreativeLinearTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastCreativeLinearTest.swift; sourceTree = "<group>"; };
 		F5D40071933E258EF6A2F222 /* DownloadDataHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DownloadDataHelper.swift; sourceTree = "<group>"; };
 		F9F0999C2C78CC8A007DB464 /* SDKConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConsoleLogger.swift; sourceTree = "<group>"; };
 		FA12590120260425000000A2 /* FunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionsTests.swift; sourceTree = "<group>"; };
@@ -3056,6 +3062,9 @@
 				2B25906363BD07BFC5BD7643 /* VastParserParityCases.swift */,
 				0F1079EFFA07871AF2F2B2E8 /* VastParserParityExpectations.swift */,
 				267DB939A3FF39911A166671 /* VastParserParityTests.swift */,
+				154530B7BDB688C5495E0AA2 /* VastResponseFlattenTest.swift */,
+				F53EA1DFD25E0E22EFF42EE2 /* VastCreativeLinearTest.swift */,
+				3DAF9ACA9EF527765CC38A2A /* TransactionFactoryImplTest.swift */,
 			);
 			path = VASTTests;
 			sourceTree = "<group>";
@@ -3832,6 +3841,9 @@
 				B23ACFDEF40CC3F2FA412FFB /* VastParserParityCases.swift in Sources */,
 				05B48418672D7FA6746D0CA8 /* VastParserParityExpectations.swift in Sources */,
 				60C00EA45D38F02749155C4A /* VastParserParityTests.swift in Sources */,
+				C762B0BDCF449839A116C400 /* VastResponseFlattenTest.swift in Sources */,
+				ACB14E40DFDCA4341A35FC3A /* VastCreativeLinearTest.swift in Sources */,
+				CC9CE64F5531E0D742C06C2C /* TransactionFactoryImplTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

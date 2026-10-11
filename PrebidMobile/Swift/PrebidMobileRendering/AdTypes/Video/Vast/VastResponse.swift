@@ -45,6 +45,7 @@ import Foundation
     @objc(flattenResponseAndReturnError:)
     public func flattenResponse() throws -> [VastAbstractAd] {
         var inlineAdAccumulator = [VastAbstractAd]()
+        var nestedError: Error?
 
         for ad in vastAbstractAds {
             if let inlineAd = ad as? VastInlineAd {
@@ -55,12 +56,18 @@ import Foundation
                     throw Self.error(message: "No nextResponse on a wrapper", type: PBMErrorType.serverError)
                 }
 
-                // Start by "flattening" it such that any Wrappers Ads in its ads array are resolved into Inline Ads.
-                let inlineAdsFromWrapper = try unwrappedVastResponse.flattenResponse()
+                do {
+                    // Start by "flattening" it such that any Wrappers Ads in its ads array are resolved into Inline Ads.
+                    let inlineAdsFromWrapper = try unwrappedVastResponse.flattenResponse()
 
-                // Copy our tracking info onto the inline ads
-                unwrappedVastResponse.copyTracking(fromWrapper: wrapper, toInlineAds: inlineAdsFromWrapper)
-                inlineAdAccumulator.append(contentsOf: inlineAdsFromWrapper)
+                    // Copy our tracking info onto the inline ads
+                    unwrappedVastResponse.copyTracking(fromWrapper: wrapper, toInlineAds: inlineAdsFromWrapper)
+                    inlineAdAccumulator.append(contentsOf: inlineAdsFromWrapper)
+                } catch {
+                    // The ObjC left the nested error in its out-param and went on with the remaining ads;
+                    // its only caller fails when that out-param is set.
+                    nestedError = error
+                }
             } else {
                 throw Self.error(message: "Encountered unexpected class type: \(ad)", type: PBMErrorType.internalError)
             }
@@ -69,6 +76,10 @@ import Foundation
         // Post-flattening, we should have at least 1 ad
         if inlineAdAccumulator.isEmpty {
             throw Self.error(message: "No Inline Ads found during wrapper flattening", type: PBMErrorType.internalError)
+        }
+
+        if let nestedError {
+            throw nestedError
         }
 
         return inlineAdAccumulator

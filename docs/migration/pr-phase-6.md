@@ -53,15 +53,14 @@ Swift types forbid the ObjC behavior, or the ObjC behavior was a crash / nil-mes
 | 1 | `VastParser`, a `Companion`/`NonLinear`/`Icon`/`MediaFile` element inside a creative of another class | unchecked C-cast; continued and later raised "unrecognized selector" | `as?`; logs the same error and returns | **forced**; malformed documents only |
 | 2 | `VastParser`, `<Error>` as the document root | `subarrayWithRange` raised `NSRangeException` | ignored | **forced**; malformed documents only |
 | 3 | `CreativeModelCollectionMakerVAST`, a wrapper ad as the first ad | unchecked `(PBMVastInlineAd *)` cast; crashed | returns the "No creative" error | **forced** |
-| 4 | `VastResponse.flattenResponse`, nested flatten failure | went on with `nil` and `addObjectsFromArray:nil` (raised) | returns the error immediately | **forced**; the ObjC path was a crash |
-| 5 | `VideoView.showMediaFileURL`, nil URL/data in Debug | `NSAssert` crash in Debug, log in Release | logs and returns in both | Debug-only difference |
-| 6 | `VideoView.addFriendlyObstructions`, nil `btnLearnMore`/`progressBar` | forwarded `nil` to the OM session (it logged an error) | skips the absent view | **forced** (`OMSession` takes a non-optional view); one fewer error log |
-| 7 | `VideoView.handleSkipDelay` | raw `dispatch_time_t` from `Functions` | `asyncAfter` with the delay clamped to `[0, 3e9]` s, NaN → 0 | equivalent; avoids the S2.1-C double-scaling trap |
-| 8 | `VideoView` resource loader, `start + requestedLength` overflow | wrapped, then failed the `end > dataLength` check | `addingReportingOverflow`, same failure | found in review: plain `+` would have trapped |
-| 9 | `AdLoadManager` `failedToLoad`, transaction parameter | `nil` from request/maker failure, real transaction from `transactionFailedToLoad` | `AdLoadManagerDelegate.loadManager(_:failedToLoad: Transaction?, error:)` keeps the Optional | same; note the mismatch with the non-optional `TransactionDelegate.transactionFailedToLoad` |
-| 10 | `AdRequesterVAST.loadVASTURL` | declared only in the `.m`, no callers | ported as an internal func, still no callers | dead; kept so `VastRequester` keeps a user; cleanup list |
-| 11 | `VastAbstractAd.identifier`/`adSystem`/`adSystemVersion`, `VastIcon.program`, `VastCreativeAbstract.requiredMode` | `nil` until assigned | `""` | equivalent on reachable paths (the parser always assigns) |
-| 12 | `VastCreativeAbstract.adId` | Swift name `AdId` (`NS_SWIFT_NAME`) | `adId` | two tests updated; ObjC selector unchanged |
+| 4 | `VideoView.showMediaFileURL`, nil URL/data in Debug | `NSAssert` crash in Debug, log in Release | logs and returns in both | Debug-only difference |
+| 5 | `VideoView.addFriendlyObstructions`, nil `btnLearnMore`/`progressBar` | forwarded `nil` to the OM session (it logged an error) | skips the absent view | **forced** (`OMSession` takes a non-optional view); one fewer error log |
+| 6 | `VideoView.handleSkipDelay` | raw `dispatch_time_t` from `Functions` | `asyncAfter` with the delay clamped to `[0, 3e9]` s, NaN → 0 | equivalent; avoids the S2.1-C double-scaling trap |
+| 7 | `VideoView` resource loader, `start + requestedLength` overflow | wrapped, then failed the `end > dataLength` check | `addingReportingOverflow`, same failure | found in review: plain `+` would have trapped |
+| 8 | `AdLoadManager` `failedToLoad`, transaction parameter | `nil` from request/maker failure, real transaction from `transactionFailedToLoad` | `AdLoadManagerDelegate.loadManager(_:failedToLoad: Transaction?, error:)` keeps the Optional | same; note the mismatch with the non-optional `TransactionDelegate.transactionFailedToLoad` |
+| 9 | `AdRequesterVAST.loadVASTURL` | declared only in the `.m`, no callers | ported as an internal func, still no callers | dead; kept so `VastRequester` keeps a user; cleanup list |
+| 10 | `VastAbstractAd.identifier`/`adSystem`/`adSystemVersion`, `VastIcon.program`, `VastCreativeAbstract.requiredMode` | `nil` until assigned | `""` | equivalent on reachable paths (the parser always assigns) |
+| 11 | `VastCreativeAbstract.adId` | Swift name `AdId` (`NS_SWIFT_NAME`) | `adId` | two tests updated; ObjC selector unchanged |
 | 13 | Logging in all ported files | `PBMLogError`/`PBMAssert` macros | `Log.error` | message text identical; file/function prefix differs |
 
 `@weakify`/`@strongify` → `[weak self]` only where the ObjC used them. A dead `@strongify` nil-check inside a synchronous block was dropped (S6.x-H-B).
@@ -69,6 +68,9 @@ Swift types forbid the ObjC behavior, or the ObjC behavior was a crash / nil-mes
 ### Pre-existing behavior reproduced, not fixed
 
 - `VastAdsBuilder`: `requestsPending == 0` is read **outside** the serial queue, as in the ObjC. With concurrent wrapper responses the root completion could fire twice or not at all. Left as is (line-for-line port).
+- #1389: `VastAdsBuilder` counts a wrapper down once per child wrapper, so a wrapper response that keeps two or more wrapper ads leaves the load with no completion, or completes it early. Same on `master`.
+- #1390: the VAST-level `<Error>` URI of a no-ad response is never stored in `noAdsResponseURI`, so it is never requested. Same on `master`.
+- `VastResponse.flattenResponse` now follows the ObjC out-param semantics: a nested failure is remembered, the remaining ads are still processed, and the remembered error is thrown at the end (after the "No Inline Ads" check). Found in review: an earlier revision threw at the first nested failure and described the ObjC as crashing there; `addObjectsFromArray:nil` is a no-op.
 - `VastAbstractAd` and the other Vast models keep untyped `NSMutableArray` properties (S6.1-B); see Open items.
 
 ## `@_spi` / visibility
@@ -95,7 +97,7 @@ Retired: `PBMAdLoadManagerDelegate.h`, `PBMAdLoadManagerProtocol.h`, `PBMCreativ
 - **`PBMVideoCreative.h` re-declares the six `videoView…` delegate selectors** (it lost `<PBMVideoViewDelegate>` with the deleted header, and Swift tests call them on the concrete class). They go away when `PBMVideoCreative` is ported (Phase 7).
 - **`NSMutableArray` retyping is not done** (about 246 sites in the Vast models, `VastParser`, `VastAdsBuilder`, `VastResponse` and 14 test files, and it would change the parity expectations). No ObjC code mutates them any more, so it is now possible: separate follow-up.
 - SwiftLint: `type_body_length` warnings on `VastParser`, `VastAdsBuilder`, `CreativeModelCollectionMakerVAST` and `VideoView` (same as `BidRequesterImpl`/`AdViewManagerImpl` in earlier phases); `todo` warnings for TODO comments carried verbatim from the ObjC; `block_based_kvo` on `VideoView` (string key paths kept to preserve add/remove timing).
-- `AdRequesterVAST.loadVASTURL` is dead (deviation 10).
+- `AdRequesterVAST.loadVASTURL` is dead (deviation 9).
 - Playbook S5.x-scope's "ObjC subclassing a Swift base is not compiled" caveat is resolved (disproved, S6.1-A).
 
 ## Test plan

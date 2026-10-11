@@ -53,7 +53,8 @@ final class TransactionFactoryImpl: NSObject, TransactionFactory {
             return false
         }
 
-        if adMarkup.contains("<VAST") {
+        // `NSString.contains` like the ObjC `-containsString:`; Swift `String.contains` treats a trailing combining character as part of the match.
+        if (adMarkup as NSString).contains("<VAST") {
             return loadVASTTransaction(adMarkup: adMarkup)
         } else {
             return loadHTMLTransaction(adMarkup: adMarkup)
