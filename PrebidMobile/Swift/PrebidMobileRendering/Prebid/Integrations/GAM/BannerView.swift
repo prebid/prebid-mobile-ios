@@ -201,7 +201,9 @@ public class BannerView:
                 self?.mayRefreshNow ?? false
             },
             refreshBlock: { [weak self] in
-                self?.adLoadFlowController?.refresh()
+                // Checks `isRefreshStopped` on the ad load flow queue, so a tick that was
+                // already in flight when `stopRefresh()` was called does not start a load.
+                self?.adLoadFlowController?.enqueueNextStepAttempt()
             })
     }
     
@@ -295,6 +297,9 @@ public class BannerView:
     public func stopRefresh() {
         adLoadFlowController?.enqueueGatedBlock { [weak self] in
             self?.isRefreshStopped = true
+            // A refresh scheduled for the ad on screen would otherwise still run,
+            // and starting that load clears `isRefreshStopped` again.
+            self?.autoRefreshManager?.cancelRefreshTimer()
         }
     }
     

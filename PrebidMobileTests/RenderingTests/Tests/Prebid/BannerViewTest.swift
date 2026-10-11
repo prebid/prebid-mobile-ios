@@ -291,6 +291,47 @@ class BannerViewTest: XCTestCase {
         XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "An HTML banner keeps the configured auto-refresh")
     }
     
+    // A refresh is already scheduled while an ad is on screen. If `stopRefresh()` leaves it in
+    // place, the tick runs, the new load clears `isRefreshStopped` and refreshing never stops.
+    func testStopRefreshCancelsTheScheduledRefresh() {
+        let bannerView = makeBannerView(bidFormat: "banner")
+        armRefreshTimer(bannerView)
+        
+        bannerView.stopRefresh()
+        
+        // `stopRefresh()` is applied on the ad load flow queue
+        let applied = expectation(description: "stopRefresh applied")
+        bannerView.adLoadFlowController?.enqueueGatedBlock { applied.fulfill() }
+        wait(for: [applied], timeout: 1)
+        
+        XCTAssertTrue(bannerView.isRefreshStopped)
+        XCTAssertNil(bannerView.autoRefreshManager?.delayedBlock, "A stopped banner must not keep a scheduled refresh")
+    }
+    
+    // A tick can already be in flight when `stopRefresh()` is called: the timer has run on the
+    // ad load flow queue and holds `mutationLock`, and its main-queue callback is still pending.
+    // The refresh that callback enqueues lands behind the stop and must not start a load.
+    func testStopRefreshWinsOverRefreshTickInFlight() {
+        let bannerView = makeBannerView(bidFormat: "banner")
+        guard let controller = bannerView.adLoadFlowController else {
+            return XCTFail("BannerView must own an AdLoadFlowController")
+        }
+        
+        // The timer takes the lock before it hops to the main queue
+        controller.mutationLock.lock()
+        bannerView.stopRefresh()
+        // The tick's main-queue callback
+        bannerView.autoRefreshManager?.refreshBlock()
+        controller.mutationLock.unlock()
+        
+        let drained = expectation(description: "ad load flow queue drained")
+        controller.enqueueGatedBlock { drained.fulfill() }
+        wait(for: [drained], timeout: 1)
+        
+        XCTAssertTrue(bannerView.isRefreshStopped, "The tick must not clear the stop")
+        XCTAssertEqual(controller.flowState, .idle, "A stopped banner must not start a new load")
+    }
+    
     // The gate is driven by the creative's own playback callbacks, evaluated on every tick,
     // so it self-recovers once playback ends and protects a replay ("watch again") too.
     func testRefreshIsSkippedWhileVideoIsPlaying() {
