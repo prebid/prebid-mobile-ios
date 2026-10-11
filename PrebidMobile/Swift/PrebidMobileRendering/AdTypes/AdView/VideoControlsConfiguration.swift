@@ -98,6 +98,16 @@ public class VideoControlsConfiguration: NSObject {
     /// use the `rwdd.close.action` configuration instead.
     /// Obtained from `ext.prebid.passthrough[].adConfiguration.isautocloseoncompletionenabled` or set by the user.
     public var isAutoCloseOnCompletionEnabled = true
+
+    /// Indicates whether the remaining-time countdown indicator is visible during full-screen video playback.
+    ///
+    /// The default preserves the SDK's existing behavior: the indicator is shown for rewarded ads and hidden for
+    /// interstitials. Set this property explicitly to show it on interstitials or hide it on rewarded ads.
+    /// Obtained from `ext.prebid.passthrough[].adConfiguration.isvideoprogressindicatorvisible` or set by the user.
+    public var isVideoProgressIndicatorVisible: Bool {
+        set { _isVideoProgressIndicatorVisible = newValue as NSNumber }
+        get { _isVideoProgressIndicatorVisible?.boolValue ?? true }
+    }
     
     /// Use to initialize video controls with server values.
     public func initialize(with ortbAdConfiguration: ORTBAdConfiguration?) {
@@ -139,13 +149,27 @@ public class VideoControlsConfiguration: NSObject {
         if let ortbIsAutoCloseOnCompletionEnabled = ortbAdConfiguration.isAutoCloseOnCompletionEnabled {
             isAutoCloseOnCompletionEnabled = ortbIsAutoCloseOnCompletionEnabled.boolValue
         }
+
+        if let ortbIsVideoProgressIndicatorVisible = ortbAdConfiguration.isVideoProgressIndicatorVisible {
+            isVideoProgressIndicatorVisible = ortbIsVideoProgressIndicatorVisible.boolValue
+        }
     }
     
+    /// SDK-internal. Distinguishes an explicit override of `isVideoProgressIndicatorVisible` (set by the publisher
+    /// or the bid response) from the ad-type-specific default that applies when neither has touched it.
+    /// `public` only so `PBMVideoView` can read it; not intended for use outside the SDK.
+    private(set) public var isVideoProgressIndicatorVisibleOverride: NSNumber? {
+        get { _isVideoProgressIndicatorVisible }
+        set { _isVideoProgressIndicatorVisible = newValue }
+    }
+
     // MARK: - Private properties
-    
+
     private var _closeButtonArea = PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue
     private var _closeButtonPosition = Position.topRight
-    
+
     private var _skipButtonArea = PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue
     private var _skipButtonPosition = Position.topLeft
+
+    private var _isVideoProgressIndicatorVisible: NSNumber?
 }
