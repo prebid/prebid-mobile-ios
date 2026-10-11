@@ -16,12 +16,12 @@
 import XCTest
 import Foundation
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVastCreativeCompanionAdsTest: XCTestCase {
     
     func testInit() {
-        let creative = PBMVastCreativeCompanionAds()
+        let creative = VastCreativeCompanionAds()
         XCTAssert(creative.companions.count == 0)
         XCTAssert(creative.feasibleCompanions().count == 0)
         XCTAssert(creative.canPlayRequiredCompanions())
@@ -29,7 +29,7 @@ class PBMVastCreativeCompanionAdsTest: XCTestCase {
     }
     
     func testRequiredMode() {
-        let creative = PBMVastCreativeCompanionAds()
+        let creative = VastCreativeCompanionAds()
         
         creative.requiredMode = PBMVastRequiredMode.all.rawValue
         XCTAssert(creative.canPlayRequiredCompanions())

@@ -23,7 +23,7 @@ class RewardedVideo_CompanionTest: XCTestCase  {
     
     var vastRequestSuccessfulExpectation:XCTestExpectation!
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     
     var expectationCreativeWasClicked:XCTestExpectation!
     var expectationCreativeClickthroughDidClose:XCTestExpectation!
@@ -69,7 +69,7 @@ class RewardedVideo_CompanionTest: XCTestCase  {
             XCTFail(error.localizedDescription)
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:connection, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:connection, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_wrapper_ad.xml") {
@@ -83,7 +83,7 @@ class RewardedVideo_CompanionTest: XCTestCase  {
             return // to avoid crash on force unwrap
         }
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
         
         modelMaker.makeModels(self.vastServerResponse!,
                               successCallback: { models in

@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVastLoaderTestOMVerificationOneInline: XCTestCase {
     
@@ -52,7 +52,7 @@ class PBMVastLoaderTestOMVerificationOneInline: XCTestCase {
             XCTFail("\(error)")
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("vast_om_verification_one_inline_ad.xml") {
@@ -62,12 +62,12 @@ class PBMVastLoaderTestOMVerificationOneInline: XCTestCase {
         self.waitForExpectations(timeout: 2.0, handler: nil)
     }
     
-    func requestCompletedSuccess(_ vastResponse: PBMAdRequestResponseVAST) {
+    func requestCompletedSuccess(_ vastResponse: AdRequestResponseVAST) {
         
         //There should be 1 ad.
         //An Ad can be either inline or wrapper; this should be inline.
         PBMAssertEq(vastResponse.ads?.count, 1)
-        guard let ad = vastResponse.ads?.first as? PBMVastInlineAd else {
+        guard let ad = vastResponse.ads?.first as? VastInlineAd else {
             XCTFail()
             return;
         }

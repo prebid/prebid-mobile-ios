@@ -50,7 +50,7 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
             XCTFail("\(error)")
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_inline_ad.xml") {
@@ -62,12 +62,12 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
 
     //MARK: PBMVastLoaderDelegate
     
-    func requestCompletedSuccess(_ vastResponse: PBMAdRequestResponseVAST) {
+    func requestCompletedSuccess(_ vastResponse: AdRequestResponseVAST) {
         
         //There should be 1 ad.
         //An Ad can be either inline or wrapper; this should be inline.
         PBMAssertEq(vastResponse.ads?.count, 1)
-        guard let ad = vastResponse.ads?.first as? PBMVastInlineAd else {
+        guard let ad = vastResponse.ads?.first as? VastInlineAd else {
             XCTFail()
             return;
         }
@@ -86,8 +86,8 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
         PBMAssertEq(ad.creatives.count, 3)
         
         //Creative 1  - Linear
-        let pbmVastCreativeLinear = ad.creatives[0] as! PBMVastCreativeLinear
-        PBMAssertEq(pbmVastCreativeLinear.AdId, "601364")
+        let pbmVastCreativeLinear = ad.creatives[0] as! VastCreativeLinear
+        PBMAssertEq(pbmVastCreativeLinear.adId, "601364")
         PBMAssertEq(pbmVastCreativeLinear.id, "6012")
         PBMAssertEq(pbmVastCreativeLinear.sequence, 1)
         PBMAssertEq(pbmVastCreativeLinear.duration, 6)
@@ -114,7 +114,7 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
         
         PBMAssertEq(pbmVastCreativeLinear.mediaFiles.count, 1)
         
-        let mediaFile = pbmVastCreativeLinear.mediaFiles.firstObject as! PBMVastMediaFile
+        let mediaFile = pbmVastCreativeLinear.mediaFiles.firstObject as! VastMediaFile
         PBMAssertEq(mediaFile.id, "firstFile")
         PBMAssertEq(mediaFile.streamingDeliver, false)
         PBMAssertEq(mediaFile.type, "video/mp4")
@@ -128,11 +128,11 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
         
         
         //Creative 2 - CompanionAds
-        let pbmVastCreativeCompanionAds = ad.creatives[1] as! PBMVastCreativeCompanionAds
+        let pbmVastCreativeCompanionAds = ad.creatives[1] as! VastCreativeCompanionAds
         PBMAssertEq(pbmVastCreativeCompanionAds.companions.count, 2)
         
         //First Companion
-        var pbmVastCreativeCompanionAdsCompanion = pbmVastCreativeCompanionAds.companions[0] as! PBMVastCreativeCompanionAdsCompanion
+        var pbmVastCreativeCompanionAdsCompanion = pbmVastCreativeCompanionAds.companions[0] as! VastCreativeCompanionAdsCompanion
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.companionIdentifier, "big_box")
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.width, 300)
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.height, 250)
@@ -140,23 +140,23 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resource, "http://demo.tremormedia.com/proddev/vast/Blistex1.jpg")
         
         //TODO: change from "staticResource" to "jpeg" or something?
-        PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resourceType, PBMVastResourceType.staticResource)
+        PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resourceType, VastResourceType.staticResource)
         let trackingEvents = pbmVastCreativeCompanionAdsCompanion.trackingEvents.trackingEvents
         PBMAssertEq(trackingEvents.count, 1)
         PBMAssertEq(trackingEvents["creativeView"], ["http://myTrackingURL/inline/firstCompanionCreativeView"])
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.clickThroughURI, "http://www.openx.com")
         
         //Second Companion
-        pbmVastCreativeCompanionAdsCompanion = pbmVastCreativeCompanionAds.companions[1] as! PBMVastCreativeCompanionAdsCompanion
+        pbmVastCreativeCompanionAdsCompanion = pbmVastCreativeCompanionAds.companions[1] as! VastCreativeCompanionAdsCompanion
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resource, "http://ad3.liverail.com/util/companions.php")
-        PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resourceType, PBMVastResourceType.iFrameResource)
+        PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resourceType, VastResourceType.iFrameResource)
         
         //Creative 3 - NonLinearAds
-        let pbmVastCreativeNonLinearAds = ad.creatives[2] as! PBMVastCreativeNonLinearAds
+        let pbmVastCreativeNonLinearAds = ad.creatives[2] as! VastCreativeNonLinearAds
         PBMAssertEq(pbmVastCreativeNonLinearAds.nonLinears.count, 2)
         
         //First NonLinear
-        var pbmVastCreativeNonLinearAdsNonLinear = pbmVastCreativeNonLinearAds.nonLinears[0] as! PBMVastCreativeNonLinearAdsNonLinear
+        var pbmVastCreativeNonLinearAdsNonLinear = pbmVastCreativeNonLinearAds.nonLinears[0] as! VastCreativeNonLinearAdsNonLinear
         PBMAssertEq(pbmVastCreativeNonLinearAdsNonLinear.resource, "http://cdn.liverail.com/adasset/228/330/overlay.jpg")
         PBMAssertEq(pbmVastCreativeNonLinearAdsNonLinear.id, "special_overlay")
         PBMAssertEq(pbmVastCreativeNonLinearAdsNonLinear.width, 300)
@@ -167,7 +167,7 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
         PBMAssertEq(pbmVastCreativeNonLinearAdsNonLinear.clickThroughURI, "http://t3.liverail.com")
         
         //Second NonLinear
-        pbmVastCreativeNonLinearAdsNonLinear = pbmVastCreativeNonLinearAds.nonLinears[1] as! PBMVastCreativeNonLinearAdsNonLinear
+        pbmVastCreativeNonLinearAdsNonLinear = pbmVastCreativeNonLinearAds.nonLinears[1] as! VastCreativeNonLinearAdsNonLinear
         PBMAssertEq(pbmVastCreativeNonLinearAdsNonLinear.resource, "http://ad3.liverail.com/util/non_linear.php")
         PBMAssertEq(pbmVastCreativeNonLinearAdsNonLinear.width, 728)
         PBMAssertEq(pbmVastCreativeNonLinearAdsNonLinear.height, 90)

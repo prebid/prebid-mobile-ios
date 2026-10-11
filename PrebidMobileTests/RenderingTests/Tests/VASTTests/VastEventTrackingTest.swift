@@ -31,7 +31,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
     
     var expectations = [XCTestExpectation]()
 
-    var vastServerRespose: PBMAdRequestResponseVAST?
+    var vastServerRespose: AdRequestResponseVAST?
     var videoCreative: PBMVideoCreative!
     
     override func setUp() {
@@ -87,7 +87,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
             XCTFail(error.localizedDescription)
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:connection, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:connection, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_wrapper_ad.xml") {
@@ -103,7 +103,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
         
         let inlineVastRequestSuccessfulExpectation = self.expectation(description: "Expected Inline VAST Load to be successful")
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
         
         modelMaker.makeModels(self.vastServerRespose!, successCallback: { models in
             let totalModels = 2     // For video interstitials with End Card, count is 2. Includes all companions.
@@ -255,7 +255,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
             //Once we've reached the midpoint, force a tap on the Learn More Button.
             //This should pause the video and summon the clickthrough.
             DispatchQueue.main.async {
-                guard let videoView = self.videoCreative.view as? PBMVideoView else {
+                guard let videoView = self.videoCreative.view as? VideoView else {
                     XCTFail("Couldn't get Video View")
                     return
                 }

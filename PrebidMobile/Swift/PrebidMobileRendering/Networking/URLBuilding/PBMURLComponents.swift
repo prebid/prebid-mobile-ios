@@ -16,7 +16,7 @@
 import Foundation
 
 // Named `PBMURLComponents`, not `URLComponents` — Foundation already defines
-// `URLComponents`, and this type is still constructed from ObjC (`PBMVastRequester.m`).
+// `URLComponents`, and this type was constructed from ObjC (`PBMVastRequester.m`, now Swift).
 @objc(PBMURLComponents)
 public class PBMURLComponents: NSObject {
 

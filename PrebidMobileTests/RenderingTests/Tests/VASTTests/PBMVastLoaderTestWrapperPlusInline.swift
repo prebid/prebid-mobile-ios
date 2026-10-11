@@ -22,7 +22,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
     var didFetchInline:XCTestExpectation!
     var vastRequestSuccessfulExpectation:XCTestExpectation!
     
-    var vastServerResponse: PBMAdRequestResponseVAST?
+    var vastServerResponse: AdRequestResponseVAST?
     
     override func setUp() {
         self.continueAfterFailure = true
@@ -77,7 +77,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
             XCTFail(error.localizedDescription)
         }
         
-        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let requester = AdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
         requester.adLoadManager = adLoadManager
         
         if let data = UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_wrapper_ad.xml") {
@@ -95,7 +95,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         
         let inlineVastRequestSuccessfulExpectation = self.expectation(description: "Expected Inline VAST Load to be successful")
         
-        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
         
         
         modelMaker.makeModels(response,
@@ -115,7 +115,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
     // MARK: - Check result
     
     func check(_ response: NSObject) {
-        guard let vastResponse = response as? PBMAdRequestResponseVAST else {
+        guard let vastResponse = response as? AdRequestResponseVAST else {
             XCTFail()
             return
         }
@@ -146,8 +146,8 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         PBMAssertEq(ad.creatives.count, 3)
         
         //Creative 1  - Linear
-        let pbmVastCreativeLinear = ad.creatives[0] as! PBMVastCreativeLinear
-        PBMAssertEq(pbmVastCreativeLinear.AdId, "601364")
+        let pbmVastCreativeLinear = ad.creatives[0] as! VastCreativeLinear
+        PBMAssertEq(pbmVastCreativeLinear.adId, "601364")
         PBMAssertEq(pbmVastCreativeLinear.id, "6012")
         PBMAssertEq(pbmVastCreativeLinear.sequence, 1)
         PBMAssertEq(pbmVastCreativeLinear.duration, 6)
@@ -174,7 +174,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         
         PBMAssertEq(pbmVastCreativeLinear.mediaFiles.count, 1)
         
-        let mediaFile = pbmVastCreativeLinear.mediaFiles.firstObject as! PBMVastMediaFile
+        let mediaFile = pbmVastCreativeLinear.mediaFiles.firstObject as! VastMediaFile
         PBMAssertEq(mediaFile.id, "firstFile")
         PBMAssertEq(mediaFile.streamingDeliver, false)
         PBMAssertEq(mediaFile.type, "video/mp4")
@@ -188,11 +188,11 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         
         
         //Creative 2 - CompanionAds
-        let pbmVastCreativeCompanionAds = ad.creatives[1] as! PBMVastCreativeCompanionAds
+        let pbmVastCreativeCompanionAds = ad.creatives[1] as! VastCreativeCompanionAds
         PBMAssertEq(pbmVastCreativeCompanionAds.companions.count, 2)
         
         //First Companion
-        let pbmVastCreativeCompanionAdsCompanion = pbmVastCreativeCompanionAds.companions[0] as! PBMVastCreativeCompanionAdsCompanion
+        let pbmVastCreativeCompanionAdsCompanion = pbmVastCreativeCompanionAds.companions[0] as! VastCreativeCompanionAdsCompanion
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.companionIdentifier, "big_box")
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.width, 300)
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.height, 250)
@@ -200,7 +200,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resource, "http://demo.tremormedia.com/proddev/vast/Blistex1.jpg")
         
         //TODO: change from "staticResource" to "jpeg" or something?
-        PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resourceType, PBMVastResourceType.staticResource)
+        PBMAssertEq(pbmVastCreativeCompanionAdsCompanion.resourceType, VastResourceType.staticResource)
         let trackingEvents = pbmVastCreativeCompanionAdsCompanion.trackingEvents.trackingEvents
         PBMAssertEq(trackingEvents.count, 2)
         PBMAssertEq(trackingEvents["creativeView"], ["http://myTrackingURL/inline/firstCompanionCreativeView"])
