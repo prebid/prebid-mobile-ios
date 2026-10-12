@@ -30,7 +30,11 @@ class VastAdsBuilder: NSObject {
 
     private let dispatchQueue = DispatchQueue(label: "PBMVastLoaderQueue")
     private let serverConnection: PrebidServerConnectionProtocol
+    // The root document plus every wrapper request that is not finished yet. Accessed on `dispatchQueue`.
     private var requestsPending = 0
+    // Completion of the load in progress, cleared when it is called so the load completes only once.
+    // Accessed on `dispatchQueue`.
+    private var pendingCompletion: WrapperCompletion?
     private let maximumWrapperDepth = 5     // Per VAST 4.0 spec section 2.3.4.1
     private var rootResponse: VastResponse?
 
@@ -46,7 +50,7 @@ class VastAdsBuilder: NSObject {
 
     @objc(buildAds:completion:)
     public func buildAds(_ data: Data, completion completionBlock: @escaping Completion) {
-        buildAds(data, wrapperAd: nil) { [weak self] error in
+        let rootCompletion: WrapperCompletion = { [weak self] error in
             guard let self else {
                 completionBlock(nil, PBMError.error(description: Self.builderFailedMessage, statusCode: .undefined))
                 return
@@ -63,6 +67,15 @@ class VastAdsBuilder: NSObject {
                 completionBlock(nil, error)
             }
         }
+
+        // The root document counts as a pending request, so the load cannot complete
+        // while it is still issuing its wrapper requests.
+        dispatchQueue.sync {
+            pendingCompletion = rootCompletion
+            requestsPending = 1
+        }
+
+        buildAds(data, wrapperAd: nil)
     }
 
     @objc(checkHasNoAdsAndFireURIs:)
@@ -115,14 +128,14 @@ class VastAdsBuilder: NSObject {
 
     // MARK: - Private
 
-    private func buildAds(_ data: Data, wrapperAd: VastWrapperAd?, completion completionBlock: @escaping WrapperCompletion) {
+    private func buildAds(_ data: Data, wrapperAd: VastWrapperAd?) {
 
         if let wrapperAd, wrapperAd.depth > maximumWrapperDepth {
             let error = PBMError.error(
                 description: "Wrapper limit reached, as defined by the video player. Too many Wrapper responses have been received with no InLine response.",
                 statusCode: .undefined
             )
-            completionBlock(error)
+            requestFinished(error: error)
             return
         }
 
@@ -130,34 +143,16 @@ class VastAdsBuilder: NSObject {
         guard let parsedResponse = parser.parseAdsResponse(data) else {
             let vastString = String(data: data, encoding: .utf8) ?? "(null)"
             let message = "VAST Parsing failed. XML was:  \(vastString)"
-            completionBlock(PBMError.error(description: message, statusCode: .undefined))
+            requestFinished(error: PBMError.error(description: message, statusCode: .undefined))
             return
         }
 
-        handleResponse(parsedResponse, forWrapperAd: wrapperAd) { [weak self] error in
-            guard let self else {
-                completionBlock(PBMError.error(description: Self.builderFailedMessage, statusCode: .undefined))
-                return
-            }
-
-            if let error {
-                completionBlock(error)
-                return
-            }
-
-            if wrapperAd != nil {
-                self.dispatchQueue.sync {
-                    self.requestsPending -= 1
-                }
-
-                completionBlock(nil)
-            } else if self.requestsPending == 0 {
-                completionBlock(nil)
-            }
-        }
+        // Issues a request for every wrapper in the response before this one is counted as finished.
+        handleResponse(parsedResponse, forWrapperAd: wrapperAd)
+        requestFinished(error: nil)
     }
 
-    private func requestAds(_ vastURL: String?, forWrapperAd wrapperAd: VastWrapperAd, completion: @escaping WrapperCompletion) {
+    private func requestAds(_ vastURL: String?, forWrapperAd wrapperAd: VastWrapperAd) {
 
         dispatchQueue.sync {
             requestsPending += 1
@@ -166,24 +161,45 @@ class VastAdsBuilder: NSObject {
         // `self` is captured strongly by this callback, as in the ObjC (only the blocks around it were weakified).
         serverConnection.get(vastURL, timeout: PrebidConstants.CONNECTION_TIMEOUT_DEFAULT) { serverResponse in
             if let error = serverResponse.error {
-                completion(error)
+                self.requestFinished(error: error)
                 return
             }
 
             if serverResponse.statusCode != 200 {
                 // The status code is an arbitrary HTTP value, not a `PBMErrorCode`, so
                 // it goes through the raw-`Int` initializer.
-                completion(PBMError(message: "Server responded with status code \(serverResponse.statusCode)",
-                                    code: serverResponse.statusCode))
+                self.requestFinished(error: PBMError(message: "Server responded with status code \(serverResponse.statusCode)",
+                                                     code: serverResponse.statusCode))
                 return
             }
 
             // A nil `rawData` used to reach the nonnull ObjC parameter; empty data fails to parse the same way.
-            self.buildAds(serverResponse.rawData ?? Data(), wrapperAd: wrapperAd, completion: completion)
+            self.buildAds(serverResponse.rawData ?? Data(), wrapperAd: wrapperAd)
         }
     }
 
-    private func handleResponse(_ response: VastResponse, forWrapperAd wrapperAd: VastWrapperAd?, completion completionBlock: @escaping WrapperCompletion) {
+    // Counts the root document or one wrapper request as finished. Each one is counted once, however
+    // deep it is. The load completes with the first error, or with the ads once nothing is pending;
+    // anything that finishes after that is ignored.
+    private func requestFinished(error: Error?) {
+        let completion: WrapperCompletion? = dispatchQueue.sync {
+            guard let pendingCompletion else {
+                return nil
+            }
+
+            requestsPending -= 1
+            guard error != nil || requestsPending == 0 else {
+                return nil
+            }
+
+            self.pendingCompletion = nil
+            return pendingCompletion
+        }
+
+        completion?(error)
+    }
+
+    private func handleResponse(_ response: VastResponse, forWrapperAd wrapperAd: VastWrapperAd?) {
 
         if let wrapperAd {
             // Assign nextResponse and parentResponse
@@ -217,17 +233,10 @@ class VastAdsBuilder: NSObject {
         }
 
         // If we're not at the max depth then add a request for each wrapper.
-        var hasWrappers = false
         for case let responseWrapperAd as VastWrapperAd in response.vastAbstractAds {
-            hasWrappers = true
-
             responseWrapperAd.depth = (wrapperAd?.depth ?? 0) + 1
 
-            requestAds(responseWrapperAd.vastURI, forWrapperAd: responseWrapperAd, completion: completionBlock)
-        }
-
-        if !hasWrappers {
-            completionBlock(nil)
+            requestAds(responseWrapperAd.vastURI, forWrapperAd: responseWrapperAd)
         }
     }
 
