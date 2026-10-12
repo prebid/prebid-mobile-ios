@@ -20,6 +20,9 @@ import Foundation
 /// These values were captured from the Objective-C `PBMVastParser` before it was ported to Swift (Phase 6, wave 4G),
 /// so they pin the Swift `VastParser` to the behavior of the original, not to itself. Do not regenerate them from the
 /// Swift parser. A change here means the parser's observable behavior changed.
+///
+/// One intended difference: a `<VAST>`-level `<Error>` now sets `response.noAdsResponseURI`. The Objective-C parser
+/// compared the element path against `[VAST, Ad]` instead of `[VAST, Error]` and never set it.
 enum VastParserParityExpectations {
 
     static let expected: [String: String] = [
@@ -214,7 +217,7 @@ ad[0].creative[1].companions.count=0
 
         "document_with_one_inline_ad.xml": #"""
 response.version="2.0"
-response.noAdsResponseURI=nil
+response.noAdsResponseURI="http://myErrorURL/inline/Error"
 response.nextResponse=nil
 response.parentResponse=nil
 response.ads.count=1
@@ -353,7 +356,7 @@ ad[0].creative[2].nonLinear[1].trackingEvents.progressOffsets=
 
         "document_with_one_wrapper_ad.xml": #"""
 response.version="2.0"
-response.noAdsResponseURI=nil
+response.noAdsResponseURI="http://myErrorURL/wrapper/Error"
 response.nextResponse=nil
 response.parentResponse=nil
 response.ads.count=1
@@ -817,7 +820,7 @@ PARSE FAILED (nil response)
 
         "synthetic_misplaced_and_unknown": #"""
 response.version="2.0"
-response.noAdsResponseURI=nil
+response.noAdsResponseURI="http://top/error"
 response.nextResponse=nil
 response.parentResponse=nil
 response.ads.count=1
@@ -1180,7 +1183,7 @@ ad[0].creative[1].companion[0].trackingEvents.progressOffsets=
 
         "vast_om_verification_one_inline_ad.xml": #"""
 response.version="4.1"
-response.noAdsResponseURI=nil
+response.noAdsResponseURI="http://myErrorURL/inline/Error"
 response.nextResponse=nil
 response.parentResponse=nil
 response.ads.count=1

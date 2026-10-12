@@ -161,4 +161,23 @@ class PBMVastLoaderCheckForAds : XCTestCase {
         XCTAssert(vastAdsBuilder?.checkHasNoAdsAndFireURIs(vastResponse: response1) == true)
         self.waitForExpectations(timeout: 1.0, handler:nil)
     }
+
+    // A no-ad response parsed from XML should fire its VAST-level Error URI.
+    func testNegativeNoAdsParsedFromXML() {
+        let xml = """
+        <VAST version="3.0">
+            <Error><![CDATA[http://response1/noAds]]></Error>
+        </VAST>
+        """
+        guard let response = VastParser().parseAdsResponse(Data(xml.utf8)) else {
+            XCTFail("Could not parse the no-ad response")
+            return
+        }
+
+        expectationResponse1ErrorURICalled = expectation(description: "expectationResponse1ErrorURICalled")
+
+        XCTAssert(vastAdsBuilder?.checkHasNoAdsAndFireURIs(vastResponse: response) == true)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
 }
