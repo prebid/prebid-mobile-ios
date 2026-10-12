@@ -257,6 +257,52 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         XCTAssertTrue(showCalled)
     }
     
+    // An ad rendered by the primary ad server reports its close through the event handler's
+    // interaction delegate. After that the same ad unit must show the next ad.
+    func testShowAfterPrimaryAdServerDismissShowsTheNextAd() {
+        let eventHandler = PrimaryAdServerEventHandler()
+        let adUnit = BaseInterstitialAdUnit(configID: "test", minSizePerc: nil, eventHandler: eventHandler)
+        eventHandler.interactionDelegate = adUnit
+        let adLoader = InterstitialAdLoader(delegate: adUnit, eventHandler: eventHandler)
+        
+        adLoader.reportSuccess(with: eventHandler, adSize: nil)
+        adUnit.show(from: UIViewController())
+        eventHandler.interactionDelegate?.didDismissAd()
+        
+        adLoader.reportSuccess(with: eventHandler, adSize: nil)
+        adUnit.show(from: UIViewController())
+        
+        XCTAssertEqual(eventHandler.showCount, 2, "show(from:) after a dismiss must show the next ad")
+    }
+    
+    func testShowBeforePrimaryAdServerDismissDoesNotShowAgain() {
+        let eventHandler = PrimaryAdServerEventHandler()
+        let adUnit = BaseInterstitialAdUnit(configID: "test", minSizePerc: nil, eventHandler: eventHandler)
+        eventHandler.interactionDelegate = adUnit
+        let adLoader = InterstitialAdLoader(delegate: adUnit, eventHandler: eventHandler)
+        
+        adLoader.reportSuccess(with: eventHandler, adSize: nil)
+        adUnit.show(from: UIViewController())
+        
+        adLoader.reportSuccess(with: eventHandler, adSize: nil)
+        adUnit.show(from: UIViewController())
+        
+        XCTAssertEqual(eventHandler.showCount, 1, "show(from:) must wait until the presented ad is dismissed")
+    }
+}
+
+private class PrimaryAdServerEventHandler: NSObject, InterstitialEventHandlerProtocol {
+    weak var loadingDelegate: InterstitialEventLoadingDelegate?
+    weak var interactionDelegate: InterstitialEventInteractionDelegate?
+    private(set) var showCount = 0
+    
+    var isReady: Bool { true }
+    
+    func show(from viewController: UIViewController?) {
+        showCount += 1
+    }
+    
+    func requestAd(with bidResponse: BidResponse?) {}
 }
 
 private class BaseInterstitialDelegate: NSObject, BaseInterstitialAdUnitProtocol {

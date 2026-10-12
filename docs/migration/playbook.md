@@ -144,6 +144,7 @@ Allowlist of exactly this one test, not a general "re-run and move on" policy. P
 - [ ] `./scripts/buildPrebidMobilePackage.sh` — SwiftPM build clean (catches header-visibility breakage the CocoaPods build masks — Gap S2.5-A)
 - [ ] `./scripts/testPrebidMobile.sh --latest --quick` — clean pass (re-run once if only `PBMBidRequesterTest.testBanner_300x250` fails)
 - [ ] Swift test files updated: no `'PBMORTBFoo' has been renamed` errors
+- [ ] Renamed or moved test classes: still in the `PrebidMobileTests` Sources build phase (a `.swift` file dropped from the target fails nothing, it just stops compiling and running), and their `PrebidMobilePRTests.xctestplan` `skippedTests` entries renamed too (an entry under the old name matches nothing, so the class silently joins the PR subset)
 - [ ] (Phase 1 & 3) JSON round-trip parity test passes (S0.2 harness)
 - [ ] (Phase 1 & 3) Each migrated model has a **partial**-payload decode test asserting the re-encoded key set — a full fixture can't catch a resurrected default (Gap S2.5-C)
 - [ ] No `"app": {}` / `"device": {}` empty-object regressions in captured bid requests

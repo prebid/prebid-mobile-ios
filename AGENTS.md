@@ -46,10 +46,10 @@ Requires CocoaPods installed (`pod` on PATH — GHA `macos-26` ships with it pre
 ### Tests
 
 ```bash
-# Run PR subset (694 tests) — used on PRs in CI
+# Run PR subset (982 tests) — used on PRs in CI
 ./scripts/testPrebidMobile.sh --latest --quick
 
-# Run full suite (1111 tests) — used on bump-to branches / run-full-tests label
+# Run full suite (1394 tests) — used on bump-to branches / run-full-tests label
 ./scripts/testPrebidMobile.sh --latest
 
 # Run adapter tests (GAM, AdMob, MAX)
@@ -58,9 +58,9 @@ Requires CocoaPods installed (`pod` on PATH — GHA `macos-26` ships with it pre
 
 Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 sanity run is gone); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-17-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator. Any pre-existing simulator with that name is deleted first.
 
-Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1111 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 694 tests).
+Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1394 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 982 tests). Counts drift as tests are added; to recount without running anything, add `-testPlan <plan> -enumerate-tests -test-enumeration-format json -test-enumeration-output-path <file>` to a `test-without-building` call (skipped tests carry `"disabled" : true`). The skip lists are baked into the `.xctestrun` at `build-for-testing` time, so rebuild after editing a plan.
 
-**When adding new tests:** both plans select by *exclusion*, so a new test class runs on every PR without any registration step. `PrebidMobilePRTests.xctestplan` trims the suite via a `skippedTests` list — check that a new class isn't (prefix-)matched there, and add an entry only if you deliberately want it excluded from the PR subset.
+**When adding new tests:** both plans select by *exclusion*, so a new test class runs on every PR without any registration step. `PrebidMobilePRTests.xctestplan` trims the suite via a `skippedTests` list — check that a new class isn't (prefix-)matched there, and add an entry only if you deliberately want it excluded from the PR subset. When renaming a test class, rename its entries in both plans too: an entry that matches no test is silently ignored, so the class starts running where it was meant to be skipped.
 
 To run a single test class:
 ```bash
