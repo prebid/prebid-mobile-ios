@@ -15,7 +15,7 @@
 
 import Foundation
 import XCTest
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class ServerConnectionTest : XCTestCase {
     
@@ -156,15 +156,9 @@ class ServerConnectionTest : XCTestCase {
     }
 
     func testGETWithInvalidURL() {
-        self.didTalkToServerExpectation = unfulfilledExpectation(self, description: "didTalkToServerExpectation")
-
-        let serverConnection = getMockedServerConnection()
-        serverConnection.get(self.invalidURL, timeout: 0.5, callback: { (serverResponse) in
-            XCTFail("PrebidServerConnection should not allow an HTTP request with invalid URL")
-            self.didTalkToServerExpectation.fulfill()
-        })
-
-        self.waitForExpectations(timeout: 1, handler: nil)
+        assertCallsBackWithRequestError("URL creation failed") { connection, callback in
+            connection.get(self.invalidURL, timeout: 0.5, callback: callback)
+        }
     }
 
     func testHead() {
@@ -217,15 +211,9 @@ class ServerConnectionTest : XCTestCase {
     }
 
     func testHEADWithInvalidURL() {
-        self.didTalkToServerExpectation = unfulfilledExpectation(self, description: "didTalkToServerExpectation")
-
-        let serverConnection = getMockedServerConnection()
-        serverConnection.head(self.invalidURL, timeout: 0.5, callback: { (serverResponse) in
-            XCTFail("PrebidServerConnection should not allow an HTTP request with invalid URL")
-            self.didTalkToServerExpectation.fulfill()
-        })
-
-        self.waitForExpectations(timeout: 1, handler: nil)
+        assertCallsBackWithRequestError("URL creation failed") { connection, callback in
+            connection.head(self.invalidURL, timeout: 0.5, callback: callback)
+        }
     }
     
     func testPost() {
@@ -287,15 +275,42 @@ class ServerConnectionTest : XCTestCase {
     }
 
     func testPOSTWithInvalidURL() {
-        self.didTalkToServerExpectation = unfulfilledExpectation(self, description: "didTalkToServerExpectation")
-
-        let serverConnection = getMockedServerConnection()
-        serverConnection.post(self.invalidURL, data: strPostData.data(using: .utf8)!,timeout: 0.5, callback: { (serverResponse) in
-            XCTFail("PrebidServerConnection should not allow an HTTP request with invalid URL")
-            self.didTalkToServerExpectation.fulfill()
-        })
-
-        self.waitForExpectations(timeout: 1, handler: nil)
+        assertCallsBackWithRequestError("URL creation failed") { connection, callback in
+            connection.post(self.invalidURL, data: self.strPostData.data(using: .utf8)!, timeout: 0.5, callback: callback)
+        }
+    }
+    
+    func testDownloadWithInvalidURL() {
+        assertCallsBackWithRequestError("URL creation failed") { connection, callback in
+            connection.download(self.invalidURL, callback: callback)
+        }
+    }
+    
+    func testGETWithoutURL() {
+        assertCallsBackWithRequestError("No resource URL string was provided") { connection, callback in
+            connection.get(nil, timeout: 0.5, callback: callback)
+        }
+    }
+    
+    // No request can be sent for the URL, but the callback still runs once, with the error, so a caller
+    // waiting for the response is not left waiting. Like a sent request, it calls back off the caller's thread.
+    private func assertCallsBackWithRequestError(_ expectedMessage: String,
+                                                 file: StaticString = #filePath, line: UInt = #line,
+                                                 _ send: (PrebidServerConnection, @escaping PrebidServerResponseCallback) -> Void) {
+        let callbackCalled = expectation(description: "callbackCalled")
+        
+        send(getMockedServerConnection()) { serverResponse in
+            XCTAssertFalse(Thread.isMainThread, "The callback ran on the caller's thread", file: file, line: line)
+            XCTAssertEqual(serverResponse.statusCode, 0, file: file, line: line)
+            XCTAssertNil(serverResponse.rawData, file: file, line: line)
+            
+            let message = (serverResponse.error as? PBMError)?.message ?? ""
+            XCTAssertTrue(message.hasPrefix("Invalid request: "), "Unexpected error: \(message)", file: file, line: line)
+            XCTAssertTrue(message.contains(expectedMessage), "Unexpected error: \(message)", file: file, line: line)
+            callbackCalled.fulfill()
+        }
+        
+        wait(for: [callbackCalled], timeout: 1)
     }
     
     func testCustomHeaders() {
