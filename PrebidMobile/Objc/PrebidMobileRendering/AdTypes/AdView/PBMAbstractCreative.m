@@ -216,7 +216,12 @@
         [self modalManagerDidLeaveApp:leavingState];
     } nextOnStatePopFinished:nil nextOnStateHasLeftApp:nil onModalPushedBlock:nil];
     
-    self.dismissInterstitialModalState = [self.modalManager pushModal:state fromRootViewController:uiViewController animated:YES shouldReplace:NO completionHandler:^{
+    // An interstitial end card takes the place of the finished video's state. If the video's state
+    // stayed below it, closing the end card would report the close while the modal is still presented.
+    // As the only state, the end card's pop runs once the modal has dismissed.
+    BOOL shouldReplace = self.creativeModel.isCompanionAd && self.creativeModel.adConfiguration.isInterstitialAd;
+    
+    self.dismissInterstitialModalState = [self.modalManager pushModal:state fromRootViewController:uiViewController animated:YES shouldReplace:shouldReplace completionHandler:^{
         [self displayWithRootViewController:uiViewController];
         [self.modalManager.modalViewController addFriendlyObstructionsToMeasurementSession:self.transaction.measurementSession];
     }];
