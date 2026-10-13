@@ -53,24 +53,22 @@ class CreativeModelCollectionMakerVAST: NSObject {
     }
 
     private func createCreativeModels(from ads: [VastAbstractAd]?) throws -> [CreativeModel] {
-        var errorMessage = "No creative"
         var creatives = [CreativeModel]()
-        // The ObjC cast the first ad to `PBMVastInlineAd` unchecked; a wrapper ad as first ad raised an
-        // unrecognized selector on `verificationParameters`.
-        guard let vastAd = ads?.first as? VastInlineAd, vastAd.creatives.count > 0 else {
-            throw makeError(errorMessage, code: .generalLinear)
-        }
 
         // Create the Linear Creative Model
         // VAST does not mandate creative order: CompanionAds / NonLinearAds may precede the Linear creative,
-        // so pick the first Linear rather than assuming it's firstObject.
-        guard let creative = vastAd.creatives.compactMap({ $0 as? VastCreativeLinear }).first else {
-            throw makeError(errorMessage, code: .generalLinear)
-        }
-
-        guard let bestMediaFile = creative.bestMediaFile() else {
-            errorMessage = "No suitable media file"
-            throw makeError(errorMessage, code: .fileNotFound)
+        // and a response may carry several ads or several Linear creatives. Pick the first Linear that has
+        // a playable media file, the same creative `VastAdsBuilder.hasValidMedia(_:)` accepts the response for.
+        // Like there, only inline ads are considered: the ObjC cast the first ad to `PBMVastInlineAd` unchecked,
+        // and a wrapper ad as first ad raised an unrecognized selector on `verificationParameters`.
+        let inlineAds = (ads ?? []).compactMap { $0 as? VastInlineAd }
+        guard let vastAd = inlineAds.first(where: { $0.playableLinearCreative() != nil }),
+              let creative = vastAd.playableLinearCreative(),
+              let bestMediaFile = creative.bestMediaFile() else {
+            if hasLinearCreative(inlineAds) {
+                throw makeError("No suitable media file", code: .fileNotFound)
+            }
+            throw makeError("No creative", code: .generalLinear)
         }
 
         let creativeModel = try createCreativeModel(ad: vastAd, creative: creative, mediaFile: bestMediaFile)
@@ -93,6 +91,10 @@ class CreativeModelCollectionMakerVAST: NSObject {
         }
 
         return creatives
+    }
+
+    private func hasLinearCreative(_ ads: [VastAbstractAd]) -> Bool {
+        ads.contains { ad in ad.creatives.contains { $0 is VastCreativeLinear } }
     }
 
     private func createCreativeModel(ad vastAd: VastInlineAd,
