@@ -322,19 +322,60 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     }
     
     //Prevent malicious auto-clicking
-    if ([self wasRecentlyTapped]) {
-        //Open clickthrough
-        @weakify(self);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            @strongify(self);
-            if (!self) { return; }
-            [self.delegate webView:self receivedClickthroughLink:url];
-        });
+    BOOL hasTargetFrame = navigationAction.targetFrame != nil;
+    BOOL isMainFrame = hasTargetFrame && navigationAction.targetFrame.isMainFrame;
+    BOOL isExpanded = self.mraidState == PBMMRAIDState.expanded;
+    BOOL isSafeSubframeNavigation = [PBMWebView isSafeSubframeNavigationWithTargetFrame:hasTargetFrame
+                                                                                  isMainFrame:isMainFrame
+                                                                               navigationType:navigationAction.navigationType
+                                                                                          url:url
+                                                                                   isExpanded:isExpanded];
+
+    if (isSafeSubframeNavigation) {
+        // Allow iframes to load when in an expanded state
+        decisionHandler(WKNavigationActionPolicyAllow);
     } else {
-        PBMLogWarn(@"User has not recently tapped. Auto-click suppression is preventing navigation to: %@", url);
+        if ([self wasRecentlyTapped]) {
+            //Open clickthrough
+            @weakify(self);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                if (!self) { return; }
+                [self.delegate webView:self receivedClickthroughLink:url];
+            });
+        } else {
+            PBMLogWarn(@"User has not recently tapped. Auto-click suppression is preventing navigation to: %@", url);
+        }
+        decisionHandler(WKNavigationActionPolicyCancel);
     }
-    
-    decisionHandler(WKNavigationActionPolicyCancel);
+}
+
+/**
+ Identify iframe navigations that should be allowed versus treated as a clickthrough.
+ 
+ Known limitation: A button inside an iframe with onclick="location.href=clickTag" shows up as a WKNavigationType type .other.
+ This causes an issue since we have no reliable way to know if the URL should be handled as a clickout or loaded within the iframe,
+ which would manifest in an iframe loading content inside the button instead of being handled as a clickout. For now, limiting the scope
+ of this issue to when `mraidState == .expanded`.
+ */
++ (BOOL)isSafeSubframeNavigationWithTargetFrame:(BOOL)hasTargetFrame
+                                         isMainFrame:(BOOL)isMainFrame
+                                      navigationType:(WKNavigationType)navigationType
+                                                 url:(nonnull NSURL *)url
+                                          isExpanded:(BOOL)isExpanded {
+    if (!isExpanded) {
+        return NO;
+    }
+    if (!hasTargetFrame || isMainFrame) {
+        return NO;
+    }
+    if (navigationType == WKNavigationTypeLinkActivated) {
+        return NO;
+    }
+
+    // Use WKWebView's built-in URL scheme handling to determine if the URL should load
+    BOOL shouldAllowUrlScheme = [WKWebView handlesURLScheme:url.scheme];
+    return shouldAllowUrlScheme;
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
