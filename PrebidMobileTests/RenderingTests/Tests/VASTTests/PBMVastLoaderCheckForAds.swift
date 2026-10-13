@@ -37,6 +37,10 @@ class PBMVastLoaderCheckForAds : XCTestCase {
     var expectationResponse1ErrorURICalled:XCTestExpectation!
     var expectationResponse2ErrorURICalled:XCTestExpectation!
     var expectationResponse3ErrorURICalled:XCTestExpectation!
+
+    // The URL each no-ad rule received, as it was requested.
+    var firedURL1: String?
+    var firedURL2: String?
     
     override func setUp() {
         
@@ -58,11 +62,13 @@ class PBMVastLoaderCheckForAds : XCTestCase {
         MockServer.shared.reset()
         let rule1 =  MockServerRule(fireAndForgetURLNeedle: response1.noAdsResponseURI!, connectionID: connection.internalID)
         rule1.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
+            self.firedURL1 = urlRequest.url?.absoluteString
             self.fulfillOrFail(self.expectationResponse1ErrorURICalled, "expectationResponse1ErrorURICalled")
         }
         
         let rule2 = MockServerRule(fireAndForgetURLNeedle: response2.noAdsResponseURI!, connectionID: connection.internalID)
         rule2.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
+            self.firedURL2 = urlRequest.url?.absoluteString
             self.fulfillOrFail(self.expectationResponse2ErrorURICalled, "expectationResponse2ErrorURICalled")
         }
         
@@ -179,5 +185,59 @@ class PBMVastLoaderCheckForAds : XCTestCase {
         XCTAssert(vastAdsBuilder?.checkHasNoAdsAndFireURIs(vastResponse: response) == true)
 
         waitForExpectations(timeout: 1.0, handler: nil)
+    }
+
+    // The [ERRORCODE] macro in the Error URI of a no-ad response is replaced with 303 before the request.
+    // Left in place, its brackets keep the URI from becoming a URL on iOS 17 and later.
+    func testNegativeNoAdsErrorCodeMacroParsedFromXML() {
+        let xml = """
+        <VAST version="3.0">
+            <Error><![CDATA[http://response1/noAds?code=[ERRORCODE]]]></Error>
+        </VAST>
+        """
+        guard let response = VastParser().parseAdsResponse(Data(xml.utf8)) else {
+            XCTFail("Could not parse the no-ad response")
+            return
+        }
+
+        expectationResponse1ErrorURICalled = expectation(description: "expectationResponse1ErrorURICalled")
+
+        XCTAssert(vastAdsBuilder?.checkHasNoAdsAndFireURIs(vastResponse: response) == true)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertEqual(firedURL1, "http://response1/noAds?code=303")
+    }
+
+    // Every Error URI up the wrapper chain gets 303, including the percent-encoded form of the macro.
+    func testNegativeTwoResponsesNoAdsOnSecondErrorCodeMacro() {
+        expectationResponse1ErrorURICalled = expectation(description: "expectationResponse1ErrorURICalled")
+        expectationResponse2ErrorURICalled = expectation(description: "expectationResponse2ErrorURICalled")
+
+        response1.noAdsResponseURI = "http://response1/noAds?code=[ERRORCODE]"
+        response2.noAdsResponseURI = "http://response2/noAds?code=%5bERRORCODE%5d&again=[ERRORCODE]"
+
+        response1.vastAbstractAds = [wrapper1!]
+        wrapper1.vastResponse = response2
+
+        // No ads on response2
+        response2.parentResponse = response1
+
+        XCTAssert(vastAdsBuilder?.checkHasNoAdsAndFireURIs(vastResponse: response1) == true)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertEqual(firedURL1, "http://response1/noAds?code=303")
+        XCTAssertEqual(firedURL2, "http://response2/noAds?code=303&again=303")
+    }
+
+    // An Error URI without the macro is requested unchanged.
+    func testNegativeSingleNoAdsWithoutErrorCodeMacro() {
+        expectationResponse1ErrorURICalled = expectation(description: "expectationResponse1ErrorURICalled")
+
+        response1.noAdsResponseURI = "http://response1/noAds?code=900&cb=12345"
+
+        XCTAssert(vastAdsBuilder?.checkHasNoAdsAndFireURIs(vastResponse: response1) == true)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertEqual(firedURL1, "http://response1/noAds?code=900&cb=12345")
     }
 }
