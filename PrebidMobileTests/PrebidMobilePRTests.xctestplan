@@ -359,8 +359,6 @@
         "PBMMRAIDCommandTest\/testInit()",
         "PBMMRAIDControllerCGRectForResizePropertiesTest",
         "PBMMRAIDControllerCGRectForResizePropertiesTest\/testCGRectForResizeProperties()",
-        "PBMMRAIDControllerObjCTest",
-        "PBMMRAIDControllerObjCTest\/testCommandWithBadParams",
         "PBMMRAIDControllerTest",
         "PBMMRAIDControllerTest\/testCommandFromURL()",
         "PBMMRAIDControllerTest\/testStringIsMRAIDLink()",

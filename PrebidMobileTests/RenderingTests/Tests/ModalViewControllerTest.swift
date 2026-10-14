@@ -197,8 +197,8 @@ class ModalViewControllerTest: XCTestCase, ModalViewControllerDelegate {
     }
     
     func testRotationDisabled() {
-        let webView = PBMWebView()
-        webView.isRotationEnabled = false
+        let webView = WebView()
+        webView.rotationEnabled = false
         let view = UIView()
         view.addSubview(webView)
         let modalState = Factory.createModalState(view: view,

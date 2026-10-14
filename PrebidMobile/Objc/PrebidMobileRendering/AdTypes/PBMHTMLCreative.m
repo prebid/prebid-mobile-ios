@@ -17,6 +17,8 @@
 //https://www.iab.com/wp-content/uploads/2015/08/IAB_MRAID_v2_FINAL.pdf
 //https://www.iab.com/wp-content/uploads/2017/07/MRAID_3.0_FINAL.pdf
 
+@import WebKit;
+
 #import "PBMAbstractCreative+Protected.h"
 
 
@@ -24,9 +26,8 @@
 #import "PBMHTMLCreative.h"
 #import "PBMMacros.h"
 #import "PBMModalState.h"
+#import "PBMOpenMeasurementSession.h"
 #import "PBMMRAIDConstants.h"
-#import "PBMWebView.h"
-#import "PBMMRAIDController.h"
 #import "Log+Extensions.h"
 
 #import "SwiftImport.h"

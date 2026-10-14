@@ -470,7 +470,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         let model = CreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
         let testCreative = PBMHTMLCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction())
-        testCreative.view = PBMWebView()
+        testCreative.view = WebView()
         return testCreative
     }
 }
