@@ -15,11 +15,11 @@
 
 @import AVFoundation;
 @import AdSupport;
+@import CoreLocation;
 
 #import <JavaScriptCore/JavaScriptCore.h>
 
 #import "PBMMRAIDController.h"
-#import "PBMMRAIDJavascriptCommands.h"
 #import "PBMMacros.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMORTB.h"

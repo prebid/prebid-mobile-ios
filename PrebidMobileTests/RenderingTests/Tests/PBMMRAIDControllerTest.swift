@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 // MARK - TestCase
 
@@ -54,7 +54,7 @@ class PBMMRAIDControllerTest : PBMMRAIDControllerTest_Base {
             }
             
             let expandCmd = MRAIDController.command(from: expandURL)
-            XCTAssertEqual(expandCmd.command, cmd)
+            XCTAssertEqual(expandCmd.command, cmd.rawValue)
         }
     }
 }

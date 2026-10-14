@@ -27,7 +27,7 @@ class PBMMRAIDCommandTest : XCTestCase {
         //Cover the three cases that would result in an error
         var expectedErrorMessage = "URL does not contain MRAID scheme"
         do {
-            _ = try PBMMRAIDCommand(url: "mraid_bad_scheme:expand")
+            _ = try MRAIDCommand(url: "mraid_bad_scheme:expand")
             XCTFail("Should have caught \(expectedErrorMessage) error")
         } catch let error as NSError {
             XCTAssert(error.localizedDescription.PBMdoesMatch(expectedErrorMessage), "Expected \(expectedErrorMessage), got \(error.localizedDescription)")
@@ -37,7 +37,7 @@ class PBMMRAIDCommandTest : XCTestCase {
         
         expectedErrorMessage = "Command not found"
         do {
-            _ = try PBMMRAIDCommand(url: "mraid:")
+            _ = try MRAIDCommand(url: "mraid:")
             XCTFail("Should have caught \(expectedErrorMessage) error")
         } catch let error as NSError {
             XCTAssert(error.localizedDescription.PBMdoesMatch(expectedErrorMessage), "Expected \(expectedErrorMessage), got \(error.localizedDescription)")
@@ -47,7 +47,7 @@ class PBMMRAIDCommandTest : XCTestCase {
         
         expectedErrorMessage = "Unrecognized MRAID command"
         do {
-            _ = try PBMMRAIDCommand(url: "mraid:bad_command")
+            _ = try MRAIDCommand(url: "mraid:bad_command")
             XCTFail("Should have caught \(expectedErrorMessage) error")
         } catch let error as NSError {
             XCTAssert(error.localizedDescription.PBMdoesMatch(expectedErrorMessage), "Expected \(expectedErrorMessage), got \(error.localizedDescription)")
@@ -56,66 +56,66 @@ class PBMMRAIDCommandTest : XCTestCase {
         }
         
         
-        var pbmMRAIDCommand:PBMMRAIDCommand
+        var pbmMRAIDCommand:MRAIDCommand
         
         do {
             
             //Test all commands
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:open")
-            XCTAssertEqual(pbmMRAIDCommand.command, .open)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:open")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.open.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:expand")
-            XCTAssertEqual(pbmMRAIDCommand.command, .expand)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:expand")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:resize")
-            XCTAssertEqual(pbmMRAIDCommand.command, .resize)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:resize")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.resize.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:close")
-            XCTAssertEqual(pbmMRAIDCommand.command, .close)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:close")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.close.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:playVideo")
-            XCTAssertEqual(pbmMRAIDCommand.command, .playVideo)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:playVideo")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.playVideo.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:log")
-            XCTAssertEqual(pbmMRAIDCommand.command, .log)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:log")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.log.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:onOrientationPropertiesChanged")
-            XCTAssertEqual(pbmMRAIDCommand.command, .onOrientationPropertiesChanged)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:onOrientationPropertiesChanged")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.onOrientationPropertiesChanged.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             //Case sensitivity
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:ONORIENTATIONPROPERTIESCHANGED")
-            XCTAssertEqual(pbmMRAIDCommand.command, .onOrientationPropertiesChanged)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:ONORIENTATIONPROPERTIESCHANGED")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.onOrientationPropertiesChanged.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:eXpAnD")
-            XCTAssertEqual(pbmMRAIDCommand.command, .expand)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:eXpAnD")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             //mixed
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:OPEN")
-            XCTAssertEqual(pbmMRAIDCommand.command, .open)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:OPEN")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.open.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             //Arguments
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:expand/foo.com")
-            XCTAssertEqual(pbmMRAIDCommand.command, .expand)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:expand/foo.com")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == ["foo.com"])
             
             //%-substitution
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:expand/foo.com%20bar")
-            XCTAssertEqual(pbmMRAIDCommand.command, .expand)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:expand/foo.com%20bar")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == ["foo.com bar"])
             
             //Lots of arguments
-            pbmMRAIDCommand = try PBMMRAIDCommand(url: "mraid:expand/foo/bar/baz")
-            XCTAssertEqual(pbmMRAIDCommand.command, .expand)
+            pbmMRAIDCommand = try MRAIDCommand(url: "mraid:expand/foo/bar/baz")
+            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == ["foo", "bar", "baz"])
             
         } catch let error as PBMError {
