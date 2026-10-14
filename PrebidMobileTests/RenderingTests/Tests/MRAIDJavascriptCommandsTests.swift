@@ -14,6 +14,7 @@
   */
 
 import XCTest
+import CoreLocation
 
 @_spi(PBMInternal) @testable import PrebidMobile
 
@@ -24,92 +25,92 @@ class MRAIDJavascriptCommandsTests: XCTestCase {
     
     func testMRAIDJavascriptCommandsWithParams() {
         
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.isEnabled(), "typeof mraid !== 'undefined'")
+        XCTAssertEqual(MRAIDJavascriptCommands.isEnabled(), "typeof mraid !== 'undefined'")
         
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onReady(), "mraid.onReady();")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onReadyExpanded(), "mraid.onReadyExpanded();")
+        XCTAssertEqual(MRAIDJavascriptCommands.onReady(), "mraid.onReady();")
+        XCTAssertEqual(MRAIDJavascriptCommands.onReadyExpanded(), "mraid.onReadyExpanded();")
         
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.nativeCallComplete(), "mraid.nativeCallComplete();");
+        XCTAssertEqual(MRAIDJavascriptCommands.nativeCallComplete(), "mraid.nativeCallComplete();");
         
         // onExposureChange
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onExposureChange(
+        XCTAssertEqual(MRAIDJavascriptCommands.onExposureChange(
             Factory.createViewExposure(exposureFactor: 1,
                                        visibleRectangle: CGRect(x: 0, y: 0, width: 100, height: 100))),
                        "mraid.onExposureChange(\"{\\\"exposedPercentage\\\": 100.0, \\\"visibleRectangle\\\": {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"width\\\": 100.0, \\\"height\\\": 100.0}, \\\"occlusionRectangles\\\": null}\");")
         
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onExposureChange(
+        XCTAssertEqual(MRAIDJavascriptCommands.onExposureChange(
             Factory.createViewExposure(exposureFactor: 1,
                                        visibleRectangle: CGRect(x: 0, y: 0, width: 100, height: 100),
                                        occlusionRectangles: [CGRect(x: 70, y: 80, width: 30, height: 20), CGRect(x: 0, y: 0, width: 10, height: 10)])),
                        "mraid.onExposureChange(\"{\\\"exposedPercentage\\\": 100.0, \\\"visibleRectangle\\\": {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"width\\\": 100.0, \\\"height\\\": 100.0}, \\\"occlusionRectangles\\\": [{\\\"x\\\": 70.0, \\\"y\\\": 80.0, \\\"width\\\": 30.0, \\\"height\\\": 20.0}, {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"width\\\": 10.0, \\\"height\\\": 10.0}]}\");")
         
         
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onExposureChange(Factory.ViewExposureType.zero),
+        XCTAssertEqual(MRAIDJavascriptCommands.onExposureChange(Factory.ViewExposureType.zero),
                        "mraid.onExposureChange(\"{\\\"exposedPercentage\\\": 0.0, \\\"visibleRectangle\\\": {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"width\\\": 0.0, \\\"height\\\": 0.0}, \\\"occlusionRectangles\\\": null}\");")
         
         // onSizeChange
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onSizeChange(CGSize(width: 0.0, height: 0.0)), "mraid.onSizeChange(0.0,0.0);")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onSizeChange(CGSize(width: -1.1, height: -2.2)), "mraid.onSizeChange(-1.1,-2.2);")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onSizeChange(CGSize(width: 1, height: 2)), "mraid.onSizeChange(1.0,2.0);")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onSizeChange(CGSize(width: 1.1, height: 2.2)), "mraid.onSizeChange(1.1,2.2);")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onSizeChange(CGSize(width: 1.1111, height: 2.2222)), "mraid.onSizeChange(1.1111,2.2222);")
+        XCTAssertEqual(MRAIDJavascriptCommands.onSizeChange(CGSize(width: 0.0, height: 0.0)), "mraid.onSizeChange(0.0,0.0);")
+        XCTAssertEqual(MRAIDJavascriptCommands.onSizeChange(CGSize(width: -1.1, height: -2.2)), "mraid.onSizeChange(-1.1,-2.2);")
+        XCTAssertEqual(MRAIDJavascriptCommands.onSizeChange(CGSize(width: 1, height: 2)), "mraid.onSizeChange(1.0,2.0);")
+        XCTAssertEqual(MRAIDJavascriptCommands.onSizeChange(CGSize(width: 1.1, height: 2.2)), "mraid.onSizeChange(1.1,2.2);")
+        XCTAssertEqual(MRAIDJavascriptCommands.onSizeChange(CGSize(width: 1.1111, height: 2.2222)), "mraid.onSizeChange(1.1111,2.2222);")
         
         // onStateChange
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onStateChange(.defaultState), "mraid.onStateChange('default');");
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onStateChange(.expanded), "mraid.onStateChange('expanded');");
+        XCTAssertEqual(MRAIDJavascriptCommands.onStateChange(.defaultState), "mraid.onStateChange('default');");
+        XCTAssertEqual(MRAIDJavascriptCommands.onStateChange(.expanded), "mraid.onStateChange('expanded');");
         
         // onAudioVolumeChange
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onAudioVolumeChange(nil), "mraid.onAudioVolumeChange(null);");
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onAudioVolumeChange(NSNumber(value: 50.5)), "mraid.onAudioVolumeChange(50.5);");
+        XCTAssertEqual(MRAIDJavascriptCommands.onAudioVolumeChange(nil), "mraid.onAudioVolumeChange(null);");
+        XCTAssertEqual(MRAIDJavascriptCommands.onAudioVolumeChange(NSNumber(value: 50.5)), "mraid.onAudioVolumeChange(50.5);");
         
         // updatePlacementType
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updatePlacementType(.inline), "mraid.placementType = 'inline';")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updatePlacementType(.interstitial), "mraid.placementType = 'interstitial';")
+        XCTAssertEqual(MRAIDJavascriptCommands.updatePlacementType(PBMMRAIDPlacementType.inline.rawValue), "mraid.placementType = 'inline';")
+        XCTAssertEqual(MRAIDJavascriptCommands.updatePlacementType(PBMMRAIDPlacementType.interstitial.rawValue), "mraid.placementType = 'interstitial';")
         
         // updateMaxSize
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateMaxSize(CGSize(width: 0.0, height: 0.0)), "mraid.setMaxSize(0.0,0.0);")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateMaxSize(CGSize(width: 1, height: 2)), "mraid.setMaxSize(1.0,2.0);")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateMaxSize(CGSize(width: 1.11, height: 2.22)), "mraid.setMaxSize(1.11,2.22);")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateMaxSize(CGSize(width: 375, height: 667)), "mraid.setMaxSize(375.0,667.0);")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateMaxSize(CGSize(width: 1024, height: 1366)), "mraid.setMaxSize(1024.0,1366.0);")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateMaxSize(CGSize(width: 0.0, height: 0.0)), "mraid.setMaxSize(0.0,0.0);")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateMaxSize(CGSize(width: 1, height: 2)), "mraid.setMaxSize(1.0,2.0);")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateMaxSize(CGSize(width: 1.11, height: 2.22)), "mraid.setMaxSize(1.11,2.22);")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateMaxSize(CGSize(width: 375, height: 667)), "mraid.setMaxSize(375.0,667.0);")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateMaxSize(CGSize(width: 1024, height: 1366)), "mraid.setMaxSize(1024.0,1366.0);")
         
         // updateScreenSize
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateScreenSize(CGSize(width: 0.0, height: 0.0)) , "mraid.screenSize = {width:0.0,height:0.0};")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateScreenSize(CGSize(width: 1, height: 2)) , "mraid.screenSize = {width:1.0,height:2.0};")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateScreenSize(CGSize(width: 1.11, height: 2.22)) , "mraid.screenSize = {width:1.11,height:2.22};")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateScreenSize(CGSize(width: 375, height: 667)) , "mraid.screenSize = {width:375.0,height:667.0};")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateScreenSize(CGSize(width: 1024, height: 1366)) , "mraid.screenSize = {width:1024.0,height:1366.0};")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateScreenSize(CGSize(width: 1024.0, height: 1366.0)) , "mraid.screenSize = {width:1024.0,height:1366.0};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateScreenSize(CGSize(width: 0.0, height: 0.0)) , "mraid.screenSize = {width:0.0,height:0.0};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateScreenSize(CGSize(width: 1, height: 2)) , "mraid.screenSize = {width:1.0,height:2.0};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateScreenSize(CGSize(width: 1.11, height: 2.22)) , "mraid.screenSize = {width:1.11,height:2.22};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateScreenSize(CGSize(width: 375, height: 667)) , "mraid.screenSize = {width:375.0,height:667.0};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateScreenSize(CGSize(width: 1024, height: 1366)) , "mraid.screenSize = {width:1024.0,height:1366.0};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateScreenSize(CGSize(width: 1024.0, height: 1366.0)) , "mraid.screenSize = {width:1024.0,height:1366.0};")
         
         // updateDefaultPosition
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateDefaultPosition(CGRect(x: 0, y: 0, width: 0, height: 0)), "mraid.defaultPosition = {x:0.0, y:0.0, width:0.0, height:0.0};")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateDefaultPosition(CGRect(x: 1, y: 2, width: 3, height: 4)), "mraid.defaultPosition = {x:1.0, y:2.0, width:3.0, height:4.0};")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateDefaultPosition(CGRect(x: 1.11, y: 2.22, width: 3.33, height: 4.44)), "mraid.defaultPosition = {x:1.11, y:2.22, width:3.33, height:4.44};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateDefaultPosition(CGRect(x: 0, y: 0, width: 0, height: 0)), "mraid.defaultPosition = {x:0.0, y:0.0, width:0.0, height:0.0};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateDefaultPosition(CGRect(x: 1, y: 2, width: 3, height: 4)), "mraid.defaultPosition = {x:1.0, y:2.0, width:3.0, height:4.0};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateDefaultPosition(CGRect(x: 1.11, y: 2.22, width: 3.33, height: 4.44)), "mraid.defaultPosition = {x:1.11, y:2.22, width:3.33, height:4.44};")
         
         // updateCurrentPosition
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateCurrentPosition(CGRect(x: 0, y: 0, width: 0, height: 0)), "mraid.currentPosition = {x:0.0, y:0.0, width:0.0, height:0.0};")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateCurrentPosition(CGRect(x: 1, y: 2, width: 3, height: 4)), "mraid.currentPosition = {x:1.0, y:2.0, width:3.0, height:4.0};")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateCurrentPosition(CGRect(x: 1.11, y: 2.22, width: 3.33, height: 4.44)), "mraid.currentPosition = {x:1.11, y:2.22, width:3.33, height:4.44};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateCurrentPosition(CGRect(x: 0, y: 0, width: 0, height: 0)), "mraid.currentPosition = {x:0.0, y:0.0, width:0.0, height:0.0};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateCurrentPosition(CGRect(x: 1, y: 2, width: 3, height: 4)), "mraid.currentPosition = {x:1.0, y:2.0, width:3.0, height:4.0};")
+        XCTAssertEqual(MRAIDJavascriptCommands.updateCurrentPosition(CGRect(x: 1.11, y: 2.22, width: 3.33, height: 4.44)), "mraid.currentPosition = {x:1.11, y:2.22, width:3.33, height:4.44};")
         
         // updateLocation
         var coordinate = CLLocationCoordinate2DMake(0, 0)
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateLocation(coordinate, accuracy: 0, timeStamp: 0),
+        XCTAssertEqual(MRAIDJavascriptCommands.updateLocation(coordinate, accuracy: 0, timeStamp: 0),
                        "mraid.setLocation(0.0,0.0,0.0,0.0);")
         coordinate = CLLocationCoordinate2DMake(12.34, 56.78)
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateLocation(coordinate, accuracy: 1.0, timeStamp: 2.0),
+        XCTAssertEqual(MRAIDJavascriptCommands.updateLocation(coordinate, accuracy: 1.0, timeStamp: 2.0),
                        "mraid.setLocation(12.34,56.78,1.0,2.0);")
         
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.getCurrentPosition(), "JSON.stringify(mraid.getCurrentPosition());")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.getOrientationProperties(), "JSON.stringify(mraid.getOrientationProperties());")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.getExpandProperties(), "JSON.stringify(mraid.getExpandProperties());")
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.getResizeProperties(), "JSON.stringify(mraid.getResizeProperties());")
+        XCTAssertEqual(MRAIDJavascriptCommands.getCurrentPosition(), "JSON.stringify(mraid.getCurrentPosition());")
+        XCTAssertEqual(MRAIDJavascriptCommands.getOrientationProperties(), "JSON.stringify(mraid.getOrientationProperties());")
+        XCTAssertEqual(MRAIDJavascriptCommands.getExpandProperties(), "JSON.stringify(mraid.getExpandProperties());")
+        XCTAssertEqual(MRAIDJavascriptCommands.getResizeProperties(), "JSON.stringify(mraid.getResizeProperties());")
         
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.onError("test message", action: .open), "mraid.onError('test message','open');")
+        XCTAssertEqual(MRAIDJavascriptCommands.onError("test message", action: PBMMRAIDAction.open.rawValue), "mraid.onError('test message','open');")
         
         // currentAppOrientation
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateCurrentAppOrientation("portrait", locked: false),
+        XCTAssertEqual(MRAIDJavascriptCommands.updateCurrentAppOrientation("portrait", locked: false),
                        "mraid.setCurrentAppOrientation('portrait', false);");
-        XCTAssertEqual(PBMMRAIDJavascriptCommands.updateCurrentAppOrientation("landscape", locked: true),
+        XCTAssertEqual(MRAIDJavascriptCommands.updateCurrentAppOrientation("landscape", locked: true),
                        "mraid.setCurrentAppOrientation('landscape', true);");
     }
     
@@ -124,7 +125,7 @@ class MRAIDJavascriptCommandsTests: XCTestCase {
             "vpaid": false,
         ]
         
-        let features = PBMMRAIDJavascriptCommands.updateSupportedFeatures()
+        let features = MRAIDJavascriptCommands.updateSupportedFeatures()
         let matches = regexMatch(features, pattern: "mraid.allSupports = (\\{.+\\});")
         let jsonString = matches.count == 2 ? matches[1] : ""
         if let actualFeatures = try? Functions.dictionaryFromJSONString(jsonString) {

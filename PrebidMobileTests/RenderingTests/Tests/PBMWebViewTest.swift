@@ -854,7 +854,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationCommandExecuted = expectation(description: "expectationCommandExecuted")
         
         webView.jsEvaluatingCompletion = { jsCommand, jsRes, error in
-            if jsCommand == PBMMRAIDJavascriptCommands.onExposureChange(Factory.createViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds)) {
+            if jsCommand == MRAIDJavascriptCommands.onExposureChange(Factory.createViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds)) {
                 self.expectationCommandExecuted?.fulfill()
             }
         }
@@ -894,7 +894,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         let jsEvaluationBlock: ((String?, Any?, Error?) -> Bool) = { jsCommand, jsRes, error in
-            return jsCommand == PBMMRAIDJavascriptCommands.onViewableChange(true)
+            return jsCommand == MRAIDJavascriptCommands.onViewableChange(true)
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
@@ -910,7 +910,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         let jsEvaluationBlock: ((String?, Any?, Error?) -> Bool) = { jsCommand, jsRes, error in
-            return jsCommand == PBMMRAIDJavascriptCommands.onExposureChange(Factory.createViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds))
+            return jsCommand == MRAIDJavascriptCommands.onExposureChange(Factory.createViewExposure(exposureFactor: 1, visibleRectangle: webView.bounds))
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
@@ -926,7 +926,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         let jsEvaluationBlock: ((String?, Any?, Error?) -> Bool) = { jsCommand, jsRes, error in
-            return jsCommand == PBMMRAIDJavascriptCommands.updatePlacementType(.inline)
+            return jsCommand == MRAIDJavascriptCommands.updatePlacementType(PBMMRAIDPlacementType.inline.rawValue)
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
@@ -945,7 +945,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         let jsEvaluationBlock: ((String?, Any?, Error?) -> Bool) = { jsCommand, jsRes, error in
-            return jsCommand == PBMMRAIDJavascriptCommands.onAudioVolumeChange(50.0)
+            return jsCommand == MRAIDJavascriptCommands.onAudioVolumeChange(50.0)
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)
@@ -978,7 +978,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationCommandExecuted = expectation(description: "expectationCommandExecuted")
         
         webView.jsEvaluatingCompletion = { jsCommand, jsRes, error in
-            if jsCommand ==  PBMMRAIDJavascriptCommands.updateCurrentAppOrientation(orientationStr,
+            if jsCommand ==  MRAIDJavascriptCommands.updateCurrentAppOrientation(orientationStr,
                                                                                     locked: false){
                 self.expectationCommandExecuted?.fulfill()
             }
@@ -1000,7 +1000,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         expectationCommandExecuted = expectation(description: "expectationCommandExecuted")
         
         webView.jsEvaluatingCompletion = { jsCommand, jsRes, error in
-            if jsCommand == PBMMRAIDJavascriptCommands.updateMaxSize(Functions.deviceMaxSize) {
+            if jsCommand == MRAIDJavascriptCommands.updateMaxSize(Functions.deviceMaxSize) {
                 self.expectationCommandExecuted?.fulfill();
             }
         }
@@ -1024,7 +1024,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         let jsEvaluationBlock: ((String?, Any?, Error?) -> Bool) = { jsCommand, jsRes, error in
-            let res = PBMMRAIDJavascriptCommands.updateCurrentPosition(webView.frame)
+            let res = MRAIDJavascriptCommands.updateCurrentPosition(webView.frame)
             return jsCommand == res
         }
         
