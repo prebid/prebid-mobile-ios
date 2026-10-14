@@ -29,6 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
                               webView:(nullable PBMWebView *)webView
                      sdkConfiguration:(Prebid *)sdkConfiguration;
 
+// Re-declared so Swift sees them: an ObjC conformer to a Swift @objc protocol does not inherit the Swift spelling.
+- (void)webViewReadyToDisplay:(PBMWebView *)webView;
+- (void)webView:(PBMWebView *)webView failedToLoadWithError:(NSError *)error;
+- (void)webView:(PBMWebView *)webView receivedClickthroughLink:(NSURL *)url;
+- (void)webView:(PBMWebView *)webView receivedMRAIDLink:(NSURL *)url;
+- (void)webView:(PBMWebView *)webView receivedRewardedEventLink:(NSURL *)url;
+
 - (nonnull id<PBMUIApplicationProtocol>)getApplication;
 
 - (BOOL)hasVastTag:(NSString *)html;

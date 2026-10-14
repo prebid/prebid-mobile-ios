@@ -26,7 +26,7 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
             called = true
         }
         
-        let state = Factory.createModalState(view: PBMWebView(),
+        let state = Factory.createModalState(view: WebView(),
                                              adConfiguration:AdConfiguration(),
                                              displayProperties:InterstitialDisplayProperties(),
                                              onStatePopFinished: { [weak self] poppedState in
@@ -49,7 +49,7 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
         
         htmlCreative.setupView()
         
-        let state = Factory.createModalState(view: PBMWebView(),
+        let state = Factory.createModalState(view: WebView(),
                                              adConfiguration:AdConfiguration(),
                                              displayProperties:InterstitialDisplayProperties(),
                                              onStatePopFinished: { [weak self] poppedState in
@@ -74,7 +74,7 @@ class PBMHTMLCreativeTest_ModalManagerDelegate: PBMHTMLCreativeTest_Base {
         htmlCreative.clickthroughVisible = true
         htmlCreative.setupView()
         
-        let state = Factory.createModalState(view: PBMWebView(),
+        let state = Factory.createModalState(view: WebView(),
                                              adConfiguration:AdConfiguration(),
                                              displayProperties:InterstitialDisplayProperties(),
                                              onStatePopFinished: { [weak self] poppedState in

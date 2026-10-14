@@ -29,7 +29,7 @@ class PBMMRAIDControllerTest_Base: XCTestCase, CreativeViewDelegate {
     var mockWebView: MockPBMWebView!
     var mockViewController: MockViewController!
     
-    var MRAIDController: PBMMRAIDController!
+    var mraidController: MRAIDController!
     
     override func setUp() {
         

@@ -13,14 +13,9 @@
   limitations under the License.
   */
 #import <XCTest/XCTest.h>
-#import "PBMWebView.h"
+@import WebKit;
+
 #import "PrebidMobileTests-Swift.h"
-
-@interface PBMWebView (Testable)
-
-- (void)evaluateJavaScript:(NSString *)jsCommand;
-
-@end
 
 @interface PBMWebViewObjCTest : XCTestCase<WKNavigationDelegate>
 
@@ -48,51 +43,6 @@
     [self waitForExpectationsWithTimeout:3.0 handler:nil];
     
     [UtilitiesForTesting releaseLogFile];
-}
-
-- (void)testExpandNil {
-    PBMWebView *webView = [PBMWebView new];
-    webView.internalWebView.navigationDelegate = self;
-    
-    self.expectationNoNavigation = [self expectationWithDescription:@"expectationNoNavigation"];
-    self.expectationNoNavigation.inverted = YES;
-    
-    [UtilitiesForTesting prepareLogFile];
-    
-    NSURL *url = nil;
-    [webView expand:url];
-    
-    
-    NSString *log = [PBMLog getLogFileAsString];
-    XCTAssertTrue([log rangeOfString:@"Could not expand with nil url"].location != NSNotFound);
-    
-    [self waitForExpectationsWithTimeout:3.0 handler:nil];
-    
-    [UtilitiesForTesting releaseLogFile];
-}
-/*
- - (void)testStringIsMRAIDLinkNil {
- NSString *url = nil;
- XCTAssertFalse([PBMWebView isMRAIDLink:url]);
- }
- */
-- (void)testEvaluateJSNil {
-    PBMWebView *webView = [PBMWebView new];
-    
-    XCTestExpectation *expectation = [self expectationWithDescription:@""];
-    
-    webView.jsEvaluatingCompletion = ^(NSString *command, id jsRes, NSError *error){
-        XCTAssertNil(command);
-        XCTAssertNil(jsRes);
-        XCTAssertNil(error);
-        
-        [expectation fulfill];
-    };
-    
-    NSString *str = nil;
-    [webView evaluateJavaScript:str];
-    
-    [self waitForExpectationsWithTimeout:10.0 handler:nil];
 }
 
 #pragma mark - WKNavigationDelegate

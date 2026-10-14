@@ -53,7 +53,7 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
     
     func testModalManagerDidFinishPop() {
         logToFile = .init()
-        let state = Factory.createModalState(view: PBMWebView(),
+        let state = Factory.createModalState(view: WebView(),
                                              adConfiguration:AdConfiguration(),
                                              displayProperties:InterstitialDisplayProperties())
         self.pbmAbstractCreative.modalManagerDidFinishPop(state)
@@ -63,7 +63,7 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
 
     func testModalManagerDidLeaveApp() {
         logToFile = .init()
-        let state = Factory.createModalState(view: PBMWebView(),
+        let state = Factory.createModalState(view: WebView(),
                                              adConfiguration:AdConfiguration(),
                                              displayProperties:InterstitialDisplayProperties())
         pbmAbstractCreative.modalManagerDidLeaveApp(state)
@@ -155,7 +155,7 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
 
         pbmAbstractCreative.clickthroughVisible = false
         pbmAbstractCreative.pendingModalStatePop = Factory.createModalState(
-            view: PBMWebView(),
+            view: WebView(),
             adConfiguration: AdConfiguration(),
             displayProperties: InterstitialDisplayProperties())
 

@@ -105,7 +105,7 @@ typealias JsonDictionary = [String:Any]
         creative.modalManager = modalManager
         
         if withView {
-            let webView = PBMWebView()
+            let webView = WebView()
             creative.view = webView
         }
         
@@ -116,7 +116,7 @@ typealias JsonDictionary = [String:Any]
         let creative = PBMHTMLCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction())
         
         if withView {
-            let webView = PBMWebView()
+            let webView = WebView()
             creative.view = webView
         }
         
