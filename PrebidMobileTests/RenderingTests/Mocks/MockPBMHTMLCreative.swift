@@ -15,12 +15,8 @@
 
 import Foundation
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
-class MockPBMHTMLCreative: PBMHTMLCreative {
-    var mockUIApplication: PBMUIApplicationProtocol?
-    
-    override func getApplication() -> PBMUIApplicationProtocol {
-        return mockUIApplication ?? MockUIApplication()
-    }
+// `getApplication()` and its `mockUIApplication` seam are gone: nothing ever called them (see docs/migration/notes/agent-3.md).
+class MockPBMHTMLCreative: HTMLCreative {
 }

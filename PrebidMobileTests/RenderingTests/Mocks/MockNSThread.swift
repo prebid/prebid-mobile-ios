@@ -16,6 +16,8 @@
 import Foundation
 import XCTest
 
+@_spi(PBMInternal) @testable import PrebidMobile
+
 // Use this class when need to test behavior in the global thread from the main thread.
 final class MockNSThread : ThreadProtocol {
     

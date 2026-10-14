@@ -38,7 +38,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
     var expectationDownloadCompleted:XCTestExpectation!
     var expectationTrackingEventMidpoint:XCTestExpectation!
     
-    var pbmVideoCreative:PBMVideoCreative!
+    var pbmVideoCreative:VideoCreative!
     
     override func setUp() {
         super.setUp()
@@ -124,7 +124,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
                 
                 self.expectationDownloadCompleted.fulfill()
                 
-                guard let pbmVideoCreative = creatives?.first as? PBMVideoCreative else {
+                guard let pbmVideoCreative = creatives?.first as? VideoCreative else {
                     XCTFail("Could not cast creative as PBMRewardedVideoCreative")
                     return
                 }
@@ -271,8 +271,8 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
     func creativeFactorySuccess(creative: AbstractCreative)->() {
         self.expectationDownloadCompleted.fulfill()
         
-        guard let pbmVideoCreative = creative as? PBMVideoCreative else {
-            XCTFail("Could not cast \(creative) as PBMVideoCreative")
+        guard let pbmVideoCreative = creative as? VideoCreative else {
+            XCTFail("Could not cast \(creative) as VideoCreative")
             return
         }
         

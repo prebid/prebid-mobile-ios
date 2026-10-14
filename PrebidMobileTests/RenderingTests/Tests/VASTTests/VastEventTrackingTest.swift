@@ -32,7 +32,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
     var expectations = [XCTestExpectation]()
 
     var vastServerRespose: AdRequestResponseVAST?
-    var videoCreative: PBMVideoCreative!
+    var videoCreative: VideoCreative!
     
     override func setUp() {
         super.setUp()
@@ -124,8 +124,8 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
                         XCTFail("error: \(error?.localizedDescription ?? "")")
                     }
                     
-                    guard let creative = creatives?.first as? PBMVideoCreative else {
-                        XCTFail("Could not cast creative as PBMVideoCreative")
+                    guard let creative = creatives?.first as? VideoCreative else {
+                        XCTFail("Could not cast creative as VideoCreative")
                         return
                     }
                     

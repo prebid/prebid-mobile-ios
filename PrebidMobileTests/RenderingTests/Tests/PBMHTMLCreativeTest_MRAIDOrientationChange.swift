@@ -15,6 +15,8 @@
 
 import XCTest
 
+@_spi(PBMInternal) @testable import PrebidMobile
+
 class PBMHTMLCreativeTest_MRAIDOrientationChange: PBMHTMLCreativeTest_Base {
     
     func testInvalidCommand() {

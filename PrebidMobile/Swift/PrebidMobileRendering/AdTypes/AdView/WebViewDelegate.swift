@@ -19,7 +19,8 @@ import UIKit
 @objc(PBMWebViewDelegate) @_spi(PBMInternal) public
 protocol WebViewDelegate: NSObjectProtocol {
 
-    func viewControllerForPresentingModals() -> UIViewController?
+    // A property, like the ObjC creative that served it through its `viewControllerForPresentingModals` getter.
+    var viewControllerForPresentingModals: UIViewController? { get }
     func webViewReadyToDisplay(_ webView: WebView)
     func webView(_ webView: WebView, failedToLoadWithError error: Error)
     func webView(_ webView: WebView, receivedClickthroughLink url: URL)

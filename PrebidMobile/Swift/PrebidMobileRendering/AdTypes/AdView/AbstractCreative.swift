@@ -76,8 +76,10 @@ protocol AbstractCreative: NSObjectProtocol {
     func unmute()
     
     //Modal Manager Events
-    func modalManagerDidFinishPop(_ state: ModalState)
-    func modalManagerDidLeaveApp(_ state: ModalState)
+    // Optional: `SafariVCOpener` reports a closed clickthrough (and a clickthrough that leaves the app) with `nil`, and
+    // the creatives act on the call, not on the state.
+    func modalManagerDidFinishPop(_ state: ModalState?)
+    func modalManagerDidLeaveApp(_ state: ModalState?)
     
     func onViewabilityChanged(_ viewable: Bool, viewExposure: ViewExposure)
 }
