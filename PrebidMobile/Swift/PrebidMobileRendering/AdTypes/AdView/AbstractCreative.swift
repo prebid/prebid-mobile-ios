@@ -37,7 +37,7 @@ protocol AbstractCreative: NSObjectProtocol {
     var modalManager: ModalManager? { get set }
     var dispatchQueue: DispatchQueue { get set }
     var viewabilityTracker: CreativeViewabilityTracker? { get set }
-    var dismissInterstitialModalState: VoidBlock { get }
+    var dismissInterstitialModalState: VoidBlock? { get }
     var isDownloaded: Bool { get set }
     
     // Indicates whether creative is opened with user action (expanded, clickthrough showed ...) or not

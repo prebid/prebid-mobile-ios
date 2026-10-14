@@ -20,7 +20,7 @@ import SafariServices
 class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
 
     private let sdkConfiguration: Prebid
-    private let modalManager: ModalManager
+    private let modalManager: ModalManager?
 
     private let viewControllerProvider: () -> UIViewController?
     private let measurementSessionProvider: () -> OMSession?
@@ -44,7 +44,7 @@ class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
     @objc(initWithSDKConfiguration:modalManager:viewControllerProvider:measurementSessionProvider:onWillLoadURLInClickthrough:onWillLeaveAppBlock:onClickthroughPoppedBlock:onDidLeaveAppBlock:)
     public init(
         sdkConfiguration: Prebid,
-        modalManager: ModalManager,
+        modalManager: ModalManager?,
         viewControllerProvider: @escaping () -> UIViewController?,
         measurementSessionProvider: @escaping () -> OMSession?,
         onWillLoadURLInClickthrough: VoidBlock?,
@@ -118,7 +118,7 @@ class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
 
         var presentingViewController = viewControllerForPresentingModals
 
-        if let modalViewController = modalManager.modalViewController {
+        if let modalViewController = modalManager?.modalViewController {
             presentingViewController = modalViewController
         }
 

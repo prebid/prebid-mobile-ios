@@ -53,7 +53,7 @@ extension PBMAbstractCreative_Objc {
         get { p.viewabilityTracker }
         set { p.viewabilityTracker = newValue }
     }
-    var dismissInterstitialModalState: PBMVoidBlock { p.dismissInterstitialModalState }
+    var dismissInterstitialModalState: PBMVoidBlock? { p.dismissInterstitialModalState }
     var isDownloaded: Bool {
         get { p.isDownloaded }
         set { p.isDownloaded = newValue }
