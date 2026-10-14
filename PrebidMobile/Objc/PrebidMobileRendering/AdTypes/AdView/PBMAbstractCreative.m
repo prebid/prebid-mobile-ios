@@ -19,13 +19,10 @@
 #import "PBMConstants.h"
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
-#import "PBMSafariVCOpener.h"
-#import "PBMDeepLinkPlusHelper.h"
 #import "PBMMacros.h"
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMWindowLocker.h"
 
 #import "Log+Extensions.h"
 
@@ -351,7 +348,7 @@
                                                                  viewControllerProvider:^UIViewController * _Nullable{
         @strongify(self);
         return self.viewControllerForPresentingModals;
-    } measurementSessionProvider: ^PBMOpenMeasurementSession * _Nullable{
+    } measurementSessionProvider: ^id<PBMOMSession> _Nullable{
         @strongify(self);
         return self.transaction.measurementSession;
     } onWillLoadURLInClickthrough:^{
