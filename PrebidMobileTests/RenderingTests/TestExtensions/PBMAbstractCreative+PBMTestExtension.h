@@ -14,7 +14,7 @@
   */
 
 #import "PBMAbstractCreative.h"
-#import "PBMSafariVCOpener.h"
+#import "PBMVoidBlock.h"
 
 @class SKStoreProductViewController;
 @protocol PBMThreadProtocol;
