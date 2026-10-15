@@ -56,7 +56,7 @@ Swift types forbid the ObjC behavior, or the ObjC behavior was a crash or nil-me
 
 | # | Site | ObjC | Swift | Status |
 |---|------|------|-------|--------|
-| 1 | `HTMLCreative.webView(_:receivedMRAIDLink:)` and `SafariVCOpener.openClickthrough` | `@try/@catch (NSException)`: UIKit/WebKit exceptions (e.g. "present modally an active controller") were logged and swallowed | not ported: Swift cannot catch ObjC exceptions. `MRAIDController`'s own 14 `NSException` throws became a Swift `throws` with unchanged messages | **forced**; a UIKit exception from an MRAID command that arrives mid-presentation would now crash instead of logging. Flagged by review, not mitigated (no ObjC shim added) |
+| 1 | `HTMLCreative.webView(_:receivedMRAIDLink:)` and `SafariVCOpener.openClickthrough` | `@try/@catch (NSException)`: UIKit/WebKit exceptions (e.g. "present modally an active controller") were logged and swallowed | not ported: Swift cannot catch ObjC exceptions. `MRAIDController`'s own 14 `NSException` throws became a Swift `throws` with unchanged messages | **forced**; a UIKit exception from an MRAID command that arrives mid-presentation would now crash instead of logging. Flagged by review, not mitigated (no ObjC shim added). Follow-up: #1403 |
 | 2 | `mraid.expand/resize` properties with a non-number/non-string value (`null`, `{}`, `[1]`) | `-integerValue`/`-boolValue` on `NSNull`/`NSDictionary`/`NSArray`: unrecognized-selector crash. **Verified: 7 of 7 probes crashed** | value rejected like a missing key; completion gets `nil` | **forced**, strictly safer; creative-controlled input |
 | 3 | `MRAIDCommand` with the scheme not at index 0 (`" mraid:open"`, `"http://a/mraid:expand"`) | `PBMsubstringFromString` ran past the end: `NSInvalidArgumentException` (4/4), caught and logged by the controller | throws "URL does not contain MRAID scheme", controller logs a warning | **forced**; message text differs. Exposes an existing off-by-length bug in `NSString.PBMsubstringFromString` (nothing calls it now) |
 | 4 | `HTMLFormatter.ensureHTMLHasBodyAndHTMLTags(nil)` | `NSRegularExpression` raised on nil | non-optional parameter | unreachable: the only caller returns early on nil HTML |
@@ -91,7 +91,7 @@ New SDK types are `@objc(PBMFoo) @_spi(PBMInternal) public` (Gap 6), except `Tra
 
 ## Open items for the reviewer
 
-- **Dropped `@try/@catch`** (deviation 1) and the early return in expand/resize (deviation 8).
+- **Dropped `@try/@catch`** (deviation 1; follow-up investigation: #1403) and the early return in expand/resize (deviation 8).
 - **`CreativeParityExpectations.swift` was trimmed from about 9,900 to about 590 lines** after review feedback. The full cross product matched the ObjC on the first run; the committed subset keeps the boundary values per parameter. The trimmed file was re-run (`CreativeParityTests.testParity` passes), but the cut is a filter of the original ObjC capture, so it checks fewer combinations than the first run did.
 - **`WebViewParityTests` takes about 17 s** (15 s of it one JavaScript-property test) and runs on every PR; the resize expectations skip on screens other than 402x874 pt.
 - `WebView_Protocol` now has one conformer; the two `as? WebView_Protocol` casts and the protocol can go (cleanup, not done here).
