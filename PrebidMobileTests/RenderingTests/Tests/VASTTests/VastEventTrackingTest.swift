@@ -25,7 +25,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
     let vc = UIViewController()
     let modalManager = ModalManager()
     
-    var creativeFactory: PBMCreativeFactory?
+    var creativeFactory: CreativeFactory?
     
     var vastRequestSuccessfulExpectation: XCTestExpectation?
     
@@ -118,7 +118,7 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
             let transaction = UtilitiesForTesting.createTransactionWithHTMLCreative()
             transaction.creativeModels = [creativeModel]
             
-            self.creativeFactory = PBMCreativeFactory(serverConnection: connection, transaction: transaction,
+            self.creativeFactory = CreativeFactory(serverConnection: connection, transaction: transaction,
                 finishedCallback: { creatives, error in
                     if (error != nil) {
                         XCTFail("error: \(error?.localizedDescription ?? "")")

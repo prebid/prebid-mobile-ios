@@ -29,10 +29,6 @@ protocol Transaction: NSObjectProtocol {
     
     weak var delegate: TransactionDelegate? { get set }
     
-    init(serverConnection: PrebidServerConnectionProtocol,
-         adConfiguration: AdConfiguration,
-         models: [CreativeModel])
-    
     func startCreativeFactory()
     func getAdDetails() -> AdDetails?
     func getFirstCreative() -> AbstractCreative?
@@ -41,7 +37,7 @@ protocol Transaction: NSObjectProtocol {
     func resetAdConfiguration(_ adConfiguration: AdConfiguration)
     
 #if DEBUG
-    // Expose objc impl method to swift for tests
+    // Exposed for tests (`TransactionImpl.updateAdConfiguration`)
     func updateAdConfiguration()
 #endif
 }

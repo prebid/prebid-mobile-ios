@@ -22,8 +22,6 @@
 
 //Imports
 #import "PBMConstants.h"
-#import "PBMCreativeFactory.h"
-#import "PBMCreativeFactoryJob.h"
 #import "PBMMacros.h"
 #import "PBMMRAIDConstants.h"
 #import "PBMORTB.h"
@@ -43,8 +41,6 @@
 #import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
 
 // Tests
-#import "PBMCreativeFactoryJob+PBMTestExtension.h"
-#import "PBMCreativeFactoryJob+PBMTestExtension.h"
 #import "PBMOpenMeasurementWrapper+PBMTestExtension.h"
 #import "PBMOpenMeasurementSession+PBMTestExtension.h"
 #import "PBMOpenMeasurementEventTracker+PBMTestExtension.h"

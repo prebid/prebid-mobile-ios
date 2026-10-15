@@ -101,7 +101,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
         
         let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
         
-        var creativeFactory: PBMCreativeFactory?
+        var creativeFactory: CreativeFactory?
         
         modelMaker.makeModels(self.vastServerResponse!, successCallback: { models in
             // count should include 1 video creative and 1 html creative (end card) for a total of 2.
@@ -116,7 +116,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
             transaction.creativeModels = [creativeModel]
             
             //Get a Creative
-            creativeFactory = PBMCreativeFactory(serverConnection: connection,
+            creativeFactory = CreativeFactory(serverConnection: connection,
                                                  transaction: transaction, finishedCallback: { creatives, error in
                 if (error != nil) {
                     XCTFail("error: \(error?.localizedDescription ?? "")")

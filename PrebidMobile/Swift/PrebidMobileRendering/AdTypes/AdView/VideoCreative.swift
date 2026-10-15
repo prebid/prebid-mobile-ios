@@ -19,8 +19,7 @@ import UIKit
 @objc(PBMVideoCreative) @_spi(PBMInternal) public
 class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
-    // `PBMCreativeFactoryJob.m`, a surviving ObjC caller, reads this.
-    @objc(maxSizeForPreRenderContent) public static var maxSizeForPreRenderContent: Int {
+    public static var maxSizeForPreRenderContent: Int {
         // 25 MiB
         25 * 1024 * 1024
     }
@@ -37,9 +36,8 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
     // MARK: - Initialization
 
-    // `videoData` stays optional: `PBMCreativeFactoryJob.m`, a surviving ObjC caller, passes the downloader's nullable result
+    // `videoData` stays optional: `CreativeFactoryJob` passes the downloader's nullable result
     // (the ObjC original only asserted on it and went on without data).
-    @objc(initWithCreativeModel:transaction:videoData:)
     public init(creativeModel: CreativeModel, transaction: Transaction, videoData: Data?) {
         data = videoData
 

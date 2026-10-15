@@ -24,8 +24,7 @@ import WebKit
 @objc(PBMHTMLCreative) @_spi(PBMInternal) public
 class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
-    // `PBMCreativeFactoryJob.m`, a surviving ObjC caller, assigns this.
-    @objc public var downloadBlock: ((URL, @escaping PBMDownloadDataCompletionClosure) -> Void)?
+    public var downloadBlock: ((URL, @escaping PBMDownloadDataCompletionClosure) -> Void)?
 
     var prebidWebView: WebView?
     var mraidController: MRAIDController?
