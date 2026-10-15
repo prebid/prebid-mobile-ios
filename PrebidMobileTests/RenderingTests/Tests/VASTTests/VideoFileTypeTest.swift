@@ -93,7 +93,7 @@ class VideoFileTypeTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
             transaction.creativeModels = [creativeModel]
 
             //Get a Creative
-            let creativeFactory = PBMCreativeFactory(serverConnection:connection, transaction: transaction, finishedCallback: { creativesArray, error in
+            let creativeFactory = CreativeFactory(serverConnection:connection, transaction: transaction, finishedCallback: { creativesArray, error in
                 
                     if (error != nil) {
                         XCTFail("error: \(error?.localizedDescription ?? "")")

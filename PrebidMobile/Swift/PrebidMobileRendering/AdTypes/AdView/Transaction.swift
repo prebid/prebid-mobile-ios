@@ -29,10 +29,6 @@ protocol Transaction: NSObjectProtocol {
     
     weak var delegate: TransactionDelegate? { get set }
     
-    init(serverConnection: PrebidServerConnectionProtocol,
-         adConfiguration: AdConfiguration,
-         models: [CreativeModel])
-    
     func startCreativeFactory()
     func getAdDetails() -> AdDetails?
     func getFirstCreative() -> AbstractCreative?

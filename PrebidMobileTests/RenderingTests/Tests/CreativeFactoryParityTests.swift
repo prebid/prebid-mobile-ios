@@ -166,10 +166,10 @@ final class CreativeFactoryParityTests: XCTestCase {
     // MARK: - Shim over the job (the ObjC spelling before the port)
 
     private func jobTimeInterval(model: CreativeModel) -> Double {
-        let job = PBMCreativeFactoryJob(from: model,
-                                        transaction: UtilitiesForTesting.createEmptyTransaction(),
-                                        serverConnection: PrebidServerConnection(),
-                                        finishedCallback: { _, _ in })
+        let job = CreativeFactoryJob(creativeModel: model,
+                                     transaction: UtilitiesForTesting.createEmptyTransaction(),
+                                     serverConnection: PrebidServerConnection(),
+                                     finishedCallback: { _, _ in })
         return job.getTimeInterval()
     }
 }

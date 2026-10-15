@@ -115,7 +115,7 @@ class VideoEventsTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
         
         //Get a Creative
         
-        let creativeFactory = PBMCreativeFactory(serverConnection:connection, transaction: transaction, finishedCallback: { creatives, error in
+        let creativeFactory = CreativeFactory(serverConnection:connection, transaction: transaction, finishedCallback: { creatives, error in
             
             if (error != nil) {
                 XCTFail("error: \(error?.localizedDescription ?? "")")
