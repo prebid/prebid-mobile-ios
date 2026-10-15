@@ -58,9 +58,11 @@ public class ORTBBidRequestExtPrebid: NSObject, PBMJsonCodable {
 
         result["storedrequest"] = ["id": storedRequestID]
 
+        var sdk: [String: Any] = ["usepxratio": true]
         if let renderers = sdkRenderers, !renderers.isEmpty {
-            result["sdk"] = ["renderers": renderers]
+            sdk["renderers"] = renderers
         }
+        result["sdk"] = sdk
 
         result["targeting"] = targeting
 
