@@ -37,7 +37,7 @@ protocol Transaction: NSObjectProtocol {
     func resetAdConfiguration(_ adConfiguration: AdConfiguration)
     
 #if DEBUG
-    // Expose objc impl method to swift for tests
+    // Exposed for tests (`TransactionImpl.updateAdConfiguration`)
     func updateAdConfiguration()
 #endif
 }

@@ -1,5 +1,4 @@
 // Captured from the ObjC PBMCreativeFactoryJob / PBMTransaction_Objc before they were ported (see CreativeFactoryParityTests).
-// swiftlint:disable line_length
 enum CreativeFactoryParityExpectations {
     static let lines: [String] = """
     interval.0 nil interstitial=false forced=nil => 6
