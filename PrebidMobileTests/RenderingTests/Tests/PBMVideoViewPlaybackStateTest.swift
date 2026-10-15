@@ -36,7 +36,7 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
 
     let connection = UtilitiesForTesting.createConnectionForMockedTest()
 
-    var videoCreative: PBMVideoCreative!
+    var videoCreative: VideoCreative!
     var expectationDownloadCompleted: XCTestExpectation?
     var expectationCreativeReady: XCTestExpectation?
 
@@ -516,10 +516,10 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
         let url = URL(string: model.videoFileURL!)
         let downloader = DownloadDataHelper(serverConnection: connection)
         downloader.downloadData(for: url,
-                                maxSize: PBMVideoCreative.maxSizeForPreRenderContent,
+                                maxSize: VideoCreative.maxSizeForPreRenderContent,
                                 completionClosure: { (data: Data?, error: Error?) in
             DispatchQueue.main.async {
-                self.videoCreative = PBMVideoCreative(creativeModel: model,
+                self.videoCreative = VideoCreative(creativeModel: model,
                                                       transaction: UtilitiesForTesting.createEmptyTransaction(),
                                                       videoData: data!)
                 self.videoCreative.creativeResolutionDelegate = self

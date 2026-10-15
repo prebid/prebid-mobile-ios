@@ -919,7 +919,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
         MRAID_updateMaxSize()
         updateMRAIDLayoutInfo(false)
 
-        let isLocked = isOrientationLocked(viewController: delegate?.viewControllerForPresentingModals())
+        let isLocked = isOrientationLocked(viewController: delegate?.viewControllerForPresentingModals)
 
         MRAID_updateCurrentAppOrientation(isLocked: isLocked)
     }

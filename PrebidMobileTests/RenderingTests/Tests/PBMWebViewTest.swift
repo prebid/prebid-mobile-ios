@@ -1034,7 +1034,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     
     // MARK: - WebViewDelegate
     
-    func viewControllerForPresentingModals() -> UIViewController? {
+    var viewControllerForPresentingModals: UIViewController? {
         return UIViewController()
     }
     

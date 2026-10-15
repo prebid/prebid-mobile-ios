@@ -21,7 +21,8 @@ protocol Transaction: NSObjectProtocol {
     var adConfiguration: AdConfiguration { get } // If need to change use resetAdConfiguration
     var creatives: [AbstractCreative] { get set }
     var creativeModels: [CreativeModel] { get set }
-    var measurementSession: OMSession { get set }
+    // Optional: a transaction has no measurement session until the first creative creates one.
+    var measurementSession: OMSession? { get set }
     var measurementWrapper: OMSessionWrapper { get set }
     
     var bid: Bid? { get set }

@@ -22,7 +22,7 @@ class VideoEventsTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
     
     let viewController = MockViewController()
     let modalManager = ModalManager()
-    var pbmVideoCreative:PBMVideoCreative!
+    var pbmVideoCreative:VideoCreative!
     var expectationVideoDidComplete:XCTestExpectation!
     var expectationCreativeDidComplete:XCTestExpectation!
     var expectationDownloadCompleted:XCTestExpectation!
@@ -123,8 +123,8 @@ class VideoEventsTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
             
             self.expectationDownloadCompleted.fulfill()
             expectationVideoAdLoaded.fulfill()
-            guard let pbmVideoCreative = creatives?.first as? PBMVideoCreative else {
-                XCTFail("Could not cast creative as PBMVideoCreative")
+            guard let pbmVideoCreative = creatives?.first as? VideoCreative else {
+                XCTFail("Could not cast creative as VideoCreative")
                 return
             }
             

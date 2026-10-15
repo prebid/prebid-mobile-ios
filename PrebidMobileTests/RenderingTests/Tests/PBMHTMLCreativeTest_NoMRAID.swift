@@ -36,7 +36,7 @@ class PBMHTMLCreativeTest_NoMRAID : PBMHTMLCreativeTest_Base {
         serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         let mockWebView = MockPBMWebView()
-        let pbmHTMLCreative = PBMHTMLCreative(
+        let pbmHTMLCreative = HTMLCreative(
             creativeModel: MockPBMCreativeModel(),
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             webView: mockWebView,

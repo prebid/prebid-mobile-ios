@@ -21,7 +21,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
     var vc: UIViewController?
     let connection = UtilitiesForTesting.createConnectionForMockedTest()
     
-    var videoCreative:PBMVideoCreative!
+    var videoCreative:VideoCreative!
     var expectationDownloadCompleted:XCTestExpectation?
     var expectationCreativeReady:XCTestExpectation?
     var expectationCreativeDidComplete:XCTestExpectation?
@@ -444,7 +444,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let model = CreativeModel(adConfiguration:adConfiguration)
         
-        self.videoCreative = PBMVideoCreative(
+        self.videoCreative = VideoCreative(
             creativeModel:model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             videoData:Data()
@@ -468,7 +468,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let model = CreativeModel(adConfiguration:adConfiguration)
         
-        self.videoCreative = PBMVideoCreative(
+        self.videoCreative = VideoCreative(
             creativeModel:model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             videoData:Data()
@@ -492,7 +492,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let model = CreativeModel(adConfiguration:adConfiguration)
         
-        self.videoCreative = PBMVideoCreative(
+        self.videoCreative = VideoCreative(
             creativeModel:model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             videoData:Data()
@@ -515,7 +515,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let model = CreativeModel(adConfiguration:adConfiguration)
         
-        self.videoCreative = PBMVideoCreative(
+        self.videoCreative = VideoCreative(
             creativeModel:model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             videoData:Data()
@@ -537,7 +537,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let model = CreativeModel(adConfiguration:adConfiguration)
         
-        self.videoCreative = PBMVideoCreative(
+        self.videoCreative = VideoCreative(
             creativeModel:model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             videoData:Data()
@@ -560,7 +560,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let model = CreativeModel(adConfiguration:adConfiguration)
         
-        self.videoCreative = PBMVideoCreative(
+        self.videoCreative = VideoCreative(
             creativeModel:model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             videoData:Data()
@@ -584,7 +584,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let model = CreativeModel(adConfiguration:adConfiguration)
         
-        self.videoCreative = PBMVideoCreative(
+        self.videoCreative = VideoCreative(
             creativeModel:model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             videoData:Data()
@@ -608,7 +608,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let model = CreativeModel(adConfiguration:adConfiguration)
         
-        self.videoCreative = PBMVideoCreative(
+        self.videoCreative = VideoCreative(
             creativeModel:model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             videoData:Data()
@@ -629,7 +629,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let model = CreativeModel(adConfiguration: adConfiguration)
         
-        self.videoCreative = PBMVideoCreative(
+        self.videoCreative = VideoCreative(
             creativeModel:model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             videoData:Data()
@@ -709,11 +709,11 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         let url = URL(string: model.videoFileURL!)
         let downloader = DownloadDataHelper(serverConnection: connection)
-        downloader.downloadData(for: url, maxSize: PBMVideoCreative.maxSizeForPreRenderContent, completionClosure: { (data:Data?, error:Error?) in
+        downloader.downloadData(for: url, maxSize: VideoCreative.maxSizeForPreRenderContent, completionClosure: { (data:Data?, error:Error?) in
             
             DispatchQueue.main.async {
                 //Create and start creative
-                self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: data!)
+                self.videoCreative = VideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: data!)
                 self.videoCreative.creativeResolutionDelegate = self
                 self.videoCreative.creativeViewDelegate = self
                 
