@@ -66,10 +66,10 @@ final class CreativeParityTests: XCTestCase {
         let closeDelayCreative = ParityVideoCreative(creativeModel: closeDelayModel,
                                                      transaction: UtilitiesForTesting.createEmptyTransaction(),
                                                      videoData: Data())
-        let skipDelays: [Double?] = [nil, 0, 5, 1_000_000, -2, .nan, 2.5]
-        let skipOffsets: [NSNumber?] = [nil, 0, 4, 20, -1, 10]
-        let durations: [NSNumber?] = [nil, 0, 10, 60, -5, 1e9, 2.5, Double.nan as NSNumber, Double.infinity as NSNumber]
-        let pubDelays: [Double] = [0, 1, 5, 100, -3, .nan, .infinity, 2.5]
+        let skipDelays: [Double?] = [nil, 5, .nan]
+        let skipOffsets: [NSNumber?] = [nil, 4, -1]
+        let durations: [NSNumber?] = [nil, 0, 60, Double.nan as NSNumber, Double.infinity as NSNumber]
+        let pubDelays: [Double] = [0, 5, .nan]
         for hasCompanion in [false, true] {
             for skipDelay in skipDelays {
                 for skipOffset in skipOffsets {
@@ -88,10 +88,10 @@ final class CreativeParityTests: XCTestCase {
         }
 
         // rewardTime / postRewardTime computed in the initializer
-        let events: [String?] = [nil, "start", "firstquartile", "midpoint", "thirdquartile", "complete", "bogus", "unknown", "", "creativeView", "Complete"]
-        let videoTimes: [NSNumber?] = [nil, -1, 0, 5, 100, 1000, 2.5]
-        let rewardDurations: [NSNumber?] = [nil, 0, 10, -5, 40.5]
-        let postRewardTimes: [NSNumber?] = [nil, -1, 0, 5, 2.5]
+        let events: [String?] = [nil, "start", "complete", "bogus"]
+        let videoTimes: [NSNumber?] = [nil, -1, 5, 2.5]
+        let rewardDurations: [NSNumber?] = [nil, -5, 40.5]
+        let postRewardTimes: [NSNumber?] = [nil, 0, 2.5]
         for isRewarded in [false, true] {
             for event in events {
                 for videoTime in videoTimes {
@@ -134,13 +134,9 @@ final class CreativeParityTests: XCTestCase {
 
     func testParity() throws {
         let lines = dumpLines()
-        try? lines.joined(separator: "\n").write(toFile: "/tmp/p7-3/creative-dump.txt", atomically: true, encoding: .utf8)
 
         let expected = CreativeParityExpectations.lines
-        guard !expected.isEmpty else {
-            return // capture run
-        }
-
+        XCTAssertFalse(expected.isEmpty, "expectations were not captured")
         XCTAssertEqual(lines.count, expected.count)
         for (index, line) in lines.enumerated() where index < expected.count {
             XCTAssertEqual(line, expected[index], "line \(index)")

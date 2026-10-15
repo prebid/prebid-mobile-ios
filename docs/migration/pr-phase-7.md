@@ -37,7 +37,7 @@ Throwaway ObjC dumps (printing `nil` and `""` differently) were captured **from 
 |------|--------|--------|
 | `MRAIDParityTests` (`MRAIDJavascriptCommands`, `MRAIDCommand`, `HTMLFormatter`) | 348 comparable lines: 48 MRAID URLs, 37 HTML strings, 150 numeric formatting cases (NaN, ±inf, -0.0, rounding ties) | byte-identical |
 | `WebViewParityTests` (`isMRAIDLink`, `commandFromURL`, `CGRectForResizeProperties`, `anyToJSONDict`, mraid env JS) | 431 lines + 50 JS property probes. Resize results assume a 402x874 pt screen; the test skips elsewhere | identical after one fix (`isMRAIDLink` used the grapheme-aware `String.hasPrefix`, S7.2-A) |
-| `CreativeParityTests` (`hasVastTag`, `calculateCloseDelay`, reward/post-reward time) | 9,928 lines | identical |
+| `CreativeParityTests` (`hasVastTag`, `calculateCloseDelay`, reward/post-reward time) | 589 lines (270 close-delay, 289 reward-time, 30 `hasVastTag`/misc). Captured first as 9,928 lines (full cross product, byte-identical on the first run), then cut to boundary values per parameter: nil, 0, a normal value, negative, NaN, infinity | identical (the 589 lines are an unchanged subset of the ObjC capture) |
 | `CreativeFactoryParityTests` (timeout selection, transaction navigation, `updateAdConfiguration`) | 160 lines | identical |
 
 The stateful parts (WKWebView, modals, timers, resolution queues, KVO) are covered by the existing suites (`PBMWebViewTest`, `PBMMRAIDControllerTest`, `PBMHTMLCreativeTest*`, `PBMVideoCreativeTest`, `PBMCreativeFactoryJobTest`, `TransactionTests`, `AdViewManagerTest`, …), all green. Cases where the ObjC **crashed** cannot be in a dump; they are marked "forced" below.
@@ -92,7 +92,7 @@ New SDK types are `@objc(PBMFoo) @_spi(PBMInternal) public` (Gap 6), except `Tra
 ## Open items for the reviewer
 
 - **Dropped `@try/@catch`** (deviation 1) and the early return in expand/resize (deviation 8).
-- **`CreativeParityExpectations.swift` is about 9,900 lines** (the product of about 30 inputs per dimension). It is committed as generated literal data; it should be trimmed in a follow-up.
+- **`CreativeParityExpectations.swift` was trimmed from about 9,900 to about 590 lines** after review feedback. The full cross product matched the ObjC on the first run; the committed subset keeps the boundary values per parameter. The trimmed file was re-run (`CreativeParityTests.testParity` passes), but the cut is a filter of the original ObjC capture, so it checks fewer combinations than the first run did.
 - **`WebViewParityTests` takes about 17 s** (15 s of it one JavaScript-property test) and runs on every PR; the resize expectations skip on screens other than 402x874 pt.
 - `WebView_Protocol` now has one conformer; the two `as? WebView_Protocol` casts and the protocol can go (cleanup, not done here).
 - SwiftLint: `type_body_length` warnings on the new large classes, carried `TODO`s, trailing whitespace carried from the originals, and the existing `type_name` error on `WebView_Protocol`.

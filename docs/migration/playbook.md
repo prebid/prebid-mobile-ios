@@ -318,7 +318,7 @@ It also depends on `PBMOpenMeasurementWrapper`/`PBMOpenMeasurementSession` (Phas
 - **S7.4-B — removing a protocol's `init(...)` requirement when the `NSClassFromString` factory goes** (it only existed for `Type.init(...)`): `Transaction` lost `init(serverConnection:adConfiguration:models:)`.
 - **S7.4-C — `AdFormat` is an `OptionSet` class: `===` is not `==`.** The ObjC compared pointers (`adType == AdFormat.banner`); a distinct instance equal to `.video` takes the default timeout. Keep identity (a lookalike instance in the parity dump shows it).
 - **S7.4-D — `DispatchQueue.asyncAfter(deadline: .now() + NaN)` means "never", `dispatch_time(NOW, NaN)` means "now".** Map NaN to 0 explicitly (`HTMLCreative` display timer, `CreativeFactoryJob` timeout). The NaN branch was reasoned from the C cast, not run against the ObjC; inf, huge and negative were probed in Swift.
-- **S7.x-E — when a parity dump forces the Swift/ObjC name clash, freeze the ObjC output first.** ObjC and Swift classes share a bridged name and cannot coexist in one build, so every Phase 7 dump was captured from the ObjC, committed as literal expectations, then compared from the Swift. Keep the expectation files small: the creative-wave file is about 9,900 lines (a product of 30-odd inputs per dimension) and should be trimmed in a follow-up.
+- **S7.x-E — when a parity dump forces the Swift/ObjC name clash, freeze the ObjC output first.** ObjC and Swift classes share a bridged name and cannot coexist in one build, so every Phase 7 dump was captured from the ObjC, committed as literal expectations, then compared from the Swift. Keep the expectation files small: the creative-wave dump was 9,928 lines (a full cross product of about 30 inputs per dimension) and was cut to about 590 lines of boundary values (nil, 0, a normal value, negative, NaN, infinity) once it had matched; filter the captured ObjC output rather than re-capturing, since the ObjC is gone.
 
 **Phase 7 closed with the OMSDK ObjC wrappers (and the rest of the list under "What Phase 8 inherits") left in ObjC.** The user chose to reach OMSDK through the existing Swift `OMSession`/`OMSessionWrapper` protocols (option (a)) rather than pull Phase 8 forward or split the group.
 
@@ -342,7 +342,6 @@ Phase 7 ported the HTML/MRAID creative cluster in one PR: `WindowLocker`, `Safar
 - Gap 4: `PBMWebView.m` imported `PBMORTB.h` but used no ORTB type, so it never kept Gap 4 alive; re-measure the remaining ObjC consumers of the Phase 1 models before S9.2.
 - `NSString.PBMsubstringFromString(_:)` (`NSString+PBMExtensions.swift`, S2.2) uses `length - range.length` as the length, a copy of the ObjC arithmetic, and raises when the match is not at index 0. Nothing calls it any more; delete or fix.
 - `NSMutableArray` retyping in the VAST models (S6.1-B) is still open.
-- Trim `CreativeParityExpectations.swift` (about 9,900 lines).
 - Dropped `@try/@catch` around UIKit presentation (S7.1-B) — consider a small guard if a crash is ever reported.
 
 ## Orphan headers — `.h` files with no `.m` (inventoried S3.2)
