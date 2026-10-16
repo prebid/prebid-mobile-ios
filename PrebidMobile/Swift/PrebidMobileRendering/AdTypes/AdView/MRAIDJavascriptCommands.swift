@@ -159,17 +159,14 @@ import UIKit
 
     private static func supportedFeatureString() -> String {
 
-        // Same strings as the `PBMMRAIDFeature*` constants. Not built as a Swift `Dictionary`: the key order of the
-        // serialized JSON must stay that of the `NSDictionary` the ObjC original serialized.
-        let supports = NSDictionary(dictionary: [
-            "sms": true,
-            "tel": true,
-            "calendar": false,
-            "storePicture": false,
-            "inlineVideo": true,
-            "location": true,
-            "vpaid": false
-        ])
+        // Same strings as the `PBMMRAIDFeature*` constants. Not built from a Swift `Dictionary`: its iteration order
+        // follows the per-process hash seed, so the keys would reach the `NSDictionary` in a different order on every
+        // launch. The keys are inserted in the source order of the ObjC `@{...}` literal, so the serialized JSON keeps
+        // the key order the ObjC original produced.
+        let supports = NSDictionary(
+            objects: [true, true, false, false, true, true, false],
+            forKeys: ["sms", "tel", "calendar", "storePicture", "inlineVideo", "location", "vpaid"] as [NSString]
+        )
 
         guard let data = try? JSONSerialization.data(withJSONObject: supports, options: []) else {
             Log.error("Could not generate support string")
